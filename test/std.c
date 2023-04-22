@@ -64,6 +64,8 @@ void exit(int status)
 	syscall1(SYSCALL_EXIT, status);
 }
 
+int main(void);
+
 void start(void) __attribute__((section(".start")));
 void start(void)
 {

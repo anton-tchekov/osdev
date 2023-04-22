@@ -1,4 +1,5 @@
 #include "ctype.h"
+#include <std.h>
 
 int isalnum(int c) {
     return isalpha(c) || isdigit(c);
