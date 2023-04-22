@@ -5,6 +5,9 @@
 
 typedef u32 Color;
 
+#define GFX_WIDTH  320
+#define GFX_HEIGHT 480
+
 /*
 * draws a rectangle from position (x | y), w pixels to left and h pixels down
 * color (color) created with 'gfx_color()'

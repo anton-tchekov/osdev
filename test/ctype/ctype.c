@@ -30,7 +30,7 @@ int isprint(int c) {
 }
 
 int ispunct(int c) {
-    return strchr("!\"#$%&\'()*+,-./:;<=>?@[\]^_`{|}~", c) > 0;
+    return strchr("!\"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~", c) > 0;
 }
 
 int isspace(int c) {

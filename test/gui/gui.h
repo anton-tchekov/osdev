@@ -2,6 +2,7 @@
 #define __GUI_H__
 
 #include <types.h>
+#include <keyboard.h>
 
 typedef struct LABEL
 {
@@ -47,12 +48,6 @@ static i32 current_element;
 
 static void window_open(Window *window);
 static void window_render(Window *f);
-static void element_render_sel(Element *e, u32 sel);
-static void element_render(Element *e);
-static void label_render(Label *l);
-static void button_render(Button *b, u32 sel);
-static void input_render(Input *i, u32 sel);
-static void window_event_button(u32 button, u32 action);
 static void window_event_key(u32 key, u32 ascii);
 
 typedef enum {

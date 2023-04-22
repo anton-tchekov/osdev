@@ -9,7 +9,6 @@ CFLAGS=\
 	-ffreestanding \
 	-O$(OPT) \
 	-I. \
-	-I alloc/ \
 	-I ctype/ \
 	-I fs/ \
 	-I gfx/ \
@@ -21,7 +20,6 @@ CFLAGS=\
 SRC=\
 	main.c \
 	std.c \
-	alloc/alloc.c \
 	ctype/ctype.c \
 	fs/fs.c \
 	gfx/gfx.c \

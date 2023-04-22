@@ -1,22 +1,63 @@
 #include <gfx.h>
 #include <syscall.h>
 
-Color gfx_color(int r, int g, int b, int a)
+Color gfx_color(i32 r, i32 g, i32 b, i32 a)
 {
     return r | (g << 8) | (b << 16) | (a << 24);
 }
 
-void gfx_rect(int x, int y, int w, int h, Color color)
+void gfx_rect(i32 x, i32 y, i32 w, i32 h, Color color)
 {
     syscall5(SYSCALL_GFX_RECT, x, y, w, h, color);
 }
 
-void gfx_image(int x, int y, int w, int h, Color* colors)
+void gfx_image_rgba(i32 x, i32 y, i32 w, i32 h, u8 *data)
 {
-    syscall5(SYSCALL_GFX_IMAGE, x, y, w, h, colors);
+    syscall5(SYSCALL_GFX_IMAGE_RGBA, x, y, w, h, (u32)data);
 }
 
-void gfx_string(int x, int y, char* str, Color fg, Color bg)
+void gfx_image_rgb(i32 x, i32 y, i32 w, i32 h, u8 *data)
+{
+    syscall5(SYSCALL_GFX_IMAGE_RGB, x, y, w, h, (u32)data);
+}
+
+void gfx_image_rgb565(i32 x, i32 y, i32 w, i32 h, u8 *data)
+{
+    syscall5(SYSCALL_GFX_IMAGE_RGB565, x, y, w, h, (u32)data);
+}
+
+void gfx_image_grayscale(i32 x, i32 y, i32 w, i32 h, u8 *data)
+{
+    syscall5(SYSCALL_GFX_IMAGE_GRAYSCALE, x, y, w, h, (u32)data);
+}
+
+void gfx_image_1bit(i32 x, i32 y, i32 w, i32 h, u8 *data, Color fg, Color bg)
+{
+    syscall5(SYSCALL_GFX_IMAGE_1BIT, x, y, w, h, (u32)data);
+}
+
+void gfx_char(i32 x, i32 y, i32 c, Color fg, Color bg)
+{
+
+}
+
+void gfx_string(i32 x, i32 y, const char *str, Color fg, Color bg)
 {
     syscall5(SYSCALL_GFX_STRING, x, y, (u32)str, fg, bg);
 }
+
+void gfx_string_len(i32 x, i32 y, const char *str, i32 len, Color fg, Color bg)
+{
+    syscall5(SYSCALL_GFX_STRING, x, y, (u32)str, fg, bg);
+}
+
+void gfx_string_width(i32 x, i32 y, const char *str, Color fg, Color bg)
+{
+    syscall5(SYSCALL_GFX_STRING, x, y, (u32)str, fg, bg);
+}
+
+void gfx_string_width_len(i32 x, i32 y, const char *str, i32 len, Color fg, Color bg)
+{
+    syscall5(SYSCALL_GFX_STRING, x, y, (u32)str, fg, bg);
+}
+

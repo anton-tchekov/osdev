@@ -6,5 +6,5 @@ bool keyboard_is_key_pressed(Key key) {
 }
 
 void keyboard_register_event(void (*event)(Key key, bool up)) {
-    syscall1(SYSCALL_KEYBOARD_REGISTER_EVENT, event);
+    syscall1(SYSCALL_KEYBOARD_REGISTER_EVENT, (u32)event);
 }

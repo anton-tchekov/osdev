@@ -1,175 +1,70 @@
 #include <gui.h>
+#include <gfx.h>
+#include <colors.h>
 
 static Window *_current_window;
-static Element *_current_element;
+static i32 _current_element;
 
-static void element_first(void)
+/* GFX */
+static void gui_rect_border(i32 x, i32 y, i32 w, i32 h, Color color)
 {
-	u32 i;
-	for(i = 0; i < _current_window->Count; ++i)
-	{
-		if(_current_window->Elements[i].Type == ELEMENT_TYPE_BUTTON ||
-			_current_window->Elements[i].Type == ELEMENT_TYPE_INPUT)
-		{
-			current_element = i;
-			break;
-		}
-	}
 }
 
-static void element_next(void)
+static void gui_rect_border2(i32 x, i32 y, i32 w, i32 h, Color color)
 {
-	u32 i;
-	for(i = current_element + 1; i < _current_window->Count; ++i)
-	{
-		if(_current_window->Elements[i].Type == ELEMENT_TYPE_BUTTON ||
-			_current_window->Elements[i].Type == ELEMENT_TYPE_INPUT)
-		{
-			element_render_sel(&_current_window->Elements[current_element], 0);
-			element_render_sel(&_current_window->Elements[i], 1);
-			current_element = i;
-			break;
-		}
-	}
 }
 
-static void element_prev(void)
-{
-	u32 i;
-	for(i = current_element - 1; i >= 0; --i)
-	{
-		if(_current_window->Elements[i].Type == ELEMENT_TYPE_BUTTON)
-		{
-			element_render_sel(&_current_window->Elements[current_element], 0);
-			element_render_sel(&_current_window->Elements[i], 1);
-			current_element = i;
-			break;
-		}
-
-		if(_current_window->Elements[i].Type == ELEMENT_TYPE_INPUT)
-		{
-			element_render_sel(&_current_window->Elements[current_element], 0);
-			element_render_sel(&_current_window->Elements[i], 1);
-			current_element = i;
-			break;
-		}
-	}
-}
-
-void window_open(Window *window)
-{
-	_current_window = window;
-	current_element = -1;
-	element_first();
-	window_render(window);
-}
-
-static void window_render(Window *window)
-{
-	u32 i;
-
-	/* Title Bar */
-	lcd_rect(0, 0, COLOR_WIDTH, 20, COLOR_BLUE);
-
-	/* Background */
-	lcd_rect(0, 20, COLOR_WIDTH, 220, COLOR_WHITE);
-
-	/* Title */
-	lcd_string(4, 4, window->Title, COLOR_WHITE);
-
-	for(i = 0; i < window->Count; ++i)
-	{
-		element_render(&window->Elements[i]);
-	}
-}
-
-static void element_render_sel(Element *e, u32 sel)
-{
-	switch(e->Type)
-	{
-		case ELEMENT_TYPE_LABEL:
-			label_render(e->E.L);
-			break;
-
-		case ELEMENT_TYPE_BUTTON:
-			button_render(e->E.B, sel);
-			break;
-
-		case ELEMENT_TYPE_INPUT:
-			input_render(e->E.I, sel);
-			break;
-	}
-}
-
-static void element_render(Element *e)
-{
-	u32 sel = ((current_element >= 0) && &_current_window->Elements[current_element] == e);
-	switch(e->Type)
-	{
-		case ELEMENT_TYPE_LABEL:
-			label_render(&e->E.L);
-			break;
-
-		case ELEMENT_TYPE_BUTTON:
-			button_render(&e->E.B, sel);
-			break;
-
-		case ELEMENT_TYPE_INPUT:
-			input_render(&e->E.I, sel);
-			break;
-	}
-}
-
+/* LABEL */
 static void label_render(Label *l)
 {
-	lcd_string(l->X, 20 + l->Y, l->Text, COLOR_BLACK);
+	gfx_string(l->X, 20 + l->Y, l->Text, COLOR_BLACK, COLOR_WHITE);
 }
 
-static void button_render(Button *b, u32 sel)
+/* BUTTON */
+static void button_render(Button *b, bool sel)
 {
-	int16_t x, y;
+	i32 x, y;
+
 	y = 20 + b->Y;
-
-	lcd_rect(b->X, y, b->W, b->H, COLOR_WHITE);
-
+	gfx_rect(b->X, y, b->W, b->H, COLOR_WHITE);
 	if(sel)
 	{
-		lcd_rect_border2(b->X, y, b->W, b->H, COLOR_RED);
+		gui_rect_border2(b->X, y, b->W, b->H, COLOR_RED);
 	}
 	else
 	{
-		lcd_rect_border(b->X, y, b->W, b->H, COLOR_BLACK);
+		gui_rect_border(b->X, y, b->W, b->H, COLOR_BLACK);
 	}
 
-	x = b->X + b->W / 2 - lcd_string_width(b->Text) / 2;
-	lcd_string(x, y, b->Text);
+	x = b->X + b->W / 2 - gfx_string_width(b->Text) / 2;
+	gfx_string(x, y, b->Text, COLOR_BLACK, COLOR_WHITE);
 }
 
-static void input_render(Input *i, u32 sel)
+/* INPUT */
+static void input_render(Input *i, bool sel)
 {
-	lcd_rect(i->X + 1, 20 + i->Y + 1, i->W - 2, 20 - 2, COLOR_WHITE);
+	gfx_rect(i->X + 1, 20 + i->Y + 1, i->W - 2, 20 - 2, COLOR_WHITE);
 	if(sel)
 	{
-		lcd_rect_border2(i->X, 20 + i->Y, i->W, 20, COLOR_RED);
+		gui_rect_border2(i->X, 20 + i->Y, i->W, 20, COLOR_RED);
+
+		/* Cursor */
+		gfx_rect(i->X + 5 + gfx_string_width_len(i->Text, i->Position) - 1,
+			20 + i->Y + 3, 1, 14, COLOR_BLACK);
 	}
 	else
 	{
-		lcd_rect_border(i->X, 20 + i->Y, i->W, 20, COLOR_BLACK);
+		gui_rect_border(i->X, 20 + i->Y, i->W, 20, COLOR_BLACK);
 	}
 
-	if(sel)
-	{
-		lcd_vline(i->X + 5 + lcd_string_width_len(i->Text, i->Position) - 1, 20 + i->Y + 3, 14, COLOR_BLACK);
-	}
-
-	lcd_string(i->X + 5, 20 + i->Y + 5, i->Text, COLOR_BLACK);
+	gfx_string(i->X + 5, 20 + i->Y + 5, i->Text, COLOR_BLACK, COLOR_WHITE);
 }
 
-static void input_grow(Input *i, u32 n)
+static void input_grow(Input *i, i32 n)
 {
 	if(i->Text[i->Position])
 	{
-		u32 j;
+		i32 j;
 		for(j = i->Length - 1; j >= i->Position; --j)
 		{
 			i->Text[j + n] = i->Text[j];
@@ -180,11 +75,11 @@ static void input_grow(Input *i, u32 n)
 	i->Text[i->Length] = '\0';
 }
 
-static void input_shrink(Input *i, u32 n)
+static void input_shrink(Input *i, i32 n)
 {
 	if(i->Text[i->Position])
 	{
-		u32 j = i->Position;
+		i32 j = i->Position;
 		for(; i->Text[j]; ++j)
 		{
 			i->Text[j - n] = i->Text[j];
@@ -192,12 +87,12 @@ static void input_shrink(Input *i, u32 n)
 	}
 }
 
-static void input_insert(Input *i, char c)
+static void input_insert(Input *i, i32 c)
 {
 	if(i->Length + 1 < i->Size)
 	{
 		input_grow(i, 1);
-		i->Text [i->Position++] = c;
+		i->Text[i->Position++] = c;
 		input_render(i, 1);
 	}
 }
@@ -226,7 +121,7 @@ static void input_left(Input *i)
 {
 	if(i->Position > 0)
 	{
-		--(i->Position);
+		--i->Position;
 		input_render(i, 1);
 	}
 }
@@ -235,24 +130,149 @@ static void input_right(Input *i)
 {
 	if(i->Position < i->Length)
 	{
-		++(i->Position);
+		++i->Position;
 		input_render(i, 1);
 	}
 }
 
-static void input_event_key(Input *i, char c)
+static void input_event_key(Input *i, i32 c)
 {
-	if(ascii >= 32 && ascii <= 126)
+	if(c >= 32 && c <= 126)
 	{
-		input_insert(i, (char)ascii);
+		input_insert(i, c);
 	}
-	else if(ascii == '\b')
+	else if(c == '\b')
 	{
 		input_delete(i);
 	}
 }
 
-static void form_event_button(u32 button, u32 action)
+/* ELEMENT */
+static void element_render(Element *e)
+{
+	bool sel = _current_element >= 0 &&
+		&_current_window->Elements[_current_element] == e;
+
+	switch(e->Type)
+	{
+		case ELEMENT_TYPE_LABEL:
+			label_render(e->E.L);
+			break;
+
+		case ELEMENT_TYPE_BUTTON:
+			button_render(e->E.B, sel);
+			break;
+
+		case ELEMENT_TYPE_INPUT:
+			input_render(e->E.I, sel);
+			break;
+	}
+}
+
+static void element_render_sel(Element *e, u32 sel)
+{
+	switch(e->Type)
+	{
+		case ELEMENT_TYPE_LABEL:
+			label_render(e->E.L);
+			break;
+
+		case ELEMENT_TYPE_BUTTON:
+			button_render(e->E.B, sel);
+			break;
+
+		case ELEMENT_TYPE_INPUT:
+			input_render(e->E.I, sel);
+			break;
+	}
+}
+
+static void element_first(void)
+{
+	Element *elems;
+	i32 i, count;
+
+	count = _current_window->Count;
+	elems = _current_window->Elements;
+	for(i = 0; i < _current_window->Count; ++i)
+	{
+		if(elems[i].Type == ELEMENT_TYPE_BUTTON ||
+			elems[i].Type == ELEMENT_TYPE_INPUT)
+		{
+			_current_element = i;
+			break;
+		}
+	}
+}
+
+static void element_next(void)
+{
+	Element *elems;
+	i32 i, count;
+
+	count = _current_window->Count;
+	elems = _current_window->Elements;
+	for(i = _current_element + 1; i < count; ++i)
+	{
+		if(elems[i].Type == ELEMENT_TYPE_BUTTON ||
+			elems[i].Type == ELEMENT_TYPE_INPUT)
+		{
+			element_render_sel(&elems[_current_element], false);
+			_current_element = i;
+			element_render_sel(&elems[_current_element], true);
+			break;
+		}
+	}
+}
+
+static void element_prev(void)
+{
+	Element *elems;
+	i32 i;
+
+	elems = _current_window->Elements;
+	for(i = _current_element - 1; i >= 0; --i)
+	{
+		if(elems[i].Type == ELEMENT_TYPE_BUTTON ||
+			elems[i].Type == ELEMENT_TYPE_INPUT)
+		{
+			element_render_sel(&elems[_current_element], false);
+			_current_element = i;
+			element_render_sel(&elems[_current_element], true);
+			break;
+		}
+	}
+}
+
+/* WINDOW */
+static void window_render(Window *window)
+{
+	i32 i;
+
+	/* Title Bar */
+	gfx_rect(0, 0, GFX_WIDTH, 20, COLOR_BLUE);
+
+	/* Background */
+	gfx_rect(0, 20, GFX_WIDTH, 220, COLOR_WHITE);
+
+	/* Title */
+	gfx_string(4, 4, window->Title, COLOR_WHITE, COLOR_BLUE);
+
+	for(i = 0; i < window->Count; ++i)
+	{
+		element_render(&window->Elements[i]);
+	}
+}
+
+void window_open(Window *window)
+{
+	_current_window = window;
+	_current_element = -1;
+	element_first();
+	window_render(window);
+}
+
+static void form_event_button(Key key, bool up)
 {
 	Element *ce;
 	if(!_current_window)
@@ -262,76 +282,51 @@ static void form_event_button(u32 button, u32 action)
 
 	if(_current_window->OnKey)
 	{
-		_current_window->OnKey(button, action);
+		_current_window->OnKey(key, up);
 	}
 
-	if(current_element < 0)
+	if(_current_element < 0)
 	{
 		return;
 	}
 
-	ce = &_current_window->Elements[current_element];
-	if(action == BUTTON_RELEASE)
+	if(up)
+	{
+		return;
+	}
+
+	ce = &_current_window->Elements[_current_element];
+	if(key == KEY_UP)
+	{
+		element_prev();
+	}
+	else if(key == KEY_DOWN)
+	{
+		element_next();
+	}
+	else
 	{
 		if(ce->Type == ELEMENT_TYPE_BUTTON)
 		{
-
-		}
-
-		return;
-	}
-
-	if(ce->Type == ELEMENT_TYPE_BUTTON ||
-		ce->Type == ELEMENT_TYPE_INPUT)
-	{
-		if(button == BUTTON_UP)
-		{
-			element_prev();
-		}
-		else if(button == BUTTON_DOWN)
-		{
-			element_next();
-		}
-		else
-		{
-			if(ce->Type == ELEMENT_TYPE_BUTTON)
+			if(key == KEY_ENTER)
 			{
-				if(button == BUTTON_CENTER)
-				{
-					ce->E.B.Click();
-				}
-			}
-			else if(ce->Type == ELEMENT_TYPE_INPUT)
-			{
-				if(button == BUTTON_LEFT)
-				{
-					input_left(&ce->E.I);
-				}
-				else if(button == BUTTON_RIGHT)
-				{
-					input_right(&ce->E.I);
-				}
+				ce->E.B->Click();
 			}
 		}
-	}
-}
-
-static void form_event_key(u32 key, u32 ascii)
-{
-	Element *ce;
-	if(!_current_window)
-	{
-		return;
-	}
-
-	if(current_element < 0)
-	{
-		return;
-	}
-
-	ce = &_current_window->Elements[current_element];
-	if(ce->Type == ELEMENT_TYPE_INPUT)
-	{
-		input_event_key(&ce->E.I, key, ascii);
+		else if(ce->Type == ELEMENT_TYPE_INPUT)
+		{
+			if(key == KEY_LEFT)
+			{
+				input_left(ce->E.I);
+			}
+			else if(key == KEY_RIGHT)
+			{
+				input_right(ce->E.I);
+			}
+			else
+			{
+				input_event_key(ce->E.I, key);
+			}
+		}
 	}
 }

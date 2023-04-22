@@ -11,6 +11,7 @@ char *strncpy(char *dest, const char *src, u32 num);
 u32 strlen(const char *str);
 int strcmp(const char *str1, const char *str2);
 int strncmp(const char *str1, const char *str2, u32 num);
+const char *strchr(const char *str, int c);
 
 void *memcpy(void *dest, const void *src, u32 count);
 void *memmove(void *dest, const void *src, u32 num);
