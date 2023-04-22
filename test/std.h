@@ -3,21 +3,22 @@
 
 #include "types.h"
 
-void main(void) __attribute__((section(".start")));
+int sprintf(char *str, const char *format, ...);
+int snprintf(char *str, u32 n, const char *format, ...);
 
 char *strcpy(char *dest, const char *src);
-char *strncpy(char *dest, const char *src, size_t num);
-
-size_t strlen(const char *str);
-
+char *strncpy(char *dest, const char *src, u32 num);
+u32 strlen(const char *str);
 int strcmp(const char *str1, const char *str2);
-int strncmp(const char *str1, const char *str2, size_t num);
+int strncmp(const char *str1, const char *str2, u32 num);
 
-void *memcpy(void *dest, const void *src, size_t count);
-void *memmove(void *dest, const void *src, size_t num);
-int memcmp(const void *ptr1, const void *ptr2, size_t num);
-const void *memchr(const void *ptr, int value, size_t num);
-void *memset(void *ptr, int value, size_t num);
+void *memcpy(void *dest, const void *src, u32 count);
+void *memmove(void *dest, const void *src, u32 num);
+int memcmp(const void *ptr1, const void *ptr2, u32 num);
+const void *memchr(const void *ptr, int value, u32 num);
+void *memset(void *ptr, int value, u32 num);
+
+void print(const char *str);
 
 void exit(int status);
 

@@ -1,5 +1,4 @@
-#include "types.h"
-#include "syscall.h"
+#include "std.h"
 
 char *reverse(char *s)
 {
@@ -14,9 +13,8 @@ char *reverse(char *s)
 	return s;
 }
 
-
 void main(void)
 {
 	print(reverse("hello world\n"));
-	exit();
+	exit(0);
 }
