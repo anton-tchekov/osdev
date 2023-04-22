@@ -2,6 +2,8 @@
 #define __TYPES_H__
 
 #include <stdint.h>
+#include <stddef.h>
+#include <stdbool.h>
 
 typedef uint8_t u8;
 typedef uint16_t u16;
@@ -13,5 +15,4 @@ typedef int32_t i32;
 
 typedef float f32;
 
-#endif
-
+#endif /* __TYPES_H__ */

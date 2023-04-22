@@ -10,8 +10,8 @@ CFLAGS=\
 	-O$(OPT)
 
 SRC=\
-	main.c
-
+	main.c \
+	std.c
 
 all:
 	riscv64-unknown-elf-gcc $(CFLAGS) $(SRC) -o $(TARGET) -T$(TARGET).ld
