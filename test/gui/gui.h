@@ -1,8 +1,7 @@
 #ifndef __GUI_H__
 #define __GUI_H__
 
-
-#include "types.h"
+#include <types.h>
 
 typedef struct LABEL
 {

@@ -1,4 +1,4 @@
-#include "gui.h"
+#include <gui.h>
 
 static void element_first(void)
 {
@@ -60,39 +60,30 @@ static void element_prev(void)
 	}
 }
 
-static void form_open(Form *form)
+void window_open(Window *window)
 {
-	current_form = form;
+	current_form = window;
 	current_element = -1;
 	element_first();
-	form_render(form);
+	window_render(window);
 }
 
-static void form_render(Form *f)
+static void window_render(Window *f)
 {
 	u32 i;
 
 	/* Title Bar */
-	lcd_color(LCD_BLUE);
-	lcd_rect(0, 0, LCD_WIDTH, 20);
+	lcd_rect(0, 0, LCD_WIDTH, 20, LCD_BLUE);
 
 	/* Background */
-	lcd_color(LCD_WHITE);
-	lcd_rect(0, 20, LCD_WIDTH, 220);
+	lcd_rect(0, 20, LCD_WIDTH, 220, LCD_WHITE);
 
 	/* Title */
-	if(f->Flags & FLAG_TEXT_PROGMEM)
-	{
-		lcd_string_P(4, 4, f->Title.Flash);
-	}
-	else
-	{
-		lcd_string(4, 4, f->Title.RAM);
-	}
+	lcd_string(4, 4, f->Title, LCD_WHITE);
 
 	for(i = 0; i < f->Count; ++i)
 	{
-		element_render(f->Elements + i);
+		element_render(&f->Elements[i]);
 	}
 }
 
@@ -135,15 +126,7 @@ static void element_render(Element *e)
 
 static void label_render(Label *l)
 {
-	lcd_color(LCD_BLACK);
-	if(l->Flags & FLAG_TEXT_PROGMEM)
-	{
-		lcd_string_P(l->X, 20 + l->Y, l->Text.Flash);
-	}
-	else
-	{
-		lcd_string(l->X, 20 + l->Y, l->Text.RAM);
-	}
+	lcd_string(l->X, 20 + l->Y, l->Text.RAM, LCD_BLACK);
 }
 
 static void button_render(Button *b, u32 sel)
@@ -151,8 +134,7 @@ static void button_render(Button *b, u32 sel)
 	int16_t x, y;
 	y = 20 + b->Y;
 
-	lcd_color(LCD_WHITE);
-	lcd_rect(b->X, y, b->W, b->H);
+	lcd_rect(b->X, y, b->W, b->H, LCD_WHITE);
 
 	if(sel)
 	{
@@ -162,14 +144,14 @@ static void button_render(Button *b, u32 sel)
 	{
 		lcd_rect_border(b->X, y, b->W, b->H, LCD_BLACK);
 	}
-	x = b->X + b->W / 2 - lcd_string_width(b->Text.RAM) / 2;
-	lcd_string(x, y, b->Text.RAM);
+
+	x = b->X + b->W / 2 - lcd_string_width(b->Text) / 2;
+	lcd_string(x, y, b->Text);
 }
 
 static void input_render(Input *i, u32 sel)
 {
 	lcd_rect(i->X + 1, 20 + i->Y + 1, i->W - 2, 20 - 2, LCD_WHITE);
-
 	if(sel)
 	{
 		lcd_rect_border2(i->X, 20 + i->Y, i->W, 20, LCD_RED);
@@ -262,7 +244,7 @@ static void input_right(Input *i)
 	}
 }
 
-static void input_event_key(Input *i, u32 key, u32 ascii)
+static void input_event_key(Input *i, char c)
 {
 	if(ascii >= 32 && ascii <= 126)
 	{

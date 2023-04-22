@@ -1,7 +1,7 @@
 #ifndef __STD_H__
 #define __STD_H__
 
-#include "types.h"
+#include <types.h>
 
 int sprintf(char *str, const char *format, ...);
 int snprintf(char *str, u32 n, const char *format, ...);

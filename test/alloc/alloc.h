@@ -1,7 +1,7 @@
 #ifndef __ALLOC_H__
 #define __ALLOC_H__
 
-#include "types.h"
+#include <types.h>
 
 #define HEAP_INIT_SIZE 0x10000
 #define HEAP_MAX_SIZE 0xF0000
@@ -24,7 +24,7 @@ typedef struct node_t {
     struct node_t* prev;
 } node_t;
 
-typedef struct { 
+typedef struct {
     node_t *header;
 } footer_t;
 

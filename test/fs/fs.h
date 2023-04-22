@@ -1,9 +1,9 @@
 #ifndef __FS_H__
 #define __FS_H__
 
-#include "status.h"
-#include "types.h"
-#include "syscall.h"
+#include <status.h>
+#include <types.h>
+#include <syscall.h>
 
 typedef u32 File;
 

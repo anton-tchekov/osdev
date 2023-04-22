@@ -1,5 +1,5 @@
-#include "gfx.h"
-#include "syscall.h"
+#include <gfx.h>
+#include <syscall.h>
 
 Color gfx_color(int r, int g, int b, int a)
 {

@@ -1,7 +1,7 @@
 #ifndef __GFX_H__
 #define __GFX_H__
 
-#include "types.h"
+#include <types.h>
 
 typedef u32 Color;
 

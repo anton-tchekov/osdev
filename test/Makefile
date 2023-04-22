@@ -8,7 +8,15 @@ CFLAGS=\
 	-nostdlib \
 	-ffreestanding \
 	-O$(OPT) \
-	-I.,alloc/,ctype/,fs/,gfx/,gui/,keyboard/,rand/,status/
+	-I. \
+	-I alloc/ \
+	-I ctype/ \
+	-I fs/ \
+	-I gfx/ \
+	-I gui/ \
+	-I keyboard/ \
+	-I rand/ \
+	-I status/
 
 SRC=\
 	main.c \
@@ -20,7 +28,7 @@ SRC=\
 	gui/gui.c \
 	keyboard/keyboard.c \
 	rand/rand.c \
-	status/status.c 
+	status/status.c
 
 all:
 	riscv64-unknown-elf-gcc $(CFLAGS) $(SRC) -o $(TARGET) -T$(TARGET).ld

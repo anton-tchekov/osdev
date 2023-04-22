@@ -1,15 +1,15 @@
 #ifndef __KEYBOARD_H__
 #define __KEYBOARD_H__
 
-#include "types.h"
-#include "keys.h"
+#include <types.h>
+#include <keys.h>
 
 typedef u32 Key;
 
 /*
 * @brief Check if a Key is pressed
 * @param key The Key to check (see 'keys.h')
-* @return Boolean  
+* @return Boolean
 */
 bool keyboard_is_key_pressed(Key key);
 

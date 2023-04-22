@@ -1,4 +1,4 @@
-#include "fs.h"
+#include <fs.h>
 
 Status fs_open(char* name, File *file) {
     return syscall2(SYSCALL_FILE_OPEN, (u32)name, (u32)file);

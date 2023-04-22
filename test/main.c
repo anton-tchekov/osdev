@@ -1,4 +1,4 @@
-#include "std.h"
+#include <std.h>
 
 char *reverse(char *s)
 {
@@ -12,6 +12,14 @@ char *reverse(char *s)
 
 	return s;
 }
+
+Button btn = {
+	.X = 10,
+	.Y = 10,
+	.W = 100,
+	.H = 30,
+	.Title = "",
+};
 
 void main(void)
 {

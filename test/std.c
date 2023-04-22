@@ -1,5 +1,5 @@
-#include "std.h"
-#include "syscall.h"
+#include <std.h>
+#include <syscall.h>
 
 /* --- STR --- */
 char *strcpy(char *dest, const char *src)
