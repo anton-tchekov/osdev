@@ -13,5 +13,5 @@ Status fs_close(File file) {
     return syscall1(SYSCALL_FILE_CLOSE, file);
 }
 Status fs_get_size(File file, u32* size) {
-    return syscall2(SYSCALL_FILE_LENGTH, file, (u32)size);
+    return syscall2(SYSCALL_FILE_SIZE, file, (u32)size);
 }
