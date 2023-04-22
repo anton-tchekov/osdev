@@ -112,6 +112,41 @@ static u32 syscall_gfx_string(u32 *args)
 	return 0;
 }
 
+static u32 syscall_file_open(u32 *args)
+{
+
+}
+
+static u32 syscall_file_read(u32 *args)
+{
+
+}
+
+static u32 syscall_file_write(u32 *args)
+{
+
+}
+
+static u32 syscall_file_close(u32 *args)
+{
+
+}
+
+static u32 syscall_file_size(u32 *args)
+{
+
+}
+
+static u32 syscall_keyboard_is_key_pressed(u32 *args)
+{
+
+}
+
+static u32 syscall_keyboard_register_event(u32 *args)
+{
+
+}
+
 static u32 syscall_print(u32 *args)
 {
 	u8 c;
@@ -149,6 +184,15 @@ static u32 (*syscalls[])(u32 *) =
 
 	syscall_gfx_rect,
 	syscall_gfx_string,
+
+	syscall_file_open,
+	syscall_file_read,
+	syscall_file_write,
+	syscall_file_close,
+	syscall_file_size,
+
+	syscall_keyboard_is_key_pressed,
+	syscall_keyboard_register_event,
 
 	syscall_print,
 	syscall_exit
