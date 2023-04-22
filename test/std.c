@@ -4,12 +4,12 @@
 /* --- STR --- */
 char *strcpy(char *dest, const char *src)
 {
-	return (u32)syscall2(SYSCALL_STRCPY, (u32)dest, (u32)src);
+	return (char *)syscall2(SYSCALL_STRCPY, (u32)dest, (u32)src);
 }
 
 char *strncpy(char *dest, const char *src, u32 num)
 {
-	return (u32)syscall3(SYSCALL_STRNCPY, (u32)str);
+	return (char *)syscall3(SYSCALL_STRNCPY, (u32)dest, (u32)src, num);
 }
 
 u32 strlen(const char *str)
@@ -54,7 +54,7 @@ void *memset(void *ptr, int value, u32 num)
 }
 
 /* --- IO --- */
-void print(char *s)
+void print(const char *s)
 {
 	syscall1(SYSCALL_PRINT, (u32)s);
 }

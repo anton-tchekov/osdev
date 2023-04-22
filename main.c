@@ -1,6 +1,8 @@
 #include "emulator/emulator.c"
 #include <stdio.h>
 #include <assert.h>
+#include <time.h>
+#include <stdlib.h>
 
 #define READ_SIZE 1024
 
@@ -10,6 +12,8 @@ int main(int argc, char **argv)
 	size_t len, offset;
 	FILE *fp;
 	Emulator emu;
+
+	srand(time(0));
 
 	if(argc != 2)
 	{
@@ -45,8 +49,10 @@ int main(int argc, char **argv)
 	emu.Registers[2] = 1024;
 	while(!emulator_next(&emu))
 	{
+		/*
 		registers_dump(&emu);
 		memory_dump(0, 1024);
+		*/
 	}
 
 	// run_tests();

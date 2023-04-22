@@ -1,6 +1,10 @@
 #include "types.h"
 #include "memory.c"
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#define ARRLEN(A) (sizeof(A) / sizeof(*A))
 
 /* OPCODES */
 #define OPCODE_LOAD   0x00
@@ -37,6 +41,77 @@ static void registers_dump(Emulator *emu)
 	printf("\n");
 }
 
+/* SYSCALLS */
+static i32 syscall_strcpy(u32 *args)
+{
+	return strcpy((char *)(_memory + args[0]), (char *)(_memory + args[1])) - (char *)_memory;
+}
+
+static i32 syscall_strncpy(u32 *args)
+{
+	return strncpy((char *)(_memory + args[0]), (char *)(_memory + args[1]), args[2]) - (char *)_memory;
+}
+
+static i32 syscall_strlen(u32 *args)
+{
+	return strlen((char *)(_memory + args[0]));
+}
+
+static i32 syscall_strcmp(u32 *args)
+{
+	return strcmp((char *)(_memory + args[0]), (char *)(_memory + args[1]));
+}
+
+static i32 syscall_strncmp(u32 *args)
+{
+	return strncmp((char *)(_memory + args[0]), (char *)(_memory + args[1]), args[2]);
+}
+
+static i32 syscall_memcpy(u32 *args)
+{
+	return (u8 *)memcpy(_memory + args[0], _memory + args[1], args[2]) - _memory;
+}
+
+static i32 syscall_memmove(u32 *args)
+{
+	return (u8 *)memmove(_memory + args[0], _memory + args[1], args[2]) - _memory;
+}
+
+static i32 syscall_memcmp(u32 *args)
+{
+	return memcmp(_memory + args[0], _memory + args[1], args[2]);
+}
+
+static i32 syscall_memchr(u32 *args)
+{
+	return (u8 *)memchr(_memory + args[0], args[1], args[2]) - _memory;
+}
+
+static i32 syscall_memset(u32 *args)
+{
+	return (u8 *)memset(_memory + args[0], args[1], args[2]) - _memory;
+}
+
+static i32 syscall_rand(u32 *args)
+{
+	return rand();
+	(void)args;
+}
+
+static i32 syscall_gfx_rect(u32 *args)
+{
+	printf("DRAW RECT (X: %d, Y: %d, W: %d, H: %d, COLOR: %d)\n",
+		args[0], args[1], args[2], args[3], args[4]);
+	return 0;
+}
+
+static i32 syscall_gfx_string(u32 *args)
+{
+	printf("DRAW STRING (X: %d, Y: %d, STR: %d, FG: %d, BG: %d)\n",
+		args[0], args[1], args[2], args[3], args[4]);
+	return 0;
+}
+
 static i32 syscall_print(u32 *args)
 {
 	u8 c;
@@ -50,23 +125,38 @@ static i32 syscall_print(u32 *args)
 	return 0;
 }
 
-#include <stdlib.h>
-
 static i32 syscall_exit(u32 *args)
 {
-	exit(0);
+	exit(args[0]);
+	return 0;
 }
 
 static i32 (*syscalls[])(u32 *) =
 {
+	syscall_strcpy,
+	syscall_strncpy,
+	syscall_strlen,
+	syscall_strcmp,
+	syscall_strncmp,
+
+	syscall_memcpy,
+	syscall_memmove,
+	syscall_memcmp,
+	syscall_memchr,
+	syscall_memset,
+
+	syscall_rand,
+
+	syscall_gfx_rect,
+	syscall_gfx_string,
+
 	syscall_print,
 	syscall_exit
 };
 
-#define ARRLEN(A) (sizeof(A) / sizeof(*A))
-
 static i32 syscall(u32 id, u32 *args)
 {
+	printf("sysid = %d\n", id);
 	if(id >= ARRLEN(syscalls))
 	{
 		return -1;
@@ -75,6 +165,7 @@ static i32 syscall(u32 id, u32 *args)
 	return syscalls[id](args);
 }
 
+/* EMULATOR */
 static i32 emulator_next(Emulator *emu)
 {
 	u32 instr, opcode;
