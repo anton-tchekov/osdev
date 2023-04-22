@@ -3,7 +3,7 @@
 
 #define COLOR_TRANSPARENT                            0x00000000
 
-/* Red */
+/* RED */
 #define COLOR_INDIAN_RED                             0xCD5C5CFF
 #define COLOR_LIGHT_CORAL                            0xF08080FF
 #define COLOR_SALMON                                 0xFA8072FF
@@ -138,7 +138,7 @@
 /* WHITE */
 #define COLOR_WHITE                                  0xFFFFFFFF
 #define COLOR_SNOW                                   0xFFFAFAFF
-#define COLOR_HONEYDEW                               0xF0FFF0FF
+#define COLOR_HONEY_DEW                              0xF0FFF0FF
 #define COLOR_MINT_CREAM                             0xF5FFFAFF
 #define COLOR_AZURE                                  0xF0FFFFFF
 #define COLOR_ALICE_BLUE                             0xF0F8FFFF
