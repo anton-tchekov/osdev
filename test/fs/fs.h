@@ -7,47 +7,52 @@
 
 typedef u32 File;
 
-/*
-* @brief Open a file to get a fs_adress
-* @param name Filename
-* @param file fs_adress (pointer)
-* @return Status
-*/
-Status fs_open(char* name, File *file);
+/**
+ * @brief Open a file to get a file handle
+ *
+ * @param name File name
+ * @param file Output parameter file handle
+ * @return Status
+ */
+Status file_open(const char *name, File *file);
 
-/*
-* @brief Read Data from File
-* @param file fs_adress of file
-* @param start Index of first Byte
-* @param len Count of bytes to read
-* @param buf Buffer with data (pointer)
-* @return Status
-*/
-Status fs_read(File file, u32 start, u32 len, void* buf);
+/**
+ * @brief Read Data from File
+ *
+ * @param file File handle
+ * @param start Index of first Byte
+ * @param len Number of bytes to read
+ * @param buf Pointer to buffer for read data
+ * @return Status
+ */
+Status file_read(File file, u32 start, u32 len, void *buf);
 
-/*
-* @brief Write data into file
-* @param file fs_adress of file
-* @param start Index of first byte to write
-* @param len Count of bytes to write
-* @param buf Buffer with data (pointer)
-* @return Status
-*/
-Status fs_write(File file, u32 start, u32 len, const void* buf);
+/**
+ * @brief Write data into file
+ *
+ * @param file File handle
+ * @param start Index of first byte to write
+ * @param len Number of bytes to write
+ * @param buf Pointer to buffer with data to write
+ * @return Status
+ */
+Status file_write(File file, u32 start, u32 len, const void *buf);
 
-/*
-* @brief Close an open file
-* @param file fs_adress of file
-* @return Status
-*/
+/**
+ * @brief Close an open file
+ *
+ * @param file File handle
+ * @return Status
+ */
 Status fs_close(File file);
 
-/*
-* @brief Gets the Size of a file.
-* @param file fs_adress of file
-* @param size pointer to the size
-* @return Status
-*/
-Status fs_get_size(File file, u32* size);
+/**
+ * @brief Gets the size of a file in bytes
+ *
+ * @param file File handle
+ * @param size Output parameter size
+ * @return Status
+ */
+Status file_size(File file, u32* size);
 
 #endif /* __FS_H__ */

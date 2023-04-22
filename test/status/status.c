@@ -2,10 +2,11 @@
 
 static const char *_status_strs[] =
 {
-    "OK",
-    "unknown error",
+	"Ok",
+	"Unknown error"
 };
 
-const char* status_str(Status code) {
-    return _status_strs[code];
+const char *status_str(Status code)
+{
+	return _status_strs[code];
 }

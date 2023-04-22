@@ -128,4 +128,5 @@
 #define KEY_RIGHT_ALT           346
 #define KEY_RIGHT_SUPER         347
 #define KEY_MENU                348
-#endif
+
+#endif /* __KEYS_H__ */

@@ -1,11 +1,6 @@
 #include <gfx.h>
 #include <syscall.h>
 
-Color gfx_color(i32 r, i32 g, i32 b, i32 a)
-{
-    return r | (g << 8) | (b << 16) | (a << 24);
-}
-
 void gfx_rect(i32 x, i32 y, i32 w, i32 h, Color color)
 {
     syscall5(SYSCALL_GFX_RECT, x, y, w, h, color);

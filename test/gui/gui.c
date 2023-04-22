@@ -148,43 +148,30 @@ static void input_event_key(Input *i, i32 c)
 }
 
 /* ELEMENT */
-static void element_render(Element *e)
-{
-	bool sel = _current_element >= 0 &&
-		&_current_window->Elements[_current_element] == e;
-
-	switch(e->Type)
-	{
-		case ELEMENT_TYPE_LABEL:
-			label_render(e->E.L);
-			break;
-
-		case ELEMENT_TYPE_BUTTON:
-			button_render(e->E.B, sel);
-			break;
-
-		case ELEMENT_TYPE_INPUT:
-			input_render(e->E.I, sel);
-			break;
-	}
-}
-
 static void element_render_sel(Element *e, u32 sel)
 {
 	switch(e->Type)
 	{
 		case ELEMENT_TYPE_LABEL:
-			label_render(e->E.L);
+			label_render((Label *)e->Element);
 			break;
 
 		case ELEMENT_TYPE_BUTTON:
-			button_render(e->E.B, sel);
+			button_render((Button *)e->Element, sel);
 			break;
 
 		case ELEMENT_TYPE_INPUT:
-			input_render(e->E.I, sel);
+			input_render((Input *)e->Element, sel);
 			break;
 	}
+}
+
+static void element_render(Element *e)
+{
+	bool sel = _current_element >= 0 &&
+		&_current_window->Elements[_current_element] == e;
+
+	element_render_sel(e, sel);
 }
 
 static void element_first(void)
@@ -245,7 +232,7 @@ static void element_prev(void)
 }
 
 /* WINDOW */
-static void window_render(Window *window)
+void window_render(Window *window)
 {
 	i32 i;
 
@@ -272,7 +259,7 @@ void window_open(Window *window)
 	window_render(window);
 }
 
-static void form_event_button(Key key, bool up)
+void window_event_button(Key key, bool up)
 {
 	Element *ce;
 	if(!_current_window)
@@ -310,22 +297,23 @@ static void form_event_button(Key key, bool up)
 		{
 			if(key == KEY_ENTER)
 			{
-				ce->E.B->Click();
+				((Button *)ce->Element)->Click();
 			}
 		}
 		else if(ce->Type == ELEMENT_TYPE_INPUT)
 		{
+			Input *input = (Input *)ce->Element;
 			if(key == KEY_LEFT)
 			{
-				input_left(ce->E.I);
+				input_left(input);
 			}
 			else if(key == KEY_RIGHT)
 			{
-				input_right(ce->E.I);
+				input_right(input);
 			}
 			else
 			{
-				input_event_key(ce->E.I, key);
+				input_event_key(input, key);
 			}
 		}
 	}

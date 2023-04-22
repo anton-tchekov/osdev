@@ -3,15 +3,16 @@
 
 typedef enum
 {
-    STATUS_OK,
-    STATUS_FAIL
+	STATUS_OK,
+	STATUS_FAIL
 } Status;
 
-/*
-* @brief returns a human-friendly description of an Status
-* @param code Statuscode to get explanation from
-* @return Human-friendly description of the status code
-*/
-const char* status_str(Status code);
+/**
+ * @brief Returns a human-readable description for a Status
+ *
+ * @param code Statuscode to get a explanation for
+ * @return Human-friendly description of the status code
+ */
+const char *status_str(Status code);
 
 #endif /* __STATUS_H__ */

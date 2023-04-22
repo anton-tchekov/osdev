@@ -15,11 +15,13 @@ CFLAGS=\
 	-I gui/ \
 	-I keyboard/ \
 	-I rand/ \
+	-I syscall/ \
+	-I std/ \
 	-I status/
 
 SRC=\
 	main.c \
-	std.c \
+	std/std.c \
 	ctype/ctype.c \
 	fs/fs.c \
 	gfx/gfx.c \
