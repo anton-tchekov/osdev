@@ -1,4 +1,5 @@
 #include <std.h>
+#include <gui.h>
 
 char *reverse(char *s)
 {
@@ -18,7 +19,7 @@ Button btn = {
 	.Y = 10,
 	.W = 100,
 	.H = 30,
-	.Title = "",
+	.Text = "",
 };
 
 void main(void)
