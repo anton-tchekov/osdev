@@ -1,13 +1,8 @@
-#define ELEMENT_TYPE_LABEL  0
-#define ELEMENT_TYPE_BUTTON 1
-#define ELEMENT_TYPE_INPUT  2
-
-#define FLAG_TEXT_PROGMEM   1
-
+#include "gui.h"
 
 static void element_first(void)
 {
-	int8_t i;
+	u32 i;
 	for(i = 0; i < current_form->Count; ++i)
 	{
 		if(current_form->Elements[i].Type == ELEMENT_TYPE_BUTTON ||
@@ -21,7 +16,7 @@ static void element_first(void)
 
 static void element_next(void)
 {
-	int8_t i;
+	u32 i;
 	for(i = current_element + 1; i < current_form->Count; ++i)
 	{
 		if(current_form->Elements[i].Type == ELEMENT_TYPE_BUTTON)
@@ -44,7 +39,7 @@ static void element_next(void)
 
 static void element_prev(void)
 {
-	int8_t i;
+	u32 i;
 	for(i = current_element - 1; i >= 0; --i)
 	{
 		if(current_form->Elements[i].Type == ELEMENT_TYPE_BUTTON)
@@ -75,7 +70,7 @@ static void form_open(Form *form)
 
 static void form_render(Form *f)
 {
-	uint8_t i;
+	u32 i;
 
 	/* Title Bar */
 	lcd_color(LCD_BLUE);
@@ -101,7 +96,7 @@ static void form_render(Form *f)
 	}
 }
 
-static void element_render_sel(Element *e, uint8_t sel)
+static void element_render_sel(Element *e, u32 sel)
 {
 	switch(e->Type)
 	{
@@ -121,7 +116,7 @@ static void element_render_sel(Element *e, uint8_t sel)
 
 static void element_render(Element *e)
 {
-	uint8_t sel = ((current_element >= 0) && &current_form->Elements[current_element] == e);
+	u32 sel = ((current_element >= 0) && &current_form->Elements[current_element] == e);
 	switch(e->Type)
 	{
 		case ELEMENT_TYPE_LABEL:
@@ -151,7 +146,7 @@ static void label_render(Label *l)
 	}
 }
 
-static void button_render(Button *b, uint8_t sel)
+static void button_render(Button *b, u32 sel)
 {
 	int16_t x, y;
 	y = 20 + b->Y;
@@ -161,58 +156,42 @@ static void button_render(Button *b, uint8_t sel)
 
 	if(sel)
 	{
-		lcd_color(LCD_RED);
-		lcd_rect_border2(b->X, y, b->W, b->H);
+		lcd_rect_border2(b->X, y, b->W, b->H, LCD_RED);
 	}
 	else
 	{
-		lcd_color(LCD_BLACK);
-		lcd_rect_border(b->X, y, b->W, b->H);
+		lcd_rect_border(b->X, y, b->W, b->H, LCD_BLACK);
 	}
-
-	lcd_color(LCD_BLACK);
-	if(b->Flags & FLAG_TEXT_PROGMEM)
-	{
-		x = b->X + b->W / 2 - lcd_string_width_P(b->Text.Flash) / 2;
-		lcd_string_P(x, y + b->H / 2 - 5, b->Text.Flash);
-	}
-	else
-	{
-		x = b->X + b->W / 2 - lcd_string_width(b->Text.RAM) / 2;
-		lcd_string(x, y, b->Text.RAM);
-	}
+	x = b->X + b->W / 2 - lcd_string_width(b->Text.RAM) / 2;
+	lcd_string(x, y, b->Text.RAM);
 }
 
-static void input_render(Input *i, uint8_t sel)
+static void input_render(Input *i, u32 sel)
 {
-	lcd_color(LCD_WHITE);
-	lcd_rect(i->X + 1, 20 + i->Y + 1, i->W - 2, 20 - 2);
+	lcd_rect(i->X + 1, 20 + i->Y + 1, i->W - 2, 20 - 2, LCD_WHITE);
 
 	if(sel)
 	{
-		lcd_color(LCD_RED);
-		lcd_rect_border2(i->X, 20 + i->Y, i->W, 20);
+		lcd_rect_border2(i->X, 20 + i->Y, i->W, 20, LCD_RED);
 	}
 	else
 	{
-		lcd_color(LCD_BLACK);
-		lcd_rect_border(i->X, 20 + i->Y, i->W, 20);
+		lcd_rect_border(i->X, 20 + i->Y, i->W, 20, LCD_BLACK);
 	}
 
-	lcd_color(LCD_BLACK);
 	if(sel)
 	{
-		lcd_vline(i->X + 5 + lcd_string_width_len(i->Text, i->Position) - 1, 20 + i->Y + 3, 14);
+		lcd_vline(i->X + 5 + lcd_string_width_len(i->Text, i->Position) - 1, 20 + i->Y + 3, 14, LCD_BLACK);
 	}
 
-	lcd_string(i->X + 5, 20 + i->Y + 5, i->Text);
+	lcd_string(i->X + 5, 20 + i->Y + 5, i->Text, LCD_BLACK);
 }
 
-static void input_grow(Input *i, uint8_t n)
+static void input_grow(Input *i, u32 n)
 {
 	if(i->Text[i->Position])
 	{
-		int8_t j;
+		u32 j;
 		for(j = i->Length - 1; j >= i->Position; --j)
 		{
 			i->Text[j + n] = i->Text[j];
@@ -223,11 +202,11 @@ static void input_grow(Input *i, uint8_t n)
 	i->Text[i->Length] = '\0';
 }
 
-static void input_shrink(Input *i, uint8_t n)
+static void input_shrink(Input *i, u32 n)
 {
 	if(i->Text[i->Position])
 	{
-		int8_t j = i->Position;
+		u32 j = i->Position;
 		for(; i->Text[j]; ++j)
 		{
 			i->Text[j - n] = i->Text[j];
@@ -283,7 +262,7 @@ static void input_right(Input *i)
 	}
 }
 
-static void input_event_key(Input *i, uint8_t key, uint8_t ascii)
+static void input_event_key(Input *i, u32 key, u32 ascii)
 {
 	if(ascii >= 32 && ascii <= 126)
 	{
@@ -295,7 +274,7 @@ static void input_event_key(Input *i, uint8_t key, uint8_t ascii)
 	}
 }
 
-static void form_event_button(uint8_t button, uint8_t action)
+static void form_event_button(u32 button, u32 action)
 {
 	Element *ce;
 	if(!current_form)
@@ -359,7 +338,7 @@ static void form_event_button(uint8_t button, uint8_t action)
 	}
 }
 
-static void form_event_key(uint8_t key, uint8_t ascii)
+static void form_event_key(u32 key, u32 ascii)
 {
 	Element *ce;
 	if(!current_form)

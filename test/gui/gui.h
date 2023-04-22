@@ -1,29 +1,32 @@
+#ifndef __GUI_H__
+#define __GUI_H__
+
+
+#include "types.h"
 
 typedef struct LABEL
 {
-	uint8_t Flags;
-	int16_t X, Y;
+	u32 X, Y;
 	char *Text;
 } Label;
 
 typedef struct BUTTON
 {
-	uint8_t Flags;
-	int16_t X, Y, W, H;
+	u32 X, Y, W, H;
 	char *Text;
 	void (*Click)(void);
 } Button;
 
 typedef struct INPUT
 {
-	int16_t X, Y, W;
-	uint8_t Flags, Position, Length, Size;
+	u32 X, Y, W;
+	u32 Position, Length, Size;
 	char *Text;
 } Input;
 
 typedef struct ELEMENT
 {
-	uint8_t Type;
+	u32 Type;
 	union
 	{
 		Label *L;
@@ -34,25 +37,29 @@ typedef struct ELEMENT
 
 typedef struct
 {
-	u8 Flags;
 	char *Title;
 	Element *Elements;
 	i32 Count;
-	void (*OnKey)(uint8_t, uint8_t);
+	void (*OnKey)(u32, u32);
 } Window;
 
-static Form *current_form;
-static int8_t current_element;
+static Window *current_window;
+static i32 current_element;
 
-static void form_open(Form *form);
-static void form_render(Form *f);
-static void element_render_sel(Element *e, uint8_t sel);
+static void window_open(Window *window);
+static void window_render(Window *f);
+static void element_render_sel(Element *e, u32 sel);
 static void element_render(Element *e);
 static void label_render(Label *l);
-static void button_render(Button *b, uint8_t sel);
-static void input_render(Input *i, uint8_t sel);
-static void form_event_button(uint8_t button, uint8_t action);
-static void form_event_key(uint8_t key, uint8_t ascii);
-static void input_grow(Input *i, uint8_t n);
-static void input_shrink(Input *i, uint8_t n);
+static void button_render(Button *b, u32 sel);
+static void input_render(Input *i, u32 sel);
+static void window_event_button(u32 button, u32 action);
+static void window_event_key(u32 key, u32 ascii);
 
+typedef enum {
+	ELEMENT_TYPE_BUTTON,
+	ELEMENT_TYPE_INPUT,
+	ELEMENT_TYPE_LABEL
+} ElementType;
+
+#endif
