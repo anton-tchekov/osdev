@@ -27,6 +27,6 @@ void gfx_string(int x, int y, char* str, Color fg, Color bg);
 /*
 * Convertes RGBA Color to u32 bytes
 */
-Color gfx_color(int r, int g, int b, int a)
+Color gfx_color(int r, int g, int b, int a);
 
 #endif /* __GFX_H__ */
