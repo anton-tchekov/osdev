@@ -25,6 +25,7 @@ SRC=\
 	ctype/ctype.c \
 	fs/fs.c \
 	gfx/gfx.c \
+	gfx/font.c \
 	gui/gui.c \
 	keyboard/keyboard.c \
 	rand/rand.c \

@@ -41,7 +41,7 @@ static void registers_dump(Emulator *emu)
 	printf("\n");
 }
 
-/* SYSCALLS */
+/* STR */
 static u32 syscall_strcpy(u32 *args)
 {
 	return strcpy((char *)(_memory + args[0]), (char *)(_memory + args[1])) - (char *)_memory;
@@ -67,6 +67,7 @@ static u32 syscall_strncmp(u32 *args)
 	return strncmp((char *)(_memory + args[0]), (char *)(_memory + args[1]), args[2]);
 }
 
+/* MEM */
 static u32 syscall_memcpy(u32 *args)
 {
 	return (u8 *)memcpy(_memory + args[0], _memory + args[1], args[2]) - _memory;
@@ -92,12 +93,14 @@ static u32 syscall_memset(u32 *args)
 	return (u8 *)memset(_memory + args[0], args[1], args[2]) - _memory;
 }
 
+/* RAND */
 static u32 syscall_rand(u32 *args)
 {
 	return rand();
 	(void)args;
 }
 
+/* GFX */
 static u32 syscall_gfx_rect(u32 *args)
 {
 	printf("DRAW RECT (X: %d, Y: %d, W: %d, H: %d, COLOR: %d)\n",
@@ -105,13 +108,32 @@ static u32 syscall_gfx_rect(u32 *args)
 	return 0;
 }
 
-static u32 syscall_gfx_string(u32 *args)
+static u32 syscall_gfx_image_rgba(u32 *args)
 {
-	printf("DRAW STRING (X: %d, Y: %d, STR: %d, FG: %d, BG: %d)\n",
-		args[0], args[1], args[2], args[3], args[4]);
-	return 0;
+
 }
 
+static u32 syscall_gfx_image_rgb(u32 *args)
+{
+
+}
+
+static u32 syscall_gfx_image_rgb565(u32 *args)
+{
+
+}
+
+static u32 syscall_gfx_image_grayscale(u32 *args)
+{
+
+}
+
+static u32 syscall_gfx_image_1bit(u32 *args)
+{
+
+}
+
+/* FS */
 static u32 syscall_file_open(u32 *args)
 {
 
@@ -137,6 +159,7 @@ static u32 syscall_file_size(u32 *args)
 
 }
 
+/* KBD */
 static u32 syscall_keyboard_is_key_pressed(u32 *args)
 {
 
@@ -147,6 +170,7 @@ static u32 syscall_keyboard_register_event(u32 *args)
 
 }
 
+/* UART */
 static u32 syscall_print(u32 *args)
 {
 	u8 c;
@@ -183,7 +207,11 @@ static u32 (*syscalls[])(u32 *) =
 	syscall_rand,
 
 	syscall_gfx_rect,
-	syscall_gfx_string,
+	syscall_gfx_image_rgba,
+	syscall_gfx_image_rgb,
+	syscall_gfx_image_rgb565,
+	syscall_gfx_image_grayscale,
+	syscall_gfx_image_1bit,
 
 	syscall_file_open,
 	syscall_file_read,
@@ -779,4 +807,3 @@ static i32 emulator_next(Emulator *emu)
 	emu->PC += 4;
 	return 0;
 }
-

@@ -3,6 +3,8 @@
 
 #include <types.h>
 
+#define ARRLEN(A) (sizeof(A) / sizeof(*A))
+
 int sprintf(char *str, const char *format, ...);
 int snprintf(char *str, u32 n, const char *format, ...);
 

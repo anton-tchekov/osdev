@@ -14,12 +14,19 @@ char *reverse(char *s)
 	return s;
 }
 
-Button btn = {
-	.X = 10,
-	.Y = 10,
-	.W = 100,
-	.H = 30,
-	.Text = "",
+Button btn = BUTTON(10, 10, 100, 30, "Click Me!", NULL);
+
+void *elements[] =
+{
+	&btn
+};
+
+Window window =
+{
+	.Title = "Test",
+	.Elements = elements,
+	.Count = ARRLEN(elements),
+	.OnKey = NULL
 };
 
 void main(void)

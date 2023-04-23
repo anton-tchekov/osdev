@@ -1,6 +1,12 @@
 #include <gui.h>
 #include <gfx.h>
+#include <font.h>
 #include <colors.h>
+
+typedef struct ELEMENT
+{
+	ElementType Type;
+} Element;
 
 static Window *_current_window;
 static i32 _current_element;
@@ -8,16 +14,19 @@ static i32 _current_element;
 /* GFX */
 static void gui_rect_border(i32 x, i32 y, i32 w, i32 h, Color color)
 {
+	/* TODO */
 }
 
 static void gui_rect_border2(i32 x, i32 y, i32 w, i32 h, Color color)
 {
+	/* TODO */
 }
 
 /* LABEL */
 static void label_render(Label *l)
 {
-	gfx_string(l->X, 20 + l->Y, l->Text, COLOR_BLACK, COLOR_WHITE);
+	gfx_string(l->X, 20 + l->Y, l->Text,
+		DEFAULT_FONT, COLOR_BLACK, COLOR_WHITE);
 }
 
 /* BUTTON */
@@ -36,8 +45,8 @@ static void button_render(Button *b, bool sel)
 		gui_rect_border(b->X, y, b->W, b->H, COLOR_BLACK);
 	}
 
-	x = b->X + b->W / 2 - gfx_string_width(b->Text) / 2;
-	gfx_string(x, y, b->Text, COLOR_BLACK, COLOR_WHITE);
+	x = b->X + b->W / 2 - gfx_string_width(b->Text, DEFAULT_FONT) / 2;
+	gfx_string(x, y, b->Text, DEFAULT_FONT, COLOR_BLACK, COLOR_WHITE);
 }
 
 /* INPUT */
@@ -49,7 +58,8 @@ static void input_render(Input *i, bool sel)
 		gui_rect_border2(i->X, 20 + i->Y, i->W, 20, COLOR_RED);
 
 		/* Cursor */
-		gfx_rect(i->X + 5 + gfx_string_width_len(i->Text, i->Position) - 1,
+		gfx_rect(i->X + 5 +
+			gfx_string_width_len(i->Text, i->Position, DEFAULT_FONT) - 1,
 			20 + i->Y + 3, 1, 14, COLOR_BLACK);
 	}
 	else
@@ -57,7 +67,8 @@ static void input_render(Input *i, bool sel)
 		gui_rect_border(i->X, 20 + i->Y, i->W, 20, COLOR_BLACK);
 	}
 
-	gfx_string(i->X + 5, 20 + i->Y + 5, i->Text, COLOR_BLACK, COLOR_WHITE);
+	gfx_string(i->X + 5, 20 + i->Y + 5, i->Text,
+		DEFAULT_FONT, COLOR_BLACK, COLOR_WHITE);
 }
 
 static void input_grow(Input *i, i32 n)
@@ -153,15 +164,15 @@ static void element_render_sel(Element *e, u32 sel)
 	switch(e->Type)
 	{
 		case ELEMENT_TYPE_LABEL:
-			label_render((Label *)e->Element);
+			label_render((Label *)e);
 			break;
 
 		case ELEMENT_TYPE_BUTTON:
-			button_render((Button *)e->Element, sel);
+			button_render((Button *)e, sel);
 			break;
 
 		case ELEMENT_TYPE_INPUT:
-			input_render((Input *)e->Element, sel);
+			input_render((Input *)e, sel);
 			break;
 	}
 }
@@ -169,22 +180,23 @@ static void element_render_sel(Element *e, u32 sel)
 static void element_render(Element *e)
 {
 	bool sel = _current_element >= 0 &&
-		&_current_window->Elements[_current_element] == e;
+		_current_window->Elements[_current_element] == e;
 
 	element_render_sel(e, sel);
 }
 
 static void element_first(void)
 {
-	Element *elems;
+	void **elems;
 	i32 i, count;
 
 	count = _current_window->Count;
 	elems = _current_window->Elements;
 	for(i = 0; i < _current_window->Count; ++i)
 	{
-		if(elems[i].Type == ELEMENT_TYPE_BUTTON ||
-			elems[i].Type == ELEMENT_TYPE_INPUT)
+		ElementType type = ((Element *)elems[i])->Type;
+		if(type == ELEMENT_TYPE_BUTTON ||
+			type == ELEMENT_TYPE_INPUT)
 		{
 			_current_element = i;
 			break;
@@ -194,19 +206,20 @@ static void element_first(void)
 
 static void element_next(void)
 {
-	Element *elems;
+	void **elems;
 	i32 i, count;
 
 	count = _current_window->Count;
 	elems = _current_window->Elements;
 	for(i = _current_element + 1; i < count; ++i)
 	{
-		if(elems[i].Type == ELEMENT_TYPE_BUTTON ||
-			elems[i].Type == ELEMENT_TYPE_INPUT)
+		ElementType type = ((Element *)elems[i])->Type;
+		if(type == ELEMENT_TYPE_BUTTON ||
+			type == ELEMENT_TYPE_INPUT)
 		{
-			element_render_sel(&elems[_current_element], false);
+			element_render_sel(elems[_current_element], false);
 			_current_element = i;
-			element_render_sel(&elems[_current_element], true);
+			element_render_sel(elems[_current_element], true);
 			break;
 		}
 	}
@@ -214,18 +227,19 @@ static void element_next(void)
 
 static void element_prev(void)
 {
-	Element *elems;
+	void **elems;
 	i32 i;
 
 	elems = _current_window->Elements;
 	for(i = _current_element - 1; i >= 0; --i)
 	{
-		if(elems[i].Type == ELEMENT_TYPE_BUTTON ||
-			elems[i].Type == ELEMENT_TYPE_INPUT)
+		ElementType type = ((Element *)elems[i])->Type;
+		if(type == ELEMENT_TYPE_BUTTON ||
+			type == ELEMENT_TYPE_INPUT)
 		{
-			element_render_sel(&elems[_current_element], false);
+			element_render_sel(elems[_current_element], false);
 			_current_element = i;
-			element_render_sel(&elems[_current_element], true);
+			element_render_sel(elems[_current_element], true);
 			break;
 		}
 	}
@@ -243,11 +257,12 @@ void window_render(Window *window)
 	gfx_rect(0, 20, GFX_WIDTH, 220, COLOR_WHITE);
 
 	/* Title */
-	gfx_string(4, 4, window->Title, COLOR_WHITE, COLOR_BLUE);
+	gfx_string(4, 4, window->Title,
+		DEFAULT_FONT, COLOR_WHITE, COLOR_BLUE);
 
 	for(i = 0; i < window->Count; ++i)
 	{
-		element_render(&window->Elements[i]);
+		element_render(window->Elements[i]);
 	}
 }
 
@@ -261,7 +276,7 @@ void window_open(Window *window)
 
 void window_event_button(Key key, bool up)
 {
-	Element *ce;
+	void *ce;
 	if(!_current_window)
 	{
 		return;
@@ -293,16 +308,17 @@ void window_event_button(Key key, bool up)
 	}
 	else
 	{
-		if(ce->Type == ELEMENT_TYPE_BUTTON)
+		ElementType type = ((Element *)ce)->Type;
+		if(type == ELEMENT_TYPE_BUTTON)
 		{
 			if(key == KEY_ENTER)
 			{
-				((Button *)ce->Element)->Click();
+				((Button *)ce)->Click();
 			}
 		}
-		else if(ce->Type == ELEMENT_TYPE_INPUT)
+		else if(type == ELEMENT_TYPE_INPUT)
 		{
-			Input *input = (Input *)ce->Element;
+			Input *input = ce;
 			if(key == KEY_LEFT)
 			{
 				input_left(input);

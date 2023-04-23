@@ -30,29 +30,3 @@ void gfx_image_1bit(i32 x, i32 y, i32 w, i32 h, u8 *data, Color fg, Color bg)
 {
     syscall5(SYSCALL_GFX_IMAGE_1BIT, x, y, w, h, (u32)data);
 }
-
-void gfx_char(i32 x, i32 y, i32 c, Color fg, Color bg)
-{
-
-}
-
-void gfx_string(i32 x, i32 y, const char *str, Color fg, Color bg)
-{
-    syscall5(SYSCALL_GFX_STRING, x, y, (u32)str, fg, bg);
-}
-
-void gfx_string_len(i32 x, i32 y, const char *str, i32 len, Color fg, Color bg)
-{
-    syscall5(SYSCALL_GFX_STRING, x, y, (u32)str, fg, bg);
-}
-
-void gfx_string_width(i32 x, i32 y, const char *str, Color fg, Color bg)
-{
-    syscall5(SYSCALL_GFX_STRING, x, y, (u32)str, fg, bg);
-}
-
-void gfx_string_width_len(i32 x, i32 y, const char *str, i32 len, Color fg, Color bg)
-{
-    syscall5(SYSCALL_GFX_STRING, x, y, (u32)str, fg, bg);
-}
-

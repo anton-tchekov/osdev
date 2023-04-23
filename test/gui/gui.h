@@ -4,25 +4,6 @@
 #include <types.h>
 #include <keyboard.h>
 
-typedef struct LABEL
-{
-	i32 X, Y;
-	char *Text;
-} Label;
-
-typedef struct BUTTON
-{
-	i32 X, Y, W, H;
-	char *Text;
-	void (*Click)(void);
-} Button;
-
-typedef struct INPUT
-{
-	i32 X, Y, W, Position, Length, Size;
-	char *Text;
-} Input;
-
 typedef enum
 {
 	ELEMENT_TYPE_BUTTON,
@@ -30,19 +11,46 @@ typedef enum
 	ELEMENT_TYPE_LABEL
 } ElementType;
 
-typedef struct ELEMENT
+typedef struct LABEL
 {
 	ElementType Type;
-	void *Element;
-} Element;
+	i32 X, Y;
+	char *Text;
+} Label;
+
+typedef struct BUTTON
+{
+	ElementType Type;
+	i32 X, Y, W, H;
+	char *Text;
+	void (*Click)(void);
+} Button;
+
+typedef struct INPUT
+{
+	ElementType Type;
+	i32 X, Y, W, Position, Length, Size;
+	char *Text;
+} Input;
 
 typedef struct
 {
 	char *Title;
-	Element *Elements;
+	void **Elements;
 	i32 Count;
 	void (*OnKey)(u32, u32);
 } Window;
+
+#define BUTTON(_X, _Y, _W, _H, _TEXT, _CLICK) \
+	{ \
+		.Type = ELEMENT_TYPE_BUTTON, \
+		.X = _X, \
+		.Y = _Y, \
+		.W = _W, \
+		.H = _H, \
+		.Text = _TEXT, \
+		.Click = _CLICK \
+	}
 
 static Window *current_window;
 static i32 current_element;
