@@ -1,0 +1,153 @@
+\hypertarget{syscall_8h_source}{}\doxysection{syscall.\+h}
+\label{syscall_8h_source}\index{syscall/syscall.h@{syscall/syscall.h}}
+\mbox{\hyperlink{syscall_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#ifndef\ \_\_SYSCALL\_H\_\_}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#define\ \_\_SYSCALL\_H\_\_}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <types.h>}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00015\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}}
+\DoxyCodeLine{00016\ \{}
+\DoxyCodeLine{00017\ \ \ \ \ SYSCALL\_STRCPY,}
+\DoxyCodeLine{00018\ \ \ \ \ SYSCALL\_STRNCPY,}
+\DoxyCodeLine{00019\ \ \ \ \ SYSCALL\_STRLEN,}
+\DoxyCodeLine{00020\ \ \ \ \ SYSCALL\_STRCMP,}
+\DoxyCodeLine{00021\ \ \ \ \ SYSCALL\_STRNCMP,}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \ \ \ \ SYSCALL\_MEMCPY,}
+\DoxyCodeLine{00024\ \ \ \ \ SYSCALL\_MEMMOVE,}
+\DoxyCodeLine{00025\ \ \ \ \ SYSCALL\_MEMCMP,}
+\DoxyCodeLine{00026\ \ \ \ \ SYSCALL\_MEMCHR,}
+\DoxyCodeLine{00027\ \ \ \ \ SYSCALL\_MEMSET,}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \ \ \ \ SYSCALL\_RAND,}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \ \ \ \ SYSCALL\_GFX\_RECT,}
+\DoxyCodeLine{00032\ \ \ \ \ SYSCALL\_GFX\_IMAGE\_RGBA,}
+\DoxyCodeLine{00033\ \ \ \ \ SYSCALL\_GFX\_IMAGE\_RGB,}
+\DoxyCodeLine{00034\ \ \ \ \ SYSCALL\_GFX\_IMAGE\_RGB565,}
+\DoxyCodeLine{00035\ \ \ \ \ SYSCALL\_GFX\_IMAGE\_GRAYSCALE,}
+\DoxyCodeLine{00036\ \ \ \ \ SYSCALL\_GFX\_IMAGE\_1BIT,}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \ \ \ \ SYSCALL\_FILE\_OPEN,}
+\DoxyCodeLine{00039\ \ \ \ \ SYSCALL\_FILE\_READ,}
+\DoxyCodeLine{00040\ \ \ \ \ SYSCALL\_FILE\_WRITE,}
+\DoxyCodeLine{00041\ \ \ \ \ SYSCALL\_FILE\_CLOSE,}
+\DoxyCodeLine{00042\ \ \ \ \ SYSCALL\_FILE\_SIZE,}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \ \ \ \ SYSCALL\_KEYBOARD\_IS\_KEY\_PRESSED,}
+\DoxyCodeLine{00045\ \ \ \ \ SYSCALL\_KEYBOARD\_REGISTER\_EVENT,}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \ \ \ \ SYSCALL\_PRINT,}
+\DoxyCodeLine{00048\ \ \ \ \ SYSCALL\_EXIT}
+\DoxyCodeLine{00049\ \}\ \mbox{\hyperlink{syscall_8h_a66058383db95f52e2bd416be6a741d5c}{SyscallID}};}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ u32\ syscall0(\mbox{\hyperlink{syscall_8h_a66058383db95f52e2bd416be6a741d5c}{SyscallID}}\ \textcolor{keywordtype}{id})}
+\DoxyCodeLine{00052\ \{}
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keyword}{register}\ u32\ ra0\ \textcolor{keyword}{asm}(\textcolor{stringliteral}{"{}a0"{}});}
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keyword}{register}\ u32\ ra7\ \textcolor{keyword}{asm}(\textcolor{stringliteral}{"{}a7"{}})\ =\ \textcolor{keywordtype}{id};}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keyword}{asm}\ \textcolor{keyword}{volatile}(\textcolor{stringliteral}{"{}ecall"{}}}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ :\ \textcolor{stringliteral}{"{}=r"{}}(ra0)}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ :\ \textcolor{stringliteral}{"{}r"{}}(ra7));}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \ \ \ \ \textcolor{keywordflow}{return}\ ra0;}
+\DoxyCodeLine{00061\ \}}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ u32\ syscall1(\mbox{\hyperlink{syscall_8h_a66058383db95f52e2bd416be6a741d5c}{SyscallID}}\ \textcolor{keywordtype}{id},\ u32\ a0)}
+\DoxyCodeLine{00064\ \{}
+\DoxyCodeLine{00065\ \ \ \ \ \textcolor{keyword}{register}\ u32\ ra0\ \textcolor{keyword}{asm}(\textcolor{stringliteral}{"{}a0"{}})\ =\ a0;}
+\DoxyCodeLine{00066\ \ \ \ \ \textcolor{keyword}{register}\ u32\ ra7\ \textcolor{keyword}{asm}(\textcolor{stringliteral}{"{}a7"{}})\ =\ \textcolor{keywordtype}{id};}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ \ \ \ \ \textcolor{keyword}{asm}\ \textcolor{keyword}{volatile}(\textcolor{stringliteral}{"{}ecall"{}}}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ :\ \textcolor{stringliteral}{"{}+r"{}}(ra0)}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ :\ \textcolor{stringliteral}{"{}r"{}}(ra7));}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ \ \ \ \ \textcolor{keywordflow}{return}\ ra0;}
+\DoxyCodeLine{00073\ \}}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ u32\ syscall2(\mbox{\hyperlink{syscall_8h_a66058383db95f52e2bd416be6a741d5c}{SyscallID}}\ \textcolor{keywordtype}{id},\ u32\ a0,\ u32\ a1)}
+\DoxyCodeLine{00076\ \{}
+\DoxyCodeLine{00077\ \ \ \ \ \textcolor{keyword}{register}\ u32\ ra0\ \textcolor{keyword}{asm}(\textcolor{stringliteral}{"{}a0"{}})\ =\ a0;}
+\DoxyCodeLine{00078\ \ \ \ \ \textcolor{keyword}{register}\ u32\ ra1\ \textcolor{keyword}{asm}(\textcolor{stringliteral}{"{}a1"{}})\ =\ a1;}
+\DoxyCodeLine{00079\ \ \ \ \ \textcolor{keyword}{register}\ u32\ ra7\ \textcolor{keyword}{asm}(\textcolor{stringliteral}{"{}a7"{}})\ =\ \textcolor{keywordtype}{id};}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ \ \ \ \ \textcolor{keyword}{asm}\ \textcolor{keyword}{volatile}(\textcolor{stringliteral}{"{}ecall"{}}}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ :\ \textcolor{stringliteral}{"{}+r"{}}(ra0)}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ :\ \textcolor{stringliteral}{"{}r"{}}(ra1),}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}r"{}}(ra7));}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00086\ \ \ \ \ \textcolor{keywordflow}{return}\ ra0;}
+\DoxyCodeLine{00087\ \}}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00089\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ u32\ syscall3(\mbox{\hyperlink{syscall_8h_a66058383db95f52e2bd416be6a741d5c}{SyscallID}}\ \textcolor{keywordtype}{id},\ u32\ a0,\ u32\ a1,\ u32\ a2)}
+\DoxyCodeLine{00090\ \{}
+\DoxyCodeLine{00091\ \ \ \ \ \textcolor{keyword}{register}\ u32\ ra0\ \textcolor{keyword}{asm}(\textcolor{stringliteral}{"{}a0"{}})\ =\ a0;}
+\DoxyCodeLine{00092\ \ \ \ \ \textcolor{keyword}{register}\ u32\ ra1\ \textcolor{keyword}{asm}(\textcolor{stringliteral}{"{}a1"{}})\ =\ a1;}
+\DoxyCodeLine{00093\ \ \ \ \ \textcolor{keyword}{register}\ u32\ ra2\ \textcolor{keyword}{asm}(\textcolor{stringliteral}{"{}a2"{}})\ =\ a2;}
+\DoxyCodeLine{00094\ \ \ \ \ \textcolor{keyword}{register}\ u32\ ra7\ \textcolor{keyword}{asm}(\textcolor{stringliteral}{"{}a7"{}})\ =\ \textcolor{keywordtype}{id};}
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00096\ \ \ \ \ \textcolor{keyword}{asm}\ \textcolor{keyword}{volatile}(\textcolor{stringliteral}{"{}ecall"{}}}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ :\ \textcolor{stringliteral}{"{}+r"{}}(ra0)}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ :\ \textcolor{stringliteral}{"{}r"{}}(ra1),\ \textcolor{stringliteral}{"{}r"{}}(ra2),}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}r"{}}(ra7));}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00101\ \ \ \ \ \textcolor{keywordflow}{return}\ ra0;}
+\DoxyCodeLine{00102\ \}}
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00104\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ u32\ syscall4(\mbox{\hyperlink{syscall_8h_a66058383db95f52e2bd416be6a741d5c}{SyscallID}}\ \textcolor{keywordtype}{id},\ u32\ a0,\ u32\ a1,\ u32\ a2,\ u32\ a3)}
+\DoxyCodeLine{00105\ \{}
+\DoxyCodeLine{00106\ \ \ \ \ \textcolor{keyword}{register}\ u32\ ra0\ \textcolor{keyword}{asm}(\textcolor{stringliteral}{"{}a0"{}})\ =\ a0;}
+\DoxyCodeLine{00107\ \ \ \ \ \textcolor{keyword}{register}\ u32\ ra1\ \textcolor{keyword}{asm}(\textcolor{stringliteral}{"{}a1"{}})\ =\ a1;}
+\DoxyCodeLine{00108\ \ \ \ \ \textcolor{keyword}{register}\ u32\ ra2\ \textcolor{keyword}{asm}(\textcolor{stringliteral}{"{}a2"{}})\ =\ a2;}
+\DoxyCodeLine{00109\ \ \ \ \ \textcolor{keyword}{register}\ u32\ ra3\ \textcolor{keyword}{asm}(\textcolor{stringliteral}{"{}a3"{}})\ =\ a3;}
+\DoxyCodeLine{00110\ \ \ \ \ \textcolor{keyword}{register}\ u32\ ra7\ \textcolor{keyword}{asm}(\textcolor{stringliteral}{"{}a7"{}})\ =\ \textcolor{keywordtype}{id};}
+\DoxyCodeLine{00111\ }
+\DoxyCodeLine{00112\ \ \ \ \ \textcolor{keyword}{asm}\ \textcolor{keyword}{volatile}(\textcolor{stringliteral}{"{}ecall"{}}}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ :\ \textcolor{stringliteral}{"{}+r"{}}(ra0)}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ :\ \textcolor{stringliteral}{"{}r"{}}(ra1),\ \textcolor{stringliteral}{"{}r"{}}(ra2),\ \textcolor{stringliteral}{"{}r"{}}(ra3),}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}r"{}}(ra7));}
+\DoxyCodeLine{00116\ }
+\DoxyCodeLine{00117\ \ \ \ \ \textcolor{keywordflow}{return}\ ra0;}
+\DoxyCodeLine{00118\ \}}
+\DoxyCodeLine{00119\ }
+\DoxyCodeLine{00120\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ u32\ syscall5(\mbox{\hyperlink{syscall_8h_a66058383db95f52e2bd416be6a741d5c}{SyscallID}}\ \textcolor{keywordtype}{id},\ u32\ a0,\ u32\ a1,\ u32\ a2,\ u32\ a3,\ u32\ a4)}
+\DoxyCodeLine{00121\ \{}
+\DoxyCodeLine{00122\ \ \ \ \ \textcolor{keyword}{register}\ u32\ ra0\ \textcolor{keyword}{asm}(\textcolor{stringliteral}{"{}a0"{}})\ =\ a0;}
+\DoxyCodeLine{00123\ \ \ \ \ \textcolor{keyword}{register}\ u32\ ra1\ \textcolor{keyword}{asm}(\textcolor{stringliteral}{"{}a1"{}})\ =\ a1;}
+\DoxyCodeLine{00124\ \ \ \ \ \textcolor{keyword}{register}\ u32\ ra2\ \textcolor{keyword}{asm}(\textcolor{stringliteral}{"{}a2"{}})\ =\ a2;}
+\DoxyCodeLine{00125\ \ \ \ \ \textcolor{keyword}{register}\ u32\ ra3\ \textcolor{keyword}{asm}(\textcolor{stringliteral}{"{}a3"{}})\ =\ a3;}
+\DoxyCodeLine{00126\ \ \ \ \ \textcolor{keyword}{register}\ u32\ ra4\ \textcolor{keyword}{asm}(\textcolor{stringliteral}{"{}a4"{}})\ =\ a4;}
+\DoxyCodeLine{00127\ \ \ \ \ \textcolor{keyword}{register}\ u32\ ra7\ \textcolor{keyword}{asm}(\textcolor{stringliteral}{"{}a7"{}})\ =\ \textcolor{keywordtype}{id};}
+\DoxyCodeLine{00128\ }
+\DoxyCodeLine{00129\ \ \ \ \ \textcolor{keyword}{asm}\ \textcolor{keyword}{volatile}(\textcolor{stringliteral}{"{}ecall"{}}}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ :\ \textcolor{stringliteral}{"{}+r"{}}(ra0)}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ :\ \textcolor{stringliteral}{"{}r"{}}(ra1),\ \textcolor{stringliteral}{"{}r"{}}(ra2),\ \textcolor{stringliteral}{"{}r"{}}(ra3),\ \textcolor{stringliteral}{"{}r"{}}(ra4),}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}r"{}}(ra7));}
+\DoxyCodeLine{00133\ }
+\DoxyCodeLine{00134\ \ \ \ \ \textcolor{keywordflow}{return}\ ra0;}
+\DoxyCodeLine{00135\ \}}
+\DoxyCodeLine{00136\ }
+\DoxyCodeLine{00137\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ u32\ syscall6(\mbox{\hyperlink{syscall_8h_a66058383db95f52e2bd416be6a741d5c}{SyscallID}}\ \textcolor{keywordtype}{id},\ u32\ a0,\ u32\ a1,\ u32\ a2,\ u32\ a3,\ u32\ a4,\ u32\ a5)}
+\DoxyCodeLine{00138\ \{}
+\DoxyCodeLine{00139\ \ \ \ \ \textcolor{keyword}{register}\ u32\ ra0\ \textcolor{keyword}{asm}(\textcolor{stringliteral}{"{}a0"{}})\ =\ a0;}
+\DoxyCodeLine{00140\ \ \ \ \ \textcolor{keyword}{register}\ u32\ ra1\ \textcolor{keyword}{asm}(\textcolor{stringliteral}{"{}a1"{}})\ =\ a1;}
+\DoxyCodeLine{00141\ \ \ \ \ \textcolor{keyword}{register}\ u32\ ra2\ \textcolor{keyword}{asm}(\textcolor{stringliteral}{"{}a2"{}})\ =\ a2;}
+\DoxyCodeLine{00142\ \ \ \ \ \textcolor{keyword}{register}\ u32\ ra3\ \textcolor{keyword}{asm}(\textcolor{stringliteral}{"{}a3"{}})\ =\ a3;}
+\DoxyCodeLine{00143\ \ \ \ \ \textcolor{keyword}{register}\ u32\ ra4\ \textcolor{keyword}{asm}(\textcolor{stringliteral}{"{}a4"{}})\ =\ a4;}
+\DoxyCodeLine{00144\ \ \ \ \ \textcolor{keyword}{register}\ u32\ ra5\ \textcolor{keyword}{asm}(\textcolor{stringliteral}{"{}a5"{}})\ =\ a5;}
+\DoxyCodeLine{00145\ \ \ \ \ \textcolor{keyword}{register}\ u32\ ra7\ \textcolor{keyword}{asm}(\textcolor{stringliteral}{"{}a7"{}})\ =\ \textcolor{keywordtype}{id};}
+\DoxyCodeLine{00146\ }
+\DoxyCodeLine{00147\ \ \ \ \ \textcolor{keyword}{asm}\ \textcolor{keyword}{volatile}(\textcolor{stringliteral}{"{}ecall"{}}}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ :\ \textcolor{stringliteral}{"{}+r"{}}(ra0)}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ :\ \textcolor{stringliteral}{"{}r"{}}(ra1),\ \textcolor{stringliteral}{"{}r"{}}(ra2),\ \textcolor{stringliteral}{"{}r"{}}(ra3),\ \textcolor{stringliteral}{"{}r"{}}(ra4),\ \textcolor{stringliteral}{"{}r"{}}(ra5),}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}r"{}}(ra7));}
+\DoxyCodeLine{00151\ }
+\DoxyCodeLine{00152\ \ \ \ \ \textcolor{keywordflow}{return}\ ra0;}
+\DoxyCodeLine{00153\ \}}
+\DoxyCodeLine{00154\ }
+\DoxyCodeLine{00155\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ \_\_SYSCALL\_H\_\_\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

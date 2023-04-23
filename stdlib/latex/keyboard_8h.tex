@@ -1,0 +1,80 @@
+\hypertarget{keyboard_8h}{}\doxysection{keyboard/keyboard.h File Reference}
+\label{keyboard_8h}\index{keyboard/keyboard.h@{keyboard/keyboard.h}}
+
+
+TODO.  
+
+
+{\ttfamily \#include $<$types.\+h$>$}\newline
+{\ttfamily \#include $<$keys.\+h$>$}\newline
+\doxysubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef u32 \mbox{\hyperlink{keyboard_8h_a48752551c4279f8cddf3585f8272092a}{Key}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{keyboard_8h_aac67d2fb7461c81c3a43a7c4aa38b424}{keyboard\+\_\+is\+\_\+key\+\_\+pressed}} (\mbox{\hyperlink{keyboard_8h_a48752551c4279f8cddf3585f8272092a}{Key}} key)
+\begin{DoxyCompactList}\small\item\em Check if a key is pressed. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{keyboard_8h_a77ca9d6b76afadd465d3f411373c3553}{keyboard\+\_\+register\+\_\+event}} (void($\ast$event)(\mbox{\hyperlink{keyboard_8h_a48752551c4279f8cddf3585f8272092a}{Key}} key, bool up))
+\begin{DoxyCompactList}\small\item\em Register an On\+Keyboard\+Input event. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+TODO. 
+
+\begin{DoxyAuthor}{Author}
+Tim Gabrikowski, Anton Tchekov 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+0.\+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+23.\+04.\+2023 
+\end{DoxyDate}
+
+
+\doxysubsection{Typedef Documentation}
+\mbox{\Hypertarget{keyboard_8h_a48752551c4279f8cddf3585f8272092a}\label{keyboard_8h_a48752551c4279f8cddf3585f8272092a}} 
+\index{keyboard.h@{keyboard.h}!Key@{Key}}
+\index{Key@{Key}!keyboard.h@{keyboard.h}}
+\doxysubsubsection{\texorpdfstring{Key}{Key}}
+{\footnotesize\ttfamily typedef u32 \mbox{\hyperlink{keyboard_8h_a48752551c4279f8cddf3585f8272092a}{Key}}}
+
+Keycode 
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{keyboard_8h_aac67d2fb7461c81c3a43a7c4aa38b424}\label{keyboard_8h_aac67d2fb7461c81c3a43a7c4aa38b424}} 
+\index{keyboard.h@{keyboard.h}!keyboard\_is\_key\_pressed@{keyboard\_is\_key\_pressed}}
+\index{keyboard\_is\_key\_pressed@{keyboard\_is\_key\_pressed}!keyboard.h@{keyboard.h}}
+\doxysubsubsection{\texorpdfstring{keyboard\_is\_key\_pressed()}{keyboard\_is\_key\_pressed()}}
+{\footnotesize\ttfamily bool keyboard\+\_\+is\+\_\+key\+\_\+pressed (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{keyboard_8h_a48752551c4279f8cddf3585f8272092a}{Key}}}]{key }\end{DoxyParamCaption})}
+
+
+
+Check if a key is pressed. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em key} & The key to check for (see {\ttfamily \mbox{\hyperlink{keys_8h_source}{keys.\+h}}}) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Boolean 
+\end{DoxyReturn}
+\mbox{\Hypertarget{keyboard_8h_a77ca9d6b76afadd465d3f411373c3553}\label{keyboard_8h_a77ca9d6b76afadd465d3f411373c3553}} 
+\index{keyboard.h@{keyboard.h}!keyboard\_register\_event@{keyboard\_register\_event}}
+\index{keyboard\_register\_event@{keyboard\_register\_event}!keyboard.h@{keyboard.h}}
+\doxysubsubsection{\texorpdfstring{keyboard\_register\_event()}{keyboard\_register\_event()}}
+{\footnotesize\ttfamily void keyboard\+\_\+register\+\_\+event (\begin{DoxyParamCaption}\item[{void($\ast$)(\mbox{\hyperlink{keyboard_8h_a48752551c4279f8cddf3585f8272092a}{Key}} key, bool up)}]{event }\end{DoxyParamCaption})}
+
+
+
+Register an On\+Keyboard\+Input event. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em event} & Function pointer to a Function that takes the Key and the Bool up (true = key was released) \\
+\hline
+\end{DoxyParams}

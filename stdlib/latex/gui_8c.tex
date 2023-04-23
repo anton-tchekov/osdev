@@ -1,0 +1,104 @@
+\hypertarget{gui_8c}{}\doxysection{gui/gui.c File Reference}
+\label{gui_8c}\index{gui/gui.c@{gui/gui.c}}
+{\ttfamily \#include $<$gui.\+h$>$}\newline
+{\ttfamily \#include $<$gfx.\+h$>$}\newline
+{\ttfamily \#include $<$font.\+h$>$}\newline
+{\ttfamily \#include $<$colors.\+h$>$}\newline
+\doxysubsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structELEMENT}{ELEMENT}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{gui_8c_ae1330439857926dc91d1480297af1f14}\label{gui_8c_ae1330439857926dc91d1480297af1f14}} 
+typedef struct \mbox{\hyperlink{structELEMENT}{ELEMENT}} {\bfseries Element}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{gui_8c_aaac06932500cccb55091a8c7ed987e99}\label{gui_8c_aaac06932500cccb55091a8c7ed987e99}} 
+static void {\bfseries gui\+\_\+rect\+\_\+border} (i32 x, i32 y, i32 w, i32 h, \mbox{\hyperlink{gfx_8h_acbbccb6085c654282ef64cdcefc81be5}{Color}} color)
+\item 
+\mbox{\Hypertarget{gui_8c_a8b6a7b29ea0a9e95abea6c63891e5d55}\label{gui_8c_a8b6a7b29ea0a9e95abea6c63891e5d55}} 
+static void {\bfseries gui\+\_\+rect\+\_\+border2} (i32 x, i32 y, i32 w, i32 h, \mbox{\hyperlink{gfx_8h_acbbccb6085c654282ef64cdcefc81be5}{Color}} color)
+\item 
+\mbox{\Hypertarget{gui_8c_aa286ad38202d335362136de06f3641d3}\label{gui_8c_aa286ad38202d335362136de06f3641d3}} 
+static void {\bfseries label\+\_\+render} (\mbox{\hyperlink{structLABEL}{Label}} $\ast$l)
+\item 
+\mbox{\Hypertarget{gui_8c_a39ff9e8cd1575571f8061f9e318276df}\label{gui_8c_a39ff9e8cd1575571f8061f9e318276df}} 
+static void {\bfseries button\+\_\+render} (\mbox{\hyperlink{structBUTTON}{Button}} $\ast$b, bool sel)
+\item 
+\mbox{\Hypertarget{gui_8c_abb79c958484e7eaaba0c54461062515a}\label{gui_8c_abb79c958484e7eaaba0c54461062515a}} 
+static void {\bfseries input\+\_\+render} (\mbox{\hyperlink{structINPUT}{Input}} $\ast$i, bool sel)
+\item 
+\mbox{\Hypertarget{gui_8c_a5dfe0f5178167c57460027a2495eff44}\label{gui_8c_a5dfe0f5178167c57460027a2495eff44}} 
+static void {\bfseries input\+\_\+grow} (\mbox{\hyperlink{structINPUT}{Input}} $\ast$i, i32 n)
+\item 
+\mbox{\Hypertarget{gui_8c_af0efcb555c3b68b4c98f0a5f0f7a88cd}\label{gui_8c_af0efcb555c3b68b4c98f0a5f0f7a88cd}} 
+static void {\bfseries input\+\_\+shrink} (\mbox{\hyperlink{structINPUT}{Input}} $\ast$i, i32 n)
+\item 
+\mbox{\Hypertarget{gui_8c_aaf7567fb06a969e95ec3c59692346741}\label{gui_8c_aaf7567fb06a969e95ec3c59692346741}} 
+static void {\bfseries input\+\_\+insert} (\mbox{\hyperlink{structINPUT}{Input}} $\ast$i, i32 c)
+\item 
+\mbox{\Hypertarget{gui_8c_a1310ca4b52473ce5edd81ed365cc1705}\label{gui_8c_a1310ca4b52473ce5edd81ed365cc1705}} 
+static void {\bfseries input\+\_\+clear} (\mbox{\hyperlink{structINPUT}{Input}} $\ast$i)
+\item 
+\mbox{\Hypertarget{gui_8c_a4c5e21580f228ced521a43867a4d9c47}\label{gui_8c_a4c5e21580f228ced521a43867a4d9c47}} 
+static void {\bfseries input\+\_\+delete} (\mbox{\hyperlink{structINPUT}{Input}} $\ast$i)
+\item 
+\mbox{\Hypertarget{gui_8c_ab345150d61a6f69c31be740ddf1e96aa}\label{gui_8c_ab345150d61a6f69c31be740ddf1e96aa}} 
+static void {\bfseries input\+\_\+left} (\mbox{\hyperlink{structINPUT}{Input}} $\ast$i)
+\item 
+\mbox{\Hypertarget{gui_8c_a639af81dfc0a521835f5ab17e813fe2e}\label{gui_8c_a639af81dfc0a521835f5ab17e813fe2e}} 
+static void {\bfseries input\+\_\+right} (\mbox{\hyperlink{structINPUT}{Input}} $\ast$i)
+\item 
+\mbox{\Hypertarget{gui_8c_abb34f9b89bcb157e29873bce14667696}\label{gui_8c_abb34f9b89bcb157e29873bce14667696}} 
+static void {\bfseries input\+\_\+event\+\_\+key} (\mbox{\hyperlink{structINPUT}{Input}} $\ast$i, i32 c)
+\item 
+\mbox{\Hypertarget{gui_8c_a6b38ecad6795b6f65ba8c8df105a9223}\label{gui_8c_a6b38ecad6795b6f65ba8c8df105a9223}} 
+static void {\bfseries element\+\_\+render\+\_\+sel} (\mbox{\hyperlink{structELEMENT}{Element}} $\ast$e, u32 sel)
+\item 
+\mbox{\Hypertarget{gui_8c_abd3451ceccf17d065cd61889831cc99a}\label{gui_8c_abd3451ceccf17d065cd61889831cc99a}} 
+static void {\bfseries element\+\_\+render} (\mbox{\hyperlink{structELEMENT}{Element}} $\ast$e)
+\item 
+\mbox{\Hypertarget{gui_8c_a98f406c5585d125a3729c39bf7a245dc}\label{gui_8c_a98f406c5585d125a3729c39bf7a245dc}} 
+static void {\bfseries element\+\_\+first} (void)
+\item 
+\mbox{\Hypertarget{gui_8c_aa2ea7b20f969b7232c7f7b8cb04e44b7}\label{gui_8c_aa2ea7b20f969b7232c7f7b8cb04e44b7}} 
+static void {\bfseries element\+\_\+next} (void)
+\item 
+\mbox{\Hypertarget{gui_8c_a6b1ac6c72d1a01624d9859e8d2860c31}\label{gui_8c_a6b1ac6c72d1a01624d9859e8d2860c31}} 
+static void {\bfseries element\+\_\+prev} (void)
+\item 
+\mbox{\Hypertarget{gui_8c_a645908f6ca62492cb3b1ec22f0c5186d}\label{gui_8c_a645908f6ca62492cb3b1ec22f0c5186d}} 
+void {\bfseries window\+\_\+render} (\mbox{\hyperlink{structWindow}{Window}} $\ast$window)
+\item 
+\mbox{\Hypertarget{gui_8c_adf0715beb16a0945a1bae624873df977}\label{gui_8c_adf0715beb16a0945a1bae624873df977}} 
+void {\bfseries window\+\_\+open} (\mbox{\hyperlink{structWindow}{Window}} $\ast$window)
+\item 
+\mbox{\Hypertarget{gui_8c_a80d1c638d37afde3f7cd033b6bbc138c}\label{gui_8c_a80d1c638d37afde3f7cd033b6bbc138c}} 
+void {\bfseries window\+\_\+event\+\_\+button} (\mbox{\hyperlink{keyboard_8h_a48752551c4279f8cddf3585f8272092a}{Key}} key, bool up)
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{gui_8c_ad5d0b2500a195799bc05a5ebc47626f8}\label{gui_8c_ad5d0b2500a195799bc05a5ebc47626f8}} 
+static \mbox{\hyperlink{structWindow}{Window}} $\ast$ {\bfseries \+\_\+current\+\_\+window}
+\item 
+\mbox{\Hypertarget{gui_8c_a9222643ee3a0c0dd9f906b6878441f56}\label{gui_8c_a9222643ee3a0c0dd9f906b6878441f56}} 
+static i32 {\bfseries \+\_\+current\+\_\+element}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyAuthor}{Author}
+Tim Gabrikowski, Anton Tchekov 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+0.\+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+23.\+04.\+2023 
+\end{DoxyDate}

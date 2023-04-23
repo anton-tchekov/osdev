@@ -1,0 +1,103 @@
+\hypertarget{gui_8h}{}\doxysection{gui/gui.h File Reference}
+\label{gui_8h}\index{gui/gui.h@{gui/gui.h}}
+
+
+TODO.  
+
+
+{\ttfamily \#include $<$types.\+h$>$}\newline
+{\ttfamily \#include $<$keyboard.\+h$>$}\newline
+\doxysubsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structLABEL}{LABEL}}
+\item 
+struct \mbox{\hyperlink{structBUTTON}{BUTTON}}
+\item 
+struct \mbox{\hyperlink{structINPUT}{INPUT}}
+\item 
+struct \mbox{\hyperlink{structWindow}{Window}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{gui_8h_ae059f8a044c9ccdb32882e5ebe987d93}{BUTTON}}(\+\_\+X,  \+\_\+Y,  \+\_\+W,  \+\_\+H,  \+\_\+\+TEXT,  \+\_\+\+CLICK)
+\end{DoxyCompactItemize}
+\doxysubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{gui_8h_ac9e78ebd8cdfa6bc028815f2cf1b9a68}\label{gui_8h_ac9e78ebd8cdfa6bc028815f2cf1b9a68}} 
+typedef struct \mbox{\hyperlink{structLABEL}{LABEL}} {\bfseries Label}
+\item 
+\mbox{\Hypertarget{gui_8h_a4b128871fdd1215b017593825003ae7c}\label{gui_8h_a4b128871fdd1215b017593825003ae7c}} 
+typedef struct \mbox{\hyperlink{structBUTTON}{BUTTON}} {\bfseries Button}
+\item 
+\mbox{\Hypertarget{gui_8h_ab94159f184ffb7ec5ab6db73f8988a81}\label{gui_8h_ab94159f184ffb7ec5ab6db73f8988a81}} 
+typedef struct \mbox{\hyperlink{structINPUT}{INPUT}} {\bfseries Input}
+\end{DoxyCompactItemize}
+\doxysubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{gui_8h_a16b11be27a8e9362dd122c4d879e01ae}\label{gui_8h_a16b11be27a8e9362dd122c4d879e01ae}} 
+enum {\bfseries Element\+Type} \{ {\bfseries ELEMENT\+\_\+\+TYPE\+\_\+\+BUTTON}
+, {\bfseries ELEMENT\+\_\+\+TYPE\+\_\+\+INPUT}
+, {\bfseries ELEMENT\+\_\+\+TYPE\+\_\+\+LABEL}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{gui_8h_adf0715beb16a0945a1bae624873df977}\label{gui_8h_adf0715beb16a0945a1bae624873df977}} 
+void {\bfseries window\+\_\+open} (\mbox{\hyperlink{structWindow}{Window}} $\ast$window)
+\item 
+\mbox{\Hypertarget{gui_8h_a645908f6ca62492cb3b1ec22f0c5186d}\label{gui_8h_a645908f6ca62492cb3b1ec22f0c5186d}} 
+void {\bfseries window\+\_\+render} (\mbox{\hyperlink{structWindow}{Window}} $\ast$window)
+\item 
+\mbox{\Hypertarget{gui_8h_a243bf59631f83343b28624d7b3dbf6ce}\label{gui_8h_a243bf59631f83343b28624d7b3dbf6ce}} 
+void {\bfseries window\+\_\+event\+\_\+key} (\mbox{\hyperlink{keyboard_8h_a48752551c4279f8cddf3585f8272092a}{Key}} key)
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{gui_8h_a332f5c997f3c80dcaf18279d2d694c03}\label{gui_8h_a332f5c997f3c80dcaf18279d2d694c03}} 
+static \mbox{\hyperlink{structWindow}{Window}} $\ast$ {\bfseries current\+\_\+window}
+\item 
+\mbox{\Hypertarget{gui_8h_a0441dbe7aabb82be1d29c28439f16d78}\label{gui_8h_a0441dbe7aabb82be1d29c28439f16d78}} 
+static i32 {\bfseries current\+\_\+element}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+TODO. 
+
+\begin{DoxyAuthor}{Author}
+Tim Gabrikowski, Anton Tchekov 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+0.\+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+23.\+04.\+2023 
+\end{DoxyDate}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{gui_8h_ae059f8a044c9ccdb32882e5ebe987d93}\label{gui_8h_ae059f8a044c9ccdb32882e5ebe987d93}} 
+\index{gui.h@{gui.h}!BUTTON@{BUTTON}}
+\index{BUTTON@{BUTTON}!gui.h@{gui.h}}
+\doxysubsubsection{\texorpdfstring{BUTTON}{BUTTON}}
+{\footnotesize\ttfamily \#define \mbox{\hyperlink{structBUTTON}{BUTTON}}(\begin{DoxyParamCaption}\item[{}]{\+\_\+X,  }\item[{}]{\+\_\+Y,  }\item[{}]{\+\_\+W,  }\item[{}]{\+\_\+H,  }\item[{}]{\+\_\+\+TEXT,  }\item[{}]{\+\_\+\+CLICK }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \ \ \{\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ .Type\ =\ ELEMENT\_TYPE\_BUTTON,\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ .X\ =\ \_X,\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ .Y\ =\ \_Y,\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ .W\ =\ \_W,\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ .H\ =\ \_H,\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ .Text\ =\ \_TEXT,\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ .Click\ =\ \_CLICK\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \}}
+
+\end{DoxyCode}

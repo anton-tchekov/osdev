@@ -33,7 +33,7 @@ static inline u32 sext(u32 bits, u32 value)
 static void registers_dump(Emulator *emu)
 {
 	printf("PC  0x%08X %10d\n", emu->PC, emu->PC);
-	for(int i = 0; i < 32; ++i)
+	for(i32 i = 0; i < 32; ++i)
 	{
 		printf("R%d%s 0x%08X %10d\n", i, i < 10 ? " " : "",  emu->Registers[i], emu->Registers[i]);
 	}

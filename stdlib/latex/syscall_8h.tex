@@ -1,0 +1,94 @@
+\hypertarget{syscall_8h}{}\doxysection{syscall/syscall.h File Reference}
+\label{syscall_8h}\index{syscall/syscall.h@{syscall/syscall.h}}
+
+
+TODO.  
+
+
+{\ttfamily \#include $<$types.\+h$>$}\newline
+\doxysubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{syscall_8h_a66058383db95f52e2bd416be6a741d5c}{Syscall\+ID}} \{ \newline
+{\bfseries SYSCALL\+\_\+\+STRCPY}
+, {\bfseries SYSCALL\+\_\+\+STRNCPY}
+, {\bfseries SYSCALL\+\_\+\+STRLEN}
+, {\bfseries SYSCALL\+\_\+\+STRCMP}
+, \newline
+{\bfseries SYSCALL\+\_\+\+STRNCMP}
+, {\bfseries SYSCALL\+\_\+\+MEMCPY}
+, {\bfseries SYSCALL\+\_\+\+MEMMOVE}
+, {\bfseries SYSCALL\+\_\+\+MEMCMP}
+, \newline
+{\bfseries SYSCALL\+\_\+\+MEMCHR}
+, {\bfseries SYSCALL\+\_\+\+MEMSET}
+, {\bfseries SYSCALL\+\_\+\+RAND}
+, {\bfseries SYSCALL\+\_\+\+GFX\+\_\+\+RECT}
+, \newline
+{\bfseries SYSCALL\+\_\+\+GFX\+\_\+\+IMAGE\+\_\+\+RGBA}
+, {\bfseries SYSCALL\+\_\+\+GFX\+\_\+\+IMAGE\+\_\+\+RGB}
+, {\bfseries SYSCALL\+\_\+\+GFX\+\_\+\+IMAGE\+\_\+\+RGB565}
+, {\bfseries SYSCALL\+\_\+\+GFX\+\_\+\+IMAGE\+\_\+\+GRAYSCALE}
+, \newline
+{\bfseries SYSCALL\+\_\+\+GFX\+\_\+\+IMAGE\+\_\+1\+BIT}
+, {\bfseries SYSCALL\+\_\+\+FILE\+\_\+\+OPEN}
+, {\bfseries SYSCALL\+\_\+\+FILE\+\_\+\+READ}
+, {\bfseries SYSCALL\+\_\+\+FILE\+\_\+\+WRITE}
+, \newline
+{\bfseries SYSCALL\+\_\+\+FILE\+\_\+\+CLOSE}
+, {\bfseries SYSCALL\+\_\+\+FILE\+\_\+\+SIZE}
+, {\bfseries SYSCALL\+\_\+\+KEYBOARD\+\_\+\+IS\+\_\+\+KEY\+\_\+\+PRESSED}
+, {\bfseries SYSCALL\+\_\+\+KEYBOARD\+\_\+\+REGISTER\+\_\+\+EVENT}
+, \newline
+{\bfseries SYSCALL\+\_\+\+PRINT}
+, {\bfseries SYSCALL\+\_\+\+EXIT}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{syscall_8h_a9db3656205f1ad8237f0126197ff7c94}\label{syscall_8h_a9db3656205f1ad8237f0126197ff7c94}} 
+static u32 {\bfseries syscall0} (\mbox{\hyperlink{syscall_8h_a66058383db95f52e2bd416be6a741d5c}{Syscall\+ID}} id)
+\item 
+\mbox{\Hypertarget{syscall_8h_a9126e51a6d76fe9ee5d47a61d1622fcc}\label{syscall_8h_a9126e51a6d76fe9ee5d47a61d1622fcc}} 
+static u32 {\bfseries syscall1} (\mbox{\hyperlink{syscall_8h_a66058383db95f52e2bd416be6a741d5c}{Syscall\+ID}} id, u32 a0)
+\item 
+\mbox{\Hypertarget{syscall_8h_a180e92e50e5ffdb1bf2449b1c214bde9}\label{syscall_8h_a180e92e50e5ffdb1bf2449b1c214bde9}} 
+static u32 {\bfseries syscall2} (\mbox{\hyperlink{syscall_8h_a66058383db95f52e2bd416be6a741d5c}{Syscall\+ID}} id, u32 a0, u32 a1)
+\item 
+\mbox{\Hypertarget{syscall_8h_a3ea3b35ba808fa276cda91b7339cda7d}\label{syscall_8h_a3ea3b35ba808fa276cda91b7339cda7d}} 
+static u32 {\bfseries syscall3} (\mbox{\hyperlink{syscall_8h_a66058383db95f52e2bd416be6a741d5c}{Syscall\+ID}} id, u32 a0, u32 a1, u32 a2)
+\item 
+\mbox{\Hypertarget{syscall_8h_a7e2d5fec156bd737480ca546dc0302f3}\label{syscall_8h_a7e2d5fec156bd737480ca546dc0302f3}} 
+static u32 {\bfseries syscall4} (\mbox{\hyperlink{syscall_8h_a66058383db95f52e2bd416be6a741d5c}{Syscall\+ID}} id, u32 a0, u32 a1, u32 a2, u32 a3)
+\item 
+\mbox{\Hypertarget{syscall_8h_afb0dc70aa5acfde8af42da5bb8a5ccd2}\label{syscall_8h_afb0dc70aa5acfde8af42da5bb8a5ccd2}} 
+static u32 {\bfseries syscall5} (\mbox{\hyperlink{syscall_8h_a66058383db95f52e2bd416be6a741d5c}{Syscall\+ID}} id, u32 a0, u32 a1, u32 a2, u32 a3, u32 a4)
+\item 
+\mbox{\Hypertarget{syscall_8h_a41ba49182376aa487136e0f5c56ac93e}\label{syscall_8h_a41ba49182376aa487136e0f5c56ac93e}} 
+static u32 {\bfseries syscall6} (\mbox{\hyperlink{syscall_8h_a66058383db95f52e2bd416be6a741d5c}{Syscall\+ID}} id, u32 a0, u32 a1, u32 a2, u32 a3, u32 a4, u32 a5)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+TODO. 
+
+\begin{DoxyAuthor}{Author}
+Tim Gabrikowski, Anton Tchekov 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+0.\+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+23.\+04.\+2023 
+\end{DoxyDate}
+
+
+\doxysubsection{Enumeration Type Documentation}
+\mbox{\Hypertarget{syscall_8h_a66058383db95f52e2bd416be6a741d5c}\label{syscall_8h_a66058383db95f52e2bd416be6a741d5c}} 
+\index{syscall.h@{syscall.h}!SyscallID@{SyscallID}}
+\index{SyscallID@{SyscallID}!syscall.h@{syscall.h}}
+\doxysubsubsection{\texorpdfstring{SyscallID}{SyscallID}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{syscall_8h_a66058383db95f52e2bd416be6a741d5c}{Syscall\+ID}}}
+
+List of all Syscalls 

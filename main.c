@@ -8,7 +8,7 @@
 
 int main(int argc, char **argv)
 {
-	int i;
+	i32 i;
 	size_t len, offset;
 	FILE *fp;
 	Emulator emu;

@@ -1,0 +1,160 @@
+\hypertarget{fs_8h}{}\doxysection{fs/fs.h File Reference}
+\label{fs_8h}\index{fs/fs.h@{fs/fs.h}}
+
+
+TODO.  
+
+
+{\ttfamily \#include $<$status.\+h$>$}\newline
+{\ttfamily \#include $<$types.\+h$>$}\newline
+{\ttfamily \#include $<$syscall.\+h$>$}\newline
+\doxysubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef u32 \mbox{\hyperlink{fs_8h_a3d8cbaa4e32fca2d0d2dd6528348ef30}{File}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{status_8h_a67a0db04d321a74b7e7fcfd3f1a3f70b}{Status}} \mbox{\hyperlink{fs_8h_a82571035dc9bb531419ccc3a3493bd85}{file\+\_\+open}} (const char $\ast$name, \mbox{\hyperlink{fs_8h_a3d8cbaa4e32fca2d0d2dd6528348ef30}{File}} $\ast$file)
+\begin{DoxyCompactList}\small\item\em Open a file to get a file handle. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{status_8h_a67a0db04d321a74b7e7fcfd3f1a3f70b}{Status}} \mbox{\hyperlink{fs_8h_a5d3dcfe77aa04c66f6d9f0c8f02cdf87}{file\+\_\+read}} (\mbox{\hyperlink{fs_8h_a3d8cbaa4e32fca2d0d2dd6528348ef30}{File}} file, u32 start, u32 len, void $\ast$buf)
+\begin{DoxyCompactList}\small\item\em Read Data from File. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{status_8h_a67a0db04d321a74b7e7fcfd3f1a3f70b}{Status}} \mbox{\hyperlink{fs_8h_a5aa32f19ddd3d659cbd6868bcc6da596}{file\+\_\+write}} (\mbox{\hyperlink{fs_8h_a3d8cbaa4e32fca2d0d2dd6528348ef30}{File}} file, u32 start, u32 len, const void $\ast$buf)
+\begin{DoxyCompactList}\small\item\em Write data into file. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{status_8h_a67a0db04d321a74b7e7fcfd3f1a3f70b}{Status}} \mbox{\hyperlink{fs_8h_a6d1f304bad498893aad5936e2531d1ac}{file\+\_\+close}} (\mbox{\hyperlink{fs_8h_a3d8cbaa4e32fca2d0d2dd6528348ef30}{File}} file)
+\begin{DoxyCompactList}\small\item\em Close an open file. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{status_8h_a67a0db04d321a74b7e7fcfd3f1a3f70b}{Status}} \mbox{\hyperlink{fs_8h_a8ad956250fdd6ebb0a64e8b972abf4be}{file\+\_\+size}} (\mbox{\hyperlink{fs_8h_a3d8cbaa4e32fca2d0d2dd6528348ef30}{File}} file, u32 $\ast$size)
+\begin{DoxyCompactList}\small\item\em Gets the size of a file in bytes. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+TODO. 
+
+\begin{DoxyAuthor}{Author}
+Tim Gabrikowski, Anton Tchekov 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+0.\+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+23.\+04.\+2023 
+\end{DoxyDate}
+
+
+\doxysubsection{Typedef Documentation}
+\mbox{\Hypertarget{fs_8h_a3d8cbaa4e32fca2d0d2dd6528348ef30}\label{fs_8h_a3d8cbaa4e32fca2d0d2dd6528348ef30}} 
+\index{fs.h@{fs.h}!File@{File}}
+\index{File@{File}!fs.h@{fs.h}}
+\doxysubsubsection{\texorpdfstring{File}{File}}
+{\footnotesize\ttfamily typedef u32 \mbox{\hyperlink{fs_8h_a3d8cbaa4e32fca2d0d2dd6528348ef30}{File}}}
+
+File handle 
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{fs_8h_a6d1f304bad498893aad5936e2531d1ac}\label{fs_8h_a6d1f304bad498893aad5936e2531d1ac}} 
+\index{fs.h@{fs.h}!file\_close@{file\_close}}
+\index{file\_close@{file\_close}!fs.h@{fs.h}}
+\doxysubsubsection{\texorpdfstring{file\_close()}{file\_close()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{status_8h_a67a0db04d321a74b7e7fcfd3f1a3f70b}{Status}} file\+\_\+close (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{fs_8h_a3d8cbaa4e32fca2d0d2dd6528348ef30}{File}}}]{file }\end{DoxyParamCaption})}
+
+
+
+Close an open file. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em file} & File handle \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Status 
+\end{DoxyReturn}
+\mbox{\Hypertarget{fs_8h_a82571035dc9bb531419ccc3a3493bd85}\label{fs_8h_a82571035dc9bb531419ccc3a3493bd85}} 
+\index{fs.h@{fs.h}!file\_open@{file\_open}}
+\index{file\_open@{file\_open}!fs.h@{fs.h}}
+\doxysubsubsection{\texorpdfstring{file\_open()}{file\_open()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{status_8h_a67a0db04d321a74b7e7fcfd3f1a3f70b}{Status}} file\+\_\+open (\begin{DoxyParamCaption}\item[{const char $\ast$}]{name,  }\item[{\mbox{\hyperlink{fs_8h_a3d8cbaa4e32fca2d0d2dd6528348ef30}{File}} $\ast$}]{file }\end{DoxyParamCaption})}
+
+
+
+Open a file to get a file handle. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em name} & File name \\
+\hline
+{\em file} & Output parameter file handle \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Status 
+\end{DoxyReturn}
+\mbox{\Hypertarget{fs_8h_a5d3dcfe77aa04c66f6d9f0c8f02cdf87}\label{fs_8h_a5d3dcfe77aa04c66f6d9f0c8f02cdf87}} 
+\index{fs.h@{fs.h}!file\_read@{file\_read}}
+\index{file\_read@{file\_read}!fs.h@{fs.h}}
+\doxysubsubsection{\texorpdfstring{file\_read()}{file\_read()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{status_8h_a67a0db04d321a74b7e7fcfd3f1a3f70b}{Status}} file\+\_\+read (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{fs_8h_a3d8cbaa4e32fca2d0d2dd6528348ef30}{File}}}]{file,  }\item[{u32}]{start,  }\item[{u32}]{len,  }\item[{void $\ast$}]{buf }\end{DoxyParamCaption})}
+
+
+
+Read Data from File. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em file} & File handle \\
+\hline
+{\em start} & Index of first Byte \\
+\hline
+{\em len} & Number of bytes to read \\
+\hline
+{\em buf} & Pointer to buffer for read data \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Status 
+\end{DoxyReturn}
+\mbox{\Hypertarget{fs_8h_a8ad956250fdd6ebb0a64e8b972abf4be}\label{fs_8h_a8ad956250fdd6ebb0a64e8b972abf4be}} 
+\index{fs.h@{fs.h}!file\_size@{file\_size}}
+\index{file\_size@{file\_size}!fs.h@{fs.h}}
+\doxysubsubsection{\texorpdfstring{file\_size()}{file\_size()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{status_8h_a67a0db04d321a74b7e7fcfd3f1a3f70b}{Status}} file\+\_\+size (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{fs_8h_a3d8cbaa4e32fca2d0d2dd6528348ef30}{File}}}]{file,  }\item[{u32 $\ast$}]{size }\end{DoxyParamCaption})}
+
+
+
+Gets the size of a file in bytes. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em file} & File handle \\
+\hline
+{\em size} & Output parameter size \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Status 
+\end{DoxyReturn}
+\mbox{\Hypertarget{fs_8h_a5aa32f19ddd3d659cbd6868bcc6da596}\label{fs_8h_a5aa32f19ddd3d659cbd6868bcc6da596}} 
+\index{fs.h@{fs.h}!file\_write@{file\_write}}
+\index{file\_write@{file\_write}!fs.h@{fs.h}}
+\doxysubsubsection{\texorpdfstring{file\_write()}{file\_write()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{status_8h_a67a0db04d321a74b7e7fcfd3f1a3f70b}{Status}} file\+\_\+write (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{fs_8h_a3d8cbaa4e32fca2d0d2dd6528348ef30}{File}}}]{file,  }\item[{u32}]{start,  }\item[{u32}]{len,  }\item[{const void $\ast$}]{buf }\end{DoxyParamCaption})}
+
+
+
+Write data into file. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em file} & File handle \\
+\hline
+{\em start} & Index of first byte to write \\
+\hline
+{\em len} & Number of bytes to write \\
+\hline
+{\em buf} & Pointer to buffer with data to write \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Status 
+\end{DoxyReturn}
