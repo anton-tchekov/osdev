@@ -1,3 +1,11 @@
+/**
+ * @file    string.h
+ * @author  Tim Gabrikowski, Anton Tchekov
+ * @version 0.1
+ * @date    23.04.2023
+ * @brief   TODO
+ */
+
 #ifndef __STRING_H__
 #define __STRING_H__
 

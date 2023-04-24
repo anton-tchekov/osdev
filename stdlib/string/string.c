@@ -1,3 +1,10 @@
+/**
+ * @file    string.c
+ * @author  Tim Gabrikowski, Anton Tchekov
+ * @version 0.1
+ * @date    23.04.2023
+ */
+
 #include <string.h>
 #include <syscall.h>
 
@@ -24,6 +31,11 @@ i32 strcmp(const char *str1, const char *str2)
 i32 strncmp(const char *str1, const char *str2, u32 num)
 {
 	return syscall3(SYSCALL_STRNCMP, (u32)str1, (u32)str2, num);
+}
+
+const char *strchr(const char *str, i32 c)
+{
+	return (const char *)syscall2(SYSCALL_STRCHR, (u32)str, c);
 }
 
 void *memcpy(void *dest, const void *src, u32 count)

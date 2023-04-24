@@ -2,18 +2,19 @@
 \label{font_8c}\index{font/font.c@{font/font.c}}
 {\ttfamily \#include $<$font.\+h$>$}\newline
 {\ttfamily \#include $<$utf8.\+h$>$}\newline
+{\ttfamily \#include $<$algo.\+h$>$}\newline
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-void \mbox{\hyperlink{font_8c_a4d54ac6e1fdd62f2ac1c26dfd9a904b8}{font\+\_\+char}} (i32 x, i32 y, i32 c, \mbox{\hyperlink{structFont}{Font}} $\ast$font, \mbox{\hyperlink{gfx_8h_acbbccb6085c654282ef64cdcefc81be5}{Color}} fg, \mbox{\hyperlink{gfx_8h_acbbccb6085c654282ef64cdcefc81be5}{Color}} bg)
+\mbox{\Hypertarget{font_8c_a5f17cd4d228375feaca3b7ab722f9f40}\label{font_8c_a5f17cd4d228375feaca3b7ab722f9f40}} 
+static i32 {\bfseries \+\_\+find\+\_\+char} (const void $\ast$key, const void $\ast$elem)
+\item 
+\mbox{\Hypertarget{font_8c_a73c032db51ce47d05a3f51b4f4aec3ee}\label{font_8c_a73c032db51ce47d05a3f51b4f4aec3ee}} 
+static \mbox{\hyperlink{structFontChar}{Font\+Char}} $\ast$ {\bfseries \+\_\+font\+\_\+char} (i32 c, \mbox{\hyperlink{font_8h_a0f83a364f5a4aaa67ffd241f9d7b5552}{Font}} $\ast$font)
+\item 
+i32 \mbox{\hyperlink{font_8c_a0fb43ab4a095679d631a2c0652ee3f08}{font\+\_\+string\+\_\+len}} (i32 x, i32 y, const char $\ast$s, u32 len, \mbox{\hyperlink{font_8h_a0f83a364f5a4aaa67ffd241f9d7b5552}{Font}} $\ast$font, \mbox{\hyperlink{gfx_8h_acbbccb6085c654282ef64cdcefc81be5}{Color}} fg, \mbox{\hyperlink{gfx_8h_acbbccb6085c654282ef64cdcefc81be5}{Color}} bg)
 \begin{DoxyCompactList}\small\item\em TODO. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{font_8c_ad3e989113daf1cdc1fd8194f10f6a35a}{font\+\_\+string}} (i32 x, i32 y, const char $\ast$str, \mbox{\hyperlink{structFont}{Font}} $\ast$font, \mbox{\hyperlink{gfx_8h_acbbccb6085c654282ef64cdcefc81be5}{Color}} fg, \mbox{\hyperlink{gfx_8h_acbbccb6085c654282ef64cdcefc81be5}{Color}} bg)
-\begin{DoxyCompactList}\small\item\em TODO. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{font_8c_ad0c31b9af19499f96a574a7ba355e861}{font\+\_\+string\+\_\+len}} (i32 x, i32 y, const char $\ast$str, i32 len, \mbox{\hyperlink{structFont}{Font}} $\ast$font, \mbox{\hyperlink{gfx_8h_acbbccb6085c654282ef64cdcefc81be5}{Color}} fg, \mbox{\hyperlink{gfx_8h_acbbccb6085c654282ef64cdcefc81be5}{Color}} bg)
-\begin{DoxyCompactList}\small\item\em TODO. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{font_8c_ade446cc479a1af21521b75badcc3f036}{font\+\_\+string\+\_\+width}} (const char $\ast$str, \mbox{\hyperlink{structFont}{Font}} $\ast$font)
-\begin{DoxyCompactList}\small\item\em TODO. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{font_8c_a186fd233a57b9611e4c324726dcb71e4}{font\+\_\+string\+\_\+width\+\_\+len}} (const char $\ast$str, i32 len, \mbox{\hyperlink{structFont}{Font}} $\ast$font)
+i32 \mbox{\hyperlink{font_8c_aa965d55e47b225d39bcf70c39ece24c4}{font\+\_\+string\+\_\+width\+\_\+len}} (const char $\ast$s, u32 len, \mbox{\hyperlink{font_8h_a0f83a364f5a4aaa67ffd241f9d7b5552}{Font}} $\ast$font)
 \begin{DoxyCompactList}\small\item\em TODO. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
@@ -30,61 +31,11 @@ Tim Gabrikowski, Anton Tchekov
 
 
 \doxysubsection{Function Documentation}
-\mbox{\Hypertarget{font_8c_a4d54ac6e1fdd62f2ac1c26dfd9a904b8}\label{font_8c_a4d54ac6e1fdd62f2ac1c26dfd9a904b8}} 
-\index{font.c@{font.c}!font\_char@{font\_char}}
-\index{font\_char@{font\_char}!font.c@{font.c}}
-\doxysubsubsection{\texorpdfstring{font\_char()}{font\_char()}}
-{\footnotesize\ttfamily void font\+\_\+char (\begin{DoxyParamCaption}\item[{i32}]{x,  }\item[{i32}]{y,  }\item[{i32}]{c,  }\item[{\mbox{\hyperlink{structFont}{Font}} $\ast$}]{font,  }\item[{\mbox{\hyperlink{gfx_8h_acbbccb6085c654282ef64cdcefc81be5}{Color}}}]{fg,  }\item[{\mbox{\hyperlink{gfx_8h_acbbccb6085c654282ef64cdcefc81be5}{Color}}}]{bg }\end{DoxyParamCaption})}
-
-
-
-TODO. 
-
-
-\begin{DoxyParams}{Parameters}
-{\em x} & TODO \\
-\hline
-{\em y} & TODO \\
-\hline
-{\em c} & TODO \\
-\hline
-{\em font} & TODO \\
-\hline
-{\em fg} & TODO \\
-\hline
-{\em bg} & TODO \\
-\hline
-\end{DoxyParams}
-\mbox{\Hypertarget{font_8c_ad3e989113daf1cdc1fd8194f10f6a35a}\label{font_8c_ad3e989113daf1cdc1fd8194f10f6a35a}} 
-\index{font.c@{font.c}!font\_string@{font\_string}}
-\index{font\_string@{font\_string}!font.c@{font.c}}
-\doxysubsubsection{\texorpdfstring{font\_string()}{font\_string()}}
-{\footnotesize\ttfamily void font\+\_\+string (\begin{DoxyParamCaption}\item[{i32}]{x,  }\item[{i32}]{y,  }\item[{const char $\ast$}]{str,  }\item[{\mbox{\hyperlink{structFont}{Font}} $\ast$}]{font,  }\item[{\mbox{\hyperlink{gfx_8h_acbbccb6085c654282ef64cdcefc81be5}{Color}}}]{fg,  }\item[{\mbox{\hyperlink{gfx_8h_acbbccb6085c654282ef64cdcefc81be5}{Color}}}]{bg }\end{DoxyParamCaption})}
-
-
-
-TODO. 
-
-
-\begin{DoxyParams}{Parameters}
-{\em x} & TODO \\
-\hline
-{\em y} & TODO \\
-\hline
-{\em str} & TODO \\
-\hline
-{\em font} & TODO \\
-\hline
-{\em fg} & TODO \\
-\hline
-{\em bg} & TODO \\
-\hline
-\end{DoxyParams}
-\mbox{\Hypertarget{font_8c_ad0c31b9af19499f96a574a7ba355e861}\label{font_8c_ad0c31b9af19499f96a574a7ba355e861}} 
+\mbox{\Hypertarget{font_8c_a0fb43ab4a095679d631a2c0652ee3f08}\label{font_8c_a0fb43ab4a095679d631a2c0652ee3f08}} 
 \index{font.c@{font.c}!font\_string\_len@{font\_string\_len}}
 \index{font\_string\_len@{font\_string\_len}!font.c@{font.c}}
 \doxysubsubsection{\texorpdfstring{font\_string\_len()}{font\_string\_len()}}
-{\footnotesize\ttfamily void font\+\_\+string\+\_\+len (\begin{DoxyParamCaption}\item[{i32}]{x,  }\item[{i32}]{y,  }\item[{const char $\ast$}]{str,  }\item[{i32}]{len,  }\item[{\mbox{\hyperlink{structFont}{Font}} $\ast$}]{font,  }\item[{\mbox{\hyperlink{gfx_8h_acbbccb6085c654282ef64cdcefc81be5}{Color}}}]{fg,  }\item[{\mbox{\hyperlink{gfx_8h_acbbccb6085c654282ef64cdcefc81be5}{Color}}}]{bg }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily i32 font\+\_\+string\+\_\+len (\begin{DoxyParamCaption}\item[{i32}]{x,  }\item[{i32}]{y,  }\item[{const char $\ast$}]{s,  }\item[{u32}]{len,  }\item[{\mbox{\hyperlink{font_8h_a0f83a364f5a4aaa67ffd241f9d7b5552}{Font}} $\ast$}]{font,  }\item[{\mbox{\hyperlink{gfx_8h_acbbccb6085c654282ef64cdcefc81be5}{Color}}}]{fg,  }\item[{\mbox{\hyperlink{gfx_8h_acbbccb6085c654282ef64cdcefc81be5}{Color}}}]{bg }\end{DoxyParamCaption})}
 
 
 
@@ -96,7 +47,7 @@ TODO.
 \hline
 {\em y} & TODO \\
 \hline
-{\em str} & TODO \\
+{\em s} & TODO \\
 \hline
 {\em len} & TODO \\
 \hline
@@ -107,28 +58,11 @@ TODO.
 {\em bg} & TODO \\
 \hline
 \end{DoxyParams}
-\mbox{\Hypertarget{font_8c_ade446cc479a1af21521b75badcc3f036}\label{font_8c_ade446cc479a1af21521b75badcc3f036}} 
-\index{font.c@{font.c}!font\_string\_width@{font\_string\_width}}
-\index{font\_string\_width@{font\_string\_width}!font.c@{font.c}}
-\doxysubsubsection{\texorpdfstring{font\_string\_width()}{font\_string\_width()}}
-{\footnotesize\ttfamily void font\+\_\+string\+\_\+width (\begin{DoxyParamCaption}\item[{const char $\ast$}]{str,  }\item[{\mbox{\hyperlink{structFont}{Font}} $\ast$}]{font }\end{DoxyParamCaption})}
-
-
-
-TODO. 
-
-
-\begin{DoxyParams}{Parameters}
-{\em str} & TODO \\
-\hline
-{\em font} & TODO \\
-\hline
-\end{DoxyParams}
-\mbox{\Hypertarget{font_8c_a186fd233a57b9611e4c324726dcb71e4}\label{font_8c_a186fd233a57b9611e4c324726dcb71e4}} 
+\mbox{\Hypertarget{font_8c_aa965d55e47b225d39bcf70c39ece24c4}\label{font_8c_aa965d55e47b225d39bcf70c39ece24c4}} 
 \index{font.c@{font.c}!font\_string\_width\_len@{font\_string\_width\_len}}
 \index{font\_string\_width\_len@{font\_string\_width\_len}!font.c@{font.c}}
 \doxysubsubsection{\texorpdfstring{font\_string\_width\_len()}{font\_string\_width\_len()}}
-{\footnotesize\ttfamily void font\+\_\+string\+\_\+width\+\_\+len (\begin{DoxyParamCaption}\item[{const char $\ast$}]{str,  }\item[{i32}]{len,  }\item[{\mbox{\hyperlink{structFont}{Font}} $\ast$}]{font }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily i32 font\+\_\+string\+\_\+width\+\_\+len (\begin{DoxyParamCaption}\item[{const char $\ast$}]{s,  }\item[{u32}]{len,  }\item[{\mbox{\hyperlink{font_8h_a0f83a364f5a4aaa67ffd241f9d7b5552}{Font}} $\ast$}]{font }\end{DoxyParamCaption})}
 
 
 
