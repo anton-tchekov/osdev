@@ -326,7 +326,7 @@ void window_event_button(Key key, bool up)
 		}
 		else if(type == ELEMENT_TYPE_INPUT)
 		{
-			Input *input = ce;
+			Input *input = (Input *)ce;
 			if(key == KEY_LEFT)
 			{
 				input_left(input);

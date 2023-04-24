@@ -49,13 +49,34 @@ typedef struct
 	void (*OnKey)(u32, u32);
 } Window;
 
-#define BUTTON(_X, _Y, _W, _H, _TEXT, _CLICK) \
+#define LABEL_CREATE(_X, _Y, _TEXT) \
+	{ \
+		.Type = ELEMENT_TYPE_LABEL, \
+		.X = _X, \
+		.Y = _Y, \
+		.Text = _TEXT, \
+	}
+
+#define BUTTON_CREATE(_X, _Y, _W, _H, _TEXT, _CLICK) \
 	{ \
 		.Type = ELEMENT_TYPE_BUTTON, \
 		.X = _X, \
 		.Y = _Y, \
 		.W = _W, \
 		.H = _H, \
+		.Text = _TEXT, \
+		.Click = _CLICK \
+	}
+
+#define INPUT_CREATE(_X, _Y, _W, _TEXT, _SIZE, _CLICK) \
+	{ \
+		.Type = ELEMENT_TYPE_INPUT, \
+		.X = _X, \
+		.Y = _Y, \
+		.W = _W, \
+		.Position = 0, \
+		.Length = 0, \
+		.Size = _SIZE, \
 		.Text = _TEXT, \
 		.Click = _CLICK \
 	}

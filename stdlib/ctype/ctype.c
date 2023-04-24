@@ -45,12 +45,12 @@ i32 isprint(i32 c)
 
 i32 ispunct(i32 c)
 {
-	return strchr("!\"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~", c) > 0;
+	return strchr("!\"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~", c) != NULL;
 }
 
 i32 isspace(i32 c)
 {
-	return strchr(" \n\t\v\f\r", c) > 0;
+	return strchr(" \n\t\v\f\r", c) != NULL;
 }
 
 i32 isupper(i32 c)
@@ -60,7 +60,9 @@ i32 isupper(i32 c)
 
 i32 isxdigit(i32 c)
 {
-	return isdigit(c) || strchr("abcdefABCDEF", c) > 0;
+	return isdigit(c) ||
+		(c >= 'A' && c <= 'F') ||
+		(c >= 'a' && c <= 'f');
 }
 
 i32 tolower(i32 c)

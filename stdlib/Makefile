@@ -2,6 +2,8 @@ TARGET=test
 OPT=2
 
 CFLAGS=\
+	-Wall \
+	-Wextra \
 	-march=rv32im \
 	-mabi=ilp32 \
 	-Wl,-verbose \
@@ -33,7 +35,6 @@ SRC=\
 	string/string.c \
 	fs/fs.c \
 	gfx/gfx.c \
-	font/font.c \
 	gui/gui.c \
 	keyboard/keyboard.c \
 	rand/rand.c \

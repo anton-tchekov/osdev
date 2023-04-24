@@ -13,11 +13,11 @@ static char *reverse(char *s)
 	return s;
 }
 
-Button btn = BUTTON(10, 10, 100, 30, "Click Me!", NULL);
+Button button = BUTTON_CREATE(10, 10, 100, 30, "Click Me!", NULL);
 
 void *elements[] =
 {
-	&btn
+	&button,
 };
 
 Window window =
@@ -33,5 +33,6 @@ i32 main(void)
 	char str[] = "hello world\n";
 	reverse(str);
 	serial_write(str, strlen(str));
+	window_open(&window);
 	return 0;
 }

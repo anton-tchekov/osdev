@@ -1,7 +1,7 @@
 #include "types.h"
 #include <stdio.h>
 
-static u8 _memory[1024];
+static u8 _memory[64 * 1024];
 
 /* Store */
 static inline void memory_sb(u32 address, u32 value)

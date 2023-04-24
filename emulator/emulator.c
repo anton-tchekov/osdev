@@ -41,30 +41,10 @@ static void registers_dump(Emulator *emu)
 	printf("\n");
 }
 
-/* STR */
-static u32 syscall_strcpy(u32 *args)
+static u32 syscall_exit(u32 *args)
 {
-	return strcpy((char *)(_memory + args[0]), (char *)(_memory + args[1])) - (char *)_memory;
-}
-
-static u32 syscall_strncpy(u32 *args)
-{
-	return strncpy((char *)(_memory + args[0]), (char *)(_memory + args[1]), args[2]) - (char *)_memory;
-}
-
-static u32 syscall_strlen(u32 *args)
-{
-	return strlen((char *)(_memory + args[0]));
-}
-
-static u32 syscall_strcmp(u32 *args)
-{
-	return strcmp((char *)(_memory + args[0]), (char *)(_memory + args[1]));
-}
-
-static u32 syscall_strncmp(u32 *args)
-{
-	return strncmp((char *)(_memory + args[0]), (char *)(_memory + args[1]), args[2]);
+	exit(args[0]);
+	return 0;
 }
 
 /* MEM */
@@ -93,6 +73,37 @@ static u32 syscall_memset(u32 *args)
 	return (u8 *)memset(_memory + args[0], args[1], args[2]) - _memory;
 }
 
+/* STR */
+static u32 syscall_strcpy(u32 *args)
+{
+	return strcpy((char *)(_memory + args[0]), (char *)(_memory + args[1])) - (char *)_memory;
+}
+
+static u32 syscall_strncpy(u32 *args)
+{
+	return strncpy((char *)(_memory + args[0]), (char *)(_memory + args[1]), args[2]) - (char *)_memory;
+}
+
+static u32 syscall_strlen(u32 *args)
+{
+	return strlen((char *)(_memory + args[0]));
+}
+
+static u32 syscall_strcmp(u32 *args)
+{
+	return strcmp((char *)(_memory + args[0]), (char *)(_memory + args[1]));
+}
+
+static u32 syscall_strncmp(u32 *args)
+{
+	return strncmp((char *)(_memory + args[0]), (char *)(_memory + args[1]), args[2]);
+}
+
+static u32 syscall_strchr(u32 *args)
+{
+	return strchr((char *)(_memory + args[0]), args[1]) - (char *)_memory;
+}
+
 /* RAND */
 static u32 syscall_rand(u32 *args)
 {
@@ -103,106 +114,127 @@ static u32 syscall_rand(u32 *args)
 /* GFX */
 static u32 syscall_gfx_rect(u32 *args)
 {
-	printf("DRAW RECT (X: %d, Y: %d, W: %d, H: %d, COLOR: %d)\n",
+	printf("DRAW RECT (X: %4d, Y: %4d, W: %4d, H: %4d, COLOR: 0x%08X)\n",
 		args[0], args[1], args[2], args[3], args[4]);
 	return 0;
 }
 
 static u32 syscall_gfx_image_rgba(u32 *args)
 {
-
+	/* TODO */
+	return 0;
+	(void)args;
 }
 
 static u32 syscall_gfx_image_rgb(u32 *args)
 {
-
+	/* TODO */
+	return 0;
+	(void)args;
 }
 
 static u32 syscall_gfx_image_rgb565(u32 *args)
 {
-
+	/* TODO */
+	return 0;
+	(void)args;
 }
 
 static u32 syscall_gfx_image_grayscale(u32 *args)
 {
-
+	/* TODO */
+	return 0;
+	(void)args;
 }
 
 static u32 syscall_gfx_image_1bit(u32 *args)
 {
-
+	/* TODO */
+	return 0;
+	(void)args;
 }
 
 /* FS */
 static u32 syscall_file_open(u32 *args)
 {
-
+	/* TODO */
+	return 0;
+	(void)args;
 }
 
 static u32 syscall_file_read(u32 *args)
 {
-
+	/* TODO */
+	return 0;
+	(void)args;
 }
 
 static u32 syscall_file_write(u32 *args)
 {
-
+	/* TODO */
+	return 0;
+	(void)args;
 }
 
 static u32 syscall_file_close(u32 *args)
 {
-
+	/* TODO */
+	return 0;
+	(void)args;
 }
 
 static u32 syscall_file_size(u32 *args)
 {
-
+	/* TODO */
+	return 0;
+	(void)args;
 }
 
 /* KBD */
 static u32 syscall_keyboard_is_key_pressed(u32 *args)
 {
-
+	/* TODO */
+	return 0;
+	(void)args;
 }
 
 static u32 syscall_keyboard_register_event(u32 *args)
 {
-
+	/* TODO */
+	return 0;
+	(void)args;
 }
 
-/* UART */
-static u32 syscall_print(u32 *args)
+static u32 syscall_serial_write(u32 *args)
 {
-	u8 c;
-	u32 addr = args[0];
-	while((c = memory_lb(addr++)))
-	{
-		fputc(c, stdout);
-	}
-
-	args[0] = 0;
+	/* TODO */
 	return 0;
+	(void)args;
 }
 
-static u32 syscall_exit(u32 *args)
+static u32 syscall_serial_read(u32 *args)
 {
-	exit(args[0]);
+	/* TODO */
 	return 0;
+	(void)args;
 }
 
 static u32 (*syscalls[])(u32 *) =
 {
-	syscall_strcpy,
-	syscall_strncpy,
-	syscall_strlen,
-	syscall_strcmp,
-	syscall_strncmp,
+	syscall_exit,
 
 	syscall_memcpy,
 	syscall_memmove,
 	syscall_memcmp,
 	syscall_memchr,
 	syscall_memset,
+
+	syscall_strcpy,
+	syscall_strncpy,
+	syscall_strlen,
+	syscall_strcmp,
+	syscall_strncmp,
+	syscall_strchr,
 
 	syscall_rand,
 
@@ -222,8 +254,8 @@ static u32 (*syscalls[])(u32 *) =
 	syscall_keyboard_is_key_pressed,
 	syscall_keyboard_register_event,
 
-	syscall_print,
-	syscall_exit
+	syscall_serial_write,
+	syscall_serial_read,
 };
 
 static i32 syscall(u32 id, u32 *args)
