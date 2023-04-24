@@ -19,17 +19,6 @@ typedef struct ELEMENT
 static Window *_current_window;
 static i32 _current_element;
 
-/* GFX */
-static void gui_rect_border(i32 x, i32 y, i32 w, i32 h, Color color)
-{
-	/* TODO */
-}
-
-static void gui_rect_border2(i32 x, i32 y, i32 w, i32 h, Color color)
-{
-	/* TODO */
-}
-
 /* LABEL */
 static void label_render(Label *l)
 {
@@ -46,11 +35,11 @@ static void button_render(Button *b, bool sel)
 	gfx_rect(b->X, y, b->W, b->H, COLOR_WHITE);
 	if(sel)
 	{
-		gui_rect_border2(b->X, y, b->W, b->H, COLOR_RED);
+		gfx_rect_border(b->X, y, b->W, b->H, 2, COLOR_RED);
 	}
 	else
 	{
-		gui_rect_border(b->X, y, b->W, b->H, COLOR_BLACK);
+		gfx_rect_border(b->X, y, b->W, b->H, 1, COLOR_BLACK);
 	}
 
 	x = b->X + b->W / 2 - font_string_width(b->Text, font_default) / 2;
@@ -63,7 +52,7 @@ static void input_render(Input *i, bool sel)
 	gfx_rect(i->X + 1, 20 + i->Y + 1, i->W - 2, 20 - 2, COLOR_WHITE);
 	if(sel)
 	{
-		gui_rect_border2(i->X, 20 + i->Y, i->W, 20, COLOR_RED);
+		gfx_rect_border(i->X, 20 + i->Y, i->W, 20, 2, COLOR_RED);
 
 		/* Cursor */
 		gfx_rect(i->X + 5 +
@@ -72,7 +61,7 @@ static void input_render(Input *i, bool sel)
 	}
 	else
 	{
-		gui_rect_border(i->X, 20 + i->Y, i->W, 20, COLOR_BLACK);
+		gfx_rect_border(i->X, 20 + i->Y, i->W, 20, 1, COLOR_BLACK);
 	}
 
 	font_string(i->X + 5, 20 + i->Y + 5, i->Text,
@@ -116,7 +105,7 @@ static void input_insert(Input *i, i32 c)
 	}
 }
 
-static void input_clear(Input *i)
+void input_clear(Input *i)
 {
 	i->Length = 0;
 	i->Position = 0;
@@ -187,10 +176,8 @@ static void element_render_sel(Element *e, u32 sel)
 
 static void element_render(Element *e)
 {
-	bool sel = _current_element >= 0 &&
-		_current_window->Elements[_current_element] == e;
-
-	element_render_sel(e, sel);
+	element_render_sel(e, _current_element >= 0 &&
+		_current_window->Elements[_current_element] == e);
 }
 
 static void element_first(void)
@@ -200,7 +187,7 @@ static void element_first(void)
 
 	count = _current_window->Count;
 	elems = _current_window->Elements;
-	for(i = 0; i < _current_window->Count; ++i)
+	for(i = 0; i < count; ++i)
 	{
 		ElementType type = ((Element *)elems[i])->Type;
 		if(type == ELEMENT_TYPE_BUTTON ||

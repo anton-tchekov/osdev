@@ -21,7 +21,11 @@ struct \mbox{\hyperlink{structWindow}{Window}}
 \doxysubsection*{Macros}
 \begin{DoxyCompactItemize}
 \item 
-\#define \mbox{\hyperlink{gui_8h_ae059f8a044c9ccdb32882e5ebe987d93}{BUTTON}}(\+\_\+X,  \+\_\+Y,  \+\_\+W,  \+\_\+H,  \+\_\+\+TEXT,  \+\_\+\+CLICK)
+\#define \mbox{\hyperlink{gui_8h_ae679011dbd86cc43172d3d76e4c37ded}{LABEL\+\_\+\+CREATE}}(\+\_\+X,  \+\_\+Y,  \+\_\+\+TEXT)
+\item 
+\#define \mbox{\hyperlink{gui_8h_ac997da4de51697270833960b52bf586c}{BUTTON\+\_\+\+CREATE}}(\+\_\+X,  \+\_\+Y,  \+\_\+W,  \+\_\+H,  \+\_\+\+TEXT,  \+\_\+\+CLICK)
+\item 
+\#define \mbox{\hyperlink{gui_8h_a73e70eca05c2261162c2bdd1a1ba7d4c}{INPUT\+\_\+\+CREATE}}(\+\_\+X,  \+\_\+Y,  \+\_\+W,  \+\_\+\+TEXT,  \+\_\+\+SIZE,  \+\_\+\+CLICK)
 \end{DoxyCompactItemize}
 \doxysubsection*{Typedefs}
 \begin{DoxyCompactItemize}
@@ -55,15 +59,9 @@ void {\bfseries window\+\_\+render} (\mbox{\hyperlink{structWindow}{Window}} $\a
 \item 
 \mbox{\Hypertarget{gui_8h_a243bf59631f83343b28624d7b3dbf6ce}\label{gui_8h_a243bf59631f83343b28624d7b3dbf6ce}} 
 void {\bfseries window\+\_\+event\+\_\+key} (\mbox{\hyperlink{keyboard_8h_a48752551c4279f8cddf3585f8272092a}{Key}} key)
-\end{DoxyCompactItemize}
-\doxysubsection*{Variables}
-\begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{gui_8h_a332f5c997f3c80dcaf18279d2d694c03}\label{gui_8h_a332f5c997f3c80dcaf18279d2d694c03}} 
-static \mbox{\hyperlink{structWindow}{Window}} $\ast$ {\bfseries current\+\_\+window}
-\item 
-\mbox{\Hypertarget{gui_8h_a0441dbe7aabb82be1d29c28439f16d78}\label{gui_8h_a0441dbe7aabb82be1d29c28439f16d78}} 
-static i32 {\bfseries current\+\_\+element}
+\mbox{\Hypertarget{gui_8h_aaa6006e84d4768cf4caa1936c5d240fe}\label{gui_8h_aaa6006e84d4768cf4caa1936c5d240fe}} 
+void {\bfseries input\+\_\+clear} (\mbox{\hyperlink{structINPUT}{Input}} $\ast$i)
 \end{DoxyCompactItemize}
 
 
@@ -82,11 +80,11 @@ Tim Gabrikowski, Anton Tchekov
 
 
 \doxysubsection{Macro Definition Documentation}
-\mbox{\Hypertarget{gui_8h_ae059f8a044c9ccdb32882e5ebe987d93}\label{gui_8h_ae059f8a044c9ccdb32882e5ebe987d93}} 
-\index{gui.h@{gui.h}!BUTTON@{BUTTON}}
-\index{BUTTON@{BUTTON}!gui.h@{gui.h}}
-\doxysubsubsection{\texorpdfstring{BUTTON}{BUTTON}}
-{\footnotesize\ttfamily \#define \mbox{\hyperlink{structBUTTON}{BUTTON}}(\begin{DoxyParamCaption}\item[{}]{\+\_\+X,  }\item[{}]{\+\_\+Y,  }\item[{}]{\+\_\+W,  }\item[{}]{\+\_\+H,  }\item[{}]{\+\_\+\+TEXT,  }\item[{}]{\+\_\+\+CLICK }\end{DoxyParamCaption})}
+\mbox{\Hypertarget{gui_8h_ac997da4de51697270833960b52bf586c}\label{gui_8h_ac997da4de51697270833960b52bf586c}} 
+\index{gui.h@{gui.h}!BUTTON\_CREATE@{BUTTON\_CREATE}}
+\index{BUTTON\_CREATE@{BUTTON\_CREATE}!gui.h@{gui.h}}
+\doxysubsubsection{\texorpdfstring{BUTTON\_CREATE}{BUTTON\_CREATE}}
+{\footnotesize\ttfamily \#define BUTTON\+\_\+\+CREATE(\begin{DoxyParamCaption}\item[{}]{\+\_\+X,  }\item[{}]{\+\_\+Y,  }\item[{}]{\+\_\+W,  }\item[{}]{\+\_\+H,  }\item[{}]{\+\_\+\+TEXT,  }\item[{}]{\+\_\+\+CLICK }\end{DoxyParamCaption})}
 
 {\bfseries Value\+:}
 \begin{DoxyCode}{0}
@@ -98,6 +96,43 @@ Tim Gabrikowski, Anton Tchekov
 \DoxyCodeLine{\ \ \ \ \ \ \ \ .H\ =\ \_H,\ \(\backslash\)}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ .Text\ =\ \_TEXT,\ \(\backslash\)}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ .Click\ =\ \_CLICK\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{gui_8h_a73e70eca05c2261162c2bdd1a1ba7d4c}\label{gui_8h_a73e70eca05c2261162c2bdd1a1ba7d4c}} 
+\index{gui.h@{gui.h}!INPUT\_CREATE@{INPUT\_CREATE}}
+\index{INPUT\_CREATE@{INPUT\_CREATE}!gui.h@{gui.h}}
+\doxysubsubsection{\texorpdfstring{INPUT\_CREATE}{INPUT\_CREATE}}
+{\footnotesize\ttfamily \#define INPUT\+\_\+\+CREATE(\begin{DoxyParamCaption}\item[{}]{\+\_\+X,  }\item[{}]{\+\_\+Y,  }\item[{}]{\+\_\+W,  }\item[{}]{\+\_\+\+TEXT,  }\item[{}]{\+\_\+\+SIZE,  }\item[{}]{\+\_\+\+CLICK }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \ \ \{\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ .Type\ =\ ELEMENT\_TYPE\_INPUT,\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ .X\ =\ \_X,\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ .Y\ =\ \_Y,\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ .W\ =\ \_W,\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ .Position\ =\ 0,\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ .Length\ =\ 0,\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ .Size\ =\ \_SIZE,\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ .Text\ =\ \_TEXT,\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ .Click\ =\ \_CLICK\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{gui_8h_ae679011dbd86cc43172d3d76e4c37ded}\label{gui_8h_ae679011dbd86cc43172d3d76e4c37ded}} 
+\index{gui.h@{gui.h}!LABEL\_CREATE@{LABEL\_CREATE}}
+\index{LABEL\_CREATE@{LABEL\_CREATE}!gui.h@{gui.h}}
+\doxysubsubsection{\texorpdfstring{LABEL\_CREATE}{LABEL\_CREATE}}
+{\footnotesize\ttfamily \#define LABEL\+\_\+\+CREATE(\begin{DoxyParamCaption}\item[{}]{\+\_\+X,  }\item[{}]{\+\_\+Y,  }\item[{}]{\+\_\+\+TEXT }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \ \ \{\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ .Type\ =\ ELEMENT\_TYPE\_LABEL,\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ .X\ =\ \_X,\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ .Y\ =\ \_Y,\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ .Text\ =\ \_TEXT,\ \(\backslash\)}
 \DoxyCodeLine{\ \ \ \ \}}
 
 \end{DoxyCode}

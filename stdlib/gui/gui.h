@@ -81,11 +81,10 @@ typedef struct
 		.Click = _CLICK \
 	}
 
-static Window *current_window;
-static i32 current_element;
-
 void window_open(Window *window);
 void window_render(Window *window);
 void window_event_key(Key key);
+
+void input_clear(Input *i);
 
 #endif /* __GUI_H__ */

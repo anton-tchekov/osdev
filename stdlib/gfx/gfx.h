@@ -20,6 +20,15 @@ typedef u32 Color;
 /** The height of the display */
 #define GFX_HEIGHT 480
 
+/** Rectangle structure consisting of X, Y, Width and Height */
+typedef struct
+{
+	i32 X, Y, W, H;
+} Rectangle;
+
+#define GFX_VLINE(x, y, h) gfx_rect(x, y, 1, h)
+#define GFX_HLINE(x, y, w) gfx_rect(x, y, w, 1)
+
 /**
  * @brief TODO
  *
@@ -45,6 +54,18 @@ static inline Color gfx_color(i32 r, i32 g, i32 b, i32 a)
  * @param color TODO
  */
 void gfx_rect(i32 x, i32 y, i32 w, i32 h, Color color);
+
+/**
+ * @brief TODO
+ *
+ * @param x TODO
+ * @param y TODO
+ * @param w TODO
+ * @param h TODO
+* @param border TODO
+ * @param color TODO
+ */
+void gfx_rect_border(i32 x, i32 y, i32 w, i32 h, i32 border, Color color);
 
 /**
  * @brief TODO

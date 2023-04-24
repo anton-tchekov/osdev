@@ -9,10 +9,14 @@
 
 i32 sprintf(char *str, const char *format, ...)
 {
-
+	/* TODO */
+	return 0;
+	(void)str, (void)format;
 }
 
 i32 snprintf(char *str, u32 n, const char *format, ...)
 {
-
+	/* TODO */
+	return 0;
+	(void)str, (void)n, (void)format;
 }

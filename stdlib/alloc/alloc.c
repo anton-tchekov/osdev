@@ -9,22 +9,29 @@
 
 void free(void *p)
 {
-
+	/* TODO */
+	(void)p;
 }
 
 void *malloc(u32 size)
 {
-
+	/* TODO */
+	return NULL;
+	(void)size;
 }
 
 void *calloc(u32 size)
 {
-
+	/* TODO */
+	return NULL;
+	(void)size;
 }
 
 void *realloc(void *p, u32 size)
 {
-
+	/* TODO */
+	return NULL;
+	(void)p, (void)size;
 }
 
 /*
