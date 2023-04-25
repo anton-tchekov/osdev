@@ -1,18 +1,46 @@
+/**
+ * @file    types.h
+ * @author  Anton Tchekov
+ * @version V1.0
+ * @date    2023-03-24
+ * @brief   Shorthand type definitions inspired by Rust
+ */
+
 #ifndef __TYPES_H__
 #define __TYPES_H__
 
-#include <stdint.h>
 #include <stddef.h>
+#include <stdint.h>
 #include <stdbool.h>
 
-typedef uint8_t u8;
-typedef uint16_t u16;
-typedef uint32_t u32;
+/** Signed 64-bit integer */
+typedef int64_t i64;
 
-typedef int8_t i8;
-typedef int16_t i16;
+/** Signed 32-bit integer */
 typedef int32_t i32;
 
+/** Signed 16-bit integer */
+typedef int16_t i16;
+
+/** Signed 8-bit integer */
+typedef int8_t i8;
+
+/** Unsigned 64-bit integer */
+typedef uint64_t u64;
+
+/** Unsigned 32-bit integer */
+typedef uint32_t u32;
+
+/** Unsigned 16-bit integer */
+typedef uint16_t u16;
+
+/** Unsigned 8-bit integer */
+typedef uint8_t u8;
+
+/** 32-bit float */
 typedef float f32;
 
-#endif /* __TYPES_H__ */
+/** 64-bit float */
+typedef double f64;
+
+#endif

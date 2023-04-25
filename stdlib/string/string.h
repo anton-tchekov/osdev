@@ -3,7 +3,7 @@
  * @author  Tim Gabrikowski, Anton Tchekov
  * @version 0.1
  * @date    23.04.2023
- * @brief   TODO
+ * @brief   Standard C routines that operate on strings of memory
  */
 
 #ifndef __STRING_H__

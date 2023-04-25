@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['numcharacters_0',['NumCharacters',['../structFONT.html#ad95fd15931de62fe0d8a5f3ef6701a78',1,'FONT']]]
+  ['length_0',['Length',['../structINPUT.html#a9be89f00048897c29a03569b02bd74f2',1,'INPUT']]]
 ];

@@ -3,7 +3,8 @@
  * @author  Tim Gabrikowski, Anton Tchekov
  * @version 0.1
  * @date    23.04.2023
- * @brief   TODO
+ * @brief   Standard C functions to check for and convert between
+ *          ASCII characters
  */
 
 #ifndef __CTYPE_H__

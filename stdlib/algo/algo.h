@@ -3,7 +3,7 @@
  * @author  Tim Gabrikowski, Anton Tchekov
  * @version 0.1
  * @date    25.04.2023
- * @brief   TODO
+ * @brief   Library for common algorithms
  */
 
 #ifndef __ALGO_H__

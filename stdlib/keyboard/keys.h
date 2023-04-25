@@ -1,5 +1,15 @@
+/**
+ * @file    keys.h
+ * @author  Tim Gabrikowski, Anton Tchekov
+ * @version 0.1
+ * @date    23.04.2023
+ * @brief   Keycode and modifier definitions
+ */
+
 #ifndef __KEYS_H__
 #define __KEYS_H__
+
+//! @cond Doxygen_Suppress
 
 #define MOD_CTRL                   (1 << 31)
 #define MOD_ALT                    (1 << 30)
@@ -128,5 +138,7 @@
 #define KEY_RIGHT_ALT           346
 #define KEY_RIGHT_SUPER         347
 #define KEY_MENU                348
+
+//! @endcond
 
 #endif /* __KEYS_H__ */
