@@ -11,15 +11,26 @@
 #include <colors.h>
 #include <font-default.h>
 
+/** TODO */
 typedef struct ELEMENT
 {
+	/** TODO */
 	ElementType Type;
 } Element;
 
+/** TODO */
 static Window *_current_window;
-static i32 _current_element;
+
+/** TODO */
+static i32 _current_window->Selected;
 
 /* LABEL */
+
+/**
+ * @brief TODO
+ *
+ * @param l TODO
+ */
 static void label_render(Label *l)
 {
 	font_string(l->X, 20 + l->Y, l->Text,
@@ -27,6 +38,13 @@ static void label_render(Label *l)
 }
 
 /* BUTTON */
+
+/**
+ * @brief TODO
+ *
+ * @param b TODO
+ * @param sel TODO
+ */
 static void button_render(Button *b, bool sel)
 {
 	i32 x, y;
@@ -47,6 +65,13 @@ static void button_render(Button *b, bool sel)
 }
 
 /* INPUT */
+
+/**
+ * @brief TODO
+ *
+ * @param i TODO
+ * @param sel TODO
+ */
 static void input_render(Input *i, bool sel)
 {
 	gfx_rect(i->X + 1, 20 + i->Y + 1, i->W - 2, 20 - 2, COLOR_WHITE);
@@ -68,6 +93,12 @@ static void input_render(Input *i, bool sel)
 		font_default, COLOR_BLACK, COLOR_WHITE);
 }
 
+/**
+ * @brief TODO
+ *
+ * @param i TODO
+ * @param n TODO
+ */
 static void input_grow(Input *i, i32 n)
 {
 	if(i->Text[i->Position])
@@ -83,6 +114,12 @@ static void input_grow(Input *i, i32 n)
 	i->Text[i->Length] = '\0';
 }
 
+/**
+ * @brief TODO
+ *
+ * @param i TODO
+ * @param n TODO
+ */
 static void input_shrink(Input *i, i32 n)
 {
 	if(i->Text[i->Position])
@@ -95,6 +132,12 @@ static void input_shrink(Input *i, i32 n)
 	}
 }
 
+/**
+ * @brief TODO
+ *
+ * @param i TODO
+ * @param c TODO
+ */
 static void input_insert(Input *i, i32 c)
 {
 	if(i->Length + 1 < i->Size)
@@ -113,6 +156,11 @@ void input_clear(Input *i)
 	input_render(i, 1);
 }
 
+/**
+ * @brief TODO
+ *
+ * @param i TODO
+ */
 static void input_delete(Input *i)
 {
 	if(i->Position > 0)
@@ -125,6 +173,11 @@ static void input_delete(Input *i)
 	}
 }
 
+/**
+ * @brief TODO
+ *
+ * @param i TODO
+ */
 static void input_left(Input *i)
 {
 	if(i->Position > 0)
@@ -134,6 +187,11 @@ static void input_left(Input *i)
 	}
 }
 
+/**
+ * @brief TODO
+ *
+ * @param i TODO
+ */
 static void input_right(Input *i)
 {
 	if(i->Position < i->Length)
@@ -143,6 +201,12 @@ static void input_right(Input *i)
 	}
 }
 
+/**
+ * @brief TODO
+ *
+ * @param i TODO
+ * @param c TODO
+ */
 static void input_event_key(Input *i, i32 c)
 {
 	if(c >= 32 && c <= 126)
@@ -156,6 +220,13 @@ static void input_event_key(Input *i, i32 c)
 }
 
 /* ELEMENT */
+
+/**
+ * @brief TODO
+ *
+ * @param e TODO
+ * @param sel TODO
+ */
 static void element_render_sel(Element *e, u32 sel)
 {
 	switch(e->Type)
@@ -174,12 +245,20 @@ static void element_render_sel(Element *e, u32 sel)
 	}
 }
 
+/**
+ * @brief TODO
+ *
+ * @param e TODO
+ */
 static void element_render(Element *e)
 {
-	element_render_sel(e, _current_element >= 0 &&
-		_current_window->Elements[_current_element] == e);
+	element_render_sel(e, _current_window->Selected >= 0 &&
+		_current_window->Elements[_current_window->Selected] == e);
 }
 
+/**
+ * @brief TODO
+ */
 static void element_first(void)
 {
 	void **elems;
@@ -193,12 +272,15 @@ static void element_first(void)
 		if(type == ELEMENT_TYPE_BUTTON ||
 			type == ELEMENT_TYPE_INPUT)
 		{
-			_current_element = i;
+			_current_window->Selected = i;
 			break;
 		}
 	}
 }
 
+/**
+ * @brief TODO
+ */
 static void element_next(void)
 {
 	void **elems;
@@ -206,35 +288,38 @@ static void element_next(void)
 
 	count = _current_window->Count;
 	elems = _current_window->Elements;
-	for(i = _current_element + 1; i < count; ++i)
+	for(i = _current_window->Selected + 1; i < count; ++i)
 	{
 		ElementType type = ((Element *)elems[i])->Type;
 		if(type == ELEMENT_TYPE_BUTTON ||
 			type == ELEMENT_TYPE_INPUT)
 		{
-			element_render_sel(elems[_current_element], false);
-			_current_element = i;
-			element_render_sel(elems[_current_element], true);
+			element_render_sel(elems[_current_window->Selected], false);
+			_current_window->Selected = i;
+			element_render_sel(elems[_current_window->Selected], true);
 			break;
 		}
 	}
 }
 
+/**
+ * @brief TODO
+ */
 static void element_prev(void)
 {
 	void **elems;
 	i32 i;
 
 	elems = _current_window->Elements;
-	for(i = _current_element - 1; i >= 0; --i)
+	for(i = _current_window->Selected - 1; i >= 0; --i)
 	{
 		ElementType type = ((Element *)elems[i])->Type;
 		if(type == ELEMENT_TYPE_BUTTON ||
 			type == ELEMENT_TYPE_INPUT)
 		{
-			element_render_sel(elems[_current_element], false);
-			_current_element = i;
-			element_render_sel(elems[_current_element], true);
+			element_render_sel(elems[_current_window->Selected], false);
+			_current_window->Selected = i;
+			element_render_sel(elems[_current_window->Selected], true);
 			break;
 		}
 	}
@@ -264,12 +349,12 @@ void window_render(Window *window)
 void window_open(Window *window)
 {
 	_current_window = window;
-	_current_element = -1;
+	_current_window->Selected = -1;
 	element_first();
 	window_render(window);
 }
 
-void window_event_button(Key key, bool up)
+void window_event_key(Key key, bool up)
 {
 	void *ce;
 	if(!_current_window)
@@ -282,7 +367,7 @@ void window_event_button(Key key, bool up)
 		_current_window->OnKey(key, up);
 	}
 
-	if(_current_element < 0)
+	if(_current_window->Selected < 0)
 	{
 		return;
 	}
@@ -292,7 +377,7 @@ void window_event_button(Key key, bool up)
 		return;
 	}
 
-	ce = &_current_window->Elements[_current_element];
+	ce = &_current_window->Elements[_current_window->Selected];
 	if(key == KEY_UP)
 	{
 		element_prev();

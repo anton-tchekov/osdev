@@ -1,15 +1,19 @@
 var searchData=
 [
-  ['input_0',['INPUT',['../structINPUT.html',1,'']]],
-  ['isalnum_1',['isalnum',['../ctype_8c.html#aaf172cf6bce9b6d7f47c2a852942226a',1,'isalnum(i32 c):&#160;ctype.c'],['../ctype_8h.html#aaf172cf6bce9b6d7f47c2a852942226a',1,'isalnum(i32 c):&#160;ctype.c']]],
-  ['isalpha_2',['isalpha',['../ctype_8c.html#a9b99ea7ca6c12c50849678e6dc28669c',1,'isalpha(i32 c):&#160;ctype.c'],['../ctype_8h.html#a9b99ea7ca6c12c50849678e6dc28669c',1,'isalpha(i32 c):&#160;ctype.c']]],
-  ['iscntrl_3',['iscntrl',['../ctype_8c.html#a738b90191812dae181c1ff62cfa9eae8',1,'iscntrl(i32 c):&#160;ctype.c'],['../ctype_8h.html#a738b90191812dae181c1ff62cfa9eae8',1,'iscntrl(i32 c):&#160;ctype.c']]],
-  ['isdigit_4',['isdigit',['../ctype_8c.html#ab0ca806746374fbb21ea1675f6f5c0a5',1,'isdigit(i32 c):&#160;ctype.c'],['../ctype_8h.html#ab0ca806746374fbb21ea1675f6f5c0a5',1,'isdigit(i32 c):&#160;ctype.c']]],
-  ['isgraph_5',['isgraph',['../ctype_8c.html#a5ea3708469c82f94890035d61f9948ee',1,'isgraph(i32 c):&#160;ctype.c'],['../ctype_8h.html#a5ea3708469c82f94890035d61f9948ee',1,'isgraph(i32 c):&#160;ctype.c']]],
-  ['islower_6',['islower',['../ctype_8c.html#a6593879ff64a9f9edac60523630bc73b',1,'islower(i32 c):&#160;ctype.c'],['../ctype_8h.html#a6593879ff64a9f9edac60523630bc73b',1,'islower(i32 c):&#160;ctype.c']]],
-  ['isprint_7',['isprint',['../ctype_8c.html#a56ba7a2ed95e629d0cabc2b7d780d0fc',1,'isprint(i32 c):&#160;ctype.c'],['../ctype_8h.html#a56ba7a2ed95e629d0cabc2b7d780d0fc',1,'isprint(i32 c):&#160;ctype.c']]],
-  ['ispunct_8',['ispunct',['../ctype_8c.html#aaaa40281b8981c8e229fad7086db589a',1,'ispunct(i32 c):&#160;ctype.c'],['../ctype_8h.html#aaaa40281b8981c8e229fad7086db589a',1,'ispunct(i32 c):&#160;ctype.c']]],
-  ['isspace_9',['isspace',['../ctype_8c.html#ac929eea780bfbb8ef9fb2c71f261e136',1,'isspace(i32 c):&#160;ctype.c'],['../ctype_8h.html#ac929eea780bfbb8ef9fb2c71f261e136',1,'isspace(i32 c):&#160;ctype.c']]],
-  ['isupper_10',['isupper',['../ctype_8c.html#a5d87bd33e5d9610145e0f7a87a0a2778',1,'isupper(i32 c):&#160;ctype.c'],['../ctype_8h.html#a5d87bd33e5d9610145e0f7a87a0a2778',1,'isupper(i32 c):&#160;ctype.c']]],
-  ['isxdigit_11',['isxdigit',['../ctype_8c.html#a8dabc665f8146f9c20d4ebf873a08c87',1,'isxdigit(i32 c):&#160;ctype.c'],['../ctype_8h.html#a8dabc665f8146f9c20d4ebf873a08c87',1,'isxdigit(i32 c):&#160;ctype.c']]]
+  ['gfx_2ec_0',['gfx.c',['../gfx_8c.html',1,'']]],
+  ['gfx_2eh_1',['gfx.h',['../gfx_8h.html',1,'']]],
+  ['gfx_5fcolor_2',['gfx_color',['../gfx_8h.html#afa82cacbf55c028b6513d1cec937bc41',1,'gfx.h']]],
+  ['gfx_5fheight_3',['GFX_HEIGHT',['../gfx_8h.html#a11b59534db467ebd1fb19b758e6fffd7',1,'gfx.h']]],
+  ['gfx_5fhline_4',['gfx_hline',['../gfx_8h.html#ae36641f313cccaab21f24d58c86b7673',1,'gfx.h']]],
+  ['gfx_5fimage_5f1bit_5',['gfx_image_1bit',['../gfx_8c.html#ad3c13c22f9cb0542323c8cb0cc507671',1,'gfx_image_1bit(i32 x, i32 y, i32 w, i32 h, u8 *data, Color fg, Color bg):&#160;gfx.c'],['../gfx_8h.html#ad3c13c22f9cb0542323c8cb0cc507671',1,'gfx_image_1bit(i32 x, i32 y, i32 w, i32 h, u8 *data, Color fg, Color bg):&#160;gfx.c']]],
+  ['gfx_5fimage_5fgrayscale_6',['gfx_image_grayscale',['../gfx_8c.html#a3ea9efe84f0224396c9943d52c90d28c',1,'gfx_image_grayscale(i32 x, i32 y, i32 w, i32 h, u8 *data):&#160;gfx.c'],['../gfx_8h.html#a3ea9efe84f0224396c9943d52c90d28c',1,'gfx_image_grayscale(i32 x, i32 y, i32 w, i32 h, u8 *data):&#160;gfx.c']]],
+  ['gfx_5fimage_5frgb_7',['gfx_image_rgb',['../gfx_8c.html#a65cf4ee0a8969d6775922c7c0b170141',1,'gfx_image_rgb(i32 x, i32 y, i32 w, i32 h, u8 *data):&#160;gfx.c'],['../gfx_8h.html#a65cf4ee0a8969d6775922c7c0b170141',1,'gfx_image_rgb(i32 x, i32 y, i32 w, i32 h, u8 *data):&#160;gfx.c']]],
+  ['gfx_5fimage_5frgb565_8',['gfx_image_rgb565',['../gfx_8c.html#a8a56fbb7e713b190d25d7e3cce6a4bcc',1,'gfx_image_rgb565(i32 x, i32 y, i32 w, i32 h, u8 *data):&#160;gfx.c'],['../gfx_8h.html#a8a56fbb7e713b190d25d7e3cce6a4bcc',1,'gfx_image_rgb565(i32 x, i32 y, i32 w, i32 h, u8 *data):&#160;gfx.c']]],
+  ['gfx_5fimage_5frgba_9',['gfx_image_rgba',['../gfx_8c.html#aee6a970522731026e1f2b10c6c8eadb2',1,'gfx_image_rgba(i32 x, i32 y, i32 w, i32 h, u8 *data):&#160;gfx.c'],['../gfx_8h.html#aee6a970522731026e1f2b10c6c8eadb2',1,'gfx_image_rgba(i32 x, i32 y, i32 w, i32 h, u8 *data):&#160;gfx.c']]],
+  ['gfx_5frect_10',['gfx_rect',['../gfx_8c.html#a61d70a4550bf181cd71bfc9a4f12a6d1',1,'gfx_rect(i32 x, i32 y, i32 w, i32 h, Color color):&#160;gfx.c'],['../gfx_8h.html#a61d70a4550bf181cd71bfc9a4f12a6d1',1,'gfx_rect(i32 x, i32 y, i32 w, i32 h, Color color):&#160;gfx.c']]],
+  ['gfx_5frect_5fborder_11',['gfx_rect_border',['../gfx_8c.html#a1d78d15a37b5c0cd2b797a1bcd89010f',1,'gfx_rect_border(i32 x, i32 y, i32 w, i32 h, i32 border, Color color):&#160;gfx.c'],['../gfx_8h.html#a1d78d15a37b5c0cd2b797a1bcd89010f',1,'gfx_rect_border(i32 x, i32 y, i32 w, i32 h, i32 border, Color color):&#160;gfx.c']]],
+  ['gfx_5fvline_12',['gfx_vline',['../gfx_8h.html#ad689838f13b1f9a3c2e1b2f54b35c26d',1,'gfx.h']]],
+  ['gfx_5fwidth_13',['GFX_WIDTH',['../gfx_8h.html#aae91ae7a3ca585293a2c1031652a49f9',1,'gfx.h']]],
+  ['gui_2ec_14',['gui.c',['../gui_8c.html',1,'']]],
+  ['gui_2eh_15',['gui.h',['../gui_8h.html',1,'']]]
 ];

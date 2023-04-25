@@ -10,7 +10,8 @@
 void qsort(void *base, u32 number, u32 width,
 	i32 (*compare)(const void *, const void *))
 {
-
+	/* TODO */
+	(void)base, (void)number, (void)width, (void)compare;
 }
 
 void *bsearch(const void *key, const void *base, u32 nitems, u32 size,
@@ -23,7 +24,7 @@ void *bsearch(const void *key, const void *base, u32 nitems, u32 size,
 	for(lim = nitems; lim; lim >>= 1)
 	{
 		p = base0 + (lim >> 1) * size;
-		cmp = (*compar)(key, p);
+		cmp = (*compare)(key, p);
 		if(!cmp)
 		{
 			return (void *)p;

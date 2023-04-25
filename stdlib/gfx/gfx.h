@@ -3,7 +3,7 @@
  * @author  Tim Gabrikowski, Anton Tchekov
  * @version 0.1
  * @date    23.04.2023
- * @brief   TODO
+ * @brief   Basic Graphics Functions
  */
 
 #ifndef __GFX_H__
@@ -11,7 +11,7 @@
 
 #include <types.h>
 
-/** TODO */
+/** RGBA Color Type */
 typedef u32 Color;
 
 /** The width of the display */
@@ -23,11 +23,18 @@ typedef u32 Color;
 /** Rectangle structure consisting of X, Y, Width and Height */
 typedef struct
 {
-	i32 X, Y, W, H;
-} Rectangle;
+	/** TODO */
+	i32 X;
 
-#define GFX_VLINE(x, y, h) gfx_rect(x, y, 1, h)
-#define GFX_HLINE(x, y, w) gfx_rect(x, y, w, 1)
+	/** TODO */
+	i32 Y;
+
+	/** TODO */
+	i32 W;
+
+	/** TODO */
+	i32 H;
+} Rectangle;
 
 /**
  * @brief TODO
@@ -54,6 +61,30 @@ static inline Color gfx_color(i32 r, i32 g, i32 b, i32 a)
  * @param color TODO
  */
 void gfx_rect(i32 x, i32 y, i32 w, i32 h, Color color);
+
+/**
+ * @brief TODO
+ *
+ * @param x TODO
+ * @param y TODO
+ * @param h TODO
+ */
+static inline void gfx_vline(i32 x, i32 y, i32 h)
+{
+	gfx_rect(x, y, 1, h);
+}
+
+/**
+ * @brief TODO
+ *
+ * @param x TODO
+ * @param y TODO
+ * @param h TODO
+ */
+static inline void gfx_hline(i32 x, i32 y, i32 h)
+{
+	gfx_rect(x, y, w, 1);
+}
 
 /**
  * @brief TODO

@@ -1,14 +1,13 @@
 var searchData=
 [
-  ['isalnum_0',['isalnum',['../ctype_8h.html#aaf172cf6bce9b6d7f47c2a852942226a',1,'isalnum(i32 c):&#160;ctype.c'],['../ctype_8c.html#aaf172cf6bce9b6d7f47c2a852942226a',1,'isalnum(i32 c):&#160;ctype.c']]],
-  ['isalpha_1',['isalpha',['../ctype_8c.html#a9b99ea7ca6c12c50849678e6dc28669c',1,'isalpha(i32 c):&#160;ctype.c'],['../ctype_8h.html#a9b99ea7ca6c12c50849678e6dc28669c',1,'isalpha(i32 c):&#160;ctype.c']]],
-  ['iscntrl_2',['iscntrl',['../ctype_8c.html#a738b90191812dae181c1ff62cfa9eae8',1,'iscntrl(i32 c):&#160;ctype.c'],['../ctype_8h.html#a738b90191812dae181c1ff62cfa9eae8',1,'iscntrl(i32 c):&#160;ctype.c']]],
-  ['isdigit_3',['isdigit',['../ctype_8c.html#ab0ca806746374fbb21ea1675f6f5c0a5',1,'isdigit(i32 c):&#160;ctype.c'],['../ctype_8h.html#ab0ca806746374fbb21ea1675f6f5c0a5',1,'isdigit(i32 c):&#160;ctype.c']]],
-  ['isgraph_4',['isgraph',['../ctype_8c.html#a5ea3708469c82f94890035d61f9948ee',1,'isgraph(i32 c):&#160;ctype.c'],['../ctype_8h.html#a5ea3708469c82f94890035d61f9948ee',1,'isgraph(i32 c):&#160;ctype.c']]],
-  ['islower_5',['islower',['../ctype_8h.html#a6593879ff64a9f9edac60523630bc73b',1,'islower(i32 c):&#160;ctype.c'],['../ctype_8c.html#a6593879ff64a9f9edac60523630bc73b',1,'islower(i32 c):&#160;ctype.c']]],
-  ['isprint_6',['isprint',['../ctype_8c.html#a56ba7a2ed95e629d0cabc2b7d780d0fc',1,'isprint(i32 c):&#160;ctype.c'],['../ctype_8h.html#a56ba7a2ed95e629d0cabc2b7d780d0fc',1,'isprint(i32 c):&#160;ctype.c']]],
-  ['ispunct_7',['ispunct',['../ctype_8c.html#aaaa40281b8981c8e229fad7086db589a',1,'ispunct(i32 c):&#160;ctype.c'],['../ctype_8h.html#aaaa40281b8981c8e229fad7086db589a',1,'ispunct(i32 c):&#160;ctype.c']]],
-  ['isspace_8',['isspace',['../ctype_8c.html#ac929eea780bfbb8ef9fb2c71f261e136',1,'isspace(i32 c):&#160;ctype.c'],['../ctype_8h.html#ac929eea780bfbb8ef9fb2c71f261e136',1,'isspace(i32 c):&#160;ctype.c']]],
-  ['isupper_9',['isupper',['../ctype_8c.html#a5d87bd33e5d9610145e0f7a87a0a2778',1,'isupper(i32 c):&#160;ctype.c'],['../ctype_8h.html#a5d87bd33e5d9610145e0f7a87a0a2778',1,'isupper(i32 c):&#160;ctype.c']]],
-  ['isxdigit_10',['isxdigit',['../ctype_8c.html#a8dabc665f8146f9c20d4ebf873a08c87',1,'isxdigit(i32 c):&#160;ctype.c'],['../ctype_8h.html#a8dabc665f8146f9c20d4ebf873a08c87',1,'isxdigit(i32 c):&#160;ctype.c']]]
+  ['file_5fclose_0',['file_close',['../fs_8h.html#a6d1f304bad498893aad5936e2531d1ac',1,'file_close(File file):&#160;fs.c'],['../fs_8c.html#a6d1f304bad498893aad5936e2531d1ac',1,'file_close(File file):&#160;fs.c']]],
+  ['file_5fopen_1',['file_open',['../fs_8c.html#a82571035dc9bb531419ccc3a3493bd85',1,'file_open(const char *name, File *file):&#160;fs.c'],['../fs_8h.html#a82571035dc9bb531419ccc3a3493bd85',1,'file_open(const char *name, File *file):&#160;fs.c']]],
+  ['file_5fread_2',['file_read',['../fs_8c.html#a5d3dcfe77aa04c66f6d9f0c8f02cdf87',1,'file_read(File file, u32 start, u32 len, void *buf):&#160;fs.c'],['../fs_8h.html#a5d3dcfe77aa04c66f6d9f0c8f02cdf87',1,'file_read(File file, u32 start, u32 len, void *buf):&#160;fs.c']]],
+  ['file_5fsize_3',['file_size',['../fs_8c.html#a8ad956250fdd6ebb0a64e8b972abf4be',1,'file_size(File file, u32 *size):&#160;fs.c'],['../fs_8h.html#a8ad956250fdd6ebb0a64e8b972abf4be',1,'file_size(File file, u32 *size):&#160;fs.c']]],
+  ['file_5fwrite_4',['file_write',['../fs_8h.html#a5aa32f19ddd3d659cbd6868bcc6da596',1,'file_write(File file, u32 start, u32 len, const void *buf):&#160;fs.c'],['../fs_8c.html#a5aa32f19ddd3d659cbd6868bcc6da596',1,'file_write(File file, u32 start, u32 len, const void *buf):&#160;fs.c']]],
+  ['font_5fstring_5',['font_string',['../font_8h.html#a1dc9a04991c7d42402c21ab6a4b933e2',1,'font.h']]],
+  ['font_5fstring_5flen_6',['font_string_len',['../font_8c.html#a0fb43ab4a095679d631a2c0652ee3f08',1,'font_string_len(i32 x, i32 y, const char *s, u32 len, Font *font, Color fg, Color bg):&#160;font.c'],['../font_8h.html#a0fb43ab4a095679d631a2c0652ee3f08',1,'font_string_len(i32 x, i32 y, const char *s, u32 len, Font *font, Color fg, Color bg):&#160;font.c']]],
+  ['font_5fstring_5fwidth_7',['font_string_width',['../font_8h.html#af05628a74a6fb4755ad6eb075ce5f87d',1,'font.h']]],
+  ['font_5fstring_5fwidth_5flen_8',['font_string_width_len',['../font_8c.html#aa965d55e47b225d39bcf70c39ece24c4',1,'font_string_width_len(const char *s, u32 len, Font *font):&#160;font.c'],['../font_8h.html#aa965d55e47b225d39bcf70c39ece24c4',1,'font_string_width_len(const char *s, u32 len, Font *font):&#160;font.c']]],
+  ['free_9',['free',['../alloc_8c.html#a9f850d0608418aea291e4c0fdab93826',1,'free(void *p):&#160;alloc.c'],['../alloc_8h.html#a9f850d0608418aea291e4c0fdab93826',1,'free(void *p):&#160;alloc.c']]]
 ];

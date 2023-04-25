@@ -2,7 +2,7 @@
 \label{gfx_8h}\index{gfx/gfx.h@{gfx/gfx.h}}
 
 
-TODO.  
+Basic Graphics Functions.  
 
 
 {\ttfamily \#include $<$types.\+h$>$}\newline
@@ -17,12 +17,6 @@ struct \mbox{\hyperlink{structRectangle}{Rectangle}}
 \#define \mbox{\hyperlink{gfx_8h_aae91ae7a3ca585293a2c1031652a49f9}{GFX\+\_\+\+WIDTH}}~320
 \item 
 \#define \mbox{\hyperlink{gfx_8h_a11b59534db467ebd1fb19b758e6fffd7}{GFX\+\_\+\+HEIGHT}}~480
-\item 
-\mbox{\Hypertarget{gfx_8h_ac3755eba8b3ab8a1cb40046903602905}\label{gfx_8h_ac3755eba8b3ab8a1cb40046903602905}} 
-\#define {\bfseries GFX\+\_\+\+VLINE}(x,  y,  h)~\mbox{\hyperlink{gfx_8c_a61d70a4550bf181cd71bfc9a4f12a6d1}{gfx\+\_\+rect}}(x, y, 1, h)
-\item 
-\mbox{\Hypertarget{gfx_8h_aa650136bc00d774aed1f55a52654fa03}\label{gfx_8h_aa650136bc00d774aed1f55a52654fa03}} 
-\#define {\bfseries GFX\+\_\+\+HLINE}(x,  y,  w)~\mbox{\hyperlink{gfx_8c_a61d70a4550bf181cd71bfc9a4f12a6d1}{gfx\+\_\+rect}}(x, y, w, 1)
 \end{DoxyCompactItemize}
 \doxysubsection*{Typedefs}
 \begin{DoxyCompactItemize}
@@ -36,6 +30,10 @@ static \mbox{\hyperlink{gfx_8h_acbbccb6085c654282ef64cdcefc81be5}{Color}} \mbox{
 \begin{DoxyCompactList}\small\item\em TODO. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{gfx_8h_a61d70a4550bf181cd71bfc9a4f12a6d1}{gfx\+\_\+rect}} (i32 x, i32 y, i32 w, i32 h, \mbox{\hyperlink{gfx_8h_acbbccb6085c654282ef64cdcefc81be5}{Color}} color)
 \begin{DoxyCompactList}\small\item\em Draws a rectangle from position (x$\vert$y), w pixels to left and h pixels down. \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{gfx_8h_ad689838f13b1f9a3c2e1b2f54b35c26d}{gfx\+\_\+vline}} (i32 x, i32 y, i32 h)
+\begin{DoxyCompactList}\small\item\em TODO. \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{gfx_8h_ae36641f313cccaab21f24d58c86b7673}{gfx\+\_\+hline}} (i32 x, i32 y, i32 h)
+\begin{DoxyCompactList}\small\item\em TODO. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{gfx_8h_a1d78d15a37b5c0cd2b797a1bcd89010f}{gfx\+\_\+rect\+\_\+border}} (i32 x, i32 y, i32 w, i32 h, i32 border, \mbox{\hyperlink{gfx_8h_acbbccb6085c654282ef64cdcefc81be5}{Color}} color)
 \begin{DoxyCompactList}\small\item\em TODO. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{gfx_8h_aee6a970522731026e1f2b10c6c8eadb2}{gfx\+\_\+image\+\_\+rgba}} (i32 x, i32 y, i32 w, i32 h, u8 $\ast$data)
@@ -51,7 +49,7 @@ void \mbox{\hyperlink{gfx_8h_ad3c13c22f9cb0542323c8cb0cc507671}{gfx\+\_\+image\+
 
 
 \doxysubsection{Detailed Description}
-TODO. 
+Basic Graphics Functions. 
 
 \begin{DoxyAuthor}{Author}
 Tim Gabrikowski, Anton Tchekov 
@@ -86,7 +84,7 @@ The width of the display
 \doxysubsubsection{\texorpdfstring{Color}{Color}}
 {\footnotesize\ttfamily typedef u32 \mbox{\hyperlink{gfx_8h_acbbccb6085c654282ef64cdcefc81be5}{Color}}}
 
-TODO 
+RGBA Color Type 
 
 \doxysubsection{Function Documentation}
 \mbox{\Hypertarget{gfx_8h_afa82cacbf55c028b6513d1cec937bc41}\label{gfx_8h_afa82cacbf55c028b6513d1cec937bc41}} 
@@ -113,6 +111,25 @@ TODO.
 \begin{DoxyReturn}{Returns}
 TODO 
 \end{DoxyReturn}
+\mbox{\Hypertarget{gfx_8h_ae36641f313cccaab21f24d58c86b7673}\label{gfx_8h_ae36641f313cccaab21f24d58c86b7673}} 
+\index{gfx.h@{gfx.h}!gfx\_hline@{gfx\_hline}}
+\index{gfx\_hline@{gfx\_hline}!gfx.h@{gfx.h}}
+\doxysubsubsection{\texorpdfstring{gfx\_hline()}{gfx\_hline()}}
+{\footnotesize\ttfamily static void gfx\+\_\+hline (\begin{DoxyParamCaption}\item[{i32}]{x,  }\item[{i32}]{y,  }\item[{i32}]{h }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+TODO. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & TODO \\
+\hline
+{\em y} & TODO \\
+\hline
+{\em h} & TODO \\
+\hline
+\end{DoxyParams}
 \mbox{\Hypertarget{gfx_8h_ad3c13c22f9cb0542323c8cb0cc507671}\label{gfx_8h_ad3c13c22f9cb0542323c8cb0cc507671}} 
 \index{gfx.h@{gfx.h}!gfx\_image\_1bit@{gfx\_image\_1bit}}
 \index{gfx\_image\_1bit@{gfx\_image\_1bit}!gfx.h@{gfx.h}}
@@ -278,5 +295,24 @@ TODO.
 {\em border} & TODO \\
 \hline
 {\em color} & TODO \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{gfx_8h_ad689838f13b1f9a3c2e1b2f54b35c26d}\label{gfx_8h_ad689838f13b1f9a3c2e1b2f54b35c26d}} 
+\index{gfx.h@{gfx.h}!gfx\_vline@{gfx\_vline}}
+\index{gfx\_vline@{gfx\_vline}!gfx.h@{gfx.h}}
+\doxysubsubsection{\texorpdfstring{gfx\_vline()}{gfx\_vline()}}
+{\footnotesize\ttfamily static void gfx\+\_\+vline (\begin{DoxyParamCaption}\item[{i32}]{x,  }\item[{i32}]{y,  }\item[{i32}]{h }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+TODO. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & TODO \\
+\hline
+{\em y} & TODO \\
+\hline
+{\em h} & TODO \\
 \hline
 \end{DoxyParams}

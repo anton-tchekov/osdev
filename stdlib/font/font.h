@@ -15,15 +15,33 @@
 /** TODO */
 typedef struct
 {
-	i32 Character, Advance, Location[2], Size[2], Bearing[2];
+	/** TODO */
+	i32 Character;
+
+	/** TODO */
+	i32 Advance;
+
+	/** TODO */
+	i32 Size[2];
+
+	/** TODO */
+	i32 Bearing[2];
+
+	/** TODO */
 	u8 *Image;
 } FontChar;
 
 /** TODO */
 typedef struct FONT
 {
+	/** TODO */
 	FontChar *Characters;
-	u32 Size, NumCharacters;
+
+	/** TODO */
+	u32 Size;
+
+	/** TODO */
+	u32 NumCharacters;
 } Font;
 
 /**
@@ -43,7 +61,7 @@ i32 font_string_len(
 /**
  * @brief TODO
  *
- * @param str TODO
+ * @param s TODO
  * @param len TODO
  * @param font TODO
  */

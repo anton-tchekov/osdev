@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['exit_0',['exit',['../std_8h.html#aa6eed079266560d7077aed76d71f3c1d',1,'std.c']]]
+  ['bsearch_0',['bsearch',['../algo_8c.html#a69a33a907a9379c9b342d51a8d9af818',1,'bsearch(const void *key, const void *base, u32 nitems, u32 size, i32(*compare)(const void *, const void *)):&#160;algo.c'],['../algo_8h.html#a69a33a907a9379c9b342d51a8d9af818',1,'bsearch(const void *key, const void *base, u32 nitems, u32 size, i32(*compare)(const void *, const void *)):&#160;algo.c']]],
+  ['button_5frender_1',['button_render',['../gui_8c.html#a39ff9e8cd1575571f8061f9e318276df',1,'gui.c']]]
 ];

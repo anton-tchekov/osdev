@@ -9,11 +9,25 @@
 #include <utf8.h>
 #include <algo.h>
 
+/**
+ * @brief TODO
+ *
+ * @param key TODO
+ * @param elem TODO
+ * @return TODO
+ */
 static i32 _find_char(const void *key, const void *elem)
 {
 	return *(const i32 *)key - ((const FontChar *)elem)->Character;
 }
 
+/**
+ * @brief TODO
+ *
+ * @param c TODO
+ * @param font TODO
+ * @return TODO
+ */
 static FontChar *_font_char(i32 c, Font *font)
 {
 	return bsearch(&c, font->Characters, font->NumCharacters,

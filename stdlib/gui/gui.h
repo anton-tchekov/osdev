@@ -12,6 +12,7 @@
 #include <types.h>
 #include <keyboard.h>
 
+/** TODO */
 typedef enum
 {
 	ELEMENT_TYPE_BUTTON,
@@ -19,36 +20,95 @@ typedef enum
 	ELEMENT_TYPE_LABEL
 } ElementType;
 
+/** TODO */
 typedef struct LABEL
 {
+	/** TODO */
 	ElementType Type;
-	i32 X, Y;
+
+	/** TODO */
+	i32 X;
+
+	/** TODO */
+	i32 Y;
+
+	/** TODO */
 	char *Text;
 } Label;
 
+/** TODO */
 typedef struct BUTTON
 {
+	/** TODO */
 	ElementType Type;
-	i32 X, Y, W, H;
+
+	/** TODO */
+	i32 X;
+
+	/** TODO */
+	i32 Y;
+
+	/** TODO */
+	i32 W;
+
+	/** TODO */
+	i32 H;
+
+	/** TODO */
 	char *Text;
+
+	/** TODO */
 	void (*Click)(void);
 } Button;
 
+/** TODO */
 typedef struct INPUT
 {
+	/** TODO */
 	ElementType Type;
-	i32 X, Y, W, Position, Length, Size;
+
+	/** TODO */
+	i32 X;
+
+	/** TODO */
+	i32 Y;
+
+	/** TODO */
+	i32 W;
+
+	/** TODO */
+	i32 Position;
+
+	/** TODO */
+	i32 Length;
+
+	/** TODO */
+	i32 Size;
+
+	/** TODO */
 	char *Text;
 } Input;
 
+/** TODO */
 typedef struct
 {
+	/** TODO */
 	char *Title;
+
+	/** TODO */
 	void **Elements;
+
+	/** TODO */
+	i32 Selected;
+
+	/** TODO */
 	i32 Count;
+
+	/** TODO */
 	void (*OnKey)(u32, u32);
 } Window;
 
+/** TODO */
 #define LABEL_CREATE(_X, _Y, _TEXT) \
 	{ \
 		.Type = ELEMENT_TYPE_LABEL, \
@@ -57,6 +117,7 @@ typedef struct
 		.Text = _TEXT, \
 	}
 
+/** TODO */
 #define BUTTON_CREATE(_X, _Y, _W, _H, _TEXT, _CLICK) \
 	{ \
 		.Type = ELEMENT_TYPE_BUTTON, \
@@ -68,6 +129,7 @@ typedef struct
 		.Click = _CLICK \
 	}
 
+/** TODO */
 #define INPUT_CREATE(_X, _Y, _W, _TEXT, _SIZE, _CLICK) \
 	{ \
 		.Type = ELEMENT_TYPE_INPUT, \
@@ -81,10 +143,34 @@ typedef struct
 		.Click = _CLICK \
 	}
 
+/**
+ * @brief TODO
+ *
+ * @param window TODO
+ */
 void window_open(Window *window);
-void window_render(Window *window);
-void window_event_key(Key key);
 
+/**
+ * @brief TODO
+ *
+ * @param window TODO
+ */
+void window_render(Window *window);
+
+/**
+ * @brief TODO
+ *
+ * @param key TODO
+ * @param up TODO
+ */
+void window_event_key(Key key, bool up);
+
+
+/**
+ * @brief TODO
+ *
+ * @param i TODO
+ */
 void input_clear(Input *i);
 
 #endif /* __GUI_H__ */

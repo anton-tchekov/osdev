@@ -1,11 +1,9 @@
 var searchData=
 [
-  ['gfx_5fcolor_0',['gfx_color',['../gfx_8h.html#afa82cacbf55c028b6513d1cec937bc41',1,'gfx.h']]],
-  ['gfx_5fimage_5f1bit_1',['gfx_image_1bit',['../gfx_8c.html#ad3c13c22f9cb0542323c8cb0cc507671',1,'gfx_image_1bit(i32 x, i32 y, i32 w, i32 h, u8 *data, Color fg, Color bg):&#160;gfx.c'],['../gfx_8h.html#ad3c13c22f9cb0542323c8cb0cc507671',1,'gfx_image_1bit(i32 x, i32 y, i32 w, i32 h, u8 *data, Color fg, Color bg):&#160;gfx.c']]],
-  ['gfx_5fimage_5fgrayscale_2',['gfx_image_grayscale',['../gfx_8c.html#a3ea9efe84f0224396c9943d52c90d28c',1,'gfx_image_grayscale(i32 x, i32 y, i32 w, i32 h, u8 *data):&#160;gfx.c'],['../gfx_8h.html#a3ea9efe84f0224396c9943d52c90d28c',1,'gfx_image_grayscale(i32 x, i32 y, i32 w, i32 h, u8 *data):&#160;gfx.c']]],
-  ['gfx_5fimage_5frgb_3',['gfx_image_rgb',['../gfx_8c.html#a65cf4ee0a8969d6775922c7c0b170141',1,'gfx_image_rgb(i32 x, i32 y, i32 w, i32 h, u8 *data):&#160;gfx.c'],['../gfx_8h.html#a65cf4ee0a8969d6775922c7c0b170141',1,'gfx_image_rgb(i32 x, i32 y, i32 w, i32 h, u8 *data):&#160;gfx.c']]],
-  ['gfx_5fimage_5frgb565_4',['gfx_image_rgb565',['../gfx_8c.html#a8a56fbb7e713b190d25d7e3cce6a4bcc',1,'gfx_image_rgb565(i32 x, i32 y, i32 w, i32 h, u8 *data):&#160;gfx.c'],['../gfx_8h.html#a8a56fbb7e713b190d25d7e3cce6a4bcc',1,'gfx_image_rgb565(i32 x, i32 y, i32 w, i32 h, u8 *data):&#160;gfx.c']]],
-  ['gfx_5fimage_5frgba_5',['gfx_image_rgba',['../gfx_8c.html#aee6a970522731026e1f2b10c6c8eadb2',1,'gfx_image_rgba(i32 x, i32 y, i32 w, i32 h, u8 *data):&#160;gfx.c'],['../gfx_8h.html#aee6a970522731026e1f2b10c6c8eadb2',1,'gfx_image_rgba(i32 x, i32 y, i32 w, i32 h, u8 *data):&#160;gfx.c']]],
-  ['gfx_5frect_6',['gfx_rect',['../gfx_8c.html#a61d70a4550bf181cd71bfc9a4f12a6d1',1,'gfx_rect(i32 x, i32 y, i32 w, i32 h, Color color):&#160;gfx.c'],['../gfx_8h.html#a61d70a4550bf181cd71bfc9a4f12a6d1',1,'gfx_rect(i32 x, i32 y, i32 w, i32 h, Color color):&#160;gfx.c']]],
-  ['gfx_5frect_5fborder_7',['gfx_rect_border',['../gfx_8c.html#a1d78d15a37b5c0cd2b797a1bcd89010f',1,'gfx_rect_border(i32 x, i32 y, i32 w, i32 h, i32 border, Color color):&#160;gfx.c'],['../gfx_8h.html#a1d78d15a37b5c0cd2b797a1bcd89010f',1,'gfx_rect_border(i32 x, i32 y, i32 w, i32 h, i32 border, Color color):&#160;gfx.c']]]
+  ['element_5ffirst_0',['element_first',['../gui_8c.html#a98f406c5585d125a3729c39bf7a245dc',1,'gui.c']]],
+  ['element_5fnext_1',['element_next',['../gui_8c.html#aa2ea7b20f969b7232c7f7b8cb04e44b7',1,'gui.c']]],
+  ['element_5fprev_2',['element_prev',['../gui_8c.html#a6b1ac6c72d1a01624d9859e8d2860c31',1,'gui.c']]],
+  ['element_5frender_3',['element_render',['../gui_8c.html#abd3451ceccf17d065cd61889831cc99a',1,'gui.c']]],
+  ['element_5frender_5fsel_4',['element_render_sel',['../gui_8c.html#a6b38ecad6795b6f65ba8c8df105a9223',1,'gui.c']]],
+  ['exit_5',['exit',['../std_8h.html#aa6eed079266560d7077aed76d71f3c1d',1,'std.c']]]
 ];

@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['alloc_2ec_0',['alloc.c',['../alloc_8c.html',1,'']]],
-  ['alloc_2eh_1',['alloc.h',['../alloc_8h.html',1,'']]],
-  ['arrlen_2',['ARRLEN',['../std_8h.html#a5a34c337b71a34ab9a0ecff2d5715d24',1,'std.h']]]
+  ['_5fcurrent_5fwindow_0',['_current_window',['../gui_8c.html#ad5d0b2500a195799bc05a5ebc47626f8',1,'gui.c']]],
+  ['_5ffind_5fchar_1',['_find_char',['../font_8c.html#a5f17cd4d228375feaca3b7ab722f9f40',1,'font.c']]],
+  ['_5ffont_5fchar_2',['_font_char',['../font_8c.html#a73c032db51ce47d05a3f51b4f4aec3ee',1,'font.c']]]
 ];

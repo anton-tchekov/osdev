@@ -1,5 +1,9 @@
 var searchData=
 [
-  ['tolower_0',['tolower',['../ctype_8c.html#abe3bb9b3e36b2f1968405b16d654dbf0',1,'tolower(i32 c):&#160;ctype.c'],['../ctype_8h.html#abe3bb9b3e36b2f1968405b16d654dbf0',1,'tolower(i32 c):&#160;ctype.c']]],
-  ['toupper_1',['toupper',['../ctype_8c.html#a036df521e275a27449ed74e41ec66931',1,'toupper(i32 c):&#160;ctype.c'],['../ctype_8h.html#a036df521e275a27449ed74e41ec66931',1,'toupper(i32 c):&#160;ctype.c']]]
+  ['malloc_0',['malloc',['../alloc_8c.html#a743ebafe0a4a366a9e6ef8d4c81b9394',1,'malloc(u32 size):&#160;alloc.c'],['../alloc_8h.html#a743ebafe0a4a366a9e6ef8d4c81b9394',1,'malloc(u32 size):&#160;alloc.c']]],
+  ['memchr_1',['memchr',['../string_8c.html#a4ebfeb26e6e90709d9abc74b2bb452ff',1,'memchr(const void *ptr, i32 value, u32 count):&#160;string.c'],['../string_8h.html#a4ebfeb26e6e90709d9abc74b2bb452ff',1,'memchr(const void *ptr, i32 value, u32 count):&#160;string.c']]],
+  ['memcmp_2',['memcmp',['../string_8c.html#a8abe583def8cefd53678bec4126eeefe',1,'memcmp(const void *ptr1, const void *ptr2, u32 count):&#160;string.c'],['../string_8h.html#a8abe583def8cefd53678bec4126eeefe',1,'memcmp(const void *ptr1, const void *ptr2, u32 count):&#160;string.c']]],
+  ['memcpy_3',['memcpy',['../string_8c.html#a6ea826c42748b85ae7c74f1e2ccf7c27',1,'memcpy(void *dest, const void *src, u32 count):&#160;string.c'],['../string_8h.html#a6ea826c42748b85ae7c74f1e2ccf7c27',1,'memcpy(void *dest, const void *src, u32 count):&#160;string.c']]],
+  ['memmove_4',['memmove',['../string_8c.html#aff3234e5ebcd6a4ff32e5171ee7ac45a',1,'memmove(void *dest, const void *src, u32 count):&#160;string.c'],['../string_8h.html#aff3234e5ebcd6a4ff32e5171ee7ac45a',1,'memmove(void *dest, const void *src, u32 count):&#160;string.c']]],
+  ['memset_5',['memset',['../string_8c.html#ab5fb910d7238069eb23f4b06809aa68e',1,'memset(void *ptr, i32 value, u32 count):&#160;string.c'],['../string_8h.html#ab5fb910d7238069eb23f4b06809aa68e',1,'memset(void *ptr, i32 value, u32 count):&#160;string.c']]]
 ];

@@ -3,11 +3,13 @@
  * @author  Tim Gabrikowski, Anton Tchekov
  * @version 0.1
  * @date    23.04.2023
- * @brief   TODO
+ * @brief   HTML Color List
  */
 
 #ifndef __COLORS_H__
 #define __COLORS_H__
+
+//! @cond Doxygen_Suppress
 
 #define COLOR_TRANSPARENT                            0x00000000
 
@@ -173,5 +175,7 @@
 #define COLOR_SLATE_GRAY                             0x708090FF
 #define COLOR_DARK_SLATE_GRAY                        0x2F4F4FFF
 #define COLOR_BLACK                                  0x000000FF
+
+//! @endcond
 
 #endif /* __COLORS_H__ */

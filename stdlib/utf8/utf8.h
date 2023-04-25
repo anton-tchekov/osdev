@@ -3,7 +3,7 @@
  * @author  Tim Gabrikowski, Anton Tchekov
  * @version 0.1
  * @date    23.04.2023
- * @brief   TODO
+ * @brief   UTF-8 String Handling
  */
 
 #ifndef __UTF8_H__
@@ -12,11 +12,12 @@
 #include <types.h>
 
 /**
- * @brief TODO
+ * @brief Gets the unicode codepoint of the first
+ *        character in a UTF-8 string.
  *
- * @param s TODO
- * @param out TODO
- * @return TODO
+ * @param s The string
+ * @param out Output parameter for codepoint
+ * @return Pointer to the string without the first character
  */
 const char *utf8(const char *s, i32 *out);
 

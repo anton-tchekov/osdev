@@ -51,6 +51,12 @@ typedef enum
 	SYSCALL_SERIAL_READ,
 } SyscallID;
 
+/**
+ * @brief TODO
+ *
+ * @param id TODO
+ * @return TODO
+ */
 static inline u32 syscall0(SyscallID id)
 {
 	register u32 ra0 asm("a0");
@@ -63,6 +69,13 @@ static inline u32 syscall0(SyscallID id)
 	return ra0;
 }
 
+/**
+ * @brief TODO
+ *
+ * @param id TODO
+ * @param a0 TODO
+ * @return TODO
+ */
 static inline u32 syscall1(SyscallID id, u32 a0)
 {
 	register u32 ra0 asm("a0") = a0;
@@ -75,6 +88,14 @@ static inline u32 syscall1(SyscallID id, u32 a0)
 	return ra0;
 }
 
+/**
+ * @brief TODO
+ *
+ * @param id TODO
+ * @param a0 TODO
+ * @param a1 TODO
+ * @return TODO
+ */
 static inline u32 syscall2(SyscallID id, u32 a0, u32 a1)
 {
 	register u32 ra0 asm("a0") = a0;
@@ -89,6 +110,15 @@ static inline u32 syscall2(SyscallID id, u32 a0, u32 a1)
 	return ra0;
 }
 
+/**
+ * @brief TODO
+ *
+ * @param id TODO
+ * @param a0 TODO
+ * @param a1 TODO
+ * @param a2 TODO
+ * @return TODO
+ */
 static inline u32 syscall3(SyscallID id, u32 a0, u32 a1, u32 a2)
 {
 	register u32 ra0 asm("a0") = a0;
@@ -104,6 +134,16 @@ static inline u32 syscall3(SyscallID id, u32 a0, u32 a1, u32 a2)
 	return ra0;
 }
 
+/**
+ * @brief TODO
+ *
+ * @param id TODO
+ * @param a0 TODO
+ * @param a1 TODO
+ * @param a2 TODO
+ * @param a3 TODO
+ * @return TODO
+ */
 static inline u32 syscall4(SyscallID id, u32 a0, u32 a1, u32 a2, u32 a3)
 {
 	register u32 ra0 asm("a0") = a0;
@@ -120,6 +160,17 @@ static inline u32 syscall4(SyscallID id, u32 a0, u32 a1, u32 a2, u32 a3)
 	return ra0;
 }
 
+/**
+ * @brief TODO
+ *
+ * @param id TODO
+ * @param a0 TODO
+ * @param a1 TODO
+ * @param a2 TODO
+ * @param a3 TODO
+ * @param a4 TODO
+ * @return TODO
+ */
 static inline u32 syscall5(SyscallID id, u32 a0, u32 a1, u32 a2, u32 a3, u32 a4)
 {
 	register u32 ra0 asm("a0") = a0;
@@ -137,7 +188,20 @@ static inline u32 syscall5(SyscallID id, u32 a0, u32 a1, u32 a2, u32 a3, u32 a4)
 	return ra0;
 }
 
-static inline u32 syscall6(SyscallID id, u32 a0, u32 a1, u32 a2, u32 a3, u32 a4, u32 a5)
+/**
+ * @brief TODO
+ *
+ * @param id TODO
+ * @param a0 TODO
+ * @param a1 TODO
+ * @param a2 TODO
+ * @param a3 TODO
+ * @param a4 TODO
+ * @param a5 TODO
+ * @return TODO
+ */
+static inline u32 syscall6(
+	SyscallID id, u32 a0, u32 a1, u32 a2, u32 a3, u32 a4, u32 a5)
 {
 	register u32 ra0 asm("a0") = a0;
 	register u32 ra1 asm("a1") = a1;

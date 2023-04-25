@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['utf8_0',['utf8',['../utf8_8c.html#affd03fd86c016b965c4a96960fc7a0e6',1,'utf8(const char *s, i32 *out):&#160;utf8.c'],['../utf8_8h.html#affd03fd86c016b965c4a96960fc7a0e6',1,'utf8(const char *s, i32 *out):&#160;utf8.c']]]
+  ['qsort_0',['qsort',['../algo_8c.html#a2ec83bb661d68e6cdcb9f8340d4a1692',1,'qsort(void *base, u32 number, u32 width, i32(*compare)(const void *, const void *)):&#160;algo.c'],['../algo_8h.html#a2ec83bb661d68e6cdcb9f8340d4a1692',1,'qsort(void *base, u32 number, u32 width, i32(*compare)(const void *, const void *)):&#160;algo.c']]]
 ];
