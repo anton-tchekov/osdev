@@ -2,7 +2,7 @@
  * @file    vector.h
  * @author  Tim Gabrikowski, Anton YTchekov
  * @version 0.1
- * @date    23.04.2023
+ * @date    26.04.2023
  * @brief   Generic resizable array
  */
 
