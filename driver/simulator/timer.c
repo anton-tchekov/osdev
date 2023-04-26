@@ -10,7 +10,7 @@ static void timer_init(void)
 	_usec_start = ts.tv_usec;
 }
 
-u32 timer_millis(void)
+u32 syscall_millis(void)
 {
 	struct timeval ts;
 	gettimeofday(&ts, NULL);

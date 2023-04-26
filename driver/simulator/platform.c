@@ -1,3 +1,21 @@
+#include "types.h"
+#include "util.h"
+#include "platform.h"
+
+#include "timer.c"
+#include "memory.c"
+#include "graphics.c"
+#include "uart.c"
+#include "fs.c"
+#include "stream.c"
+
+void platform_init(void)
+{
+	timer_init();
+	graphics_init();
+}
+
+#include <driver.h>
 #include <SDL2/SDL.h>
 
 #define WINDOW_TITLE             "OS Simulator"
@@ -153,6 +171,20 @@ void graphics_update(void)
 		case SDL_QUIT:
 			exit(0);
 			break;
+
+		case SDL_KEYDOWN:
+			if(event.key.keysym.sym == SDLK_ESCAPE)
+			{
+				running = 0;
+				break;
+			}
+
+			os_event_key(event.key.keysym.sym, 0);
+			break;
+
+		case SDL_KEYUP:
+			os_event_key(event.key.keysym.sym, 1);
+			break;
 		}
 	}
 
@@ -162,18 +194,3 @@ void graphics_update(void)
 	SDL_RenderPresent(_renderer);
 }
 
-/*
-	case SDL_KEYDOWN:
-		if(event.key.keysym.sym == SDLK_ESCAPE)
-		{
-			running = 0;
-			break;
-		}
-
-		os_event_key(event.key.keysym.sym, 0);
-		break;
-
-	case SDL_KEYUP:
-		os_event_key(event.key.keysym.sym, 1);
-		break;
-*/
