@@ -31,8 +31,9 @@ Window window =
 i32 main(void)
 {
 	char str[] = "hello world\n";
-	reverse(str);
+	font_string(10, 10, str, font_default, COLOR_BLACK, COLOR_TRANSPARENT);
+	/*reverse(str);
 	serial_write(str, strlen(str));
-	window_open(&window);
+	window_open(&window);*/
 	return 0;
 }

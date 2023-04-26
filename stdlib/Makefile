@@ -4,13 +4,13 @@ OPT=2
 CFLAGS=\
 	-Wall \
 	-Wextra \
+	-pedantic \
 	-march=rv32im \
 	-mabi=ilp32 \
 	-Wl,-verbose \
 	-nostdlib \
 	-ffreestanding \
 	-O$(OPT) \
-	-I. \
 	-I ctype/ \
 	-I fs/ \
 	-I gfx/ \
@@ -20,13 +20,14 @@ CFLAGS=\
 	-I syscall/ \
 	-I std/ \
 	-I status/ \
-	-I utf8/ \
+	-I ../utf8/ \
 	-I font/ \
 	-I format/ \
 	-I alloc/ \
 	-I serial/ \
 	-I algo/ \
-	-I string/
+	-I string/ \
+	-I ../types/
 
 SRC=\
 	main.c \
@@ -38,7 +39,7 @@ SRC=\
 	gui/gui.c \
 	keyboard/keyboard.c \
 	rand/rand.c \
-	utf8/utf8.c \
+	../utf8/utf8.c \
 	font/font.c \
 	font/font-default.c \
 	format/format.c \

@@ -20,11 +20,16 @@ typedef enum
 	ELEMENT_TYPE_LABEL
 } ElementType;
 
+#define LABEL_FLAG_CENTER 0x01
+
 /** TODO */
-typedef struct LABEL
+typedef struct
 {
 	/** TODO */
 	ElementType Type;
+
+	/** TODO */
+	u8 Flags;
 
 	/** TODO */
 	i32 X;
@@ -37,7 +42,7 @@ typedef struct LABEL
 } Label;
 
 /** TODO */
-typedef struct BUTTON
+typedef struct
 {
 	/** TODO */
 	ElementType Type;
@@ -62,7 +67,7 @@ typedef struct BUTTON
 } Button;
 
 /** TODO */
-typedef struct INPUT
+typedef struct
 {
 	/** TODO */
 	ElementType Type;

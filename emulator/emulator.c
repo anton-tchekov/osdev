@@ -4,6 +4,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+/* #define DEBUG */
+
 #define ARRLEN(A) (sizeof(A) / sizeof(*A))
 
 /* OPCODES */
@@ -43,6 +45,7 @@ static void registers_dump(Emulator *emu)
 
 static u32 syscall_exit(u32 *args)
 {
+	/* TODO */
 	exit(args[0]);
 	return 0;
 }
@@ -112,6 +115,11 @@ static u32 syscall_rand(u32 *args)
 }
 
 /* GFX */
+typedef struct
+{
+	i32 X, Y, W, H;
+} Rectangle;
+
 static u32 syscall_gfx_rect(u32 *args)
 {
 	printf("DRAW RECT (X: %4d, Y: %4d, W: %4d, H: %4d, COLOR: 0x%08X)\n",
@@ -143,6 +151,7 @@ static u32 syscall_gfx_image_rgb565(u32 *args)
 static u32 syscall_gfx_image_grayscale(u32 *args)
 {
 	/* TODO */
+	printf("here!\n");
 	return 0;
 	(void)args;
 }
@@ -150,6 +159,9 @@ static u32 syscall_gfx_image_grayscale(u32 *args)
 static u32 syscall_gfx_image_1bit(u32 *args)
 {
 	/* TODO */
+	Rectangle *r = (Rectangle *)(_memory + args[0]);
+	printf("DRAW IMAGE (X: %4d, Y: %4d, W: %4d, H: %4d, FG: 0x%08X, BG: 0x%08X)\n",
+		r->X, r->Y, r->W, r->H, args[2], args[3]);
 	return 0;
 	(void)args;
 }
@@ -208,8 +220,8 @@ static u32 syscall_keyboard_register_event(u32 *args)
 static u32 syscall_serial_write(u32 *args)
 {
 	/* TODO */
+	fputs((char *)(_memory + args[0]), stdout);
 	return 0;
-	(void)args;
 }
 
 static u32 syscall_serial_read(u32 *args)

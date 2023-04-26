@@ -37,9 +37,11 @@ void gfx_image_rgb565(i32 x, i32 y, i32 w, i32 h, u8 *data)
 	syscall5(SYSCALL_GFX_IMAGE_RGB565, x, y, w, h, (u32)data);
 }
 
-void gfx_image_grayscale(i32 x, i32 y, i32 w, i32 h, u8 *data)
+void gfx_image_grayscale(
+	i32 x, i32 y, i32 w, i32 h, u8 *data, Color fg, Color bg)
 {
-	syscall5(SYSCALL_GFX_IMAGE_GRAYSCALE, x, y, w, h, (u32)data);
+	Rectangle rect = { x, y, w, h };
+	syscall4(SYSCALL_GFX_IMAGE_GRAYSCALE, (u32)&rect, (u32)data, fg, bg);
 }
 
 void gfx_image_1bit(i32 x, i32 y, i32 w, i32 h, u8 *data, Color fg, Color bg)

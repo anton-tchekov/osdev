@@ -16,6 +16,7 @@
 #include <utf8.h>
 #include <gfx.h>
 #include <font.h>
+#include <font-default.h>
 #include <gui.h>
 #include <rand.h>
 #include <status.h>

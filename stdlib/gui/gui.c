@@ -12,17 +12,14 @@
 #include <font-default.h>
 
 /** TODO */
-typedef struct ELEMENT
+static Window *_current_window;
+
+/** TODO */
+typedef struct
 {
 	/** TODO */
 	ElementType Type;
 } Element;
-
-/** TODO */
-static Window *_current_window;
-
-/** TODO */
-static i32 _current_window->Selected;
 
 /* LABEL */
 
@@ -33,6 +30,7 @@ static i32 _current_window->Selected;
  */
 static void label_render(Label *l)
 {
+	/* TODO: Centered and Right Aligned Text */
 	font_string(l->X, 20 + l->Y, l->Text,
 		font_default, COLOR_BLACK, COLOR_WHITE);
 }
@@ -209,6 +207,7 @@ static void input_right(Input *i)
  */
 static void input_event_key(Input *i, i32 c)
 {
+	/* TODO: Text selection */
 	if(c >= 32 && c <= 126)
 	{
 		input_insert(i, c);

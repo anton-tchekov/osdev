@@ -10,6 +10,7 @@
 #define __GFX_H__
 
 #include <types.h>
+#include <colors.h>
 
 /** RGBA Color Type */
 typedef u32 Color;
@@ -69,9 +70,9 @@ void gfx_rect(i32 x, i32 y, i32 w, i32 h, Color color);
  * @param y TODO
  * @param h TODO
  */
-static inline void gfx_vline(i32 x, i32 y, i32 h)
+static inline void gfx_vline(i32 x, i32 y, i32 h, Color color)
 {
-	gfx_rect(x, y, 1, h);
+	gfx_rect(x, y, 1, h, color);
 }
 
 /**
@@ -81,9 +82,9 @@ static inline void gfx_vline(i32 x, i32 y, i32 h)
  * @param y TODO
  * @param h TODO
  */
-static inline void gfx_hline(i32 x, i32 y, i32 h)
+static inline void gfx_hline(i32 x, i32 y, i32 w, Color color)
 {
-	gfx_rect(x, y, w, 1);
+	gfx_rect(x, y, w, 1, color);
 }
 
 /**
@@ -139,8 +140,11 @@ void gfx_image_rgb565(i32 x, i32 y, i32 w, i32 h, u8 *data);
  * @param w TODO
  * @param h TODO
  * @param data TODO
+ * @param fg TODO
+ * @param bg TODO
  */
-void gfx_image_grayscale(i32 x, i32 y, i32 w, i32 h, u8 *data);
+void gfx_image_grayscale(
+	i32 x, i32 y, i32 w, i32 h, u8 *data, Color fg, Color bg);
 
 /**
  * @brief TODO

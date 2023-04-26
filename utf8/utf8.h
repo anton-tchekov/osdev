@@ -19,6 +19,14 @@
  * @param out Output parameter for codepoint
  * @return Pointer to the string without the first character
  */
-const char *utf8(const char *s, i32 *out);
+const char *utf8_codepoint(const char *s, i32 *out);
+
+/**
+ * @brief Gets the number of unicode codepoints in a UTF-8 string.
+ *
+ * @param s The string
+ * @return Number of codepoints in the string
+ */
+u32 utf8_length(const char *s);
 
 #endif /* __UTF8_H__ */
