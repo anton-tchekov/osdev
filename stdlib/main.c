@@ -1,39 +1,15 @@
 #include <std.h>
 
-static char *reverse(char *s)
-{
-	i32 i, j, tmp;
-	for(i = 0, j = strlen(s) - 1; i < j; ++i, --j)
-	{
-		tmp = s[i];
-		s[i] = s[j];
-		s[j] = tmp;
-	}
-
-	return s;
-}
-
-Button button = BUTTON_CREATE(10, 10, 100, 30, "Click Me!", NULL);
-
-void *elements[] =
-{
-	&button,
-};
-
-Window window =
-{
-	.Title = "Test",
-	.Elements = elements,
-	.Count = ARRLEN(elements),
-	.OnKey = NULL
-};
-
 i32 main(void)
 {
+	// serial_write("hello world!\n", 13);
+
 	char str[] = "hello world\n";
-	font_string(10, 10, str, font_default, COLOR_BLACK, COLOR_TRANSPARENT);
-	/*reverse(str);
-	serial_write(str, strlen(str));
-	window_open(&window);*/
+	font_string(10, 10, str, font_default, COLOR_WHITE, COLOR_BLACK);
+
+	while(1)
+	{
+		//gfx_rect(10, 10, 200, 200, gfx_color(0xFF, 0x00, 0x00, 0x00));
+	}
 	return 0;
 }

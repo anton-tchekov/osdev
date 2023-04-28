@@ -64,7 +64,7 @@ i32 font_string_len(
 				y + (font->Size - fc->Bearing[1]),
 				fc->Size[0],
 				fc->Size[1],
-				fc->Bitmap,
+				font->Bitmap + fc->Offset,
 				fg, bg);
 		}
 

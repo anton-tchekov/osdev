@@ -30,7 +30,7 @@ typedef struct
 	i32 Bearing[2];
 
 	/** TODO */
-	u8 *Bitmap;
+	i32 Offset;
 } FontChar;
 
 /** TODO */
@@ -47,6 +47,9 @@ typedef struct FONT
 
 	/** TODO */
 	u32 Flags;
+
+	/** TODO */
+	u8 *Bitmap;
 } Font;
 
 /**

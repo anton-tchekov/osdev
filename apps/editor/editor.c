@@ -25,7 +25,7 @@ void editor_init(Editor *ed)
 	ed->LineNumbers = 4;
 
 	ed->Capacity = 128;
-	ed->Lines = _malloc(ed->Capacity * sizeof(Line *));
+	ed->Lines = malloc(ed->Capacity * sizeof(Line *));
 	ed->NumLines = 1;
 	ed->Lines[0] = line_new(8);
 
@@ -37,7 +37,7 @@ void editor_init(Editor *ed)
 	ed->PageY = 0;
 	ed->PageX = 0;
 
-	ed->Screen = _malloc((ed->PageW + 1 + ed->LineNumbers) * ed->PageH);
+	ed->Screen = malloc((ed->PageW + 1 + ed->LineNumbers) * ed->PageH);
 }
 
 /* --- EDITING --- */

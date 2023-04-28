@@ -7,8 +7,7 @@
 
 typedef struct
 {
-	i32 Codepoint;
-	i32 Advance, Size[2], Bearing[2];
+	i32 Codepoint, Advance, Size[2], Bearing[2], Offset;
 	u8 *Bitmap;
 } FontChar;
 
@@ -93,7 +92,7 @@ int main(int argc, char *argv[])
 	FontChar *fc;
 
 	const char *input_filename, *font_name;
-	i32 *codepoints, i, c, x, y, num_chars, font_size, bytes;
+	i32 *codepoints, i, c, x, y, num_chars, font_size, bytes, offset;
 
 	/* Set locale so that non-ascii characters are displayed correctly */
 	setlocale(LC_CTYPE, "");
@@ -150,6 +149,7 @@ int main(int argc, char *argv[])
 	font.NumCharacters = num_chars;
 	font.Characters = _malloc(num_chars * sizeof(FontChar));
 	FT_Set_Pixel_Sizes(face, 0, font_size);
+	offset = 0;
 	for(i = 0; i < num_chars; ++i)
 	{
 		c = codepoints[i];
@@ -169,29 +169,61 @@ int main(int argc, char *argv[])
 		fc->Bearing[1] = face->glyph->bitmap_top;
 		bytes = fc->Size[0] * fc->Size[1];
 		fc->Bitmap = _malloc(bytes);
+		fc->Offset = offset;
 		memcpy(fc->Bitmap, face->glyph->bitmap.buffer, bytes);
+		offset += bytes;
 	}
 
 	/* Write Output */
-	fprintf(stderr, "#include <%s.h>\n\n", font_name);
+	fprintf(stdout,
+		"#include <%s.h>\n"
+		"\n", font_name);
+
+	fprintf(stdout,
+		"static FontChar _chars[] =\n"
+		"{\n");
+
 	for(i = 0; i < num_chars; ++i)
 	{
 		fc = &font.Characters[i];
-		fprintf(stderr,
-			"static u8 _char_%d[] =\n"
-			"{\n",
-			fc->Codepoint);
+		fprintf(stdout,
+			"\t{\n"
+			"\t\t.Codepoint = %d,\n"
+			"\t\t.Advance = %d,\n"
+			"\t\t.Size = { %d, %d },\n"
+			"\t\t.Bearing = { %d, %d },\n"
+			"\t\t.Offset = %d\n"
+			"\t}%s\n",
+			fc->Codepoint,
+			fc->Advance,
+			fc->Size[0],
+			fc->Size[1],
+			fc->Bearing[0],
+			fc->Bearing[1],
+			fc->Offset,
+			i == num_chars - 1 ? "" : ",");
+	}
+
+	fprintf(stdout, "};\n"
+		"\n");
+
+	fprintf(stdout, "u8 _bitmap[] =\n"
+		"{\n");
+
+	for(i = 0; i < num_chars; ++i)
+	{
+		fc = &font.Characters[i];
 
 		for(y = 0; y < fc->Size[1]; ++y)
 		{
-			fprintf(stderr, "\t");
+			fprintf(stdout, "\t\t");
 
 			if(font.Flags & 1)
 			{
 				/* grayscale */
 				for(x = 0; x < fc->Size[0]; ++x)
 				{
-					fprintf(stderr, "0x%02X, ", fc->Bitmap[y * fc->Size[0] + x]);
+					fprintf(stdout, "0x%02X, ", fc->Bitmap[y * fc->Size[0] + x]);
 				}
 			}
 			else
@@ -202,7 +234,7 @@ int main(int argc, char *argv[])
 				{
 					if(bit == 0x100)
 					{
-						fprintf(stderr, "0x%02X, ", byte);
+						fprintf(stdout, "0x%02X, ", byte);
 						byte = 0;
 						bit = 1;
 					}
@@ -217,61 +249,38 @@ int main(int argc, char *argv[])
 
 				if(bit != 1)
 				{
-					fprintf(stderr, "0x%02X, ", byte);
+					fprintf(stdout, "0x%02X, ", byte);
 				}
 
-				fprintf(stderr, "/* ");
+				fprintf(stdout, "/* ");
 				for(x = 0; x < fc->Size[0]; ++x)
 				{
-					fprintf(stderr, "%c",
+					fprintf(stdout, "%c",
 						fc->Bitmap[y * fc->Size[0] + x] > 128 ? '#' : ' ');
 				}
 
-				fprintf(stderr, " */\n");
+				fprintf(stdout, " */\n");
 			}
 		}
 
-		fprintf(stderr,
-			"};\n\n");
+		fprintf(stdout, "\n");
 	}
 
-	fprintf(stderr,
-		"static FontChar _chars[] =\n"
-		"{\n");
+	fprintf(stdout, "};\n"
+		"\n");
 
-	for(i = 0; i < num_chars; ++i)
-	{
-		fc = &font.Characters[i];
-		fprintf(stderr,
-			"\t{\n"
-			"\t\t.Codepoint = %d,\n"
-			"\t\t.Advance = %d,\n"
-			"\t\t.Size = { %d, %d },\n"
-			"\t\t.Bearing = { %d, %d },\n"
-			"\t\t.Bitmap = _char_%d\n"
-			"\t}%s\n",
-			fc->Codepoint,
-			fc->Advance,
-			fc->Size[0],
-			fc->Size[1],
-			fc->Bearing[0],
-			fc->Bearing[1],
-			fc->Codepoint,
-			i == num_chars - 1 ? "" : ",");
-	}
-
-	fprintf(stderr,
-		"};\n"
-		"\n"
+	fprintf(stdout,
 		"static Font _%s =\n"
 		"{\n"
 		"\t.Characters = _chars,\n"
 		"\t.Size = %d,\n"
-		"\t.NumCharacters = %d\n"
+		"\t.NumCharacters = %d,\n"
+		"\t.Flags = %d,\n"
+		"\t.Bitmap = _bitmap\n"
 		"};\n\n"
 		"Font *%s = &_%s;\n"
 		"\n",
-		font_name, font_size, num_chars, font_name, font_name);
+		font_name, font_size, num_chars, font.Flags, font_name, font_name);
 
 	/* Cleanup */
 	for(i = 0; i < num_chars; ++i)

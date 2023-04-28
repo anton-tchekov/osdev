@@ -1,7 +1,18 @@
-#ifndef __DRIVER_H__
-#define __DRIVER_H__
+#ifndef __PLATFORM_H__
+#define __PLATFORM_H__
 
 #include <types.h>
+
+void memory_sb(u32 address, u32 value);
+void memory_sh(u32 address, u32 value);
+void memory_sw(u32 address, u32 value);
+u32 memory_lb(u32 address);
+u32 memory_lh(u32 address);
+u32 memory_lw(u32 address);
+u32 memory_lbu(u32 address);
+u32 memory_lhu(u32 address);
+
+
 
 u32 syscall_exit(u32 *args);
 
@@ -39,4 +50,4 @@ u32 syscall_keyboard_register_event(u32 *args);
 u32 syscall_serial_write(u32 *args);
 u32 syscall_serial_read(u32 *args);
 
-#endif /* __DRIVER_H__ */
+#endif /* __PLATFORM_H__ */

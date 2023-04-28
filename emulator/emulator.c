@@ -1,5 +1,7 @@
-#include "types.h"
-#include "memory.c"
+#include <types.h>
+#include <memory.h>
+#include <platform.h>
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -30,205 +32,6 @@ static inline u32 sext(u32 bits, u32 value)
 {
 	u32 m = 1 << (bits - 1);
 	return (value ^ m) - m;
-}
-
-static void registers_dump(Emulator *emu)
-{
-	printf("PC  0x%08X %10d\n", emu->PC, emu->PC);
-	for(i32 i = 0; i < 32; ++i)
-	{
-		printf("R%d%s 0x%08X %10d\n", i, i < 10 ? " " : "",  emu->Registers[i], emu->Registers[i]);
-	}
-
-	printf("\n");
-}
-
-static u32 syscall_exit(u32 *args)
-{
-	/* TODO */
-	exit(args[0]);
-	return 0;
-}
-
-/* MEM */
-static u32 syscall_memcpy(u32 *args)
-{
-	return (u8 *)memcpy(_memory + args[0], _memory + args[1], args[2]) - _memory;
-}
-
-static u32 syscall_memmove(u32 *args)
-{
-	return (u8 *)memmove(_memory + args[0], _memory + args[1], args[2]) - _memory;
-}
-
-static u32 syscall_memcmp(u32 *args)
-{
-	return memcmp(_memory + args[0], _memory + args[1], args[2]);
-}
-
-static u32 syscall_memchr(u32 *args)
-{
-	return (u8 *)memchr(_memory + args[0], args[1], args[2]) - _memory;
-}
-
-static u32 syscall_memset(u32 *args)
-{
-	return (u8 *)memset(_memory + args[0], args[1], args[2]) - _memory;
-}
-
-/* STR */
-static u32 syscall_strcpy(u32 *args)
-{
-	return strcpy((char *)(_memory + args[0]), (char *)(_memory + args[1])) - (char *)_memory;
-}
-
-static u32 syscall_strncpy(u32 *args)
-{
-	return strncpy((char *)(_memory + args[0]), (char *)(_memory + args[1]), args[2]) - (char *)_memory;
-}
-
-static u32 syscall_strlen(u32 *args)
-{
-	return strlen((char *)(_memory + args[0]));
-}
-
-static u32 syscall_strcmp(u32 *args)
-{
-	return strcmp((char *)(_memory + args[0]), (char *)(_memory + args[1]));
-}
-
-static u32 syscall_strncmp(u32 *args)
-{
-	return strncmp((char *)(_memory + args[0]), (char *)(_memory + args[1]), args[2]);
-}
-
-static u32 syscall_strchr(u32 *args)
-{
-	return strchr((char *)(_memory + args[0]), args[1]) - (char *)_memory;
-}
-
-/* RAND */
-static u32 syscall_rand(u32 *args)
-{
-	return rand();
-	(void)args;
-}
-
-/* GFX */
-typedef struct
-{
-	i32 X, Y, W, H;
-} Rectangle;
-
-static u32 syscall_gfx_rect(u32 *args)
-{
-	printf("DRAW RECT (X: %4d, Y: %4d, W: %4d, H: %4d, COLOR: 0x%08X)\n",
-		args[0], args[1], args[2], args[3], args[4]);
-	return 0;
-}
-
-static u32 syscall_gfx_image_rgba(u32 *args)
-{
-	/* TODO */
-	return 0;
-	(void)args;
-}
-
-static u32 syscall_gfx_image_rgb(u32 *args)
-{
-	/* TODO */
-	return 0;
-	(void)args;
-}
-
-static u32 syscall_gfx_image_rgb565(u32 *args)
-{
-	/* TODO */
-	return 0;
-	(void)args;
-}
-
-static u32 syscall_gfx_image_grayscale(u32 *args)
-{
-	/* TODO */
-	printf("here!\n");
-	return 0;
-	(void)args;
-}
-
-static u32 syscall_gfx_image_1bit(u32 *args)
-{
-	/* TODO */
-	Rectangle *r = (Rectangle *)(_memory + args[0]);
-	printf("DRAW IMAGE (X: %4d, Y: %4d, W: %4d, H: %4d, FG: 0x%08X, BG: 0x%08X)\n",
-		r->X, r->Y, r->W, r->H, args[2], args[3]);
-	return 0;
-	(void)args;
-}
-
-/* FS */
-static u32 syscall_file_open(u32 *args)
-{
-	/* TODO */
-	return 0;
-	(void)args;
-}
-
-static u32 syscall_file_read(u32 *args)
-{
-	/* TODO */
-	return 0;
-	(void)args;
-}
-
-static u32 syscall_file_write(u32 *args)
-{
-	/* TODO */
-	return 0;
-	(void)args;
-}
-
-static u32 syscall_file_close(u32 *args)
-{
-	/* TODO */
-	return 0;
-	(void)args;
-}
-
-static u32 syscall_file_size(u32 *args)
-{
-	/* TODO */
-	return 0;
-	(void)args;
-}
-
-/* KBD */
-static u32 syscall_keyboard_is_key_pressed(u32 *args)
-{
-	/* TODO */
-	return 0;
-	(void)args;
-}
-
-static u32 syscall_keyboard_register_event(u32 *args)
-{
-	/* TODO */
-	return 0;
-	(void)args;
-}
-
-static u32 syscall_serial_write(u32 *args)
-{
-	/* TODO */
-	fputs((char *)(_memory + args[0]), stdout);
-	return 0;
-}
-
-static u32 syscall_serial_read(u32 *args)
-{
-	/* TODO */
-	return 0;
-	(void)args;
 }
 
 static u32 (*syscalls[])(u32 *) =
@@ -282,7 +85,31 @@ static i32 syscall(u32 id, u32 *args)
 }
 
 /* EMULATOR */
-static i32 emulator_next(Emulator *emu)
+void emulator_dump_registers(Emulator *emu)
+{
+	printf("PC  0x%08X %10d\n", emu->PC, emu->PC);
+	for(i32 i = 0; i < 32; ++i)
+	{
+		printf("R%d%s 0x%08X %10d\n", i, i < 10 ? " " : "",
+			emu->Registers[i], emu->Registers[i]);
+	}
+
+	printf("\n");
+}
+
+void emulator_init(Emulator *emu, u32 pc, u32 sp)
+{
+	/* Program Counter entry point */
+	emu->PC = pc;
+
+	/* Zero all Registers */
+	memset(emu->Registers, 0, sizeof(emu->Registers));
+
+	/* Initialize Stack Pointer at end of memory */
+	emu->Registers[2] = sp;
+}
+
+i32 emulator_next(Emulator *emu)
 {
 	u32 instr, opcode;
 	instr = memory_lw(emu->PC);
