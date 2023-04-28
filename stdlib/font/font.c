@@ -18,6 +18,10 @@
  */
 static i32 _find_char(const void *key, const void *elem)
 {
+	debug_print("Compare: %d vs %d\n",
+		*(const i32 *)key,
+		((const FontChar *)elem)->Codepoint);
+
 	return *(const i32 *)key - ((const FontChar *)elem)->Codepoint;
 }
 
@@ -30,6 +34,7 @@ static i32 _find_char(const void *key, const void *elem)
  */
 static FontChar *_font_char(i32 c, Font *font)
 {
+	debug_print("Get char ?\n");
 	return bsearch(&c, font->Characters, font->NumCharacters,
 			sizeof(FontChar), _find_char);
 }
@@ -44,18 +49,25 @@ i32 font_string_len(
 		font->Flags & FONT_FLAG_GRAYSCALE ?
 		gfx_image_grayscale : gfx_image_1bit;
 
+	debug_print("STRING: %s\n", s);
+
 	for(i = 0; i < len; ++i)
 	{
+		debug_print("INDEX: %d\n", i);
 		s = utf8_codepoint(s, &c);
 		if(!c)
 		{
 			break;
 		}
 
+		debug_print("CHAR: %c\n", c);
+
 		if(!(fc = _font_char(c, font)))
 		{
 			continue;
 		}
+
+		debug_print("FOUND CHAR\n");
 
 		if(fc->Size[0] && fc->Size[1])
 		{
@@ -66,6 +78,8 @@ i32 font_string_len(
 				fc->Size[1],
 				font->Bitmap + fc->Offset,
 				fg, bg);
+
+			debug_print("DRAW\n");
 		}
 
 		x += fc->Advance;

@@ -652,7 +652,7 @@ i32 emulator_next(Emulator *emu)
 		case OPCODE_JALR:
 		{
 			i32 offset;
-			u32 rd, rs1, ret, imm;
+			u32 rd, rs1, imm;
 			rd = (instr >> 7) & 0x1F;
 			rs1 = (instr >> 15) & 0x1F;
 			imm = (instr >> 20) & ~1;
@@ -661,9 +661,8 @@ i32 emulator_next(Emulator *emu)
 #ifdef DEBUG
 			printf("jalr r%d, r%d%+d\n", rd, rs1, offset);
 #endif
-			ret = emu->PC + 4;
+			emu->Registers[rd] = emu->PC + 4;
 			emu->PC = emu->Registers[rs1] + offset;
-			emu->Registers[rd] = ret;
 			return 0;
 		}
 

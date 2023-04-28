@@ -29,4 +29,6 @@ i32 serial_write(const void *buf, i32 n);
  */
 i32 serial_read(const void *buf, i32 n);
 
+void debug_print(const char *format, ...);
+
 #endif /* __SERIAL_H__ */

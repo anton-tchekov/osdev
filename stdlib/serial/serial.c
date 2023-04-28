@@ -7,6 +7,20 @@
 
 #include <serial.h>
 #include <syscall.h>
+#include <stdarg.h>
+#include <format.h>
+
+void debug_print(const char *format, ...)
+{
+	char str[128];
+	int r;
+	va_list args;
+	va_start(args, format);
+	r = vsnprintf(str, UINT32_MAX, format, args);
+	va_end(args);
+
+	serial_write(str, r);
+}
 
 i32 serial_write(const void *buf, i32 n)
 {

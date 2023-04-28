@@ -24,6 +24,8 @@
 #include <alloc.h>
 #include <serial.h>
 
+#define loop for(;;)
+
 /** TODO */
 #define ARRLEN(A) (sizeof(A) / sizeof(*(A)))
 

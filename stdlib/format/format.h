@@ -10,6 +10,7 @@
 #define __FORMAT_H__
 
 #include <types.h>
+#include <stdarg.h>
 
 /**
  * @brief TODO
@@ -29,5 +30,7 @@ i32 sprintf(char *str, const char *format, ...);
  * @return TODO
  */
 i32 snprintf(char *str, u32 n, const char *format, ...);
+
+int vsnprintf(char* str, size_t size, const char* format, va_list arg);
 
 #endif /* __FORMAT_H__ */
