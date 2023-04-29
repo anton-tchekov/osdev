@@ -9,7 +9,7 @@
 #include <stdlib.h>
 
 /* --- MEMORY --- */
-static u8 _memory[64 * 1024];
+static u8 _memory[1024 * 1024];
 
 /* Store */
 void memory_sb(u32 address, u32 value)
