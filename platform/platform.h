@@ -15,6 +15,7 @@ u32 memory_lhu(u32 address);
 
 
 u32 syscall_exit(u32 *args);
+u32 syscall_event_register(u32 *args);
 
 u32 syscall_memcpy(u32 *args);
 u32 syscall_memmove(u32 *args);
@@ -45,7 +46,6 @@ u32 syscall_file_close(u32 *args);
 u32 syscall_file_size(u32 *args);
 
 u32 syscall_keyboard_is_key_pressed(u32 *args);
-u32 syscall_keyboard_register_event(u32 *args);
 
 u32 syscall_serial_write(u32 *args);
 u32 syscall_serial_read(u32 *args);

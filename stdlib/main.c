@@ -3,20 +3,6 @@
 #include <fatty.h>
 #include <ubuntu_bold.h>
 
-i32 is_prime(i32 v)
-{
-	i32 i;
-	for(i = 2; i <= v / 2; ++i)
-	{
-		if(v % i == 0)
-		{
-			return 0;
-		}
-	}
-
-	return 1;
-}
-
 Button button = BUTTON_CREATE(10, 10, 100, 30, "Click Me!", NULL);
 Button button2 = BUTTON_CREATE(60, 300, 100, 30, "TEST 123 ...", NULL);
 
@@ -37,45 +23,34 @@ Window window =
 	.OnKey = NULL
 };
 
-i32 main(void)
+void event_key(Key key, bool down)
 {
+	debug_print("Key = %d, down = %d\n", key, down);
+
+	if(key == KEY_W)
+	{
+		gfx_rect(GFX_WIDTH / 2, GFX_HEIGHT / 2,
+			10, 10, COLOR_BLUE);
+	}
+}
+
+void setup(void)
+{
+	keyboard_register_event(event_key);
+
 	window_open(&window);
 
-	char str[] = "Hello World!";
-	
-	font_string(10, 80, str, arial, COLOR_BLACK, COLOR_WHITE);
-
-
-
-font_string(30, 260, "A", fatty, COLOR_BLACK, COLOR_WHITE);
-
-font_string(30, 360, "Alles klar warum nicht?", ubuntu_bold, COLOR_BLACK, COLOR_WHITE);
-
-/*
-	u32 begin, end;
-	i32 i, count;
-
-	debug_print("Start!\n");
-
-	begin = millis();
-	debug_print("begin = %d\n", 0);
-
-	count = 0;
-	for(i = 2; i <= 10000; ++i)
-	{
-		debug_print("i = %d\n", i);
-		if(is_prime(i))
-		{
-			++count;
-			debug_print("prime! count = %d\n", count);
-		}
-	}
-
-	end = millis();
-	debug_print("Number of primes: %d - Time spent: %d ms\n",
-		count, end - begin);
-*/
-
-	loop {}
-	return 0;
+	font_string(10, 80, "Hello World!", arial, COLOR_BLACK, COLOR_WHITE);
+	font_string(30, 260, "A", fatty, COLOR_BLACK, COLOR_WHITE);
+	font_string(30, 360, "Alles klar warum nicht?", ubuntu_bold, COLOR_BLACK, COLOR_WHITE);
 }
+
+int y = 0;
+
+void loop(void)
+{
+	gfx_rect(0, y, 10, 10, COLOR_RED);
+	y += 10;
+}
+
+

@@ -35,15 +35,6 @@ void renderPlayer(i32 x, i32 y, Color color)
 	gfx_rect(x, y, 10, 10, color);
 }
 
-void sleep(i32 mills)
-{
-	i32 begin = millis();
-	while (millis() - begin < mills)
-	{
-	}
-	return;
-}
-
 void renderCollider(Colider col, Color color)
 {
 	gfx_rect(col.x, col.y, col.w, col.h, color);
@@ -75,71 +66,75 @@ bool overlap(Colider c1, Colider c2)
 	return !noOverlap;
 }
 
-i32 main(void)
+#define H_CENTER (GFX_WIDTH / 2)
+#define X_MOVE   (H_CENTER - 5)
+
+#define V_CENTER (GFX_HEIGHT / 2)
+#define Y_MOVE   (V_CENTER - 5)
+
+#define DELAY    100
+
+i32 player_x = X_MOVE;
+i32 player_y = Y_MOVE;
+i32 begin;
+
+bool won = false;
+bool alive = true;
+
+
+void setup(void)
 {
 	window_open(&window);
-
-	i32 h_center = GFX_WIDTH / 2;
-	i32 x_move = h_center - 5;
-
-	i32 v_center = GFX_HEIGHT / 2;
-	i32 y_move = v_center - 5;
-
-	i32 player_x = x_move;
-	i32 player_y = y_move;
-
-	bool won = false;
-	bool alive = true;
-
 	clear();
+}
 
-	loop
+void loop(void)
+{
+	if(millis() - begin < DELAY)
 	{
+		return;
+	}
 
-		coliderPlayer.x = player_x;
-		coliderPlayer.y = player_y;
+	begin = millis();
 
-		if (overlap(coliderKill, coliderPlayer))
+	coliderPlayer.x = player_x;
+	coliderPlayer.y = player_y;
+
+	if (overlap(coliderKill, coliderPlayer))
+	{
+		font_string(50, 100, "YOU DEAD", ubuntu_bold, COLOR_RED, COLOR_BLACK);
+	}
+	else
+	{
+		if (keyboard_is_key_pressed(KEY_W))
 		{
-			font_string(50, 100, "YOU DEAD", ubuntu_bold, COLOR_RED, COLOR_BLACK);
+			player_y -= 10;
+		}
+		if (keyboard_is_key_pressed(KEY_S))
+		{
+			player_y += 10;
+		}
+		if (keyboard_is_key_pressed(KEY_A))
+		{
+			player_x -= 10;
+		}
+		if (keyboard_is_key_pressed(KEY_D))
+		{
+			player_x += 10;
+		}
+		clear();
+		renderCollider(coliderGoal, COLOR_GREEN);
+		renderCollider(coliderKill, COLOR_RED);
+
+		if (overlap(coliderGoal, coliderPlayer) || won)
+		{
+			renderPlayer(player_x, player_y, COLOR_BLUE);
+			won = true;
+			font_string(50, 100, "YOU WON", ubuntu_bold, COLOR_RED, COLOR_BLACK);
 		}
 		else
 		{
-
-			if (keyboard_is_key_pressed(KEY_W))
-			{
-				player_y -= 10;
-			}
-			if (keyboard_is_key_pressed(KEY_S))
-			{
-				player_y += 10;
-			}
-			if (keyboard_is_key_pressed(KEY_A))
-			{
-				player_x -= 10;
-			}
-			if (keyboard_is_key_pressed(KEY_D))
-			{
-				player_x += 10;
-			}
-			clear();
-			renderCollider(coliderGoal, COLOR_GREEN);
-			renderCollider(coliderKill, COLOR_RED);
-
-			if (overlap(coliderGoal, coliderPlayer) || won)
-			{
-				renderPlayer(player_x, player_y, COLOR_BLUE);
-				won = true;
-				font_string(50, 100, "YOU WON", ubuntu_bold, COLOR_RED, COLOR_BLACK);
-			}
-			else
-			{
-				renderPlayer(player_x, player_y, COLOR_WHITE);
-			}
-
-			sleep(100);
+			renderPlayer(player_x, player_y, COLOR_WHITE);
 		}
 	}
-
-	return 0;
 }

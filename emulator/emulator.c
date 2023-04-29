@@ -1,6 +1,7 @@
 #include <types.h>
 #include <memory.h>
 #include <platform.h>
+#include <emulator.h>
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -23,21 +24,27 @@
 #define OPCODE_JAL    0x1B /* Jump and Link */
 #define OPCODE_ECALL  0x1C
 
-typedef struct
-{
-	u32 PC;
-	u32 Registers[32];
-} Emulator;
-
 static inline u32 sext(u32 bits, u32 value)
 {
 	u32 m = 1 << (bits - 1);
 	return (value ^ m) - m;
 }
 
+static bool _finished;
+
+static u32 syscall_finish(u32 *args)
+{
+	_finished = true;
+	return 0;
+	(void)args;
+}
+
 static u32 (*syscalls[])(u32 *) =
 {
 	syscall_exit,
+	syscall_finish,
+
+	syscall_event_register,
 
 	syscall_memcpy,
 	syscall_memmove,
@@ -68,7 +75,6 @@ static u32 (*syscalls[])(u32 *) =
 	syscall_file_size,
 
 	syscall_keyboard_is_key_pressed,
-	syscall_keyboard_register_event,
 
 	syscall_serial_write,
 	syscall_serial_read,
@@ -101,16 +107,34 @@ void emulator_dump_registers(Emulator *emu)
 	printf("\n");
 }
 
-void emulator_init(Emulator *emu, u32 pc, u32 sp)
-{
-	/* Program Counter entry point */
-	emu->PC = pc;
+#define BOLDRED   "\033[1m\033[31m"
+#define RESET     "\033[0m"
 
-	/* Zero all Registers */
-	memset(emu->Registers, 0, sizeof(emu->Registers));
+i32 emulator_call(Emulator *emu, u32 addr, u32 *args, u32 num, u32 sp, u32 max_instr)
+{
+	u32 i;
 
 	/* Initialize Stack Pointer at end of memory */
 	emu->Registers[2] = sp;
+
+	emu->PC = addr;
+	memcpy(&emu->Registers[10],
+		args, num * sizeof(*emu->Registers));
+
+	_finished = false;
+	for(i = 0; i < max_instr; ++i)
+	{
+		emulator_next(emu);
+		if(_finished)
+		{
+			return 0;
+		}
+	}
+
+	/* TODO */
+	fprintf(stderr, BOLDRED "INSTRUCTION LIMIT EXCEEDED!\n" RESET);
+	exit(1);
+	return 1;
 }
 
 i32 emulator_next(Emulator *emu)

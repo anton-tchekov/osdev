@@ -29,6 +29,7 @@ CFLAGS=\
 	-I $(PREFIX)/algo/ \
 	-I $(PREFIX)/string/ \
 	-I $(PREFIX)/time/ \
+	-I $(PREFIX)/event/ \
 	-I ../../types/ \
 	-I ../../util/ \
 	-I ../../status/ \
@@ -56,6 +57,7 @@ SRC=\
 	$(PREFIX)/algo/algo.c \
 	$(PREFIX)/../status/status.c \
 	$(PREFIX)/time/time.c \
+	$(PREFIX)/event/event.c \
 
 all:
 	riscv64-unknown-elf-gcc $(CFLAGS) $(SRC) -o $(TARGET) -T$(PREFIX)/$(TARGET).ld

@@ -27,6 +27,7 @@ CFLAGS=\
 	-I algo/ \
 	-I string/ \
 	-I time/ \
+	-I event/ \
 	-I ../types/ \
 	-I ../util/ \
 	-I ../status/ \
@@ -51,6 +52,7 @@ SRC=\
 	alloc/alloc.c \
 	serial/serial.c \
 	algo/algo.c \
+	event/event.c \
 	../status/status.c \
 	time/time.c \
 

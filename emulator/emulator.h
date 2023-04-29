@@ -10,7 +10,7 @@ typedef struct
 } Emulator;
 
 void emulator_dump_registers(Emulator *emu);
-void emulator_init(Emulator *emu, u32 pc, u32 sp);
 i32 emulator_next(Emulator *emu);
+i32 emulator_call(Emulator *emu, u32 addr, u32 *args, u32 num, u32 sp, u32 max_instr);
 
 #endif /* __EMULATOR_H__ */

@@ -128,6 +128,8 @@ static SDL_Texture *_framebuffer;
 static SDL_Window *_window;
 static SDL_Renderer *_renderer;
 
+static u32 _event_loop_addr, _event_key_addr;
+
 static void gfx_init(void)
 {
 	/* Init SDL */
@@ -370,10 +372,9 @@ static Emulator emu;
 
 static void os_update(void)
 {
-	i32 i;
-	for(i = 0; i < 10000; ++i)
+	if(_event_loop_addr)
 	{
-		emulator_next(&emu);
+		emulator_call(&emu, _event_loop_addr, NULL, 0, sizeof(_memory), 100000);
 	}
 
 	/* registers_dump(&emu); */
@@ -389,6 +390,12 @@ static bool _keys[NUM_KEYS];
 
 static void keyboard_event(Key key, bool down)
 {
+	if(_event_key_addr)
+	{
+		u32 args[2] = { key, down };
+		emulator_call(&emu, _event_key_addr, args, ARRLEN(args), sizeof(_memory), 100000);
+	}
+
 	if(key >= NUM_KEYS)
 	{
 		return;
@@ -486,6 +493,23 @@ u32 syscall_exit(u32 *args)
 	/* TODO */
 	exit(args[0]);
 	return 0;
+}
+
+u32 syscall_event_register(u32 *args)
+{
+	switch(args[0])
+	{
+		case 0:
+			_event_loop_addr = args[1];
+			break;
+
+		case 1:
+			_event_key_addr = args[1];
+			break;
+	}
+
+	return 0;
+	(void)args;
 }
 
 /* MEM */
@@ -669,7 +693,18 @@ u32 syscall_file_write(u32 *args)
 u32 syscall_file_close(u32 *args)
 {
 	u32 file = args[0];
-	fclose(_files[file]);
+	FILE *fp;
+	if(file < 1 || file >= ARRLEN(_files))
+	{
+		return STATUS_FAIL;
+	}
+
+	if(!(fp = _files[file]))
+	{
+		return STATUS_FAIL;
+	}
+
+	fclose(fp);
 	_files[file] = 0;
 	return 0;
 }
@@ -701,13 +736,6 @@ u32 syscall_keyboard_is_key_pressed(u32 *args)
 	}
 
 	return _keys[key];
-}
-
-u32 syscall_keyboard_register_event(u32 *args)
-{
-	/* TODO */
-	return 0;
-	(void)args;
 }
 
 u32 syscall_serial_write(u32 *args)
@@ -750,7 +778,8 @@ int main(int argc, char **argv)
 	}
 	while(len == READ_SIZE);
 
-	emulator_init(&emu, 0, sizeof(_memory));
+	/* Call setup */
+	emulator_call(&emu, 0, NULL, 0, sizeof(_memory), 100000);
 
 	timer_init();
 	gfx_init();

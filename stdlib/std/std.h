@@ -26,9 +26,6 @@
 #include <time.h>
 #include <util.h>
 
-/* TODO */
-#define loop for(;;)
-
 /**
  * @brief TODO
  *
