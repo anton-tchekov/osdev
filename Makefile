@@ -25,7 +25,8 @@ all:
 	$(CC) -o $(TARGET) $(SRC) $(CFLAGS) $(LDFLAGS)
 
 cloc:
-	cloc . --exclude-ext=html,htm,css,js,tex,sty,svg,md --exclude-dir=freetype
+	cloc . --exclude-ext=html,htm,css,js,tex,sty,svg,md \
+		--exclude-dir=freetype,assets
 
 clean:
 	rm -f $(TARGET)

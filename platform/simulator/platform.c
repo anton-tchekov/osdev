@@ -387,14 +387,14 @@ typedef u32 Key;
 
 static bool _keys[NUM_KEYS];
 
-static void keyboard_event(Key key, bool up)
+static void keyboard_event(Key key, bool down)
 {
 	if(key >= NUM_KEYS)
 	{
 		return;
 	}
 
-	_keys[key] = up;
+	_keys[key] = down;
 }
 
 /* --- PLATFORM --- */
@@ -414,11 +414,11 @@ static bool platform_run(void)
 				return false;
 			}
 
-			keyboard_event(e.key.keysym.sym, false);
+			keyboard_event(e.key.keysym.sym, true);
 			break;
 
 		case SDL_KEYUP:
-			keyboard_event(e.key.keysym.sym, true);
+			keyboard_event(e.key.keysym.sym, false);
 			break;
 		}
 	}

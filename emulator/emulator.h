@@ -13,4 +13,4 @@ void emulator_dump_registers(Emulator *emu);
 void emulator_init(Emulator *emu, u32 pc, u32 sp);
 i32 emulator_next(Emulator *emu);
 
-#endif
+#endif /* __EMULATOR_H__ */

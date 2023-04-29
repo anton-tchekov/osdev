@@ -11,6 +11,8 @@
 
 //! @cond Doxygen_Suppress
 
+/* TODO: FORMATTING */
+
 enum
 {
 	KEY_UNKNOWN		= 0,

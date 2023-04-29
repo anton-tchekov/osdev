@@ -13,3 +13,16 @@ void start(void)
 {
 	exit(main());
 }
+
+/*
+static void finish()
+{
+	syscall0(SYSCALL_FINISH);
+}
+
+void __loop(void)
+{
+	finish(loop());
+}
+
+*/
