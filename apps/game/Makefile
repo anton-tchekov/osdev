@@ -32,6 +32,7 @@ CFLAGS=\
 	-I ../../types/ \
 	-I ../../util/ \
 	-I ../../status/ \
+	-I .
 
 SRC=\
 	main.c \
