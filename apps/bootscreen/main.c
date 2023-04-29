@@ -1,21 +1,6 @@
 #include <std.h>
-#include <arial.h>
-#include <fatty.h>
 #include <ubuntu_bold.h>
-
-i32 is_prime(i32 v)
-{
-	i32 i;
-	for(i = 2; i <= v / 2; ++i)
-	{
-		if(v % i == 0)
-		{
-			return 0;
-		}
-	}
-
-	return 1;
-}
+#include "assets/logo.c"
 
 Button button = BUTTON_CREATE(10, 10, 100, 30, "Click Me!", NULL);
 Button button2 = BUTTON_CREATE(60, 300, 100, 30, "TEST 123 ...", NULL);
@@ -43,11 +28,12 @@ i32 main(void)
 
 	char str[] = "Hello World!";
 	
-	font_string(10, 80, str, arial, COLOR_BLACK, COLOR_WHITE);
+	font_string(10, 80, str, ubuntu_bold, COLOR_BLACK, COLOR_WHITE);
 
 
+gfx_image_rgb(0, 0, logo.width, logo.height, logo.pixel_data);
 
-font_string(30, 260, "A", fatty, COLOR_BLACK, COLOR_WHITE);
+font_string(30, 260, "A", ubuntu_bold, COLOR_BLACK, COLOR_WHITE);
 
 font_string(30, 360, "Alles klar warum nicht?", ubuntu_bold, COLOR_BLACK, COLOR_WHITE);
 
