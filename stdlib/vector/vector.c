@@ -7,8 +7,6 @@
 
 #include "vector.h"
 
-/* TODO: Check parameters of all functions with ASSERT */
-
 void vector_init(Vector *vector, u32 element_size, u32 initial_capacity)
 {
 	vector->ElementSize = element_size;
@@ -22,27 +20,68 @@ void vector_destroy(Vector *vector)
 	free(vector->Data);
 }
 
-void vector_replace(
-	Vector *vector, u32 index, u32 count, void *elems, i32 new_count)
+static u32 _next_pot(u32 n)
 {
-	/* TODO: Implementation */
+	u32 power = 1;
+	while(power < n)
+	{
+		power <<= 1;
+	}
 
-	/* 1. Step */
+	return power;
+}
+
+void vector_replace(
+	Vector *vector, u32 index, u32 count, void *elems, u32 new_count)
+{
+	u32 element_size = vector->ElementSize;
+
+	ASSERT(index <= vector.Length);
+	ASSERT(count <= vector.Length);
+	ASSERT((index + count) <= vector.Length);
+
 	/* Calculate new number of elements */
+	new_length = vector->Length - count + new_count;
+	if(new_length > vector->Capacity)
+	{
+		/* Resize necessary */
+		u32 first_bytes;
+		u32 new_capacity;
+		void *new_data;
 
-	/* (2. Step) if new_length > vector->Capacity */
-	/* Resize the vector by allocating a new buffer with malloc and copying
-		all the elements using memcpy */
+		new_capacity = _next_pot(new_length);
 
-	/* (3. Step) if inserting in the middle or beginning */
-	/* Shift the end of the array up to make space for new elements or
-		down to reduce number of elements depending on if count <> new_count */
+		first_bytes = index * element_size;
 
-	/* (4. Step) if new_count > 0 */
-	/* Copy new elements into range (index, new_count) using memcpy */
+		/* Create new buffer */
+		new_data = malloc(new_capacity * element_size);
 
-	/* Would be nice to combine steps 2, 3, 4 so that there is no
-	unnesseccary copying of data that will be overwritten anyway */
+		/* Copy first part */
+		memcpy(new_data, vector->Data, first_bytes);
+
+		/* Copy new range */
+		memcpy(new_data + first_bytes,
+			vector->Data, new_count * element_size);
+
+		/* Copy last part */
+		memcpy(new_data + first_bytes,
+			vector->Data, new_count * element_size);
+
+		/* Replace with new buffer */
+		free(vector->Data);
+		vector->Data = new_data;
+	}
+	else
+	{
+		/* Shift last part */
+		memmove(vector->Data + ,
+			vector->Data + ,
+			(vector->Length - index - count) * element_size)
+
+		/* Copy new range */
+		memcpy(vector->Data + index * vector->ElementSize,
+			elems, new_count * vector->ElementSize);
+	}
 }
 
 void *vector_get(Vector *vector, u32 index)

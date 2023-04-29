@@ -10,7 +10,7 @@ CFLAGS=\
 	-Werror=return-type \
 	-Werror=implicit-function-declaration \
 	-pedantic -std=c99 \
-	-O2 \
+	-g \
 	-l SDL2
 
 LDFLAGS=

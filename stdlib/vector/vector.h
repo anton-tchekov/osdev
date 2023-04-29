@@ -59,7 +59,7 @@ void vector_destroy(Vector *vector);
  * @param new_count Number of new elements to be inserted
  */
 void vector_replace(
-	Vector *vector, u32 index, u32 count, void *elems, i32 new_count);
+	Vector *vector, u32 index, u32 count, void *elems, u32 new_count);
 
 /**
  * @brief Get a pointer to an element in the vector

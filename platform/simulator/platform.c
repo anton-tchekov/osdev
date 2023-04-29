@@ -9,7 +9,7 @@
 #include <stdlib.h>
 
 /* --- MEMORY --- */
-static u8 _memory[64 * 1024];
+static u8 _memory[1024 * 1024];
 
 /* Store */
 void memory_sb(u32 address, u32 value)
@@ -560,9 +560,13 @@ u32 syscall_gfx_image_1bit(u32 *args)
 }
 
 /* FS */
-static u8 _find_slot(void)
+
+
+static FILE *_files[256];
+
+static u32 _find_slot(void)
 {
-	u32 i;
+	/*u32 i;
 	for(i = 1; i < ARRLEN(_files); ++i)
 	{
 		if(!_files[i])
@@ -570,60 +574,27 @@ static u8 _find_slot(void)
 			return i;
 		}
 	}
-
+*/
 	return 0;
 }
-
-u8 fs_fopen(const char *filename, const char *mode)
-{
-	u8 id = _find_slot();
-	return (_files[id] = fopen(filename, mode)) ? id : 0;
-}
-
-u16 fs_fread(u8 file, u8 bank, u16 addr, u16 size)
-{
-	if(file)
-	{
-		return fread(_calculate_ptr(bank, addr), 1, size, _files[file]);
-	}
-
-	return 0;
-}
-
-void fs_fclose(u8 file)
-{
-
-}
-
-u16 fs_fwrite(u8 file, u8 bank, u16 addr, u16 size)
-{
-
-}
-
-void fs_fseek(u8 file, u32 pos)
-{
-	if(file)
-	{
-		fseek(_files[file], pos, SEEK_SET);
-	}
-}
-
-u32 fs_ftell(u8 file)
-{
-	return file ? ftell(_files[file]) : 0;
-}
-
-static FILE *_files[256];
 
 u32 syscall_file_open(u32 *args)
 {
-	/* TODO */
+	/*u32 id = _find_slot();
+	return (_files[id] = fopen(filename, mode)) ? id : 0;
+	return id;*/
 	return 0;
 	(void)args;
 }
 
 u32 syscall_file_read(u32 *args)
 {
+	/*if(file)
+	{
+		fseek(_files[file], pos, SEEK_SET);
+		return fread(_calculate_ptr(bank, addr), 1, size, _files[file]);
+	}*/
+
 	/* TODO */
 	return 0;
 	(void)args;
@@ -631,6 +602,11 @@ u32 syscall_file_read(u32 *args)
 
 u32 syscall_file_write(u32 *args)
 {
+	/*if(file)
+	{
+		fseek(_files[file], pos, SEEK_SET);
+	}*/
+
 	/* TODO */
 	return 0;
 	(void)args;
@@ -638,13 +614,14 @@ u32 syscall_file_write(u32 *args)
 
 u32 syscall_file_close(u32 *args)
 {
-	fclose(_files[file]);
-	_files[file] = 0;
+	/*fclose(_files[file]);
+	_files[file] = 0;*/
 	return 0;
 }
 
 u32 syscall_file_size(u32 *args)
 {
+	//return file ? ftell(_files[file]) : 0;
 	/* TODO */
 	return 0;
 	(void)args;
@@ -709,7 +686,7 @@ int main(int argc, char **argv)
 	}
 	while(len == READ_SIZE);
 
-	emulator_init(&emu, 0, 64 * 1024);
+	emulator_init(&emu, 0, sizeof(_memory));
 
 	timer_init();
 	gfx_init();
