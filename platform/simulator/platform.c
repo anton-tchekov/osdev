@@ -433,41 +433,6 @@ u32 syscall_millis(u32 *args)
 	(void)args;
 }
 
-int main(int argc, char **argv)
-{
-	size_t len, offset;
-	FILE *fp;
-
-	if(argc != 2)
-	{
-		fprintf(stderr, "Usage: ./emu rv32i-binary\n");
-		return 1;
-	}
-
-	/* Load binary into memory */
-	if(!(fp = fopen(argv[1], "rb")))
-	{
-		fprintf(stderr, "Failed to open file \"%s\"\n", argv[1]);
-		return 1;
-	}
-
-	offset = 0;
-	do
-	{
-		len = fread(_memory + offset, 1, READ_SIZE, fp);
-		offset += len;
-	}
-	while(len == READ_SIZE);
-
-	emulator_init(&emu, 0, 64 * 1024);
-
-	timer_init();
-	gfx_init();
-	while(platform_run()) {}
-	gfx_destroy();
-	return 0;
-}
-
 /* --- SYSCALLS --- */
 u32 syscall_exit(u32 *args)
 {
@@ -595,6 +560,61 @@ u32 syscall_gfx_image_1bit(u32 *args)
 }
 
 /* FS */
+static u8 _find_slot(void)
+{
+	u32 i;
+	for(i = 1; i < ARRLEN(_files); ++i)
+	{
+		if(!_files[i])
+		{
+			return i;
+		}
+	}
+
+	return 0;
+}
+
+u8 fs_fopen(const char *filename, const char *mode)
+{
+	u8 id = _find_slot();
+	return (_files[id] = fopen(filename, mode)) ? id : 0;
+}
+
+u16 fs_fread(u8 file, u8 bank, u16 addr, u16 size)
+{
+	if(file)
+	{
+		return fread(_calculate_ptr(bank, addr), 1, size, _files[file]);
+	}
+
+	return 0;
+}
+
+void fs_fclose(u8 file)
+{
+
+}
+
+u16 fs_fwrite(u8 file, u8 bank, u16 addr, u16 size)
+{
+
+}
+
+void fs_fseek(u8 file, u32 pos)
+{
+	if(file)
+	{
+		fseek(_files[file], pos, SEEK_SET);
+	}
+}
+
+u32 fs_ftell(u8 file)
+{
+	return file ? ftell(_files[file]) : 0;
+}
+
+static FILE *_files[256];
+
 u32 syscall_file_open(u32 *args)
 {
 	/* TODO */
@@ -618,9 +638,9 @@ u32 syscall_file_write(u32 *args)
 
 u32 syscall_file_close(u32 *args)
 {
-	/* TODO */
+	fclose(_files[file]);
+	_files[file] = 0;
 	return 0;
-	(void)args;
 }
 
 u32 syscall_file_size(u32 *args)
@@ -661,4 +681,39 @@ u32 syscall_serial_read(u32 *args)
 	/* Always return 0 bytes read */
 	return 0;
 	(void)args;
+}
+
+int main(int argc, char **argv)
+{
+	size_t len, offset;
+	FILE *fp;
+
+	if(argc != 2)
+	{
+		fprintf(stderr, "Usage: ./emu rv32i-binary\n");
+		return 1;
+	}
+
+	/* Load binary into memory */
+	if(!(fp = fopen(argv[1], "rb")))
+	{
+		fprintf(stderr, "Failed to open file \"%s\"\n", argv[1]);
+		return 1;
+	}
+
+	offset = 0;
+	do
+	{
+		len = fread(_memory + offset, 1, READ_SIZE, fp);
+		offset += len;
+	}
+	while(len == READ_SIZE);
+
+	emulator_init(&emu, 0, 64 * 1024);
+
+	timer_init();
+	gfx_init();
+	while(platform_run()) {}
+	gfx_destroy();
+	return 0;
 }
