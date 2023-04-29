@@ -45,6 +45,7 @@ i32 main(void)
 	end = millis();
 	debug_print("Number of primes: %d - Time spent: %d ms\n",
 		count, end - begin);
+Your branch is up to date with 'origin/main'.
 */
 
 	i32 begin = millis();
