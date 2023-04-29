@@ -45,6 +45,7 @@ SRC=\
 	font/font_default.c \
 	font/arial.c \
 	font/fatty.c \
+	font/ubuntu_bold.c \
 	format/format.c \
 	alloc/alloc.c \
 	serial/serial.c \
