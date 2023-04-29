@@ -1,6 +1,6 @@
 # riscv-emulator
 
-Emulates a RISCV32_IMF processor.
+Emulates a RISCV32_IM processor.
 
 Supports:
 - Base Instructions
