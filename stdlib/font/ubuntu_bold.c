@@ -1,4 +1,4 @@
-#include <Ubuntu_Bold.h>
+#include <ubuntu_bold.h>
 
 static FontChar _chars[] =
 {
@@ -1745,7 +1745,7 @@ static u8 _bitmap[] =
 
 };
 
-static Font _Ubuntu_Bold =
+static Font _ubuntu_bold =
 {
 	.Characters = _chars,
 	.Size = 16,
@@ -1754,5 +1754,5 @@ static Font _Ubuntu_Bold =
 	.Bitmap = _bitmap
 };
 
-Font *Ubuntu_Bold = &_Ubuntu_Bold;
+Font *ubuntu_bold = &_ubuntu_bold;
 
