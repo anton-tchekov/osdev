@@ -1,3 +1,10 @@
+/**
+ * @file    event.c
+ * @author  Tim Gabrikowski, Anton Tchekov
+ * @version 0.1
+ * @date    29.04.2023
+ */
+
 #include <event.h>
 #include <syscall.h>
 #include <keyboard.h>
@@ -16,13 +23,13 @@ static void _event_loop_handler(void)
 void __setup(void) __attribute__((section(".start")));
 void __setup(void)
 {
-	event_register(EVENT_LOOP, _event_loop_handler);
+	event_register(EVENT_LOOP, (u32)_event_loop_handler);
 	keyboard_init();
 	setup();
 	finish();
 }
 
-void event_register(Event type, void *event)
+void event_register(Event type, u32 event)
 {
-	syscall2(SYSCALL_EVENT_REGISTER, type, (u32)event);
+	syscall2(SYSCALL_EVENT_REGISTER, type, event);
 }

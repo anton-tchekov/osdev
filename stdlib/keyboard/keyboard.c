@@ -23,7 +23,7 @@ static void _event_key_handler(Key key, bool down)
 
 void keyboard_init(void)
 {
-	event_register(EVENT_KEY, _event_key_handler);
+	event_register(EVENT_KEY, (u32)_event_key_handler);
 }
 
 bool keyboard_is_key_pressed(Key key)
