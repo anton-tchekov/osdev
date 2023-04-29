@@ -6,6 +6,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include <time.h>
+
 /* #define DEBUG */
 
 #define ARRLEN(A) (sizeof(A) / sizeof(*A))
@@ -71,6 +73,9 @@ static u32 (*syscalls[])(u32 *) =
 
 	syscall_serial_write,
 	syscall_serial_read,
+
+	syscall_datetime_now,
+	syscall_millis,
 };
 
 static i32 syscall(u32 id, u32 *args)
@@ -111,6 +116,13 @@ void emulator_init(Emulator *emu, u32 pc, u32 sp)
 
 i32 emulator_next(Emulator *emu)
 {
+#ifdef DEBUG
+	clock_t begin, end;
+	double time_spent;
+
+	begin = clock();
+#endif
+
 	u32 instr, opcode;
 	instr = memory_lw(emu->PC);
 
@@ -372,6 +384,7 @@ i32 emulator_next(Emulator *emu)
 #ifdef DEBUG
 						printf("mul r%d, r%d, r%d\n", rd, rs1, rs2);
 #endif
+						emu->Registers[rd] = (i32)emu->Registers[rs1] * (i32)emu->Registers[rs2];
 						break;
 
 					case 1:
@@ -379,6 +392,7 @@ i32 emulator_next(Emulator *emu)
 #ifdef DEBUG
 						printf("mulh r%d, r%d, r%d\n", rd, rs1, rs2);
 #endif
+						emu->Registers[rd] = ((i64)emu->Registers[rs1] * (i64)emu->Registers[rs2]) >> 32;
 						break;
 
 					case 2:
@@ -386,6 +400,7 @@ i32 emulator_next(Emulator *emu)
 #ifdef DEBUG
 						printf("mulhsu r%d, r%d, r%d\n", rd, rs1, rs2);
 #endif
+						emu->Registers[rd] = ((i64)emu->Registers[rs1] * (u64)emu->Registers[rs2]) >> 32;
 						break;
 
 					case 3:
@@ -393,6 +408,7 @@ i32 emulator_next(Emulator *emu)
 #ifdef DEBUG
 						printf("mulhu r%d, r%d, r%d\n", rd, rs1, rs2);
 #endif
+						emu->Registers[rd] = ((u64)emu->Registers[rs1] * (u64)emu->Registers[rs2]) >> 32;
 						break;
 
 					case 4:
@@ -400,6 +416,7 @@ i32 emulator_next(Emulator *emu)
 #ifdef DEBUG
 						printf("div r%d, r%d, r%d\n", rd, rs1, rs2);
 #endif
+						emu->Registers[rd] = (i32)emu->Registers[rs1] / (i32)emu->Registers[rs2];
 						break;
 
 					case 5:
@@ -407,6 +424,7 @@ i32 emulator_next(Emulator *emu)
 #ifdef DEBUG
 						printf("divu r%d, r%d, r%d\n", rd, rs1, rs2);
 #endif
+						emu->Registers[rd] = emu->Registers[rs1] / emu->Registers[rs2];
 						break;
 
 					case 6:
@@ -414,6 +432,7 @@ i32 emulator_next(Emulator *emu)
 #ifdef DEBUG
 						printf("rem r%d, r%d, r%d\n", rd, rs1, rs2);
 #endif
+						emu->Registers[rd] = (i32)emu->Registers[rs1] % (i32)emu->Registers[rs2];
 						break;
 
 					case 7:
@@ -421,6 +440,7 @@ i32 emulator_next(Emulator *emu)
 #ifdef DEBUG
 						printf("remu r%d, r%d, r%d\n", rd, rs1, rs2);
 #endif
+						emu->Registers[rd] = emu->Registers[rs1] % emu->Registers[rs2];
 						break;
 				}
 			}
@@ -673,6 +693,12 @@ i32 emulator_next(Emulator *emu)
 #endif
 			return -1;
 	}
+
+#ifdef DEBUG
+	end = clock();
+	time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
+	printf("time spent = %f\n", time_spent);
+#endif
 
 	emu->PC += 4;
 	return 0;

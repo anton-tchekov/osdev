@@ -50,4 +50,7 @@ u32 syscall_keyboard_register_event(u32 *args);
 u32 syscall_serial_write(u32 *args);
 u32 syscall_serial_read(u32 *args);
 
+u32 syscall_datetime_now(u32 *args);
+u32 syscall_millis(u32 *args);
+
 #endif /* __PLATFORM_H__ */

@@ -9,7 +9,9 @@
 #include <gfx.h>
 #include <font.h>
 #include <colors.h>
-#include <font-default.h>
+#include <font_default.h>
+
+#define TITLE_BAR_HEIGHT 20
 
 /** TODO */
 static Window *_current_window;
@@ -31,7 +33,7 @@ typedef struct
 static void label_render(Label *l)
 {
 	/* TODO: Centered and Right Aligned Text */
-	font_string(l->X, 20 + l->Y, l->Text,
+	font_string(l->X, TITLE_BAR_HEIGHT + l->Y, l->Text,
 		font_default, COLOR_BLACK, COLOR_WHITE);
 }
 
@@ -47,7 +49,7 @@ static void button_render(Button *b, bool sel)
 {
 	i32 x, y;
 
-	y = 20 + b->Y;
+	y = TITLE_BAR_HEIGHT + b->Y;
 	gfx_rect(b->X, y, b->W, b->H, COLOR_WHITE);
 	if(sel)
 	{
@@ -59,7 +61,8 @@ static void button_render(Button *b, bool sel)
 	}
 
 	x = b->X + b->W / 2 - font_string_width(b->Text, font_default) / 2;
-	font_string(x, y, b->Text, font_default, COLOR_BLACK, COLOR_WHITE);
+	font_string(x, y + b->H / 2 - 5,
+		b->Text, font_default, COLOR_BLACK, COLOR_WHITE);
 }
 
 /* INPUT */
@@ -72,22 +75,24 @@ static void button_render(Button *b, bool sel)
  */
 static void input_render(Input *i, bool sel)
 {
-	gfx_rect(i->X + 1, 20 + i->Y + 1, i->W - 2, 20 - 2, COLOR_WHITE);
+	i32 y = TITLE_BAR_HEIGHT + i->Y;
+
+	gfx_rect(i->X + 1, TITLE_BAR_HEIGHT + i->Y + 1, i->W - 2, 20 - 2, COLOR_WHITE);
 	if(sel)
 	{
-		gfx_rect_border(i->X, 20 + i->Y, i->W, 20, 2, COLOR_RED);
+		gfx_rect_border(i->X, TITLE_BAR_HEIGHT + i->Y, i->W, 20, 2, COLOR_RED);
 
 		/* Cursor */
 		gfx_rect(i->X + 5 +
 			font_string_width_len(i->Text, i->Position, font_default) - 1,
-			20 + i->Y + 3, 1, 14, COLOR_BLACK);
+			TITLE_BAR_HEIGHT + i->Y + 3, 1, 14, COLOR_BLACK);
 	}
 	else
 	{
-		gfx_rect_border(i->X, 20 + i->Y, i->W, 20, 1, COLOR_BLACK);
+		gfx_rect_border(i->X, y, i->W, 20, 1, COLOR_BLACK);
 	}
 
-	font_string(i->X + 5, 20 + i->Y + 5, i->Text,
+	font_string(i->X + 5, y + 5, i->Text,
 		font_default, COLOR_BLACK, COLOR_WHITE);
 }
 
@@ -333,7 +338,7 @@ void window_render(Window *window)
 	gfx_rect(0, 0, GFX_WIDTH, 20, COLOR_BLUE);
 
 	/* Background */
-	gfx_rect(0, 20, GFX_WIDTH, 220, COLOR_WHITE);
+	gfx_rect(0, TITLE_BAR_HEIGHT, GFX_WIDTH, GFX_HEIGHT - 20, COLOR_WHITE);
 
 	/* Title */
 	font_string(4, 4, window->Title,

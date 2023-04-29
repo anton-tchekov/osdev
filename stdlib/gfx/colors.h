@@ -3,7 +3,7 @@
  * @author  Tim Gabrikowski, Anton Tchekov
  * @version 0.1
  * @date    23.04.2023
- * @brief   HTML Color List
+ * @brief   HTML Color List in ABGR format
  */
 
 #ifndef __COLORS_H__

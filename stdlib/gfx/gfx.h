@@ -48,7 +48,7 @@ typedef struct
  */
 static inline Color gfx_color(i32 r, i32 g, i32 b, i32 a)
 {
-	return r | (g << 8) | (b << 16) | (a << 24);
+	return a | (b << 8) | (g << 16) | (r << 24);
 }
 
 /**

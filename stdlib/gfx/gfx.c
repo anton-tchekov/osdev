@@ -40,12 +40,12 @@ void gfx_image_rgb565(i32 x, i32 y, i32 w, i32 h, u8 *data)
 void gfx_image_grayscale(
 	i32 x, i32 y, i32 w, i32 h, u8 *data, Color fg, Color bg)
 {
-	Rectangle rect = { x, y, w, h };
+	volatile Rectangle rect = { x, y, w, h };
 	syscall4(SYSCALL_GFX_IMAGE_GRAYSCALE, (u32)&rect, (u32)data, fg, bg);
 }
 
 void gfx_image_1bit(i32 x, i32 y, i32 w, i32 h, u8 *data, Color fg, Color bg)
 {
-	Rectangle rect = { x, y, w, h };
+	volatile Rectangle rect = { x, y, w, h };
 	syscall4(SYSCALL_GFX_IMAGE_1BIT, (u32)&rect, (u32)data, fg, bg);
 }

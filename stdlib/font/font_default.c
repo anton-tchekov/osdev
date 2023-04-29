@@ -1,4 +1,4 @@
-#include <font-default.h>
+#include <font_default.h>
 
 static FontChar _chars[] =
 {
@@ -28,648 +28,648 @@ static FontChar _chars[] =
 		.Advance = 8,
 		.Size = { 7, 7 },
 		.Bearing = { 0, 7 },
-		.Offset = 16
+		.Offset = 10
 	},
 	{
 		.Codepoint = 36,
 		.Advance = 6,
 		.Size = { 5, 9 },
 		.Bearing = { 0, 8 },
-		.Offset = 65
+		.Offset = 17
 	},
 	{
 		.Codepoint = 37,
 		.Advance = 8,
 		.Size = { 7, 7 },
 		.Bearing = { 0, 7 },
-		.Offset = 110
+		.Offset = 26
 	},
 	{
 		.Codepoint = 38,
 		.Advance = 7,
 		.Size = { 6, 7 },
 		.Bearing = { 0, 7 },
-		.Offset = 159
+		.Offset = 33
 	},
 	{
 		.Codepoint = 39,
 		.Advance = 2,
 		.Size = { 1, 3 },
 		.Bearing = { 0, 8 },
-		.Offset = 201
+		.Offset = 40
 	},
 	{
 		.Codepoint = 40,
 		.Advance = 4,
 		.Size = { 3, 9 },
 		.Bearing = { 0, 8 },
-		.Offset = 204
+		.Offset = 43
 	},
 	{
 		.Codepoint = 41,
 		.Advance = 4,
 		.Size = { 3, 9 },
 		.Bearing = { 0, 8 },
-		.Offset = 231
+		.Offset = 52
 	},
 	{
 		.Codepoint = 42,
 		.Advance = 6,
 		.Size = { 5, 5 },
 		.Bearing = { 0, 8 },
-		.Offset = 258
+		.Offset = 61
 	},
 	{
 		.Codepoint = 43,
 		.Advance = 6,
 		.Size = { 5, 5 },
 		.Bearing = { 0, 6 },
-		.Offset = 283
+		.Offset = 66
 	},
 	{
 		.Codepoint = 44,
 		.Advance = 3,
 		.Size = { 2, 2 },
 		.Bearing = { 0, 1 },
-		.Offset = 308
+		.Offset = 71
 	},
 	{
 		.Codepoint = 45,
 		.Advance = 4,
 		.Size = { 3, 1 },
 		.Bearing = { 0, 4 },
-		.Offset = 312
+		.Offset = 73
 	},
 	{
 		.Codepoint = 46,
 		.Advance = 2,
 		.Size = { 1, 1 },
 		.Bearing = { 0, 1 },
-		.Offset = 315
+		.Offset = 74
 	},
 	{
 		.Codepoint = 47,
 		.Advance = 5,
 		.Size = { 4, 7 },
 		.Bearing = { 0, 7 },
-		.Offset = 316
+		.Offset = 75
 	},
 	{
 		.Codepoint = 48,
 		.Advance = 5,
 		.Size = { 4, 7 },
 		.Bearing = { 0, 7 },
-		.Offset = 344
+		.Offset = 82
 	},
 	{
 		.Codepoint = 49,
 		.Advance = 3,
 		.Size = { 2, 7 },
 		.Bearing = { 0, 7 },
-		.Offset = 372
+		.Offset = 89
 	},
 	{
 		.Codepoint = 50,
 		.Advance = 5,
 		.Size = { 4, 7 },
 		.Bearing = { 0, 7 },
-		.Offset = 386
+		.Offset = 96
 	},
 	{
 		.Codepoint = 51,
 		.Advance = 5,
 		.Size = { 4, 7 },
 		.Bearing = { 0, 7 },
-		.Offset = 414
+		.Offset = 103
 	},
 	{
 		.Codepoint = 52,
 		.Advance = 5,
 		.Size = { 4, 7 },
 		.Bearing = { 0, 7 },
-		.Offset = 442
+		.Offset = 110
 	},
 	{
 		.Codepoint = 53,
 		.Advance = 5,
 		.Size = { 4, 7 },
 		.Bearing = { 0, 7 },
-		.Offset = 470
+		.Offset = 117
 	},
 	{
 		.Codepoint = 54,
 		.Advance = 5,
 		.Size = { 4, 7 },
 		.Bearing = { 0, 7 },
-		.Offset = 498
+		.Offset = 124
 	},
 	{
 		.Codepoint = 55,
 		.Advance = 5,
 		.Size = { 4, 7 },
 		.Bearing = { 0, 7 },
-		.Offset = 526
+		.Offset = 131
 	},
 	{
 		.Codepoint = 56,
 		.Advance = 5,
 		.Size = { 4, 7 },
 		.Bearing = { 0, 7 },
-		.Offset = 554
+		.Offset = 138
 	},
 	{
 		.Codepoint = 57,
 		.Advance = 5,
 		.Size = { 4, 7 },
 		.Bearing = { 0, 7 },
-		.Offset = 582
+		.Offset = 145
 	},
 	{
 		.Codepoint = 58,
 		.Advance = 2,
 		.Size = { 1, 5 },
 		.Bearing = { 0, 5 },
-		.Offset = 610
+		.Offset = 152
 	},
 	{
 		.Codepoint = 59,
 		.Advance = 3,
 		.Size = { 2, 6 },
 		.Bearing = { 0, 5 },
-		.Offset = 615
+		.Offset = 157
 	},
 	{
 		.Codepoint = 60,
 		.Advance = 6,
 		.Size = { 5, 5 },
 		.Bearing = { 0, 6 },
-		.Offset = 627
+		.Offset = 163
 	},
 	{
 		.Codepoint = 61,
 		.Advance = 6,
 		.Size = { 5, 3 },
 		.Bearing = { 0, 5 },
-		.Offset = 652
+		.Offset = 168
 	},
 	{
 		.Codepoint = 62,
 		.Advance = 6,
 		.Size = { 5, 5 },
 		.Bearing = { 0, 6 },
-		.Offset = 667
+		.Offset = 171
 	},
 	{
 		.Codepoint = 63,
 		.Advance = 5,
 		.Size = { 4, 7 },
 		.Bearing = { 0, 7 },
-		.Offset = 692
+		.Offset = 176
 	},
 	{
 		.Codepoint = 64,
 		.Advance = 8,
 		.Size = { 7, 7 },
 		.Bearing = { 0, 6 },
-		.Offset = 720
+		.Offset = 183
 	},
 	{
 		.Codepoint = 65,
 		.Advance = 5,
 		.Size = { 4, 7 },
 		.Bearing = { 0, 7 },
-		.Offset = 769
+		.Offset = 190
 	},
 	{
 		.Codepoint = 66,
 		.Advance = 5,
 		.Size = { 4, 7 },
 		.Bearing = { 0, 7 },
-		.Offset = 797
+		.Offset = 197
 	},
 	{
 		.Codepoint = 67,
 		.Advance = 5,
 		.Size = { 4, 7 },
 		.Bearing = { 0, 7 },
-		.Offset = 825
+		.Offset = 204
 	},
 	{
 		.Codepoint = 68,
 		.Advance = 6,
 		.Size = { 5, 7 },
 		.Bearing = { 0, 7 },
-		.Offset = 853
+		.Offset = 211
 	},
 	{
 		.Codepoint = 69,
 		.Advance = 4,
 		.Size = { 3, 7 },
 		.Bearing = { 0, 7 },
-		.Offset = 888
+		.Offset = 218
 	},
 	{
 		.Codepoint = 70,
 		.Advance = 4,
 		.Size = { 3, 7 },
 		.Bearing = { 0, 7 },
-		.Offset = 909
+		.Offset = 225
 	},
 	{
 		.Codepoint = 71,
 		.Advance = 6,
 		.Size = { 5, 7 },
 		.Bearing = { 0, 7 },
-		.Offset = 930
+		.Offset = 232
 	},
 	{
 		.Codepoint = 72,
 		.Advance = 6,
 		.Size = { 5, 7 },
 		.Bearing = { 0, 7 },
-		.Offset = 965
+		.Offset = 239
 	},
 	{
 		.Codepoint = 73,
 		.Advance = 2,
 		.Size = { 1, 7 },
 		.Bearing = { 0, 7 },
-		.Offset = 1000
+		.Offset = 246
 	},
 	{
 		.Codepoint = 74,
 		.Advance = 4,
 		.Size = { 3, 7 },
 		.Bearing = { 0, 7 },
-		.Offset = 1007
+		.Offset = 253
 	},
 	{
 		.Codepoint = 75,
 		.Advance = 6,
 		.Size = { 5, 7 },
 		.Bearing = { 0, 7 },
-		.Offset = 1028
+		.Offset = 260
 	},
 	{
 		.Codepoint = 76,
 		.Advance = 5,
 		.Size = { 4, 7 },
 		.Bearing = { 0, 7 },
-		.Offset = 1063
+		.Offset = 267
 	},
 	{
 		.Codepoint = 77,
 		.Advance = 8,
 		.Size = { 7, 7 },
 		.Bearing = { 0, 7 },
-		.Offset = 1091
+		.Offset = 274
 	},
 	{
 		.Codepoint = 78,
 		.Advance = 6,
 		.Size = { 5, 7 },
 		.Bearing = { 0, 7 },
-		.Offset = 1140
+		.Offset = 281
 	},
 	{
 		.Codepoint = 79,
 		.Advance = 7,
 		.Size = { 6, 7 },
 		.Bearing = { 0, 7 },
-		.Offset = 1175
+		.Offset = 288
 	},
 	{
 		.Codepoint = 80,
 		.Advance = 5,
 		.Size = { 4, 7 },
 		.Bearing = { 0, 7 },
-		.Offset = 1217
+		.Offset = 295
 	},
 	{
 		.Codepoint = 81,
 		.Advance = 7,
 		.Size = { 6, 8 },
 		.Bearing = { 0, 7 },
-		.Offset = 1245
+		.Offset = 302
 	},
 	{
 		.Codepoint = 82,
 		.Advance = 5,
 		.Size = { 4, 7 },
 		.Bearing = { 0, 7 },
-		.Offset = 1293
+		.Offset = 310
 	},
 	{
 		.Codepoint = 83,
 		.Advance = 5,
 		.Size = { 4, 7 },
 		.Bearing = { 0, 7 },
-		.Offset = 1321
+		.Offset = 317
 	},
 	{
 		.Codepoint = 84,
 		.Advance = 6,
 		.Size = { 5, 7 },
 		.Bearing = { 0, 7 },
-		.Offset = 1349
+		.Offset = 324
 	},
 	{
 		.Codepoint = 85,
 		.Advance = 6,
 		.Size = { 5, 7 },
 		.Bearing = { 0, 7 },
-		.Offset = 1384
+		.Offset = 331
 	},
 	{
 		.Codepoint = 86,
 		.Advance = 6,
 		.Size = { 5, 7 },
 		.Bearing = { 0, 7 },
-		.Offset = 1419
+		.Offset = 338
 	},
 	{
 		.Codepoint = 87,
 		.Advance = 8,
 		.Size = { 7, 7 },
 		.Bearing = { 0, 7 },
-		.Offset = 1454
+		.Offset = 345
 	},
 	{
 		.Codepoint = 88,
 		.Advance = 6,
 		.Size = { 5, 7 },
 		.Bearing = { 0, 7 },
-		.Offset = 1503
+		.Offset = 352
 	},
 	{
 		.Codepoint = 89,
 		.Advance = 6,
 		.Size = { 5, 7 },
 		.Bearing = { 0, 7 },
-		.Offset = 1538
+		.Offset = 359
 	},
 	{
 		.Codepoint = 90,
 		.Advance = 6,
 		.Size = { 5, 7 },
 		.Bearing = { 0, 7 },
-		.Offset = 1573
+		.Offset = 366
 	},
 	{
 		.Codepoint = 91,
 		.Advance = 3,
 		.Size = { 2, 9 },
 		.Bearing = { 0, 8 },
-		.Offset = 1608
+		.Offset = 373
 	},
 	{
 		.Codepoint = 92,
 		.Advance = 5,
 		.Size = { 4, 7 },
 		.Bearing = { 0, 7 },
-		.Offset = 1626
+		.Offset = 382
 	},
 	{
 		.Codepoint = 93,
 		.Advance = 3,
 		.Size = { 2, 9 },
 		.Bearing = { 0, 8 },
-		.Offset = 1654
+		.Offset = 389
 	},
 	{
 		.Codepoint = 94,
 		.Advance = 6,
 		.Size = { 5, 5 },
 		.Bearing = { 0, 7 },
-		.Offset = 1672
+		.Offset = 398
 	},
 	{
 		.Codepoint = 95,
 		.Advance = 5,
 		.Size = { 4, 1 },
 		.Bearing = { 0, 0 },
-		.Offset = 1697
+		.Offset = 403
 	},
 	{
 		.Codepoint = 96,
 		.Advance = 3,
 		.Size = { 2, 2 },
 		.Bearing = { 0, 8 },
-		.Offset = 1701
+		.Offset = 404
 	},
 	{
 		.Codepoint = 97,
 		.Advance = 5,
 		.Size = { 4, 5 },
 		.Bearing = { 0, 5 },
-		.Offset = 1705
+		.Offset = 406
 	},
 	{
 		.Codepoint = 98,
 		.Advance = 5,
 		.Size = { 4, 7 },
 		.Bearing = { 0, 7 },
-		.Offset = 1725
+		.Offset = 411
 	},
 	{
 		.Codepoint = 99,
 		.Advance = 4,
 		.Size = { 3, 5 },
 		.Bearing = { 0, 5 },
-		.Offset = 1753
+		.Offset = 418
 	},
 	{
 		.Codepoint = 100,
 		.Advance = 5,
 		.Size = { 4, 7 },
 		.Bearing = { 0, 7 },
-		.Offset = 1768
+		.Offset = 423
 	},
 	{
 		.Codepoint = 101,
 		.Advance = 5,
 		.Size = { 4, 5 },
 		.Bearing = { 0, 5 },
-		.Offset = 1796
+		.Offset = 430
 	},
 	{
 		.Codepoint = 102,
 		.Advance = 5,
 		.Size = { 4, 7 },
 		.Bearing = { 0, 7 },
-		.Offset = 1816
+		.Offset = 435
 	},
 	{
 		.Codepoint = 103,
 		.Advance = 5,
 		.Size = { 4, 7 },
 		.Bearing = { 0, 5 },
-		.Offset = 1844
+		.Offset = 442
 	},
 	{
 		.Codepoint = 104,
 		.Advance = 5,
 		.Size = { 4, 7 },
 		.Bearing = { 0, 7 },
-		.Offset = 1872
+		.Offset = 449
 	},
 	{
 		.Codepoint = 105,
 		.Advance = 2,
 		.Size = { 1, 7 },
 		.Bearing = { 0, 7 },
-		.Offset = 1900
+		.Offset = 456
 	},
 	{
 		.Codepoint = 106,
 		.Advance = 3,
 		.Size = { 2, 8 },
 		.Bearing = { 0, 7 },
-		.Offset = 1907
+		.Offset = 463
 	},
 	{
 		.Codepoint = 107,
 		.Advance = 5,
 		.Size = { 4, 7 },
 		.Bearing = { 0, 7 },
-		.Offset = 1923
+		.Offset = 471
 	},
 	{
 		.Codepoint = 108,
 		.Advance = 2,
 		.Size = { 1, 7 },
 		.Bearing = { 0, 7 },
-		.Offset = 1951
+		.Offset = 478
 	},
 	{
 		.Codepoint = 109,
 		.Advance = 8,
 		.Size = { 7, 5 },
 		.Bearing = { 0, 5 },
-		.Offset = 1958
+		.Offset = 485
 	},
 	{
 		.Codepoint = 110,
 		.Advance = 5,
 		.Size = { 4, 5 },
 		.Bearing = { 0, 5 },
-		.Offset = 1993
+		.Offset = 490
 	},
 	{
 		.Codepoint = 111,
 		.Advance = 5,
 		.Size = { 4, 5 },
 		.Bearing = { 0, 5 },
-		.Offset = 2013
+		.Offset = 495
 	},
 	{
 		.Codepoint = 112,
 		.Advance = 5,
 		.Size = { 4, 7 },
 		.Bearing = { 0, 5 },
-		.Offset = 2033
+		.Offset = 500
 	},
 	{
 		.Codepoint = 113,
 		.Advance = 5,
 		.Size = { 4, 7 },
 		.Bearing = { 0, 5 },
-		.Offset = 2061
+		.Offset = 507
 	},
 	{
 		.Codepoint = 114,
 		.Advance = 4,
 		.Size = { 3, 5 },
 		.Bearing = { 0, 5 },
-		.Offset = 2089
+		.Offset = 514
 	},
 	{
 		.Codepoint = 115,
 		.Advance = 4,
 		.Size = { 3, 5 },
 		.Bearing = { 0, 5 },
-		.Offset = 2104
+		.Offset = 519
 	},
 	{
 		.Codepoint = 116,
 		.Advance = 4,
 		.Size = { 3, 6 },
 		.Bearing = { 0, 6 },
-		.Offset = 2119
+		.Offset = 524
 	},
 	{
 		.Codepoint = 117,
 		.Advance = 5,
 		.Size = { 4, 5 },
 		.Bearing = { 0, 5 },
-		.Offset = 2137
+		.Offset = 530
 	},
 	{
 		.Codepoint = 118,
 		.Advance = 6,
 		.Size = { 5, 5 },
 		.Bearing = { 0, 5 },
-		.Offset = 2157
+		.Offset = 535
 	},
 	{
 		.Codepoint = 119,
 		.Advance = 6,
 		.Size = { 5, 5 },
 		.Bearing = { 0, 5 },
-		.Offset = 2182
+		.Offset = 540
 	},
 	{
 		.Codepoint = 120,
 		.Advance = 6,
 		.Size = { 5, 5 },
 		.Bearing = { 0, 5 },
-		.Offset = 2207
+		.Offset = 545
 	},
 	{
 		.Codepoint = 121,
 		.Advance = 6,
 		.Size = { 5, 7 },
 		.Bearing = { 0, 5 },
-		.Offset = 2232
+		.Offset = 550
 	},
 	{
 		.Codepoint = 122,
 		.Advance = 4,
 		.Size = { 3, 5 },
 		.Bearing = { 0, 5 },
-		.Offset = 2267
+		.Offset = 557
 	},
 	{
 		.Codepoint = 123,
 		.Advance = 4,
 		.Size = { 3, 9 },
 		.Bearing = { 0, 8 },
-		.Offset = 2282
+		.Offset = 562
 	},
 	{
 		.Codepoint = 124,
 		.Advance = 2,
 		.Size = { 1, 9 },
 		.Bearing = { 0, 8 },
-		.Offset = 2309
+		.Offset = 571
 	},
 	{
 		.Codepoint = 125,
 		.Advance = 4,
 		.Size = { 3, 9 },
 		.Bearing = { 0, 8 },
-		.Offset = 2318
+		.Offset = 580
 	},
 	{
 		.Codepoint = 126,
 		.Advance = 7,
 		.Size = { 6, 2 },
 		.Bearing = { 0, 5 },
-		.Offset = 2345
+		.Offset = 589
 	}
 };
 
-u8 _bitmap[] =
+static u8 _bitmap[] =
 {
 
 		0x01, /* # */
@@ -1362,7 +1362,7 @@ u8 _bitmap[] =
 static Font _font_default =
 {
 	.Characters = _chars,
-	.Size = 16,
+	.Size = 9,
 	.NumCharacters = 95,
 	.Flags = 0,
 	.Bitmap = _bitmap

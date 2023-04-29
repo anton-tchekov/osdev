@@ -1,6 +1,7 @@
 #include <emulator.h>
 #include <platform.h>
 #include <SDL2/SDL.h>
+#include <sys/time.h>
 
 #include <stdio.h>
 #include <assert.h>
@@ -188,17 +189,22 @@ static u32 gfx_color(u8 r, u8 g, u8 b)
 		((u32)b);
 }
 
-static u32 _rgba_to_argb(u32 color)
+static inline u8 _abgr_r(u32 color) { return (color >> 24) & 0xFF; }
+static inline u8 _abgr_g(u32 color) { return (color >> 16) & 0xFF; }
+static inline u8 _abgr_b(u32 color) { return (color >> 8) & 0xFF; }
+
+static u32 _abgr_to_argb(u32 color)
 {
-	return gfx_color(color & 0xFF,
-		(color >> 8) & 0xFF,
-		(color >> 16) & 0xFF);
+	return gfx_color(
+		_abgr_r(color),
+		_abgr_g(color),
+		_abgr_b(color));
 }
 
 static void gfx_rect(i32 x, i32 y, i32 w, i32 h, u32 color)
 {
 	i32 x0, y0;
-	color = _rgba_to_argb(color);
+	color = _abgr_to_argb(color);
 	for(y0 = y; y0 < y + h; ++y0)
 	{
 		for(x0 = x; x0 < x + w; ++x0)
@@ -211,9 +217,12 @@ static void gfx_rect(i32 x, i32 y, i32 w, i32 h, u32 color)
 static void gfx_image_1bit(
 	i32 x, i32 y, i32 w, i32 h, u8 *image, u32 fg, u32 bg)
 {
-	u8 byte;
+	u8 byte, stride;
 	i32 x0, y0, byte_offset, bit_mask;
 
+	fg = _abgr_to_argb(fg);
+	bg = _abgr_to_argb(bg);
+	stride = (w + 7) / 8;
 	for(y0 = y; y0 < y + h; ++y0)
 	{
 		bit_mask = 0x80;
@@ -230,7 +239,7 @@ static void gfx_image_1bit(
 			bit_mask <<= 1;
 		}
 
-		image += w;
+		image += stride;
 	}
 }
 
@@ -238,13 +247,13 @@ static u32 _color_merge(u32 color1, u32 color2, u32 ratio)
 {
 	u8 r1, g1, b1, r2, g2, b2;
 
-	r1 = color1 & 0xFF;
-	g1 = (color1 >> 8) & 0xFF;
-	b1 = (color1 >> 16) & 0xFF;
+	r1 = _abgr_r(color1);
+	g1 = _abgr_g(color1);
+	b1 = _abgr_b(color1);
 
-	r2 = color2 & 0xFF;
-	g2 = (color2 >> 8) & 0xFF;
-	b2 = (color2 >> 16) & 0xFF;
+	r2 = _abgr_r(color2);
+	g2 = _abgr_g(color2);
+	b2 = _abgr_b(color2);
 
 	return gfx_color(
 		(r1 * ratio + r2 * (255 - ratio)) / 255,
@@ -310,7 +319,7 @@ static void gfx_image_rgba(i32 x, i32 y, i32 w, i32 h, u32 *image)
 	{
 		for(x0 = x; x0 < x + w; ++x0)
 		{
-			_pixels[y0 * WINDOW_WIDTH + x0] = _rgba_to_argb(*image++);
+			_pixels[y0 * WINDOW_WIDTH + x0] = _abgr_to_argb(*image++);
 		}
 	}
 }
@@ -319,18 +328,26 @@ static Emulator emu;
 
 void os_update(void)
 {
-	emulator_next(&emu);
+	i32 i;
+	for(i = 0; i < 10000; ++i)
+	{
+		emulator_next(&emu);
+	}
+
 	/* registers_dump(&emu); */
 	/* memory_dump(0, 1024); */
 }
 
 /* --- KEYBOARD --- */
+#define NUM_KEYS 340
+
 typedef u32 Key;
+
+static bool _keys[NUM_KEYS];
 
 void keyboard_event(Key key, bool up)
 {
-	/* TODO */
-	(void)key, (void)up;
+	_keys[key] = up;
 }
 
 /* --- PLATFORM --- */
@@ -370,6 +387,52 @@ static bool platform_run(void)
 
 #define READ_SIZE 1024
 
+/* TIME */
+typedef struct
+{
+	i32 Year, Month, Day;
+	i32 Hour, Minute, Second;
+} DateTime;
+
+static u32 _sec_start, _usec_start;
+
+void timer_init(void)
+{
+	struct timeval ts;
+	gettimeofday(&ts, NULL);
+	_sec_start = ts.tv_sec;
+	_usec_start = ts.tv_usec;
+
+	srand(time(0));
+}
+
+u32 syscall_datetime_now(u32 *args)
+{
+	time_t t = time(NULL);
+	struct tm now = *localtime(&t);
+	DateTime *out = (DateTime *)(_memory + args[0]);
+
+	out->Year = now.tm_year + 1900;
+	out->Month = now.tm_mon + 1;
+	out->Day = now.tm_mday;
+
+	out->Hour = now.tm_hour;
+	out->Minute = now.tm_min;
+	out->Second = now.tm_sec;
+
+	return 0;
+}
+
+u32 syscall_millis(u32 *args)
+{
+	struct timeval ts;
+	gettimeofday(&ts, NULL);
+	return (ts.tv_sec - _sec_start) * 1000 +
+		(ts.tv_usec - _usec_start) / 1000;
+
+	(void)args;
+}
+
 int main(int argc, char **argv)
 {
 	size_t len, offset;
@@ -398,7 +461,7 @@ int main(int argc, char **argv)
 
 	emulator_init(&emu, 0, 64 * 1024);
 
-	/* timer_init(); */
+	timer_init();
 	gfx_init();
 	while(platform_run()) {}
 	gfx_destroy();
@@ -570,9 +633,13 @@ u32 syscall_file_size(u32 *args)
 /* KBD */
 u32 syscall_keyboard_is_key_pressed(u32 *args)
 {
-	/* TODO */
-	return 0;
-	(void)args;
+	Key key = args[0];
+	if(key > NUM_KEYS)
+	{
+		return false;
+	}
+
+	return _keys[key];
 }
 
 u32 syscall_keyboard_register_event(u32 *args)

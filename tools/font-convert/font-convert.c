@@ -171,7 +171,14 @@ int main(int argc, char *argv[])
 		fc->Bitmap = _malloc(bytes);
 		fc->Offset = offset;
 		memcpy(fc->Bitmap, face->glyph->bitmap.buffer, bytes);
-		offset += bytes;
+		if(font.Flags & 1)
+		{
+			offset += bytes;
+		}
+		else
+		{
+			offset += fc->Size[1] * ((fc->Size[0] + 7) / 8);
+		}
 	}
 
 	/* Write Output */
@@ -207,7 +214,7 @@ int main(int argc, char *argv[])
 	fprintf(stdout, "};\n"
 		"\n");
 
-	fprintf(stdout, "u8 _bitmap[] =\n"
+	fprintf(stdout, "static u8 _bitmap[] =\n"
 		"{\n");
 
 	for(i = 0; i < num_chars; ++i)
@@ -225,6 +232,8 @@ int main(int argc, char *argv[])
 				{
 					fprintf(stdout, "0x%02X, ", fc->Bitmap[y * fc->Size[0] + x]);
 				}
+
+				fprintf(stdout, "\n");
 			}
 			else
 			{

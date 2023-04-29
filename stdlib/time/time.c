@@ -6,15 +6,14 @@
  */
 
 #include <time.h>
+#include <syscall.h>
 
 void datetime_now(DateTime *now)
 {
-	/* TODO */
-	(void)now;
+	syscall1(SYSCALL_DATETIME_NOW, (u32)now);
 }
 
 u32 millis(void)
 {
-	/* TODO */
-	return 0;
+	return syscall0(SYSCALL_MILLIS);
 }

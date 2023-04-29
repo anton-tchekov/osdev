@@ -12,24 +12,4 @@ static char *reverse(char *s)
 	return s;
 }
 
-Button button = BUTTON_CREATE(10, 10, 100, 30, "Click Me!", NULL);
-
-void *elements[] =
-{
-	&button,
-};
-
-
-	/*reverse(str);
-	serial_write(str, strlen(str));
-	window_open(&window);*/
-
-
-
-Window window =
-{
-	.Title = "Test",
-	.Elements = elements,
-	.Count = ARRLEN(elements),
-	.OnKey = NULL
-};
+reverse(str);

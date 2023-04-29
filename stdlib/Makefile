@@ -27,7 +27,8 @@ CFLAGS=\
 	-I serial/ \
 	-I algo/ \
 	-I string/ \
-	-I ../types/
+	-I time/ \
+	-I ../types/ \
 
 SRC=\
 	main.c \
@@ -41,12 +42,15 @@ SRC=\
 	rand/rand.c \
 	../utf8/utf8.c \
 	font/font.c \
-	font/font-default.c \
+	font/font_default.c \
+	font/arial.c \
+	font/fatty.c \
 	format/format.c \
 	alloc/alloc.c \
 	serial/serial.c \
 	algo/algo.c \
-	status/status.c
+	status/status.c \
+	time/time.c \
 
 all:
 	riscv64-unknown-elf-gcc $(CFLAGS) $(SRC) -o $(TARGET) -T$(TARGET).ld

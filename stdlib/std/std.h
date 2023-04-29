@@ -16,13 +16,14 @@
 #include <utf8.h>
 #include <gfx.h>
 #include <font.h>
-#include <font-default.h>
+#include <font_default.h>
 #include <gui.h>
 #include <rand.h>
 #include <status.h>
 #include <format.h>
 #include <alloc.h>
 #include <serial.h>
+#include <time.h>
 
 #define loop for(;;)
 
