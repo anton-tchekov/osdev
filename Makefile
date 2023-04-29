@@ -3,8 +3,10 @@ TARGET=emu
 CFLAGS=\
 	-I lib/ \
 	-I types/ \
+	-I util/ \
 	-I platform/ \
 	-I emulator/ \
+	-I status/ \
 	-Wall -Wextra \
 	-Werror=uninitialized \
 	-Werror=return-type \
@@ -16,6 +18,7 @@ CFLAGS=\
 LDFLAGS=
 SRC=platform/simulator/platform.c \
 	emulator/emulator.c \
+	status/status.c \
 
 .PHONY: all cloc clean
 all:

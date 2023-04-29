@@ -24,11 +24,10 @@
 #include <alloc.h>
 #include <serial.h>
 #include <time.h>
+#include <util.h>
 
+/* TODO */
 #define loop for(;;)
-
-/** TODO */
-#define ARRLEN(A) (sizeof(A) / sizeof(*(A)))
 
 /**
  * @brief TODO

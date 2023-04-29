@@ -21,7 +21,6 @@ CFLAGS=\
 	-I $(PREFIX)/rand/ \
 	-I $(PREFIX)/syscall/ \
 	-I $(PREFIX)/std/ \
-	-I $(PREFIX)/status/ \
 	-I $(PREFIX)/../utf8/ \
 	-I $(PREFIX)/font/ \
 	-I $(PREFIX)/format/ \
@@ -31,6 +30,8 @@ CFLAGS=\
 	-I $(PREFIX)/string/ \
 	-I $(PREFIX)/time/ \
 	-I ../../types/ \
+	-I ../../util/ \
+	-I ../../status/ \
 
 SRC=\
 	main.c \
@@ -52,7 +53,7 @@ SRC=\
 	$(PREFIX)/alloc/alloc.c \
 	$(PREFIX)/serial/serial.c \
 	$(PREFIX)/algo/algo.c \
-	$(PREFIX)/status/status.c \
+	$(PREFIX)/../status/status.c \
 	$(PREFIX)/time/time.c \
 
 all:

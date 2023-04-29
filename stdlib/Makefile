@@ -19,7 +19,6 @@ CFLAGS=\
 	-I rand/ \
 	-I syscall/ \
 	-I std/ \
-	-I status/ \
 	-I ../utf8/ \
 	-I font/ \
 	-I format/ \
@@ -29,6 +28,8 @@ CFLAGS=\
 	-I string/ \
 	-I time/ \
 	-I ../types/ \
+	-I ../util/ \
+	-I ../status/ \
 
 SRC=\
 	main.c \
@@ -50,7 +51,7 @@ SRC=\
 	alloc/alloc.c \
 	serial/serial.c \
 	algo/algo.c \
-	status/status.c \
+	../status/status.c \
 	time/time.c \
 
 all:

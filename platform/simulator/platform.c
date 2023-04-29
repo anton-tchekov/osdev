@@ -7,6 +7,8 @@
 #include <assert.h>
 #include <time.h>
 #include <stdlib.h>
+#include <util.h>
+#include <status.h>
 
 /* --- MEMORY --- */
 static u8 _memory[1024 * 1024];
@@ -347,7 +349,10 @@ static bool _keys[NUM_KEYS];
 
 void keyboard_event(Key key, bool up)
 {
-	_keys[key] = up;
+	if(key >= NUM_KEYS)
+	{
+		_keys[key] = up;
+	}
 }
 
 /* --- PLATFORM --- */
@@ -560,13 +565,11 @@ u32 syscall_gfx_image_1bit(u32 *args)
 }
 
 /* FS */
-
-
 static FILE *_files[256];
 
 static u32 _find_slot(void)
 {
-	/*u32 i;
+	u32 i;
 	for(i = 1; i < ARRLEN(_files); ++i)
 	{
 		if(!_files[i])
@@ -574,57 +577,76 @@ static u32 _find_slot(void)
 			return i;
 		}
 	}
-*/
+
 	return 0;
 }
 
 u32 syscall_file_open(u32 *args)
 {
-	/*u32 id = _find_slot();
-	return (_files[id] = fopen(filename, mode)) ? id : 0;
-	return id;*/
-	return 0;
-	(void)args;
+	u32 id = _find_slot();
+	u32 *handle = (u32 *)(_memory + args[1]);
+
+	if(!(_files[id] = fopen((char *)(_memory + args[0]), "rb")))
+	{
+		return STATUS_FAIL;
+	}
+
+	*handle = id;
+	return STATUS_OK;
 }
 
 u32 syscall_file_read(u32 *args)
 {
-	/*if(file)
-	{
-		fseek(_files[file], pos, SEEK_SET);
-		return fread(_calculate_ptr(bank, addr), 1, size, _files[file]);
-	}*/
+	u32 file = args[0];
+	u32 start = args[1];
+	u32 len = args[2];
+	void *buf = _memory + args[3];
+	FILE *fp;
 
-	/* TODO */
-	return 0;
-	(void)args;
+	if(file < 1 || file >= ARRLEN(_files))
+	{
+		return STATUS_FAIL;
+	}
+
+	if(!(fp = _files[file]))
+	{
+		return STATUS_FAIL;
+	}
+
+	fseek(fp, start, SEEK_SET);
+	return fread(buf, 1, len, fp) ? STATUS_FAIL : STATUS_OK;
 }
 
 u32 syscall_file_write(u32 *args)
 {
-	/*if(file)
-	{
-		fseek(_files[file], pos, SEEK_SET);
-	}*/
-
-	/* TODO */
+	/* File writing is not supported */
 	return 0;
 	(void)args;
 }
 
 u32 syscall_file_close(u32 *args)
 {
-	/*fclose(_files[file]);
-	_files[file] = 0;*/
+	u32 file = args[0];
+	fclose(_files[file]);
+	_files[file] = 0;
 	return 0;
 }
 
 u32 syscall_file_size(u32 *args)
 {
-	//return file ? ftell(_files[file]) : 0;
-	/* TODO */
-	return 0;
-	(void)args;
+	u32 file = args[0];
+	u32 *size = (u32 *)(_memory + args[1]);
+	FILE *fp;
+
+	if(!(fp = _files[file]))
+	{
+		return STATUS_FAIL;
+	}
+
+	fseek(fp, 0, SEEK_END);
+	*size = ftell(fp);
+	fseek(fp, 0, SEEK_SET);
+	return STATUS_OK;
 }
 
 /* KBD */
