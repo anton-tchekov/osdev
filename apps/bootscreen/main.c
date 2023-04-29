@@ -1,24 +1,10 @@
 #include <std.h>
 #include <ubuntu_bold.h>
-#include "assets/logo.c"
-
-Button button = BUTTON_CREATE(10, 10, 100, 30, "Click Me!", NULL);
-Button button2 = BUTTON_CREATE(60, 300, 100, 30, "TEST 123 ...", NULL);
-
-Label label = LABEL_CREATE(10, 120, "Lorem ipsum dolor sit amet");
-
-void *elements[] =
-{
-	&button,
-	&label,
-	&button2,
-};
+#include "assets/bootscreen.c"
 
 Window window =
 {
 	.Title = "Test",
-	.Elements = elements,
-	.Count = ARRLEN(elements),
 	.OnKey = NULL
 };
 
@@ -26,16 +12,15 @@ i32 main(void)
 {
 	window_open(&window);
 
-	char str[] = "Hello World!";
+	char str[] = "";
+	i32 h_center = GFX_WIDTH / 2;
+	i32 x_move = h_center - (bootscreen.width / 2);
+
+	i32 v_center = GFX_HEIGHT / 2;
+	i32 y_move = v_center - (bootscreen.height / 2);
 	
-	font_string(10, 80, str, ubuntu_bold, COLOR_BLACK, COLOR_WHITE);
-
-
-gfx_image_rgb(0, 0, logo.width, logo.height, logo.pixel_data);
-
-font_string(30, 260, "A", ubuntu_bold, COLOR_BLACK, COLOR_WHITE);
-
-font_string(30, 360, "Alles klar warum nicht?", ubuntu_bold, COLOR_BLACK, COLOR_WHITE);
+	gfx_rect(0, 0, GFX_WIDTH, GFX_HEIGHT, COLOR_BLACK);
+	gfx_image_rgb(x_move, y_move, bootscreen.width, bootscreen.height, bootscreen.pixel_data);
 
 /*
 	u32 begin, end;
@@ -62,6 +47,10 @@ font_string(30, 360, "Alles klar warum nicht?", ubuntu_bold, COLOR_BLACK, COLOR_
 		count, end - begin);
 */
 
-	loop {}
+	i32 begin = millis();
+
+	while (millis() - begin < 2000) {}
+
+
 	return 0;
 }
