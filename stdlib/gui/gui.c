@@ -395,7 +395,7 @@ void window_event_key(Key key, bool up)
 		ElementType type = ((Element *)ce)->Type;
 		if(type == ELEMENT_TYPE_BUTTON)
 		{
-			if(key == KEY_ENTER)
+			if(key == KEY_RETURN)
 			{
 				((Button *)ce)->Click();
 			}

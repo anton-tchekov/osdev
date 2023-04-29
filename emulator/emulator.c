@@ -7,10 +7,9 @@
 #include <string.h>
 
 #include <time.h>
+#include <util.h>
 
 /* #define DEBUG */
-
-#define ARRLEN(A) (sizeof(A) / sizeof(*A))
 
 /* OPCODES */
 #define OPCODE_LOAD   0x00

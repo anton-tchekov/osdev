@@ -368,7 +368,7 @@ static void gfx_image_rgba(i32 x, i32 y, i32 w, i32 h, u32 *image)
 
 static Emulator emu;
 
-void os_update(void)
+static void os_update(void)
 {
 	i32 i;
 	for(i = 0; i < 10000; ++i)
@@ -387,7 +387,7 @@ typedef u32 Key;
 
 static bool _keys[NUM_KEYS];
 
-void keyboard_event(Key key, bool up)
+static void keyboard_event(Key key, bool up)
 {
 	if(key >= NUM_KEYS)
 	{
@@ -443,7 +443,7 @@ typedef struct
 
 static u32 _sec_start, _usec_start;
 
-void timer_init(void)
+static void timer_init(void)
 {
 	struct timeval ts;
 	gettimeofday(&ts, NULL);
