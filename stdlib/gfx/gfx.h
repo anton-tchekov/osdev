@@ -108,7 +108,7 @@ void gfx_rect_border(i32 x, i32 y, i32 w, i32 h, i32 border, Color color);
  * @param h TODO
  * @param data TODO
  */
-void gfx_image_rgba(i32 x, i32 y, i32 w, i32 h, u8 *data);
+void gfx_image_rgba(i32 x, i32 y, i32 w, i32 h, const u8 *data);
 
 /**
  * @brief TODO
@@ -119,7 +119,7 @@ void gfx_image_rgba(i32 x, i32 y, i32 w, i32 h, u8 *data);
  * @param h TODO
  * @param data TODO
  */
-void gfx_image_rgb(i32 x, i32 y, i32 w, i32 h, u8 *data);
+void gfx_image_rgb(i32 x, i32 y, i32 w, i32 h, const u8 *data);
 
 /**
  * @brief TODO
@@ -130,7 +130,7 @@ void gfx_image_rgb(i32 x, i32 y, i32 w, i32 h, u8 *data);
  * @param h TODO
  * @param data TODO
  */
-void gfx_image_rgb565(i32 x, i32 y, i32 w, i32 h, u8 *data);
+void gfx_image_rgb565(i32 x, i32 y, i32 w, i32 h, const u8 *data);
 
 /**
  * @brief TODO
@@ -144,7 +144,7 @@ void gfx_image_rgb565(i32 x, i32 y, i32 w, i32 h, u8 *data);
  * @param bg TODO
  */
 void gfx_image_grayscale(
-	i32 x, i32 y, i32 w, i32 h, u8 *data, Color fg, Color bg);
+	i32 x, i32 y, i32 w, i32 h, const u8 *data, Color fg, Color bg);
 
 /**
  * @brief TODO
@@ -157,6 +157,7 @@ void gfx_image_grayscale(
  * @param fg TODO
  * @param bg TODO
  */
-void gfx_image_1bit(i32 x, i32 y, i32 w, i32 h, u8 *data, Color fg, Color bg);
+void gfx_image_1bit(
+	i32 x, i32 y, i32 w, i32 h, const u8 *data, Color fg, Color bg);
 
 #endif /* __GFX_H__ */

@@ -203,9 +203,20 @@ static u32 _abgr_to_argb(u32 color)
 		_abgr_b(color));
 }
 
+static i32 _gfx_check_dimensions(i32 x, i32 y, i32 w, i32 h)
+{
+	return x >= 0 && y >= 0 &&
+		x + w <= WINDOW_WIDTH && y + h <= WINDOW_HEIGHT;
+}
+
 static void gfx_rect(i32 x, i32 y, i32 w, i32 h, u32 color)
 {
 	i32 x0, y0;
+	if(!_gfx_check_dimensions(x, y, w, h))
+	{
+		return;
+	}
+
 	color = _abgr_to_argb(color);
 	for(y0 = y; y0 < y + h; ++y0)
 	{
@@ -221,6 +232,11 @@ static void gfx_image_1bit(
 {
 	u8 byte, stride;
 	i32 x0, y0, byte_offset, bit_mask;
+
+	if(!_gfx_check_dimensions(x, y, w, h))
+	{
+		return;
+	}
 
 	fg = _abgr_to_argb(fg);
 	bg = _abgr_to_argb(bg);
@@ -267,6 +283,12 @@ static void gfx_image_grayscale(
 	i32 x, i32 y, i32 w, i32 h, u8 *image, u32 fg, u32 bg)
 {
 	i32 x0, y0;
+
+	if(!_gfx_check_dimensions(x, y, w, h))
+	{
+		return;
+	}
+
 	for(y0 = y; y0 < y + h; ++y0)
 	{
 		for(x0 = x; x0 < x + w; ++x0)
@@ -289,6 +311,12 @@ static u32 _rgb565_to_bgra(u16 color)
 static void gfx_image_rgb565(i32 x, i32 y, i32 w, i32 h, u16 *image)
 {
 	i32 x0, y0;
+
+	if(!_gfx_check_dimensions(x, y, w, h))
+	{
+		return;
+	}
+
 	for(y0 = y; y0 < y + h; ++y0)
 	{
 		for(x0 = x; x0 < x + w; ++x0)
@@ -302,6 +330,12 @@ static void gfx_image_rgb(i32 x, i32 y, i32 w, i32 h, u8 *image)
 {
 	u8 r, g, b;
 	i32 x0, y0;
+
+	if(!_gfx_check_dimensions(x, y, w, h))
+	{
+		return;
+	}
+
 	for(y0 = y; y0 < y + h; ++y0)
 	{
 		for(x0 = x; x0 < x + w; ++x0)
@@ -317,6 +351,12 @@ static void gfx_image_rgb(i32 x, i32 y, i32 w, i32 h, u8 *image)
 static void gfx_image_rgba(i32 x, i32 y, i32 w, i32 h, u32 *image)
 {
 	i32 x0, y0;
+
+	if(!_gfx_check_dimensions(x, y, w, h))
+	{
+		return;
+	}
+
 	for(y0 = y; y0 < y + h; ++y0)
 	{
 		for(x0 = x; x0 < x + w; ++x0)
@@ -351,8 +391,10 @@ void keyboard_event(Key key, bool up)
 {
 	if(key >= NUM_KEYS)
 	{
-		_keys[key] = up;
+		return;
 	}
+
+	_keys[key] = up;
 }
 
 /* --- PLATFORM --- */

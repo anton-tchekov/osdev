@@ -40,7 +40,7 @@ i32 font_string_len(
 	u32 i;
 	i32 c;
 	FontChar *fc;
-	void (*render_char)(i32, i32, i32, i32, u8 *, Color, Color) =
+	void (*render_char)(i32, i32, i32, i32, const u8 *, Color, Color) =
 		font->Flags & FONT_FLAG_GRAYSCALE ?
 		gfx_image_grayscale : gfx_image_1bit;
 
