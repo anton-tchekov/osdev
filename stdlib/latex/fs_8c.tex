@@ -4,15 +4,15 @@
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{status_8h_a67a0db04d321a74b7e7fcfd3f1a3f70b}{Status}} \mbox{\hyperlink{fs_8c_a82571035dc9bb531419ccc3a3493bd85}{file\+\_\+open}} (const char $\ast$name, \mbox{\hyperlink{fs_8h_a3d8cbaa4e32fca2d0d2dd6528348ef30}{File}} $\ast$file)
+Status \mbox{\hyperlink{fs_8c_a82571035dc9bb531419ccc3a3493bd85}{file\+\_\+open}} (const char $\ast$name, \mbox{\hyperlink{fs_8h_a3d8cbaa4e32fca2d0d2dd6528348ef30}{File}} $\ast$file)
 \begin{DoxyCompactList}\small\item\em Open a file to get a file handle. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{status_8h_a67a0db04d321a74b7e7fcfd3f1a3f70b}{Status}} \mbox{\hyperlink{fs_8c_a5d3dcfe77aa04c66f6d9f0c8f02cdf87}{file\+\_\+read}} (\mbox{\hyperlink{fs_8h_a3d8cbaa4e32fca2d0d2dd6528348ef30}{File}} file, \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} start, \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} len, void $\ast$buf)
+Status \mbox{\hyperlink{fs_8c_a5d3dcfe77aa04c66f6d9f0c8f02cdf87}{file\+\_\+read}} (\mbox{\hyperlink{fs_8h_a3d8cbaa4e32fca2d0d2dd6528348ef30}{File}} file, u32 start, u32 len, void $\ast$buf)
 \begin{DoxyCompactList}\small\item\em Read Data from File. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{status_8h_a67a0db04d321a74b7e7fcfd3f1a3f70b}{Status}} \mbox{\hyperlink{fs_8c_a5aa32f19ddd3d659cbd6868bcc6da596}{file\+\_\+write}} (\mbox{\hyperlink{fs_8h_a3d8cbaa4e32fca2d0d2dd6528348ef30}{File}} file, \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} start, \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} len, const void $\ast$buf)
+Status \mbox{\hyperlink{fs_8c_a5aa32f19ddd3d659cbd6868bcc6da596}{file\+\_\+write}} (\mbox{\hyperlink{fs_8h_a3d8cbaa4e32fca2d0d2dd6528348ef30}{File}} file, u32 start, u32 len, const void $\ast$buf)
 \begin{DoxyCompactList}\small\item\em Write data into file. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{status_8h_a67a0db04d321a74b7e7fcfd3f1a3f70b}{Status}} \mbox{\hyperlink{fs_8c_a6d1f304bad498893aad5936e2531d1ac}{file\+\_\+close}} (\mbox{\hyperlink{fs_8h_a3d8cbaa4e32fca2d0d2dd6528348ef30}{File}} file)
+Status \mbox{\hyperlink{fs_8c_a6d1f304bad498893aad5936e2531d1ac}{file\+\_\+close}} (\mbox{\hyperlink{fs_8h_a3d8cbaa4e32fca2d0d2dd6528348ef30}{File}} file)
 \begin{DoxyCompactList}\small\item\em Close an open file. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{status_8h_a67a0db04d321a74b7e7fcfd3f1a3f70b}{Status}} \mbox{\hyperlink{fs_8c_a8ad956250fdd6ebb0a64e8b972abf4be}{file\+\_\+size}} (\mbox{\hyperlink{fs_8h_a3d8cbaa4e32fca2d0d2dd6528348ef30}{File}} file, \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} $\ast$size)
+Status \mbox{\hyperlink{fs_8c_a8ad956250fdd6ebb0a64e8b972abf4be}{file\+\_\+size}} (\mbox{\hyperlink{fs_8h_a3d8cbaa4e32fca2d0d2dd6528348ef30}{File}} file, u32 $\ast$size)
 \begin{DoxyCompactList}\small\item\em Gets the size of a file in bytes. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
@@ -33,7 +33,7 @@ Tim Gabrikowski, Anton Tchekov
 \index{fs.c@{fs.c}!file\_close@{file\_close}}
 \index{file\_close@{file\_close}!fs.c@{fs.c}}
 \doxysubsubsection{\texorpdfstring{file\_close()}{file\_close()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{status_8h_a67a0db04d321a74b7e7fcfd3f1a3f70b}{Status}} file\+\_\+close (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{fs_8h_a3d8cbaa4e32fca2d0d2dd6528348ef30}{File}}}]{file }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily Status file\+\_\+close (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{fs_8h_a3d8cbaa4e32fca2d0d2dd6528348ef30}{File}}}]{file }\end{DoxyParamCaption})}
 
 
 
@@ -51,7 +51,7 @@ Status
 \index{fs.c@{fs.c}!file\_open@{file\_open}}
 \index{file\_open@{file\_open}!fs.c@{fs.c}}
 \doxysubsubsection{\texorpdfstring{file\_open()}{file\_open()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{status_8h_a67a0db04d321a74b7e7fcfd3f1a3f70b}{Status}} file\+\_\+open (\begin{DoxyParamCaption}\item[{const char $\ast$}]{name,  }\item[{\mbox{\hyperlink{fs_8h_a3d8cbaa4e32fca2d0d2dd6528348ef30}{File}} $\ast$}]{file }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily Status file\+\_\+open (\begin{DoxyParamCaption}\item[{const char $\ast$}]{name,  }\item[{\mbox{\hyperlink{fs_8h_a3d8cbaa4e32fca2d0d2dd6528348ef30}{File}} $\ast$}]{file }\end{DoxyParamCaption})}
 
 
 
@@ -71,7 +71,7 @@ Status
 \index{fs.c@{fs.c}!file\_read@{file\_read}}
 \index{file\_read@{file\_read}!fs.c@{fs.c}}
 \doxysubsubsection{\texorpdfstring{file\_read()}{file\_read()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{status_8h_a67a0db04d321a74b7e7fcfd3f1a3f70b}{Status}} file\+\_\+read (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{fs_8h_a3d8cbaa4e32fca2d0d2dd6528348ef30}{File}}}]{file,  }\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{start,  }\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{len,  }\item[{void $\ast$}]{buf }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily Status file\+\_\+read (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{fs_8h_a3d8cbaa4e32fca2d0d2dd6528348ef30}{File}}}]{file,  }\item[{u32}]{start,  }\item[{u32}]{len,  }\item[{void $\ast$}]{buf }\end{DoxyParamCaption})}
 
 
 
@@ -95,7 +95,7 @@ Status
 \index{fs.c@{fs.c}!file\_size@{file\_size}}
 \index{file\_size@{file\_size}!fs.c@{fs.c}}
 \doxysubsubsection{\texorpdfstring{file\_size()}{file\_size()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{status_8h_a67a0db04d321a74b7e7fcfd3f1a3f70b}{Status}} file\+\_\+size (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{fs_8h_a3d8cbaa4e32fca2d0d2dd6528348ef30}{File}}}]{file,  }\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} $\ast$}]{size }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily Status file\+\_\+size (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{fs_8h_a3d8cbaa4e32fca2d0d2dd6528348ef30}{File}}}]{file,  }\item[{u32 $\ast$}]{size }\end{DoxyParamCaption})}
 
 
 
@@ -115,7 +115,7 @@ Status
 \index{fs.c@{fs.c}!file\_write@{file\_write}}
 \index{file\_write@{file\_write}!fs.c@{fs.c}}
 \doxysubsubsection{\texorpdfstring{file\_write()}{file\_write()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{status_8h_a67a0db04d321a74b7e7fcfd3f1a3f70b}{Status}} file\+\_\+write (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{fs_8h_a3d8cbaa4e32fca2d0d2dd6528348ef30}{File}}}]{file,  }\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{start,  }\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{len,  }\item[{const void $\ast$}]{buf }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily Status file\+\_\+write (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{fs_8h_a3d8cbaa4e32fca2d0d2dd6528348ef30}{File}}}]{file,  }\item[{u32}]{start,  }\item[{u32}]{len,  }\item[{const void $\ast$}]{buf }\end{DoxyParamCaption})}
 
 
 

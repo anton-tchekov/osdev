@@ -1,0 +1,65 @@
+\hypertarget{time_8h}{}\doxysection{time/time.h File Reference}
+\label{time_8h}\index{time/time.h@{time/time.h}}
+
+
+Time and Date functions.  
+
+
+{\ttfamily \#include $<$types.\+h$>$}\newline
+\doxysubsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structDateTime}{Date\+Time}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{time_8h_aa4a8538d6be16de2cefecc9858fda3da}{datetime\+\_\+now}} (\mbox{\hyperlink{structDateTime}{Date\+Time}} $\ast$now)
+\begin{DoxyCompactList}\small\item\em Gets the current date and time. \end{DoxyCompactList}\item 
+u32 \mbox{\hyperlink{time_8h_aee701eeb891b748ed2e12da119816882}{millis}} (void)
+\begin{DoxyCompactList}\small\item\em Gets the number of milliseconds since startup. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Time and Date functions. 
+
+\begin{DoxyAuthor}{Author}
+Tim Gabrikowski, Anton YTchekov 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+0.\+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+26.\+04.\+2023 
+\end{DoxyDate}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{time_8h_aa4a8538d6be16de2cefecc9858fda3da}\label{time_8h_aa4a8538d6be16de2cefecc9858fda3da}} 
+\index{time.h@{time.h}!datetime\_now@{datetime\_now}}
+\index{datetime\_now@{datetime\_now}!time.h@{time.h}}
+\doxysubsubsection{\texorpdfstring{datetime\_now()}{datetime\_now()}}
+{\footnotesize\ttfamily void datetime\+\_\+now (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structDateTime}{Date\+Time}} $\ast$}]{now }\end{DoxyParamCaption})}
+
+
+
+Gets the current date and time. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em now} & Output parameter \mbox{\hyperlink{structDateTime}{Date\+Time}} struct (see above) \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{time_8h_aee701eeb891b748ed2e12da119816882}\label{time_8h_aee701eeb891b748ed2e12da119816882}} 
+\index{time.h@{time.h}!millis@{millis}}
+\index{millis@{millis}!time.h@{time.h}}
+\doxysubsubsection{\texorpdfstring{millis()}{millis()}}
+{\footnotesize\ttfamily u32 millis (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Gets the number of milliseconds since startup. 
+
+\begin{DoxyReturn}{Returns}
+Number of milliseconds (overflows after approximately 50 days) 
+\end{DoxyReturn}

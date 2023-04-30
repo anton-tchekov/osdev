@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['numcharacters_0',['NumCharacters',['../structFONT.html#ad95fd15931de62fe0d8a5f3ef6701a78',1,'FONT']]]
+  ['minute_0',['Minute',['../structDateTime.html#abc9ef847c0646ca875aa2dc834fb7186',1,'DateTime']]],
+  ['month_1',['Month',['../structDateTime.html#a2ce53270e640d0948b14b3642959eefa',1,'DateTime']]]
 ];

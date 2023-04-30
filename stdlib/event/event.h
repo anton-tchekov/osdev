@@ -11,6 +11,7 @@
 
 #include <types.h>
 
+/** Event Type */
 typedef enum
 {
 	EVENT_LOOP,

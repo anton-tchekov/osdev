@@ -1,0 +1,91 @@
+\hypertarget{panic_8h}{}\doxysection{panic/panic.h File Reference}
+\label{panic_8h}\index{panic/panic.h@{panic/panic.h}}
+
+
+Panic function to stop the program when an unrecoverable error occurs.  
+
+
+{\ttfamily \#include $<$types.\+h$>$}\newline
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{panic_8h_ae3c0c6fb5e69bb687e787ec5c487afa1}{PANIC}}(msg)~\mbox{\hyperlink{panic_8c_a2e711bae47ea21470dd21f7a3485a4d3}{panic}}(msg, \+\_\+\+\_\+\+FILE\+\_\+\+\_\+, \+\_\+\+\_\+\+LINE\+\_\+\+\_\+)
+\begin{DoxyCompactList}\small\item\em Crashes the program in case of an internal inconsistency. Prints the error message, line and file where the error occurred. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{panic_8h_ac6c818ab7aca2e521c97eee817f99f91}{ASSERT}}(cond,  msg)~do \{ if(!cond) \{ \mbox{\hyperlink{panic_8h_ae3c0c6fb5e69bb687e787ec5c487afa1}{PANIC}}(msg); \} \} while(0)
+\begin{DoxyCompactList}\small\item\em If the condition is false, a PANIC is triggered. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{panic_8h_a2e711bae47ea21470dd21f7a3485a4d3}{panic}} (const char $\ast$msg, const char $\ast$file, u32 line)
+\begin{DoxyCompactList}\small\item\em Panic function. Do not call this function directly. Use the PANIC and ASSERT macros below. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Panic function to stop the program when an unrecoverable error occurs. 
+
+\begin{DoxyAuthor}{Author}
+Tim Gabrikowski, Anton Tchekov 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+0.\+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+23.\+04.\+2023 
+\end{DoxyDate}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{panic_8h_ac6c818ab7aca2e521c97eee817f99f91}\label{panic_8h_ac6c818ab7aca2e521c97eee817f99f91}} 
+\index{panic.h@{panic.h}!ASSERT@{ASSERT}}
+\index{ASSERT@{ASSERT}!panic.h@{panic.h}}
+\doxysubsubsection{\texorpdfstring{ASSERT}{ASSERT}}
+{\footnotesize\ttfamily \#define ASSERT(\begin{DoxyParamCaption}\item[{}]{cond,  }\item[{}]{msg }\end{DoxyParamCaption})~do \{ if(!cond) \{ \mbox{\hyperlink{panic_8h_ae3c0c6fb5e69bb687e787ec5c487afa1}{PANIC}}(msg); \} \} while(0)}
+
+
+
+If the condition is false, a PANIC is triggered. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em cond} & Boolean condition \\
+\hline
+{\em msg} & Error message \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{panic_8h_ae3c0c6fb5e69bb687e787ec5c487afa1}\label{panic_8h_ae3c0c6fb5e69bb687e787ec5c487afa1}} 
+\index{panic.h@{panic.h}!PANIC@{PANIC}}
+\index{PANIC@{PANIC}!panic.h@{panic.h}}
+\doxysubsubsection{\texorpdfstring{PANIC}{PANIC}}
+{\footnotesize\ttfamily \#define PANIC(\begin{DoxyParamCaption}\item[{}]{msg }\end{DoxyParamCaption})~\mbox{\hyperlink{panic_8c_a2e711bae47ea21470dd21f7a3485a4d3}{panic}}(msg, \+\_\+\+\_\+\+FILE\+\_\+\+\_\+, \+\_\+\+\_\+\+LINE\+\_\+\+\_\+)}
+
+
+
+Crashes the program in case of an internal inconsistency. Prints the error message, line and file where the error occurred. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em msg} & Error message \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{panic_8h_a2e711bae47ea21470dd21f7a3485a4d3}\label{panic_8h_a2e711bae47ea21470dd21f7a3485a4d3}} 
+\index{panic.h@{panic.h}!panic@{panic}}
+\index{panic@{panic}!panic.h@{panic.h}}
+\doxysubsubsection{\texorpdfstring{panic()}{panic()}}
+{\footnotesize\ttfamily void panic (\begin{DoxyParamCaption}\item[{const char $\ast$}]{msg,  }\item[{const char $\ast$}]{file,  }\item[{u32}]{line }\end{DoxyParamCaption})}
+
+
+
+Panic function. Do not call this function directly. Use the PANIC and ASSERT macros below. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em msg} & Error message \\
+\hline
+{\em file} & File in which the error occurred \\
+\hline
+{\em line} & Line in which the error occurred \\
+\hline
+\end{DoxyParams}

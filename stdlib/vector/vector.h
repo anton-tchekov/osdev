@@ -59,7 +59,7 @@ void vector_destroy(Vector *vector);
  * @param new_count Number of new elements to be inserted
  */
 void vector_replace(
-	Vector *vector, u32 index, u32 count, void *elems, u32 new_count);
+	Vector *vector, u32 index, u32 count, const void *elems, u32 new_count);
 
 /**
  * @brief Get a pointer to an element in the vector
@@ -68,7 +68,10 @@ void vector_replace(
  * @param index The index
  * @return Pointer to the element
  */
-void *vector_get(Vector *vector, u32 index);
+static inline void *vector_get(Vector *vector, u32 index)
+{
+	return (void *)((u8 *)vector->Data + vector->ElementSize * index);
+}
 
 /* --- INLINE HELPER FUNCTIONS --- */
 
@@ -83,7 +86,7 @@ void *vector_get(Vector *vector, u32 index);
 static inline void vector_insert_range(
 	Vector *vector, u32 index, u32 count, void *elems)
 {
-	vector_replace(vector, index, 0, NULL, count);
+	vector_replace(vector, index, 0, elems, count);
 }
 
 /**
@@ -101,6 +104,7 @@ static inline void vector_insert(Vector *vector, u32 index, void *elem)
 /**
  * @brief Remove a range of elements
  *
+ * @param vector The vector
  * @param index Start index of the range
  * @param count Number of elements to remove
  */
@@ -112,6 +116,7 @@ static inline void vector_remove_range(Vector *vector, u32 index, u32 count)
 /**
  * @brief Remove a single element
  *
+ * @param vector The vector
  * @param index Index of the element to remove
  */
 static inline void vector_remove(Vector *vector, u32 index)
@@ -124,6 +129,7 @@ static inline void vector_remove(Vector *vector, u32 index)
 /**
  * @brief Insert an element after the last element of the vector
  *
+ * @param vector The vector
  * @param elem The element to insert
  */
 static inline void vector_push(Vector *vector, void *elem)

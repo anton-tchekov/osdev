@@ -80,14 +80,19 @@ $(function() {
 <div class="contents">
 <div class="textblock"><code>#include &lt;<a class="el" href="serial_8h_source.html">serial.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="syscall_8h_source.html">syscall.h</a>&gt;</code><br />
+<code>#include &lt;stdarg.h&gt;</code><br />
+<code>#include &lt;<a class="el" href="format_8h_source.html">format.h</a>&gt;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a1e573f079b66d70c6154d5ae4e61739d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="types_8h.html#a48d6cd8e4135fb2ff7e7f2dac84089ec">i32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="serial_8c.html#a1e573f079b66d70c6154d5ae4e61739d">serial_write</a> (const void *buf, <a class="el" href="types_8h.html#a48d6cd8e4135fb2ff7e7f2dac84089ec">i32</a> n)</td></tr>
+<tr class="memitem:ae454cdf1e6c8d3be9256a937f11efa39"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="serial_8c.html#ae454cdf1e6c8d3be9256a937f11efa39">debug_print</a> (const char *format,...)</td></tr>
+<tr class="memdesc:ae454cdf1e6c8d3be9256a937f11efa39"><td class="mdescLeft">&#160;</td><td class="mdescRight">Formatted debug output to serial interface.  <br /></td></tr>
+<tr class="separator:ae454cdf1e6c8d3be9256a937f11efa39"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1e573f079b66d70c6154d5ae4e61739d"><td class="memItemLeft" align="right" valign="top">i32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="serial_8c.html#a1e573f079b66d70c6154d5ae4e61739d">serial_write</a> (const void *buf, i32 n)</td></tr>
 <tr class="memdesc:a1e573f079b66d70c6154d5ae4e61739d"><td class="mdescLeft">&#160;</td><td class="mdescRight">TODO.  <br /></td></tr>
 <tr class="separator:a1e573f079b66d70c6154d5ae4e61739d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad0259475b961162563d0b84ce64893d4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="types_8h.html#a48d6cd8e4135fb2ff7e7f2dac84089ec">i32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="serial_8c.html#ad0259475b961162563d0b84ce64893d4">serial_read</a> (const void *buf, <a class="el" href="types_8h.html#a48d6cd8e4135fb2ff7e7f2dac84089ec">i32</a> n)</td></tr>
-<tr class="memdesc:ad0259475b961162563d0b84ce64893d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">TODO.  <br /></td></tr>
+<tr class="memitem:ad0259475b961162563d0b84ce64893d4"><td class="memItemLeft" align="right" valign="top">i32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="serial_8c.html#ad0259475b961162563d0b84ce64893d4">serial_read</a> (const void *buf, i32 n)</td></tr>
+<tr class="memdesc:ad0259475b961162563d0b84ce64893d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read up to <code>n</code> bytes from the serial interface.  <br /></td></tr>
 <tr class="separator:ad0259475b961162563d0b84ce64893d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -95,6 +100,42 @@ Functions</h2></td></tr>
 <dl class="section version"><dt>Version</dt><dd>0.1 </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>23.04.2023 </dd></dl>
 </div><h2 class="groupheader">Function Documentation</h2>
+<a id="ae454cdf1e6c8d3be9256a937f11efa39" name="ae454cdf1e6c8d3be9256a937f11efa39"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae454cdf1e6c8d3be9256a937f11efa39">&#9670;&#160;</a></span>debug_print()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void debug_print </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>format</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>...</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Formatted debug output to serial interface. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">format</td><td>Format string </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="ad0259475b961162563d0b84ce64893d4" name="ad0259475b961162563d0b84ce64893d4"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad0259475b961162563d0b84ce64893d4">&#9670;&#160;</a></span>serial_read()</h2>
 
@@ -102,7 +143,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="types_8h.html#a48d6cd8e4135fb2ff7e7f2dac84089ec">i32</a> serial_read </td>
+          <td class="memname">i32 serial_read </td>
           <td>(</td>
           <td class="paramtype">const void *&#160;</td>
           <td class="paramname"><em>buf</em>, </td>
@@ -110,7 +151,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="types_8h.html#a48d6cd8e4135fb2ff7e7f2dac84089ec">i32</a>&#160;</td>
+          <td class="paramtype">i32&#160;</td>
           <td class="paramname"><em>n</em>&#160;</td>
         </tr>
         <tr>
@@ -121,15 +162,15 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>TODO. </p>
+<p>Read up to <code>n</code> bytes from the serial interface. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">buf</td><td>TODO </td></tr>
-    <tr><td class="paramname">n</td><td>TODO </td></tr>
+    <tr><td class="paramname">buf</td><td>Pointer to buffer to </td></tr>
+    <tr><td class="paramname">n</td><td>Number of bytes to read </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>TODO </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Number of bytes read </dd></dl>
 
 </div>
 </div>
@@ -140,7 +181,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="types_8h.html#a48d6cd8e4135fb2ff7e7f2dac84089ec">i32</a> serial_write </td>
+          <td class="memname">i32 serial_write </td>
           <td>(</td>
           <td class="paramtype">const void *&#160;</td>
           <td class="paramname"><em>buf</em>, </td>
@@ -148,7 +189,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="types_8h.html#a48d6cd8e4135fb2ff7e7f2dac84089ec">i32</a>&#160;</td>
+          <td class="paramtype">i32&#160;</td>
           <td class="paramname"><em>n</em>&#160;</td>
         </tr>
         <tr>

@@ -74,26 +74,802 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#define-members">Macros</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle"><div class="title">format.c File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &lt;<a class="el" href="format_8h_source.html">format.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="ctype_8h_source.html">ctype.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="string_8h_source.html">string.h</a>&gt;</code><br />
+<code>#include &lt;stdarg.h&gt;</code><br />
 </div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:a48900b3be7a36aeae9468f4b96540e0a"><td class="memItemLeft" align="right" valign="top"><a id="a48900b3be7a36aeae9468f4b96540e0a" name="a48900b3be7a36aeae9468f4b96540e0a"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>PRINT_DEC_BUFSZ</b>&#160;&#160;&#160;32 /* 20 is enough for 64 bit decimals */</td></tr>
+<tr class="separator:a48900b3be7a36aeae9468f4b96540e0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:aaf0171ee5296d73d5dba3786e0937121"><td class="memItemLeft" align="right" valign="top"><a class="el" href="types_8h.html#a48d6cd8e4135fb2ff7e7f2dac84089ec">i32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="format_8c.html#aaf0171ee5296d73d5dba3786e0937121">sprintf</a> (char *str, const char *format,...)</td></tr>
+<tr class="memitem:aa1e17db34f974763107076a10a700058"><td class="memItemLeft" align="right" valign="top"><a id="aa1e17db34f974763107076a10a700058" name="aa1e17db34f974763107076a10a700058"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>vsnprintf</b> (char *str, size_t size, const char *format, va_list arg)</td></tr>
+<tr class="separator:aa1e17db34f974763107076a10a700058"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaf0171ee5296d73d5dba3786e0937121"><td class="memItemLeft" align="right" valign="top">i32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="format_8c.html#aaf0171ee5296d73d5dba3786e0937121">sprintf</a> (char *str, const char *format,...)</td></tr>
 <tr class="memdesc:aaf0171ee5296d73d5dba3786e0937121"><td class="mdescLeft">&#160;</td><td class="mdescRight">TODO.  <br /></td></tr>
 <tr class="separator:aaf0171ee5296d73d5dba3786e0937121"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5ee7eda1d86d13462f57443706f23efc"><td class="memItemLeft" align="right" valign="top"><a class="el" href="types_8h.html#a48d6cd8e4135fb2ff7e7f2dac84089ec">i32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="format_8c.html#a5ee7eda1d86d13462f57443706f23efc">snprintf</a> (char *str, <a class="el" href="types_8h.html#afaa62991928fb9fb18ff0db62a040aba">u32</a> n, const char *format,...)</td></tr>
+<tr class="memitem:a5ee7eda1d86d13462f57443706f23efc"><td class="memItemLeft" align="right" valign="top">i32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="format_8c.html#a5ee7eda1d86d13462f57443706f23efc">snprintf</a> (char *str, u32 n, const char *format,...)</td></tr>
 <tr class="memdesc:a5ee7eda1d86d13462f57443706f23efc"><td class="mdescLeft">&#160;</td><td class="mdescRight">TODO.  <br /></td></tr>
 <tr class="separator:a5ee7eda1d86d13462f57443706f23efc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6e7ada0e7fa4af2c3b18c5f1415d1485"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="format_8c.html#a6e7ada0e7fa4af2c3b18c5f1415d1485">print_pad</a> (char **at, size_t *left, int *ret, char p, int num)</td></tr>
+<tr class="separator:a6e7ada0e7fa4af2c3b18c5f1415d1485"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acd54ed45b7837938d83976d62d9fdf7a"><td class="memItemLeft" align="right" valign="top">static char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="format_8c.html#acd54ed45b7837938d83976d62d9fdf7a">get_negsign</a> (int negative, int plus, int space)</td></tr>
+<tr class="separator:acd54ed45b7837938d83976d62d9fdf7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3412990f0b86084a505d7b9c122f7434"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="format_8c.html#a3412990f0b86084a505d7b9c122f7434">print_dec</a> (char *buf, int max, unsigned int value)</td></tr>
+<tr class="separator:a3412990f0b86084a505d7b9c122f7434"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acb59dbd1e84bec93bf02b5b3c56d4db4"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="format_8c.html#acb59dbd1e84bec93bf02b5b3c56d4db4">print_hex</a> (char *buf, int max, unsigned int value)</td></tr>
+<tr class="separator:acb59dbd1e84bec93bf02b5b3c56d4db4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a67cf33c0808b8b17f1665c82e168fd18"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="format_8c.html#a67cf33c0808b8b17f1665c82e168fd18">spool_str_rev</a> (char **at, size_t *left, int *ret, const char *buf, int len)</td></tr>
+<tr class="separator:a67cf33c0808b8b17f1665c82e168fd18"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a929b9cf26102624b5e0a1422316152d6"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="format_8c.html#a929b9cf26102624b5e0a1422316152d6">spool_str</a> (char **at, size_t *left, int *ret, const char *buf, int len)</td></tr>
+<tr class="separator:a929b9cf26102624b5e0a1422316152d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a897f248b642c98a5e91c7a81b359f96f"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="format_8c.html#a897f248b642c98a5e91c7a81b359f96f">print_num</a> (char **at, size_t *left, int *ret, int minw, int precision, int prgiven, int zeropad, int minus, int plus, int space, int zero, int negative, char *buf, int len)</td></tr>
+<tr class="separator:a897f248b642c98a5e91c7a81b359f96f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a86383f6125e3664492d8bd372fac939a"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="format_8c.html#a86383f6125e3664492d8bd372fac939a">print_num_d</a> (char **at, size_t *left, int *ret, int value, int minw, int precision, int prgiven, int zeropad, int minus, int plus, int space)</td></tr>
+<tr class="separator:a86383f6125e3664492d8bd372fac939a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac3671799b94f3eb06dbb8a65682a207a"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="format_8c.html#ac3671799b94f3eb06dbb8a65682a207a">print_num_u</a> (char **at, size_t *left, int *ret, unsigned int value, int minw, int precision, int prgiven, int zeropad, int minus, int plus, int space)</td></tr>
+<tr class="separator:ac3671799b94f3eb06dbb8a65682a207a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1557582c12fdecaeb159f39565ab88c3"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="format_8c.html#a1557582c12fdecaeb159f39565ab88c3">print_num_x</a> (char **at, size_t *left, int *ret, unsigned int value, int minw, int precision, int prgiven, int zeropad, int minus, int plus, int space)</td></tr>
+<tr class="separator:a1557582c12fdecaeb159f39565ab88c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaf11052c67710fe472ccf5e43811410e"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="format_8c.html#aaf11052c67710fe472ccf5e43811410e">my_strnlen</a> (const char *s, int max)</td></tr>
+<tr class="separator:aaf11052c67710fe472ccf5e43811410e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab3f291708242314326fe3b5b43f35b44"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="format_8c.html#ab3f291708242314326fe3b5b43f35b44">print_str</a> (char **at, size_t *left, int *ret, char *s, int minw, int precision, int prgiven, int minus)</td></tr>
+<tr class="separator:ab3f291708242314326fe3b5b43f35b44"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a757a559ab41ba7dcdeaad2de910484ad"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="format_8c.html#a757a559ab41ba7dcdeaad2de910484ad">print_char</a> (char **at, size_t *left, int *ret, int c, int minw, int minus)</td></tr>
+<tr class="separator:a757a559ab41ba7dcdeaad2de910484ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><dl class="section author"><dt>Author</dt><dd>Tim Gabrikowski, Anton Tchekov </dd></dl>
 <dl class="section version"><dt>Version</dt><dd>0.1 </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>23.04.2023 </dd></dl>
 </div><h2 class="groupheader">Function Documentation</h2>
+<a id="acd54ed45b7837938d83976d62d9fdf7a" name="acd54ed45b7837938d83976d62d9fdf7a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acd54ed45b7837938d83976d62d9fdf7a">&#9670;&#160;</a></span>get_negsign()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static char get_negsign </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>negative</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>plus</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>space</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>get negative symbol, 0 if none </p>
+
+</div>
+</div>
+<a id="aaf11052c67710fe472ccf5e43811410e" name="aaf11052c67710fe472ccf5e43811410e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaf11052c67710fe472ccf5e43811410e">&#9670;&#160;</a></span>my_strnlen()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static int my_strnlen </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>s</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>max</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>strnlen (compat implementation) </p>
+
+</div>
+</div>
+<a id="a757a559ab41ba7dcdeaad2de910484ad" name="a757a559ab41ba7dcdeaad2de910484ad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a757a559ab41ba7dcdeaad2de910484ad">&#9670;&#160;</a></span>print_char()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void print_char </td>
+          <td>(</td>
+          <td class="paramtype">char **&#160;</td>
+          <td class="paramname"><em>at</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t *&#160;</td>
+          <td class="paramname"><em>left</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int *&#160;</td>
+          <td class="paramname"><em>ret</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>c</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>minw</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>minus</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>print c </p>
+
+</div>
+</div>
+<a id="a3412990f0b86084a505d7b9c122f7434" name="a3412990f0b86084a505d7b9c122f7434"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3412990f0b86084a505d7b9c122f7434">&#9670;&#160;</a></span>print_dec()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static int print_dec </td>
+          <td>(</td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>buf</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>max</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>value</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>print decimal into buffer, returns length </p>
+
+</div>
+</div>
+<a id="acb59dbd1e84bec93bf02b5b3c56d4db4" name="acb59dbd1e84bec93bf02b5b3c56d4db4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acb59dbd1e84bec93bf02b5b3c56d4db4">&#9670;&#160;</a></span>print_hex()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static int print_hex </td>
+          <td>(</td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>buf</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>max</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>value</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>print hex into buffer, returns length </p>
+
+</div>
+</div>
+<a id="a897f248b642c98a5e91c7a81b359f96f" name="a897f248b642c98a5e91c7a81b359f96f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a897f248b642c98a5e91c7a81b359f96f">&#9670;&#160;</a></span>print_num()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void print_num </td>
+          <td>(</td>
+          <td class="paramtype">char **&#160;</td>
+          <td class="paramname"><em>at</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t *&#160;</td>
+          <td class="paramname"><em>left</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int *&#160;</td>
+          <td class="paramname"><em>ret</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>minw</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>precision</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>prgiven</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>zeropad</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>minus</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>plus</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>space</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>zero</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>negative</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>buf</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>len</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>print number formatted </p>
+
+</div>
+</div>
+<a id="a86383f6125e3664492d8bd372fac939a" name="a86383f6125e3664492d8bd372fac939a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a86383f6125e3664492d8bd372fac939a">&#9670;&#160;</a></span>print_num_d()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void print_num_d </td>
+          <td>(</td>
+          <td class="paramtype">char **&#160;</td>
+          <td class="paramname"><em>at</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t *&#160;</td>
+          <td class="paramname"><em>left</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int *&#160;</td>
+          <td class="paramname"><em>ret</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>value</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>minw</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>precision</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>prgiven</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>zeropad</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>minus</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>plus</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>space</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>print d and i </p>
+
+</div>
+</div>
+<a id="ac3671799b94f3eb06dbb8a65682a207a" name="ac3671799b94f3eb06dbb8a65682a207a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac3671799b94f3eb06dbb8a65682a207a">&#9670;&#160;</a></span>print_num_u()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void print_num_u </td>
+          <td>(</td>
+          <td class="paramtype">char **&#160;</td>
+          <td class="paramname"><em>at</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t *&#160;</td>
+          <td class="paramname"><em>left</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int *&#160;</td>
+          <td class="paramname"><em>ret</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>value</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>minw</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>precision</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>prgiven</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>zeropad</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>minus</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>plus</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>space</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>print u </p>
+
+</div>
+</div>
+<a id="a1557582c12fdecaeb159f39565ab88c3" name="a1557582c12fdecaeb159f39565ab88c3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1557582c12fdecaeb159f39565ab88c3">&#9670;&#160;</a></span>print_num_x()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void print_num_x </td>
+          <td>(</td>
+          <td class="paramtype">char **&#160;</td>
+          <td class="paramname"><em>at</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t *&#160;</td>
+          <td class="paramname"><em>left</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int *&#160;</td>
+          <td class="paramname"><em>ret</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>value</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>minw</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>precision</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>prgiven</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>zeropad</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>minus</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>plus</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>space</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>print x </p>
+
+</div>
+</div>
+<a id="a6e7ada0e7fa4af2c3b18c5f1415d1485" name="a6e7ada0e7fa4af2c3b18c5f1415d1485"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6e7ada0e7fa4af2c3b18c5f1415d1485">&#9670;&#160;</a></span>print_pad()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void print_pad </td>
+          <td>(</td>
+          <td class="paramtype">char **&#160;</td>
+          <td class="paramname"><em>at</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t *&#160;</td>
+          <td class="paramname"><em>left</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int *&#160;</td>
+          <td class="paramname"><em>ret</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char&#160;</td>
+          <td class="paramname"><em>p</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>num</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>add padding to string </p>
+
+</div>
+</div>
+<a id="ab3f291708242314326fe3b5b43f35b44" name="ab3f291708242314326fe3b5b43f35b44"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab3f291708242314326fe3b5b43f35b44">&#9670;&#160;</a></span>print_str()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void print_str </td>
+          <td>(</td>
+          <td class="paramtype">char **&#160;</td>
+          <td class="paramname"><em>at</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t *&#160;</td>
+          <td class="paramname"><em>left</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int *&#160;</td>
+          <td class="paramname"><em>ret</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>s</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>minw</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>precision</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>prgiven</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>minus</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>print s </p>
+
+</div>
+</div>
 <a id="a5ee7eda1d86d13462f57443706f23efc" name="a5ee7eda1d86d13462f57443706f23efc"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5ee7eda1d86d13462f57443706f23efc">&#9670;&#160;</a></span>snprintf()</h2>
 
@@ -101,7 +877,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="types_8h.html#a48d6cd8e4135fb2ff7e7f2dac84089ec">i32</a> snprintf </td>
+          <td class="memname">i32 snprintf </td>
           <td>(</td>
           <td class="paramtype">char *&#160;</td>
           <td class="paramname"><em>str</em>, </td>
@@ -109,7 +885,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="types_8h.html#afaa62991928fb9fb18ff0db62a040aba">u32</a>&#160;</td>
+          <td class="paramtype">u32&#160;</td>
           <td class="paramname"><em>n</em>, </td>
         </tr>
         <tr>
@@ -145,6 +921,116 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a929b9cf26102624b5e0a1422316152d6" name="a929b9cf26102624b5e0a1422316152d6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a929b9cf26102624b5e0a1422316152d6">&#9670;&#160;</a></span>spool_str()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void spool_str </td>
+          <td>(</td>
+          <td class="paramtype">char **&#160;</td>
+          <td class="paramname"><em>at</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t *&#160;</td>
+          <td class="paramname"><em>left</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int *&#160;</td>
+          <td class="paramname"><em>ret</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>buf</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>len</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>copy string into result </p>
+
+</div>
+</div>
+<a id="a67cf33c0808b8b17f1665c82e168fd18" name="a67cf33c0808b8b17f1665c82e168fd18"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a67cf33c0808b8b17f1665c82e168fd18">&#9670;&#160;</a></span>spool_str_rev()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void spool_str_rev </td>
+          <td>(</td>
+          <td class="paramtype">char **&#160;</td>
+          <td class="paramname"><em>at</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t *&#160;</td>
+          <td class="paramname"><em>left</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int *&#160;</td>
+          <td class="paramname"><em>ret</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>buf</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>len</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>copy string into result, reversed </p>
+
+</div>
+</div>
 <a id="aaf0171ee5296d73d5dba3786e0937121" name="aaf0171ee5296d73d5dba3786e0937121"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aaf0171ee5296d73d5dba3786e0937121">&#9670;&#160;</a></span>sprintf()</h2>
 
@@ -152,7 +1038,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="types_8h.html#a48d6cd8e4135fb2ff7e7f2dac84089ec">i32</a> sprintf </td>
+          <td class="memname">i32 sprintf </td>
           <td>(</td>
           <td class="paramtype">char *&#160;</td>
           <td class="paramname"><em>str</em>, </td>

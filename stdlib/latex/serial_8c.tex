@@ -2,13 +2,17 @@
 \label{serial_8c}\index{serial/serial.c@{serial/serial.c}}
 {\ttfamily \#include $<$serial.\+h$>$}\newline
 {\ttfamily \#include $<$syscall.\+h$>$}\newline
+{\ttfamily \#include $<$stdarg.\+h$>$}\newline
+{\ttfamily \#include $<$format.\+h$>$}\newline
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} \mbox{\hyperlink{serial_8c_a1e573f079b66d70c6154d5ae4e61739d}{serial\+\_\+write}} (const void $\ast$buf, \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} n)
+void \mbox{\hyperlink{serial_8c_ae454cdf1e6c8d3be9256a937f11efa39}{debug\+\_\+print}} (const char $\ast$format,...)
+\begin{DoxyCompactList}\small\item\em Formatted debug output to serial interface. \end{DoxyCompactList}\item 
+i32 \mbox{\hyperlink{serial_8c_a1e573f079b66d70c6154d5ae4e61739d}{serial\+\_\+write}} (const void $\ast$buf, i32 n)
 \begin{DoxyCompactList}\small\item\em TODO. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} \mbox{\hyperlink{serial_8c_ad0259475b961162563d0b84ce64893d4}{serial\+\_\+read}} (const void $\ast$buf, \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} n)
-\begin{DoxyCompactList}\small\item\em TODO. \end{DoxyCompactList}\end{DoxyCompactItemize}
+i32 \mbox{\hyperlink{serial_8c_ad0259475b961162563d0b84ce64893d4}{serial\+\_\+read}} (const void $\ast$buf, i32 n)
+\begin{DoxyCompactList}\small\item\em Read up to {\ttfamily n} bytes from the serial interface. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
@@ -24,31 +28,46 @@ Tim Gabrikowski, Anton Tchekov
 
 
 \doxysubsection{Function Documentation}
+\mbox{\Hypertarget{serial_8c_ae454cdf1e6c8d3be9256a937f11efa39}\label{serial_8c_ae454cdf1e6c8d3be9256a937f11efa39}} 
+\index{serial.c@{serial.c}!debug\_print@{debug\_print}}
+\index{debug\_print@{debug\_print}!serial.c@{serial.c}}
+\doxysubsubsection{\texorpdfstring{debug\_print()}{debug\_print()}}
+{\footnotesize\ttfamily void debug\+\_\+print (\begin{DoxyParamCaption}\item[{const char $\ast$}]{format,  }\item[{}]{... }\end{DoxyParamCaption})}
+
+
+
+Formatted debug output to serial interface. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em format} & Format string \\
+\hline
+\end{DoxyParams}
 \mbox{\Hypertarget{serial_8c_ad0259475b961162563d0b84ce64893d4}\label{serial_8c_ad0259475b961162563d0b84ce64893d4}} 
 \index{serial.c@{serial.c}!serial\_read@{serial\_read}}
 \index{serial\_read@{serial\_read}!serial.c@{serial.c}}
 \doxysubsubsection{\texorpdfstring{serial\_read()}{serial\_read()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} serial\+\_\+read (\begin{DoxyParamCaption}\item[{const void $\ast$}]{buf,  }\item[{\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}}]{n }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily i32 serial\+\_\+read (\begin{DoxyParamCaption}\item[{const void $\ast$}]{buf,  }\item[{i32}]{n }\end{DoxyParamCaption})}
 
 
 
-TODO. 
+Read up to {\ttfamily n} bytes from the serial interface. 
 
 
 \begin{DoxyParams}{Parameters}
-{\em buf} & TODO \\
+{\em buf} & Pointer to buffer to \\
 \hline
-{\em n} & TODO \\
+{\em n} & Number of bytes to read \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-TODO 
+Number of bytes read 
 \end{DoxyReturn}
 \mbox{\Hypertarget{serial_8c_a1e573f079b66d70c6154d5ae4e61739d}\label{serial_8c_a1e573f079b66d70c6154d5ae4e61739d}} 
 \index{serial.c@{serial.c}!serial\_write@{serial\_write}}
 \index{serial\_write@{serial\_write}!serial.c@{serial.c}}
 \doxysubsubsection{\texorpdfstring{serial\_write()}{serial\_write()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} serial\+\_\+write (\begin{DoxyParamCaption}\item[{const void $\ast$}]{buf,  }\item[{\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}}]{n }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily i32 serial\+\_\+write (\begin{DoxyParamCaption}\item[{const void $\ast$}]{buf,  }\item[{i32}]{n }\end{DoxyParamCaption})}
 
 
 

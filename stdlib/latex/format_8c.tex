@@ -1,13 +1,51 @@
 \hypertarget{format_8c}{}\doxysection{format/format.c File Reference}
 \label{format_8c}\index{format/format.c@{format/format.c}}
 {\ttfamily \#include $<$format.\+h$>$}\newline
+{\ttfamily \#include $<$ctype.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include $<$stdarg.\+h$>$}\newline
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{format_8c_a48900b3be7a36aeae9468f4b96540e0a}\label{format_8c_a48900b3be7a36aeae9468f4b96540e0a}} 
+\#define {\bfseries PRINT\+\_\+\+DEC\+\_\+\+BUFSZ}~32 /$\ast$ 20 is enough for 64 bit decimals $\ast$/
+\end{DoxyCompactItemize}
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} \mbox{\hyperlink{format_8c_aaf0171ee5296d73d5dba3786e0937121}{sprintf}} (char $\ast$str, const char $\ast$format,...)
+\mbox{\Hypertarget{format_8c_aa1e17db34f974763107076a10a700058}\label{format_8c_aa1e17db34f974763107076a10a700058}} 
+int {\bfseries vsnprintf} (char $\ast$str, size\+\_\+t size, const char $\ast$format, va\+\_\+list arg)
+\item 
+i32 \mbox{\hyperlink{format_8c_aaf0171ee5296d73d5dba3786e0937121}{sprintf}} (char $\ast$str, const char $\ast$format,...)
 \begin{DoxyCompactList}\small\item\em TODO. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} \mbox{\hyperlink{format_8c_a5ee7eda1d86d13462f57443706f23efc}{snprintf}} (char $\ast$str, \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} n, const char $\ast$format,...)
-\begin{DoxyCompactList}\small\item\em TODO. \end{DoxyCompactList}\end{DoxyCompactItemize}
+i32 \mbox{\hyperlink{format_8c_a5ee7eda1d86d13462f57443706f23efc}{snprintf}} (char $\ast$str, u32 n, const char $\ast$format,...)
+\begin{DoxyCompactList}\small\item\em TODO. \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{format_8c_a6e7ada0e7fa4af2c3b18c5f1415d1485}{print\+\_\+pad}} (char $\ast$$\ast$at, size\+\_\+t $\ast$left, int $\ast$ret, char p, int num)
+\item 
+static char \mbox{\hyperlink{format_8c_acd54ed45b7837938d83976d62d9fdf7a}{get\+\_\+negsign}} (int negative, int plus, int space)
+\item 
+static int \mbox{\hyperlink{format_8c_a3412990f0b86084a505d7b9c122f7434}{print\+\_\+dec}} (char $\ast$buf, int max, unsigned int value)
+\item 
+static int \mbox{\hyperlink{format_8c_acb59dbd1e84bec93bf02b5b3c56d4db4}{print\+\_\+hex}} (char $\ast$buf, int max, unsigned int value)
+\item 
+static void \mbox{\hyperlink{format_8c_a67cf33c0808b8b17f1665c82e168fd18}{spool\+\_\+str\+\_\+rev}} (char $\ast$$\ast$at, size\+\_\+t $\ast$left, int $\ast$ret, const char $\ast$buf, int len)
+\item 
+static void \mbox{\hyperlink{format_8c_a929b9cf26102624b5e0a1422316152d6}{spool\+\_\+str}} (char $\ast$$\ast$at, size\+\_\+t $\ast$left, int $\ast$ret, const char $\ast$buf, int len)
+\item 
+static void \mbox{\hyperlink{format_8c_a897f248b642c98a5e91c7a81b359f96f}{print\+\_\+num}} (char $\ast$$\ast$at, size\+\_\+t $\ast$left, int $\ast$ret, int minw, int precision, int prgiven, int zeropad, int minus, int plus, int space, int zero, int negative, char $\ast$buf, int len)
+\item 
+static void \mbox{\hyperlink{format_8c_a86383f6125e3664492d8bd372fac939a}{print\+\_\+num\+\_\+d}} (char $\ast$$\ast$at, size\+\_\+t $\ast$left, int $\ast$ret, int value, int minw, int precision, int prgiven, int zeropad, int minus, int plus, int space)
+\item 
+static void \mbox{\hyperlink{format_8c_ac3671799b94f3eb06dbb8a65682a207a}{print\+\_\+num\+\_\+u}} (char $\ast$$\ast$at, size\+\_\+t $\ast$left, int $\ast$ret, unsigned int value, int minw, int precision, int prgiven, int zeropad, int minus, int plus, int space)
+\item 
+static void \mbox{\hyperlink{format_8c_a1557582c12fdecaeb159f39565ab88c3}{print\+\_\+num\+\_\+x}} (char $\ast$$\ast$at, size\+\_\+t $\ast$left, int $\ast$ret, unsigned int value, int minw, int precision, int prgiven, int zeropad, int minus, int plus, int space)
+\item 
+static int \mbox{\hyperlink{format_8c_aaf11052c67710fe472ccf5e43811410e}{my\+\_\+strnlen}} (const char $\ast$s, int max)
+\item 
+static void \mbox{\hyperlink{format_8c_ab3f291708242314326fe3b5b43f35b44}{print\+\_\+str}} (char $\ast$$\ast$at, size\+\_\+t $\ast$left, int $\ast$ret, char $\ast$s, int minw, int precision, int prgiven, int minus)
+\item 
+static void \mbox{\hyperlink{format_8c_a757a559ab41ba7dcdeaad2de910484ad}{print\+\_\+char}} (char $\ast$$\ast$at, size\+\_\+t $\ast$left, int $\ast$ret, int c, int minw, int minus)
+\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
@@ -23,11 +61,77 @@ Tim Gabrikowski, Anton Tchekov
 
 
 \doxysubsection{Function Documentation}
-\mbox{\Hypertarget{format_8c_a5ee7eda1d86d13462f57443706f23efc}\label{format_8c_a5ee7eda1d86d13462f57443706f23efc}} 
+\mbox{\Hypertarget{format_8c_acd54ed45b7837938d83976d62d9fdf7a}\label{format_8c_acd54ed45b7837938d83976d62d9fdf7a}} 
+\index{format.c@{format.c}!get\_negsign@{get\_negsign}}
+\index{get\_negsign@{get\_negsign}!format.c@{format.c}}
+\doxysubsubsection{\texorpdfstring{get\_negsign()}{get\_negsign()}}
+{\footnotesize\ttfamily static char get\+\_\+negsign (\begin{DoxyParamCaption}\item[{int}]{negative,  }\item[{int}]{plus,  }\item[{int}]{space }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+get negative symbol, 0 if none \mbox{\Hypertarget{format_8c_aaf11052c67710fe472ccf5e43811410e}\label{format_8c_aaf11052c67710fe472ccf5e43811410e}} 
+\index{format.c@{format.c}!my\_strnlen@{my\_strnlen}}
+\index{my\_strnlen@{my\_strnlen}!format.c@{format.c}}
+\doxysubsubsection{\texorpdfstring{my\_strnlen()}{my\_strnlen()}}
+{\footnotesize\ttfamily static int my\+\_\+strnlen (\begin{DoxyParamCaption}\item[{const char $\ast$}]{s,  }\item[{int}]{max }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+strnlen (compat implementation) \mbox{\Hypertarget{format_8c_a757a559ab41ba7dcdeaad2de910484ad}\label{format_8c_a757a559ab41ba7dcdeaad2de910484ad}} 
+\index{format.c@{format.c}!print\_char@{print\_char}}
+\index{print\_char@{print\_char}!format.c@{format.c}}
+\doxysubsubsection{\texorpdfstring{print\_char()}{print\_char()}}
+{\footnotesize\ttfamily static void print\+\_\+char (\begin{DoxyParamCaption}\item[{char $\ast$$\ast$}]{at,  }\item[{size\+\_\+t $\ast$}]{left,  }\item[{int $\ast$}]{ret,  }\item[{int}]{c,  }\item[{int}]{minw,  }\item[{int}]{minus }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+print c \mbox{\Hypertarget{format_8c_a3412990f0b86084a505d7b9c122f7434}\label{format_8c_a3412990f0b86084a505d7b9c122f7434}} 
+\index{format.c@{format.c}!print\_dec@{print\_dec}}
+\index{print\_dec@{print\_dec}!format.c@{format.c}}
+\doxysubsubsection{\texorpdfstring{print\_dec()}{print\_dec()}}
+{\footnotesize\ttfamily static int print\+\_\+dec (\begin{DoxyParamCaption}\item[{char $\ast$}]{buf,  }\item[{int}]{max,  }\item[{unsigned int}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+print decimal into buffer, returns length \mbox{\Hypertarget{format_8c_acb59dbd1e84bec93bf02b5b3c56d4db4}\label{format_8c_acb59dbd1e84bec93bf02b5b3c56d4db4}} 
+\index{format.c@{format.c}!print\_hex@{print\_hex}}
+\index{print\_hex@{print\_hex}!format.c@{format.c}}
+\doxysubsubsection{\texorpdfstring{print\_hex()}{print\_hex()}}
+{\footnotesize\ttfamily static int print\+\_\+hex (\begin{DoxyParamCaption}\item[{char $\ast$}]{buf,  }\item[{int}]{max,  }\item[{unsigned int}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+print hex into buffer, returns length \mbox{\Hypertarget{format_8c_a897f248b642c98a5e91c7a81b359f96f}\label{format_8c_a897f248b642c98a5e91c7a81b359f96f}} 
+\index{format.c@{format.c}!print\_num@{print\_num}}
+\index{print\_num@{print\_num}!format.c@{format.c}}
+\doxysubsubsection{\texorpdfstring{print\_num()}{print\_num()}}
+{\footnotesize\ttfamily static void print\+\_\+num (\begin{DoxyParamCaption}\item[{char $\ast$$\ast$}]{at,  }\item[{size\+\_\+t $\ast$}]{left,  }\item[{int $\ast$}]{ret,  }\item[{int}]{minw,  }\item[{int}]{precision,  }\item[{int}]{prgiven,  }\item[{int}]{zeropad,  }\item[{int}]{minus,  }\item[{int}]{plus,  }\item[{int}]{space,  }\item[{int}]{zero,  }\item[{int}]{negative,  }\item[{char $\ast$}]{buf,  }\item[{int}]{len }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+print number formatted \mbox{\Hypertarget{format_8c_a86383f6125e3664492d8bd372fac939a}\label{format_8c_a86383f6125e3664492d8bd372fac939a}} 
+\index{format.c@{format.c}!print\_num\_d@{print\_num\_d}}
+\index{print\_num\_d@{print\_num\_d}!format.c@{format.c}}
+\doxysubsubsection{\texorpdfstring{print\_num\_d()}{print\_num\_d()}}
+{\footnotesize\ttfamily static void print\+\_\+num\+\_\+d (\begin{DoxyParamCaption}\item[{char $\ast$$\ast$}]{at,  }\item[{size\+\_\+t $\ast$}]{left,  }\item[{int $\ast$}]{ret,  }\item[{int}]{value,  }\item[{int}]{minw,  }\item[{int}]{precision,  }\item[{int}]{prgiven,  }\item[{int}]{zeropad,  }\item[{int}]{minus,  }\item[{int}]{plus,  }\item[{int}]{space }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+print d and i \mbox{\Hypertarget{format_8c_ac3671799b94f3eb06dbb8a65682a207a}\label{format_8c_ac3671799b94f3eb06dbb8a65682a207a}} 
+\index{format.c@{format.c}!print\_num\_u@{print\_num\_u}}
+\index{print\_num\_u@{print\_num\_u}!format.c@{format.c}}
+\doxysubsubsection{\texorpdfstring{print\_num\_u()}{print\_num\_u()}}
+{\footnotesize\ttfamily static void print\+\_\+num\+\_\+u (\begin{DoxyParamCaption}\item[{char $\ast$$\ast$}]{at,  }\item[{size\+\_\+t $\ast$}]{left,  }\item[{int $\ast$}]{ret,  }\item[{unsigned int}]{value,  }\item[{int}]{minw,  }\item[{int}]{precision,  }\item[{int}]{prgiven,  }\item[{int}]{zeropad,  }\item[{int}]{minus,  }\item[{int}]{plus,  }\item[{int}]{space }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+print u \mbox{\Hypertarget{format_8c_a1557582c12fdecaeb159f39565ab88c3}\label{format_8c_a1557582c12fdecaeb159f39565ab88c3}} 
+\index{format.c@{format.c}!print\_num\_x@{print\_num\_x}}
+\index{print\_num\_x@{print\_num\_x}!format.c@{format.c}}
+\doxysubsubsection{\texorpdfstring{print\_num\_x()}{print\_num\_x()}}
+{\footnotesize\ttfamily static void print\+\_\+num\+\_\+x (\begin{DoxyParamCaption}\item[{char $\ast$$\ast$}]{at,  }\item[{size\+\_\+t $\ast$}]{left,  }\item[{int $\ast$}]{ret,  }\item[{unsigned int}]{value,  }\item[{int}]{minw,  }\item[{int}]{precision,  }\item[{int}]{prgiven,  }\item[{int}]{zeropad,  }\item[{int}]{minus,  }\item[{int}]{plus,  }\item[{int}]{space }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+print x \mbox{\Hypertarget{format_8c_a6e7ada0e7fa4af2c3b18c5f1415d1485}\label{format_8c_a6e7ada0e7fa4af2c3b18c5f1415d1485}} 
+\index{format.c@{format.c}!print\_pad@{print\_pad}}
+\index{print\_pad@{print\_pad}!format.c@{format.c}}
+\doxysubsubsection{\texorpdfstring{print\_pad()}{print\_pad()}}
+{\footnotesize\ttfamily static void print\+\_\+pad (\begin{DoxyParamCaption}\item[{char $\ast$$\ast$}]{at,  }\item[{size\+\_\+t $\ast$}]{left,  }\item[{int $\ast$}]{ret,  }\item[{char}]{p,  }\item[{int}]{num }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+add padding to string \mbox{\Hypertarget{format_8c_ab3f291708242314326fe3b5b43f35b44}\label{format_8c_ab3f291708242314326fe3b5b43f35b44}} 
+\index{format.c@{format.c}!print\_str@{print\_str}}
+\index{print\_str@{print\_str}!format.c@{format.c}}
+\doxysubsubsection{\texorpdfstring{print\_str()}{print\_str()}}
+{\footnotesize\ttfamily static void print\+\_\+str (\begin{DoxyParamCaption}\item[{char $\ast$$\ast$}]{at,  }\item[{size\+\_\+t $\ast$}]{left,  }\item[{int $\ast$}]{ret,  }\item[{char $\ast$}]{s,  }\item[{int}]{minw,  }\item[{int}]{precision,  }\item[{int}]{prgiven,  }\item[{int}]{minus }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+print s \mbox{\Hypertarget{format_8c_a5ee7eda1d86d13462f57443706f23efc}\label{format_8c_a5ee7eda1d86d13462f57443706f23efc}} 
 \index{format.c@{format.c}!snprintf@{snprintf}}
 \index{snprintf@{snprintf}!format.c@{format.c}}
 \doxysubsubsection{\texorpdfstring{snprintf()}{snprintf()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} snprintf (\begin{DoxyParamCaption}\item[{char $\ast$}]{str,  }\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{n,  }\item[{const char $\ast$}]{format,  }\item[{}]{... }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily i32 snprintf (\begin{DoxyParamCaption}\item[{char $\ast$}]{str,  }\item[{u32}]{n,  }\item[{const char $\ast$}]{format,  }\item[{}]{... }\end{DoxyParamCaption})}
 
 
 
@@ -45,11 +149,23 @@ TODO.
 \begin{DoxyReturn}{Returns}
 TODO 
 \end{DoxyReturn}
-\mbox{\Hypertarget{format_8c_aaf0171ee5296d73d5dba3786e0937121}\label{format_8c_aaf0171ee5296d73d5dba3786e0937121}} 
+\mbox{\Hypertarget{format_8c_a929b9cf26102624b5e0a1422316152d6}\label{format_8c_a929b9cf26102624b5e0a1422316152d6}} 
+\index{format.c@{format.c}!spool\_str@{spool\_str}}
+\index{spool\_str@{spool\_str}!format.c@{format.c}}
+\doxysubsubsection{\texorpdfstring{spool\_str()}{spool\_str()}}
+{\footnotesize\ttfamily static void spool\+\_\+str (\begin{DoxyParamCaption}\item[{char $\ast$$\ast$}]{at,  }\item[{size\+\_\+t $\ast$}]{left,  }\item[{int $\ast$}]{ret,  }\item[{const char $\ast$}]{buf,  }\item[{int}]{len }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+copy string into result \mbox{\Hypertarget{format_8c_a67cf33c0808b8b17f1665c82e168fd18}\label{format_8c_a67cf33c0808b8b17f1665c82e168fd18}} 
+\index{format.c@{format.c}!spool\_str\_rev@{spool\_str\_rev}}
+\index{spool\_str\_rev@{spool\_str\_rev}!format.c@{format.c}}
+\doxysubsubsection{\texorpdfstring{spool\_str\_rev()}{spool\_str\_rev()}}
+{\footnotesize\ttfamily static void spool\+\_\+str\+\_\+rev (\begin{DoxyParamCaption}\item[{char $\ast$$\ast$}]{at,  }\item[{size\+\_\+t $\ast$}]{left,  }\item[{int $\ast$}]{ret,  }\item[{const char $\ast$}]{buf,  }\item[{int}]{len }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+copy string into result, reversed \mbox{\Hypertarget{format_8c_aaf0171ee5296d73d5dba3786e0937121}\label{format_8c_aaf0171ee5296d73d5dba3786e0937121}} 
 \index{format.c@{format.c}!sprintf@{sprintf}}
 \index{sprintf@{sprintf}!format.c@{format.c}}
 \doxysubsubsection{\texorpdfstring{sprintf()}{sprintf()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} sprintf (\begin{DoxyParamCaption}\item[{char $\ast$}]{str,  }\item[{const char $\ast$}]{format,  }\item[{}]{... }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily i32 sprintf (\begin{DoxyParamCaption}\item[{char $\ast$}]{str,  }\item[{const char $\ast$}]{format,  }\item[{}]{... }\end{DoxyParamCaption})}
 
 
 

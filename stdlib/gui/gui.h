@@ -20,6 +20,7 @@ typedef enum
 	ELEMENT_TYPE_LABEL
 } ElementType;
 
+/** TODO */
 #define LABEL_FLAG_CENTER 0x01
 
 /** TODO */
@@ -135,7 +136,7 @@ typedef struct
 	}
 
 /** TODO */
-#define INPUT_CREATE(_X, _Y, _W, _TEXT, _SIZE, _CLICK) \
+#define INPUT_CREATE(_X, _Y, _W, _TEXT, _SIZE) \
 	{ \
 		.Type = ELEMENT_TYPE_INPUT, \
 		.X = _X, \
@@ -145,7 +146,6 @@ typedef struct
 		.Length = 0, \
 		.Size = _SIZE, \
 		.Text = _TEXT, \
-		.Click = _CLICK \
 	}
 
 /**

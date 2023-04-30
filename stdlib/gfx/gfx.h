@@ -24,27 +24,27 @@ typedef u32 Color;
 /** Rectangle structure consisting of X, Y, Width and Height */
 typedef struct
 {
-	/** TODO */
+	/** X-Coordinate */
 	i32 X;
 
-	/** TODO */
+	/** Y-Coordinate */
 	i32 Y;
 
-	/** TODO */
+	/** Width */
 	i32 W;
 
-	/** TODO */
+	/** Height */
 	i32 H;
 } Rectangle;
 
 /**
- * @brief TODO
+ * @brief Create a color from R, G, B, A values
  *
- * @param r TODO
- * @param g TODO
- * @param b TODO
- * @param a TODO
- * @return TODO
+ * @param r Red channel (0-255)
+ * @param g Green channel (0-255)
+ * @param b Blue channel (0-255)
+ * @param a Alpha channel (0-255)
+ * @return Color value
  */
 static inline Color gfx_color(i32 r, i32 g, i32 b, i32 a)
 {
@@ -55,11 +55,11 @@ static inline Color gfx_color(i32 r, i32 g, i32 b, i32 a)
  * @brief Draws a rectangle from position (x|y),
  *        w pixels to left and h pixels down
  *
- * @param x TODO
- * @param y TODO
- * @param w TODO
- * @param h TODO
- * @param color TODO
+ * @param x X-Coordinate
+ * @param y Y-Coordinate
+ * @param w Width
+ * @param h Height
+ * @param color Color from `gfx_color` or `color.h`
  */
 void gfx_rect(i32 x, i32 y, i32 w, i32 h, Color color);
 
@@ -69,6 +69,7 @@ void gfx_rect(i32 x, i32 y, i32 w, i32 h, Color color);
  * @param x TODO
  * @param y TODO
  * @param h TODO
+ * @param color TODO
  */
 static inline void gfx_vline(i32 x, i32 y, i32 h, Color color)
 {
@@ -80,7 +81,8 @@ static inline void gfx_vline(i32 x, i32 y, i32 h, Color color)
  *
  * @param x TODO
  * @param y TODO
- * @param h TODO
+ * @param w TODO
+ * @param color TODO
  */
 static inline void gfx_hline(i32 x, i32 y, i32 w, Color color)
 {

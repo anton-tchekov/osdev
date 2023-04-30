@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['y_0',['Y',['../structRectangle.html#a64dcd396f57e0fa1a321310aa35377a2',1,'Rectangle::Y()'],['../structLABEL.html#a2fc20bf31ac372c95db963e581112fd7',1,'LABEL::Y()'],['../structBUTTON.html#a6392fac2b3976d4b0fe356633bcaa885',1,'BUTTON::Y()'],['../structINPUT.html#aac6b4617d927afa0d402539562333d55',1,'INPUT::Y()']]]
+  ['w_0',['W',['../structRectangle.html#af170c9bbeb204829ae51f161b4d998bb',1,'Rectangle::W()'],['../structButton.html#aeda48c500aaf219c7bc49fd62c07c466',1,'Button::W()'],['../structInput.html#a49666acce1e1ce75cf34f09ca097f6d4',1,'Input::W()']]]
 ];

@@ -12,27 +12,29 @@
 #include <types.h>
 
 /**
- * @brief TODO
+ * @brief Copies `count` bytes from `src` to `dest`
+ *        Source and destination blocks must NOT overlap.
  *
- * @param dest TODO
- * @param src TODO
- * @param count TODO
- * @return TODO
+ * @param dest Pointer to destination address
+ * @param src Pointer to source address
+ * @param count Number of bytes
+ * @return `dest`
  */
 void *memcpy(void *dest, const void *src, u32 count);
 
 /**
- * @brief TODO
+ * @brief Copies `count` bytes from `src` to `dest`
+ *        Source and destination blocks are allowed to overlap.
  *
- * @param dest TODO
- * @param src TODO
- * @param count TODO
- * @return TODO
+ * @param dest Pointer to destination address
+ * @param src Pointer to source address
+ * @param count Number of bytes
+ * @return `dest`
  */
 void *memmove(void *dest, const void *src, u32 count);
 
 /**
- * @brief TODO
+ * @brief Compares two blocks of memory
  *
  * @param ptr1 TODO
  * @param ptr2 TODO
@@ -42,7 +44,7 @@ void *memmove(void *dest, const void *src, u32 count);
 i32 memcmp(const void *ptr1, const void *ptr2, u32 count);
 
 /**
- * @brief TODO
+ * @brief Finds a char in
  *
  * @param ptr TODO
  * @param value TODO
@@ -52,12 +54,12 @@ i32 memcmp(const void *ptr1, const void *ptr2, u32 count);
 const void *memchr(const void *ptr, i32 value, u32 count);
 
 /**
- * @brief TODO
+ * @brief Sets all bytes in a block of memory to `value`
  *
- * @param ptr TODO
- * @param value TODO
- * @param count TODO
- * @return TODO
+ * @param ptr Pointer to block of memory
+ * @param value Value to be written as byte
+ * @param count Number of bytes
+ * @return `ptr`
  */
 void *memset(void *ptr, i32 value, u32 count);
 

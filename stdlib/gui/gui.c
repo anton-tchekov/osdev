@@ -11,9 +11,10 @@
 #include <colors.h>
 #include <font_default.h>
 
+/** TODO */
 #define TITLE_BAR_HEIGHT 20
 
-/** TODO */
+/** Pointer to the currently open window */
 static Window *_current_window;
 
 /** TODO */
@@ -381,12 +382,12 @@ void window_event_key(Key key, bool up)
 		return;
 	}
 
-	ce = &_current_window->Elements[_current_window->Selected];
-	if(key == KEY_UP)
+	ce = _current_window->Elements[_current_window->Selected];
+	if(key == KEY_W)
 	{
 		element_prev();
 	}
-	else if(key == KEY_DOWN)
+	else if(key == KEY_S)
 	{
 		element_next();
 	}
@@ -397,17 +398,21 @@ void window_event_key(Key key, bool up)
 		{
 			if(key == KEY_RETURN)
 			{
-				((Button *)ce)->Click();
+				Button *b = ce;
+				if(b->Click)
+				{
+					b->Click();
+				}
 			}
 		}
 		else if(type == ELEMENT_TYPE_INPUT)
 		{
 			Input *input = (Input *)ce;
-			if(key == KEY_LEFT)
+			if(key == KEY_W)
 			{
 				input_left(input);
 			}
-			else if(key == KEY_RIGHT)
+			else if(key == KEY_S)
 			{
 				input_right(input);
 			}

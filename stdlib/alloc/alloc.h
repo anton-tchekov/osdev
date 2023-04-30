@@ -12,35 +12,20 @@
 #include <types.h>
 
 /**
- * @brief TODO
+ * @brief Request a block of memory of `size` bytes
+ *        This function will always return a valid pointer (never NULL).
+ *        If the memory could not be allocated, the program will panic.
  *
- * @param p TODO
- */
-void free(void *p);
-
-/**
- * @brief TODO
- *
- * @param size TODO
- * @return TODO
+ * @param size Number of bytes
+ * @return Pointer to allocated memory
  */
 void *malloc(u32 size);
 
 /**
- * @brief TODO
+ * @brief Frees memory previously allocated with `malloc`
  *
- * @param size TODO
- * @return TODO
+ * @param p Pointer
  */
-void *calloc(u32 size);
-
-/**
- * @brief TODO
- *
- * @param p TODO
- * @param size TODO
- * @return TODO
- */
-void *realloc(void *p, u32 size);
+void free(void *p);
 
 #endif /* __ALLOC_H__ */

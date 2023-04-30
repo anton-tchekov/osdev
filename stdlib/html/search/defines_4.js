@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['label_5fcreate_0',['LABEL_CREATE',['../gui_8h.html#ae679011dbd86cc43172d3d76e4c37ded',1,'gui.h']]]
+  ['input_5fcreate_0',['INPUT_CREATE',['../gui_8h.html#a4d38b391d158ab29a3ea3f2ddf56be8c',1,'gui.h']]]
 ];

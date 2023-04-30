@@ -1,17 +1,25 @@
 #include <std.h>
-#include <arial.h>
-#include <fatty.h>
-#include <ubuntu_bold.h>
 
-Button button = BUTTON_CREATE(10, 10, 100, 30, "Click Me!", NULL);
+void button_onclick(void)
+{
+	debug_print("Button OnClick\n");
+}
+
+Button button = BUTTON_CREATE(10, 10, 100, 30, "Click Me!", button_onclick);
 Button button2 = BUTTON_CREATE(60, 300, 100, 30, "TEST 123 ...", NULL);
 
 Label label = LABEL_CREATE(10, 120, "Lorem ipsum dolor sit amet");
+
+char buf[50];
+
+Input input = INPUT_CREATE(10, 200, 200, buf, sizeof(buf));
+
 
 void *elements[] =
 {
 	&button,
 	&label,
+	&input,
 	&button2,
 };
 
@@ -23,34 +31,20 @@ Window window =
 	.OnKey = NULL
 };
 
-void event_key(Key key, bool down)
+void event_key(Key key, KeyState down)
 {
 	debug_print("Key = %d, down = %d\n", key, down);
-
-	if(key == KEY_W)
-	{
-		gfx_rect(GFX_WIDTH / 2, GFX_HEIGHT / 2,
-			10, 10, COLOR_BLUE);
-	}
+	window_event_key(key, down);
 }
 
 void setup(void)
 {
 	keyboard_register_event(event_key);
-
 	window_open(&window);
-
-	font_string(10, 80, "Hello World!", arial, COLOR_BLACK, COLOR_WHITE);
-	font_string(30, 260, "A", fatty, COLOR_BLACK, COLOR_WHITE);
-	font_string(30, 360, "Alles klar warum nicht?", ubuntu_bold, COLOR_BLACK, COLOR_WHITE);
 }
-
-int y = 0;
 
 void loop(void)
 {
-	gfx_rect(0, y, 10, 10, COLOR_RED);
-	y += 10;
 }
 
 

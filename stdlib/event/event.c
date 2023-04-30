@@ -14,6 +14,7 @@ void finish(void)
 	syscall0(SYSCALL_FINISH);
 }
 
+/** Wrapper function for main loop */
 static void _event_loop_handler(void)
 {
 	loop();
@@ -21,6 +22,8 @@ static void _event_loop_handler(void)
 }
 
 void __setup(void) __attribute__((section(".start")));
+
+/** Wrapper function for setup function */
 void __setup(void)
 {
 	event_register(EVENT_LOOP, (u32)_event_loop_handler);

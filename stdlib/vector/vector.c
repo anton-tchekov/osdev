@@ -5,7 +5,27 @@
  * @date    26.04.2023
  */
 
-#include "vector.h"
+#include <vector.h>
+#include <alloc.h>
+#include <string.h>
+#include <panic.h>
+
+/**
+ * @brief Next power of two
+ *
+ * @param n The number for which to get the next bigger power of two for
+ * @return The power of two, for example for input 26 it would return 32
+ */
+static u32 _next_pot(u32 n)
+{
+	u32 power = 1;
+	while(power < n)
+	{
+		power <<= 1;
+	}
+
+	return power;
+}
 
 void vector_init(Vector *vector, u32 element_size, u32 initial_capacity)
 {
@@ -20,52 +40,44 @@ void vector_destroy(Vector *vector)
 	free(vector->Data);
 }
 
-static u32 _next_pot(u32 n)
-{
-	u32 power = 1;
-	while(power < n)
-	{
-		power <<= 1;
-	}
-
-	return power;
-}
-
 void vector_replace(
-	Vector *vector, u32 index, u32 count, void *elems, u32 new_count)
+	Vector *vector, u32 index, u32 count, const void *elems, u32 new_count)
 {
-	u32 element_size = vector->ElementSize;
+	u32 new_length, element_size;
+	element_size = vector->ElementSize;
 
-	ASSERT(index <= vector.Length);
-	ASSERT(count <= vector.Length);
-	ASSERT((index + count) <= vector.Length);
+	ASSERT(index + count <= vector->Length, "invalid range");
 
 	/* Calculate new number of elements */
 	new_length = vector->Length - count + new_count;
 	if(new_length > vector->Capacity)
 	{
 		/* Resize necessary */
-		u32 first_bytes;
-		u32 new_capacity;
+		u32 new_capacity, prev_bytes, new_bytes, old_bytes, last_bytes;
 		void *new_data;
 
 		new_capacity = _next_pot(new_length);
+		prev_bytes = index * element_size;
+		new_bytes = new_count * element_size;
+		old_bytes = count * element_size;
+		last_bytes = (vector->Length - index - count) * element_size;
 
-		first_bytes = index * element_size;
+		/* Calculate new capacity */
+		vector->Capacity = new_capacity;
 
 		/* Create new buffer */
 		new_data = malloc(new_capacity * element_size);
 
-		/* Copy first part */
-		memcpy(new_data, vector->Data, first_bytes);
+		/* Copy first part from previous buffer */
+		memcpy(new_data, vector->Data, prev_bytes);
 
 		/* Copy new range */
-		memcpy(new_data + first_bytes,
-			vector->Data, new_count * element_size);
+		memcpy((u8 *)new_data + prev_bytes, elems, new_bytes);
 
 		/* Copy last part */
-		memcpy(new_data + first_bytes,
-			vector->Data, new_count * element_size);
+		memcpy((u8 *)new_data + prev_bytes + new_bytes,
+			(u8 *)vector->Data + prev_bytes + old_bytes,
+			last_bytes);
 
 		/* Replace with new buffer */
 		free(vector->Data);
@@ -73,18 +85,21 @@ void vector_replace(
 	}
 	else
 	{
+		u32 prev_bytes, new_bytes, old_bytes, last_bytes;
+
+		prev_bytes = index * element_size;
+		new_bytes = new_count * element_size;
+		old_bytes = count * element_size;
+		last_bytes = (vector->Length - index - count) * element_size;
+
 		/* Shift last part */
-		memmove(vector->Data + ,
-			vector->Data + ,
-			(vector->Length - index - count) * element_size)
+		memmove((u8 *)vector->Data + prev_bytes + new_bytes,
+			(u8 *)vector->Data + prev_bytes + old_bytes,
+			last_bytes);
 
 		/* Copy new range */
-		memcpy(vector->Data + index * vector->ElementSize,
-			elems, new_count * vector->ElementSize);
+		memcpy((u8 *)vector->Data + prev_bytes, elems, new_bytes);
 	}
-}
 
-void *vector_get(Vector *vector, u32 index)
-{
-	return vector->Data + vector->ElementSize * index;
+	vector->Length = new_length;
 }

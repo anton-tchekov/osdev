@@ -10,6 +10,8 @@
 #ifndef __PANIC_H__
 #define __PANIC_H__
 
+#include <types.h>
+
 /**
  * @brief Panic function. Do not call this function directly.
  *        Use the PANIC and ASSERT macros below.

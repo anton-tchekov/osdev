@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['rectangle_0',['Rectangle',['../structRectangle.html',1,'']]]
+  ['label_0',['Label',['../structLabel.html',1,'']]]
 ];

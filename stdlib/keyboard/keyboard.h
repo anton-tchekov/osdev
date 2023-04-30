@@ -12,8 +12,19 @@
 #include <types.h>
 #include <keys.h>
 
+/** Key State: Pressed (Key Down), Released (Key Up), Repeat (Held Down) */
+typedef enum
+{
+	KEYSTATE_PRESSED,
+	KEYSTATE_RELEASED,
+	KEYSTATE_REPEAT
+} KeyState;
+
 /** Keycode */
 typedef u32 Key;
+
+/** Keyboard event handler function pointer */
+typedef void (*KeyEvent)(Key, KeyState);
 
 /**
  * @brief Initialize keyboard, do NOT call this function.
@@ -32,10 +43,8 @@ bool keyboard_is_key_pressed(Key key);
  * @brief Register an OnKeyboardInput event
  *
  * @param event Function pointer to a Function that takes
- *              the Key and the Bool down
- *              true: key was pressed,
- *              false: key was released
+ *              the Key and the KeyState
  */
-void keyboard_register_event(void (*event)(Key key, bool down));
+void keyboard_register_event(KeyEvent event);
 
 #endif /* __KEYBOARD_H__ */

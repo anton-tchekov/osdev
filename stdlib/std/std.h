@@ -26,11 +26,4 @@
 #include <time.h>
 #include <util.h>
 
-/**
- * @brief TODO
- *
- * @param status TODO
- */
-void exit(i32 status);
-
 #endif /* __STD_H__ */

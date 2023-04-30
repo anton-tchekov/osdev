@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['calloc_0',['calloc',['../alloc_8c.html#a9420c1d1cda191b57398ed6970fe7774',1,'calloc(u32 size):&#160;alloc.c'],['../alloc_8h.html#a9420c1d1cda191b57398ed6970fe7774',1,'calloc(u32 size):&#160;alloc.c']]]
+  ['datetime_5fnow_0',['datetime_now',['../time_8c.html#aa4a8538d6be16de2cefecc9858fda3da',1,'datetime_now(DateTime *now):&#160;time.c'],['../time_8h.html#aa4a8538d6be16de2cefecc9858fda3da',1,'datetime_now(DateTime *now):&#160;time.c']]],
+  ['debug_5fprint_1',['debug_print',['../serial_8c.html#ae454cdf1e6c8d3be9256a937f11efa39',1,'debug_print(const char *format,...):&#160;serial.c'],['../serial_8h.html#ae454cdf1e6c8d3be9256a937f11efa39',1,'debug_print(const char *format,...):&#160;serial.c']]]
 ];

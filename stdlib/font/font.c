@@ -10,11 +10,11 @@
 #include <algo.h>
 
 /**
- * @brief TODO
+ * @brief Compare function for bsearch in `_font_char`
  *
- * @param key TODO
- * @param elem TODO
- * @return TODO
+ * @param key The codepoint for which we want to find the FontChar
+ * @param elem The FontChar we are comparing with
+ * @return Ordering (-1: before, 0: match, 1: after)
  */
 static i32 _find_char(const void *key, const void *elem)
 {
@@ -22,11 +22,11 @@ static i32 _find_char(const void *key, const void *elem)
 }
 
 /**
- * @brief TODO
+ * @brief Finds the FontChar from a Font for a unicode codepoint
  *
- * @param c TODO
- * @param font TODO
- * @return TODO
+ * @param c The Unicode Codepoint
+ * @param font Pointer to a Font
+ * @return Pointer to a FontChar or NULL if not found
  */
 static FontChar *_font_char(i32 c, Font *font)
 {

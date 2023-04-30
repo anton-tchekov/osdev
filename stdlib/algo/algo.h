@@ -12,24 +12,14 @@
 #include <types.h>
 
 /**
- * @brief TODO
+ * @brief Binary search
  *
- * @param base TODO
- * @param number TODO
- * @param width TODO
- * @param compare TODO
- */
-void qsort(void *base, u32 number, u32 width,
-	i32 (*compare)(const void *, const void *));
-
-/**
- * @brief TODO
- *
- * @param key TODO
- * @param base TODO
- * @param nitems TODO
- * @param size TODO
- * @param compare TODO
+ * @param key Key to be found
+ * @param base Pointer to a sorted array with `nitems`
+ * @param nitems Number of items
+ * @param size Size of each item in bytes
+ * @param compare Comparison function that receives `key` and current item
+ * @return Pointer to found item or NULL
  */
 void *bsearch(const void *key, const void *base, u32 nitems, u32 size,
 	i32 (*compare)(const void *, const void *));

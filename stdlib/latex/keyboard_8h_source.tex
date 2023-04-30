@@ -6,15 +6,26 @@
 \DoxyCodeLine{00009\ \textcolor{preprocessor}{\#ifndef\ \_\_KEYBOARD\_H\_\_}}
 \DoxyCodeLine{00010\ \textcolor{preprocessor}{\#define\ \_\_KEYBOARD\_H\_\_}}
 \DoxyCodeLine{00011\ }
-\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{types_8h}{types.h}}>}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <types.h>}}
 \DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{keys_8h}{keys.h}}>}}
 \DoxyCodeLine{00014\ }
-\DoxyCodeLine{00016\ \textcolor{keyword}{typedef}\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ \mbox{\hyperlink{keyboard_8h_a48752551c4279f8cddf3585f8272092a}{Key}};}
-\DoxyCodeLine{00017\ }
-\DoxyCodeLine{00024\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{keyboard_8h_aac67d2fb7461c81c3a43a7c4aa38b424}{keyboard\_is\_key\_pressed}}(\mbox{\hyperlink{keyboard_8h_a48752551c4279f8cddf3585f8272092a}{Key}}\ key);}
+\DoxyCodeLine{00016\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}}
+\DoxyCodeLine{00017\ \{}
+\DoxyCodeLine{00018\ \ \ \ \ KEYSTATE\_PRESSED,}
+\DoxyCodeLine{00019\ \ \ \ \ KEYSTATE\_RELEASED,}
+\DoxyCodeLine{00020\ \ \ \ \ KEYSTATE\_REPEAT}
+\DoxyCodeLine{00021\ \}\ \mbox{\hyperlink{keyboard_8h_a7e51438e5f6bf556512ce7103cddac09}{KeyState}};}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00024\ \textcolor{keyword}{typedef}\ u32\ \mbox{\hyperlink{keyboard_8h_a48752551c4279f8cddf3585f8272092a}{Key}};}
 \DoxyCodeLine{00025\ }
-\DoxyCodeLine{00032\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{keyboard_8h_a77ca9d6b76afadd465d3f411373c3553}{keyboard\_register\_event}}(\textcolor{keywordtype}{void}\ (*event)(\mbox{\hyperlink{keyboard_8h_a48752551c4279f8cddf3585f8272092a}{Key}}\ key,\ \textcolor{keywordtype}{bool}\ up));}
+\DoxyCodeLine{00027\ \textcolor{keyword}{typedef}\ void\ (*\mbox{\hyperlink{keyboard_8h_a1e53ad469cec9cfb3c347391da36b74a}{KeyEvent}})(\mbox{\hyperlink{keyboard_8h_a48752551c4279f8cddf3585f8272092a}{Key}},\ \mbox{\hyperlink{keyboard_8h_a7e51438e5f6bf556512ce7103cddac09}{KeyState}});}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00032\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{keyboard_8h_a5aae8263abc1dec4671638e7ed4af681}{keyboard\_init}}(\textcolor{keywordtype}{void});}
 \DoxyCodeLine{00033\ }
-\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ \_\_KEYBOARD\_H\_\_\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00040\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{keyboard_8h_aac67d2fb7461c81c3a43a7c4aa38b424}{keyboard\_is\_key\_pressed}}(\mbox{\hyperlink{keyboard_8h_a48752551c4279f8cddf3585f8272092a}{Key}}\ key);}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00048\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{keyboard_8h_a3676e1550d4471bddab4c84dd0c844dc}{keyboard\_register\_event}}(\mbox{\hyperlink{keyboard_8h_a1e53ad469cec9cfb3c347391da36b74a}{KeyEvent}}\ event);}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ \_\_KEYBOARD\_H\_\_\ */}\textcolor{preprocessor}{}}
 
 \end{DoxyCode}

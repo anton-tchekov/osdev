@@ -27,14 +27,15 @@ CFLAGS=\
 	-I algo/ \
 	-I string/ \
 	-I time/ \
+	-I vector/ \
 	-I event/ \
+	-I panic/ \
 	-I ../types/ \
 	-I ../util/ \
 	-I ../status/ \
 
 SRC=\
 	main.c \
-	std/std.c \
 	ctype/ctype.c \
 	string/string.c \
 	fs/fs.c \
@@ -50,8 +51,10 @@ SRC=\
 	font/ubuntu_bold.c \
 	format/format.c \
 	alloc/alloc.c \
+	vector/vector.c \
 	serial/serial.c \
 	algo/algo.c \
+	panic/panic.c \
 	event/event.c \
 	../status/status.c \
 	time/time.c \

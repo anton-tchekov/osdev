@@ -57,10 +57,10 @@ typedef enum
 } SyscallID;
 
 /**
- * @brief TODO
+ * @brief System call with zero parameters
  *
- * @param id TODO
- * @return TODO
+ * @param id System call ID. See SyscallID enum above
+ * @return Return value
  */
 static inline u32 syscall0(SyscallID id)
 {
@@ -75,11 +75,11 @@ static inline u32 syscall0(SyscallID id)
 }
 
 /**
- * @brief TODO
+ * @brief System call with one parameter
  *
- * @param id TODO
- * @param a0 TODO
- * @return TODO
+ * @param id System call ID. See SyscallID enum above
+ * @param a0 First parameter
+ * @return Return value
  */
 static inline u32 syscall1(SyscallID id, u32 a0)
 {
@@ -94,12 +94,12 @@ static inline u32 syscall1(SyscallID id, u32 a0)
 }
 
 /**
- * @brief TODO
+ * @brief System call with two parameters
  *
- * @param id TODO
- * @param a0 TODO
- * @param a1 TODO
- * @return TODO
+ * @param id System call ID. See SyscallID enum above
+ * @param a0 First parameter
+ * @param a1 Second parameter
+ * @return Return value
  */
 static inline u32 syscall2(SyscallID id, u32 a0, u32 a1)
 {
@@ -116,13 +116,13 @@ static inline u32 syscall2(SyscallID id, u32 a0, u32 a1)
 }
 
 /**
- * @brief TODO
+ * @brief System call with three parameters
  *
- * @param id TODO
- * @param a0 TODO
- * @param a1 TODO
- * @param a2 TODO
- * @return TODO
+ * @param id System call ID. See SyscallID enum above
+ * @param a0 First parameter
+ * @param a1 Second parameter
+ * @param a2 Third parameter
+ * @return Return value
  */
 static inline u32 syscall3(SyscallID id, u32 a0, u32 a1, u32 a2)
 {
@@ -140,14 +140,14 @@ static inline u32 syscall3(SyscallID id, u32 a0, u32 a1, u32 a2)
 }
 
 /**
- * @brief TODO
+ * @brief System call with four parameters
  *
- * @param id TODO
- * @param a0 TODO
- * @param a1 TODO
- * @param a2 TODO
- * @param a3 TODO
- * @return TODO
+ * @param id System call ID. See SyscallID enum above
+ * @param a0 First parameter
+ * @param a1 Second parameter
+ * @param a2 Third parameter
+ * @param a3 Fourth parameter
+ * @return Return value
  */
 static inline u32 syscall4(SyscallID id, u32 a0, u32 a1, u32 a2, u32 a3)
 {
@@ -166,15 +166,15 @@ static inline u32 syscall4(SyscallID id, u32 a0, u32 a1, u32 a2, u32 a3)
 }
 
 /**
- * @brief TODO
+ * @brief System call with five parameters
  *
- * @param id TODO
- * @param a0 TODO
- * @param a1 TODO
- * @param a2 TODO
- * @param a3 TODO
- * @param a4 TODO
- * @return TODO
+ * @param id System call ID. See SyscallID enum above
+ * @param a0 First parameter
+ * @param a1 Second parameter
+ * @param a2 Third parameter
+ * @param a3 Fourth parameter
+ * @param a4 Fifth parameter
+ * @return Return value
  */
 static inline u32 syscall5(SyscallID id, u32 a0, u32 a1, u32 a2, u32 a3, u32 a4)
 {
@@ -194,16 +194,16 @@ static inline u32 syscall5(SyscallID id, u32 a0, u32 a1, u32 a2, u32 a3, u32 a4)
 }
 
 /**
- * @brief TODO
+ * @brief System call with six parameters
  *
- * @param id TODO
- * @param a0 TODO
- * @param a1 TODO
- * @param a2 TODO
- * @param a3 TODO
- * @param a4 TODO
- * @param a5 TODO
- * @return TODO
+ * @param id System call ID. See SyscallID enum above
+ * @param a0 First parameter
+ * @param a1 Second parameter
+ * @param a2 Third parameter
+ * @param a3 Fourth parameter
+ * @param a4 Fifth parameter
+ * @param a5 Sixth parameter
+ * @return Return value
  */
 static inline u32 syscall6(
 	SyscallID id, u32 a0, u32 a1, u32 a2, u32 a3, u32 a4, u32 a5)
@@ -222,6 +222,16 @@ static inline u32 syscall6(
 		"r"(ra7));
 
 	return ra0;
+}
+
+/**
+ * @brief End program
+ *
+ * @param status Exit status
+ */
+static inline void exit(i32 status)
+{
+	syscall1(SYSCALL_EXIT, status);
 }
 
 #endif /* __SYSCALL_H__ */

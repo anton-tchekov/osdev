@@ -9,8 +9,10 @@
 #include <syscall.h>
 #include <event.h>
 
-static void (*_event_key)(Key, bool) = NULL;
+/** Pointer to user-defined key event handler function */
+static KeyEvent _event_key;
 
+/** Wrapper for key event handler */
 static void _event_key_handler(Key key, bool down)
 {
 	if(_event_key)
@@ -31,7 +33,7 @@ bool keyboard_is_key_pressed(Key key)
 	return syscall1(SYSCALL_KEYBOARD_IS_KEY_PRESSED, key);
 }
 
-void keyboard_register_event(void (*event)(Key key, bool down))
+void keyboard_register_event(KeyEvent event)
 {
 	_event_key = event;
 }

@@ -1,0 +1,19 @@
+\hypertarget{panic_8h_source}{}\doxysection{panic.\+h}
+\label{panic_8h_source}\index{panic/panic.h@{panic/panic.h}}
+\mbox{\hyperlink{panic_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#ifndef\ \_\_PANIC\_H\_\_}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#define\ \_\_PANIC\_H\_\_}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <types.h>}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00023\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{panic_8h_a2e711bae47ea21470dd21f7a3485a4d3}{panic}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *msg,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *file,\ u32\ line);}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#define\ PANIC(msg)\ panic(msg,\ \_\_FILE\_\_,\ \_\_LINE\_\_)}}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#define\ ASSERT(cond,\ msg)\ do\ \{\ if(!cond)\ \{\ PANIC(msg);\ \}\ \}\ while(0)}}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ \_\_PANIC\_H\_\_\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

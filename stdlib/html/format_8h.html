@@ -81,18 +81,22 @@ $(function() {
 
 <p>String formatting.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &lt;<a class="el" href="types_8h_source.html">types.h</a>&gt;</code><br />
+<div class="textblock"><code>#include &lt;types.h&gt;</code><br />
+<code>#include &lt;stdarg.h&gt;</code><br />
 </div>
 <p><a href="format_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:aaf0171ee5296d73d5dba3786e0937121"><td class="memItemLeft" align="right" valign="top"><a class="el" href="types_8h.html#a48d6cd8e4135fb2ff7e7f2dac84089ec">i32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="format_8h.html#aaf0171ee5296d73d5dba3786e0937121">sprintf</a> (char *str, const char *format,...)</td></tr>
+<tr class="memitem:aaf0171ee5296d73d5dba3786e0937121"><td class="memItemLeft" align="right" valign="top">i32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="format_8h.html#aaf0171ee5296d73d5dba3786e0937121">sprintf</a> (char *str, const char *format,...)</td></tr>
 <tr class="memdesc:aaf0171ee5296d73d5dba3786e0937121"><td class="mdescLeft">&#160;</td><td class="mdescRight">TODO.  <br /></td></tr>
 <tr class="separator:aaf0171ee5296d73d5dba3786e0937121"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5ee7eda1d86d13462f57443706f23efc"><td class="memItemLeft" align="right" valign="top"><a class="el" href="types_8h.html#a48d6cd8e4135fb2ff7e7f2dac84089ec">i32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="format_8h.html#a5ee7eda1d86d13462f57443706f23efc">snprintf</a> (char *str, <a class="el" href="types_8h.html#afaa62991928fb9fb18ff0db62a040aba">u32</a> n, const char *format,...)</td></tr>
+<tr class="memitem:a5ee7eda1d86d13462f57443706f23efc"><td class="memItemLeft" align="right" valign="top">i32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="format_8h.html#a5ee7eda1d86d13462f57443706f23efc">snprintf</a> (char *str, u32 n, const char *format,...)</td></tr>
 <tr class="memdesc:a5ee7eda1d86d13462f57443706f23efc"><td class="mdescLeft">&#160;</td><td class="mdescRight">TODO.  <br /></td></tr>
 <tr class="separator:a5ee7eda1d86d13462f57443706f23efc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa1e17db34f974763107076a10a700058"><td class="memItemLeft" align="right" valign="top"><a id="aa1e17db34f974763107076a10a700058" name="aa1e17db34f974763107076a10a700058"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>vsnprintf</b> (char *str, size_t size, const char *format, va_list arg)</td></tr>
+<tr class="separator:aa1e17db34f974763107076a10a700058"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>String formatting. </p>
@@ -107,7 +111,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="types_8h.html#a48d6cd8e4135fb2ff7e7f2dac84089ec">i32</a> snprintf </td>
+          <td class="memname">i32 snprintf </td>
           <td>(</td>
           <td class="paramtype">char *&#160;</td>
           <td class="paramname"><em>str</em>, </td>
@@ -115,7 +119,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="types_8h.html#afaa62991928fb9fb18ff0db62a040aba">u32</a>&#160;</td>
+          <td class="paramtype">u32&#160;</td>
           <td class="paramname"><em>n</em>, </td>
         </tr>
         <tr>
@@ -158,7 +162,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="types_8h.html#a48d6cd8e4135fb2ff7e7f2dac84089ec">i32</a> sprintf </td>
+          <td class="memname">i32 sprintf </td>
           <td>(</td>
           <td class="paramtype">char *&#160;</td>
           <td class="paramname"><em>str</em>, </td>

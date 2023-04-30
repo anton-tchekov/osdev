@@ -20,20 +20,6 @@ void *malloc(u32 size)
 	(void)size;
 }
 
-void *calloc(u32 size)
-{
-	/* TODO */
-	return NULL;
-	(void)size;
-}
-
-void *realloc(void *p, u32 size)
-{
-	/* TODO */
-	return NULL;
-	(void)p, (void)size;
-}
-
 /*
 
 #define HEAP_INIT_SIZE 0x10000

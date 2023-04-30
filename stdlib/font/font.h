@@ -12,12 +12,13 @@
 #include <types.h>
 #include <gfx.h>
 
+/** TODO */
 #define FONT_FLAG_GRAYSCALE 1
 
 /** TODO */
 typedef struct
 {
-	/** TODO */
+	/** Unicode Codepoin */
 	i32 Codepoint;
 
 	/** TODO */
@@ -29,7 +30,7 @@ typedef struct
 	/** TODO */
 	i32 Bearing[2];
 
-	/** TODO */
+	/** Byteoffset in Bitmap */
 	i32 Offset;
 } FontChar;
 
@@ -39,13 +40,13 @@ typedef struct FONT
 	/** TODO */
 	FontChar *Characters;
 
-	/** TODO */
+	/** Font Size (Height) */
 	u32 Size;
 
-	/** TODO */
+	/** Total number of characters in font */
 	u32 NumCharacters;
 
-	/** TODO */
+	/** Bit 1: Grayscale / 1bpp font */
 	u32 Flags;
 
 	/** TODO */

@@ -1,8 +1,15 @@
 var searchData=
 [
-  ['w_0',['W',['../structRectangle.html#af170c9bbeb204829ae51f161b4d998bb',1,'Rectangle::W()'],['../structBUTTON.html#a4fc48dfcd1be9482bd71a40f3559b35b',1,'BUTTON::W()'],['../structINPUT.html#a736cf69b2ae59f5ba7012b413ab1cefc',1,'INPUT::W()']]],
-  ['window_1',['Window',['../structWindow.html',1,'']]],
-  ['window_5fevent_5fkey_2',['window_event_key',['../gui_8c.html#a795727e8c39e73bc3eb9ee2b2a9097ef',1,'window_event_key(Key key, bool up):&#160;gui.c'],['../gui_8h.html#a795727e8c39e73bc3eb9ee2b2a9097ef',1,'window_event_key(Key key, bool up):&#160;gui.c']]],
-  ['window_5fopen_3',['window_open',['../gui_8c.html#adf0715beb16a0945a1bae624873df977',1,'window_open(Window *window):&#160;gui.c'],['../gui_8h.html#adf0715beb16a0945a1bae624873df977',1,'window_open(Window *window):&#160;gui.c']]],
-  ['window_5frender_4',['window_render',['../gui_8c.html#a645908f6ca62492cb3b1ec22f0c5186d',1,'window_render(Window *window):&#160;gui.c'],['../gui_8h.html#a645908f6ca62492cb3b1ec22f0c5186d',1,'window_render(Window *window):&#160;gui.c']]]
+  ['vector_0',['Vector',['../structVector.html',1,'']]],
+  ['vector_2ec_1',['vector.c',['../vector_8c.html',1,'']]],
+  ['vector_2eh_2',['vector.h',['../vector_8h.html',1,'']]],
+  ['vector_5fdestroy_3',['vector_destroy',['../vector_8c.html#a0c0be12f800dc5bc6777b4ff324f41ca',1,'vector_destroy(Vector *vector):&#160;vector.c'],['../vector_8h.html#a0c0be12f800dc5bc6777b4ff324f41ca',1,'vector_destroy(Vector *vector):&#160;vector.c']]],
+  ['vector_5fget_4',['vector_get',['../vector_8h.html#ad2779e7010b2bbe8255fd0ecbd6b194a',1,'vector.h']]],
+  ['vector_5finit_5',['vector_init',['../vector_8c.html#a9618b41b25efb749069cbfff9c3cadcf',1,'vector_init(Vector *vector, u32 element_size, u32 initial_capacity):&#160;vector.c'],['../vector_8h.html#a9618b41b25efb749069cbfff9c3cadcf',1,'vector_init(Vector *vector, u32 element_size, u32 initial_capacity):&#160;vector.c']]],
+  ['vector_5finsert_6',['vector_insert',['../vector_8h.html#ac95a0b314c0db5461cf8591043ce9d03',1,'vector.h']]],
+  ['vector_5finsert_5frange_7',['vector_insert_range',['../vector_8h.html#af8817659c74d231318afcef547716465',1,'vector.h']]],
+  ['vector_5fpush_8',['vector_push',['../vector_8h.html#aa93a06f25d8c54ab996297b5523ab300',1,'vector.h']]],
+  ['vector_5fremove_9',['vector_remove',['../vector_8h.html#af3a2eb74cba163713007f5afaf3749fe',1,'vector.h']]],
+  ['vector_5fremove_5frange_10',['vector_remove_range',['../vector_8h.html#a67ee10133f0cf3c7d71d364754fb648f',1,'vector.h']]],
+  ['vector_5freplace_11',['vector_replace',['../vector_8c.html#ab5e38bad2bc3f2cbf9f7b23f615545ee',1,'vector_replace(Vector *vector, u32 index, u32 count, const void *elems, u32 new_count):&#160;vector.c'],['../vector_8h.html#ab5e38bad2bc3f2cbf9f7b23f615545ee',1,'vector_replace(Vector *vector, u32 index, u32 count, const void *elems, u32 new_count):&#160;vector.c']]]
 ];
