@@ -1,5 +1,50 @@
-TARGET=test
-OPT=2
+INCLUDE=\
+	-I $(PREFIX)/algo/ \
+	-I $(PREFIX)/alloc/ \
+	-I $(PREFIX)/ctype/ \
+	-I $(PREFIX)/event/ \
+	-I $(PREFIX)/font/ \
+	-I $(PREFIX)/format/ \
+	-I $(PREFIX)/fs/ \
+	-I $(PREFIX)/gfx/ \
+	-I $(PREFIX)/gui/ \
+	-I $(PREFIX)/keyboard/ \
+	-I $(PREFIX)/panic/ \
+	-I $(PREFIX)/rand/ \
+	-I $(PREFIX)/serial/ \
+	-I $(PREFIX)/std/ \
+	-I $(PREFIX)/string/ \
+	-I $(PREFIX)/syscall/ \
+	-I $(PREFIX)/time/ \
+	-I $(PREFIX)/vector/ \
+	-I $(PREFIX)/../status/ \
+	-I $(PREFIX)/../types/ \
+	-I $(PREFIX)/../utf8/ \
+	-I $(PREFIX)/../util/ \
+
+SRC=\
+	-I $(PREFIX)/algo/algo.c \
+	-I $(PREFIX)/alloc/alloc.c \
+	-I $(PREFIX)/ctype/ctype.c \
+	-I $(PREFIX)/event/event.c \
+	-I $(PREFIX)/font/font.c \
+	-I $(PREFIX)/font/font_default.c \
+	-I $(PREFIX)/font/arial.c \
+	-I $(PREFIX)/font/fatty.c \
+	-I $(PREFIX)/font/ubuntu_bold.c \
+	-I $(PREFIX)/format/format.c \
+	-I $(PREFIX)/fs/fs.c \
+	-I $(PREFIX)/gfx/gfx.c \
+	-I $(PREFIX)/gui/gui.c \
+	-I $(PREFIX)/keyboard/keyboard.c \
+	-I $(PREFIX)/panic/panic.c \
+	-I $(PREFIX)/rand/rand.c \
+	-I $(PREFIX)/serial/serial.c \
+	-I $(PREFIX)/string/string.c \
+	-I $(PREFIX)/time/time.c \
+	-I $(PREFIX)/vector/vector.c \
+	-I $(PREFIX)/../status/status.c \
+	-I $(PREFIX)/../utf8/utf8.c \
 
 CFLAGS=\
 	-Wall \
@@ -11,59 +56,7 @@ CFLAGS=\
 	-nostdlib \
 	-ffreestanding \
 	-O$(OPT) \
-	-I ctype/ \
-	-I fs/ \
-	-I gfx/ \
-	-I gui/ \
-	-I keyboard/ \
-	-I rand/ \
-	-I syscall/ \
-	-I std/ \
-	-I ../utf8/ \
-	-I font/ \
-	-I format/ \
-	-I alloc/ \
-	-I serial/ \
-	-I algo/ \
-	-I string/ \
-	-I time/ \
-	-I vector/ \
-	-I event/ \
-	-I panic/ \
-	-I ../types/ \
-	-I ../util/ \
-	-I ../status/ \
+	$(INCLUDE)
 
-SRC=\
-	main.c \
-	ctype/ctype.c \
-	string/string.c \
-	fs/fs.c \
-	gfx/gfx.c \
-	gui/gui.c \
-	keyboard/keyboard.c \
-	rand/rand.c \
-	../utf8/utf8.c \
-	font/font.c \
-	font/font_default.c \
-	font/arial.c \
-	font/fatty.c \
-	font/ubuntu_bold.c \
-	format/format.c \
-	alloc/alloc.c \
-	vector/vector.c \
-	serial/serial.c \
-	algo/algo.c \
-	panic/panic.c \
-	event/event.c \
-	../status/status.c \
-	time/time.c \
-
-all:
-	riscv64-unknown-elf-gcc $(CFLAGS) $(SRC) -o $(TARGET) -T$(TARGET).ld
-	riscv64-unknown-elf-objdump -d $(TARGET)
-	riscv64-unknown-elf-objcopy -O binary $(TARGET) $(TARGET).bin
-
-clean:
-	rm -f test
-
+LDFLAGS=\
+	-T$(PREFIX)/linker.ld

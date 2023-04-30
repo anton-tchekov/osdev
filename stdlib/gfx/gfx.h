@@ -92,12 +92,12 @@ static inline void gfx_hline(i32 x, i32 y, i32 w, Color color)
 /**
  * @brief TODO
  *
- * @param x TODO
- * @param y TODO
- * @param w TODO
- * @param h TODO
-* @param border TODO
- * @param color TODO
+ * @param x X-Coordinate (Left)
+ * @param y Y-Coordinate (Top)
+ * @param w Width
+ * @param h Height
+ * @param border Inset border width in pixels
+ * @param color Color of the border
  */
 void gfx_rect_border(i32 x, i32 y, i32 w, i32 h, i32 border, Color color);
 

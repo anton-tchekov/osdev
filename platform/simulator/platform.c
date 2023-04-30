@@ -457,7 +457,7 @@ static void timer_init(void)
 	_sec_start = ts.tv_sec;
 	_usec_start = ts.tv_usec;
 
-	srand(time(0));
+	srand(time(NULL));
 }
 
 u32 syscall_datetime_now(u32 *args)
@@ -714,6 +714,11 @@ u32 syscall_file_size(u32 *args)
 	u32 file = args[0];
 	u32 *size = (u32 *)(_memory + args[1]);
 	FILE *fp;
+
+	if(file < 1 || file >= ARRLEN(_files))
+	{
+		return STATUS_FAIL;
+	}
 
 	if(!(fp = _files[file]))
 	{

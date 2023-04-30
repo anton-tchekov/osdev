@@ -12,32 +12,32 @@
 #include <types.h>
 #include <gfx.h>
 
-/** TODO */
+/** Font flags bit mask: 1: grayscale, 0: 1 bit per pixel */
 #define FONT_FLAG_GRAYSCALE 1
 
-/** TODO */
+/** Character Data struct */
 typedef struct
 {
 	/** Unicode Codepoin */
 	i32 Codepoint;
 
-	/** TODO */
+	/** Pixels to move right after char */
 	i32 Advance;
 
-	/** TODO */
+	/** Size of the character bitmap in pixels */
 	i32 Size[2];
 
-	/** TODO */
+	/** Offset of the bitmap from origin point in pixels */
 	i32 Bearing[2];
 
 	/** Byteoffset in Bitmap */
 	i32 Offset;
 } FontChar;
 
-/** TODO */
+/** Font Data struct */
 typedef struct FONT
 {
-	/** TODO */
+	/** Array of  */
 	FontChar *Characters;
 
 	/** Font Size (Height) */
@@ -49,42 +49,43 @@ typedef struct FONT
 	/** Bit 1: Grayscale / 1bpp font */
 	u32 Flags;
 
-	/** TODO */
+	/** Character image data */
 	u8 *Bitmap;
 } Font;
 
 /**
- * @brief TODO
+ * @brief Draw an UTF-8 string `s` with a maximum number of chars.
+ *        This function will also stop at a '\0' character.
  *
- * @param x TODO
- * @param y TODO
- * @param s TODO
- * @param len TODO
- * @param font TODO
- * @param fg TODO
- * @param bg TODO
+ * @param x X-Coordinate (Top)
+ * @param y Y-Coordinate (Left)
+ * @param s Character array
+ * @param len Maximum number of unicode characters
+ * @param font The font to use
+ * @param fg Foreground color
+ * @param bg Background color
  */
 i32 font_string_len(
 	i32 x, i32 y, const char *s, u32 len, Font *font, Color fg, Color bg);
 
 /**
- * @brief TODO
+ * @brief Calculate the width of a string in pixels
  *
- * @param s TODO
- * @param len TODO
- * @param font TODO
+ * @param s The string
+ * @param len Maximum number of unicode characters
+ * @param font The font
  */
 i32 font_string_width_len(const char *s, u32 len, Font *font);
 
 /**
- * @brief TODO
+ * @brief Draw an NUL-terminated UTF-8 string `s`
  *
- * @param x TODO
- * @param y TODO
- * @param s TODO
- * @param font TODO
- * @param fg TODO
- * @param bg TODO
+ * @param x X-Coordinate (Top)
+ * @param y Y-Coordinate (Left)
+ * @param s Character array
+ * @param font The font to use
+ * @param fg Foreground color
+ * @param bg Background color
  */
 static inline i32 font_string(
 	i32 x, i32 y, const char *s, Font *font, Color fg, Color bg)
@@ -93,10 +94,10 @@ static inline i32 font_string(
 }
 
 /**
- * @brief TODO
+ * @brief Calculate the width of a string in pixels
  *
- * @param s TODO
- * @param font TODO
+ * @param s The string
+ * @param font The font
  */
 static inline i32 font_string_width(const char *s, Font *font)
 {

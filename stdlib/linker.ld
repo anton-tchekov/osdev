@@ -1,4 +1,4 @@
-ENTRY(main)
+ENTRY(__setup)
 SECTIONS
 {
     . = 0x0;
