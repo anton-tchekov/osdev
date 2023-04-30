@@ -25,6 +25,11 @@ Colider coliderPlayer = {
 	.h = 10,
 };
 
+Colider *colliders[] =
+	{
+		&coliderGoal,
+		&(Colider){10, 40, 50, 60}};
+
 void clear()
 {
 	gfx_rect(0, 0, GFX_WIDTH, GFX_HEIGHT, COLOR_BLACK);
@@ -67,12 +72,12 @@ bool overlap(Colider c1, Colider c2)
 }
 
 #define H_CENTER (GFX_WIDTH / 2)
-#define X_MOVE   (H_CENTER - 5)
+#define X_MOVE (H_CENTER - 5)
 
 #define V_CENTER (GFX_HEIGHT / 2)
-#define Y_MOVE   (V_CENTER - 5)
+#define Y_MOVE (V_CENTER - 5)
 
-#define DELAY    100
+#define DELAY 100
 
 i32 player_x = X_MOVE;
 i32 player_y = Y_MOVE;
@@ -80,7 +85,6 @@ i32 begin;
 
 bool won = false;
 bool alive = true;
-
 
 void setup(void)
 {
@@ -90,7 +94,7 @@ void setup(void)
 
 void loop(void)
 {
-	if(millis() - begin < DELAY)
+	if (millis() - begin < DELAY)
 	{
 		return;
 	}
