@@ -223,13 +223,6 @@ u32 syscall_file_open(u32 *args)
 	(void)args;
 }
 
-u32 syscall_file_read(u32 *args)
-{
-	/* TODO */
-	return 0;
-	(void)args;
-}
-
 u32 syscall_file_write(u32 *args)
 {
 	/* TODO */
@@ -264,13 +257,6 @@ u32 syscall_serial_write(u32 *args)
 	u32 len = args[1];
 	uart_tx_str_X(str, len);
 	return 0;
-}
-
-u32 syscall_serial_read(u32 *args)
-{
-	/* TODO */
-	return 0;
-	(void)args;
 }
 
 u32 syscall_datetime_now(u32 *args)

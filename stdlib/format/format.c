@@ -24,7 +24,7 @@ i32 sprintf(char *str, const char *format, ...)
 	return r;
 }
 
-i32 snprintf(char *str, u32 n, const char *format, ...)
+i32 snprintf(char *str, u32 size, const char *format, ...)
 {
 	int r;
 	va_list args;
@@ -264,7 +264,7 @@ print_char(char** at, size_t* left, int* ret, int c,
 		print_pad(at, left, ret, ' ', minw - 1);
 }
 
-int vsnprintf(char* str, size_t size, const char* format, va_list arg)
+i32 vsnprintf(char *str, u32 size, const char *format, va_list arg)
 {
 	char* at = str;
 	size_t left = size;

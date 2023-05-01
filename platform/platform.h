@@ -12,8 +12,6 @@ u32 memory_lw(u32 address);
 u32 memory_lbu(u32 address);
 u32 memory_lhu(u32 address);
 
-
-
 u32 syscall_exit(u32 *args);
 u32 syscall_event_register(u32 *args);
 
@@ -40,7 +38,6 @@ u32 syscall_gfx_image_grayscale(u32 *args);
 u32 syscall_gfx_image_1bit(u32 *args);
 
 u32 syscall_file_open(u32 *args);
-u32 syscall_file_read(u32 *args);
 u32 syscall_file_write(u32 *args);
 u32 syscall_file_close(u32 *args);
 u32 syscall_file_size(u32 *args);
@@ -48,7 +45,6 @@ u32 syscall_file_size(u32 *args);
 u32 syscall_keyboard_is_key_pressed(u32 *args);
 
 u32 syscall_serial_write(u32 *args);
-u32 syscall_serial_read(u32 *args);
 
 u32 syscall_datetime_now(u32 *args);
 u32 syscall_millis(u32 *args);

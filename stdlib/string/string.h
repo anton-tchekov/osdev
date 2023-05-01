@@ -39,11 +39,11 @@ void *memmove(void *dest, const void *src, u32 count);
  *
  * @param ptr1 A pointer to the first memory block.
  * @param ptr2 A pointer to the second memory block.
- * @param n The number of bytes to compare.
+ * @param count The number of bytes to compare.
  * @return An integer less than, equal to, or greater than zero, indicating
- *         whether the first n bytes of the memory blocks pointed to by ptr1
- *         and ptr2 are less than, equal to, or greater than each other,
- *         respectively.
+ *         whether the first `count` bytes of the memory blocks pointed to by
+ *         `ptr1` and `ptr2` are less than, equal to, or greater than each
+ *         other, respectively.
  */
 i32 memcmp(const void *ptr1, const void *ptr2, u32 count);
 
@@ -53,10 +53,10 @@ i32 memcmp(const void *ptr1, const void *ptr2, u32 count);
  *
  * @param ptr A pointer to the memory block to be searched.
  * @param value The value of the character to be searched for.
- * @param n The number of bytes to be searched.
+ * @param count The number of bytes to be searched.
  * @return A pointer to the first occurrence of the character, if found, or a
- *         null pointer if the character is not found in the first n bytes of
- +         the memory block.
+ *         null pointer if the character is not found in the first
+ *         `count` bytes of the memory block.
  */
 const void *memchr(const void *ptr, i32 value, u32 count);
 
@@ -87,7 +87,7 @@ char *strcpy(char *dest, const char *src);
  *
  * @param dest Pointer to the destination array
  * @param src Pointer to the source of data
- * @param n Maximum number of characters to be copied
+ * @param count Maximum number of characters to be copied
  * @return Pointer to the destination array
  */
 char *strncpy(char *dest, const char *src, u32 count);
@@ -120,7 +120,7 @@ i32 strcmp(const char *str1, const char *str2);
  *
  * @param str1 Pointer to the first null-terminated string to be compared.
  * @param str2 Pointer to the second null-terminated string to be compared.
- * @param n Maximum number of characters to be compared.
+ * @param count Maximum number of characters to be compared.
  * @return A negative value if the first character that does not match has a
  *         lower value in `str1` than in `str2`, a positive value if the first
  *         character that does not match has a greater value in `str1` than in

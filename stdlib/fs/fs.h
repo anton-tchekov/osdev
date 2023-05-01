@@ -26,17 +26,6 @@ typedef u32 File;
 Status file_open(const char *name, File *file);
 
 /**
- * @brief Read Data from File
- *
- * @param file File handle
- * @param start Index of first Byte
- * @param len Number of bytes to read
- * @param buf Pointer to buffer for read data
- * @return Status
- */
-Status file_read(File file, u32 start, u32 len, void *buf);
-
-/**
  * @brief Write data into file
  *
  * @param file File handle

@@ -8,5 +8,6 @@ var searchData=
   ['vector_5fpush_5',['vector_push',['../vector_8h.html#aa93a06f25d8c54ab996297b5523ab300',1,'vector.h']]],
   ['vector_5fremove_6',['vector_remove',['../vector_8h.html#af3a2eb74cba163713007f5afaf3749fe',1,'vector.h']]],
   ['vector_5fremove_5frange_7',['vector_remove_range',['../vector_8h.html#a67ee10133f0cf3c7d71d364754fb648f',1,'vector.h']]],
-  ['vector_5freplace_8',['vector_replace',['../vector_8c.html#ab5e38bad2bc3f2cbf9f7b23f615545ee',1,'vector_replace(Vector *vector, u32 index, u32 count, const void *elems, u32 new_count):&#160;vector.c'],['../vector_8h.html#ab5e38bad2bc3f2cbf9f7b23f615545ee',1,'vector_replace(Vector *vector, u32 index, u32 count, const void *elems, u32 new_count):&#160;vector.c']]]
+  ['vector_5freplace_8',['vector_replace',['../vector_8c.html#ab5e38bad2bc3f2cbf9f7b23f615545ee',1,'vector_replace(Vector *vector, u32 index, u32 count, const void *elems, u32 new_count):&#160;vector.c'],['../vector_8h.html#ab5e38bad2bc3f2cbf9f7b23f615545ee',1,'vector_replace(Vector *vector, u32 index, u32 count, const void *elems, u32 new_count):&#160;vector.c']]],
+  ['vsnprintf_9',['vsnprintf',['../format_8h.html#a8f90f639c751fbc29a0d93eec09f9e20',1,'format.h']]]
 ];

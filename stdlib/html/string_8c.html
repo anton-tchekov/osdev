@@ -159,14 +159,11 @@ Functions</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">ptr</td><td>A pointer to the memory block to be searched. </td></tr>
     <tr><td class="paramname">value</td><td>The value of the character to be searched for. </td></tr>
-    <tr><td class="paramname">n</td><td>The number of bytes to be searched. </td></tr>
+    <tr><td class="paramname">count</td><td>The number of bytes to be searched. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>A pointer to the first occurrence of the character, if found, or a null pointer if the character is not found in the first n bytes of<ul>
-<li>the memory block. </li>
-</ul>
-</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>A pointer to the first occurrence of the character, if found, or a null pointer if the character is not found in the first <code>count</code> bytes of the memory block. </dd></dl>
 
 </div>
 </div>
@@ -207,11 +204,11 @@ Functions</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">ptr1</td><td>A pointer to the first memory block. </td></tr>
     <tr><td class="paramname">ptr2</td><td>A pointer to the second memory block. </td></tr>
-    <tr><td class="paramname">n</td><td>The number of bytes to compare. </td></tr>
+    <tr><td class="paramname">count</td><td>The number of bytes to compare. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>An integer less than, equal to, or greater than zero, indicating whether the first n bytes of the memory blocks pointed to by ptr1 and ptr2 are less than, equal to, or greater than each other, respectively. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>An integer less than, equal to, or greater than zero, indicating whether the first <code>count</code> bytes of the memory blocks pointed to by <code>ptr1</code> and <code>ptr2</code> are less than, equal to, or greater than each other, respectively. </dd></dl>
 
 </div>
 </div>
@@ -531,7 +528,7 @@ Functions</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">str1</td><td>Pointer to the first null-terminated string to be compared. </td></tr>
     <tr><td class="paramname">str2</td><td>Pointer to the second null-terminated string to be compared. </td></tr>
-    <tr><td class="paramname">n</td><td>Maximum number of characters to be compared. </td></tr>
+    <tr><td class="paramname">count</td><td>Maximum number of characters to be compared. </td></tr>
   </table>
   </dd>
 </dl>
@@ -576,7 +573,7 @@ Functions</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">dest</td><td>Pointer to the destination array </td></tr>
     <tr><td class="paramname">src</td><td>Pointer to the source of data </td></tr>
-    <tr><td class="paramname">n</td><td>Maximum number of characters to be copied </td></tr>
+    <tr><td class="paramname">count</td><td>Maximum number of characters to be copied </td></tr>
   </table>
   </dd>
 </dl>

@@ -69,7 +69,6 @@ static u32 (*syscalls[])(u32 *) =
 	syscall_gfx_image_1bit,
 
 	syscall_file_open,
-	syscall_file_read,
 	syscall_file_write,
 	syscall_file_close,
 	syscall_file_size,
@@ -77,7 +76,6 @@ static u32 (*syscalls[])(u32 *) =
 	syscall_keyboard_is_key_pressed,
 
 	syscall_serial_write,
-	syscall_serial_read,
 
 	syscall_datetime_now,
 	syscall_millis,

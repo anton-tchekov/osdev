@@ -58,14 +58,11 @@ Searches for the first occurrence of a specific character in the first n bytes o
 \hline
 {\em value} & The value of the character to be searched for. \\
 \hline
-{\em n} & The number of bytes to be searched. \\
+{\em count} & The number of bytes to be searched. \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-A pointer to the first occurrence of the character, if found, or a null pointer if the character is not found in the first n bytes of
-\begin{DoxyItemize}
-\item the memory block. 
-\end{DoxyItemize}
+A pointer to the first occurrence of the character, if found, or a null pointer if the character is not found in the first {\ttfamily count} bytes of the memory block. 
 \end{DoxyReturn}
 \mbox{\Hypertarget{string_8c_a8abe583def8cefd53678bec4126eeefe}\label{string_8c_a8abe583def8cefd53678bec4126eeefe}} 
 \index{string.c@{string.c}!memcmp@{memcmp}}
@@ -83,11 +80,11 @@ Compares the first n bytes of two memory blocks pointed to by the provided point
 \hline
 {\em ptr2} & A pointer to the second memory block. \\
 \hline
-{\em n} & The number of bytes to compare. \\
+{\em count} & The number of bytes to compare. \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-An integer less than, equal to, or greater than zero, indicating whether the first n bytes of the memory blocks pointed to by ptr1 and ptr2 are less than, equal to, or greater than each other, respectively. 
+An integer less than, equal to, or greater than zero, indicating whether the first {\ttfamily count} bytes of the memory blocks pointed to by {\ttfamily ptr1} and {\ttfamily ptr2} are less than, equal to, or greater than each other, respectively. 
 \end{DoxyReturn}
 \mbox{\Hypertarget{string_8c_a6ea826c42748b85ae7c74f1e2ccf7c27}\label{string_8c_a6ea826c42748b85ae7c74f1e2ccf7c27}} 
 \index{string.c@{string.c}!memcpy@{memcpy}}
@@ -249,7 +246,7 @@ Compare a limited number of characters in two strings.
 \hline
 {\em str2} & Pointer to the second null-\/terminated string to be compared. \\
 \hline
-{\em n} & Maximum number of characters to be compared. \\
+{\em count} & Maximum number of characters to be compared. \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
@@ -271,7 +268,7 @@ Copy a limited number of characters from one string to another.
 \hline
 {\em src} & Pointer to the source of data \\
 \hline
-{\em n} & Maximum number of characters to be copied \\
+{\em count} & Maximum number of characters to be copied \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}

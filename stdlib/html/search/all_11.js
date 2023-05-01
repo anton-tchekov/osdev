@@ -6,7 +6,7 @@ var searchData=
   ['serial_5fwrite_3',['serial_write',['../serial_8c.html#a1e573f079b66d70c6154d5ae4e61739d',1,'serial_write(const void *buf, i32 n):&#160;serial.c'],['../serial_8h.html#a1e573f079b66d70c6154d5ae4e61739d',1,'serial_write(const void *buf, i32 n):&#160;serial.c']]],
   ['setup_4',['setup',['../event_8h.html#a7dfd9b79bc5a37d7df40207afbc5431f',1,'event.h']]],
   ['size_5',['Size',['../structFontChar.html#a4a6963b81171eed6db8a579c1d507f89',1,'FontChar::Size()'],['../structFONT.html#a6dee07d0c4da23ae6a64ef491e8106e5',1,'FONT::Size()'],['../structInput.html#a75c193b6c5f2222213060e558838a372',1,'Input::Size()']]],
-  ['snprintf_6',['snprintf',['../format_8h.html#a5ee7eda1d86d13462f57443706f23efc',1,'format.h']]],
+  ['snprintf_6',['snprintf',['../format_8h.html#a8be7c8a106186419f86b1bf42b225275',1,'format.h']]],
   ['sprintf_7',['sprintf',['../format_8h.html#aaf0171ee5296d73d5dba3786e0937121',1,'format.h']]],
   ['std_2eh_8',['std.h',['../std_8h.html',1,'']]],
   ['strchr_9',['strchr',['../string_8h.html#ab6410c1d13fe73e5350746b8f825f752',1,'strchr(const char *str, i32 c):&#160;string.c'],['../string_8c.html#ab6410c1d13fe73e5350746b8f825f752',1,'strchr(const char *str, i32 c):&#160;string.c']]],

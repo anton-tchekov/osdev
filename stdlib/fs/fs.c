@@ -12,11 +12,6 @@ Status file_open(const char *name, File *file)
 	return syscall2(SYSCALL_FILE_OPEN, (u32)name, (u32)file);
 }
 
-Status file_read(File file, u32 start, u32 len, void *buf)
-{
-	return syscall4(SYSCALL_FILE_READ, file, start, len, (u32)buf);
-}
-
 Status file_write(File file, u32 start, u32 len, const void *buf)
 {
 	return syscall4(SYSCALL_FILE_WRITE, file, start, len, (u32)buf);

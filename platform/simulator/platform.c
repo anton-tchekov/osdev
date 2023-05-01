@@ -664,8 +664,7 @@ u32 syscall_file_open(u32 *args)
 	return STATUS_OK;
 }
 
-static
-
+/*
 u32 syscall_file_read(u32 *args)
 {
 	u32 file = args[0];
@@ -687,6 +686,7 @@ u32 syscall_file_read(u32 *args)
 	fseek(fp, start, SEEK_SET);
 	return fread(buf, 1, len, fp) ? STATUS_FAIL : STATUS_OK;
 }
+*/
 
 u32 syscall_file_write(u32 *args)
 {
@@ -753,13 +753,6 @@ u32 syscall_serial_write(u32 *args)
 	/* Debug print */
 	fputs((char *)(_memory + args[0]), stdout);
 	return 0;
-}
-
-u32 syscall_serial_read(u32 *args)
-{
-	/* Always return 0 bytes read */
-	return 0;
-	(void)args;
 }
 
 int main(int argc, char **argv)

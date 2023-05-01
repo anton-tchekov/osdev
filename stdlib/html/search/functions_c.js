@@ -2,7 +2,7 @@ var searchData=
 [
   ['serial_5fwrite_0',['serial_write',['../serial_8h.html#a1e573f079b66d70c6154d5ae4e61739d',1,'serial_write(const void *buf, i32 n):&#160;serial.c'],['../serial_8c.html#a1e573f079b66d70c6154d5ae4e61739d',1,'serial_write(const void *buf, i32 n):&#160;serial.c']]],
   ['setup_1',['setup',['../event_8h.html#a7dfd9b79bc5a37d7df40207afbc5431f',1,'event.h']]],
-  ['snprintf_2',['snprintf',['../format_8h.html#a5ee7eda1d86d13462f57443706f23efc',1,'format.h']]],
+  ['snprintf_2',['snprintf',['../format_8h.html#a8be7c8a106186419f86b1bf42b225275',1,'format.h']]],
   ['sprintf_3',['sprintf',['../format_8h.html#aaf0171ee5296d73d5dba3786e0937121',1,'format.h']]],
   ['strchr_4',['strchr',['../string_8c.html#ab6410c1d13fe73e5350746b8f825f752',1,'strchr(const char *str, i32 c):&#160;string.c'],['../string_8h.html#ab6410c1d13fe73e5350746b8f825f752',1,'strchr(const char *str, i32 c):&#160;string.c']]],
   ['strcmp_5',['strcmp',['../string_8c.html#acc930dc3177c728980deef8f92d780eb',1,'strcmp(const char *str1, const char *str2):&#160;string.c'],['../string_8h.html#acc930dc3177c728980deef8f92d780eb',1,'strcmp(const char *str1, const char *str2):&#160;string.c']]],
