@@ -130,8 +130,7 @@ static void xmem_set(u32 addr, u8 value, u16 size)
 	_xmem_deselect(bank);
 }
 
-
-void memory_cpy(u8 bank, u16 dest, u16 src, u16 count)
+void xmem_cpy(u32 dest, u32 src, u32 count)
 {
 	/* Handle overlap (like memmove), if src == dest, do nothing */
 	if(dest < src)
