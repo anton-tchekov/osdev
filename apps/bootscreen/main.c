@@ -22,7 +22,6 @@ void loop(void)
 {
 	if(millis() - _begin >= BOOTSCREEN_DELAY)
 	{
-		debug_print("_begin: %d\n", _begin);
 		exit(0);
 	}
 }

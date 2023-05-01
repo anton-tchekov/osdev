@@ -479,16 +479,10 @@ u32 syscall_datetime_now(u32 *args)
 
 u32 syscall_millis(u32 *args)
 {
-	printf("millis called!!\n");
-
 	struct timeval ts;
 	gettimeofday(&ts, NULL);
-	u32 ms = (ts.tv_sec - _sec_start) * 1000 +
+	return (ts.tv_sec - _sec_start) * 1000 +
 		(ts.tv_usec - _usec_start) / 1000;
-
-	printf("ms = %d\n", ms);
-
-	return ms;
 
 	(void)args;
 }
