@@ -10,8 +10,9 @@
 #include <string.h>
 #include <stdarg.h>
 
-int vsnprintf(char* str, size_t size, const char* format, va_list arg);
+/* TODO: COPIED CODE - USE AS REFERENCE OR WRITE FROM SCRATCH */
 
+//! @cond Doxygen_Suppress
 
 i32 sprintf(char *str, const char *format, ...)
 {
@@ -418,3 +419,6 @@ int vsnprintf(char* str, size_t size, const char* format, va_list arg)
 		*at = 0;
 	return ret;
 }
+
+//! @endcond
+

@@ -1,4 +1,9 @@
-/* TODO: Documentation */
+/**
+ * @file    random.c
+ * @author  Tim Gabrikowski, Anton Tchekov
+ * @version 0.1
+ * @date    01.05.2023
+ */
 
 #include <random.h>
 #include <adc.h>

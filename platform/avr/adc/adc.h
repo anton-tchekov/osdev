@@ -3,7 +3,7 @@
  * @author  Tim Gabrikowski, Anton Tchekov
  * @version 0.1
  * @date    01.05.2023
- * @brief   Read Analog values
+ * @brief   Read analog inputs
  */
 
 #ifndef __ADC_H__
@@ -15,14 +15,15 @@
 #define ADC_CHANNEL_NOISE 5
 
 /**
- * @brief initialize the hardware channel for noise
+ * @brief Initialize the ADC module
  */
 void adc_init(void);
 
 /**
- * @brief Read the analog value of channel
- * @param channel the Analog channel to read
- * @return (u16) the analog value
+ * @brief Read the analog value of a channel
+ *
+ * @param channel The analog channel to read
+ * @return The 10-bit analog value (0-1023)
  */
 u16 adc_read(u8 channel);
 

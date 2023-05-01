@@ -1,12 +1,18 @@
-/* TODO: Documentation */
+/**
+ * @file    timer.h
+ * @author  Tim Gabrikowski, Anton Tchekov
+ * @version 0.1
+ * @date    01.05.2023
+ * @brief   Timer and RTC module
+ */
 
-/* TODO: Include guards */
+#ifndef __TIMER_H__
+#define __TIMER_H__
 
-/* TODO: Function headers */
+#include <types.h>
 
-typedef struct
-{
-	i32 Year, Month, Day;
-	i32 Hour, Minute, Second;
-} DateTime;
+void timer_init(void);
+u32 millis(void);
+void datetime_now(DateTime *now);
 
+#endif /* __TIMER_H__ */

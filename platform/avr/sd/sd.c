@@ -3,8 +3,6 @@
 #include <avr/io.h>
 #include <util/delay.h>
 
-
-#define CONF_SPI() { SPI_DIR |= MOSI | SCK | CS; SPI_DIR &= ~MISO; }
 #define SELECT()               SPI_OUT &= ~CS
 #define DESELECT()             SPI_OUT |= CS
 
@@ -27,27 +25,27 @@
 #define SD_2                   (1 << 1)
 #define SD_HC                  (1 << 2)
 
-static uint8_t _card_type;
+static u8 _card_type;
 
 typedef struct
 {
-	uint8_t manufacturer;
-	uint8_t oem[3];
-	uint8_t product[6];
-	uint8_t revision;
-	uint32_t serial;
-	uint8_t manufacturing_year;
-	uint8_t manufacturing_month;
-	uint32_t capacity;
-	uint8_t flag_copy;
-	uint8_t flag_write_protect;
-	uint8_t flag_write_protect_temp;
-	uint8_t format;
+	u8 manufacturer;
+	u8 oem[3];
+	u8 product[6];
+	u8 revision;
+	u32 serial;
+	u8 manufacturing_year;
+	u8 manufacturing_month;
+	u32 capacity;
+	u8 flag_copy;
+	u8 flag_write_protect;
+	u8 flag_write_protect_temp;
+	u8 format;
 } sd_info;
 
-static uint8_t _command(uint8_t cmd, uint32_t arg)
+static u8 _command(u8 cmd, u32 arg)
 {
-	uint8_t i, response;
+	u8 i, response;
 	_spi_xchg(0xFF);
 	_spi_xchg(0x40 | cmd);
 	_spi_xchg((arg >> 24) & 0xFF);
@@ -73,11 +71,11 @@ static uint8_t _command(uint8_t cmd, uint32_t arg)
 	return response;
 }
 
-uint8_t sd_init(void)
+u8 sd_init(void)
 {
-	uint8_t response;
-	uint16_t i;
-	uint32_t arg;
+	u8 response;
+	u16 i;
+	u32 arg;
 
 	CONF_SPI();
 	DESELECT();
@@ -187,10 +185,10 @@ uint8_t sd_init(void)
 	return 0;
 }
 
-uint8_t sd_get_info(sd_info *info)
+u8 sd_get_info(sd_info *info)
 {
-	uint8_t i, b, csd_read_bl_len, csd_c_size_mult, csd_structure;
-	uint16_t csd_c_size;
+	u8 i, b, csd_read_bl_len, csd_c_size_mult, csd_structure;
+	u16 csd_c_size;
 	memset(info, 0, sizeof(*info));
 	SELECT();
 
@@ -208,56 +206,42 @@ uint8_t sd_get_info(sd_info *info)
 		b = _spi_xchg(0xFF);
 		switch(i)
 		{
-		case 0:
-		{
-			info->manufacturer = b;
-			break;
-		}
+			case 0:
+				info->manufacturer = b;
+				break;
 
-		case 1:
-		case 2:
-		{
-			info->oem[i - 1] = b;
-			break;
-		}
+			case 1:
+			case 2:
+				info->oem[i - 1] = b;
+				break;
 
-		case 3:
-		case 4:
-		case 5:
-		case 6:
-		case 7:
-		{
-			info->product[i - 3] = b;
-			break;
-		}
+			case 3:
+			case 4:
+			case 5:
+			case 6:
+			case 7:
+				info->product[i - 3] = b;
+				break;
 
-		case 8:
-		{
-			info->revision = b;
-			break;
-		}
+			case 8:
+				info->revision = b;
+				break;
 
-		case 9:
-		case 10:
-		case 11:
-		case 12:
-		{
-			info->serial |= (uint32_t) b << ((12 - i) * 8);
-			break;
-		}
+			case 9:
+			case 10:
+			case 11:
+			case 12:
+				info->serial |= (u32)b << ((12 - i) * 8);
+				break;
 
-		case 13:
-		{
-			info->manufacturing_year = b << 4;
-			break;
-		}
+			case 13:
+				info->manufacturing_year = b << 4;
+				break;
 
-		case 14:
-		{
-			info->manufacturing_year |= b >> 4;
-			info->manufacturing_month = b & 0x0f;
-			break;
-		}
+			case 14:
+				info->manufacturing_year |= b >> 4;
+				info->manufacturing_month = b & 0x0f;
+				break;
 		}
 	}
 
@@ -307,66 +291,50 @@ uint8_t sd_get_info(sd_info *info)
 			{
 				switch(i)
 				{
-				case 7:
-				{
-					b &= 0x3f;
-				}
+					case 7:
+						b &= 0x3f;
 
-				case 8:
-				case 9:
-				{
-					csd_c_size <<= 8;
-					csd_c_size |= b;
-					++csd_c_size;
-					info->capacity = (uint32_t)csd_c_size << 10;
-				}
+					case 8:
+					case 9:
+						csd_c_size <<= 8;
+						csd_c_size |= b;
+						++csd_c_size;
+						info->capacity = (u32)csd_c_size << 10;
 				}
 			}
 			else if(csd_structure == 0x00)
 			{
-				switch (i)
+				switch(i)
 				{
-				case 5:
-				{
-					csd_read_bl_len = b & 0x0F;
-					break;
-				}
+					case 5:
+						csd_read_bl_len = b & 0x0F;
+						break;
 
-				case 6:
-				{
-					csd_c_size = b & 0x03;
-					csd_c_size <<= 8;
-					break;
-				}
+					case 6:
+						csd_c_size = b & 0x03;
+						csd_c_size <<= 8;
+						break;
 
-				case 7:
-				{
-					csd_c_size |= b;
-					csd_c_size <<= 2;
-					break;
-				}
+					case 7:
+						csd_c_size |= b;
+						csd_c_size <<= 2;
+						break;
 
-				case 8:
-				{
-					csd_c_size |= b >> 6;
-					++csd_c_size;
-					break;
-				}
+					case 8:
+						csd_c_size |= b >> 6;
+						++csd_c_size;
+						break;
 
-				case 9:
-				{
-					csd_c_size_mult = b & 0x03;
-					csd_c_size_mult <<= 1;
-					break;
-				}
+					case 9:
+						csd_c_size_mult = b & 0x03;
+						csd_c_size_mult <<= 1;
+						break;
 
-				case 10:
-				{
-					csd_c_size_mult |= b >> 7;
-					info->capacity = ((uint32_t)csd_c_size <<
-						(csd_c_size_mult + csd_read_bl_len + 2)) >> 9;
-					break;
-				}
+					case 10:
+						csd_c_size_mult |= b >> 7;
+						info->capacity = ((u32)csd_c_size <<
+							(csd_c_size_mult + csd_read_bl_len + 2)) >> 9;
+						break;
 				}
 			}
 		}
@@ -376,10 +344,10 @@ uint8_t sd_get_info(sd_info *info)
 	return 1;
 }
 
-uint8_t sd_read
-	(uint8_t *buffer, uint32_t block, uint16_t offset, uint16_t count)
+u8 sd_read(u8 *buffer, u32 block, u16 offset, u16 count)
 {
-	uint16_t i;
+	u16 i;
+
 	SELECT();
 	if(_command(CMD_READ_SINGLE_BLOCK,
 		_card_type & SD_HC ? block : (block >> 9)))
@@ -424,9 +392,9 @@ uint8_t sd_read
 	return 0;
 }
 
-uint8_t sd_write(const uint8_t *buffer, uint32_t block)
+u8 sd_write(const u8 *buffer, u32 block)
 {
-	uint16_t i;
+	u16 i;
 
 	SELECT();
 	if(_command(CMD_WRITE_SINGLE_BLOCK,

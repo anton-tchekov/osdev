@@ -11,28 +11,6 @@
 
 #include <types.h>
 
-/** DateTime struct containing date and time info */
-typedef struct
-{
-	/** Year, for example 2023 */
-	i32 Year;
-
-	/** Month, value from 1-12 */
-	i32 Month;
-
-	/** Day, value from 1-31 */
-	i32 Day;
-
-	/** Hour, value from 0-23 */
-	i32 Hour;
-
-	/** Minute, value from 0-59 */
-	i32 Minute;
-
-	/** Second, value from 0-59 */
-	i32 Second;
-} DateTime;
-
 /**
  * @brief Gets the current date and time
  *

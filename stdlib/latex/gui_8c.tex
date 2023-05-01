@@ -57,9 +57,8 @@ static void \mbox{\hyperlink{gui_8c_ae838b0eff4dcce9d653f5d1021a6f754}{window\+\
 \begin{DoxyCompactList}\small\item\em Draw a window. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{gui_8c_adf0715beb16a0945a1bae624873df977}{window\+\_\+open}} (\mbox{\hyperlink{structWindow}{Window}} $\ast$window)
 \begin{DoxyCompactList}\small\item\em Open and render a window. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{gui_8c_a795727e8c39e73bc3eb9ee2b2a9097ef}\label{gui_8c_a795727e8c39e73bc3eb9ee2b2a9097ef}} 
-void {\bfseries window\+\_\+event\+\_\+key} (\mbox{\hyperlink{keyboard_8h_a48752551c4279f8cddf3585f8272092a}{Key}} key, bool up)
-\end{DoxyCompactItemize}
+void \mbox{\hyperlink{gui_8c_ac9b21caf46e391fbd2f298a475c84bfc}{window\+\_\+event\+\_\+key}} (\mbox{\hyperlink{keyboard_8h_a48752551c4279f8cddf3585f8272092a}{Key}} key, \mbox{\hyperlink{keyboard_8h_a7e51438e5f6bf556512ce7103cddac09}{Key\+State}} up)
+\begin{DoxyCompactList}\small\item\em Forward a key event to the currently open window. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Variables}
 \begin{DoxyCompactItemize}
 \item 
@@ -296,6 +295,23 @@ Render a label on the screen.
 
 \begin{DoxyParams}{Parameters}
 {\em l} & The label \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{gui_8c_ac9b21caf46e391fbd2f298a475c84bfc}\label{gui_8c_ac9b21caf46e391fbd2f298a475c84bfc}} 
+\index{gui.c@{gui.c}!window\_event\_key@{window\_event\_key}}
+\index{window\_event\_key@{window\_event\_key}!gui.c@{gui.c}}
+\doxysubsubsection{\texorpdfstring{window\_event\_key()}{window\_event\_key()}}
+{\footnotesize\ttfamily void window\+\_\+event\+\_\+key (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{keyboard_8h_a48752551c4279f8cddf3585f8272092a}{Key}}}]{key,  }\item[{\mbox{\hyperlink{keyboard_8h_a7e51438e5f6bf556512ce7103cddac09}{Key\+State}}}]{state }\end{DoxyParamCaption})}
+
+
+
+Forward a key event to the currently open window. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em key} & Key Code \\
+\hline
+{\em state} & Key State \\
 \hline
 \end{DoxyParams}
 \mbox{\Hypertarget{gui_8c_adf0715beb16a0945a1bae624873df977}\label{gui_8c_adf0715beb16a0945a1bae624873df977}} 

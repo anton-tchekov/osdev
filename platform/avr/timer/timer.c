@@ -1,8 +1,13 @@
-/* TODO: Documentation */
+/**
+ * @file    timer.c
+ * @author  Tim Gabrikowski, Anton Tchekov
+ * @version 0.1
+ * @date    01.05.2023
+ */
 
 #include <timer.h>
 
-timer_init(void)
+void timer_init(void)
 {
 	/* TODO */
 }

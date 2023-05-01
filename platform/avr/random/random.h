@@ -1,8 +1,9 @@
 /**
- * @file    algo.c
+ * @file    random.h
  * @author  Tim Gabrikowski, Anton Tchekov
  * @version 0.1
- * @date    25.04.2023
+ * @date    01.05.2023
+ * @brief   Random number generator
  */
 
 #ifndef __RANDOM_H__

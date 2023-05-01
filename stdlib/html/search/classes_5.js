@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['label_0',['Label',['../structLabel.html',1,'']]]
+  ['vector_0',['Vector',['../structVector.html',1,'']]]
 ];

@@ -62,7 +62,10 @@ Searches for the first occurrence of a specific character in the first n bytes o
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-A pointer to the first occurrence of the character, if found, or a null pointer if the character is not found in the first n bytes of the memory block. 
+A pointer to the first occurrence of the character, if found, or a null pointer if the character is not found in the first n bytes of
+\begin{DoxyItemize}
+\item the memory block. 
+\end{DoxyItemize}
 \end{DoxyReturn}
 \mbox{\Hypertarget{string_8c_a8abe583def8cefd53678bec4126eeefe}\label{string_8c_a8abe583def8cefd53678bec4126eeefe}} 
 \index{string.c@{string.c}!memcmp@{memcmp}}
@@ -170,9 +173,9 @@ Locate the first occurrence of a character in a string.
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-Pointer to the first occurrence of {\ttfamily c} in {\ttfamily str}, or NULL if {\ttfamily c} is not found. This function searches for the first occurrence of the character {\ttfamily c} in the null-\/terminated string pointed to by {\ttfamily str}. If {\ttfamily c} is found in {\ttfamily str}, the function returns a pointer to the first occurrence of {\ttfamily c} in {\ttfamily str}. If {\ttfamily c} is not found in {\ttfamily str}, the function returns NULL. 
+Pointer to the first occurrence of {\ttfamily c} in {\ttfamily str}, or NULL if {\ttfamily c} is not found.
 \end{DoxyReturn}
-\mbox{\Hypertarget{string_8c_acc930dc3177c728980deef8f92d780eb}\label{string_8c_acc930dc3177c728980deef8f92d780eb}} 
+This function searches for the first occurrence of the character {\ttfamily c} in the null-\/terminated string pointed to by {\ttfamily str}. If {\ttfamily c} is found in {\ttfamily str}, the function returns a pointer to the first occurrence of {\ttfamily c} in {\ttfamily str}. If {\ttfamily c} is not found in {\ttfamily str}, the function returns NULL. \mbox{\Hypertarget{string_8c_acc930dc3177c728980deef8f92d780eb}\label{string_8c_acc930dc3177c728980deef8f92d780eb}} 
 \index{string.c@{string.c}!strcmp@{strcmp}}
 \index{strcmp@{strcmp}!string.c@{string.c}}
 \doxysubsubsection{\texorpdfstring{strcmp()}{strcmp()}}
@@ -250,11 +253,7 @@ Compare a limited number of characters in two strings.
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-A negative value if the first character that does not match has a lower value in {\ttfamily str1} than in {\ttfamily str2}, \begin{DoxyVerb}a positive value if the first character that does not match has a greater value in @p str1 than in @p str2,
-
-or zero if the contents of both strings are equal up to the first @p n
-\end{DoxyVerb}
- 
+A negative value if the first character that does not match has a lower value in {\ttfamily str1} than in {\ttfamily str2}, a positive value if the first character that does not match has a greater value in {\ttfamily str1} than in {\ttfamily str2}, or zero if the contents of both strings are equal up to the first {\ttfamily n} 
 \end{DoxyReturn}
 \mbox{\Hypertarget{string_8c_a86fd1dc99081364b5155d9669e32ed03}\label{string_8c_a86fd1dc99081364b5155d9669e32ed03}} 
 \index{string.c@{string.c}!strncpy@{strncpy}}

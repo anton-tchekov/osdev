@@ -1,8 +1,15 @@
+/**
+ * @file    xmem.c
+ * @author  Tim Gabrikowski, Anton Tchekov
+ * @version 0.1
+ * @date    01.05.2023
+ */
 
-#define SRAM_COMMAND_WRITE   2
-#define SRAM_COMMAND_READ    3
-#define CHUNK_SIZE 256
+#include <xmem.h>
 
+#define SRAM_COMMAND_WRITE    2
+#define SRAM_COMMAND_READ     3
+#define CHUNK_SIZE          256
 
 static uint8_t xram_memtest(void)
 {
@@ -76,7 +83,7 @@ static void _xmem_addr(u8 bank, u16 addr)
 	spi_xchg(addr & 0xFF);
 }
 
-static void xmem_init(void)
+void xmem_init(void)
 {
 	SPI_DIR = (1 << SPI_MOSI) | (1 << SPI_SCK) |
 			(1 << SPI_CS_0);
@@ -84,7 +91,7 @@ static void xmem_init(void)
 	SPSR = (1 << SPI2X);
 }
 
-static void xmem_read(u32 addr, void *data, u16 size)
+void xmem_read(u32 addr, void *data, u16 size)
 {
 	u16 i;
 	u8 *data8;
@@ -100,7 +107,7 @@ static void xmem_read(u32 addr, void *data, u16 size)
 	_xmem_deselect(bank);
 }
 
-static void xmem_write(u32 addr, void *data, u16 size)
+void xmem_write(u32 addr, const void *data, u16 size)
 {
 	u16 i;
 	u8 *data8;
@@ -116,7 +123,7 @@ static void xmem_write(u32 addr, void *data, u16 size)
 	_xmem_deselect(bank);
 }
 
-static void xmem_set(u32 addr, u8 value, u16 size)
+void xmem_set(u32 addr, u8 value, u16 size)
 {
 	u16 i;
 	_xmem_select(bank);

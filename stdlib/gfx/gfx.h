@@ -21,22 +21,6 @@ typedef u32 Color;
 /** The height of the display */
 #define GFX_HEIGHT 480
 
-/** Rectangle structure consisting of X, Y, Width and Height */
-typedef struct
-{
-	/** X-Coordinate */
-	i32 X;
-
-	/** Y-Coordinate */
-	i32 Y;
-
-	/** Width */
-	i32 W;
-
-	/** Height */
-	i32 H;
-} Rectangle;
-
 /**
  * @brief Create a color from R, G, B, A values
  *

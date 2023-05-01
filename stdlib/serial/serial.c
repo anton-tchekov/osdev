@@ -26,8 +26,3 @@ i32 serial_write(const void *buf, i32 n)
 {
 	return syscall2(SYSCALL_SERIAL_WRITE, (u32)buf, n);
 }
-
-i32 serial_read(const void *buf, i32 n)
-{
-	return syscall2(SYSCALL_SERIAL_READ, (u32)buf, n);
-}

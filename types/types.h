@@ -1,8 +1,8 @@
 /**
  * @file    types.h
- * @author  Anton Tchekov
- * @version V1.0
- * @date    2023-03-24
+ * @author  Tim Gabrikowski, Anton Tchekov
+ * @version 0.1
+ * @date    01.05.2023
  * @brief   Shorthand type definitions inspired by Rust
  */
 
@@ -43,4 +43,42 @@ typedef float f32;
 /** 64-bit float */
 typedef double f64;
 
-#endif
+/** DateTime struct containing date and time info */
+typedef struct
+{
+	/** Year, for example 2023 */
+	i32 Year;
+
+	/** Month, value from 1-12 */
+	i32 Month;
+
+	/** Day, value from 1-31 */
+	i32 Day;
+
+	/** Hour, value from 0-23 */
+	i32 Hour;
+
+	/** Minute, value from 0-59 */
+	i32 Minute;
+
+	/** Second, value from 0-59 */
+	i32 Second;
+} DateTime;
+
+/** Rectangle structure consisting of X, Y, Width and Height */
+typedef struct
+{
+	/** X-Coordinate */
+	i32 X;
+
+	/** Y-Coordinate */
+	i32 Y;
+
+	/** Width */
+	i32 W;
+
+	/** Height */
+	i32 H;
+} Rectangle;
+
+#endif /* __TYPES_H__ */

@@ -448,12 +448,6 @@ static bool platform_run(void)
 #define READ_SIZE 1024
 
 /* TIME */
-typedef struct
-{
-	i32 Year, Month, Day;
-	i32 Hour, Minute, Second;
-} DateTime;
-
 static u32 _sec_start, _usec_start;
 
 static void timer_init(void)
@@ -596,11 +590,6 @@ u32 syscall_rand(u32 *args)
 }
 
 /* GFX */
-typedef struct
-{
-	i32 X, Y, W, H;
-} Rectangle;
-
 u32 syscall_gfx_rect(u32 *args)
 {
 	gfx_rect(args[0], args[1], args[2], args[3], args[4]);
