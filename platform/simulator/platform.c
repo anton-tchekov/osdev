@@ -381,12 +381,6 @@ static void os_update(void)
 	/* memory_dump(0, 1024); */
 }
 
-static i32 _bounds_check(
-	u32 ptr_start, u32 ptr_size, u32 mem_start, u32 mem_size)
-{
-	return 0;
-}
-
 /* --- KEYBOARD --- */
 #define NUM_KEYS 340
 
@@ -465,14 +459,7 @@ u32 syscall_datetime_now(u32 *args)
 	time_t t = time(NULL);
 	struct tm now = *localtime(&t);
 	u32 addr = args[0];
-
-	if(_bounds_check(addr, sizeof(DateTime)), 0, sizeof(_memory))
-	{
-		// crash();
-		return 0;
-	}
-
-	DateTime *out = (DateTime *)(_memory + args[0]);
+	DateTime *out = (DateTime *)(_memory + addr);
 
 	out->Year = now.tm_year + 1900;
 	out->Month = now.tm_mon + 1;

@@ -29,7 +29,7 @@ i32 snprintf(char *str, u32 size, const char *format, ...)
 	int r;
 	va_list args;
 	va_start(args, format);
-	r = vsnprintf(str, n, format, args);
+	r = vsnprintf(str, size, format, args);
 	va_end(args);
 	return r;
 }

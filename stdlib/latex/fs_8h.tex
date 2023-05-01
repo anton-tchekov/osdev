@@ -18,8 +18,6 @@ typedef u32 \mbox{\hyperlink{fs_8h_a3d8cbaa4e32fca2d0d2dd6528348ef30}{File}}
 \item 
 Status \mbox{\hyperlink{fs_8h_a82571035dc9bb531419ccc3a3493bd85}{file\+\_\+open}} (const char $\ast$name, \mbox{\hyperlink{fs_8h_a3d8cbaa4e32fca2d0d2dd6528348ef30}{File}} $\ast$file)
 \begin{DoxyCompactList}\small\item\em Open a file to get a file handle. \end{DoxyCompactList}\item 
-Status \mbox{\hyperlink{fs_8h_a5d3dcfe77aa04c66f6d9f0c8f02cdf87}{file\+\_\+read}} (\mbox{\hyperlink{fs_8h_a3d8cbaa4e32fca2d0d2dd6528348ef30}{File}} file, u32 start, u32 len, void $\ast$buf)
-\begin{DoxyCompactList}\small\item\em Read Data from File. \end{DoxyCompactList}\item 
 Status \mbox{\hyperlink{fs_8h_a5aa32f19ddd3d659cbd6868bcc6da596}{file\+\_\+write}} (\mbox{\hyperlink{fs_8h_a3d8cbaa4e32fca2d0d2dd6528348ef30}{File}} file, u32 start, u32 len, const void $\ast$buf)
 \begin{DoxyCompactList}\small\item\em Write data into file. \end{DoxyCompactList}\item 
 Status \mbox{\hyperlink{fs_8h_a6d1f304bad498893aad5936e2531d1ac}{file\+\_\+close}} (\mbox{\hyperlink{fs_8h_a3d8cbaa4e32fca2d0d2dd6528348ef30}{File}} file)
@@ -85,30 +83,6 @@ Open a file to get a file handle.
 {\em name} & File name \\
 \hline
 {\em file} & Output parameter file handle \\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-Status 
-\end{DoxyReturn}
-\mbox{\Hypertarget{fs_8h_a5d3dcfe77aa04c66f6d9f0c8f02cdf87}\label{fs_8h_a5d3dcfe77aa04c66f6d9f0c8f02cdf87}} 
-\index{fs.h@{fs.h}!file\_read@{file\_read}}
-\index{file\_read@{file\_read}!fs.h@{fs.h}}
-\doxysubsubsection{\texorpdfstring{file\_read()}{file\_read()}}
-{\footnotesize\ttfamily Status file\+\_\+read (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{fs_8h_a3d8cbaa4e32fca2d0d2dd6528348ef30}{File}}}]{file,  }\item[{u32}]{start,  }\item[{u32}]{len,  }\item[{void $\ast$}]{buf }\end{DoxyParamCaption})}
-
-
-
-Read Data from File. 
-
-
-\begin{DoxyParams}{Parameters}
-{\em file} & File handle \\
-\hline
-{\em start} & Index of first Byte \\
-\hline
-{\em len} & Number of bytes to read \\
-\hline
-{\em buf} & Pointer to buffer for read data \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}

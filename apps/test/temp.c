@@ -1,4 +1,3 @@
-
 static char *reverse(char *s)
 {
 	i32 i, j, tmp;
@@ -11,8 +10,6 @@ static char *reverse(char *s)
 
 	return s;
 }
-
-reverse(str);
 
 i32 is_prime(i32 v)
 {
@@ -28,7 +25,7 @@ i32 is_prime(i32 v)
 	return 1;
 }
 
-/*
+
 	u32 begin, end;
 	i32 i, count;
 
@@ -51,4 +48,6 @@ i32 is_prime(i32 v)
 	end = millis();
 	debug_print("Number of primes: %d - Time spent: %d ms\n",
 		count, end - begin);
-*/
+
+
+	reverse(str);

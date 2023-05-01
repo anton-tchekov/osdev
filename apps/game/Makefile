@@ -1,4 +1,4 @@
-TARGET=bootscreen
+TARGET=game
 PREFIX=../../stdlib
 OPT=2
 
