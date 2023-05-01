@@ -18,7 +18,7 @@
  * @param c The character
  * @return Boolean
  */
-i32 isalnum(i32 c);
+bool isalnum(i32 c);
 
 /**
  * @brief This function checks whether the passed character is alphabetic.
@@ -26,7 +26,7 @@ i32 isalnum(i32 c);
  * @param c The character
  * @return Boolean
  */
-i32 isalpha(i32 c);
+bool isalpha(i32 c);
 
 /**
  * @brief This function checks whether the passed character is
@@ -35,7 +35,7 @@ i32 isalpha(i32 c);
  * @param c The character
  * @return Boolean
  */
-i32 iscntrl(i32 c);
+bool iscntrl(i32 c);
 
 /**
  * @brief This function checks whether the passed character is decimal digit.
@@ -43,7 +43,7 @@ i32 iscntrl(i32 c);
  * @param c The character
  * @return Boolean
  */
-i32 isdigit(i32 c);
+bool isdigit(i32 c);
 
 /**
  * @brief This function checks whether the passed character has
@@ -52,7 +52,7 @@ i32 isdigit(i32 c);
  * @param c The character
  * @return Boolean
  */
-i32 isgraph(i32 c);
+bool isgraph(i32 c);
 
 /**
  * @brief This function checks whether the passed character is lowercase letter.
@@ -60,7 +60,7 @@ i32 isgraph(i32 c);
  * @param c The character
  * @return Boolean
  */
-i32 islower(i32 c);
+bool islower(i32 c);
 
 /**
  * @brief This function checks whether the passed character is printable.
@@ -68,7 +68,7 @@ i32 islower(i32 c);
  * @param c The character
  * @return Boolean
  */
-i32 isprint(i32 c);
+bool isprint(i32 c);
 
 /**
  * @brief This function checks whether the passed character is
@@ -77,7 +77,7 @@ i32 isprint(i32 c);
  * @param c The character
  * @return Boolean
  */
-i32 ispunct(i32 c);
+bool ispunct(i32 c);
 
 /**
  * @brief This function checks whether the passed character is white-space.
@@ -85,7 +85,7 @@ i32 ispunct(i32 c);
  * @param c The character
  * @return Boolean
  */
-i32 isspace(i32 c);
+bool isspace(i32 c);
 
 /**
  * @brief This function checks whether the passed character is
@@ -94,7 +94,7 @@ i32 isspace(i32 c);
  * @param c The character
  * @return Boolean
  */
-i32 isupper(i32 c);
+bool isupper(i32 c);
 
 /**
  * @brief This function checks whether the passed character is
@@ -103,7 +103,7 @@ i32 isupper(i32 c);
  * @param c The character
  * @return Boolean
  */
-i32 isxdigit(i32 c);
+bool isxdigit(i32 c);
 
 /**
  * @brief This function converts uppercase letters to lowercase.

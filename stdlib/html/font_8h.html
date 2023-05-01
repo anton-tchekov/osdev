@@ -109,16 +109,16 @@ Typedefs</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a0fb43ab4a095679d631a2c0652ee3f08"><td class="memItemLeft" align="right" valign="top">i32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="font_8h.html#a0fb43ab4a095679d631a2c0652ee3f08">font_string_len</a> (i32 x, i32 y, const char *s, u32 len, <a class="el" href="font_8h.html#a0f83a364f5a4aaa67ffd241f9d7b5552">Font</a> *font, <a class="el" href="gfx_8h.html#acbbccb6085c654282ef64cdcefc81be5">Color</a> fg, <a class="el" href="gfx_8h.html#acbbccb6085c654282ef64cdcefc81be5">Color</a> bg)</td></tr>
-<tr class="memdesc:a0fb43ab4a095679d631a2c0652ee3f08"><td class="mdescLeft">&#160;</td><td class="mdescRight">TODO.  <br /></td></tr>
+<tr class="memdesc:a0fb43ab4a095679d631a2c0652ee3f08"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draw an UTF-8 string <code>s</code> with a maximum number of chars. This function will also stop at a '\0' character.  <br /></td></tr>
 <tr class="separator:a0fb43ab4a095679d631a2c0652ee3f08"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa965d55e47b225d39bcf70c39ece24c4"><td class="memItemLeft" align="right" valign="top">i32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="font_8h.html#aa965d55e47b225d39bcf70c39ece24c4">font_string_width_len</a> (const char *s, u32 len, <a class="el" href="font_8h.html#a0f83a364f5a4aaa67ffd241f9d7b5552">Font</a> *font)</td></tr>
-<tr class="memdesc:aa965d55e47b225d39bcf70c39ece24c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">TODO.  <br /></td></tr>
+<tr class="memdesc:aa965d55e47b225d39bcf70c39ece24c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate the width of a string in pixels.  <br /></td></tr>
 <tr class="separator:aa965d55e47b225d39bcf70c39ece24c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1dc9a04991c7d42402c21ab6a4b933e2"><td class="memItemLeft" align="right" valign="top">static i32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="font_8h.html#a1dc9a04991c7d42402c21ab6a4b933e2">font_string</a> (i32 x, i32 y, const char *s, <a class="el" href="font_8h.html#a0f83a364f5a4aaa67ffd241f9d7b5552">Font</a> *font, <a class="el" href="gfx_8h.html#acbbccb6085c654282ef64cdcefc81be5">Color</a> fg, <a class="el" href="gfx_8h.html#acbbccb6085c654282ef64cdcefc81be5">Color</a> bg)</td></tr>
-<tr class="memdesc:a1dc9a04991c7d42402c21ab6a4b933e2"><td class="mdescLeft">&#160;</td><td class="mdescRight">TODO.  <br /></td></tr>
+<tr class="memdesc:a1dc9a04991c7d42402c21ab6a4b933e2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draw an NUL-terminated UTF-8 string <code>s</code>  <br /></td></tr>
 <tr class="separator:a1dc9a04991c7d42402c21ab6a4b933e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af05628a74a6fb4755ad6eb075ce5f87d"><td class="memItemLeft" align="right" valign="top">static i32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="font_8h.html#af05628a74a6fb4755ad6eb075ce5f87d">font_string_width</a> (const char *s, <a class="el" href="font_8h.html#a0f83a364f5a4aaa67ffd241f9d7b5552">Font</a> *font)</td></tr>
-<tr class="memdesc:af05628a74a6fb4755ad6eb075ce5f87d"><td class="mdescLeft">&#160;</td><td class="mdescRight">TODO.  <br /></td></tr>
+<tr class="memdesc:af05628a74a6fb4755ad6eb075ce5f87d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate the width of a string in pixels.  <br /></td></tr>
 <tr class="separator:af05628a74a6fb4755ad6eb075ce5f87d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -138,7 +138,7 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>TODO </p>
+<p>Font flags bit mask: 1: grayscale, 0: 1 bit per pixel </p>
 
 </div>
 </div>
@@ -154,7 +154,7 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>TODO </p>
+<p>Font Data struct </p>
 
 </div>
 </div>
@@ -217,15 +217,15 @@ Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>TODO. </p>
+<p>Draw an NUL-terminated UTF-8 string <code>s</code> </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">x</td><td>TODO </td></tr>
-    <tr><td class="paramname">y</td><td>TODO </td></tr>
-    <tr><td class="paramname">s</td><td>TODO </td></tr>
-    <tr><td class="paramname">font</td><td>TODO </td></tr>
-    <tr><td class="paramname">fg</td><td>TODO </td></tr>
-    <tr><td class="paramname">bg</td><td>TODO </td></tr>
+    <tr><td class="paramname">x</td><td>X-Coordinate (Top) </td></tr>
+    <tr><td class="paramname">y</td><td>Y-Coordinate (Left) </td></tr>
+    <tr><td class="paramname">s</td><td>Character array </td></tr>
+    <tr><td class="paramname">font</td><td>The font to use </td></tr>
+    <tr><td class="paramname">fg</td><td>Foreground color </td></tr>
+    <tr><td class="paramname">bg</td><td>Background color </td></tr>
   </table>
   </dd>
 </dl>
@@ -288,16 +288,16 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>TODO. </p>
+<p>Draw an UTF-8 string <code>s</code> with a maximum number of chars. This function will also stop at a '\0' character. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">x</td><td>TODO </td></tr>
-    <tr><td class="paramname">y</td><td>TODO </td></tr>
-    <tr><td class="paramname">s</td><td>TODO </td></tr>
-    <tr><td class="paramname">len</td><td>TODO </td></tr>
-    <tr><td class="paramname">font</td><td>TODO </td></tr>
-    <tr><td class="paramname">fg</td><td>TODO </td></tr>
-    <tr><td class="paramname">bg</td><td>TODO </td></tr>
+    <tr><td class="paramname">x</td><td>X-Coordinate (Top) </td></tr>
+    <tr><td class="paramname">y</td><td>Y-Coordinate (Left) </td></tr>
+    <tr><td class="paramname">s</td><td>Character array </td></tr>
+    <tr><td class="paramname">len</td><td>Maximum number of unicode characters </td></tr>
+    <tr><td class="paramname">font</td><td>The font to use </td></tr>
+    <tr><td class="paramname">fg</td><td>Foreground color </td></tr>
+    <tr><td class="paramname">bg</td><td>Background color </td></tr>
   </table>
   </dd>
 </dl>
@@ -338,11 +338,11 @@ Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>TODO. </p>
+<p>Calculate the width of a string in pixels. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">s</td><td>TODO </td></tr>
-    <tr><td class="paramname">font</td><td>TODO </td></tr>
+    <tr><td class="paramname">s</td><td>The string </td></tr>
+    <tr><td class="paramname">font</td><td>The font </td></tr>
   </table>
   </dd>
 </dl>
@@ -381,12 +381,12 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>TODO. </p>
+<p>Calculate the width of a string in pixels. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">s</td><td>TODO </td></tr>
-    <tr><td class="paramname">len</td><td>TODO </td></tr>
-    <tr><td class="paramname">font</td><td>TODO </td></tr>
+    <tr><td class="paramname">s</td><td>The string </td></tr>
+    <tr><td class="paramname">len</td><td>Maximum number of unicode characters </td></tr>
+    <tr><td class="paramname">font</td><td>The font </td></tr>
   </table>
   </dd>
 </dl>

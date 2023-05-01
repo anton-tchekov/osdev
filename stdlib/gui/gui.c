@@ -11,25 +11,25 @@
 #include <colors.h>
 #include <font_default.h>
 
-/** TODO */
+/** Height of the title bar in pixels */
 #define TITLE_BAR_HEIGHT 20
 
 /** Pointer to the currently open window */
 static Window *_current_window;
 
-/** TODO */
+/** Generic element */
 typedef struct
 {
-	/** TODO */
+	/** Element type */
 	ElementType Type;
 } Element;
 
 /* LABEL */
 
 /**
- * @brief TODO
+ * @brief Render a label on the screen
  *
- * @param l TODO
+ * @param l The label
  */
 static void label_render(Label *l)
 {
@@ -41,10 +41,10 @@ static void label_render(Label *l)
 /* BUTTON */
 
 /**
- * @brief TODO
+ * @brief Renders an button on the screen.
  *
- * @param b TODO
- * @param sel TODO
+ * @param b Pointer to the Button structure
+ * @param sel A boolean value indicating if the input field is selected or not
  */
 static void button_render(Button *b, bool sel)
 {
@@ -69,10 +69,10 @@ static void button_render(Button *b, bool sel)
 /* INPUT */
 
 /**
- * @brief TODO
+ * @brief Renders an input field on the screen.
  *
- * @param i TODO
- * @param sel TODO
+ * @param i Pointer to the Input structure
+ * @param sel A boolean value indicating if the input field is selected or not
  */
 static void input_render(Input *i, bool sel)
 {
@@ -98,10 +98,10 @@ static void input_render(Input *i, bool sel)
 }
 
 /**
- * @brief TODO
+ * @brief Increases the size of an input field's buffer by a specified amount.
  *
- * @param i TODO
- * @param n TODO
+ * @param i Pointer to the Input structure
+ * @param n The number of characters by which to grow the input buffer
  */
 static void input_grow(Input *i, i32 n)
 {
@@ -119,10 +119,11 @@ static void input_grow(Input *i, i32 n)
 }
 
 /**
- * @brief TODO
+ * @brief Decreases the size of an input field's buffer by a specified amount,
+ *        removing characters to the left of the cursor position.
  *
- * @param i TODO
- * @param n TODO
+ * @param i Pointer to the Input structure
+ * @param n The number of characters by which to shrink the input buffer
  */
 static void input_shrink(Input *i, i32 n)
 {
@@ -137,10 +138,11 @@ static void input_shrink(Input *i, i32 n)
 }
 
 /**
- * @brief TODO
+ * @brief Inserts a character into an input field's buffer at the current
+ *        cursor position.
  *
- * @param i TODO
- * @param c TODO
+ * @param i Pointer to the Input structure
+ * @param c The character to insert into the input buffer
  */
 static void input_insert(Input *i, i32 c)
 {
@@ -161,11 +163,11 @@ void input_clear(Input *i)
 }
 
 /**
- * @brief TODO
+ * @brief Deletes the character to the left of the cursor
  *
- * @param i TODO
+ * @param i Pointer to the Input structure
  */
-static void input_delete(Input *i)
+static void input_backspace(Input *i)
 {
 	if(i->Position > 0)
 	{
@@ -178,9 +180,9 @@ static void input_delete(Input *i)
 }
 
 /**
- * @brief TODO
+ * @brief Move input cursor one position to the left and render input.
  *
- * @param i TODO
+ * @param i Pointer to the Input structure
  */
 static void input_left(Input *i)
 {
@@ -192,9 +194,9 @@ static void input_left(Input *i)
 }
 
 /**
- * @brief TODO
+ * @brief Move input cursor one position to the right and render input.
  *
- * @param i TODO
+ * @param i Pointer to the Input structure
  */
 static void input_right(Input *i)
 {
@@ -206,10 +208,10 @@ static void input_right(Input *i)
 }
 
 /**
- * @brief TODO
+ * @brief Forward a key event to an input field
  *
- * @param i TODO
- * @param c TODO
+ * @param i The input
+ * @param c The character
  */
 static void input_event_key(Input *i, i32 c)
 {
@@ -220,17 +222,17 @@ static void input_event_key(Input *i, i32 c)
 	}
 	else if(c == '\b')
 	{
-		input_delete(i);
+		input_backspace(i);
 	}
 }
 
 /* ELEMENT */
 
 /**
- * @brief TODO
+ * @brief Render an element based on its type and selection status.
  *
- * @param e TODO
- * @param sel TODO
+ * @param e Pointer to the Element
+ * @param sel Selection status of the element.
  */
 static void element_render_sel(Element *e, u32 sel)
 {
@@ -251,9 +253,10 @@ static void element_render_sel(Element *e, u32 sel)
 }
 
 /**
- * @brief TODO
+ * @brief Render an element by taking its selection status from the
+ *        current window
  *
- * @param e TODO
+ * @param e Pointer to the Element
  */
 static void element_render(Element *e)
 {
@@ -262,7 +265,7 @@ static void element_render(Element *e)
 }
 
 /**
- * @brief TODO
+ * @brief Select the first element
  */
 static void element_first(void)
 {
@@ -284,7 +287,7 @@ static void element_first(void)
 }
 
 /**
- * @brief TODO
+ * @brief Select the next element
  */
 static void element_next(void)
 {
@@ -308,7 +311,7 @@ static void element_next(void)
 }
 
 /**
- * @brief TODO
+ * @brief Select the previous element
  */
 static void element_prev(void)
 {
@@ -331,7 +334,13 @@ static void element_prev(void)
 }
 
 /* WINDOW */
-void window_render(Window *window)
+
+/**
+ * @brief Draw a window
+ *
+ * @param window The window
+ */
+static void window_render(Window *window)
 {
 	i32 i;
 
@@ -354,8 +363,11 @@ void window_render(Window *window)
 void window_open(Window *window)
 {
 	_current_window = window;
-	_current_window->Selected = -1;
-	element_first();
+	if(_current_window->Selected < 0)
+	{
+		element_first();
+	}
+
 	window_render(window);
 }
 
@@ -383,11 +395,11 @@ void window_event_key(Key key, bool up)
 	}
 
 	ce = _current_window->Elements[_current_window->Selected];
-	if(key == KEY_W)
+	if(key == KEY_TAB | MOD_SHIFT)
 	{
 		element_prev();
 	}
-	else if(key == KEY_S)
+	else if(key == KEY_TAB)
 	{
 		element_next();
 	}
@@ -408,11 +420,11 @@ void window_event_key(Key key, bool up)
 		else if(type == ELEMENT_TYPE_INPUT)
 		{
 			Input *input = (Input *)ce;
-			if(key == KEY_W)
+			if(key == KEY_LEFT)
 			{
 				input_left(input);
 			}
-			else if(key == KEY_S)
+			else if(key == KEY_RIGHT)
 			{
 				input_right(input);
 			}

@@ -8,17 +8,17 @@
 void \mbox{\hyperlink{gfx_8c_a61d70a4550bf181cd71bfc9a4f12a6d1}{gfx\+\_\+rect}} (i32 x, i32 y, i32 w, i32 h, \mbox{\hyperlink{gfx_8h_acbbccb6085c654282ef64cdcefc81be5}{Color}} color)
 \begin{DoxyCompactList}\small\item\em Draws a rectangle from position (x$\vert$y), w pixels to left and h pixels down. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{gfx_8c_a1d78d15a37b5c0cd2b797a1bcd89010f}{gfx\+\_\+rect\+\_\+border}} (i32 x, i32 y, i32 w, i32 h, i32 border, \mbox{\hyperlink{gfx_8h_acbbccb6085c654282ef64cdcefc81be5}{Color}} color)
-\begin{DoxyCompactList}\small\item\em TODO. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Draws a rectangular frame. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{gfx_8c_a94d2d05890691d0e0cdb4a49313c1bba}{gfx\+\_\+image\+\_\+rgba}} (i32 x, i32 y, i32 w, i32 h, const u8 $\ast$data)
-\begin{DoxyCompactList}\small\item\em TODO. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Draws an image in RGBA format. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{gfx_8c_a65973eb6c3df8a895f50d412bd7b1865}{gfx\+\_\+image\+\_\+rgb}} (i32 x, i32 y, i32 w, i32 h, const u8 $\ast$data)
-\begin{DoxyCompactList}\small\item\em TODO. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Draws an image in RGB format. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{gfx_8c_ad9e410a1ec4cac3b6f02540834a1be8c}{gfx\+\_\+image\+\_\+rgb565}} (i32 x, i32 y, i32 w, i32 h, const u8 $\ast$data)
-\begin{DoxyCompactList}\small\item\em TODO. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Draws an image in RGB565 format. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{gfx_8c_a7c97c6942cf5dfbdda1e124233d3eb08}{gfx\+\_\+image\+\_\+grayscale}} (i32 x, i32 y, i32 w, i32 h, const u8 $\ast$data, \mbox{\hyperlink{gfx_8h_acbbccb6085c654282ef64cdcefc81be5}{Color}} fg, \mbox{\hyperlink{gfx_8h_acbbccb6085c654282ef64cdcefc81be5}{Color}} bg)
-\begin{DoxyCompactList}\small\item\em TODO. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Draws a grayscale image. The color of each pixel is a mix of the foreground and background colors where the ratio depends on the grayscale value. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{gfx_8c_a39a3e171a715c832137925bb2a21bb5f}{gfx\+\_\+image\+\_\+1bit}} (i32 x, i32 y, i32 w, i32 h, const u8 $\ast$data, \mbox{\hyperlink{gfx_8h_acbbccb6085c654282ef64cdcefc81be5}{Color}} fg, \mbox{\hyperlink{gfx_8h_acbbccb6085c654282ef64cdcefc81be5}{Color}} bg)
-\begin{DoxyCompactList}\small\item\em TODO. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Draws a 1-\/bit-\/per-\/pixel image. Every image row starts at a new byte. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
@@ -42,23 +42,23 @@ Tim Gabrikowski, Anton Tchekov
 
 
 
-TODO. 
+Draws a 1-\/bit-\/per-\/pixel image. Every image row starts at a new byte. 
 
 
 \begin{DoxyParams}{Parameters}
-{\em x} & TODO \\
+{\em x} & X-\/\+Coordinate (Left) \\
 \hline
-{\em y} & TODO \\
+{\em y} & Y-\/\+Coordinate (Top) \\
 \hline
-{\em w} & TODO \\
+{\em w} & Width \\
 \hline
-{\em h} & TODO \\
+{\em h} & Height \\
 \hline
-{\em data} & TODO \\
+{\em data} & Pixel data (1 bit per pixel) \\
 \hline
-{\em fg} & TODO \\
+{\em fg} & Foreground color (bit 1) \\
 \hline
-{\em bg} & TODO \\
+{\em bg} & Background color (bit 0) \\
 \hline
 \end{DoxyParams}
 \mbox{\Hypertarget{gfx_8c_a7c97c6942cf5dfbdda1e124233d3eb08}\label{gfx_8c_a7c97c6942cf5dfbdda1e124233d3eb08}} 
@@ -69,23 +69,23 @@ TODO.
 
 
 
-TODO. 
+Draws a grayscale image. The color of each pixel is a mix of the foreground and background colors where the ratio depends on the grayscale value. 
 
 
 \begin{DoxyParams}{Parameters}
-{\em x} & TODO \\
+{\em x} & X-\/\+Coordinate (Left) \\
 \hline
-{\em y} & TODO \\
+{\em y} & Y-\/\+Coordinate (Top) \\
 \hline
-{\em w} & TODO \\
+{\em w} & Width \\
 \hline
-{\em h} & TODO \\
+{\em h} & Height \\
 \hline
-{\em data} & TODO \\
+{\em data} & Pixel data (8 bit per pixel) \\
 \hline
-{\em fg} & TODO \\
+{\em fg} & Foreground color \\
 \hline
-{\em bg} & TODO \\
+{\em bg} & Background color \\
 \hline
 \end{DoxyParams}
 \mbox{\Hypertarget{gfx_8c_a65973eb6c3df8a895f50d412bd7b1865}\label{gfx_8c_a65973eb6c3df8a895f50d412bd7b1865}} 
@@ -96,19 +96,19 @@ TODO.
 
 
 
-TODO. 
+Draws an image in RGB format. 
 
 
 \begin{DoxyParams}{Parameters}
-{\em x} & TODO \\
+{\em x} & X-\/\+Coordinate (Left) \\
 \hline
-{\em y} & TODO \\
+{\em y} & Y-\/\+Coordinate (Top) \\
 \hline
-{\em w} & TODO \\
+{\em w} & Width \\
 \hline
-{\em h} & TODO \\
+{\em h} & Height \\
 \hline
-{\em data} & TODO \\
+{\em data} & Pixel data (24 bits per pixel) \\
 \hline
 \end{DoxyParams}
 \mbox{\Hypertarget{gfx_8c_ad9e410a1ec4cac3b6f02540834a1be8c}\label{gfx_8c_ad9e410a1ec4cac3b6f02540834a1be8c}} 
@@ -119,19 +119,19 @@ TODO.
 
 
 
-TODO. 
+Draws an image in RGB565 format. 
 
 
 \begin{DoxyParams}{Parameters}
-{\em x} & TODO \\
+{\em x} & X-\/\+Coordinate (Left) \\
 \hline
-{\em y} & TODO \\
+{\em y} & Y-\/\+Coordinate (Top) \\
 \hline
-{\em w} & TODO \\
+{\em w} & Width \\
 \hline
-{\em h} & TODO \\
+{\em h} & Height \\
 \hline
-{\em data} & TODO \\
+{\em data} & Pixel data (16 bit per pixel) \\
 \hline
 \end{DoxyParams}
 \mbox{\Hypertarget{gfx_8c_a94d2d05890691d0e0cdb4a49313c1bba}\label{gfx_8c_a94d2d05890691d0e0cdb4a49313c1bba}} 
@@ -142,19 +142,19 @@ TODO.
 
 
 
-TODO. 
+Draws an image in RGBA format. 
 
 
 \begin{DoxyParams}{Parameters}
-{\em x} & TODO \\
+{\em x} & X-\/\+Coordinate (Left) \\
 \hline
-{\em y} & TODO \\
+{\em y} & Y-\/\+Coordinate (Top) \\
 \hline
-{\em w} & TODO \\
+{\em w} & Width \\
 \hline
-{\em h} & TODO \\
+{\em h} & Height \\
 \hline
-{\em data} & TODO \\
+{\em data} & Pixel data (32 bits per pixel) \\
 \hline
 \end{DoxyParams}
 \mbox{\Hypertarget{gfx_8c_a61d70a4550bf181cd71bfc9a4f12a6d1}\label{gfx_8c_a61d70a4550bf181cd71bfc9a4f12a6d1}} 
@@ -188,20 +188,20 @@ Draws a rectangle from position (x$\vert$y), w pixels to left and h pixels down.
 
 
 
-TODO. 
+Draws a rectangular frame. 
 
 
 \begin{DoxyParams}{Parameters}
-{\em x} & TODO \\
+{\em x} & X-\/\+Coordinate (Left) \\
 \hline
-{\em y} & TODO \\
+{\em y} & Y-\/\+Coordinate (Top) \\
 \hline
-{\em w} & TODO \\
+{\em w} & Width \\
 \hline
-{\em h} & TODO \\
+{\em h} & Height \\
 \hline
-{\em border} & TODO \\
+{\em border} & Inset border width in pixels \\
 \hline
-{\em color} & TODO \\
+{\em color} & Color of the border \\
 \hline
 \end{DoxyParams}

@@ -64,12 +64,12 @@ static inline Color gfx_color(i32 r, i32 g, i32 b, i32 a)
 void gfx_rect(i32 x, i32 y, i32 w, i32 h, Color color);
 
 /**
- * @brief TODO
+ * @brief Draws a 1 pixel wide vertical line
  *
- * @param x TODO
- * @param y TODO
- * @param h TODO
- * @param color TODO
+ * @param x Starting X-Coordinate (Left)
+ * @param y Starting Y-Coordinate (Top)
+ * @param h Length of the line
+ * @param color Color from `gfx_color` or `color.h`
  */
 static inline void gfx_vline(i32 x, i32 y, i32 h, Color color)
 {
@@ -77,12 +77,12 @@ static inline void gfx_vline(i32 x, i32 y, i32 h, Color color)
 }
 
 /**
- * @brief TODO
+ * @brief Draws a 1 pixel tall horizontal line
  *
- * @param x TODO
- * @param y TODO
- * @param w TODO
- * @param color TODO
+ * @param x Starting X-Coordinate (Left)
+ * @param y Starting Y-Coordinate (Top)
+ * @param w Length of the line
+ * @param color Color from `gfx_color` or `color.h`
  */
 static inline void gfx_hline(i32 x, i32 y, i32 w, Color color)
 {
@@ -90,7 +90,7 @@ static inline void gfx_hline(i32 x, i32 y, i32 w, Color color)
 }
 
 /**
- * @brief TODO
+ * @brief Draws a rectangular frame
  *
  * @param x X-Coordinate (Left)
  * @param y Y-Coordinate (Top)
@@ -102,62 +102,65 @@ static inline void gfx_hline(i32 x, i32 y, i32 w, Color color)
 void gfx_rect_border(i32 x, i32 y, i32 w, i32 h, i32 border, Color color);
 
 /**
- * @brief TODO
+ * @brief Draws an image in RGBA format
  *
- * @param x TODO
- * @param y TODO
- * @param w TODO
- * @param h TODO
- * @param data TODO
+ * @param x X-Coordinate (Left)
+ * @param y Y-Coordinate (Top)
+ * @param w Width
+ * @param h Height
+ * @param data Pixel data (32 bits per pixel)
  */
 void gfx_image_rgba(i32 x, i32 y, i32 w, i32 h, const u8 *data);
 
 /**
- * @brief TODO
+ * @brief Draws an image in RGB format
  *
- * @param x TODO
- * @param y TODO
- * @param w TODO
- * @param h TODO
- * @param data TODO
+ * @param x X-Coordinate (Left)
+ * @param y Y-Coordinate (Top)
+ * @param w Width
+ * @param h Height
+ * @param data Pixel data (24 bits per pixel)
  */
 void gfx_image_rgb(i32 x, i32 y, i32 w, i32 h, const u8 *data);
 
 /**
- * @brief TODO
+ * @brief Draws an image in RGB565 format
  *
- * @param x TODO
- * @param y TODO
- * @param w TODO
- * @param h TODO
- * @param data TODO
+ * @param x X-Coordinate (Left)
+ * @param y Y-Coordinate (Top)
+ * @param w Width
+ * @param h Height
+ * @param data Pixel data (16 bit per pixel)
  */
 void gfx_image_rgb565(i32 x, i32 y, i32 w, i32 h, const u8 *data);
 
 /**
- * @brief TODO
+ * @brief Draws a grayscale image.
+ *        The color of each pixel is a mix of the foreground and background
+ *        colors where the ratio depends on the grayscale value.
  *
- * @param x TODO
- * @param y TODO
- * @param w TODO
- * @param h TODO
- * @param data TODO
- * @param fg TODO
- * @param bg TODO
+ * @param x X-Coordinate (Left)
+ * @param y Y-Coordinate (Top)
+ * @param w Width
+ * @param h Height
+ * @param data Pixel data (8 bit per pixel)
+ * @param fg Foreground color
+ * @param bg Background color
  */
 void gfx_image_grayscale(
 	i32 x, i32 y, i32 w, i32 h, const u8 *data, Color fg, Color bg);
 
 /**
- * @brief TODO
+ * @brief Draws a 1-bit-per-pixel image.
+ *        Every image row starts at a new byte.
  *
- * @param x TODO
- * @param y TODO
- * @param w TODO
- * @param h TODO
- * @param data TODO
- * @param fg TODO
- * @param bg TODO
+ * @param x X-Coordinate (Left)
+ * @param y Y-Coordinate (Top)
+ * @param w Width
+ * @param h Height
+ * @param data Pixel data (1 bit per pixel)
+ * @param fg Foreground color (bit 1)
+ * @param bg Background color (bit 0)
  */
 void gfx_image_1bit(
 	i32 x, i32 y, i32 w, i32 h, const u8 *data, Color fg, Color bg);

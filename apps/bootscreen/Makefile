@@ -2,16 +2,17 @@ TARGET=bootscreen
 PREFIX=../../stdlib
 OPT=2
 
+SRC+=main.c
+
 include $(PREFIX)/Makefile
 
 all:
 	riscv64-unknown-elf-gcc $(CFLAGS) $(SRC) -o $(TARGET) $(LDFLAGS)
-
-#riscv64-unknown-elf-objcopy -O binary $(TARGET) $(TARGET).bin
-#	rm -f $(TARGET)
-
-# riscv64-unknown-elf-objdump -d $(TARGET)
+	riscv64-unknown-elf-objcopy -O binary $(TARGET) $(TARGET).bin
+	rm -f $(TARGET)
 
 clean:
 	rm -f $(TARGET)
 	rm -f $(TARGET).bin
+
+# riscv64-unknown-elf-objdump -d $(TARGET)

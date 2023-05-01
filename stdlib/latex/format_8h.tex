@@ -11,9 +11,9 @@ String formatting.
 \begin{DoxyCompactItemize}
 \item 
 i32 \mbox{\hyperlink{format_8h_aaf0171ee5296d73d5dba3786e0937121}{sprintf}} (char $\ast$str, const char $\ast$format,...)
-\begin{DoxyCompactList}\small\item\em TODO. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Formats and stores a series of characters and values in the provided character array buffer, according to the specified format string. \end{DoxyCompactList}\item 
 i32 \mbox{\hyperlink{format_8h_a5ee7eda1d86d13462f57443706f23efc}{snprintf}} (char $\ast$str, u32 n, const char $\ast$format,...)
-\begin{DoxyCompactList}\small\item\em TODO. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Formats and stores a series of characters and values in the provided character array buffer, according to the specified format string and a maximum buffer size. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{format_8h_aa1e17db34f974763107076a10a700058}\label{format_8h_aa1e17db34f974763107076a10a700058}} 
 int {\bfseries vsnprintf} (char $\ast$str, size\+\_\+t size, const char $\ast$format, va\+\_\+list arg)
 \end{DoxyCompactItemize}
@@ -42,19 +42,21 @@ Tim Gabrikowski, Anton Tchekov
 
 
 
-TODO. 
+Formats and stores a series of characters and values in the provided character array buffer, according to the specified format string and a maximum buffer size. 
 
 
 \begin{DoxyParams}{Parameters}
-{\em str} & TODO \\
+{\em str} & A pointer to the character array buffer where the resulting formatted string will be stored. \\
 \hline
-{\em n} & TODO \\
+{\em size} & The maximum number of characters to be written to the buffer, including the terminating null character. \\
 \hline
-{\em format} & TODO \\
+{\em format} & A string that specifies how subsequent arguments are converted for output. \\
+\hline
+{\em ...} & A variable number of additional arguments to be formatted and inserted into the resulting string, according to the format string. \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-TODO 
+The total number of characters that would have been written to the buffer, if the output had not been truncated, not including the terminating null character. 
 \end{DoxyReturn}
 \mbox{\Hypertarget{format_8h_aaf0171ee5296d73d5dba3786e0937121}\label{format_8h_aaf0171ee5296d73d5dba3786e0937121}} 
 \index{format.h@{format.h}!sprintf@{sprintf}}
@@ -64,15 +66,17 @@ TODO
 
 
 
-TODO. 
+Formats and stores a series of characters and values in the provided character array buffer, according to the specified format string. 
 
 
 \begin{DoxyParams}{Parameters}
-{\em str} & TODO \\
+{\em str} & A pointer to the character array buffer where the resulting formatted string will be stored. \\
 \hline
-{\em format} & TODO \\
+{\em format} & A string that specifies how subsequent arguments are converted for output. \\
+\hline
+{\em ...} & A variable number of additional arguments to be formatted and inserted into the resulting string, according to the format string. \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-TODO 
+The total number of characters written to the buffer, not including the terminating null character. 
 \end{DoxyReturn}

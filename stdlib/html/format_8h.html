@@ -89,10 +89,10 @@ $(function() {
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:aaf0171ee5296d73d5dba3786e0937121"><td class="memItemLeft" align="right" valign="top">i32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="format_8h.html#aaf0171ee5296d73d5dba3786e0937121">sprintf</a> (char *str, const char *format,...)</td></tr>
-<tr class="memdesc:aaf0171ee5296d73d5dba3786e0937121"><td class="mdescLeft">&#160;</td><td class="mdescRight">TODO.  <br /></td></tr>
+<tr class="memdesc:aaf0171ee5296d73d5dba3786e0937121"><td class="mdescLeft">&#160;</td><td class="mdescRight">Formats and stores a series of characters and values in the provided character array buffer, according to the specified format string.  <br /></td></tr>
 <tr class="separator:aaf0171ee5296d73d5dba3786e0937121"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5ee7eda1d86d13462f57443706f23efc"><td class="memItemLeft" align="right" valign="top">i32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="format_8h.html#a5ee7eda1d86d13462f57443706f23efc">snprintf</a> (char *str, u32 n, const char *format,...)</td></tr>
-<tr class="memdesc:a5ee7eda1d86d13462f57443706f23efc"><td class="mdescLeft">&#160;</td><td class="mdescRight">TODO.  <br /></td></tr>
+<tr class="memdesc:a5ee7eda1d86d13462f57443706f23efc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Formats and stores a series of characters and values in the provided character array buffer, according to the specified format string and a maximum buffer size.  <br /></td></tr>
 <tr class="separator:a5ee7eda1d86d13462f57443706f23efc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa1e17db34f974763107076a10a700058"><td class="memItemLeft" align="right" valign="top"><a id="aa1e17db34f974763107076a10a700058" name="aa1e17db34f974763107076a10a700058"></a>
 int&#160;</td><td class="memItemRight" valign="bottom"><b>vsnprintf</b> (char *str, size_t size, const char *format, va_list arg)</td></tr>
@@ -142,16 +142,17 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>vsnprintf</b> (char *s
       </table>
 </div><div class="memdoc">
 
-<p>TODO. </p>
+<p>Formats and stores a series of characters and values in the provided character array buffer, according to the specified format string and a maximum buffer size. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">str</td><td>TODO </td></tr>
-    <tr><td class="paramname">n</td><td>TODO </td></tr>
-    <tr><td class="paramname">format</td><td>TODO </td></tr>
+    <tr><td class="paramname">str</td><td>A pointer to the character array buffer where the resulting formatted string will be stored. </td></tr>
+    <tr><td class="paramname">size</td><td>The maximum number of characters to be written to the buffer, including the terminating null character. </td></tr>
+    <tr><td class="paramname">format</td><td>A string that specifies how subsequent arguments are converted for output. </td></tr>
+    <tr><td class="paramname">...</td><td>A variable number of additional arguments to be formatted and inserted into the resulting string, according to the format string. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>TODO </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The total number of characters that would have been written to the buffer, if the output had not been truncated, not including the terminating null character. </dd></dl>
 
 </div>
 </div>
@@ -187,15 +188,16 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>vsnprintf</b> (char *s
       </table>
 </div><div class="memdoc">
 
-<p>TODO. </p>
+<p>Formats and stores a series of characters and values in the provided character array buffer, according to the specified format string. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">str</td><td>TODO </td></tr>
-    <tr><td class="paramname">format</td><td>TODO </td></tr>
+    <tr><td class="paramname">str</td><td>A pointer to the character array buffer where the resulting formatted string will be stored. </td></tr>
+    <tr><td class="paramname">format</td><td>A string that specifies how subsequent arguments are converted for output. </td></tr>
+    <tr><td class="paramname">...</td><td>A variable number of additional arguments to be formatted and inserted into the resulting string, according to the format string. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>TODO </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The total number of characters written to the buffer, not including the terminating null character. </dd></dl>
 
 </div>
 </div>

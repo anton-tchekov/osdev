@@ -18,8 +18,6 @@ Work in Progress:
 - Fill in Documentation TODOs
 - File read event
 - Serial read event
-- Vector test
-- ctype booleans
 - Keyboard Character<->ASCII Conversion
 - GUI Library finish
 

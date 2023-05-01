@@ -21,13 +21,19 @@ struct \mbox{\hyperlink{structWindow}{Window}}
 \doxysubsection*{Macros}
 \begin{DoxyCompactItemize}
 \item 
+\#define \mbox{\hyperlink{gui_8h_ad2ecbdfeb24fe2c84f00543dba673f61}{LABEL\+\_\+\+FLAG\+\_\+\+LEFT}}~0x00
+\item 
 \#define \mbox{\hyperlink{gui_8h_ac7ae6c4cbc3899d39d2269126fd73ed5}{LABEL\+\_\+\+FLAG\+\_\+\+CENTER}}~0x01
+\item 
+\#define \mbox{\hyperlink{gui_8h_ad3330496a1017ff042b381880253a0e6}{LABEL\+\_\+\+FLAG\+\_\+\+RIGHT}}~0x02
 \item 
 \#define \mbox{\hyperlink{gui_8h_ae679011dbd86cc43172d3d76e4c37ded}{LABEL\+\_\+\+CREATE}}(\+\_\+X,  \+\_\+Y,  \+\_\+\+TEXT)
 \item 
 \#define \mbox{\hyperlink{gui_8h_ac997da4de51697270833960b52bf586c}{BUTTON\+\_\+\+CREATE}}(\+\_\+X,  \+\_\+Y,  \+\_\+W,  \+\_\+H,  \+\_\+\+TEXT,  \+\_\+\+CLICK)
 \item 
 \#define \mbox{\hyperlink{gui_8h_a4d38b391d158ab29a3ea3f2ddf56be8c}{INPUT\+\_\+\+CREATE}}(\+\_\+X,  \+\_\+Y,  \+\_\+W,  \+\_\+\+TEXT,  \+\_\+\+SIZE)
+\item 
+\#define \mbox{\hyperlink{gui_8h_a83e2e42ae333d23beabfab74160e3cf0}{WINDOW\+\_\+\+CREATE}}(\+\_\+\+TITLE,  \+\_\+\+ELEMENTS,  \+\_\+\+COUNT,  \+\_\+\+SELECTED,  \+\_\+\+ONKEY)
 \end{DoxyCompactItemize}
 \doxysubsection*{Enumerations}
 \begin{DoxyCompactItemize}
@@ -41,13 +47,11 @@ enum \mbox{\hyperlink{gui_8h_a16b11be27a8e9362dd122c4d879e01ae}{Element\+Type}} 
 \begin{DoxyCompactItemize}
 \item 
 void \mbox{\hyperlink{gui_8h_adf0715beb16a0945a1bae624873df977}{window\+\_\+open}} (\mbox{\hyperlink{structWindow}{Window}} $\ast$window)
-\begin{DoxyCompactList}\small\item\em TODO. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{gui_8h_a645908f6ca62492cb3b1ec22f0c5186d}{window\+\_\+render}} (\mbox{\hyperlink{structWindow}{Window}} $\ast$window)
-\begin{DoxyCompactList}\small\item\em TODO. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{gui_8h_a795727e8c39e73bc3eb9ee2b2a9097ef}{window\+\_\+event\+\_\+key}} (\mbox{\hyperlink{keyboard_8h_a48752551c4279f8cddf3585f8272092a}{Key}} key, bool up)
-\begin{DoxyCompactList}\small\item\em TODO. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Open and render a window. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{gui_8h_a4c9fbf73bb026edb0742c24e6135be5b}{window\+\_\+event\+\_\+key}} (\mbox{\hyperlink{keyboard_8h_a48752551c4279f8cddf3585f8272092a}{Key}} key, \mbox{\hyperlink{keyboard_8h_a7e51438e5f6bf556512ce7103cddac09}{Key\+State}} state)
+\begin{DoxyCompactList}\small\item\em Forward a key event to the currently open window. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{gui_8h_aaa6006e84d4768cf4caa1936c5d240fe}{input\+\_\+clear}} (\mbox{\hyperlink{structInput}{Input}} $\ast$i)
-\begin{DoxyCompactList}\small\item\em TODO. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Clear an input field. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
@@ -84,7 +88,7 @@ Tim Gabrikowski, Anton Tchekov
 \DoxyCodeLine{\ \ \ \ \}}
 
 \end{DoxyCode}
-TODO \mbox{\Hypertarget{gui_8h_a4d38b391d158ab29a3ea3f2ddf56be8c}\label{gui_8h_a4d38b391d158ab29a3ea3f2ddf56be8c}} 
+Create a button element \mbox{\Hypertarget{gui_8h_a4d38b391d158ab29a3ea3f2ddf56be8c}\label{gui_8h_a4d38b391d158ab29a3ea3f2ddf56be8c}} 
 \index{gui.h@{gui.h}!INPUT\_CREATE@{INPUT\_CREATE}}
 \index{INPUT\_CREATE@{INPUT\_CREATE}!gui.h@{gui.h}}
 \doxysubsubsection{\texorpdfstring{INPUT\_CREATE}{INPUT\_CREATE}}
@@ -104,7 +108,7 @@ TODO \mbox{\Hypertarget{gui_8h_a4d38b391d158ab29a3ea3f2ddf56be8c}\label{gui_8h_a
 \DoxyCodeLine{\ \ \ \ \}}
 
 \end{DoxyCode}
-TODO \mbox{\Hypertarget{gui_8h_ae679011dbd86cc43172d3d76e4c37ded}\label{gui_8h_ae679011dbd86cc43172d3d76e4c37ded}} 
+Create an input element \mbox{\Hypertarget{gui_8h_ae679011dbd86cc43172d3d76e4c37ded}\label{gui_8h_ae679011dbd86cc43172d3d76e4c37ded}} 
 \index{gui.h@{gui.h}!LABEL\_CREATE@{LABEL\_CREATE}}
 \index{LABEL\_CREATE@{LABEL\_CREATE}!gui.h@{gui.h}}
 \doxysubsubsection{\texorpdfstring{LABEL\_CREATE}{LABEL\_CREATE}}
@@ -120,13 +124,42 @@ TODO \mbox{\Hypertarget{gui_8h_ae679011dbd86cc43172d3d76e4c37ded}\label{gui_8h_a
 \DoxyCodeLine{\ \ \ \ \}}
 
 \end{DoxyCode}
-TODO \mbox{\Hypertarget{gui_8h_ac7ae6c4cbc3899d39d2269126fd73ed5}\label{gui_8h_ac7ae6c4cbc3899d39d2269126fd73ed5}} 
+Create a label element \mbox{\Hypertarget{gui_8h_ac7ae6c4cbc3899d39d2269126fd73ed5}\label{gui_8h_ac7ae6c4cbc3899d39d2269126fd73ed5}} 
 \index{gui.h@{gui.h}!LABEL\_FLAG\_CENTER@{LABEL\_FLAG\_CENTER}}
 \index{LABEL\_FLAG\_CENTER@{LABEL\_FLAG\_CENTER}!gui.h@{gui.h}}
 \doxysubsubsection{\texorpdfstring{LABEL\_FLAG\_CENTER}{LABEL\_FLAG\_CENTER}}
 {\footnotesize\ttfamily \#define LABEL\+\_\+\+FLAG\+\_\+\+CENTER~0x01}
 
-TODO 
+Center align label \mbox{\Hypertarget{gui_8h_ad2ecbdfeb24fe2c84f00543dba673f61}\label{gui_8h_ad2ecbdfeb24fe2c84f00543dba673f61}} 
+\index{gui.h@{gui.h}!LABEL\_FLAG\_LEFT@{LABEL\_FLAG\_LEFT}}
+\index{LABEL\_FLAG\_LEFT@{LABEL\_FLAG\_LEFT}!gui.h@{gui.h}}
+\doxysubsubsection{\texorpdfstring{LABEL\_FLAG\_LEFT}{LABEL\_FLAG\_LEFT}}
+{\footnotesize\ttfamily \#define LABEL\+\_\+\+FLAG\+\_\+\+LEFT~0x00}
+
+Left align label (default) \mbox{\Hypertarget{gui_8h_ad3330496a1017ff042b381880253a0e6}\label{gui_8h_ad3330496a1017ff042b381880253a0e6}} 
+\index{gui.h@{gui.h}!LABEL\_FLAG\_RIGHT@{LABEL\_FLAG\_RIGHT}}
+\index{LABEL\_FLAG\_RIGHT@{LABEL\_FLAG\_RIGHT}!gui.h@{gui.h}}
+\doxysubsubsection{\texorpdfstring{LABEL\_FLAG\_RIGHT}{LABEL\_FLAG\_RIGHT}}
+{\footnotesize\ttfamily \#define LABEL\+\_\+\+FLAG\+\_\+\+RIGHT~0x02}
+
+Right align label \mbox{\Hypertarget{gui_8h_a83e2e42ae333d23beabfab74160e3cf0}\label{gui_8h_a83e2e42ae333d23beabfab74160e3cf0}} 
+\index{gui.h@{gui.h}!WINDOW\_CREATE@{WINDOW\_CREATE}}
+\index{WINDOW\_CREATE@{WINDOW\_CREATE}!gui.h@{gui.h}}
+\doxysubsubsection{\texorpdfstring{WINDOW\_CREATE}{WINDOW\_CREATE}}
+{\footnotesize\ttfamily \#define WINDOW\+\_\+\+CREATE(\begin{DoxyParamCaption}\item[{}]{\+\_\+\+TITLE,  }\item[{}]{\+\_\+\+ELEMENTS,  }\item[{}]{\+\_\+\+COUNT,  }\item[{}]{\+\_\+\+SELECTED,  }\item[{}]{\+\_\+\+ONKEY }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \ \ \{\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ .Title\ =\ \_TITLE,\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ .Elements\ =\ \_ELEMENTS,\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ .Count\ =\ \_COUNT,\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ .Selected\ =\ \_SELECTED,\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ .OnKey\ =\ \_ONKEY\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \}}
+
+\end{DoxyCode}
+Create a window 
 
 \doxysubsection{Enumeration Type Documentation}
 \mbox{\Hypertarget{gui_8h_a16b11be27a8e9362dd122c4d879e01ae}\label{gui_8h_a16b11be27a8e9362dd122c4d879e01ae}} 
@@ -135,7 +168,7 @@ TODO
 \doxysubsubsection{\texorpdfstring{ElementType}{ElementType}}
 {\footnotesize\ttfamily enum \mbox{\hyperlink{gui_8h_a16b11be27a8e9362dd122c4d879e01ae}{Element\+Type}}}
 
-TODO 
+\mbox{\hyperlink{structElement}{Element}} type 
 
 \doxysubsection{Function Documentation}
 \mbox{\Hypertarget{gui_8h_aaa6006e84d4768cf4caa1936c5d240fe}\label{gui_8h_aaa6006e84d4768cf4caa1936c5d240fe}} 
@@ -146,28 +179,28 @@ TODO
 
 
 
-TODO. 
+Clear an input field. 
 
 
 \begin{DoxyParams}{Parameters}
-{\em i} & TODO \\
+{\em i} & The input field \\
 \hline
 \end{DoxyParams}
-\mbox{\Hypertarget{gui_8h_a795727e8c39e73bc3eb9ee2b2a9097ef}\label{gui_8h_a795727e8c39e73bc3eb9ee2b2a9097ef}} 
+\mbox{\Hypertarget{gui_8h_a4c9fbf73bb026edb0742c24e6135be5b}\label{gui_8h_a4c9fbf73bb026edb0742c24e6135be5b}} 
 \index{gui.h@{gui.h}!window\_event\_key@{window\_event\_key}}
 \index{window\_event\_key@{window\_event\_key}!gui.h@{gui.h}}
 \doxysubsubsection{\texorpdfstring{window\_event\_key()}{window\_event\_key()}}
-{\footnotesize\ttfamily void window\+\_\+event\+\_\+key (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{keyboard_8h_a48752551c4279f8cddf3585f8272092a}{Key}}}]{key,  }\item[{bool}]{up }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void window\+\_\+event\+\_\+key (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{keyboard_8h_a48752551c4279f8cddf3585f8272092a}{Key}}}]{key,  }\item[{\mbox{\hyperlink{keyboard_8h_a7e51438e5f6bf556512ce7103cddac09}{Key\+State}}}]{state }\end{DoxyParamCaption})}
 
 
 
-TODO. 
+Forward a key event to the currently open window. 
 
 
 \begin{DoxyParams}{Parameters}
-{\em key} & TODO \\
+{\em key} & Key Code \\
 \hline
-{\em up} & TODO \\
+{\em state} & Key State \\
 \hline
 \end{DoxyParams}
 \mbox{\Hypertarget{gui_8h_adf0715beb16a0945a1bae624873df977}\label{gui_8h_adf0715beb16a0945a1bae624873df977}} 
@@ -178,25 +211,10 @@ TODO.
 
 
 
-TODO. 
+Open and render a window. 
 
 
 \begin{DoxyParams}{Parameters}
-{\em window} & TODO \\
-\hline
-\end{DoxyParams}
-\mbox{\Hypertarget{gui_8h_a645908f6ca62492cb3b1ec22f0c5186d}\label{gui_8h_a645908f6ca62492cb3b1ec22f0c5186d}} 
-\index{gui.h@{gui.h}!window\_render@{window\_render}}
-\index{window\_render@{window\_render}!gui.h@{gui.h}}
-\doxysubsubsection{\texorpdfstring{window\_render()}{window\_render()}}
-{\footnotesize\ttfamily void window\+\_\+render (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structWindow}{Window}} $\ast$}]{window }\end{DoxyParamCaption})}
-
-
-
-TODO. 
-
-
-\begin{DoxyParams}{Parameters}
-{\em window} & TODO \\
+{\em window} & Pointer to \mbox{\hyperlink{structWindow}{Window}} structure \\
 \hline
 \end{DoxyParams}

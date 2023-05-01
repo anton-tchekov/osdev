@@ -9,27 +9,27 @@ Standard C functions to check for and convert between ASCII characters.
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-i32 \mbox{\hyperlink{ctype_8h_aaf172cf6bce9b6d7f47c2a852942226a}{isalnum}} (i32 c)
+bool \mbox{\hyperlink{ctype_8h_a805b16fc0ca40602842200155766a240}{isalnum}} (i32 c)
 \begin{DoxyCompactList}\small\item\em This function checks whether the passed character is alphanumeric. \end{DoxyCompactList}\item 
-i32 \mbox{\hyperlink{ctype_8h_a9b99ea7ca6c12c50849678e6dc28669c}{isalpha}} (i32 c)
+bool \mbox{\hyperlink{ctype_8h_aee17ff1e0c326626e2343664f34c5085}{isalpha}} (i32 c)
 \begin{DoxyCompactList}\small\item\em This function checks whether the passed character is alphabetic. \end{DoxyCompactList}\item 
-i32 \mbox{\hyperlink{ctype_8h_a738b90191812dae181c1ff62cfa9eae8}{iscntrl}} (i32 c)
+bool \mbox{\hyperlink{ctype_8h_aaddc3159a2ac8a68ae0a63d6b5b79ae3}{iscntrl}} (i32 c)
 \begin{DoxyCompactList}\small\item\em This function checks whether the passed character is a control character. \end{DoxyCompactList}\item 
-i32 \mbox{\hyperlink{ctype_8h_ab0ca806746374fbb21ea1675f6f5c0a5}{isdigit}} (i32 c)
+bool \mbox{\hyperlink{ctype_8h_aac8cacb5cd9b960305b7d00c909a8ecd}{isdigit}} (i32 c)
 \begin{DoxyCompactList}\small\item\em This function checks whether the passed character is decimal digit. \end{DoxyCompactList}\item 
-i32 \mbox{\hyperlink{ctype_8h_a5ea3708469c82f94890035d61f9948ee}{isgraph}} (i32 c)
+bool \mbox{\hyperlink{ctype_8h_a3dde1f1732b149333cf0106d1a59ca17}{isgraph}} (i32 c)
 \begin{DoxyCompactList}\small\item\em This function checks whether the passed character has a graphical representation. \end{DoxyCompactList}\item 
-i32 \mbox{\hyperlink{ctype_8h_a6593879ff64a9f9edac60523630bc73b}{islower}} (i32 c)
+bool \mbox{\hyperlink{ctype_8h_a6cb0b03ec6677fb97b80c588d29d7421}{islower}} (i32 c)
 \begin{DoxyCompactList}\small\item\em This function checks whether the passed character is lowercase letter. \end{DoxyCompactList}\item 
-i32 \mbox{\hyperlink{ctype_8h_a56ba7a2ed95e629d0cabc2b7d780d0fc}{isprint}} (i32 c)
+bool \mbox{\hyperlink{ctype_8h_a86defca79be1f892ba604d42dbd5524e}{isprint}} (i32 c)
 \begin{DoxyCompactList}\small\item\em This function checks whether the passed character is printable. \end{DoxyCompactList}\item 
-i32 \mbox{\hyperlink{ctype_8h_aaaa40281b8981c8e229fad7086db589a}{ispunct}} (i32 c)
+bool \mbox{\hyperlink{ctype_8h_a07a4bc598f4c2435565a15f074b74de1}{ispunct}} (i32 c)
 \begin{DoxyCompactList}\small\item\em This function checks whether the passed character is a punctuation character. \end{DoxyCompactList}\item 
-i32 \mbox{\hyperlink{ctype_8h_ac929eea780bfbb8ef9fb2c71f261e136}{isspace}} (i32 c)
+bool \mbox{\hyperlink{ctype_8h_af9a0f61cd0c71dc7ba3af49a1ccb766e}{isspace}} (i32 c)
 \begin{DoxyCompactList}\small\item\em This function checks whether the passed character is white-\/space. \end{DoxyCompactList}\item 
-i32 \mbox{\hyperlink{ctype_8h_a5d87bd33e5d9610145e0f7a87a0a2778}{isupper}} (i32 c)
+bool \mbox{\hyperlink{ctype_8h_af81b0c575e234225a54710a8f8f7df28}{isupper}} (i32 c)
 \begin{DoxyCompactList}\small\item\em This function checks whether the passed character is an uppercase letter. \end{DoxyCompactList}\item 
-i32 \mbox{\hyperlink{ctype_8h_a8dabc665f8146f9c20d4ebf873a08c87}{isxdigit}} (i32 c)
+bool \mbox{\hyperlink{ctype_8h_a14865b1127413aa5ba38f47790029b70}{isxdigit}} (i32 c)
 \begin{DoxyCompactList}\small\item\em This function checks whether the passed character is a hexadecimal digit. \end{DoxyCompactList}\item 
 i32 \mbox{\hyperlink{ctype_8h_abe3bb9b3e36b2f1968405b16d654dbf0}{tolower}} (i32 c)
 \begin{DoxyCompactList}\small\item\em This function converts uppercase letters to lowercase. \end{DoxyCompactList}\item 
@@ -52,11 +52,11 @@ Tim Gabrikowski, Anton Tchekov
 
 
 \doxysubsection{Function Documentation}
-\mbox{\Hypertarget{ctype_8h_aaf172cf6bce9b6d7f47c2a852942226a}\label{ctype_8h_aaf172cf6bce9b6d7f47c2a852942226a}} 
+\mbox{\Hypertarget{ctype_8h_a805b16fc0ca40602842200155766a240}\label{ctype_8h_a805b16fc0ca40602842200155766a240}} 
 \index{ctype.h@{ctype.h}!isalnum@{isalnum}}
 \index{isalnum@{isalnum}!ctype.h@{ctype.h}}
 \doxysubsubsection{\texorpdfstring{isalnum()}{isalnum()}}
-{\footnotesize\ttfamily i32 isalnum (\begin{DoxyParamCaption}\item[{i32}]{c }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily bool isalnum (\begin{DoxyParamCaption}\item[{i32}]{c }\end{DoxyParamCaption})}
 
 
 
@@ -70,11 +70,11 @@ This function checks whether the passed character is alphanumeric.
 \begin{DoxyReturn}{Returns}
 Boolean 
 \end{DoxyReturn}
-\mbox{\Hypertarget{ctype_8h_a9b99ea7ca6c12c50849678e6dc28669c}\label{ctype_8h_a9b99ea7ca6c12c50849678e6dc28669c}} 
+\mbox{\Hypertarget{ctype_8h_aee17ff1e0c326626e2343664f34c5085}\label{ctype_8h_aee17ff1e0c326626e2343664f34c5085}} 
 \index{ctype.h@{ctype.h}!isalpha@{isalpha}}
 \index{isalpha@{isalpha}!ctype.h@{ctype.h}}
 \doxysubsubsection{\texorpdfstring{isalpha()}{isalpha()}}
-{\footnotesize\ttfamily i32 isalpha (\begin{DoxyParamCaption}\item[{i32}]{c }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily bool isalpha (\begin{DoxyParamCaption}\item[{i32}]{c }\end{DoxyParamCaption})}
 
 
 
@@ -88,11 +88,11 @@ This function checks whether the passed character is alphabetic.
 \begin{DoxyReturn}{Returns}
 Boolean 
 \end{DoxyReturn}
-\mbox{\Hypertarget{ctype_8h_a738b90191812dae181c1ff62cfa9eae8}\label{ctype_8h_a738b90191812dae181c1ff62cfa9eae8}} 
+\mbox{\Hypertarget{ctype_8h_aaddc3159a2ac8a68ae0a63d6b5b79ae3}\label{ctype_8h_aaddc3159a2ac8a68ae0a63d6b5b79ae3}} 
 \index{ctype.h@{ctype.h}!iscntrl@{iscntrl}}
 \index{iscntrl@{iscntrl}!ctype.h@{ctype.h}}
 \doxysubsubsection{\texorpdfstring{iscntrl()}{iscntrl()}}
-{\footnotesize\ttfamily i32 iscntrl (\begin{DoxyParamCaption}\item[{i32}]{c }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily bool iscntrl (\begin{DoxyParamCaption}\item[{i32}]{c }\end{DoxyParamCaption})}
 
 
 
@@ -106,11 +106,11 @@ This function checks whether the passed character is a control character.
 \begin{DoxyReturn}{Returns}
 Boolean 
 \end{DoxyReturn}
-\mbox{\Hypertarget{ctype_8h_ab0ca806746374fbb21ea1675f6f5c0a5}\label{ctype_8h_ab0ca806746374fbb21ea1675f6f5c0a5}} 
+\mbox{\Hypertarget{ctype_8h_aac8cacb5cd9b960305b7d00c909a8ecd}\label{ctype_8h_aac8cacb5cd9b960305b7d00c909a8ecd}} 
 \index{ctype.h@{ctype.h}!isdigit@{isdigit}}
 \index{isdigit@{isdigit}!ctype.h@{ctype.h}}
 \doxysubsubsection{\texorpdfstring{isdigit()}{isdigit()}}
-{\footnotesize\ttfamily i32 isdigit (\begin{DoxyParamCaption}\item[{i32}]{c }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily bool isdigit (\begin{DoxyParamCaption}\item[{i32}]{c }\end{DoxyParamCaption})}
 
 
 
@@ -124,11 +124,11 @@ This function checks whether the passed character is decimal digit.
 \begin{DoxyReturn}{Returns}
 Boolean 
 \end{DoxyReturn}
-\mbox{\Hypertarget{ctype_8h_a5ea3708469c82f94890035d61f9948ee}\label{ctype_8h_a5ea3708469c82f94890035d61f9948ee}} 
+\mbox{\Hypertarget{ctype_8h_a3dde1f1732b149333cf0106d1a59ca17}\label{ctype_8h_a3dde1f1732b149333cf0106d1a59ca17}} 
 \index{ctype.h@{ctype.h}!isgraph@{isgraph}}
 \index{isgraph@{isgraph}!ctype.h@{ctype.h}}
 \doxysubsubsection{\texorpdfstring{isgraph()}{isgraph()}}
-{\footnotesize\ttfamily i32 isgraph (\begin{DoxyParamCaption}\item[{i32}]{c }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily bool isgraph (\begin{DoxyParamCaption}\item[{i32}]{c }\end{DoxyParamCaption})}
 
 
 
@@ -142,11 +142,11 @@ This function checks whether the passed character has a graphical representation
 \begin{DoxyReturn}{Returns}
 Boolean 
 \end{DoxyReturn}
-\mbox{\Hypertarget{ctype_8h_a6593879ff64a9f9edac60523630bc73b}\label{ctype_8h_a6593879ff64a9f9edac60523630bc73b}} 
+\mbox{\Hypertarget{ctype_8h_a6cb0b03ec6677fb97b80c588d29d7421}\label{ctype_8h_a6cb0b03ec6677fb97b80c588d29d7421}} 
 \index{ctype.h@{ctype.h}!islower@{islower}}
 \index{islower@{islower}!ctype.h@{ctype.h}}
 \doxysubsubsection{\texorpdfstring{islower()}{islower()}}
-{\footnotesize\ttfamily i32 islower (\begin{DoxyParamCaption}\item[{i32}]{c }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily bool islower (\begin{DoxyParamCaption}\item[{i32}]{c }\end{DoxyParamCaption})}
 
 
 
@@ -160,11 +160,11 @@ This function checks whether the passed character is lowercase letter.
 \begin{DoxyReturn}{Returns}
 Boolean 
 \end{DoxyReturn}
-\mbox{\Hypertarget{ctype_8h_a56ba7a2ed95e629d0cabc2b7d780d0fc}\label{ctype_8h_a56ba7a2ed95e629d0cabc2b7d780d0fc}} 
+\mbox{\Hypertarget{ctype_8h_a86defca79be1f892ba604d42dbd5524e}\label{ctype_8h_a86defca79be1f892ba604d42dbd5524e}} 
 \index{ctype.h@{ctype.h}!isprint@{isprint}}
 \index{isprint@{isprint}!ctype.h@{ctype.h}}
 \doxysubsubsection{\texorpdfstring{isprint()}{isprint()}}
-{\footnotesize\ttfamily i32 isprint (\begin{DoxyParamCaption}\item[{i32}]{c }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily bool isprint (\begin{DoxyParamCaption}\item[{i32}]{c }\end{DoxyParamCaption})}
 
 
 
@@ -178,11 +178,11 @@ This function checks whether the passed character is printable.
 \begin{DoxyReturn}{Returns}
 Boolean 
 \end{DoxyReturn}
-\mbox{\Hypertarget{ctype_8h_aaaa40281b8981c8e229fad7086db589a}\label{ctype_8h_aaaa40281b8981c8e229fad7086db589a}} 
+\mbox{\Hypertarget{ctype_8h_a07a4bc598f4c2435565a15f074b74de1}\label{ctype_8h_a07a4bc598f4c2435565a15f074b74de1}} 
 \index{ctype.h@{ctype.h}!ispunct@{ispunct}}
 \index{ispunct@{ispunct}!ctype.h@{ctype.h}}
 \doxysubsubsection{\texorpdfstring{ispunct()}{ispunct()}}
-{\footnotesize\ttfamily i32 ispunct (\begin{DoxyParamCaption}\item[{i32}]{c }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily bool ispunct (\begin{DoxyParamCaption}\item[{i32}]{c }\end{DoxyParamCaption})}
 
 
 
@@ -196,11 +196,11 @@ This function checks whether the passed character is a punctuation character.
 \begin{DoxyReturn}{Returns}
 Boolean 
 \end{DoxyReturn}
-\mbox{\Hypertarget{ctype_8h_ac929eea780bfbb8ef9fb2c71f261e136}\label{ctype_8h_ac929eea780bfbb8ef9fb2c71f261e136}} 
+\mbox{\Hypertarget{ctype_8h_af9a0f61cd0c71dc7ba3af49a1ccb766e}\label{ctype_8h_af9a0f61cd0c71dc7ba3af49a1ccb766e}} 
 \index{ctype.h@{ctype.h}!isspace@{isspace}}
 \index{isspace@{isspace}!ctype.h@{ctype.h}}
 \doxysubsubsection{\texorpdfstring{isspace()}{isspace()}}
-{\footnotesize\ttfamily i32 isspace (\begin{DoxyParamCaption}\item[{i32}]{c }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily bool isspace (\begin{DoxyParamCaption}\item[{i32}]{c }\end{DoxyParamCaption})}
 
 
 
@@ -214,11 +214,11 @@ This function checks whether the passed character is white-\/space.
 \begin{DoxyReturn}{Returns}
 Boolean 
 \end{DoxyReturn}
-\mbox{\Hypertarget{ctype_8h_a5d87bd33e5d9610145e0f7a87a0a2778}\label{ctype_8h_a5d87bd33e5d9610145e0f7a87a0a2778}} 
+\mbox{\Hypertarget{ctype_8h_af81b0c575e234225a54710a8f8f7df28}\label{ctype_8h_af81b0c575e234225a54710a8f8f7df28}} 
 \index{ctype.h@{ctype.h}!isupper@{isupper}}
 \index{isupper@{isupper}!ctype.h@{ctype.h}}
 \doxysubsubsection{\texorpdfstring{isupper()}{isupper()}}
-{\footnotesize\ttfamily i32 isupper (\begin{DoxyParamCaption}\item[{i32}]{c }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily bool isupper (\begin{DoxyParamCaption}\item[{i32}]{c }\end{DoxyParamCaption})}
 
 
 
@@ -232,11 +232,11 @@ This function checks whether the passed character is an uppercase letter.
 \begin{DoxyReturn}{Returns}
 Boolean 
 \end{DoxyReturn}
-\mbox{\Hypertarget{ctype_8h_a8dabc665f8146f9c20d4ebf873a08c87}\label{ctype_8h_a8dabc665f8146f9c20d4ebf873a08c87}} 
+\mbox{\Hypertarget{ctype_8h_a14865b1127413aa5ba38f47790029b70}\label{ctype_8h_a14865b1127413aa5ba38f47790029b70}} 
 \index{ctype.h@{ctype.h}!isxdigit@{isxdigit}}
 \index{isxdigit@{isxdigit}!ctype.h@{ctype.h}}
 \doxysubsubsection{\texorpdfstring{isxdigit()}{isxdigit()}}
-{\footnotesize\ttfamily i32 isxdigit (\begin{DoxyParamCaption}\item[{i32}]{c }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily bool isxdigit (\begin{DoxyParamCaption}\item[{i32}]{c }\end{DoxyParamCaption})}
 
 
 

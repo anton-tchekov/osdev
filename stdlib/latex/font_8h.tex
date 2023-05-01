@@ -28,13 +28,13 @@ typedef struct \mbox{\hyperlink{structFONT}{FONT}} \mbox{\hyperlink{font_8h_a0f8
 \begin{DoxyCompactItemize}
 \item 
 i32 \mbox{\hyperlink{font_8h_a0fb43ab4a095679d631a2c0652ee3f08}{font\+\_\+string\+\_\+len}} (i32 x, i32 y, const char $\ast$s, u32 len, \mbox{\hyperlink{font_8h_a0f83a364f5a4aaa67ffd241f9d7b5552}{Font}} $\ast$font, \mbox{\hyperlink{gfx_8h_acbbccb6085c654282ef64cdcefc81be5}{Color}} fg, \mbox{\hyperlink{gfx_8h_acbbccb6085c654282ef64cdcefc81be5}{Color}} bg)
-\begin{DoxyCompactList}\small\item\em TODO. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Draw an UTF-\/8 string {\ttfamily s} with a maximum number of chars. This function will also stop at a \textquotesingle{}\textbackslash{}0\textquotesingle{} character. \end{DoxyCompactList}\item 
 i32 \mbox{\hyperlink{font_8h_aa965d55e47b225d39bcf70c39ece24c4}{font\+\_\+string\+\_\+width\+\_\+len}} (const char $\ast$s, u32 len, \mbox{\hyperlink{font_8h_a0f83a364f5a4aaa67ffd241f9d7b5552}{Font}} $\ast$font)
-\begin{DoxyCompactList}\small\item\em TODO. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Calculate the width of a string in pixels. \end{DoxyCompactList}\item 
 static i32 \mbox{\hyperlink{font_8h_a1dc9a04991c7d42402c21ab6a4b933e2}{font\+\_\+string}} (i32 x, i32 y, const char $\ast$s, \mbox{\hyperlink{font_8h_a0f83a364f5a4aaa67ffd241f9d7b5552}{Font}} $\ast$font, \mbox{\hyperlink{gfx_8h_acbbccb6085c654282ef64cdcefc81be5}{Color}} fg, \mbox{\hyperlink{gfx_8h_acbbccb6085c654282ef64cdcefc81be5}{Color}} bg)
-\begin{DoxyCompactList}\small\item\em TODO. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Draw an NUL-\/terminated UTF-\/8 string {\ttfamily s} \end{DoxyCompactList}\item 
 static i32 \mbox{\hyperlink{font_8h_af05628a74a6fb4755ad6eb075ce5f87d}{font\+\_\+string\+\_\+width}} (const char $\ast$s, \mbox{\hyperlink{font_8h_a0f83a364f5a4aaa67ffd241f9d7b5552}{Font}} $\ast$font)
-\begin{DoxyCompactList}\small\item\em TODO. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Calculate the width of a string in pixels. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
@@ -58,7 +58,7 @@ Tim Gabrikowski, Anton Tchekov
 \doxysubsubsection{\texorpdfstring{FONT\_FLAG\_GRAYSCALE}{FONT\_FLAG\_GRAYSCALE}}
 {\footnotesize\ttfamily \#define FONT\+\_\+\+FLAG\+\_\+\+GRAYSCALE~1}
 
-TODO 
+Font flags bit mask\+: 1\+: grayscale, 0\+: 1 bit per pixel 
 
 \doxysubsection{Typedef Documentation}
 \mbox{\Hypertarget{font_8h_a0f83a364f5a4aaa67ffd241f9d7b5552}\label{font_8h_a0f83a364f5a4aaa67ffd241f9d7b5552}} 
@@ -67,7 +67,7 @@ TODO
 \doxysubsubsection{\texorpdfstring{Font}{Font}}
 {\footnotesize\ttfamily typedef struct \mbox{\hyperlink{structFONT}{FONT}} \mbox{\hyperlink{font_8h_a0f83a364f5a4aaa67ffd241f9d7b5552}{Font}}}
 
-TODO 
+Font Data struct 
 
 \doxysubsection{Function Documentation}
 \mbox{\Hypertarget{font_8h_a1dc9a04991c7d42402c21ab6a4b933e2}\label{font_8h_a1dc9a04991c7d42402c21ab6a4b933e2}} 
@@ -78,21 +78,21 @@ TODO
 
 
 
-TODO. 
+Draw an NUL-\/terminated UTF-\/8 string {\ttfamily s} 
 
 
 \begin{DoxyParams}{Parameters}
-{\em x} & TODO \\
+{\em x} & X-\/\+Coordinate (Top) \\
 \hline
-{\em y} & TODO \\
+{\em y} & Y-\/\+Coordinate (Left) \\
 \hline
-{\em s} & TODO \\
+{\em s} & Character array \\
 \hline
-{\em font} & TODO \\
+{\em font} & The font to use \\
 \hline
-{\em fg} & TODO \\
+{\em fg} & Foreground color \\
 \hline
-{\em bg} & TODO \\
+{\em bg} & Background color \\
 \hline
 \end{DoxyParams}
 \mbox{\Hypertarget{font_8h_a0fb43ab4a095679d631a2c0652ee3f08}\label{font_8h_a0fb43ab4a095679d631a2c0652ee3f08}} 
@@ -103,23 +103,23 @@ TODO.
 
 
 
-TODO. 
+Draw an UTF-\/8 string {\ttfamily s} with a maximum number of chars. This function will also stop at a \textquotesingle{}\textbackslash{}0\textquotesingle{} character. 
 
 
 \begin{DoxyParams}{Parameters}
-{\em x} & TODO \\
+{\em x} & X-\/\+Coordinate (Top) \\
 \hline
-{\em y} & TODO \\
+{\em y} & Y-\/\+Coordinate (Left) \\
 \hline
-{\em s} & TODO \\
+{\em s} & Character array \\
 \hline
-{\em len} & TODO \\
+{\em len} & Maximum number of unicode characters \\
 \hline
-{\em font} & TODO \\
+{\em font} & The font to use \\
 \hline
-{\em fg} & TODO \\
+{\em fg} & Foreground color \\
 \hline
-{\em bg} & TODO \\
+{\em bg} & Background color \\
 \hline
 \end{DoxyParams}
 \mbox{\Hypertarget{font_8h_af05628a74a6fb4755ad6eb075ce5f87d}\label{font_8h_af05628a74a6fb4755ad6eb075ce5f87d}} 
@@ -130,13 +130,13 @@ TODO.
 
 
 
-TODO. 
+Calculate the width of a string in pixels. 
 
 
 \begin{DoxyParams}{Parameters}
-{\em s} & TODO \\
+{\em s} & The string \\
 \hline
-{\em font} & TODO \\
+{\em font} & The font \\
 \hline
 \end{DoxyParams}
 \mbox{\Hypertarget{font_8h_aa965d55e47b225d39bcf70c39ece24c4}\label{font_8h_aa965d55e47b225d39bcf70c39ece24c4}} 
@@ -147,14 +147,14 @@ TODO.
 
 
 
-TODO. 
+Calculate the width of a string in pixels. 
 
 
 \begin{DoxyParams}{Parameters}
-{\em s} & TODO \\
+{\em s} & The string \\
 \hline
-{\em len} & TODO \\
+{\em len} & Maximum number of unicode characters \\
 \hline
-{\em font} & TODO \\
+{\em font} & The font \\
 \hline
 \end{DoxyParams}

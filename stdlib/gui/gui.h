@@ -12,7 +12,7 @@
 #include <types.h>
 #include <keyboard.h>
 
-/** TODO */
+/** Element type */
 typedef enum
 {
 	ELEMENT_TYPE_BUTTON,
@@ -20,101 +20,107 @@ typedef enum
 	ELEMENT_TYPE_LABEL
 } ElementType;
 
-/** TODO */
+/** Left align label (default) */
+#define LABEL_FLAG_LEFT   0x00
+
+/** Center align label */
 #define LABEL_FLAG_CENTER 0x01
 
-/** TODO */
+/** Right align label */
+#define LABEL_FLAG_RIGHT  0x02
+
+/** Label element structure */
 typedef struct
 {
-	/** TODO */
+	/** Element Type (must be first member) */
 	ElementType Type;
 
-	/** TODO */
+	/** Various Flags (see above) */
 	u8 Flags;
 
-	/** TODO */
+	/** X-Coordinate */
 	i32 X;
 
-	/** TODO */
+	/** Y-Coordinate */
 	i32 Y;
 
-	/** TODO */
+	/** Label text */
 	char *Text;
 } Label;
 
-/** TODO */
+/** Button element structure */
 typedef struct
 {
-	/** TODO */
+	/** Element Type (must be first member) */
 	ElementType Type;
 
-	/** TODO */
+	/** X-Coordinate */
 	i32 X;
 
-	/** TODO */
+	/** Y-Coordinate */
 	i32 Y;
 
-	/** TODO */
+	/** Width */
 	i32 W;
 
-	/** TODO */
+	/** Height */
 	i32 H;
 
-	/** TODO */
+	/** Button text */
 	char *Text;
 
-	/** TODO */
+	/** OnClick event */
 	void (*Click)(void);
 } Button;
 
-/** TODO */
+/** Input element structure */
 typedef struct
 {
-	/** TODO */
+	/** Element Type (must be first member) */
 	ElementType Type;
 
-	/** TODO */
+	/** X-Coordinate */
 	i32 X;
 
-	/** TODO */
+	/** Y-Coordinate */
 	i32 Y;
 
-	/** TODO */
+	/** Width */
 	i32 W;
 
-	/** TODO */
+	/** Cursor position */
 	i32 Position;
 
-	/** TODO */
+	/** Current text length */
 	i32 Length;
 
-	/** TODO */
+	/** Maximum character capacity */
 	i32 Size;
 
-	/** TODO */
+	/** Text content buffer */
 	char *Text;
 } Input;
 
-/** TODO */
+/** Window structure */
 typedef struct
 {
-	/** TODO */
+	/** Window title (displayed in top bar) */
 	char *Title;
 
-	/** TODO */
+	/** Pointer to array of pointers to elements */
 	void **Elements;
 
-	/** TODO */
-	i32 Selected;
-
-	/** TODO */
+	/** Number of elements */
 	i32 Count;
 
-	/** TODO */
+	/** Currently selected element index */
+	i32 Selected;
+
+	/** Window OnKey event */
 	void (*OnKey)(u32, u32);
 } Window;
 
-/** TODO */
+/** Create a label element */
 #define LABEL_CREATE(_X, _Y, _TEXT) \
 	{ \
 		.Type = ELEMENT_TYPE_LABEL, \
@@ -123,7 +129,7 @@ typedef struct
 		.Text = _TEXT, \
 	}
 
-/** TODO */
+/** Create a button element */
 #define BUTTON_CREATE(_X, _Y, _W, _H, _TEXT, _CLICK) \
 	{ \
 		.Type = ELEMENT_TYPE_BUTTON, \
@@ -135,7 +141,7 @@ typedef struct
 		.Click = _CLICK \
 	}
 
-/** TODO */
+/** Create an input element */
 #define INPUT_CREATE(_X, _Y, _W, _TEXT, _SIZE) \
 	{ \
 		.Type = ELEMENT_TYPE_INPUT, \
@@ -148,33 +154,35 @@ typedef struct
 		.Text = _TEXT, \
 	}
 
+/** Create a window */
+#define WINDOW_CREATE(_TITLE, _ELEMENTS, _COUNT, _SELECTED, _ONKEY) \
+	{ \
+		.Title = _TITLE, \
+		.Elements = _ELEMENTS, \
+		.Count = _COUNT, \
+		.Selected = _SELECTED, \
+		.OnKey = _ONKEY \
+	}
+
 /**
- * @brief TODO
+ * @brief Open and render a window
  *
- * @param window TODO
+ * @param window Pointer to Window structure
  */
 void window_open(Window *window);
 
 /**
- * @brief TODO
+ * @brief Forward a key event to the currently open window
  *
- * @param window TODO
+ * @param key Key Code
+ * @param state Key State
  */
-void window_render(Window *window);
+void window_event_key(Key key, KeyState state);
 
 /**
- * @brief TODO
+ * @brief Clear an input field
  *
- * @param key TODO
- * @param up TODO
- */
-void window_event_key(Key key, bool up);
-
-
-/**
- * @brief TODO
- *
- * @param i TODO
+ * @param i The input field
  */
 void input_clear(Input *i);
 
