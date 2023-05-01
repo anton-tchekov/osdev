@@ -23,40 +23,40 @@ INCLUDE=\
 	-I $(PREFIX)/../util/ \
 
 SRC=\
-	-I $(PREFIX)/algo/algo.c \
-	-I $(PREFIX)/alloc/alloc.c \
-	-I $(PREFIX)/ctype/ctype.c \
-	-I $(PREFIX)/event/event.c \
-	-I $(PREFIX)/font/font.c \
-	-I $(PREFIX)/font/font_default.c \
-	-I $(PREFIX)/font/arial.c \
-	-I $(PREFIX)/font/fatty.c \
-	-I $(PREFIX)/font/ubuntu_bold.c \
-	-I $(PREFIX)/format/format.c \
-	-I $(PREFIX)/fs/fs.c \
-	-I $(PREFIX)/gfx/gfx.c \
-	-I $(PREFIX)/gui/gui.c \
-	-I $(PREFIX)/keyboard/keyboard.c \
-	-I $(PREFIX)/panic/panic.c \
-	-I $(PREFIX)/rand/rand.c \
-	-I $(PREFIX)/serial/serial.c \
-	-I $(PREFIX)/string/string.c \
-	-I $(PREFIX)/time/time.c \
-	-I $(PREFIX)/vector/vector.c \
-	-I $(PREFIX)/../status/status.c \
-	-I $(PREFIX)/../utf8/utf8.c \
+	$(PREFIX)/algo/algo.c \
+	$(PREFIX)/alloc/alloc.c \
+	$(PREFIX)/ctype/ctype.c \
+	$(PREFIX)/event/event.c \
+	$(PREFIX)/font/font.c \
+	$(PREFIX)/font/font_default.c \
+	$(PREFIX)/font/arial.c \
+	$(PREFIX)/font/fatty.c \
+	$(PREFIX)/font/ubuntu_bold.c \
+	$(PREFIX)/format/format.c \
+	$(PREFIX)/fs/fs.c \
+	$(PREFIX)/gfx/gfx.c \
+	$(PREFIX)/gui/gui.c \
+	$(PREFIX)/keyboard/keyboard.c \
+	$(PREFIX)/panic/panic.c \
+	$(PREFIX)/rand/rand.c \
+	$(PREFIX)/serial/serial.c \
+	$(PREFIX)/string/string.c \
+	$(PREFIX)/time/time.c \
+	$(PREFIX)/vector/vector.c \
+	$(PREFIX)/../status/status.c \
+	$(PREFIX)/../utf8/utf8.c \
 
 CFLAGS=\
 	-Wall \
 	-Wextra \
 	-pedantic \
+	$(INCLUDE) \
 	-march=rv32im \
 	-mabi=ilp32 \
 	-Wl,-verbose \
 	-nostdlib \
 	-ffreestanding \
 	-O$(OPT) \
-	$(INCLUDE)
 
 LDFLAGS=\
 	-T$(PREFIX)/linker.ld

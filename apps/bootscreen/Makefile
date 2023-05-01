@@ -2,9 +2,9 @@ TARGET=bootscreen
 PREFIX=../../stdlib
 OPT=2
 
-SRC+=main.c
-
 include $(PREFIX)/Makefile
+
+SRC+=main.c
 
 all:
 	riscv64-unknown-elf-gcc $(CFLAGS) $(SRC) -o $(TARGET) $(LDFLAGS)

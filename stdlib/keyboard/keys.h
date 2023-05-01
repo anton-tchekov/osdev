@@ -299,10 +299,10 @@ typedef enum {
 	MOD_RESERVED = 0x8000
 } SDLMod;
 
-#define MOD_CTRL   (KMOD_LCTRL|KMOD_RCTRL)
-#define MOD_SHIFT  (KMOD_LSHIFT|KMOD_RSHIFT)
-#define MOD_ALT    (KMOD_LALT|KMOD_RALT)
-#define MOD_META   (KMOD_LMETA|KMOD_RMETA)
+#define MOD_CTRL   0
+#define MOD_SHIFT  0
+#define MOD_ALT    0
+#define MOD_META   0
 
 //! @endcond
 

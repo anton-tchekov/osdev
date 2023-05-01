@@ -371,7 +371,7 @@ void window_open(Window *window)
 	window_render(window);
 }
 
-void window_event_key(Key key, bool up)
+void window_event_key(Key key, KeyState up)
 {
 	void *ce;
 	if(!_current_window)
@@ -395,7 +395,7 @@ void window_event_key(Key key, bool up)
 	}
 
 	ce = _current_window->Elements[_current_window->Selected];
-	if(key == KEY_TAB | MOD_SHIFT)
+	if(key == (KEY_TAB | MOD_SHIFT))
 	{
 		element_prev();
 	}

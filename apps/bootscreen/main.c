@@ -3,11 +3,12 @@
 
 #define BOOTSCREEN_DELAY 2000
 
-static i32 _begin;
+static u32 _begin;
 
 void setup(void)
 {
 	_begin = millis();
+
 	gfx_rect(0, 0, GFX_WIDTH, GFX_HEIGHT, COLOR_BLACK);
 	gfx_image_rgb(
 		GFX_WIDTH / 2 - bootscreen.width / 2,
@@ -21,6 +22,7 @@ void loop(void)
 {
 	if(millis() - _begin >= BOOTSCREEN_DELAY)
 	{
+		debug_print("_begin: %d\n", _begin);
 		exit(0);
 	}
 }

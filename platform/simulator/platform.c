@@ -479,10 +479,16 @@ u32 syscall_datetime_now(u32 *args)
 
 u32 syscall_millis(u32 *args)
 {
+	printf("millis called!!\n");
+
 	struct timeval ts;
 	gettimeofday(&ts, NULL);
-	return (ts.tv_sec - _sec_start) * 1000 +
+	u32 ms = (ts.tv_sec - _sec_start) * 1000 +
 		(ts.tv_usec - _usec_start) / 1000;
+
+	printf("ms = %d\n", ms);
+
+	return ms;
 
 	(void)args;
 }
@@ -783,11 +789,12 @@ int main(int argc, char **argv)
 	}
 	while(len == READ_SIZE);
 
+	timer_init();
+	gfx_init();
+
 	/* Call setup */
 	emulator_call(&emu, 0, NULL, 0, sizeof(_memory), 100000);
 
-	timer_init();
-	gfx_init();
 	while(platform_run()) {}
 	gfx_destroy();
 	return 0;
