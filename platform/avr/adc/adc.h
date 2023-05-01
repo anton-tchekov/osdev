@@ -11,10 +11,19 @@
 
 #include <types.h>
 
+/** Channel with noise used for random number generator */
 #define ADC_CHANNEL_NOISE 5
 
+/**
+ * @brief initialize the hardware channel for noise
+ */
 void adc_init(void);
 
+/**
+ * @brief Read the analog value of channel
+ * @param channel the Analog channel to read
+ * @return (u16) the analog value
+ */
 u16 adc_read(u8 channel);
 
 #endif /* __ADC_H__ */
