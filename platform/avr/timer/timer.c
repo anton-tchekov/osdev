@@ -1,12 +1,25 @@
+/* TODO: Documentation */
+
 #include <timer.h>
 
-void timer_init(void)
+timer_init(void)
 {
 	/* TODO */
 }
 
-static u32 millis(void)
+u32 millis(void)
 {
 	/* TODO */
 	return 0;
+}
+
+void datetime_now(DateTime *now)
+{
+	now->Year = 1970;
+	now->Month = 1;
+	now->Day = 1;
+
+	now->Hour = 0;
+	now->Minute = 0;
+	now->Second = 0;
 }

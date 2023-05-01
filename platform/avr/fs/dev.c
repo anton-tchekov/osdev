@@ -1,11 +1,13 @@
 #include "dev.h"
 
-static BlockDevice *_devices[26];
+#define MAX_DEVICES 26
+
+static BlockDevice *_devices[MAX_DEVICES];
 
 char dev_attach(BlockDevice *dev)
 {
 	u8 i;
-	for(i = 0; i < 26; ++i)
+	for(i = 0; i < MAX_DEVICES; ++i)
 	{
 		if(!_devices[i])
 		{
