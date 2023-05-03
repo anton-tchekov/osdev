@@ -1,33 +1,15 @@
 #include "editor.h"
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-#include <ctype.h>
-
-/* --- PRIVATE --- */
-static void editor_line_delete(Editor *ed, i32 line)
-{
-	free(ed->Lines[line]);
-	--ed->NumLines;
-	memmove(&ed->Lines[line], &ed->Lines[line + 1],
-		ed->NumLines - line);
-}
-
-static void editor_line_insert(Editor *ed, i32 line)
-{
-
-}
+#include <std.h>
 
 /* --- PUBLIC --- */
 void editor_init(Editor *ed)
 {
 	ed->TabSize = 4;
-	ed->LineNumbers = 4;
+	ed->LineNumberDigits = 4;
 
-	ed->Capacity = 128;
-	ed->Lines = malloc(ed->Capacity * sizeof(Line *));
-	ed->NumLines = 1;
-	ed->Lines[0] = line_new(8);
+	vector_init(&ed->Lines, sizeof(Vector), 128);
+
+	//vector_push(&ed->Lines, ector_get(&ed->Lines, 0), sizeof(char), 8);
 
 	ed->CursorX = 0;
 	ed->CursorY = 0;
@@ -37,72 +19,78 @@ void editor_init(Editor *ed)
 	ed->PageY = 0;
 	ed->PageX = 0;
 
-	ed->Screen = malloc((ed->PageW + 1 + ed->LineNumbers) * ed->PageH);
+	ed->Screen = malloc((ed->PageW + 1 + ed->LineNumberDigits) * ed->PageH);
 }
 
 /* --- EDITING --- */
 void editor_char(Editor *ed, char c)
 {
-	line_insert(ed, &c, 1);
+	vector_insert(vector_get(&ed->Lines, ed->CursorY), ed->CursorX, &c);
 }
 
 void editor_backspace(Editor *ed)
 {
+	Vector *line = vector_get(&ed->Lines, ed->CursorY);
 	if(ed->CursorX == 0)
 	{
-		/* merge with previous line */
 		if(ed->CursorY > 0)
 		{
-			Line *cur = ed->Lines[ed->CursorY];
-			--ed->CursorY;
-			ed->CursorX = ed->Lines[ed->CursorY]->Length;
-			editor_line_insert(ed, cur->Buffer, cur->Length);
-			editor_line_delete(ed, ed->CursorY + 1);
+			/* merge with previous line */
+			Vector *prev = vector_get(&ed->Lines, --ed->CursorY);
+			ed->CursorX = vector_len(prev);
+			vector_push_range(prev, vector_len(line), line->Data);
+			vector_destroy(line);
+			vector_remove(&ed->Lines, ed->CursorY + 1);
 		}
 	}
 	else
 	{
 		/* delete prev char */
-		--ed->CursorX;
-		line_delete(&ed->Lines[ed->CursorY], ed->CursorX, 1);
+		vector_remove(line, --ed->CursorX);
 	}
 }
 
 void editor_delete(Editor *ed)
 {
-	if(ed->CursorX >= ed->Lines[ed->CursorY]->Length)
+	Vector *line = vector_get(&ed->Lines, ed->CursorY);
+	i32 line_len = (i32)vector_len(line);
+	if(ed->CursorX >= line_len)
 	{
-		if(ed->CursorY < ed->NumLines)
+		i32 num_lines = (i32)vector_len(&ed->Lines);
+		if(ed->CursorY < num_lines)
 		{
-			/* merge with next line */
-			line_insert(
-				&ed->Lines[ed->CursorY],
-				ed->Lines[ed->CursorY + 1]->Buffer,
-				ed->Lines[ed->CursorY + 1]->Length);
+			i32 next_idx = ed->CursorY + 1;
+			Vector *next = vector_get(&ed->Lines, next_idx);
 
-			editor_line_delete(ed, ed->CursorY + 1);
+			/* merge with next line */
+			vector_push_range(line, vector_len(next), next->Data);
+			vector_destroy(next);
+			vector_remove(&ed->Lines, next_idx);
 		}
 	}
 	else
 	{
 		/* delete next char */
-		line_delete(&ed->Lines[ed->CursorY], ed->CursorX, 1);
+		vector_remove(line, ed->CursorX);
 	}
 }
 
 void editor_new_line(Editor *ed)
 {
-	i32 len;
-	char *str;
-	Line *cur;
+	Vector *cur = vector_get(&ed->Lines, ed->CursorY);
+	char *str = (char *)cur->Data + ed->CursorX;
+	i32 len = vector_len(cur) - ed->CursorX;
+	Vector new;
 
-	cur = ed->Lines[ed->CursorY];
-	str = cur->Buffer + ed->CursorX;
-	len = cur->Length - ed->CursorX;
+	/* Copy characters after cursor on current line to new line */
+	vector_init(&new, sizeof(char), len);
+	vector_push_range(&new, len, str);
 
-	editor_line_insert(ed, ed->CursorY + 1);
-	line_insert(&ed->Lines[ed->CursorY + 1], 0, str, len);
-	line_delete(&ed->Lines[ed->CursorY], ed->CursorX, len);
+	/* Insert new line */
+	vector_insert(&ed->Lines, ed->CursorY + 1, &new);
+
+	/* Remove characters after cursor on current line */
+	vector_remove_range(cur, ed->CursorX, len);
 
 	++ed->CursorY;
 	ed->CursorX = 0;
@@ -111,10 +99,11 @@ void editor_new_line(Editor *ed)
 /* --- CURSOR MOVEMENT --- */
 void editor_home(Editor *ed)
 {
-	int i = 0;
+	i32 i = 0;
 	if(ed->CursorX == 0)
 	{
-		char *buf = ed->Lines[ed->CursorY]->Buffer;
+		Vector *line = vector_get(&ed->Lines, ed->CursorY);
+		char *buf = line->Data;
 		while(isspace(buf[i]))
 		{
 			++i;
@@ -126,7 +115,7 @@ void editor_home(Editor *ed)
 
 void editor_end(Editor *ed)
 {
-	ed->CursorX = ed->Lines[ed->CursorY]->Length;
+	ed->CursorX = vector_len(vector_get(&ed->Lines, ed->CursorY));
 }
 
 void editor_page_up(Editor *ed)
@@ -141,11 +130,12 @@ void editor_page_up(Editor *ed)
 
 void editor_page_down(Editor *ed)
 {
+	i32 num_lines = (i32)vector_len(&ed->Lines);
 	ed->CursorY += ed->PageY;
-	if(ed->CursorY >= ed->NumLines)
+	if(ed->CursorY >= num_lines)
 	{
-		ed->CursorY = ed->NumLines - 1;
-		ed->CursorX = ed->Lines[ed->NumLines - 1]->Length;
+		ed->CursorY = num_lines - 1;
+		ed->CursorX = vector_len(vector_get(&ed->Lines, ed->CursorY));
 	}
 }
 
@@ -153,8 +143,7 @@ void editor_left(Editor *ed)
 {
 	if(ed->CursorX == 0)
 	{
-		--ed->CursorY;
-		ed->CursorX = ed->Lines[ed->CursorY]->Length;
+		ed->CursorX = vector_len(vector_get(&ed->Lines, --ed->CursorY));
 	}
 	else
 	{
@@ -164,7 +153,7 @@ void editor_left(Editor *ed)
 
 void editor_right(Editor *ed)
 {
-	if(ed->CursorX == ed->Lines[ed->CursorY]->Length)
+	if(ed->CursorX == (i32)vector_len(vector_get(&ed->Lines, ed->CursorY)))
 	{
 		++ed->CursorY;
 		ed->CursorX = 0;
@@ -193,9 +182,10 @@ void editor_up(Editor *ed)
 
 void editor_down(Editor *ed)
 {
-	if(ed->CursorY >= ed->NumLines - 1)
+	i32 max = (i32)vector_len(&ed->Lines) - 1;
+	if(ed->CursorY >= max)
 	{
-		ed->CursorX = ed->Lines[ed->NumLines - 1]->Length;
+		ed->CursorX = (i32)vector_len(vector_get(&ed->Lines, max));
 	}
 	else
 	{
