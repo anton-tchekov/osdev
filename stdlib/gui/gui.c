@@ -14,6 +14,8 @@
 /** Height of the title bar in pixels */
 #define TITLE_BAR_HEIGHT 20
 
+#define INPUT_PADDING     5
+
 /** Pointer to the currently open window */
 static Window *_current_window;
 
@@ -146,6 +148,13 @@ static void input_shrink(Input *i, i32 n)
  */
 static void input_insert(Input *i, i32 c)
 {
+	i->Text[i->Position] = c;
+	if(font_string_width_len(i->Text, i->Position + 1, font_default) >=
+		i->W - 2 * INPUT_PADDING)
+	{
+		return;
+	}
+
 	if(i->Length + 1 < i->Size)
 	{
 		input_grow(i, 1);
@@ -265,20 +274,40 @@ static void element_render(Element *e)
 }
 
 /**
+ * @brief Checks if an element can be selected
+ *
+ * @param index Element index
+ * @return Boolean true if the element is selectable
+ */
+static bool _selectable(i32 index)
+{
+	ElementType type = ((Element *)_current_window->Elements[index])->Type;
+	return type == ELEMENT_TYPE_BUTTON ||
+			type == ELEMENT_TYPE_INPUT;
+}
+
+/**
+ * @brief Selects the element
+ *
+ * @param index Element index
+ */
+static void _select(i32 index)
+{
+	void **elems = _current_window->Elements;
+	element_render_sel(elems[_current_window->Selected], false);
+	_current_window->Selected = index;
+	element_render_sel(elems[_current_window->Selected], true);
+}
+
+/**
  * @brief Select the first element
  */
 static void element_first(void)
 {
-	void **elems;
-	i32 i, count;
-
-	count = _current_window->Count;
-	elems = _current_window->Elements;
+	i32 i, count = _current_window->Count;
 	for(i = 0; i < count; ++i)
 	{
-		ElementType type = ((Element *)elems[i])->Type;
-		if(type == ELEMENT_TYPE_BUTTON ||
-			type == ELEMENT_TYPE_INPUT)
+		if(_selectable(i))
 		{
 			_current_window->Selected = i;
 			break;
@@ -291,21 +320,23 @@ static void element_first(void)
  */
 static void element_next(void)
 {
-	void **elems;
-	i32 i, count;
-
-	count = _current_window->Count;
-	elems = _current_window->Elements;
+	i32 i, count = _current_window->Count;
 	for(i = _current_window->Selected + 1; i < count; ++i)
 	{
-		ElementType type = ((Element *)elems[i])->Type;
-		if(type == ELEMENT_TYPE_BUTTON ||
-			type == ELEMENT_TYPE_INPUT)
+		if(_selectable(i))
 		{
-			element_render_sel(elems[_current_window->Selected], false);
-			_current_window->Selected = i;
-			element_render_sel(elems[_current_window->Selected], true);
-			break;
+			_select(i);
+			return;
+		}
+	}
+
+	/* Wrap around */
+	for(i = 0; i < count; ++i)
+	{
+		if(_selectable(i))
+		{
+			_select(i);
+			return;
 		}
 	}
 }
@@ -315,20 +346,23 @@ static void element_next(void)
  */
 static void element_prev(void)
 {
-	void **elems;
 	i32 i;
-
-	elems = _current_window->Elements;
 	for(i = _current_window->Selected - 1; i >= 0; --i)
 	{
-		ElementType type = ((Element *)elems[i])->Type;
-		if(type == ELEMENT_TYPE_BUTTON ||
-			type == ELEMENT_TYPE_INPUT)
+		if(_selectable(i))
 		{
-			element_render_sel(elems[_current_window->Selected], false);
-			_current_window->Selected = i;
-			element_render_sel(elems[_current_window->Selected], true);
-			break;
+			_select(i);
+			return;
+		}
+	}
+
+	/* Wrap around */
+	for(i = _current_window->Count - 1; i >= 0; --i)
+	{
+		if(_selectable(i))
+		{
+			_select(i);
+			return;
 		}
 	}
 }
@@ -371,7 +405,7 @@ void window_open(Window *window)
 	window_render(window);
 }
 
-void window_event_key(Key key, KeyState up)
+void window_event_key(Key key, KeyState state)
 {
 	void *ce;
 	if(!_current_window)
@@ -381,7 +415,7 @@ void window_event_key(Key key, KeyState up)
 
 	if(_current_window->OnKey)
 	{
-		_current_window->OnKey(key, up);
+		_current_window->OnKey(key, state);
 	}
 
 	if(_current_window->Selected < 0)
@@ -389,19 +423,19 @@ void window_event_key(Key key, KeyState up)
 		return;
 	}
 
-	if(up)
+	if(state == KEYSTATE_RELEASED)
 	{
 		return;
 	}
 
 	ce = _current_window->Elements[_current_window->Selected];
-	if(key == (KEY_TAB | MOD_SHIFT))
+	if(key == KEY_TAB)
 	{
-		element_prev();
+		element_next();
 	}
 	else if(key == KEY_TAB)
 	{
-		element_next();
+		element_prev();
 	}
 	else
 	{

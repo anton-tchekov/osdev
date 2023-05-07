@@ -45,6 +45,7 @@ SRC=\
 	$(PREFIX)/vector/vector.c \
 	$(PREFIX)/../status/status.c \
 	$(PREFIX)/../utf8/utf8.c \
+	$(PREFIX)/../types/types.c \
 
 CFLAGS=\
 	-Wall \

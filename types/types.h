@@ -81,4 +81,17 @@ typedef struct
 	i32 H;
 } Rectangle;
 
+/** Key State: Released (Key Up), Pressed (Key Down), Repeat (Held Down) */
+typedef enum
+{
+	KEYSTATE_RELEASED,
+	KEYSTATE_PRESSED,
+	KEYSTATE_REPEAT
+} KeyState;
+
+/** Keycode */
+typedef u32 Key;
+
+const char *keystate_string(KeyState state);
+
 #endif /* __TYPES_H__ */

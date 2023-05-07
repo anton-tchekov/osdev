@@ -31,10 +31,10 @@ Window window =
 	.OnKey = NULL
 };
 
-void event_key(Key key, KeyState down)
+void event_key(Key key, KeyState state)
 {
-	debug_print("Key = %d, down = %d\n", key, down);
-	window_event_key(key, down);
+	debug_print("Key = %d, State = %s\n", key, keystate_string(state));
+	window_event_key(key, state);
 }
 
 void setup(void)

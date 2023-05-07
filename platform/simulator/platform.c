@@ -384,8 +384,6 @@ static void os_update(void)
 /* --- KEYBOARD --- */
 #define NUM_KEYS 340
 
-typedef u32 Key;
-
 static bool _keys[NUM_KEYS];
 
 static void keyboard_event(Key key, bool down)

@@ -12,17 +12,6 @@
 #include <types.h>
 #include <keys.h>
 
-/** Key State: Pressed (Key Down), Released (Key Up), Repeat (Held Down) */
-typedef enum
-{
-	KEYSTATE_PRESSED,
-	KEYSTATE_RELEASED,
-	KEYSTATE_REPEAT
-} KeyState;
-
-/** Keycode */
-typedef u32 Key;
-
 /** Keyboard event handler function pointer */
 typedef void (*KeyEvent)(Key, KeyState);
 

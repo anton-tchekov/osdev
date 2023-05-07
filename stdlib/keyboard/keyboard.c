@@ -13,11 +13,11 @@
 static KeyEvent _event_key;
 
 /** Wrapper for key event handler */
-static void _event_key_handler(Key key, bool down)
+static void _event_key_handler(Key key, KeyState state)
 {
 	if(_event_key)
 	{
-		_event_key(key, down);
+		_event_key(key, state);
 	}
 
 	finish();
