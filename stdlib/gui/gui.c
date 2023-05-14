@@ -464,7 +464,7 @@ void window_event_key(Key key, i32 chr, KeyState state)
 	{
 		element_next();
 	}
-	else if(key == KEY_TAB | MOD_SHIFT)
+	else if(key == (KEY_TAB | MOD_SHIFT))
 	{
 		element_prev();
 	}

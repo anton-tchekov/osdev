@@ -402,6 +402,38 @@ static void keyboard_event(Key key, i32 chr, KeyState down)
 	_keys[key] = down;
 }
 
+static Key _convert_key(int scancode, int mod)
+{
+	Key key = scancode;
+
+	if(mod & (KMOD_LCTRL | KMOD_RCTRL))
+	{
+		key |= MOD_CTRL;
+	}
+
+	if(mod & (KMOD_LALT | KMOD_RALT))
+	{
+		key |= MOD_ALT;
+	}
+
+	if(mod & (KMOD_LGUI | KMOD_RGUI))
+	{
+		key |= MOD_OS;
+	}
+
+	if(mod & (KMOD_LSHIFT | KMOD_RSHIFT))
+	{
+		key |= MOD_SHIFT;
+	}
+
+	if(mod & (KMOD_MODE))
+	{
+		key |= MOD_ALT_GR;
+	}
+
+	return key;
+}
+
 /* --- PLATFORM --- */
 static bool platform_run(void)
 {
@@ -419,12 +451,14 @@ static bool platform_run(void)
 				return false;
 			}
 
-			keyboard_event(e.key.keysym.scancode | (e.key.keysym.mod << 16), 0,
+			keyboard_event(
+				_convert_key(e.key.keysym.scancode, e.key.keysym.mod), 0,
 				e.key.repeat ? KEYSTATE_REPEAT : KEYSTATE_PRESSED);
 			break;
 
 		case SDL_KEYUP:
-			keyboard_event(e.key.keysym.scancode | (e.key.keysym.mod << 16), 0,
+			keyboard_event(
+				_convert_key(e.key.keysym.scancode, e.key.keysym.mod), 0,
 				KEYSTATE_RELEASED);
 			break;
 		}

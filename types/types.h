@@ -95,6 +95,13 @@ typedef enum
 /** Keycode */
 typedef u32 Key;
 
+/** Keyboard Modifiers */
+#define MOD_SHIFT  (Key)(1 << 31)
+#define MOD_CTRL   (Key)(1 << 30)
+#define MOD_OS     (Key)(1 << 29)
+#define MOD_ALT    (Key)(1 << 28)
+#define MOD_ALT_GR (Key)(1 << 27)
+
 const char *keystate_string(KeyState state);
 
 #endif /* __TYPES_H__ */
