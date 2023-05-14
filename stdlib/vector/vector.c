@@ -37,7 +37,7 @@ void vector_init(Vector *vector, u32 element_size, u32 initial_capacity)
 
 void vector_destroy(Vector *vector)
 {
-	free(vector->Data);
+	memfree(vector->Data);
 }
 
 void vector_replace(
@@ -80,7 +80,7 @@ void vector_replace(
 			last_bytes);
 
 		/* Replace with new buffer */
-		free(vector->Data);
+		memfree(vector->Data);
 		vector->Data = new_data;
 	}
 	else

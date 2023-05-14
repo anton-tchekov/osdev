@@ -9,7 +9,8 @@
 #include <stdlib.h>
 #include <util.h>
 #include <status.h>
-#include <keys.h>
+#include <keyboard-shared.h>
+#include <layout.h>
 
 /* --- MEMORY --- */
 static u8 _memory[1024 * 1024];
@@ -435,164 +436,6 @@ static Key _convert_key(int scancode, int mod)
 	return key;
 }
 
-static i32 _key_to_ascii(Key k)
-{
-	Key nomods = MOD_REMOVE(k);
-
-/*
-	 = 45,
-	KEY_EQUALS = 46,
-	KEY_BACKSLASH = 49,
-	KEY_NONUSHASH = 50,
-	KEY_SEMICOLON = 51,
-	 = 52,
-	KEY_GRAVE = 53,
-*/
-
-	switch(nomods)
-	{
-		case KEY_TAB:
-			return '\t';
-
-		case KEY_BACKSPACE:
-			return '\b';
-
-		case KEY_RETURN:
-			return '\n';
-
-		case KEY_SPACE:
-			return ' ';
-	}
-
-	switch(k)
-	{
-		case (KEY_COMMA | MOD_SHIFT):
-			return ';';
-
-		case KEY_COMMA:
-			return ',';
-
-		case (KEY_PERIOD | MOD_SHIFT):
-			return ':';
-
-		case KEY_PERIOD:
-			return '.';
-
-		case (KEY_SLASH | MOD_SHIFT):
-			return '_';
-
-		case KEY_SLASH:
-			return '-';
-
-		case (KEY_BACKSLASH | MOD_SHIFT):
-			return '\'';
-
-		case KEY_BACKSLASH:
-			return '#';
-
-		case (KEY_RIGHTBRACKET | MOD_SHIFT):
-			return '*';
-
-		case (KEY_RIGHTBRACKET | MOD_ALT_GR):
-			return '~';
-
-		case KEY_RIGHTBRACKET:
-			return '+';
-
-		case (KEY_NONUSBACKSLASH | MOD_SHIFT):
-			return '>';
-
-		case (KEY_NONUSBACKSLASH | MOD_ALT_GR):
-			return '|';
-
-		case KEY_NONUSBACKSLASH:
-			return '<';
-
-		case (KEY_MINUS | MOD_SHIFT):
-			return '?';
-
-		case (KEY_MINUS | MOD_ALT_GR):
-			return '\\';
-
-		case KEY_MINUS:
-			return 'ß';
-
-		case (KEY_EQUALS | MOD_SHIFT):
-			return '`';
-
-		case (KEY_GRAVE | MOD_SHIFT):
-			return '°';
-
-		case KEY_GRAVE:
-			return '^';
-
-		case (KEY_APOSTROPHE | MOD_SHIFT):
-			return 'Ä';
-
-		case KEY_APOSTROPHE:
-			return 'ä';
-
-		case (KEY_SEMICOLON | MOD_SHIFT):
-			return 'Ö';
-
-		case KEY_SEMICOLON:
-			return 'ö';
-
-		case (KEY_LEFTBRACKET | MOD_SHIFT):
-			return 'Ü';
-
-		case KEY_LEFTBRACKET:
-			return 'ü';
-	}
-
-	if(nomods >= KEY_A && nomods <= KEY_Z)
-	{
-		i32 c = nomods - KEY_A + 'a';
-
-		if(c == 'z') { c = 'y'; }
-		else if(c == 'y') { c = 'z'; }
-
-		if(k & MOD_ALT_GR)
-		{
-			if(c == 'q') { return '@'; }
-			else if(c == 'e') { return '€'; }
-		}
-
-		if(k & MOD_SHIFT)
-		{
-			c = toupper(c);
-		}
-
-		return c;
-	}
-	else if(nomods >= KEY_1 && nomods <= KEY_0)
-	{
-		static const char *numbers = "1234567890";
-		static const i32 numbers_shift[] =
-			{ '!', '\"', '§', '$', '%', '&', '/', '(', ')', '=' };
-
-		static const i32 numbers_altgr[] =
-			{ 0, '²', '³', 0, 0, 0, '{', '[', ']', '}' };
-
-		u32 idx = nomods - KEY_1;
-
-		if(k & MOD_SHIFT)
-		{
-			return numbers_shift[idx];
-		}
-		else if(k & MOD_ALT_GR)
-		{
-			return numbers_altgr[idx];
-		}
-		else
-		{
-			return numbers[idx];
-		}
-	}
-
-	return 0;
-}
-
 /* --- PLATFORM --- */
 static bool platform_run(void)
 {
@@ -614,7 +457,7 @@ static bool platform_run(void)
 
 				key = _convert_key(e.key.keysym.scancode, e.key.keysym.mod);
 
-				keyboard_event(key, _key_to_ascii(key),
+				keyboard_event(key, key_to_codepoint(key),
 					e.key.repeat ? KEYSTATE_REPEAT : KEYSTATE_PRESSED);
 			}
 			break;
@@ -622,7 +465,7 @@ static bool platform_run(void)
 		case SDL_KEYUP:
 			{
 				Key key = _convert_key(e.key.keysym.scancode, e.key.keysym.mod);
-				keyboard_event(key, _key_to_ascii(key), KEYSTATE_RELEASED);
+				keyboard_event(key, key_to_codepoint(key), KEYSTATE_RELEASED);
 			}
 			break;
 		}

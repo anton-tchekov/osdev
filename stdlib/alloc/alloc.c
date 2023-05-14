@@ -29,11 +29,16 @@ static void *_chunk_data(ChunkHeader *header)
 	return (void *)((ptr)header + sizeof(ChunkHeader));
 }
 
+static ChunkHeader *_chunk_header(void *p)
+{
+	return (ChunkHeader *)((ptr)p - sizeof(ChunkHeader));
+}
+
 void memfree(void *p)
 {
 	ChunkHeader *cur, *prev, *header;
 
-	header = p - sizeof(ChunkHeader);
+	header = _chunk_header(p);
 
 	_used -= header->Size - sizeof(ChunkHeader);
 	_total -= header->Size;

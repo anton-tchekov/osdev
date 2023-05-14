@@ -256,6 +256,13 @@ typedef enum
 	KEY_APP2 = 284
 } Keys;
 
+/** Keyboard Modifiers */
+#define MOD_SHIFT  ((Key)(1 << 31))
+#define MOD_CTRL   ((Key)(1 << 30))
+#define MOD_OS     ((Key)(1 << 29))
+#define MOD_ALT    ((Key)(1 << 28))
+#define MOD_ALT_GR ((Key)(1 << 27))
+
 //! @endcond
 
 #endif /* __KEYS_H__ */

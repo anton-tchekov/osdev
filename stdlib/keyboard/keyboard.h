@@ -6,11 +6,11 @@
  * @brief   Keyboard input using event callbacks or polling
  */
 
-#ifndef __KEYBOARD_H__
-#define __KEYBOARD_H__
+#ifndef __KEYBOARD_USERSPACE_H__
+#define __KEYBOARD_USERSPACE_H__
 
 #include <types.h>
-#include <keys.h>
+#include <keyboard-shared.h>
 
 /** Keyboard event handler function pointer */
 typedef void (*KeyEvent)(Key, i32, KeyState);
@@ -36,4 +36,4 @@ bool keyboard_is_key_pressed(Key key);
  */
 void keyboard_register_event(KeyEvent event);
 
-#endif /* __KEYBOARD_H__ */
+#endif /* __KEYBOARD_USERSPACE_H__ */

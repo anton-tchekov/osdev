@@ -67,8 +67,8 @@ static void label_render(Label *l)
 /**
  * @brief Renders an button on the screen.
  *
- * @param b Pointer to the Button structure
- * @param sel A boolean value indicating if the input field is Selection or not
+ * @param b Pointer to the button structure
+ * @param sel A boolean value indicating if the input field is selected or not
  */
 static void button_render(Button *b, bool sel)
 {
@@ -95,8 +95,8 @@ static void button_render(Button *b, bool sel)
 /**
  * @brief Renders an input field on the screen.
  *
- * @param i Pointer to the Input structure
- * @param sel A boolean value indicating if the input field is Selection or not
+ * @param i Pointer to the input structure
+ * @param sel A boolean value indicating if the input field is selected or not
  */
 static void input_render(Input *i, bool sel)
 {
@@ -238,7 +238,7 @@ void input_clear(Input *i)
 /**
  * @brief Deletes the character to the left of the cursor
  *
- * @param i Pointer to the Input structure
+ * @param i Pointer to the input structure
  */
 static void input_backspace(Input *i)
 {
@@ -255,7 +255,7 @@ static void input_backspace(Input *i)
 /**
  * @brief Move input cursor one position to the left and render input.
  *
- * @param i Pointer to the Input structure
+ * @param i Pointer to the input structure
  */
 static void input_left(Input *i)
 {
@@ -269,7 +269,7 @@ static void input_left(Input *i)
 /**
  * @brief Move input cursor one position to the right and render input.
  *
- * @param i Pointer to the Input structure
+ * @param i Pointer to the input structure
  */
 static void input_right(Input *i)
 {
@@ -418,7 +418,7 @@ static void element_render(Element *e)
 }
 
 /**
- * @brief Checks if an element can be Selection
+ * @brief Checks if an element can be selected
  *
  * @param index Element index
  * @return Boolean true if the element is selectable

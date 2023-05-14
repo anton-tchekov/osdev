@@ -7,6 +7,7 @@ CFLAGS=\
 	-I platform/ \
 	-I emulator/ \
 	-I status/ \
+	-I keyboard/ \
 	-Wall -Wextra \
 	-Werror=uninitialized \
 	-Werror=return-type \
@@ -19,6 +20,8 @@ LDFLAGS=
 SRC=platform/simulator/platform.c \
 	emulator/emulator.c \
 	status/status.c \
+	keyboard/keyboard-shared.c \
+	keyboard/german.c \
 
 .PHONY: all cloc clean
 all:

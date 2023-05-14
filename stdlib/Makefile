@@ -22,6 +22,7 @@ INCLUDE=\
 	-I $(PREFIX)/../types/ \
 	-I $(PREFIX)/../utf8/ \
 	-I $(PREFIX)/../util/ \
+	-I $(PREFIX)/../keyboard/ \
 
 SRC=\
 	$(PREFIX)/algo/algo.c \
@@ -47,7 +48,6 @@ SRC=\
 	$(PREFIX)/vector/vector.c \
 	$(PREFIX)/../status/status.c \
 	$(PREFIX)/../utf8/utf8.c \
-	$(PREFIX)/../types/types.c \
 
 CFLAGS=\
 	-Wall \

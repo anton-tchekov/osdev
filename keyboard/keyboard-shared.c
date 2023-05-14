@@ -1,4 +1,11 @@
-#include "types.h"
+/**
+ * @file	keyboard-shared.c
+ * @author  Tim Gabrikowski, Anton Tchekov
+ * @version 0.1
+ * @date	14.05.2023
+ */
+
+#include <keyboard-shared.h>
 
 const char *keystate_string(KeyState state)
 {

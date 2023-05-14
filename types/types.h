@@ -46,11 +46,25 @@ typedef double f64;
 /** Pointer size integer */
 typedef uintptr_t ptr;
 
+/**
+ * @brief Get the smaller of two i32 numbers.
+ *
+ * @param a First number
+ * @param b Second number
+ * @return The smaller number
+ */
 static inline i32 i32_min(i32 a, i32 b)
 {
 	return (a < b) ? a : b;
 }
 
+/**
+ * @brief Get the larger of two i32 numbers.
+ *
+ * @param a First number
+ * @param b Second number
+ * @return The larger number
+ */
 static inline i32 i32_max(i32 a, i32 b)
 {
 	return (a > b) ? a : b;
@@ -93,27 +107,5 @@ typedef struct
 	/** Height */
 	i32 H;
 } Rectangle;
-
-/** Key State: Released (Key Up), Pressed (Key Down), Repeat (Held Down) */
-typedef enum
-{
-	KEYSTATE_RELEASED,
-	KEYSTATE_PRESSED,
-	KEYSTATE_REPEAT
-} KeyState;
-
-/** Keycode */
-typedef u32 Key;
-
-/** Keyboard Modifiers */
-#define MOD_SHIFT  ((Key)(1 << 31))
-#define MOD_CTRL   ((Key)(1 << 30))
-#define MOD_OS     ((Key)(1 << 29))
-#define MOD_ALT    ((Key)(1 << 28))
-#define MOD_ALT_GR ((Key)(1 << 27))
-
-#define MOD_REMOVE(key) (key & 0xFFFF)
-
-const char *keystate_string(KeyState state);
 
 #endif /* __TYPES_H__ */
