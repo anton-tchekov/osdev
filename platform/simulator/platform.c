@@ -386,11 +386,11 @@ static void os_update(void)
 
 static bool _keys[NUM_KEYS];
 
-static void keyboard_event(Key key, bool down)
+static void keyboard_event(Key key, i32 chr, KeyState down)
 {
 	if(_event_key_addr)
 	{
-		u32 args[2] = { key, down };
+		u32 args[3] = { key, chr, down };
 		emulator_call(&emu, _event_key_addr, args, ARRLEN(args), sizeof(_memory), 100000);
 	}
 
@@ -419,11 +419,13 @@ static bool platform_run(void)
 				return false;
 			}
 
-			keyboard_event(e.key.keysym.sym, true);
+			keyboard_event(e.key.keysym.scancode | (e.key.keysym.mod << 16), 0,
+				e.key.repeat ? KEYSTATE_REPEAT : KEYSTATE_PRESSED);
 			break;
 
 		case SDL_KEYUP:
-			keyboard_event(e.key.keysym.sym, false);
+			keyboard_event(e.key.keysym.scancode | (e.key.keysym.mod << 16), 0,
+				KEYSTATE_RELEASED);
 			break;
 		}
 	}

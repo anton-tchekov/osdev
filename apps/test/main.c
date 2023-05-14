@@ -8,7 +8,10 @@ void button_onclick(void)
 Button button = BUTTON_CREATE(10, 10, 100, 30, "Click Me!", button_onclick);
 Button button2 = BUTTON_CREATE(60, 300, 100, 30, "TEST 123 ...", NULL);
 
-Label label = LABEL_CREATE(10, 120, "Lorem ipsum dolor sit amet");
+
+Label label_left = LABEL_CREATE(GFX_WIDTH / 2, 120, LABEL_FLAG_LEFT, "Align Left");
+Label label_center = LABEL_CREATE(GFX_WIDTH / 2, 140, LABEL_FLAG_CENTER, "Align Center");
+Label label_right = LABEL_CREATE(GFX_WIDTH / 2, 160, LABEL_FLAG_RIGHT, "Align Right");
 
 char buf[50];
 
@@ -18,7 +21,9 @@ Input input = INPUT_CREATE(10, 200, 200, buf, sizeof(buf));
 void *elements[] =
 {
 	&button,
-	&label,
+	&label_left,
+	&label_center,
+	&label_right,
 	&input,
 	&button2,
 };
@@ -31,10 +36,10 @@ Window window =
 	.OnKey = NULL
 };
 
-void event_key(Key key, KeyState state)
+void event_key(Key key, i32 chr, KeyState state)
 {
 	debug_print("Key = %d, State = %s\n", key, keystate_string(state));
-	window_event_key(key, state);
+	window_event_key(key, chr, state);
 }
 
 void setup(void)

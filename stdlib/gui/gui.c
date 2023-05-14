@@ -10,11 +10,18 @@
 #include <font.h>
 #include <colors.h>
 #include <font_default.h>
+#include <ctype.h>
 
 /** Height of the title bar in pixels */
 #define TITLE_BAR_HEIGHT 20
 
 #define INPUT_PADDING     5
+
+#define TITLE_OFFSET_X    4
+#define TITLE_OFFSET_Y    4
+
+#define INPUT_BORDER      1
+#define INPUT_BORDER_SEL  2
 
 /** Pointer to the currently open window */
 static Window *_current_window;
@@ -35,9 +42,24 @@ typedef struct
  */
 static void label_render(Label *l)
 {
-	/* TODO: Centered and Right Aligned Text */
-	font_string(l->X, TITLE_BAR_HEIGHT + l->Y, l->Text,
-		font_default, COLOR_BLACK, COLOR_WHITE);
+	u32 align = l->Flags & LABEL_ALIGN_MASK;
+	if(align == LABEL_FLAG_CENTER)
+	{
+		font_string(l->X - font_string_width(l->Text, font_default) / 2,
+			TITLE_BAR_HEIGHT + l->Y, l->Text,
+			font_default, COLOR_BLACK, COLOR_WHITE);
+	}
+	else if(align == LABEL_FLAG_RIGHT)
+	{
+		font_string(l->X - font_string_width(l->Text, font_default),
+			TITLE_BAR_HEIGHT + l->Y, l->Text,
+			font_default, COLOR_BLACK, COLOR_WHITE);
+	}
+	else if(align == LABEL_FLAG_LEFT)
+	{
+		font_string(l->X, TITLE_BAR_HEIGHT + l->Y, l->Text,
+			font_default, COLOR_BLACK, COLOR_WHITE);
+	}
 }
 
 /* BUTTON */
@@ -86,7 +108,7 @@ static void input_render(Input *i, bool sel)
 		gfx_rect_border(i->X, TITLE_BAR_HEIGHT + i->Y, i->W, 20, 2, COLOR_RED);
 
 		/* Cursor */
-		gfx_rect(i->X + 5 +
+		gfx_rect(i->X + INPUT_PADDING +
 			font_string_width_len(i->Text, i->Position, font_default) - 1,
 			TITLE_BAR_HEIGHT + i->Y + 3, 1, 14, COLOR_BLACK);
 	}
@@ -95,7 +117,7 @@ static void input_render(Input *i, bool sel)
 		gfx_rect_border(i->X, y, i->W, 20, 1, COLOR_BLACK);
 	}
 
-	font_string(i->X + 5, y + 5, i->Text,
+	font_string(i->X + INPUT_PADDING, y + 5, i->Text,
 		font_default, COLOR_BLACK, COLOR_WHITE);
 }
 
@@ -222,16 +244,24 @@ static void input_right(Input *i)
  * @param i The input
  * @param c The character
  */
-static void input_event_key(Input *i, i32 c)
+static void input_event_key(Input *i, Key key, i32 chr)
 {
 	/* TODO: Text selection */
-	if(c >= 32 && c <= 126)
+	if(key == KEY_LEFT)
 	{
-		input_insert(i, c);
+		input_left(i);
 	}
-	else if(c == '\b')
+	else if(key == KEY_RIGHT)
+	{
+		input_right(i);
+	}
+	else if(key == KEY_BACKSPACE)
 	{
 		input_backspace(i);
+	}
+	else if(isprint(chr))
+	{
+		input_insert(i, chr);
 	}
 }
 
@@ -379,13 +409,14 @@ static void window_render(Window *window)
 	i32 i;
 
 	/* Title Bar */
-	gfx_rect(0, 0, GFX_WIDTH, 20, COLOR_BLUE);
+	gfx_rect(0, 0, GFX_WIDTH, TITLE_BAR_HEIGHT, COLOR_BLUE);
 
 	/* Background */
-	gfx_rect(0, TITLE_BAR_HEIGHT, GFX_WIDTH, GFX_HEIGHT - 20, COLOR_WHITE);
+	gfx_rect(0, TITLE_BAR_HEIGHT, GFX_WIDTH, GFX_HEIGHT - TITLE_BAR_HEIGHT,
+		COLOR_WHITE);
 
 	/* Title */
-	font_string(4, 4, window->Title,
+	font_string(TITLE_OFFSET_X, TITLE_OFFSET_Y, window->Title,
 		font_default, COLOR_WHITE, COLOR_BLUE);
 
 	for(i = 0; i < window->Count; ++i)
@@ -405,7 +436,7 @@ void window_open(Window *window)
 	window_render(window);
 }
 
-void window_event_key(Key key, KeyState state)
+void window_event_key(Key key, i32 chr, KeyState state)
 {
 	void *ce;
 	if(!_current_window)
@@ -415,7 +446,7 @@ void window_event_key(Key key, KeyState state)
 
 	if(_current_window->OnKey)
 	{
-		_current_window->OnKey(key, state);
+		_current_window->OnKey(key, chr, state);
 	}
 
 	if(_current_window->Selected < 0)
@@ -433,7 +464,7 @@ void window_event_key(Key key, KeyState state)
 	{
 		element_next();
 	}
-	else if(key == KEY_TAB)
+	else if(key == KEY_TAB | MOD_SHIFT)
 	{
 		element_prev();
 	}
@@ -453,19 +484,7 @@ void window_event_key(Key key, KeyState state)
 		}
 		else if(type == ELEMENT_TYPE_INPUT)
 		{
-			Input *input = (Input *)ce;
-			if(key == KEY_LEFT)
-			{
-				input_left(input);
-			}
-			else if(key == KEY_RIGHT)
-			{
-				input_right(input);
-			}
-			else
-			{
-				input_event_key(input, key);
-			}
+			input_event_key((Input *)ce, key, chr);
 		}
 	}
 }

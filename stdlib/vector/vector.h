@@ -1,6 +1,6 @@
 /**
  * @file    vector.h
- * @author  Tim Gabrikowski, Anton YTchekov
+ * @author  Tim Gabrikowski, Anton Tchekov
  * @version 0.1
  * @date    26.04.2023
  * @brief   Generic resizable array

@@ -20,6 +20,9 @@ typedef enum
 	ELEMENT_TYPE_LABEL
 } ElementType;
 
+/** Label align bitmask */
+#define LABEL_ALIGN_MASK  0x03
+
 /** Left align label (default) */
 #define LABEL_FLAG_LEFT   0x00
 
@@ -117,15 +120,16 @@ typedef struct
 	i32 Selected;
 
 	/** Window OnKey event */
-	void (*OnKey)(u32, u32);
+	void (*OnKey)(u32, Key, i32);
 } Window;
 
 /** Create a label element */
-#define LABEL_CREATE(_X, _Y, _TEXT) \
+#define LABEL_CREATE(_X, _Y, _FLAGS, _TEXT) \
 	{ \
 		.Type = ELEMENT_TYPE_LABEL, \
 		.X = _X, \
 		.Y = _Y, \
+		.Flags = _FLAGS, \
 		.Text = _TEXT, \
 	}
 
@@ -177,7 +181,7 @@ void window_open(Window *window);
  * @param key Key Code
  * @param state Key State
  */
-void window_event_key(Key key, KeyState state);
+void window_event_key(Key key, i32 chr, KeyState state);
 
 /**
  * @brief Clear an input field

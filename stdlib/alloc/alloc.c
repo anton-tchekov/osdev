@@ -2,203 +2,125 @@
  * @file    alloc.c
  * @author  Tim Gabrikowski, Anton Tchekov
  * @version 0.1
- * @date    23.04.2023
+ * @date    08.05.2023
  */
 
 #include <alloc.h>
 
+#define HEAP_START_ADDR   0x100000
+#define HEAP_SIZE         0x100000
+#define ALIGN                    4
+#define MIN_ALLOC                8
+
+typedef struct CHUNK_HEADER
+{
+	u32 Size;
+	struct CHUNK_HEADER *Next;
+} ChunkHeader;
+
+static ChunkHeader _first =
+{
+	.Size = 0,
+	.Next = (ChunkHeader *)HEAP_START_ADDR
+};
+
+static ChunkHeader *_free_list = &_first;
+
+static void _chunk_remove(ChunkHeader *prev, ChunkHeader *cur)
+{
+	prev->Next = cur->Next;
+}
+
+static void _chunk_insert(ChunkHeader *prev, ChunkHeader *item)
+{
+	item->Next = prev->Next;
+	prev->Next = item;
+}
+
+static void *_chunk_data(ChunkHeader *header)
+{
+	return (void *)((ptr)header + sizeof(ChunkHeader));
+}
+
 void free(void *p)
 {
-	/* TODO */
-	(void)p;
+	ChunkHeader *cur, *prev, *header;
+
+	header = p - sizeof(ChunkHeader);
+
+	for(prev = _free_list, cur = prev->Next;
+		cur; prev = cur, cur = cur->Next)
+	{
+		if(cur > header)
+		{
+			/* TODO: Merge chunks */
+			if(prev + prev->Size == header)
+			{
+				/* Prev and Freed are Adjacent */
+			}
+
+			if(header + header->Size == cur)
+			{
+				/* Freed and Cur are Adjacent */
+			}
+
+			/* Update Links */
+			_chunk_insert(prev, header);
+		}
+	}
+}
+
+void alloc_init(void)
+{
+	_free_list->Size = HEAP_SIZE;
+	_free_list->Next = NULL;
 }
 
 void *malloc(u32 size)
 {
-	/* TODO */
+	ChunkHeader *cur, *prev;
+
+	/* Minimum allocation size */
+	if(size < MIN_ALLOC)
+	{
+		size = MIN_ALLOC;
+	}
+
+	/* Ensure alignment */
+	size = ((size + ALIGN - 1) / ALIGN) * ALIGN;
+
+	/* Find free chunk */
+	for(prev = _free_list, cur = prev->Next;
+		cur; prev = cur, cur = cur->Next)
+	{
+		if(size == cur->Size - sizeof(ChunkHeader))
+		{
+			/* --- Perfect fit --- */
+			/* Remove chunk from free list */
+			_chunk_remove(prev, cur);
+			cur->Next = NULL;
+
+			/* Return pointer to data area */
+			return _chunk_data(cur);
+		}
+		else if(size < cur->Size - 2 * sizeof(ChunkHeader))
+		{
+			/* --- First fit --- */
+			/* Split chunk in two */
+			ChunkHeader *second = (ChunkHeader *)
+					((ptr)cur + cur->Size - size - sizeof(ChunkHeader));
+
+			second->Size = sizeof(ChunkHeader) + size;
+			second->Next = NULL;
+
+			/* Reduce the size of first part by the size of the second part */
+			cur->Size -= size + sizeof(ChunkHeader);
+
+			/* Return pointer to data area of second part */
+			return _chunk_data(second);
+		}
+	}
+
+	/* Very unlikely */
 	return NULL;
-	(void)size;
 }
-
-/*
-
-TODO: COPIED CODE - USE AS REFERENCE OR WRITE FROM SCRATCH
-
-#define HEAP_INIT_SIZE 0x10000
-#define HEAP_MAX_SIZE 0xF0000
-#define HEAP_MIN_SIZE 0x10000
-
-#define MIN_ALLOC_SZ 4
-
-#define MIN_WILDERNESS 0x2000
-#define MAX_WILDERNESS 0x1000000
-
-#define BIN_COUNT 9
-#define BIN_MAX_IDX (BIN_COUNT - 1)
-
-typedef unsigned int uint;
-
-typedef struct node_t {
-    uint hole;
-    uint size;
-    struct node_t* next;
-    struct node_t* prev;
-} node_t;
-
-typedef struct {
-    node_t *header;
-} footer_t;
-
-typedef struct {
-    node_t* head;
-} bin_t;
-
-typedef struct {
-    long start;
-    long end;
-    bin_t *bins[BIN_COUNT];
-} heap_t;
-
-static uint overhead = sizeof(footer_t) + sizeof(node_t);
-
-uint offset = 8;
-
-void init_heap(heap_t *heap, long start) {
-    node_t *init_region = (node_t *) start;
-    init_region->hole = 1;
-    init_region->size = (HEAP_INIT_SIZE) - sizeof(node_t) - sizeof(footer_t);
-
-    create_foot(init_region);
-
-    add_node(heap->bins[get_bin_index(init_region->size)], init_region);
-
-    heap->start = (void *) start;
-    heap->end   = (void *) (start + HEAP_INIT_SIZE);
-}
-
-void *alloc(heap_t *heap, size_t size) {
-    uint index = get_bin_index(size);
-    bin_t *temp = (bin_t *) heap->bins[index];
-    node_t *found = get_best_fit(temp, size);
-
-    while (found == NULL) {
-        if (index + 1 >= BIN_COUNT)
-            return NULL;
-
-        temp = heap->bins[++index];
-        found = get_best_fit(temp, size);
-    }
-
-    if ((found->size - size) > (overhead + MIN_ALLOC_SZ)) {
-        node_t *split = (node_t *) (((char *) found + sizeof(node_t) + sizeof(footer_t)) + size);
-        split->size = found->size - size - sizeof(node_t) - sizeof(footer_t);
-        split->hole = 1;
-
-        create_foot(split);
-
-        uint new_idx = get_bin_index(split->size);
-
-        add_node(heap->bins[new_idx], split);
-
-        found->size = size;
-        create_foot(found);
-    }
-
-    found->hole = 0;
-    remove_node(heap->bins[index], found);
-
-    node_t *wild = get_wilderness(heap);
-    if (wild->size < MIN_WILDERNESS) {
-        uint success = expand(heap, 0x1000);
-        if (success == 0) {
-            return NULL;
-        }
-    }
-    else if (wild->size > MAX_WILDERNESS) {
-        contract(heap, 0x1000);
-    }
-
-    found->prev = NULL;
-    found->next = NULL;
-    return &found->next;
-}
-
-void free(heap_t *heap, void *p) {
-    bin_t *list;
-    footer_t *new_foot, *old_foot;
-
-    node_t *head = (node_t *) ((char *) p - offset);
-    if (head == (node_t *) (uintptr_t) heap->start) {
-        head->hole = 1;
-        add_node(heap->bins[get_bin_index(head->size)], head);
-        return;
-    }
-
-    node_t *next = (node_t *) ((char *) get_foot(head) + sizeof(footer_t));
-    footer_t *f = (footer_t *) ((char *) head - sizeof(footer_t));
-    node_t *prev = f->header;
-
-    if (prev->hole) {
-        list = heap->bins[get_bin_index(prev->size)];
-        remove_node(list, prev);
-
-        prev->size += overhead + head->size;
-        new_foot = get_foot(head);
-        new_foot->header = prev;
-
-        head = prev;
-    }
-
-    if (next->hole) {
-        list = heap->bins[get_bin_index(next->size)];
-        remove_node(list, next);
-
-        head->size += overhead + next->size;
-
-        old_foot = get_foot(next);
-        old_foot->header = 0;
-        next->size = 0;
-        next->hole = 0;
-
-        new_foot = get_foot(head);
-        new_foot->header = head;
-    }
-
-    head->hole = 1;
-    add_node(heap->bins[get_bin_index(head->size)], head);
-}
-
-uint expand(heap_t *heap, size_t sz) {
-    return 0;
-}
-
-void contract(heap_t *heap, size_t sz) {
-    return;
-}
-
-uint get_bin_index(size_t sz) {
-    uint index = 0;
-    sz = sz < 4 ? 4 : sz;
-
-    while (sz >>= 1) index++;
-    index -= 2;
-
-    if (index > BIN_MAX_IDX) index = BIN_MAX_IDX;
-    return index;
-}
-
-void create_foot(node_t *head) {
-    footer_t *foot = get_foot(head);
-    foot->header = head;
-}
-
-footer_t *get_foot(node_t *node) {
-    return (footer_t *) ((char *) node + sizeof(node_t) + node->size);
-}
-
-node_t *get_wilderness(heap_t *heap) {
-    footer_t *wild_foot = (footer_t *) ((char *) heap->end - sizeof(footer_t));
-    return wild_foot->header;
-}
-
-*/

@@ -13,7 +13,7 @@
 #include <keys.h>
 
 /** Keyboard event handler function pointer */
-typedef void (*KeyEvent)(Key, KeyState);
+typedef void (*KeyEvent)(Key, i32, KeyState);
 
 /**
  * @brief Initialize keyboard, do NOT call this function.

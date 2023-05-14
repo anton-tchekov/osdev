@@ -43,6 +43,9 @@ typedef float f32;
 /** 64-bit float */
 typedef double f64;
 
+/** Pointer size integer */
+typedef uintptr_t ptr;
+
 /** DateTime struct containing date and time info */
 typedef struct
 {
