@@ -2,34 +2,30 @@
 #include <ubuntu_bold.h>
 
 Window window =
-{
-	.Title = "Test",
-	.OnKey = NULL
-};
+	{
+		.Title = "Test",
+		.OnKey = NULL};
 
 Rectangle colliderGoal =
-{
-	.X = 0,
-	.Y = 0,
-	.W = 20,
-	.H = 20
-};
+	{
+		.X = 0,
+		.Y = 0,
+		.W = 20,
+		.H = 20};
 
 Rectangle colliderKill =
-{
-	.X = 20,
-	.Y = 0,
-	.W = 1,
-	.H = 100
-};
+	{
+		.X = 20,
+		.Y = 0,
+		.W = 1,
+		.H = 100};
 
 Rectangle colliderPlayer =
-{
-	.X = 0,
-	.Y = 0,
-	.W = 10,
-	.H = 10
-};
+	{
+		.X = 0,
+		.Y = 0,
+		.W = 10,
+		.H = 10};
 
 /*
 Rectangle *colliders[] =
@@ -98,7 +94,7 @@ void setup(void)
 
 void loop(void)
 {
-	if(millis() - begin < DELAY)
+	if (millis() - begin < DELAY)
 	{
 		return;
 	}
@@ -108,28 +104,28 @@ void loop(void)
 	colliderPlayer.X = player_x;
 	colliderPlayer.Y = player_y;
 
-	if(overlap(&colliderKill, &colliderPlayer))
+	if (overlap(&colliderKill, &colliderPlayer))
 	{
 		font_string(50, 100, "YOU DEAD", ubuntu_bold, COLOR_RED, COLOR_BLACK);
 	}
 	else
 	{
-		if(keyboard_is_key_pressed(KEY_W))
+		if (keyboard_is_key_pressed(KEY_W))
 		{
 			player_y -= 10;
 		}
 
-		if(keyboard_is_key_pressed(KEY_S))
+		if (keyboard_is_key_pressed(KEY_S))
 		{
 			player_y += 10;
 		}
 
-		if(keyboard_is_key_pressed(KEY_A))
+		if (keyboard_is_key_pressed(KEY_A))
 		{
 			player_x -= 10;
 		}
 
-		if(keyboard_is_key_pressed(KEY_D))
+		if (keyboard_is_key_pressed(KEY_D))
 		{
 			player_x += 10;
 		}
@@ -138,7 +134,7 @@ void loop(void)
 		renderCollider(&colliderGoal, COLOR_GREEN);
 		renderCollider(&colliderKill, COLOR_RED);
 
-		if(overlap(&colliderGoal, &colliderPlayer) || won)
+		if (overlap(&colliderGoal, &colliderPlayer) || won)
 		{
 			renderPlayer(player_x, player_y, COLOR_BLUE);
 			won = true;

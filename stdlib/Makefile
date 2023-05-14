@@ -1,6 +1,7 @@
 INCLUDE=\
 	-I $(PREFIX)/algo/ \
 	-I $(PREFIX)/alloc/ \
+	-I $(PREFIX)/clipboard/ \
 	-I $(PREFIX)/ctype/ \
 	-I $(PREFIX)/event/ \
 	-I $(PREFIX)/font/ \
@@ -25,6 +26,7 @@ INCLUDE=\
 SRC=\
 	$(PREFIX)/algo/algo.c \
 	$(PREFIX)/alloc/alloc.c \
+	$(PREFIX)/clipboard/clipboard.c \
 	$(PREFIX)/ctype/ctype.c \
 	$(PREFIX)/event/event.c \
 	$(PREFIX)/font/font.c \
