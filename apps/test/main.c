@@ -38,7 +38,6 @@ Window window =
 
 void event_key(Key key, i32 chr, KeyState state)
 {
-	debug_print("Key = %d, State = %s\n", key, keystate_string(state));
 	window_event_key(key, chr, state);
 }
 

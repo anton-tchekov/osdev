@@ -9,6 +9,7 @@
 #include <stdlib.h>
 #include <util.h>
 #include <status.h>
+#include <keys.h>
 
 /* --- MEMORY --- */
 static u8 _memory[1024 * 1024];
@@ -411,9 +412,14 @@ static Key _convert_key(int scancode, int mod)
 		key |= MOD_CTRL;
 	}
 
-	if(mod & (KMOD_LALT | KMOD_RALT))
+	if(mod & KMOD_LALT)
 	{
 		key |= MOD_ALT;
+	}
+
+	if(mod & KMOD_RALT)
+	{
+		key |= MOD_ALT_GR;
 	}
 
 	if(mod & (KMOD_LGUI | KMOD_RGUI))
@@ -426,12 +432,165 @@ static Key _convert_key(int scancode, int mod)
 		key |= MOD_SHIFT;
 	}
 
-	if(mod & (KMOD_MODE))
+	return key;
+}
+
+static i32 _key_to_ascii(Key k)
+{
+	Key nomods = MOD_REMOVE(k);
+
+/*
+	 = 45,
+	KEY_EQUALS = 46,
+	KEY_BACKSLASH = 49,
+	KEY_NONUSHASH = 50,
+	KEY_SEMICOLON = 51,
+	 = 52,
+	KEY_GRAVE = 53,
+*/
+
+	switch(nomods)
 	{
-		key |= MOD_ALT_GR;
+		case KEY_TAB:
+			return '\t';
+
+		case KEY_BACKSPACE:
+			return '\b';
+
+		case KEY_RETURN:
+			return '\n';
+
+		case KEY_SPACE:
+			return ' ';
 	}
 
-	return key;
+	switch(k)
+	{
+		case (KEY_COMMA | MOD_SHIFT):
+			return ';';
+
+		case KEY_COMMA:
+			return ',';
+
+		case (KEY_PERIOD | MOD_SHIFT):
+			return ':';
+
+		case KEY_PERIOD:
+			return '.';
+
+		case (KEY_SLASH | MOD_SHIFT):
+			return '_';
+
+		case KEY_SLASH:
+			return '-';
+
+		case (KEY_BACKSLASH | MOD_SHIFT):
+			return '\'';
+
+		case KEY_BACKSLASH:
+			return '#';
+
+		case (KEY_RIGHTBRACKET | MOD_SHIFT):
+			return '*';
+
+		case (KEY_RIGHTBRACKET | MOD_ALT_GR):
+			return '~';
+
+		case KEY_RIGHTBRACKET:
+			return '+';
+
+		case (KEY_NONUSBACKSLASH | MOD_SHIFT):
+			return '>';
+
+		case (KEY_NONUSBACKSLASH | MOD_ALT_GR):
+			return '|';
+
+		case KEY_NONUSBACKSLASH:
+			return '<';
+
+		case (KEY_MINUS | MOD_SHIFT):
+			return '?';
+
+		case (KEY_MINUS | MOD_ALT_GR):
+			return '\\';
+
+		case KEY_MINUS:
+			return 'ß';
+
+		case (KEY_EQUALS | MOD_SHIFT):
+			return '`';
+
+		case (KEY_GRAVE | MOD_SHIFT):
+			return '°';
+
+		case KEY_GRAVE:
+			return '^';
+
+		case (KEY_APOSTROPHE | MOD_SHIFT):
+			return 'Ä';
+
+		case KEY_APOSTROPHE:
+			return 'ä';
+
+		case (KEY_SEMICOLON | MOD_SHIFT):
+			return 'Ö';
+
+		case KEY_SEMICOLON:
+			return 'ö';
+
+		case (KEY_LEFTBRACKET | MOD_SHIFT):
+			return 'Ü';
+
+		case KEY_LEFTBRACKET:
+			return 'ü';
+	}
+
+	if(nomods >= KEY_A && nomods <= KEY_Z)
+	{
+		i32 c = nomods - KEY_A + 'a';
+
+		if(c == 'z') { c = 'y'; }
+		else if(c == 'y') { c = 'z'; }
+
+		if(k & MOD_ALT_GR)
+		{
+			if(c == 'q') { return '@'; }
+			else if(c == 'e') { return '€'; }
+		}
+
+		if(k & MOD_SHIFT)
+		{
+			c = toupper(c);
+		}
+
+		return c;
+	}
+	else if(nomods >= KEY_1 && nomods <= KEY_0)
+	{
+		static const char *numbers = "1234567890";
+		static const i32 numbers_shift[] =
+			{ '!', '\"', '§', '$', '%', '&', '/', '(', ')', '=' };
+
+		static const i32 numbers_altgr[] =
+			{ 0, '²', '³', 0, 0, 0, '{', '[', ']', '}' };
+
+		u32 idx = nomods - KEY_1;
+
+		if(k & MOD_SHIFT)
+		{
+			return numbers_shift[idx];
+		}
+		else if(k & MOD_ALT_GR)
+		{
+			return numbers_altgr[idx];
+		}
+		else
+		{
+			return numbers[idx];
+		}
+	}
+
+	return 0;
 }
 
 /* --- PLATFORM --- */
@@ -446,20 +605,25 @@ static bool platform_run(void)
 			return false;
 
 		case SDL_KEYDOWN:
-			if(e.key.keysym.sym == SDLK_ESCAPE)
 			{
-				return false;
-			}
+				Key key;
+				if(e.key.keysym.sym == SDLK_ESCAPE)
+				{
+					return false;
+				}
 
-			keyboard_event(
-				_convert_key(e.key.keysym.scancode, e.key.keysym.mod), 0,
-				e.key.repeat ? KEYSTATE_REPEAT : KEYSTATE_PRESSED);
+				key = _convert_key(e.key.keysym.scancode, e.key.keysym.mod);
+
+				keyboard_event(key, _key_to_ascii(key),
+					e.key.repeat ? KEYSTATE_REPEAT : KEYSTATE_PRESSED);
+			}
 			break;
 
 		case SDL_KEYUP:
-			keyboard_event(
-				_convert_key(e.key.keysym.scancode, e.key.keysym.mod), 0,
-				KEYSTATE_RELEASED);
+			{
+				Key key = _convert_key(e.key.keysym.scancode, e.key.keysym.mod);
+				keyboard_event(key, _key_to_ascii(key), KEYSTATE_RELEASED);
+			}
 			break;
 		}
 	}
