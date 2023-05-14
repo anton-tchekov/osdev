@@ -94,6 +94,9 @@ typedef struct
 	/** Cursor position */
 	i32 Position;
 
+	/** Selection start */
+	i32 Selection;
+
 	/** Current text length */
 	i32 Length;
 
@@ -153,6 +156,7 @@ typedef struct
 		.Y = _Y, \
 		.W = _W, \
 		.Position = 0, \
+		.Selection = -1, \
 		.Length = 0, \
 		.Size = _SIZE, \
 		.Text = _TEXT, \

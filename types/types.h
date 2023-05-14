@@ -46,6 +46,16 @@ typedef double f64;
 /** Pointer size integer */
 typedef uintptr_t ptr;
 
+static inline i32 i32_min(i32 a, i32 b)
+{
+	return (a < b) ? a : b;
+}
+
+static inline i32 i32_max(i32 a, i32 b)
+{
+	return (a > b) ? a : b;
+}
+
 /** DateTime struct containing date and time info */
 typedef struct
 {

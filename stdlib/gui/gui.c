@@ -68,7 +68,7 @@ static void label_render(Label *l)
  * @brief Renders an button on the screen.
  *
  * @param b Pointer to the Button structure
- * @param sel A boolean value indicating if the input field is selected or not
+ * @param sel A boolean value indicating if the input field is Selection or not
  */
 static void button_render(Button *b, bool sel)
 {
@@ -96,7 +96,7 @@ static void button_render(Button *b, bool sel)
  * @brief Renders an input field on the screen.
  *
  * @param i Pointer to the Input structure
- * @param sel A boolean value indicating if the input field is selected or not
+ * @param sel A boolean value indicating if the input field is Selection or not
  */
 static void input_render(Input *i, bool sel)
 {
@@ -106,19 +106,61 @@ static void input_render(Input *i, bool sel)
 	if(sel)
 	{
 		gfx_rect_border(i->X, TITLE_BAR_HEIGHT + i->Y, i->W, 20, 2, COLOR_RED);
-
-		/* Cursor */
-		gfx_rect(i->X + INPUT_PADDING +
-			font_string_width_len(i->Text, i->Position, font_default) - 1,
-			TITLE_BAR_HEIGHT + i->Y + 3, 1, 14, COLOR_BLACK);
 	}
 	else
 	{
 		gfx_rect_border(i->X, y, i->W, 20, 1, COLOR_BLACK);
 	}
 
-	font_string(i->X + INPUT_PADDING, y + 5, i->Text,
-		font_default, COLOR_BLACK, COLOR_WHITE);
+	if(i->Selection < 0)
+	{
+		font_string(i->X + INPUT_PADDING, y + 5, i->Text,
+			font_default, COLOR_BLACK, COLOR_WHITE);
+	}
+	else
+	{
+		i32 sel_start, sel_len, sel_x;
+
+		sel_start = i32_min(i->Selection, i->Position);
+		sel_len = i32_max(i->Selection, i->Position) - sel_start;
+
+		/* Before selection */
+		font_string_len(i->X + INPUT_PADDING,
+			y + 5,
+			i->Text, sel_start,
+			font_default, COLOR_BLACK, COLOR_WHITE);
+
+		/* Selection */
+		sel_x = font_string_width_len(i->Text, sel_start, font_default);
+
+		gfx_rect(i->X + INPUT_PADDING +
+			sel_x,
+			y + 5,
+			font_string_width_len(i->Text + sel_start, sel_len, font_default),
+			11,
+			COLOR_ORANGE);
+
+		font_string_len(i->X + INPUT_PADDING +
+			sel_x,
+			y + 5,
+			i->Text + sel_start, sel_len,
+			font_default, COLOR_BLACK, COLOR_ORANGE);
+
+		/* After selection */
+		font_string(i->X + INPUT_PADDING +
+			font_string_width_len(i->Text, sel_start + sel_len, font_default),
+			y + 5,
+			i->Text + sel_start + sel_len,
+			font_default, COLOR_BLACK, COLOR_WHITE);
+	}
+
+	if(sel)
+	{
+		/* Cursor */
+		gfx_rect(i->X + INPUT_PADDING +
+			font_string_width_len(i->Text, i->Position, font_default) - 1,
+			TITLE_BAR_HEIGHT + i->Y + 3, 1, 14, COLOR_BLACK);
+	}
 }
 
 /**
@@ -181,7 +223,7 @@ static void input_insert(Input *i, i32 c)
 	{
 		input_grow(i, 1);
 		i->Text[i->Position++] = c;
-		input_render(i, 1);
+		input_render(i, true);
 	}
 }
 
@@ -190,7 +232,7 @@ void input_clear(Input *i)
 	i->Length = 0;
 	i->Position = 0;
 	i->Text[0] = '\0';
-	input_render(i, 1);
+	input_render(i, true);
 }
 
 /**
@@ -206,7 +248,7 @@ static void input_backspace(Input *i)
 		--i->Position;
 		--i->Length;
 		i->Text[i->Length] = '\0';
-		input_render(i, 1);
+		input_render(i, true);
 	}
 }
 
@@ -220,7 +262,7 @@ static void input_left(Input *i)
 	if(i->Position > 0)
 	{
 		--i->Position;
-		input_render(i, 1);
+		input_render(i, true);
 	}
 }
 
@@ -234,7 +276,15 @@ static void input_right(Input *i)
 	if(i->Position < i->Length)
 	{
 		++i->Position;
-		input_render(i, 1);
+		input_render(i, true);
+	}
+}
+
+static void input_selection_start(Input *i)
+{
+	if(i->Selection < 0)
+	{
+		i->Selection = i->Position;
 	}
 }
 
@@ -247,17 +297,81 @@ static void input_right(Input *i)
 static void input_event_key(Input *i, Key key, i32 chr)
 {
 	/* TODO: Text selection */
-	if(key == KEY_LEFT)
+	if(key == KEY_HOME)
 	{
+		i->Selection = -1;
+		i->Position = 0;
+		input_render(i, true);
+	}
+	else if(key == (KEY_HOME | MOD_SHIFT))
+	{
+		input_selection_start(i);
+		i->Position = 0;
+		input_render(i, true);
+	}
+	else if(key == KEY_END)
+	{
+		i->Selection = -1;
+		i->Position = i->Length;
+		input_render(i, true);
+	}
+	else if(key == (KEY_END | MOD_SHIFT))
+	{
+		input_selection_start(i);
+		input_left(i);
+	}
+	else if(key == KEY_LEFT)
+	{
+		if(i->Selection >= 0)
+		{
+			i->Selection = -1;
+			input_render(i, true);
+		}
+		else
+		{
+			input_left(i);
+		}
+	}
+	else if(key == (KEY_LEFT | MOD_SHIFT))
+	{
+		input_selection_start(i);
 		input_left(i);
 	}
 	else if(key == KEY_RIGHT)
 	{
+		if(i->Selection >= 0)
+		{
+			i->Selection = -1;
+			input_render(i, true);
+		}
+		else
+		{
+			input_right(i);
+		}
+	}
+	else if(key == (KEY_RIGHT | MOD_SHIFT))
+	{
+		input_selection_start(i);
 		input_right(i);
 	}
 	else if(key == KEY_BACKSPACE)
 	{
 		input_backspace(i);
+	}
+	else if(key == (KEY_A | MOD_CTRL))
+	{
+		i->Selection = 0;
+		i->Position = i->Length;
+		input_render(i, true);
+	}
+	else if(key == (KEY_C | MOD_CTRL))
+	{
+	}
+	else if(key == (KEY_X | MOD_CTRL))
+	{
+	}
+	else if(key == (KEY_V | MOD_CTRL))
+	{
 	}
 	else if(isprint(chr))
 	{
@@ -304,7 +418,7 @@ static void element_render(Element *e)
 }
 
 /**
- * @brief Checks if an element can be selected
+ * @brief Checks if an element can be Selection
  *
  * @param index Element index
  * @return Boolean true if the element is selectable
