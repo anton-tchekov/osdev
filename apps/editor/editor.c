@@ -19,7 +19,7 @@ void editor_init(Editor *ed)
 	ed->PageY = 0;
 	ed->PageX = 0;
 
-	ed->Screen = malloc((ed->PageW + 1 + ed->LineNumberDigits) * ed->PageH);
+	ed->Screen = memalloc((ed->PageW + 1 + ed->LineNumberDigits) * ed->PageH);
 }
 
 /* --- EDITING --- */

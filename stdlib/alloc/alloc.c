@@ -7,10 +7,8 @@
 
 #include <alloc.h>
 
-#define HEAP_START_ADDR   0x100000
-#define HEAP_SIZE         0x100000
-#define ALIGN                    4
-#define MIN_ALLOC                8
+#define ALIGN sizeof(ptr)
+#define MIN_ALLOC 8
 
 typedef struct CHUNK_HEADER
 {
@@ -18,70 +16,85 @@ typedef struct CHUNK_HEADER
 	struct CHUNK_HEADER *Next;
 } ChunkHeader;
 
-static ChunkHeader _first =
-{
-	.Size = 0,
-	.Next = (ChunkHeader *)HEAP_START_ADDR
-};
+static u32 _used, _total, _size;
+
+static ChunkHeader _first;
 
 static ChunkHeader *_free_list = &_first;
 
-static void _chunk_remove(ChunkHeader *prev, ChunkHeader *cur)
-{
-	prev->Next = cur->Next;
-}
-
-static void _chunk_insert(ChunkHeader *prev, ChunkHeader *item)
-{
-	item->Next = prev->Next;
-	prev->Next = item;
-}
+static ptr _heap_start;
 
 static void *_chunk_data(ChunkHeader *header)
 {
 	return (void *)((ptr)header + sizeof(ChunkHeader));
 }
 
-void free(void *p)
+void memfree(void *p)
 {
 	ChunkHeader *cur, *prev, *header;
 
 	header = p - sizeof(ChunkHeader);
 
-	for(prev = _free_list, cur = prev->Next;
-		cur; prev = cur, cur = cur->Next)
+	_used -= header->Size - sizeof(ChunkHeader);
+	_total -= header->Size;
+
+	for (prev = _free_list, cur = prev->Next;
+		 cur; prev = cur, cur = cur->Next)
 	{
-		if(cur > header)
+		if (cur > header)
 		{
-			/* TODO: Merge chunks */
-			if(prev + prev->Size == header)
+			/* Merge chunks */
+			bool mergePrev = ((ptr)prev + prev->Size == (ptr)header);
+			bool mergeNext = ((ptr)header + header->Size == (ptr)cur);
+
+			if (mergeNext && mergePrev)
+			{
+				prev->Next = cur->Next;
+				prev->Size += header->Size + cur->Size;
+			}
+			else if (mergePrev)
 			{
 				/* Prev and Freed are Adjacent */
+				prev->Size += header->Size;
 			}
-
-			if(header + header->Size == cur)
+			else if (mergeNext)
 			{
 				/* Freed and Cur are Adjacent */
+				header->Size += cur->Size;
+				header->Next = cur->Next;
+				prev->Next = header;
 			}
-
-			/* Update Links */
-			_chunk_insert(prev, header);
+			else
+			{
+				/* Update Links */
+				header->Next = prev->Next;
+				prev->Next = header;
+			}
+			return;
 		}
 	}
 }
 
-void alloc_init(void)
+void memalloc_init(ptr heap_start, i32 size)
 {
-	_free_list->Size = HEAP_SIZE;
-	_free_list->Next = NULL;
+	_first.Next = (ChunkHeader *)heap_start;
+	_first.Next->Size = size;
+	_first.Next->Next = NULL;
+	_heap_start = heap_start;
+	_size = size;
 }
 
-void *malloc(u32 size)
+void *memalloc(u32 size)
 {
 	ChunkHeader *cur, *prev;
 
+	if (size == 0)
+	{
+		return NULL;
+	}
+
 	/* Minimum allocation size */
-	if(size < MIN_ALLOC)
+	if (size < MIN_ALLOC)
 	{
 		size = MIN_ALLOC;
 	}
@@ -89,38 +102,78 @@ void *malloc(u32 size)
 	/* Ensure alignment */
 	size = ((size + ALIGN - 1) / ALIGN) * ALIGN;
 
+	_used += size;
+	_total += size + sizeof(ChunkHeader);
+
 	/* Find free chunk */
-	for(prev = _free_list, cur = prev->Next;
-		cur; prev = cur, cur = cur->Next)
+	for (prev = &_first, cur = prev->Next;
+		 cur; prev = cur, cur = cur->Next)
 	{
-		if(size == cur->Size - sizeof(ChunkHeader))
+		if (size == cur->Size - sizeof(ChunkHeader))
 		{
 			/* --- Perfect fit --- */
 			/* Remove chunk from free list */
-			_chunk_remove(prev, cur);
+			prev->Next = cur->Next;
 			cur->Next = NULL;
 
 			/* Return pointer to data area */
 			return _chunk_data(cur);
 		}
-		else if(size < cur->Size - 2 * sizeof(ChunkHeader))
+		else if (size < cur->Size - 2 * sizeof(ChunkHeader))
 		{
 			/* --- First fit --- */
 			/* Split chunk in two */
-			ChunkHeader *second = (ChunkHeader *)
-					((ptr)cur + cur->Size - size - sizeof(ChunkHeader));
+			ChunkHeader *second = (ChunkHeader *)((ptr)cur + size + sizeof(ChunkHeader));
 
-			second->Size = sizeof(ChunkHeader) + size;
-			second->Next = NULL;
+			second->Size = cur->Size - sizeof(ChunkHeader) - size;
+			second->Next = cur->Next;
+			prev->Next = second;
 
 			/* Reduce the size of first part by the size of the second part */
-			cur->Size -= size + sizeof(ChunkHeader);
+			cur->Size = size + sizeof(ChunkHeader);
 
 			/* Return pointer to data area of second part */
-			return _chunk_data(second);
+			return _chunk_data(cur);
 		}
 	}
 
 	/* Very unlikely */
 	return NULL;
 }
+
+#ifdef TEST
+
+#include <stdio.h>
+
+void print_chain(void)
+{
+	i32 i = 0;
+	ChunkHeader *cur;
+	printf("| Block | Adr Hex    | Adr Dec  | Size Hex | Size Dec |\n");
+	for (cur = _first.Next, i = 1;
+		 cur; cur = cur->Next, i++)
+	{
+		ptr offset = (ptr)cur - (ptr)_heap_start;
+		printf("| #%04d | 0x%08X | %08d | 0x%06X | %08d |\n", i, offset, offset, cur->Size, cur->Size);
+	}
+}
+
+void print_stats(void)
+{
+	f32 percent_used = ((f32)_used / (f32)_size) * 100;
+	f32 percent_free = (((f32)_size - (f32)_total) / _size) * 100;
+	f32 wasted = ((f32)_total - (f32)_used);
+	f32 percent_wasted = (wasted / (f32)_total) * 100;
+	f32 wu_ratio = (f32)_used / wasted;
+	printf(
+		"data stored(used) = %d\n"
+		"total stored (used + header) = %d\n"
+		"free = %f\n"
+		"total available = %d\n"
+		"percent used of all = %f\n"
+		"percent wasted of all = %f\n"
+		"used per waste factor = x%f\n",
+		_used, _total, percent_free, _size, percent_used, percent_wasted, wu_ratio);
+}
+
+#endif /* TEST */

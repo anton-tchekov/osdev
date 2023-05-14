@@ -32,7 +32,7 @@ void vector_init(Vector *vector, u32 element_size, u32 initial_capacity)
 	vector->ElementSize = element_size;
 	vector->Capacity = initial_capacity;
 	vector->Length = 0;
-	vector->Data = malloc(element_size * initial_capacity);
+	vector->Data = memalloc(element_size * initial_capacity);
 }
 
 void vector_destroy(Vector *vector)
@@ -66,7 +66,7 @@ void vector_replace(
 		vector->Capacity = new_capacity;
 
 		/* Create new buffer */
-		new_data = malloc(new_capacity * element_size);
+		new_data = memalloc(new_capacity * element_size);
 
 		/* Copy first part from previous buffer */
 		memcpy(new_data, vector->Data, prev_bytes);

@@ -12,6 +12,11 @@
 #include <types.h>
 
 /**
+ * @brief Initialize the memory allocator
+*/
+void memalloc_init(ptr heap_start, i32 size);
+
+/**
  * @brief Request a block of memory of `size` bytes
  *        This function will always return a valid pointer (never NULL).
  *        If the memory could not be allocated, the program will panic.
@@ -19,13 +24,16 @@
  * @param size Number of bytes
  * @return Pointer to allocated memory
  */
-void *malloc(u32 size);
+void *memalloc(u32 size);
 
 /**
- * @brief Frees memory previously allocated with `malloc`
+ * @brief Frees memory previously allocated with `memalloc`
  *
  * @param p Pointer
  */
-void free(void *p);
+void memfree(void *p);
+
+void print_chain(void);
+void print_stats(void);
 
 #endif /* __ALLOC_H__ */
