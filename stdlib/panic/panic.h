@@ -29,7 +29,7 @@ void panic(const char *msg, const char *file, u32 line);
  *
  * @param msg Error message
  */
-#define PANIC(msg) panic(msg, __FILE__, __LINE__)
+#define PANIC(msg) panic((msg), __FILE__, __LINE__)
 
 /**
  * @brief If the condition is false, a PANIC is triggered.
@@ -37,6 +37,6 @@ void panic(const char *msg, const char *file, u32 line);
  * @param cond Boolean condition
  * @param msg Error message
  */
-#define ASSERT(cond, msg) do { if(!cond) { PANIC(msg); } } while(0)
+#define ASSERT(cond, msg) do { if(!(cond)) { PANIC((msg)); } } while(0)
 
 #endif /* __PANIC_H__ */

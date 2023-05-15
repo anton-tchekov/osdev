@@ -43,6 +43,16 @@ typedef struct
 void vector_init(Vector *vector, u32 element_size, u32 initial_capacity);
 
 /**
+ * @brief Clears (empties) the vector
+ *
+ * @param vector The vector
+ */
+static inline void vector_clear(Vector *vector)
+{
+	vector->Length = 0;
+}
+
+/**
  * @brief Frees the internal memory buffer of the vector
  *
  * @param vector The vector
@@ -73,6 +83,17 @@ void vector_replace(
 static inline void *vector_get(Vector *vector, u32 index)
 {
 	return (void *)((u8 *)vector->Data + vector->ElementSize * index);
+}
+
+/**
+ * @brief Get a pointer to the internal data area
+ *
+ * @param vector The Vector
+ * @return Pointer to the content
+ */
+static inline void *vector_data(Vector *vector)
+{
+	return vector->Data;
 }
 
 /**

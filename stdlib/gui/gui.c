@@ -15,13 +15,25 @@
 /** Height of the title bar in pixels */
 #define TITLE_BAR_HEIGHT 20
 
-#define INPUT_PADDING     5
+#define INPUT_HEIGHT     20
+
+#define INPUT_PADDING_X   5
+#define INPUT_PADDING_Y   5
 
 #define TITLE_OFFSET_X    4
 #define TITLE_OFFSET_Y    4
 
-#define INPUT_BORDER      1
-#define INPUT_BORDER_SEL  2
+#define BORDER_SIZE       1
+#define BORDER_SIZE_SEL   2
+
+#define COLOR_SELECTION    COLOR_STEEL_BLUE
+#define CURSOR_WIDTH      1
+#define CURSOR_HEIGHT    14
+#define CURSOR_OFFSET    -1
+
+#define INPUT_CAPACITY   16
+
+#define NO_SELECTION     -1
 
 /** Pointer to the currently open window */
 static Window *_current_window;
@@ -45,20 +57,33 @@ static void label_render(Label *l)
 	u32 align = l->Flags & LABEL_ALIGN_MASK;
 	if(align == LABEL_FLAG_CENTER)
 	{
-		font_string(l->X - font_string_width(l->Text, font_default) / 2,
-			TITLE_BAR_HEIGHT + l->Y, l->Text,
-			font_default, COLOR_BLACK, COLOR_WHITE);
+		font_string(
+			l->X - font_string_width(l->Text, font_default) / 2,
+			TITLE_BAR_HEIGHT + l->Y,
+			l->Text,
+			font_default,
+			COLOR_BLACK,
+			COLOR_WHITE);
 	}
 	else if(align == LABEL_FLAG_RIGHT)
 	{
-		font_string(l->X - font_string_width(l->Text, font_default),
-			TITLE_BAR_HEIGHT + l->Y, l->Text,
-			font_default, COLOR_BLACK, COLOR_WHITE);
+		font_string(
+			l->X - font_string_width(l->Text, font_default),
+			TITLE_BAR_HEIGHT + l->Y,
+			l->Text,
+			font_default,
+			COLOR_BLACK,
+			COLOR_WHITE);
 	}
 	else if(align == LABEL_FLAG_LEFT)
 	{
-		font_string(l->X, TITLE_BAR_HEIGHT + l->Y, l->Text,
-			font_default, COLOR_BLACK, COLOR_WHITE);
+		font_string(
+			l->X,
+			TITLE_BAR_HEIGHT + l->Y,
+			l->Text,
+			font_default,
+			COLOR_BLACK,
+			COLOR_WHITE);
 	}
 }
 
@@ -78,11 +103,11 @@ static void button_render(Button *b, bool sel)
 	gfx_rect(b->X, y, b->W, b->H, COLOR_WHITE);
 	if(sel)
 	{
-		gfx_rect_border(b->X, y, b->W, b->H, 2, COLOR_RED);
+		gfx_rect_border(b->X, y, b->W, b->H, BORDER_SIZE_SEL, COLOR_RED);
 	}
 	else
 	{
-		gfx_rect_border(b->X, y, b->W, b->H, 1, COLOR_BLACK);
+		gfx_rect_border(b->X, y, b->W, b->H, BORDER_SIZE, COLOR_BLACK);
 	}
 
 	x = b->X + b->W / 2 - font_string_width(b->Text, font_default) / 2;
@@ -102,19 +127,28 @@ static void input_render(Input *i, bool sel)
 {
 	i32 y = TITLE_BAR_HEIGHT + i->Y;
 
-	gfx_rect(i->X + 1, TITLE_BAR_HEIGHT + i->Y + 1, i->W - 2, 20 - 2, COLOR_WHITE);
+	const char *text = vector_data(&i->Text);
+
+	gfx_rect(i->X + BORDER_SIZE,
+		TITLE_BAR_HEIGHT + i->Y + BORDER_SIZE,
+		i->W - 2 * BORDER_SIZE,
+		INPUT_HEIGHT - 2 + BORDER_SIZE,
+		COLOR_WHITE);
+
 	if(sel)
 	{
-		gfx_rect_border(i->X, TITLE_BAR_HEIGHT + i->Y, i->W, 20, 2, COLOR_RED);
+		gfx_rect_border(i->X, TITLE_BAR_HEIGHT + i->Y,
+			i->W, INPUT_HEIGHT, BORDER_SIZE_SEL, COLOR_RED);
 	}
 	else
 	{
-		gfx_rect_border(i->X, y, i->W, 20, 1, COLOR_BLACK);
+		gfx_rect_border(i->X, y, i->W, INPUT_HEIGHT, BORDER_SIZE, COLOR_BLACK);
 	}
 
 	if(i->Selection < 0)
 	{
-		font_string(i->X + INPUT_PADDING, y + 5, i->Text,
+		font_string_len(i->X + INPUT_PADDING_X, y + INPUT_PADDING_Y,
+			text, vector_len(&i->Text),
 			font_default, COLOR_BLACK, COLOR_WHITE);
 	}
 	else
@@ -125,81 +159,40 @@ static void input_render(Input *i, bool sel)
 		sel_len = i32_max(i->Selection, i->Position) - sel_start;
 
 		/* Before selection */
-		font_string_len(i->X + INPUT_PADDING,
-			y + 5,
-			i->Text, sel_start,
+		font_string_len(i->X + INPUT_PADDING_X,
+			y + INPUT_PADDING_Y,
+			text, sel_start,
 			font_default, COLOR_BLACK, COLOR_WHITE);
 
 		/* Selection */
-		sel_x = font_string_width_len(i->Text, sel_start, font_default);
+		sel_x = font_string_width_len(text, sel_start, font_default);
 
-		gfx_rect(i->X + INPUT_PADDING +
-			sel_x,
-			y + 5,
-			font_string_width_len(i->Text + sel_start, sel_len, font_default),
-			11,
-			COLOR_ORANGE);
+		gfx_rect(i->X + INPUT_PADDING_X + sel_x, y + 3,
+			font_string_width_len(text + sel_start, sel_len, font_default),
+			CURSOR_HEIGHT, COLOR_SELECTION);
 
-		font_string_len(i->X + INPUT_PADDING +
-			sel_x,
-			y + 5,
-			i->Text + sel_start, sel_len,
-			font_default, COLOR_BLACK, COLOR_ORANGE);
+		font_string_len(i->X + INPUT_PADDING_X + sel_x, y + INPUT_PADDING_Y,
+			text + sel_start, sel_len,
+			font_default, COLOR_BLACK, COLOR_SELECTION);
 
 		/* After selection */
-		font_string(i->X + INPUT_PADDING +
-			font_string_width_len(i->Text, sel_start + sel_len, font_default),
-			y + 5,
-			i->Text + sel_start + sel_len,
+		font_string_len(i->X + INPUT_PADDING_X +
+			font_string_width_len(text, sel_start + sel_len, font_default),
+			y + INPUT_PADDING_Y,
+			text + sel_start + sel_len,
+			vector_len(&i->Text) - sel_start - sel_len,
 			font_default, COLOR_BLACK, COLOR_WHITE);
 	}
 
 	if(sel)
 	{
 		/* Cursor */
-		gfx_rect(i->X + INPUT_PADDING +
-			font_string_width_len(i->Text, i->Position, font_default) - 1,
-			TITLE_BAR_HEIGHT + i->Y + 3, 1, 14, COLOR_BLACK);
-	}
-}
-
-/**
- * @brief Increases the size of an input field's buffer by a specified amount.
- *
- * @param i Pointer to the Input structure
- * @param n The number of characters by which to grow the input buffer
- */
-static void input_grow(Input *i, i32 n)
-{
-	if(i->Text[i->Position])
-	{
-		i32 j;
-		for(j = i->Length - 1; j >= i->Position; --j)
-		{
-			i->Text[j + n] = i->Text[j];
-		}
-	}
-
-	i->Length += n;
-	i->Text[i->Length] = '\0';
-}
-
-/**
- * @brief Decreases the size of an input field's buffer by a specified amount,
- *        removing characters to the left of the cursor position.
- *
- * @param i Pointer to the Input structure
- * @param n The number of characters by which to shrink the input buffer
- */
-static void input_shrink(Input *i, i32 n)
-{
-	if(i->Text[i->Position])
-	{
-		i32 j = i->Position;
-		for(; i->Text[j]; ++j)
-		{
-			i->Text[j - n] = i->Text[j];
-		}
+		gfx_rect(i->X + INPUT_PADDING_X +
+			font_string_width_len(text, i->Position, font_default) +
+			CURSOR_OFFSET, TITLE_BAR_HEIGHT + i->Y + 3,
+			CURSOR_WIDTH,
+			CURSOR_HEIGHT,
+			COLOR_BLACK);
 	}
 }
 
@@ -212,44 +205,24 @@ static void input_shrink(Input *i, i32 n)
  */
 static void input_insert(Input *i, i32 c)
 {
-	i->Text[i->Position] = c;
-	if(font_string_width_len(i->Text, i->Position + 1, font_default) >=
-		i->W - 2 * INPUT_PADDING)
+	char ins = c;
+
+	if(font_string_width_len(vector_data(&i->Text),
+		vector_len(&i->Text), font_default) +
+		font_string_width_len(&ins, 1, font_default)
+		>= i->W - 2 * INPUT_PADDING_X)
 	{
 		return;
 	}
 
-	if(i->Length + 1 < i->Size)
-	{
-		input_grow(i, 1);
-		i->Text[i->Position++] = c;
-		input_render(i, true);
-	}
+	vector_insert(&i->Text, i->Position++, &c);
+	input_render(i, true);
 }
 
 void input_clear(Input *i)
 {
-	i->Length = 0;
-	i->Position = 0;
-	i->Text[0] = '\0';
+	vector_clear(&i->Text);
 	input_render(i, true);
-}
-
-/**
- * @brief Deletes the character to the left of the cursor
- *
- * @param i Pointer to the input structure
- */
-static void input_backspace(Input *i)
-{
-	if(i->Position > 0)
-	{
-		input_shrink(i, 1);
-		--i->Position;
-		--i->Length;
-		i->Text[i->Length] = '\0';
-		input_render(i, true);
-	}
 }
 
 /**
@@ -273,7 +246,7 @@ static void input_left(Input *i)
  */
 static void input_right(Input *i)
 {
-	if(i->Position < i->Length)
+	if(i->Position < (i32)vector_len(&i->Text))
 	{
 		++i->Position;
 		input_render(i, true);
@@ -288,6 +261,17 @@ static void input_selection_start(Input *i)
 	}
 }
 
+static void input_selection_replace(Input *i, const char *str, i32 len)
+{
+	i32 sel_start, sel_len;
+	sel_start = i32_min(i->Selection, i->Position);
+	sel_len = i32_max(i->Selection, i->Position) - sel_start;
+	vector_replace(&i->Text, sel_start, sel_len, str, len);
+	i->Position = sel_start + len;
+	i->Selection = NO_SELECTION;
+	input_render(i, true);
+}
+
 /**
  * @brief Forward a key event to an input field
  *
@@ -296,10 +280,9 @@ static void input_selection_start(Input *i)
  */
 static void input_event_key(Input *i, Key key, i32 chr)
 {
-	/* TODO: Text selection */
 	if(key == KEY_HOME)
 	{
-		i->Selection = -1;
+		i->Selection = NO_SELECTION;
 		i->Position = 0;
 		input_render(i, true);
 	}
@@ -311,20 +294,21 @@ static void input_event_key(Input *i, Key key, i32 chr)
 	}
 	else if(key == KEY_END)
 	{
-		i->Selection = -1;
-		i->Position = i->Length;
+		i->Selection = NO_SELECTION;
+		i->Position = vector_len(&i->Text);
 		input_render(i, true);
 	}
 	else if(key == (KEY_END | MOD_SHIFT))
 	{
 		input_selection_start(i);
-		input_left(i);
+		i->Position = vector_len(&i->Text);
+		input_render(i, true);
 	}
 	else if(key == KEY_LEFT)
 	{
 		if(i->Selection >= 0)
 		{
-			i->Selection = -1;
+			i->Selection = NO_SELECTION;
 			input_render(i, true);
 		}
 		else
@@ -341,7 +325,7 @@ static void input_event_key(Input *i, Key key, i32 chr)
 	{
 		if(i->Selection >= 0)
 		{
-			i->Selection = -1;
+			i->Selection = NO_SELECTION;
 			input_render(i, true);
 		}
 		else
@@ -356,26 +340,61 @@ static void input_event_key(Input *i, Key key, i32 chr)
 	}
 	else if(key == KEY_BACKSPACE)
 	{
-		input_backspace(i);
+		if(i->Selection >= 0)
+		{
+			input_selection_replace(i, NULL, 0);
+		}
+		else if(i->Position > 0)
+		{
+			vector_remove(&i->Text, --i->Position);
+			input_render(i, true);
+		}
+	}
+	else if(key == KEY_DELETE)
+	{
+		if(i->Selection >= 0)
+		{
+			input_selection_replace(i, NULL, 0);
+		}
+		else if(i->Position < (i32)vector_len(&i->Text))
+		{
+			vector_remove(&i->Text, i->Position);
+			input_render(i, true);
+		}
 	}
 	else if(key == (KEY_A | MOD_CTRL))
 	{
+		/* Select All */
 		i->Selection = 0;
-		i->Position = i->Length;
+		i->Position = vector_len(&i->Text);
 		input_render(i, true);
 	}
 	else if(key == (KEY_C | MOD_CTRL))
 	{
+		/* Copy */
 	}
 	else if(key == (KEY_X | MOD_CTRL))
 	{
+		/* Cut */
 	}
 	else if(key == (KEY_V | MOD_CTRL))
 	{
+		/* Paste */
+
 	}
 	else if(isprint(chr))
 	{
-		input_insert(i, chr);
+		char ins = chr;
+
+		/* Insert Char */
+		if(i->Selection >= 0)
+		{
+			input_selection_replace(i, &ins, 1);
+		}
+		else
+		{
+			input_insert(i, chr);
+		}
 	}
 }
 
@@ -601,4 +620,15 @@ void window_event_key(Key key, i32 chr, KeyState state)
 			input_event_key((Input *)ce, key, chr);
 		}
 	}
+}
+
+void input_init(Input *input, i32 x, i32 y, i32 w)
+{
+	input->Type = ELEMENT_TYPE_INPUT;
+	input->X = x;
+	input->Y = y;
+	input->W = w;
+	input->Position = 0;
+	input->Selection = NO_SELECTION;
+	vector_init(&input->Text, sizeof(char), INPUT_CAPACITY);
 }

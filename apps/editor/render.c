@@ -81,30 +81,3 @@ static void _render_line(Line *line, i32 line_number)
 		}
 	}
 }
-
-void editor_render(Editor *ed)
-{
-
-
-	/* keywords blue, strings/chars red, comments green, brackets yellow,
-	numbers light green */
-
-	int x, y, w, h;
-	w = ed->PageW;
-	h = ed->PageH;
-	for(y = 0; y < h; ++y)
-	{
-
-
-		for(x = 0; x < w; ++x)
-		{
-			/* only update the parts that have changed */
-
-
-			//editor_render_char(x, y, bg_color, fg_color);
-		}
-	}
-
-	/* draw cursor */
-	//editor_render_cursor();
-}

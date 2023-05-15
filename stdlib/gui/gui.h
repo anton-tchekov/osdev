@@ -9,6 +9,7 @@
 #ifndef __GUI_H__
 #define __GUI_H__
 
+#include <vector.h>
 #include <types.h>
 #include <keyboard.h>
 
@@ -97,14 +98,8 @@ typedef struct
 	/** Selection start */
 	i32 Selection;
 
-	/** Current text length */
-	i32 Length;
-
-	/** Maximum character capacity */
-	i32 Size;
-
-	/** Text content buffer */
-	char *Text;
+	/** Text Vector */
+	Vector Text;
 } Input;
 
 /** Window structure */
@@ -148,20 +143,6 @@ typedef struct
 		.Click = _CLICK \
 	}
 
-/** Create an input element */
-#define INPUT_CREATE(_X, _Y, _W, _TEXT, _SIZE) \
-	{ \
-		.Type = ELEMENT_TYPE_INPUT, \
-		.X = _X, \
-		.Y = _Y, \
-		.W = _W, \
-		.Position = 0, \
-		.Selection = -1, \
-		.Length = 0, \
-		.Size = _SIZE, \
-		.Text = _TEXT, \
-	}
-
 /** Create a window */
 #define WINDOW_CREATE(_TITLE, _ELEMENTS, _COUNT, _SELECTED, _ONKEY) \
 	{ \
@@ -186,6 +167,16 @@ void window_open(Window *window);
  * @param state Key State
  */
 void window_event_key(Key key, i32 chr, KeyState state);
+
+/**
+ * @brief Initialize an input field
+ *
+ * @param input The input field
+ * @param x X-Coordinate
+ * @param y Y-Coordinate
+ * @param w Width
+ */
+void input_init(Input *input, i32 x, i32 y, i32 w);
 
 /**
  * @brief Clear an input field

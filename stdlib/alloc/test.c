@@ -2,18 +2,23 @@
 #include <alloc.h>
 #include <string.h>
 #include <stdlib.h>
+#include <time.h>
+
+void print_chain(void);
+void print_stats(void);
 
 static u8 heap[64 * 1024];
 
 void print_adr(void *adr)
 {
 	int diff = (u8 *)adr - heap;
-
 	printf("ADDRESS = 0x%06X = %8d\n", diff, diff);
 }
 
 int main(void)
 {
+	srand(time(0));
+
 	/* RESET */
 	memalloc_init((ptr)heap, sizeof(heap));
 	printf("\n--- RESET ---\n");
@@ -90,11 +95,22 @@ int main(void)
 	u32 max_id = 0;
 	void *ptrs[1024 * 64];
 	memset(ptrs, 0, sizeof(ptrs));
+	int counter = 0;
 	for (;;)
 	{
+		++counter;
+		printf("allocation no. %d\n", counter);
 		print_chain();
 
 		u32 random_size = 8 + rand() % (64 - 8);
+
+		if(rand() % 100 < 5)
+		{
+			random_size = rand() % 4096 + 1024;
+		}
+
+		printf("req. size = %d\n", random_size);
+
 		void *p = memalloc(random_size);
 		if (p == NULL)
 		{
@@ -115,7 +131,7 @@ int main(void)
 			}
 		}
 
-		if (rand() % 100 > 80)
+		if (rand() % 100 > 10)
 		{
 			/* free random block */
 			while (1)

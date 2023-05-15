@@ -8,6 +8,7 @@
 #include <event.h>
 #include <syscall.h>
 #include <keyboard.h>
+#include <alloc.h>
 
 void finish(void)
 {
@@ -27,6 +28,10 @@ void __setup(void) __attribute__((section(".start")));
 void __setup(void)
 {
 	event_register(EVENT_LOOP, (u32)_event_loop_handler);
+
+	/* TODO: What are good values? */
+	memalloc_init(0x10000, 0x100000);
+
 	keyboard_init();
 	setup();
 	finish();

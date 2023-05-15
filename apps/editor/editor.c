@@ -1,6 +1,113 @@
 #include "editor.h"
 #include <std.h>
 
+void editor_init(Editor *ed)
+{
+	ed->TabSize = 4;
+	ed->LineNumberDigits = 4;
+	ed->Cursor = 0;
+
+	vector_init(&ed->Text, sizeof(char), 128);
+
+	ed->Screen = memalloc((ed->PageW + 1 + ed->LineNumberDigits) * ed->PageH);
+}
+
+void editor_render(Editor *ed)
+{
+	i32 x, y;
+	i32 line;
+	char c;
+	const char *s, *text;
+
+	line = 1;
+	x = 0;
+	y = 0;
+
+	text = vector_data(&ed->Text);
+
+	for(s = text; (c = *s); ++s)
+	{
+		if(c == '\n')
+		{
+			++line;
+			++y;
+			x = 0;
+
+			/* Print line number */
+			debug_print("\n%4d | ", line);
+		}
+		else
+		{
+			debug_print("%c", c);
+		}
+	}
+}
+
+
+void editor_char(Editor *ed, char c)
+{
+
+}
+
+void editor_backspace(Editor *ed)
+{
+
+}
+
+void editor_delete(Editor *ed)
+{
+
+}
+
+void editor_new_line(Editor *ed)
+{
+
+}
+
+void editor_home(Editor *ed)
+{
+
+}
+
+void editor_end(Editor *ed)
+{
+
+}
+
+void editor_page_up(Editor *ed)
+{
+
+}
+
+void editor_page_down(Editor *ed)
+{
+
+}
+
+void editor_left(Editor *ed)
+{
+
+}
+
+void editor_right(Editor *ed)
+{
+
+}
+
+void editor_up(Editor *ed)
+{
+
+}
+
+void editor_down(Editor *ed)
+{
+
+}
+
+
+
+#ifdef EDITORIUM
+
 /* --- PUBLIC --- */
 void editor_init(Editor *ed)
 {
@@ -8,8 +115,7 @@ void editor_init(Editor *ed)
 	ed->LineNumberDigits = 4;
 
 	vector_init(&ed->Lines, sizeof(Vector), 128);
-
-	//vector_push(&ed->Lines, ector_get(&ed->Lines, 0), sizeof(char), 8);
+	vector_push(&ed->Lines, ector_get(&ed->Lines, 0), sizeof(char), 8);
 
 	ed->CursorX = 0;
 	ed->CursorY = 0;
@@ -20,6 +126,28 @@ void editor_init(Editor *ed)
 	ed->PageX = 0;
 
 	ed->Screen = memalloc((ed->PageW + 1 + ed->LineNumberDigits) * ed->PageH);
+}
+
+
+void editor_render(Editor *ed)
+{
+	/* keywords blue, strings/chars red, comments green, brackets yellow,
+	numbers light green */
+	i32 x, y, w, h;
+	w = ed->PageW;
+	h = ed->PageH;
+	for(y = 0; y < h; ++y)
+	{
+		for(x = 0; x < w; ++x)
+		{
+			/* only update the parts that have changed */
+
+			editor_render_char(x, y, bg_color, fg_color);
+		}
+	}
+
+	/* draw cursor */
+	editor_render_cursor();
 }
 
 /* --- EDITING --- */
@@ -196,3 +324,5 @@ void editor_down(Editor *ed)
 		}
 	}
 }
+
+#endif

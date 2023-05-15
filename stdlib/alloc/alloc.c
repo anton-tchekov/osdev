@@ -7,38 +7,58 @@
 
 #include <alloc.h>
 
-#define ALIGN        sizeof(ptr)
+#define ALIGN        4
 #define MIN_ALLOC    8
+#define END          0xFFFFFFFF
 
 typedef struct CHUNK_HEADER
 {
-	u32 Size;
-	struct CHUNK_HEADER *Next;
+	u32 Size, Next;
 } ChunkHeader;
 
-static u32 _used, _total, _size;
 static ptr _heap_start;
 static ChunkHeader _first;
+static MemAllocInfo _info;
 
 /* --- PRIVATE --- */
-static void *_chunk_data(ChunkHeader *header)
+static inline void *_chunk_data(ChunkHeader *header)
 {
 	return (void *)((ptr)header + sizeof(ChunkHeader));
 }
 
-static ChunkHeader *_chunk_header(void *p)
+static inline ChunkHeader *_chunk_header(void *p)
 {
 	return (ChunkHeader *)((ptr)p - sizeof(ChunkHeader));
+}
+
+static inline ChunkHeader *_get_next(u32 next)
+{
+	if(next == END)
+	{
+		return NULL;
+	}
+
+	return (ChunkHeader *)(_heap_start + next);
+}
+
+static inline u32 _get_offset(ChunkHeader *header)
+{
+	return (ptr)header - _heap_start;
 }
 
 /* --- PUBLIC --- */
 void memalloc_init(ptr heap_start, i32 size)
 {
-	_first.Next = (ChunkHeader *)heap_start;
-	_first.Next->Size = size;
-	_first.Next->Next = NULL;
+	ChunkHeader *next;
+
 	_heap_start = heap_start;
-	_size = size;
+	_info.Size = size;
+
+	_first.Next = 0;
+
+	next = _get_next(_first.Next);
+	next->Size = size;
+	next->Next = END;
 }
 
 void *memalloc(u32 size)
@@ -58,19 +78,18 @@ void *memalloc(u32 size)
 	/* Ensure alignment */
 	size = ((size + ALIGN - 1) / ALIGN) * ALIGN;
 
-	_used += size;
-	_total += size + sizeof(ChunkHeader);
+	_info.Used += size;
+	_info.Total += size + sizeof(ChunkHeader);
 
 	/* Find free chunk */
-	for (prev = &_first, cur = prev->Next;
-		 cur; prev = cur, cur = cur->Next)
+	for (prev = &_first, cur = _get_next(prev->Next);
+		 cur; prev = cur, cur = _get_next(cur->Next))
 	{
 		if (size + sizeof(ChunkHeader) == cur->Size)
 		{
 			/* --- Perfect fit --- */
 			/* Remove chunk from free list */
 			prev->Next = cur->Next;
-			cur->Next = NULL;
 
 			/* Return pointer to data area */
 			return _chunk_data(cur);
@@ -84,7 +103,7 @@ void *memalloc(u32 size)
 
 			second->Size = cur->Size - sizeof(ChunkHeader) - size;
 			second->Next = cur->Next;
-			prev->Next = second;
+			prev->Next = _get_offset(second);
 
 			/* Reduce the size of first part by the size of the second part */
 			cur->Size = size + sizeof(ChunkHeader);
@@ -104,11 +123,11 @@ void memfree(void *p)
 
 	header = _chunk_header(p);
 
-	_used -= header->Size - sizeof(ChunkHeader);
-	_total -= header->Size;
+	_info.Used -= header->Size - sizeof(ChunkHeader);
+	_info.Total -= header->Size;
 
-	for (prev = &_first, next = prev->Next;
-		 next; prev = next, next = next->Next)
+	for (prev = &_first, next = _get_next(prev->Next);
+		 next; prev = next, next = _get_next(next->Next))
 	{
 		if (next > header)
 		{
@@ -132,13 +151,13 @@ void memfree(void *p)
 				/* Next is free */
 				header->Size += next->Size;
 				header->Next = next->Next;
-				prev->Next = header;
+				prev->Next = _get_offset(header);
 			}
 			else
 			{
 				/* Both sides are used */
 				header->Next = prev->Next;
-				prev->Next = header;
+				prev->Next = _get_offset(header);
 			}
 			return;
 		}
@@ -154,8 +173,8 @@ void print_chain(void)
 	i32 i = 0;
 	ChunkHeader *cur;
 	printf("\n| Block | Adr Dec  | Size Dec |\n");
-	for (cur = _first.Next, i = 1;
-		 cur; cur = cur->Next, i++)
+	for (cur = _get_next(_first.Next), i = 1;
+		 cur; cur = _get_next(cur->Next), i++)
 	{
 		u32 offset = (ptr)cur - (ptr)_heap_start;
 		printf("| #%04d | %8d | %8d |\n",
@@ -173,12 +192,14 @@ void print_stats(void)
 	f32 percent_wasted = (f32)wasted / (f32)_total * 100.0f;
 	f32 wu_ratio = (f32)_used / (f32)wasted;
 	printf(
+		"header size                  = %d bytes\n"
 		"heap size                    = %6d (%6.2f%%)\n"
 		"total stored (used + header) = %6d (%6.2f%%)\n"
 		"data stored (used)           = %6d (%6.2f%%)\n"
 		"wasted (header)              = %6d (%6.2f%%)\n"
 		"free                         = %6d (%6.2f%%)\n"
 		"used to waste factor         = 1 : %3.2f\n",
+		(u32)sizeof(ChunkHeader),
 		_size, 100.0f,
 		_total, percent_total,
 		_used, percent_used,

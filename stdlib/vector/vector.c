@@ -69,10 +69,10 @@ void vector_replace(
 		new_data = memalloc(new_capacity * element_size);
 
 		/* Copy first part from previous buffer */
-		memcpy(new_data, vector->Data, prev_bytes);
+		memcpy(new_data, vector->Data, prev_bytes); // correct
 
 		/* Copy new range */
-		memcpy((u8 *)new_data + prev_bytes, elems, new_bytes);
+		memcpy((u8 *)new_data + prev_bytes, elems, new_bytes); // correct
 
 		/* Copy last part */
 		memcpy((u8 *)new_data + prev_bytes + new_bytes,

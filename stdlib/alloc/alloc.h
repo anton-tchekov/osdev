@@ -2,7 +2,7 @@
  * @file    alloc.h
  * @author  Tim Gabrikowski, Anton Tchekov
  * @version 0.1
- * @date    23.04.2023
+ * @date    15.05.2023
  * @brief   Manual memory allocator
  */
 
@@ -11,9 +11,17 @@
 
 #include <types.h>
 
+typedef struct
+{
+	i32 Used, Total, Size;
+} MemAllocInfo;
+
 /**
- * @brief Initialize the memory allocator
-*/
+ * @brief Initialize the memory allocator. Do NOT call this function.
+ *
+ * @param heap_start Heap start address
+ * @param size Maximum size of the heap
+ */
 void memalloc_init(ptr heap_start, i32 size);
 
 /**
@@ -33,7 +41,11 @@ void *memalloc(u32 size);
  */
 void memfree(void *p);
 
-void print_chain(void);
-void print_stats(void);
+/**
+ * @brief Returns memory allocator information and status
+ *
+ * @returns Pointer to memalloc info struct
+ */
+MemAllocInfo *memalloc_info(void);
 
 #endif /* __ALLOC_H__ */

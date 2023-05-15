@@ -13,10 +13,7 @@ Label label_left = LABEL_CREATE(GFX_WIDTH / 2, 120, LABEL_FLAG_LEFT, "Align Left
 Label label_center = LABEL_CREATE(GFX_WIDTH / 2, 140, LABEL_FLAG_CENTER, "Align Center");
 Label label_right = LABEL_CREATE(GFX_WIDTH / 2, 160, LABEL_FLAG_RIGHT, "Align Right");
 
-char buf[50];
-
-Input input = INPUT_CREATE(10, 200, 200, buf, sizeof(buf));
-
+Input input;
 
 void *elements[] =
 {
@@ -44,6 +41,7 @@ void event_key(Key key, i32 chr, KeyState state)
 void setup(void)
 {
 	keyboard_register_event(event_key);
+	input_init(&input, 20, 220, 200);
 	window_open(&window);
 }
 
