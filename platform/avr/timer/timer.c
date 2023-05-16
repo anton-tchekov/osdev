@@ -6,25 +6,20 @@
  */
 
 #include <timer.h>
+#include <logger.h>
+#include <avr/pgmspace.h>
+
+static const char _msg_timer[] PROGMEM = "Millisecond timer initialized";
 
 void timer_init(void)
 {
-	/* TODO */
+	/* TODO: Initialize hardware timers */
+	log_boot(_msg_timer);
 }
 
 u32 millis(void)
 {
-	/* TODO */
+	/* TODO: Implement millis function */
+	/* Return number of ms since boot */
 	return 0;
-}
-
-void datetime_now(DateTime *now)
-{
-	now->Year = 1970;
-	now->Month = 1;
-	now->Day = 1;
-
-	now->Hour = 0;
-	now->Minute = 0;
-	now->Second = 0;
 }

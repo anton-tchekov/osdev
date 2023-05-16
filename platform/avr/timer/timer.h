@@ -13,6 +13,5 @@
 
 void timer_init(void);
 u32 millis(void);
-void datetime_now(DateTime *now);
 
 #endif /* __TIMER_H__ */

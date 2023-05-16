@@ -1,0 +1,114 @@
+   1               		.file	"logger.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__tmp_reg__ = 0
+   6               	__zero_reg__ = 1
+   7               		.text
+   8               	.Ltext0:
+   9               		.cfi_sections	.debug_frame
+  10               		.file 0 "/home/files/osdev/platform/avr" "logger/logger.c"
+  11               		.section	.rodata.str1.1,"aMS",@progbits,1
+  12               	.LC0:
+  13 0000 5B49 4E49 		.string	"[INIT] "
+  13      545D 2000 
+  14               		.text
+  15               	.global	log_boot
+  17               	log_boot:
+  18               	.LVL0:
+  19               	.LFB0:
+  20               		.file 1 "logger/logger.c"
+   1:logger/logger.c **** /**
+   2:logger/logger.c ****  * @file    logger.c
+   3:logger/logger.c ****  * @author  Tim Gabrikowski, Anton Tchekov
+   4:logger/logger.c ****  * @version 0.1
+   5:logger/logger.c ****  * @date    16.05.2023
+   6:logger/logger.c ****  */
+   7:logger/logger.c **** 
+   8:logger/logger.c **** #include <logger.h>
+   9:logger/logger.c **** #include <serial.h>
+  10:logger/logger.c **** 
+  11:logger/logger.c **** void log_boot(const char *msg)
+  12:logger/logger.c **** {
+  21               		.loc 1 12 1 view -0
+  22               		.cfi_startproc
+  23               		.loc 1 12 1 is_stmt 0 view .LVU1
+  24 0000 CF93      		push r28
+  25               		.cfi_def_cfa_offset 3
+  26               		.cfi_offset 28, -2
+  27 0002 DF93      		push r29
+  28               		.cfi_def_cfa_offset 4
+  29               		.cfi_offset 29, -3
+  30               	/* prologue: function */
+  31               	/* frame size = 0 */
+  32               	/* stack size = 2 */
+  33               	.L__stack_usage = 2
+  34 0004 D82F      		mov r29,r24
+  35 0006 C92F      		mov r28,r25
+  13:logger/logger.c **** 	serial_tx_str_P("[INIT] ");
+  36               		.loc 1 13 2 is_stmt 1 view .LVU2
+  37 0008 80E0      		ldi r24,lo8(.LC0)
+  38 000a 90E0      		ldi r25,hi8(.LC0)
+  39               	.LVL1:
+  40               		.loc 1 13 2 is_stmt 0 view .LVU3
+  41 000c 0E94 0000 		call serial_tx_str_P
+  42               	.LVL2:
+  14:logger/logger.c **** 	serial_tx_str_P(msg);
+  43               		.loc 1 14 2 is_stmt 1 view .LVU4
+  44 0010 8D2F      		mov r24,r29
+  45 0012 9C2F      		mov r25,r28
+  46 0014 0E94 0000 		call serial_tx_str_P
+  47               	.LVL3:
+  15:logger/logger.c **** 	serial_tx('\n');
+  48               		.loc 1 15 2 view .LVU5
+  49 0018 8AE0      		ldi r24,lo8(10)
+  50               	/* epilogue start */
+  16:logger/logger.c **** }
+  51               		.loc 1 16 1 is_stmt 0 view .LVU6
+  52 001a DF91      		pop r29
+  53 001c CF91      		pop r28
+  15:logger/logger.c **** 	serial_tx('\n');
+  54               		.loc 1 15 2 view .LVU7
+  55 001e 0C94 0000 		jmp serial_tx
+  56               	.LVL4:
+  57               		.cfi_endproc
+  58               	.LFE0:
+  60               	.Letext0:
+  61               		.file 2 "serial/serial.h"
+DEFINED SYMBOLS
+                            *ABS*:00000000 logger.c
+     /tmp/cckeXvXr.s:2      *ABS*:0000003e __SP_H__
+     /tmp/cckeXvXr.s:3      *ABS*:0000003d __SP_L__
+     /tmp/cckeXvXr.s:4      *ABS*:0000003f __SREG__
+     /tmp/cckeXvXr.s:5      *ABS*:00000000 __tmp_reg__
+     /tmp/cckeXvXr.s:6      *ABS*:00000001 __zero_reg__
+     /tmp/cckeXvXr.s:17     .text:00000000 log_boot
+     /tmp/cckeXvXr.s:21     .text:00000000 .Loc.0
+     /tmp/cckeXvXr.s:22     .text:00000000 L0
+     /tmp/cckeXvXr.s:23     .text:00000000 .Loc.1
+     /tmp/cckeXvXr.s:36     .text:00000008 .Loc.2
+     /tmp/cckeXvXr.s:40     .text:0000000c .Loc.3
+     /tmp/cckeXvXr.s:43     .text:00000010 .Loc.4
+     /tmp/cckeXvXr.s:48     .text:00000018 .Loc.5
+     /tmp/cckeXvXr.s:51     .text:0000001a .Loc.6
+     /tmp/cckeXvXr.s:54     .text:0000001e .Loc.7
+     /tmp/cckeXvXr.s:57     .text:00000022 L0
+     /tmp/cckeXvXr.s:62     .text:00000022 L0
+                     .debug_frame:00000000 L0
+     /tmp/cckeXvXr.s:148    .debug_abbrev:00000000 .Ldebug_abbrev0
+     /tmp/cckeXvXr.s:8      .text:00000000 .Ltext0
+     /tmp/cckeXvXr.s:60     .text:00000022 .Letext0
+     /tmp/cckeXvXr.s:357    .debug_line:00000000 .Ldebug_line0
+     /tmp/cckeXvXr.s:19     .text:00000000 .LFB0
+     /tmp/cckeXvXr.s:58     .text:00000022 .LFE0
+     /tmp/cckeXvXr.s:323    .debug_loclists:00000010 .LLST0
+     /tmp/cckeXvXr.s:318    .debug_loclists:0000000c .LVUS0
+     /tmp/cckeXvXr.s:42     .text:00000010 .LVL2
+     /tmp/cckeXvXr.s:47     .text:00000018 .LVL3
+     /tmp/cckeXvXr.s:56     .text:00000022 .LVL4
+     /tmp/cckeXvXr.s:63     .debug_info:00000000 .Ldebug_info0
+
+UNDEFINED SYMBOLS
+serial_tx_str_P
+serial_tx
+__do_copy_data

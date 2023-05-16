@@ -11,6 +11,7 @@
 #include <colors.h>
 #include <font_default.h>
 #include <ctype.h>
+#include <utf8.h>
 
 /** Height of the title bar in pixels */
 #define TITLE_BAR_HEIGHT 20
@@ -32,8 +33,6 @@
 #define CURSOR_OFFSET    -1
 
 #define INPUT_CAPACITY   16
-
-#define NO_SELECTION     -1
 
 /** Pointer to the currently open window */
 static Window *_current_window;
@@ -145,7 +144,7 @@ static void input_render(Input *i, bool sel)
 		gfx_rect_border(i->X, y, i->W, INPUT_HEIGHT, BORDER_SIZE, COLOR_BLACK);
 	}
 
-	if(i->Selection < 0)
+	if(i->Selection == i->Position)
 	{
 		font_string_len(i->X + INPUT_PADDING_X, y + INPUT_PADDING_Y,
 			text, vector_len(&i->Text),
@@ -196,29 +195,6 @@ static void input_render(Input *i, bool sel)
 	}
 }
 
-/**
- * @brief Inserts a character into an input field's buffer at the current
- *        cursor position.
- *
- * @param i Pointer to the Input structure
- * @param c The character to insert into the input buffer
- */
-static void input_insert(Input *i, i32 c)
-{
-	char ins = c;
-
-	if(font_string_width_len(vector_data(&i->Text),
-		vector_len(&i->Text), font_default) +
-		font_string_width_len(&ins, 1, font_default)
-		>= i->W - 2 * INPUT_PADDING_X)
-	{
-		return;
-	}
-
-	vector_insert(&i->Text, i->Position++, &c);
-	input_render(i, true);
-}
-
 void input_clear(Input *i)
 {
 	vector_clear(&i->Text);
@@ -226,11 +202,56 @@ void input_clear(Input *i)
 }
 
 /**
+ * @brief Inserts a string into an input field's buffer at the current
+ *        cursor position, replacing the current selection.
+ *
+ * @param i Pointer to the Input structure
+ * @param str The string to insert into the input buffer
+ * @param len The length of the string to be inserted
+ */
+static void input_selection_replace(Input *i, const char *str, i32 len)
+{
+	i32 sel_start, sel_len;
+
+	/* TODO: This is broken */
+	if(font_string_width_len(vector_data(&i->Text),
+		vector_len(&i->Text), font_default) +
+		font_string_width_len(str, len, font_default)
+		>= i->W - 2 * INPUT_PADDING_X)
+	{
+		return;
+	}
+
+	sel_start = i32_min(i->Selection, i->Position);
+	sel_len = i32_max(i->Selection, i->Position) - sel_start;
+	vector_replace(&i->Text, sel_start, sel_len, str, len);
+	i->Position = sel_start + len;
+	i->Selection = i->Position;
+	input_render(i, true);
+}
+
+
+/**
  * @brief Move input cursor one position to the left and render input.
  *
  * @param i Pointer to the input structure
  */
 static void input_left(Input *i)
+{
+	if(i->Selection != i->Position)
+	{
+		i->Selection = i->Position;
+		input_render(i, true);
+	}
+	else if(i->Position > 0)
+	{
+		--i->Position;
+		i->Selection = i->Position;
+		input_render(i, true);
+	}
+}
+
+static void input_select_left(Input *i)
 {
 	if(i->Position > 0)
 	{
@@ -246,6 +267,21 @@ static void input_left(Input *i)
  */
 static void input_right(Input *i)
 {
+	if(i->Selection != i->Position)
+	{
+		i->Selection = i->Position;
+		input_render(i, true);
+	}
+	else if(i->Position < (i32)vector_len(&i->Text))
+	{
+		++i->Position;
+		i->Selection = i->Position;
+		input_render(i, true);
+	}
+}
+
+static void input_select_right(Input *i)
+{
 	if(i->Position < (i32)vector_len(&i->Text))
 	{
 		++i->Position;
@@ -253,23 +289,83 @@ static void input_right(Input *i)
 	}
 }
 
-static void input_selection_start(Input *i)
+static void input_backspace(Input *i)
 {
-	if(i->Selection < 0)
+	if(i->Selection != i->Position)
 	{
-		i->Selection = i->Position;
+		input_selection_replace(i, NULL, 0);
+	}
+	else if(i->Position > 0)
+	{
+		vector_remove(&i->Text, --i->Position);
+		input_render(i, true);
 	}
 }
 
-static void input_selection_replace(Input *i, const char *str, i32 len)
+static void input_delete(Input *i)
 {
-	i32 sel_start, sel_len;
-	sel_start = i32_min(i->Selection, i->Position);
-	sel_len = i32_max(i->Selection, i->Position) - sel_start;
-	vector_replace(&i->Text, sel_start, sel_len, str, len);
-	i->Position = sel_start + len;
-	i->Selection = NO_SELECTION;
+	if(i->Selection != i->Position)
+	{
+		input_selection_replace(i, NULL, 0);
+	}
+	else if(i->Position < (i32)vector_len(&i->Text))
+	{
+		vector_remove(&i->Text, i->Position);
+		input_render(i, true);
+	}
+}
+
+static void input_home(Input *i)
+{
+	i->Selection = 0;
+	i->Position = 0;
 	input_render(i, true);
+}
+
+static void input_select_home(Input *i)
+{
+	i->Position = 0;
+	input_render(i, true);
+}
+
+static void input_end(Input *i)
+{
+	i->Position = vector_len(&i->Text);
+	i->Selection = i->Position;
+	input_render(i, true);
+}
+
+static void input_select_end(Input *i)
+{
+	i->Position = vector_len(&i->Text);
+	input_render(i, true);
+}
+
+static void input_char(Input *i, i32 chr)
+{
+	i32 cnt;
+	char ins[4];
+	cnt = codepoint_utf8(chr, ins);
+	input_selection_replace(i, ins, cnt);
+}
+
+static void input_select_all(Input *i)
+{
+	i->Selection = 0;
+	i->Position = vector_len(&i->Text);
+	input_render(i, true);
+}
+
+static void input_copy(Input *i)
+{
+}
+
+static void input_cut(Input *i)
+{
+}
+
+static void input_paste(Input *i)
+{
 }
 
 /**
@@ -282,119 +378,63 @@ static void input_event_key(Input *i, Key key, i32 chr)
 {
 	if(key == KEY_HOME)
 	{
-		i->Selection = NO_SELECTION;
-		i->Position = 0;
-		input_render(i, true);
+		input_home(i);
 	}
 	else if(key == (KEY_HOME | MOD_SHIFT))
 	{
-		input_selection_start(i);
-		i->Position = 0;
-		input_render(i, true);
+		input_select_home(i);
 	}
 	else if(key == KEY_END)
 	{
-		i->Selection = NO_SELECTION;
-		i->Position = vector_len(&i->Text);
-		input_render(i, true);
+		input_end(i);
 	}
 	else if(key == (KEY_END | MOD_SHIFT))
 	{
-		input_selection_start(i);
-		i->Position = vector_len(&i->Text);
-		input_render(i, true);
+		input_select_end(i);
 	}
 	else if(key == KEY_LEFT)
 	{
-		if(i->Selection >= 0)
-		{
-			i->Selection = NO_SELECTION;
-			input_render(i, true);
-		}
-		else
-		{
-			input_left(i);
-		}
+		input_left(i);
 	}
 	else if(key == (KEY_LEFT | MOD_SHIFT))
 	{
-		input_selection_start(i);
-		input_left(i);
+		input_select_left(i);
 	}
 	else if(key == KEY_RIGHT)
 	{
-		if(i->Selection >= 0)
-		{
-			i->Selection = NO_SELECTION;
-			input_render(i, true);
-		}
-		else
-		{
-			input_right(i);
-		}
+		input_right(i);
 	}
 	else if(key == (KEY_RIGHT | MOD_SHIFT))
 	{
-		input_selection_start(i);
-		input_right(i);
+		input_select_right(i);
 	}
 	else if(key == KEY_BACKSPACE)
 	{
-		if(i->Selection >= 0)
-		{
-			input_selection_replace(i, NULL, 0);
-		}
-		else if(i->Position > 0)
-		{
-			vector_remove(&i->Text, --i->Position);
-			input_render(i, true);
-		}
+		input_backspace(i);
 	}
 	else if(key == KEY_DELETE)
 	{
-		if(i->Selection >= 0)
-		{
-			input_selection_replace(i, NULL, 0);
-		}
-		else if(i->Position < (i32)vector_len(&i->Text))
-		{
-			vector_remove(&i->Text, i->Position);
-			input_render(i, true);
-		}
+		input_delete(i);
 	}
 	else if(key == (KEY_A | MOD_CTRL))
 	{
-		/* Select All */
-		i->Selection = 0;
-		i->Position = vector_len(&i->Text);
-		input_render(i, true);
+		input_select_all(i);
 	}
 	else if(key == (KEY_C | MOD_CTRL))
 	{
-		/* Copy */
+		input_copy(i);
 	}
 	else if(key == (KEY_X | MOD_CTRL))
 	{
-		/* Cut */
+		input_cut(i);
 	}
 	else if(key == (KEY_V | MOD_CTRL))
 	{
-		/* Paste */
-
+		input_paste(i);
 	}
 	else if(chr)
 	{
-		char ins = chr;
-
-		/* Insert Char */
-		if(i->Selection >= 0)
-		{
-			input_selection_replace(i, &ins, 1);
-		}
-		else
-		{
-			input_insert(i, chr);
-		}
+		input_char(i, chr);
 	}
 }
 
@@ -653,7 +693,7 @@ void input_init(Input *input, i32 x, i32 y, i32 w)
 	input->Y = y;
 	input->W = w;
 	input->Position = 0;
-	input->Selection = NO_SELECTION;
+	input->Selection = 0;
 	vector_init(&input->Text, sizeof(char), INPUT_CAPACITY);
 }
 

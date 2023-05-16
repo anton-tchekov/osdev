@@ -6,7 +6,30 @@ F_CPU ?= 16000000
 
 TARGET = main
 
-SRCS = src/main.c
+SRCS = \
+	main.c \
+	adc/adc.c \
+	random/random.c \
+	ps2/ps2.c \
+	serial/serial.c \
+	timer/timer.c \
+	spi/spi.c \
+	rtc/rtc.c \
+	logger/logger.c \
+	xmem/xmem.c \
+
+CFLAGS += \
+	-I ../../types \
+	-I adc \
+	-I ps2 \
+	-I random \
+	-I rtc \
+	-I sd \
+	-I serial \
+	-I spi \
+	-I timer \
+	-I xmem \
+	-I logger \
 
 FEATURE_SET_TIME ?= YES
 FEATURE_CHARACTERS ?= YES

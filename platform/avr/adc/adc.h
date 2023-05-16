@@ -2,7 +2,7 @@
  * @file    adc.h
  * @author  Tim Gabrikowski, Anton Tchekov
  * @version 0.1
- * @date    01.05.2023
+ * @date    16.05.2023
  * @brief   Read analog inputs
  */
 

@@ -22,6 +22,6 @@ void random_init(void);
  *
  * @return The number
  */
-u32 random(void);
+u32 random_get(void);
 
 #endif /* __RANDOM_H__ */

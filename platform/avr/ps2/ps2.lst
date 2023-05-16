@@ -1,0 +1,403 @@
+   1               		.file	"ps2.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__tmp_reg__ = 0
+   6               	__zero_reg__ = 1
+   7               		.text
+   8               	.Ltext0:
+   9               		.cfi_sections	.debug_frame
+  10               		.file 0 "/home/files/osdev/platform/avr" "ps2/ps2.c"
+  11               	.global	ps2_init
+  13               	ps2_init:
+  14               	.LFB3:
+  15               		.file 1 "ps2/ps2.c"
+   1:ps2/ps2.c     **** /**
+   2:ps2/ps2.c     ****  * @file    ps2.c
+   3:ps2/ps2.c     ****  * @author  Haron Nazari, Anton Tchekov
+   4:ps2/ps2.c     ****  * @version 0.1
+   5:ps2/ps2.c     ****  * @date    16.05.2023
+   6:ps2/ps2.c     ****  */
+   7:ps2/ps2.c     **** 
+   8:ps2/ps2.c     **** #include <ps2.h>
+   9:ps2/ps2.c     **** #include <logger.h>
+  10:ps2/ps2.c     **** #include <avr/pgmspace.h>
+  11:ps2/ps2.c     **** 
+  12:ps2/ps2.c     **** static const char _msg_ps2[] PROGMEM = "PS/2 keyboard initialized";
+  13:ps2/ps2.c     **** 
+  14:ps2/ps2.c     **** /** The byte that is currently being received */
+  15:ps2/ps2.c     **** static u8 _byte;
+  16:ps2/ps2.c     **** 
+  17:ps2/ps2.c     **** /**
+  18:ps2/ps2.c     ****  * The number of the current bit:
+  19:ps2/ps2.c     ****  *
+  20:ps2/ps2.c     ****  *   0: Start bit
+  21:ps2/ps2.c     ****  * 1-8: Data bit
+  22:ps2/ps2.c     ****  *   9: Parity bit
+  23:ps2/ps2.c     ****  *  10: Stop bit
+  24:ps2/ps2.c     ****  */
+  25:ps2/ps2.c     **** static u8 _bit;
+  26:ps2/ps2.c     **** 
+  27:ps2/ps2.c     **** void ps2_init(void)
+  28:ps2/ps2.c     **** {
+  16               		.loc 1 28 1 view -0
+  17               		.cfi_startproc
+  18               	/* prologue: function */
+  19               	/* frame size = 0 */
+  20               	/* stack size = 0 */
+  21               	.L__stack_usage = 0
+  29:ps2/ps2.c     **** 	/* By default, both pins are already inputs on startup */
+  30:ps2/ps2.c     **** 
+  31:ps2/ps2.c     **** 	/* Enable external interrupt 0 (PORTB2) */
+  32:ps2/ps2.c     **** 	EIMSK |= (1 << PS2_EXT_INTERRUPT);
+  22               		.loc 1 32 2 view .LVU1
+  23               		.loc 1 32 8 is_stmt 0 view .LVU2
+  24 0000 E89A      		sbi 0x1d,0
+  33:ps2/ps2.c     **** 
+  34:ps2/ps2.c     **** 	/* Trigger interrupt on falling edge */
+  35:ps2/ps2.c     **** 	MCUCR |= (1 << ISC01);
+  25               		.loc 1 35 2 is_stmt 1 view .LVU3
+  26 0002 85B7      		in r24,0x35
+  27               		.loc 1 35 8 is_stmt 0 view .LVU4
+  28 0004 8260      		ori r24,lo8(2)
+  29 0006 85BF      		out 0x35,r24
+  36:ps2/ps2.c     **** 
+  37:ps2/ps2.c     **** 	log_boot(_msg_ps2);
+  30               		.loc 1 37 2 is_stmt 1 view .LVU5
+  31 0008 80E0      		ldi r24,lo8(_msg_ps2)
+  32 000a 90E0      		ldi r25,hi8(_msg_ps2)
+  33 000c 0C94 0000 		jmp log_boot
+  34               	.LVL0:
+  35               		.cfi_endproc
+  36               	.LFE3:
+  38               	.global	__vector_1
+  40               	__vector_1:
+  41               	.LFB6:
+  38:ps2/ps2.c     **** }
+  39:ps2/ps2.c     **** 
+  40:ps2/ps2.c     **** /**
+  41:ps2/ps2.c     ****  * @brief Get the PS/2 data line state
+  42:ps2/ps2.c     ****  *
+  43:ps2/ps2.c     ****  * @return 0 if LOW, non-zero if HIGH
+  44:ps2/ps2.c     ****  */
+  45:ps2/ps2.c     **** static inline u8 _ps2_data_read(void)
+  46:ps2/ps2.c     **** {
+  47:ps2/ps2.c     **** 	/* Read keyboard data pin */
+  48:ps2/ps2.c     **** 	return PS2_DATA_PORT_IN & (1 << PS2_DATA_PIN);
+  49:ps2/ps2.c     **** }
+  50:ps2/ps2.c     **** 
+  51:ps2/ps2.c     **** /**
+  52:ps2/ps2.c     ****  * @brief Called when a falling edge is detected on the PS/2 clock pin
+  53:ps2/ps2.c     ****  */
+  54:ps2/ps2.c     **** static inline void _ps2_clock_falling_edge(void)
+  55:ps2/ps2.c     **** {
+  56:ps2/ps2.c     **** 	if(_bit == 0)
+  57:ps2/ps2.c     **** 	{
+  58:ps2/ps2.c     **** 		/* Start bit, reset byte */
+  59:ps2/ps2.c     **** 		_byte = 0;
+  60:ps2/ps2.c     **** 	}
+  61:ps2/ps2.c     **** 	else if(_bit >= 1 && _bit <= 8)
+  62:ps2/ps2.c     **** 	{
+  63:ps2/ps2.c     **** 		/* Data bit */
+  64:ps2/ps2.c     **** 		if(_ps2_data_read())
+  65:ps2/ps2.c     **** 		{
+  66:ps2/ps2.c     **** 			/* Set bit */
+  67:ps2/ps2.c     **** 			_byte |= (1 << (_bit - 1));
+  68:ps2/ps2.c     **** 		}
+  69:ps2/ps2.c     **** 	}
+  70:ps2/ps2.c     **** 	else if(_bit == 9)
+  71:ps2/ps2.c     **** 	{
+  72:ps2/ps2.c     **** 		/* Ignore parity bit */
+  73:ps2/ps2.c     **** 		/* TODO: Check parity bit */
+  74:ps2/ps2.c     **** 		ps2_event(_byte);
+  75:ps2/ps2.c     **** 	}
+  76:ps2/ps2.c     **** 	else if(_bit == 10)
+  77:ps2/ps2.c     **** 	{
+  78:ps2/ps2.c     **** 		/* Stop bit, reset bit counter */
+  79:ps2/ps2.c     **** 		_bit = 0;
+  80:ps2/ps2.c     **** 
+  81:ps2/ps2.c     **** 		/* Return immediately so it stays 0 */
+  82:ps2/ps2.c     **** 		return;
+  83:ps2/ps2.c     **** 	}
+  84:ps2/ps2.c     **** 
+  85:ps2/ps2.c     **** 	++_bit;
+  86:ps2/ps2.c     **** }
+  87:ps2/ps2.c     **** 
+  88:ps2/ps2.c     **** /** External interrupt */
+  89:ps2/ps2.c     **** ISR(INT0_vect)
+  90:ps2/ps2.c     **** {
+  42               		.loc 1 90 1 view -0
+  43               		.cfi_startproc
+  44 0010 1F92      		push r1
+  45               		.cfi_def_cfa_offset 3
+  46               		.cfi_offset 1, -2
+  47 0012 0F92      		push r0
+  48               		.cfi_def_cfa_offset 4
+  49               		.cfi_offset 0, -3
+  50 0014 0FB6      		in r0,__SREG__
+  51 0016 0F92      		push r0
+  52 0018 1124      		clr __zero_reg__
+  53 001a 2F93      		push r18
+  54               		.cfi_def_cfa_offset 5
+  55               		.cfi_offset 18, -4
+  56 001c 3F93      		push r19
+  57               		.cfi_def_cfa_offset 6
+  58               		.cfi_offset 19, -5
+  59 001e 4F93      		push r20
+  60               		.cfi_def_cfa_offset 7
+  61               		.cfi_offset 20, -6
+  62 0020 5F93      		push r21
+  63               		.cfi_def_cfa_offset 8
+  64               		.cfi_offset 21, -7
+  65 0022 6F93      		push r22
+  66               		.cfi_def_cfa_offset 9
+  67               		.cfi_offset 22, -8
+  68 0024 7F93      		push r23
+  69               		.cfi_def_cfa_offset 10
+  70               		.cfi_offset 23, -9
+  71 0026 8F93      		push r24
+  72               		.cfi_def_cfa_offset 11
+  73               		.cfi_offset 24, -10
+  74 0028 9F93      		push r25
+  75               		.cfi_def_cfa_offset 12
+  76               		.cfi_offset 25, -11
+  77 002a AF93      		push r26
+  78               		.cfi_def_cfa_offset 13
+  79               		.cfi_offset 26, -12
+  80 002c BF93      		push r27
+  81               		.cfi_def_cfa_offset 14
+  82               		.cfi_offset 27, -13
+  83 002e EF93      		push r30
+  84               		.cfi_def_cfa_offset 15
+  85               		.cfi_offset 30, -14
+  86 0030 FF93      		push r31
+  87               		.cfi_def_cfa_offset 16
+  88               		.cfi_offset 31, -15
+  89               	/* prologue: Signal */
+  90               	/* frame size = 0 */
+  91               	/* stack size = 15 */
+  92               	.L__stack_usage = 15
+  91:ps2/ps2.c     **** 	_ps2_clock_falling_edge();
+  93               		.loc 1 91 2 view .LVU7
+  94               	.LBB8:
+  95               	.LBI8:
+  54:ps2/ps2.c     **** {
+  96               		.loc 1 54 20 view .LVU8
+  97               	.LBB9:
+  56:ps2/ps2.c     **** 	{
+  98               		.loc 1 56 2 view .LVU9
+  56:ps2/ps2.c     **** 	{
+  99               		.loc 1 56 10 is_stmt 0 view .LVU10
+ 100 0032 8091 0000 		lds r24,_bit
+  56:ps2/ps2.c     **** 	{
+ 101               		.loc 1 56 4 view .LVU11
+ 102 0036 8111      		cpse r24,__zero_reg__
+ 103 0038 00C0      		rjmp .L3
+  59:ps2/ps2.c     **** 	}
+ 104               		.loc 1 59 3 is_stmt 1 view .LVU12
+  59:ps2/ps2.c     **** 	}
+ 105               		.loc 1 59 9 is_stmt 0 view .LVU13
+ 106 003a 1092 0000 		sts _byte,__zero_reg__
+ 107               	.L4:
+  85:ps2/ps2.c     **** }
+ 108               		.loc 1 85 2 is_stmt 1 view .LVU14
+ 109 003e 8091 0000 		lds r24,_bit
+ 110 0042 8F5F      		subi r24,lo8(-(1))
+ 111               	.L7:
+  79:ps2/ps2.c     **** 
+ 112               		.loc 1 79 8 is_stmt 0 view .LVU15
+ 113 0044 8093 0000 		sts _bit,r24
+ 114               	/* epilogue start */
+ 115               	.LBE9:
+ 116               	.LBE8:
+  92:ps2/ps2.c     **** }
+ 117               		.loc 1 92 1 view .LVU16
+ 118 0048 FF91      		pop r31
+ 119 004a EF91      		pop r30
+ 120 004c BF91      		pop r27
+ 121 004e AF91      		pop r26
+ 122 0050 9F91      		pop r25
+ 123 0052 8F91      		pop r24
+ 124 0054 7F91      		pop r23
+ 125 0056 6F91      		pop r22
+ 126 0058 5F91      		pop r21
+ 127 005a 4F91      		pop r20
+ 128 005c 3F91      		pop r19
+ 129 005e 2F91      		pop r18
+ 130 0060 0F90      		pop r0
+ 131 0062 0FBE      		out __SREG__,r0
+ 132 0064 0F90      		pop r0
+ 133 0066 1F90      		pop r1
+ 134 0068 1895      		reti
+ 135               	.L3:
+ 136               	.LBB13:
+ 137               	.LBB12:
+  61:ps2/ps2.c     **** 	{
+ 138               		.loc 1 61 7 is_stmt 1 view .LVU17
+  61:ps2/ps2.c     **** 	{
+ 139               		.loc 1 61 20 is_stmt 0 view .LVU18
+ 140 006a 9FEF      		ldi r25,lo8(-1)
+ 141 006c 980F      		add r25,r24
+  61:ps2/ps2.c     **** 	{
+ 142               		.loc 1 61 9 view .LVU19
+ 143 006e 9830      		cpi r25,lo8(8)
+ 144 0070 00F4      		brsh .L5
+  64:ps2/ps2.c     **** 		{
+ 145               		.loc 1 64 3 is_stmt 1 view .LVU20
+ 146               	.LBB10:
+ 147               	.LBI10:
+  45:ps2/ps2.c     **** {
+ 148               		.loc 1 45 18 view .LVU21
+ 149               	.LBB11:
+  48:ps2/ps2.c     **** }
+ 150               		.loc 1 48 2 view .LVU22
+ 151               	.LBE11:
+ 152               	.LBE10:
+  64:ps2/ps2.c     **** 		{
+ 153               		.loc 1 64 5 is_stmt 0 view .LVU23
+ 154 0072 1B9B      		sbis 0x3,3
+ 155 0074 00C0      		rjmp .L4
+  67:ps2/ps2.c     **** 		}
+ 156               		.loc 1 67 4 is_stmt 1 view .LVU24
+  67:ps2/ps2.c     **** 		}
+ 157               		.loc 1 67 25 is_stmt 0 view .LVU25
+ 158 0076 8150      		subi r24,1
+ 159 0078 990B      		sbc r25,r25
+  67:ps2/ps2.c     **** 		}
+ 160               		.loc 1 67 16 view .LVU26
+ 161 007a 21E0      		ldi r18,lo8(1)
+ 162 007c 30E0      		ldi r19,0
+ 163 007e 00C0      		rjmp 2f
+ 164               		1:
+ 165 0080 220F      		lsl r18
+ 166               		2:
+ 167 0082 8A95      		dec r24
+ 168 0084 02F4      		brpl 1b
+  67:ps2/ps2.c     **** 		}
+ 169               		.loc 1 67 10 view .LVU27
+ 170 0086 8091 0000 		lds r24,_byte
+ 171 008a 822B      		or r24,r18
+ 172 008c 8093 0000 		sts _byte,r24
+ 173 0090 00C0      		rjmp .L4
+ 174               	.L5:
+  70:ps2/ps2.c     **** 	{
+ 175               		.loc 1 70 7 is_stmt 1 view .LVU28
+  70:ps2/ps2.c     **** 	{
+ 176               		.loc 1 70 9 is_stmt 0 view .LVU29
+ 177 0092 8930      		cpi r24,lo8(9)
+ 178 0094 01F4      		brne .L6
+  74:ps2/ps2.c     **** 	}
+ 179               		.loc 1 74 3 is_stmt 1 view .LVU30
+ 180 0096 8091 0000 		lds r24,_byte
+ 181 009a 0E94 0000 		call ps2_event
+ 182               	.LVL1:
+ 183 009e 00C0      		rjmp .L4
+ 184               	.L6:
+  76:ps2/ps2.c     **** 	{
+ 185               		.loc 1 76 7 view .LVU31
+  76:ps2/ps2.c     **** 	{
+ 186               		.loc 1 76 9 is_stmt 0 view .LVU32
+ 187 00a0 8A30      		cpi r24,lo8(10)
+ 188 00a2 01F4      		brne .L4
+ 189 00a4 80E0      		ldi r24,0
+ 190 00a6 00C0      		rjmp .L7
+ 191               	.LBE12:
+ 192               	.LBE13:
+ 193               		.cfi_endproc
+ 194               	.LFE6:
+ 196               		.local	_bit
+ 197               		.comm	_bit,1,1
+ 198               		.local	_byte
+ 199               		.comm	_byte,1,1
+ 200               		.section	.progmem.data,"a",@progbits
+ 203               	_msg_ps2:
+ 204 0000 5053 2F32 		.string	"PS/2 keyboard initialized"
+ 204      206B 6579 
+ 204      626F 6172 
+ 204      6420 696E 
+ 204      6974 6961 
+ 205               		.text
+ 206               	.Letext0:
+ 207               		.file 2 "ps2/ps2.h"
+ 208               		.file 3 "logger/logger.h"
+ 209               		.file 4 "/usr/lib/gcc/avr/12.2.0/include/stdint-gcc.h"
+ 210               		.file 5 "../../types/types.h"
+DEFINED SYMBOLS
+                            *ABS*:00000000 ps2.c
+     /tmp/ccelZHzI.s:2      *ABS*:0000003e __SP_H__
+     /tmp/ccelZHzI.s:3      *ABS*:0000003d __SP_L__
+     /tmp/ccelZHzI.s:4      *ABS*:0000003f __SREG__
+     /tmp/ccelZHzI.s:5      *ABS*:00000000 __tmp_reg__
+     /tmp/ccelZHzI.s:6      *ABS*:00000001 __zero_reg__
+     /tmp/ccelZHzI.s:13     .text:00000000 ps2_init
+     /tmp/ccelZHzI.s:16     .text:00000000 .Loc.0
+     /tmp/ccelZHzI.s:17     .text:00000000 L0
+     /tmp/ccelZHzI.s:22     .text:00000000 .Loc.1
+     /tmp/ccelZHzI.s:23     .text:00000000 .Loc.2
+     /tmp/ccelZHzI.s:25     .text:00000002 .Loc.3
+     /tmp/ccelZHzI.s:27     .text:00000004 .Loc.4
+     /tmp/ccelZHzI.s:30     .text:00000008 .Loc.5
+     /tmp/ccelZHzI.s:203    .progmem.data:00000000 _msg_ps2
+     /tmp/ccelZHzI.s:35     .text:00000010 L0
+     /tmp/ccelZHzI.s:40     .text:00000010 __vector_1
+     /tmp/ccelZHzI.s:42     .text:00000010 .Loc.6
+     /tmp/ccelZHzI.s:43     .text:00000010 L0
+     /tmp/ccelZHzI.s:93     .text:00000032 .Loc.7
+     /tmp/ccelZHzI.s:96     .text:00000032 .Loc.8
+     /tmp/ccelZHzI.s:98     .text:00000032 .Loc.9
+     /tmp/ccelZHzI.s:99     .text:00000032 .Loc.10
+                             .bss:00000000 _bit
+     /tmp/ccelZHzI.s:101    .text:00000036 .Loc.11
+     /tmp/ccelZHzI.s:104    .text:0000003a .Loc.12
+     /tmp/ccelZHzI.s:105    .text:0000003a .Loc.13
+     /tmp/ccelZHzI.s:197    .bss:00000001 _byte
+     /tmp/ccelZHzI.s:108    .text:0000003e .Loc.14
+     /tmp/ccelZHzI.s:112    .text:00000044 .Loc.15
+     /tmp/ccelZHzI.s:117    .text:00000048 .Loc.16
+     /tmp/ccelZHzI.s:138    .text:0000006a .Loc.17
+     /tmp/ccelZHzI.s:139    .text:0000006a .Loc.18
+     /tmp/ccelZHzI.s:142    .text:0000006e .Loc.19
+     /tmp/ccelZHzI.s:145    .text:00000072 .Loc.20
+     /tmp/ccelZHzI.s:148    .text:00000072 .Loc.21
+     /tmp/ccelZHzI.s:150    .text:00000072 .Loc.22
+     /tmp/ccelZHzI.s:153    .text:00000072 .Loc.23
+     /tmp/ccelZHzI.s:156    .text:00000076 .Loc.24
+     /tmp/ccelZHzI.s:157    .text:00000076 .Loc.25
+     /tmp/ccelZHzI.s:160    .text:0000007a .Loc.26
+     /tmp/ccelZHzI.s:169    .text:00000086 .Loc.27
+     /tmp/ccelZHzI.s:175    .text:00000092 .Loc.28
+     /tmp/ccelZHzI.s:176    .text:00000092 .Loc.29
+     /tmp/ccelZHzI.s:179    .text:00000096 .Loc.30
+     /tmp/ccelZHzI.s:185    .text:000000a0 .Loc.31
+     /tmp/ccelZHzI.s:186    .text:000000a0 .Loc.32
+     /tmp/ccelZHzI.s:193    .text:000000a8 L0
+     /tmp/ccelZHzI.s:211    .text:000000a8 L0
+                     .debug_frame:00000000 L0
+     /tmp/ccelZHzI.s:135    .text:0000006a .L3
+     /tmp/ccelZHzI.s:174    .text:00000092 .L5
+     /tmp/ccelZHzI.s:107    .text:0000003e .L4
+     /tmp/ccelZHzI.s:166    .text:00000082 .L21
+     /tmp/ccelZHzI.s:164    .text:00000080 .L11
+     /tmp/ccelZHzI.s:184    .text:000000a0 .L6
+     /tmp/ccelZHzI.s:111    .text:00000044 .L7
+     /tmp/ccelZHzI.s:408    .debug_abbrev:00000000 .Ldebug_abbrev0
+     /tmp/ccelZHzI.s:8      .text:00000000 .Ltext0
+     /tmp/ccelZHzI.s:206    .text:000000a8 .Letext0
+     /tmp/ccelZHzI.s:749    .debug_line:00000000 .Ldebug_line0
+     /tmp/ccelZHzI.s:41     .text:00000010 .LFB6
+     /tmp/ccelZHzI.s:194    .text:000000a8 .LFE6
+     /tmp/ccelZHzI.s:95     .text:00000032 .LBI8
+     /tmp/ccelZHzI.s:739    .debug_rnglists:0000000c .LLRL0
+     /tmp/ccelZHzI.s:147    .text:00000072 .LBI10
+     /tmp/ccelZHzI.s:146    .text:00000072 .LBB10
+     /tmp/ccelZHzI.s:152    .text:00000072 .LBE10
+     /tmp/ccelZHzI.s:182    .text:0000009e .LVL1
+     /tmp/ccelZHzI.s:14     .text:00000000 .LFB3
+     /tmp/ccelZHzI.s:36     .text:00000010 .LFE3
+     /tmp/ccelZHzI.s:34     .text:00000010 .LVL0
+     /tmp/ccelZHzI.s:212    .debug_info:00000000 .Ldebug_info0
+
+UNDEFINED SYMBOLS
+log_boot
+ps2_event
+__do_clear_bss

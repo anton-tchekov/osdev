@@ -1,0 +1,159 @@
+   1               		.file	"random.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__tmp_reg__ = 0
+   6               	__zero_reg__ = 1
+   7               		.text
+   8               	.Ltext0:
+   9               		.cfi_sections	.debug_frame
+  10               		.file 0 "/home/files/osdev/platform/avr" "random/random.c"
+  11               	.global	random_init
+  13               	random_init:
+  14               	.LFB7:
+  15               		.file 1 "random/random.c"
+   1:random/random.c **** /**
+   2:random/random.c ****  * @file    random.c
+   3:random/random.c ****  * @author  Tim Gabrikowski, Anton Tchekov
+   4:random/random.c ****  * @version 0.1
+   5:random/random.c ****  * @date    16.05.2023
+   6:random/random.c ****  */
+   7:random/random.c **** 
+   8:random/random.c **** #include <random.h>
+   9:random/random.c **** #include <adc.h>
+  10:random/random.c **** #include <logger.h>
+  11:random/random.c **** #include <stdlib.h>
+  12:random/random.c **** #include <avr/pgmspace.h>
+  13:random/random.c **** 
+  14:random/random.c **** static const char _msg_rng[] PROGMEM = "RNG initialized";
+  15:random/random.c **** 
+  16:random/random.c **** /* TODO: Replace srand and rand with own random generator */
+  17:random/random.c **** 
+  18:random/random.c **** void random_init(void)
+  19:random/random.c **** {
+  16               		.loc 1 19 1 view -0
+  17               		.cfi_startproc
+  18               	/* prologue: function */
+  19               	/* frame size = 0 */
+  20               	/* stack size = 0 */
+  21               	.L__stack_usage = 0
+  20:random/random.c **** 	srand(adc_read(ADC_CHANNEL_NOISE));
+  22               		.loc 1 20 2 view .LVU1
+  23 0000 85E0      		ldi r24,lo8(5)
+  24 0002 0E94 0000 		call adc_read
+  25               	.LVL0:
+  26 0006 0E94 0000 		call srand
+  27               	.LVL1:
+  21:random/random.c **** 	log_boot(_msg_rng);
+  28               		.loc 1 21 2 view .LVU2
+  29 000a 80E0      		ldi r24,lo8(_msg_rng)
+  30 000c 90E0      		ldi r25,hi8(_msg_rng)
+  31 000e 0C94 0000 		jmp log_boot
+  32               	.LVL2:
+  33               		.cfi_endproc
+  34               	.LFE7:
+  36               	.global	random_get
+  38               	random_get:
+  39               	.LFB8:
+  22:random/random.c **** }
+  23:random/random.c **** 
+  24:random/random.c **** u32 random_get(void)
+  25:random/random.c **** {
+  40               		.loc 1 25 1 view -0
+  41               		.cfi_startproc
+  42 0012 CF93      		push r28
+  43               		.cfi_def_cfa_offset 3
+  44               		.cfi_offset 28, -2
+  45 0014 DF93      		push r29
+  46               		.cfi_def_cfa_offset 4
+  47               		.cfi_offset 29, -3
+  48 0016 00D0      		rcall .
+  49 0018 00D0      		rcall .
+  50               		.cfi_def_cfa_offset 8
+  51 001a CDB7      		in r28,__SP_L__
+  52 001c DEB7      		in r29,__SP_H__
+  53               		.cfi_def_cfa_register 28
+  54               	/* prologue: function */
+  55               	/* frame size = 4 */
+  56               	/* stack size = 6 */
+  57               	.L__stack_usage = 6
+  26:random/random.c **** 	return rand();
+  58               		.loc 1 26 2 view .LVU4
+  59               		.loc 1 26 9 is_stmt 0 view .LVU5
+  60 001e 0E94 0000 		call rand
+  61               	.LVL3:
+  62 0022 9C01      		movw r18,r24
+  63 0024 990F      		lsl r25
+  64 0026 440B      		sbc r20,r20
+  65 0028 550B      		sbc r21,r21
+  27:random/random.c **** }
+  66               		.loc 1 27 1 view .LVU6
+  67 002a CA01      		movw r24,r20
+  68 002c B901      		movw r22,r18
+  69               	/* epilogue start */
+  70 002e 0F90      		pop __tmp_reg__
+  71 0030 0F90      		pop __tmp_reg__
+  72 0032 0F90      		pop __tmp_reg__
+  73 0034 0F90      		pop __tmp_reg__
+  74 0036 DF91      		pop r29
+  75 0038 CF91      		pop r28
+  76 003a 0895      		ret
+  77               		.cfi_endproc
+  78               	.LFE8:
+  80               		.section	.progmem.data,"a",@progbits
+  83               	_msg_rng:
+  84 0000 524E 4720 		.string	"RNG initialized"
+  84      696E 6974 
+  84      6961 6C69 
+  84      7A65 6400 
+  85               		.text
+  86               	.Letext0:
+  87               		.file 2 "/usr/lib/gcc/avr/12.2.0/include/stdint-gcc.h"
+  88               		.file 3 "../../types/types.h"
+  89               		.file 4 "logger/logger.h"
+  90               		.file 5 "/usr/avr/include/stdlib.h"
+  91               		.file 6 "adc/adc.h"
+DEFINED SYMBOLS
+                            *ABS*:00000000 random.c
+     /tmp/ccaI0FmA.s:2      *ABS*:0000003e __SP_H__
+     /tmp/ccaI0FmA.s:3      *ABS*:0000003d __SP_L__
+     /tmp/ccaI0FmA.s:4      *ABS*:0000003f __SREG__
+     /tmp/ccaI0FmA.s:5      *ABS*:00000000 __tmp_reg__
+     /tmp/ccaI0FmA.s:6      *ABS*:00000001 __zero_reg__
+     /tmp/ccaI0FmA.s:13     .text:00000000 random_init
+     /tmp/ccaI0FmA.s:16     .text:00000000 .Loc.0
+     /tmp/ccaI0FmA.s:17     .text:00000000 L0
+     /tmp/ccaI0FmA.s:22     .text:00000000 .Loc.1
+     /tmp/ccaI0FmA.s:28     .text:0000000a .Loc.2
+     /tmp/ccaI0FmA.s:83     .progmem.data:00000000 _msg_rng
+     /tmp/ccaI0FmA.s:33     .text:00000012 L0
+     /tmp/ccaI0FmA.s:38     .text:00000012 random_get
+     /tmp/ccaI0FmA.s:40     .text:00000012 .Loc.3
+     /tmp/ccaI0FmA.s:41     .text:00000012 L0
+     /tmp/ccaI0FmA.s:48     .text:00000018 L0
+     /tmp/ccaI0FmA.s:49     .text:0000001a L0
+     /tmp/ccaI0FmA.s:58     .text:0000001e .Loc.4
+     /tmp/ccaI0FmA.s:59     .text:0000001e .Loc.5
+     /tmp/ccaI0FmA.s:66     .text:0000002a .Loc.6
+     /tmp/ccaI0FmA.s:77     .text:0000003c L0
+     /tmp/ccaI0FmA.s:92     .text:0000003c L0
+                     .debug_frame:00000000 L0
+     /tmp/ccaI0FmA.s:293    .debug_abbrev:00000000 .Ldebug_abbrev0
+     /tmp/ccaI0FmA.s:8      .text:00000000 .Ltext0
+     /tmp/ccaI0FmA.s:86     .text:0000003c .Letext0
+     /tmp/ccaI0FmA.s:619    .debug_line:00000000 .Ldebug_line0
+     /tmp/ccaI0FmA.s:39     .text:00000012 .LFB8
+     /tmp/ccaI0FmA.s:78     .text:0000003c .LFE8
+     /tmp/ccaI0FmA.s:61     .text:00000022 .LVL3
+     /tmp/ccaI0FmA.s:14     .text:00000000 .LFB7
+     /tmp/ccaI0FmA.s:34     .text:00000012 .LFE7
+     /tmp/ccaI0FmA.s:25     .text:00000006 .LVL0
+     /tmp/ccaI0FmA.s:27     .text:0000000a .LVL1
+     /tmp/ccaI0FmA.s:32     .text:00000012 .LVL2
+     /tmp/ccaI0FmA.s:93     .debug_info:00000000 .Ldebug_info0
+
+UNDEFINED SYMBOLS
+adc_read
+srand
+log_boot
+rand

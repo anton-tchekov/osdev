@@ -1,0 +1,335 @@
+   1               		.file	"main.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__tmp_reg__ = 0
+   6               	__zero_reg__ = 1
+   7               		.text
+   8               	.Ltext0:
+   9               		.cfi_sections	.debug_frame
+  10               		.file 0 "/home/files/osdev/platform/avr" "main.c"
+  11               	.global	byte_to_hex
+  13               	byte_to_hex:
+  14               	.LVL0:
+  15               	.LFB3:
+  16               		.file 1 "main.c"
+   1:main.c        **** #include "ps2.h"
+   2:main.c        **** #include "serial.h"
+   3:main.c        **** #include "adc.h"
+   4:main.c        **** #include "random.h"
+   5:main.c        **** #include "timer.h"
+   6:main.c        **** #include "rtc.h"
+   7:main.c        **** #include "xmem.h"
+   8:main.c        **** #include "logger.h"
+   9:main.c        **** #include "spi.h"
+  10:main.c        **** #include <avr/pgmspace.h>
+  11:main.c        **** 
+  12:main.c        **** static const char _msg_launch[] PROGMEM =
+  13:main.c        **** 	"RISC-V VirtualOS Version 0.1 Booting ...";
+  14:main.c        **** 
+  15:main.c        **** char byte_to_hex(u8 byte)
+  16:main.c        **** {
+  17               		.loc 1 16 1 view -0
+  18               		.cfi_startproc
+  19               	/* prologue: function */
+  20               	/* frame size = 0 */
+  21               	/* stack size = 0 */
+  22               	.L__stack_usage = 0
+  17:main.c        **** 	if(byte < 10)
+  23               		.loc 1 17 2 view .LVU1
+  24               		.loc 1 17 4 is_stmt 0 view .LVU2
+  25 0000 8A30      		cpi r24,lo8(10)
+  26 0002 00F4      		brsh .L2
+  18:main.c        **** 	{
+  19:main.c        **** 		return byte + '0';
+  27               		.loc 1 19 3 is_stmt 1 view .LVU3
+  28               		.loc 1 19 15 is_stmt 0 view .LVU4
+  29 0004 805D      		subi r24,lo8(-(48))
+  30               	.LVL1:
+  31               		.loc 1 19 15 view .LVU5
+  32 0006 0895      		ret
+  33               	.LVL2:
+  34               	.L2:
+  20:main.c        **** 	}
+  21:main.c        **** 
+  22:main.c        **** 	return byte - 10 + 'A';
+  35               		.loc 1 22 2 is_stmt 1 view .LVU6
+  36               		.loc 1 22 19 is_stmt 0 view .LVU7
+  37 0008 895C      		subi r24,lo8(-(55))
+  38               	.LVL3:
+  39               	/* epilogue start */
+  23:main.c        **** }
+  40               		.loc 1 23 1 view .LVU8
+  41 000a 0895      		ret
+  42               		.cfi_endproc
+  43               	.LFE3:
+  45               	.global	ps2_event
+  47               	ps2_event:
+  48               	.LVL4:
+  49               	.LFB4:
+  24:main.c        **** 
+  25:main.c        **** void ps2_event(u8 byte)
+  26:main.c        **** {
+  50               		.loc 1 26 1 is_stmt 1 view -0
+  51               		.cfi_startproc
+  52               		.loc 1 26 1 is_stmt 0 view .LVU10
+  53 000c CF93      		push r28
+  54               		.cfi_def_cfa_offset 3
+  55               		.cfi_offset 28, -2
+  56               	/* prologue: function */
+  57               	/* frame size = 0 */
+  58               	/* stack size = 1 */
+  59               	.L__stack_usage = 1
+  60 000e C82F      		mov r28,r24
+  27:main.c        **** 	/* Called when a byte is received from the keyboard */
+  28:main.c        **** 	serial_tx('0');
+  61               		.loc 1 28 2 is_stmt 1 view .LVU11
+  62 0010 80E3      		ldi r24,lo8(48)
+  63               	.LVL5:
+  64               		.loc 1 28 2 is_stmt 0 view .LVU12
+  65 0012 0E94 0000 		call serial_tx
+  66               	.LVL6:
+  29:main.c        **** 	serial_tx('x');
+  67               		.loc 1 29 2 is_stmt 1 view .LVU13
+  68 0016 88E7      		ldi r24,lo8(120)
+  69 0018 0E94 0000 		call serial_tx
+  70               	.LVL7:
+  30:main.c        **** 	serial_tx(byte_to_hex((byte >> 4) & 0x0F));
+  71               		.loc 1 30 2 view .LVU14
+  72 001c 8C2F      		mov r24,r28
+  73 001e 8295      		swap r24
+  74 0020 8F70      		andi r24,lo8(15)
+  75 0022 0E94 0000 		call byte_to_hex
+  76               	.LVL8:
+  77 0026 0E94 0000 		call serial_tx
+  78               	.LVL9:
+  31:main.c        **** 	serial_tx(byte_to_hex(byte & 0x0F));
+  79               		.loc 1 31 2 view .LVU15
+  80 002a 8C2F      		mov r24,r28
+  81 002c 8F70      		andi r24,lo8(15)
+  82 002e 0E94 0000 		call byte_to_hex
+  83               	.LVL10:
+  84               	/* epilogue start */
+  32:main.c        **** }
+  85               		.loc 1 32 1 is_stmt 0 view .LVU16
+  86 0032 CF91      		pop r28
+  87               	.LVL11:
+  31:main.c        **** 	serial_tx(byte_to_hex(byte & 0x0F));
+  88               		.loc 1 31 2 view .LVU17
+  89 0034 0C94 0000 		jmp serial_tx
+  90               	.LVL12:
+  91               		.cfi_endproc
+  92               	.LFE4:
+  94               		.section	.text.startup,"ax",@progbits
+  95               	.global	main
+  97               	main:
+  98               	.LFB5:
+  33:main.c        **** 
+  34:main.c        **** int main(void)
+  35:main.c        **** {
+  99               		.loc 1 35 1 is_stmt 1 view -0
+ 100               		.cfi_startproc
+ 101               	/* prologue: function */
+ 102               	/* frame size = 0 */
+ 103               	/* stack size = 0 */
+ 104               	.L__stack_usage = 0
+  36:main.c        **** 	/* --- BOOT SEQUENCE --- */
+  37:main.c        **** 
+  38:main.c        **** 	/* Initialize serial port */
+  39:main.c        **** 	serial_init();
+ 105               		.loc 1 39 2 view .LVU19
+ 106 0000 0E94 0000 		call serial_init
+ 107               	.LVL13:
+  40:main.c        **** 
+  41:main.c        **** 	/* Enable interrupts */
+  42:main.c        **** 	sei();
+ 108               		.loc 1 42 2 view .LVU20
+ 109               	/* #APP */
+ 110               	 ;  42 "main.c" 1
+ 111 0004 7894      		sei
+ 112               	 ;  0 "" 2
+  43:main.c        **** 
+  44:main.c        **** 	/* Print boot message */
+  45:main.c        **** 	log_boot(_msg_launch);
+ 113               		.loc 1 45 2 view .LVU21
+ 114               	/* #NOAPP */
+ 115 0006 80E0      		ldi r24,lo8(_msg_launch)
+ 116 0008 90E0      		ldi r25,hi8(_msg_launch)
+ 117 000a 0E94 0000 		call log_boot
+ 118               	.LVL14:
+  46:main.c        **** 
+  47:main.c        **** 	/* Initialize timer */
+  48:main.c        **** 	timer_init();
+ 119               		.loc 1 48 2 view .LVU22
+ 120 000e 0E94 0000 		call timer_init
+ 121               	.LVL15:
+  49:main.c        **** 
+  50:main.c        **** 	/* Initialize SPI */
+  51:main.c        **** 	spi_init();
+ 122               		.loc 1 51 2 view .LVU23
+ 123 0012 0E94 0000 		call spi_init
+ 124               	.LVL16:
+  52:main.c        **** 
+  53:main.c        **** 	/* Initialize external memory */
+  54:main.c        **** 	xmem_init();
+ 125               		.loc 1 54 2 view .LVU24
+ 126 0016 0E94 0000 		call xmem_init
+ 127               	.LVL17:
+  55:main.c        **** 
+  56:main.c        **** 	/* Initialize ADC */
+  57:main.c        **** 	adc_init();
+ 128               		.loc 1 57 2 view .LVU25
+ 129 001a 0E94 0000 		call adc_init
+ 130               	.LVL18:
+  58:main.c        **** 
+  59:main.c        **** 	/* Initialize RNG */
+  60:main.c        **** 	random_init();
+ 131               		.loc 1 60 2 view .LVU26
+ 132 001e 0E94 0000 		call random_init
+ 133               	.LVL19:
+  61:main.c        **** 
+  62:main.c        **** 	/* Initialize keyboard */
+  63:main.c        **** 	ps2_init();
+ 134               		.loc 1 63 2 view .LVU27
+ 135 0022 0E94 0000 		call ps2_init
+ 136               	.LVL20:
+  64:main.c        **** 
+  65:main.c        **** 	/* Initialize RTC */
+  66:main.c        **** 	rtc_init();
+ 137               		.loc 1 66 2 view .LVU28
+ 138 0026 0E94 0000 		call rtc_init
+ 139               	.LVL21:
+ 140               	.L6:
+  67:main.c        **** 
+  68:main.c        **** 	/* --- READY --- */
+  69:main.c        **** 
+  70:main.c        **** 	/* Infinite loop */
+  71:main.c        **** 	for(;;)
+ 141               		.loc 1 71 2 discriminator 1 view .LVU29
+  72:main.c        **** 	{
+  73:main.c        **** 	}
+ 142               		.loc 1 73 2 discriminator 1 view .LVU30
+  71:main.c        **** 	{
+ 143               		.loc 1 71 2 discriminator 1 view .LVU31
+ 144 002a 00C0      		rjmp .L6
+ 145               		.cfi_endproc
+ 146               	.LFE5:
+ 148               		.section	.progmem.data,"a",@progbits
+ 151               	_msg_launch:
+ 152 0000 5249 5343 		.string	"RISC-V VirtualOS Version 0.1 Booting ..."
+ 152      2D56 2056 
+ 152      6972 7475 
+ 152      616C 4F53 
+ 152      2056 6572 
+ 153               		.text
+ 154               	.Letext0:
+ 155               		.file 2 "rtc/rtc.h"
+ 156               		.file 3 "ps2/ps2.h"
+ 157               		.file 4 "random/random.h"
+ 158               		.file 5 "adc/adc.h"
+ 159               		.file 6 "xmem/xmem.h"
+ 160               		.file 7 "spi/spi.h"
+ 161               		.file 8 "timer/timer.h"
+ 162               		.file 9 "serial/serial.h"
+ 163               		.file 10 "logger/logger.h"
+ 164               		.file 11 "/usr/lib/gcc/avr/12.2.0/include/stdint-gcc.h"
+ 165               		.file 12 "../../types/types.h"
+DEFINED SYMBOLS
+                            *ABS*:00000000 main.c
+     /tmp/ccMBkemt.s:2      *ABS*:0000003e __SP_H__
+     /tmp/ccMBkemt.s:3      *ABS*:0000003d __SP_L__
+     /tmp/ccMBkemt.s:4      *ABS*:0000003f __SREG__
+     /tmp/ccMBkemt.s:5      *ABS*:00000000 __tmp_reg__
+     /tmp/ccMBkemt.s:6      *ABS*:00000001 __zero_reg__
+     /tmp/ccMBkemt.s:13     .text:00000000 byte_to_hex
+     /tmp/ccMBkemt.s:17     .text:00000000 .Loc.0
+     /tmp/ccMBkemt.s:18     .text:00000000 L0
+     /tmp/ccMBkemt.s:23     .text:00000000 .Loc.1
+     /tmp/ccMBkemt.s:24     .text:00000000 .Loc.2
+     /tmp/ccMBkemt.s:27     .text:00000004 .Loc.3
+     /tmp/ccMBkemt.s:28     .text:00000004 .Loc.4
+     /tmp/ccMBkemt.s:31     .text:00000006 .Loc.5
+     /tmp/ccMBkemt.s:35     .text:00000008 .Loc.6
+     /tmp/ccMBkemt.s:36     .text:00000008 .Loc.7
+     /tmp/ccMBkemt.s:40     .text:0000000a .Loc.8
+     /tmp/ccMBkemt.s:42     .text:0000000c L0
+     /tmp/ccMBkemt.s:47     .text:0000000c ps2_event
+     /tmp/ccMBkemt.s:50     .text:0000000c .Loc.9
+     /tmp/ccMBkemt.s:51     .text:0000000c L0
+     /tmp/ccMBkemt.s:52     .text:0000000c .Loc.10
+     /tmp/ccMBkemt.s:61     .text:00000010 .Loc.11
+     /tmp/ccMBkemt.s:64     .text:00000012 .Loc.12
+     /tmp/ccMBkemt.s:67     .text:00000016 .Loc.13
+     /tmp/ccMBkemt.s:71     .text:0000001c .Loc.14
+     /tmp/ccMBkemt.s:79     .text:0000002a .Loc.15
+     /tmp/ccMBkemt.s:85     .text:00000032 .Loc.16
+     /tmp/ccMBkemt.s:88     .text:00000034 .Loc.17
+     /tmp/ccMBkemt.s:91     .text:00000038 L0
+     /tmp/ccMBkemt.s:97     .text.startup:00000000 main
+     /tmp/ccMBkemt.s:99     .text.startup:00000000 .Loc.18
+     /tmp/ccMBkemt.s:100    .text.startup:00000000 L0
+     /tmp/ccMBkemt.s:105    .text.startup:00000000 .Loc.19
+     /tmp/ccMBkemt.s:108    .text.startup:00000004 .Loc.20
+     /tmp/ccMBkemt.s:113    .text.startup:00000006 .Loc.21
+     /tmp/ccMBkemt.s:151    .progmem.data:00000000 _msg_launch
+     /tmp/ccMBkemt.s:119    .text.startup:0000000e .Loc.22
+     /tmp/ccMBkemt.s:122    .text.startup:00000012 .Loc.23
+     /tmp/ccMBkemt.s:125    .text.startup:00000016 .Loc.24
+     /tmp/ccMBkemt.s:128    .text.startup:0000001a .Loc.25
+     /tmp/ccMBkemt.s:131    .text.startup:0000001e .Loc.26
+     /tmp/ccMBkemt.s:134    .text.startup:00000022 .Loc.27
+     /tmp/ccMBkemt.s:137    .text.startup:00000026 .Loc.28
+     /tmp/ccMBkemt.s:141    .text.startup:0000002a .Loc.29
+     /tmp/ccMBkemt.s:142    .text.startup:0000002a .Loc.30
+     /tmp/ccMBkemt.s:143    .text.startup:0000002a .Loc.31
+     /tmp/ccMBkemt.s:145    .text.startup:0000002c L0
+     /tmp/ccMBkemt.s:166    .text:00000038 L0
+     /tmp/ccMBkemt.s:148    .text.startup:0000002c L0
+                     .debug_frame:00000000 L0
+     /tmp/ccMBkemt.s:34     .text:00000008 .L2
+     /tmp/ccMBkemt.s:140    .text.startup:0000002a .L6
+     /tmp/ccMBkemt.s:470    .debug_abbrev:00000000 .Ldebug_abbrev0
+     /tmp/ccMBkemt.s:883    .debug_rnglists:0000000c .LLRL2
+     /tmp/ccMBkemt.s:893    .debug_line:00000000 .Ldebug_line0
+     /tmp/ccMBkemt.s:98     .text.startup:00000000 .LFB5
+     /tmp/ccMBkemt.s:146    .text.startup:0000002c .LFE5
+     /tmp/ccMBkemt.s:107    .text.startup:00000004 .LVL13
+     /tmp/ccMBkemt.s:118    .text.startup:0000000e .LVL14
+     /tmp/ccMBkemt.s:121    .text.startup:00000012 .LVL15
+     /tmp/ccMBkemt.s:124    .text.startup:00000016 .LVL16
+     /tmp/ccMBkemt.s:127    .text.startup:0000001a .LVL17
+     /tmp/ccMBkemt.s:130    .text.startup:0000001e .LVL18
+     /tmp/ccMBkemt.s:133    .text.startup:00000022 .LVL19
+     /tmp/ccMBkemt.s:136    .text.startup:00000026 .LVL20
+     /tmp/ccMBkemt.s:139    .text.startup:0000002a .LVL21
+     /tmp/ccMBkemt.s:49     .text:0000000c .LFB4
+     /tmp/ccMBkemt.s:92     .text:00000038 .LFE4
+     /tmp/ccMBkemt.s:801    .debug_loclists:00000012 .LLST1
+     /tmp/ccMBkemt.s:794    .debug_loclists:0000000c .LVUS1
+     /tmp/ccMBkemt.s:66     .text:00000016 .LVL6
+     /tmp/ccMBkemt.s:70     .text:0000001c .LVL7
+     /tmp/ccMBkemt.s:76     .text:00000026 .LVL8
+     /tmp/ccMBkemt.s:78     .text:0000002a .LVL9
+     /tmp/ccMBkemt.s:83     .text:00000032 .LVL10
+     /tmp/ccMBkemt.s:90     .text:00000038 .LVL12
+     /tmp/ccMBkemt.s:15     .text:00000000 .LFB3
+     /tmp/ccMBkemt.s:43     .text:0000000c .LFE3
+     /tmp/ccMBkemt.s:832    .debug_loclists:00000032 .LLST0
+     /tmp/ccMBkemt.s:823    .debug_loclists:0000002a .LVUS0
+     /tmp/ccMBkemt.s:48     .text:0000000c .LVL4
+     /tmp/ccMBkemt.s:14     .text:00000000 .LVL0
+     /tmp/ccMBkemt.s:167    .debug_info:00000000 .Ldebug_info0
+     /tmp/ccMBkemt.s:8      .text:00000000 .Ltext0
+     /tmp/ccMBkemt.s:154    .text:00000038 .Letext0
+
+UNDEFINED SYMBOLS
+serial_tx
+serial_init
+log_boot
+timer_init
+spi_init
+xmem_init
+adc_init
+random_init
+ps2_init
+rtc_init

@@ -1,0 +1,185 @@
+   1               		.file	"rtc.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__tmp_reg__ = 0
+   6               	__zero_reg__ = 1
+   7               		.text
+   8               	.Ltext0:
+   9               		.cfi_sections	.debug_frame
+  10               		.file 0 "/home/files/osdev/platform/avr" "rtc/rtc.c"
+  11               	.global	rtc_init
+  13               	rtc_init:
+  14               	.LFB3:
+  15               		.file 1 "rtc/rtc.c"
+   1:rtc/rtc.c     **** /**
+   2:rtc/rtc.c     ****  * @file    rtc.c
+   3:rtc/rtc.c     ****  * @author  Tim Gabrikowski, Anton Tchekov
+   4:rtc/rtc.c     ****  * @version 0.1
+   5:rtc/rtc.c     ****  * @date    16.05.2023
+   6:rtc/rtc.c     ****  */
+   7:rtc/rtc.c     **** 
+   8:rtc/rtc.c     **** #include <rtc.h>
+   9:rtc/rtc.c     **** #include <logger.h>
+  10:rtc/rtc.c     **** #include <avr/pgmspace.h>
+  11:rtc/rtc.c     **** 
+  12:rtc/rtc.c     **** static const char _msg_rtc[] PROGMEM = "RTC initialized";
+  13:rtc/rtc.c     **** 
+  14:rtc/rtc.c     **** void rtc_init(void)
+  15:rtc/rtc.c     **** {
+  16               		.loc 1 15 1 view -0
+  17               		.cfi_startproc
+  18               	/* prologue: function */
+  19               	/* frame size = 0 */
+  20               	/* stack size = 0 */
+  21               	.L__stack_usage = 0
+  16:rtc/rtc.c     **** 	/* TODO: Initialize RTC */
+  17:rtc/rtc.c     **** 	log_boot(_msg_rtc);
+  22               		.loc 1 17 2 view .LVU1
+  23 0000 80E0      		ldi r24,lo8(_msg_rtc)
+  24 0002 90E0      		ldi r25,hi8(_msg_rtc)
+  25 0004 0C94 0000 		jmp log_boot
+  26               	.LVL0:
+  27               		.cfi_endproc
+  28               	.LFE3:
+  30               	.global	datetime_now
+  32               	datetime_now:
+  33               	.LVL1:
+  34               	.LFB4:
+  18:rtc/rtc.c     **** }
+  19:rtc/rtc.c     **** 
+  20:rtc/rtc.c     **** DateTime *datetime_now(DateTime *now)
+  21:rtc/rtc.c     **** {
+  35               		.loc 1 21 1 view -0
+  36               		.cfi_startproc
+  37               	/* prologue: function */
+  38               	/* frame size = 0 */
+  39               	/* stack size = 0 */
+  40               	.L__stack_usage = 0
+  41               		.loc 1 21 1 is_stmt 0 view .LVU3
+  42 0008 FC01      		movw r30,r24
+  22:rtc/rtc.c     **** 	/* TODO: Get Date and Time from RTC */
+  23:rtc/rtc.c     **** 	now->Year = 1970;
+  43               		.loc 1 23 2 is_stmt 1 view .LVU4
+  44               		.loc 1 23 12 is_stmt 0 view .LVU5
+  45 000a 82EB      		ldi r24,lo8(-78)
+  46 000c 97E0      		ldi r25,lo8(7)
+  47 000e A0E0      		ldi r26,0
+  48 0010 B0E0      		ldi r27,0
+  49               	.LVL2:
+  50               		.loc 1 23 12 view .LVU6
+  51 0012 8083      		st Z,r24
+  52 0014 9183      		std Z+1,r25
+  53 0016 A283      		std Z+2,r26
+  54 0018 B383      		std Z+3,r27
+  24:rtc/rtc.c     **** 	now->Month = 1;
+  55               		.loc 1 24 2 is_stmt 1 view .LVU7
+  56               		.loc 1 24 13 is_stmt 0 view .LVU8
+  57 001a 81E0      		ldi r24,lo8(1)
+  58 001c 90E0      		ldi r25,0
+  59 001e A0E0      		ldi r26,0
+  60 0020 B0E0      		ldi r27,0
+  61 0022 8483      		std Z+4,r24
+  62 0024 9583      		std Z+5,r25
+  63 0026 A683      		std Z+6,r26
+  64 0028 B783      		std Z+7,r27
+  25:rtc/rtc.c     **** 	now->Day = 1;
+  65               		.loc 1 25 2 is_stmt 1 view .LVU9
+  66               		.loc 1 25 11 is_stmt 0 view .LVU10
+  67 002a 8087      		std Z+8,r24
+  68 002c 9187      		std Z+9,r25
+  69 002e A287      		std Z+10,r26
+  70 0030 B387      		std Z+11,r27
+  26:rtc/rtc.c     **** 
+  27:rtc/rtc.c     **** 	now->Hour = 0;
+  71               		.loc 1 27 2 is_stmt 1 view .LVU11
+  72               		.loc 1 27 12 is_stmt 0 view .LVU12
+  73 0032 1486      		std Z+12,__zero_reg__
+  74 0034 1586      		std Z+13,__zero_reg__
+  75 0036 1686      		std Z+14,__zero_reg__
+  76 0038 1786      		std Z+15,__zero_reg__
+  28:rtc/rtc.c     **** 	now->Minute = 0;
+  77               		.loc 1 28 2 is_stmt 1 view .LVU13
+  78               		.loc 1 28 14 is_stmt 0 view .LVU14
+  79 003a 108A      		std Z+16,__zero_reg__
+  80 003c 118A      		std Z+17,__zero_reg__
+  81 003e 128A      		std Z+18,__zero_reg__
+  82 0040 138A      		std Z+19,__zero_reg__
+  29:rtc/rtc.c     **** 	now->Second = 0;
+  83               		.loc 1 29 2 is_stmt 1 view .LVU15
+  84               		.loc 1 29 14 is_stmt 0 view .LVU16
+  85 0042 148A      		std Z+20,__zero_reg__
+  86 0044 158A      		std Z+21,__zero_reg__
+  87 0046 168A      		std Z+22,__zero_reg__
+  88 0048 178A      		std Z+23,__zero_reg__
+  30:rtc/rtc.c     **** 
+  31:rtc/rtc.c     **** 	return now;
+  89               		.loc 1 31 2 is_stmt 1 view .LVU17
+  32:rtc/rtc.c     **** }
+  90               		.loc 1 32 1 is_stmt 0 view .LVU18
+  91 004a CF01      		movw r24,r30
+  92               	/* epilogue start */
+  93 004c 0895      		ret
+  94               		.cfi_endproc
+  95               	.LFE4:
+  97               		.section	.progmem.data,"a",@progbits
+ 100               	_msg_rtc:
+ 101 0000 5254 4320 		.string	"RTC initialized"
+ 101      696E 6974 
+ 101      6961 6C69 
+ 101      7A65 6400 
+ 102               		.text
+ 103               	.Letext0:
+ 104               		.file 2 "../../types/types.h"
+ 105               		.file 3 "/usr/lib/gcc/avr/12.2.0/include/stdint-gcc.h"
+ 106               		.file 4 "logger/logger.h"
+DEFINED SYMBOLS
+                            *ABS*:00000000 rtc.c
+     /tmp/ccGo3ETj.s:2      *ABS*:0000003e __SP_H__
+     /tmp/ccGo3ETj.s:3      *ABS*:0000003d __SP_L__
+     /tmp/ccGo3ETj.s:4      *ABS*:0000003f __SREG__
+     /tmp/ccGo3ETj.s:5      *ABS*:00000000 __tmp_reg__
+     /tmp/ccGo3ETj.s:6      *ABS*:00000001 __zero_reg__
+     /tmp/ccGo3ETj.s:13     .text:00000000 rtc_init
+     /tmp/ccGo3ETj.s:16     .text:00000000 .Loc.0
+     /tmp/ccGo3ETj.s:17     .text:00000000 L0
+     /tmp/ccGo3ETj.s:22     .text:00000000 .Loc.1
+     /tmp/ccGo3ETj.s:100    .progmem.data:00000000 _msg_rtc
+     /tmp/ccGo3ETj.s:27     .text:00000008 L0
+     /tmp/ccGo3ETj.s:32     .text:00000008 datetime_now
+     /tmp/ccGo3ETj.s:35     .text:00000008 .Loc.2
+     /tmp/ccGo3ETj.s:36     .text:00000008 L0
+     /tmp/ccGo3ETj.s:41     .text:00000008 .Loc.3
+     /tmp/ccGo3ETj.s:43     .text:0000000a .Loc.4
+     /tmp/ccGo3ETj.s:44     .text:0000000a .Loc.5
+     /tmp/ccGo3ETj.s:50     .text:00000012 .Loc.6
+     /tmp/ccGo3ETj.s:55     .text:0000001a .Loc.7
+     /tmp/ccGo3ETj.s:56     .text:0000001a .Loc.8
+     /tmp/ccGo3ETj.s:65     .text:0000002a .Loc.9
+     /tmp/ccGo3ETj.s:66     .text:0000002a .Loc.10
+     /tmp/ccGo3ETj.s:71     .text:00000032 .Loc.11
+     /tmp/ccGo3ETj.s:72     .text:00000032 .Loc.12
+     /tmp/ccGo3ETj.s:77     .text:0000003a .Loc.13
+     /tmp/ccGo3ETj.s:78     .text:0000003a .Loc.14
+     /tmp/ccGo3ETj.s:83     .text:00000042 .Loc.15
+     /tmp/ccGo3ETj.s:84     .text:00000042 .Loc.16
+     /tmp/ccGo3ETj.s:89     .text:0000004a .Loc.17
+     /tmp/ccGo3ETj.s:90     .text:0000004a .Loc.18
+     /tmp/ccGo3ETj.s:94     .text:0000004e L0
+     /tmp/ccGo3ETj.s:107    .text:0000004e L0
+                     .debug_frame:00000000 L0
+     /tmp/ccGo3ETj.s:303    .debug_abbrev:00000000 .Ldebug_abbrev0
+     /tmp/ccGo3ETj.s:8      .text:00000000 .Ltext0
+     /tmp/ccGo3ETj.s:103    .text:0000004e .Letext0
+     /tmp/ccGo3ETj.s:649    .debug_line:00000000 .Ldebug_line0
+     /tmp/ccGo3ETj.s:34     .text:00000008 .LFB4
+     /tmp/ccGo3ETj.s:95     .text:0000004e .LFE4
+     /tmp/ccGo3ETj.s:613    .debug_loclists:00000010 .LLST0
+     /tmp/ccGo3ETj.s:608    .debug_loclists:0000000c .LVUS0
+     /tmp/ccGo3ETj.s:14     .text:00000000 .LFB3
+     /tmp/ccGo3ETj.s:28     .text:00000008 .LFE3
+     /tmp/ccGo3ETj.s:26     .text:00000008 .LVL0
+     /tmp/ccGo3ETj.s:108    .debug_info:00000000 .Ldebug_info0
+
+UNDEFINED SYMBOLS
+log_boot

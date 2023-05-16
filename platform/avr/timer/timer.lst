@@ -1,0 +1,116 @@
+   1               		.file	"timer.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__tmp_reg__ = 0
+   6               	__zero_reg__ = 1
+   7               		.text
+   8               	.Ltext0:
+   9               		.cfi_sections	.debug_frame
+  10               		.file 0 "/home/files/osdev/platform/avr" "timer/timer.c"
+  11               	.global	timer_init
+  13               	timer_init:
+  14               	.LFB3:
+  15               		.file 1 "timer/timer.c"
+   1:timer/timer.c **** /**
+   2:timer/timer.c ****  * @file    timer.c
+   3:timer/timer.c ****  * @author  Tim Gabrikowski, Anton Tchekov
+   4:timer/timer.c ****  * @version 0.1
+   5:timer/timer.c ****  * @date    01.05.2023
+   6:timer/timer.c ****  */
+   7:timer/timer.c **** 
+   8:timer/timer.c **** #include <timer.h>
+   9:timer/timer.c **** #include <logger.h>
+  10:timer/timer.c **** #include <avr/pgmspace.h>
+  11:timer/timer.c **** 
+  12:timer/timer.c **** static const char _msg_timer[] PROGMEM = "Millisecond timer initialized";
+  13:timer/timer.c **** 
+  14:timer/timer.c **** void timer_init(void)
+  15:timer/timer.c **** {
+  16               		.loc 1 15 1 view -0
+  17               		.cfi_startproc
+  18               	/* prologue: function */
+  19               	/* frame size = 0 */
+  20               	/* stack size = 0 */
+  21               	.L__stack_usage = 0
+  16:timer/timer.c **** 	/* TODO: Initialize hardware timers */
+  17:timer/timer.c **** 	log_boot(_msg_timer);
+  22               		.loc 1 17 2 view .LVU1
+  23 0000 80E0      		ldi r24,lo8(_msg_timer)
+  24 0002 90E0      		ldi r25,hi8(_msg_timer)
+  25 0004 0C94 0000 		jmp log_boot
+  26               	.LVL0:
+  27               		.cfi_endproc
+  28               	.LFE3:
+  30               	.global	millis
+  32               	millis:
+  33               	.LFB4:
+  18:timer/timer.c **** }
+  19:timer/timer.c **** 
+  20:timer/timer.c **** u32 millis(void)
+  21:timer/timer.c **** {
+  34               		.loc 1 21 1 view -0
+  35               		.cfi_startproc
+  36               	/* prologue: function */
+  37               	/* frame size = 0 */
+  38               	/* stack size = 0 */
+  39               	.L__stack_usage = 0
+  22:timer/timer.c **** 	/* TODO: Implement millis function */
+  23:timer/timer.c **** 	/* Return number of ms since boot */
+  24:timer/timer.c **** 	return 0;
+  40               		.loc 1 24 2 view .LVU3
+  25:timer/timer.c **** }
+  41               		.loc 1 25 1 is_stmt 0 view .LVU4
+  42 0008 60E0      		ldi r22,0
+  43 000a 70E0      		ldi r23,0
+  44 000c CB01      		movw r24,r22
+  45               	/* epilogue start */
+  46 000e 0895      		ret
+  47               		.cfi_endproc
+  48               	.LFE4:
+  50               		.section	.progmem.data,"a",@progbits
+  53               	_msg_timer:
+  54 0000 4D69 6C6C 		.string	"Millisecond timer initialized"
+  54      6973 6563 
+  54      6F6E 6420 
+  54      7469 6D65 
+  54      7220 696E 
+  55               		.text
+  56               	.Letext0:
+  57               		.file 2 "/usr/lib/gcc/avr/12.2.0/include/stdint-gcc.h"
+  58               		.file 3 "../../types/types.h"
+  59               		.file 4 "logger/logger.h"
+DEFINED SYMBOLS
+                            *ABS*:00000000 timer.c
+     /tmp/ccFWdrxA.s:2      *ABS*:0000003e __SP_H__
+     /tmp/ccFWdrxA.s:3      *ABS*:0000003d __SP_L__
+     /tmp/ccFWdrxA.s:4      *ABS*:0000003f __SREG__
+     /tmp/ccFWdrxA.s:5      *ABS*:00000000 __tmp_reg__
+     /tmp/ccFWdrxA.s:6      *ABS*:00000001 __zero_reg__
+     /tmp/ccFWdrxA.s:13     .text:00000000 timer_init
+     /tmp/ccFWdrxA.s:16     .text:00000000 .Loc.0
+     /tmp/ccFWdrxA.s:17     .text:00000000 L0
+     /tmp/ccFWdrxA.s:22     .text:00000000 .Loc.1
+     /tmp/ccFWdrxA.s:53     .progmem.data:00000000 _msg_timer
+     /tmp/ccFWdrxA.s:27     .text:00000008 L0
+     /tmp/ccFWdrxA.s:32     .text:00000008 millis
+     /tmp/ccFWdrxA.s:34     .text:00000008 .Loc.2
+     /tmp/ccFWdrxA.s:35     .text:00000008 L0
+     /tmp/ccFWdrxA.s:40     .text:00000008 .Loc.3
+     /tmp/ccFWdrxA.s:41     .text:00000008 .Loc.4
+     /tmp/ccFWdrxA.s:47     .text:00000010 L0
+     /tmp/ccFWdrxA.s:60     .text:00000010 L0
+                     .debug_frame:00000000 L0
+     /tmp/ccFWdrxA.s:200    .debug_abbrev:00000000 .Ldebug_abbrev0
+     /tmp/ccFWdrxA.s:8      .text:00000000 .Ltext0
+     /tmp/ccFWdrxA.s:56     .text:00000010 .Letext0
+     /tmp/ccFWdrxA.s:437    .debug_line:00000000 .Ldebug_line0
+     /tmp/ccFWdrxA.s:33     .text:00000008 .LFB4
+     /tmp/ccFWdrxA.s:48     .text:00000010 .LFE4
+     /tmp/ccFWdrxA.s:14     .text:00000000 .LFB3
+     /tmp/ccFWdrxA.s:28     .text:00000008 .LFE3
+     /tmp/ccFWdrxA.s:26     .text:00000008 .LVL0
+     /tmp/ccFWdrxA.s:61     .debug_info:00000000 .Ldebug_info0
+
+UNDEFINED SYMBOLS
+log_boot

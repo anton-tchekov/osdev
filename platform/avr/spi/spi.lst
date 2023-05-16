@@ -1,0 +1,149 @@
+   1               		.file	"spi.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__tmp_reg__ = 0
+   6               	__zero_reg__ = 1
+   7               		.text
+   8               	.Ltext0:
+   9               		.cfi_sections	.debug_frame
+  10               		.file 0 "/home/files/osdev/platform/avr" "spi/spi.c"
+  11               	.global	spi_init
+  13               	spi_init:
+  14               	.LFB3:
+  15               		.file 1 "spi/spi.c"
+   1:spi/spi.c     **** /**
+   2:spi/spi.c     ****  * @file    spi.c
+   3:spi/spi.c     ****  * @author  Anton Tchekov
+   4:spi/spi.c     ****  * @version 0.1
+   5:spi/spi.c     ****  * @date    16.05.2023
+   6:spi/spi.c     ****  */
+   7:spi/spi.c     **** 
+   8:spi/spi.c     **** #include <spi.h>
+   9:spi/spi.c     **** #include <logger.h>
+  10:spi/spi.c     **** #include <avr/pgmspace.h>
+  11:spi/spi.c     **** 
+  12:spi/spi.c     **** static const char _msg_spi[] PROGMEM = "SPI initialized";
+  13:spi/spi.c     **** 
+  14:spi/spi.c     **** void spi_init(void)
+  15:spi/spi.c     **** {
+  16               		.loc 1 15 1 view -0
+  17               		.cfi_startproc
+  18               	/* prologue: function */
+  19               	/* frame size = 0 */
+  20               	/* stack size = 0 */
+  21               	.L__stack_usage = 0
+  16:spi/spi.c     **** 	SPI_DIR |= (1 << SPI_MOSI) | (1 << SPI_SCK);
+  22               		.loc 1 16 2 view .LVU1
+  23 0000 8BB1      		in r24,0xb
+  24               		.loc 1 16 10 is_stmt 0 view .LVU2
+  25 0002 8A60      		ori r24,lo8(10)
+  26 0004 8BB9      		out 0xb,r24
+  17:spi/spi.c     **** 	SPCR = (1 << SPE) | (1 << MSTR);
+  27               		.loc 1 17 2 is_stmt 1 view .LVU3
+  28               		.loc 1 17 7 is_stmt 0 view .LVU4
+  29 0006 80E5      		ldi r24,lo8(80)
+  30 0008 8CBD      		out 0x2c,r24
+  18:spi/spi.c     **** 	log_boot(_msg_spi);
+  31               		.loc 1 18 2 is_stmt 1 view .LVU5
+  32 000a 80E0      		ldi r24,lo8(_msg_spi)
+  33 000c 90E0      		ldi r25,hi8(_msg_spi)
+  34 000e 0C94 0000 		jmp log_boot
+  35               	.LVL0:
+  36               		.cfi_endproc
+  37               	.LFE3:
+  39               	.global	spi_xchg
+  41               	spi_xchg:
+  42               	.LVL1:
+  43               	.LFB4:
+  19:spi/spi.c     **** }
+  20:spi/spi.c     **** 
+  21:spi/spi.c     **** u8 spi_xchg(u8 byte)
+  22:spi/spi.c     **** {
+  44               		.loc 1 22 1 view -0
+  45               		.cfi_startproc
+  46               	/* prologue: function */
+  47               	/* frame size = 0 */
+  48               	/* stack size = 0 */
+  49               	.L__stack_usage = 0
+  23:spi/spi.c     **** 	SPDR = byte;
+  50               		.loc 1 23 2 view .LVU7
+  51               		.loc 1 23 7 is_stmt 0 view .LVU8
+  52 0012 8EBD      		out 0x2e,r24
+  24:spi/spi.c     **** 	while(!(SPSR & (1 << SPIF))) {}
+  53               		.loc 1 24 2 is_stmt 1 view .LVU9
+  54               	.L3:
+  55               		.loc 1 24 32 discriminator 1 view .LVU10
+  56               		.loc 1 24 8 discriminator 1 view .LVU11
+  57 0014 0DB4      		in __tmp_reg__,0x2d
+  58 0016 07FE      		sbrs __tmp_reg__,7
+  59 0018 00C0      		rjmp .L3
+  25:spi/spi.c     **** 	return SPDR;
+  60               		.loc 1 25 2 view .LVU12
+  61               		.loc 1 25 9 is_stmt 0 view .LVU13
+  62 001a 8EB5      		in r24,0x2e
+  63               	.LVL2:
+  64               	/* epilogue start */
+  26:spi/spi.c     **** }
+  65               		.loc 1 26 1 view .LVU14
+  66 001c 0895      		ret
+  67               		.cfi_endproc
+  68               	.LFE4:
+  70               		.section	.progmem.data,"a",@progbits
+  73               	_msg_spi:
+  74 0000 5350 4920 		.string	"SPI initialized"
+  74      696E 6974 
+  74      6961 6C69 
+  74      7A65 6400 
+  75               		.text
+  76               	.Letext0:
+  77               		.file 2 "/usr/lib/gcc/avr/12.2.0/include/stdint-gcc.h"
+  78               		.file 3 "../../types/types.h"
+  79               		.file 4 "logger/logger.h"
+DEFINED SYMBOLS
+                            *ABS*:00000000 spi.c
+     /tmp/cc8xVjRr.s:2      *ABS*:0000003e __SP_H__
+     /tmp/cc8xVjRr.s:3      *ABS*:0000003d __SP_L__
+     /tmp/cc8xVjRr.s:4      *ABS*:0000003f __SREG__
+     /tmp/cc8xVjRr.s:5      *ABS*:00000000 __tmp_reg__
+     /tmp/cc8xVjRr.s:6      *ABS*:00000001 __zero_reg__
+     /tmp/cc8xVjRr.s:13     .text:00000000 spi_init
+     /tmp/cc8xVjRr.s:16     .text:00000000 .Loc.0
+     /tmp/cc8xVjRr.s:17     .text:00000000 L0
+     /tmp/cc8xVjRr.s:22     .text:00000000 .Loc.1
+     /tmp/cc8xVjRr.s:24     .text:00000002 .Loc.2
+     /tmp/cc8xVjRr.s:27     .text:00000006 .Loc.3
+     /tmp/cc8xVjRr.s:28     .text:00000006 .Loc.4
+     /tmp/cc8xVjRr.s:31     .text:0000000a .Loc.5
+     /tmp/cc8xVjRr.s:73     .progmem.data:00000000 _msg_spi
+     /tmp/cc8xVjRr.s:36     .text:00000012 L0
+     /tmp/cc8xVjRr.s:41     .text:00000012 spi_xchg
+     /tmp/cc8xVjRr.s:44     .text:00000012 .Loc.6
+     /tmp/cc8xVjRr.s:45     .text:00000012 L0
+     /tmp/cc8xVjRr.s:50     .text:00000012 .Loc.7
+     /tmp/cc8xVjRr.s:51     .text:00000012 .Loc.8
+     /tmp/cc8xVjRr.s:53     .text:00000014 .Loc.9
+     /tmp/cc8xVjRr.s:55     .text:00000014 .Loc.10
+     /tmp/cc8xVjRr.s:56     .text:00000014 .Loc.11
+     /tmp/cc8xVjRr.s:60     .text:0000001a .Loc.12
+     /tmp/cc8xVjRr.s:61     .text:0000001a .Loc.13
+     /tmp/cc8xVjRr.s:65     .text:0000001c .Loc.14
+     /tmp/cc8xVjRr.s:67     .text:0000001e L0
+     /tmp/cc8xVjRr.s:80     .text:0000001e L0
+                     .debug_frame:00000000 L0
+     /tmp/cc8xVjRr.s:54     .text:00000014 .L3
+     /tmp/cc8xVjRr.s:230    .debug_abbrev:00000000 .Ldebug_abbrev0
+     /tmp/cc8xVjRr.s:8      .text:00000000 .Ltext0
+     /tmp/cc8xVjRr.s:76     .text:0000001e .Letext0
+     /tmp/cc8xVjRr.s:515    .debug_line:00000000 .Ldebug_line0
+     /tmp/cc8xVjRr.s:43     .text:00000012 .LFB4
+     /tmp/cc8xVjRr.s:68     .text:0000001e .LFE4
+     /tmp/cc8xVjRr.s:488    .debug_loclists:00000010 .LLST0
+     /tmp/cc8xVjRr.s:483    .debug_loclists:0000000c .LVUS0
+     /tmp/cc8xVjRr.s:14     .text:00000000 .LFB3
+     /tmp/cc8xVjRr.s:37     .text:00000012 .LFE3
+     /tmp/cc8xVjRr.s:35     .text:00000012 .LVL0
+     /tmp/cc8xVjRr.s:81     .debug_info:00000000 .Ldebug_info0
+
+UNDEFINED SYMBOLS
+log_boot
