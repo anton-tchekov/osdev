@@ -28,6 +28,10 @@
 - Memory allocator [DONE]
 - Keyboard Character<->ASCII Conversion [DONE]
 
+- Unicode []
+	- Text Field []
+	- Keyboard []
+
 ### Simulator
 - Parameter checking to prevent Bugs and Crashes [TODO]
 - Exit function and controlled error handler [DONE]

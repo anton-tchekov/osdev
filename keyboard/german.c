@@ -9,6 +9,19 @@
 #include <keyboard-shared.h>
 #include <ctype.h>
 
+#define UNICODE_SECTION_SIGN               0xA7
+#define UNICODE_DEGREE_SIGN                0xB0
+#define UNICODE_SUPERSCRIPT_TWO            0xB2
+#define UNICODE_SUPERSCRIPT_THREE          0xB3
+#define UNICODE_EURO_SIGN                  0x20AC
+#define UNICODE_SMALL_SHARP_S              0xDF
+#define UNICODE_CAPITAL_A_UMLAUT           0xE4
+#define UNICODE_SMALL_A_UMLAUT             0xC4
+#define UNICODE_CAPITAL_O_UMLAUT           0xD6
+#define UNICODE_SMALL_O_UMLAUT             0xF6
+#define UNICODE_CAPITAL_U_UMLAUT           0xFC
+#define UNICODE_SMALL_U_UMLAUT             0xDC
+
 /* This is horrible, but it works */
 i32 key_to_codepoint(Key k)
 {
@@ -34,16 +47,16 @@ i32 key_to_codepoint(Key k)
 	else if(k == KEY_NONUSBACKSLASH)                { return '<'; }
 	else if(k == (KEY_MINUS | MOD_SHIFT))           { return '?'; }
 	else if(k == (KEY_MINUS | MOD_ALT_GR))          { return '\\'; }
-	/* else if(k == KEY_MINUS)                         { return 'ß'; } */
+	else if(k == KEY_MINUS)                         { return UNICODE_SMALL_SHARP_S; }
 	else if(k == (KEY_EQUALS | MOD_SHIFT))          { return '`'; }
-	/* else if(k == (KEY_GRAVE | MOD_SHIFT))           { return '°'; } */
+	else if(k == (KEY_GRAVE | MOD_SHIFT))           { return UNICODE_DEGREE_SIGN; }
 	else if(k == KEY_GRAVE)                         { return '^'; }
-	/* else if(k == (KEY_APOSTROPHE | MOD_SHIFT))      { return 'Ä'; } */
-	/* else if(k == KEY_APOSTROPHE)                    { return 'ä'; } */
-	/* else if(k == (KEY_SEMICOLON | MOD_SHIFT))       { return 'Ö'; } */
-	/* else if(k == KEY_SEMICOLON)                     { return 'ö'; } */
-	/* else if(k == (KEY_LEFTBRACKET | MOD_SHIFT))     { return 'Ü'; } */
-	/* else if(k == KEY_LEFTBRACKET)                   { return 'ü'; } */
+	else if(k == (KEY_APOSTROPHE | MOD_SHIFT))      { return UNICODE_CAPITAL_A_UMLAUT; }
+	else if(k == KEY_APOSTROPHE)                    { return UNICODE_SMALL_A_UMLAUT; }
+	else if(k == (KEY_SEMICOLON | MOD_SHIFT))       { return UNICODE_CAPITAL_O_UMLAUT; }
+	else if(k == KEY_SEMICOLON)                     { return UNICODE_SMALL_O_UMLAUT; }
+	else if(k == (KEY_LEFTBRACKET | MOD_SHIFT))     { return UNICODE_CAPITAL_U_UMLAUT; }
+	else if(k == KEY_LEFTBRACKET)                   { return UNICODE_SMALL_U_UMLAUT; }
 	else if(nomods >= KEY_A && nomods <= KEY_Z)
 	{
 		i32 c = nomods - KEY_A + 'a';
@@ -54,7 +67,7 @@ i32 key_to_codepoint(Key k)
 		if(k & MOD_ALT_GR)
 		{
 			if(c == 'q') { return '@'; }
-			/* else if(c == 'e') { return '€'; } */
+			else if(c == 'e') { return UNICODE_EURO_SIGN; }
 		}
 
 		if(k & MOD_SHIFT)
@@ -68,17 +81,11 @@ i32 key_to_codepoint(Key k)
 	{
 		static const char *numbers = "1234567890";
 
-		static const char numbers_shift[] =
-			{ '!', '\"', 0, '$', '%', '&', '/', '(', ')', '=' };
+		static const i32 numbers_shift[] = { '!', '\"', UNICODE_SECTION_SIGN,
+			'$', '%', '&', '/', '(', ')', '=' };
 
-		static const i32 numbers_altgr[] =
-			{ 0, 0, 0, 0, 0, 0, '{', '[', ']', '}' };
-
-		/*static const i32 numbers_shift[] =
-			{ '!', '\"', '§', '$', '%', '&', '/', '(', ')', '=' };
-
-		static const i32 numbers_altgr[] =
-			{ 0, '²', '³', 0, 0, 0, '{', '[', ']', '}' };*/
+		static const i32 numbers_altgr[] = { 0, UNICODE_SUPERSCRIPT_TWO,
+			UNICODE_SUPERSCRIPT_THREE, 0, 0, 0, '{', '[', ']', '}' };
 
 		u32 idx = nomods - KEY_1;
 
