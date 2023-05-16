@@ -382,7 +382,7 @@ static void input_event_key(Input *i, Key key, i32 chr)
 		/* Paste */
 
 	}
-	else if(isprint(chr))
+	else if(chr)
 	{
 		char ins = chr;
 

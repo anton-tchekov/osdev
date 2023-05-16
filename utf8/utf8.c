@@ -1,11 +1,50 @@
 /**
  * @file    utf8.c
  * @author  Tim Gabrikowski, Anton Tchekov
- * @version 0.1
- * @date    23.04.2023
+ * @version 0.2
+ * @date    16.05.2023
  */
 
 #include <utf8.h>
+
+i32 codepoint_utf8(i32 codepoint, char *out)
+{
+	if(codepoint <= 0x7F)
+	{
+		/* Plain ASCII */
+		out[0] = codepoint;
+		return 1;
+	}
+	else if(codepoint <= 0x07FF)
+	{
+		/* 2-byte unicode */
+		out[0] = ((codepoint >> 6) & 0x1F) | 0xC0;
+		out[1] = (codepoint        & 0x3F) | 0x80;
+		return 2;
+	}
+	else if(codepoint <= 0xFFFF)
+	{
+		/* 3-byte unicode */
+		out[0] = ((codepoint >> 12) & 0x0F) | 0xE0;
+		out[1] = ((codepoint >>  6) & 0x3F) | 0x80;
+		out[2] = (codepoint         & 0x3F) | 0x80;
+		return 3;
+	}
+	else if(codepoint <= 0x10FFFF)
+	{
+		/* 4-byte unicode */
+		out[0] = ((codepoint >> 18) & 0x07) | 0xF0;
+		out[1] = ((codepoint >> 12) & 0x3F) | 0x80;
+		out[2] = ((codepoint >>  6) & 0x3F) | 0x80;
+		out[3] = (codepoint         & 0x3F) | 0x80;
+		return 4;
+	}
+	else
+	{
+		/* error */
+		return 0;
+	}
+}
 
 const char *utf8_codepoint(const char *s, i32 *out)
 {

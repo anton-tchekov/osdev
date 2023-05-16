@@ -30,7 +30,7 @@
 
 - Unicode []
 	- Text Field []
-	- Keyboard []
+	- Keyboard [DONE]
 
 ### Simulator
 - Parameter checking to prevent Bugs and Crashes [TODO]
