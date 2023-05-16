@@ -4,13 +4,26 @@
 
 ### stdlib
 - GUI Library [PRIO]
-	- Changable Font(Size) for elements
 	- Init function refactoring [DONE]
-	- Multiline(Select) Text field
-	- Line Number Text field
-	- Tab in Text field
-	- Syntax highlighting in text field
-	- Copy paste text field
+	- Replace current theme with Dark Mode []
+		- Make theme easily changable []
+
+	- Add utility functions
+		- Hide / Show elements
+
+	- Text field
+		- Changable Font(Size)
+		- Multiline(Select)
+		- Line Numbers
+		- Tab support
+		- Up/Down Arrow keys + Shift
+		- Left/Right/Center Align
+		- Syntax highlighting
+		- Copy paste
+		- Unicode support
+		- Search and Replace
+		- Goto Line
+		- Import / Export contents
 
 - Memory allocator [DONE]
 - Keyboard Character<->ASCII Conversion [DONE]
@@ -41,7 +54,6 @@
 
 - Only multiline comments (`/* comment */`)
 
-
 ## Overview
 
 - Modules (source and header files) go in their own directory (example: gfx/)
@@ -65,5 +77,3 @@ Work in Progress:
 - Single Precision Floating Point Extension
 
 - `apps` built-in apps
-
-

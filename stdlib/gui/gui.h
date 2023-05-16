@@ -22,16 +22,22 @@ typedef enum
 } ElementType;
 
 /** Label align bitmask */
-#define LABEL_ALIGN_MASK  0x03
+#define LABEL_ALIGN_MASK      0x03
 
 /** Left align label (default) */
-#define LABEL_FLAG_LEFT   0x00
+#define LABEL_FLAG_LEFT       0x00
 
 /** Center align label */
-#define LABEL_FLAG_CENTER 0x01
+#define LABEL_FLAG_CENTER     0x01
 
 /** Right align label */
-#define LABEL_FLAG_RIGHT  0x02
+#define LABEL_FLAG_RIGHT      0x02
+
+/** Enable/Disable Line numbers in input field */
+#define FLAG_LINE_NUMBERS     0x04
+
+/** Enable/Disable Syntax highlighting in input field */
+#define FLAG_SYNTAX_HIGHLIGHT 0x08
 
 /** Label element structure */
 typedef struct
@@ -83,6 +89,9 @@ typedef struct
 	/** Element Type (must be first member) */
 	ElementType Type;
 
+	/** Various Flags (see above) */
+	u32 Flags;
+
 	/** X-Coordinate */
 	i32 X;
 
@@ -91,6 +100,13 @@ typedef struct
 
 	/** Width */
 	i32 W;
+
+	/** Number of visible Lines (1 for single line input) */
+	i32 NumLines;
+
+	/** Number of spaces per tab (0 to disable tab). When Tab is enabled,
+		Ctrl+Tab must be used to go to the next element */
+	i32 TabSize;
 
 	/** Cursor position */
 	i32 Position;
