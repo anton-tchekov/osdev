@@ -72,21 +72,22 @@
   51               	.L__stack_usage = 0
   52               	.LVL0:
   53               	.L3:
-  25:serial/serial.c **** 	while(!(UCSR0A & (1 << UDRE0))) {}
-  54               		.loc 1 25 35 discriminator 1 view .LVU9
-  55               		.loc 1 25 8 discriminator 1 view .LVU10
-  56               		.loc 1 25 10 is_stmt 0 discriminator 1 view .LVU11
+  25:serial/serial.c **** 	/* TODO: Use interrupts and output buffer */
+  26:serial/serial.c **** 	while(!(UCSR0A & (1 << UDRE0))) {}
+  54               		.loc 1 26 35 discriminator 1 view .LVU9
+  55               		.loc 1 26 8 discriminator 1 view .LVU10
+  56               		.loc 1 26 10 is_stmt 0 discriminator 1 view .LVU11
   57 001a 9091 C000 		lds r25,192
-  58               		.loc 1 25 8 discriminator 1 view .LVU12
+  58               		.loc 1 26 8 discriminator 1 view .LVU12
   59 001e 95FF      		sbrs r25,5
   60 0020 00C0      		rjmp .L3
-  26:serial/serial.c **** 	UDR0 = c;
-  61               		.loc 1 26 2 is_stmt 1 view .LVU13
-  62               		.loc 1 26 7 is_stmt 0 view .LVU14
+  27:serial/serial.c **** 	UDR0 = c;
+  61               		.loc 1 27 2 is_stmt 1 view .LVU13
+  62               		.loc 1 27 7 is_stmt 0 view .LVU14
   63 0022 8093 C600 		sts 198,r24
   64               	/* epilogue start */
-  27:serial/serial.c **** }
-  65               		.loc 1 27 1 view .LVU15
+  28:serial/serial.c **** }
+  65               		.loc 1 28 1 view .LVU15
   66 0026 0895      		ret
   67               		.cfi_endproc
   68               	.LFE2:
@@ -94,12 +95,12 @@
   72               	serial_tx_str:
   73               	.LVL1:
   74               	.LFB3:
-  28:serial/serial.c **** 
-  29:serial/serial.c **** void serial_tx_str(const char *s)
-  30:serial/serial.c **** {
-  75               		.loc 1 30 1 is_stmt 1 view -0
+  29:serial/serial.c **** 
+  30:serial/serial.c **** void serial_tx_str(const char *s)
+  31:serial/serial.c **** {
+  75               		.loc 1 31 1 is_stmt 1 view -0
   76               		.cfi_startproc
-  77               		.loc 1 30 1 is_stmt 0 view .LVU17
+  77               		.loc 1 31 1 is_stmt 0 view .LVU17
   78 0028 CF93      		push r28
   79               		.cfi_def_cfa_offset 3
   80               		.cfi_offset 28, -2
@@ -110,41 +111,41 @@
   85               	/* frame size = 0 */
   86               	/* stack size = 2 */
   87               	.L__stack_usage = 2
-  31:serial/serial.c **** 	char c;
-  88               		.loc 1 31 2 is_stmt 1 view .LVU18
-  32:serial/serial.c **** 	while((c = *s++))
-  89               		.loc 1 32 2 view .LVU19
+  32:serial/serial.c **** 	char c;
+  88               		.loc 1 32 2 is_stmt 1 view .LVU18
+  33:serial/serial.c **** 	while((c = *s++))
+  89               		.loc 1 33 2 view .LVU19
   90               	.L7:
   91               	.LVL2:
-  92               		.loc 1 32 8 view .LVU20
-  93               		.loc 1 32 15 is_stmt 0 view .LVU21
+  92               		.loc 1 33 8 view .LVU20
+  93               		.loc 1 33 15 is_stmt 0 view .LVU21
   94 002c EC01      		movw r28,r24
   95               	.LVL3:
-  96               		.loc 1 32 11 view .LVU22
+  96               		.loc 1 33 11 view .LVU22
   97 002e 8991      		ld r24,Y+
   98               	.LVL4:
-  99               		.loc 1 32 8 view .LVU23
+  99               		.loc 1 33 8 view .LVU23
  100 0030 8111      		cpse r24,__zero_reg__
  101 0032 00C0      		rjmp .L8
  102               	/* epilogue start */
-  33:serial/serial.c **** 	{
-  34:serial/serial.c **** 		serial_tx(c);
-  35:serial/serial.c **** 	}
-  36:serial/serial.c **** }
- 103               		.loc 1 36 1 view .LVU24
+  34:serial/serial.c **** 	{
+  35:serial/serial.c **** 		serial_tx(c);
+  36:serial/serial.c **** 	}
+  37:serial/serial.c **** }
+ 103               		.loc 1 37 1 view .LVU24
  104 0034 DF91      		pop r29
  105 0036 CF91      		pop r28
  106               	.LVL5:
- 107               		.loc 1 36 1 view .LVU25
+ 107               		.loc 1 37 1 view .LVU25
  108 0038 0895      		ret
  109               	.LVL6:
  110               	.L8:
-  34:serial/serial.c **** 	}
- 111               		.loc 1 34 3 is_stmt 1 view .LVU26
+  35:serial/serial.c **** 	}
+ 111               		.loc 1 35 3 is_stmt 1 view .LVU26
  112 003a 0E94 0000 		call serial_tx
  113               	.LVL7:
-  32:serial/serial.c **** 	while((c = *s++))
- 114               		.loc 1 32 15 is_stmt 0 view .LVU27
+  33:serial/serial.c **** 	while((c = *s++))
+ 114               		.loc 1 33 15 is_stmt 0 view .LVU27
  115 003e CE01      		movw r24,r28
  116 0040 00C0      		rjmp .L7
  117               		.cfi_endproc
@@ -153,12 +154,12 @@
  122               	serial_tx_str_P:
  123               	.LVL8:
  124               	.LFB4:
-  37:serial/serial.c **** 
-  38:serial/serial.c **** void serial_tx_str_P(const char *s)
-  39:serial/serial.c **** {
- 125               		.loc 1 39 1 is_stmt 1 view -0
+  38:serial/serial.c **** 
+  39:serial/serial.c **** void serial_tx_str_P(const char *s)
+  40:serial/serial.c **** {
+ 125               		.loc 1 40 1 is_stmt 1 view -0
  126               		.cfi_startproc
- 127               		.loc 1 39 1 is_stmt 0 view .LVU29
+ 127               		.loc 1 40 1 is_stmt 0 view .LVU29
  128 0042 CF93      		push r28
  129               		.cfi_def_cfa_offset 3
  130               		.cfi_offset 28, -2
@@ -170,53 +171,53 @@
  136               	/* stack size = 2 */
  137               	.L__stack_usage = 2
  138 0046 EC01      		movw r28,r24
-  40:serial/serial.c **** 	char c;
- 139               		.loc 1 40 2 is_stmt 1 view .LVU30
-  41:serial/serial.c **** 	while((c = pgm_read_byte(s++)))
- 140               		.loc 1 41 2 view .LVU31
+  41:serial/serial.c **** 	char c;
+ 139               		.loc 1 41 2 is_stmt 1 view .LVU30
+  42:serial/serial.c **** 	while((c = pgm_read_byte(s++)))
+ 140               		.loc 1 42 2 view .LVU31
  141               	.LVL9:
  142               	.L10:
- 143               		.loc 1 41 8 view .LVU32
+ 143               		.loc 1 42 8 view .LVU32
  144               	.LBB2:
- 145               		.loc 1 41 13 view .LVU33
- 146               		.loc 1 41 13 view .LVU34
- 147               		.loc 1 41 13 view .LVU35
+ 145               		.loc 1 42 13 view .LVU33
+ 146               		.loc 1 42 13 view .LVU34
+ 147               		.loc 1 42 13 view .LVU35
  148 0048 FE01      		movw r30,r28
  149               	/* #APP */
- 150               	 ;  41 "serial/serial.c" 1
+ 150               	 ;  42 "serial/serial.c" 1
  151 004a 8491      		lpm r24, Z
  152               		
  153               	 ;  0 "" 2
  154               	.LVL10:
- 155               		.loc 1 41 13 view .LVU36
- 156               		.loc 1 41 13 is_stmt 0 view .LVU37
+ 155               		.loc 1 42 13 view .LVU36
+ 156               		.loc 1 42 13 is_stmt 0 view .LVU37
  157               	/* #NOAPP */
  158               	.LBE2:
- 159               		.loc 1 41 8 view .LVU38
+ 159               		.loc 1 42 8 view .LVU38
  160 004c 2196      		adiw r28,1
  161               	.LVL11:
- 162               		.loc 1 41 8 view .LVU39
+ 162               		.loc 1 42 8 view .LVU39
  163 004e 8111      		cpse r24,__zero_reg__
  164 0050 00C0      		rjmp .L11
  165               	/* epilogue start */
-  42:serial/serial.c **** 	{
-  43:serial/serial.c **** 		serial_tx(c);
-  44:serial/serial.c **** 	}
-  45:serial/serial.c **** }
- 166               		.loc 1 45 1 view .LVU40
+  43:serial/serial.c **** 	{
+  44:serial/serial.c **** 		serial_tx(c);
+  45:serial/serial.c **** 	}
+  46:serial/serial.c **** }
+ 166               		.loc 1 46 1 view .LVU40
  167 0052 DF91      		pop r29
  168 0054 CF91      		pop r28
  169               	.LVL12:
- 170               		.loc 1 45 1 view .LVU41
+ 170               		.loc 1 46 1 view .LVU41
  171 0056 0895      		ret
  172               	.LVL13:
  173               	.L11:
-  43:serial/serial.c **** 	}
- 174               		.loc 1 43 3 is_stmt 1 view .LVU42
+  44:serial/serial.c **** 	}
+ 174               		.loc 1 44 3 is_stmt 1 view .LVU42
  175 0058 0E94 0000 		call serial_tx
  176               	.LVL14:
-  43:serial/serial.c **** 	}
- 177               		.loc 1 43 3 is_stmt 0 view .LVU43
+  44:serial/serial.c **** 	}
+ 177               		.loc 1 44 3 is_stmt 0 view .LVU43
  178 005c 00C0      		rjmp .L10
  179               		.cfi_endproc
  180               	.LFE4:
@@ -224,104 +225,104 @@
  183               		.file 2 "/usr/lib/gcc/avr/12.2.0/include/stdint-gcc.h"
 DEFINED SYMBOLS
                             *ABS*:00000000 serial.c
-     /tmp/ccXckFYm.s:2      *ABS*:0000003e __SP_H__
-     /tmp/ccXckFYm.s:3      *ABS*:0000003d __SP_L__
-     /tmp/ccXckFYm.s:4      *ABS*:0000003f __SREG__
-     /tmp/ccXckFYm.s:5      *ABS*:00000000 __tmp_reg__
-     /tmp/ccXckFYm.s:6      *ABS*:00000001 __zero_reg__
-     /tmp/ccXckFYm.s:13     .text:00000000 serial_init
-     /tmp/ccXckFYm.s:16     .text:00000000 .Loc.0
-     /tmp/ccXckFYm.s:17     .text:00000000 L0
-     /tmp/ccXckFYm.s:22     .text:00000000 .Loc.1
-     /tmp/ccXckFYm.s:23     .text:00000000 .Loc.2
-     /tmp/ccXckFYm.s:26     .text:00000006 .Loc.3
-     /tmp/ccXckFYm.s:27     .text:00000006 .Loc.4
-     /tmp/ccXckFYm.s:30     .text:0000000c .Loc.5
-     /tmp/ccXckFYm.s:31     .text:0000000c .Loc.6
-     /tmp/ccXckFYm.s:37     .text:00000018 .Loc.7
-     /tmp/ccXckFYm.s:39     .text:0000001a L0
-     /tmp/ccXckFYm.s:44     .text:0000001a serial_tx
-     /tmp/ccXckFYm.s:46     .text:0000001a .Loc.8
-     /tmp/ccXckFYm.s:47     .text:0000001a L0
-     /tmp/ccXckFYm.s:54     .text:0000001a .Loc.9
-     /tmp/ccXckFYm.s:55     .text:0000001a .Loc.10
-     /tmp/ccXckFYm.s:56     .text:0000001a .Loc.11
-     /tmp/ccXckFYm.s:58     .text:0000001e .Loc.12
-     /tmp/ccXckFYm.s:61     .text:00000022 .Loc.13
-     /tmp/ccXckFYm.s:62     .text:00000022 .Loc.14
-     /tmp/ccXckFYm.s:65     .text:00000026 .Loc.15
-     /tmp/ccXckFYm.s:67     .text:00000028 L0
-     /tmp/ccXckFYm.s:72     .text:00000028 serial_tx_str
-     /tmp/ccXckFYm.s:75     .text:00000028 .Loc.16
-     /tmp/ccXckFYm.s:76     .text:00000028 L0
-     /tmp/ccXckFYm.s:77     .text:00000028 .Loc.17
-     /tmp/ccXckFYm.s:88     .text:0000002c .Loc.18
-     /tmp/ccXckFYm.s:89     .text:0000002c .Loc.19
-     /tmp/ccXckFYm.s:92     .text:0000002c .Loc.20
-     /tmp/ccXckFYm.s:93     .text:0000002c .Loc.21
-     /tmp/ccXckFYm.s:96     .text:0000002e .Loc.22
-     /tmp/ccXckFYm.s:99     .text:00000030 .Loc.23
-     /tmp/ccXckFYm.s:103    .text:00000034 .Loc.24
-     /tmp/ccXckFYm.s:107    .text:00000038 .Loc.25
-     /tmp/ccXckFYm.s:111    .text:0000003a .Loc.26
-     /tmp/ccXckFYm.s:114    .text:0000003e .Loc.27
-     /tmp/ccXckFYm.s:117    .text:00000042 L0
-     /tmp/ccXckFYm.s:122    .text:00000042 serial_tx_str_P
-     /tmp/ccXckFYm.s:125    .text:00000042 .Loc.28
-     /tmp/ccXckFYm.s:126    .text:00000042 L0
-     /tmp/ccXckFYm.s:127    .text:00000042 .Loc.29
-     /tmp/ccXckFYm.s:139    .text:00000048 .Loc.30
-     /tmp/ccXckFYm.s:140    .text:00000048 .Loc.31
-     /tmp/ccXckFYm.s:143    .text:00000048 .Loc.32
-     /tmp/ccXckFYm.s:145    .text:00000048 .Loc.33
-     /tmp/ccXckFYm.s:146    .text:00000048 .Loc.34
-     /tmp/ccXckFYm.s:147    .text:00000048 .Loc.35
-     /tmp/ccXckFYm.s:155    .text:0000004c .Loc.36
-     /tmp/ccXckFYm.s:156    .text:0000004c .Loc.37
-     /tmp/ccXckFYm.s:159    .text:0000004c .Loc.38
-     /tmp/ccXckFYm.s:162    .text:0000004e .Loc.39
-     /tmp/ccXckFYm.s:166    .text:00000052 .Loc.40
-     /tmp/ccXckFYm.s:170    .text:00000056 .Loc.41
-     /tmp/ccXckFYm.s:174    .text:00000058 .Loc.42
-     /tmp/ccXckFYm.s:177    .text:0000005c .Loc.43
-     /tmp/ccXckFYm.s:179    .text:0000005e L0
-     /tmp/ccXckFYm.s:184    .text:0000005e L0
+     /tmp/ccdzgot7.s:2      *ABS*:0000003e __SP_H__
+     /tmp/ccdzgot7.s:3      *ABS*:0000003d __SP_L__
+     /tmp/ccdzgot7.s:4      *ABS*:0000003f __SREG__
+     /tmp/ccdzgot7.s:5      *ABS*:00000000 __tmp_reg__
+     /tmp/ccdzgot7.s:6      *ABS*:00000001 __zero_reg__
+     /tmp/ccdzgot7.s:13     .text:00000000 serial_init
+     /tmp/ccdzgot7.s:16     .text:00000000 .Loc.0
+     /tmp/ccdzgot7.s:17     .text:00000000 L0
+     /tmp/ccdzgot7.s:22     .text:00000000 .Loc.1
+     /tmp/ccdzgot7.s:23     .text:00000000 .Loc.2
+     /tmp/ccdzgot7.s:26     .text:00000006 .Loc.3
+     /tmp/ccdzgot7.s:27     .text:00000006 .Loc.4
+     /tmp/ccdzgot7.s:30     .text:0000000c .Loc.5
+     /tmp/ccdzgot7.s:31     .text:0000000c .Loc.6
+     /tmp/ccdzgot7.s:37     .text:00000018 .Loc.7
+     /tmp/ccdzgot7.s:39     .text:0000001a L0
+     /tmp/ccdzgot7.s:44     .text:0000001a serial_tx
+     /tmp/ccdzgot7.s:46     .text:0000001a .Loc.8
+     /tmp/ccdzgot7.s:47     .text:0000001a L0
+     /tmp/ccdzgot7.s:54     .text:0000001a .Loc.9
+     /tmp/ccdzgot7.s:55     .text:0000001a .Loc.10
+     /tmp/ccdzgot7.s:56     .text:0000001a .Loc.11
+     /tmp/ccdzgot7.s:58     .text:0000001e .Loc.12
+     /tmp/ccdzgot7.s:61     .text:00000022 .Loc.13
+     /tmp/ccdzgot7.s:62     .text:00000022 .Loc.14
+     /tmp/ccdzgot7.s:65     .text:00000026 .Loc.15
+     /tmp/ccdzgot7.s:67     .text:00000028 L0
+     /tmp/ccdzgot7.s:72     .text:00000028 serial_tx_str
+     /tmp/ccdzgot7.s:75     .text:00000028 .Loc.16
+     /tmp/ccdzgot7.s:76     .text:00000028 L0
+     /tmp/ccdzgot7.s:77     .text:00000028 .Loc.17
+     /tmp/ccdzgot7.s:88     .text:0000002c .Loc.18
+     /tmp/ccdzgot7.s:89     .text:0000002c .Loc.19
+     /tmp/ccdzgot7.s:92     .text:0000002c .Loc.20
+     /tmp/ccdzgot7.s:93     .text:0000002c .Loc.21
+     /tmp/ccdzgot7.s:96     .text:0000002e .Loc.22
+     /tmp/ccdzgot7.s:99     .text:00000030 .Loc.23
+     /tmp/ccdzgot7.s:103    .text:00000034 .Loc.24
+     /tmp/ccdzgot7.s:107    .text:00000038 .Loc.25
+     /tmp/ccdzgot7.s:111    .text:0000003a .Loc.26
+     /tmp/ccdzgot7.s:114    .text:0000003e .Loc.27
+     /tmp/ccdzgot7.s:117    .text:00000042 L0
+     /tmp/ccdzgot7.s:122    .text:00000042 serial_tx_str_P
+     /tmp/ccdzgot7.s:125    .text:00000042 .Loc.28
+     /tmp/ccdzgot7.s:126    .text:00000042 L0
+     /tmp/ccdzgot7.s:127    .text:00000042 .Loc.29
+     /tmp/ccdzgot7.s:139    .text:00000048 .Loc.30
+     /tmp/ccdzgot7.s:140    .text:00000048 .Loc.31
+     /tmp/ccdzgot7.s:143    .text:00000048 .Loc.32
+     /tmp/ccdzgot7.s:145    .text:00000048 .Loc.33
+     /tmp/ccdzgot7.s:146    .text:00000048 .Loc.34
+     /tmp/ccdzgot7.s:147    .text:00000048 .Loc.35
+     /tmp/ccdzgot7.s:155    .text:0000004c .Loc.36
+     /tmp/ccdzgot7.s:156    .text:0000004c .Loc.37
+     /tmp/ccdzgot7.s:159    .text:0000004c .Loc.38
+     /tmp/ccdzgot7.s:162    .text:0000004e .Loc.39
+     /tmp/ccdzgot7.s:166    .text:00000052 .Loc.40
+     /tmp/ccdzgot7.s:170    .text:00000056 .Loc.41
+     /tmp/ccdzgot7.s:174    .text:00000058 .Loc.42
+     /tmp/ccdzgot7.s:177    .text:0000005c .Loc.43
+     /tmp/ccdzgot7.s:179    .text:0000005e L0
+     /tmp/ccdzgot7.s:184    .text:0000005e L0
                      .debug_frame:00000000 L0
-     /tmp/ccXckFYm.s:53     .text:0000001a .L3
-     /tmp/ccXckFYm.s:110    .text:0000003a .L8
-     /tmp/ccXckFYm.s:90     .text:0000002c .L7
-     /tmp/ccXckFYm.s:173    .text:00000058 .L11
-     /tmp/ccXckFYm.s:142    .text:00000048 .L10
-     /tmp/ccXckFYm.s:342    .debug_abbrev:00000000 .Ldebug_abbrev0
-     /tmp/ccXckFYm.s:8      .text:00000000 .Ltext0
-     /tmp/ccXckFYm.s:182    .text:0000005e .Letext0
-     /tmp/ccXckFYm.s:781    .debug_line:00000000 .Ldebug_line0
-     /tmp/ccXckFYm.s:124    .text:00000042 .LFB4
-     /tmp/ccXckFYm.s:180    .text:0000005e .LFE4
-     /tmp/ccXckFYm.s:575    .debug_loclists:00000018 .LLST3
-     /tmp/ccXckFYm.s:562    .debug_loclists:0000000c .LVUS3
-     /tmp/ccXckFYm.s:634    .debug_loclists:00000051 .LLST4
-     /tmp/ccXckFYm.s:631    .debug_loclists:0000004f .LVUS4
-     /tmp/ccXckFYm.s:144    .text:00000048 .LBB2
-     /tmp/ccXckFYm.s:158    .text:0000004c .LBE2
-     /tmp/ccXckFYm.s:648    .debug_loclists:0000005d .LLST5
-     /tmp/ccXckFYm.s:641    .debug_loclists:00000057 .LVUS5
-     /tmp/ccXckFYm.s:680    .debug_loclists:0000007b .LLST6
-     /tmp/ccXckFYm.s:677    .debug_loclists:00000079 .LVUS6
-     /tmp/ccXckFYm.s:176    .text:0000005c .LVL14
-     /tmp/ccXckFYm.s:74     .text:00000028 .LFB3
-     /tmp/ccXckFYm.s:118    .text:00000042 .LFE3
-     /tmp/ccXckFYm.s:698    .debug_loclists:0000008b .LLST1
-     /tmp/ccXckFYm.s:687    .debug_loclists:00000081 .LVUS1
-     /tmp/ccXckFYm.s:750    .debug_loclists:000000bd .LLST2
-     /tmp/ccXckFYm.s:747    .debug_loclists:000000bb .LVUS2
-     /tmp/ccXckFYm.s:113    .text:0000003e .LVL7
-     /tmp/ccXckFYm.s:45     .text:0000001a .LFB2
-     /tmp/ccXckFYm.s:68     .text:00000028 .LFE2
-     /tmp/ccXckFYm.s:760    .debug_loclists:000000c5 .LLST0
-     /tmp/ccXckFYm.s:757    .debug_loclists:000000c3 .LVUS0
-     /tmp/ccXckFYm.s:14     .text:00000000 .LFB1
-     /tmp/ccXckFYm.s:40     .text:0000001a .LFE1
-     /tmp/ccXckFYm.s:185    .debug_info:00000000 .Ldebug_info0
+     /tmp/ccdzgot7.s:53     .text:0000001a .L3
+     /tmp/ccdzgot7.s:110    .text:0000003a .L8
+     /tmp/ccdzgot7.s:90     .text:0000002c .L7
+     /tmp/ccdzgot7.s:173    .text:00000058 .L11
+     /tmp/ccdzgot7.s:142    .text:00000048 .L10
+     /tmp/ccdzgot7.s:342    .debug_abbrev:00000000 .Ldebug_abbrev0
+     /tmp/ccdzgot7.s:8      .text:00000000 .Ltext0
+     /tmp/ccdzgot7.s:182    .text:0000005e .Letext0
+     /tmp/ccdzgot7.s:781    .debug_line:00000000 .Ldebug_line0
+     /tmp/ccdzgot7.s:124    .text:00000042 .LFB4
+     /tmp/ccdzgot7.s:180    .text:0000005e .LFE4
+     /tmp/ccdzgot7.s:575    .debug_loclists:00000018 .LLST3
+     /tmp/ccdzgot7.s:562    .debug_loclists:0000000c .LVUS3
+     /tmp/ccdzgot7.s:634    .debug_loclists:00000051 .LLST4
+     /tmp/ccdzgot7.s:631    .debug_loclists:0000004f .LVUS4
+     /tmp/ccdzgot7.s:144    .text:00000048 .LBB2
+     /tmp/ccdzgot7.s:158    .text:0000004c .LBE2
+     /tmp/ccdzgot7.s:648    .debug_loclists:0000005d .LLST5
+     /tmp/ccdzgot7.s:641    .debug_loclists:00000057 .LVUS5
+     /tmp/ccdzgot7.s:680    .debug_loclists:0000007b .LLST6
+     /tmp/ccdzgot7.s:677    .debug_loclists:00000079 .LVUS6
+     /tmp/ccdzgot7.s:176    .text:0000005c .LVL14
+     /tmp/ccdzgot7.s:74     .text:00000028 .LFB3
+     /tmp/ccdzgot7.s:118    .text:00000042 .LFE3
+     /tmp/ccdzgot7.s:698    .debug_loclists:0000008b .LLST1
+     /tmp/ccdzgot7.s:687    .debug_loclists:00000081 .LVUS1
+     /tmp/ccdzgot7.s:750    .debug_loclists:000000bd .LLST2
+     /tmp/ccdzgot7.s:747    .debug_loclists:000000bb .LVUS2
+     /tmp/ccdzgot7.s:113    .text:0000003e .LVL7
+     /tmp/ccdzgot7.s:45     .text:0000001a .LFB2
+     /tmp/ccdzgot7.s:68     .text:00000028 .LFE2
+     /tmp/ccdzgot7.s:760    .debug_loclists:000000c5 .LLST0
+     /tmp/ccdzgot7.s:757    .debug_loclists:000000c3 .LVUS0
+     /tmp/ccdzgot7.s:14     .text:00000000 .LFB1
+     /tmp/ccdzgot7.s:40     .text:0000001a .LFE1
+     /tmp/ccdzgot7.s:185    .debug_info:00000000 .Ldebug_info0
 
 NO UNDEFINED SYMBOLS

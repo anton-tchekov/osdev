@@ -1,8 +1,8 @@
 /**
- * @file	keyboard.c
+ * @file    keyboard.c
  * @author  Tim Gabrikowski, Anton Tchekov
  * @version 0.1
- * @date	14.05.2023
+ * @date    14.05.2023
  * @brief   Keyboard types and utilities
  */
 

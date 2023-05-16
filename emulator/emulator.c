@@ -1,5 +1,4 @@
 #include <types.h>
-#include <memory.h>
 #include <platform.h>
 #include <emulator.h>
 
@@ -68,11 +67,6 @@ static u32 (*syscalls[])(u32 *) =
 	syscall_gfx_image_grayscale,
 	syscall_gfx_image_1bit,
 
-	syscall_file_open,
-	syscall_file_write,
-	syscall_file_close,
-	syscall_file_size,
-
 	syscall_keyboard_is_key_pressed,
 
 	syscall_serial_write,
@@ -93,6 +87,8 @@ static i32 syscall(u32 id, u32 *args)
 }
 
 /* EMULATOR */
+#ifdef DEBUG
+
 void emulator_dump_registers(Emulator *emu)
 {
 	printf("PC  0x%08X %10d\n", emu->PC, emu->PC);
@@ -105,37 +101,9 @@ void emulator_dump_registers(Emulator *emu)
 	printf("\n");
 }
 
-#define BOLDRED   "\033[1m\033[31m"
-#define RESET     "\033[0m"
+#endif
 
-i32 emulator_call(Emulator *emu, u32 addr, u32 *args, u32 num, u32 sp, u32 max_instr)
-{
-	u32 i;
-
-	/* Initialize Stack Pointer at end of memory */
-	emu->Registers[2] = sp;
-
-	emu->PC = addr;
-	memcpy(&emu->Registers[10],
-		args, num * sizeof(*emu->Registers));
-
-	_finished = false;
-	for(i = 0; i < max_instr; ++i)
-	{
-		emulator_next(emu);
-		if(_finished)
-		{
-			return 0;
-		}
-	}
-
-	/* TODO */
-	fprintf(stderr, BOLDRED "INSTRUCTION LIMIT EXCEEDED!\n" RESET);
-	exit(1);
-	return 1;
-}
-
-i32 emulator_next(Emulator *emu)
+static i32 emulator_next(Emulator *emu)
 {
 #ifdef DEBUG
 	clock_t begin, end;
@@ -723,4 +691,34 @@ i32 emulator_next(Emulator *emu)
 
 	emu->PC += 4;
 	return 0;
+}
+
+#define BOLDRED   "\033[1m\033[31m"
+#define RESET     "\033[0m"
+
+i32 emulator_call(Emulator *emu, u32 addr, u32 *args, u32 num, u32 sp, u32 max_instr)
+{
+	u32 i;
+
+	/* Initialize Stack Pointer at end of memory */
+	emu->Registers[2] = sp;
+
+	emu->PC = addr;
+	memcpy(&emu->Registers[10],
+		args, num * sizeof(*emu->Registers));
+
+	_finished = false;
+	for(i = 0; i < max_instr; ++i)
+	{
+		emulator_next(emu);
+		if(_finished)
+		{
+			return 0;
+		}
+	}
+
+	/* TODO */
+	fprintf(stderr, BOLDRED "INSTRUCTION LIMIT EXCEEDED!\n" RESET);
+	exit(1);
+	return 1;
 }

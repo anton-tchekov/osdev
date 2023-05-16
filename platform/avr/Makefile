@@ -17,6 +17,8 @@ SRCS = \
 	rtc/rtc.c \
 	logger/logger.c \
 	xmem/xmem.c \
+	lcd/lcd.c \
+	../../emulator/emulator.c \
 
 CFLAGS += \
 	-I ../../types \
@@ -30,6 +32,10 @@ CFLAGS += \
 	-I timer \
 	-I xmem \
 	-I logger \
+	-I lcd \
+	-I ../../emulator \
+	-I ../../platform/ \
+	-I ../../util/ \
 
 FEATURE_SET_TIME ?= YES
 FEATURE_CHARACTERS ?= YES

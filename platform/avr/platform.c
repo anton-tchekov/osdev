@@ -216,34 +216,6 @@ u32 syscall_gfx_image_1bit(u32 *args)
 	(void)args;
 }
 
-u32 syscall_file_open(u32 *args)
-{
-	/* TODO */
-	return 0;
-	(void)args;
-}
-
-u32 syscall_file_write(u32 *args)
-{
-	/* TODO */
-	return 0;
-	(void)args;
-}
-
-u32 syscall_file_close(u32 *args)
-{
-	/* TODO */
-	return 0;
-	(void)args;
-}
-
-u32 syscall_file_size(u32 *args)
-{
-	/* TODO */
-	return 0;
-	(void)args;
-}
-
 u32 syscall_keyboard_is_key_pressed(u32 *args)
 {
 	/* TODO */

@@ -1,8 +1,8 @@
 /**
- * @file	german.c
+ * @file    german.c
  * @author  Tim Gabrikowski, Anton Tchekov
  * @version 0.1
- * @date	14.05.2023
+ * @date    14.05.2023
  * @brief   German keyboard layout conversion
  */
 
