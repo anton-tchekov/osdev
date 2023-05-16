@@ -12,7 +12,7 @@
 /* This is horrible, but it works */
 i32 key_to_codepoint(Key k)
 {
-	Key nomods = MOD_REMOVE(k);
+	Key nomods = key_mod_remove(k);
 
 	if(nomods == KEY_TAB)                           { return '\t'; }
 	else if(nomods == KEY_BACKSPACE)                { return '\b'; }

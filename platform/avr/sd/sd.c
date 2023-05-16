@@ -3,8 +3,15 @@
 #include <avr/io.h>
 #include <util/delay.h>
 
-#define SELECT()               SPI_OUT &= ~CS
-#define DESELECT()             SPI_OUT |= CS
+static inline void _sd_select(void)
+{
+	SPI_OUT &= ~CS;
+}
+
+static inline void _sd_deselect(void)
+{
+	SPI_OUT |= CS
+}
 
 #define CMD_GO_IDLE_STATE      0x00
 #define CMD_SEND_OP_COND       0x01

@@ -118,40 +118,13 @@ typedef struct
 	i32 Selected;
 
 	/** Window OnKey event */
-	void (*OnKey)(u32, Key, i32);
+	KeyEvent OnKey;
 } Window;
 
-/** Create a label element */
-#define LABEL_CREATE(_X, _Y, _FLAGS, _TEXT) \
-	{ \
-		.Type = ELEMENT_TYPE_LABEL, \
-		.X = _X, \
-		.Y = _Y, \
-		.Flags = _FLAGS, \
-		.Text = _TEXT, \
-	}
-
-/** Create a button element */
-#define BUTTON_CREATE(_X, _Y, _W, _H, _TEXT, _CLICK) \
-	{ \
-		.Type = ELEMENT_TYPE_BUTTON, \
-		.X = _X, \
-		.Y = _Y, \
-		.W = _W, \
-		.H = _H, \
-		.Text = _TEXT, \
-		.Click = _CLICK \
-	}
-
-/** Create a window */
-#define WINDOW_CREATE(_TITLE, _ELEMENTS, _COUNT, _SELECTED, _ONKEY) \
-	{ \
-		.Title = _TITLE, \
-		.Elements = _ELEMENTS, \
-		.Count = _COUNT, \
-		.Selected = _SELECTED, \
-		.OnKey = _ONKEY \
-	}
+typedef struct
+{
+	u32 ColorComment, ColorNumber, ColorString, ColorKeyword;
+} SyntaxHighlighter;
 
 /**
  * @brief Open and render a window
@@ -169,6 +142,43 @@ void window_open(Window *window);
 void window_event_key(Key key, i32 chr, KeyState state);
 
 /**
+ * @brief Initialize a window
+ *
+ * @param window The window
+ * @param title Window title
+ * @param elems Pointer to elements array
+ * @param count Number of elements
+ * @param onkey Key event
+ */
+void window_init(Window *window, char *title, void *elems, i32 count,
+	KeyEvent onkey);
+
+/**
+ * @brief Initialize a label
+ *
+ * @param label The label
+ * @param x X-Coordinate
+ * @param y Y-Coordinate
+ * @param flags Label flags
+ * @param text Label text
+ */
+void label_init(Label *label, i32 x, i32 y, u32 flags, char *text);
+
+/**
+ * @brief Initialize a button
+ *
+ * @param button The button
+ * @param x X-Coordinate
+ * @param y Y-Coordinate
+ * @param w Width
+ * @param h Height
+ * @param text Button text
+ * @param onclick Click event
+ */
+void button_init(Button *button, i32 x, i32 y, i32 w, i32 h, char *text,
+	void (*onclick)(void));
+
+/**
  * @brief Initialize an input field
  *
  * @param input The input field
@@ -184,5 +194,13 @@ void input_init(Input *input, i32 x, i32 y, i32 w);
  * @param i The input field
  */
 void input_clear(Input *i);
+
+/**
+ * @brief Render an element by taking its selection status from the
+ *        current window
+ *
+ * @param e Pointer to the Element
+ */
+void element_render(void *e);
 
 #endif /* __GUI_H__ */

@@ -23,8 +23,16 @@ typedef enum
 /** Keycode */
 typedef u32 Key;
 
-/** Remove modifiers from key */
-#define MOD_REMOVE(key) (key & 0xFFFF)
+/**
+ * @brief Remove modifiers from key
+ *
+ * @param key Scancode
+ * @return Scancode with modifiers removed
+ */
+static inline Key key_mod_remove(Key key)
+{
+	return key & 0xFFFF;
+}
 
 /**
  * @brief Get a textual representation of a key state
