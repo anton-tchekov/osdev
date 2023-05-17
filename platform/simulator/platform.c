@@ -27,6 +27,11 @@ static SDL_Renderer *_renderer;
 
 static u32 _sec_start, _usec_start;
 
+u32 memory_size()
+{
+	return 1024UL * 1024UL;
+}
+
 void memory_read(u32 addr, void *data, u32 size)
 {
 	memcpy(data, _memory + addr, size);
@@ -144,7 +149,7 @@ static i32 _gfx_check_dimensions(i32 x, i32 y, i32 w, i32 h)
 		x + w <= WINDOW_WIDTH && y + h <= WINDOW_HEIGHT;
 }
 
-static void gfx_rect(i32 x, i32 y, i32 w, i32 h, u32 color)
+void gfx_rect(i32 x, i32 y, i32 w, i32 h, u32 color)
 {
 	i32 x0, y0;
 	if(!_gfx_check_dimensions(x, y, w, h))
@@ -162,7 +167,7 @@ static void gfx_rect(i32 x, i32 y, i32 w, i32 h, u32 color)
 	}
 }
 
-static void gfx_image_1bit(
+void gfx_image_1bit(
 	i32 x, i32 y, i32 w, i32 h, u8 *image, u32 fg, u32 bg)
 {
 	u8 byte, stride;
@@ -214,7 +219,7 @@ static u32 _color_merge(u32 color1, u32 color2, u32 ratio)
 		(b1 * ratio + b2 * (255 - ratio)) / 255);
 }
 
-static void gfx_image_grayscale(
+void gfx_image_grayscale(
 	i32 x, i32 y, i32 w, i32 h, u8 *image, u32 fg, u32 bg)
 {
 	i32 x0, y0;
@@ -261,7 +266,7 @@ static void gfx_image_rgb565(i32 x, i32 y, i32 w, i32 h, u16 *image)
 	}
 }
 
-static void gfx_image_rgb(i32 x, i32 y, i32 w, i32 h, u8 *image)
+void gfx_image_rgb(i32 x, i32 y, i32 w, i32 h, u8 *image)
 {
 	u8 r, g, b;
 	i32 x0, y0;
@@ -283,7 +288,7 @@ static void gfx_image_rgb(i32 x, i32 y, i32 w, i32 h, u8 *image)
 	}
 }
 
-static void gfx_image_rgba(i32 x, i32 y, i32 w, i32 h, u32 *image)
+void gfx_image_rgba(i32 x, i32 y, i32 w, i32 h, u32 *image)
 {
 	i32 x0, y0;
 
@@ -357,23 +362,9 @@ u32 millis(void)
 		(ts.tv_usec - _usec_start) / 1000;
 }
 
-/* --- SYSCALLS --- */
-u32 syscall_exit(u32 *args)
-{
-	/* TODO */
-	exit(args[0]);
-	return 0;
-}
-
 u32 random_get(void)
 {
 	return rand();
-}
-
-u32 syscall_gfx_rect(u32 *args)
-{
-	gfx_rect(args[0], args[1], args[2], args[3], args[4]);
-	return 0;
 }
 
 u32 syscall_gfx_image_rgba(u32 *args)
@@ -413,11 +404,10 @@ u32 syscall_gfx_image_1bit(u32 *args)
 	return 0;
 }
 
-u32 syscall_serial_write(u32 *args)
+void serial_write(const void *data, u32 len)
 {
 	/* Debug print */
-	fputs((char *)(_memory + args[0]), stdout);
-	return 0;
+	printf("%.*s", len, (char *)data);
 }
 
 static void timer_init(void)
@@ -459,6 +449,7 @@ int main(int argc, char **argv)
 
 	timer_init();
 	gfx_init();
+	kernel_init();
 	process_setup();
 
 	while(running)

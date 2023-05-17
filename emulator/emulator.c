@@ -21,8 +21,6 @@
 #define OPCODE_JAL    0x1B /* Jump and Link */
 #define OPCODE_ECALL  0x1C
 
-#define STACK_START   (1024 * 1024)
-
 /**
  * @brief Sign extend
  *
@@ -39,10 +37,16 @@ static inline u32 sext(u32 bits, u32 value)
 static bool _finished;
 static Emulator _cur, *_emu = &_cur;
 static bool _keys[KEY_COUNT];
+static u32 _memory_size;
+
+void kernel_init(void)
+{
+	_memory_size = memory_size();
+}
 
 void process_setup(void)
 {
-	emulator_call(_emu, 0, NULL, 0, STACK_START, 1000000);
+	emulator_call(_emu, 0, NULL, 0, _memory_size, 1000000);
 }
 
 void os_update(void)
@@ -50,7 +54,7 @@ void os_update(void)
 	u32 addr = _emu->Events[EVENT_LOOP];
 	if(addr)
 	{
-		emulator_call(_emu, addr, NULL, 0, STACK_START, 1000000);
+		emulator_call(_emu, addr, NULL, 0, _memory_size, 1000000);
 	}
 }
 
@@ -72,7 +76,7 @@ void keyboard_event(Key key, i32 chr, KeyState down)
 	if(addr)
 	{
 		u32 args[] = { key, chr, down };
-		emulator_call(_emu, addr, args, ARRLEN(args), STACK_START, 1000000);
+		emulator_call(_emu, addr, args, ARRLEN(args), _memory_size, 1000000);
 	}
 
 	key = key_mod_remove(key);
@@ -94,24 +98,23 @@ static bool keyboard_is_key_pressed(Key key)
 	return _keys[key];
 }
 
+/* TODO: Paging/MProt */
+
 /* Store */
 static void memory_sb(u32 addr, u32 value)
 {
-	/* TODO: Paging/MProt */
 	i8 value8 = (i8)value;
 	memory_write(addr, &value8, 1);
 }
 
 static void memory_sh(u32 addr, u32 value)
 {
-	/* TODO: Paging/MProt */
 	i16 value16 = (i16)value;
 	memory_write(addr, &value16, 2);
 }
 
 static void memory_sw(u32 addr, u32 value)
 {
-	/* TODO: Paging/MProt */
 	memory_write(addr, &value, 4);
 }
 
@@ -151,6 +154,17 @@ static u32 memory_lhu(u32 addr)
 	return value16;
 }
 
+u32 syscall_exit(u32 *args)
+{
+	/* Remove process from scheduler */
+
+	/* If init process, crash system */
+
+	/* TODO: We only have one process right now */
+	exit(args[0]);
+	return 0;
+}
+
 static u32 syscall_finish(u32 *args)
 {
 	_finished = true;
@@ -166,7 +180,6 @@ static u32 syscall_millis(u32 *args)
 
 static u32 syscall_datetime_now(u32 *args)
 {
-	/* TODO: Paging/MemProt/XMem */
 	DateTime dt;
 	datetime_now(&dt);
 	memory_write(args[0], &dt, sizeof(dt));
@@ -182,6 +195,31 @@ u32 syscall_rand(u32 *args)
 u32 syscall_keyboard_is_key_pressed(u32 *args)
 {
 	return keyboard_is_key_pressed(args[0]);
+}
+
+u32 syscall_serial_write(u32 *args)
+{
+	u16 cur;
+	u32 ptr = args[0];
+	u32 len = args[1];
+	u8 buf[128];
+
+	while(len)
+	{
+		cur = len > sizeof(buf) ? sizeof(buf) : len;
+		memory_read(ptr, buf, cur);
+		serial_write(buf, cur);
+		len -= cur;
+		ptr += cur;
+	}
+
+	return 0;
+}
+
+static u32 syscall_gfx_rect(u32 *args)
+{
+	gfx_rect(args[0], args[1], args[2], args[3], args[4]);
+	return 0;
 }
 
 static u32 (*syscalls[])(u32 *) =

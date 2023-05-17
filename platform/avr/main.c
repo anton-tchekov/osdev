@@ -1,12 +1,12 @@
-#include "ps2.h"
-#include "serial.h"
-#include "adc.h"
-#include "random.h"
-#include "timer.h"
-#include "rtc.h"
-#include "xmem.h"
-#include "logger.h"
-#include "spi.h"
+#include <ps2.h>
+#include <serial.h>
+#include <adc.h>
+#include <random.h>
+#include <timer.h>
+#include <rtc.h>
+#include <xmem.h>
+#include <logger.h>
+#include <spi.h>
 #include <avr/pgmspace.h>
 
 static const char _msg_launch[] PROGMEM =
@@ -29,6 +29,26 @@ void ps2_event(u8 byte)
 	serial_tx('x');
 	serial_tx(byte_to_hex((byte >> 4) & 0x0F));
 	serial_tx(byte_to_hex(byte & 0x0F));
+}
+
+void serial_write(const void *data, u32 len)
+{
+	u32 i;
+	const char *data8 = data;
+	for(i = 0; i < len; ++i)
+	{
+		serial_tx(data8[i]);
+	}
+}
+
+void memory_read(u32 addr, void *data, u32 size)
+{
+	xmem_read(addr, data, size);
+}
+
+void memory_write(u32 addr, const void *data, u32 size)
+{
+	xmem_write(addr, data, size);
 }
 
 int main(void)

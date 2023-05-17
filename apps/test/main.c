@@ -27,6 +27,8 @@ void event_key(Key key, i32 chr, KeyState state)
 
 void setup(void)
 {
+	string_test();
+
 	keyboard_register_event(event_key);
 	input_init(&input, 20, 220, 200);
 

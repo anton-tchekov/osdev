@@ -34,8 +34,9 @@ CFLAGS += \
 	-I logger \
 	-I lcd \
 	-I ../../emulator \
-	-I ../../platform/ \
-	-I ../../util/ \
+	-I ../../platform \
+	-I ../../util \
+	-I ../../keyboard \
 
 FEATURE_SET_TIME ?= YES
 FEATURE_CHARACTERS ?= YES
