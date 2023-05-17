@@ -70,6 +70,8 @@ static inline i32 i32_max(i32 a, i32 b)
 	return (a > b) ? a : b;
 }
 
+/* TODO: Anything below here should go in its own file and fix dependants */
+
 /** DateTime struct containing date and time info */
 typedef struct
 {
@@ -107,5 +109,13 @@ typedef struct
 	/** Height */
 	i32 H;
 } Rectangle;
+
+/** Event Type */
+typedef enum
+{
+	EVENT_LOOP,
+	EVENT_KEY,
+	EVENT_COUNT
+} Event;
 
 #endif /* __TYPES_H__ */

@@ -11,13 +11,6 @@
 
 #include <types.h>
 
-/** Event Type */
-typedef enum
-{
-	EVENT_LOOP,
-	EVENT_KEY
-} Event;
-
 /**
  * @brief Finish an event handler. Do NOT call this function.
  */

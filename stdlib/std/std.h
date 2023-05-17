@@ -10,7 +10,6 @@
 #define __STD_H__
 
 #include <types.h>
-#include <fs.h>
 #include <ctype.h>
 #include <string.h>
 #include <utf8.h>

@@ -253,7 +253,8 @@ typedef enum
 	KEY_EJECT = 281,
 	KEY_SLEEP = 282,
 	KEY_APP1 = 283,
-	KEY_APP2 = 284
+	KEY_APP2 = 284,
+	KEY_COUNT
 } Keys;
 
 /** Keyboard Modifiers */

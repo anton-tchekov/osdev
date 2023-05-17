@@ -12,86 +12,29 @@
 #include <keyboard-shared.h>
 #include <layout.h>
 
-/* --- MEMORY --- */
+#define WINDOW_TITLE             "OS Simulator"
+#define WINDOW_WIDTH          320
+#define WINDOW_HEIGHT         480
+
+#define READ_SIZE            1024
+
 static u8 _memory[1024 * 1024];
 
-/* Store */
-void memory_sb(u32 address, u32 value)
-{
-	i8 value8 = (i8)value;
-	if(address >= sizeof(_memory))
-	{
-		return;
-	}
+static u32 _pixels[WINDOW_HEIGHT * WINDOW_WIDTH];
+static SDL_Texture *_framebuffer;
+static SDL_Window *_window;
+static SDL_Renderer *_renderer;
 
-	_memory[address] = value8;
+static u32 _sec_start, _usec_start;
+
+void memory_read(u32 addr, void *data, u32 size)
+{
+	memcpy(data, _memory + addr, size);
 }
 
-void memory_sh(u32 address, u32 value)
+void memory_write(u32 addr, const void *data, u32 size)
 {
-	i16 value16 = (i16)value;
-	address >>= 1;
-	if(address >= (sizeof(_memory) / 2))
-	{
-		return;
-	}
-
-	((i16 *)_memory)[address] = value16;
-}
-
-void memory_sw(u32 address, u32 value)
-{
-	address >>= 2;
-	if(address >= (sizeof(_memory) / 4))
-	{
-		return;
-	}
-
-	((u32 *)_memory)[address] = value;
-}
-
-/* Load */
-u32 memory_lb(u32 address)
-{
-	if(address >= sizeof(_memory))
-	{
-		return 0;
-	}
-
-	return (i32)(((i8 *)_memory)[address]);
-}
-
-u32 memory_lh(u32 address)
-{
-	address >>= 1;
-	if(address >= (sizeof(_memory) / 2))
-	{
-		return 0;
-	}
-
-	return ((i16 *)_memory)[address];
-}
-
-u32 memory_lw(u32 address)
-{
-	address >>= 2;
-	if(address >= (sizeof(_memory) / 4))
-	{
-		return 0;
-	}
-
-	return ((u32 *)_memory)[address];
-}
-
-u32 memory_lbu(u32 address)
-{
-	return _memory[address];
-}
-
-u32 memory_lhu(u32 address)
-{
-	address >>= 1;
-	return ((u16 *)_memory)[address];
+	memcpy(_memory + addr, data, size);
 }
 
 void memory_dump(u32 address, u32 length)
@@ -119,18 +62,6 @@ void memory_dump(u32 address, u32 length)
 
 	printf("\n");
 }
-
-/* --- GRAPHICS --- */
-#define WINDOW_TITLE             "OS Simulator"
-#define WINDOW_WIDTH          320
-#define WINDOW_HEIGHT         480
-
-static u32 _pixels[WINDOW_HEIGHT * WINDOW_WIDTH];
-static SDL_Texture *_framebuffer;
-static SDL_Window *_window;
-static SDL_Renderer *_renderer;
-
-static u32 _event_loop_addr, _event_key_addr;
 
 static void gfx_init(void)
 {
@@ -197,7 +128,7 @@ static u32 gfx_color(u8 r, u8 g, u8 b)
 
 static inline u8 _abgr_r(u32 color) { return (color >> 24) & 0xFF; }
 static inline u8 _abgr_g(u32 color) { return (color >> 16) & 0xFF; }
-static inline u8 _abgr_b(u32 color) { return (color >> 8) & 0xFF; }
+static inline u8 _abgr_b(u32 color) { return (color >>  8) & 0xFF; }
 
 static u32 _abgr_to_argb(u32 color)
 {
@@ -370,41 +301,7 @@ static void gfx_image_rgba(i32 x, i32 y, i32 w, i32 h, u32 *image)
 	}
 }
 
-static Emulator emu;
-
-static void os_update(void)
-{
-	if(_event_loop_addr)
-	{
-		emulator_call(&emu, _event_loop_addr, NULL, 0, sizeof(_memory), 100000);
-	}
-
-	/* registers_dump(&emu); */
-	/* memory_dump(0, 1024); */
-}
-
-/* --- KEYBOARD --- */
-#define NUM_KEYS 340
-
-static bool _keys[NUM_KEYS];
-
-static void keyboard_event(Key key, i32 chr, KeyState down)
-{
-	if(_event_key_addr)
-	{
-		u32 args[3] = { key, chr, down };
-		emulator_call(&emu, _event_key_addr, args, ARRLEN(args), sizeof(_memory), 100000);
-	}
-
-	if(key >= NUM_KEYS)
-	{
-		return;
-	}
-
-	_keys[key] = down;
-}
-
-static Key _convert_key(int scancode, int mod)
+static Key _convert_key(i32 scancode, i32 mod)
 {
 	Key key = scancode;
 
@@ -436,91 +333,28 @@ static Key _convert_key(int scancode, int mod)
 	return key;
 }
 
-/* --- PLATFORM --- */
-static bool platform_run(void)
-{
-	SDL_Event e;
-	while(SDL_PollEvent(&e))
-	{
-		switch(e.type)
-		{
-		case SDL_QUIT:
-			return false;
-
-		case SDL_KEYDOWN:
-			{
-				Key key;
-				if(e.key.keysym.sym == SDLK_ESCAPE)
-				{
-					return false;
-				}
-
-				key = _convert_key(e.key.keysym.scancode, e.key.keysym.mod);
-
-				keyboard_event(key, key_to_codepoint(key),
-					e.key.repeat ? KEYSTATE_REPEAT : KEYSTATE_PRESSED);
-			}
-			break;
-
-		case SDL_KEYUP:
-			{
-				Key key = _convert_key(e.key.keysym.scancode, e.key.keysym.mod);
-				keyboard_event(key, key_to_codepoint(key), KEYSTATE_RELEASED);
-			}
-			break;
-		}
-	}
-
-	os_update();
-
-	SDL_UpdateTexture(_framebuffer, NULL, _pixels, WINDOW_WIDTH * sizeof(u32));
-	SDL_RenderClear(_renderer);
-	SDL_RenderCopy(_renderer, _framebuffer, NULL, NULL);
-	SDL_RenderPresent(_renderer);
-	return true;
-}
-
-#define READ_SIZE 1024
-
-/* TIME */
-static u32 _sec_start, _usec_start;
-
-static void timer_init(void)
-{
-	struct timeval ts;
-	gettimeofday(&ts, NULL);
-	_sec_start = ts.tv_sec;
-	_usec_start = ts.tv_usec;
-
-	srand(time(NULL));
-}
-
-u32 syscall_datetime_now(u32 *args)
+DateTime *datetime_now(DateTime *now)
 {
 	time_t t = time(NULL);
-	struct tm now = *localtime(&t);
-	u32 addr = args[0];
-	DateTime *out = (DateTime *)(_memory + addr);
+	struct tm lt = *localtime(&t);
 
-	out->Year = now.tm_year + 1900;
-	out->Month = now.tm_mon + 1;
-	out->Day = now.tm_mday;
+	now->Year = lt.tm_year + 1900;
+	now->Month = lt.tm_mon + 1;
+	now->Day = lt.tm_mday;
 
-	out->Hour = now.tm_hour;
-	out->Minute = now.tm_min;
-	out->Second = now.tm_sec;
+	now->Hour = lt.tm_hour;
+	now->Minute = lt.tm_min;
+	now->Second = lt.tm_sec;
 
-	return 0;
+	return now;
 }
 
-u32 syscall_millis(u32 *args)
+u32 millis(void)
 {
 	struct timeval ts;
 	gettimeofday(&ts, NULL);
 	return (ts.tv_sec - _sec_start) * 1000 +
 		(ts.tv_usec - _usec_start) / 1000;
-
-	(void)args;
 }
 
 /* --- SYSCALLS --- */
@@ -531,24 +365,6 @@ u32 syscall_exit(u32 *args)
 	return 0;
 }
 
-u32 syscall_event_register(u32 *args)
-{
-	switch(args[0])
-	{
-		case 0:
-			_event_loop_addr = args[1];
-			break;
-
-		case 1:
-			_event_key_addr = args[1];
-			break;
-	}
-
-	return 0;
-	(void)args;
-}
-
-/* MEM */
 u32 syscall_memcpy(u32 *args)
 {
 	return (u8 *)memcpy(_memory + args[0],
@@ -576,7 +392,6 @@ u32 syscall_memset(u32 *args)
 	return (u8 *)memset(_memory + args[0], args[1], args[2]) - _memory;
 }
 
-/* STR */
 u32 syscall_strcpy(u32 *args)
 {
 	return strcpy((char *)(_memory + args[0]),
@@ -610,14 +425,11 @@ u32 syscall_strchr(u32 *args)
 	return strchr((char *)(_memory + args[0]), args[1]) - (char *)_memory;
 }
 
-/* RAND */
-u32 syscall_rand(u32 *args)
+u32 random_get(void)
 {
 	return rand();
-	(void)args;
 }
 
-/* GFX */
 u32 syscall_gfx_rect(u32 *args)
 {
 	gfx_rect(args[0], args[1], args[2], args[3], args[4]);
@@ -661,18 +473,6 @@ u32 syscall_gfx_image_1bit(u32 *args)
 	return 0;
 }
 
-/* KBD */
-u32 syscall_keyboard_is_key_pressed(u32 *args)
-{
-	Key key = args[0];
-	if(key > NUM_KEYS)
-	{
-		return false;
-	}
-
-	return _keys[key];
-}
-
 u32 syscall_serial_write(u32 *args)
 {
 	/* Debug print */
@@ -680,8 +480,19 @@ u32 syscall_serial_write(u32 *args)
 	return 0;
 }
 
+static void timer_init(void)
+{
+	struct timeval ts;
+	gettimeofday(&ts, NULL);
+	_sec_start = ts.tv_sec;
+	_usec_start = ts.tv_usec;
+
+	srand(time(NULL));
+}
+
 int main(int argc, char **argv)
 {
+	bool running = true;
 	size_t len, offset;
 	FILE *fp;
 
@@ -708,11 +519,51 @@ int main(int argc, char **argv)
 
 	timer_init();
 	gfx_init();
+	process_setup();
 
-	/* Call setup */
-	emulator_call(&emu, 0, NULL, 0, sizeof(_memory), 100000);
+	while(running)
+	{
+		SDL_Event e;
+		while(SDL_PollEvent(&e))
+		{
+			switch(e.type)
+			{
+			case SDL_QUIT:
+				running = false;
+				break;
 
-	while(platform_run()) {}
+			case SDL_KEYDOWN:
+				{
+					Key key;
+					if(e.key.keysym.sym == SDLK_ESCAPE)
+					{
+						running = false;
+						break;
+					}
+
+					key = _convert_key(e.key.keysym.scancode, e.key.keysym.mod);
+					keyboard_event(key, key_to_codepoint(key),
+						e.key.repeat ? KEYSTATE_REPEAT : KEYSTATE_PRESSED);
+				}
+				break;
+
+			case SDL_KEYUP:
+				{
+					Key key = _convert_key(e.key.keysym.scancode, e.key.keysym.mod);
+					keyboard_event(key, key_to_codepoint(key), KEYSTATE_RELEASED);
+				}
+				break;
+			}
+		}
+
+		os_update();
+
+		SDL_UpdateTexture(_framebuffer, NULL, _pixels, WINDOW_WIDTH * sizeof(u32));
+		SDL_RenderClear(_renderer);
+		SDL_RenderCopy(_renderer, _framebuffer, NULL, NULL);
+		SDL_RenderPresent(_renderer);
+	}
+
 	gfx_destroy();
 	return 0;
 }
