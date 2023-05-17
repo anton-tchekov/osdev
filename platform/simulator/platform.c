@@ -365,66 +365,6 @@ u32 syscall_exit(u32 *args)
 	return 0;
 }
 
-u32 syscall_memcpy(u32 *args)
-{
-	return (u8 *)memcpy(_memory + args[0],
-		_memory + args[1], args[2]) - _memory;
-}
-
-u32 syscall_memmove(u32 *args)
-{
-	return (u8 *)memmove(_memory + args[0],
-		_memory + args[1], args[2]) - _memory;
-}
-
-u32 syscall_memcmp(u32 *args)
-{
-	return memcmp(_memory + args[0], _memory + args[1], args[2]);
-}
-
-u32 syscall_memchr(u32 *args)
-{
-	return (u8 *)memchr(_memory + args[0], args[1], args[2]) - _memory;
-}
-
-u32 syscall_memset(u32 *args)
-{
-	return (u8 *)memset(_memory + args[0], args[1], args[2]) - _memory;
-}
-
-u32 syscall_strcpy(u32 *args)
-{
-	return strcpy((char *)(_memory + args[0]),
-		(char *)(_memory + args[1])) - (char *)_memory;
-}
-
-u32 syscall_strncpy(u32 *args)
-{
-	return strncpy((char *)(_memory + args[0]),
-		(char *)(_memory + args[1]), args[2]) - (char *)_memory;
-}
-
-u32 syscall_strlen(u32 *args)
-{
-	return strlen((char *)(_memory + args[0]));
-}
-
-u32 syscall_strcmp(u32 *args)
-{
-	return strcmp((char *)(_memory + args[0]), (char *)(_memory + args[1]));
-}
-
-u32 syscall_strncmp(u32 *args)
-{
-	return strncmp((char *)(_memory + args[0]),
-		(char *)(_memory + args[1]), args[2]);
-}
-
-u32 syscall_strchr(u32 *args)
-{
-	return strchr((char *)(_memory + args[0]), args[1]) - (char *)_memory;
-}
-
 u32 random_get(void)
 {
 	return rand();

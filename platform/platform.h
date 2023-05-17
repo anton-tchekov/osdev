@@ -33,16 +33,7 @@ void memory_read(u32 addr, void *data, u32 size);
  */
 void memory_write(u32 addr, const void *data, u32 size);
 
-/**
- * @brief
- *
- * @param addr
- * @param value
- * @param size
- */
-void memory_set(u32 addr, u8 value, u32 size);
-
-/* --- SCHEDULING --- */
+/* --- SCHEDULING - TO BE UPDATED/REMOVED --- */
 
 /**
  * @brief
@@ -54,22 +45,7 @@ void process_setup(void);
  */
 void os_update(void);
 
-/* --- TO BE REMOVED --- */
-
 u32 syscall_exit(u32 *args);
-
-u32 syscall_memcpy(u32 *args);
-u32 syscall_memmove(u32 *args);
-u32 syscall_memcmp(u32 *args);
-u32 syscall_memchr(u32 *args);
-u32 syscall_memset(u32 *args);
-
-u32 syscall_strcpy(u32 *args);
-u32 syscall_strncpy(u32 *args);
-u32 syscall_strlen(u32 *args);
-u32 syscall_strcmp(u32 *args);
-u32 syscall_strncmp(u32 *args);
-u32 syscall_strchr(u32 *args);
 
 /* --- GRAPHICS --- */
 

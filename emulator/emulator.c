@@ -188,23 +188,7 @@ static u32 (*syscalls[])(u32 *) =
 {
 	syscall_exit,
 	syscall_finish,
-
 	syscall_event_register,
-
-	syscall_memcpy,
-	syscall_memmove,
-	syscall_memcmp,
-	syscall_memchr,
-	syscall_memset,
-
-	syscall_strcpy,
-	syscall_strncpy,
-	syscall_strlen,
-	syscall_strcmp,
-	syscall_strncmp,
-	syscall_strchr,
-
-	syscall_rand,
 
 	syscall_gfx_rect,
 	syscall_gfx_image_rgba,
@@ -213,10 +197,9 @@ static u32 (*syscalls[])(u32 *) =
 	syscall_gfx_image_grayscale,
 	syscall_gfx_image_1bit,
 
+	syscall_rand,
 	syscall_keyboard_is_key_pressed,
-
 	syscall_serial_write,
-
 	syscall_datetime_now,
 	syscall_millis,
 };
