@@ -11,14 +11,12 @@
 #include <stdlib.h>
 #include <avr/pgmspace.h>
 
-static const char _msg_rng[] PROGMEM = "RNG initialized";
-
 /* TODO: Replace srand and rand with own random generator */
 
 void random_init(void)
 {
 	srand(adc_read(ADC_CHANNEL_NOISE));
-	log_boot(_msg_rng);
+	log_boot_P(PSTR("RNG initialized"));
 }
 
 u32 random_get(void)

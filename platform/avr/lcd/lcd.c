@@ -1,46 +1,25 @@
 /**
- * @file    asynclcd.c
+ * @file    lcd.c
  * @author  Anton Tchekov
- * @version 0.1
- * @date    12.04.2023
+ * @version 0.2
+ * @date    17.05.2023
  */
 
 #include <lcd.h>
+#include <logger.h>
+#include <avr/pgmspace.h>
 
-/* --- CONSTANTS --- */
-#define PERIPH_BASE        0x40000000
-#define AHB1PERIPH_BASE    (PERIPH_BASE + 0x20000)
+void lcd_init(void)
+{
+	/* TODO: Initialize LCD */
+	log_boot_P(PSTR("LCD driver initialized (not implemented)"));
+}
 
-/* LCD DC */
-#define GPIOF_BASE         (AHB1PERIPH_BASE + 0x1400)
-#define GPIOF_BSRR         (GPIOF_BASE + 0x18)
-#define GPIO_PIN_13        0x2000
 
-/* LCD CS */
-#define GPIOD_BASE         (AHB1PERIPH_BASE + 0x0C00)
-#define GPIOD_BSRR         (GPIOD_BASE + 0x18)
-#define GPIO_PIN_14        0x4000
 
-/* SPI */
-#define APB2PERIPH_BASE    (PERIPH_BASE + 0x10000)
-#define SPI1_BASE          (APB2PERIPH_BASE + 0x3000)
-#define SPI1_SR            (SPI1_BASE + 0x08)
-#define SPI1_DR            (SPI1_BASE + 0x0C)
 
-#define SPI_SR_RXNE        (1 << 0)
-#define SPI_SR_TXE         (1 << 1)
-#define SPI_SR_BSY         (1 << 7)
+#ifdef COMMENT
 
-#define LCD_DC_0           *(volatile u32 *)GPIOF_BSRR |= GPIO_PIN_13 << 16
-#define LCD_DC_1           *(volatile u32 *)GPIOF_BSRR |= GPIO_PIN_13
-
-#define LCD_CS_0           *(volatile u32 *)GPIOD_BSRR |= GPIO_PIN_14 << 16
-#define LCD_CS_1           *(volatile u32 *)GPIOD_BSRR |= GPIO_PIN_14
-
-#define SR                 *(volatile u32 *)SPI1_SR
-#define DR                 *(volatile u32 *)SPI1_DR
-
-/* --- PRIVATE ---  */
 #define STATE_TX_WAIT      0
 #define STATE_RX_WAIT      1
 #define STATE_BUSY_WAIT    2
@@ -263,11 +242,6 @@ static u32 _next_step(void)
 	return ret;
 }
 
-/* --- PUBLIC ---  */
-void lcd_init(void)
-{
-}
-
 u16 asynclcd_color(u8 r, u8 g, u8 b)
 {
 	return ((r & 0xF8) << 8) | ((g & 0xFC) << 3) | (b >> 3);
@@ -387,3 +361,6 @@ bool asynclcd_ready(void)
 {
 	return _rp == _wp;
 }
+
+#endif
+

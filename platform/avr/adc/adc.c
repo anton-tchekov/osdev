@@ -10,15 +10,13 @@
 #include <avr/io.h>
 #include <avr/pgmspace.h>
 
-static const char _msg_adc[] PROGMEM = "ADC initialized";
-
 void adc_init(void)
 {
 	ADMUX = (1 << REFS0);
 	ADCSRA = (1 << ADPS1) | (1 << ADPS0);
 	ADCSRA |= (1 << ADEN);
 	adc_read(ADC_CHANNEL_NOISE);
-	log_boot(_msg_adc);
+	log_boot_P(PSTR("ADC initialized"));
 }
 
 u16 adc_read(u8 channel)

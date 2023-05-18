@@ -20,6 +20,9 @@
 /** Clock pin - Input register */
 #define PS2_CLOCK_PORT_IN   PINB
 
+/** Clock pin - Output register */
+#define PS2_CLOCK_PORT_OUT  PORTB
+
 /** Clock pin */
 #define PS2_CLOCK_PIN       2
 
@@ -32,6 +35,9 @@
 
 /** Data pin - Input register */
 #define PS2_DATA_PORT_IN    PINB
+
+/** Data pin - Output register */
+#define PS2_DATA_PORT_OUT   PORTB
 
 /** Data pin */
 #define PS2_DATA_PIN        3

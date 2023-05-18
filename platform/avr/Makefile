@@ -18,7 +18,8 @@ SRCS = \
 	logger/logger.c \
 	xmem/xmem.c \
 	lcd/lcd.c \
-	../../emulator/emulator.c \
+
+# ../../emulator/emulator.c \
 
 CFLAGS += \
 	-I ../../types \
@@ -33,10 +34,14 @@ CFLAGS += \
 	-I xmem \
 	-I logger \
 	-I lcd \
-	-I ../../emulator \
-	-I ../../platform \
-	-I ../../util \
-	-I ../../keyboard \
+
+CFLAGS += \
+	-Wno-array-bounds
+
+# -I ../../emulator \
+# -I ../../platform \
+# -I ../../util \
+# -I ../../keyboard \
 
 FEATURE_SET_TIME ?= YES
 FEATURE_CHARACTERS ?= YES

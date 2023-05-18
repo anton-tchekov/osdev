@@ -7,10 +7,8 @@
 #include <xmem.h>
 #include <logger.h>
 #include <spi.h>
+#include <lcd.h>
 #include <avr/pgmspace.h>
-
-static const char _msg_launch[] PROGMEM =
-	"RISC-V VirtualOS Version 0.1 Booting ...";
 
 char byte_to_hex(u8 byte)
 {
@@ -41,6 +39,11 @@ void serial_write(const void *data, u32 len)
 	}
 }
 
+u32 memory_size(void)
+{
+	return 3UL * 128UL * 1024UL;
+}
+
 void memory_read(u32 addr, void *data, u32 size)
 {
 	xmem_read(addr, data, size);
@@ -62,7 +65,7 @@ int main(void)
 	sei();
 
 	/* Print boot message */
-	log_boot(_msg_launch);
+	serial_tx_str_P(PSTR("\nImaginaryOS Version 0.1 Booting ...\n\n"));
 
 	/* Initialize timer */
 	timer_init();
@@ -84,6 +87,11 @@ int main(void)
 
 	/* Initialize RTC */
 	rtc_init();
+
+	/* Initialize LCD */
+	lcd_init();
+
+	serial_tx_str_P(PSTR("\nREADY.\n\n"));
 
 	/* --- READY --- */
 

@@ -23,163 +23,183 @@
    9:rtc/rtc.c     **** #include <logger.h>
   10:rtc/rtc.c     **** #include <avr/pgmspace.h>
   11:rtc/rtc.c     **** 
-  12:rtc/rtc.c     **** static const char _msg_rtc[] PROGMEM = "RTC initialized";
-  13:rtc/rtc.c     **** 
-  14:rtc/rtc.c     **** void rtc_init(void)
-  15:rtc/rtc.c     **** {
-  16               		.loc 1 15 1 view -0
+  12:rtc/rtc.c     **** void rtc_init(void)
+  13:rtc/rtc.c     **** {
+  16               		.loc 1 13 1 view -0
   17               		.cfi_startproc
   18               	/* prologue: function */
   19               	/* frame size = 0 */
   20               	/* stack size = 0 */
   21               	.L__stack_usage = 0
-  16:rtc/rtc.c     **** 	/* TODO: Initialize RTC */
-  17:rtc/rtc.c     **** 	log_boot(_msg_rtc);
-  22               		.loc 1 17 2 view .LVU1
-  23 0000 80E0      		ldi r24,lo8(_msg_rtc)
-  24 0002 90E0      		ldi r25,hi8(_msg_rtc)
-  25 0004 0C94 0000 		jmp log_boot
-  26               	.LVL0:
-  27               		.cfi_endproc
-  28               	.LFE3:
-  30               	.global	datetime_now
-  32               	datetime_now:
-  33               	.LVL1:
-  34               	.LFB4:
-  18:rtc/rtc.c     **** }
-  19:rtc/rtc.c     **** 
-  20:rtc/rtc.c     **** DateTime *datetime_now(DateTime *now)
-  21:rtc/rtc.c     **** {
-  35               		.loc 1 21 1 view -0
-  36               		.cfi_startproc
-  37               	/* prologue: function */
-  38               	/* frame size = 0 */
-  39               	/* stack size = 0 */
-  40               	.L__stack_usage = 0
-  41               		.loc 1 21 1 is_stmt 0 view .LVU3
-  42 0008 FC01      		movw r30,r24
-  22:rtc/rtc.c     **** 	/* TODO: Get Date and Time from RTC */
-  23:rtc/rtc.c     **** 	now->Year = 1970;
-  43               		.loc 1 23 2 is_stmt 1 view .LVU4
-  44               		.loc 1 23 12 is_stmt 0 view .LVU5
-  45 000a 82EB      		ldi r24,lo8(-78)
-  46 000c 97E0      		ldi r25,lo8(7)
-  47 000e A0E0      		ldi r26,0
-  48 0010 B0E0      		ldi r27,0
-  49               	.LVL2:
-  50               		.loc 1 23 12 view .LVU6
-  51 0012 8083      		st Z,r24
-  52 0014 9183      		std Z+1,r25
-  53 0016 A283      		std Z+2,r26
-  54 0018 B383      		std Z+3,r27
-  24:rtc/rtc.c     **** 	now->Month = 1;
-  55               		.loc 1 24 2 is_stmt 1 view .LVU7
-  56               		.loc 1 24 13 is_stmt 0 view .LVU8
-  57 001a 81E0      		ldi r24,lo8(1)
-  58 001c 90E0      		ldi r25,0
-  59 001e A0E0      		ldi r26,0
-  60 0020 B0E0      		ldi r27,0
-  61 0022 8483      		std Z+4,r24
-  62 0024 9583      		std Z+5,r25
-  63 0026 A683      		std Z+6,r26
-  64 0028 B783      		std Z+7,r27
-  25:rtc/rtc.c     **** 	now->Day = 1;
-  65               		.loc 1 25 2 is_stmt 1 view .LVU9
-  66               		.loc 1 25 11 is_stmt 0 view .LVU10
-  67 002a 8087      		std Z+8,r24
-  68 002c 9187      		std Z+9,r25
-  69 002e A287      		std Z+10,r26
-  70 0030 B387      		std Z+11,r27
-  26:rtc/rtc.c     **** 
-  27:rtc/rtc.c     **** 	now->Hour = 0;
-  71               		.loc 1 27 2 is_stmt 1 view .LVU11
-  72               		.loc 1 27 12 is_stmt 0 view .LVU12
-  73 0032 1486      		std Z+12,__zero_reg__
-  74 0034 1586      		std Z+13,__zero_reg__
-  75 0036 1686      		std Z+14,__zero_reg__
-  76 0038 1786      		std Z+15,__zero_reg__
-  28:rtc/rtc.c     **** 	now->Minute = 0;
-  77               		.loc 1 28 2 is_stmt 1 view .LVU13
-  78               		.loc 1 28 14 is_stmt 0 view .LVU14
-  79 003a 108A      		std Z+16,__zero_reg__
-  80 003c 118A      		std Z+17,__zero_reg__
-  81 003e 128A      		std Z+18,__zero_reg__
-  82 0040 138A      		std Z+19,__zero_reg__
-  29:rtc/rtc.c     **** 	now->Second = 0;
-  83               		.loc 1 29 2 is_stmt 1 view .LVU15
-  84               		.loc 1 29 14 is_stmt 0 view .LVU16
-  85 0042 148A      		std Z+20,__zero_reg__
-  86 0044 158A      		std Z+21,__zero_reg__
-  87 0046 168A      		std Z+22,__zero_reg__
-  88 0048 178A      		std Z+23,__zero_reg__
-  30:rtc/rtc.c     **** 
-  31:rtc/rtc.c     **** 	return now;
-  89               		.loc 1 31 2 is_stmt 1 view .LVU17
-  32:rtc/rtc.c     **** }
-  90               		.loc 1 32 1 is_stmt 0 view .LVU18
-  91 004a CF01      		movw r24,r30
-  92               	/* epilogue start */
-  93 004c 0895      		ret
-  94               		.cfi_endproc
-  95               	.LFE4:
-  97               		.section	.progmem.data,"a",@progbits
- 100               	_msg_rtc:
- 101 0000 5254 4320 		.string	"RTC initialized"
- 101      696E 6974 
- 101      6961 6C69 
- 101      7A65 6400 
- 102               		.text
- 103               	.Letext0:
- 104               		.file 2 "../../types/types.h"
- 105               		.file 3 "/usr/lib/gcc/avr/12.2.0/include/stdint-gcc.h"
- 106               		.file 4 "logger/logger.h"
+  14:rtc/rtc.c     **** 	/* TODO: Initialize RTC */
+  15:rtc/rtc.c     **** 	log_boot_P(PSTR("RTC driver initialized (not implemented)"));
+  22               		.loc 1 15 2 view .LVU1
+  23               	.LBB2:
+  24               		.loc 1 15 13 view .LVU2
+  25               		.loc 1 15 13 view .LVU3
+  26               	.LBE2:
+  27               		.loc 1 15 2 is_stmt 0 view .LVU4
+  28 0000 80E0      		ldi r24,lo8(__c.0)
+  29 0002 90E0      		ldi r25,hi8(__c.0)
+  30 0004 9F93      		push r25
+  31               		.cfi_def_cfa_offset 3
+  32 0006 8F93      		push r24
+  33               		.cfi_def_cfa_offset 4
+  34 0008 0E94 0000 		call log_boot_P
+  35               	.LVL0:
+  16:rtc/rtc.c     **** }
+  36               		.loc 1 16 1 view .LVU5
+  37 000c 0F90      		pop __tmp_reg__
+  38 000e 0F90      		pop __tmp_reg__
+  39               		.cfi_def_cfa_offset 2
+  40               	/* epilogue start */
+  41 0010 0895      		ret
+  42               		.cfi_endproc
+  43               	.LFE3:
+  45               	.global	datetime_now
+  47               	datetime_now:
+  48               	.LVL1:
+  49               	.LFB4:
+  17:rtc/rtc.c     **** 
+  18:rtc/rtc.c     **** DateTime *datetime_now(DateTime *now)
+  19:rtc/rtc.c     **** {
+  50               		.loc 1 19 1 is_stmt 1 view -0
+  51               		.cfi_startproc
+  52               	/* prologue: function */
+  53               	/* frame size = 0 */
+  54               	/* stack size = 0 */
+  55               	.L__stack_usage = 0
+  56               		.loc 1 19 1 is_stmt 0 view .LVU7
+  57 0012 FC01      		movw r30,r24
+  20:rtc/rtc.c     **** 	/* TODO: Get Date and Time from RTC */
+  21:rtc/rtc.c     **** 	now->Year = 1970;
+  58               		.loc 1 21 2 is_stmt 1 view .LVU8
+  59               		.loc 1 21 12 is_stmt 0 view .LVU9
+  60 0014 82EB      		ldi r24,lo8(-78)
+  61 0016 97E0      		ldi r25,lo8(7)
+  62 0018 A0E0      		ldi r26,0
+  63 001a B0E0      		ldi r27,0
+  64               	.LVL2:
+  65               		.loc 1 21 12 view .LVU10
+  66 001c 8083      		st Z,r24
+  67 001e 9183      		std Z+1,r25
+  68 0020 A283      		std Z+2,r26
+  69 0022 B383      		std Z+3,r27
+  22:rtc/rtc.c     **** 	now->Month = 1;
+  70               		.loc 1 22 2 is_stmt 1 view .LVU11
+  71               		.loc 1 22 13 is_stmt 0 view .LVU12
+  72 0024 81E0      		ldi r24,lo8(1)
+  73 0026 90E0      		ldi r25,0
+  74 0028 A0E0      		ldi r26,0
+  75 002a B0E0      		ldi r27,0
+  76 002c 8483      		std Z+4,r24
+  77 002e 9583      		std Z+5,r25
+  78 0030 A683      		std Z+6,r26
+  79 0032 B783      		std Z+7,r27
+  23:rtc/rtc.c     **** 	now->Day = 1;
+  80               		.loc 1 23 2 is_stmt 1 view .LVU13
+  81               		.loc 1 23 11 is_stmt 0 view .LVU14
+  82 0034 8087      		std Z+8,r24
+  83 0036 9187      		std Z+9,r25
+  84 0038 A287      		std Z+10,r26
+  85 003a B387      		std Z+11,r27
+  24:rtc/rtc.c     **** 
+  25:rtc/rtc.c     **** 	now->Hour = 0;
+  86               		.loc 1 25 2 is_stmt 1 view .LVU15
+  87               		.loc 1 25 12 is_stmt 0 view .LVU16
+  88 003c 1486      		std Z+12,__zero_reg__
+  89 003e 1586      		std Z+13,__zero_reg__
+  90 0040 1686      		std Z+14,__zero_reg__
+  91 0042 1786      		std Z+15,__zero_reg__
+  26:rtc/rtc.c     **** 	now->Minute = 0;
+  92               		.loc 1 26 2 is_stmt 1 view .LVU17
+  93               		.loc 1 26 14 is_stmt 0 view .LVU18
+  94 0044 108A      		std Z+16,__zero_reg__
+  95 0046 118A      		std Z+17,__zero_reg__
+  96 0048 128A      		std Z+18,__zero_reg__
+  97 004a 138A      		std Z+19,__zero_reg__
+  27:rtc/rtc.c     **** 	now->Second = 0;
+  98               		.loc 1 27 2 is_stmt 1 view .LVU19
+  99               		.loc 1 27 14 is_stmt 0 view .LVU20
+ 100 004c 148A      		std Z+20,__zero_reg__
+ 101 004e 158A      		std Z+21,__zero_reg__
+ 102 0050 168A      		std Z+22,__zero_reg__
+ 103 0052 178A      		std Z+23,__zero_reg__
+  28:rtc/rtc.c     **** 
+  29:rtc/rtc.c     **** 	return now;
+ 104               		.loc 1 29 2 is_stmt 1 view .LVU21
+  30:rtc/rtc.c     **** }
+ 105               		.loc 1 30 1 is_stmt 0 view .LVU22
+ 106 0054 CF01      		movw r24,r30
+ 107               	/* epilogue start */
+ 108 0056 0895      		ret
+ 109               		.cfi_endproc
+ 110               	.LFE4:
+ 112               		.section	.progmem.data,"a",@progbits
+ 115               	__c.0:
+ 116 0000 5254 4320 		.string	"RTC driver initialized (not implemented)"
+ 116      6472 6976 
+ 116      6572 2069 
+ 116      6E69 7469 
+ 116      616C 697A 
+ 117               		.text
+ 118               	.Letext0:
+ 119               		.file 2 "../../types/types.h"
+ 120               		.file 3 "/usr/lib/gcc/avr/12.2.0/include/stdint-gcc.h"
+ 121               		.file 4 "logger/logger.h"
 DEFINED SYMBOLS
                             *ABS*:00000000 rtc.c
-     /tmp/cci02dYy.s:2      *ABS*:0000003e __SP_H__
-     /tmp/cci02dYy.s:3      *ABS*:0000003d __SP_L__
-     /tmp/cci02dYy.s:4      *ABS*:0000003f __SREG__
-     /tmp/cci02dYy.s:5      *ABS*:00000000 __tmp_reg__
-     /tmp/cci02dYy.s:6      *ABS*:00000001 __zero_reg__
-     /tmp/cci02dYy.s:13     .text:00000000 rtc_init
-     /tmp/cci02dYy.s:16     .text:00000000 .Loc.0
-     /tmp/cci02dYy.s:17     .text:00000000 L0
-     /tmp/cci02dYy.s:22     .text:00000000 .Loc.1
-     /tmp/cci02dYy.s:100    .progmem.data:00000000 _msg_rtc
-     /tmp/cci02dYy.s:27     .text:00000008 L0
-     /tmp/cci02dYy.s:32     .text:00000008 datetime_now
-     /tmp/cci02dYy.s:35     .text:00000008 .Loc.2
-     /tmp/cci02dYy.s:36     .text:00000008 L0
-     /tmp/cci02dYy.s:41     .text:00000008 .Loc.3
-     /tmp/cci02dYy.s:43     .text:0000000a .Loc.4
-     /tmp/cci02dYy.s:44     .text:0000000a .Loc.5
-     /tmp/cci02dYy.s:50     .text:00000012 .Loc.6
-     /tmp/cci02dYy.s:55     .text:0000001a .Loc.7
-     /tmp/cci02dYy.s:56     .text:0000001a .Loc.8
-     /tmp/cci02dYy.s:65     .text:0000002a .Loc.9
-     /tmp/cci02dYy.s:66     .text:0000002a .Loc.10
-     /tmp/cci02dYy.s:71     .text:00000032 .Loc.11
-     /tmp/cci02dYy.s:72     .text:00000032 .Loc.12
-     /tmp/cci02dYy.s:77     .text:0000003a .Loc.13
-     /tmp/cci02dYy.s:78     .text:0000003a .Loc.14
-     /tmp/cci02dYy.s:83     .text:00000042 .Loc.15
-     /tmp/cci02dYy.s:84     .text:00000042 .Loc.16
-     /tmp/cci02dYy.s:89     .text:0000004a .Loc.17
-     /tmp/cci02dYy.s:90     .text:0000004a .Loc.18
-     /tmp/cci02dYy.s:94     .text:0000004e L0
-     /tmp/cci02dYy.s:107    .text:0000004e L0
+     /tmp/cc52C5e7.s:2      *ABS*:0000003e __SP_H__
+     /tmp/cc52C5e7.s:3      *ABS*:0000003d __SP_L__
+     /tmp/cc52C5e7.s:4      *ABS*:0000003f __SREG__
+     /tmp/cc52C5e7.s:5      *ABS*:00000000 __tmp_reg__
+     /tmp/cc52C5e7.s:6      *ABS*:00000001 __zero_reg__
+     /tmp/cc52C5e7.s:13     .text:00000000 rtc_init
+     /tmp/cc52C5e7.s:16     .text:00000000 .Loc.0
+     /tmp/cc52C5e7.s:17     .text:00000000 L0
+     /tmp/cc52C5e7.s:22     .text:00000000 .Loc.1
+     /tmp/cc52C5e7.s:24     .text:00000000 .Loc.2
+     /tmp/cc52C5e7.s:25     .text:00000000 .Loc.3
+     /tmp/cc52C5e7.s:27     .text:00000000 .Loc.4
+     /tmp/cc52C5e7.s:115    .progmem.data:00000000 __c.0
+     /tmp/cc52C5e7.s:36     .text:0000000c .Loc.5
+     /tmp/cc52C5e7.s:42     .text:00000012 L0
+     /tmp/cc52C5e7.s:47     .text:00000012 datetime_now
+     /tmp/cc52C5e7.s:50     .text:00000012 .Loc.6
+     /tmp/cc52C5e7.s:51     .text:00000012 L0
+     /tmp/cc52C5e7.s:56     .text:00000012 .Loc.7
+     /tmp/cc52C5e7.s:58     .text:00000014 .Loc.8
+     /tmp/cc52C5e7.s:59     .text:00000014 .Loc.9
+     /tmp/cc52C5e7.s:65     .text:0000001c .Loc.10
+     /tmp/cc52C5e7.s:70     .text:00000024 .Loc.11
+     /tmp/cc52C5e7.s:71     .text:00000024 .Loc.12
+     /tmp/cc52C5e7.s:80     .text:00000034 .Loc.13
+     /tmp/cc52C5e7.s:81     .text:00000034 .Loc.14
+     /tmp/cc52C5e7.s:86     .text:0000003c .Loc.15
+     /tmp/cc52C5e7.s:87     .text:0000003c .Loc.16
+     /tmp/cc52C5e7.s:92     .text:00000044 .Loc.17
+     /tmp/cc52C5e7.s:93     .text:00000044 .Loc.18
+     /tmp/cc52C5e7.s:98     .text:0000004c .Loc.19
+     /tmp/cc52C5e7.s:99     .text:0000004c .Loc.20
+     /tmp/cc52C5e7.s:104    .text:00000054 .Loc.21
+     /tmp/cc52C5e7.s:105    .text:00000054 .Loc.22
+     /tmp/cc52C5e7.s:109    .text:00000058 L0
+     /tmp/cc52C5e7.s:122    .text:00000058 L0
                      .debug_frame:00000000 L0
-     /tmp/cci02dYy.s:303    .debug_abbrev:00000000 .Ldebug_abbrev0
-     /tmp/cci02dYy.s:8      .text:00000000 .Ltext0
-     /tmp/cci02dYy.s:103    .text:0000004e .Letext0
-     /tmp/cci02dYy.s:649    .debug_line:00000000 .Ldebug_line0
-     /tmp/cci02dYy.s:34     .text:00000008 .LFB4
-     /tmp/cci02dYy.s:95     .text:0000004e .LFE4
-     /tmp/cci02dYy.s:613    .debug_loclists:00000010 .LLST0
-     /tmp/cci02dYy.s:608    .debug_loclists:0000000c .LVUS0
-     /tmp/cci02dYy.s:14     .text:00000000 .LFB3
-     /tmp/cci02dYy.s:28     .text:00000008 .LFE3
-     /tmp/cci02dYy.s:26     .text:00000008 .LVL0
-     /tmp/cci02dYy.s:108    .debug_info:00000000 .Ldebug_info0
+     /tmp/cc52C5e7.s:313    .debug_abbrev:00000000 .Ldebug_abbrev0
+     /tmp/cc52C5e7.s:8      .text:00000000 .Ltext0
+     /tmp/cc52C5e7.s:118    .text:00000058 .Letext0
+     /tmp/cc52C5e7.s:666    .debug_line:00000000 .Ldebug_line0
+     /tmp/cc52C5e7.s:49     .text:00000012 .LFB4
+     /tmp/cc52C5e7.s:110    .text:00000058 .LFE4
+     /tmp/cc52C5e7.s:630    .debug_loclists:00000010 .LLST0
+     /tmp/cc52C5e7.s:625    .debug_loclists:0000000c .LVUS0
+     /tmp/cc52C5e7.s:14     .text:00000000 .LFB3
+     /tmp/cc52C5e7.s:43     .text:00000012 .LFE3
+     /tmp/cc52C5e7.s:23     .text:00000000 .LBB2
+     /tmp/cc52C5e7.s:26     .text:00000000 .LBE2
+     /tmp/cc52C5e7.s:35     .text:0000000c .LVL0
+     /tmp/cc52C5e7.s:123    .debug_info:00000000 .Ldebug_info0
 
 UNDEFINED SYMBOLS
-log_boot
+log_boot_P

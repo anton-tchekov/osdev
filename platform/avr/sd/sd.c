@@ -10,7 +10,7 @@ static inline void _sd_select(void)
 
 static inline void _sd_deselect(void)
 {
-	SPI_OUT |= CS
+	SPI_OUT |= CS;
 }
 
 #define CMD_GO_IDLE_STATE      0x00
@@ -206,7 +206,7 @@ u8 sd_get_info(sd_info *info)
 		return 0;
 	}
 
-	while(_spi_xchg(0xFF) != 0xFE) ;
+	while(_spi_xchg(0xFF) != 0xFE) {}
 
 	for(i = 0; i < 18; ++i)
 	{
@@ -399,7 +399,7 @@ u8 sd_read(u8 *buffer, u32 block, u16 offset, u16 count)
 	return 0;
 }
 
-u8 sd_write(const u8 *buffer, u32 block)
+u8 sd_write(u32 block, const u8 *buffer)
 {
 	u16 i;
 
@@ -419,7 +419,7 @@ u8 sd_write(const u8 *buffer, u32 block)
 
 	_spi_xchg(0xFF);
 	_spi_xchg(0xFF);
-	while(_spi_xchg(0xFF) != 0xFF) ;
+	while(_spi_xchg(0xFF) != 0xFF) {}
 	_spi_xchg(0xFF);
 	DESELECT();
 	return 1;

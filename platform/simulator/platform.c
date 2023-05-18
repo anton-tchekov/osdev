@@ -27,9 +27,9 @@ static SDL_Renderer *_renderer;
 
 static u32 _sec_start, _usec_start;
 
-u32 memory_size()
+u32 memory_size(void)
 {
-	return 1024UL * 1024UL;
+	return sizeof(_memory);
 }
 
 void memory_read(u32 addr, void *data, u32 size)

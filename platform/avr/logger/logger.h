@@ -9,6 +9,7 @@
 #ifndef __LOGGER_H__
 #define __LOGGER_H__
 
-void log_boot(const char *msg);
+void log_boot_P(const char *msg, ...);
+void panic(const char *msg, ...);
 
 #endif /* __LOGGER__ */

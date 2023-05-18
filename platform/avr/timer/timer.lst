@@ -20,229 +20,249 @@
    6:timer/timer.c ****  */
    7:timer/timer.c **** 
    8:timer/timer.c **** #include <timer.h>
-   9:timer/timer.c **** #include <logger.h>
-  10:timer/timer.c **** #include <avr/interrupt.h>
-  11:timer/timer.c **** #include <avr/pgmspace.h>
-  12:timer/timer.c **** 
-  13:timer/timer.c **** static const char _msg_timer[] PROGMEM = "Millisecond timer initialized";
-  14:timer/timer.c **** 
-  15:timer/timer.c **** static volatile u32 _ms;
-  16:timer/timer.c **** 
-  17:timer/timer.c **** void timer_init(void)
-  18:timer/timer.c **** {
-  16               		.loc 1 18 1 view -0
+   9:timer/timer.c **** #include <serial.h>
+  10:timer/timer.c **** #include <logger.h>
+  11:timer/timer.c **** #include <avr/interrupt.h>
+  12:timer/timer.c **** #include <avr/pgmspace.h>
+  13:timer/timer.c **** 
+  14:timer/timer.c **** static volatile u32 _ms;
+  15:timer/timer.c **** 
+  16:timer/timer.c **** void timer_init(void)
+  17:timer/timer.c **** {
+  16               		.loc 1 17 1 view -0
   17               		.cfi_startproc
   18               	/* prologue: function */
   19               	/* frame size = 0 */
   20               	/* stack size = 0 */
   21               	.L__stack_usage = 0
-  19:timer/timer.c **** 	/* Initialize hardware timers */
-  20:timer/timer.c **** 
-  21:timer/timer.c **** 	/* CTC Mode */
-  22:timer/timer.c **** 	TCCR0A = (1 << WGM01);
-  22               		.loc 1 22 2 view .LVU1
-  23               		.loc 1 22 9 is_stmt 0 view .LVU2
+  18:timer/timer.c **** 	/* Initialize hardware timers */
+  19:timer/timer.c **** 
+  20:timer/timer.c **** 	/* CTC Mode */
+  21:timer/timer.c **** 	TCCR0A = (1 << WGM01);
+  22               		.loc 1 21 2 view .LVU1
+  23               		.loc 1 21 9 is_stmt 0 view .LVU2
   24 0000 82E0      		ldi r24,lo8(2)
   25 0002 84BD      		out 0x24,r24
-  23:timer/timer.c **** 
-  24:timer/timer.c **** 	/* Prescaler 128 */
-  25:timer/timer.c **** 	TCCR0B |= (1 << CS02) | (1 << CS00);
-  26               		.loc 1 25 2 is_stmt 1 view .LVU3
+  22:timer/timer.c **** 
+  23:timer/timer.c **** 	/* Prescaler 64 */
+  24:timer/timer.c **** 	TCCR0B |= (1 << CS01) | (1 << CS00);
+  26               		.loc 1 24 2 is_stmt 1 view .LVU3
   27 0004 85B5      		in r24,0x25
-  28               		.loc 1 25 9 is_stmt 0 view .LVU4
-  29 0006 8560      		ori r24,lo8(5)
+  28               		.loc 1 24 9 is_stmt 0 view .LVU4
+  29 0006 8360      		ori r24,lo8(3)
   30 0008 85BD      		out 0x25,r24
-  26:timer/timer.c **** 
-  27:timer/timer.c **** 	/* 16000000 / 128 / 1000 = 125 */
-  28:timer/timer.c **** 	OCR0A = 125 - 1;
-  31               		.loc 1 28 2 is_stmt 1 view .LVU5
-  32               		.loc 1 28 8 is_stmt 0 view .LVU6
-  33 000a 8CE7      		ldi r24,lo8(124)
+  25:timer/timer.c **** 
+  26:timer/timer.c **** 	/* 16000000 / 64 / 1000 = 250 */
+  27:timer/timer.c **** 	OCR0A = 250 - 1;
+  31               		.loc 1 27 2 is_stmt 1 view .LVU5
+  32               		.loc 1 27 8 is_stmt 0 view .LVU6
+  33 000a 89EF      		ldi r24,lo8(-7)
   34 000c 87BD      		out 0x27,r24
-  29:timer/timer.c **** 
-  30:timer/timer.c **** 	/* Enable compare interrupt */
-  31:timer/timer.c **** 	TIMSK0 |= (1 << OCIE0A);
-  35               		.loc 1 31 2 is_stmt 1 view .LVU7
+  28:timer/timer.c **** 
+  29:timer/timer.c **** 	/* Enable compare interrupt */
+  30:timer/timer.c **** 	TIMSK0 |= (1 << OCIE0A);
+  35               		.loc 1 30 2 is_stmt 1 view .LVU7
   36 000e EEE6      		ldi r30,lo8(110)
   37 0010 F0E0      		ldi r31,0
   38 0012 8081      		ld r24,Z
-  39               		.loc 1 31 9 is_stmt 0 view .LVU8
+  39               		.loc 1 30 9 is_stmt 0 view .LVU8
   40 0014 8260      		ori r24,lo8(2)
   41 0016 8083      		st Z,r24
-  32:timer/timer.c **** 
-  33:timer/timer.c **** 	log_boot(_msg_timer);
-  42               		.loc 1 33 2 is_stmt 1 view .LVU9
-  43 0018 80E0      		ldi r24,lo8(_msg_timer)
-  44 001a 90E0      		ldi r25,hi8(_msg_timer)
-  45 001c 0C94 0000 		jmp log_boot
-  46               	.LVL0:
-  47               		.cfi_endproc
-  48               	.LFE3:
-  50               	.global	millis
-  52               	millis:
-  53               	.LFB4:
-  34:timer/timer.c **** }
-  35:timer/timer.c **** 
-  36:timer/timer.c **** u32 millis(void)
-  37:timer/timer.c **** {
-  54               		.loc 1 37 1 view -0
-  55               		.cfi_startproc
-  56 0020 CF93      		push r28
-  57               		.cfi_def_cfa_offset 3
-  58               		.cfi_offset 28, -2
-  59 0022 DF93      		push r29
-  60               		.cfi_def_cfa_offset 4
-  61               		.cfi_offset 29, -3
-  62 0024 00D0      		rcall .
-  63 0026 00D0      		rcall .
-  64               		.cfi_def_cfa_offset 8
-  65 0028 CDB7      		in r28,__SP_L__
-  66 002a DEB7      		in r29,__SP_H__
-  67               		.cfi_def_cfa_register 28
-  68               	/* prologue: function */
-  69               	/* frame size = 4 */
-  70               	/* stack size = 6 */
-  71               	.L__stack_usage = 6
-  38:timer/timer.c **** 	/* Return number of milliseconds since boot */
-  39:timer/timer.c **** 	return _ms;
-  72               		.loc 1 39 2 view .LVU11
-  73               		.loc 1 39 9 is_stmt 0 view .LVU12
-  74 002c 8091 0000 		lds r24,_ms
-  75 0030 9091 0000 		lds r25,_ms+1
-  76 0034 A091 0000 		lds r26,_ms+2
-  77 0038 B091 0000 		lds r27,_ms+3
-  40:timer/timer.c **** }
-  78               		.loc 1 40 1 view .LVU13
-  79 003c BC01      		movw r22,r24
-  80 003e CD01      		movw r24,r26
-  81               	/* epilogue start */
-  82 0040 0F90      		pop __tmp_reg__
-  83 0042 0F90      		pop __tmp_reg__
-  84 0044 0F90      		pop __tmp_reg__
-  85 0046 0F90      		pop __tmp_reg__
-  86 0048 DF91      		pop r29
-  87 004a CF91      		pop r28
-  88 004c 0895      		ret
-  89               		.cfi_endproc
-  90               	.LFE4:
-  92               	.global	__vector_14
-  94               	__vector_14:
-  95               	.LFB5:
-  41:timer/timer.c **** 
-  42:timer/timer.c **** /* Timer0 compare interrupt */
-  43:timer/timer.c **** ISR(TIMER0_COMPA_vect)
-  44:timer/timer.c **** {
-  96               		.loc 1 44 1 is_stmt 1 view -0
-  97               		.cfi_startproc
-  98 004e 1F92 1FB6 		__gcc_isr 1
-  98      1F92 1124 
-  98      8F93 
-  99 0058 9F93      		push r25
- 100               		.cfi_def_cfa_offset 3
- 101               		.cfi_offset 25, -2
- 102 005a AF93      		push r26
- 103               		.cfi_def_cfa_offset 4
- 104               		.cfi_offset 26, -3
- 105 005c BF93      		push r27
- 106               		.cfi_def_cfa_offset 5
- 107               		.cfi_offset 27, -4
- 108               	/* prologue: Signal */
- 109               	/* frame size = 0 */
- 110               	/* stack size = 3...7 */
- 111               	.L__stack_usage = 3 + __gcc_isr.n_pushed
-  45:timer/timer.c **** 	/* Increment overflows after approx. 50 days */
-  46:timer/timer.c **** 	++_ms;
- 112               		.loc 1 46 2 view .LVU15
- 113 005e 8091 0000 		lds r24,_ms
- 114 0062 9091 0000 		lds r25,_ms+1
- 115 0066 A091 0000 		lds r26,_ms+2
- 116 006a B091 0000 		lds r27,_ms+3
- 117 006e 0196      		adiw r24,1
- 118 0070 A11D      		adc r26,__zero_reg__
- 119 0072 B11D      		adc r27,__zero_reg__
- 120 0074 8093 0000 		sts _ms,r24
- 121 0078 9093 0000 		sts _ms+1,r25
- 122 007c A093 0000 		sts _ms+2,r26
- 123 0080 B093 0000 		sts _ms+3,r27
- 124               	/* epilogue start */
-  47:timer/timer.c **** }
- 125               		.loc 1 47 1 is_stmt 0 view .LVU16
- 126 0084 BF91      		pop r27
- 127 0086 AF91      		pop r26
- 128 0088 9F91      		pop r25
- 129 008a 8F91 1F90 		__gcc_isr 2
- 129      1FBE 1F90 
- 130 0092 1895      		reti
- 131               		__gcc_isr 0,r24
- 132               		.cfi_endproc
- 133               	.LFE5:
- 135               		.local	_ms
- 136               		.comm	_ms,4,1
- 137               		.section	.progmem.data,"a",@progbits
- 140               	_msg_timer:
- 141 0000 4D69 6C6C 		.string	"Millisecond timer initialized"
- 141      6973 6563 
- 141      6F6E 6420 
- 141      7469 6D65 
- 141      7220 696E 
- 142               		.text
- 143               	.Letext0:
- 144               		.file 2 "/usr/lib/gcc/avr/12.2.0/include/stdint-gcc.h"
- 145               		.file 3 "../../types/types.h"
- 146               		.file 4 "logger/logger.h"
+  31:timer/timer.c **** 
+  32:timer/timer.c **** 	log_boot_P(PSTR("Millisecond timer initialized"));
+  42               		.loc 1 32 2 is_stmt 1 view .LVU9
+  43               	.LBB2:
+  44               		.loc 1 32 13 view .LVU10
+  45               		.loc 1 32 13 view .LVU11
+  46               	.LBE2:
+  47               		.loc 1 32 2 is_stmt 0 view .LVU12
+  48 0018 80E0      		ldi r24,lo8(__c.0)
+  49 001a 90E0      		ldi r25,hi8(__c.0)
+  50 001c 9F93      		push r25
+  51               		.cfi_def_cfa_offset 3
+  52 001e 8F93      		push r24
+  53               		.cfi_def_cfa_offset 4
+  54 0020 0E94 0000 		call log_boot_P
+  55               	.LVL0:
+  33:timer/timer.c **** }
+  56               		.loc 1 33 1 view .LVU13
+  57 0024 0F90      		pop __tmp_reg__
+  58 0026 0F90      		pop __tmp_reg__
+  59               		.cfi_def_cfa_offset 2
+  60               	/* epilogue start */
+  61 0028 0895      		ret
+  62               		.cfi_endproc
+  63               	.LFE3:
+  65               	.global	millis
+  67               	millis:
+  68               	.LFB4:
+  34:timer/timer.c **** 
+  35:timer/timer.c **** u32 millis(void)
+  36:timer/timer.c **** {
+  69               		.loc 1 36 1 is_stmt 1 view -0
+  70               		.cfi_startproc
+  71 002a CF93      		push r28
+  72               		.cfi_def_cfa_offset 3
+  73               		.cfi_offset 28, -2
+  74 002c DF93      		push r29
+  75               		.cfi_def_cfa_offset 4
+  76               		.cfi_offset 29, -3
+  77 002e 00D0      		rcall .
+  78 0030 00D0      		rcall .
+  79               		.cfi_def_cfa_offset 8
+  80 0032 CDB7      		in r28,__SP_L__
+  81 0034 DEB7      		in r29,__SP_H__
+  82               		.cfi_def_cfa_register 28
+  83               	/* prologue: function */
+  84               	/* frame size = 4 */
+  85               	/* stack size = 6 */
+  86               	.L__stack_usage = 6
+  37:timer/timer.c **** 	/* Return number of milliseconds since boot */
+  38:timer/timer.c **** 	return _ms;
+  87               		.loc 1 38 2 view .LVU15
+  88               		.loc 1 38 9 is_stmt 0 view .LVU16
+  89 0036 8091 0000 		lds r24,_ms
+  90 003a 9091 0000 		lds r25,_ms+1
+  91 003e A091 0000 		lds r26,_ms+2
+  92 0042 B091 0000 		lds r27,_ms+3
+  39:timer/timer.c **** }
+  93               		.loc 1 39 1 view .LVU17
+  94 0046 BC01      		movw r22,r24
+  95 0048 CD01      		movw r24,r26
+  96               	/* epilogue start */
+  97 004a 0F90      		pop __tmp_reg__
+  98 004c 0F90      		pop __tmp_reg__
+  99 004e 0F90      		pop __tmp_reg__
+ 100 0050 0F90      		pop __tmp_reg__
+ 101 0052 DF91      		pop r29
+ 102 0054 CF91      		pop r28
+ 103 0056 0895      		ret
+ 104               		.cfi_endproc
+ 105               	.LFE4:
+ 107               	.global	__vector_14
+ 109               	__vector_14:
+ 110               	.LFB5:
+  40:timer/timer.c **** 
+  41:timer/timer.c **** /* Timer0 compare interrupt */
+  42:timer/timer.c **** ISR(TIMER0_COMPA_vect)
+  43:timer/timer.c **** {
+ 111               		.loc 1 43 1 is_stmt 1 view -0
+ 112               		.cfi_startproc
+ 113 0058 1F92 1FB6 		__gcc_isr 1
+ 113      1F92 1124 
+ 113      8F93 
+ 114 0062 9F93      		push r25
+ 115               		.cfi_def_cfa_offset 3
+ 116               		.cfi_offset 25, -2
+ 117 0064 AF93      		push r26
+ 118               		.cfi_def_cfa_offset 4
+ 119               		.cfi_offset 26, -3
+ 120 0066 BF93      		push r27
+ 121               		.cfi_def_cfa_offset 5
+ 122               		.cfi_offset 27, -4
+ 123               	/* prologue: Signal */
+ 124               	/* frame size = 0 */
+ 125               	/* stack size = 3...7 */
+ 126               	.L__stack_usage = 3 + __gcc_isr.n_pushed
+  44:timer/timer.c **** 	/* Increment overflows after approx. 50 days */
+  45:timer/timer.c **** 	++_ms;
+ 127               		.loc 1 45 2 view .LVU19
+ 128 0068 8091 0000 		lds r24,_ms
+ 129 006c 9091 0000 		lds r25,_ms+1
+ 130 0070 A091 0000 		lds r26,_ms+2
+ 131 0074 B091 0000 		lds r27,_ms+3
+ 132 0078 0196      		adiw r24,1
+ 133 007a A11D      		adc r26,__zero_reg__
+ 134 007c B11D      		adc r27,__zero_reg__
+ 135 007e 8093 0000 		sts _ms,r24
+ 136 0082 9093 0000 		sts _ms+1,r25
+ 137 0086 A093 0000 		sts _ms+2,r26
+ 138 008a B093 0000 		sts _ms+3,r27
+ 139               	/* epilogue start */
+  46:timer/timer.c **** }
+ 140               		.loc 1 46 1 is_stmt 0 view .LVU20
+ 141 008e BF91      		pop r27
+ 142 0090 AF91      		pop r26
+ 143 0092 9F91      		pop r25
+ 144 0094 8F91 1F90 		__gcc_isr 2
+ 144      1FBE 1F90 
+ 145 009c 1895      		reti
+ 146               		__gcc_isr 0,r24
+ 147               		.cfi_endproc
+ 148               	.LFE5:
+ 150               		.section	.progmem.data,"a",@progbits
+ 153               	__c.0:
+ 154 0000 4D69 6C6C 		.string	"Millisecond timer initialized"
+ 154      6973 6563 
+ 154      6F6E 6420 
+ 154      7469 6D65 
+ 154      7220 696E 
+ 155               		.local	_ms
+ 156               		.comm	_ms,4,1
+ 157               		.text
+ 158               	.Letext0:
+ 159               		.file 2 "/usr/lib/gcc/avr/12.2.0/include/stdint-gcc.h"
+ 160               		.file 3 "../../types/types.h"
+ 161               		.file 4 "logger/logger.h"
 DEFINED SYMBOLS
                             *ABS*:00000000 timer.c
-     /tmp/cc30HuQI.s:2      *ABS*:0000003e __SP_H__
-     /tmp/cc30HuQI.s:3      *ABS*:0000003d __SP_L__
-     /tmp/cc30HuQI.s:4      *ABS*:0000003f __SREG__
-     /tmp/cc30HuQI.s:5      *ABS*:00000000 __tmp_reg__
-     /tmp/cc30HuQI.s:6      *ABS*:00000001 __zero_reg__
-     /tmp/cc30HuQI.s:13     .text:00000000 timer_init
-     /tmp/cc30HuQI.s:16     .text:00000000 .Loc.0
-     /tmp/cc30HuQI.s:17     .text:00000000 L0
-     /tmp/cc30HuQI.s:22     .text:00000000 .Loc.1
-     /tmp/cc30HuQI.s:23     .text:00000000 .Loc.2
-     /tmp/cc30HuQI.s:26     .text:00000004 .Loc.3
-     /tmp/cc30HuQI.s:28     .text:00000006 .Loc.4
-     /tmp/cc30HuQI.s:31     .text:0000000a .Loc.5
-     /tmp/cc30HuQI.s:32     .text:0000000a .Loc.6
-     /tmp/cc30HuQI.s:35     .text:0000000e .Loc.7
-     /tmp/cc30HuQI.s:39     .text:00000014 .Loc.8
-     /tmp/cc30HuQI.s:42     .text:00000018 .Loc.9
-     /tmp/cc30HuQI.s:140    .progmem.data:00000000 _msg_timer
-     /tmp/cc30HuQI.s:47     .text:00000020 L0
-     /tmp/cc30HuQI.s:52     .text:00000020 millis
-     /tmp/cc30HuQI.s:54     .text:00000020 .Loc.10
-     /tmp/cc30HuQI.s:55     .text:00000020 L0
-     /tmp/cc30HuQI.s:62     .text:00000026 L0
-     /tmp/cc30HuQI.s:63     .text:00000028 L0
-     /tmp/cc30HuQI.s:72     .text:0000002c .Loc.11
-     /tmp/cc30HuQI.s:73     .text:0000002c .Loc.12
+     /tmp/cc59vyMc.s:2      *ABS*:0000003e __SP_H__
+     /tmp/cc59vyMc.s:3      *ABS*:0000003d __SP_L__
+     /tmp/cc59vyMc.s:4      *ABS*:0000003f __SREG__
+     /tmp/cc59vyMc.s:5      *ABS*:00000000 __tmp_reg__
+     /tmp/cc59vyMc.s:6      *ABS*:00000001 __zero_reg__
+     /tmp/cc59vyMc.s:13     .text:00000000 timer_init
+     /tmp/cc59vyMc.s:16     .text:00000000 .Loc.0
+     /tmp/cc59vyMc.s:17     .text:00000000 L0
+     /tmp/cc59vyMc.s:22     .text:00000000 .Loc.1
+     /tmp/cc59vyMc.s:23     .text:00000000 .Loc.2
+     /tmp/cc59vyMc.s:26     .text:00000004 .Loc.3
+     /tmp/cc59vyMc.s:28     .text:00000006 .Loc.4
+     /tmp/cc59vyMc.s:31     .text:0000000a .Loc.5
+     /tmp/cc59vyMc.s:32     .text:0000000a .Loc.6
+     /tmp/cc59vyMc.s:35     .text:0000000e .Loc.7
+     /tmp/cc59vyMc.s:39     .text:00000014 .Loc.8
+     /tmp/cc59vyMc.s:42     .text:00000018 .Loc.9
+     /tmp/cc59vyMc.s:44     .text:00000018 .Loc.10
+     /tmp/cc59vyMc.s:45     .text:00000018 .Loc.11
+     /tmp/cc59vyMc.s:47     .text:00000018 .Loc.12
+     /tmp/cc59vyMc.s:153    .progmem.data:00000000 __c.0
+     /tmp/cc59vyMc.s:56     .text:00000024 .Loc.13
+     /tmp/cc59vyMc.s:62     .text:0000002a L0
+     /tmp/cc59vyMc.s:67     .text:0000002a millis
+     /tmp/cc59vyMc.s:69     .text:0000002a .Loc.14
+     /tmp/cc59vyMc.s:70     .text:0000002a L0
+     /tmp/cc59vyMc.s:77     .text:00000030 L0
+     /tmp/cc59vyMc.s:78     .text:00000032 L0
+     /tmp/cc59vyMc.s:87     .text:00000036 .Loc.15
+     /tmp/cc59vyMc.s:88     .text:00000036 .Loc.16
                              .bss:00000000 _ms
-     /tmp/cc30HuQI.s:78     .text:0000003c .Loc.13
-     /tmp/cc30HuQI.s:89     .text:0000004e L0
-     /tmp/cc30HuQI.s:94     .text:0000004e __vector_14
-     /tmp/cc30HuQI.s:96     .text:0000004e .Loc.14
-     /tmp/cc30HuQI.s:97     .text:0000004e L0
+     /tmp/cc59vyMc.s:93     .text:00000046 .Loc.17
+     /tmp/cc59vyMc.s:104    .text:00000058 L0
+     /tmp/cc59vyMc.s:109    .text:00000058 __vector_14
+     /tmp/cc59vyMc.s:111    .text:00000058 .Loc.18
+     /tmp/cc59vyMc.s:112    .text:00000058 L0
                             *ABS*:00000003 __gcc_isr.n_pushed.001
-     /tmp/cc30HuQI.s:112    .text:0000005e .Loc.15
-     /tmp/cc30HuQI.s:125    .text:00000084 .Loc.16
-     /tmp/cc30HuQI.s:132    .text:00000094 L0
-     /tmp/cc30HuQI.s:147    .text:00000094 L0
+     /tmp/cc59vyMc.s:127    .text:00000068 .Loc.19
+     /tmp/cc59vyMc.s:140    .text:0000008e .Loc.20
+     /tmp/cc59vyMc.s:147    .text:0000009e L0
+     /tmp/cc59vyMc.s:162    .text:0000009e L0
                      .debug_frame:00000000 L0
-     /tmp/cc30HuQI.s:311    .debug_abbrev:00000000 .Ldebug_abbrev0
-     /tmp/cc30HuQI.s:8      .text:00000000 .Ltext0
-     /tmp/cc30HuQI.s:143    .text:00000094 .Letext0
-     /tmp/cc30HuQI.s:598    .debug_line:00000000 .Ldebug_line0
-     /tmp/cc30HuQI.s:95     .text:0000004e .LFB5
-     /tmp/cc30HuQI.s:133    .text:00000094 .LFE5
-     /tmp/cc30HuQI.s:53     .text:00000020 .LFB4
-     /tmp/cc30HuQI.s:90     .text:0000004e .LFE4
-     /tmp/cc30HuQI.s:14     .text:00000000 .LFB3
-     /tmp/cc30HuQI.s:48     .text:00000020 .LFE3
-     /tmp/cc30HuQI.s:46     .text:00000020 .LVL0
-     /tmp/cc30HuQI.s:148    .debug_info:00000000 .Ldebug_info0
+     /tmp/cc59vyMc.s:319    .debug_abbrev:00000000 .Ldebug_abbrev0
+     /tmp/cc59vyMc.s:8      .text:00000000 .Ltext0
+     /tmp/cc59vyMc.s:158    .text:0000009e .Letext0
+     /tmp/cc59vyMc.s:597    .debug_line:00000000 .Ldebug_line0
+     /tmp/cc59vyMc.s:110    .text:00000058 .LFB5
+     /tmp/cc59vyMc.s:148    .text:0000009e .LFE5
+     /tmp/cc59vyMc.s:68     .text:0000002a .LFB4
+     /tmp/cc59vyMc.s:105    .text:00000058 .LFE4
+     /tmp/cc59vyMc.s:14     .text:00000000 .LFB3
+     /tmp/cc59vyMc.s:63     .text:0000002a .LFE3
+     /tmp/cc59vyMc.s:43     .text:00000018 .LBB2
+     /tmp/cc59vyMc.s:46     .text:00000018 .LBE2
+     /tmp/cc59vyMc.s:55     .text:00000024 .LVL0
+     /tmp/cc59vyMc.s:163    .debug_info:00000000 .Ldebug_info0
 
 UNDEFINED SYMBOLS
-log_boot
+log_boot_P
 __do_clear_bss

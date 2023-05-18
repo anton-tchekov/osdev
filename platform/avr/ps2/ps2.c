@@ -9,8 +9,6 @@
 #include <logger.h>
 #include <avr/pgmspace.h>
 
-static const char _msg_ps2[] PROGMEM = "PS/2 keyboard initialized";
-
 /** The byte that is currently being received */
 static u8 _byte;
 
@@ -28,13 +26,17 @@ void ps2_init(void)
 {
 	/* By default, both pins are already inputs on startup */
 
+	/* Enable pullups */
+	PS2_CLOCK_PORT_OUT |= (1 << PS2_CLOCK_PIN);
+	PS2_DATA_PORT_OUT |= (1 << PS2_DATA_PIN);
+
 	/* Enable external interrupt 0 (PORTB2) */
 	EIMSK |= (1 << PS2_EXT_INTERRUPT);
 
 	/* Trigger interrupt on falling edge */
-	MCUCR |= (1 << ISC01);
+	EICRA |= (1 << ISC01);
 
-	log_boot(_msg_ps2);
+	log_boot_P(PSTR("PS/2 keyboard initialized"));
 }
 
 /**

@@ -9,12 +9,10 @@
 #include <logger.h>
 #include <avr/pgmspace.h>
 
-static const char _msg_rtc[] PROGMEM = "RTC initialized";
-
 void rtc_init(void)
 {
 	/* TODO: Initialize RTC */
-	log_boot(_msg_rtc);
+	log_boot_P(PSTR("RTC driver initialized (not implemented)"));
 }
 
 DateTime *datetime_now(DateTime *now)

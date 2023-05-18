@@ -25,135 +25,154 @@
   11:random/random.c **** #include <stdlib.h>
   12:random/random.c **** #include <avr/pgmspace.h>
   13:random/random.c **** 
-  14:random/random.c **** static const char _msg_rng[] PROGMEM = "RNG initialized";
+  14:random/random.c **** /* TODO: Replace srand and rand with own random generator */
   15:random/random.c **** 
-  16:random/random.c **** /* TODO: Replace srand and rand with own random generator */
-  17:random/random.c **** 
-  18:random/random.c **** void random_init(void)
-  19:random/random.c **** {
-  16               		.loc 1 19 1 view -0
+  16:random/random.c **** void random_init(void)
+  17:random/random.c **** {
+  16               		.loc 1 17 1 view -0
   17               		.cfi_startproc
   18               	/* prologue: function */
   19               	/* frame size = 0 */
   20               	/* stack size = 0 */
   21               	.L__stack_usage = 0
-  20:random/random.c **** 	srand(adc_read(ADC_CHANNEL_NOISE));
-  22               		.loc 1 20 2 view .LVU1
+  18:random/random.c **** 	srand(adc_read(ADC_CHANNEL_NOISE));
+  22               		.loc 1 18 2 view .LVU1
   23 0000 85E0      		ldi r24,lo8(5)
   24 0002 0E94 0000 		call adc_read
   25               	.LVL0:
   26 0006 0E94 0000 		call srand
   27               	.LVL1:
-  21:random/random.c **** 	log_boot(_msg_rng);
-  28               		.loc 1 21 2 view .LVU2
-  29 000a 80E0      		ldi r24,lo8(_msg_rng)
-  30 000c 90E0      		ldi r25,hi8(_msg_rng)
-  31 000e 0C94 0000 		jmp log_boot
-  32               	.LVL2:
-  33               		.cfi_endproc
-  34               	.LFE7:
-  36               	.global	random_get
-  38               	random_get:
-  39               	.LFB8:
-  22:random/random.c **** }
-  23:random/random.c **** 
-  24:random/random.c **** u32 random_get(void)
-  25:random/random.c **** {
-  40               		.loc 1 25 1 view -0
-  41               		.cfi_startproc
-  42 0012 CF93      		push r28
-  43               		.cfi_def_cfa_offset 3
-  44               		.cfi_offset 28, -2
-  45 0014 DF93      		push r29
-  46               		.cfi_def_cfa_offset 4
-  47               		.cfi_offset 29, -3
-  48 0016 00D0      		rcall .
-  49 0018 00D0      		rcall .
-  50               		.cfi_def_cfa_offset 8
-  51 001a CDB7      		in r28,__SP_L__
-  52 001c DEB7      		in r29,__SP_H__
-  53               		.cfi_def_cfa_register 28
-  54               	/* prologue: function */
-  55               	/* frame size = 4 */
-  56               	/* stack size = 6 */
-  57               	.L__stack_usage = 6
-  26:random/random.c **** 	return rand();
-  58               		.loc 1 26 2 view .LVU4
-  59               		.loc 1 26 9 is_stmt 0 view .LVU5
-  60 001e 0E94 0000 		call rand
-  61               	.LVL3:
-  62 0022 9C01      		movw r18,r24
-  63 0024 990F      		lsl r25
-  64 0026 440B      		sbc r20,r20
-  65 0028 550B      		sbc r21,r21
-  27:random/random.c **** }
-  66               		.loc 1 27 1 view .LVU6
-  67 002a CA01      		movw r24,r20
-  68 002c B901      		movw r22,r18
-  69               	/* epilogue start */
-  70 002e 0F90      		pop __tmp_reg__
-  71 0030 0F90      		pop __tmp_reg__
-  72 0032 0F90      		pop __tmp_reg__
-  73 0034 0F90      		pop __tmp_reg__
-  74 0036 DF91      		pop r29
-  75 0038 CF91      		pop r28
-  76 003a 0895      		ret
-  77               		.cfi_endproc
-  78               	.LFE8:
-  80               		.section	.progmem.data,"a",@progbits
-  83               	_msg_rng:
-  84 0000 524E 4720 		.string	"RNG initialized"
-  84      696E 6974 
-  84      6961 6C69 
-  84      7A65 6400 
-  85               		.text
-  86               	.Letext0:
-  87               		.file 2 "/usr/lib/gcc/avr/12.2.0/include/stdint-gcc.h"
-  88               		.file 3 "../../types/types.h"
-  89               		.file 4 "logger/logger.h"
-  90               		.file 5 "/usr/avr/include/stdlib.h"
-  91               		.file 6 "adc/adc.h"
+  19:random/random.c **** 	log_boot_P(PSTR("RNG initialized"));
+  28               		.loc 1 19 2 view .LVU2
+  29               	.LBB2:
+  30               		.loc 1 19 13 view .LVU3
+  31               		.loc 1 19 13 view .LVU4
+  32               	.LBE2:
+  33               		.loc 1 19 2 is_stmt 0 view .LVU5
+  34 000a 80E0      		ldi r24,lo8(__c.0)
+  35 000c 90E0      		ldi r25,hi8(__c.0)
+  36 000e 9F93      		push r25
+  37               		.cfi_def_cfa_offset 3
+  38 0010 8F93      		push r24
+  39               		.cfi_def_cfa_offset 4
+  40 0012 0E94 0000 		call log_boot_P
+  41               	.LVL2:
+  20:random/random.c **** }
+  42               		.loc 1 20 1 view .LVU6
+  43 0016 0F90      		pop __tmp_reg__
+  44 0018 0F90      		pop __tmp_reg__
+  45               		.cfi_def_cfa_offset 2
+  46               	/* epilogue start */
+  47 001a 0895      		ret
+  48               		.cfi_endproc
+  49               	.LFE7:
+  51               	.global	random_get
+  53               	random_get:
+  54               	.LFB8:
+  21:random/random.c **** 
+  22:random/random.c **** u32 random_get(void)
+  23:random/random.c **** {
+  55               		.loc 1 23 1 is_stmt 1 view -0
+  56               		.cfi_startproc
+  57 001c CF93      		push r28
+  58               		.cfi_def_cfa_offset 3
+  59               		.cfi_offset 28, -2
+  60 001e DF93      		push r29
+  61               		.cfi_def_cfa_offset 4
+  62               		.cfi_offset 29, -3
+  63 0020 00D0      		rcall .
+  64 0022 00D0      		rcall .
+  65               		.cfi_def_cfa_offset 8
+  66 0024 CDB7      		in r28,__SP_L__
+  67 0026 DEB7      		in r29,__SP_H__
+  68               		.cfi_def_cfa_register 28
+  69               	/* prologue: function */
+  70               	/* frame size = 4 */
+  71               	/* stack size = 6 */
+  72               	.L__stack_usage = 6
+  24:random/random.c **** 	return rand();
+  73               		.loc 1 24 2 view .LVU8
+  74               		.loc 1 24 9 is_stmt 0 view .LVU9
+  75 0028 0E94 0000 		call rand
+  76               	.LVL3:
+  77 002c 9C01      		movw r18,r24
+  78 002e 990F      		lsl r25
+  79 0030 440B      		sbc r20,r20
+  80 0032 550B      		sbc r21,r21
+  25:random/random.c **** }
+  81               		.loc 1 25 1 view .LVU10
+  82 0034 CA01      		movw r24,r20
+  83 0036 B901      		movw r22,r18
+  84               	/* epilogue start */
+  85 0038 0F90      		pop __tmp_reg__
+  86 003a 0F90      		pop __tmp_reg__
+  87 003c 0F90      		pop __tmp_reg__
+  88 003e 0F90      		pop __tmp_reg__
+  89 0040 DF91      		pop r29
+  90 0042 CF91      		pop r28
+  91 0044 0895      		ret
+  92               		.cfi_endproc
+  93               	.LFE8:
+  95               		.section	.progmem.data,"a",@progbits
+  98               	__c.0:
+  99 0000 524E 4720 		.string	"RNG initialized"
+  99      696E 6974 
+  99      6961 6C69 
+  99      7A65 6400 
+ 100               		.text
+ 101               	.Letext0:
+ 102               		.file 2 "/usr/lib/gcc/avr/12.2.0/include/stdint-gcc.h"
+ 103               		.file 3 "../../types/types.h"
+ 104               		.file 4 "logger/logger.h"
+ 105               		.file 5 "/usr/avr/include/stdlib.h"
+ 106               		.file 6 "adc/adc.h"
 DEFINED SYMBOLS
                             *ABS*:00000000 random.c
-     /tmp/ccesoB8E.s:2      *ABS*:0000003e __SP_H__
-     /tmp/ccesoB8E.s:3      *ABS*:0000003d __SP_L__
-     /tmp/ccesoB8E.s:4      *ABS*:0000003f __SREG__
-     /tmp/ccesoB8E.s:5      *ABS*:00000000 __tmp_reg__
-     /tmp/ccesoB8E.s:6      *ABS*:00000001 __zero_reg__
-     /tmp/ccesoB8E.s:13     .text:00000000 random_init
-     /tmp/ccesoB8E.s:16     .text:00000000 .Loc.0
-     /tmp/ccesoB8E.s:17     .text:00000000 L0
-     /tmp/ccesoB8E.s:22     .text:00000000 .Loc.1
-     /tmp/ccesoB8E.s:28     .text:0000000a .Loc.2
-     /tmp/ccesoB8E.s:83     .progmem.data:00000000 _msg_rng
-     /tmp/ccesoB8E.s:33     .text:00000012 L0
-     /tmp/ccesoB8E.s:38     .text:00000012 random_get
-     /tmp/ccesoB8E.s:40     .text:00000012 .Loc.3
-     /tmp/ccesoB8E.s:41     .text:00000012 L0
-     /tmp/ccesoB8E.s:48     .text:00000018 L0
-     /tmp/ccesoB8E.s:49     .text:0000001a L0
-     /tmp/ccesoB8E.s:58     .text:0000001e .Loc.4
-     /tmp/ccesoB8E.s:59     .text:0000001e .Loc.5
-     /tmp/ccesoB8E.s:66     .text:0000002a .Loc.6
-     /tmp/ccesoB8E.s:77     .text:0000003c L0
-     /tmp/ccesoB8E.s:92     .text:0000003c L0
+     /tmp/ccxF1LkE.s:2      *ABS*:0000003e __SP_H__
+     /tmp/ccxF1LkE.s:3      *ABS*:0000003d __SP_L__
+     /tmp/ccxF1LkE.s:4      *ABS*:0000003f __SREG__
+     /tmp/ccxF1LkE.s:5      *ABS*:00000000 __tmp_reg__
+     /tmp/ccxF1LkE.s:6      *ABS*:00000001 __zero_reg__
+     /tmp/ccxF1LkE.s:13     .text:00000000 random_init
+     /tmp/ccxF1LkE.s:16     .text:00000000 .Loc.0
+     /tmp/ccxF1LkE.s:17     .text:00000000 L0
+     /tmp/ccxF1LkE.s:22     .text:00000000 .Loc.1
+     /tmp/ccxF1LkE.s:28     .text:0000000a .Loc.2
+     /tmp/ccxF1LkE.s:30     .text:0000000a .Loc.3
+     /tmp/ccxF1LkE.s:31     .text:0000000a .Loc.4
+     /tmp/ccxF1LkE.s:33     .text:0000000a .Loc.5
+     /tmp/ccxF1LkE.s:98     .progmem.data:00000000 __c.0
+     /tmp/ccxF1LkE.s:42     .text:00000016 .Loc.6
+     /tmp/ccxF1LkE.s:48     .text:0000001c L0
+     /tmp/ccxF1LkE.s:53     .text:0000001c random_get
+     /tmp/ccxF1LkE.s:55     .text:0000001c .Loc.7
+     /tmp/ccxF1LkE.s:56     .text:0000001c L0
+     /tmp/ccxF1LkE.s:63     .text:00000022 L0
+     /tmp/ccxF1LkE.s:64     .text:00000024 L0
+     /tmp/ccxF1LkE.s:73     .text:00000028 .Loc.8
+     /tmp/ccxF1LkE.s:74     .text:00000028 .Loc.9
+     /tmp/ccxF1LkE.s:81     .text:00000034 .Loc.10
+     /tmp/ccxF1LkE.s:92     .text:00000046 L0
+     /tmp/ccxF1LkE.s:107    .text:00000046 L0
                      .debug_frame:00000000 L0
-     /tmp/ccesoB8E.s:293    .debug_abbrev:00000000 .Ldebug_abbrev0
-     /tmp/ccesoB8E.s:8      .text:00000000 .Ltext0
-     /tmp/ccesoB8E.s:86     .text:0000003c .Letext0
-     /tmp/ccesoB8E.s:619    .debug_line:00000000 .Ldebug_line0
-     /tmp/ccesoB8E.s:39     .text:00000012 .LFB8
-     /tmp/ccesoB8E.s:78     .text:0000003c .LFE8
-     /tmp/ccesoB8E.s:61     .text:00000022 .LVL3
-     /tmp/ccesoB8E.s:14     .text:00000000 .LFB7
-     /tmp/ccesoB8E.s:34     .text:00000012 .LFE7
-     /tmp/ccesoB8E.s:25     .text:00000006 .LVL0
-     /tmp/ccesoB8E.s:27     .text:0000000a .LVL1
-     /tmp/ccesoB8E.s:32     .text:00000012 .LVL2
-     /tmp/ccesoB8E.s:93     .debug_info:00000000 .Ldebug_info0
+     /tmp/ccxF1LkE.s:303    .debug_abbrev:00000000 .Ldebug_abbrev0
+     /tmp/ccxF1LkE.s:8      .text:00000000 .Ltext0
+     /tmp/ccxF1LkE.s:101    .text:00000046 .Letext0
+     /tmp/ccxF1LkE.s:636    .debug_line:00000000 .Ldebug_line0
+     /tmp/ccxF1LkE.s:54     .text:0000001c .LFB8
+     /tmp/ccxF1LkE.s:93     .text:00000046 .LFE8
+     /tmp/ccxF1LkE.s:76     .text:0000002c .LVL3
+     /tmp/ccxF1LkE.s:14     .text:00000000 .LFB7
+     /tmp/ccxF1LkE.s:49     .text:0000001c .LFE7
+     /tmp/ccxF1LkE.s:29     .text:0000000a .LBB2
+     /tmp/ccxF1LkE.s:32     .text:0000000a .LBE2
+     /tmp/ccxF1LkE.s:25     .text:00000006 .LVL0
+     /tmp/ccxF1LkE.s:27     .text:0000000a .LVL1
+     /tmp/ccxF1LkE.s:41     .text:00000016 .LVL2
+     /tmp/ccxF1LkE.s:108    .debug_info:00000000 .Ldebug_info0
 
 UNDEFINED SYMBOLS
 adc_read
 srand
-log_boot
+log_boot_P
 rand

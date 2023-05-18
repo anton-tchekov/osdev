@@ -1,31 +1,24 @@
-Chip         Arduino  Physical
-
-SERIAL_RX        0    D0
-SERIAL_TX        1    D1
-
-KBD_CLOCK        2    D2
-KBD_DATA         3    D3
-
-CS_SD            4    D4
-
-AUDIO_LEFT       5    D5
-AUDIO_RIGHT      6    D6
-
-LCD_DC           7    D7
-
-LCD_RST          8    B0
-LCD_BL           9    B1
-LCD_CS          10    B2
-
-MOSI            11    B3
-MISO            12    B4
-CLK             13    B5
-
-CS_MEM_1        A0    C0
-CS_MEM 2        A1    C1
-CS_MEM_3        A2    C2
-
-RANDOM_NOISE    A3    C3
-
-IO_HEADER_I2C   A4    C4
-IO_HEADER_I2C   A5    C5
++---------------+---------+----------+-----------+
+| Name          | Arduino | Physical | Subsystem |
++---------------+---------+----------+-----------+
+| SERIAL_RX     |     0   |    D0    | UART      |
+| SERIAL_TX     |     1   |    D1    | UART      |
+| KBD_CLOCK     |     2   |    D2    | KBD       |
+| KBD_DATA      |     3   |    D3    | KBD       |
+| CS_SD         |     4   |    D4    | SD        |
+| AUDIO_LEFT    |     5   |    D5    | SOUND     |
+| AUDIO_RIGHT   |     6   |    D6    | SOUND     |
+| LCD_RST       |     7   |    D7    | LCD       |
+| CS_MEM_1      |     8   |    B0    | MEM       |
+| CS_MEM 2      |     9   |    B1    | MEM       |
+| CS_MEM_3      |    10   |    B2    | MEM       |
+| MOSI          |    11   |    B3    | SPI       |
+| MISO          |    12   |    B4    | SPI       |
+| CLK           |    13   |    B5    | SPI       |
+| LCD_CS        |    A0   |    C0    | LCD       |
+| LCD_DC        |    A1   |    C1    | LCD       |
+| RANDOM_NOISE  |    A2   |    C2    | RNG       |
+| ANALOG_IN     |    A3   |    C3    | IO        |
+| I2C           |    A4   |    C4    | IO        |
+| I2C           |    A5   |    C5    | IO        |
++---------------+---------+----------+-----------+

@@ -7,10 +7,42 @@
 
 #include <logger.h>
 #include <serial.h>
+#include <avr/pgmspace.h>
+#include <avr/interrupt.h>
+#include <stdarg.h>
+#include <stdio.h>
 
-void log_boot(const char *msg)
+void log_boot_P(const char *msg, ...)
 {
-	serial_tx_str_P("[INIT] ");
-	serial_tx_str_P(msg);
+	char buf[128];
+	va_list v;
+
+	va_start(v, msg);
+	vsnprintf_P(buf, sizeof(buf), msg, v);
+	va_end(v);
+
+	serial_tx_str_P(PSTR("[INIT] "));
+	serial_tx_str(buf);
 	serial_tx('\n');
+}
+
+void panic(const char *msg, ...)
+{
+	char buf[128];
+	va_list v;
+
+	va_start(v, msg);
+	vsnprintf_P(buf, sizeof(buf), msg, v);
+	va_end(v);
+
+	serial_tx_str_P(PSTR("[PANIC] "));
+	serial_tx_str(buf);
+	serial_tx_str_P(PSTR("\n>>> RESET REQUIRED\n"));
+
+	cli();
+
+	/* Infinite loop */
+	for(;;)
+	{
+	}
 }
