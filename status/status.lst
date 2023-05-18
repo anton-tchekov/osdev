@@ -1,0 +1,100 @@
+   1               		.file	"status.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__tmp_reg__ = 0
+   6               	__zero_reg__ = 1
+   7               		.text
+   8               	.Ltext0:
+   9               		.cfi_sections	.debug_frame
+  10               		.file 0 "/home/files/osdev/platform/avr" "../../status/status.c"
+  11               	.global	status_str
+  13               	status_str:
+  14               	.LVL0:
+  15               	.LFB0:
+  16               		.file 1 "../../status/status.c"
+   1:../../status/status.c **** #include <status.h>
+   2:../../status/status.c **** 
+   3:../../status/status.c **** static const char *_status_strs[] =
+   4:../../status/status.c **** {
+   5:../../status/status.c **** 	"Ok",
+   6:../../status/status.c **** 	"Unknown error",
+   7:../../status/status.c **** 	"Timeout"
+   8:../../status/status.c **** };
+   9:../../status/status.c **** 
+  10:../../status/status.c **** const char *status_str(Status code)
+  11:../../status/status.c **** {
+  17               		.loc 1 11 1 view -0
+  18               		.cfi_startproc
+  19               	/* prologue: function */
+  20               	/* frame size = 0 */
+  21               	/* stack size = 0 */
+  22               	.L__stack_usage = 0
+  12:../../status/status.c **** 	return _status_strs[code];
+  23               		.loc 1 12 2 view .LVU1
+  24               		.loc 1 12 21 is_stmt 0 view .LVU2
+  25 0000 E82F      		mov r30,r24
+  26 0002 F0E0      		ldi r31,0
+  27 0004 EE0F      		lsl r30
+  28 0006 FF1F      		rol r31
+  29               	.LVL1:
+  30               		.loc 1 12 21 view .LVU3
+  31 0008 E050      		subi r30,lo8(-(_status_strs))
+  32 000a F040      		sbci r31,hi8(-(_status_strs))
+  13:../../status/status.c **** }
+  33               		.loc 1 13 1 view .LVU4
+  34 000c 8081      		ld r24,Z
+  35 000e 9181      		ldd r25,Z+1
+  36               	/* epilogue start */
+  37 0010 0895      		ret
+  38               		.cfi_endproc
+  39               	.LFE0:
+  41               		.section	.rodata.str1.1,"aMS",@progbits,1
+  42               	.LC0:
+  43 0000 4F6B 00   		.string	"Ok"
+  44               	.LC1:
+  45 0003 556E 6B6E 		.string	"Unknown error"
+  45      6F77 6E20 
+  45      6572 726F 
+  45      7200 
+  46               	.LC2:
+  47 0011 5469 6D65 		.string	"Timeout"
+  47      6F75 7400 
+  48               		.section	.rodata
+  51               	_status_strs:
+  52 0000 0000      		.word	.LC0
+  53 0002 0000      		.word	.LC1
+  54 0004 0000      		.word	.LC2
+  55               		.text
+  56               	.Letext0:
+  57               		.file 2 "../../status/status.h"
+DEFINED SYMBOLS
+                            *ABS*:00000000 status.c
+     /tmp/ccltdroW.s:2      *ABS*:0000003e __SP_H__
+     /tmp/ccltdroW.s:3      *ABS*:0000003d __SP_L__
+     /tmp/ccltdroW.s:4      *ABS*:0000003f __SREG__
+     /tmp/ccltdroW.s:5      *ABS*:00000000 __tmp_reg__
+     /tmp/ccltdroW.s:6      *ABS*:00000001 __zero_reg__
+     /tmp/ccltdroW.s:13     .text:00000000 status_str
+     /tmp/ccltdroW.s:17     .text:00000000 .Loc.0
+     /tmp/ccltdroW.s:18     .text:00000000 L0
+     /tmp/ccltdroW.s:23     .text:00000000 .Loc.1
+     /tmp/ccltdroW.s:24     .text:00000000 .Loc.2
+     /tmp/ccltdroW.s:30     .text:00000008 .Loc.3
+     /tmp/ccltdroW.s:51     .rodata:00000000 _status_strs
+     /tmp/ccltdroW.s:33     .text:0000000c .Loc.4
+     /tmp/ccltdroW.s:38     .text:00000012 L0
+     /tmp/ccltdroW.s:58     .text:00000012 L0
+                     .debug_frame:00000000 L0
+     /tmp/ccltdroW.s:151    .debug_abbrev:00000000 .Ldebug_abbrev0
+     /tmp/ccltdroW.s:8      .text:00000000 .Ltext0
+     /tmp/ccltdroW.s:56     .text:00000012 .Letext0
+     /tmp/ccltdroW.s:365    .debug_line:00000000 .Ldebug_line0
+     /tmp/ccltdroW.s:15     .text:00000000 .LFB0
+     /tmp/ccltdroW.s:39     .text:00000012 .LFE0
+     /tmp/ccltdroW.s:336    .debug_loclists:00000010 .LLST0
+     /tmp/ccltdroW.s:331    .debug_loclists:0000000c .LVUS0
+     /tmp/ccltdroW.s:59     .debug_info:00000000 .Ldebug_info0
+
+UNDEFINED SYMBOLS
+__do_copy_data

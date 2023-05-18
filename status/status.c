@@ -3,7 +3,8 @@
 static const char *_status_strs[] =
 {
 	"Ok",
-	"Unknown error"
+	"Unknown error",
+	"Timeout"
 };
 
 const char *status_str(Status code)

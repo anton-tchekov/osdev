@@ -30,3 +30,30 @@ u8 spi_xchg(u8 byte)
 
 	return SPDR;
 }
+
+Status spi_xchg_try(u8 in, u8 *out)
+{
+	u16 cnt = 0;
+	SPDR = in;
+	while(!(SPSR & (1 << SPIF)))
+	{
+		if(cnt++ == 0xFFFF)
+		{
+			return STATUS_TIMEOUT;
+		}
+	}
+
+	*out = SPDR;
+	return STATUS_OK;
+}
+
+Status spi_tx_try(u8 in)
+{
+	u8 dummy;
+	return spi_xchg_try(in, &dummy);
+}
+
+Status spi_rx_try(u8 *out)
+{
+	return spi_xchg_try(0xFF, out);
+}

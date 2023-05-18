@@ -13,8 +13,20 @@
 typedef enum
 {
 	STATUS_OK,
-	STATUS_FAIL
+	STATUS_FAIL,
+	STATUS_TIMEOUT
 } Status;
+
+#define RETURN_IF(STATUS) \
+	do \
+	{ \
+		Status status = STATUS; \
+		if(status) \
+		{ \
+			return status; \
+		} \
+	} \
+	while(0);
 
 /**
  * @brief Returns a human-readable description for a Status

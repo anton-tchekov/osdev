@@ -8,6 +8,7 @@
 #include <logger.h>
 #include <spi.h>
 #include <lcd.h>
+#include <sd.h>
 #include <avr/pgmspace.h>
 
 char byte_to_hex(u8 byte)
@@ -85,11 +86,14 @@ int main(void)
 	/* Initialize keyboard */
 	ps2_init();
 
-	/* Initialize RTC */
+	/* Initialize RTC driver */
 	rtc_init();
 
-	/* Initialize LCD */
+	/* Initialize LCD driver */
 	lcd_init();
+
+	/* Initialize SD card driver */
+	sd_init();
 
 	serial_tx_str_P(PSTR("\nREADY.\n\n"));
 

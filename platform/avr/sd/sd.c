@@ -1,17 +1,10 @@
-#include "sd.h"
+#include <sd.h>
+#include <spi.h>
+#include <logger.h>
 #include <string.h>
 #include <avr/io.h>
+#include <avr/pgmspace.h>
 #include <util/delay.h>
-
-static inline void _sd_select(void)
-{
-	SPI_OUT &= ~CS;
-}
-
-static inline void _sd_deselect(void)
-{
-	SPI_OUT |= CS;
-}
 
 #define CMD_GO_IDLE_STATE      0x00
 #define CMD_SEND_OP_COND       0x01
@@ -28,399 +21,475 @@ static inline void _sd_deselect(void)
 #define IDLE_STATE             (1 << 0)
 #define ILLEGAL_CMD            (1 << 2)
 
+#define BLOCK_SIZE             512
+
 #define SD_1                   (1 << 0)
 #define SD_2                   (1 << 1)
 #define SD_HC                  (1 << 2)
 
+/* SD card properties */
 static u8 _card_type;
+static u8 _manufacturer;
+static u8 _oem[3];
+static u8 _product[6];
+static u8 _revision;
+static u32 _serial;
+static u8 _manufacturing_year;
+static u8 _manufacturing_month;
+static u32 _capacity;
+static u8 _flag_copy;
+static u8 _flag_write_protect;
+static u8 _flag_write_protect_temp;
+static u8 _format;
 
-typedef struct
+static void _sd_select(void)
 {
-	u8 manufacturer;
-	u8 oem[3];
-	u8 product[6];
-	u8 revision;
-	u32 serial;
-	u8 manufacturing_year;
-	u8 manufacturing_month;
-	u32 capacity;
-	u8 flag_copy;
-	u8 flag_write_protect;
-	u8 flag_write_protect_temp;
-	u8 format;
-} sd_info;
-
-static u8 _command(u8 cmd, u32 arg)
-{
-	u8 i, response;
-	_spi_xchg(0xFF);
-	_spi_xchg(0x40 | cmd);
-	_spi_xchg((arg >> 24) & 0xFF);
-	_spi_xchg((arg >> 16) & 0xFF);
-	_spi_xchg((arg >> 8) & 0xFF);
-	_spi_xchg((arg >> 0) & 0xFF);
-	switch(cmd)
-	{
-	case CMD_GO_IDLE_STATE:
-		_spi_xchg(0x95);
-		break;
-
-	case CMD_SEND_IF_COND:
-		_spi_xchg(0x87);
-		break;
-
-	default:
-		_spi_xchg(0xFF);
-		break;
-	}
-
-	for(i = 0; i < 10 && ((response = _spi_xchg(0xFF)) == 0xFF); ++i) ;
-	return response;
+	SD_CS_OUT &= ~SD_CS_PIN;
 }
 
-u8 sd_init(void)
+static void _sd_deselect(void)
 {
-	u8 response;
-	u16 i;
-	u32 arg;
+	SD_CS_OUT |= SD_CS_PIN;
+}
 
-	CONF_SPI();
-	DESELECT();
-	SPCR = (0 << SPIE) | (1 << SPE)  | (0 << DORD) | (1 << MSTR) |
-		(0 << CPOL) | (0 << CPHA) | (1 << SPR1) | (1 << SPR0);
-	SPSR &= ~(1 << SPI2X);
-	_card_type = 0;
-	for(i = 0; i < 10; ++i)
-	{
-		_spi_xchg(0xFF);
-	}
+static void _sd_cs_init(void)
+{
+	SD_CS_DIR |= SD_CS_PIN;
+	_sd_deselect();
+}
 
-	SELECT();
-	for(i = 0; ; ++i)
-	{
-		if(_command(CMD_GO_IDLE_STATE, 0) == IDLE_STATE)
-		{
-			break;
-		}
-
-		if(i == 0x1ff)
-		{
-			DESELECT();
-			return 1;
-		}
-	}
-
-	if((_command(CMD_SEND_IF_COND, 0x1AA) & ILLEGAL_CMD) == 0)
-	{
-		_spi_xchg(0xFF);
-		_spi_xchg(0xFF);
-		if(((_spi_xchg(0xFF) & 0x01) == 0) ||
-			(_spi_xchg(0xFF) != 0xAA))
-		{
-			return 1;
-		}
-
-		_card_type |= SD_2;
-	}
-	else
-	{
-		_command(CMD_APP, 0);
-		if((_command(CMD_SD_SEND_OP_COND, 0) & ILLEGAL_CMD) == 0)
-		{
-			_card_type |= SD_1;
-		}
-	}
-
-	for(i = 0; ; ++i)
-	{
-		if(_card_type & (SD_1 | SD_2))
-		{
-			arg = 0;
-			if(_card_type & SD_2)
-			{
-				arg = 0x40000000;
-			}
-
-			_command(CMD_APP, 0);
-			response = _command(CMD_SD_SEND_OP_COND, arg);
-		}
-		else
-		{
-			response = _command(CMD_SEND_OP_COND, 0);
-		}
-
-		if((response & IDLE_STATE) == 0)
-		{
-			break;
-		}
-
-		if(i == 0x7FFF)
-		{
-			DESELECT();
-			return 1;
-		}
-	}
-
-	if(_card_type & SD_2)
-	{
-		if(_command(CMD_READ_OCR, 0))
-		{
-			DESELECT();
-			return 1;
-		}
-
-		if(_spi_xchg(0xFF) & 0x40)
-		{
-			_card_type |= SD_HC;
-		}
-
-		_spi_xchg(0xFF);
-		_spi_xchg(0xFF);
-		_spi_xchg(0xFF);
-	}
-
-	if(_command(CMD_SET_BLOCKLEN, 512))
-	{
-		DESELECT();
-		return 1;
-	}
-
-	DESELECT();
-	SPCR &= ~((1 << SPR1) | (1 << SPR0));
-	SPSR |= (1 << SPI2X);
-	_delay_ms(20);
+static u8 _sd_command(u8 cmd, u32 arg)
+{
+	/* TODO */
 	return 0;
 }
 
-u8 sd_get_info(sd_info *info)
+static void _spi_configure_slow(void)
 {
-	u8 i, b, csd_read_bl_len, csd_c_size_mult, csd_structure;
-	u16 csd_c_size;
-	memset(info, 0, sizeof(*info));
-	SELECT();
-
-	/* Read CID register */
-	if(_command(CMD_SEND_CID, 0))
-	{
-		DESELECT();
-		return 0;
-	}
-
-	while(_spi_xchg(0xFF) != 0xFE) {}
-
-	for(i = 0; i < 18; ++i)
-	{
-		b = _spi_xchg(0xFF);
-		switch(i)
-		{
-			case 0:
-				info->manufacturer = b;
-				break;
-
-			case 1:
-			case 2:
-				info->oem[i - 1] = b;
-				break;
-
-			case 3:
-			case 4:
-			case 5:
-			case 6:
-			case 7:
-				info->product[i - 3] = b;
-				break;
-
-			case 8:
-				info->revision = b;
-				break;
-
-			case 9:
-			case 10:
-			case 11:
-			case 12:
-				info->serial |= (u32)b << ((12 - i) * 8);
-				break;
-
-			case 13:
-				info->manufacturing_year = b << 4;
-				break;
-
-			case 14:
-				info->manufacturing_year |= b >> 4;
-				info->manufacturing_month = b & 0x0f;
-				break;
-		}
-	}
-
-	/* Read CSD register */
-	csd_read_bl_len = 0;
-	csd_c_size_mult = 0;
-	csd_structure = 0;
-	csd_c_size = 0;
-
-	if(_command(CMD_SEND_CSD, 0))
-	{
-		DESELECT();
-		return 0;
-	}
-
-	while(_spi_xchg(0xFF) != 0xFE) ;
-
-	for(i = 0; i < 18; ++i)
-	{
-		b = _spi_xchg(0xFF);
-		if(i == 0)
-		{
-			csd_structure = b >> 6;
-		}
-		else if(i == 14)
-		{
-			if(b & 0x40)
-			{
-				info->flag_copy = 1;
-			}
-
-			if(b & 0x20)
-			{
-				info->flag_write_protect = 1;
-			}
-
-			if(b & 0x10)
-			{
-				info->flag_write_protect_temp = 1;
-			}
-
-			info->format = (b & 0x0C) >> 2;
-		}
-		else
-		{
-			if(csd_structure == 0x01)
-			{
-				switch(i)
-				{
-					case 7:
-						b &= 0x3f;
-
-					case 8:
-					case 9:
-						csd_c_size <<= 8;
-						csd_c_size |= b;
-						++csd_c_size;
-						info->capacity = (u32)csd_c_size << 10;
-				}
-			}
-			else if(csd_structure == 0x00)
-			{
-				switch(i)
-				{
-					case 5:
-						csd_read_bl_len = b & 0x0F;
-						break;
-
-					case 6:
-						csd_c_size = b & 0x03;
-						csd_c_size <<= 8;
-						break;
-
-					case 7:
-						csd_c_size |= b;
-						csd_c_size <<= 2;
-						break;
-
-					case 8:
-						csd_c_size |= b >> 6;
-						++csd_c_size;
-						break;
-
-					case 9:
-						csd_c_size_mult = b & 0x03;
-						csd_c_size_mult <<= 1;
-						break;
-
-					case 10:
-						csd_c_size_mult |= b >> 7;
-						info->capacity = ((u32)csd_c_size <<
-							(csd_c_size_mult + csd_read_bl_len + 2)) >> 9;
-						break;
-				}
-			}
-		}
-	}
-
-	DESELECT();
-	return 1;
+	/* TODO */
+	SPCR = (0 << SPIE) | (1 << SPE)  | (0 << DORD) | (1 << MSTR) |
+		(0 << CPOL) | (0 << CPHA) | (1 << SPR1) | (1 << SPR0);
+	SPSR &= ~(1 << SPI2X);
 }
 
-u8 sd_read(u8 *buffer, u32 block, u16 offset, u16 count)
+static void _spi_configure_fast(void)
 {
-	u16 i;
+	/* TODO */
+	SPCR &= ~((1 << SPR1) | (1 << SPR0));
+	SPSR |= (1 << SPI2X);
+}
 
-	SELECT();
-	if(_command(CMD_READ_SINGLE_BLOCK,
-		_card_type & SD_HC ? block : (block >> 9)))
+#ifdef COMMENT
+static Status _sd_try_command(u8 cmd, u32 arg, u8 *out)
+{
+	/* TODO */
+	u8 i, response;
+	RETURN_IF(spi_tx_try(0xFF));
+	RETURN_IF(spi_tx_try(0x40 | cmd));
+	RETURN_IF(spi_tx_try(arg >> 24));
+	RETURN_IF(spi_tx_try(arg >> 16));
+	RETURN_IF(spi_tx_try(arg >> 8));
+	RETURN_IF(spi_tx_try(arg));
+	switch(cmd)
 	{
-		DESELECT();
-		return 1;
+	case CMD_GO_IDLE_STATE:
+		RETURN_IF(spi_tx_try(0x95));
+		break;
+
+	case CMD_SEND_IF_COND:
+		RETURN_IF(spi_tx_try(0x87));
+		break;
+
+	default:
+		RETURN_IF(spi_tx_try(0xFF));
+		break;
 	}
 
 	for(i = 0; ; ++i)
 	{
-		if(_spi_xchg(0xFF) == 0xFE)
+		if(i >= 10)
+		{
+			return STATUS_TIMEOUT;
+		}
+
+		RETURN_IF(spi_rx_try(&response));
+		if(response != 0xFF)
+		{
+			break;
+		}
+	}
+
+	*out = response;
+	return STATUS_OK;
+}
+#endif
+
+static void _sd_timeout(void)
+{
+	_sd_deselect();
+	panic("SD timeout");
+}
+
+void sd_init(void)
+{
+	log_boot_P(PSTR("SD driver starting"));
+	_sd_cs_init();
+
+	{
+		u8 response;
+		u16 i;
+		u32 arg;
+
+		_card_type = 0;
+		_spi_configure_slow();
+		_sd_select();
+		for(i = 0; ; ++i)
+		{
+			if(_sd_command(CMD_GO_IDLE_STATE, 0) == IDLE_STATE)
+			{
+				break;
+			}
+
+			if(i == 0x1FF)
+			{
+				_sd_timeout();
+			}
+		}
+
+		if((_sd_command(CMD_SEND_IF_COND, 0x1AA) & ILLEGAL_CMD) == 0)
+		{
+			spi_xchg(0xFF);
+			spi_xchg(0xFF);
+			if(((spi_xchg(0xFF) & 0x01) == 0) ||
+				(spi_xchg(0xFF) != 0xAA))
+			{
+				_sd_error();
+			}
+
+			_card_type |= SD_2;
+		}
+		else
+		{
+			_sd_command(CMD_APP, 0);
+			if((_sd_command(CMD_SD_SEND_OP_COND, 0) & ILLEGAL_CMD) == 0)
+			{
+				_card_type |= SD_1;
+			}
+		}
+
+		for(i = 0; ; ++i)
+		{
+			if(_card_type & (SD_1 | SD_2))
+			{
+				arg = 0;
+				if(_card_type & SD_2)
+				{
+					arg = 0x40000000;
+				}
+
+				_sd_command(CMD_APP, 0);
+				response = _sd_command(CMD_SD_SEND_OP_COND, arg);
+			}
+			else
+			{
+				response = _sd_command(CMD_SEND_OP_COND, 0);
+			}
+
+			if((response & IDLE_STATE) == 0)
+			{
+				break;
+			}
+
+			if(i == 0x7FFF)
+			{
+				_sd_timeout();
+			}
+		}
+
+		if(_card_type & SD_2)
+		{
+			_sd_command(CMD_READ_OCR, 0);
+			if(spi_xchg(0xFF) & 0x40)
+			{
+				_card_type |= SD_HC;
+			}
+
+			spi_xchg(0xFF);
+			spi_xchg(0xFF);
+			spi_xchg(0xFF);
+		}
+
+		_sd_command(CMD_SET_BLOCKLEN, BLOCK_SIZE);
+		_sd_deselect();
+		_delay_ms(20);
+	}
+
+	{
+		u8 i, b, csd_read_bl_len, csd_c_size_mult, csd_structure;
+		u16 csd_c_size;
+
+		_spi_configure_fast();
+		_sd_select();
+
+		/* Read CID register */
+		_sd_command(CMD_SEND_CID, 0);
+		while(spi_xchg(0xFF) != 0xFE) {}
+
+		for(i = 0; i < 18; ++i)
+		{
+			b = spi_xchg(0xFF);
+			switch(i)
+			{
+				case 0:
+					_manufacturer = b;
+					break;
+
+				case 1:
+				case 2:
+					_oem[i - 1] = b;
+					break;
+
+				case 3:
+				case 4:
+				case 5:
+				case 6:
+				case 7:
+					_product[i - 3] = b;
+					break;
+
+				case 8:
+					_revision = b;
+					break;
+
+				case 9:
+				case 10:
+				case 11:
+				case 12:
+					_serial |= (u32)b << ((12 - i) * 8);
+					break;
+
+				case 13:
+					_manufacturing_year = b << 4;
+					break;
+
+				case 14:
+					_manufacturing_year |= b >> 4;
+					_manufacturing_month = b & 0x0f;
+					break;
+			}
+		}
+
+		/* Read CSD register */
+		csd_read_bl_len = 0;
+		csd_c_size_mult = 0;
+		csd_structure = 0;
+		csd_c_size = 0;
+
+		_sd_command(CMD_SEND_CSD, 0);
+		while(spi_xchg(0xFF) != 0xFE) {}
+
+		for(i = 0; i < 18; ++i)
+		{
+			b = spi_xchg(0xFF);
+			if(i == 0)
+			{
+				csd_structure = b >> 6;
+			}
+			else if(i == 14)
+			{
+				if(b & 0x40)
+				{
+					_flag_copy = 1;
+				}
+
+				if(b & 0x20)
+				{
+					_flag_write_protect = 1;
+				}
+
+				if(b & 0x10)
+				{
+					_flag_write_protect_temp = 1;
+				}
+
+				_format = (b & 0x0C) >> 2;
+			}
+			else
+			{
+				if(csd_structure == 0x01)
+				{
+					switch(i)
+					{
+						case 7:
+							b &= 0x3f;
+
+						case 8:
+						case 9:
+							csd_c_size <<= 8;
+							csd_c_size |= b;
+							++csd_c_size;
+							_capacity = (u32)csd_c_size << 10;
+					}
+				}
+				else if(csd_structure == 0x00)
+				{
+					switch(i)
+					{
+						case 5:
+							csd_read_bl_len = b & 0x0F;
+							break;
+
+						case 6:
+							csd_c_size = b & 0x03;
+							csd_c_size <<= 8;
+							break;
+
+						case 7:
+							csd_c_size |= b;
+							csd_c_size <<= 2;
+							break;
+
+						case 8:
+							csd_c_size |= b >> 6;
+							++csd_c_size;
+							break;
+
+						case 9:
+							csd_c_size_mult = b & 0x03;
+							csd_c_size_mult <<= 1;
+							break;
+
+						case 10:
+							csd_c_size_mult |= b >> 7;
+							_capacity = ((u32)csd_c_size <<
+								(csd_c_size_mult + csd_read_bl_len + 2)) >> 9;
+							break;
+					}
+				}
+			}
+		}
+
+		_sd_deselect();
+	}
+
+	log_boot_P(PSTR("SD card detected and initialized"));
+
+	/* Print disk info */
+	log_boot_P(PSTR("Card Type          : %S"),
+		_card_type & SD_HC ? PSTR("SDHC") : PSTR("SD"));
+
+	log_boot_P(PSTR("Block Size         : %d"),
+		BLOCK_SIZE);
+
+	log_boot_P(PSTR("Manufacturer ID    : %02X"),
+		_manufacturer);
+
+	log_boot_P(PSTR("OEM                : %s"),
+		_oem);
+
+	log_boot_P(PSTR("Product Name       : %s"),
+		_product);
+
+	log_boot_P(PSTR("Revision           : %c.%c"),
+		(_revision >> 4) + '0', (_revision & 0x0F) + '0');
+
+	log_boot_P(PSTR("Serial Number      : 0x%08lX"),
+		_serial);
+
+	log_boot_P(PSTR("Manufacture Date   : %02d-%d"),
+		_manufacturing_month, 2000 + _manufacturing_year);
+
+	log_boot_P(PSTR("Capacity           : %ld bytes"),
+		_capacity);
+
+	log_boot_P(PSTR("Format             : 0x%02X"),
+		_format);
+
+	log_boot_P(PSTR("Flags              : %S%S"),
+		_flag_copy ? PSTR("Copy, ") : PSTR("Original, "),
+		_flag_write_protect_temp ? PSTR("Temporarily Write Protected") :
+			(_flag_write_protect ? PSTR("Write Protected") :
+			PSTR("Rewritable")));
+}
+
+#ifdef COMMENT
+
+static Status _block_access(u8 cmd, u32 block)
+{
+	u8 ret;
+	_sd_select();
+	if(_command(cmd, _card_type & SD_HC ? block : (block >> 9), &ret))
+	{
+		_sd_deselect();
+		return STATUS_FAIL;
+	}
+
+	return STATUS_OK;
+}
+
+Status sd_read(u32 block, void *data)
+{
+	u16 i;
+	u8 out;
+	u8 *buf8;
+
+	buf8 = data;
+	RETURN_IF(_block_access(CMD_READ_SINGLE_BLOCK, block));
+	for(i = 0; ; ++i)
+	{
+		RETURN_IF(spi_rx_try(&out));
+		if(out == 0xFE)
 		{
 			break;
 		}
 
 		if(i == 0xFFFF)
 		{
-			DESELECT();
-			return 1;
+			_sd_deselect();
+			return STATUS_TIMEOUT;
 		}
 	}
 
-	for(i = 0; i < offset; ++i)
+	for(i = 0; i < BLOCK_SIZE; ++i)
 	{
-		_spi_xchg(0xFF);
+		RETURN_IF(spi_rx_try(&out));
+		*buf8++ = out;
 	}
 
-	for(; i < offset + count; ++i)
-	{
-		*buffer++ = _spi_xchg(0xFF);
-	}
-
-	for(; i < 512; ++i)
-	{
-		_spi_xchg(0xFF);
-	}
-
-	_spi_xchg(0xFF);
-	_spi_xchg(0xFF);
-	DESELECT();
-	_spi_xchg(0xFF);
-	return 0;
+	RETURN_IF(spi_tx_try(0xFF));
+	RETURN_IF(spi_tx_try(0xFF));
+	_sd_deselect();
+	/* This seems unnecessary since after deselect? */
+	/* RETURN_IF(spi_tx_try(0xFF, &out)); */
+	return STATUS_OK;
 }
 
-u8 sd_write(u32 block, const u8 *buffer)
+Status sd_write(u32 block, const void *data)
 {
 	u16 i;
+	u8 out;
+	const u8 *buf8;
 
-	SELECT();
-	if(_command(CMD_WRITE_SINGLE_BLOCK,
-		(_card_type & SD_HC ? block : (block >> 9))))
+	buf8 = data;
+	RETURN_IF(_block_access(CMD_WRITE_SINGLE_BLOCK, block));
+	RETURN_IF(spi_tx_try(0xFE));
+	for(i = 0; i < BLOCK_SIZE; ++i)
 	{
-		DESELECT();
-		return 0;
+		RETURN_IF(spi_tx_try(*buf8++));
 	}
 
-	_spi_xchg(0xFE);
-	for(i = 0; i < 512; ++i)
+	RETURN_IF(spi_tx_try(0xFF));
+	RETURN_IF(spi_tx_try(0xFF));
+	do
 	{
-		_spi_xchg(*buffer++);
+		RETURN_IF(spi_rx_try(&out));
+		/*TIMEOUT11!*/
 	}
+	while(out != 0xFF);
 
-	_spi_xchg(0xFF);
-	_spi_xchg(0xFF);
-	while(_spi_xchg(0xFF) != 0xFF) {}
-	_spi_xchg(0xFF);
-	DESELECT();
-	return 1;
+	RETURN_IF(spi_tx_try(0xFF));
+	_sd_deselect();
+	return STATUS_OK;
 }
+
+#endif

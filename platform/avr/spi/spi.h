@@ -10,6 +10,7 @@
 #define __SPI_H__
 
 #include <types.h>
+#include <status.h>
 #include <avr/io.h>
 
 #define SPI_DIR   DDRB
@@ -29,5 +30,30 @@ void spi_init(void);
  * @return The byte that was received
  */
 u8 spi_xchg(u8 byte);
+
+/**
+ * @brief TODO
+ *
+ * @param in
+ * @param out
+ * @return Status
+ */
+Status spi_xchg_try(u8 in, u8 *out);
+
+/**
+ * @brief TODO
+ *
+ * @param in
+ * @return Status
+ */
+Status spi_tx_try(u8 in);
+
+/**
+ * @brief TODO
+ *
+ * @param out
+ * @return Status
+ */
+Status spi_rx_try(u8 *out);
 
 #endif /* __SPI_H__ */

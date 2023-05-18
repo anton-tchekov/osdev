@@ -67,7 +67,7 @@
 
 - `platform/` contains drivers for various platforms
 
-- DRIVERS MUST NOT BLOCK THE CPU (exception: initialization)
+- DRIVERS MUST NOT BLOCK THE CPU (exception: during initialization)
 
 - `emulator/` contains a RISC-V emulator
 

@@ -18,6 +18,8 @@ SRCS = \
 	logger/logger.c \
 	xmem/xmem.c \
 	lcd/lcd.c \
+	sd/sd.c \
+	../../status/status.c \
 
 # ../../emulator/emulator.c \
 
@@ -34,6 +36,8 @@ CFLAGS += \
 	-I xmem \
 	-I logger \
 	-I lcd \
+	-I sd \
+	-I ../../status \
 
 CFLAGS += \
 	-Wno-array-bounds
