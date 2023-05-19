@@ -12,15 +12,6 @@
 #include <types.h>
 #include <status.h>
 
-/** TODO */
-#define SD_CS_DIR  DDRD
-
-/** TODO */
-#define SD_CS_OUT  PORTD
-
-/** TODO */
-#define SD_CS_PIN  4
-
 /**
  * @brief
  *

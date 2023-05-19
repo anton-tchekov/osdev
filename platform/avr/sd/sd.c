@@ -6,6 +6,10 @@
 #include <avr/pgmspace.h>
 #include <util/delay.h>
 
+#define SD_CS_DIR  DDRD
+#define SD_CS_OUT  PORTD
+#define SD_CS_PIN  4
+
 #define CMD_GO_IDLE_STATE      0x00
 #define CMD_SEND_OP_COND       0x01
 #define CMD_SEND_IF_COND       0x08
@@ -42,17 +46,17 @@ static u8 _flag_write_protect;
 static u8 _flag_write_protect_temp;
 static u8 _format;
 
-static void _sd_select(void)
+static inline void _sd_select(void)
 {
 	SD_CS_OUT &= ~SD_CS_PIN;
 }
 
-static void _sd_deselect(void)
+static inline void _sd_deselect(void)
 {
 	SD_CS_OUT |= SD_CS_PIN;
 }
 
-static void _sd_cs_init(void)
+static inline void _sd_cs_init(void)
 {
 	SD_CS_DIR |= SD_CS_PIN;
 	_sd_deselect();
@@ -70,13 +74,6 @@ static void _spi_configure_slow(void)
 	SPCR = (0 << SPIE) | (1 << SPE)  | (0 << DORD) | (1 << MSTR) |
 		(0 << CPOL) | (0 << CPHA) | (1 << SPR1) | (1 << SPR0);
 	SPSR &= ~(1 << SPI2X);
-}
-
-static void _spi_configure_fast(void)
-{
-	/* TODO */
-	SPCR &= ~((1 << SPR1) | (1 << SPR0));
-	SPSR |= (1 << SPI2X);
 }
 
 #ifdef COMMENT
@@ -228,7 +225,7 @@ void sd_init(void)
 		u8 i, b, csd_read_bl_len, csd_c_size_mult, csd_structure;
 		u16 csd_c_size;
 
-		_spi_configure_fast();
+		spi_fast();
 		_sd_select();
 
 		/* Read CID register */

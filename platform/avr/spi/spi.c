@@ -16,6 +16,12 @@ void spi_init(void)
 	log_boot_P(PSTR("SPI initialized"));
 }
 
+void spi_fast(void)
+{
+	SPCR &= ~((1 << SPR1) | (1 << SPR0));
+	SPSR |= (1 << SPI2X);
+}
+
 u8 spi_xchg(u8 byte)
 {
 	u16 cnt = 0;

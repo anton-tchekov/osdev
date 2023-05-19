@@ -52,13 +52,7 @@ static void _lcd_configure_gpio(void)
 	LCD_RST_DIR |= (1 << LCD_RST_PIN);
 	LCD_CS_DIR |= (1 << LCD_CS_PIN);
 	LCD_DC_DIR |= (1 << LCD_DC_PIN);
-}
-
-static void _lcd_configure_spi(void)
-{
-	/* F_SPI = F_CPU / 2 */
-	SPCR &= ~((1 << SPR1) | (1 << SPR0));
-	SPSR |= (1 << SPI2X);
+	LCD_CS_1;
 }
 
 static void _lcd_reset(void)
@@ -276,7 +270,7 @@ void lcd_init(u8 backlight, RGB565 bg)
 {
 	/* Initialize LCD */
 	_lcd_configure_gpio();
-	_lcd_configure_spi();
+	spi_fast();
 
 	_lcd_reset();
 	lcd_backlight(backlight);
@@ -296,7 +290,7 @@ void lcd_rect(u16 x, u16 y, u16 w, u16 h, RGB565 color)
 {
 	u16 w0, h0;
 
-	_lcd_configure_spi();
+	spi_fast();
 	_lcd_window_start(x, y, w, h);
 	for(h0 = 0; h0 < h; ++h0)
 	{

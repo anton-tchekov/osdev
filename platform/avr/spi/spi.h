@@ -24,6 +24,11 @@
 void spi_init(void);
 
 /**
+ * @brief Enable fastest SPI mode
+ */
+void spi_fast(void);
+
+/**
  * @brief Send and receive one byte from the SPI interface
  *
  * @param byte The byte to send

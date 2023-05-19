@@ -30,6 +30,7 @@
 /** Read block command */
 #define SRAM_COMMAND_READ     3
 
+/* --- PRIVATE --- */
 static void _xmem_select(u8 bank)
 {
 	XMEM_CS_OUT &= ~(1 << bank);
@@ -41,20 +42,14 @@ static void _configure_cs(void)
 	XMEM_CS_DIR |= (1 << XMEM_CS_0) | (1 << XMEM_CS_1) | (1 << XMEM_CS_2);
 }
 
-static void _xmem_deselect_all(void)
+static inline void _xmem_deselect_all(void)
 {
 	XMEM_CS_OUT |= (1 << XMEM_CS_0) | (1 << XMEM_CS_1) | (1 << XMEM_CS_2);
 }
 
-static void _xmem_deselect(u8 bank)
+static inline void _xmem_deselect(u8 bank)
 {
 	XMEM_CS_OUT |= (1 << bank);
-}
-
-static void _spi_configure(void)
-{
-	/* SPI double speed */
-	SPSR |= (1 << SPI2X);
 }
 
 static void _xmem_start(u8 bank, u8 command, u32 addr)
@@ -74,6 +69,7 @@ static void _memtest(void)
 	/* Run checkerboard memory test */
 	log_boot_P(PSTR("Starting complete memory test"));
 
+	spi_fast();
 	for(bank = 0; bank < BANK_COUNT; ++bank)
 	{
 		log_boot_P(PSTR("Testing memory bank [%02d]"), bank + 1);
@@ -81,11 +77,11 @@ static void _memtest(void)
 		/* Write */
 		log_boot_P(PSTR("Writing pattern"));
 		_xmem_start(bank, SRAM_COMMAND_WRITE, 0);
-		//srand(SEED);
+		/* srand(SEED); */
 		v = 0xAA;
 		for(i = 0; ; ++i)
 		{
-			v = ~v; //rand();
+			v = ~v; /* rand(); */
 			if(i % OUTPUT_INTERVAL == 0)
 			{
 				log_boot_P(PSTR("0x%06lX"), i);
@@ -104,11 +100,11 @@ static void _memtest(void)
 		/* Read */
 		log_boot_P(PSTR("Verifying pattern"));
 		_xmem_start(bank, SRAM_COMMAND_READ, 0);
-		//srand(SEED);
+		/* srand(SEED); */
 		v = 0xAA;
 		for(i = 0; ; ++i)
 		{
-			v = ~v; //rand();
+			v = ~v; /* rand(); */
 			if(i % OUTPUT_INTERVAL == 0)
 			{
 				log_boot_P(PSTR("0x%06lX"), i);
@@ -132,16 +128,6 @@ static void _memtest(void)
 
 		_xmem_deselect(bank);
 	}
-}
-
-void xmem_init(void)
-{
-	/* Initialize XMEM */
-	_configure_cs();
-	_xmem_deselect_all();
-	log_boot_P(PSTR("External memory driver initialized"));
-	_spi_configure();
-	_memtest();
 }
 
 static void _xmem_read(u8 bank, u16 addr, void *data, u16 size)
@@ -180,6 +166,16 @@ static void _xmem_set(u8 bank, u16 addr, u8 value, u16 size)
 	}
 
 	_xmem_deselect(bank);
+}
+
+/* --- PUBLIC --- */
+void xmem_init(void)
+{
+	/* Initialize XMEM */
+	_configure_cs();
+	_xmem_deselect_all();
+	log_boot_P(PSTR("External memory driver initialized"));
+	_memtest();
 }
 
 void xmem_read(u32 addr, void *data, u16 size)
