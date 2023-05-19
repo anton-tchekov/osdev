@@ -93,7 +93,7 @@ int main(void)
 	rtc_init();
 
 	/* Initialize SD card driver */
-	//sd_init();
+	sd_init();
 
 	serial_tx_str_P(PSTR("\nREADY.\n\n"));
 
