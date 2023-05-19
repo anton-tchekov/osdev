@@ -33,11 +33,11 @@ u8 spi_xchg(u8 byte)
 
 Status spi_xchg_try(u8 in, u8 *out)
 {
-	u16 cnt = 0;
+	u32 cnt = 0;
 	SPDR = in;
 	while(!(SPSR & (1 << SPIF)))
 	{
-		if(cnt++ == 0xFFFF)
+		if(cnt++ == 0xFFFFFFUL)
 		{
 			return STATUS_TIMEOUT;
 		}

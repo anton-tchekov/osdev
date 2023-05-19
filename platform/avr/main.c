@@ -77,6 +77,9 @@ int main(void)
 	/* Initialize external memory */
 	xmem_init();
 
+	/* Initialize LCD driver */
+	lcd_init(0xFF, COLOR_WHITE);
+
 	/* Initialize ADC */
 	adc_init();
 
@@ -89,13 +92,12 @@ int main(void)
 	/* Initialize RTC driver */
 	rtc_init();
 
-	/* Initialize LCD driver */
-	lcd_init();
-
 	/* Initialize SD card driver */
-	sd_init();
+	//sd_init();
 
 	serial_tx_str_P(PSTR("\nREADY.\n\n"));
+
+	lcd_rect(10, 10, 200, 200, COLOR_RED);
 
 	/* --- READY --- */
 

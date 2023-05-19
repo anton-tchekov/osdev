@@ -384,274 +384,288 @@
  311 0016 0E94 0000 		call xmem_init
  312               	.LVL30:
   79:main.c        **** 
-  80:main.c        **** 	/* Initialize ADC */
-  81:main.c        **** 	adc_init();
+  80:main.c        **** 	/* Initialize LCD driver */
+  81:main.c        **** 	lcd_init(0xFF, COLOR_WHITE);
  313               		.loc 1 81 2 view .LVU56
- 314 001a 0E94 0000 		call adc_init
- 315               	.LVL31:
+ 314 001a 6FEF      		ldi r22,lo8(-1)
+ 315 001c 7FEF      		ldi r23,lo8(-1)
+ 316 001e 8FEF      		ldi r24,lo8(-1)
+ 317 0020 0E94 0000 		call lcd_init
+ 318               	.LVL31:
   82:main.c        **** 
-  83:main.c        **** 	/* Initialize RNG */
-  84:main.c        **** 	random_init();
- 316               		.loc 1 84 2 view .LVU57
- 317 001e 0E94 0000 		call random_init
- 318               	.LVL32:
+  83:main.c        **** 	/* Initialize ADC */
+  84:main.c        **** 	adc_init();
+ 319               		.loc 1 84 2 view .LVU57
+ 320 0024 0E94 0000 		call adc_init
+ 321               	.LVL32:
   85:main.c        **** 
-  86:main.c        **** 	/* Initialize keyboard */
-  87:main.c        **** 	ps2_init();
- 319               		.loc 1 87 2 view .LVU58
- 320 0022 0E94 0000 		call ps2_init
- 321               	.LVL33:
+  86:main.c        **** 	/* Initialize RNG */
+  87:main.c        **** 	random_init();
+ 322               		.loc 1 87 2 view .LVU58
+ 323 0028 0E94 0000 		call random_init
+ 324               	.LVL33:
   88:main.c        **** 
-  89:main.c        **** 	/* Initialize RTC driver */
-  90:main.c        **** 	rtc_init();
- 322               		.loc 1 90 2 view .LVU59
- 323 0026 0E94 0000 		call rtc_init
- 324               	.LVL34:
+  89:main.c        **** 	/* Initialize keyboard */
+  90:main.c        **** 	ps2_init();
+ 325               		.loc 1 90 2 view .LVU59
+ 326 002c 0E94 0000 		call ps2_init
+ 327               	.LVL34:
   91:main.c        **** 
-  92:main.c        **** 	/* Initialize LCD driver */
-  93:main.c        **** 	lcd_init();
- 325               		.loc 1 93 2 view .LVU60
- 326 002a 0E94 0000 		call lcd_init
- 327               	.LVL35:
+  92:main.c        **** 	/* Initialize RTC driver */
+  93:main.c        **** 	rtc_init();
+ 328               		.loc 1 93 2 view .LVU60
+ 329 0030 0E94 0000 		call rtc_init
+ 330               	.LVL35:
   94:main.c        **** 
   95:main.c        **** 	/* Initialize SD card driver */
-  96:main.c        **** 	sd_init();
- 328               		.loc 1 96 2 view .LVU61
- 329 002e 0E94 0000 		call sd_init
- 330               	.LVL36:
+  96:main.c        **** 	//sd_init();
   97:main.c        **** 
   98:main.c        **** 	serial_tx_str_P(PSTR("\nREADY.\n\n"));
- 331               		.loc 1 98 2 view .LVU62
+ 331               		.loc 1 98 2 view .LVU61
  332               	.LBB3:
- 333               		.loc 1 98 18 view .LVU63
- 334               		.loc 1 98 18 view .LVU64
+ 333               		.loc 1 98 18 view .LVU62
+ 334               		.loc 1 98 18 view .LVU63
  335               	.LBE3:
- 336               		.loc 1 98 2 is_stmt 0 view .LVU65
- 337 0032 80E0      		ldi r24,lo8(__c.0)
- 338 0034 90E0      		ldi r25,hi8(__c.0)
- 339 0036 0E94 0000 		call serial_tx_str_P
- 340               	.LVL37:
- 341               	.L12:
+ 336               		.loc 1 98 2 is_stmt 0 view .LVU64
+ 337 0034 80E0      		ldi r24,lo8(__c.0)
+ 338 0036 90E0      		ldi r25,hi8(__c.0)
+ 339 0038 0E94 0000 		call serial_tx_str_P
+ 340               	.LVL36:
   99:main.c        **** 
- 100:main.c        **** 	/* --- READY --- */
+ 100:main.c        **** 	lcd_rect(10, 10, 200, 200, COLOR_RED);
+ 341               		.loc 1 100 2 is_stmt 1 view .LVU65
+ 342 003c 00E0      		ldi r16,0
+ 343 003e 18EF      		ldi r17,lo8(-8)
+ 344 0040 28EC      		ldi r18,lo8(-56)
+ 345 0042 30E0      		ldi r19,0
+ 346 0044 48EC      		ldi r20,lo8(-56)
+ 347 0046 50E0      		ldi r21,0
+ 348 0048 6AE0      		ldi r22,lo8(10)
+ 349 004a 70E0      		ldi r23,0
+ 350 004c 8AE0      		ldi r24,lo8(10)
+ 351 004e 90E0      		ldi r25,0
+ 352 0050 0E94 0000 		call lcd_rect
+ 353               	.LVL37:
+ 354               	.L12:
  101:main.c        **** 
- 102:main.c        **** 	/* Infinite loop */
- 103:main.c        **** 	for(;;)
- 342               		.loc 1 103 2 is_stmt 1 discriminator 1 view .LVU66
- 104:main.c        **** 	{
- 105:main.c        **** 	}
- 343               		.loc 1 105 2 discriminator 1 view .LVU67
- 103:main.c        **** 	{
- 344               		.loc 1 103 2 discriminator 1 view .LVU68
- 345 003a 00C0      		rjmp .L12
- 346               		.cfi_endproc
- 347               	.LFE9:
- 349               		.section	.progmem.data,"a",@progbits
- 352               	__c.0:
- 353 0000 0A52 4541 		.string	"\nREADY.\n\n"
- 353      4459 2E0A 
- 353      0A00 
- 356               	__c.1:
- 357 000a 0A49 6D61 		.string	"\nImaginaryOS Version 0.1 Booting ...\n\n"
- 357      6769 6E61 
- 357      7279 4F53 
- 357      2056 6572 
- 357      7369 6F6E 
- 358               		.text
- 359               	.Letext0:
- 360               		.file 2 "/usr/lib/gcc/avr/12.2.0/include/stdint-gcc.h"
- 361               		.file 3 "../../types/types.h"
- 362               		.file 4 "sd/sd.h"
- 363               		.file 5 "lcd/lcd.h"
- 364               		.file 6 "rtc/rtc.h"
- 365               		.file 7 "ps2/ps2.h"
- 366               		.file 8 "random/random.h"
- 367               		.file 9 "adc/adc.h"
- 368               		.file 10 "xmem/xmem.h"
- 369               		.file 11 "spi/spi.h"
- 370               		.file 12 "timer/timer.h"
- 371               		.file 13 "serial/serial.h"
+ 102:main.c        **** 	/* --- READY --- */
+ 103:main.c        **** 
+ 104:main.c        **** 	/* Infinite loop */
+ 105:main.c        **** 	for(;;)
+ 355               		.loc 1 105 2 discriminator 1 view .LVU66
+ 106:main.c        **** 	{
+ 107:main.c        **** 	}
+ 356               		.loc 1 107 2 discriminator 1 view .LVU67
+ 105:main.c        **** 	{
+ 357               		.loc 1 105 2 discriminator 1 view .LVU68
+ 358 0054 00C0      		rjmp .L12
+ 359               		.cfi_endproc
+ 360               	.LFE9:
+ 362               		.section	.progmem.data,"a",@progbits
+ 365               	__c.0:
+ 366 0000 0A52 4541 		.string	"\nREADY.\n\n"
+ 366      4459 2E0A 
+ 366      0A00 
+ 369               	__c.1:
+ 370 000a 0A49 6D61 		.string	"\nImaginaryOS Version 0.1 Booting ...\n\n"
+ 370      6769 6E61 
+ 370      7279 4F53 
+ 370      2056 6572 
+ 370      7369 6F6E 
+ 371               		.text
+ 372               	.Letext0:
+ 373               		.file 2 "/usr/lib/gcc/avr/12.2.0/include/stdint-gcc.h"
+ 374               		.file 3 "../../types/types.h"
+ 375               		.file 4 "lcd/lcd.h"
+ 376               		.file 5 "rtc/rtc.h"
+ 377               		.file 6 "ps2/ps2.h"
+ 378               		.file 7 "random/random.h"
+ 379               		.file 8 "adc/adc.h"
+ 380               		.file 9 "xmem/xmem.h"
+ 381               		.file 10 "spi/spi.h"
+ 382               		.file 11 "timer/timer.h"
+ 383               		.file 12 "serial/serial.h"
 DEFINED SYMBOLS
                             *ABS*:00000000 main.c
-     /tmp/ccfBBepv.s:2      *ABS*:0000003e __SP_H__
-     /tmp/ccfBBepv.s:3      *ABS*:0000003d __SP_L__
-     /tmp/ccfBBepv.s:4      *ABS*:0000003f __SREG__
-     /tmp/ccfBBepv.s:5      *ABS*:00000000 __tmp_reg__
-     /tmp/ccfBBepv.s:6      *ABS*:00000001 __zero_reg__
-     /tmp/ccfBBepv.s:13     .text:00000000 byte_to_hex
-     /tmp/ccfBBepv.s:17     .text:00000000 .Loc.0
-     /tmp/ccfBBepv.s:18     .text:00000000 L0
-     /tmp/ccfBBepv.s:23     .text:00000000 .Loc.1
-     /tmp/ccfBBepv.s:24     .text:00000000 .Loc.2
-     /tmp/ccfBBepv.s:27     .text:00000004 .Loc.3
-     /tmp/ccfBBepv.s:28     .text:00000004 .Loc.4
-     /tmp/ccfBBepv.s:31     .text:00000006 .Loc.5
-     /tmp/ccfBBepv.s:35     .text:00000008 .Loc.6
-     /tmp/ccfBBepv.s:36     .text:00000008 .Loc.7
-     /tmp/ccfBBepv.s:40     .text:0000000a .Loc.8
-     /tmp/ccfBBepv.s:42     .text:0000000c L0
-     /tmp/ccfBBepv.s:47     .text:0000000c ps2_event
-     /tmp/ccfBBepv.s:50     .text:0000000c .Loc.9
-     /tmp/ccfBBepv.s:51     .text:0000000c L0
-     /tmp/ccfBBepv.s:52     .text:0000000c .Loc.10
-     /tmp/ccfBBepv.s:61     .text:00000010 .Loc.11
-     /tmp/ccfBBepv.s:64     .text:00000012 .Loc.12
-     /tmp/ccfBBepv.s:67     .text:00000016 .Loc.13
-     /tmp/ccfBBepv.s:71     .text:0000001c .Loc.14
-     /tmp/ccfBBepv.s:79     .text:0000002a .Loc.15
-     /tmp/ccfBBepv.s:85     .text:00000032 .Loc.16
-     /tmp/ccfBBepv.s:88     .text:00000034 .Loc.17
-     /tmp/ccfBBepv.s:91     .text:00000038 L0
-     /tmp/ccfBBepv.s:96     .text:00000038 serial_write
-     /tmp/ccfBBepv.s:99     .text:00000038 .Loc.18
-     /tmp/ccfBBepv.s:100    .text:00000038 L0
-     /tmp/ccfBBepv.s:101    .text:00000038 .Loc.19
-     /tmp/ccfBBepv.s:138    .text:00000050 .Loc.20
-     /tmp/ccfBBepv.s:139    .text:00000050 .Loc.21
-     /tmp/ccfBBepv.s:141    .text:00000050 .Loc.22
-     /tmp/ccfBBepv.s:142    .text:00000050 .Loc.23
-     /tmp/ccfBBepv.s:144    .text:00000052 .Loc.24
-     /tmp/ccfBBepv.s:150    .text:00000058 .Loc.25
-     /tmp/ccfBBepv.s:157    .text:00000062 .Loc.26
-     /tmp/ccfBBepv.s:169    .text:00000076 .Loc.27
-     /tmp/ccfBBepv.s:173    .text:00000078 .Loc.28
-     /tmp/ccfBBepv.s:177    .text:0000007e .Loc.29
-     /tmp/ccfBBepv.s:184    .text:00000088 .Loc.30
-     /tmp/ccfBBepv.s:186    .text:0000008a L0
-     /tmp/ccfBBepv.s:191    .text:0000008a memory_size
-     /tmp/ccfBBepv.s:193    .text:0000008a .Loc.31
-     /tmp/ccfBBepv.s:194    .text:0000008a L0
-     /tmp/ccfBBepv.s:199    .text:0000008a .Loc.32
-     /tmp/ccfBBepv.s:200    .text:0000008a .Loc.33
-     /tmp/ccfBBepv.s:207    .text:00000094 L0
-     /tmp/ccfBBepv.s:212    .text:00000094 memory_read
-     /tmp/ccfBBepv.s:215    .text:00000094 .Loc.34
-     /tmp/ccfBBepv.s:216    .text:00000094 L0
-     /tmp/ccfBBepv.s:217    .text:00000094 .Loc.35
-     /tmp/ccfBBepv.s:228    .text:00000098 .Loc.36
-     /tmp/ccfBBepv.s:231    .text:0000009a .Loc.37
-     /tmp/ccfBBepv.s:235    .text:0000009e .Loc.38
-     /tmp/ccfBBepv.s:238    .text:000000a2 .Loc.39
-     /tmp/ccfBBepv.s:239    .text:000000a2 L0
-     /tmp/ccfBBepv.s:244    .text:000000a2 memory_write
-     /tmp/ccfBBepv.s:247    .text:000000a2 .Loc.40
-     /tmp/ccfBBepv.s:248    .text:000000a2 L0
-     /tmp/ccfBBepv.s:249    .text:000000a2 .Loc.41
-     /tmp/ccfBBepv.s:260    .text:000000a6 .Loc.42
-     /tmp/ccfBBepv.s:263    .text:000000a8 .Loc.43
-     /tmp/ccfBBepv.s:267    .text:000000ac .Loc.44
-     /tmp/ccfBBepv.s:270    .text:000000b0 .Loc.45
-     /tmp/ccfBBepv.s:271    .text:000000b0 L0
-     /tmp/ccfBBepv.s:277    .text.startup:00000000 main
-     /tmp/ccfBBepv.s:279    .text.startup:00000000 .Loc.46
-     /tmp/ccfBBepv.s:280    .text.startup:00000000 L0
-     /tmp/ccfBBepv.s:285    .text.startup:00000000 .Loc.47
-     /tmp/ccfBBepv.s:288    .text.startup:00000004 .Loc.48
-     /tmp/ccfBBepv.s:293    .text.startup:00000006 .Loc.49
-     /tmp/ccfBBepv.s:296    .text.startup:00000006 .Loc.50
-     /tmp/ccfBBepv.s:297    .text.startup:00000006 .Loc.51
-     /tmp/ccfBBepv.s:299    .text.startup:00000006 .Loc.52
-     /tmp/ccfBBepv.s:356    .progmem.data:0000000a __c.1
-     /tmp/ccfBBepv.s:304    .text.startup:0000000e .Loc.53
-     /tmp/ccfBBepv.s:307    .text.startup:00000012 .Loc.54
-     /tmp/ccfBBepv.s:310    .text.startup:00000016 .Loc.55
-     /tmp/ccfBBepv.s:313    .text.startup:0000001a .Loc.56
-     /tmp/ccfBBepv.s:316    .text.startup:0000001e .Loc.57
-     /tmp/ccfBBepv.s:319    .text.startup:00000022 .Loc.58
-     /tmp/ccfBBepv.s:322    .text.startup:00000026 .Loc.59
-     /tmp/ccfBBepv.s:325    .text.startup:0000002a .Loc.60
-     /tmp/ccfBBepv.s:328    .text.startup:0000002e .Loc.61
-     /tmp/ccfBBepv.s:331    .text.startup:00000032 .Loc.62
-     /tmp/ccfBBepv.s:333    .text.startup:00000032 .Loc.63
-     /tmp/ccfBBepv.s:334    .text.startup:00000032 .Loc.64
-     /tmp/ccfBBepv.s:336    .text.startup:00000032 .Loc.65
-     /tmp/ccfBBepv.s:352    .progmem.data:00000000 __c.0
-     /tmp/ccfBBepv.s:342    .text.startup:0000003a .Loc.66
-     /tmp/ccfBBepv.s:343    .text.startup:0000003a .Loc.67
-     /tmp/ccfBBepv.s:344    .text.startup:0000003a .Loc.68
-     /tmp/ccfBBepv.s:346    .text.startup:0000003c L0
-     /tmp/ccfBBepv.s:372    .text:000000b0 L0
-     /tmp/ccfBBepv.s:349    .text.startup:0000003c L0
+     /tmp/cc9U2vJV.s:2      *ABS*:0000003e __SP_H__
+     /tmp/cc9U2vJV.s:3      *ABS*:0000003d __SP_L__
+     /tmp/cc9U2vJV.s:4      *ABS*:0000003f __SREG__
+     /tmp/cc9U2vJV.s:5      *ABS*:00000000 __tmp_reg__
+     /tmp/cc9U2vJV.s:6      *ABS*:00000001 __zero_reg__
+     /tmp/cc9U2vJV.s:13     .text:00000000 byte_to_hex
+     /tmp/cc9U2vJV.s:17     .text:00000000 .Loc.0
+     /tmp/cc9U2vJV.s:18     .text:00000000 L0
+     /tmp/cc9U2vJV.s:23     .text:00000000 .Loc.1
+     /tmp/cc9U2vJV.s:24     .text:00000000 .Loc.2
+     /tmp/cc9U2vJV.s:27     .text:00000004 .Loc.3
+     /tmp/cc9U2vJV.s:28     .text:00000004 .Loc.4
+     /tmp/cc9U2vJV.s:31     .text:00000006 .Loc.5
+     /tmp/cc9U2vJV.s:35     .text:00000008 .Loc.6
+     /tmp/cc9U2vJV.s:36     .text:00000008 .Loc.7
+     /tmp/cc9U2vJV.s:40     .text:0000000a .Loc.8
+     /tmp/cc9U2vJV.s:42     .text:0000000c L0
+     /tmp/cc9U2vJV.s:47     .text:0000000c ps2_event
+     /tmp/cc9U2vJV.s:50     .text:0000000c .Loc.9
+     /tmp/cc9U2vJV.s:51     .text:0000000c L0
+     /tmp/cc9U2vJV.s:52     .text:0000000c .Loc.10
+     /tmp/cc9U2vJV.s:61     .text:00000010 .Loc.11
+     /tmp/cc9U2vJV.s:64     .text:00000012 .Loc.12
+     /tmp/cc9U2vJV.s:67     .text:00000016 .Loc.13
+     /tmp/cc9U2vJV.s:71     .text:0000001c .Loc.14
+     /tmp/cc9U2vJV.s:79     .text:0000002a .Loc.15
+     /tmp/cc9U2vJV.s:85     .text:00000032 .Loc.16
+     /tmp/cc9U2vJV.s:88     .text:00000034 .Loc.17
+     /tmp/cc9U2vJV.s:91     .text:00000038 L0
+     /tmp/cc9U2vJV.s:96     .text:00000038 serial_write
+     /tmp/cc9U2vJV.s:99     .text:00000038 .Loc.18
+     /tmp/cc9U2vJV.s:100    .text:00000038 L0
+     /tmp/cc9U2vJV.s:101    .text:00000038 .Loc.19
+     /tmp/cc9U2vJV.s:138    .text:00000050 .Loc.20
+     /tmp/cc9U2vJV.s:139    .text:00000050 .Loc.21
+     /tmp/cc9U2vJV.s:141    .text:00000050 .Loc.22
+     /tmp/cc9U2vJV.s:142    .text:00000050 .Loc.23
+     /tmp/cc9U2vJV.s:144    .text:00000052 .Loc.24
+     /tmp/cc9U2vJV.s:150    .text:00000058 .Loc.25
+     /tmp/cc9U2vJV.s:157    .text:00000062 .Loc.26
+     /tmp/cc9U2vJV.s:169    .text:00000076 .Loc.27
+     /tmp/cc9U2vJV.s:173    .text:00000078 .Loc.28
+     /tmp/cc9U2vJV.s:177    .text:0000007e .Loc.29
+     /tmp/cc9U2vJV.s:184    .text:00000088 .Loc.30
+     /tmp/cc9U2vJV.s:186    .text:0000008a L0
+     /tmp/cc9U2vJV.s:191    .text:0000008a memory_size
+     /tmp/cc9U2vJV.s:193    .text:0000008a .Loc.31
+     /tmp/cc9U2vJV.s:194    .text:0000008a L0
+     /tmp/cc9U2vJV.s:199    .text:0000008a .Loc.32
+     /tmp/cc9U2vJV.s:200    .text:0000008a .Loc.33
+     /tmp/cc9U2vJV.s:207    .text:00000094 L0
+     /tmp/cc9U2vJV.s:212    .text:00000094 memory_read
+     /tmp/cc9U2vJV.s:215    .text:00000094 .Loc.34
+     /tmp/cc9U2vJV.s:216    .text:00000094 L0
+     /tmp/cc9U2vJV.s:217    .text:00000094 .Loc.35
+     /tmp/cc9U2vJV.s:228    .text:00000098 .Loc.36
+     /tmp/cc9U2vJV.s:231    .text:0000009a .Loc.37
+     /tmp/cc9U2vJV.s:235    .text:0000009e .Loc.38
+     /tmp/cc9U2vJV.s:238    .text:000000a2 .Loc.39
+     /tmp/cc9U2vJV.s:239    .text:000000a2 L0
+     /tmp/cc9U2vJV.s:244    .text:000000a2 memory_write
+     /tmp/cc9U2vJV.s:247    .text:000000a2 .Loc.40
+     /tmp/cc9U2vJV.s:248    .text:000000a2 L0
+     /tmp/cc9U2vJV.s:249    .text:000000a2 .Loc.41
+     /tmp/cc9U2vJV.s:260    .text:000000a6 .Loc.42
+     /tmp/cc9U2vJV.s:263    .text:000000a8 .Loc.43
+     /tmp/cc9U2vJV.s:267    .text:000000ac .Loc.44
+     /tmp/cc9U2vJV.s:270    .text:000000b0 .Loc.45
+     /tmp/cc9U2vJV.s:271    .text:000000b0 L0
+     /tmp/cc9U2vJV.s:277    .text.startup:00000000 main
+     /tmp/cc9U2vJV.s:279    .text.startup:00000000 .Loc.46
+     /tmp/cc9U2vJV.s:280    .text.startup:00000000 L0
+     /tmp/cc9U2vJV.s:285    .text.startup:00000000 .Loc.47
+     /tmp/cc9U2vJV.s:288    .text.startup:00000004 .Loc.48
+     /tmp/cc9U2vJV.s:293    .text.startup:00000006 .Loc.49
+     /tmp/cc9U2vJV.s:296    .text.startup:00000006 .Loc.50
+     /tmp/cc9U2vJV.s:297    .text.startup:00000006 .Loc.51
+     /tmp/cc9U2vJV.s:299    .text.startup:00000006 .Loc.52
+     /tmp/cc9U2vJV.s:369    .progmem.data:0000000a __c.1
+     /tmp/cc9U2vJV.s:304    .text.startup:0000000e .Loc.53
+     /tmp/cc9U2vJV.s:307    .text.startup:00000012 .Loc.54
+     /tmp/cc9U2vJV.s:310    .text.startup:00000016 .Loc.55
+     /tmp/cc9U2vJV.s:313    .text.startup:0000001a .Loc.56
+     /tmp/cc9U2vJV.s:319    .text.startup:00000024 .Loc.57
+     /tmp/cc9U2vJV.s:322    .text.startup:00000028 .Loc.58
+     /tmp/cc9U2vJV.s:325    .text.startup:0000002c .Loc.59
+     /tmp/cc9U2vJV.s:328    .text.startup:00000030 .Loc.60
+     /tmp/cc9U2vJV.s:331    .text.startup:00000034 .Loc.61
+     /tmp/cc9U2vJV.s:333    .text.startup:00000034 .Loc.62
+     /tmp/cc9U2vJV.s:334    .text.startup:00000034 .Loc.63
+     /tmp/cc9U2vJV.s:336    .text.startup:00000034 .Loc.64
+     /tmp/cc9U2vJV.s:365    .progmem.data:00000000 __c.0
+     /tmp/cc9U2vJV.s:341    .text.startup:0000003c .Loc.65
+     /tmp/cc9U2vJV.s:355    .text.startup:00000054 .Loc.66
+     /tmp/cc9U2vJV.s:356    .text.startup:00000054 .Loc.67
+     /tmp/cc9U2vJV.s:357    .text.startup:00000054 .Loc.68
+     /tmp/cc9U2vJV.s:359    .text.startup:00000056 L0
+     /tmp/cc9U2vJV.s:384    .text:000000b0 L0
+     /tmp/cc9U2vJV.s:362    .text.startup:00000056 L0
                      .debug_frame:00000000 L0
-     /tmp/ccfBBepv.s:34     .text:00000008 .L2
-     /tmp/ccfBBepv.s:172    .text:00000078 .L7
-     /tmp/ccfBBepv.s:149    .text:00000058 .L6
-     /tmp/ccfBBepv.s:341    .text.startup:0000003a .L12
-     /tmp/ccfBBepv.s:954    .debug_abbrev:00000000 .Ldebug_abbrev0
-     /tmp/ccfBBepv.s:1811   .debug_rnglists:0000000c .LLRL12
-     /tmp/ccfBBepv.s:1821   .debug_line:00000000 .Ldebug_line0
-     /tmp/ccfBBepv.s:278    .text.startup:00000000 .LFB9
-     /tmp/ccfBBepv.s:347    .text.startup:0000003c .LFE9
-     /tmp/ccfBBepv.s:295    .text.startup:00000006 .LBB2
-     /tmp/ccfBBepv.s:298    .text.startup:00000006 .LBE2
-     /tmp/ccfBBepv.s:332    .text.startup:00000032 .LBB3
-     /tmp/ccfBBepv.s:335    .text.startup:00000032 .LBE3
-     /tmp/ccfBBepv.s:287    .text.startup:00000004 .LVL26
-     /tmp/ccfBBepv.s:303    .text.startup:0000000e .LVL27
-     /tmp/ccfBBepv.s:306    .text.startup:00000012 .LVL28
-     /tmp/ccfBBepv.s:309    .text.startup:00000016 .LVL29
-     /tmp/ccfBBepv.s:312    .text.startup:0000001a .LVL30
-     /tmp/ccfBBepv.s:315    .text.startup:0000001e .LVL31
-     /tmp/ccfBBepv.s:318    .text.startup:00000022 .LVL32
-     /tmp/ccfBBepv.s:321    .text.startup:00000026 .LVL33
-     /tmp/ccfBBepv.s:324    .text.startup:0000002a .LVL34
-     /tmp/ccfBBepv.s:327    .text.startup:0000002e .LVL35
-     /tmp/ccfBBepv.s:330    .text.startup:00000032 .LVL36
-     /tmp/ccfBBepv.s:340    .text.startup:0000003a .LVL37
-     /tmp/ccfBBepv.s:246    .text:000000a2 .LFB8
-     /tmp/ccfBBepv.s:272    .text:000000b0 .LFE8
-     /tmp/ccfBBepv.s:1417   .debug_loclists:00000010 .LLST9
-     /tmp/ccfBBepv.s:1412   .debug_loclists:0000000c .LVUS9
-     /tmp/ccfBBepv.s:1450   .debug_loclists:00000032 .LLST10
-     /tmp/ccfBBepv.s:1445   .debug_loclists:0000002e .LVUS10
-     /tmp/ccfBBepv.s:1477   .debug_loclists:0000004e .LLST11
-     /tmp/ccfBBepv.s:1472   .debug_loclists:0000004a .LVUS11
-     /tmp/ccfBBepv.s:269    .text:000000b0 .LVL25
-     /tmp/ccfBBepv.s:214    .text:00000094 .LFB7
-     /tmp/ccfBBepv.s:240    .text:000000a2 .LFE7
-     /tmp/ccfBBepv.s:1510   .debug_loclists:00000070 .LLST6
-     /tmp/ccfBBepv.s:1505   .debug_loclists:0000006c .LVUS6
-     /tmp/ccfBBepv.s:1543   .debug_loclists:00000092 .LLST7
-     /tmp/ccfBBepv.s:1538   .debug_loclists:0000008e .LVUS7
-     /tmp/ccfBBepv.s:1570   .debug_loclists:000000ae .LLST8
-     /tmp/ccfBBepv.s:1565   .debug_loclists:000000aa .LVUS8
-     /tmp/ccfBBepv.s:237    .text:000000a2 .LVL22
-     /tmp/ccfBBepv.s:192    .text:0000008a .LFB6
-     /tmp/ccfBBepv.s:208    .text:00000094 .LFE6
-     /tmp/ccfBBepv.s:98     .text:00000038 .LFB5
-     /tmp/ccfBBepv.s:187    .text:0000008a .LFE5
-     /tmp/ccfBBepv.s:1603   .debug_loclists:000000d0 .LLST2
-     /tmp/ccfBBepv.s:1598   .debug_loclists:000000cc .LVUS2
-     /tmp/ccfBBepv.s:1630   .debug_loclists:000000ec .LLST3
-     /tmp/ccfBBepv.s:1625   .debug_loclists:000000e8 .LVUS3
-     /tmp/ccfBBepv.s:1665   .debug_loclists:00000110 .LLST4
-     /tmp/ccfBBepv.s:1658   .debug_loclists:0000010a .LVUS4
-     /tmp/ccfBBepv.s:1710   .debug_loclists:0000013e .LLST5
-     /tmp/ccfBBepv.s:1707   .debug_loclists:0000013c .LVUS5
-     /tmp/ccfBBepv.s:176    .text:0000007e .LVL18
-     /tmp/ccfBBepv.s:49     .text:0000000c .LFB4
-     /tmp/ccfBBepv.s:92     .text:00000038 .LFE4
-     /tmp/ccfBBepv.s:1729   .debug_loclists:00000152 .LLST1
-     /tmp/ccfBBepv.s:1722   .debug_loclists:0000014c .LVUS1
-     /tmp/ccfBBepv.s:66     .text:00000016 .LVL6
-     /tmp/ccfBBepv.s:70     .text:0000001c .LVL7
-     /tmp/ccfBBepv.s:76     .text:00000026 .LVL8
-     /tmp/ccfBBepv.s:78     .text:0000002a .LVL9
-     /tmp/ccfBBepv.s:83     .text:00000032 .LVL10
-     /tmp/ccfBBepv.s:90     .text:00000038 .LVL12
-     /tmp/ccfBBepv.s:15     .text:00000000 .LFB3
-     /tmp/ccfBBepv.s:43     .text:0000000c .LFE3
-     /tmp/ccfBBepv.s:1760   .debug_loclists:00000172 .LLST0
-     /tmp/ccfBBepv.s:1751   .debug_loclists:0000016a .LVUS0
-     /tmp/ccfBBepv.s:245    .text:000000a2 .LVL23
-     /tmp/ccfBBepv.s:213    .text:00000094 .LVL20
-     /tmp/ccfBBepv.s:97     .text:00000038 .LVL13
-     /tmp/ccfBBepv.s:140    .text:00000050 .LVL14
-     /tmp/ccfBBepv.s:48     .text:0000000c .LVL4
-     /tmp/ccfBBepv.s:14     .text:00000000 .LVL0
-     /tmp/ccfBBepv.s:373    .debug_info:00000000 .Ldebug_info0
-     /tmp/ccfBBepv.s:8      .text:00000000 .Ltext0
-     /tmp/ccfBBepv.s:359    .text:000000b0 .Letext0
+     /tmp/cc9U2vJV.s:34     .text:00000008 .L2
+     /tmp/cc9U2vJV.s:172    .text:00000078 .L7
+     /tmp/cc9U2vJV.s:149    .text:00000058 .L6
+     /tmp/cc9U2vJV.s:354    .text.startup:00000054 .L12
+     /tmp/cc9U2vJV.s:1067   .debug_abbrev:00000000 .Ldebug_abbrev0
+     /tmp/cc9U2vJV.s:1923   .debug_rnglists:0000000c .LLRL12
+     /tmp/cc9U2vJV.s:1933   .debug_line:00000000 .Ldebug_line0
+     /tmp/cc9U2vJV.s:278    .text.startup:00000000 .LFB9
+     /tmp/cc9U2vJV.s:360    .text.startup:00000056 .LFE9
+     /tmp/cc9U2vJV.s:295    .text.startup:00000006 .LBB2
+     /tmp/cc9U2vJV.s:298    .text.startup:00000006 .LBE2
+     /tmp/cc9U2vJV.s:332    .text.startup:00000034 .LBB3
+     /tmp/cc9U2vJV.s:335    .text.startup:00000034 .LBE3
+     /tmp/cc9U2vJV.s:287    .text.startup:00000004 .LVL26
+     /tmp/cc9U2vJV.s:303    .text.startup:0000000e .LVL27
+     /tmp/cc9U2vJV.s:306    .text.startup:00000012 .LVL28
+     /tmp/cc9U2vJV.s:309    .text.startup:00000016 .LVL29
+     /tmp/cc9U2vJV.s:312    .text.startup:0000001a .LVL30
+     /tmp/cc9U2vJV.s:318    .text.startup:00000024 .LVL31
+     /tmp/cc9U2vJV.s:321    .text.startup:00000028 .LVL32
+     /tmp/cc9U2vJV.s:324    .text.startup:0000002c .LVL33
+     /tmp/cc9U2vJV.s:327    .text.startup:00000030 .LVL34
+     /tmp/cc9U2vJV.s:330    .text.startup:00000034 .LVL35
+     /tmp/cc9U2vJV.s:340    .text.startup:0000003c .LVL36
+     /tmp/cc9U2vJV.s:353    .text.startup:00000054 .LVL37
+     /tmp/cc9U2vJV.s:246    .text:000000a2 .LFB8
+     /tmp/cc9U2vJV.s:272    .text:000000b0 .LFE8
+     /tmp/cc9U2vJV.s:1529   .debug_loclists:00000010 .LLST9
+     /tmp/cc9U2vJV.s:1524   .debug_loclists:0000000c .LVUS9
+     /tmp/cc9U2vJV.s:1562   .debug_loclists:00000032 .LLST10
+     /tmp/cc9U2vJV.s:1557   .debug_loclists:0000002e .LVUS10
+     /tmp/cc9U2vJV.s:1589   .debug_loclists:0000004e .LLST11
+     /tmp/cc9U2vJV.s:1584   .debug_loclists:0000004a .LVUS11
+     /tmp/cc9U2vJV.s:269    .text:000000b0 .LVL25
+     /tmp/cc9U2vJV.s:214    .text:00000094 .LFB7
+     /tmp/cc9U2vJV.s:240    .text:000000a2 .LFE7
+     /tmp/cc9U2vJV.s:1622   .debug_loclists:00000070 .LLST6
+     /tmp/cc9U2vJV.s:1617   .debug_loclists:0000006c .LVUS6
+     /tmp/cc9U2vJV.s:1655   .debug_loclists:00000092 .LLST7
+     /tmp/cc9U2vJV.s:1650   .debug_loclists:0000008e .LVUS7
+     /tmp/cc9U2vJV.s:1682   .debug_loclists:000000ae .LLST8
+     /tmp/cc9U2vJV.s:1677   .debug_loclists:000000aa .LVUS8
+     /tmp/cc9U2vJV.s:237    .text:000000a2 .LVL22
+     /tmp/cc9U2vJV.s:192    .text:0000008a .LFB6
+     /tmp/cc9U2vJV.s:208    .text:00000094 .LFE6
+     /tmp/cc9U2vJV.s:98     .text:00000038 .LFB5
+     /tmp/cc9U2vJV.s:187    .text:0000008a .LFE5
+     /tmp/cc9U2vJV.s:1715   .debug_loclists:000000d0 .LLST2
+     /tmp/cc9U2vJV.s:1710   .debug_loclists:000000cc .LVUS2
+     /tmp/cc9U2vJV.s:1742   .debug_loclists:000000ec .LLST3
+     /tmp/cc9U2vJV.s:1737   .debug_loclists:000000e8 .LVUS3
+     /tmp/cc9U2vJV.s:1777   .debug_loclists:00000110 .LLST4
+     /tmp/cc9U2vJV.s:1770   .debug_loclists:0000010a .LVUS4
+     /tmp/cc9U2vJV.s:1822   .debug_loclists:0000013e .LLST5
+     /tmp/cc9U2vJV.s:1819   .debug_loclists:0000013c .LVUS5
+     /tmp/cc9U2vJV.s:176    .text:0000007e .LVL18
+     /tmp/cc9U2vJV.s:49     .text:0000000c .LFB4
+     /tmp/cc9U2vJV.s:92     .text:00000038 .LFE4
+     /tmp/cc9U2vJV.s:1841   .debug_loclists:00000152 .LLST1
+     /tmp/cc9U2vJV.s:1834   .debug_loclists:0000014c .LVUS1
+     /tmp/cc9U2vJV.s:66     .text:00000016 .LVL6
+     /tmp/cc9U2vJV.s:70     .text:0000001c .LVL7
+     /tmp/cc9U2vJV.s:76     .text:00000026 .LVL8
+     /tmp/cc9U2vJV.s:78     .text:0000002a .LVL9
+     /tmp/cc9U2vJV.s:83     .text:00000032 .LVL10
+     /tmp/cc9U2vJV.s:90     .text:00000038 .LVL12
+     /tmp/cc9U2vJV.s:15     .text:00000000 .LFB3
+     /tmp/cc9U2vJV.s:43     .text:0000000c .LFE3
+     /tmp/cc9U2vJV.s:1872   .debug_loclists:00000172 .LLST0
+     /tmp/cc9U2vJV.s:1863   .debug_loclists:0000016a .LVUS0
+     /tmp/cc9U2vJV.s:245    .text:000000a2 .LVL23
+     /tmp/cc9U2vJV.s:213    .text:00000094 .LVL20
+     /tmp/cc9U2vJV.s:97     .text:00000038 .LVL13
+     /tmp/cc9U2vJV.s:140    .text:00000050 .LVL14
+     /tmp/cc9U2vJV.s:48     .text:0000000c .LVL4
+     /tmp/cc9U2vJV.s:14     .text:00000000 .LVL0
+     /tmp/cc9U2vJV.s:385    .debug_info:00000000 .Ldebug_info0
+     /tmp/cc9U2vJV.s:8      .text:00000000 .Ltext0
+     /tmp/cc9U2vJV.s:372    .text:000000b0 .Letext0
 
 UNDEFINED SYMBOLS
 serial_tx
@@ -662,9 +676,9 @@ serial_tx_str_P
 timer_init
 spi_init
 xmem_init
+lcd_init
 adc_init
 random_init
 ps2_init
 rtc_init
-lcd_init
-sd_init
+lcd_rect

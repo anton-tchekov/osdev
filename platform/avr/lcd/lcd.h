@@ -23,12 +23,35 @@
 #define COLOR_BLACK    0x0000
 
 /** Width and height of the display */
-#define LCD_HEIGHT     320
-#define LCD_WIDTH      480
+#define LCD_HEIGHT     480
+#define LCD_WIDTH      320
+
+typedef u16 RGB565;
+
+/**
+ * @brief Set LCD backligh brightness
+ *
+ * @param backlight Backlight brightness from 0-255
+ */
+void lcd_backlight(u8 value);
 
 /**
  * @brief Initialize LCD
+ *
+ * @param backlight Backlight brightness from 0-255
+ * @param bg Init background color
  */
-void lcd_init(void);
+void lcd_init(u8 backlight, RGB565 bg);
+
+/**
+ * @brief Draw
+ *
+ * @param x X-Coordinate
+ * @param y Y-Coordinate
+ * @param w Width
+ * @param h height
+ * @param color Fill color
+ */
+void lcd_rect(u16 x, u16 y, u16 w, u16 h, RGB565 color);
 
 #endif /* __LCD_H__ */

@@ -7,360 +7,304 @@
 
 #include <lcd.h>
 #include <logger.h>
+#include <spi.h>
 #include <avr/pgmspace.h>
+#include <util/delay.h>
 
-void lcd_init(void)
+enum
 {
-	/* TODO: Initialize LCD */
-	log_boot_P(PSTR("LCD driver initialized (not implemented)"));
-}
-
-
-
-
-#ifdef COMMENT
-
-#define STATE_TX_WAIT      0
-#define STATE_RX_WAIT      1
-#define STATE_BUSY_WAIT    2
-
-#define TYPE_EMPTY         0
-#define TYPE_CMD           1
-#define TYPE_PARAM0        2
-#define TYPE_PARAM1        3
-#define TYPE_DATA          4
-
-#define MAX_COMMANDS       (1 << 7)
-#define BUFFER_MASK        (MAX_COMMANDS - 1)
-
-#define RCT_RECT           0
-#define RCT_CHAR           1
-
-#define FONT_WIDTH         5
-#define FONT_HEIGHT        7
-
-typedef struct
-{
-	u8 Type;
-	i32 Char;
-	u16 X, Y, W, H;
-	u16 FG, BG;
-} RenderCommand;
-
-/* Ringpuffer */
-static RenderCommand _commands[MAX_COMMANDS], *_window;
-static u32 _step, _x, _y, _wp, _rp;
-
-#define LCD(TYPE, u8) ((TYPE) | ((u32)((u8) & 0xFF) << 8))
-
-static const u8 font5x7[] =
-{
-	0x00, 0x00, 0x00, 0x00, 0x00, /*   */
-	0x00, 0x00, 0x5F, 0x00, 0x00, /* ! */
-	0x00, 0x07, 0x00, 0x07, 0x00, /* " */
-	0x14, 0x7F, 0x14, 0x7F, 0x14, /* # */
-	0x24, 0x2A, 0x7F, 0x2A, 0x12, /* $ */
-	0x23, 0x13, 0x08, 0x64, 0x62, /* % */
-	0x36, 0x49, 0x55, 0x22, 0x50, /* & */
-	0x00, 0x00, 0x03, 0x00, 0x00, /* ' */
-	0x00, 0x1C, 0x22, 0x41, 0x00, /* ( */
-	0x00, 0x41, 0x22, 0x1C, 0x00, /* ) */
-	0x14, 0x08, 0x3E, 0x08, 0x14, /* * */
-	0x08, 0x08, 0x3E, 0x08, 0x08, /* + */
-	0x00, 0x50, 0x30, 0x00, 0x00, /* , */
-	0x08, 0x08, 0x08, 0x08, 0x08, /* - */
-	0x00, 0x60, 0x60, 0x00, 0x00, /* . */
-	0x20, 0x10, 0x08, 0x04, 0x02, /* / */
-
-	0x3E, 0x51, 0x49, 0x45, 0x3E, /* 0 */
-	0x00, 0x42, 0x7F, 0x40, 0x00, /* 1 */
-	0x62, 0x51, 0x49, 0x49, 0x46, /* 2 */
-	0x22, 0x41, 0x49, 0x49, 0x36, /* 3 */
-	0x18, 0x14, 0x12, 0x7F, 0x10, /* 4 */
-	0x27, 0x45, 0x45, 0x45, 0x39, /* 5 */
-	0x3C, 0x4A, 0x49, 0x49, 0x30, /* 6 */
-	0x01, 0x71, 0x09, 0x05, 0x03, /* 7 */
-	0x36, 0x49, 0x49, 0x49, 0x36, /* 8 */
-	0x06, 0x49, 0x49, 0x29, 0x1E, /* 9 */
-
-	0x00, 0x36, 0x36, 0x00, 0x00, /* : */
-	0x00, 0x56, 0x36, 0x00, 0x00, /* ; */
-	0x08, 0x14, 0x22, 0x41, 0x00, /* < */
-	0x14, 0x14, 0x14, 0x14, 0x14, /* = */
-	0x00, 0x41, 0x22, 0x14, 0x08, /* > */
-	0x02, 0x01, 0x51, 0x09, 0x06, /* ? */
-	0x32, 0x49, 0x79, 0x41, 0x3E, /* @ */
-
-	0x7C, 0x12, 0x11, 0x12, 0x7C, /* A */
-	0x41, 0x7F, 0x49, 0x49, 0x36, /* B */
-	0x3E, 0x41, 0x41, 0x41, 0x22, /* C */
-	0x41, 0x7F, 0x41, 0x41, 0x3E, /* D */
-	0x7F, 0x49, 0x49, 0x49, 0x41, /* E */
-	0x7F, 0x09, 0x09, 0x09, 0x01, /* F */
-	0x3E, 0x41, 0x41, 0x49, 0x7A, /* G */
-	0x7F, 0x08, 0x08, 0x08, 0x7F, /* H */
-	0x00, 0x41, 0x7F, 0x41, 0x00, /* I */
-	0x20, 0x40, 0x41, 0x3F, 0x01, /* J */
-	0x7F, 0x08, 0x14, 0x22, 0x41, /* K */
-	0x7F, 0x40, 0x40, 0x40, 0x40, /* L */
-	0x7F, 0x02, 0x0C, 0x02, 0x7F, /* M */
-	0x7F, 0x04, 0x08, 0x10, 0x7F, /* N */
-	0x3E, 0x41, 0x41, 0x41, 0x3E, /* O */
-	0x7F, 0x09, 0x09, 0x09, 0x06, /* P */
-	0x3E, 0x41, 0x51, 0x21, 0x5E, /* Q */
-	0x7F, 0x09, 0x19, 0x29, 0x46, /* R */
-	0x26, 0x49, 0x49, 0x49, 0x32, /* S */
-	0x01, 0x01, 0x7F, 0x01, 0x01, /* T */
-	0x3F, 0x40, 0x40, 0x40, 0x3F, /* U */
-	0x1F, 0x20, 0x40, 0x20, 0x1F, /* V */
-	0x3F, 0x40, 0x38, 0x40, 0x3F, /* W */
-	0x63, 0x14, 0x08, 0x14, 0x63, /* X */
-	0x07, 0x08, 0x70, 0x08, 0x07, /* Y */
-	0x61, 0x51, 0x49, 0x45, 0x43, /* Z */
-
-	0x00, 0x7F, 0x41, 0x41, 0x00, /* [ */
-	0x02, 0x04, 0x08, 0x10, 0x20, /* \ */
-	0x00, 0x41, 0x41, 0x7F, 0x00, /* ] */
-	0x04, 0x02, 0x01, 0x02, 0x04, /* ^ */
-	0x40, 0x40, 0x40, 0x40, 0x40, /* _ */
-	0x00, 0x01, 0x02, 0x04, 0x00, /* ` */
-
-	0x20, 0x54, 0x54, 0x54, 0x78, /* a */
-	0x7F, 0x48, 0x44, 0x44, 0x38, /* b */
-	0x38, 0x44, 0x44, 0x44, 0x20, /* c */
-	0x38, 0x44, 0x44, 0x48, 0x7F, /* d */
-	0x38, 0x54, 0x54, 0x54, 0x18, /* e */
-	0x08, 0x7E, 0x09, 0x01, 0x02, /* f */
-	0x08, 0x54, 0x54, 0x54, 0x3C, /* g */
-	0x7F, 0x08, 0x04, 0x04, 0x78, /* h */
-	0x00, 0x48, 0x7D, 0x40, 0x00, /* i */
-	0x20, 0x40, 0x44, 0x3D, 0x00, /* j */
-	0x7F, 0x10, 0x28, 0x44, 0x00, /* k */
-	0x00, 0x41, 0x7F, 0x40, 0x00, /* l */
-	0x7C, 0x04, 0x78, 0x04, 0x78, /* m */
-	0x7C, 0x08, 0x04, 0x04, 0x78, /* n */
-	0x38, 0x44, 0x44, 0x44, 0x38, /* o */
-	0x7C, 0x14, 0x14, 0x14, 0x08, /* p */
-	0x08, 0x14, 0x14, 0x18, 0x7C, /* q */
-	0x7C, 0x08, 0x04, 0x04, 0x08, /* r */
-	0x48, 0x54, 0x54, 0x54, 0x20, /* s */
-	0x04, 0x3F, 0x44, 0x40, 0x20, /* t */
-	0x3C, 0x40, 0x40, 0x20, 0x7C, /* u */
-	0x1C, 0x20, 0x40, 0x20, 0x1C, /* v */
-	0x3C, 0x40, 0x30, 0x40, 0x3C, /* w */
-	0x44, 0x28, 0x10, 0x28, 0x44, /* x */
-	0x0C, 0x50, 0x50, 0x50, 0x3C, /* y */
-	0x44, 0x64, 0x54, 0x4C, 0x44, /* z */
-
-	0x00, 0x08, 0x36, 0x41, 0x00, /* { */
-	0x00, 0x00, 0x7F, 0x00, 0x00, /* | */
-	0x00, 0x41, 0x36, 0x08, 0x00, /* } */
-	0x10, 0x08, 0x08, 0x10, 0x08  /* ~ */
+	L2R_U2D,
+	L2R_D2U,
+	R2L_U2D,
+	R2L_D2U,
+	U2D_L2R,
+	U2D_R2L,
+	D2U_L2R,
+	D2U_R2L
 };
 
-static u32 _next_step(void)
+#define SCAN_DIR       L2R_U2D
+
+#define LCD_RST_DIR    DDRD
+#define LCD_RST_OUT    PORTD
+#define LCD_RST_PIN   7
+
+#define LCD_CS_DIR     DDRC
+#define LCD_CS_OUT     PORTC
+#define LCD_CS_PIN    0
+
+#define LCD_DC_DIR     DDRC
+#define LCD_DC_OUT     PORTC
+#define LCD_DC_PIN    1
+
+#define LCD_CS_0        LCD_CS_OUT &= ~(1 << LCD_CS_PIN)
+#define LCD_CS_1        LCD_CS_OUT |= (1 << LCD_CS_PIN)
+
+#define LCD_DC_0        LCD_DC_OUT &= ~(1 << LCD_DC_PIN)
+#define LCD_DC_1        LCD_DC_OUT |= (1 << LCD_DC_PIN)
+
+#define LCD_RST_0       LCD_RST_OUT &= ~(1 << LCD_RST_PIN)
+#define LCD_RST_1       LCD_RST_OUT |= (1 << LCD_RST_PIN)
+
+/* --- PRIVATE --- */
+static void _lcd_configure_gpio(void)
 {
-	u16 value, x, y, w, h, ex, ey;
-	u32 ret = TYPE_EMPTY;
-	if(!_window)
+	LCD_RST_DIR |= (1 << LCD_RST_PIN);
+	LCD_CS_DIR |= (1 << LCD_CS_PIN);
+	LCD_DC_DIR |= (1 << LCD_DC_PIN);
+}
+
+static void _lcd_configure_spi(void)
+{
+	/* F_SPI = F_CPU / 2 */
+	SPCR &= ~((1 << SPR1) | (1 << SPR0));
+	SPSR |= (1 << SPI2X);
+}
+
+static void _lcd_reset(void)
+{
+	LCD_RST_1;
+	_delay_ms(500);
+	LCD_RST_0;
+	_delay_ms(500);
+	LCD_RST_1;
+	_delay_ms(500);
+}
+
+static void _lcd_write_reg(u8 reg)
+{
+	LCD_DC_0;
+	LCD_CS_0;
+	spi_xchg(reg);
+	LCD_CS_1;
+}
+
+static void _lcd_write_data(u8 data)
+{
+	LCD_DC_1;
+	LCD_CS_0;
+	spi_xchg(0);
+	spi_xchg(data);
+	LCD_CS_1;
+}
+
+static void _lcd_window_start(u16 x, u16 y, u16 w, u16 h)
+{
+	u16 x_end, y_end;
+
+	x_end = x + w - 1;
+	y_end = y + h - 1;
+
+	_lcd_write_reg(0x2A);
+	_lcd_write_data(x >> 8);
+	_lcd_write_data(x);
+	_lcd_write_data(x_end >> 8);
+	_lcd_write_data(x_end);
+	_lcd_write_reg(0x2B);
+	_lcd_write_data(y >> 8);
+	_lcd_write_data(y);
+	_lcd_write_data(y_end >> 8);
+	_lcd_write_data(y_end);
+	_lcd_write_reg(0x2C);
+	LCD_DC_1;
+	LCD_CS_0;
+}
+
+static inline void _lcd_pixel(u16 data)
+{
+	spi_xchg(data >> 8);
+	spi_xchg(data);
+}
+
+static inline void _lcd_window_end(void)
+{
+	LCD_CS_1;
+}
+
+static void _lcd_init_reg(void)
+{
+	_lcd_write_reg(0xF9);
+	_lcd_write_data(0x00);
+	_lcd_write_data(0x08);
+	_lcd_write_reg(0xC0);
+	_lcd_write_data(0x19);
+	_lcd_write_data(0x1a);
+	_lcd_write_reg(0xC1);
+	_lcd_write_data(0x45);
+	_lcd_write_data(0x00);
+	_lcd_write_reg(0xC2);
+	_lcd_write_data(0x33);
+	_lcd_write_reg(0xC5);
+	_lcd_write_data(0x00);
+	_lcd_write_data(0x28);
+	_lcd_write_reg(0xB1);
+	_lcd_write_data(0xA0);
+	_lcd_write_data(0x11);
+	_lcd_write_reg(0xB4);
+	_lcd_write_data(0x02);
+	_lcd_write_reg(0xB6);
+	_lcd_write_data(0x00);
+	_lcd_write_data(0x42);
+	_lcd_write_data(0x3B);
+	_lcd_write_reg(0xB7);
+	_lcd_write_data(0x07);
+	_lcd_write_reg(0xE0);
+	_lcd_write_data(0x1F);
+	_lcd_write_data(0x25);
+	_lcd_write_data(0x22);
+	_lcd_write_data(0x0B);
+	_lcd_write_data(0x06);
+	_lcd_write_data(0x0A);
+	_lcd_write_data(0x4E);
+	_lcd_write_data(0xC6);
+	_lcd_write_data(0x39);
+	_lcd_write_data(0x00);
+	_lcd_write_data(0x00);
+	_lcd_write_data(0x00);
+	_lcd_write_data(0x00);
+	_lcd_write_data(0x00);
+	_lcd_write_data(0x00);
+	_lcd_write_reg(0xE1);
+	_lcd_write_data(0x1F);
+	_lcd_write_data(0x3F);
+	_lcd_write_data(0x3F);
+	_lcd_write_data(0x0F);
+	_lcd_write_data(0x1F);
+	_lcd_write_data(0x0F);
+	_lcd_write_data(0x46);
+	_lcd_write_data(0x49);
+	_lcd_write_data(0x31);
+	_lcd_write_data(0x05);
+	_lcd_write_data(0x09);
+	_lcd_write_data(0x03);
+	_lcd_write_data(0x1C);
+	_lcd_write_data(0x1A);
+	_lcd_write_data(0x00);
+	_lcd_write_reg(0xF1);
+	_lcd_write_data(0x36);
+	_lcd_write_data(0x04);
+	_lcd_write_data(0x00);
+	_lcd_write_data(0x3C);
+	_lcd_write_data(0x0F);
+	_lcd_write_data(0x0F);
+	_lcd_write_data(0xA4);
+	_lcd_write_data(0x02);
+	_lcd_write_reg(0xF2);
+	_lcd_write_data(0x18);
+	_lcd_write_data(0xA3);
+	_lcd_write_data(0x12);
+	_lcd_write_data(0x02);
+	_lcd_write_data(0x32);
+	_lcd_write_data(0x12);
+	_lcd_write_data(0xFF);
+	_lcd_write_data(0x32);
+	_lcd_write_data(0x00);
+	_lcd_write_reg(0xF4);
+	_lcd_write_data(0x40);
+	_lcd_write_data(0x00);
+	_lcd_write_data(0x08);
+	_lcd_write_data(0x91);
+	_lcd_write_data(0x04);
+	_lcd_write_reg(0xF8);
+	_lcd_write_data(0x21);
+	_lcd_write_data(0x04);
+	_lcd_write_reg(0x3A);
+	_lcd_write_data(0x55);
+}
+
+static void _lcd_set_gram_scan_dir(u8 scan_dir)
+{
+	u16 a, b;
+	switch(scan_dir)
 	{
-		return ret;
+	case L2R_U2D:
+		a = 0x08;
+		b = 0x22;
+		break;
+
+	case L2R_D2U:
+		a = 0x08;
+		b = 0x62;
+		break;
+
+	case R2L_U2D:
+		a = 0x08;
+		b = 0x02;
+		break;
+
+	case R2L_D2U:
+		a = 0x08;
+		b = 0x42;
+		break;
+
+	case U2D_L2R:
+		a = 0x28;
+		b = 0x22;
+		break;
+
+	case U2D_R2L:
+		a = 0x28;
+		b = 0x02;
+		break;
+
+	case D2U_L2R:
+		a = 0x28;
+		b = 0x62;
+		break;
+
+	case D2U_R2L:
+		a = 0x28;
+		b = 0x42;
+		break;
 	}
 
-	x  = _window->X;
-	y  = _window->Y;
-	w  = _window->W;
-	h  = _window->H;
-	ex = x + w - 1;
-	ey = y + h - 1;
+	_lcd_write_reg(0xB6);
+	_lcd_write_data(0x00);
+	_lcd_write_data(b);
+	_lcd_write_reg(0x36);
+	_lcd_write_data(a);
+}
 
-	switch(_step)
+/* --- PUBLIC --- */
+void lcd_backlight(u8 value)
+{
+	/* TODO: Write PWM Value */
+	(void)value;
+}
+
+void lcd_init(u8 backlight, RGB565 bg)
+{
+	/* Initialize LCD */
+	_lcd_configure_gpio();
+	_lcd_configure_spi();
+
+	_lcd_reset();
+	lcd_backlight(backlight);
+	_lcd_init_reg();
+	_lcd_set_gram_scan_dir(SCAN_DIR);
+	_delay_ms(200);
+	_lcd_write_reg(0x11);
+	_delay_ms(120);
+	_lcd_write_reg(0x29);
+
+	lcd_rect(0, 0, LCD_WIDTH, LCD_HEIGHT, bg);
+
+	log_boot_P(PSTR("LCD driver initialized"));
+}
+
+void lcd_rect(u16 x, u16 y, u16 w, u16 h, RGB565 color)
+{
+	u16 w0, h0;
+
+	_lcd_configure_spi();
+	_lcd_window_start(x, y, w, h);
+	for(h0 = 0; h0 < h; ++h0)
 	{
-		case  0: ret = LCD(TYPE_CMD, 0x2A);       break;
-		case  1: ret = LCD(TYPE_PARAM0, 0);       break;
-		case  2: ret = LCD(TYPE_PARAM1, x >> 8);  break;
-		case  3: ret = LCD(TYPE_PARAM0, 0);       break;
-		case  4: ret = LCD(TYPE_PARAM1, x);       break;
-		case  5: ret = LCD(TYPE_PARAM0, 0);       break;
-		case  6: ret = LCD(TYPE_PARAM1, ex >> 8); break;
-		case  7: ret = LCD(TYPE_PARAM0, 0);       break;
-		case  8: ret = LCD(TYPE_PARAM1, ex);      break;
-
-		case  9: ret = LCD(TYPE_CMD, 0x2B);       break;
-		case 10: ret = LCD(TYPE_PARAM0, 0);       break;
-		case 11: ret = LCD(TYPE_PARAM1, y >> 8);  break;
-		case 12: ret = LCD(TYPE_PARAM0, 0);       break;
-		case 13: ret = LCD(TYPE_PARAM1, y);       break;
-		case 14: ret = LCD(TYPE_PARAM0, 0);       break;
-		case 15: ret = LCD(TYPE_PARAM1, ey >> 8); break;
-		case 16: ret = LCD(TYPE_PARAM0, 0);       break;
-		case 17: ret = LCD(TYPE_PARAM1, ey);      break;
-
-		case 18: ret = LCD(TYPE_CMD, 0x2C);       break;
-
-		default:
-			if(_window->Type == RCT_RECT)
-			{
-				value = _window->FG;
-			}
-			else if(_window->Type == RCT_CHAR)
-			{
-				value = ((font5x7[(_window->Char - 32) * 5 + _x] >> _y) & 1)
-					? _window->FG : _window->BG;
-			}
-
-			if(_step & 1)
-			{
-				value >>= 8;
-			}
-
-			if(_step == 19)
-			{
-				ret = LCD(TYPE_PARAM0, value);
-			}
-			else
-			{
-				ret = LCD(TYPE_DATA, value);
-			}
-
-			if(!(_step & 1))
-			{
-				if(++_x == w)
-				{
-					_x = 0;
-					if(++_y == h)
-					{
-						ret = LCD(TYPE_PARAM1, value);
-						_window = NULL;
-					}
-				}
-			}
-			break;
+		for(w0 = 0; w0 < w; ++w0)
+		{
+			_lcd_pixel(color);
+		}
 	}
 
-	++_step;
-	return ret;
+	_lcd_window_end();
 }
-
-u16 asynclcd_color(u8 r, u8 g, u8 b)
-{
-	return ((r & 0xF8) << 8) | ((g & 0xFC) << 3) | (b >> 3);
-}
-
-void asynclcd_rect(i32 x, i32 y, i32 w, i32 h, u16 color)
-{
-	if(_wp >= _rp + MAX_COMMANDS)
-	{
-		return;
-	}
-
-	RenderCommand *rc = &_commands[_wp++ & BUFFER_MASK];
-	rc->Type = RCT_RECT;
-	rc->X = x;
-	rc->Y = y;
-	rc->W = w;
-	rc->H = h;
-	rc->FG = color;
-}
-
-i32 asynclcd_char(i32 x, i32 y, u16 fg, u16 bg, i32 c)
-{
-	if(_wp >= _rp + MAX_COMMANDS)
-	{
-		return 0;
-	}
-
-	RenderCommand *rc = &_commands[_wp++ & BUFFER_MASK];
-	rc->Type = RCT_CHAR;
-	rc->Char = c;
-	rc->X = x;
-	rc->Y = y;
-	rc->W = FONT_WIDTH;
-	rc->H = FONT_HEIGHT;
-	rc->FG = fg;
-	rc->BG = bg;
-	return FONT_WIDTH + 1;
-}
-
-void asynclcd_string(i32 x, i32 y, u16 fg, u16 bg, const char *s)
-{
-	i32 c;
-	while((c = *s++))
-	{
-		x += asynclcd_char(x, y, fg, bg, c);
-	}
-}
-
-void asynclcd_update(void)
-{
-	static u8 _type, _state;
-
-	switch(_state)
-	{
-		case STATE_TX_WAIT:
-			if(SR & SPI_SR_TXE)
-			{
-				u32 ret = _next_step();
-				if(ret)
-				{
-					u8 byte = ret >> 8;
-					_type = ret;
-
-					if(_type == TYPE_CMD)
-					{
-						LCD_DC_0;
-						LCD_CS_0;
-					}
-					else if(_type == TYPE_PARAM0)
-					{
-						LCD_DC_1;
-						LCD_CS_0;
-					}
-
-					DR = byte;
-					_state = STATE_RX_WAIT;
-				}
-				else
-				{
-					/* next render window */
-					if(_rp < _wp)
-					{
-						_x = 0;
-						_y = 0;
-						_step = 0;
-						_window = &_commands[_rp++ & BUFFER_MASK];
-					}
-				}
-			}
-			break;
-
-		case STATE_RX_WAIT:
-			if(SR & SPI_SR_RXNE)
-			{
-				_state = STATE_BUSY_WAIT;
-			}
-			break;
-
-		case STATE_BUSY_WAIT:
-			if(!(SR & SPI_SR_BSY))
-			{
-				volatile u8 data = DR;
-				if(_type == TYPE_CMD ||
-					_type == TYPE_PARAM1)
-				{
-					LCD_CS_1;
-				}
-
-				_state = STATE_TX_WAIT;
-			}
-			break;
-	}
-}
-
-bool asynclcd_ready(void)
-{
-	return _rp == _wp;
-}
-
-#endif
-

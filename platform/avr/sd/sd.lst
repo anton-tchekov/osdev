@@ -16,7 +16,7 @@
   14               		.text
   15               	.global	sd_init
   17               	sd_init:
-  18               	.LFB21:
+  18               	.LFB20:
   19               		.file 1 "sd/sd.c"
    1:sd/sd.c       **** #include <sd.h>
    2:sd/sd.c       **** #include <spi.h>
@@ -80,92 +80,91 @@
   60:sd/sd.c       **** 
   61:sd/sd.c       **** static u8 _sd_command(u8 cmd, u32 arg)
   62:sd/sd.c       **** {
-  63:sd/sd.c       **** 	return 0;
-  64:sd/sd.c       **** }
-  65:sd/sd.c       **** 
-  66:sd/sd.c       **** static void _spi_configure_slow(void)
-  67:sd/sd.c       **** {
-  68:sd/sd.c       **** 	SPCR = (0 << SPIE) | (1 << SPE)  | (0 << DORD) | (1 << MSTR) |
-  69:sd/sd.c       **** 		(0 << CPOL) | (0 << CPHA) | (1 << SPR1) | (1 << SPR0);
-  70:sd/sd.c       **** 	SPSR &= ~(1 << SPI2X);
-  71:sd/sd.c       **** }
-  72:sd/sd.c       **** 
-  73:sd/sd.c       **** static void _spi_configure_fast(void)
-  74:sd/sd.c       **** {
-  75:sd/sd.c       **** 	SPCR &= ~((1 << SPR1) | (1 << SPR0));
-  76:sd/sd.c       **** 	SPSR |= (1 << SPI2X);
-  77:sd/sd.c       **** }
-  78:sd/sd.c       **** 
-  79:sd/sd.c       **** #ifdef COMMENT
-  80:sd/sd.c       **** static Status _sd_try_command(u8 cmd, u32 arg, u8 *out)
-  81:sd/sd.c       **** {
-  82:sd/sd.c       **** 	u8 i, response;
-  83:sd/sd.c       **** 	RETURN_IF(spi_tx_try(0xFF));
-  84:sd/sd.c       **** 	RETURN_IF(spi_tx_try(0x40 | cmd));
-  85:sd/sd.c       **** 	RETURN_IF(spi_tx_try(arg >> 24));
-  86:sd/sd.c       **** 	RETURN_IF(spi_tx_try(arg >> 16));
-  87:sd/sd.c       **** 	RETURN_IF(spi_tx_try(arg >> 8));
-  88:sd/sd.c       **** 	RETURN_IF(spi_tx_try(arg));
-  89:sd/sd.c       **** 	switch(cmd)
-  90:sd/sd.c       **** 	{
-  91:sd/sd.c       **** 	case CMD_GO_IDLE_STATE:
-  92:sd/sd.c       **** 		RETURN_IF(spi_tx_try(0x95));
-  93:sd/sd.c       **** 		break;
-  94:sd/sd.c       **** 
-  95:sd/sd.c       **** 	case CMD_SEND_IF_COND:
-  96:sd/sd.c       **** 		RETURN_IF(spi_tx_try(0x87));
+  63:sd/sd.c       **** 	/* TODO */
+  64:sd/sd.c       **** 	return 0;
+  65:sd/sd.c       **** }
+  66:sd/sd.c       **** 
+  67:sd/sd.c       **** static void _spi_configure_slow(void)
+  68:sd/sd.c       **** {
+  69:sd/sd.c       **** 	/* TODO */
+  70:sd/sd.c       **** 	SPCR = (0 << SPIE) | (1 << SPE)  | (0 << DORD) | (1 << MSTR) |
+  71:sd/sd.c       **** 		(0 << CPOL) | (0 << CPHA) | (1 << SPR1) | (1 << SPR0);
+  72:sd/sd.c       **** 	SPSR &= ~(1 << SPI2X);
+  73:sd/sd.c       **** }
+  74:sd/sd.c       **** 
+  75:sd/sd.c       **** static void _spi_configure_fast(void)
+  76:sd/sd.c       **** {
+  77:sd/sd.c       **** 	/* TODO */
+  78:sd/sd.c       **** 	SPCR &= ~((1 << SPR1) | (1 << SPR0));
+  79:sd/sd.c       **** 	SPSR |= (1 << SPI2X);
+  80:sd/sd.c       **** }
+  81:sd/sd.c       **** 
+  82:sd/sd.c       **** #ifdef COMMENT
+  83:sd/sd.c       **** static Status _sd_try_command(u8 cmd, u32 arg, u8 *out)
+  84:sd/sd.c       **** {
+  85:sd/sd.c       **** 	/* TODO */
+  86:sd/sd.c       **** 	u8 i, response;
+  87:sd/sd.c       **** 	RETURN_IF(spi_tx_try(0xFF));
+  88:sd/sd.c       **** 	RETURN_IF(spi_tx_try(0x40 | cmd));
+  89:sd/sd.c       **** 	RETURN_IF(spi_tx_try(arg >> 24));
+  90:sd/sd.c       **** 	RETURN_IF(spi_tx_try(arg >> 16));
+  91:sd/sd.c       **** 	RETURN_IF(spi_tx_try(arg >> 8));
+  92:sd/sd.c       **** 	RETURN_IF(spi_tx_try(arg));
+  93:sd/sd.c       **** 	switch(cmd)
+  94:sd/sd.c       **** 	{
+  95:sd/sd.c       **** 	case CMD_GO_IDLE_STATE:
+  96:sd/sd.c       **** 		RETURN_IF(spi_tx_try(0x95));
   97:sd/sd.c       **** 		break;
   98:sd/sd.c       **** 
-  99:sd/sd.c       **** 	default:
- 100:sd/sd.c       **** 		RETURN_IF(spi_tx_try(0xFF));
+  99:sd/sd.c       **** 	case CMD_SEND_IF_COND:
+ 100:sd/sd.c       **** 		RETURN_IF(spi_tx_try(0x87));
  101:sd/sd.c       **** 		break;
- 102:sd/sd.c       **** 	}
- 103:sd/sd.c       **** 
- 104:sd/sd.c       **** 	for(i = 0; ; ++i)
- 105:sd/sd.c       **** 	{
- 106:sd/sd.c       **** 		if(i >= 10)
- 107:sd/sd.c       **** 		{
- 108:sd/sd.c       **** 			return STATUS_TIMEOUT;
- 109:sd/sd.c       **** 		}
- 110:sd/sd.c       **** 
- 111:sd/sd.c       **** 		RETURN_IF(spi_rx_try(&response));
- 112:sd/sd.c       **** 		if(response != 0xFF)
- 113:sd/sd.c       **** 		{
- 114:sd/sd.c       **** 			break;
- 115:sd/sd.c       **** 		}
- 116:sd/sd.c       **** 	}
- 117:sd/sd.c       **** 
- 118:sd/sd.c       **** 	*out = response;
- 119:sd/sd.c       **** 	return STATUS_OK;
- 120:sd/sd.c       **** }
- 121:sd/sd.c       **** #endif
- 122:sd/sd.c       **** 
- 123:sd/sd.c       **** static void _sd_timeout(void)
- 124:sd/sd.c       **** {
- 125:sd/sd.c       **** 	_sd_deselect();
- 126:sd/sd.c       **** 	panic("SD timeout");
- 127:sd/sd.c       **** }
- 128:sd/sd.c       **** 
- 129:sd/sd.c       **** static void _sd_error(void)
- 130:sd/sd.c       **** {
- 131:sd/sd.c       **** 	panic("SD error");
- 132:sd/sd.c       **** }
- 133:sd/sd.c       **** 
- 134:sd/sd.c       **** void sd_init(void)
- 135:sd/sd.c       **** {
-  20               		.loc 1 135 1 view -0
+ 102:sd/sd.c       **** 
+ 103:sd/sd.c       **** 	default:
+ 104:sd/sd.c       **** 		RETURN_IF(spi_tx_try(0xFF));
+ 105:sd/sd.c       **** 		break;
+ 106:sd/sd.c       **** 	}
+ 107:sd/sd.c       **** 
+ 108:sd/sd.c       **** 	for(i = 0; ; ++i)
+ 109:sd/sd.c       **** 	{
+ 110:sd/sd.c       **** 		if(i >= 10)
+ 111:sd/sd.c       **** 		{
+ 112:sd/sd.c       **** 			return STATUS_TIMEOUT;
+ 113:sd/sd.c       **** 		}
+ 114:sd/sd.c       **** 
+ 115:sd/sd.c       **** 		RETURN_IF(spi_rx_try(&response));
+ 116:sd/sd.c       **** 		if(response != 0xFF)
+ 117:sd/sd.c       **** 		{
+ 118:sd/sd.c       **** 			break;
+ 119:sd/sd.c       **** 		}
+ 120:sd/sd.c       **** 	}
+ 121:sd/sd.c       **** 
+ 122:sd/sd.c       **** 	*out = response;
+ 123:sd/sd.c       **** 	return STATUS_OK;
+ 124:sd/sd.c       **** }
+ 125:sd/sd.c       **** #endif
+ 126:sd/sd.c       **** 
+ 127:sd/sd.c       **** static void _sd_timeout(void)
+ 128:sd/sd.c       **** {
+ 129:sd/sd.c       **** 	_sd_deselect();
+ 130:sd/sd.c       **** 	panic("SD timeout");
+ 131:sd/sd.c       **** }
+ 132:sd/sd.c       **** 
+ 133:sd/sd.c       **** void sd_init(void)
+ 134:sd/sd.c       **** {
+  20               		.loc 1 134 1 view -0
   21               		.cfi_startproc
   22               	/* prologue: function */
   23               	/* frame size = 0 */
   24               	/* stack size = 0 */
   25               	.L__stack_usage = 0
- 136:sd/sd.c       **** 	log_boot_P(PSTR("SD driver starting"));
-  26               		.loc 1 136 2 view .LVU1
-  27               	.LBB98:
-  28               		.loc 1 136 13 view .LVU2
-  29               		.loc 1 136 13 view .LVU3
-  30               	.LBE98:
-  31               		.loc 1 136 2 is_stmt 0 view .LVU4
+ 135:sd/sd.c       **** 	log_boot_P(PSTR("SD driver starting"));
+  26               		.loc 1 135 2 view .LVU1
+  27               	.LBB101:
+  28               		.loc 1 135 13 view .LVU2
+  29               		.loc 1 135 13 view .LVU3
+  30               	.LBE101:
+  31               		.loc 1 135 2 is_stmt 0 view .LVU4
   32 0000 80E0      		ldi r24,lo8(__c.19)
   33 0002 90E0      		ldi r25,hi8(__c.19)
   34 0004 9F93      		push r25
@@ -174,13 +173,13 @@
   37               		.cfi_def_cfa_offset 4
   38 0008 0E94 0000 		call log_boot_P
   39               	.LVL0:
- 137:sd/sd.c       **** 	_sd_cs_init();
-  40               		.loc 1 137 2 is_stmt 1 view .LVU5
-  41               	.LBB99:
-  42               	.LBI99:
+ 136:sd/sd.c       **** 	_sd_cs_init();
+  40               		.loc 1 136 2 is_stmt 1 view .LVU5
+  41               	.LBB102:
+  42               	.LBI102:
   55:sd/sd.c       **** {
   43               		.loc 1 55 13 view .LVU6
-  44               	.LBB100:
+  44               	.LBB103:
   57:sd/sd.c       **** 	_sd_deselect();
   45               		.loc 1 57 2 view .LVU7
   57:sd/sd.c       **** 	_sd_deselect();
@@ -188,61 +187,61 @@
   47 000c 529A      		sbi 0xa,2
   58:sd/sd.c       **** }
   48               		.loc 1 58 2 is_stmt 1 view .LVU9
-  49               	.LBB101:
-  50               	.LBI101:
+  49               	.LBB104:
+  50               	.LBI104:
   50:sd/sd.c       **** {
   51               		.loc 1 50 13 view .LVU10
-  52               	.LBB102:
+  52               	.LBB105:
   52:sd/sd.c       **** }
   53               		.loc 1 52 2 view .LVU11
   52:sd/sd.c       **** }
   54               		.loc 1 52 12 is_stmt 0 view .LVU12
   55 000e 5A9A      		sbi 0xb,2
-  56               	.LBE102:
-  57               	.LBE101:
-  58               	.LBE100:
-  59               	.LBE99:
-  60               	.LBB103:
- 138:sd/sd.c       **** 
- 139:sd/sd.c       **** 	{
- 140:sd/sd.c       **** 		u8 response;
-  61               		.loc 1 140 3 is_stmt 1 view .LVU13
- 141:sd/sd.c       **** 		u16 i;
-  62               		.loc 1 141 3 view .LVU14
- 142:sd/sd.c       **** 		u32 arg;
-  63               		.loc 1 142 3 view .LVU15
- 143:sd/sd.c       **** 
- 144:sd/sd.c       **** 		_card_type = 0;
-  64               		.loc 1 144 3 view .LVU16
- 145:sd/sd.c       **** 		_spi_configure_slow();
-  65               		.loc 1 145 3 view .LVU17
-  66               	.LBB104:
-  67               	.LBI104:
-  66:sd/sd.c       **** {
-  68               		.loc 1 66 13 view .LVU18
-  69               	.LBB105:
-  68:sd/sd.c       **** 		(0 << CPOL) | (0 << CPHA) | (1 << SPR1) | (1 << SPR0);
-  70               		.loc 1 68 2 view .LVU19
-  68:sd/sd.c       **** 		(0 << CPOL) | (0 << CPHA) | (1 << SPR1) | (1 << SPR0);
-  71               		.loc 1 68 7 is_stmt 0 view .LVU20
+  56               	.LBE105:
+  57               	.LBE104:
+  58               	.LBE103:
+  59               	.LBE102:
+  60               	.LBB106:
+ 137:sd/sd.c       **** 
+ 138:sd/sd.c       **** 	{
+ 139:sd/sd.c       **** 		u8 response;
+  61               		.loc 1 139 3 is_stmt 1 view .LVU13
+ 140:sd/sd.c       **** 		u16 i;
+  62               		.loc 1 140 3 view .LVU14
+ 141:sd/sd.c       **** 		u32 arg;
+  63               		.loc 1 141 3 view .LVU15
+ 142:sd/sd.c       **** 
+ 143:sd/sd.c       **** 		_card_type = 0;
+  64               		.loc 1 143 3 view .LVU16
+ 144:sd/sd.c       **** 		_spi_configure_slow();
+  65               		.loc 1 144 3 view .LVU17
+  66               	.LBB107:
+  67               	.LBI107:
+  67:sd/sd.c       **** {
+  68               		.loc 1 67 13 view .LVU18
+  69               	.LBB108:
+  70:sd/sd.c       **** 		(0 << CPOL) | (0 << CPHA) | (1 << SPR1) | (1 << SPR0);
+  70               		.loc 1 70 2 view .LVU19
+  70:sd/sd.c       **** 		(0 << CPOL) | (0 << CPHA) | (1 << SPR1) | (1 << SPR0);
+  71               		.loc 1 70 7 is_stmt 0 view .LVU20
   72 0010 83E5      		ldi r24,lo8(83)
   73 0012 8CBD      		out 0x2c,r24
-  70:sd/sd.c       **** }
-  74               		.loc 1 70 2 is_stmt 1 view .LVU21
-  70:sd/sd.c       **** }
-  75               		.loc 1 70 7 is_stmt 0 view .LVU22
+  72:sd/sd.c       **** }
+  74               		.loc 1 72 2 is_stmt 1 view .LVU21
+  72:sd/sd.c       **** }
+  75               		.loc 1 72 7 is_stmt 0 view .LVU22
   76 0014 8DB5      		in r24,0x2d
   77 0016 8E7F      		andi r24,lo8(-2)
   78 0018 8DBD      		out 0x2d,r24
-  79               	.LBE105:
-  80               	.LBE104:
- 146:sd/sd.c       **** 		_sd_select();
-  81               		.loc 1 146 3 is_stmt 1 view .LVU23
-  82               	.LBB106:
-  83               	.LBI106:
+  79               	.LBE108:
+  80               	.LBE107:
+ 145:sd/sd.c       **** 		_sd_select();
+  81               		.loc 1 145 3 is_stmt 1 view .LVU23
+  82               	.LBB109:
+  83               	.LBI109:
   45:sd/sd.c       **** {
   84               		.loc 1 45 13 view .LVU24
-  85               	.LBB107:
+  85               	.LBB110:
   47:sd/sd.c       **** }
   86               		.loc 1 47 2 view .LVU25
   47:sd/sd.c       **** }
@@ -253,51 +252,51 @@
   90 001c 0F90      		pop __tmp_reg__
   91 001e 0F90      		pop __tmp_reg__
   92               		.cfi_def_cfa_offset 2
-  93               	.LBE107:
-  94               	.LBE106:
-  95               	.LBB108:
-  96               	.LBB109:
- 126:sd/sd.c       **** }
-  97               		.loc 1 126 2 view .LVU28
+  93               	.LBE110:
+  94               	.LBE109:
+  95               	.LBB111:
+  96               	.LBB112:
+ 130:sd/sd.c       **** }
+  97               		.loc 1 130 2 view .LVU28
   98 0020 C0E0      		ldi r28,lo8(.LC0)
   99 0022 D0E0      		ldi r29,hi8(.LC0)
  100               	.L2:
- 101               	.LBE109:
- 102               	.LBE108:
- 147:sd/sd.c       **** 		for(i = 0; ; ++i)
- 148:sd/sd.c       **** 		{
- 149:sd/sd.c       **** 			if(_sd_command(CMD_GO_IDLE_STATE, 0) == IDLE_STATE)
- 103               		.loc 1 149 4 is_stmt 1 view .LVU29
- 150:sd/sd.c       **** 			{
- 151:sd/sd.c       **** 				break;
- 152:sd/sd.c       **** 			}
- 153:sd/sd.c       **** 
- 154:sd/sd.c       **** 			if(i == 0x1FF)
- 104               		.loc 1 154 4 view .LVU30
- 155:sd/sd.c       **** 			{
- 156:sd/sd.c       **** 				_sd_timeout();
- 105               		.loc 1 156 5 view .LVU31
- 106               	.LBB113:
- 107               	.LBI108:
- 123:sd/sd.c       **** {
- 108               		.loc 1 123 13 view .LVU32
- 109               	.LBB112:
- 125:sd/sd.c       **** 	panic("SD timeout");
- 110               		.loc 1 125 2 view .LVU33
- 111               	.LBB110:
- 112               	.LBI110:
+ 101               	.LBE112:
+ 102               	.LBE111:
+ 146:sd/sd.c       **** 		for(i = 0; ; ++i)
+ 147:sd/sd.c       **** 		{
+ 148:sd/sd.c       **** 			if(_sd_command(CMD_GO_IDLE_STATE, 0) == IDLE_STATE)
+ 103               		.loc 1 148 4 is_stmt 1 view .LVU29
+ 149:sd/sd.c       **** 			{
+ 150:sd/sd.c       **** 				break;
+ 151:sd/sd.c       **** 			}
+ 152:sd/sd.c       **** 
+ 153:sd/sd.c       **** 			if(i == 0x1FF)
+ 104               		.loc 1 153 4 view .LVU30
+ 154:sd/sd.c       **** 			{
+ 155:sd/sd.c       **** 				_sd_timeout();
+ 105               		.loc 1 155 5 view .LVU31
+ 106               	.LBB116:
+ 107               	.LBI111:
+ 127:sd/sd.c       **** {
+ 108               		.loc 1 127 13 view .LVU32
+ 109               	.LBB115:
+ 129:sd/sd.c       **** 	panic("SD timeout");
+ 110               		.loc 1 129 2 view .LVU33
+ 111               	.LBB113:
+ 112               	.LBI113:
   50:sd/sd.c       **** {
  113               		.loc 1 50 13 view .LVU34
- 114               	.LBB111:
+ 114               	.LBB114:
   52:sd/sd.c       **** }
  115               		.loc 1 52 2 view .LVU35
   52:sd/sd.c       **** }
  116               		.loc 1 52 12 is_stmt 0 view .LVU36
  117 0024 5A9A      		sbi 0xb,2
- 118               	.LBE111:
- 119               	.LBE110:
- 126:sd/sd.c       **** }
- 120               		.loc 1 126 2 is_stmt 1 view .LVU37
+ 118               	.LBE114:
+ 119               	.LBE113:
+ 130:sd/sd.c       **** }
+ 120               		.loc 1 130 2 is_stmt 1 view .LVU37
  121 0026 DF93      		push r29
  122               		.cfi_def_cfa_offset 3
  123 0028 CF93      		push r28
@@ -308,11 +307,11 @@
  128 0030 0F90      		pop __tmp_reg__
  129               		.cfi_def_cfa_offset 2
  130 0032 00C0      		rjmp .L2
- 131               	.LBE112:
- 132               	.LBE113:
- 133               	.LBE103:
+ 131               	.LBE115:
+ 132               	.LBE116:
+ 133               	.LBE106:
  134               		.cfi_endproc
- 135               	.LFE21:
+ 135               	.LFE20:
  137               		.section	.progmem.data,"a",@progbits
  140               	__c.19:
  141 0000 5344 2064 		.string	"SD driver starting"
@@ -330,86 +329,86 @@
  149               		.file 7 "spi/spi.h"
 DEFINED SYMBOLS
                             *ABS*:00000000 sd.c
-     /tmp/ccsetCmg.s:2      *ABS*:0000003e __SP_H__
-     /tmp/ccsetCmg.s:3      *ABS*:0000003d __SP_L__
-     /tmp/ccsetCmg.s:4      *ABS*:0000003f __SREG__
-     /tmp/ccsetCmg.s:5      *ABS*:00000000 __tmp_reg__
-     /tmp/ccsetCmg.s:6      *ABS*:00000001 __zero_reg__
-     /tmp/ccsetCmg.s:17     .text:00000000 sd_init
-     /tmp/ccsetCmg.s:20     .text:00000000 .Loc.0
-     /tmp/ccsetCmg.s:21     .text:00000000 L0
-     /tmp/ccsetCmg.s:26     .text:00000000 .Loc.1
-     /tmp/ccsetCmg.s:28     .text:00000000 .Loc.2
-     /tmp/ccsetCmg.s:29     .text:00000000 .Loc.3
-     /tmp/ccsetCmg.s:31     .text:00000000 .Loc.4
-     /tmp/ccsetCmg.s:140    .progmem.data:00000000 __c.19
-     /tmp/ccsetCmg.s:40     .text:0000000c .Loc.5
-     /tmp/ccsetCmg.s:43     .text:0000000c .Loc.6
-     /tmp/ccsetCmg.s:45     .text:0000000c .Loc.7
-     /tmp/ccsetCmg.s:46     .text:0000000c .Loc.8
-     /tmp/ccsetCmg.s:48     .text:0000000e .Loc.9
-     /tmp/ccsetCmg.s:51     .text:0000000e .Loc.10
-     /tmp/ccsetCmg.s:53     .text:0000000e .Loc.11
-     /tmp/ccsetCmg.s:54     .text:0000000e .Loc.12
-     /tmp/ccsetCmg.s:61     .text:00000010 .Loc.13
-     /tmp/ccsetCmg.s:62     .text:00000010 .Loc.14
-     /tmp/ccsetCmg.s:63     .text:00000010 .Loc.15
-     /tmp/ccsetCmg.s:64     .text:00000010 .Loc.16
-     /tmp/ccsetCmg.s:65     .text:00000010 .Loc.17
-     /tmp/ccsetCmg.s:68     .text:00000010 .Loc.18
-     /tmp/ccsetCmg.s:70     .text:00000010 .Loc.19
-     /tmp/ccsetCmg.s:71     .text:00000010 .Loc.20
-     /tmp/ccsetCmg.s:74     .text:00000014 .Loc.21
-     /tmp/ccsetCmg.s:75     .text:00000014 .Loc.22
-     /tmp/ccsetCmg.s:81     .text:0000001a .Loc.23
-     /tmp/ccsetCmg.s:84     .text:0000001a .Loc.24
-     /tmp/ccsetCmg.s:86     .text:0000001a .Loc.25
-     /tmp/ccsetCmg.s:87     .text:0000001a .Loc.26
-     /tmp/ccsetCmg.s:89     .text:0000001c .Loc.27
-     /tmp/ccsetCmg.s:97     .text:00000020 .Loc.28
-     /tmp/ccsetCmg.s:103    .text:00000024 .Loc.29
-     /tmp/ccsetCmg.s:104    .text:00000024 .Loc.30
-     /tmp/ccsetCmg.s:105    .text:00000024 .Loc.31
-     /tmp/ccsetCmg.s:108    .text:00000024 .Loc.32
-     /tmp/ccsetCmg.s:110    .text:00000024 .Loc.33
-     /tmp/ccsetCmg.s:113    .text:00000024 .Loc.34
-     /tmp/ccsetCmg.s:115    .text:00000024 .Loc.35
-     /tmp/ccsetCmg.s:116    .text:00000024 .Loc.36
-     /tmp/ccsetCmg.s:120    .text:00000026 .Loc.37
-     /tmp/ccsetCmg.s:134    .text:00000034 L0
-     /tmp/ccsetCmg.s:150    .text:00000034 L0
+     /tmp/ccYLSqaj.s:2      *ABS*:0000003e __SP_H__
+     /tmp/ccYLSqaj.s:3      *ABS*:0000003d __SP_L__
+     /tmp/ccYLSqaj.s:4      *ABS*:0000003f __SREG__
+     /tmp/ccYLSqaj.s:5      *ABS*:00000000 __tmp_reg__
+     /tmp/ccYLSqaj.s:6      *ABS*:00000001 __zero_reg__
+     /tmp/ccYLSqaj.s:17     .text:00000000 sd_init
+     /tmp/ccYLSqaj.s:20     .text:00000000 .Loc.0
+     /tmp/ccYLSqaj.s:21     .text:00000000 L0
+     /tmp/ccYLSqaj.s:26     .text:00000000 .Loc.1
+     /tmp/ccYLSqaj.s:28     .text:00000000 .Loc.2
+     /tmp/ccYLSqaj.s:29     .text:00000000 .Loc.3
+     /tmp/ccYLSqaj.s:31     .text:00000000 .Loc.4
+     /tmp/ccYLSqaj.s:140    .progmem.data:00000000 __c.19
+     /tmp/ccYLSqaj.s:40     .text:0000000c .Loc.5
+     /tmp/ccYLSqaj.s:43     .text:0000000c .Loc.6
+     /tmp/ccYLSqaj.s:45     .text:0000000c .Loc.7
+     /tmp/ccYLSqaj.s:46     .text:0000000c .Loc.8
+     /tmp/ccYLSqaj.s:48     .text:0000000e .Loc.9
+     /tmp/ccYLSqaj.s:51     .text:0000000e .Loc.10
+     /tmp/ccYLSqaj.s:53     .text:0000000e .Loc.11
+     /tmp/ccYLSqaj.s:54     .text:0000000e .Loc.12
+     /tmp/ccYLSqaj.s:61     .text:00000010 .Loc.13
+     /tmp/ccYLSqaj.s:62     .text:00000010 .Loc.14
+     /tmp/ccYLSqaj.s:63     .text:00000010 .Loc.15
+     /tmp/ccYLSqaj.s:64     .text:00000010 .Loc.16
+     /tmp/ccYLSqaj.s:65     .text:00000010 .Loc.17
+     /tmp/ccYLSqaj.s:68     .text:00000010 .Loc.18
+     /tmp/ccYLSqaj.s:70     .text:00000010 .Loc.19
+     /tmp/ccYLSqaj.s:71     .text:00000010 .Loc.20
+     /tmp/ccYLSqaj.s:74     .text:00000014 .Loc.21
+     /tmp/ccYLSqaj.s:75     .text:00000014 .Loc.22
+     /tmp/ccYLSqaj.s:81     .text:0000001a .Loc.23
+     /tmp/ccYLSqaj.s:84     .text:0000001a .Loc.24
+     /tmp/ccYLSqaj.s:86     .text:0000001a .Loc.25
+     /tmp/ccYLSqaj.s:87     .text:0000001a .Loc.26
+     /tmp/ccYLSqaj.s:89     .text:0000001c .Loc.27
+     /tmp/ccYLSqaj.s:97     .text:00000020 .Loc.28
+     /tmp/ccYLSqaj.s:103    .text:00000024 .Loc.29
+     /tmp/ccYLSqaj.s:104    .text:00000024 .Loc.30
+     /tmp/ccYLSqaj.s:105    .text:00000024 .Loc.31
+     /tmp/ccYLSqaj.s:108    .text:00000024 .Loc.32
+     /tmp/ccYLSqaj.s:110    .text:00000024 .Loc.33
+     /tmp/ccYLSqaj.s:113    .text:00000024 .Loc.34
+     /tmp/ccYLSqaj.s:115    .text:00000024 .Loc.35
+     /tmp/ccYLSqaj.s:116    .text:00000024 .Loc.36
+     /tmp/ccYLSqaj.s:120    .text:00000026 .Loc.37
+     /tmp/ccYLSqaj.s:134    .text:00000034 L0
+     /tmp/ccYLSqaj.s:150    .text:00000034 L0
                      .debug_frame:00000000 L0
-     /tmp/ccsetCmg.s:100    .text:00000024 .L2
-     /tmp/ccsetCmg.s:871    .debug_abbrev:00000000 .Ldebug_abbrev0
-     /tmp/ccsetCmg.s:8      .text:00000000 .Ltext0
-     /tmp/ccsetCmg.s:143    .text:00000034 .Letext0
-     /tmp/ccsetCmg.s:1395   .debug_line:00000000 .Ldebug_line0
-     /tmp/ccsetCmg.s:18     .text:00000000 .LFB21
-     /tmp/ccsetCmg.s:135    .text:00000034 .LFE21
-     /tmp/ccsetCmg.s:27     .text:00000000 .LBB98
-     /tmp/ccsetCmg.s:30     .text:00000000 .LBE98
-     /tmp/ccsetCmg.s:60     .text:00000010 .LBB103
-     /tmp/ccsetCmg.s:133    .text:00000034 .LBE103
-     /tmp/ccsetCmg.s:67     .text:00000010 .LBI104
-     /tmp/ccsetCmg.s:66     .text:00000010 .LBB104
-     /tmp/ccsetCmg.s:80     .text:0000001a .LBE104
-     /tmp/ccsetCmg.s:83     .text:0000001a .LBI106
-     /tmp/ccsetCmg.s:82     .text:0000001a .LBB106
-     /tmp/ccsetCmg.s:94     .text:00000020 .LBE106
-     /tmp/ccsetCmg.s:107    .text:00000024 .LBI108
-     /tmp/ccsetCmg.s:1385   .debug_rnglists:0000000c .LLRL0
-     /tmp/ccsetCmg.s:112    .text:00000024 .LBI110
-     /tmp/ccsetCmg.s:111    .text:00000024 .LBB110
-     /tmp/ccsetCmg.s:119    .text:00000026 .LBE110
-     /tmp/ccsetCmg.s:126    .text:0000002e .LVL1
-     /tmp/ccsetCmg.s:42     .text:0000000c .LBI99
-     /tmp/ccsetCmg.s:41     .text:0000000c .LBB99
-     /tmp/ccsetCmg.s:59     .text:00000010 .LBE99
-     /tmp/ccsetCmg.s:50     .text:0000000e .LBI101
-     /tmp/ccsetCmg.s:49     .text:0000000e .LBB101
-     /tmp/ccsetCmg.s:57     .text:00000010 .LBE101
-     /tmp/ccsetCmg.s:39     .text:0000000c .LVL0
-     /tmp/ccsetCmg.s:151    .debug_info:00000000 .Ldebug_info0
+     /tmp/ccYLSqaj.s:100    .text:00000024 .L2
+     /tmp/ccYLSqaj.s:890    .debug_abbrev:00000000 .Ldebug_abbrev0
+     /tmp/ccYLSqaj.s:8      .text:00000000 .Ltext0
+     /tmp/ccYLSqaj.s:143    .text:00000034 .Letext0
+     /tmp/ccYLSqaj.s:1452   .debug_line:00000000 .Ldebug_line0
+     /tmp/ccYLSqaj.s:18     .text:00000000 .LFB20
+     /tmp/ccYLSqaj.s:135    .text:00000034 .LFE20
+     /tmp/ccYLSqaj.s:27     .text:00000000 .LBB101
+     /tmp/ccYLSqaj.s:30     .text:00000000 .LBE101
+     /tmp/ccYLSqaj.s:60     .text:00000010 .LBB106
+     /tmp/ccYLSqaj.s:133    .text:00000034 .LBE106
+     /tmp/ccYLSqaj.s:67     .text:00000010 .LBI107
+     /tmp/ccYLSqaj.s:66     .text:00000010 .LBB107
+     /tmp/ccYLSqaj.s:80     .text:0000001a .LBE107
+     /tmp/ccYLSqaj.s:83     .text:0000001a .LBI109
+     /tmp/ccYLSqaj.s:82     .text:0000001a .LBB109
+     /tmp/ccYLSqaj.s:94     .text:00000020 .LBE109
+     /tmp/ccYLSqaj.s:107    .text:00000024 .LBI111
+     /tmp/ccYLSqaj.s:1442   .debug_rnglists:0000000c .LLRL0
+     /tmp/ccYLSqaj.s:112    .text:00000024 .LBI113
+     /tmp/ccYLSqaj.s:111    .text:00000024 .LBB113
+     /tmp/ccYLSqaj.s:119    .text:00000026 .LBE113
+     /tmp/ccYLSqaj.s:126    .text:0000002e .LVL1
+     /tmp/ccYLSqaj.s:42     .text:0000000c .LBI102
+     /tmp/ccYLSqaj.s:41     .text:0000000c .LBB102
+     /tmp/ccYLSqaj.s:59     .text:00000010 .LBE102
+     /tmp/ccYLSqaj.s:50     .text:0000000e .LBI104
+     /tmp/ccYLSqaj.s:49     .text:0000000e .LBB104
+     /tmp/ccYLSqaj.s:57     .text:00000010 .LBE104
+     /tmp/ccYLSqaj.s:39     .text:0000000c .LVL0
+     /tmp/ccYLSqaj.s:151    .debug_info:00000000 .Ldebug_info0
 
 UNDEFINED SYMBOLS
 log_boot_P
