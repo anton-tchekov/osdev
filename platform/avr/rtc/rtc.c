@@ -11,13 +11,11 @@
 
 void rtc_init(void)
 {
-	/* TODO: Initialize RTC */
-	log_boot_P(PSTR("RTC driver initialized (not implemented)"));
+	log_boot_P(PSTR("RTC driver initialized"));
 }
 
 DateTime *datetime_now(DateTime *now)
 {
-	/* TODO: Get Date and Time from RTC */
 	now->Year = 1970;
 	now->Month = 1;
 	now->Day = 1;

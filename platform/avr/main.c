@@ -8,6 +8,7 @@
 #include <logger.h>
 #include <spi.h>
 #include <lcd.h>
+#include <gpio.h>
 #include <sd.h>
 #include <avr/pgmspace.h>
 
@@ -24,10 +25,10 @@ char byte_to_hex(u8 byte)
 void ps2_event(u8 byte)
 {
 	/* Called when a byte is received from the keyboard */
-	serial_tx('0');
-	serial_tx('x');
-	serial_tx(byte_to_hex((byte >> 4) & 0x0F));
-	serial_tx(byte_to_hex(byte & 0x0F));
+	/* serial_tx('0'); */
+	/* serial_tx('x'); */
+	/* serial_tx(byte_to_hex((byte >> 4) & 0x0F)); */
+	/* serial_tx(byte_to_hex(byte & 0x0F)); */
 }
 
 void serial_write(const void *data, u32 len)
@@ -59,6 +60,9 @@ int main(void)
 {
 	/* --- BOOT SEQUENCE --- */
 
+	/* Configure GPIO */
+	gpio_configure();
+
 	/* Initialize serial port */
 	serial_init();
 
@@ -79,6 +83,7 @@ int main(void)
 
 	/* Initialize LCD driver */
 	lcd_init(0xFF, COLOR_WHITE);
+	lcd_rect(10, 10, 200, 200, COLOR_RED);
 
 	/* Initialize ADC */
 	adc_init();
@@ -96,8 +101,6 @@ int main(void)
 	sd_init();
 
 	serial_tx_str_P(PSTR("\nREADY.\n\n"));
-
-	lcd_rect(10, 10, 200, 200, COLOR_RED);
 
 	/* --- READY --- */
 

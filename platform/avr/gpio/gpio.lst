@@ -1,0 +1,131 @@
+   1               		.file	"gpio.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__tmp_reg__ = 0
+   6               	__zero_reg__ = 1
+   7               		.text
+   8               	.Ltext0:
+   9               		.cfi_sections	.debug_frame
+  10               		.file 0 "/home/files/osdev/platform/avr" "gpio/gpio.c"
+  11               	.global	gpio_configure
+  13               	gpio_configure:
+  14               	.LFB0:
+  15               		.file 1 "gpio/gpio.c"
+   1:gpio/gpio.c   **** /**
+   2:gpio/gpio.c   ****  * @file    gpio.c
+   3:gpio/gpio.c   ****  * @author  Anton Tchekov
+   4:gpio/gpio.c   ****  * @version 0.1
+   5:gpio/gpio.c   ****  * @date    20.05.2023
+   6:gpio/gpio.c   ****  */
+   7:gpio/gpio.c   **** 
+   8:gpio/gpio.c   **** #include "gpio.h"
+   9:gpio/gpio.c   **** 
+  10:gpio/gpio.c   **** void gpio_configure(void)
+  11:gpio/gpio.c   **** {
+  16               		.loc 1 11 1 view -0
+  17               		.cfi_startproc
+  18               	/* prologue: function */
+  19               	/* frame size = 0 */
+  20               	/* stack size = 0 */
+  21               	.L__stack_usage = 0
+  12:gpio/gpio.c   **** 	/* LCD */
+  13:gpio/gpio.c   **** 	LCD_RST_DIR |= (1 << LCD_RST_PIN);
+  22               		.loc 1 13 2 view .LVU1
+  23               		.loc 1 13 14 is_stmt 0 view .LVU2
+  24 0000 579A      		sbi 0xa,7
+  14:gpio/gpio.c   **** 	LCD_CS_DIR |= (1 << LCD_CS_PIN);
+  25               		.loc 1 14 2 is_stmt 1 view .LVU3
+  26               		.loc 1 14 13 is_stmt 0 view .LVU4
+  27 0002 389A      		sbi 0x7,0
+  15:gpio/gpio.c   **** 	LCD_DC_DIR |= (1 << LCD_DC_PIN);
+  28               		.loc 1 15 2 is_stmt 1 view .LVU5
+  29               		.loc 1 15 13 is_stmt 0 view .LVU6
+  30 0004 399A      		sbi 0x7,1
+  16:gpio/gpio.c   **** 	LCD_CS_1;
+  31               		.loc 1 16 2 is_stmt 1 view .LVU7
+  32 0006 409A      		sbi 0x8,0
+  17:gpio/gpio.c   **** 
+  18:gpio/gpio.c   **** 	/* SD */
+  19:gpio/gpio.c   **** 	SD_CS_DIR |= SD_CS_PIN;
+  33               		.loc 1 19 2 view .LVU8
+  34               		.loc 1 19 12 is_stmt 0 view .LVU9
+  35 0008 529A      		sbi 0xa,2
+  20:gpio/gpio.c   **** 	SD_DESELECT;
+  36               		.loc 1 20 2 is_stmt 1 view .LVU10
+  37 000a 5C9A      		sbi 0xb,4
+  21:gpio/gpio.c   **** 
+  22:gpio/gpio.c   **** 	/* XMEM */
+  23:gpio/gpio.c   **** 	XMEM_CS_DIR |=
+  38               		.loc 1 23 2 view .LVU11
+  39 000c 84B1      		in r24,0x4
+  40               		.loc 1 23 14 is_stmt 0 view .LVU12
+  41 000e 8760      		ori r24,lo8(7)
+  42 0010 84B9      		out 0x4,r24
+  24:gpio/gpio.c   **** 		(1 << XMEM_CS_0_PIN) |
+  25:gpio/gpio.c   **** 		(1 << XMEM_CS_1_PIN) |
+  26:gpio/gpio.c   **** 		(1 << XMEM_CS_2_PIN);
+  27:gpio/gpio.c   **** 
+  28:gpio/gpio.c   **** 	XMEM_DESELECT_ALL;
+  43               		.loc 1 28 2 is_stmt 1 view .LVU13
+  44 0012 85B1      		in r24,0x5
+  45 0014 8760      		ori r24,lo8(7)
+  46 0016 85B9      		out 0x5,r24
+  29:gpio/gpio.c   **** 
+  30:gpio/gpio.c   **** 	/* KBD */
+  31:gpio/gpio.c   **** 	PS2_CLOCK_PORT_OUT |= (1 << PS2_CLOCK_PIN);
+  47               		.loc 1 31 2 view .LVU14
+  48               		.loc 1 31 21 is_stmt 0 view .LVU15
+  49 0018 2A9A      		sbi 0x5,2
+  32:gpio/gpio.c   **** 	PS2_DATA_PORT_OUT |= (1 << PS2_DATA_PIN);
+  50               		.loc 1 32 2 is_stmt 1 view .LVU16
+  51               		.loc 1 32 20 is_stmt 0 view .LVU17
+  52 001a 2B9A      		sbi 0x5,3
+  53               	/* epilogue start */
+  33:gpio/gpio.c   **** }
+  54               		.loc 1 33 1 view .LVU18
+  55 001c 0895      		ret
+  56               		.cfi_endproc
+  57               	.LFE0:
+  59               	.Letext0:
+  60               		.file 2 "/usr/lib/gcc/avr/12.2.0/include/stdint-gcc.h"
+DEFINED SYMBOLS
+                            *ABS*:00000000 gpio.c
+     /tmp/ccvWuTkk.s:2      *ABS*:0000003e __SP_H__
+     /tmp/ccvWuTkk.s:3      *ABS*:0000003d __SP_L__
+     /tmp/ccvWuTkk.s:4      *ABS*:0000003f __SREG__
+     /tmp/ccvWuTkk.s:5      *ABS*:00000000 __tmp_reg__
+     /tmp/ccvWuTkk.s:6      *ABS*:00000001 __zero_reg__
+     /tmp/ccvWuTkk.s:13     .text:00000000 gpio_configure
+     /tmp/ccvWuTkk.s:16     .text:00000000 .Loc.0
+     /tmp/ccvWuTkk.s:17     .text:00000000 L0
+     /tmp/ccvWuTkk.s:22     .text:00000000 .Loc.1
+     /tmp/ccvWuTkk.s:23     .text:00000000 .Loc.2
+     /tmp/ccvWuTkk.s:25     .text:00000002 .Loc.3
+     /tmp/ccvWuTkk.s:26     .text:00000002 .Loc.4
+     /tmp/ccvWuTkk.s:28     .text:00000004 .Loc.5
+     /tmp/ccvWuTkk.s:29     .text:00000004 .Loc.6
+     /tmp/ccvWuTkk.s:31     .text:00000006 .Loc.7
+     /tmp/ccvWuTkk.s:33     .text:00000008 .Loc.8
+     /tmp/ccvWuTkk.s:34     .text:00000008 .Loc.9
+     /tmp/ccvWuTkk.s:36     .text:0000000a .Loc.10
+     /tmp/ccvWuTkk.s:38     .text:0000000c .Loc.11
+     /tmp/ccvWuTkk.s:40     .text:0000000e .Loc.12
+     /tmp/ccvWuTkk.s:43     .text:00000012 .Loc.13
+     /tmp/ccvWuTkk.s:47     .text:00000018 .Loc.14
+     /tmp/ccvWuTkk.s:48     .text:00000018 .Loc.15
+     /tmp/ccvWuTkk.s:50     .text:0000001a .Loc.16
+     /tmp/ccvWuTkk.s:51     .text:0000001a .Loc.17
+     /tmp/ccvWuTkk.s:54     .text:0000001c .Loc.18
+     /tmp/ccvWuTkk.s:56     .text:0000001e L0
+     /tmp/ccvWuTkk.s:61     .text:0000001e L0
+                     .debug_frame:00000000 L0
+     /tmp/ccvWuTkk.s:125    .debug_abbrev:00000000 .Ldebug_abbrev0
+     /tmp/ccvWuTkk.s:8      .text:00000000 .Ltext0
+     /tmp/ccvWuTkk.s:59     .text:0000001e .Letext0
+     /tmp/ccvWuTkk.s:221    .debug_line:00000000 .Ldebug_line0
+     /tmp/ccvWuTkk.s:14     .text:00000000 .LFB0
+     /tmp/ccvWuTkk.s:57     .text:0000001e .LFE0
+     /tmp/ccvWuTkk.s:62     .debug_info:00000000 .Ldebug_info0
+
+NO UNDEFINED SYMBOLS

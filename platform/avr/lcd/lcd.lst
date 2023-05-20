@@ -10,7 +10,7 @@
   10               		.file 0 "/home/files/osdev/platform/avr" "lcd/lcd.c"
   12               	_lcd_write_data:
   13               	.LVL0:
-  14               	.LFB16:
+  14               	.LFB15:
   15               		.file 1 "lcd/lcd.c"
    1:lcd/lcd.c     **** /**
    2:lcd/lcd.c     ****  * @file    lcd.c
@@ -22,76 +22,48 @@
    8:lcd/lcd.c     **** #include <lcd.h>
    9:lcd/lcd.c     **** #include <logger.h>
   10:lcd/lcd.c     **** #include <spi.h>
-  11:lcd/lcd.c     **** #include <avr/pgmspace.h>
-  12:lcd/lcd.c     **** #include <util/delay.h>
-  13:lcd/lcd.c     **** 
-  14:lcd/lcd.c     **** enum
-  15:lcd/lcd.c     **** {
-  16:lcd/lcd.c     **** 	L2R_U2D,
-  17:lcd/lcd.c     **** 	L2R_D2U,
-  18:lcd/lcd.c     **** 	R2L_U2D,
-  19:lcd/lcd.c     **** 	R2L_D2U,
-  20:lcd/lcd.c     **** 	U2D_L2R,
-  21:lcd/lcd.c     **** 	U2D_R2L,
-  22:lcd/lcd.c     **** 	D2U_L2R,
-  23:lcd/lcd.c     **** 	D2U_R2L
-  24:lcd/lcd.c     **** };
-  25:lcd/lcd.c     **** 
-  26:lcd/lcd.c     **** #define SCAN_DIR       L2R_U2D
-  27:lcd/lcd.c     **** 
-  28:lcd/lcd.c     **** #define LCD_RST_DIR    DDRD
-  29:lcd/lcd.c     **** #define LCD_RST_OUT    PORTD
-  30:lcd/lcd.c     **** #define LCD_RST_PIN   7
-  31:lcd/lcd.c     **** 
-  32:lcd/lcd.c     **** #define LCD_CS_DIR     DDRC
-  33:lcd/lcd.c     **** #define LCD_CS_OUT     PORTC
-  34:lcd/lcd.c     **** #define LCD_CS_PIN    0
-  35:lcd/lcd.c     **** 
-  36:lcd/lcd.c     **** #define LCD_DC_DIR     DDRC
-  37:lcd/lcd.c     **** #define LCD_DC_OUT     PORTC
-  38:lcd/lcd.c     **** #define LCD_DC_PIN    1
+  11:lcd/lcd.c     **** #include <gpio.h>
+  12:lcd/lcd.c     **** #include <avr/pgmspace.h>
+  13:lcd/lcd.c     **** #include <util/delay.h>
+  14:lcd/lcd.c     **** 
+  15:lcd/lcd.c     **** enum
+  16:lcd/lcd.c     **** {
+  17:lcd/lcd.c     **** 	L2R_U2D,
+  18:lcd/lcd.c     **** 	L2R_D2U,
+  19:lcd/lcd.c     **** 	R2L_U2D,
+  20:lcd/lcd.c     **** 	R2L_D2U,
+  21:lcd/lcd.c     **** 	U2D_L2R,
+  22:lcd/lcd.c     **** 	U2D_R2L,
+  23:lcd/lcd.c     **** 	D2U_L2R,
+  24:lcd/lcd.c     **** 	D2U_R2L
+  25:lcd/lcd.c     **** };
+  26:lcd/lcd.c     **** 
+  27:lcd/lcd.c     **** #define SCAN_DIR       L2R_U2D
+  28:lcd/lcd.c     **** 
+  29:lcd/lcd.c     **** /* --- PRIVATE --- */
+  30:lcd/lcd.c     **** static void _lcd_reset(void)
+  31:lcd/lcd.c     **** {
+  32:lcd/lcd.c     **** 	LCD_RST_1;
+  33:lcd/lcd.c     **** 	_delay_ms(500);
+  34:lcd/lcd.c     **** 	LCD_RST_0;
+  35:lcd/lcd.c     **** 	_delay_ms(500);
+  36:lcd/lcd.c     **** 	LCD_RST_1;
+  37:lcd/lcd.c     **** 	_delay_ms(500);
+  38:lcd/lcd.c     **** }
   39:lcd/lcd.c     **** 
-  40:lcd/lcd.c     **** #define LCD_CS_0        LCD_CS_OUT &= ~(1 << LCD_CS_PIN)
-  41:lcd/lcd.c     **** #define LCD_CS_1        LCD_CS_OUT |= (1 << LCD_CS_PIN)
-  42:lcd/lcd.c     **** 
-  43:lcd/lcd.c     **** #define LCD_DC_0        LCD_DC_OUT &= ~(1 << LCD_DC_PIN)
-  44:lcd/lcd.c     **** #define LCD_DC_1        LCD_DC_OUT |= (1 << LCD_DC_PIN)
-  45:lcd/lcd.c     **** 
-  46:lcd/lcd.c     **** #define LCD_RST_0       LCD_RST_OUT &= ~(1 << LCD_RST_PIN)
-  47:lcd/lcd.c     **** #define LCD_RST_1       LCD_RST_OUT |= (1 << LCD_RST_PIN)
-  48:lcd/lcd.c     **** 
-  49:lcd/lcd.c     **** /* --- PRIVATE --- */
-  50:lcd/lcd.c     **** static void _lcd_configure_gpio(void)
-  51:lcd/lcd.c     **** {
-  52:lcd/lcd.c     **** 	LCD_RST_DIR |= (1 << LCD_RST_PIN);
-  53:lcd/lcd.c     **** 	LCD_CS_DIR |= (1 << LCD_CS_PIN);
-  54:lcd/lcd.c     **** 	LCD_DC_DIR |= (1 << LCD_DC_PIN);
-  55:lcd/lcd.c     **** 	LCD_CS_1;
-  56:lcd/lcd.c     **** }
-  57:lcd/lcd.c     **** 
-  58:lcd/lcd.c     **** static void _lcd_reset(void)
-  59:lcd/lcd.c     **** {
-  60:lcd/lcd.c     **** 	LCD_RST_1;
-  61:lcd/lcd.c     **** 	_delay_ms(500);
-  62:lcd/lcd.c     **** 	LCD_RST_0;
-  63:lcd/lcd.c     **** 	_delay_ms(500);
-  64:lcd/lcd.c     **** 	LCD_RST_1;
-  65:lcd/lcd.c     **** 	_delay_ms(500);
-  66:lcd/lcd.c     **** }
-  67:lcd/lcd.c     **** 
-  68:lcd/lcd.c     **** static void _lcd_write_reg(u8 reg)
-  69:lcd/lcd.c     **** {
-  70:lcd/lcd.c     **** 	LCD_DC_0;
-  71:lcd/lcd.c     **** 	LCD_CS_0;
-  72:lcd/lcd.c     **** 	spi_xchg(reg);
-  73:lcd/lcd.c     **** 	LCD_CS_1;
-  74:lcd/lcd.c     **** }
-  75:lcd/lcd.c     **** 
-  76:lcd/lcd.c     **** static void _lcd_write_data(u8 data)
-  77:lcd/lcd.c     **** {
-  16               		.loc 1 77 1 view -0
+  40:lcd/lcd.c     **** static void _lcd_write_reg(u8 reg)
+  41:lcd/lcd.c     **** {
+  42:lcd/lcd.c     **** 	LCD_DC_0;
+  43:lcd/lcd.c     **** 	LCD_CS_0;
+  44:lcd/lcd.c     **** 	spi_xchg(reg);
+  45:lcd/lcd.c     **** 	LCD_CS_1;
+  46:lcd/lcd.c     **** }
+  47:lcd/lcd.c     **** 
+  48:lcd/lcd.c     **** static void _lcd_write_data(u8 data)
+  49:lcd/lcd.c     **** {
+  16               		.loc 1 49 1 view -0
   17               		.cfi_startproc
-  18               		.loc 1 77 1 is_stmt 0 view .LVU1
+  18               		.loc 1 49 1 is_stmt 0 view .LVU1
   19 0000 CF93      		push r28
   20               		.cfi_def_cfa_offset 3
   21               		.cfi_offset 28, -2
@@ -100,295 +72,294 @@
   24               	/* stack size = 1 */
   25               	.L__stack_usage = 1
   26 0002 C82F      		mov r28,r24
-  78:lcd/lcd.c     **** 	LCD_DC_1;
-  27               		.loc 1 78 2 is_stmt 1 view .LVU2
+  50:lcd/lcd.c     **** 	LCD_DC_1;
+  27               		.loc 1 50 2 is_stmt 1 view .LVU2
   28 0004 419A      		sbi 0x8,1
-  79:lcd/lcd.c     **** 	LCD_CS_0;
-  29               		.loc 1 79 2 view .LVU3
+  51:lcd/lcd.c     **** 	LCD_CS_0;
+  29               		.loc 1 51 2 view .LVU3
   30 0006 4098      		cbi 0x8,0
-  80:lcd/lcd.c     **** 	spi_xchg(0);
-  31               		.loc 1 80 2 view .LVU4
+  52:lcd/lcd.c     **** 	spi_xchg(0);
+  31               		.loc 1 52 2 view .LVU4
   32 0008 80E0      		ldi r24,0
   33               	.LVL1:
-  34               		.loc 1 80 2 is_stmt 0 view .LVU5
+  34               		.loc 1 52 2 is_stmt 0 view .LVU5
   35 000a 0E94 0000 		call spi_xchg
   36               	.LVL2:
-  81:lcd/lcd.c     **** 	spi_xchg(data);
-  37               		.loc 1 81 2 is_stmt 1 view .LVU6
+  53:lcd/lcd.c     **** 	spi_xchg(data);
+  37               		.loc 1 53 2 is_stmt 1 view .LVU6
   38 000e 8C2F      		mov r24,r28
   39 0010 0E94 0000 		call spi_xchg
   40               	.LVL3:
-  82:lcd/lcd.c     **** 	LCD_CS_1;
-  41               		.loc 1 82 2 view .LVU7
+  54:lcd/lcd.c     **** 	LCD_CS_1;
+  41               		.loc 1 54 2 view .LVU7
   42 0014 409A      		sbi 0x8,0
   43               	/* epilogue start */
-  83:lcd/lcd.c     **** }
-  44               		.loc 1 83 1 is_stmt 0 view .LVU8
+  55:lcd/lcd.c     **** }
+  44               		.loc 1 55 1 is_stmt 0 view .LVU8
   45 0016 CF91      		pop r28
   46               	.LVL4:
-  47               		.loc 1 83 1 view .LVU9
+  47               		.loc 1 55 1 view .LVU9
   48 0018 0895      		ret
   49               		.cfi_endproc
-  50               	.LFE16:
+  50               	.LFE15:
   53               	_lcd_write_reg:
   54               	.LVL5:
-  55               	.LFB15:
-  69:lcd/lcd.c     **** 	LCD_DC_0;
-  56               		.loc 1 69 1 is_stmt 1 view -0
+  55               	.LFB14:
+  41:lcd/lcd.c     **** 	LCD_DC_0;
+  56               		.loc 1 41 1 is_stmt 1 view -0
   57               		.cfi_startproc
   58               	/* prologue: function */
   59               	/* frame size = 0 */
   60               	/* stack size = 0 */
   61               	.L__stack_usage = 0
-  70:lcd/lcd.c     **** 	LCD_CS_0;
-  62               		.loc 1 70 2 view .LVU11
+  42:lcd/lcd.c     **** 	LCD_CS_0;
+  62               		.loc 1 42 2 view .LVU11
   63 001a 4198      		cbi 0x8,1
-  71:lcd/lcd.c     **** 	spi_xchg(reg);
-  64               		.loc 1 71 2 view .LVU12
+  43:lcd/lcd.c     **** 	spi_xchg(reg);
+  64               		.loc 1 43 2 view .LVU12
   65 001c 4098      		cbi 0x8,0
-  72:lcd/lcd.c     **** 	LCD_CS_1;
-  66               		.loc 1 72 2 view .LVU13
+  44:lcd/lcd.c     **** 	LCD_CS_1;
+  66               		.loc 1 44 2 view .LVU13
   67 001e 0E94 0000 		call spi_xchg
   68               	.LVL6:
-  73:lcd/lcd.c     **** }
-  69               		.loc 1 73 2 view .LVU14
+  45:lcd/lcd.c     **** }
+  69               		.loc 1 45 2 view .LVU14
   70 0022 409A      		sbi 0x8,0
   71               	/* epilogue start */
-  74:lcd/lcd.c     **** 
-  72               		.loc 1 74 1 is_stmt 0 view .LVU15
+  46:lcd/lcd.c     **** 
+  72               		.loc 1 46 1 is_stmt 0 view .LVU15
   73 0024 0895      		ret
   74               		.cfi_endproc
-  75               	.LFE15:
+  75               	.LFE14:
   77               	.global	lcd_backlight
   79               	lcd_backlight:
   80               	.LVL7:
-  81               	.LFB22:
+  81               	.LFB21:
+  56:lcd/lcd.c     **** 
+  57:lcd/lcd.c     **** static void _lcd_window_start(u16 x, u16 y, u16 w, u16 h)
+  58:lcd/lcd.c     **** {
+  59:lcd/lcd.c     **** 	u16 x_end, y_end;
+  60:lcd/lcd.c     **** 
+  61:lcd/lcd.c     **** 	x_end = x + w - 1;
+  62:lcd/lcd.c     **** 	y_end = y + h - 1;
+  63:lcd/lcd.c     **** 
+  64:lcd/lcd.c     **** 	_lcd_write_reg(0x2A);
+  65:lcd/lcd.c     **** 	_lcd_write_data(x >> 8);
+  66:lcd/lcd.c     **** 	_lcd_write_data(x);
+  67:lcd/lcd.c     **** 	_lcd_write_data(x_end >> 8);
+  68:lcd/lcd.c     **** 	_lcd_write_data(x_end);
+  69:lcd/lcd.c     **** 	_lcd_write_reg(0x2B);
+  70:lcd/lcd.c     **** 	_lcd_write_data(y >> 8);
+  71:lcd/lcd.c     **** 	_lcd_write_data(y);
+  72:lcd/lcd.c     **** 	_lcd_write_data(y_end >> 8);
+  73:lcd/lcd.c     **** 	_lcd_write_data(y_end);
+  74:lcd/lcd.c     **** 	_lcd_write_reg(0x2C);
+  75:lcd/lcd.c     **** 	LCD_DC_1;
+  76:lcd/lcd.c     **** 	LCD_CS_0;
+  77:lcd/lcd.c     **** }
+  78:lcd/lcd.c     **** 
+  79:lcd/lcd.c     **** static inline void _lcd_pixel(u16 data)
+  80:lcd/lcd.c     **** {
+  81:lcd/lcd.c     **** 	spi_xchg(data >> 8);
+  82:lcd/lcd.c     **** 	spi_xchg(data);
+  83:lcd/lcd.c     **** }
   84:lcd/lcd.c     **** 
-  85:lcd/lcd.c     **** static void _lcd_window_start(u16 x, u16 y, u16 w, u16 h)
+  85:lcd/lcd.c     **** static inline void _lcd_window_end(void)
   86:lcd/lcd.c     **** {
-  87:lcd/lcd.c     **** 	u16 x_end, y_end;
-  88:lcd/lcd.c     **** 
-  89:lcd/lcd.c     **** 	x_end = x + w - 1;
-  90:lcd/lcd.c     **** 	y_end = y + h - 1;
-  91:lcd/lcd.c     **** 
-  92:lcd/lcd.c     **** 	_lcd_write_reg(0x2A);
-  93:lcd/lcd.c     **** 	_lcd_write_data(x >> 8);
-  94:lcd/lcd.c     **** 	_lcd_write_data(x);
-  95:lcd/lcd.c     **** 	_lcd_write_data(x_end >> 8);
-  96:lcd/lcd.c     **** 	_lcd_write_data(x_end);
-  97:lcd/lcd.c     **** 	_lcd_write_reg(0x2B);
-  98:lcd/lcd.c     **** 	_lcd_write_data(y >> 8);
-  99:lcd/lcd.c     **** 	_lcd_write_data(y);
- 100:lcd/lcd.c     **** 	_lcd_write_data(y_end >> 8);
- 101:lcd/lcd.c     **** 	_lcd_write_data(y_end);
- 102:lcd/lcd.c     **** 	_lcd_write_reg(0x2C);
- 103:lcd/lcd.c     **** 	LCD_DC_1;
- 104:lcd/lcd.c     **** 	LCD_CS_0;
- 105:lcd/lcd.c     **** }
- 106:lcd/lcd.c     **** 
- 107:lcd/lcd.c     **** static inline void _lcd_pixel(u16 data)
- 108:lcd/lcd.c     **** {
- 109:lcd/lcd.c     **** 	spi_xchg(data >> 8);
- 110:lcd/lcd.c     **** 	spi_xchg(data);
- 111:lcd/lcd.c     **** }
- 112:lcd/lcd.c     **** 
- 113:lcd/lcd.c     **** static inline void _lcd_window_end(void)
- 114:lcd/lcd.c     **** {
- 115:lcd/lcd.c     **** 	LCD_CS_1;
- 116:lcd/lcd.c     **** }
- 117:lcd/lcd.c     **** 
- 118:lcd/lcd.c     **** static void _lcd_init_reg(void)
- 119:lcd/lcd.c     **** {
- 120:lcd/lcd.c     **** 	_lcd_write_reg(0xF9);
- 121:lcd/lcd.c     **** 	_lcd_write_data(0x00);
- 122:lcd/lcd.c     **** 	_lcd_write_data(0x08);
- 123:lcd/lcd.c     **** 	_lcd_write_reg(0xC0);
- 124:lcd/lcd.c     **** 	_lcd_write_data(0x19);
- 125:lcd/lcd.c     **** 	_lcd_write_data(0x1a);
- 126:lcd/lcd.c     **** 	_lcd_write_reg(0xC1);
- 127:lcd/lcd.c     **** 	_lcd_write_data(0x45);
+  87:lcd/lcd.c     **** 	LCD_CS_1;
+  88:lcd/lcd.c     **** }
+  89:lcd/lcd.c     **** 
+  90:lcd/lcd.c     **** static void _lcd_init_reg(void)
+  91:lcd/lcd.c     **** {
+  92:lcd/lcd.c     **** 	_lcd_write_reg(0xF9);
+  93:lcd/lcd.c     **** 	_lcd_write_data(0x00);
+  94:lcd/lcd.c     **** 	_lcd_write_data(0x08);
+  95:lcd/lcd.c     **** 	_lcd_write_reg(0xC0);
+  96:lcd/lcd.c     **** 	_lcd_write_data(0x19);
+  97:lcd/lcd.c     **** 	_lcd_write_data(0x1a);
+  98:lcd/lcd.c     **** 	_lcd_write_reg(0xC1);
+  99:lcd/lcd.c     **** 	_lcd_write_data(0x45);
+ 100:lcd/lcd.c     **** 	_lcd_write_data(0x00);
+ 101:lcd/lcd.c     **** 	_lcd_write_reg(0xC2);
+ 102:lcd/lcd.c     **** 	_lcd_write_data(0x33);
+ 103:lcd/lcd.c     **** 	_lcd_write_reg(0xC5);
+ 104:lcd/lcd.c     **** 	_lcd_write_data(0x00);
+ 105:lcd/lcd.c     **** 	_lcd_write_data(0x28);
+ 106:lcd/lcd.c     **** 	_lcd_write_reg(0xB1);
+ 107:lcd/lcd.c     **** 	_lcd_write_data(0xA0);
+ 108:lcd/lcd.c     **** 	_lcd_write_data(0x11);
+ 109:lcd/lcd.c     **** 	_lcd_write_reg(0xB4);
+ 110:lcd/lcd.c     **** 	_lcd_write_data(0x02);
+ 111:lcd/lcd.c     **** 	_lcd_write_reg(0xB6);
+ 112:lcd/lcd.c     **** 	_lcd_write_data(0x00);
+ 113:lcd/lcd.c     **** 	_lcd_write_data(0x42);
+ 114:lcd/lcd.c     **** 	_lcd_write_data(0x3B);
+ 115:lcd/lcd.c     **** 	_lcd_write_reg(0xB7);
+ 116:lcd/lcd.c     **** 	_lcd_write_data(0x07);
+ 117:lcd/lcd.c     **** 	_lcd_write_reg(0xE0);
+ 118:lcd/lcd.c     **** 	_lcd_write_data(0x1F);
+ 119:lcd/lcd.c     **** 	_lcd_write_data(0x25);
+ 120:lcd/lcd.c     **** 	_lcd_write_data(0x22);
+ 121:lcd/lcd.c     **** 	_lcd_write_data(0x0B);
+ 122:lcd/lcd.c     **** 	_lcd_write_data(0x06);
+ 123:lcd/lcd.c     **** 	_lcd_write_data(0x0A);
+ 124:lcd/lcd.c     **** 	_lcd_write_data(0x4E);
+ 125:lcd/lcd.c     **** 	_lcd_write_data(0xC6);
+ 126:lcd/lcd.c     **** 	_lcd_write_data(0x39);
+ 127:lcd/lcd.c     **** 	_lcd_write_data(0x00);
  128:lcd/lcd.c     **** 	_lcd_write_data(0x00);
- 129:lcd/lcd.c     **** 	_lcd_write_reg(0xC2);
- 130:lcd/lcd.c     **** 	_lcd_write_data(0x33);
- 131:lcd/lcd.c     **** 	_lcd_write_reg(0xC5);
+ 129:lcd/lcd.c     **** 	_lcd_write_data(0x00);
+ 130:lcd/lcd.c     **** 	_lcd_write_data(0x00);
+ 131:lcd/lcd.c     **** 	_lcd_write_data(0x00);
  132:lcd/lcd.c     **** 	_lcd_write_data(0x00);
- 133:lcd/lcd.c     **** 	_lcd_write_data(0x28);
- 134:lcd/lcd.c     **** 	_lcd_write_reg(0xB1);
- 135:lcd/lcd.c     **** 	_lcd_write_data(0xA0);
- 136:lcd/lcd.c     **** 	_lcd_write_data(0x11);
- 137:lcd/lcd.c     **** 	_lcd_write_reg(0xB4);
- 138:lcd/lcd.c     **** 	_lcd_write_data(0x02);
- 139:lcd/lcd.c     **** 	_lcd_write_reg(0xB6);
- 140:lcd/lcd.c     **** 	_lcd_write_data(0x00);
- 141:lcd/lcd.c     **** 	_lcd_write_data(0x42);
- 142:lcd/lcd.c     **** 	_lcd_write_data(0x3B);
- 143:lcd/lcd.c     **** 	_lcd_write_reg(0xB7);
- 144:lcd/lcd.c     **** 	_lcd_write_data(0x07);
- 145:lcd/lcd.c     **** 	_lcd_write_reg(0xE0);
- 146:lcd/lcd.c     **** 	_lcd_write_data(0x1F);
- 147:lcd/lcd.c     **** 	_lcd_write_data(0x25);
- 148:lcd/lcd.c     **** 	_lcd_write_data(0x22);
- 149:lcd/lcd.c     **** 	_lcd_write_data(0x0B);
- 150:lcd/lcd.c     **** 	_lcd_write_data(0x06);
- 151:lcd/lcd.c     **** 	_lcd_write_data(0x0A);
- 152:lcd/lcd.c     **** 	_lcd_write_data(0x4E);
- 153:lcd/lcd.c     **** 	_lcd_write_data(0xC6);
- 154:lcd/lcd.c     **** 	_lcd_write_data(0x39);
- 155:lcd/lcd.c     **** 	_lcd_write_data(0x00);
- 156:lcd/lcd.c     **** 	_lcd_write_data(0x00);
- 157:lcd/lcd.c     **** 	_lcd_write_data(0x00);
- 158:lcd/lcd.c     **** 	_lcd_write_data(0x00);
- 159:lcd/lcd.c     **** 	_lcd_write_data(0x00);
- 160:lcd/lcd.c     **** 	_lcd_write_data(0x00);
- 161:lcd/lcd.c     **** 	_lcd_write_reg(0xE1);
- 162:lcd/lcd.c     **** 	_lcd_write_data(0x1F);
- 163:lcd/lcd.c     **** 	_lcd_write_data(0x3F);
- 164:lcd/lcd.c     **** 	_lcd_write_data(0x3F);
- 165:lcd/lcd.c     **** 	_lcd_write_data(0x0F);
- 166:lcd/lcd.c     **** 	_lcd_write_data(0x1F);
- 167:lcd/lcd.c     **** 	_lcd_write_data(0x0F);
- 168:lcd/lcd.c     **** 	_lcd_write_data(0x46);
- 169:lcd/lcd.c     **** 	_lcd_write_data(0x49);
- 170:lcd/lcd.c     **** 	_lcd_write_data(0x31);
- 171:lcd/lcd.c     **** 	_lcd_write_data(0x05);
- 172:lcd/lcd.c     **** 	_lcd_write_data(0x09);
- 173:lcd/lcd.c     **** 	_lcd_write_data(0x03);
- 174:lcd/lcd.c     **** 	_lcd_write_data(0x1C);
- 175:lcd/lcd.c     **** 	_lcd_write_data(0x1A);
- 176:lcd/lcd.c     **** 	_lcd_write_data(0x00);
- 177:lcd/lcd.c     **** 	_lcd_write_reg(0xF1);
- 178:lcd/lcd.c     **** 	_lcd_write_data(0x36);
- 179:lcd/lcd.c     **** 	_lcd_write_data(0x04);
- 180:lcd/lcd.c     **** 	_lcd_write_data(0x00);
- 181:lcd/lcd.c     **** 	_lcd_write_data(0x3C);
- 182:lcd/lcd.c     **** 	_lcd_write_data(0x0F);
- 183:lcd/lcd.c     **** 	_lcd_write_data(0x0F);
- 184:lcd/lcd.c     **** 	_lcd_write_data(0xA4);
- 185:lcd/lcd.c     **** 	_lcd_write_data(0x02);
- 186:lcd/lcd.c     **** 	_lcd_write_reg(0xF2);
- 187:lcd/lcd.c     **** 	_lcd_write_data(0x18);
- 188:lcd/lcd.c     **** 	_lcd_write_data(0xA3);
- 189:lcd/lcd.c     **** 	_lcd_write_data(0x12);
- 190:lcd/lcd.c     **** 	_lcd_write_data(0x02);
- 191:lcd/lcd.c     **** 	_lcd_write_data(0x32);
- 192:lcd/lcd.c     **** 	_lcd_write_data(0x12);
- 193:lcd/lcd.c     **** 	_lcd_write_data(0xFF);
- 194:lcd/lcd.c     **** 	_lcd_write_data(0x32);
- 195:lcd/lcd.c     **** 	_lcd_write_data(0x00);
- 196:lcd/lcd.c     **** 	_lcd_write_reg(0xF4);
- 197:lcd/lcd.c     **** 	_lcd_write_data(0x40);
- 198:lcd/lcd.c     **** 	_lcd_write_data(0x00);
- 199:lcd/lcd.c     **** 	_lcd_write_data(0x08);
- 200:lcd/lcd.c     **** 	_lcd_write_data(0x91);
- 201:lcd/lcd.c     **** 	_lcd_write_data(0x04);
- 202:lcd/lcd.c     **** 	_lcd_write_reg(0xF8);
- 203:lcd/lcd.c     **** 	_lcd_write_data(0x21);
- 204:lcd/lcd.c     **** 	_lcd_write_data(0x04);
- 205:lcd/lcd.c     **** 	_lcd_write_reg(0x3A);
- 206:lcd/lcd.c     **** 	_lcd_write_data(0x55);
- 207:lcd/lcd.c     **** }
- 208:lcd/lcd.c     **** 
- 209:lcd/lcd.c     **** static void _lcd_set_gram_scan_dir(u8 scan_dir)
- 210:lcd/lcd.c     **** {
- 211:lcd/lcd.c     **** 	u16 a, b;
- 212:lcd/lcd.c     **** 	switch(scan_dir)
- 213:lcd/lcd.c     **** 	{
- 214:lcd/lcd.c     **** 	case L2R_U2D:
- 215:lcd/lcd.c     **** 		a = 0x08;
- 216:lcd/lcd.c     **** 		b = 0x22;
- 217:lcd/lcd.c     **** 		break;
- 218:lcd/lcd.c     **** 
- 219:lcd/lcd.c     **** 	case L2R_D2U:
- 220:lcd/lcd.c     **** 		a = 0x08;
- 221:lcd/lcd.c     **** 		b = 0x62;
- 222:lcd/lcd.c     **** 		break;
- 223:lcd/lcd.c     **** 
- 224:lcd/lcd.c     **** 	case R2L_U2D:
- 225:lcd/lcd.c     **** 		a = 0x08;
- 226:lcd/lcd.c     **** 		b = 0x02;
- 227:lcd/lcd.c     **** 		break;
- 228:lcd/lcd.c     **** 
- 229:lcd/lcd.c     **** 	case R2L_D2U:
- 230:lcd/lcd.c     **** 		a = 0x08;
- 231:lcd/lcd.c     **** 		b = 0x42;
- 232:lcd/lcd.c     **** 		break;
+ 133:lcd/lcd.c     **** 	_lcd_write_reg(0xE1);
+ 134:lcd/lcd.c     **** 	_lcd_write_data(0x1F);
+ 135:lcd/lcd.c     **** 	_lcd_write_data(0x3F);
+ 136:lcd/lcd.c     **** 	_lcd_write_data(0x3F);
+ 137:lcd/lcd.c     **** 	_lcd_write_data(0x0F);
+ 138:lcd/lcd.c     **** 	_lcd_write_data(0x1F);
+ 139:lcd/lcd.c     **** 	_lcd_write_data(0x0F);
+ 140:lcd/lcd.c     **** 	_lcd_write_data(0x46);
+ 141:lcd/lcd.c     **** 	_lcd_write_data(0x49);
+ 142:lcd/lcd.c     **** 	_lcd_write_data(0x31);
+ 143:lcd/lcd.c     **** 	_lcd_write_data(0x05);
+ 144:lcd/lcd.c     **** 	_lcd_write_data(0x09);
+ 145:lcd/lcd.c     **** 	_lcd_write_data(0x03);
+ 146:lcd/lcd.c     **** 	_lcd_write_data(0x1C);
+ 147:lcd/lcd.c     **** 	_lcd_write_data(0x1A);
+ 148:lcd/lcd.c     **** 	_lcd_write_data(0x00);
+ 149:lcd/lcd.c     **** 	_lcd_write_reg(0xF1);
+ 150:lcd/lcd.c     **** 	_lcd_write_data(0x36);
+ 151:lcd/lcd.c     **** 	_lcd_write_data(0x04);
+ 152:lcd/lcd.c     **** 	_lcd_write_data(0x00);
+ 153:lcd/lcd.c     **** 	_lcd_write_data(0x3C);
+ 154:lcd/lcd.c     **** 	_lcd_write_data(0x0F);
+ 155:lcd/lcd.c     **** 	_lcd_write_data(0x0F);
+ 156:lcd/lcd.c     **** 	_lcd_write_data(0xA4);
+ 157:lcd/lcd.c     **** 	_lcd_write_data(0x02);
+ 158:lcd/lcd.c     **** 	_lcd_write_reg(0xF2);
+ 159:lcd/lcd.c     **** 	_lcd_write_data(0x18);
+ 160:lcd/lcd.c     **** 	_lcd_write_data(0xA3);
+ 161:lcd/lcd.c     **** 	_lcd_write_data(0x12);
+ 162:lcd/lcd.c     **** 	_lcd_write_data(0x02);
+ 163:lcd/lcd.c     **** 	_lcd_write_data(0x32);
+ 164:lcd/lcd.c     **** 	_lcd_write_data(0x12);
+ 165:lcd/lcd.c     **** 	_lcd_write_data(0xFF);
+ 166:lcd/lcd.c     **** 	_lcd_write_data(0x32);
+ 167:lcd/lcd.c     **** 	_lcd_write_data(0x00);
+ 168:lcd/lcd.c     **** 	_lcd_write_reg(0xF4);
+ 169:lcd/lcd.c     **** 	_lcd_write_data(0x40);
+ 170:lcd/lcd.c     **** 	_lcd_write_data(0x00);
+ 171:lcd/lcd.c     **** 	_lcd_write_data(0x08);
+ 172:lcd/lcd.c     **** 	_lcd_write_data(0x91);
+ 173:lcd/lcd.c     **** 	_lcd_write_data(0x04);
+ 174:lcd/lcd.c     **** 	_lcd_write_reg(0xF8);
+ 175:lcd/lcd.c     **** 	_lcd_write_data(0x21);
+ 176:lcd/lcd.c     **** 	_lcd_write_data(0x04);
+ 177:lcd/lcd.c     **** 	_lcd_write_reg(0x3A);
+ 178:lcd/lcd.c     **** 	_lcd_write_data(0x55);
+ 179:lcd/lcd.c     **** }
+ 180:lcd/lcd.c     **** 
+ 181:lcd/lcd.c     **** static void _lcd_set_gram_scan_dir(u8 scan_dir)
+ 182:lcd/lcd.c     **** {
+ 183:lcd/lcd.c     **** 	u16 a, b;
+ 184:lcd/lcd.c     **** 	switch(scan_dir)
+ 185:lcd/lcd.c     **** 	{
+ 186:lcd/lcd.c     **** 	case L2R_U2D:
+ 187:lcd/lcd.c     **** 		a = 0x08;
+ 188:lcd/lcd.c     **** 		b = 0x22;
+ 189:lcd/lcd.c     **** 		break;
+ 190:lcd/lcd.c     **** 
+ 191:lcd/lcd.c     **** 	case L2R_D2U:
+ 192:lcd/lcd.c     **** 		a = 0x08;
+ 193:lcd/lcd.c     **** 		b = 0x62;
+ 194:lcd/lcd.c     **** 		break;
+ 195:lcd/lcd.c     **** 
+ 196:lcd/lcd.c     **** 	case R2L_U2D:
+ 197:lcd/lcd.c     **** 		a = 0x08;
+ 198:lcd/lcd.c     **** 		b = 0x02;
+ 199:lcd/lcd.c     **** 		break;
+ 200:lcd/lcd.c     **** 
+ 201:lcd/lcd.c     **** 	case R2L_D2U:
+ 202:lcd/lcd.c     **** 		a = 0x08;
+ 203:lcd/lcd.c     **** 		b = 0x42;
+ 204:lcd/lcd.c     **** 		break;
+ 205:lcd/lcd.c     **** 
+ 206:lcd/lcd.c     **** 	case U2D_L2R:
+ 207:lcd/lcd.c     **** 		a = 0x28;
+ 208:lcd/lcd.c     **** 		b = 0x22;
+ 209:lcd/lcd.c     **** 		break;
+ 210:lcd/lcd.c     **** 
+ 211:lcd/lcd.c     **** 	case U2D_R2L:
+ 212:lcd/lcd.c     **** 		a = 0x28;
+ 213:lcd/lcd.c     **** 		b = 0x02;
+ 214:lcd/lcd.c     **** 		break;
+ 215:lcd/lcd.c     **** 
+ 216:lcd/lcd.c     **** 	case D2U_L2R:
+ 217:lcd/lcd.c     **** 		a = 0x28;
+ 218:lcd/lcd.c     **** 		b = 0x62;
+ 219:lcd/lcd.c     **** 		break;
+ 220:lcd/lcd.c     **** 
+ 221:lcd/lcd.c     **** 	case D2U_R2L:
+ 222:lcd/lcd.c     **** 		a = 0x28;
+ 223:lcd/lcd.c     **** 		b = 0x42;
+ 224:lcd/lcd.c     **** 		break;
+ 225:lcd/lcd.c     **** 	}
+ 226:lcd/lcd.c     **** 
+ 227:lcd/lcd.c     **** 	_lcd_write_reg(0xB6);
+ 228:lcd/lcd.c     **** 	_lcd_write_data(0x00);
+ 229:lcd/lcd.c     **** 	_lcd_write_data(b);
+ 230:lcd/lcd.c     **** 	_lcd_write_reg(0x36);
+ 231:lcd/lcd.c     **** 	_lcd_write_data(a);
+ 232:lcd/lcd.c     **** }
  233:lcd/lcd.c     **** 
- 234:lcd/lcd.c     **** 	case U2D_L2R:
- 235:lcd/lcd.c     **** 		a = 0x28;
- 236:lcd/lcd.c     **** 		b = 0x22;
- 237:lcd/lcd.c     **** 		break;
- 238:lcd/lcd.c     **** 
- 239:lcd/lcd.c     **** 	case U2D_R2L:
- 240:lcd/lcd.c     **** 		a = 0x28;
- 241:lcd/lcd.c     **** 		b = 0x02;
- 242:lcd/lcd.c     **** 		break;
- 243:lcd/lcd.c     **** 
- 244:lcd/lcd.c     **** 	case D2U_L2R:
- 245:lcd/lcd.c     **** 		a = 0x28;
- 246:lcd/lcd.c     **** 		b = 0x62;
- 247:lcd/lcd.c     **** 		break;
- 248:lcd/lcd.c     **** 
- 249:lcd/lcd.c     **** 	case D2U_R2L:
- 250:lcd/lcd.c     **** 		a = 0x28;
- 251:lcd/lcd.c     **** 		b = 0x42;
- 252:lcd/lcd.c     **** 		break;
- 253:lcd/lcd.c     **** 	}
- 254:lcd/lcd.c     **** 
- 255:lcd/lcd.c     **** 	_lcd_write_reg(0xB6);
- 256:lcd/lcd.c     **** 	_lcd_write_data(0x00);
- 257:lcd/lcd.c     **** 	_lcd_write_data(b);
- 258:lcd/lcd.c     **** 	_lcd_write_reg(0x36);
- 259:lcd/lcd.c     **** 	_lcd_write_data(a);
- 260:lcd/lcd.c     **** }
- 261:lcd/lcd.c     **** 
- 262:lcd/lcd.c     **** /* --- PUBLIC --- */
- 263:lcd/lcd.c     **** void lcd_backlight(u8 value)
- 264:lcd/lcd.c     **** {
-  82               		.loc 1 264 1 is_stmt 1 view -0
+ 234:lcd/lcd.c     **** /* --- PUBLIC --- */
+ 235:lcd/lcd.c     **** void lcd_backlight(u8 value)
+ 236:lcd/lcd.c     **** {
+  82               		.loc 1 236 1 is_stmt 1 view -0
   83               		.cfi_startproc
   84               	/* prologue: function */
   85               	/* frame size = 0 */
   86               	/* stack size = 0 */
   87               	.L__stack_usage = 0
- 265:lcd/lcd.c     **** 	/* TODO: Write PWM Value */
- 266:lcd/lcd.c     **** 	(void)value;
-  88               		.loc 1 266 2 view .LVU17
+ 237:lcd/lcd.c     **** 	/* TODO: Write PWM Value */
+ 238:lcd/lcd.c     **** 	(void)value;
+  88               		.loc 1 238 2 view .LVU17
   89               	/* epilogue start */
- 267:lcd/lcd.c     **** }
-  90               		.loc 1 267 1 is_stmt 0 view .LVU18
+ 239:lcd/lcd.c     **** }
+  90               		.loc 1 239 1 is_stmt 0 view .LVU18
   91 0026 0895      		ret
   92               		.cfi_endproc
-  93               	.LFE22:
+  93               	.LFE21:
   95               	.global	lcd_rect
   97               	lcd_rect:
   98               	.LVL8:
-  99               	.LFB24:
- 268:lcd/lcd.c     **** 
- 269:lcd/lcd.c     **** void lcd_init(u8 backlight, RGB565 bg)
- 270:lcd/lcd.c     **** {
- 271:lcd/lcd.c     **** 	/* Initialize LCD */
- 272:lcd/lcd.c     **** 	_lcd_configure_gpio();
- 273:lcd/lcd.c     **** 	spi_fast();
- 274:lcd/lcd.c     **** 
- 275:lcd/lcd.c     **** 	_lcd_reset();
- 276:lcd/lcd.c     **** 	lcd_backlight(backlight);
- 277:lcd/lcd.c     **** 	_lcd_init_reg();
- 278:lcd/lcd.c     **** 	_lcd_set_gram_scan_dir(SCAN_DIR);
- 279:lcd/lcd.c     **** 	_delay_ms(200);
- 280:lcd/lcd.c     **** 	_lcd_write_reg(0x11);
- 281:lcd/lcd.c     **** 	_delay_ms(120);
- 282:lcd/lcd.c     **** 	_lcd_write_reg(0x29);
- 283:lcd/lcd.c     **** 
- 284:lcd/lcd.c     **** 	lcd_rect(0, 0, LCD_WIDTH, LCD_HEIGHT, bg);
- 285:lcd/lcd.c     **** 
- 286:lcd/lcd.c     **** 	log_boot_P(PSTR("LCD driver initialized"));
- 287:lcd/lcd.c     **** }
- 288:lcd/lcd.c     **** 
- 289:lcd/lcd.c     **** void lcd_rect(u16 x, u16 y, u16 w, u16 h, RGB565 color)
- 290:lcd/lcd.c     **** {
- 100               		.loc 1 290 1 is_stmt 1 view -0
+  99               	.LFB23:
+ 240:lcd/lcd.c     **** 
+ 241:lcd/lcd.c     **** void lcd_init(u8 backlight, RGB565 bg)
+ 242:lcd/lcd.c     **** {
+ 243:lcd/lcd.c     **** 	/* Initialize LCD */
+ 244:lcd/lcd.c     **** 	log_boot_P(PSTR("LCD driver starting"));
+ 245:lcd/lcd.c     **** 	spi_fast();
+ 246:lcd/lcd.c     **** 	_lcd_reset();
+ 247:lcd/lcd.c     **** 	lcd_backlight(backlight);
+ 248:lcd/lcd.c     **** 	_lcd_init_reg();
+ 249:lcd/lcd.c     **** 	_lcd_set_gram_scan_dir(SCAN_DIR);
+ 250:lcd/lcd.c     **** 	_delay_ms(200);
+ 251:lcd/lcd.c     **** 	_lcd_write_reg(0x11);
+ 252:lcd/lcd.c     **** 	_delay_ms(120);
+ 253:lcd/lcd.c     **** 	_lcd_write_reg(0x29);
+ 254:lcd/lcd.c     **** 
+ 255:lcd/lcd.c     **** 	lcd_rect(0, 0, LCD_WIDTH, LCD_HEIGHT, bg);
+ 256:lcd/lcd.c     **** 
+ 257:lcd/lcd.c     **** 	log_boot_P(PSTR("LCD driver initialized"));
+ 258:lcd/lcd.c     **** }
+ 259:lcd/lcd.c     **** 
+ 260:lcd/lcd.c     **** void lcd_rect(u16 x, u16 y, u16 w, u16 h, RGB565 color)
+ 261:lcd/lcd.c     **** {
+ 100               		.loc 1 261 1 is_stmt 1 view -0
  101               		.cfi_startproc
- 102               		.loc 1 290 1 is_stmt 0 view .LVU20
+ 102               		.loc 1 261 1 is_stmt 0 view .LVU20
  103 0028 6F92      		push r6
  104               		.cfi_def_cfa_offset 3
  105               		.cfi_offset 6, -2
@@ -439,26 +410,26 @@
  150 0046 EB01      		movw r28,r22
  151 0048 5A01      		movw r10,r20
  152 004a 6901      		movw r12,r18
- 291:lcd/lcd.c     **** 	u16 w0, h0;
- 153               		.loc 1 291 2 is_stmt 1 view .LVU21
- 292:lcd/lcd.c     **** 
- 293:lcd/lcd.c     **** 	spi_fast();
- 154               		.loc 1 293 2 view .LVU22
+ 262:lcd/lcd.c     **** 	u16 w0, h0;
+ 153               		.loc 1 262 2 is_stmt 1 view .LVU21
+ 263:lcd/lcd.c     **** 
+ 264:lcd/lcd.c     **** 	spi_fast();
+ 154               		.loc 1 264 2 view .LVU22
  155 004c 0E94 0000 		call spi_fast
  156               	.LVL9:
- 294:lcd/lcd.c     **** 	_lcd_window_start(x, y, w, h);
- 157               		.loc 1 294 2 view .LVU23
- 158               	.LBB58:
- 159               	.LBI58:
-  85:lcd/lcd.c     **** {
- 160               		.loc 1 85 13 view .LVU24
- 161               	.LBB59:
-  87:lcd/lcd.c     **** 
- 162               		.loc 1 87 2 view .LVU25
-  89:lcd/lcd.c     **** 	y_end = y + h - 1;
- 163               		.loc 1 89 2 view .LVU26
-  89:lcd/lcd.c     **** 	y_end = y + h - 1;
- 164               		.loc 1 89 8 is_stmt 0 view .LVU27
+ 265:lcd/lcd.c     **** 	_lcd_window_start(x, y, w, h);
+ 157               		.loc 1 265 2 view .LVU23
+ 158               	.LBB60:
+ 159               	.LBI60:
+  57:lcd/lcd.c     **** {
+ 160               		.loc 1 57 13 view .LVU24
+ 161               	.LBB61:
+  59:lcd/lcd.c     **** 
+ 162               		.loc 1 59 2 view .LVU25
+  61:lcd/lcd.c     **** 	y_end = y + h - 1;
+ 163               		.loc 1 61 2 view .LVU26
+  61:lcd/lcd.c     **** 	y_end = y + h - 1;
+ 164               		.loc 1 61 8 is_stmt 0 view .LVU27
  165 0050 3501      		movw r6,r10
  166 0052 81E0      		ldi r24,1
  167 0054 681A      		sub r6,r24
@@ -466,10 +437,10 @@
  169 0058 6E0C      		add r6,r14
  170 005a 7F1C      		adc r7,r15
  171               	.LVL10:
-  90:lcd/lcd.c     **** 
- 172               		.loc 1 90 2 is_stmt 1 view .LVU28
-  90:lcd/lcd.c     **** 
- 173               		.loc 1 90 8 is_stmt 0 view .LVU29
+  62:lcd/lcd.c     **** 
+ 172               		.loc 1 62 2 is_stmt 1 view .LVU28
+  62:lcd/lcd.c     **** 
+ 173               		.loc 1 62 8 is_stmt 0 view .LVU29
  174 005c 4601      		movw r8,r12
  175 005e 81E0      		ldi r24,1
  176 0060 881A      		sub r8,r24
@@ -477,119 +448,119 @@
  178 0064 8C0E      		add r8,r28
  179 0066 9D1E      		adc r9,r29
  180               	.LVL11:
-  92:lcd/lcd.c     **** 	_lcd_write_data(x >> 8);
- 181               		.loc 1 92 2 is_stmt 1 view .LVU30
+  64:lcd/lcd.c     **** 	_lcd_write_data(x >> 8);
+ 181               		.loc 1 64 2 is_stmt 1 view .LVU30
  182 0068 8AE2      		ldi r24,lo8(42)
  183 006a 0E94 0000 		call _lcd_write_reg
  184               	.LVL12:
-  93:lcd/lcd.c     **** 	_lcd_write_data(x);
- 185               		.loc 1 93 2 view .LVU31
+  65:lcd/lcd.c     **** 	_lcd_write_data(x);
+ 185               		.loc 1 65 2 view .LVU31
  186 006e 8F2D      		mov r24,r15
  187 0070 0E94 0000 		call _lcd_write_data
  188               	.LVL13:
-  94:lcd/lcd.c     **** 	_lcd_write_data(x_end >> 8);
- 189               		.loc 1 94 2 view .LVU32
+  66:lcd/lcd.c     **** 	_lcd_write_data(x_end >> 8);
+ 189               		.loc 1 66 2 view .LVU32
  190 0074 8E2D      		mov r24,r14
  191 0076 0E94 0000 		call _lcd_write_data
  192               	.LVL14:
-  95:lcd/lcd.c     **** 	_lcd_write_data(x_end);
- 193               		.loc 1 95 2 view .LVU33
+  67:lcd/lcd.c     **** 	_lcd_write_data(x_end);
+ 193               		.loc 1 67 2 view .LVU33
  194 007a 872D      		mov r24,r7
  195 007c 0E94 0000 		call _lcd_write_data
  196               	.LVL15:
-  96:lcd/lcd.c     **** 	_lcd_write_reg(0x2B);
- 197               		.loc 1 96 2 view .LVU34
+  68:lcd/lcd.c     **** 	_lcd_write_reg(0x2B);
+ 197               		.loc 1 68 2 view .LVU34
  198 0080 862D      		mov r24,r6
  199 0082 0E94 0000 		call _lcd_write_data
  200               	.LVL16:
-  97:lcd/lcd.c     **** 	_lcd_write_data(y >> 8);
- 201               		.loc 1 97 2 view .LVU35
+  69:lcd/lcd.c     **** 	_lcd_write_data(y >> 8);
+ 201               		.loc 1 69 2 view .LVU35
  202 0086 8BE2      		ldi r24,lo8(43)
  203 0088 0E94 0000 		call _lcd_write_reg
  204               	.LVL17:
-  98:lcd/lcd.c     **** 	_lcd_write_data(y);
- 205               		.loc 1 98 2 view .LVU36
+  70:lcd/lcd.c     **** 	_lcd_write_data(y);
+ 205               		.loc 1 70 2 view .LVU36
  206 008c 8D2F      		mov r24,r29
  207 008e 0E94 0000 		call _lcd_write_data
  208               	.LVL18:
-  99:lcd/lcd.c     **** 	_lcd_write_data(y_end >> 8);
- 209               		.loc 1 99 2 view .LVU37
+  71:lcd/lcd.c     **** 	_lcd_write_data(y_end >> 8);
+ 209               		.loc 1 71 2 view .LVU37
  210 0092 8C2F      		mov r24,r28
  211 0094 0E94 0000 		call _lcd_write_data
  212               	.LVL19:
- 100:lcd/lcd.c     **** 	_lcd_write_data(y_end);
- 213               		.loc 1 100 2 view .LVU38
+  72:lcd/lcd.c     **** 	_lcd_write_data(y_end);
+ 213               		.loc 1 72 2 view .LVU38
  214 0098 892D      		mov r24,r9
  215 009a 0E94 0000 		call _lcd_write_data
  216               	.LVL20:
- 101:lcd/lcd.c     **** 	_lcd_write_reg(0x2C);
- 217               		.loc 1 101 2 view .LVU39
+  73:lcd/lcd.c     **** 	_lcd_write_reg(0x2C);
+ 217               		.loc 1 73 2 view .LVU39
  218 009e 882D      		mov r24,r8
  219 00a0 0E94 0000 		call _lcd_write_data
  220               	.LVL21:
- 102:lcd/lcd.c     **** 	LCD_DC_1;
- 221               		.loc 1 102 2 view .LVU40
+  74:lcd/lcd.c     **** 	LCD_DC_1;
+ 221               		.loc 1 74 2 view .LVU40
  222 00a4 8CE2      		ldi r24,lo8(44)
  223 00a6 0E94 0000 		call _lcd_write_reg
  224               	.LVL22:
- 103:lcd/lcd.c     **** 	LCD_CS_0;
- 225               		.loc 1 103 2 view .LVU41
+  75:lcd/lcd.c     **** 	LCD_CS_0;
+ 225               		.loc 1 75 2 view .LVU41
  226 00aa 419A      		sbi 0x8,1
- 104:lcd/lcd.c     **** }
- 227               		.loc 1 104 2 view .LVU42
+  76:lcd/lcd.c     **** }
+ 227               		.loc 1 76 2 view .LVU42
  228 00ac 4098      		cbi 0x8,0
- 229               	.LBE59:
- 230               	.LBE58:
- 295:lcd/lcd.c     **** 	for(h0 = 0; h0 < h; ++h0)
- 231               		.loc 1 295 9 is_stmt 0 view .LVU43
+ 229               	.LBE61:
+ 230               	.LBE60:
+ 266:lcd/lcd.c     **** 	for(h0 = 0; h0 < h; ++h0)
+ 231               		.loc 1 266 9 is_stmt 0 view .LVU43
  232 00ae C0E0      		ldi r28,0
  233 00b0 D0E0      		ldi r29,0
  234               	.LVL23:
  235               	.L5:
- 236               		.loc 1 295 17 is_stmt 1 discriminator 1 view .LVU44
+ 236               		.loc 1 266 17 is_stmt 1 discriminator 1 view .LVU44
  237 00b2 CC15      		cp r28,r12
  238 00b4 DD05      		cpc r29,r13
  239 00b6 01F4      		brne .L8
- 296:lcd/lcd.c     **** 	{
- 297:lcd/lcd.c     **** 		for(w0 = 0; w0 < w; ++w0)
- 298:lcd/lcd.c     **** 		{
- 299:lcd/lcd.c     **** 			_lcd_pixel(color);
- 300:lcd/lcd.c     **** 		}
- 301:lcd/lcd.c     **** 	}
- 302:lcd/lcd.c     **** 
- 303:lcd/lcd.c     **** 	_lcd_window_end();
- 240               		.loc 1 303 2 view .LVU45
- 241               	.LBB60:
- 242               	.LBI60:
- 113:lcd/lcd.c     **** {
- 243               		.loc 1 113 20 view .LVU46
- 244               	.LBB61:
- 115:lcd/lcd.c     **** }
- 245               		.loc 1 115 2 view .LVU47
+ 267:lcd/lcd.c     **** 	{
+ 268:lcd/lcd.c     **** 		for(w0 = 0; w0 < w; ++w0)
+ 269:lcd/lcd.c     **** 		{
+ 270:lcd/lcd.c     **** 			_lcd_pixel(color);
+ 271:lcd/lcd.c     **** 		}
+ 272:lcd/lcd.c     **** 	}
+ 273:lcd/lcd.c     **** 
+ 274:lcd/lcd.c     **** 	_lcd_window_end();
+ 240               		.loc 1 274 2 view .LVU45
+ 241               	.LBB62:
+ 242               	.LBI62:
+  85:lcd/lcd.c     **** {
+ 243               		.loc 1 85 20 view .LVU46
+ 244               	.LBB63:
+  87:lcd/lcd.c     **** }
+ 245               		.loc 1 87 2 view .LVU47
  246 00b8 409A      		sbi 0x8,0
  247               	/* epilogue start */
- 248               	.LBE61:
- 249               	.LBE60:
- 304:lcd/lcd.c     **** }
- 250               		.loc 1 304 1 is_stmt 0 view .LVU48
+ 248               	.LBE63:
+ 249               	.LBE62:
+ 275:lcd/lcd.c     **** }
+ 250               		.loc 1 275 1 is_stmt 0 view .LVU48
  251 00ba DF91      		pop r29
  252 00bc CF91      		pop r28
  253               	.LVL24:
- 254               		.loc 1 304 1 view .LVU49
+ 254               		.loc 1 275 1 view .LVU49
  255 00be 1F91      		pop r17
  256 00c0 0F91      		pop r16
  257               	.LVL25:
- 258               		.loc 1 304 1 view .LVU50
+ 258               		.loc 1 275 1 view .LVU50
  259 00c2 FF90      		pop r15
  260 00c4 EF90      		pop r14
  261 00c6 DF90      		pop r13
  262 00c8 CF90      		pop r12
  263               	.LVL26:
- 264               		.loc 1 304 1 view .LVU51
+ 264               		.loc 1 275 1 view .LVU51
  265 00ca BF90      		pop r11
  266 00cc AF90      		pop r10
  267               	.LVL27:
- 268               		.loc 1 304 1 view .LVU52
+ 268               		.loc 1 275 1 view .LVU52
  269 00ce 9F90      		pop r9
  270 00d0 8F90      		pop r8
  271 00d2 7F90      		pop r7
@@ -597,64 +568,64 @@
  273 00d6 0895      		ret
  274               	.LVL28:
  275               	.L6:
- 299:lcd/lcd.c     **** 		}
- 276               		.loc 1 299 4 is_stmt 1 view .LVU53
- 277               	.LBB62:
- 278               	.LBI62:
- 107:lcd/lcd.c     **** {
- 279               		.loc 1 107 20 view .LVU54
- 280               	.LBB63:
- 109:lcd/lcd.c     **** 	spi_xchg(data);
- 281               		.loc 1 109 2 view .LVU55
+ 270:lcd/lcd.c     **** 		}
+ 276               		.loc 1 270 4 is_stmt 1 view .LVU53
+ 277               	.LBB64:
+ 278               	.LBI64:
+  79:lcd/lcd.c     **** {
+ 279               		.loc 1 79 20 view .LVU54
+ 280               	.LBB65:
+  81:lcd/lcd.c     **** 	spi_xchg(data);
+ 281               		.loc 1 81 2 view .LVU55
  282 00d8 812F      		mov r24,r17
  283 00da 0E94 0000 		call spi_xchg
  284               	.LVL29:
- 110:lcd/lcd.c     **** }
- 285               		.loc 1 110 2 view .LVU56
+  82:lcd/lcd.c     **** }
+ 285               		.loc 1 82 2 view .LVU56
  286 00de 802F      		mov r24,r16
  287 00e0 0E94 0000 		call spi_xchg
  288               	.LVL30:
- 110:lcd/lcd.c     **** }
- 289               		.loc 1 110 2 is_stmt 0 view .LVU57
- 290               	.LBE63:
- 291               	.LBE62:
- 297:lcd/lcd.c     **** 		{
- 292               		.loc 1 297 23 is_stmt 1 view .LVU58
+  82:lcd/lcd.c     **** }
+ 289               		.loc 1 82 2 is_stmt 0 view .LVU57
+ 290               	.LBE65:
+ 291               	.LBE64:
+ 268:lcd/lcd.c     **** 		{
+ 292               		.loc 1 268 23 is_stmt 1 view .LVU58
  293 00e4 8FEF      		ldi r24,-1
  294 00e6 E81A      		sub r14,r24
  295 00e8 F80A      		sbc r15,r24
  296               	.LVL31:
  297               	.L7:
- 297:lcd/lcd.c     **** 		{
- 298               		.loc 1 297 18 discriminator 1 view .LVU59
+ 268:lcd/lcd.c     **** 		{
+ 298               		.loc 1 268 18 discriminator 1 view .LVU59
  299 00ea EA14      		cp r14,r10
  300 00ec FB04      		cpc r15,r11
  301 00ee 01F4      		brne .L6
- 295:lcd/lcd.c     **** 	{
- 302               		.loc 1 295 22 discriminator 2 view .LVU60
+ 266:lcd/lcd.c     **** 	{
+ 302               		.loc 1 266 22 discriminator 2 view .LVU60
  303 00f0 2196      		adiw r28,1
  304               	.LVL32:
- 295:lcd/lcd.c     **** 	{
- 305               		.loc 1 295 22 is_stmt 0 discriminator 2 view .LVU61
+ 266:lcd/lcd.c     **** 	{
+ 305               		.loc 1 266 22 is_stmt 0 discriminator 2 view .LVU61
  306 00f2 00C0      		rjmp .L5
  307               	.LVL33:
  308               	.L8:
- 297:lcd/lcd.c     **** 		{
- 309               		.loc 1 297 10 view .LVU62
+ 268:lcd/lcd.c     **** 		{
+ 309               		.loc 1 268 10 view .LVU62
  310 00f4 E12C      		mov r14,__zero_reg__
  311 00f6 F12C      		mov r15,__zero_reg__
  312 00f8 00C0      		rjmp .L7
  313               		.cfi_endproc
- 314               	.LFE24:
+ 314               	.LFE23:
  316               	.global	lcd_init
  318               	lcd_init:
  319               	.LVL34:
- 320               	.LFB23:
- 270:lcd/lcd.c     **** 	/* Initialize LCD */
- 321               		.loc 1 270 1 is_stmt 1 view -0
+ 320               	.LFB22:
+ 242:lcd/lcd.c     **** 	/* Initialize LCD */
+ 321               		.loc 1 242 1 is_stmt 1 view -0
  322               		.cfi_startproc
- 270:lcd/lcd.c     **** 	/* Initialize LCD */
- 323               		.loc 1 270 1 is_stmt 0 view .LVU64
+ 242:lcd/lcd.c     **** 	/* Initialize LCD */
+ 323               		.loc 1 242 1 is_stmt 0 view .LVU64
  324 00fa 0F93      		push r16
  325               		.cfi_def_cfa_offset 3
  326               		.cfi_offset 16, -2
@@ -666,53 +637,47 @@
  332               	/* stack size = 2 */
  333               	.L__stack_usage = 2
  334 00fe 8B01      		movw r16,r22
- 272:lcd/lcd.c     **** 	spi_fast();
- 335               		.loc 1 272 2 is_stmt 1 view .LVU65
- 336               	.LBB93:
- 337               	.LBI93:
-  50:lcd/lcd.c     **** {
- 338               		.loc 1 50 13 view .LVU66
- 339               	.LBB94:
-  52:lcd/lcd.c     **** 	LCD_CS_DIR |= (1 << LCD_CS_PIN);
- 340               		.loc 1 52 2 view .LVU67
-  52:lcd/lcd.c     **** 	LCD_CS_DIR |= (1 << LCD_CS_PIN);
- 341               		.loc 1 52 14 is_stmt 0 view .LVU68
- 342 0100 579A      		sbi 0xa,7
-  53:lcd/lcd.c     **** 	LCD_DC_DIR |= (1 << LCD_DC_PIN);
- 343               		.loc 1 53 2 is_stmt 1 view .LVU69
-  53:lcd/lcd.c     **** 	LCD_DC_DIR |= (1 << LCD_DC_PIN);
- 344               		.loc 1 53 13 is_stmt 0 view .LVU70
- 345 0102 389A      		sbi 0x7,0
-  54:lcd/lcd.c     **** 	LCD_CS_1;
- 346               		.loc 1 54 2 is_stmt 1 view .LVU71
-  54:lcd/lcd.c     **** 	LCD_CS_1;
- 347               		.loc 1 54 13 is_stmt 0 view .LVU72
- 348 0104 399A      		sbi 0x7,1
-  55:lcd/lcd.c     **** }
- 349               		.loc 1 55 2 is_stmt 1 view .LVU73
- 350 0106 409A      		sbi 0x8,0
- 351               	.LBE94:
- 352               	.LBE93:
- 273:lcd/lcd.c     **** 
- 353               		.loc 1 273 2 view .LVU74
- 354 0108 0E94 0000 		call spi_fast
- 355               	.LVL35:
- 275:lcd/lcd.c     **** 	lcd_backlight(backlight);
- 356               		.loc 1 275 2 view .LVU75
- 357               	.LBB95:
- 358               	.LBI95:
-  58:lcd/lcd.c     **** {
- 359               		.loc 1 58 13 view .LVU76
- 360               	.LBB96:
-  60:lcd/lcd.c     **** 	_delay_ms(500);
- 361               		.loc 1 60 2 view .LVU77
- 362 010c 5F9A      		sbi 0xb,7
-  61:lcd/lcd.c     **** 	LCD_RST_0;
- 363               		.loc 1 61 2 view .LVU78
- 364               	.LVL36:
- 365               	.LBB97:
- 366               	.LBI97:
- 367               		.file 2 "/usr/avr/include/util/delay.h"
+ 244:lcd/lcd.c     **** 	spi_fast();
+ 335               		.loc 1 244 2 is_stmt 1 view .LVU65
+ 336               	.LBB94:
+ 244:lcd/lcd.c     **** 	spi_fast();
+ 337               		.loc 1 244 13 view .LVU66
+ 244:lcd/lcd.c     **** 	spi_fast();
+ 338               		.loc 1 244 13 view .LVU67
+ 339               	.LBE94:
+ 244:lcd/lcd.c     **** 	spi_fast();
+ 340               		.loc 1 244 2 is_stmt 0 view .LVU68
+ 341 0100 80E0      		ldi r24,lo8(__c.1)
+ 342 0102 90E0      		ldi r25,hi8(__c.1)
+ 343               	.LVL35:
+ 244:lcd/lcd.c     **** 	spi_fast();
+ 344               		.loc 1 244 2 view .LVU69
+ 345 0104 9F93      		push r25
+ 346               		.cfi_def_cfa_offset 5
+ 347 0106 8F93      		push r24
+ 348               		.cfi_def_cfa_offset 6
+ 349 0108 0E94 0000 		call log_boot_P
+ 350               	.LVL36:
+ 245:lcd/lcd.c     **** 	_lcd_reset();
+ 351               		.loc 1 245 2 is_stmt 1 view .LVU70
+ 352 010c 0E94 0000 		call spi_fast
+ 353               	.LVL37:
+ 246:lcd/lcd.c     **** 	lcd_backlight(backlight);
+ 354               		.loc 1 246 2 view .LVU71
+ 355               	.LBB95:
+ 356               	.LBI95:
+  30:lcd/lcd.c     **** {
+ 357               		.loc 1 30 13 view .LVU72
+ 358               	.LBB96:
+  32:lcd/lcd.c     **** 	_delay_ms(500);
+ 359               		.loc 1 32 2 view .LVU73
+ 360 0110 5F9A      		sbi 0xb,7
+  33:lcd/lcd.c     **** 	LCD_RST_0;
+ 361               		.loc 1 33 2 view .LVU74
+ 362               	.LVL38:
+ 363               	.LBB97:
+ 364               	.LBI97:
+ 365               		.file 2 "/usr/avr/include/util/delay.h"
    1:/usr/avr/include/util/delay.h **** /* Copyright (c) 2002, Marek Michalkiewicz
    2:/usr/avr/include/util/delay.h ****    Copyright (c) 2004,2005,2007 Joerg Wunsch
    3:/usr/avr/include/util/delay.h ****    Copyright (c) 2007  Florin-Viorel Petrov
@@ -879,11 +844,11 @@
  164:/usr/avr/include/util/delay.h ****  */
  165:/usr/avr/include/util/delay.h **** void
  166:/usr/avr/include/util/delay.h **** _delay_ms(double __ms)
- 368               		.loc 2 166 1 view .LVU79
- 369               	.LBB98:
+ 366               		.loc 2 166 1 view .LVU75
+ 367               	.LBB98:
  167:/usr/avr/include/util/delay.h **** {
  168:/usr/avr/include/util/delay.h **** 	double __tmp ;
- 370               		.loc 2 168 2 view .LVU80
+ 368               		.loc 2 168 2 view .LVU76
  169:/usr/avr/include/util/delay.h **** #if __HAS_DELAY_CYCLES && defined(__OPTIMIZE__) && \
  170:/usr/avr/include/util/delay.h ****   !defined(__DELAY_BACKWARD_COMPATIBLE__) &&	   \
  171:/usr/avr/include/util/delay.h ****   __STDC_HOSTED__
@@ -906,30 +871,33 @@
  188:/usr/avr/include/util/delay.h **** 
  189:/usr/avr/include/util/delay.h **** #else
  190:/usr/avr/include/util/delay.h **** 	uint16_t __ticks;
- 371               		.loc 2 190 2 view .LVU81
+ 369               		.loc 2 190 2 view .LVU77
  191:/usr/avr/include/util/delay.h **** 	__tmp = ((F_CPU) / 4e3) * __ms;
- 372               		.loc 2 191 2 view .LVU82
+ 370               		.loc 2 191 2 view .LVU78
  192:/usr/avr/include/util/delay.h **** 	if (__tmp < 1.0)
- 373               		.loc 2 192 2 view .LVU83
+ 371               		.loc 2 192 2 view .LVU79
  193:/usr/avr/include/util/delay.h **** 		__ticks = 1;
  194:/usr/avr/include/util/delay.h **** 	else if (__tmp > 65535)
- 374               		.loc 2 194 7 view .LVU84
+ 372               		.loc 2 194 7 view .LVU80
  195:/usr/avr/include/util/delay.h **** 	{
  196:/usr/avr/include/util/delay.h **** 		//	__ticks = requested delay in 1/10 ms
  197:/usr/avr/include/util/delay.h **** 		__ticks = (uint16_t) (__ms * 10.0);
  198:/usr/avr/include/util/delay.h **** 		while(__ticks)
- 375               		.loc 2 198 9 view .LVU85
- 376               	.LBE98:
- 377               	.LBE97:
-  60:lcd/lcd.c     **** 	_delay_ms(500);
- 378               		.loc 1 60 2 is_stmt 0 view .LVU86
- 379 010e 88E8      		ldi r24,lo8(-120)
- 380 0110 93E1      		ldi r25,lo8(19)
- 381               	.LBB104:
- 382               	.LBB103:
- 383               	.LBB99:
- 384               	.LBB100:
- 385               		.file 3 "/usr/avr/include/util/delay_basic.h"
+ 373               		.loc 2 198 9 view .LVU81
+ 374               	.LBE98:
+ 375               	.LBE97:
+  32:lcd/lcd.c     **** 	_delay_ms(500);
+ 376               		.loc 1 32 2 is_stmt 0 view .LVU82
+ 377 0112 0F90      		pop __tmp_reg__
+ 378 0114 0F90      		pop __tmp_reg__
+ 379               		.cfi_def_cfa_offset 4
+ 380 0116 88E8      		ldi r24,lo8(-120)
+ 381 0118 93E1      		ldi r25,lo8(19)
+ 382               	.LBB104:
+ 383               	.LBB103:
+ 384               	.LBB99:
+ 385               	.LBB100:
+ 386               		.file 3 "/usr/avr/include/util/delay_basic.h"
    1:/usr/avr/include/util/delay_basic.h **** /* Copyright (c) 2002, Marek Michalkiewicz
    2:/usr/avr/include/util/delay_basic.h ****    Copyright (c) 2007 Joerg Wunsch
    3:/usr/avr/include/util/delay_basic.h ****    All rights reserved.
@@ -1035,1447 +1003,1450 @@
  103:/usr/avr/include/util/delay_basic.h **** _delay_loop_2(uint16_t __count)
  104:/usr/avr/include/util/delay_basic.h **** {
  105:/usr/avr/include/util/delay_basic.h **** 	__asm__ volatile (
- 386               		.loc 3 105 2 view .LVU87
- 387 0112 20E9      		ldi r18,lo8(-112)
- 388 0114 31E0      		ldi r19,lo8(1)
- 389               	.LVL37:
- 390               	.L10:
- 391               		.loc 3 105 2 view .LVU88
- 392               	.LBE100:
- 393               	.LBE99:
+ 387               		.loc 3 105 2 view .LVU83
+ 388 011a 20E9      		ldi r18,lo8(-112)
+ 389 011c 31E0      		ldi r19,lo8(1)
+ 390               	.LVL39:
+ 391               	.L10:
+ 392               		.loc 3 105 2 view .LVU84
+ 393               	.LBE100:
+ 394               	.LBE99:
  199:/usr/avr/include/util/delay.h **** 		{
  200:/usr/avr/include/util/delay.h **** 			// wait 1/10 ms
  201:/usr/avr/include/util/delay.h **** 			_delay_loop_2(((F_CPU) / 4e3) / 10);
- 394               		.loc 2 201 4 is_stmt 1 view .LVU89
- 395               	.LBB102:
- 396               	.LBI99:
+ 395               		.loc 2 201 4 is_stmt 1 view .LVU85
+ 396               	.LBB102:
+ 397               	.LBI99:
  103:/usr/avr/include/util/delay_basic.h **** {
- 397               		.loc 3 103 1 view .LVU90
- 398               	.LBB101:
- 399               		.loc 3 105 2 view .LVU91
- 400 0116 F901      		movw r30,r18
- 401               	/* #APP */
- 402               	 ;  105 "/usr/avr/include/util/delay_basic.h" 1
- 403 0118 3197      		1: sbiw r30,1
- 404 011a 01F4      		brne 1b
- 405               	 ;  0 "" 2
- 406               	.LVL38:
- 407               		.loc 3 105 2 is_stmt 0 view .LVU92
- 408               	/* #NOAPP */
- 409               	.LBE101:
- 410               	.LBE102:
+ 398               		.loc 3 103 1 view .LVU86
+ 399               	.LBB101:
+ 400               		.loc 3 105 2 view .LVU87
+ 401 011e F901      		movw r30,r18
+ 402               	/* #APP */
+ 403               	 ;  105 "/usr/avr/include/util/delay_basic.h" 1
+ 404 0120 3197      		1: sbiw r30,1
+ 405 0122 01F4      		brne 1b
+ 406               	 ;  0 "" 2
+ 407               	.LVL40:
+ 408               		.loc 3 105 2 is_stmt 0 view .LVU88
+ 409               	/* #NOAPP */
+ 410               	.LBE101:
+ 411               	.LBE102:
  202:/usr/avr/include/util/delay.h **** 			__ticks --;
- 411               		.loc 2 202 4 is_stmt 1 view .LVU93
+ 412               		.loc 2 202 4 is_stmt 1 view .LVU89
  198:/usr/avr/include/util/delay.h **** 		{
- 412               		.loc 2 198 9 view .LVU94
- 413 011c 0197      		sbiw r24,1
- 414               	.LVL39:
+ 413               		.loc 2 198 9 view .LVU90
+ 414 0124 0197      		sbiw r24,1
+ 415               	.LVL41:
  198:/usr/avr/include/util/delay.h **** 		{
- 415               		.loc 2 198 9 is_stmt 0 view .LVU95
- 416 011e 0097      		sbiw r24,0
- 417 0120 01F4      		brne .L10
- 418               	.LVL40:
+ 416               		.loc 2 198 9 is_stmt 0 view .LVU91
+ 417 0126 0097      		sbiw r24,0
+ 418 0128 01F4      		brne .L10
+ 419               	.LVL42:
  198:/usr/avr/include/util/delay.h **** 		{
- 419               		.loc 2 198 9 view .LVU96
- 420               	.LBE103:
- 421               	.LBE104:
-  62:lcd/lcd.c     **** 	_delay_ms(500);
- 422               		.loc 1 62 2 is_stmt 1 view .LVU97
- 423 0122 5F98      		cbi 0xb,7
-  63:lcd/lcd.c     **** 	LCD_RST_1;
- 424               		.loc 1 63 2 view .LVU98
- 425               	.LVL41:
- 426               	.LBB105:
- 427               	.LBI105:
+ 420               		.loc 2 198 9 view .LVU92
+ 421               	.LBE103:
+ 422               	.LBE104:
+  34:lcd/lcd.c     **** 	_delay_ms(500);
+ 423               		.loc 1 34 2 is_stmt 1 view .LVU93
+ 424 012a 5F98      		cbi 0xb,7
+  35:lcd/lcd.c     **** 	LCD_RST_1;
+ 425               		.loc 1 35 2 view .LVU94
+ 426               	.LVL43:
+ 427               	.LBB105:
+ 428               	.LBI105:
  166:/usr/avr/include/util/delay.h **** {
- 428               		.loc 2 166 1 view .LVU99
- 429               	.LBB106:
+ 429               		.loc 2 166 1 view .LVU95
+ 430               	.LBB106:
  168:/usr/avr/include/util/delay.h **** #if __HAS_DELAY_CYCLES && defined(__OPTIMIZE__) && \
- 430               		.loc 2 168 2 view .LVU100
+ 431               		.loc 2 168 2 view .LVU96
  190:/usr/avr/include/util/delay.h **** 	__tmp = ((F_CPU) / 4e3) * __ms;
- 431               		.loc 2 190 2 view .LVU101
+ 432               		.loc 2 190 2 view .LVU97
  191:/usr/avr/include/util/delay.h **** 	if (__tmp < 1.0)
- 432               		.loc 2 191 2 view .LVU102
+ 433               		.loc 2 191 2 view .LVU98
  192:/usr/avr/include/util/delay.h **** 		__ticks = 1;
- 433               		.loc 2 192 2 view .LVU103
+ 434               		.loc 2 192 2 view .LVU99
  194:/usr/avr/include/util/delay.h **** 	{
- 434               		.loc 2 194 7 view .LVU104
+ 435               		.loc 2 194 7 view .LVU100
  198:/usr/avr/include/util/delay.h **** 		{
- 435               		.loc 2 198 9 view .LVU105
- 436               	.LBE106:
- 437               	.LBE105:
-  62:lcd/lcd.c     **** 	_delay_ms(500);
- 438               		.loc 1 62 2 is_stmt 0 view .LVU106
- 439 0124 88E8      		ldi r24,lo8(-120)
- 440 0126 93E1      		ldi r25,lo8(19)
- 441               	.LBB112:
- 442               	.LBB111:
- 443               	.LBB107:
- 444               	.LBB108:
- 445               		.loc 3 105 2 view .LVU107
- 446 0128 20E9      		ldi r18,lo8(-112)
- 447 012a 31E0      		ldi r19,lo8(1)
- 448               	.LVL42:
- 449               	.L11:
- 450               		.loc 3 105 2 view .LVU108
- 451               	.LBE108:
- 452               	.LBE107:
+ 436               		.loc 2 198 9 view .LVU101
+ 437               	.LBE106:
+ 438               	.LBE105:
+  34:lcd/lcd.c     **** 	_delay_ms(500);
+ 439               		.loc 1 34 2 is_stmt 0 view .LVU102
+ 440 012c 88E8      		ldi r24,lo8(-120)
+ 441 012e 93E1      		ldi r25,lo8(19)
+ 442               	.LBB112:
+ 443               	.LBB111:
+ 444               	.LBB107:
+ 445               	.LBB108:
+ 446               		.loc 3 105 2 view .LVU103
+ 447 0130 20E9      		ldi r18,lo8(-112)
+ 448 0132 31E0      		ldi r19,lo8(1)
+ 449               	.LVL44:
+ 450               	.L11:
+ 451               		.loc 3 105 2 view .LVU104
+ 452               	.LBE108:
+ 453               	.LBE107:
  201:/usr/avr/include/util/delay.h **** 			__ticks --;
- 453               		.loc 2 201 4 is_stmt 1 view .LVU109
- 454               	.LBB110:
- 455               	.LBI107:
+ 454               		.loc 2 201 4 is_stmt 1 view .LVU105
+ 455               	.LBB110:
+ 456               	.LBI107:
  103:/usr/avr/include/util/delay_basic.h **** {
- 456               		.loc 3 103 1 view .LVU110
- 457               	.LBB109:
- 458               		.loc 3 105 2 view .LVU111
- 459 012c F901      		movw r30,r18
- 460               	/* #APP */
- 461               	 ;  105 "/usr/avr/include/util/delay_basic.h" 1
- 462 012e 3197      		1: sbiw r30,1
- 463 0130 01F4      		brne 1b
- 464               	 ;  0 "" 2
- 465               	.LVL43:
- 466               		.loc 3 105 2 is_stmt 0 view .LVU112
- 467               	/* #NOAPP */
- 468               	.LBE109:
- 469               	.LBE110:
- 470               		.loc 2 202 4 is_stmt 1 view .LVU113
+ 457               		.loc 3 103 1 view .LVU106
+ 458               	.LBB109:
+ 459               		.loc 3 105 2 view .LVU107
+ 460 0134 F901      		movw r30,r18
+ 461               	/* #APP */
+ 462               	 ;  105 "/usr/avr/include/util/delay_basic.h" 1
+ 463 0136 3197      		1: sbiw r30,1
+ 464 0138 01F4      		brne 1b
+ 465               	 ;  0 "" 2
+ 466               	.LVL45:
+ 467               		.loc 3 105 2 is_stmt 0 view .LVU108
+ 468               	/* #NOAPP */
+ 469               	.LBE109:
+ 470               	.LBE110:
+ 471               		.loc 2 202 4 is_stmt 1 view .LVU109
  198:/usr/avr/include/util/delay.h **** 		{
- 471               		.loc 2 198 9 view .LVU114
- 472 0132 0197      		sbiw r24,1
- 473               	.LVL44:
+ 472               		.loc 2 198 9 view .LVU110
+ 473 013a 0197      		sbiw r24,1
+ 474               	.LVL46:
  198:/usr/avr/include/util/delay.h **** 		{
- 474               		.loc 2 198 9 is_stmt 0 view .LVU115
- 475 0134 0097      		sbiw r24,0
- 476 0136 01F4      		brne .L11
- 477               	.LVL45:
+ 475               		.loc 2 198 9 is_stmt 0 view .LVU111
+ 476 013c 0097      		sbiw r24,0
+ 477 013e 01F4      		brne .L11
+ 478               	.LVL47:
  198:/usr/avr/include/util/delay.h **** 		{
- 478               		.loc 2 198 9 view .LVU116
- 479               	.LBE111:
- 480               	.LBE112:
-  64:lcd/lcd.c     **** 	_delay_ms(500);
- 481               		.loc 1 64 2 is_stmt 1 view .LVU117
- 482 0138 5F9A      		sbi 0xb,7
-  65:lcd/lcd.c     **** }
- 483               		.loc 1 65 2 view .LVU118
- 484               	.LVL46:
- 485               	.LBB113:
- 486               	.LBI113:
+ 479               		.loc 2 198 9 view .LVU112
+ 480               	.LBE111:
+ 481               	.LBE112:
+  36:lcd/lcd.c     **** 	_delay_ms(500);
+ 482               		.loc 1 36 2 is_stmt 1 view .LVU113
+ 483 0140 5F9A      		sbi 0xb,7
+  37:lcd/lcd.c     **** }
+ 484               		.loc 1 37 2 view .LVU114
+ 485               	.LVL48:
+ 486               	.LBB113:
+ 487               	.LBI113:
  166:/usr/avr/include/util/delay.h **** {
- 487               		.loc 2 166 1 view .LVU119
- 488               	.LBB114:
+ 488               		.loc 2 166 1 view .LVU115
+ 489               	.LBB114:
  168:/usr/avr/include/util/delay.h **** #if __HAS_DELAY_CYCLES && defined(__OPTIMIZE__) && \
- 489               		.loc 2 168 2 view .LVU120
+ 490               		.loc 2 168 2 view .LVU116
  190:/usr/avr/include/util/delay.h **** 	__tmp = ((F_CPU) / 4e3) * __ms;
- 490               		.loc 2 190 2 view .LVU121
+ 491               		.loc 2 190 2 view .LVU117
  191:/usr/avr/include/util/delay.h **** 	if (__tmp < 1.0)
- 491               		.loc 2 191 2 view .LVU122
+ 492               		.loc 2 191 2 view .LVU118
  192:/usr/avr/include/util/delay.h **** 		__ticks = 1;
- 492               		.loc 2 192 2 view .LVU123
+ 493               		.loc 2 192 2 view .LVU119
  194:/usr/avr/include/util/delay.h **** 	{
- 493               		.loc 2 194 7 view .LVU124
+ 494               		.loc 2 194 7 view .LVU120
  198:/usr/avr/include/util/delay.h **** 		{
- 494               		.loc 2 198 9 view .LVU125
- 495               	.LBE114:
- 496               	.LBE113:
-  64:lcd/lcd.c     **** 	_delay_ms(500);
- 497               		.loc 1 64 2 is_stmt 0 view .LVU126
- 498 013a 88E8      		ldi r24,lo8(-120)
- 499 013c 93E1      		ldi r25,lo8(19)
- 500               	.LBB120:
- 501               	.LBB119:
- 502               	.LBB115:
- 503               	.LBB116:
- 504               		.loc 3 105 2 view .LVU127
- 505 013e 20E9      		ldi r18,lo8(-112)
- 506 0140 31E0      		ldi r19,lo8(1)
- 507               	.LVL47:
- 508               	.L12:
- 509               		.loc 3 105 2 view .LVU128
- 510               	.LBE116:
- 511               	.LBE115:
+ 495               		.loc 2 198 9 view .LVU121
+ 496               	.LBE114:
+ 497               	.LBE113:
+  36:lcd/lcd.c     **** 	_delay_ms(500);
+ 498               		.loc 1 36 2 is_stmt 0 view .LVU122
+ 499 0142 88E8      		ldi r24,lo8(-120)
+ 500 0144 93E1      		ldi r25,lo8(19)
+ 501               	.LBB120:
+ 502               	.LBB119:
+ 503               	.LBB115:
+ 504               	.LBB116:
+ 505               		.loc 3 105 2 view .LVU123
+ 506 0146 20E9      		ldi r18,lo8(-112)
+ 507 0148 31E0      		ldi r19,lo8(1)
+ 508               	.LVL49:
+ 509               	.L12:
+ 510               		.loc 3 105 2 view .LVU124
+ 511               	.LBE116:
+ 512               	.LBE115:
  201:/usr/avr/include/util/delay.h **** 			__ticks --;
- 512               		.loc 2 201 4 is_stmt 1 view .LVU129
- 513               	.LBB118:
- 514               	.LBI115:
+ 513               		.loc 2 201 4 is_stmt 1 view .LVU125
+ 514               	.LBB118:
+ 515               	.LBI115:
  103:/usr/avr/include/util/delay_basic.h **** {
- 515               		.loc 3 103 1 view .LVU130
- 516               	.LBB117:
- 517               		.loc 3 105 2 view .LVU131
- 518 0142 F901      		movw r30,r18
- 519               	/* #APP */
- 520               	 ;  105 "/usr/avr/include/util/delay_basic.h" 1
- 521 0144 3197      		1: sbiw r30,1
- 522 0146 01F4      		brne 1b
- 523               	 ;  0 "" 2
- 524               	.LVL48:
- 525               		.loc 3 105 2 is_stmt 0 view .LVU132
- 526               	/* #NOAPP */
- 527               	.LBE117:
- 528               	.LBE118:
- 529               		.loc 2 202 4 is_stmt 1 view .LVU133
+ 516               		.loc 3 103 1 view .LVU126
+ 517               	.LBB117:
+ 518               		.loc 3 105 2 view .LVU127
+ 519 014a F901      		movw r30,r18
+ 520               	/* #APP */
+ 521               	 ;  105 "/usr/avr/include/util/delay_basic.h" 1
+ 522 014c 3197      		1: sbiw r30,1
+ 523 014e 01F4      		brne 1b
+ 524               	 ;  0 "" 2
+ 525               	.LVL50:
+ 526               		.loc 3 105 2 is_stmt 0 view .LVU128
+ 527               	/* #NOAPP */
+ 528               	.LBE117:
+ 529               	.LBE118:
+ 530               		.loc 2 202 4 is_stmt 1 view .LVU129
  198:/usr/avr/include/util/delay.h **** 		{
- 530               		.loc 2 198 9 view .LVU134
- 531 0148 0197      		sbiw r24,1
- 532               	.LVL49:
+ 531               		.loc 2 198 9 view .LVU130
+ 532 0150 0197      		sbiw r24,1
+ 533               	.LVL51:
  198:/usr/avr/include/util/delay.h **** 		{
- 533               		.loc 2 198 9 is_stmt 0 view .LVU135
- 534 014a 0097      		sbiw r24,0
- 535 014c 01F4      		brne .L12
- 536               	.LVL50:
+ 534               		.loc 2 198 9 is_stmt 0 view .LVU131
+ 535 0152 0097      		sbiw r24,0
+ 536 0154 01F4      		brne .L12
+ 537               	.LVL52:
  198:/usr/avr/include/util/delay.h **** 		{
- 537               		.loc 2 198 9 view .LVU136
- 538               	.LBE119:
- 539               	.LBE120:
- 540               	.LBE96:
- 541               	.LBE95:
- 276:lcd/lcd.c     **** 	_lcd_init_reg();
- 542               		.loc 1 276 2 is_stmt 1 view .LVU137
- 277:lcd/lcd.c     **** 	_lcd_set_gram_scan_dir(SCAN_DIR);
- 543               		.loc 1 277 2 view .LVU138
- 544               	.LBB121:
- 545               	.LBI121:
- 118:lcd/lcd.c     **** {
- 546               		.loc 1 118 13 view .LVU139
- 547               	.LBB122:
- 120:lcd/lcd.c     **** 	_lcd_write_data(0x00);
- 548               		.loc 1 120 2 view .LVU140
- 549 014e 89EF      		ldi r24,lo8(-7)
- 550 0150 0E94 0000 		call _lcd_write_reg
- 551               	.LVL51:
- 121:lcd/lcd.c     **** 	_lcd_write_data(0x08);
- 552               		.loc 1 121 2 view .LVU141
- 553 0154 80E0      		ldi r24,0
- 554 0156 0E94 0000 		call _lcd_write_data
- 555               	.LVL52:
- 122:lcd/lcd.c     **** 	_lcd_write_reg(0xC0);
- 556               		.loc 1 122 2 view .LVU142
- 557 015a 88E0      		ldi r24,lo8(8)
- 558 015c 0E94 0000 		call _lcd_write_data
- 559               	.LVL53:
- 123:lcd/lcd.c     **** 	_lcd_write_data(0x19);
- 560               		.loc 1 123 2 view .LVU143
- 561 0160 80EC      		ldi r24,lo8(-64)
- 562 0162 0E94 0000 		call _lcd_write_reg
- 563               	.LVL54:
- 124:lcd/lcd.c     **** 	_lcd_write_data(0x1a);
- 564               		.loc 1 124 2 view .LVU144
- 565 0166 89E1      		ldi r24,lo8(25)
- 566 0168 0E94 0000 		call _lcd_write_data
- 567               	.LVL55:
- 125:lcd/lcd.c     **** 	_lcd_write_reg(0xC1);
- 568               		.loc 1 125 2 view .LVU145
- 569 016c 8AE1      		ldi r24,lo8(26)
- 570 016e 0E94 0000 		call _lcd_write_data
- 571               	.LVL56:
- 126:lcd/lcd.c     **** 	_lcd_write_data(0x45);
- 572               		.loc 1 126 2 view .LVU146
- 573 0172 81EC      		ldi r24,lo8(-63)
- 574 0174 0E94 0000 		call _lcd_write_reg
- 575               	.LVL57:
+ 538               		.loc 2 198 9 view .LVU132
+ 539               	.LBE119:
+ 540               	.LBE120:
+ 541               	.LBE96:
+ 542               	.LBE95:
+ 247:lcd/lcd.c     **** 	_lcd_init_reg();
+ 543               		.loc 1 247 2 is_stmt 1 view .LVU133
+ 248:lcd/lcd.c     **** 	_lcd_set_gram_scan_dir(SCAN_DIR);
+ 544               		.loc 1 248 2 view .LVU134
+ 545               	.LBB121:
+ 546               	.LBI121:
+  90:lcd/lcd.c     **** {
+ 547               		.loc 1 90 13 view .LVU135
+ 548               	.LBB122:
+  92:lcd/lcd.c     **** 	_lcd_write_data(0x00);
+ 549               		.loc 1 92 2 view .LVU136
+ 550 0156 89EF      		ldi r24,lo8(-7)
+ 551 0158 0E94 0000 		call _lcd_write_reg
+ 552               	.LVL53:
+  93:lcd/lcd.c     **** 	_lcd_write_data(0x08);
+ 553               		.loc 1 93 2 view .LVU137
+ 554 015c 80E0      		ldi r24,0
+ 555 015e 0E94 0000 		call _lcd_write_data
+ 556               	.LVL54:
+  94:lcd/lcd.c     **** 	_lcd_write_reg(0xC0);
+ 557               		.loc 1 94 2 view .LVU138
+ 558 0162 88E0      		ldi r24,lo8(8)
+ 559 0164 0E94 0000 		call _lcd_write_data
+ 560               	.LVL55:
+  95:lcd/lcd.c     **** 	_lcd_write_data(0x19);
+ 561               		.loc 1 95 2 view .LVU139
+ 562 0168 80EC      		ldi r24,lo8(-64)
+ 563 016a 0E94 0000 		call _lcd_write_reg
+ 564               	.LVL56:
+  96:lcd/lcd.c     **** 	_lcd_write_data(0x1a);
+ 565               		.loc 1 96 2 view .LVU140
+ 566 016e 89E1      		ldi r24,lo8(25)
+ 567 0170 0E94 0000 		call _lcd_write_data
+ 568               	.LVL57:
+  97:lcd/lcd.c     **** 	_lcd_write_reg(0xC1);
+ 569               		.loc 1 97 2 view .LVU141
+ 570 0174 8AE1      		ldi r24,lo8(26)
+ 571 0176 0E94 0000 		call _lcd_write_data
+ 572               	.LVL58:
+  98:lcd/lcd.c     **** 	_lcd_write_data(0x45);
+ 573               		.loc 1 98 2 view .LVU142
+ 574 017a 81EC      		ldi r24,lo8(-63)
+ 575 017c 0E94 0000 		call _lcd_write_reg
+ 576               	.LVL59:
+  99:lcd/lcd.c     **** 	_lcd_write_data(0x00);
+ 577               		.loc 1 99 2 view .LVU143
+ 578 0180 85E4      		ldi r24,lo8(69)
+ 579 0182 0E94 0000 		call _lcd_write_data
+ 580               	.LVL60:
+ 100:lcd/lcd.c     **** 	_lcd_write_reg(0xC2);
+ 581               		.loc 1 100 2 view .LVU144
+ 582 0186 80E0      		ldi r24,0
+ 583 0188 0E94 0000 		call _lcd_write_data
+ 584               	.LVL61:
+ 101:lcd/lcd.c     **** 	_lcd_write_data(0x33);
+ 585               		.loc 1 101 2 view .LVU145
+ 586 018c 82EC      		ldi r24,lo8(-62)
+ 587 018e 0E94 0000 		call _lcd_write_reg
+ 588               	.LVL62:
+ 102:lcd/lcd.c     **** 	_lcd_write_reg(0xC5);
+ 589               		.loc 1 102 2 view .LVU146
+ 590 0192 83E3      		ldi r24,lo8(51)
+ 591 0194 0E94 0000 		call _lcd_write_data
+ 592               	.LVL63:
+ 103:lcd/lcd.c     **** 	_lcd_write_data(0x00);
+ 593               		.loc 1 103 2 view .LVU147
+ 594 0198 85EC      		ldi r24,lo8(-59)
+ 595 019a 0E94 0000 		call _lcd_write_reg
+ 596               	.LVL64:
+ 104:lcd/lcd.c     **** 	_lcd_write_data(0x28);
+ 597               		.loc 1 104 2 view .LVU148
+ 598 019e 80E0      		ldi r24,0
+ 599 01a0 0E94 0000 		call _lcd_write_data
+ 600               	.LVL65:
+ 105:lcd/lcd.c     **** 	_lcd_write_reg(0xB1);
+ 601               		.loc 1 105 2 view .LVU149
+ 602 01a4 88E2      		ldi r24,lo8(40)
+ 603 01a6 0E94 0000 		call _lcd_write_data
+ 604               	.LVL66:
+ 106:lcd/lcd.c     **** 	_lcd_write_data(0xA0);
+ 605               		.loc 1 106 2 view .LVU150
+ 606 01aa 81EB      		ldi r24,lo8(-79)
+ 607 01ac 0E94 0000 		call _lcd_write_reg
+ 608               	.LVL67:
+ 107:lcd/lcd.c     **** 	_lcd_write_data(0x11);
+ 609               		.loc 1 107 2 view .LVU151
+ 610 01b0 80EA      		ldi r24,lo8(-96)
+ 611 01b2 0E94 0000 		call _lcd_write_data
+ 612               	.LVL68:
+ 108:lcd/lcd.c     **** 	_lcd_write_reg(0xB4);
+ 613               		.loc 1 108 2 view .LVU152
+ 614 01b6 81E1      		ldi r24,lo8(17)
+ 615 01b8 0E94 0000 		call _lcd_write_data
+ 616               	.LVL69:
+ 109:lcd/lcd.c     **** 	_lcd_write_data(0x02);
+ 617               		.loc 1 109 2 view .LVU153
+ 618 01bc 84EB      		ldi r24,lo8(-76)
+ 619 01be 0E94 0000 		call _lcd_write_reg
+ 620               	.LVL70:
+ 110:lcd/lcd.c     **** 	_lcd_write_reg(0xB6);
+ 621               		.loc 1 110 2 view .LVU154
+ 622 01c2 82E0      		ldi r24,lo8(2)
+ 623 01c4 0E94 0000 		call _lcd_write_data
+ 624               	.LVL71:
+ 111:lcd/lcd.c     **** 	_lcd_write_data(0x00);
+ 625               		.loc 1 111 2 view .LVU155
+ 626 01c8 86EB      		ldi r24,lo8(-74)
+ 627 01ca 0E94 0000 		call _lcd_write_reg
+ 628               	.LVL72:
+ 112:lcd/lcd.c     **** 	_lcd_write_data(0x42);
+ 629               		.loc 1 112 2 view .LVU156
+ 630 01ce 80E0      		ldi r24,0
+ 631 01d0 0E94 0000 		call _lcd_write_data
+ 632               	.LVL73:
+ 113:lcd/lcd.c     **** 	_lcd_write_data(0x3B);
+ 633               		.loc 1 113 2 view .LVU157
+ 634 01d4 82E4      		ldi r24,lo8(66)
+ 635 01d6 0E94 0000 		call _lcd_write_data
+ 636               	.LVL74:
+ 114:lcd/lcd.c     **** 	_lcd_write_reg(0xB7);
+ 637               		.loc 1 114 2 view .LVU158
+ 638 01da 8BE3      		ldi r24,lo8(59)
+ 639 01dc 0E94 0000 		call _lcd_write_data
+ 640               	.LVL75:
+ 115:lcd/lcd.c     **** 	_lcd_write_data(0x07);
+ 641               		.loc 1 115 2 view .LVU159
+ 642 01e0 87EB      		ldi r24,lo8(-73)
+ 643 01e2 0E94 0000 		call _lcd_write_reg
+ 644               	.LVL76:
+ 116:lcd/lcd.c     **** 	_lcd_write_reg(0xE0);
+ 645               		.loc 1 116 2 view .LVU160
+ 646 01e6 87E0      		ldi r24,lo8(7)
+ 647 01e8 0E94 0000 		call _lcd_write_data
+ 648               	.LVL77:
+ 117:lcd/lcd.c     **** 	_lcd_write_data(0x1F);
+ 649               		.loc 1 117 2 view .LVU161
+ 650 01ec 80EE      		ldi r24,lo8(-32)
+ 651 01ee 0E94 0000 		call _lcd_write_reg
+ 652               	.LVL78:
+ 118:lcd/lcd.c     **** 	_lcd_write_data(0x25);
+ 653               		.loc 1 118 2 view .LVU162
+ 654 01f2 8FE1      		ldi r24,lo8(31)
+ 655 01f4 0E94 0000 		call _lcd_write_data
+ 656               	.LVL79:
+ 119:lcd/lcd.c     **** 	_lcd_write_data(0x22);
+ 657               		.loc 1 119 2 view .LVU163
+ 658 01f8 85E2      		ldi r24,lo8(37)
+ 659 01fa 0E94 0000 		call _lcd_write_data
+ 660               	.LVL80:
+ 120:lcd/lcd.c     **** 	_lcd_write_data(0x0B);
+ 661               		.loc 1 120 2 view .LVU164
+ 662 01fe 82E2      		ldi r24,lo8(34)
+ 663 0200 0E94 0000 		call _lcd_write_data
+ 664               	.LVL81:
+ 121:lcd/lcd.c     **** 	_lcd_write_data(0x06);
+ 665               		.loc 1 121 2 view .LVU165
+ 666 0204 8BE0      		ldi r24,lo8(11)
+ 667 0206 0E94 0000 		call _lcd_write_data
+ 668               	.LVL82:
+ 122:lcd/lcd.c     **** 	_lcd_write_data(0x0A);
+ 669               		.loc 1 122 2 view .LVU166
+ 670 020a 86E0      		ldi r24,lo8(6)
+ 671 020c 0E94 0000 		call _lcd_write_data
+ 672               	.LVL83:
+ 123:lcd/lcd.c     **** 	_lcd_write_data(0x4E);
+ 673               		.loc 1 123 2 view .LVU167
+ 674 0210 8AE0      		ldi r24,lo8(10)
+ 675 0212 0E94 0000 		call _lcd_write_data
+ 676               	.LVL84:
+ 124:lcd/lcd.c     **** 	_lcd_write_data(0xC6);
+ 677               		.loc 1 124 2 view .LVU168
+ 678 0216 8EE4      		ldi r24,lo8(78)
+ 679 0218 0E94 0000 		call _lcd_write_data
+ 680               	.LVL85:
+ 125:lcd/lcd.c     **** 	_lcd_write_data(0x39);
+ 681               		.loc 1 125 2 view .LVU169
+ 682 021c 86EC      		ldi r24,lo8(-58)
+ 683 021e 0E94 0000 		call _lcd_write_data
+ 684               	.LVL86:
+ 126:lcd/lcd.c     **** 	_lcd_write_data(0x00);
+ 685               		.loc 1 126 2 view .LVU170
+ 686 0222 89E3      		ldi r24,lo8(57)
+ 687 0224 0E94 0000 		call _lcd_write_data
+ 688               	.LVL87:
  127:lcd/lcd.c     **** 	_lcd_write_data(0x00);
- 576               		.loc 1 127 2 view .LVU147
- 577 0178 85E4      		ldi r24,lo8(69)
- 578 017a 0E94 0000 		call _lcd_write_data
- 579               	.LVL58:
- 128:lcd/lcd.c     **** 	_lcd_write_reg(0xC2);
- 580               		.loc 1 128 2 view .LVU148
- 581 017e 80E0      		ldi r24,0
- 582 0180 0E94 0000 		call _lcd_write_data
- 583               	.LVL59:
- 129:lcd/lcd.c     **** 	_lcd_write_data(0x33);
- 584               		.loc 1 129 2 view .LVU149
- 585 0184 82EC      		ldi r24,lo8(-62)
- 586 0186 0E94 0000 		call _lcd_write_reg
- 587               	.LVL60:
- 130:lcd/lcd.c     **** 	_lcd_write_reg(0xC5);
- 588               		.loc 1 130 2 view .LVU150
- 589 018a 83E3      		ldi r24,lo8(51)
- 590 018c 0E94 0000 		call _lcd_write_data
- 591               	.LVL61:
+ 689               		.loc 1 127 2 view .LVU171
+ 690 0228 80E0      		ldi r24,0
+ 691 022a 0E94 0000 		call _lcd_write_data
+ 692               	.LVL88:
+ 128:lcd/lcd.c     **** 	_lcd_write_data(0x00);
+ 693               		.loc 1 128 2 view .LVU172
+ 694 022e 80E0      		ldi r24,0
+ 695 0230 0E94 0000 		call _lcd_write_data
+ 696               	.LVL89:
+ 129:lcd/lcd.c     **** 	_lcd_write_data(0x00);
+ 697               		.loc 1 129 2 view .LVU173
+ 698 0234 80E0      		ldi r24,0
+ 699 0236 0E94 0000 		call _lcd_write_data
+ 700               	.LVL90:
+ 130:lcd/lcd.c     **** 	_lcd_write_data(0x00);
+ 701               		.loc 1 130 2 view .LVU174
+ 702 023a 80E0      		ldi r24,0
+ 703 023c 0E94 0000 		call _lcd_write_data
+ 704               	.LVL91:
  131:lcd/lcd.c     **** 	_lcd_write_data(0x00);
- 592               		.loc 1 131 2 view .LVU151
- 593 0190 85EC      		ldi r24,lo8(-59)
- 594 0192 0E94 0000 		call _lcd_write_reg
- 595               	.LVL62:
- 132:lcd/lcd.c     **** 	_lcd_write_data(0x28);
- 596               		.loc 1 132 2 view .LVU152
- 597 0196 80E0      		ldi r24,0
- 598 0198 0E94 0000 		call _lcd_write_data
- 599               	.LVL63:
- 133:lcd/lcd.c     **** 	_lcd_write_reg(0xB1);
- 600               		.loc 1 133 2 view .LVU153
- 601 019c 88E2      		ldi r24,lo8(40)
- 602 019e 0E94 0000 		call _lcd_write_data
- 603               	.LVL64:
- 134:lcd/lcd.c     **** 	_lcd_write_data(0xA0);
- 604               		.loc 1 134 2 view .LVU154
- 605 01a2 81EB      		ldi r24,lo8(-79)
- 606 01a4 0E94 0000 		call _lcd_write_reg
- 607               	.LVL65:
- 135:lcd/lcd.c     **** 	_lcd_write_data(0x11);
- 608               		.loc 1 135 2 view .LVU155
- 609 01a8 80EA      		ldi r24,lo8(-96)
- 610 01aa 0E94 0000 		call _lcd_write_data
- 611               	.LVL66:
- 136:lcd/lcd.c     **** 	_lcd_write_reg(0xB4);
- 612               		.loc 1 136 2 view .LVU156
- 613 01ae 81E1      		ldi r24,lo8(17)
- 614 01b0 0E94 0000 		call _lcd_write_data
- 615               	.LVL67:
- 137:lcd/lcd.c     **** 	_lcd_write_data(0x02);
- 616               		.loc 1 137 2 view .LVU157
- 617 01b4 84EB      		ldi r24,lo8(-76)
- 618 01b6 0E94 0000 		call _lcd_write_reg
- 619               	.LVL68:
- 138:lcd/lcd.c     **** 	_lcd_write_reg(0xB6);
- 620               		.loc 1 138 2 view .LVU158
- 621 01ba 82E0      		ldi r24,lo8(2)
- 622 01bc 0E94 0000 		call _lcd_write_data
- 623               	.LVL69:
- 139:lcd/lcd.c     **** 	_lcd_write_data(0x00);
- 624               		.loc 1 139 2 view .LVU159
- 625 01c0 86EB      		ldi r24,lo8(-74)
- 626 01c2 0E94 0000 		call _lcd_write_reg
- 627               	.LVL70:
- 140:lcd/lcd.c     **** 	_lcd_write_data(0x42);
- 628               		.loc 1 140 2 view .LVU160
- 629 01c6 80E0      		ldi r24,0
- 630 01c8 0E94 0000 		call _lcd_write_data
- 631               	.LVL71:
- 141:lcd/lcd.c     **** 	_lcd_write_data(0x3B);
- 632               		.loc 1 141 2 view .LVU161
- 633 01cc 82E4      		ldi r24,lo8(66)
- 634 01ce 0E94 0000 		call _lcd_write_data
- 635               	.LVL72:
- 142:lcd/lcd.c     **** 	_lcd_write_reg(0xB7);
- 636               		.loc 1 142 2 view .LVU162
- 637 01d2 8BE3      		ldi r24,lo8(59)
- 638 01d4 0E94 0000 		call _lcd_write_data
- 639               	.LVL73:
- 143:lcd/lcd.c     **** 	_lcd_write_data(0x07);
- 640               		.loc 1 143 2 view .LVU163
- 641 01d8 87EB      		ldi r24,lo8(-73)
- 642 01da 0E94 0000 		call _lcd_write_reg
- 643               	.LVL74:
- 144:lcd/lcd.c     **** 	_lcd_write_reg(0xE0);
- 644               		.loc 1 144 2 view .LVU164
- 645 01de 87E0      		ldi r24,lo8(7)
- 646 01e0 0E94 0000 		call _lcd_write_data
- 647               	.LVL75:
- 145:lcd/lcd.c     **** 	_lcd_write_data(0x1F);
- 648               		.loc 1 145 2 view .LVU165
- 649 01e4 80EE      		ldi r24,lo8(-32)
- 650 01e6 0E94 0000 		call _lcd_write_reg
- 651               	.LVL76:
- 146:lcd/lcd.c     **** 	_lcd_write_data(0x25);
- 652               		.loc 1 146 2 view .LVU166
- 653 01ea 8FE1      		ldi r24,lo8(31)
- 654 01ec 0E94 0000 		call _lcd_write_data
- 655               	.LVL77:
- 147:lcd/lcd.c     **** 	_lcd_write_data(0x22);
- 656               		.loc 1 147 2 view .LVU167
- 657 01f0 85E2      		ldi r24,lo8(37)
- 658 01f2 0E94 0000 		call _lcd_write_data
- 659               	.LVL78:
- 148:lcd/lcd.c     **** 	_lcd_write_data(0x0B);
- 660               		.loc 1 148 2 view .LVU168
- 661 01f6 82E2      		ldi r24,lo8(34)
- 662 01f8 0E94 0000 		call _lcd_write_data
- 663               	.LVL79:
- 149:lcd/lcd.c     **** 	_lcd_write_data(0x06);
- 664               		.loc 1 149 2 view .LVU169
- 665 01fc 8BE0      		ldi r24,lo8(11)
- 666 01fe 0E94 0000 		call _lcd_write_data
- 667               	.LVL80:
- 150:lcd/lcd.c     **** 	_lcd_write_data(0x0A);
- 668               		.loc 1 150 2 view .LVU170
- 669 0202 86E0      		ldi r24,lo8(6)
- 670 0204 0E94 0000 		call _lcd_write_data
- 671               	.LVL81:
- 151:lcd/lcd.c     **** 	_lcd_write_data(0x4E);
- 672               		.loc 1 151 2 view .LVU171
- 673 0208 8AE0      		ldi r24,lo8(10)
- 674 020a 0E94 0000 		call _lcd_write_data
- 675               	.LVL82:
- 152:lcd/lcd.c     **** 	_lcd_write_data(0xC6);
- 676               		.loc 1 152 2 view .LVU172
- 677 020e 8EE4      		ldi r24,lo8(78)
- 678 0210 0E94 0000 		call _lcd_write_data
- 679               	.LVL83:
- 153:lcd/lcd.c     **** 	_lcd_write_data(0x39);
- 680               		.loc 1 153 2 view .LVU173
- 681 0214 86EC      		ldi r24,lo8(-58)
- 682 0216 0E94 0000 		call _lcd_write_data
- 683               	.LVL84:
- 154:lcd/lcd.c     **** 	_lcd_write_data(0x00);
- 684               		.loc 1 154 2 view .LVU174
- 685 021a 89E3      		ldi r24,lo8(57)
- 686 021c 0E94 0000 		call _lcd_write_data
- 687               	.LVL85:
- 155:lcd/lcd.c     **** 	_lcd_write_data(0x00);
- 688               		.loc 1 155 2 view .LVU175
- 689 0220 80E0      		ldi r24,0
- 690 0222 0E94 0000 		call _lcd_write_data
- 691               	.LVL86:
- 156:lcd/lcd.c     **** 	_lcd_write_data(0x00);
- 692               		.loc 1 156 2 view .LVU176
- 693 0226 80E0      		ldi r24,0
- 694 0228 0E94 0000 		call _lcd_write_data
- 695               	.LVL87:
- 157:lcd/lcd.c     **** 	_lcd_write_data(0x00);
- 696               		.loc 1 157 2 view .LVU177
- 697 022c 80E0      		ldi r24,0
- 698 022e 0E94 0000 		call _lcd_write_data
- 699               	.LVL88:
- 158:lcd/lcd.c     **** 	_lcd_write_data(0x00);
- 700               		.loc 1 158 2 view .LVU178
- 701 0232 80E0      		ldi r24,0
- 702 0234 0E94 0000 		call _lcd_write_data
- 703               	.LVL89:
- 159:lcd/lcd.c     **** 	_lcd_write_data(0x00);
- 704               		.loc 1 159 2 view .LVU179
- 705 0238 80E0      		ldi r24,0
- 706 023a 0E94 0000 		call _lcd_write_data
- 707               	.LVL90:
- 160:lcd/lcd.c     **** 	_lcd_write_reg(0xE1);
- 708               		.loc 1 160 2 view .LVU180
- 709 023e 80E0      		ldi r24,0
- 710 0240 0E94 0000 		call _lcd_write_data
- 711               	.LVL91:
- 161:lcd/lcd.c     **** 	_lcd_write_data(0x1F);
- 712               		.loc 1 161 2 view .LVU181
- 713 0244 81EE      		ldi r24,lo8(-31)
- 714 0246 0E94 0000 		call _lcd_write_reg
- 715               	.LVL92:
- 162:lcd/lcd.c     **** 	_lcd_write_data(0x3F);
- 716               		.loc 1 162 2 view .LVU182
- 717 024a 8FE1      		ldi r24,lo8(31)
- 718 024c 0E94 0000 		call _lcd_write_data
- 719               	.LVL93:
- 163:lcd/lcd.c     **** 	_lcd_write_data(0x3F);
- 720               		.loc 1 163 2 view .LVU183
- 721 0250 8FE3      		ldi r24,lo8(63)
- 722 0252 0E94 0000 		call _lcd_write_data
- 723               	.LVL94:
- 164:lcd/lcd.c     **** 	_lcd_write_data(0x0F);
- 724               		.loc 1 164 2 view .LVU184
- 725 0256 8FE3      		ldi r24,lo8(63)
- 726 0258 0E94 0000 		call _lcd_write_data
- 727               	.LVL95:
- 165:lcd/lcd.c     **** 	_lcd_write_data(0x1F);
- 728               		.loc 1 165 2 view .LVU185
- 729 025c 8FE0      		ldi r24,lo8(15)
- 730 025e 0E94 0000 		call _lcd_write_data
- 731               	.LVL96:
- 166:lcd/lcd.c     **** 	_lcd_write_data(0x0F);
- 732               		.loc 1 166 2 view .LVU186
- 733 0262 8FE1      		ldi r24,lo8(31)
- 734 0264 0E94 0000 		call _lcd_write_data
- 735               	.LVL97:
- 167:lcd/lcd.c     **** 	_lcd_write_data(0x46);
- 736               		.loc 1 167 2 view .LVU187
- 737 0268 8FE0      		ldi r24,lo8(15)
- 738 026a 0E94 0000 		call _lcd_write_data
- 739               	.LVL98:
- 168:lcd/lcd.c     **** 	_lcd_write_data(0x49);
- 740               		.loc 1 168 2 view .LVU188
- 741 026e 86E4      		ldi r24,lo8(70)
- 742 0270 0E94 0000 		call _lcd_write_data
- 743               	.LVL99:
- 169:lcd/lcd.c     **** 	_lcd_write_data(0x31);
- 744               		.loc 1 169 2 view .LVU189
- 745 0274 89E4      		ldi r24,lo8(73)
- 746 0276 0E94 0000 		call _lcd_write_data
- 747               	.LVL100:
- 170:lcd/lcd.c     **** 	_lcd_write_data(0x05);
- 748               		.loc 1 170 2 view .LVU190
- 749 027a 81E3      		ldi r24,lo8(49)
- 750 027c 0E94 0000 		call _lcd_write_data
- 751               	.LVL101:
- 171:lcd/lcd.c     **** 	_lcd_write_data(0x09);
- 752               		.loc 1 171 2 view .LVU191
- 753 0280 85E0      		ldi r24,lo8(5)
- 754 0282 0E94 0000 		call _lcd_write_data
- 755               	.LVL102:
- 172:lcd/lcd.c     **** 	_lcd_write_data(0x03);
- 756               		.loc 1 172 2 view .LVU192
- 757 0286 89E0      		ldi r24,lo8(9)
- 758 0288 0E94 0000 		call _lcd_write_data
- 759               	.LVL103:
- 173:lcd/lcd.c     **** 	_lcd_write_data(0x1C);
- 760               		.loc 1 173 2 view .LVU193
- 761 028c 83E0      		ldi r24,lo8(3)
- 762 028e 0E94 0000 		call _lcd_write_data
- 763               	.LVL104:
- 174:lcd/lcd.c     **** 	_lcd_write_data(0x1A);
- 764               		.loc 1 174 2 view .LVU194
- 765 0292 8CE1      		ldi r24,lo8(28)
- 766 0294 0E94 0000 		call _lcd_write_data
- 767               	.LVL105:
- 175:lcd/lcd.c     **** 	_lcd_write_data(0x00);
- 768               		.loc 1 175 2 view .LVU195
- 769 0298 8AE1      		ldi r24,lo8(26)
- 770 029a 0E94 0000 		call _lcd_write_data
- 771               	.LVL106:
- 176:lcd/lcd.c     **** 	_lcd_write_reg(0xF1);
- 772               		.loc 1 176 2 view .LVU196
- 773 029e 80E0      		ldi r24,0
- 774 02a0 0E94 0000 		call _lcd_write_data
- 775               	.LVL107:
- 177:lcd/lcd.c     **** 	_lcd_write_data(0x36);
- 776               		.loc 1 177 2 view .LVU197
- 777 02a4 81EF      		ldi r24,lo8(-15)
- 778 02a6 0E94 0000 		call _lcd_write_reg
- 779               	.LVL108:
- 178:lcd/lcd.c     **** 	_lcd_write_data(0x04);
- 780               		.loc 1 178 2 view .LVU198
- 781 02aa 86E3      		ldi r24,lo8(54)
- 782 02ac 0E94 0000 		call _lcd_write_data
- 783               	.LVL109:
- 179:lcd/lcd.c     **** 	_lcd_write_data(0x00);
- 784               		.loc 1 179 2 view .LVU199
- 785 02b0 84E0      		ldi r24,lo8(4)
- 786 02b2 0E94 0000 		call _lcd_write_data
- 787               	.LVL110:
- 180:lcd/lcd.c     **** 	_lcd_write_data(0x3C);
- 788               		.loc 1 180 2 view .LVU200
- 789 02b6 80E0      		ldi r24,0
- 790 02b8 0E94 0000 		call _lcd_write_data
- 791               	.LVL111:
- 181:lcd/lcd.c     **** 	_lcd_write_data(0x0F);
- 792               		.loc 1 181 2 view .LVU201
- 793 02bc 8CE3      		ldi r24,lo8(60)
- 794 02be 0E94 0000 		call _lcd_write_data
- 795               	.LVL112:
- 182:lcd/lcd.c     **** 	_lcd_write_data(0x0F);
- 796               		.loc 1 182 2 view .LVU202
- 797 02c2 8FE0      		ldi r24,lo8(15)
- 798 02c4 0E94 0000 		call _lcd_write_data
- 799               	.LVL113:
- 183:lcd/lcd.c     **** 	_lcd_write_data(0xA4);
- 800               		.loc 1 183 2 view .LVU203
- 801 02c8 8FE0      		ldi r24,lo8(15)
- 802 02ca 0E94 0000 		call _lcd_write_data
- 803               	.LVL114:
- 184:lcd/lcd.c     **** 	_lcd_write_data(0x02);
- 804               		.loc 1 184 2 view .LVU204
- 805 02ce 84EA      		ldi r24,lo8(-92)
- 806 02d0 0E94 0000 		call _lcd_write_data
- 807               	.LVL115:
- 185:lcd/lcd.c     **** 	_lcd_write_reg(0xF2);
- 808               		.loc 1 185 2 view .LVU205
- 809 02d4 82E0      		ldi r24,lo8(2)
- 810 02d6 0E94 0000 		call _lcd_write_data
- 811               	.LVL116:
- 186:lcd/lcd.c     **** 	_lcd_write_data(0x18);
- 812               		.loc 1 186 2 view .LVU206
- 813 02da 82EF      		ldi r24,lo8(-14)
- 814 02dc 0E94 0000 		call _lcd_write_reg
- 815               	.LVL117:
- 187:lcd/lcd.c     **** 	_lcd_write_data(0xA3);
- 816               		.loc 1 187 2 view .LVU207
- 817 02e0 88E1      		ldi r24,lo8(24)
- 818 02e2 0E94 0000 		call _lcd_write_data
- 819               	.LVL118:
- 188:lcd/lcd.c     **** 	_lcd_write_data(0x12);
- 820               		.loc 1 188 2 view .LVU208
- 821 02e6 83EA      		ldi r24,lo8(-93)
- 822 02e8 0E94 0000 		call _lcd_write_data
- 823               	.LVL119:
- 189:lcd/lcd.c     **** 	_lcd_write_data(0x02);
- 824               		.loc 1 189 2 view .LVU209
- 825 02ec 82E1      		ldi r24,lo8(18)
- 826 02ee 0E94 0000 		call _lcd_write_data
- 827               	.LVL120:
- 190:lcd/lcd.c     **** 	_lcd_write_data(0x32);
- 828               		.loc 1 190 2 view .LVU210
- 829 02f2 82E0      		ldi r24,lo8(2)
- 830 02f4 0E94 0000 		call _lcd_write_data
- 831               	.LVL121:
- 191:lcd/lcd.c     **** 	_lcd_write_data(0x12);
- 832               		.loc 1 191 2 view .LVU211
- 833 02f8 82E3      		ldi r24,lo8(50)
- 834 02fa 0E94 0000 		call _lcd_write_data
- 835               	.LVL122:
- 192:lcd/lcd.c     **** 	_lcd_write_data(0xFF);
- 836               		.loc 1 192 2 view .LVU212
- 837 02fe 82E1      		ldi r24,lo8(18)
- 838 0300 0E94 0000 		call _lcd_write_data
- 839               	.LVL123:
- 193:lcd/lcd.c     **** 	_lcd_write_data(0x32);
- 840               		.loc 1 193 2 view .LVU213
- 841 0304 8FEF      		ldi r24,lo8(-1)
- 842 0306 0E94 0000 		call _lcd_write_data
- 843               	.LVL124:
- 194:lcd/lcd.c     **** 	_lcd_write_data(0x00);
- 844               		.loc 1 194 2 view .LVU214
- 845 030a 82E3      		ldi r24,lo8(50)
- 846 030c 0E94 0000 		call _lcd_write_data
- 847               	.LVL125:
- 195:lcd/lcd.c     **** 	_lcd_write_reg(0xF4);
- 848               		.loc 1 195 2 view .LVU215
- 849 0310 80E0      		ldi r24,0
- 850 0312 0E94 0000 		call _lcd_write_data
- 851               	.LVL126:
- 196:lcd/lcd.c     **** 	_lcd_write_data(0x40);
- 852               		.loc 1 196 2 view .LVU216
- 853 0316 84EF      		ldi r24,lo8(-12)
- 854 0318 0E94 0000 		call _lcd_write_reg
- 855               	.LVL127:
- 197:lcd/lcd.c     **** 	_lcd_write_data(0x00);
- 856               		.loc 1 197 2 view .LVU217
- 857 031c 80E4      		ldi r24,lo8(64)
- 858 031e 0E94 0000 		call _lcd_write_data
- 859               	.LVL128:
- 198:lcd/lcd.c     **** 	_lcd_write_data(0x08);
- 860               		.loc 1 198 2 view .LVU218
- 861 0322 80E0      		ldi r24,0
- 862 0324 0E94 0000 		call _lcd_write_data
- 863               	.LVL129:
- 199:lcd/lcd.c     **** 	_lcd_write_data(0x91);
- 864               		.loc 1 199 2 view .LVU219
- 865 0328 88E0      		ldi r24,lo8(8)
- 866 032a 0E94 0000 		call _lcd_write_data
- 867               	.LVL130:
- 200:lcd/lcd.c     **** 	_lcd_write_data(0x04);
- 868               		.loc 1 200 2 view .LVU220
- 869 032e 81E9      		ldi r24,lo8(-111)
- 870 0330 0E94 0000 		call _lcd_write_data
- 871               	.LVL131:
- 201:lcd/lcd.c     **** 	_lcd_write_reg(0xF8);
- 872               		.loc 1 201 2 view .LVU221
- 873 0334 84E0      		ldi r24,lo8(4)
- 874 0336 0E94 0000 		call _lcd_write_data
- 875               	.LVL132:
- 202:lcd/lcd.c     **** 	_lcd_write_data(0x21);
- 876               		.loc 1 202 2 view .LVU222
- 877 033a 88EF      		ldi r24,lo8(-8)
- 878 033c 0E94 0000 		call _lcd_write_reg
- 879               	.LVL133:
- 203:lcd/lcd.c     **** 	_lcd_write_data(0x04);
- 880               		.loc 1 203 2 view .LVU223
- 881 0340 81E2      		ldi r24,lo8(33)
- 882 0342 0E94 0000 		call _lcd_write_data
- 883               	.LVL134:
- 204:lcd/lcd.c     **** 	_lcd_write_reg(0x3A);
- 884               		.loc 1 204 2 view .LVU224
- 885 0346 84E0      		ldi r24,lo8(4)
- 886 0348 0E94 0000 		call _lcd_write_data
- 887               	.LVL135:
- 205:lcd/lcd.c     **** 	_lcd_write_data(0x55);
- 888               		.loc 1 205 2 view .LVU225
- 889 034c 8AE3      		ldi r24,lo8(58)
- 890 034e 0E94 0000 		call _lcd_write_reg
- 891               	.LVL136:
- 206:lcd/lcd.c     **** }
- 892               		.loc 1 206 2 view .LVU226
- 893 0352 85E5      		ldi r24,lo8(85)
- 894 0354 0E94 0000 		call _lcd_write_data
- 895               	.LVL137:
- 896               	.LBE122:
- 897               	.LBE121:
- 278:lcd/lcd.c     **** 	_delay_ms(200);
- 898               		.loc 1 278 2 view .LVU227
- 899               	.LBB123:
- 900               	.LBI123:
- 209:lcd/lcd.c     **** {
- 901               		.loc 1 209 13 view .LVU228
- 902               	.LBB124:
- 211:lcd/lcd.c     **** 	switch(scan_dir)
- 903               		.loc 1 211 2 view .LVU229
- 212:lcd/lcd.c     **** 	{
- 904               		.loc 1 212 2 view .LVU230
- 255:lcd/lcd.c     **** 	_lcd_write_data(0x00);
- 905               		.loc 1 255 2 view .LVU231
- 906 0358 86EB      		ldi r24,lo8(-74)
- 907 035a 0E94 0000 		call _lcd_write_reg
- 908               	.LVL138:
- 256:lcd/lcd.c     **** 	_lcd_write_data(b);
- 909               		.loc 1 256 2 view .LVU232
- 910 035e 80E0      		ldi r24,0
- 911 0360 0E94 0000 		call _lcd_write_data
- 912               	.LVL139:
- 257:lcd/lcd.c     **** 	_lcd_write_reg(0x36);
- 913               		.loc 1 257 2 view .LVU233
- 914 0364 82E2      		ldi r24,lo8(34)
- 915 0366 0E94 0000 		call _lcd_write_data
- 916               	.LVL140:
- 258:lcd/lcd.c     **** 	_lcd_write_data(a);
- 917               		.loc 1 258 2 view .LVU234
- 918 036a 86E3      		ldi r24,lo8(54)
- 919 036c 0E94 0000 		call _lcd_write_reg
- 920               	.LVL141:
- 259:lcd/lcd.c     **** }
- 921               		.loc 1 259 2 view .LVU235
- 922 0370 88E0      		ldi r24,lo8(8)
- 923 0372 0E94 0000 		call _lcd_write_data
- 924               	.LVL142:
- 259:lcd/lcd.c     **** }
- 925               		.loc 1 259 2 is_stmt 0 view .LVU236
- 926               	.LBE124:
- 927               	.LBE123:
- 928               	.LBB126:
- 929               	.LBB127:
+ 705               		.loc 1 131 2 view .LVU175
+ 706 0240 80E0      		ldi r24,0
+ 707 0242 0E94 0000 		call _lcd_write_data
+ 708               	.LVL92:
+ 132:lcd/lcd.c     **** 	_lcd_write_reg(0xE1);
+ 709               		.loc 1 132 2 view .LVU176
+ 710 0246 80E0      		ldi r24,0
+ 711 0248 0E94 0000 		call _lcd_write_data
+ 712               	.LVL93:
+ 133:lcd/lcd.c     **** 	_lcd_write_data(0x1F);
+ 713               		.loc 1 133 2 view .LVU177
+ 714 024c 81EE      		ldi r24,lo8(-31)
+ 715 024e 0E94 0000 		call _lcd_write_reg
+ 716               	.LVL94:
+ 134:lcd/lcd.c     **** 	_lcd_write_data(0x3F);
+ 717               		.loc 1 134 2 view .LVU178
+ 718 0252 8FE1      		ldi r24,lo8(31)
+ 719 0254 0E94 0000 		call _lcd_write_data
+ 720               	.LVL95:
+ 135:lcd/lcd.c     **** 	_lcd_write_data(0x3F);
+ 721               		.loc 1 135 2 view .LVU179
+ 722 0258 8FE3      		ldi r24,lo8(63)
+ 723 025a 0E94 0000 		call _lcd_write_data
+ 724               	.LVL96:
+ 136:lcd/lcd.c     **** 	_lcd_write_data(0x0F);
+ 725               		.loc 1 136 2 view .LVU180
+ 726 025e 8FE3      		ldi r24,lo8(63)
+ 727 0260 0E94 0000 		call _lcd_write_data
+ 728               	.LVL97:
+ 137:lcd/lcd.c     **** 	_lcd_write_data(0x1F);
+ 729               		.loc 1 137 2 view .LVU181
+ 730 0264 8FE0      		ldi r24,lo8(15)
+ 731 0266 0E94 0000 		call _lcd_write_data
+ 732               	.LVL98:
+ 138:lcd/lcd.c     **** 	_lcd_write_data(0x0F);
+ 733               		.loc 1 138 2 view .LVU182
+ 734 026a 8FE1      		ldi r24,lo8(31)
+ 735 026c 0E94 0000 		call _lcd_write_data
+ 736               	.LVL99:
+ 139:lcd/lcd.c     **** 	_lcd_write_data(0x46);
+ 737               		.loc 1 139 2 view .LVU183
+ 738 0270 8FE0      		ldi r24,lo8(15)
+ 739 0272 0E94 0000 		call _lcd_write_data
+ 740               	.LVL100:
+ 140:lcd/lcd.c     **** 	_lcd_write_data(0x49);
+ 741               		.loc 1 140 2 view .LVU184
+ 742 0276 86E4      		ldi r24,lo8(70)
+ 743 0278 0E94 0000 		call _lcd_write_data
+ 744               	.LVL101:
+ 141:lcd/lcd.c     **** 	_lcd_write_data(0x31);
+ 745               		.loc 1 141 2 view .LVU185
+ 746 027c 89E4      		ldi r24,lo8(73)
+ 747 027e 0E94 0000 		call _lcd_write_data
+ 748               	.LVL102:
+ 142:lcd/lcd.c     **** 	_lcd_write_data(0x05);
+ 749               		.loc 1 142 2 view .LVU186
+ 750 0282 81E3      		ldi r24,lo8(49)
+ 751 0284 0E94 0000 		call _lcd_write_data
+ 752               	.LVL103:
+ 143:lcd/lcd.c     **** 	_lcd_write_data(0x09);
+ 753               		.loc 1 143 2 view .LVU187
+ 754 0288 85E0      		ldi r24,lo8(5)
+ 755 028a 0E94 0000 		call _lcd_write_data
+ 756               	.LVL104:
+ 144:lcd/lcd.c     **** 	_lcd_write_data(0x03);
+ 757               		.loc 1 144 2 view .LVU188
+ 758 028e 89E0      		ldi r24,lo8(9)
+ 759 0290 0E94 0000 		call _lcd_write_data
+ 760               	.LVL105:
+ 145:lcd/lcd.c     **** 	_lcd_write_data(0x1C);
+ 761               		.loc 1 145 2 view .LVU189
+ 762 0294 83E0      		ldi r24,lo8(3)
+ 763 0296 0E94 0000 		call _lcd_write_data
+ 764               	.LVL106:
+ 146:lcd/lcd.c     **** 	_lcd_write_data(0x1A);
+ 765               		.loc 1 146 2 view .LVU190
+ 766 029a 8CE1      		ldi r24,lo8(28)
+ 767 029c 0E94 0000 		call _lcd_write_data
+ 768               	.LVL107:
+ 147:lcd/lcd.c     **** 	_lcd_write_data(0x00);
+ 769               		.loc 1 147 2 view .LVU191
+ 770 02a0 8AE1      		ldi r24,lo8(26)
+ 771 02a2 0E94 0000 		call _lcd_write_data
+ 772               	.LVL108:
+ 148:lcd/lcd.c     **** 	_lcd_write_reg(0xF1);
+ 773               		.loc 1 148 2 view .LVU192
+ 774 02a6 80E0      		ldi r24,0
+ 775 02a8 0E94 0000 		call _lcd_write_data
+ 776               	.LVL109:
+ 149:lcd/lcd.c     **** 	_lcd_write_data(0x36);
+ 777               		.loc 1 149 2 view .LVU193
+ 778 02ac 81EF      		ldi r24,lo8(-15)
+ 779 02ae 0E94 0000 		call _lcd_write_reg
+ 780               	.LVL110:
+ 150:lcd/lcd.c     **** 	_lcd_write_data(0x04);
+ 781               		.loc 1 150 2 view .LVU194
+ 782 02b2 86E3      		ldi r24,lo8(54)
+ 783 02b4 0E94 0000 		call _lcd_write_data
+ 784               	.LVL111:
+ 151:lcd/lcd.c     **** 	_lcd_write_data(0x00);
+ 785               		.loc 1 151 2 view .LVU195
+ 786 02b8 84E0      		ldi r24,lo8(4)
+ 787 02ba 0E94 0000 		call _lcd_write_data
+ 788               	.LVL112:
+ 152:lcd/lcd.c     **** 	_lcd_write_data(0x3C);
+ 789               		.loc 1 152 2 view .LVU196
+ 790 02be 80E0      		ldi r24,0
+ 791 02c0 0E94 0000 		call _lcd_write_data
+ 792               	.LVL113:
+ 153:lcd/lcd.c     **** 	_lcd_write_data(0x0F);
+ 793               		.loc 1 153 2 view .LVU197
+ 794 02c4 8CE3      		ldi r24,lo8(60)
+ 795 02c6 0E94 0000 		call _lcd_write_data
+ 796               	.LVL114:
+ 154:lcd/lcd.c     **** 	_lcd_write_data(0x0F);
+ 797               		.loc 1 154 2 view .LVU198
+ 798 02ca 8FE0      		ldi r24,lo8(15)
+ 799 02cc 0E94 0000 		call _lcd_write_data
+ 800               	.LVL115:
+ 155:lcd/lcd.c     **** 	_lcd_write_data(0xA4);
+ 801               		.loc 1 155 2 view .LVU199
+ 802 02d0 8FE0      		ldi r24,lo8(15)
+ 803 02d2 0E94 0000 		call _lcd_write_data
+ 804               	.LVL116:
+ 156:lcd/lcd.c     **** 	_lcd_write_data(0x02);
+ 805               		.loc 1 156 2 view .LVU200
+ 806 02d6 84EA      		ldi r24,lo8(-92)
+ 807 02d8 0E94 0000 		call _lcd_write_data
+ 808               	.LVL117:
+ 157:lcd/lcd.c     **** 	_lcd_write_reg(0xF2);
+ 809               		.loc 1 157 2 view .LVU201
+ 810 02dc 82E0      		ldi r24,lo8(2)
+ 811 02de 0E94 0000 		call _lcd_write_data
+ 812               	.LVL118:
+ 158:lcd/lcd.c     **** 	_lcd_write_data(0x18);
+ 813               		.loc 1 158 2 view .LVU202
+ 814 02e2 82EF      		ldi r24,lo8(-14)
+ 815 02e4 0E94 0000 		call _lcd_write_reg
+ 816               	.LVL119:
+ 159:lcd/lcd.c     **** 	_lcd_write_data(0xA3);
+ 817               		.loc 1 159 2 view .LVU203
+ 818 02e8 88E1      		ldi r24,lo8(24)
+ 819 02ea 0E94 0000 		call _lcd_write_data
+ 820               	.LVL120:
+ 160:lcd/lcd.c     **** 	_lcd_write_data(0x12);
+ 821               		.loc 1 160 2 view .LVU204
+ 822 02ee 83EA      		ldi r24,lo8(-93)
+ 823 02f0 0E94 0000 		call _lcd_write_data
+ 824               	.LVL121:
+ 161:lcd/lcd.c     **** 	_lcd_write_data(0x02);
+ 825               		.loc 1 161 2 view .LVU205
+ 826 02f4 82E1      		ldi r24,lo8(18)
+ 827 02f6 0E94 0000 		call _lcd_write_data
+ 828               	.LVL122:
+ 162:lcd/lcd.c     **** 	_lcd_write_data(0x32);
+ 829               		.loc 1 162 2 view .LVU206
+ 830 02fa 82E0      		ldi r24,lo8(2)
+ 831 02fc 0E94 0000 		call _lcd_write_data
+ 832               	.LVL123:
+ 163:lcd/lcd.c     **** 	_lcd_write_data(0x12);
+ 833               		.loc 1 163 2 view .LVU207
+ 834 0300 82E3      		ldi r24,lo8(50)
+ 835 0302 0E94 0000 		call _lcd_write_data
+ 836               	.LVL124:
+ 164:lcd/lcd.c     **** 	_lcd_write_data(0xFF);
+ 837               		.loc 1 164 2 view .LVU208
+ 838 0306 82E1      		ldi r24,lo8(18)
+ 839 0308 0E94 0000 		call _lcd_write_data
+ 840               	.LVL125:
+ 165:lcd/lcd.c     **** 	_lcd_write_data(0x32);
+ 841               		.loc 1 165 2 view .LVU209
+ 842 030c 8FEF      		ldi r24,lo8(-1)
+ 843 030e 0E94 0000 		call _lcd_write_data
+ 844               	.LVL126:
+ 166:lcd/lcd.c     **** 	_lcd_write_data(0x00);
+ 845               		.loc 1 166 2 view .LVU210
+ 846 0312 82E3      		ldi r24,lo8(50)
+ 847 0314 0E94 0000 		call _lcd_write_data
+ 848               	.LVL127:
+ 167:lcd/lcd.c     **** 	_lcd_write_reg(0xF4);
+ 849               		.loc 1 167 2 view .LVU211
+ 850 0318 80E0      		ldi r24,0
+ 851 031a 0E94 0000 		call _lcd_write_data
+ 852               	.LVL128:
+ 168:lcd/lcd.c     **** 	_lcd_write_data(0x40);
+ 853               		.loc 1 168 2 view .LVU212
+ 854 031e 84EF      		ldi r24,lo8(-12)
+ 855 0320 0E94 0000 		call _lcd_write_reg
+ 856               	.LVL129:
+ 169:lcd/lcd.c     **** 	_lcd_write_data(0x00);
+ 857               		.loc 1 169 2 view .LVU213
+ 858 0324 80E4      		ldi r24,lo8(64)
+ 859 0326 0E94 0000 		call _lcd_write_data
+ 860               	.LVL130:
+ 170:lcd/lcd.c     **** 	_lcd_write_data(0x08);
+ 861               		.loc 1 170 2 view .LVU214
+ 862 032a 80E0      		ldi r24,0
+ 863 032c 0E94 0000 		call _lcd_write_data
+ 864               	.LVL131:
+ 171:lcd/lcd.c     **** 	_lcd_write_data(0x91);
+ 865               		.loc 1 171 2 view .LVU215
+ 866 0330 88E0      		ldi r24,lo8(8)
+ 867 0332 0E94 0000 		call _lcd_write_data
+ 868               	.LVL132:
+ 172:lcd/lcd.c     **** 	_lcd_write_data(0x04);
+ 869               		.loc 1 172 2 view .LVU216
+ 870 0336 81E9      		ldi r24,lo8(-111)
+ 871 0338 0E94 0000 		call _lcd_write_data
+ 872               	.LVL133:
+ 173:lcd/lcd.c     **** 	_lcd_write_reg(0xF8);
+ 873               		.loc 1 173 2 view .LVU217
+ 874 033c 84E0      		ldi r24,lo8(4)
+ 875 033e 0E94 0000 		call _lcd_write_data
+ 876               	.LVL134:
+ 174:lcd/lcd.c     **** 	_lcd_write_data(0x21);
+ 877               		.loc 1 174 2 view .LVU218
+ 878 0342 88EF      		ldi r24,lo8(-8)
+ 879 0344 0E94 0000 		call _lcd_write_reg
+ 880               	.LVL135:
+ 175:lcd/lcd.c     **** 	_lcd_write_data(0x04);
+ 881               		.loc 1 175 2 view .LVU219
+ 882 0348 81E2      		ldi r24,lo8(33)
+ 883 034a 0E94 0000 		call _lcd_write_data
+ 884               	.LVL136:
+ 176:lcd/lcd.c     **** 	_lcd_write_reg(0x3A);
+ 885               		.loc 1 176 2 view .LVU220
+ 886 034e 84E0      		ldi r24,lo8(4)
+ 887 0350 0E94 0000 		call _lcd_write_data
+ 888               	.LVL137:
+ 177:lcd/lcd.c     **** 	_lcd_write_data(0x55);
+ 889               		.loc 1 177 2 view .LVU221
+ 890 0354 8AE3      		ldi r24,lo8(58)
+ 891 0356 0E94 0000 		call _lcd_write_reg
+ 892               	.LVL138:
+ 178:lcd/lcd.c     **** }
+ 893               		.loc 1 178 2 view .LVU222
+ 894 035a 85E5      		ldi r24,lo8(85)
+ 895 035c 0E94 0000 		call _lcd_write_data
+ 896               	.LVL139:
+ 897               	.LBE122:
+ 898               	.LBE121:
+ 249:lcd/lcd.c     **** 	_delay_ms(200);
+ 899               		.loc 1 249 2 view .LVU223
+ 900               	.LBB123:
+ 901               	.LBI123:
+ 181:lcd/lcd.c     **** {
+ 902               		.loc 1 181 13 view .LVU224
+ 903               	.LBB124:
+ 183:lcd/lcd.c     **** 	switch(scan_dir)
+ 904               		.loc 1 183 2 view .LVU225
+ 184:lcd/lcd.c     **** 	{
+ 905               		.loc 1 184 2 view .LVU226
+ 227:lcd/lcd.c     **** 	_lcd_write_data(0x00);
+ 906               		.loc 1 227 2 view .LVU227
+ 907 0360 86EB      		ldi r24,lo8(-74)
+ 908 0362 0E94 0000 		call _lcd_write_reg
+ 909               	.LVL140:
+ 228:lcd/lcd.c     **** 	_lcd_write_data(b);
+ 910               		.loc 1 228 2 view .LVU228
+ 911 0366 80E0      		ldi r24,0
+ 912 0368 0E94 0000 		call _lcd_write_data
+ 913               	.LVL141:
+ 229:lcd/lcd.c     **** 	_lcd_write_reg(0x36);
+ 914               		.loc 1 229 2 view .LVU229
+ 915 036c 82E2      		ldi r24,lo8(34)
+ 916 036e 0E94 0000 		call _lcd_write_data
+ 917               	.LVL142:
+ 230:lcd/lcd.c     **** 	_lcd_write_data(a);
+ 918               		.loc 1 230 2 view .LVU230
+ 919 0372 86E3      		ldi r24,lo8(54)
+ 920 0374 0E94 0000 		call _lcd_write_reg
+ 921               	.LVL143:
+ 231:lcd/lcd.c     **** }
+ 922               		.loc 1 231 2 view .LVU231
+ 923 0378 88E0      		ldi r24,lo8(8)
+ 924 037a 0E94 0000 		call _lcd_write_data
+ 925               	.LVL144:
+ 231:lcd/lcd.c     **** }
+ 926               		.loc 1 231 2 is_stmt 0 view .LVU232
+ 927               	.LBE124:
+ 928               	.LBE123:
+ 929               	.LBB126:
+ 930               	.LBB127:
  198:/usr/avr/include/util/delay.h **** 		{
- 930               		.loc 2 198 9 is_stmt 1 view .LVU237
- 931               	.LBE127:
- 932               	.LBE126:
- 933               	.LBB133:
- 934               	.LBB125:
- 259:lcd/lcd.c     **** }
- 935               		.loc 1 259 2 is_stmt 0 view .LVU238
- 936 0376 80ED      		ldi r24,lo8(-48)
- 937 0378 97E0      		ldi r25,lo8(7)
- 938               	.LBE125:
- 939               	.LBE133:
- 940               	.LBB134:
- 941               	.LBB132:
- 942               	.LBB128:
- 943               	.LBB129:
- 944               		.loc 3 105 2 view .LVU239
- 945 037a 20E9      		ldi r18,lo8(-112)
- 946 037c 31E0      		ldi r19,lo8(1)
- 947               	.LVL143:
- 948               	.L13:
- 949               		.loc 3 105 2 view .LVU240
- 950               	.LBE129:
- 951               	.LBE128:
+ 931               		.loc 2 198 9 is_stmt 1 view .LVU233
+ 932               	.LBE127:
+ 933               	.LBE126:
+ 934               	.LBB133:
+ 935               	.LBB125:
+ 231:lcd/lcd.c     **** }
+ 936               		.loc 1 231 2 is_stmt 0 view .LVU234
+ 937 037e 80ED      		ldi r24,lo8(-48)
+ 938 0380 97E0      		ldi r25,lo8(7)
+ 939               	.LBE125:
+ 940               	.LBE133:
+ 941               	.LBB134:
+ 942               	.LBB132:
+ 943               	.LBB128:
+ 944               	.LBB129:
+ 945               		.loc 3 105 2 view .LVU235
+ 946 0382 20E9      		ldi r18,lo8(-112)
+ 947 0384 31E0      		ldi r19,lo8(1)
+ 948               	.LVL145:
+ 949               	.L13:
+ 950               		.loc 3 105 2 view .LVU236
+ 951               	.LBE129:
+ 952               	.LBE128:
  201:/usr/avr/include/util/delay.h **** 			__ticks --;
- 952               		.loc 2 201 4 is_stmt 1 view .LVU241
- 953               	.LBB131:
- 954               	.LBI128:
+ 953               		.loc 2 201 4 is_stmt 1 view .LVU237
+ 954               	.LBB131:
+ 955               	.LBI128:
  103:/usr/avr/include/util/delay_basic.h **** {
- 955               		.loc 3 103 1 view .LVU242
- 956               	.LBB130:
- 957               		.loc 3 105 2 view .LVU243
- 958 037e F901      		movw r30,r18
- 959               	/* #APP */
- 960               	 ;  105 "/usr/avr/include/util/delay_basic.h" 1
- 961 0380 3197      		1: sbiw r30,1
- 962 0382 01F4      		brne 1b
- 963               	 ;  0 "" 2
- 964               	.LVL144:
- 965               		.loc 3 105 2 is_stmt 0 view .LVU244
- 966               	/* #NOAPP */
- 967               	.LBE130:
- 968               	.LBE131:
- 969               		.loc 2 202 4 is_stmt 1 view .LVU245
+ 956               		.loc 3 103 1 view .LVU238
+ 957               	.LBB130:
+ 958               		.loc 3 105 2 view .LVU239
+ 959 0386 F901      		movw r30,r18
+ 960               	/* #APP */
+ 961               	 ;  105 "/usr/avr/include/util/delay_basic.h" 1
+ 962 0388 3197      		1: sbiw r30,1
+ 963 038a 01F4      		brne 1b
+ 964               	 ;  0 "" 2
+ 965               	.LVL146:
+ 966               		.loc 3 105 2 is_stmt 0 view .LVU240
+ 967               	/* #NOAPP */
+ 968               	.LBE130:
+ 969               	.LBE131:
+ 970               		.loc 2 202 4 is_stmt 1 view .LVU241
  198:/usr/avr/include/util/delay.h **** 		{
- 970               		.loc 2 198 9 view .LVU246
- 971 0384 0197      		sbiw r24,1
- 972               	.LVL145:
+ 971               		.loc 2 198 9 view .LVU242
+ 972 038c 0197      		sbiw r24,1
+ 973               	.LVL147:
  198:/usr/avr/include/util/delay.h **** 		{
- 973               		.loc 2 198 9 is_stmt 0 view .LVU247
- 974 0386 0097      		sbiw r24,0
- 975 0388 01F4      		brne .L13
- 976               	.LVL146:
+ 974               		.loc 2 198 9 is_stmt 0 view .LVU243
+ 975 038e 0097      		sbiw r24,0
+ 976 0390 01F4      		brne .L13
+ 977               	.LVL148:
  198:/usr/avr/include/util/delay.h **** 		{
- 977               		.loc 2 198 9 view .LVU248
- 978               	.LBE132:
- 979               	.LBE134:
- 280:lcd/lcd.c     **** 	_delay_ms(120);
- 980               		.loc 1 280 2 is_stmt 1 view .LVU249
- 981 038a 81E1      		ldi r24,lo8(17)
- 982 038c 0E94 0000 		call _lcd_write_reg
- 983               	.LVL147:
- 281:lcd/lcd.c     **** 	_lcd_write_reg(0x29);
- 984               		.loc 1 281 2 view .LVU250
- 985               	.LBB135:
- 986               	.LBI135:
+ 978               		.loc 2 198 9 view .LVU244
+ 979               	.LBE132:
+ 980               	.LBE134:
+ 251:lcd/lcd.c     **** 	_delay_ms(120);
+ 981               		.loc 1 251 2 is_stmt 1 view .LVU245
+ 982 0392 81E1      		ldi r24,lo8(17)
+ 983 0394 0E94 0000 		call _lcd_write_reg
+ 984               	.LVL149:
+ 252:lcd/lcd.c     **** 	_lcd_write_reg(0x29);
+ 985               		.loc 1 252 2 view .LVU246
+ 986               	.LBB135:
+ 987               	.LBI135:
  166:/usr/avr/include/util/delay.h **** {
- 987               		.loc 2 166 1 view .LVU251
- 988               	.LBB136:
+ 988               		.loc 2 166 1 view .LVU247
+ 989               	.LBB136:
  168:/usr/avr/include/util/delay.h **** #if __HAS_DELAY_CYCLES && defined(__OPTIMIZE__) && \
- 989               		.loc 2 168 2 view .LVU252
+ 990               		.loc 2 168 2 view .LVU248
  190:/usr/avr/include/util/delay.h **** 	__tmp = ((F_CPU) / 4e3) * __ms;
- 990               		.loc 2 190 2 view .LVU253
+ 991               		.loc 2 190 2 view .LVU249
  191:/usr/avr/include/util/delay.h **** 	if (__tmp < 1.0)
- 991               		.loc 2 191 2 view .LVU254
+ 992               		.loc 2 191 2 view .LVU250
  192:/usr/avr/include/util/delay.h **** 		__ticks = 1;
- 992               		.loc 2 192 2 view .LVU255
+ 993               		.loc 2 192 2 view .LVU251
  194:/usr/avr/include/util/delay.h **** 	{
- 993               		.loc 2 194 7 view .LVU256
+ 994               		.loc 2 194 7 view .LVU252
  198:/usr/avr/include/util/delay.h **** 		{
- 994               		.loc 2 198 9 view .LVU257
- 995               	.LBE136:
- 996               	.LBE135:
- 280:lcd/lcd.c     **** 	_delay_ms(120);
- 997               		.loc 1 280 2 is_stmt 0 view .LVU258
- 998 0390 80EB      		ldi r24,lo8(-80)
- 999 0392 94E0      		ldi r25,lo8(4)
- 1000               	.LBB142:
- 1001               	.LBB141:
- 1002               	.LBB137:
- 1003               	.LBB138:
- 1004               		.loc 3 105 2 view .LVU259
- 1005 0394 20E9      		ldi r18,lo8(-112)
- 1006 0396 31E0      		ldi r19,lo8(1)
- 1007               	.LVL148:
- 1008               	.L14:
- 1009               		.loc 3 105 2 view .LVU260
- 1010               	.LBE138:
- 1011               	.LBE137:
+ 995               		.loc 2 198 9 view .LVU253
+ 996               	.LBE136:
+ 997               	.LBE135:
+ 251:lcd/lcd.c     **** 	_delay_ms(120);
+ 998               		.loc 1 251 2 is_stmt 0 view .LVU254
+ 999 0398 80EB      		ldi r24,lo8(-80)
+ 1000 039a 94E0      		ldi r25,lo8(4)
+ 1001               	.LBB142:
+ 1002               	.LBB141:
+ 1003               	.LBB137:
+ 1004               	.LBB138:
+ 1005               		.loc 3 105 2 view .LVU255
+ 1006 039c 20E9      		ldi r18,lo8(-112)
+ 1007 039e 31E0      		ldi r19,lo8(1)
+ 1008               	.LVL150:
+ 1009               	.L14:
+ 1010               		.loc 3 105 2 view .LVU256
+ 1011               	.LBE138:
+ 1012               	.LBE137:
  201:/usr/avr/include/util/delay.h **** 			__ticks --;
- 1012               		.loc 2 201 4 is_stmt 1 view .LVU261
- 1013               	.LBB140:
- 1014               	.LBI137:
+ 1013               		.loc 2 201 4 is_stmt 1 view .LVU257
+ 1014               	.LBB140:
+ 1015               	.LBI137:
  103:/usr/avr/include/util/delay_basic.h **** {
- 1015               		.loc 3 103 1 view .LVU262
- 1016               	.LBB139:
- 1017               		.loc 3 105 2 view .LVU263
- 1018 0398 F901      		movw r30,r18
- 1019               	/* #APP */
- 1020               	 ;  105 "/usr/avr/include/util/delay_basic.h" 1
- 1021 039a 3197      		1: sbiw r30,1
- 1022 039c 01F4      		brne 1b
- 1023               	 ;  0 "" 2
- 1024               	.LVL149:
- 1025               		.loc 3 105 2 is_stmt 0 view .LVU264
- 1026               	/* #NOAPP */
- 1027               	.LBE139:
- 1028               	.LBE140:
- 1029               		.loc 2 202 4 is_stmt 1 view .LVU265
+ 1016               		.loc 3 103 1 view .LVU258
+ 1017               	.LBB139:
+ 1018               		.loc 3 105 2 view .LVU259
+ 1019 03a0 F901      		movw r30,r18
+ 1020               	/* #APP */
+ 1021               	 ;  105 "/usr/avr/include/util/delay_basic.h" 1
+ 1022 03a2 3197      		1: sbiw r30,1
+ 1023 03a4 01F4      		brne 1b
+ 1024               	 ;  0 "" 2
+ 1025               	.LVL151:
+ 1026               		.loc 3 105 2 is_stmt 0 view .LVU260
+ 1027               	/* #NOAPP */
+ 1028               	.LBE139:
+ 1029               	.LBE140:
+ 1030               		.loc 2 202 4 is_stmt 1 view .LVU261
  198:/usr/avr/include/util/delay.h **** 		{
- 1030               		.loc 2 198 9 view .LVU266
- 1031 039e 0197      		sbiw r24,1
- 1032               	.LVL150:
+ 1031               		.loc 2 198 9 view .LVU262
+ 1032 03a6 0197      		sbiw r24,1
+ 1033               	.LVL152:
  198:/usr/avr/include/util/delay.h **** 		{
- 1033               		.loc 2 198 9 is_stmt 0 view .LVU267
- 1034 03a0 0097      		sbiw r24,0
- 1035 03a2 01F4      		brne .L14
- 1036               	.LVL151:
+ 1034               		.loc 2 198 9 is_stmt 0 view .LVU263
+ 1035 03a8 0097      		sbiw r24,0
+ 1036 03aa 01F4      		brne .L14
+ 1037               	.LVL153:
  198:/usr/avr/include/util/delay.h **** 		{
- 1037               		.loc 2 198 9 view .LVU268
- 1038               	.LBE141:
- 1039               	.LBE142:
- 282:lcd/lcd.c     **** 
- 1040               		.loc 1 282 2 is_stmt 1 view .LVU269
- 1041 03a4 89E2      		ldi r24,lo8(41)
- 1042 03a6 0E94 0000 		call _lcd_write_reg
- 1043               	.LVL152:
- 284:lcd/lcd.c     **** 
- 1044               		.loc 1 284 2 view .LVU270
- 1045 03aa 20EE      		ldi r18,lo8(-32)
- 1046 03ac 31E0      		ldi r19,lo8(1)
- 1047 03ae 40E4      		ldi r20,lo8(64)
- 1048 03b0 51E0      		ldi r21,lo8(1)
- 1049 03b2 60E0      		ldi r22,0
- 1050 03b4 70E0      		ldi r23,0
- 1051 03b6 80E0      		ldi r24,0
- 1052 03b8 90E0      		ldi r25,0
- 1053 03ba 0E94 0000 		call lcd_rect
- 1054               	.LVL153:
- 286:lcd/lcd.c     **** }
- 1055               		.loc 1 286 2 view .LVU271
- 1056               	.LBB143:
- 286:lcd/lcd.c     **** }
- 1057               		.loc 1 286 13 view .LVU272
- 286:lcd/lcd.c     **** }
- 1058               		.loc 1 286 13 view .LVU273
- 1059               	.LBE143:
- 286:lcd/lcd.c     **** }
- 1060               		.loc 1 286 2 is_stmt 0 view .LVU274
- 1061 03be 80E0      		ldi r24,lo8(__c.0)
- 1062 03c0 90E0      		ldi r25,hi8(__c.0)
- 1063 03c2 9F93      		push r25
- 1064               		.cfi_def_cfa_offset 5
- 1065 03c4 8F93      		push r24
- 1066               		.cfi_def_cfa_offset 6
- 1067 03c6 0E94 0000 		call log_boot_P
- 1068               	.LVL154:
- 287:lcd/lcd.c     **** 
- 1069               		.loc 1 287 1 view .LVU275
- 1070 03ca 0F90      		pop __tmp_reg__
- 1071 03cc 0F90      		pop __tmp_reg__
- 1072               		.cfi_def_cfa_offset 4
- 1073               	/* epilogue start */
- 1074 03ce 1F91      		pop r17
- 1075 03d0 0F91      		pop r16
- 1076               	.LVL155:
- 287:lcd/lcd.c     **** 
- 1077               		.loc 1 287 1 view .LVU276
- 1078 03d2 0895      		ret
- 1079               		.cfi_endproc
- 1080               	.LFE23:
- 1082               		.section	.progmem.data,"a",@progbits
- 1085               	__c.0:
- 1086 0000 4C43 4420 		.string	"LCD driver initialized"
- 1086      6472 6976 
- 1086      6572 2069 
- 1086      6E69 7469 
- 1086      616C 697A 
- 1087               		.text
- 1088               	.Letext0:
- 1089               		.file 4 "/usr/lib/gcc/avr/12.2.0/include/stdint-gcc.h"
- 1090               		.file 5 "../../types/types.h"
- 1091               		.file 6 "lcd/lcd.h"
- 1092               		.file 7 "logger/logger.h"
- 1093               		.file 8 "spi/spi.h"
+ 1038               		.loc 2 198 9 view .LVU264
+ 1039               	.LBE141:
+ 1040               	.LBE142:
+ 253:lcd/lcd.c     **** 
+ 1041               		.loc 1 253 2 is_stmt 1 view .LVU265
+ 1042 03ac 89E2      		ldi r24,lo8(41)
+ 1043 03ae 0E94 0000 		call _lcd_write_reg
+ 1044               	.LVL154:
+ 255:lcd/lcd.c     **** 
+ 1045               		.loc 1 255 2 view .LVU266
+ 1046 03b2 20EE      		ldi r18,lo8(-32)
+ 1047 03b4 31E0      		ldi r19,lo8(1)
+ 1048 03b6 40E4      		ldi r20,lo8(64)
+ 1049 03b8 51E0      		ldi r21,lo8(1)
+ 1050 03ba 60E0      		ldi r22,0
+ 1051 03bc 70E0      		ldi r23,0
+ 1052 03be 80E0      		ldi r24,0
+ 1053 03c0 90E0      		ldi r25,0
+ 1054 03c2 0E94 0000 		call lcd_rect
+ 1055               	.LVL155:
+ 257:lcd/lcd.c     **** }
+ 1056               		.loc 1 257 2 view .LVU267
+ 1057               	.LBB143:
+ 257:lcd/lcd.c     **** }
+ 1058               		.loc 1 257 13 view .LVU268
+ 257:lcd/lcd.c     **** }
+ 1059               		.loc 1 257 13 view .LVU269
+ 1060               	.LBE143:
+ 257:lcd/lcd.c     **** }
+ 1061               		.loc 1 257 2 is_stmt 0 view .LVU270
+ 1062 03c6 80E0      		ldi r24,lo8(__c.0)
+ 1063 03c8 90E0      		ldi r25,hi8(__c.0)
+ 1064 03ca 9F93      		push r25
+ 1065               		.cfi_def_cfa_offset 5
+ 1066 03cc 8F93      		push r24
+ 1067               		.cfi_def_cfa_offset 6
+ 1068 03ce 0E94 0000 		call log_boot_P
+ 1069               	.LVL156:
+ 258:lcd/lcd.c     **** 
+ 1070               		.loc 1 258 1 view .LVU271
+ 1071 03d2 0F90      		pop __tmp_reg__
+ 1072 03d4 0F90      		pop __tmp_reg__
+ 1073               		.cfi_def_cfa_offset 4
+ 1074               	/* epilogue start */
+ 1075 03d6 1F91      		pop r17
+ 1076 03d8 0F91      		pop r16
+ 1077               	.LVL157:
+ 258:lcd/lcd.c     **** 
+ 1078               		.loc 1 258 1 view .LVU272
+ 1079 03da 0895      		ret
+ 1080               		.cfi_endproc
+ 1081               	.LFE22:
+ 1083               		.section	.progmem.data,"a",@progbits
+ 1086               	__c.0:
+ 1087 0000 4C43 4420 		.string	"LCD driver initialized"
+ 1087      6472 6976 
+ 1087      6572 2069 
+ 1087      6E69 7469 
+ 1087      616C 697A 
+ 1090               	__c.1:
+ 1091 0017 4C43 4420 		.string	"LCD driver starting"
+ 1091      6472 6976 
+ 1091      6572 2073 
+ 1091      7461 7274 
+ 1091      696E 6700 
+ 1092               		.text
+ 1093               	.Letext0:
+ 1094               		.file 4 "/usr/lib/gcc/avr/12.2.0/include/stdint-gcc.h"
+ 1095               		.file 5 "../../types/types.h"
+ 1096               		.file 6 "lcd/lcd.h"
+ 1097               		.file 7 "logger/logger.h"
+ 1098               		.file 8 "spi/spi.h"
 DEFINED SYMBOLS
                             *ABS*:00000000 lcd.c
-     /tmp/ccQTa6xL.s:2      *ABS*:0000003e __SP_H__
-     /tmp/ccQTa6xL.s:3      *ABS*:0000003d __SP_L__
-     /tmp/ccQTa6xL.s:4      *ABS*:0000003f __SREG__
-     /tmp/ccQTa6xL.s:5      *ABS*:00000000 __tmp_reg__
-     /tmp/ccQTa6xL.s:6      *ABS*:00000001 __zero_reg__
-     /tmp/ccQTa6xL.s:12     .text:00000000 _lcd_write_data
-     /tmp/ccQTa6xL.s:16     .text:00000000 .Loc.0
-     /tmp/ccQTa6xL.s:17     .text:00000000 L0
-     /tmp/ccQTa6xL.s:18     .text:00000000 .Loc.1
-     /tmp/ccQTa6xL.s:27     .text:00000004 .Loc.2
-     /tmp/ccQTa6xL.s:29     .text:00000006 .Loc.3
-     /tmp/ccQTa6xL.s:31     .text:00000008 .Loc.4
-     /tmp/ccQTa6xL.s:34     .text:0000000a .Loc.5
-     /tmp/ccQTa6xL.s:37     .text:0000000e .Loc.6
-     /tmp/ccQTa6xL.s:41     .text:00000014 .Loc.7
-     /tmp/ccQTa6xL.s:44     .text:00000016 .Loc.8
-     /tmp/ccQTa6xL.s:47     .text:00000018 .Loc.9
-     /tmp/ccQTa6xL.s:49     .text:0000001a L0
-     /tmp/ccQTa6xL.s:53     .text:0000001a _lcd_write_reg
-     /tmp/ccQTa6xL.s:56     .text:0000001a .Loc.10
-     /tmp/ccQTa6xL.s:57     .text:0000001a L0
-     /tmp/ccQTa6xL.s:62     .text:0000001a .Loc.11
-     /tmp/ccQTa6xL.s:64     .text:0000001c .Loc.12
-     /tmp/ccQTa6xL.s:66     .text:0000001e .Loc.13
-     /tmp/ccQTa6xL.s:69     .text:00000022 .Loc.14
-     /tmp/ccQTa6xL.s:72     .text:00000024 .Loc.15
-     /tmp/ccQTa6xL.s:74     .text:00000026 L0
-     /tmp/ccQTa6xL.s:79     .text:00000026 lcd_backlight
-     /tmp/ccQTa6xL.s:82     .text:00000026 .Loc.16
-     /tmp/ccQTa6xL.s:83     .text:00000026 L0
-     /tmp/ccQTa6xL.s:88     .text:00000026 .Loc.17
-     /tmp/ccQTa6xL.s:90     .text:00000026 .Loc.18
-     /tmp/ccQTa6xL.s:92     .text:00000028 L0
-     /tmp/ccQTa6xL.s:97     .text:00000028 lcd_rect
-     /tmp/ccQTa6xL.s:100    .text:00000028 .Loc.19
-     /tmp/ccQTa6xL.s:101    .text:00000028 L0
-     /tmp/ccQTa6xL.s:102    .text:00000028 .Loc.20
-     /tmp/ccQTa6xL.s:153    .text:0000004c .Loc.21
-     /tmp/ccQTa6xL.s:154    .text:0000004c .Loc.22
-     /tmp/ccQTa6xL.s:157    .text:00000050 .Loc.23
-     /tmp/ccQTa6xL.s:160    .text:00000050 .Loc.24
-     /tmp/ccQTa6xL.s:162    .text:00000050 .Loc.25
-     /tmp/ccQTa6xL.s:163    .text:00000050 .Loc.26
-     /tmp/ccQTa6xL.s:164    .text:00000050 .Loc.27
-     /tmp/ccQTa6xL.s:172    .text:0000005c .Loc.28
-     /tmp/ccQTa6xL.s:173    .text:0000005c .Loc.29
-     /tmp/ccQTa6xL.s:181    .text:00000068 .Loc.30
-     /tmp/ccQTa6xL.s:185    .text:0000006e .Loc.31
-     /tmp/ccQTa6xL.s:189    .text:00000074 .Loc.32
-     /tmp/ccQTa6xL.s:193    .text:0000007a .Loc.33
-     /tmp/ccQTa6xL.s:197    .text:00000080 .Loc.34
-     /tmp/ccQTa6xL.s:201    .text:00000086 .Loc.35
-     /tmp/ccQTa6xL.s:205    .text:0000008c .Loc.36
-     /tmp/ccQTa6xL.s:209    .text:00000092 .Loc.37
-     /tmp/ccQTa6xL.s:213    .text:00000098 .Loc.38
-     /tmp/ccQTa6xL.s:217    .text:0000009e .Loc.39
-     /tmp/ccQTa6xL.s:221    .text:000000a4 .Loc.40
-     /tmp/ccQTa6xL.s:225    .text:000000aa .Loc.41
-     /tmp/ccQTa6xL.s:227    .text:000000ac .Loc.42
-     /tmp/ccQTa6xL.s:231    .text:000000ae .Loc.43
-     /tmp/ccQTa6xL.s:236    .text:000000b2 .Loc.44
-     /tmp/ccQTa6xL.s:240    .text:000000b8 .Loc.45
-     /tmp/ccQTa6xL.s:243    .text:000000b8 .Loc.46
-     /tmp/ccQTa6xL.s:245    .text:000000b8 .Loc.47
-     /tmp/ccQTa6xL.s:250    .text:000000ba .Loc.48
-     /tmp/ccQTa6xL.s:254    .text:000000be .Loc.49
-     /tmp/ccQTa6xL.s:258    .text:000000c2 .Loc.50
-     /tmp/ccQTa6xL.s:264    .text:000000ca .Loc.51
-     /tmp/ccQTa6xL.s:268    .text:000000ce .Loc.52
-     /tmp/ccQTa6xL.s:276    .text:000000d8 .Loc.53
-     /tmp/ccQTa6xL.s:279    .text:000000d8 .Loc.54
-     /tmp/ccQTa6xL.s:281    .text:000000d8 .Loc.55
-     /tmp/ccQTa6xL.s:285    .text:000000de .Loc.56
-     /tmp/ccQTa6xL.s:289    .text:000000e4 .Loc.57
-     /tmp/ccQTa6xL.s:292    .text:000000e4 .Loc.58
-     /tmp/ccQTa6xL.s:298    .text:000000ea .Loc.59
-     /tmp/ccQTa6xL.s:302    .text:000000f0 .Loc.60
-     /tmp/ccQTa6xL.s:305    .text:000000f2 .Loc.61
-     /tmp/ccQTa6xL.s:309    .text:000000f4 .Loc.62
-     /tmp/ccQTa6xL.s:313    .text:000000fa L0
-     /tmp/ccQTa6xL.s:318    .text:000000fa lcd_init
-     /tmp/ccQTa6xL.s:321    .text:000000fa .Loc.63
-     /tmp/ccQTa6xL.s:322    .text:000000fa L0
-     /tmp/ccQTa6xL.s:323    .text:000000fa .Loc.64
-     /tmp/ccQTa6xL.s:335    .text:00000100 .Loc.65
-     /tmp/ccQTa6xL.s:338    .text:00000100 .Loc.66
-     /tmp/ccQTa6xL.s:340    .text:00000100 .Loc.67
-     /tmp/ccQTa6xL.s:341    .text:00000100 .Loc.68
-     /tmp/ccQTa6xL.s:343    .text:00000102 .Loc.69
-     /tmp/ccQTa6xL.s:344    .text:00000102 .Loc.70
-     /tmp/ccQTa6xL.s:346    .text:00000104 .Loc.71
-     /tmp/ccQTa6xL.s:347    .text:00000104 .Loc.72
-     /tmp/ccQTa6xL.s:349    .text:00000106 .Loc.73
-     /tmp/ccQTa6xL.s:353    .text:00000108 .Loc.74
-     /tmp/ccQTa6xL.s:356    .text:0000010c .Loc.75
-     /tmp/ccQTa6xL.s:359    .text:0000010c .Loc.76
-     /tmp/ccQTa6xL.s:361    .text:0000010c .Loc.77
-     /tmp/ccQTa6xL.s:363    .text:0000010e .Loc.78
-     /tmp/ccQTa6xL.s:368    .text:0000010e .Loc.79
-     /tmp/ccQTa6xL.s:370    .text:0000010e .Loc.80
-     /tmp/ccQTa6xL.s:371    .text:0000010e .Loc.81
-     /tmp/ccQTa6xL.s:372    .text:0000010e .Loc.82
-     /tmp/ccQTa6xL.s:373    .text:0000010e .Loc.83
-     /tmp/ccQTa6xL.s:374    .text:0000010e .Loc.84
-     /tmp/ccQTa6xL.s:375    .text:0000010e .Loc.85
-     /tmp/ccQTa6xL.s:378    .text:0000010e .Loc.86
-     /tmp/ccQTa6xL.s:386    .text:00000112 .Loc.87
-     /tmp/ccQTa6xL.s:391    .text:00000116 .Loc.88
-     /tmp/ccQTa6xL.s:394    .text:00000116 .Loc.89
-     /tmp/ccQTa6xL.s:397    .text:00000116 .Loc.90
-     /tmp/ccQTa6xL.s:399    .text:00000116 .Loc.91
-     /tmp/ccQTa6xL.s:407    .text:0000011c .Loc.92
-     /tmp/ccQTa6xL.s:411    .text:0000011c .Loc.93
-     /tmp/ccQTa6xL.s:412    .text:0000011c .Loc.94
-     /tmp/ccQTa6xL.s:415    .text:0000011e .Loc.95
-     /tmp/ccQTa6xL.s:419    .text:00000122 .Loc.96
-     /tmp/ccQTa6xL.s:422    .text:00000122 .Loc.97
-     /tmp/ccQTa6xL.s:424    .text:00000124 .Loc.98
-     /tmp/ccQTa6xL.s:428    .text:00000124 .Loc.99
-     /tmp/ccQTa6xL.s:430    .text:00000124 .Loc.100
-     /tmp/ccQTa6xL.s:431    .text:00000124 .Loc.101
-     /tmp/ccQTa6xL.s:432    .text:00000124 .Loc.102
-     /tmp/ccQTa6xL.s:433    .text:00000124 .Loc.103
-     /tmp/ccQTa6xL.s:434    .text:00000124 .Loc.104
-     /tmp/ccQTa6xL.s:435    .text:00000124 .Loc.105
-     /tmp/ccQTa6xL.s:438    .text:00000124 .Loc.106
-     /tmp/ccQTa6xL.s:445    .text:00000128 .Loc.107
-     /tmp/ccQTa6xL.s:450    .text:0000012c .Loc.108
-     /tmp/ccQTa6xL.s:453    .text:0000012c .Loc.109
-     /tmp/ccQTa6xL.s:456    .text:0000012c .Loc.110
-     /tmp/ccQTa6xL.s:458    .text:0000012c .Loc.111
-     /tmp/ccQTa6xL.s:466    .text:00000132 .Loc.112
-     /tmp/ccQTa6xL.s:470    .text:00000132 .Loc.113
-     /tmp/ccQTa6xL.s:471    .text:00000132 .Loc.114
-     /tmp/ccQTa6xL.s:474    .text:00000134 .Loc.115
-     /tmp/ccQTa6xL.s:478    .text:00000138 .Loc.116
-     /tmp/ccQTa6xL.s:481    .text:00000138 .Loc.117
-     /tmp/ccQTa6xL.s:483    .text:0000013a .Loc.118
-     /tmp/ccQTa6xL.s:487    .text:0000013a .Loc.119
-     /tmp/ccQTa6xL.s:489    .text:0000013a .Loc.120
-     /tmp/ccQTa6xL.s:490    .text:0000013a .Loc.121
-     /tmp/ccQTa6xL.s:491    .text:0000013a .Loc.122
-     /tmp/ccQTa6xL.s:492    .text:0000013a .Loc.123
-     /tmp/ccQTa6xL.s:493    .text:0000013a .Loc.124
-     /tmp/ccQTa6xL.s:494    .text:0000013a .Loc.125
-     /tmp/ccQTa6xL.s:497    .text:0000013a .Loc.126
-     /tmp/ccQTa6xL.s:504    .text:0000013e .Loc.127
-     /tmp/ccQTa6xL.s:509    .text:00000142 .Loc.128
-     /tmp/ccQTa6xL.s:512    .text:00000142 .Loc.129
-     /tmp/ccQTa6xL.s:515    .text:00000142 .Loc.130
-     /tmp/ccQTa6xL.s:517    .text:00000142 .Loc.131
-     /tmp/ccQTa6xL.s:525    .text:00000148 .Loc.132
-     /tmp/ccQTa6xL.s:529    .text:00000148 .Loc.133
-     /tmp/ccQTa6xL.s:530    .text:00000148 .Loc.134
-     /tmp/ccQTa6xL.s:533    .text:0000014a .Loc.135
-     /tmp/ccQTa6xL.s:537    .text:0000014e .Loc.136
-     /tmp/ccQTa6xL.s:542    .text:0000014e .Loc.137
-     /tmp/ccQTa6xL.s:543    .text:0000014e .Loc.138
-     /tmp/ccQTa6xL.s:546    .text:0000014e .Loc.139
-     /tmp/ccQTa6xL.s:548    .text:0000014e .Loc.140
-     /tmp/ccQTa6xL.s:552    .text:00000154 .Loc.141
-     /tmp/ccQTa6xL.s:556    .text:0000015a .Loc.142
-     /tmp/ccQTa6xL.s:560    .text:00000160 .Loc.143
-     /tmp/ccQTa6xL.s:564    .text:00000166 .Loc.144
-     /tmp/ccQTa6xL.s:568    .text:0000016c .Loc.145
-     /tmp/ccQTa6xL.s:572    .text:00000172 .Loc.146
-     /tmp/ccQTa6xL.s:576    .text:00000178 .Loc.147
-     /tmp/ccQTa6xL.s:580    .text:0000017e .Loc.148
-     /tmp/ccQTa6xL.s:584    .text:00000184 .Loc.149
-     /tmp/ccQTa6xL.s:588    .text:0000018a .Loc.150
-     /tmp/ccQTa6xL.s:592    .text:00000190 .Loc.151
-     /tmp/ccQTa6xL.s:596    .text:00000196 .Loc.152
-     /tmp/ccQTa6xL.s:600    .text:0000019c .Loc.153
-     /tmp/ccQTa6xL.s:604    .text:000001a2 .Loc.154
-     /tmp/ccQTa6xL.s:608    .text:000001a8 .Loc.155
-     /tmp/ccQTa6xL.s:612    .text:000001ae .Loc.156
-     /tmp/ccQTa6xL.s:616    .text:000001b4 .Loc.157
-     /tmp/ccQTa6xL.s:620    .text:000001ba .Loc.158
-     /tmp/ccQTa6xL.s:624    .text:000001c0 .Loc.159
-     /tmp/ccQTa6xL.s:628    .text:000001c6 .Loc.160
-     /tmp/ccQTa6xL.s:632    .text:000001cc .Loc.161
-     /tmp/ccQTa6xL.s:636    .text:000001d2 .Loc.162
-     /tmp/ccQTa6xL.s:640    .text:000001d8 .Loc.163
-     /tmp/ccQTa6xL.s:644    .text:000001de .Loc.164
-     /tmp/ccQTa6xL.s:648    .text:000001e4 .Loc.165
-     /tmp/ccQTa6xL.s:652    .text:000001ea .Loc.166
-     /tmp/ccQTa6xL.s:656    .text:000001f0 .Loc.167
-     /tmp/ccQTa6xL.s:660    .text:000001f6 .Loc.168
-     /tmp/ccQTa6xL.s:664    .text:000001fc .Loc.169
-     /tmp/ccQTa6xL.s:668    .text:00000202 .Loc.170
-     /tmp/ccQTa6xL.s:672    .text:00000208 .Loc.171
-     /tmp/ccQTa6xL.s:676    .text:0000020e .Loc.172
-     /tmp/ccQTa6xL.s:680    .text:00000214 .Loc.173
-     /tmp/ccQTa6xL.s:684    .text:0000021a .Loc.174
-     /tmp/ccQTa6xL.s:688    .text:00000220 .Loc.175
-     /tmp/ccQTa6xL.s:692    .text:00000226 .Loc.176
-     /tmp/ccQTa6xL.s:696    .text:0000022c .Loc.177
-     /tmp/ccQTa6xL.s:700    .text:00000232 .Loc.178
-     /tmp/ccQTa6xL.s:704    .text:00000238 .Loc.179
-     /tmp/ccQTa6xL.s:708    .text:0000023e .Loc.180
-     /tmp/ccQTa6xL.s:712    .text:00000244 .Loc.181
-     /tmp/ccQTa6xL.s:716    .text:0000024a .Loc.182
-     /tmp/ccQTa6xL.s:720    .text:00000250 .Loc.183
-     /tmp/ccQTa6xL.s:724    .text:00000256 .Loc.184
-     /tmp/ccQTa6xL.s:728    .text:0000025c .Loc.185
-     /tmp/ccQTa6xL.s:732    .text:00000262 .Loc.186
-     /tmp/ccQTa6xL.s:736    .text:00000268 .Loc.187
-     /tmp/ccQTa6xL.s:740    .text:0000026e .Loc.188
-     /tmp/ccQTa6xL.s:744    .text:00000274 .Loc.189
-     /tmp/ccQTa6xL.s:748    .text:0000027a .Loc.190
-     /tmp/ccQTa6xL.s:752    .text:00000280 .Loc.191
-     /tmp/ccQTa6xL.s:756    .text:00000286 .Loc.192
-     /tmp/ccQTa6xL.s:760    .text:0000028c .Loc.193
-     /tmp/ccQTa6xL.s:764    .text:00000292 .Loc.194
-     /tmp/ccQTa6xL.s:768    .text:00000298 .Loc.195
-     /tmp/ccQTa6xL.s:772    .text:0000029e .Loc.196
-     /tmp/ccQTa6xL.s:776    .text:000002a4 .Loc.197
-     /tmp/ccQTa6xL.s:780    .text:000002aa .Loc.198
-     /tmp/ccQTa6xL.s:784    .text:000002b0 .Loc.199
-     /tmp/ccQTa6xL.s:788    .text:000002b6 .Loc.200
-     /tmp/ccQTa6xL.s:792    .text:000002bc .Loc.201
-     /tmp/ccQTa6xL.s:796    .text:000002c2 .Loc.202
-     /tmp/ccQTa6xL.s:800    .text:000002c8 .Loc.203
-     /tmp/ccQTa6xL.s:804    .text:000002ce .Loc.204
-     /tmp/ccQTa6xL.s:808    .text:000002d4 .Loc.205
-     /tmp/ccQTa6xL.s:812    .text:000002da .Loc.206
-     /tmp/ccQTa6xL.s:816    .text:000002e0 .Loc.207
-     /tmp/ccQTa6xL.s:820    .text:000002e6 .Loc.208
-     /tmp/ccQTa6xL.s:824    .text:000002ec .Loc.209
-     /tmp/ccQTa6xL.s:828    .text:000002f2 .Loc.210
-     /tmp/ccQTa6xL.s:832    .text:000002f8 .Loc.211
-     /tmp/ccQTa6xL.s:836    .text:000002fe .Loc.212
-     /tmp/ccQTa6xL.s:840    .text:00000304 .Loc.213
-     /tmp/ccQTa6xL.s:844    .text:0000030a .Loc.214
-     /tmp/ccQTa6xL.s:848    .text:00000310 .Loc.215
-     /tmp/ccQTa6xL.s:852    .text:00000316 .Loc.216
-     /tmp/ccQTa6xL.s:856    .text:0000031c .Loc.217
-     /tmp/ccQTa6xL.s:860    .text:00000322 .Loc.218
-     /tmp/ccQTa6xL.s:864    .text:00000328 .Loc.219
-     /tmp/ccQTa6xL.s:868    .text:0000032e .Loc.220
-     /tmp/ccQTa6xL.s:872    .text:00000334 .Loc.221
-     /tmp/ccQTa6xL.s:876    .text:0000033a .Loc.222
-     /tmp/ccQTa6xL.s:880    .text:00000340 .Loc.223
-     /tmp/ccQTa6xL.s:884    .text:00000346 .Loc.224
-     /tmp/ccQTa6xL.s:888    .text:0000034c .Loc.225
-     /tmp/ccQTa6xL.s:892    .text:00000352 .Loc.226
-     /tmp/ccQTa6xL.s:898    .text:00000358 .Loc.227
-     /tmp/ccQTa6xL.s:901    .text:00000358 .Loc.228
-     /tmp/ccQTa6xL.s:903    .text:00000358 .Loc.229
-     /tmp/ccQTa6xL.s:904    .text:00000358 .Loc.230
-     /tmp/ccQTa6xL.s:905    .text:00000358 .Loc.231
-     /tmp/ccQTa6xL.s:909    .text:0000035e .Loc.232
-     /tmp/ccQTa6xL.s:913    .text:00000364 .Loc.233
-     /tmp/ccQTa6xL.s:917    .text:0000036a .Loc.234
-     /tmp/ccQTa6xL.s:921    .text:00000370 .Loc.235
-     /tmp/ccQTa6xL.s:925    .text:00000376 .Loc.236
-     /tmp/ccQTa6xL.s:930    .text:00000376 .Loc.237
-     /tmp/ccQTa6xL.s:935    .text:00000376 .Loc.238
-     /tmp/ccQTa6xL.s:944    .text:0000037a .Loc.239
-     /tmp/ccQTa6xL.s:949    .text:0000037e .Loc.240
-     /tmp/ccQTa6xL.s:952    .text:0000037e .Loc.241
-     /tmp/ccQTa6xL.s:955    .text:0000037e .Loc.242
-     /tmp/ccQTa6xL.s:957    .text:0000037e .Loc.243
-     /tmp/ccQTa6xL.s:965    .text:00000384 .Loc.244
-     /tmp/ccQTa6xL.s:969    .text:00000384 .Loc.245
-     /tmp/ccQTa6xL.s:970    .text:00000384 .Loc.246
-     /tmp/ccQTa6xL.s:973    .text:00000386 .Loc.247
-     /tmp/ccQTa6xL.s:977    .text:0000038a .Loc.248
-     /tmp/ccQTa6xL.s:980    .text:0000038a .Loc.249
-     /tmp/ccQTa6xL.s:984    .text:00000390 .Loc.250
-     /tmp/ccQTa6xL.s:987    .text:00000390 .Loc.251
-     /tmp/ccQTa6xL.s:989    .text:00000390 .Loc.252
-     /tmp/ccQTa6xL.s:990    .text:00000390 .Loc.253
-     /tmp/ccQTa6xL.s:991    .text:00000390 .Loc.254
-     /tmp/ccQTa6xL.s:992    .text:00000390 .Loc.255
-     /tmp/ccQTa6xL.s:993    .text:00000390 .Loc.256
-     /tmp/ccQTa6xL.s:994    .text:00000390 .Loc.257
-     /tmp/ccQTa6xL.s:997    .text:00000390 .Loc.258
-     /tmp/ccQTa6xL.s:1004   .text:00000394 .Loc.259
-     /tmp/ccQTa6xL.s:1009   .text:00000398 .Loc.260
-     /tmp/ccQTa6xL.s:1012   .text:00000398 .Loc.261
-     /tmp/ccQTa6xL.s:1015   .text:00000398 .Loc.262
-     /tmp/ccQTa6xL.s:1017   .text:00000398 .Loc.263
-     /tmp/ccQTa6xL.s:1025   .text:0000039e .Loc.264
-     /tmp/ccQTa6xL.s:1029   .text:0000039e .Loc.265
-     /tmp/ccQTa6xL.s:1030   .text:0000039e .Loc.266
-     /tmp/ccQTa6xL.s:1033   .text:000003a0 .Loc.267
-     /tmp/ccQTa6xL.s:1037   .text:000003a4 .Loc.268
-     /tmp/ccQTa6xL.s:1040   .text:000003a4 .Loc.269
-     /tmp/ccQTa6xL.s:1044   .text:000003aa .Loc.270
-     /tmp/ccQTa6xL.s:1055   .text:000003be .Loc.271
-     /tmp/ccQTa6xL.s:1057   .text:000003be .Loc.272
-     /tmp/ccQTa6xL.s:1058   .text:000003be .Loc.273
-     /tmp/ccQTa6xL.s:1060   .text:000003be .Loc.274
-     /tmp/ccQTa6xL.s:1085   .progmem.data:00000000 __c.0
-     /tmp/ccQTa6xL.s:1069   .text:000003ca .Loc.275
-     /tmp/ccQTa6xL.s:1077   .text:000003d2 .Loc.276
-     /tmp/ccQTa6xL.s:1079   .text:000003d4 L0
-     /tmp/ccQTa6xL.s:1094   .text:000003d4 L0
+     /tmp/ccR9ej04.s:2      *ABS*:0000003e __SP_H__
+     /tmp/ccR9ej04.s:3      *ABS*:0000003d __SP_L__
+     /tmp/ccR9ej04.s:4      *ABS*:0000003f __SREG__
+     /tmp/ccR9ej04.s:5      *ABS*:00000000 __tmp_reg__
+     /tmp/ccR9ej04.s:6      *ABS*:00000001 __zero_reg__
+     /tmp/ccR9ej04.s:12     .text:00000000 _lcd_write_data
+     /tmp/ccR9ej04.s:16     .text:00000000 .Loc.0
+     /tmp/ccR9ej04.s:17     .text:00000000 L0
+     /tmp/ccR9ej04.s:18     .text:00000000 .Loc.1
+     /tmp/ccR9ej04.s:27     .text:00000004 .Loc.2
+     /tmp/ccR9ej04.s:29     .text:00000006 .Loc.3
+     /tmp/ccR9ej04.s:31     .text:00000008 .Loc.4
+     /tmp/ccR9ej04.s:34     .text:0000000a .Loc.5
+     /tmp/ccR9ej04.s:37     .text:0000000e .Loc.6
+     /tmp/ccR9ej04.s:41     .text:00000014 .Loc.7
+     /tmp/ccR9ej04.s:44     .text:00000016 .Loc.8
+     /tmp/ccR9ej04.s:47     .text:00000018 .Loc.9
+     /tmp/ccR9ej04.s:49     .text:0000001a L0
+     /tmp/ccR9ej04.s:53     .text:0000001a _lcd_write_reg
+     /tmp/ccR9ej04.s:56     .text:0000001a .Loc.10
+     /tmp/ccR9ej04.s:57     .text:0000001a L0
+     /tmp/ccR9ej04.s:62     .text:0000001a .Loc.11
+     /tmp/ccR9ej04.s:64     .text:0000001c .Loc.12
+     /tmp/ccR9ej04.s:66     .text:0000001e .Loc.13
+     /tmp/ccR9ej04.s:69     .text:00000022 .Loc.14
+     /tmp/ccR9ej04.s:72     .text:00000024 .Loc.15
+     /tmp/ccR9ej04.s:74     .text:00000026 L0
+     /tmp/ccR9ej04.s:79     .text:00000026 lcd_backlight
+     /tmp/ccR9ej04.s:82     .text:00000026 .Loc.16
+     /tmp/ccR9ej04.s:83     .text:00000026 L0
+     /tmp/ccR9ej04.s:88     .text:00000026 .Loc.17
+     /tmp/ccR9ej04.s:90     .text:00000026 .Loc.18
+     /tmp/ccR9ej04.s:92     .text:00000028 L0
+     /tmp/ccR9ej04.s:97     .text:00000028 lcd_rect
+     /tmp/ccR9ej04.s:100    .text:00000028 .Loc.19
+     /tmp/ccR9ej04.s:101    .text:00000028 L0
+     /tmp/ccR9ej04.s:102    .text:00000028 .Loc.20
+     /tmp/ccR9ej04.s:153    .text:0000004c .Loc.21
+     /tmp/ccR9ej04.s:154    .text:0000004c .Loc.22
+     /tmp/ccR9ej04.s:157    .text:00000050 .Loc.23
+     /tmp/ccR9ej04.s:160    .text:00000050 .Loc.24
+     /tmp/ccR9ej04.s:162    .text:00000050 .Loc.25
+     /tmp/ccR9ej04.s:163    .text:00000050 .Loc.26
+     /tmp/ccR9ej04.s:164    .text:00000050 .Loc.27
+     /tmp/ccR9ej04.s:172    .text:0000005c .Loc.28
+     /tmp/ccR9ej04.s:173    .text:0000005c .Loc.29
+     /tmp/ccR9ej04.s:181    .text:00000068 .Loc.30
+     /tmp/ccR9ej04.s:185    .text:0000006e .Loc.31
+     /tmp/ccR9ej04.s:189    .text:00000074 .Loc.32
+     /tmp/ccR9ej04.s:193    .text:0000007a .Loc.33
+     /tmp/ccR9ej04.s:197    .text:00000080 .Loc.34
+     /tmp/ccR9ej04.s:201    .text:00000086 .Loc.35
+     /tmp/ccR9ej04.s:205    .text:0000008c .Loc.36
+     /tmp/ccR9ej04.s:209    .text:00000092 .Loc.37
+     /tmp/ccR9ej04.s:213    .text:00000098 .Loc.38
+     /tmp/ccR9ej04.s:217    .text:0000009e .Loc.39
+     /tmp/ccR9ej04.s:221    .text:000000a4 .Loc.40
+     /tmp/ccR9ej04.s:225    .text:000000aa .Loc.41
+     /tmp/ccR9ej04.s:227    .text:000000ac .Loc.42
+     /tmp/ccR9ej04.s:231    .text:000000ae .Loc.43
+     /tmp/ccR9ej04.s:236    .text:000000b2 .Loc.44
+     /tmp/ccR9ej04.s:240    .text:000000b8 .Loc.45
+     /tmp/ccR9ej04.s:243    .text:000000b8 .Loc.46
+     /tmp/ccR9ej04.s:245    .text:000000b8 .Loc.47
+     /tmp/ccR9ej04.s:250    .text:000000ba .Loc.48
+     /tmp/ccR9ej04.s:254    .text:000000be .Loc.49
+     /tmp/ccR9ej04.s:258    .text:000000c2 .Loc.50
+     /tmp/ccR9ej04.s:264    .text:000000ca .Loc.51
+     /tmp/ccR9ej04.s:268    .text:000000ce .Loc.52
+     /tmp/ccR9ej04.s:276    .text:000000d8 .Loc.53
+     /tmp/ccR9ej04.s:279    .text:000000d8 .Loc.54
+     /tmp/ccR9ej04.s:281    .text:000000d8 .Loc.55
+     /tmp/ccR9ej04.s:285    .text:000000de .Loc.56
+     /tmp/ccR9ej04.s:289    .text:000000e4 .Loc.57
+     /tmp/ccR9ej04.s:292    .text:000000e4 .Loc.58
+     /tmp/ccR9ej04.s:298    .text:000000ea .Loc.59
+     /tmp/ccR9ej04.s:302    .text:000000f0 .Loc.60
+     /tmp/ccR9ej04.s:305    .text:000000f2 .Loc.61
+     /tmp/ccR9ej04.s:309    .text:000000f4 .Loc.62
+     /tmp/ccR9ej04.s:313    .text:000000fa L0
+     /tmp/ccR9ej04.s:318    .text:000000fa lcd_init
+     /tmp/ccR9ej04.s:321    .text:000000fa .Loc.63
+     /tmp/ccR9ej04.s:322    .text:000000fa L0
+     /tmp/ccR9ej04.s:323    .text:000000fa .Loc.64
+     /tmp/ccR9ej04.s:335    .text:00000100 .Loc.65
+     /tmp/ccR9ej04.s:337    .text:00000100 .Loc.66
+     /tmp/ccR9ej04.s:338    .text:00000100 .Loc.67
+     /tmp/ccR9ej04.s:340    .text:00000100 .Loc.68
+     /tmp/ccR9ej04.s:1090   .progmem.data:00000017 __c.1
+     /tmp/ccR9ej04.s:344    .text:00000104 .Loc.69
+     /tmp/ccR9ej04.s:351    .text:0000010c .Loc.70
+     /tmp/ccR9ej04.s:354    .text:00000110 .Loc.71
+     /tmp/ccR9ej04.s:357    .text:00000110 .Loc.72
+     /tmp/ccR9ej04.s:359    .text:00000110 .Loc.73
+     /tmp/ccR9ej04.s:361    .text:00000112 .Loc.74
+     /tmp/ccR9ej04.s:366    .text:00000112 .Loc.75
+     /tmp/ccR9ej04.s:368    .text:00000112 .Loc.76
+     /tmp/ccR9ej04.s:369    .text:00000112 .Loc.77
+     /tmp/ccR9ej04.s:370    .text:00000112 .Loc.78
+     /tmp/ccR9ej04.s:371    .text:00000112 .Loc.79
+     /tmp/ccR9ej04.s:372    .text:00000112 .Loc.80
+     /tmp/ccR9ej04.s:373    .text:00000112 .Loc.81
+     /tmp/ccR9ej04.s:376    .text:00000112 .Loc.82
+     /tmp/ccR9ej04.s:387    .text:0000011a .Loc.83
+     /tmp/ccR9ej04.s:392    .text:0000011e .Loc.84
+     /tmp/ccR9ej04.s:395    .text:0000011e .Loc.85
+     /tmp/ccR9ej04.s:398    .text:0000011e .Loc.86
+     /tmp/ccR9ej04.s:400    .text:0000011e .Loc.87
+     /tmp/ccR9ej04.s:408    .text:00000124 .Loc.88
+     /tmp/ccR9ej04.s:412    .text:00000124 .Loc.89
+     /tmp/ccR9ej04.s:413    .text:00000124 .Loc.90
+     /tmp/ccR9ej04.s:416    .text:00000126 .Loc.91
+     /tmp/ccR9ej04.s:420    .text:0000012a .Loc.92
+     /tmp/ccR9ej04.s:423    .text:0000012a .Loc.93
+     /tmp/ccR9ej04.s:425    .text:0000012c .Loc.94
+     /tmp/ccR9ej04.s:429    .text:0000012c .Loc.95
+     /tmp/ccR9ej04.s:431    .text:0000012c .Loc.96
+     /tmp/ccR9ej04.s:432    .text:0000012c .Loc.97
+     /tmp/ccR9ej04.s:433    .text:0000012c .Loc.98
+     /tmp/ccR9ej04.s:434    .text:0000012c .Loc.99
+     /tmp/ccR9ej04.s:435    .text:0000012c .Loc.100
+     /tmp/ccR9ej04.s:436    .text:0000012c .Loc.101
+     /tmp/ccR9ej04.s:439    .text:0000012c .Loc.102
+     /tmp/ccR9ej04.s:446    .text:00000130 .Loc.103
+     /tmp/ccR9ej04.s:451    .text:00000134 .Loc.104
+     /tmp/ccR9ej04.s:454    .text:00000134 .Loc.105
+     /tmp/ccR9ej04.s:457    .text:00000134 .Loc.106
+     /tmp/ccR9ej04.s:459    .text:00000134 .Loc.107
+     /tmp/ccR9ej04.s:467    .text:0000013a .Loc.108
+     /tmp/ccR9ej04.s:471    .text:0000013a .Loc.109
+     /tmp/ccR9ej04.s:472    .text:0000013a .Loc.110
+     /tmp/ccR9ej04.s:475    .text:0000013c .Loc.111
+     /tmp/ccR9ej04.s:479    .text:00000140 .Loc.112
+     /tmp/ccR9ej04.s:482    .text:00000140 .Loc.113
+     /tmp/ccR9ej04.s:484    .text:00000142 .Loc.114
+     /tmp/ccR9ej04.s:488    .text:00000142 .Loc.115
+     /tmp/ccR9ej04.s:490    .text:00000142 .Loc.116
+     /tmp/ccR9ej04.s:491    .text:00000142 .Loc.117
+     /tmp/ccR9ej04.s:492    .text:00000142 .Loc.118
+     /tmp/ccR9ej04.s:493    .text:00000142 .Loc.119
+     /tmp/ccR9ej04.s:494    .text:00000142 .Loc.120
+     /tmp/ccR9ej04.s:495    .text:00000142 .Loc.121
+     /tmp/ccR9ej04.s:498    .text:00000142 .Loc.122
+     /tmp/ccR9ej04.s:505    .text:00000146 .Loc.123
+     /tmp/ccR9ej04.s:510    .text:0000014a .Loc.124
+     /tmp/ccR9ej04.s:513    .text:0000014a .Loc.125
+     /tmp/ccR9ej04.s:516    .text:0000014a .Loc.126
+     /tmp/ccR9ej04.s:518    .text:0000014a .Loc.127
+     /tmp/ccR9ej04.s:526    .text:00000150 .Loc.128
+     /tmp/ccR9ej04.s:530    .text:00000150 .Loc.129
+     /tmp/ccR9ej04.s:531    .text:00000150 .Loc.130
+     /tmp/ccR9ej04.s:534    .text:00000152 .Loc.131
+     /tmp/ccR9ej04.s:538    .text:00000156 .Loc.132
+     /tmp/ccR9ej04.s:543    .text:00000156 .Loc.133
+     /tmp/ccR9ej04.s:544    .text:00000156 .Loc.134
+     /tmp/ccR9ej04.s:547    .text:00000156 .Loc.135
+     /tmp/ccR9ej04.s:549    .text:00000156 .Loc.136
+     /tmp/ccR9ej04.s:553    .text:0000015c .Loc.137
+     /tmp/ccR9ej04.s:557    .text:00000162 .Loc.138
+     /tmp/ccR9ej04.s:561    .text:00000168 .Loc.139
+     /tmp/ccR9ej04.s:565    .text:0000016e .Loc.140
+     /tmp/ccR9ej04.s:569    .text:00000174 .Loc.141
+     /tmp/ccR9ej04.s:573    .text:0000017a .Loc.142
+     /tmp/ccR9ej04.s:577    .text:00000180 .Loc.143
+     /tmp/ccR9ej04.s:581    .text:00000186 .Loc.144
+     /tmp/ccR9ej04.s:585    .text:0000018c .Loc.145
+     /tmp/ccR9ej04.s:589    .text:00000192 .Loc.146
+     /tmp/ccR9ej04.s:593    .text:00000198 .Loc.147
+     /tmp/ccR9ej04.s:597    .text:0000019e .Loc.148
+     /tmp/ccR9ej04.s:601    .text:000001a4 .Loc.149
+     /tmp/ccR9ej04.s:605    .text:000001aa .Loc.150
+     /tmp/ccR9ej04.s:609    .text:000001b0 .Loc.151
+     /tmp/ccR9ej04.s:613    .text:000001b6 .Loc.152
+     /tmp/ccR9ej04.s:617    .text:000001bc .Loc.153
+     /tmp/ccR9ej04.s:621    .text:000001c2 .Loc.154
+     /tmp/ccR9ej04.s:625    .text:000001c8 .Loc.155
+     /tmp/ccR9ej04.s:629    .text:000001ce .Loc.156
+     /tmp/ccR9ej04.s:633    .text:000001d4 .Loc.157
+     /tmp/ccR9ej04.s:637    .text:000001da .Loc.158
+     /tmp/ccR9ej04.s:641    .text:000001e0 .Loc.159
+     /tmp/ccR9ej04.s:645    .text:000001e6 .Loc.160
+     /tmp/ccR9ej04.s:649    .text:000001ec .Loc.161
+     /tmp/ccR9ej04.s:653    .text:000001f2 .Loc.162
+     /tmp/ccR9ej04.s:657    .text:000001f8 .Loc.163
+     /tmp/ccR9ej04.s:661    .text:000001fe .Loc.164
+     /tmp/ccR9ej04.s:665    .text:00000204 .Loc.165
+     /tmp/ccR9ej04.s:669    .text:0000020a .Loc.166
+     /tmp/ccR9ej04.s:673    .text:00000210 .Loc.167
+     /tmp/ccR9ej04.s:677    .text:00000216 .Loc.168
+     /tmp/ccR9ej04.s:681    .text:0000021c .Loc.169
+     /tmp/ccR9ej04.s:685    .text:00000222 .Loc.170
+     /tmp/ccR9ej04.s:689    .text:00000228 .Loc.171
+     /tmp/ccR9ej04.s:693    .text:0000022e .Loc.172
+     /tmp/ccR9ej04.s:697    .text:00000234 .Loc.173
+     /tmp/ccR9ej04.s:701    .text:0000023a .Loc.174
+     /tmp/ccR9ej04.s:705    .text:00000240 .Loc.175
+     /tmp/ccR9ej04.s:709    .text:00000246 .Loc.176
+     /tmp/ccR9ej04.s:713    .text:0000024c .Loc.177
+     /tmp/ccR9ej04.s:717    .text:00000252 .Loc.178
+     /tmp/ccR9ej04.s:721    .text:00000258 .Loc.179
+     /tmp/ccR9ej04.s:725    .text:0000025e .Loc.180
+     /tmp/ccR9ej04.s:729    .text:00000264 .Loc.181
+     /tmp/ccR9ej04.s:733    .text:0000026a .Loc.182
+     /tmp/ccR9ej04.s:737    .text:00000270 .Loc.183
+     /tmp/ccR9ej04.s:741    .text:00000276 .Loc.184
+     /tmp/ccR9ej04.s:745    .text:0000027c .Loc.185
+     /tmp/ccR9ej04.s:749    .text:00000282 .Loc.186
+     /tmp/ccR9ej04.s:753    .text:00000288 .Loc.187
+     /tmp/ccR9ej04.s:757    .text:0000028e .Loc.188
+     /tmp/ccR9ej04.s:761    .text:00000294 .Loc.189
+     /tmp/ccR9ej04.s:765    .text:0000029a .Loc.190
+     /tmp/ccR9ej04.s:769    .text:000002a0 .Loc.191
+     /tmp/ccR9ej04.s:773    .text:000002a6 .Loc.192
+     /tmp/ccR9ej04.s:777    .text:000002ac .Loc.193
+     /tmp/ccR9ej04.s:781    .text:000002b2 .Loc.194
+     /tmp/ccR9ej04.s:785    .text:000002b8 .Loc.195
+     /tmp/ccR9ej04.s:789    .text:000002be .Loc.196
+     /tmp/ccR9ej04.s:793    .text:000002c4 .Loc.197
+     /tmp/ccR9ej04.s:797    .text:000002ca .Loc.198
+     /tmp/ccR9ej04.s:801    .text:000002d0 .Loc.199
+     /tmp/ccR9ej04.s:805    .text:000002d6 .Loc.200
+     /tmp/ccR9ej04.s:809    .text:000002dc .Loc.201
+     /tmp/ccR9ej04.s:813    .text:000002e2 .Loc.202
+     /tmp/ccR9ej04.s:817    .text:000002e8 .Loc.203
+     /tmp/ccR9ej04.s:821    .text:000002ee .Loc.204
+     /tmp/ccR9ej04.s:825    .text:000002f4 .Loc.205
+     /tmp/ccR9ej04.s:829    .text:000002fa .Loc.206
+     /tmp/ccR9ej04.s:833    .text:00000300 .Loc.207
+     /tmp/ccR9ej04.s:837    .text:00000306 .Loc.208
+     /tmp/ccR9ej04.s:841    .text:0000030c .Loc.209
+     /tmp/ccR9ej04.s:845    .text:00000312 .Loc.210
+     /tmp/ccR9ej04.s:849    .text:00000318 .Loc.211
+     /tmp/ccR9ej04.s:853    .text:0000031e .Loc.212
+     /tmp/ccR9ej04.s:857    .text:00000324 .Loc.213
+     /tmp/ccR9ej04.s:861    .text:0000032a .Loc.214
+     /tmp/ccR9ej04.s:865    .text:00000330 .Loc.215
+     /tmp/ccR9ej04.s:869    .text:00000336 .Loc.216
+     /tmp/ccR9ej04.s:873    .text:0000033c .Loc.217
+     /tmp/ccR9ej04.s:877    .text:00000342 .Loc.218
+     /tmp/ccR9ej04.s:881    .text:00000348 .Loc.219
+     /tmp/ccR9ej04.s:885    .text:0000034e .Loc.220
+     /tmp/ccR9ej04.s:889    .text:00000354 .Loc.221
+     /tmp/ccR9ej04.s:893    .text:0000035a .Loc.222
+     /tmp/ccR9ej04.s:899    .text:00000360 .Loc.223
+     /tmp/ccR9ej04.s:902    .text:00000360 .Loc.224
+     /tmp/ccR9ej04.s:904    .text:00000360 .Loc.225
+     /tmp/ccR9ej04.s:905    .text:00000360 .Loc.226
+     /tmp/ccR9ej04.s:906    .text:00000360 .Loc.227
+     /tmp/ccR9ej04.s:910    .text:00000366 .Loc.228
+     /tmp/ccR9ej04.s:914    .text:0000036c .Loc.229
+     /tmp/ccR9ej04.s:918    .text:00000372 .Loc.230
+     /tmp/ccR9ej04.s:922    .text:00000378 .Loc.231
+     /tmp/ccR9ej04.s:926    .text:0000037e .Loc.232
+     /tmp/ccR9ej04.s:931    .text:0000037e .Loc.233
+     /tmp/ccR9ej04.s:936    .text:0000037e .Loc.234
+     /tmp/ccR9ej04.s:945    .text:00000382 .Loc.235
+     /tmp/ccR9ej04.s:950    .text:00000386 .Loc.236
+     /tmp/ccR9ej04.s:953    .text:00000386 .Loc.237
+     /tmp/ccR9ej04.s:956    .text:00000386 .Loc.238
+     /tmp/ccR9ej04.s:958    .text:00000386 .Loc.239
+     /tmp/ccR9ej04.s:966    .text:0000038c .Loc.240
+     /tmp/ccR9ej04.s:970    .text:0000038c .Loc.241
+     /tmp/ccR9ej04.s:971    .text:0000038c .Loc.242
+     /tmp/ccR9ej04.s:974    .text:0000038e .Loc.243
+     /tmp/ccR9ej04.s:978    .text:00000392 .Loc.244
+     /tmp/ccR9ej04.s:981    .text:00000392 .Loc.245
+     /tmp/ccR9ej04.s:985    .text:00000398 .Loc.246
+     /tmp/ccR9ej04.s:988    .text:00000398 .Loc.247
+     /tmp/ccR9ej04.s:990    .text:00000398 .Loc.248
+     /tmp/ccR9ej04.s:991    .text:00000398 .Loc.249
+     /tmp/ccR9ej04.s:992    .text:00000398 .Loc.250
+     /tmp/ccR9ej04.s:993    .text:00000398 .Loc.251
+     /tmp/ccR9ej04.s:994    .text:00000398 .Loc.252
+     /tmp/ccR9ej04.s:995    .text:00000398 .Loc.253
+     /tmp/ccR9ej04.s:998    .text:00000398 .Loc.254
+     /tmp/ccR9ej04.s:1005   .text:0000039c .Loc.255
+     /tmp/ccR9ej04.s:1010   .text:000003a0 .Loc.256
+     /tmp/ccR9ej04.s:1013   .text:000003a0 .Loc.257
+     /tmp/ccR9ej04.s:1016   .text:000003a0 .Loc.258
+     /tmp/ccR9ej04.s:1018   .text:000003a0 .Loc.259
+     /tmp/ccR9ej04.s:1026   .text:000003a6 .Loc.260
+     /tmp/ccR9ej04.s:1030   .text:000003a6 .Loc.261
+     /tmp/ccR9ej04.s:1031   .text:000003a6 .Loc.262
+     /tmp/ccR9ej04.s:1034   .text:000003a8 .Loc.263
+     /tmp/ccR9ej04.s:1038   .text:000003ac .Loc.264
+     /tmp/ccR9ej04.s:1041   .text:000003ac .Loc.265
+     /tmp/ccR9ej04.s:1045   .text:000003b2 .Loc.266
+     /tmp/ccR9ej04.s:1056   .text:000003c6 .Loc.267
+     /tmp/ccR9ej04.s:1058   .text:000003c6 .Loc.268
+     /tmp/ccR9ej04.s:1059   .text:000003c6 .Loc.269
+     /tmp/ccR9ej04.s:1061   .text:000003c6 .Loc.270
+     /tmp/ccR9ej04.s:1086   .progmem.data:00000000 __c.0
+     /tmp/ccR9ej04.s:1070   .text:000003d2 .Loc.271
+     /tmp/ccR9ej04.s:1078   .text:000003da .Loc.272
+     /tmp/ccR9ej04.s:1080   .text:000003dc L0
+     /tmp/ccR9ej04.s:1099   .text:000003dc L0
                      .debug_frame:00000000 L0
-     /tmp/ccQTa6xL.s:308    .text:000000f4 .L8
-     /tmp/ccQTa6xL.s:275    .text:000000d8 .L6
-     /tmp/ccQTa6xL.s:235    .text:000000b2 .L5
-     /tmp/ccQTa6xL.s:297    .text:000000ea .L7
-     /tmp/ccQTa6xL.s:403    .text:00000118 .L11
-     /tmp/ccQTa6xL.s:390    .text:00000116 .L10
-     /tmp/ccQTa6xL.s:462    .text:0000012e .L12
-     /tmp/ccQTa6xL.s:449    .text:0000012c .L11
-     /tmp/ccQTa6xL.s:521    .text:00000144 .L13
-     /tmp/ccQTa6xL.s:508    .text:00000142 .L12
-     /tmp/ccQTa6xL.s:961    .text:00000380 .L14
-     /tmp/ccQTa6xL.s:948    .text:0000037e .L13
-     /tmp/ccQTa6xL.s:1021   .text:0000039a .L15
-     /tmp/ccQTa6xL.s:1008   .text:00000398 .L14
-     /tmp/ccQTa6xL.s:3036   .debug_abbrev:00000000 .Ldebug_abbrev0
-     /tmp/ccQTa6xL.s:8      .text:00000000 .Ltext0
-     /tmp/ccQTa6xL.s:1088   .text:000003d4 .Letext0
-     /tmp/ccQTa6xL.s:4794   .debug_line:00000000 .Ldebug_line0
-     /tmp/ccQTa6xL.s:99     .text:00000028 .LFB24
-     /tmp/ccQTa6xL.s:314    .text:000000fa .LFE24
-     /tmp/ccQTa6xL.s:3815   .debug_loclists:00000012 .LLST2
-     /tmp/ccQTa6xL.s:3808   .debug_loclists:0000000c .LVUS2
-     /tmp/ccQTa6xL.s:3852   .debug_loclists:00000038 .LLST3
-     /tmp/ccQTa6xL.s:3845   .debug_loclists:00000032 .LVUS3
-     /tmp/ccQTa6xL.s:3891   .debug_loclists:00000060 .LLST4
-     /tmp/ccQTa6xL.s:3882   .debug_loclists:00000058 .LVUS4
-     /tmp/ccQTa6xL.s:3940   .debug_loclists:00000094 .LLST5
-     /tmp/ccQTa6xL.s:3931   .debug_loclists:0000008c .LVUS5
-     /tmp/ccQTa6xL.s:3987   .debug_loclists:000000c6 .LLST6
-     /tmp/ccQTa6xL.s:3980   .debug_loclists:000000c0 .LVUS6
-     /tmp/ccQTa6xL.s:4020   .debug_loclists:000000ea .LLST7
-     /tmp/ccQTa6xL.s:4017   .debug_loclists:000000e8 .LVUS7
-     /tmp/ccQTa6xL.s:4037   .debug_loclists:000000fb .LLST8
-     /tmp/ccQTa6xL.s:4032   .debug_loclists:000000f7 .LVUS8
-     /tmp/ccQTa6xL.s:159    .text:00000050 .LBI58
-     /tmp/ccQTa6xL.s:158    .text:00000050 .LBB58
-     /tmp/ccQTa6xL.s:230    .text:000000ae .LBE58
-     /tmp/ccQTa6xL.s:4062   .debug_loclists:00000116 .LLST9
-     /tmp/ccQTa6xL.s:4059   .debug_loclists:00000114 .LVUS9
-     /tmp/ccQTa6xL.s:4077   .debug_loclists:00000124 .LLST10
-     /tmp/ccQTa6xL.s:4074   .debug_loclists:00000122 .LVUS10
-     /tmp/ccQTa6xL.s:4092   .debug_loclists:00000132 .LLST11
-     /tmp/ccQTa6xL.s:4089   .debug_loclists:00000130 .LVUS11
-     /tmp/ccQTa6xL.s:4107   .debug_loclists:00000140 .LLST12
-     /tmp/ccQTa6xL.s:4104   .debug_loclists:0000013e .LVUS12
-     /tmp/ccQTa6xL.s:4122   .debug_loclists:0000014e .LLST13
-     /tmp/ccQTa6xL.s:4119   .debug_loclists:0000014c .LVUS13
-     /tmp/ccQTa6xL.s:4137   .debug_loclists:0000015c .LLST14
-     /tmp/ccQTa6xL.s:4134   .debug_loclists:0000015a .LVUS14
-     /tmp/ccQTa6xL.s:184    .text:0000006e .LVL12
-     /tmp/ccQTa6xL.s:188    .text:00000074 .LVL13
-     /tmp/ccQTa6xL.s:192    .text:0000007a .LVL14
-     /tmp/ccQTa6xL.s:196    .text:00000080 .LVL15
-     /tmp/ccQTa6xL.s:200    .text:00000086 .LVL16
-     /tmp/ccQTa6xL.s:204    .text:0000008c .LVL17
-     /tmp/ccQTa6xL.s:208    .text:00000092 .LVL18
-     /tmp/ccQTa6xL.s:212    .text:00000098 .LVL19
-     /tmp/ccQTa6xL.s:216    .text:0000009e .LVL20
-     /tmp/ccQTa6xL.s:220    .text:000000a4 .LVL21
-     /tmp/ccQTa6xL.s:224    .text:000000aa .LVL22
-     /tmp/ccQTa6xL.s:242    .text:000000b8 .LBI60
-     /tmp/ccQTa6xL.s:241    .text:000000b8 .LBB60
-     /tmp/ccQTa6xL.s:249    .text:000000ba .LBE60
-     /tmp/ccQTa6xL.s:278    .text:000000d8 .LBI62
-     /tmp/ccQTa6xL.s:277    .text:000000d8 .LBB62
-     /tmp/ccQTa6xL.s:291    .text:000000e4 .LBE62
-     /tmp/ccQTa6xL.s:4152   .debug_loclists:0000016a .LLST15
-     /tmp/ccQTa6xL.s:4149   .debug_loclists:00000168 .LVUS15
-     /tmp/ccQTa6xL.s:284    .text:000000de .LVL29
-     /tmp/ccQTa6xL.s:288    .text:000000e4 .LVL30
-     /tmp/ccQTa6xL.s:156    .text:00000050 .LVL9
-     /tmp/ccQTa6xL.s:320    .text:000000fa .LFB23
-     /tmp/ccQTa6xL.s:1080   .text:000003d4 .LFE23
-     /tmp/ccQTa6xL.s:4169   .debug_loclists:0000017b .LLST16
-     /tmp/ccQTa6xL.s:4164   .debug_loclists:00000177 .LVUS16
-     /tmp/ccQTa6xL.s:4191   .debug_loclists:00000193 .LLST17
-     /tmp/ccQTa6xL.s:4184   .debug_loclists:0000018d .LVUS17
-     /tmp/ccQTa6xL.s:1056   .text:000003be .LBB143
-     /tmp/ccQTa6xL.s:1059   .text:000003be .LBE143
-     /tmp/ccQTa6xL.s:337    .text:00000100 .LBI93
-     /tmp/ccQTa6xL.s:336    .text:00000100 .LBB93
-     /tmp/ccQTa6xL.s:352    .text:00000108 .LBE93
-     /tmp/ccQTa6xL.s:358    .text:0000010c .LBI95
-     /tmp/ccQTa6xL.s:357    .text:0000010c .LBB95
-     /tmp/ccQTa6xL.s:541    .text:0000014e .LBE95
-     /tmp/ccQTa6xL.s:366    .text:0000010e .LBI97
-     /tmp/ccQTa6xL.s:4704   .debug_rnglists:0000000c .LLRL18
-     /tmp/ccQTa6xL.s:4224   .debug_loclists:000001b8 .LLST19
-     /tmp/ccQTa6xL.s:4221   .debug_loclists:000001b6 .LVUS19
-     /tmp/ccQTa6xL.s:4236   .debug_loclists:000001c7 .LLST20
-     /tmp/ccQTa6xL.s:4233   .debug_loclists:000001c5 .LVUS20
-     /tmp/ccQTa6xL.s:4254   .debug_loclists:000001dc .LLST21
-     /tmp/ccQTa6xL.s:4245   .debug_loclists:000001d4 .LVUS21
-     /tmp/ccQTa6xL.s:396    .text:00000116 .LBI99
-     /tmp/ccQTa6xL.s:4712   .debug_rnglists:00000017 .LLRL22
-     /tmp/ccQTa6xL.s:4293   .debug_loclists:0000020a .LLST23
-     /tmp/ccQTa6xL.s:4290   .debug_loclists:00000208 .LVUS23
-     /tmp/ccQTa6xL.s:427    .text:00000124 .LBI105
-     /tmp/ccQTa6xL.s:4720   .debug_rnglists:00000022 .LLRL24
-     /tmp/ccQTa6xL.s:4305   .debug_loclists:00000217 .LLST25
-     /tmp/ccQTa6xL.s:4302   .debug_loclists:00000215 .LVUS25
-     /tmp/ccQTa6xL.s:4317   .debug_loclists:00000226 .LLST26
-     /tmp/ccQTa6xL.s:4314   .debug_loclists:00000224 .LVUS26
-     /tmp/ccQTa6xL.s:4335   .debug_loclists:0000023b .LLST27
-     /tmp/ccQTa6xL.s:4326   .debug_loclists:00000233 .LVUS27
-     /tmp/ccQTa6xL.s:455    .text:0000012c .LBI107
-     /tmp/ccQTa6xL.s:4728   .debug_rnglists:0000002d .LLRL28
-     /tmp/ccQTa6xL.s:4374   .debug_loclists:00000269 .LLST29
-     /tmp/ccQTa6xL.s:4371   .debug_loclists:00000267 .LVUS29
-     /tmp/ccQTa6xL.s:486    .text:0000013a .LBI113
-     /tmp/ccQTa6xL.s:4736   .debug_rnglists:00000038 .LLRL30
-     /tmp/ccQTa6xL.s:4386   .debug_loclists:00000276 .LLST31
-     /tmp/ccQTa6xL.s:4383   .debug_loclists:00000274 .LVUS31
-     /tmp/ccQTa6xL.s:4398   .debug_loclists:00000285 .LLST32
-     /tmp/ccQTa6xL.s:4395   .debug_loclists:00000283 .LVUS32
-     /tmp/ccQTa6xL.s:4416   .debug_loclists:0000029a .LLST33
-     /tmp/ccQTa6xL.s:4407   .debug_loclists:00000292 .LVUS33
-     /tmp/ccQTa6xL.s:514    .text:00000142 .LBI115
-     /tmp/ccQTa6xL.s:4744   .debug_rnglists:00000043 .LLRL34
-     /tmp/ccQTa6xL.s:4455   .debug_loclists:000002c8 .LLST35
-     /tmp/ccQTa6xL.s:4452   .debug_loclists:000002c6 .LVUS35
-     /tmp/ccQTa6xL.s:545    .text:0000014e .LBI121
-     /tmp/ccQTa6xL.s:544    .text:0000014e .LBB121
-     /tmp/ccQTa6xL.s:897    .text:00000358 .LBE121
-     /tmp/ccQTa6xL.s:551    .text:00000154 .LVL51
-     /tmp/ccQTa6xL.s:555    .text:0000015a .LVL52
-     /tmp/ccQTa6xL.s:559    .text:00000160 .LVL53
-     /tmp/ccQTa6xL.s:563    .text:00000166 .LVL54
-     /tmp/ccQTa6xL.s:567    .text:0000016c .LVL55
-     /tmp/ccQTa6xL.s:571    .text:00000172 .LVL56
-     /tmp/ccQTa6xL.s:575    .text:00000178 .LVL57
-     /tmp/ccQTa6xL.s:579    .text:0000017e .LVL58
-     /tmp/ccQTa6xL.s:583    .text:00000184 .LVL59
-     /tmp/ccQTa6xL.s:587    .text:0000018a .LVL60
-     /tmp/ccQTa6xL.s:591    .text:00000190 .LVL61
-     /tmp/ccQTa6xL.s:595    .text:00000196 .LVL62
-     /tmp/ccQTa6xL.s:599    .text:0000019c .LVL63
-     /tmp/ccQTa6xL.s:603    .text:000001a2 .LVL64
-     /tmp/ccQTa6xL.s:607    .text:000001a8 .LVL65
-     /tmp/ccQTa6xL.s:611    .text:000001ae .LVL66
-     /tmp/ccQTa6xL.s:615    .text:000001b4 .LVL67
-     /tmp/ccQTa6xL.s:619    .text:000001ba .LVL68
-     /tmp/ccQTa6xL.s:623    .text:000001c0 .LVL69
-     /tmp/ccQTa6xL.s:627    .text:000001c6 .LVL70
-     /tmp/ccQTa6xL.s:631    .text:000001cc .LVL71
-     /tmp/ccQTa6xL.s:635    .text:000001d2 .LVL72
-     /tmp/ccQTa6xL.s:639    .text:000001d8 .LVL73
-     /tmp/ccQTa6xL.s:643    .text:000001de .LVL74
-     /tmp/ccQTa6xL.s:647    .text:000001e4 .LVL75
-     /tmp/ccQTa6xL.s:651    .text:000001ea .LVL76
-     /tmp/ccQTa6xL.s:655    .text:000001f0 .LVL77
-     /tmp/ccQTa6xL.s:659    .text:000001f6 .LVL78
-     /tmp/ccQTa6xL.s:663    .text:000001fc .LVL79
-     /tmp/ccQTa6xL.s:667    .text:00000202 .LVL80
-     /tmp/ccQTa6xL.s:671    .text:00000208 .LVL81
-     /tmp/ccQTa6xL.s:675    .text:0000020e .LVL82
-     /tmp/ccQTa6xL.s:679    .text:00000214 .LVL83
-     /tmp/ccQTa6xL.s:683    .text:0000021a .LVL84
-     /tmp/ccQTa6xL.s:687    .text:00000220 .LVL85
-     /tmp/ccQTa6xL.s:691    .text:00000226 .LVL86
-     /tmp/ccQTa6xL.s:695    .text:0000022c .LVL87
-     /tmp/ccQTa6xL.s:699    .text:00000232 .LVL88
-     /tmp/ccQTa6xL.s:703    .text:00000238 .LVL89
-     /tmp/ccQTa6xL.s:707    .text:0000023e .LVL90
-     /tmp/ccQTa6xL.s:711    .text:00000244 .LVL91
-     /tmp/ccQTa6xL.s:715    .text:0000024a .LVL92
-     /tmp/ccQTa6xL.s:719    .text:00000250 .LVL93
-     /tmp/ccQTa6xL.s:723    .text:00000256 .LVL94
-     /tmp/ccQTa6xL.s:727    .text:0000025c .LVL95
-     /tmp/ccQTa6xL.s:731    .text:00000262 .LVL96
-     /tmp/ccQTa6xL.s:735    .text:00000268 .LVL97
-     /tmp/ccQTa6xL.s:739    .text:0000026e .LVL98
-     /tmp/ccQTa6xL.s:743    .text:00000274 .LVL99
-     /tmp/ccQTa6xL.s:747    .text:0000027a .LVL100
-     /tmp/ccQTa6xL.s:751    .text:00000280 .LVL101
-     /tmp/ccQTa6xL.s:755    .text:00000286 .LVL102
-     /tmp/ccQTa6xL.s:759    .text:0000028c .LVL103
-     /tmp/ccQTa6xL.s:763    .text:00000292 .LVL104
-     /tmp/ccQTa6xL.s:767    .text:00000298 .LVL105
-     /tmp/ccQTa6xL.s:771    .text:0000029e .LVL106
-     /tmp/ccQTa6xL.s:775    .text:000002a4 .LVL107
-     /tmp/ccQTa6xL.s:779    .text:000002aa .LVL108
-     /tmp/ccQTa6xL.s:783    .text:000002b0 .LVL109
-     /tmp/ccQTa6xL.s:787    .text:000002b6 .LVL110
-     /tmp/ccQTa6xL.s:791    .text:000002bc .LVL111
-     /tmp/ccQTa6xL.s:795    .text:000002c2 .LVL112
-     /tmp/ccQTa6xL.s:799    .text:000002c8 .LVL113
-     /tmp/ccQTa6xL.s:803    .text:000002ce .LVL114
-     /tmp/ccQTa6xL.s:807    .text:000002d4 .LVL115
-     /tmp/ccQTa6xL.s:811    .text:000002da .LVL116
-     /tmp/ccQTa6xL.s:815    .text:000002e0 .LVL117
-     /tmp/ccQTa6xL.s:819    .text:000002e6 .LVL118
-     /tmp/ccQTa6xL.s:823    .text:000002ec .LVL119
-     /tmp/ccQTa6xL.s:827    .text:000002f2 .LVL120
-     /tmp/ccQTa6xL.s:831    .text:000002f8 .LVL121
-     /tmp/ccQTa6xL.s:835    .text:000002fe .LVL122
-     /tmp/ccQTa6xL.s:839    .text:00000304 .LVL123
-     /tmp/ccQTa6xL.s:843    .text:0000030a .LVL124
-     /tmp/ccQTa6xL.s:847    .text:00000310 .LVL125
-     /tmp/ccQTa6xL.s:851    .text:00000316 .LVL126
-     /tmp/ccQTa6xL.s:855    .text:0000031c .LVL127
-     /tmp/ccQTa6xL.s:859    .text:00000322 .LVL128
-     /tmp/ccQTa6xL.s:863    .text:00000328 .LVL129
-     /tmp/ccQTa6xL.s:867    .text:0000032e .LVL130
-     /tmp/ccQTa6xL.s:871    .text:00000334 .LVL131
-     /tmp/ccQTa6xL.s:875    .text:0000033a .LVL132
-     /tmp/ccQTa6xL.s:879    .text:00000340 .LVL133
-     /tmp/ccQTa6xL.s:883    .text:00000346 .LVL134
-     /tmp/ccQTa6xL.s:887    .text:0000034c .LVL135
-     /tmp/ccQTa6xL.s:891    .text:00000352 .LVL136
-     /tmp/ccQTa6xL.s:895    .text:00000358 .LVL137
-     /tmp/ccQTa6xL.s:900    .text:00000358 .LBI123
-     /tmp/ccQTa6xL.s:4752   .debug_rnglists:0000004e .LLRL36
-     /tmp/ccQTa6xL.s:4467   .debug_loclists:000002d5 .LLST37
-     /tmp/ccQTa6xL.s:4464   .debug_loclists:000002d3 .LVUS37
-     /tmp/ccQTa6xL.s:4478   .debug_loclists:000002e0 .LLST38
-     /tmp/ccQTa6xL.s:4475   .debug_loclists:000002de .LVUS38
-     /tmp/ccQTa6xL.s:4489   .debug_loclists:000002eb .LLST39
-     /tmp/ccQTa6xL.s:4486   .debug_loclists:000002e9 .LVUS39
-     /tmp/ccQTa6xL.s:908    .text:0000035e .LVL138
-     /tmp/ccQTa6xL.s:912    .text:00000364 .LVL139
-     /tmp/ccQTa6xL.s:916    .text:0000036a .LVL140
-     /tmp/ccQTa6xL.s:920    .text:00000370 .LVL141
-     /tmp/ccQTa6xL.s:924    .text:00000376 .LVL142
-     /tmp/ccQTa6xL.s:4760   .debug_rnglists:00000059 .LLRL40
-     /tmp/ccQTa6xL.s:4507   .debug_loclists:000002fd .LLST41
-     /tmp/ccQTa6xL.s:4498   .debug_loclists:000002f5 .LVUS41
-     /tmp/ccQTa6xL.s:954    .text:0000037e .LBI128
-     /tmp/ccQTa6xL.s:4768   .debug_rnglists:00000064 .LLRL42
-     /tmp/ccQTa6xL.s:4546   .debug_loclists:0000032b .LLST43
-     /tmp/ccQTa6xL.s:4543   .debug_loclists:00000329 .LVUS43
-     /tmp/ccQTa6xL.s:986    .text:00000390 .LBI135
-     /tmp/ccQTa6xL.s:4776   .debug_rnglists:0000006f .LLRL44
-     /tmp/ccQTa6xL.s:4558   .debug_loclists:00000338 .LLST45
-     /tmp/ccQTa6xL.s:4555   .debug_loclists:00000336 .LVUS45
-     /tmp/ccQTa6xL.s:4570   .debug_loclists:00000347 .LLST46
-     /tmp/ccQTa6xL.s:4567   .debug_loclists:00000345 .LVUS46
-     /tmp/ccQTa6xL.s:4588   .debug_loclists:0000035c .LLST47
-     /tmp/ccQTa6xL.s:4579   .debug_loclists:00000354 .LVUS47
-     /tmp/ccQTa6xL.s:1014   .text:00000398 .LBI137
-     /tmp/ccQTa6xL.s:4784   .debug_rnglists:0000007a .LLRL48
-     /tmp/ccQTa6xL.s:4627   .debug_loclists:0000038a .LLST49
-     /tmp/ccQTa6xL.s:4624   .debug_loclists:00000388 .LVUS49
-     /tmp/ccQTa6xL.s:355    .text:0000010c .LVL35
-     /tmp/ccQTa6xL.s:983    .text:00000390 .LVL147
-     /tmp/ccQTa6xL.s:1043   .text:000003aa .LVL152
-     /tmp/ccQTa6xL.s:1054   .text:000003be .LVL153
-     /tmp/ccQTa6xL.s:1068   .text:000003ca .LVL154
-     /tmp/ccQTa6xL.s:14     .text:00000000 .LFB16
-     /tmp/ccQTa6xL.s:50     .text:0000001a .LFE16
-     /tmp/ccQTa6xL.s:4643   .debug_loclists:0000039b .LLST0
-     /tmp/ccQTa6xL.s:4636   .debug_loclists:00000395 .LVUS0
-     /tmp/ccQTa6xL.s:36     .text:0000000e .LVL2
-     /tmp/ccQTa6xL.s:40     .text:00000014 .LVL3
-     /tmp/ccQTa6xL.s:55     .text:0000001a .LFB15
-     /tmp/ccQTa6xL.s:75     .text:00000026 .LFE15
-     /tmp/ccQTa6xL.s:4668   .debug_loclists:000003b2 .LLST1
-     /tmp/ccQTa6xL.s:4663   .debug_loclists:000003ae .LVUS1
-     /tmp/ccQTa6xL.s:68     .text:00000022 .LVL6
-     /tmp/ccQTa6xL.s:81     .text:00000026 .LFB22
-     /tmp/ccQTa6xL.s:93     .text:00000028 .LFE22
-     /tmp/ccQTa6xL.s:1095   .debug_info:00000000 .Ldebug_info0
+     /tmp/ccR9ej04.s:308    .text:000000f4 .L8
+     /tmp/ccR9ej04.s:275    .text:000000d8 .L6
+     /tmp/ccR9ej04.s:235    .text:000000b2 .L5
+     /tmp/ccR9ej04.s:297    .text:000000ea .L7
+     /tmp/ccR9ej04.s:404    .text:00000120 .L11
+     /tmp/ccR9ej04.s:391    .text:0000011e .L10
+     /tmp/ccR9ej04.s:463    .text:00000136 .L12
+     /tmp/ccR9ej04.s:450    .text:00000134 .L11
+     /tmp/ccR9ej04.s:522    .text:0000014c .L13
+     /tmp/ccR9ej04.s:509    .text:0000014a .L12
+     /tmp/ccR9ej04.s:962    .text:00000388 .L14
+     /tmp/ccR9ej04.s:949    .text:00000386 .L13
+     /tmp/ccR9ej04.s:1022   .text:000003a2 .L15
+     /tmp/ccR9ej04.s:1009   .text:000003a0 .L14
+     /tmp/ccR9ej04.s:3054   .debug_abbrev:00000000 .Ldebug_abbrev0
+     /tmp/ccR9ej04.s:8      .text:00000000 .Ltext0
+     /tmp/ccR9ej04.s:1093   .text:000003dc .Letext0
+     /tmp/ccR9ej04.s:4841   .debug_line:00000000 .Ldebug_line0
+     /tmp/ccR9ej04.s:99     .text:00000028 .LFB23
+     /tmp/ccR9ej04.s:314    .text:000000fa .LFE23
+     /tmp/ccR9ej04.s:3862   .debug_loclists:00000012 .LLST2
+     /tmp/ccR9ej04.s:3855   .debug_loclists:0000000c .LVUS2
+     /tmp/ccR9ej04.s:3899   .debug_loclists:00000038 .LLST3
+     /tmp/ccR9ej04.s:3892   .debug_loclists:00000032 .LVUS3
+     /tmp/ccR9ej04.s:3938   .debug_loclists:00000060 .LLST4
+     /tmp/ccR9ej04.s:3929   .debug_loclists:00000058 .LVUS4
+     /tmp/ccR9ej04.s:3987   .debug_loclists:00000094 .LLST5
+     /tmp/ccR9ej04.s:3978   .debug_loclists:0000008c .LVUS5
+     /tmp/ccR9ej04.s:4034   .debug_loclists:000000c6 .LLST6
+     /tmp/ccR9ej04.s:4027   .debug_loclists:000000c0 .LVUS6
+     /tmp/ccR9ej04.s:4067   .debug_loclists:000000ea .LLST7
+     /tmp/ccR9ej04.s:4064   .debug_loclists:000000e8 .LVUS7
+     /tmp/ccR9ej04.s:4084   .debug_loclists:000000fb .LLST8
+     /tmp/ccR9ej04.s:4079   .debug_loclists:000000f7 .LVUS8
+     /tmp/ccR9ej04.s:159    .text:00000050 .LBI60
+     /tmp/ccR9ej04.s:158    .text:00000050 .LBB60
+     /tmp/ccR9ej04.s:230    .text:000000ae .LBE60
+     /tmp/ccR9ej04.s:4109   .debug_loclists:00000116 .LLST9
+     /tmp/ccR9ej04.s:4106   .debug_loclists:00000114 .LVUS9
+     /tmp/ccR9ej04.s:4124   .debug_loclists:00000124 .LLST10
+     /tmp/ccR9ej04.s:4121   .debug_loclists:00000122 .LVUS10
+     /tmp/ccR9ej04.s:4139   .debug_loclists:00000132 .LLST11
+     /tmp/ccR9ej04.s:4136   .debug_loclists:00000130 .LVUS11
+     /tmp/ccR9ej04.s:4154   .debug_loclists:00000140 .LLST12
+     /tmp/ccR9ej04.s:4151   .debug_loclists:0000013e .LVUS12
+     /tmp/ccR9ej04.s:4169   .debug_loclists:0000014e .LLST13
+     /tmp/ccR9ej04.s:4166   .debug_loclists:0000014c .LVUS13
+     /tmp/ccR9ej04.s:4184   .debug_loclists:0000015c .LLST14
+     /tmp/ccR9ej04.s:4181   .debug_loclists:0000015a .LVUS14
+     /tmp/ccR9ej04.s:184    .text:0000006e .LVL12
+     /tmp/ccR9ej04.s:188    .text:00000074 .LVL13
+     /tmp/ccR9ej04.s:192    .text:0000007a .LVL14
+     /tmp/ccR9ej04.s:196    .text:00000080 .LVL15
+     /tmp/ccR9ej04.s:200    .text:00000086 .LVL16
+     /tmp/ccR9ej04.s:204    .text:0000008c .LVL17
+     /tmp/ccR9ej04.s:208    .text:00000092 .LVL18
+     /tmp/ccR9ej04.s:212    .text:00000098 .LVL19
+     /tmp/ccR9ej04.s:216    .text:0000009e .LVL20
+     /tmp/ccR9ej04.s:220    .text:000000a4 .LVL21
+     /tmp/ccR9ej04.s:224    .text:000000aa .LVL22
+     /tmp/ccR9ej04.s:242    .text:000000b8 .LBI62
+     /tmp/ccR9ej04.s:241    .text:000000b8 .LBB62
+     /tmp/ccR9ej04.s:249    .text:000000ba .LBE62
+     /tmp/ccR9ej04.s:278    .text:000000d8 .LBI64
+     /tmp/ccR9ej04.s:277    .text:000000d8 .LBB64
+     /tmp/ccR9ej04.s:291    .text:000000e4 .LBE64
+     /tmp/ccR9ej04.s:4199   .debug_loclists:0000016a .LLST15
+     /tmp/ccR9ej04.s:4196   .debug_loclists:00000168 .LVUS15
+     /tmp/ccR9ej04.s:284    .text:000000de .LVL29
+     /tmp/ccR9ej04.s:288    .text:000000e4 .LVL30
+     /tmp/ccR9ej04.s:156    .text:00000050 .LVL9
+     /tmp/ccR9ej04.s:320    .text:000000fa .LFB22
+     /tmp/ccR9ej04.s:1081   .text:000003dc .LFE22
+     /tmp/ccR9ej04.s:4216   .debug_loclists:0000017b .LLST16
+     /tmp/ccR9ej04.s:4211   .debug_loclists:00000177 .LVUS16
+     /tmp/ccR9ej04.s:4238   .debug_loclists:00000193 .LLST17
+     /tmp/ccR9ej04.s:4231   .debug_loclists:0000018d .LVUS17
+     /tmp/ccR9ej04.s:336    .text:00000100 .LBB94
+     /tmp/ccR9ej04.s:339    .text:00000100 .LBE94
+     /tmp/ccR9ej04.s:1057   .text:000003c6 .LBB143
+     /tmp/ccR9ej04.s:1060   .text:000003c6 .LBE143
+     /tmp/ccR9ej04.s:356    .text:00000110 .LBI95
+     /tmp/ccR9ej04.s:355    .text:00000110 .LBB95
+     /tmp/ccR9ej04.s:542    .text:00000156 .LBE95
+     /tmp/ccR9ej04.s:364    .text:00000112 .LBI97
+     /tmp/ccR9ej04.s:4751   .debug_rnglists:0000000c .LLRL18
+     /tmp/ccR9ej04.s:4271   .debug_loclists:000001b8 .LLST19
+     /tmp/ccR9ej04.s:4268   .debug_loclists:000001b6 .LVUS19
+     /tmp/ccR9ej04.s:4283   .debug_loclists:000001c7 .LLST20
+     /tmp/ccR9ej04.s:4280   .debug_loclists:000001c5 .LVUS20
+     /tmp/ccR9ej04.s:4301   .debug_loclists:000001dc .LLST21
+     /tmp/ccR9ej04.s:4292   .debug_loclists:000001d4 .LVUS21
+     /tmp/ccR9ej04.s:397    .text:0000011e .LBI99
+     /tmp/ccR9ej04.s:4759   .debug_rnglists:00000017 .LLRL22
+     /tmp/ccR9ej04.s:4340   .debug_loclists:0000020a .LLST23
+     /tmp/ccR9ej04.s:4337   .debug_loclists:00000208 .LVUS23
+     /tmp/ccR9ej04.s:428    .text:0000012c .LBI105
+     /tmp/ccR9ej04.s:4767   .debug_rnglists:00000022 .LLRL24
+     /tmp/ccR9ej04.s:4352   .debug_loclists:00000217 .LLST25
+     /tmp/ccR9ej04.s:4349   .debug_loclists:00000215 .LVUS25
+     /tmp/ccR9ej04.s:4364   .debug_loclists:00000226 .LLST26
+     /tmp/ccR9ej04.s:4361   .debug_loclists:00000224 .LVUS26
+     /tmp/ccR9ej04.s:4382   .debug_loclists:0000023b .LLST27
+     /tmp/ccR9ej04.s:4373   .debug_loclists:00000233 .LVUS27
+     /tmp/ccR9ej04.s:456    .text:00000134 .LBI107
+     /tmp/ccR9ej04.s:4775   .debug_rnglists:0000002d .LLRL28
+     /tmp/ccR9ej04.s:4421   .debug_loclists:00000269 .LLST29
+     /tmp/ccR9ej04.s:4418   .debug_loclists:00000267 .LVUS29
+     /tmp/ccR9ej04.s:487    .text:00000142 .LBI113
+     /tmp/ccR9ej04.s:4783   .debug_rnglists:00000038 .LLRL30
+     /tmp/ccR9ej04.s:4433   .debug_loclists:00000276 .LLST31
+     /tmp/ccR9ej04.s:4430   .debug_loclists:00000274 .LVUS31
+     /tmp/ccR9ej04.s:4445   .debug_loclists:00000285 .LLST32
+     /tmp/ccR9ej04.s:4442   .debug_loclists:00000283 .LVUS32
+     /tmp/ccR9ej04.s:4463   .debug_loclists:0000029a .LLST33
+     /tmp/ccR9ej04.s:4454   .debug_loclists:00000292 .LVUS33
+     /tmp/ccR9ej04.s:515    .text:0000014a .LBI115
+     /tmp/ccR9ej04.s:4791   .debug_rnglists:00000043 .LLRL34
+     /tmp/ccR9ej04.s:4502   .debug_loclists:000002c8 .LLST35
+     /tmp/ccR9ej04.s:4499   .debug_loclists:000002c6 .LVUS35
+     /tmp/ccR9ej04.s:546    .text:00000156 .LBI121
+     /tmp/ccR9ej04.s:545    .text:00000156 .LBB121
+     /tmp/ccR9ej04.s:898    .text:00000360 .LBE121
+     /tmp/ccR9ej04.s:552    .text:0000015c .LVL53
+     /tmp/ccR9ej04.s:556    .text:00000162 .LVL54
+     /tmp/ccR9ej04.s:560    .text:00000168 .LVL55
+     /tmp/ccR9ej04.s:564    .text:0000016e .LVL56
+     /tmp/ccR9ej04.s:568    .text:00000174 .LVL57
+     /tmp/ccR9ej04.s:572    .text:0000017a .LVL58
+     /tmp/ccR9ej04.s:576    .text:00000180 .LVL59
+     /tmp/ccR9ej04.s:580    .text:00000186 .LVL60
+     /tmp/ccR9ej04.s:584    .text:0000018c .LVL61
+     /tmp/ccR9ej04.s:588    .text:00000192 .LVL62
+     /tmp/ccR9ej04.s:592    .text:00000198 .LVL63
+     /tmp/ccR9ej04.s:596    .text:0000019e .LVL64
+     /tmp/ccR9ej04.s:600    .text:000001a4 .LVL65
+     /tmp/ccR9ej04.s:604    .text:000001aa .LVL66
+     /tmp/ccR9ej04.s:608    .text:000001b0 .LVL67
+     /tmp/ccR9ej04.s:612    .text:000001b6 .LVL68
+     /tmp/ccR9ej04.s:616    .text:000001bc .LVL69
+     /tmp/ccR9ej04.s:620    .text:000001c2 .LVL70
+     /tmp/ccR9ej04.s:624    .text:000001c8 .LVL71
+     /tmp/ccR9ej04.s:628    .text:000001ce .LVL72
+     /tmp/ccR9ej04.s:632    .text:000001d4 .LVL73
+     /tmp/ccR9ej04.s:636    .text:000001da .LVL74
+     /tmp/ccR9ej04.s:640    .text:000001e0 .LVL75
+     /tmp/ccR9ej04.s:644    .text:000001e6 .LVL76
+     /tmp/ccR9ej04.s:648    .text:000001ec .LVL77
+     /tmp/ccR9ej04.s:652    .text:000001f2 .LVL78
+     /tmp/ccR9ej04.s:656    .text:000001f8 .LVL79
+     /tmp/ccR9ej04.s:660    .text:000001fe .LVL80
+     /tmp/ccR9ej04.s:664    .text:00000204 .LVL81
+     /tmp/ccR9ej04.s:668    .text:0000020a .LVL82
+     /tmp/ccR9ej04.s:672    .text:00000210 .LVL83
+     /tmp/ccR9ej04.s:676    .text:00000216 .LVL84
+     /tmp/ccR9ej04.s:680    .text:0000021c .LVL85
+     /tmp/ccR9ej04.s:684    .text:00000222 .LVL86
+     /tmp/ccR9ej04.s:688    .text:00000228 .LVL87
+     /tmp/ccR9ej04.s:692    .text:0000022e .LVL88
+     /tmp/ccR9ej04.s:696    .text:00000234 .LVL89
+     /tmp/ccR9ej04.s:700    .text:0000023a .LVL90
+     /tmp/ccR9ej04.s:704    .text:00000240 .LVL91
+     /tmp/ccR9ej04.s:708    .text:00000246 .LVL92
+     /tmp/ccR9ej04.s:712    .text:0000024c .LVL93
+     /tmp/ccR9ej04.s:716    .text:00000252 .LVL94
+     /tmp/ccR9ej04.s:720    .text:00000258 .LVL95
+     /tmp/ccR9ej04.s:724    .text:0000025e .LVL96
+     /tmp/ccR9ej04.s:728    .text:00000264 .LVL97
+     /tmp/ccR9ej04.s:732    .text:0000026a .LVL98
+     /tmp/ccR9ej04.s:736    .text:00000270 .LVL99
+     /tmp/ccR9ej04.s:740    .text:00000276 .LVL100
+     /tmp/ccR9ej04.s:744    .text:0000027c .LVL101
+     /tmp/ccR9ej04.s:748    .text:00000282 .LVL102
+     /tmp/ccR9ej04.s:752    .text:00000288 .LVL103
+     /tmp/ccR9ej04.s:756    .text:0000028e .LVL104
+     /tmp/ccR9ej04.s:760    .text:00000294 .LVL105
+     /tmp/ccR9ej04.s:764    .text:0000029a .LVL106
+     /tmp/ccR9ej04.s:768    .text:000002a0 .LVL107
+     /tmp/ccR9ej04.s:772    .text:000002a6 .LVL108
+     /tmp/ccR9ej04.s:776    .text:000002ac .LVL109
+     /tmp/ccR9ej04.s:780    .text:000002b2 .LVL110
+     /tmp/ccR9ej04.s:784    .text:000002b8 .LVL111
+     /tmp/ccR9ej04.s:788    .text:000002be .LVL112
+     /tmp/ccR9ej04.s:792    .text:000002c4 .LVL113
+     /tmp/ccR9ej04.s:796    .text:000002ca .LVL114
+     /tmp/ccR9ej04.s:800    .text:000002d0 .LVL115
+     /tmp/ccR9ej04.s:804    .text:000002d6 .LVL116
+     /tmp/ccR9ej04.s:808    .text:000002dc .LVL117
+     /tmp/ccR9ej04.s:812    .text:000002e2 .LVL118
+     /tmp/ccR9ej04.s:816    .text:000002e8 .LVL119
+     /tmp/ccR9ej04.s:820    .text:000002ee .LVL120
+     /tmp/ccR9ej04.s:824    .text:000002f4 .LVL121
+     /tmp/ccR9ej04.s:828    .text:000002fa .LVL122
+     /tmp/ccR9ej04.s:832    .text:00000300 .LVL123
+     /tmp/ccR9ej04.s:836    .text:00000306 .LVL124
+     /tmp/ccR9ej04.s:840    .text:0000030c .LVL125
+     /tmp/ccR9ej04.s:844    .text:00000312 .LVL126
+     /tmp/ccR9ej04.s:848    .text:00000318 .LVL127
+     /tmp/ccR9ej04.s:852    .text:0000031e .LVL128
+     /tmp/ccR9ej04.s:856    .text:00000324 .LVL129
+     /tmp/ccR9ej04.s:860    .text:0000032a .LVL130
+     /tmp/ccR9ej04.s:864    .text:00000330 .LVL131
+     /tmp/ccR9ej04.s:868    .text:00000336 .LVL132
+     /tmp/ccR9ej04.s:872    .text:0000033c .LVL133
+     /tmp/ccR9ej04.s:876    .text:00000342 .LVL134
+     /tmp/ccR9ej04.s:880    .text:00000348 .LVL135
+     /tmp/ccR9ej04.s:884    .text:0000034e .LVL136
+     /tmp/ccR9ej04.s:888    .text:00000354 .LVL137
+     /tmp/ccR9ej04.s:892    .text:0000035a .LVL138
+     /tmp/ccR9ej04.s:896    .text:00000360 .LVL139
+     /tmp/ccR9ej04.s:901    .text:00000360 .LBI123
+     /tmp/ccR9ej04.s:4799   .debug_rnglists:0000004e .LLRL36
+     /tmp/ccR9ej04.s:4514   .debug_loclists:000002d5 .LLST37
+     /tmp/ccR9ej04.s:4511   .debug_loclists:000002d3 .LVUS37
+     /tmp/ccR9ej04.s:4525   .debug_loclists:000002e0 .LLST38
+     /tmp/ccR9ej04.s:4522   .debug_loclists:000002de .LVUS38
+     /tmp/ccR9ej04.s:4536   .debug_loclists:000002eb .LLST39
+     /tmp/ccR9ej04.s:4533   .debug_loclists:000002e9 .LVUS39
+     /tmp/ccR9ej04.s:909    .text:00000366 .LVL140
+     /tmp/ccR9ej04.s:913    .text:0000036c .LVL141
+     /tmp/ccR9ej04.s:917    .text:00000372 .LVL142
+     /tmp/ccR9ej04.s:921    .text:00000378 .LVL143
+     /tmp/ccR9ej04.s:925    .text:0000037e .LVL144
+     /tmp/ccR9ej04.s:4807   .debug_rnglists:00000059 .LLRL40
+     /tmp/ccR9ej04.s:4554   .debug_loclists:000002fd .LLST41
+     /tmp/ccR9ej04.s:4545   .debug_loclists:000002f5 .LVUS41
+     /tmp/ccR9ej04.s:955    .text:00000386 .LBI128
+     /tmp/ccR9ej04.s:4815   .debug_rnglists:00000064 .LLRL42
+     /tmp/ccR9ej04.s:4593   .debug_loclists:0000032b .LLST43
+     /tmp/ccR9ej04.s:4590   .debug_loclists:00000329 .LVUS43
+     /tmp/ccR9ej04.s:987    .text:00000398 .LBI135
+     /tmp/ccR9ej04.s:4823   .debug_rnglists:0000006f .LLRL44
+     /tmp/ccR9ej04.s:4605   .debug_loclists:00000338 .LLST45
+     /tmp/ccR9ej04.s:4602   .debug_loclists:00000336 .LVUS45
+     /tmp/ccR9ej04.s:4617   .debug_loclists:00000347 .LLST46
+     /tmp/ccR9ej04.s:4614   .debug_loclists:00000345 .LVUS46
+     /tmp/ccR9ej04.s:4635   .debug_loclists:0000035c .LLST47
+     /tmp/ccR9ej04.s:4626   .debug_loclists:00000354 .LVUS47
+     /tmp/ccR9ej04.s:1015   .text:000003a0 .LBI137
+     /tmp/ccR9ej04.s:4831   .debug_rnglists:0000007a .LLRL48
+     /tmp/ccR9ej04.s:4674   .debug_loclists:0000038a .LLST49
+     /tmp/ccR9ej04.s:4671   .debug_loclists:00000388 .LVUS49
+     /tmp/ccR9ej04.s:350    .text:0000010c .LVL36
+     /tmp/ccR9ej04.s:353    .text:00000110 .LVL37
+     /tmp/ccR9ej04.s:984    .text:00000398 .LVL149
+     /tmp/ccR9ej04.s:1044   .text:000003b2 .LVL154
+     /tmp/ccR9ej04.s:1055   .text:000003c6 .LVL155
+     /tmp/ccR9ej04.s:1069   .text:000003d2 .LVL156
+     /tmp/ccR9ej04.s:14     .text:00000000 .LFB15
+     /tmp/ccR9ej04.s:50     .text:0000001a .LFE15
+     /tmp/ccR9ej04.s:4690   .debug_loclists:0000039b .LLST0
+     /tmp/ccR9ej04.s:4683   .debug_loclists:00000395 .LVUS0
+     /tmp/ccR9ej04.s:36     .text:0000000e .LVL2
+     /tmp/ccR9ej04.s:40     .text:00000014 .LVL3
+     /tmp/ccR9ej04.s:55     .text:0000001a .LFB14
+     /tmp/ccR9ej04.s:75     .text:00000026 .LFE14
+     /tmp/ccR9ej04.s:4715   .debug_loclists:000003b2 .LLST1
+     /tmp/ccR9ej04.s:4710   .debug_loclists:000003ae .LVUS1
+     /tmp/ccR9ej04.s:68     .text:00000022 .LVL6
+     /tmp/ccR9ej04.s:81     .text:00000026 .LFB21
+     /tmp/ccR9ej04.s:93     .text:00000028 .LFE21
+     /tmp/ccR9ej04.s:1100   .debug_info:00000000 .Ldebug_info0
 
 UNDEFINED SYMBOLS
 spi_xchg

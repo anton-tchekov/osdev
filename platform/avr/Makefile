@@ -8,6 +8,7 @@ TARGET = main
 
 SRCS = \
 	main.c \
+	gpio/gpio.c \
 	adc/adc.c \
 	random/random.c \
 	ps2/ps2.c \
@@ -25,6 +26,7 @@ SRCS = \
 
 CFLAGS += \
 	-I ../../types \
+	-I gpio \
 	-I adc \
 	-I ps2 \
 	-I random \
@@ -36,7 +38,6 @@ CFLAGS += \
 	-I xmem \
 	-I logger \
 	-I lcd \
-	-I sd \
 	-I ../../status \
 
 CFLAGS += \

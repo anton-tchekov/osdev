@@ -8,6 +8,7 @@
 #include <lcd.h>
 #include <logger.h>
 #include <spi.h>
+#include <gpio.h>
 #include <avr/pgmspace.h>
 #include <util/delay.h>
 
@@ -25,36 +26,7 @@ enum
 
 #define SCAN_DIR       L2R_U2D
 
-#define LCD_RST_DIR    DDRD
-#define LCD_RST_OUT    PORTD
-#define LCD_RST_PIN   7
-
-#define LCD_CS_DIR     DDRC
-#define LCD_CS_OUT     PORTC
-#define LCD_CS_PIN    0
-
-#define LCD_DC_DIR     DDRC
-#define LCD_DC_OUT     PORTC
-#define LCD_DC_PIN    1
-
-#define LCD_CS_0        LCD_CS_OUT &= ~(1 << LCD_CS_PIN)
-#define LCD_CS_1        LCD_CS_OUT |= (1 << LCD_CS_PIN)
-
-#define LCD_DC_0        LCD_DC_OUT &= ~(1 << LCD_DC_PIN)
-#define LCD_DC_1        LCD_DC_OUT |= (1 << LCD_DC_PIN)
-
-#define LCD_RST_0       LCD_RST_OUT &= ~(1 << LCD_RST_PIN)
-#define LCD_RST_1       LCD_RST_OUT |= (1 << LCD_RST_PIN)
-
 /* --- PRIVATE --- */
-static void _lcd_configure_gpio(void)
-{
-	LCD_RST_DIR |= (1 << LCD_RST_PIN);
-	LCD_CS_DIR |= (1 << LCD_CS_PIN);
-	LCD_DC_DIR |= (1 << LCD_DC_PIN);
-	LCD_CS_1;
-}
-
 static void _lcd_reset(void)
 {
 	LCD_RST_1;
@@ -269,9 +241,8 @@ void lcd_backlight(u8 value)
 void lcd_init(u8 backlight, RGB565 bg)
 {
 	/* Initialize LCD */
-	_lcd_configure_gpio();
+	log_boot_P(PSTR("LCD driver starting"));
 	spi_fast();
-
 	_lcd_reset();
 	lcd_backlight(backlight);
 	_lcd_init_reg();

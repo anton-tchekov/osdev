@@ -13,35 +13,6 @@
 #include <avr/io.h>
 #include <avr/interrupt.h>
 
-/* --- CLOCK: Arduino pin 2 --- */
-/** Clock pin - Data direction register */
-#define PS2_CLOCK_PORT_DIR  DDRB
-
-/** Clock pin - Input register */
-#define PS2_CLOCK_PORT_IN   PINB
-
-/** Clock pin - Output register */
-#define PS2_CLOCK_PORT_OUT  PORTB
-
-/** Clock pin */
-#define PS2_CLOCK_PIN       2
-
-/** Clock pin - External interrupt */
-#define PS2_EXT_INTERRUPT   INT0
-
-/* --- DATA: Arduino pin 3 --- */
-/** Data pin - Data direction register */
-#define PS2_DATA_PORT_DIR   DDRB
-
-/** Data pin - Input register */
-#define PS2_DATA_PORT_IN    PINB
-
-/** Data pin - Output register */
-#define PS2_DATA_PORT_OUT   PORTB
-
-/** Data pin */
-#define PS2_DATA_PIN        3
-
 /**
  * @brief Initialize PS/2 keyboard driver and interrupt, Interrupts must be
  *        enabled afterwards using `sei()`.

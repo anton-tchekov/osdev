@@ -8,15 +8,10 @@
 #include <xmem.h>
 #include <spi.h>
 #include <logger.h>
+#include <gpio.h>
 #include <avr/io.h>
 #include <avr/pgmspace.h>
 #include <stdlib.h>
-
-#define XMEM_CS_DIR            DDRB
-#define XMEM_CS_OUT            PORTB
-#define XMEM_CS_0             0
-#define XMEM_CS_1             1
-#define XMEM_CS_2             2
 
 #define BANK_COUNT            3
 #define BANK_SIZE_POT        17
@@ -32,30 +27,9 @@
 #define SRAM_COMMAND_READ     3
 
 /* --- PRIVATE --- */
-static void _xmem_select(u8 bank)
-{
-	XMEM_CS_OUT &= ~(1 << bank);
-}
-
-static void _configure_cs(void)
-{
-	/* Chip select pins output */
-	XMEM_CS_DIR |= (1 << XMEM_CS_0) | (1 << XMEM_CS_1) | (1 << XMEM_CS_2);
-}
-
-static inline void _xmem_deselect_all(void)
-{
-	XMEM_CS_OUT |= (1 << XMEM_CS_0) | (1 << XMEM_CS_1) | (1 << XMEM_CS_2);
-}
-
-static inline void _xmem_deselect(u8 bank)
-{
-	XMEM_CS_OUT |= (1 << bank);
-}
-
 static void _xmem_start(u8 bank, u8 command, u32 addr)
 {
-	_xmem_select(bank);
+	XMEM_SELECT(bank);
 	spi_xchg(command);
 	spi_xchg(addr >> 16);
 	spi_xchg(addr >> 8);
@@ -96,7 +70,7 @@ static void _memtest(void)
 			spi_xchg(v);
 		}
 
-		_xmem_deselect(bank);
+		XMEM_DESELECT(bank);
 
 		/* Read */
 		log_boot_P(PSTR("Verifying pattern"));
@@ -119,7 +93,7 @@ static void _memtest(void)
 			w = spi_xchg(DUMMY);
 			if(w != v)
 			{
-				_xmem_deselect(bank);
+				XMEM_DESELECT(bank);
 				panic(PSTR(
 					"Memory test failed at address 0x%06lX "
 					"[0x%02X != 0x%02X]"),
@@ -127,7 +101,7 @@ static void _memtest(void)
 			}
 		}
 
-		_xmem_deselect(bank);
+		XMEM_DESELECT(bank);
 	}
 }
 
@@ -141,7 +115,7 @@ static void _xmem_read(u8 bank, u16 addr, void *data, u16 size)
 		data8[i] = spi_xchg(DUMMY);
 	}
 
-	_xmem_deselect(bank);
+	XMEM_DESELECT(bank);
 }
 
 static void _xmem_write(u8 bank, u16 addr, const void *data, u16 size)
@@ -154,7 +128,7 @@ static void _xmem_write(u8 bank, u16 addr, const void *data, u16 size)
 		spi_xchg(data8[i]);
 	}
 
-	_xmem_deselect(bank);
+	XMEM_DESELECT(bank);
 }
 
 static void _xmem_set(u8 bank, u16 addr, u8 value, u16 size)
@@ -166,7 +140,7 @@ static void _xmem_set(u8 bank, u16 addr, u8 value, u16 size)
 		spi_xchg(value);
 	}
 
-	_xmem_deselect(bank);
+	XMEM_DESELECT(bank);
 }
 
 static u8 _addr_to_bank(u32 addr)
@@ -209,8 +183,6 @@ static void _xmem_overlap(u32 addr, u16 size, AddrHelper *h)
 void xmem_init(void)
 {
 	/* Initialize XMEM */
-	_configure_cs();
-	_xmem_deselect_all();
 	log_boot_P(PSTR("External memory driver initialized"));
 	_memtest();
 }

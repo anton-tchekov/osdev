@@ -7,6 +7,7 @@
 
 #include <ps2.h>
 #include <logger.h>
+#include <gpio.h>
 #include <avr/pgmspace.h>
 
 /** The byte that is currently being received */
@@ -24,12 +25,6 @@ static u8 _bit;
 
 void ps2_init(void)
 {
-	/* By default, both pins are already inputs on startup */
-
-	/* Enable pullups */
-	PS2_CLOCK_PORT_OUT |= (1 << PS2_CLOCK_PIN);
-	PS2_DATA_PORT_OUT |= (1 << PS2_DATA_PIN);
-
 	/* Enable external interrupt 0 (PORTB2) */
 	EIMSK |= (1 << PS2_EXT_INTERRUPT);
 
