@@ -16,7 +16,7 @@ void gpio_configure(void)
 	LCD_CS_1;
 
 	/* SD */
-	SD_CS_DIR |= SD_CS_PIN;
+	SD_CS_DIR |= (1 << SD_CS_PIN);
 	SD_DESELECT;
 
 	/* XMEM */

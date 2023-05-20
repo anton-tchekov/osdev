@@ -110,6 +110,11 @@ void sd_init(void)
 
 		_card_type = 0;
 		_spi_configure_slow();
+		for(i = 0; i < 10; ++i)
+		{
+			spi_xchg(0xFF);
+		}
+
 		SD_SELECT;
 		for(i = 0; ; ++i)
 		{
@@ -191,7 +196,7 @@ void sd_init(void)
 		SD_DESELECT;
 		_delay_ms(20);
 	}
-
+log_boot_P(PSTR("XXX"));
 	{
 		u8 i, b, csd_read_bl_len, csd_c_size_mult, csd_structure;
 		u16 j, csd_c_size;

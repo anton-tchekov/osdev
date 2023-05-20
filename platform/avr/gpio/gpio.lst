@@ -47,10 +47,10 @@
   32 0006 409A      		sbi 0x8,0
   17:gpio/gpio.c   **** 
   18:gpio/gpio.c   **** 	/* SD */
-  19:gpio/gpio.c   **** 	SD_CS_DIR |= SD_CS_PIN;
+  19:gpio/gpio.c   **** 	SD_CS_DIR |= (1 << SD_CS_PIN);
   33               		.loc 1 19 2 view .LVU8
   34               		.loc 1 19 12 is_stmt 0 view .LVU9
-  35 0008 529A      		sbi 0xa,2
+  35 0008 549A      		sbi 0xa,4
   20:gpio/gpio.c   **** 	SD_DESELECT;
   36               		.loc 1 20 2 is_stmt 1 view .LVU10
   37 000a 5C9A      		sbi 0xb,4
@@ -91,41 +91,41 @@
   60               		.file 2 "/usr/lib/gcc/avr/12.2.0/include/stdint-gcc.h"
 DEFINED SYMBOLS
                             *ABS*:00000000 gpio.c
-     /tmp/ccvWuTkk.s:2      *ABS*:0000003e __SP_H__
-     /tmp/ccvWuTkk.s:3      *ABS*:0000003d __SP_L__
-     /tmp/ccvWuTkk.s:4      *ABS*:0000003f __SREG__
-     /tmp/ccvWuTkk.s:5      *ABS*:00000000 __tmp_reg__
-     /tmp/ccvWuTkk.s:6      *ABS*:00000001 __zero_reg__
-     /tmp/ccvWuTkk.s:13     .text:00000000 gpio_configure
-     /tmp/ccvWuTkk.s:16     .text:00000000 .Loc.0
-     /tmp/ccvWuTkk.s:17     .text:00000000 L0
-     /tmp/ccvWuTkk.s:22     .text:00000000 .Loc.1
-     /tmp/ccvWuTkk.s:23     .text:00000000 .Loc.2
-     /tmp/ccvWuTkk.s:25     .text:00000002 .Loc.3
-     /tmp/ccvWuTkk.s:26     .text:00000002 .Loc.4
-     /tmp/ccvWuTkk.s:28     .text:00000004 .Loc.5
-     /tmp/ccvWuTkk.s:29     .text:00000004 .Loc.6
-     /tmp/ccvWuTkk.s:31     .text:00000006 .Loc.7
-     /tmp/ccvWuTkk.s:33     .text:00000008 .Loc.8
-     /tmp/ccvWuTkk.s:34     .text:00000008 .Loc.9
-     /tmp/ccvWuTkk.s:36     .text:0000000a .Loc.10
-     /tmp/ccvWuTkk.s:38     .text:0000000c .Loc.11
-     /tmp/ccvWuTkk.s:40     .text:0000000e .Loc.12
-     /tmp/ccvWuTkk.s:43     .text:00000012 .Loc.13
-     /tmp/ccvWuTkk.s:47     .text:00000018 .Loc.14
-     /tmp/ccvWuTkk.s:48     .text:00000018 .Loc.15
-     /tmp/ccvWuTkk.s:50     .text:0000001a .Loc.16
-     /tmp/ccvWuTkk.s:51     .text:0000001a .Loc.17
-     /tmp/ccvWuTkk.s:54     .text:0000001c .Loc.18
-     /tmp/ccvWuTkk.s:56     .text:0000001e L0
-     /tmp/ccvWuTkk.s:61     .text:0000001e L0
+     /tmp/cc2DulfR.s:2      *ABS*:0000003e __SP_H__
+     /tmp/cc2DulfR.s:3      *ABS*:0000003d __SP_L__
+     /tmp/cc2DulfR.s:4      *ABS*:0000003f __SREG__
+     /tmp/cc2DulfR.s:5      *ABS*:00000000 __tmp_reg__
+     /tmp/cc2DulfR.s:6      *ABS*:00000001 __zero_reg__
+     /tmp/cc2DulfR.s:13     .text:00000000 gpio_configure
+     /tmp/cc2DulfR.s:16     .text:00000000 .Loc.0
+     /tmp/cc2DulfR.s:17     .text:00000000 L0
+     /tmp/cc2DulfR.s:22     .text:00000000 .Loc.1
+     /tmp/cc2DulfR.s:23     .text:00000000 .Loc.2
+     /tmp/cc2DulfR.s:25     .text:00000002 .Loc.3
+     /tmp/cc2DulfR.s:26     .text:00000002 .Loc.4
+     /tmp/cc2DulfR.s:28     .text:00000004 .Loc.5
+     /tmp/cc2DulfR.s:29     .text:00000004 .Loc.6
+     /tmp/cc2DulfR.s:31     .text:00000006 .Loc.7
+     /tmp/cc2DulfR.s:33     .text:00000008 .Loc.8
+     /tmp/cc2DulfR.s:34     .text:00000008 .Loc.9
+     /tmp/cc2DulfR.s:36     .text:0000000a .Loc.10
+     /tmp/cc2DulfR.s:38     .text:0000000c .Loc.11
+     /tmp/cc2DulfR.s:40     .text:0000000e .Loc.12
+     /tmp/cc2DulfR.s:43     .text:00000012 .Loc.13
+     /tmp/cc2DulfR.s:47     .text:00000018 .Loc.14
+     /tmp/cc2DulfR.s:48     .text:00000018 .Loc.15
+     /tmp/cc2DulfR.s:50     .text:0000001a .Loc.16
+     /tmp/cc2DulfR.s:51     .text:0000001a .Loc.17
+     /tmp/cc2DulfR.s:54     .text:0000001c .Loc.18
+     /tmp/cc2DulfR.s:56     .text:0000001e L0
+     /tmp/cc2DulfR.s:61     .text:0000001e L0
                      .debug_frame:00000000 L0
-     /tmp/ccvWuTkk.s:125    .debug_abbrev:00000000 .Ldebug_abbrev0
-     /tmp/ccvWuTkk.s:8      .text:00000000 .Ltext0
-     /tmp/ccvWuTkk.s:59     .text:0000001e .Letext0
-     /tmp/ccvWuTkk.s:221    .debug_line:00000000 .Ldebug_line0
-     /tmp/ccvWuTkk.s:14     .text:00000000 .LFB0
-     /tmp/ccvWuTkk.s:57     .text:0000001e .LFE0
-     /tmp/ccvWuTkk.s:62     .debug_info:00000000 .Ldebug_info0
+     /tmp/cc2DulfR.s:125    .debug_abbrev:00000000 .Ldebug_abbrev0
+     /tmp/cc2DulfR.s:8      .text:00000000 .Ltext0
+     /tmp/cc2DulfR.s:59     .text:0000001e .Letext0
+     /tmp/cc2DulfR.s:221    .debug_line:00000000 .Ldebug_line0
+     /tmp/cc2DulfR.s:14     .text:00000000 .LFB0
+     /tmp/cc2DulfR.s:57     .text:0000001e .LFE0
+     /tmp/cc2DulfR.s:62     .debug_info:00000000 .Ldebug_info0
 
 NO UNDEFINED SYMBOLS
