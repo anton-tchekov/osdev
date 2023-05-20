@@ -56,6 +56,14 @@ void memory_write(u32 addr, const void *data, u32 size)
 	xmem_write(addr, data, size);
 }
 
+void gfx_rect(i32 x, i32 y, i32 w, i32 h, u32 color){}
+u32 syscall_gfx_image_rgba(u32 *args){}
+u32 syscall_gfx_image_rgb(u32 *args){}
+u32 syscall_gfx_image_rgb565(u32 *args){}
+u32 syscall_gfx_image_grayscale(u32 *args){}
+u32 syscall_gfx_image_1bit(u32 *args){}
+
+
 int main(void)
 {
 	/* --- BOOT SEQUENCE --- */
@@ -82,7 +90,7 @@ int main(void)
 	xmem_init();
 
 	/* Initialize LCD driver */
-	lcd_init(0xFF, COLOR_WHITE);
+	lcd_init(0xFF, COLOR_BLACK);
 	lcd_rect(10, 10, 200, 200, COLOR_RED);
 
 	/* Initialize ADC */
@@ -103,6 +111,25 @@ int main(void)
 	serial_tx_str_P(PSTR("\nREADY.\n\n"));
 
 	/* --- READY --- */
+
+	{
+		u8 buf[512], i;
+		Status ret;
+
+		/* Test */
+		log_boot_P(PSTR("Printing sectors\n"));
+
+		for(i = 32; i < 42; ++i)
+		{
+			if((ret = sd_read(i, &buf)))
+			{
+				log_boot_P(PSTR("error code = %d\n"), ret);
+			}
+			memory_dump(i << 9, buf, sizeof(buf));
+		}
+	}
+
+	serial_tx_str_P(PSTR("\nStarting RISC-V Emulator Kernel ...\n\n"));
 
 	/* Infinite loop */
 	for(;;)

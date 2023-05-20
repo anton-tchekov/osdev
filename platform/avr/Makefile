@@ -40,13 +40,14 @@ CFLAGS += \
 	-I lcd \
 	-I ../../status \
 
-CFLAGS += \
-	-Wno-array-bounds
-
 # -I ../../emulator \
 # -I ../../platform \
 # -I ../../util \
 # -I ../../keyboard \
+
+CFLAGS += \
+	-Wno-array-bounds
+
 
 FEATURE_SET_TIME ?= YES
 FEATURE_CHARACTERS ?= YES

@@ -13,26 +13,25 @@
 #include <status.h>
 
 /**
- * @brief
- *
+ * @brief Initialize SD driver and try to detect card
  */
 void sd_init(void);
 
 /**
- * @brief TODO
+ * @brief Read a single 512-byte block from the SD card
  *
- * @param block
- * @param data
- * @return Status
+ * @param block SD card block id
+ * @param data Data output
+ * @return Read status
  */
 Status sd_read(u32 block, void *data);
 
 /**
- * @brief TODO
+ * @brief Write a single 512-byte block to the SD card
  *
- * @param block
- * @param data
- * @return Status
+ * @param block SD card block id
+ * @param data Data input
+ * @return Write status
  */
 Status sd_write(u32 block, const void *data);
 

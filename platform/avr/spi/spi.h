@@ -13,11 +13,6 @@
 #include <status.h>
 #include <avr/io.h>
 
-#define SPI_DIR   DDRB
-#define SPI_MOSI  3
-#define SPI_MISO  4
-#define SPI_SCK   5
-
 /**
  * @brief Initialize the SPI interface
  */

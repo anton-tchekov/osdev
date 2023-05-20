@@ -11,7 +11,6 @@
 
 void spi_init(void)
 {
-	SPI_DIR |= (1 << SPI_MOSI) | (1 << SPI_SCK);
 	SPCR = (1 << SPE) | (1 << MSTR);
 	log_boot_P(PSTR("SPI initialized"));
 }
@@ -43,7 +42,7 @@ Status spi_xchg_try(u8 in, u8 *out)
 	SPDR = in;
 	while(!(SPSR & (1 << SPIF)))
 	{
-		if(cnt++ == 0xFFFFFFUL)
+		if(cnt++ == 0xFFFF)
 		{
 			return STATUS_TIMEOUT;
 		}

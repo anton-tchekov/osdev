@@ -30,4 +30,7 @@ void gpio_configure(void)
 	/* KBD */
 	PS2_CLOCK_PORT_OUT |= (1 << PS2_CLOCK_PIN);
 	PS2_DATA_PORT_OUT |= (1 << PS2_DATA_PIN);
+
+	/* SPI */
+	SPI_DIR |= (1 << SPI_MOSI) | (1 << SPI_SCK);
 }

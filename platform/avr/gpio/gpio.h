@@ -11,6 +11,12 @@
 
 #include <avr/io.h>
 
+/* SPI */
+#define SPI_DIR            DDRB
+#define SPI_MOSI          3
+#define SPI_MISO          4
+#define SPI_SCK           5
+
 /* LCD */
 #define LCD_RST_DIR        DDRD
 #define LCD_RST_OUT        PORTD

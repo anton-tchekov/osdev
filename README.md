@@ -37,15 +37,6 @@
 - Exit function and controlled error handler [DONE]
 
 ### Kernel
-- UART Driver [PRIO]
-- SPI Driver [PRIO]
-- XMEM Driver [PRIO]
-- LCD Driver [PRIO]
-- PS/2 Keyboard Driver [PRIO]
-
-- SD Driver [TODO]
-- RTC Driver [TODO]
-
 - Task Scheduler [PRIO]
 - Paging [PRIO]
 
