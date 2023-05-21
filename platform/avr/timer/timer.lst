@@ -69,11 +69,11 @@
   40 0014 8260      		ori r24,lo8(2)
   41 0016 8083      		st Z,r24
   31:timer/timer.c **** 
-  32:timer/timer.c **** 	log_boot_P(PSTR("Millisecond timer initialized"));
+  32:timer/timer.c **** 	log_boot_P(LOG_INIT, PSTR("Millisecond timer initialized"));
   42               		.loc 1 32 2 is_stmt 1 view .LVU9
   43               	.LBB2:
-  44               		.loc 1 32 13 view .LVU10
-  45               		.loc 1 32 13 view .LVU11
+  44               		.loc 1 32 23 view .LVU10
+  45               		.loc 1 32 23 view .LVU11
   46               	.LBE2:
   47               		.loc 1 32 2 is_stmt 0 view .LVU12
   48 0018 80E0      		ldi r24,lo8(__c.0)
@@ -82,186 +82,189 @@
   51               		.cfi_def_cfa_offset 3
   52 001e 8F93      		push r24
   53               		.cfi_def_cfa_offset 4
-  54 0020 0E94 0000 		call log_boot_P
-  55               	.LVL0:
+  54 0020 1F92      		push __zero_reg__
+  55               		.cfi_def_cfa_offset 5
+  56 0022 0E94 0000 		call log_boot_P
+  57               	.LVL0:
   33:timer/timer.c **** }
-  56               		.loc 1 33 1 view .LVU13
-  57 0024 0F90      		pop __tmp_reg__
-  58 0026 0F90      		pop __tmp_reg__
-  59               		.cfi_def_cfa_offset 2
-  60               	/* epilogue start */
-  61 0028 0895      		ret
-  62               		.cfi_endproc
-  63               	.LFE3:
-  65               	.global	millis
-  67               	millis:
-  68               	.LFB4:
+  58               		.loc 1 33 1 view .LVU13
+  59 0026 0F90      		pop __tmp_reg__
+  60 0028 0F90      		pop __tmp_reg__
+  61 002a 0F90      		pop __tmp_reg__
+  62               		.cfi_def_cfa_offset 2
+  63               	/* epilogue start */
+  64 002c 0895      		ret
+  65               		.cfi_endproc
+  66               	.LFE3:
+  68               	.global	millis
+  70               	millis:
+  71               	.LFB4:
   34:timer/timer.c **** 
   35:timer/timer.c **** u32 millis(void)
   36:timer/timer.c **** {
-  69               		.loc 1 36 1 is_stmt 1 view -0
-  70               		.cfi_startproc
-  71 002a CF93      		push r28
-  72               		.cfi_def_cfa_offset 3
-  73               		.cfi_offset 28, -2
-  74 002c DF93      		push r29
-  75               		.cfi_def_cfa_offset 4
-  76               		.cfi_offset 29, -3
-  77 002e 00D0      		rcall .
-  78 0030 00D0      		rcall .
-  79               		.cfi_def_cfa_offset 8
-  80 0032 CDB7      		in r28,__SP_L__
-  81 0034 DEB7      		in r29,__SP_H__
-  82               		.cfi_def_cfa_register 28
-  83               	/* prologue: function */
-  84               	/* frame size = 4 */
-  85               	/* stack size = 6 */
-  86               	.L__stack_usage = 6
+  72               		.loc 1 36 1 is_stmt 1 view -0
+  73               		.cfi_startproc
+  74 002e CF93      		push r28
+  75               		.cfi_def_cfa_offset 3
+  76               		.cfi_offset 28, -2
+  77 0030 DF93      		push r29
+  78               		.cfi_def_cfa_offset 4
+  79               		.cfi_offset 29, -3
+  80 0032 00D0      		rcall .
+  81 0034 00D0      		rcall .
+  82               		.cfi_def_cfa_offset 8
+  83 0036 CDB7      		in r28,__SP_L__
+  84 0038 DEB7      		in r29,__SP_H__
+  85               		.cfi_def_cfa_register 28
+  86               	/* prologue: function */
+  87               	/* frame size = 4 */
+  88               	/* stack size = 6 */
+  89               	.L__stack_usage = 6
   37:timer/timer.c **** 	/* Return number of milliseconds since boot */
   38:timer/timer.c **** 	return _ms;
-  87               		.loc 1 38 2 view .LVU15
-  88               		.loc 1 38 9 is_stmt 0 view .LVU16
-  89 0036 8091 0000 		lds r24,_ms
-  90 003a 9091 0000 		lds r25,_ms+1
-  91 003e A091 0000 		lds r26,_ms+2
-  92 0042 B091 0000 		lds r27,_ms+3
+  90               		.loc 1 38 2 view .LVU15
+  91               		.loc 1 38 9 is_stmt 0 view .LVU16
+  92 003a 8091 0000 		lds r24,_ms
+  93 003e 9091 0000 		lds r25,_ms+1
+  94 0042 A091 0000 		lds r26,_ms+2
+  95 0046 B091 0000 		lds r27,_ms+3
   39:timer/timer.c **** }
-  93               		.loc 1 39 1 view .LVU17
-  94 0046 BC01      		movw r22,r24
-  95 0048 CD01      		movw r24,r26
-  96               	/* epilogue start */
-  97 004a 0F90      		pop __tmp_reg__
-  98 004c 0F90      		pop __tmp_reg__
-  99 004e 0F90      		pop __tmp_reg__
- 100 0050 0F90      		pop __tmp_reg__
- 101 0052 DF91      		pop r29
- 102 0054 CF91      		pop r28
- 103 0056 0895      		ret
- 104               		.cfi_endproc
- 105               	.LFE4:
- 107               	.global	__vector_14
- 109               	__vector_14:
- 110               	.LFB5:
+  96               		.loc 1 39 1 view .LVU17
+  97 004a BC01      		movw r22,r24
+  98 004c CD01      		movw r24,r26
+  99               	/* epilogue start */
+ 100 004e 0F90      		pop __tmp_reg__
+ 101 0050 0F90      		pop __tmp_reg__
+ 102 0052 0F90      		pop __tmp_reg__
+ 103 0054 0F90      		pop __tmp_reg__
+ 104 0056 DF91      		pop r29
+ 105 0058 CF91      		pop r28
+ 106 005a 0895      		ret
+ 107               		.cfi_endproc
+ 108               	.LFE4:
+ 110               	.global	__vector_14
+ 112               	__vector_14:
+ 113               	.LFB5:
   40:timer/timer.c **** 
   41:timer/timer.c **** /* Timer0 compare interrupt */
   42:timer/timer.c **** ISR(TIMER0_COMPA_vect)
   43:timer/timer.c **** {
- 111               		.loc 1 43 1 is_stmt 1 view -0
- 112               		.cfi_startproc
- 113 0058 1F92 1FB6 		__gcc_isr 1
- 113      1F92 1124 
- 113      8F93 
- 114 0062 9F93      		push r25
- 115               		.cfi_def_cfa_offset 3
- 116               		.cfi_offset 25, -2
- 117 0064 AF93      		push r26
- 118               		.cfi_def_cfa_offset 4
- 119               		.cfi_offset 26, -3
- 120 0066 BF93      		push r27
- 121               		.cfi_def_cfa_offset 5
- 122               		.cfi_offset 27, -4
- 123               	/* prologue: Signal */
- 124               	/* frame size = 0 */
- 125               	/* stack size = 3...7 */
- 126               	.L__stack_usage = 3 + __gcc_isr.n_pushed
+ 114               		.loc 1 43 1 is_stmt 1 view -0
+ 115               		.cfi_startproc
+ 116 005c 1F92 1FB6 		__gcc_isr 1
+ 116      1F92 1124 
+ 116      8F93 
+ 117 0066 9F93      		push r25
+ 118               		.cfi_def_cfa_offset 3
+ 119               		.cfi_offset 25, -2
+ 120 0068 AF93      		push r26
+ 121               		.cfi_def_cfa_offset 4
+ 122               		.cfi_offset 26, -3
+ 123 006a BF93      		push r27
+ 124               		.cfi_def_cfa_offset 5
+ 125               		.cfi_offset 27, -4
+ 126               	/* prologue: Signal */
+ 127               	/* frame size = 0 */
+ 128               	/* stack size = 3...7 */
+ 129               	.L__stack_usage = 3 + __gcc_isr.n_pushed
   44:timer/timer.c **** 	/* Increment overflows after approx. 50 days */
   45:timer/timer.c **** 	++_ms;
- 127               		.loc 1 45 2 view .LVU19
- 128 0068 8091 0000 		lds r24,_ms
- 129 006c 9091 0000 		lds r25,_ms+1
- 130 0070 A091 0000 		lds r26,_ms+2
- 131 0074 B091 0000 		lds r27,_ms+3
- 132 0078 0196      		adiw r24,1
- 133 007a A11D      		adc r26,__zero_reg__
- 134 007c B11D      		adc r27,__zero_reg__
- 135 007e 8093 0000 		sts _ms,r24
- 136 0082 9093 0000 		sts _ms+1,r25
- 137 0086 A093 0000 		sts _ms+2,r26
- 138 008a B093 0000 		sts _ms+3,r27
- 139               	/* epilogue start */
+ 130               		.loc 1 45 2 view .LVU19
+ 131 006c 8091 0000 		lds r24,_ms
+ 132 0070 9091 0000 		lds r25,_ms+1
+ 133 0074 A091 0000 		lds r26,_ms+2
+ 134 0078 B091 0000 		lds r27,_ms+3
+ 135 007c 0196      		adiw r24,1
+ 136 007e A11D      		adc r26,__zero_reg__
+ 137 0080 B11D      		adc r27,__zero_reg__
+ 138 0082 8093 0000 		sts _ms,r24
+ 139 0086 9093 0000 		sts _ms+1,r25
+ 140 008a A093 0000 		sts _ms+2,r26
+ 141 008e B093 0000 		sts _ms+3,r27
+ 142               	/* epilogue start */
   46:timer/timer.c **** }
- 140               		.loc 1 46 1 is_stmt 0 view .LVU20
- 141 008e BF91      		pop r27
- 142 0090 AF91      		pop r26
- 143 0092 9F91      		pop r25
- 144 0094 8F91 1F90 		__gcc_isr 2
- 144      1FBE 1F90 
- 145 009c 1895      		reti
- 146               		__gcc_isr 0,r24
- 147               		.cfi_endproc
- 148               	.LFE5:
- 150               		.section	.progmem.data,"a",@progbits
- 153               	__c.0:
- 154 0000 4D69 6C6C 		.string	"Millisecond timer initialized"
- 154      6973 6563 
- 154      6F6E 6420 
- 154      7469 6D65 
- 154      7220 696E 
- 155               		.local	_ms
- 156               		.comm	_ms,4,1
- 157               		.text
- 158               	.Letext0:
- 159               		.file 2 "/usr/lib/gcc/avr/12.2.0/include/stdint-gcc.h"
- 160               		.file 3 "../../types/types.h"
- 161               		.file 4 "logger/logger.h"
+ 143               		.loc 1 46 1 is_stmt 0 view .LVU20
+ 144 0092 BF91      		pop r27
+ 145 0094 AF91      		pop r26
+ 146 0096 9F91      		pop r25
+ 147 0098 8F91 1F90 		__gcc_isr 2
+ 147      1FBE 1F90 
+ 148 00a0 1895      		reti
+ 149               		__gcc_isr 0,r24
+ 150               		.cfi_endproc
+ 151               	.LFE5:
+ 153               		.section	.progmem.data,"a",@progbits
+ 156               	__c.0:
+ 157 0000 4D69 6C6C 		.string	"Millisecond timer initialized"
+ 157      6973 6563 
+ 157      6F6E 6420 
+ 157      7469 6D65 
+ 157      7220 696E 
+ 158               		.local	_ms
+ 159               		.comm	_ms,4,1
+ 160               		.text
+ 161               	.Letext0:
+ 162               		.file 2 "/usr/lib/gcc/avr/12.2.0/include/stdint-gcc.h"
+ 163               		.file 3 "logger/logger.h"
+ 164               		.file 4 "../../types/types.h"
 DEFINED SYMBOLS
                             *ABS*:00000000 timer.c
-     /tmp/cccZUUoF.s:2      *ABS*:0000003e __SP_H__
-     /tmp/cccZUUoF.s:3      *ABS*:0000003d __SP_L__
-     /tmp/cccZUUoF.s:4      *ABS*:0000003f __SREG__
-     /tmp/cccZUUoF.s:5      *ABS*:00000000 __tmp_reg__
-     /tmp/cccZUUoF.s:6      *ABS*:00000001 __zero_reg__
-     /tmp/cccZUUoF.s:13     .text:00000000 timer_init
-     /tmp/cccZUUoF.s:16     .text:00000000 .Loc.0
-     /tmp/cccZUUoF.s:17     .text:00000000 L0
-     /tmp/cccZUUoF.s:22     .text:00000000 .Loc.1
-     /tmp/cccZUUoF.s:23     .text:00000000 .Loc.2
-     /tmp/cccZUUoF.s:26     .text:00000004 .Loc.3
-     /tmp/cccZUUoF.s:28     .text:00000006 .Loc.4
-     /tmp/cccZUUoF.s:31     .text:0000000a .Loc.5
-     /tmp/cccZUUoF.s:32     .text:0000000a .Loc.6
-     /tmp/cccZUUoF.s:35     .text:0000000e .Loc.7
-     /tmp/cccZUUoF.s:39     .text:00000014 .Loc.8
-     /tmp/cccZUUoF.s:42     .text:00000018 .Loc.9
-     /tmp/cccZUUoF.s:44     .text:00000018 .Loc.10
-     /tmp/cccZUUoF.s:45     .text:00000018 .Loc.11
-     /tmp/cccZUUoF.s:47     .text:00000018 .Loc.12
-     /tmp/cccZUUoF.s:153    .progmem.data:00000000 __c.0
-     /tmp/cccZUUoF.s:56     .text:00000024 .Loc.13
-     /tmp/cccZUUoF.s:62     .text:0000002a L0
-     /tmp/cccZUUoF.s:67     .text:0000002a millis
-     /tmp/cccZUUoF.s:69     .text:0000002a .Loc.14
-     /tmp/cccZUUoF.s:70     .text:0000002a L0
-     /tmp/cccZUUoF.s:77     .text:00000030 L0
-     /tmp/cccZUUoF.s:78     .text:00000032 L0
-     /tmp/cccZUUoF.s:87     .text:00000036 .Loc.15
-     /tmp/cccZUUoF.s:88     .text:00000036 .Loc.16
+     /tmp/ccjS0pkA.s:2      *ABS*:0000003e __SP_H__
+     /tmp/ccjS0pkA.s:3      *ABS*:0000003d __SP_L__
+     /tmp/ccjS0pkA.s:4      *ABS*:0000003f __SREG__
+     /tmp/ccjS0pkA.s:5      *ABS*:00000000 __tmp_reg__
+     /tmp/ccjS0pkA.s:6      *ABS*:00000001 __zero_reg__
+     /tmp/ccjS0pkA.s:13     .text:00000000 timer_init
+     /tmp/ccjS0pkA.s:16     .text:00000000 .Loc.0
+     /tmp/ccjS0pkA.s:17     .text:00000000 L0
+     /tmp/ccjS0pkA.s:22     .text:00000000 .Loc.1
+     /tmp/ccjS0pkA.s:23     .text:00000000 .Loc.2
+     /tmp/ccjS0pkA.s:26     .text:00000004 .Loc.3
+     /tmp/ccjS0pkA.s:28     .text:00000006 .Loc.4
+     /tmp/ccjS0pkA.s:31     .text:0000000a .Loc.5
+     /tmp/ccjS0pkA.s:32     .text:0000000a .Loc.6
+     /tmp/ccjS0pkA.s:35     .text:0000000e .Loc.7
+     /tmp/ccjS0pkA.s:39     .text:00000014 .Loc.8
+     /tmp/ccjS0pkA.s:42     .text:00000018 .Loc.9
+     /tmp/ccjS0pkA.s:44     .text:00000018 .Loc.10
+     /tmp/ccjS0pkA.s:45     .text:00000018 .Loc.11
+     /tmp/ccjS0pkA.s:47     .text:00000018 .Loc.12
+     /tmp/ccjS0pkA.s:156    .progmem.data:00000000 __c.0
+     /tmp/ccjS0pkA.s:58     .text:00000026 .Loc.13
+     /tmp/ccjS0pkA.s:65     .text:0000002e L0
+     /tmp/ccjS0pkA.s:70     .text:0000002e millis
+     /tmp/ccjS0pkA.s:72     .text:0000002e .Loc.14
+     /tmp/ccjS0pkA.s:73     .text:0000002e L0
+     /tmp/ccjS0pkA.s:80     .text:00000034 L0
+     /tmp/ccjS0pkA.s:81     .text:00000036 L0
+     /tmp/ccjS0pkA.s:90     .text:0000003a .Loc.15
+     /tmp/ccjS0pkA.s:91     .text:0000003a .Loc.16
                              .bss:00000000 _ms
-     /tmp/cccZUUoF.s:93     .text:00000046 .Loc.17
-     /tmp/cccZUUoF.s:104    .text:00000058 L0
-     /tmp/cccZUUoF.s:109    .text:00000058 __vector_14
-     /tmp/cccZUUoF.s:111    .text:00000058 .Loc.18
-     /tmp/cccZUUoF.s:112    .text:00000058 L0
+     /tmp/ccjS0pkA.s:96     .text:0000004a .Loc.17
+     /tmp/ccjS0pkA.s:107    .text:0000005c L0
+     /tmp/ccjS0pkA.s:112    .text:0000005c __vector_14
+     /tmp/ccjS0pkA.s:114    .text:0000005c .Loc.18
+     /tmp/ccjS0pkA.s:115    .text:0000005c L0
                             *ABS*:00000003 __gcc_isr.n_pushed.001
-     /tmp/cccZUUoF.s:127    .text:00000068 .Loc.19
-     /tmp/cccZUUoF.s:140    .text:0000008e .Loc.20
-     /tmp/cccZUUoF.s:147    .text:0000009e L0
-     /tmp/cccZUUoF.s:162    .text:0000009e L0
+     /tmp/ccjS0pkA.s:130    .text:0000006c .Loc.19
+     /tmp/ccjS0pkA.s:143    .text:00000092 .Loc.20
+     /tmp/ccjS0pkA.s:150    .text:000000a2 L0
+     /tmp/ccjS0pkA.s:165    .text:000000a2 L0
                      .debug_frame:00000000 L0
-     /tmp/cccZUUoF.s:319    .debug_abbrev:00000000 .Ldebug_abbrev0
-     /tmp/cccZUUoF.s:8      .text:00000000 .Ltext0
-     /tmp/cccZUUoF.s:158    .text:0000009e .Letext0
-     /tmp/cccZUUoF.s:597    .debug_line:00000000 .Ldebug_line0
-     /tmp/cccZUUoF.s:110    .text:00000058 .LFB5
-     /tmp/cccZUUoF.s:148    .text:0000009e .LFE5
-     /tmp/cccZUUoF.s:68     .text:0000002a .LFB4
-     /tmp/cccZUUoF.s:105    .text:00000058 .LFE4
-     /tmp/cccZUUoF.s:14     .text:00000000 .LFB3
-     /tmp/cccZUUoF.s:63     .text:0000002a .LFE3
-     /tmp/cccZUUoF.s:43     .text:00000018 .LBB2
-     /tmp/cccZUUoF.s:46     .text:00000018 .LBE2
-     /tmp/cccZUUoF.s:55     .text:00000024 .LVL0
-     /tmp/cccZUUoF.s:163    .debug_info:00000000 .Ldebug_info0
+     /tmp/ccjS0pkA.s:365    .debug_abbrev:00000000 .Ldebug_abbrev0
+     /tmp/ccjS0pkA.s:8      .text:00000000 .Ltext0
+     /tmp/ccjS0pkA.s:161    .text:000000a2 .Letext0
+     /tmp/ccjS0pkA.s:670    .debug_line:00000000 .Ldebug_line0
+     /tmp/ccjS0pkA.s:113    .text:0000005c .LFB5
+     /tmp/ccjS0pkA.s:151    .text:000000a2 .LFE5
+     /tmp/ccjS0pkA.s:71     .text:0000002e .LFB4
+     /tmp/ccjS0pkA.s:108    .text:0000005c .LFE4
+     /tmp/ccjS0pkA.s:14     .text:00000000 .LFB3
+     /tmp/ccjS0pkA.s:66     .text:0000002e .LFE3
+     /tmp/ccjS0pkA.s:43     .text:00000018 .LBB2
+     /tmp/ccjS0pkA.s:46     .text:00000018 .LBE2
+     /tmp/ccjS0pkA.s:57     .text:00000026 .LVL0
+     /tmp/ccjS0pkA.s:166    .debug_info:00000000 .Ldebug_info0
 
 UNDEFINED SYMBOLS
 log_boot_P

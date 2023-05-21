@@ -42,15 +42,15 @@ static void _memtest(void)
 	u32 i;
 
 	/* Run checkerboard memory test */
-	log_boot_P(PSTR("Starting complete memory test"));
+	log_boot_P(LOG_INIT, PSTR("Starting complete memory test"));
 
 	spi_fast();
 	for(bank = 0; bank < BANK_COUNT; ++bank)
 	{
-		log_boot_P(PSTR("Testing memory bank [%02d]"), bank + 1);
+		log_boot_P(LOG_INIT, PSTR("Testing memory bank [%02d]"), bank + 1);
 
 		/* Write */
-		log_boot_P(PSTR("Writing pattern"));
+		log_boot_P(LOG_INIT, PSTR("Writing pattern"));
 		_xmem_start(bank, SRAM_COMMAND_WRITE, 0);
 		/* srand(SEED); */
 		v = 0xAA;
@@ -59,7 +59,7 @@ static void _memtest(void)
 			v = ~v; /* rand(); */
 			if(i % OUTPUT_INTERVAL == 0)
 			{
-				log_boot_P(PSTR("0x%06lX"), i);
+				log_boot_P(LOG_EXT, PSTR("0x%06lX"), i);
 			}
 
 			if(i >= BANK_SIZE)
@@ -73,7 +73,7 @@ static void _memtest(void)
 		XMEM_DESELECT(bank);
 
 		/* Read */
-		log_boot_P(PSTR("Verifying pattern"));
+		log_boot_P(LOG_INIT, PSTR("Verifying pattern"));
 		_xmem_start(bank, SRAM_COMMAND_READ, 0);
 		/* srand(SEED); */
 		v = 0xAA;
@@ -82,7 +82,7 @@ static void _memtest(void)
 			v = ~v; /* rand(); */
 			if(i % OUTPUT_INTERVAL == 0)
 			{
-				log_boot_P(PSTR("0x%06lX"), i);
+				log_boot_P(LOG_EXT, PSTR("0x%06lX"), i);
 			}
 
 			if(i >= BANK_SIZE)
@@ -95,8 +95,8 @@ static void _memtest(void)
 			{
 				XMEM_DESELECT(bank);
 				panic(PSTR(
-					"Memory test failed at address 0x%06lX "
-					"[0x%02X != 0x%02X]"),
+					"Memory test failed at address 0x%06lX\n"
+					"         [0x%02X != 0x%02X]"),
 					i, w, v);
 			}
 		}
@@ -183,7 +183,7 @@ static void _xmem_overlap(u32 addr, u16 size, AddrHelper *h)
 void xmem_init(void)
 {
 	/* Initialize XMEM */
-	log_boot_P(PSTR("External memory driver initialized"));
+	log_boot_P(LOG_INIT, PSTR("External memory driver initialized"));
 	_memtest();
 }
 

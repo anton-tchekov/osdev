@@ -22,7 +22,6 @@ void serial_init(void)
 
 void serial_tx(char c)
 {
-	/* TODO: Use interrupts and output buffer */
 	while(!(UCSR0A & (1 << UDRE0))) {}
 	UDR0 = c;
 }

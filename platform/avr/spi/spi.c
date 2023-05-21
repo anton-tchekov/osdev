@@ -12,7 +12,7 @@
 void spi_init(void)
 {
 	SPCR = (1 << SPE) | (1 << MSTR);
-	log_boot_P(PSTR("SPI initialized"));
+	log_boot_P(LOG_INIT, PSTR("SPI initialized"));
 }
 
 void spi_fast(void)

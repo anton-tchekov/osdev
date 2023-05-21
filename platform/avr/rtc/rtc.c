@@ -11,7 +11,7 @@
 
 void rtc_init(void)
 {
-	log_boot_P(PSTR("RTC driver initialized"));
+	log_boot_P(LOG_INIT, PSTR("RTC driver initialized"));
 }
 
 DateTime *datetime_now(DateTime *now)

@@ -1,13 +1,14 @@
-# AVR Platform TODO
+# AVR Platform Tasks
+
+DONE:
+- LCD Basic font [DONE]
+- Boot sequence on LCD [DONE]
 
 TODAY:
 - All functions documented
-- LCD Basic font
-- Boot sequence on LCD
 - SD Driver complete
-- XMEM Addressing Test
-
-LATER:
-- Load file from SD card
+- XMEM Cross Addressing Test
+- Load file (App Launcher/Login Screen) from SD card
 - Launch emulator
-- Find solution for LCD image routine problem
+- Find solution for emulator image routine problem
+- PS/2 Keyboard Character conversion and test

@@ -29,7 +29,7 @@ void timer_init(void)
 	/* Enable compare interrupt */
 	TIMSK0 |= (1 << OCIE0A);
 
-	log_boot_P(PSTR("Millisecond timer initialized"));
+	log_boot_P(LOG_INIT, PSTR("Millisecond timer initialized"));
 }
 
 u32 millis(void)

@@ -31,7 +31,7 @@ void ps2_init(void)
 	/* Trigger interrupt on falling edge */
 	EICRA |= (1 << ISC01);
 
-	log_boot_P(PSTR("PS/2 keyboard initialized"));
+	log_boot_P(LOG_INIT, PSTR("PS/2 keyboard initialized"));
 }
 
 /**

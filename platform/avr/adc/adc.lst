@@ -31,7 +31,7 @@
   16:adc/adc.c     **** 	ADCSRA = (1 << ADPS1) | (1 << ADPS0);
   17:adc/adc.c     **** 	ADCSRA |= (1 << ADEN);
   18:adc/adc.c     **** 	adc_read(ADC_CHANNEL_NOISE);
-  19:adc/adc.c     **** 	log_boot_P(PSTR("ADC initialized"));
+  19:adc/adc.c     **** 	log_boot_P(LOG_INIT, PSTR("ADC initialized"));
   20:adc/adc.c     **** }
   21:adc/adc.c     **** 
   22:adc/adc.c     **** u16 adc_read(u8 channel)
@@ -109,7 +109,7 @@
   77               		.loc 1 17 9 is_stmt 0 view .LVU19
   78 003a 8068      		ori r24,lo8(-128)
   79 003c 8083      		st Z,r24
-  18:adc/adc.c     **** 	log_boot_P(PSTR("ADC initialized"));
+  18:adc/adc.c     **** 	log_boot_P(LOG_INIT, PSTR("ADC initialized"));
   80               		.loc 1 18 2 is_stmt 1 view .LVU20
   81 003e 85E0      		ldi r24,lo8(5)
   82 0040 0E94 0000 		call adc_read
@@ -118,9 +118,9 @@
   84               		.loc 1 19 2 view .LVU21
   85               	.LBB2:
   19:adc/adc.c     **** }
-  86               		.loc 1 19 13 view .LVU22
+  86               		.loc 1 19 23 view .LVU22
   19:adc/adc.c     **** }
-  87               		.loc 1 19 13 view .LVU23
+  87               		.loc 1 19 23 view .LVU23
   88               	.LBE2:
   19:adc/adc.c     **** }
   89               		.loc 1 19 2 is_stmt 0 view .LVU24
@@ -130,86 +130,89 @@
   93               		.cfi_def_cfa_offset 3
   94 004a 8F93      		push r24
   95               		.cfi_def_cfa_offset 4
-  96 004c 0E94 0000 		call log_boot_P
-  97               	.LVL3:
+  96 004c 1F92      		push __zero_reg__
+  97               		.cfi_def_cfa_offset 5
+  98 004e 0E94 0000 		call log_boot_P
+  99               	.LVL3:
   20:adc/adc.c     **** 
-  98               		.loc 1 20 1 view .LVU25
-  99 0050 0F90      		pop __tmp_reg__
- 100 0052 0F90      		pop __tmp_reg__
- 101               		.cfi_def_cfa_offset 2
- 102               	/* epilogue start */
- 103 0054 0895      		ret
- 104               		.cfi_endproc
- 105               	.LFE3:
- 107               		.section	.progmem.data,"a",@progbits
- 110               	__c.0:
- 111 0000 4144 4320 		.string	"ADC initialized"
- 111      696E 6974 
- 111      6961 6C69 
- 111      7A65 6400 
- 112               		.text
- 113               	.Letext0:
- 114               		.file 2 "/usr/lib/gcc/avr/12.2.0/include/stdint-gcc.h"
- 115               		.file 3 "../../types/types.h"
- 116               		.file 4 "logger/logger.h"
+ 100               		.loc 1 20 1 view .LVU25
+ 101 0052 0F90      		pop __tmp_reg__
+ 102 0054 0F90      		pop __tmp_reg__
+ 103 0056 0F90      		pop __tmp_reg__
+ 104               		.cfi_def_cfa_offset 2
+ 105               	/* epilogue start */
+ 106 0058 0895      		ret
+ 107               		.cfi_endproc
+ 108               	.LFE3:
+ 110               		.section	.progmem.data,"a",@progbits
+ 113               	__c.0:
+ 114 0000 4144 4320 		.string	"ADC initialized"
+ 114      696E 6974 
+ 114      6961 6C69 
+ 114      7A65 6400 
+ 115               		.text
+ 116               	.Letext0:
+ 117               		.file 2 "/usr/lib/gcc/avr/12.2.0/include/stdint-gcc.h"
+ 118               		.file 3 "../../types/types.h"
+ 119               		.file 4 "logger/logger.h"
 DEFINED SYMBOLS
                             *ABS*:00000000 adc.c
-     /tmp/ccLUtCTD.s:2      *ABS*:0000003e __SP_H__
-     /tmp/ccLUtCTD.s:3      *ABS*:0000003d __SP_L__
-     /tmp/ccLUtCTD.s:4      *ABS*:0000003f __SREG__
-     /tmp/ccLUtCTD.s:5      *ABS*:00000000 __tmp_reg__
-     /tmp/ccLUtCTD.s:6      *ABS*:00000001 __zero_reg__
-     /tmp/ccLUtCTD.s:13     .text:00000000 adc_read
-     /tmp/ccLUtCTD.s:17     .text:00000000 .Loc.0
-     /tmp/ccLUtCTD.s:18     .text:00000000 L0
-     /tmp/ccLUtCTD.s:23     .text:00000000 .Loc.1
-     /tmp/ccLUtCTD.s:24     .text:00000000 .Loc.2
-     /tmp/ccLUtCTD.s:29     .text:00000008 .Loc.3
-     /tmp/ccLUtCTD.s:31     .text:0000000a .Loc.4
-     /tmp/ccLUtCTD.s:33     .text:0000000e .Loc.5
-     /tmp/ccLUtCTD.s:35     .text:00000012 .Loc.6
-     /tmp/ccLUtCTD.s:38     .text:00000018 .Loc.7
-     /tmp/ccLUtCTD.s:40     .text:00000018 .Loc.8
-     /tmp/ccLUtCTD.s:41     .text:00000018 .Loc.9
-     /tmp/ccLUtCTD.s:45     .text:00000020 .Loc.10
-     /tmp/ccLUtCTD.s:46     .text:00000020 .Loc.11
-     /tmp/ccLUtCTD.s:50     .text:00000028 .Loc.12
-     /tmp/ccLUtCTD.s:52     .text:0000002a L0
-     /tmp/ccLUtCTD.s:57     .text:0000002a adc_init
-     /tmp/ccLUtCTD.s:59     .text:0000002a .Loc.13
-     /tmp/ccLUtCTD.s:60     .text:0000002a L0
-     /tmp/ccLUtCTD.s:65     .text:0000002a .Loc.14
-     /tmp/ccLUtCTD.s:66     .text:0000002a .Loc.15
-     /tmp/ccLUtCTD.s:69     .text:00000030 .Loc.16
-     /tmp/ccLUtCTD.s:70     .text:00000030 .Loc.17
-     /tmp/ccLUtCTD.s:75     .text:00000038 .Loc.18
-     /tmp/ccLUtCTD.s:77     .text:0000003a .Loc.19
-     /tmp/ccLUtCTD.s:80     .text:0000003e .Loc.20
-     /tmp/ccLUtCTD.s:84     .text:00000044 .Loc.21
-     /tmp/ccLUtCTD.s:86     .text:00000044 .Loc.22
-     /tmp/ccLUtCTD.s:87     .text:00000044 .Loc.23
-     /tmp/ccLUtCTD.s:89     .text:00000044 .Loc.24
-     /tmp/ccLUtCTD.s:110    .progmem.data:00000000 __c.0
-     /tmp/ccLUtCTD.s:98     .text:00000050 .Loc.25
-     /tmp/ccLUtCTD.s:104    .text:00000056 L0
-     /tmp/ccLUtCTD.s:117    .text:00000056 L0
+     /tmp/ccFvlKH7.s:2      *ABS*:0000003e __SP_H__
+     /tmp/ccFvlKH7.s:3      *ABS*:0000003d __SP_L__
+     /tmp/ccFvlKH7.s:4      *ABS*:0000003f __SREG__
+     /tmp/ccFvlKH7.s:5      *ABS*:00000000 __tmp_reg__
+     /tmp/ccFvlKH7.s:6      *ABS*:00000001 __zero_reg__
+     /tmp/ccFvlKH7.s:13     .text:00000000 adc_read
+     /tmp/ccFvlKH7.s:17     .text:00000000 .Loc.0
+     /tmp/ccFvlKH7.s:18     .text:00000000 L0
+     /tmp/ccFvlKH7.s:23     .text:00000000 .Loc.1
+     /tmp/ccFvlKH7.s:24     .text:00000000 .Loc.2
+     /tmp/ccFvlKH7.s:29     .text:00000008 .Loc.3
+     /tmp/ccFvlKH7.s:31     .text:0000000a .Loc.4
+     /tmp/ccFvlKH7.s:33     .text:0000000e .Loc.5
+     /tmp/ccFvlKH7.s:35     .text:00000012 .Loc.6
+     /tmp/ccFvlKH7.s:38     .text:00000018 .Loc.7
+     /tmp/ccFvlKH7.s:40     .text:00000018 .Loc.8
+     /tmp/ccFvlKH7.s:41     .text:00000018 .Loc.9
+     /tmp/ccFvlKH7.s:45     .text:00000020 .Loc.10
+     /tmp/ccFvlKH7.s:46     .text:00000020 .Loc.11
+     /tmp/ccFvlKH7.s:50     .text:00000028 .Loc.12
+     /tmp/ccFvlKH7.s:52     .text:0000002a L0
+     /tmp/ccFvlKH7.s:57     .text:0000002a adc_init
+     /tmp/ccFvlKH7.s:59     .text:0000002a .Loc.13
+     /tmp/ccFvlKH7.s:60     .text:0000002a L0
+     /tmp/ccFvlKH7.s:65     .text:0000002a .Loc.14
+     /tmp/ccFvlKH7.s:66     .text:0000002a .Loc.15
+     /tmp/ccFvlKH7.s:69     .text:00000030 .Loc.16
+     /tmp/ccFvlKH7.s:70     .text:00000030 .Loc.17
+     /tmp/ccFvlKH7.s:75     .text:00000038 .Loc.18
+     /tmp/ccFvlKH7.s:77     .text:0000003a .Loc.19
+     /tmp/ccFvlKH7.s:80     .text:0000003e .Loc.20
+     /tmp/ccFvlKH7.s:84     .text:00000044 .Loc.21
+     /tmp/ccFvlKH7.s:86     .text:00000044 .Loc.22
+     /tmp/ccFvlKH7.s:87     .text:00000044 .Loc.23
+     /tmp/ccFvlKH7.s:89     .text:00000044 .Loc.24
+     /tmp/ccFvlKH7.s:113    .progmem.data:00000000 __c.0
+     /tmp/ccFvlKH7.s:100    .text:00000052 .Loc.25
+     /tmp/ccFvlKH7.s:107    .text:0000005a L0
+     /tmp/ccFvlKH7.s:120    .text:0000005a L0
                      .debug_frame:00000000 L0
-     /tmp/ccLUtCTD.s:39     .text:00000018 .L2
-     /tmp/ccLUtCTD.s:280    .debug_abbrev:00000000 .Ldebug_abbrev0
-     /tmp/ccLUtCTD.s:8      .text:00000000 .Ltext0
-     /tmp/ccLUtCTD.s:113    .text:00000056 .Letext0
-     /tmp/ccLUtCTD.s:596    .debug_line:00000000 .Ldebug_line0
-     /tmp/ccLUtCTD.s:15     .text:00000000 .LFB4
-     /tmp/ccLUtCTD.s:53     .text:0000002a .LFE4
-     /tmp/ccLUtCTD.s:567    .debug_loclists:00000010 .LLST0
-     /tmp/ccLUtCTD.s:562    .debug_loclists:0000000c .LVUS0
-     /tmp/ccLUtCTD.s:58     .text:0000002a .LFB3
-     /tmp/ccLUtCTD.s:105    .text:00000056 .LFE3
-     /tmp/ccLUtCTD.s:85     .text:00000044 .LBB2
-     /tmp/ccLUtCTD.s:88     .text:00000044 .LBE2
-     /tmp/ccLUtCTD.s:83     .text:00000044 .LVL2
-     /tmp/ccLUtCTD.s:97     .text:00000050 .LVL3
-     /tmp/ccLUtCTD.s:118    .debug_info:00000000 .Ldebug_info0
+     /tmp/ccFvlKH7.s:39     .text:00000018 .L2
+     /tmp/ccFvlKH7.s:326    .debug_abbrev:00000000 .Ldebug_abbrev0
+     /tmp/ccFvlKH7.s:8      .text:00000000 .Ltext0
+     /tmp/ccFvlKH7.s:116    .text:0000005a .Letext0
+     /tmp/ccFvlKH7.s:669    .debug_line:00000000 .Ldebug_line0
+     /tmp/ccFvlKH7.s:15     .text:00000000 .LFB4
+     /tmp/ccFvlKH7.s:53     .text:0000002a .LFE4
+     /tmp/ccFvlKH7.s:640    .debug_loclists:00000010 .LLST0
+     /tmp/ccFvlKH7.s:635    .debug_loclists:0000000c .LVUS0
+     /tmp/ccFvlKH7.s:58     .text:0000002a .LFB3
+     /tmp/ccFvlKH7.s:108    .text:0000005a .LFE3
+     /tmp/ccFvlKH7.s:85     .text:00000044 .LBB2
+     /tmp/ccFvlKH7.s:88     .text:00000044 .LBE2
+     /tmp/ccFvlKH7.s:83     .text:00000044 .LVL2
+     /tmp/ccFvlKH7.s:99     .text:00000052 .LVL3
+     /tmp/ccFvlKH7.s:121    .debug_info:00000000 .Ldebug_info0
 
 UNDEFINED SYMBOLS
 log_boot_P

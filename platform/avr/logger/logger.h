@@ -11,28 +11,41 @@
 
 #include <types.h>
 
-/**
- * @brief TODO
- *
- * @param msg TODO
- * @param ... TODO
- */
-void log_boot_P(const char *msg, ...);
+typedef enum
+{
+	LOG_INIT,
+	LOG_DEBUG,
+	LOG_WARN,
+	LOG_ERROR,
+	LOG_PANIC,
+	LOG_OFFSET,
+	LOG_NONE,
+	LOG_EXT
+} LogLevel;
 
 /**
- * @brief TODO
+ * @brief Log boot message
  *
- * @param msg TODO
- * @param ... TODO
+ * @param level Log level (see enum above)
+ * @param msg Format string
+ * @param ... Variable arguments
+ */
+void log_boot_P(LogLevel level, const char *msg, ...);
+
+/**
+ * @brief Trigger a kernel panic
+ *
+ * @param msg Format string
+ * @param ... Variable arguments
  */
 void panic(const char *msg, ...);
 
 /**
- * @brief TODO
+ * @brief Print a hexdump of a block memory
  *
- * @param addr TODO
- * @param data TODO
- * @param len TODO
+ * @param addr Start address only for printing
+ * @param data Data buffer
+ * @param len Buffer size in bytes
  */
 void memory_dump(u32 addr, const void *data, u16 len);
 

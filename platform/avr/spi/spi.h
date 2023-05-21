@@ -25,6 +25,7 @@ void spi_fast(void);
 
 /**
  * @brief Send and receive one byte from the SPI interface
+ *        Panics on timeout
  *
  * @param byte The byte to send
  * @return The byte that was received
@@ -32,26 +33,26 @@ void spi_fast(void);
 u8 spi_xchg(u8 byte);
 
 /**
- * @brief TODO
+ * @brief Try to send and receive one byte from SPI
  *
- * @param in
- * @param out
+ * @param in Input byte
+ * @param out Output byte
  * @return Status
  */
 Status spi_xchg_try(u8 in, u8 *out);
 
 /**
- * @brief TODO
+ * @brief Try to send one byte to the SPI interface
  *
- * @param in
+ * @param in The byte to send
  * @return Status
  */
 Status spi_tx_try(u8 in);
 
 /**
- * @brief TODO
+ * @brief Try to receive one byte from the SPI interface
  *
- * @param out
+ * @param out Output byte
  * @return Status
  */
 Status spi_rx_try(u8 *out);

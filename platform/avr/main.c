@@ -11,6 +11,8 @@
 #include <gpio.h>
 #include <sd.h>
 #include <avr/pgmspace.h>
+#include "logo/logo_tiny.c"
+#include "logo/logo_text.c"
 
 char byte_to_hex(u8 byte)
 {
@@ -64,72 +66,87 @@ u32 syscall_gfx_image_grayscale(u32 *args){}
 u32 syscall_gfx_image_1bit(u32 *args){}
 
 
+#define LOGO_X_OFFSET      30
+#define LOGO_TEXT_X_OFFSET 56
+#define LOGO_Y_OFFSET      50
+
 int main(void)
 {
 	/* --- BOOT SEQUENCE --- */
 
-	/* Configure GPIO */
-	gpio_configure();
-
-	/* Initialize serial port */
-	serial_init();
-
 	/* Enable interrupts */
 	sei();
 
-	/* Print boot message */
-	serial_tx_str_P(PSTR("\nImaginaryOS Version 0.1 Booting ...\n\n"));
+	/* First, configure GPIO, because all modules that do I/O depend on it */
+	gpio_configure();
 
-	/* Initialize timer */
+	/* Second, initialize serial port so that we can print boot messages */
+	serial_init();
+
+	/* Print startup message */
+	log_boot_P(LOG_NONE, PSTR("\nImaginaryOS Version 0.1 Booting ...\n"));
+
+	/* Initialize millisecond timer */
 	timer_init();
 
-	/* Initialize SPI */
+	/* Initialize SPI (Needed for SD Card, External Memory and LCD) */
 	spi_init();
 
-	/* Initialize external memory */
-	xmem_init();
-
-	/* Initialize LCD driver */
+	/* Initialize LCD driver early for boot image and messages */
 	lcd_init(0xFF, COLOR_BLACK);
-	lcd_rect(10, 10, 200, 200, COLOR_RED);
+	lcd_logo_P(
+		LOGO_X_OFFSET,
+		LOGO_Y_OFFSET,
+		LOGO_TINY_WIDTH,
+		LOGO_TINY_HEIGHT,
+		logo_tiny);
 
-	/* Initialize ADC */
-	adc_init();
+	lcd_logo_P(
+		LOGO_X_OFFSET + LOGO_TEXT_X_OFFSET,
+		LOGO_Y_OFFSET + LOGO_TINY_HEIGHT / 2 - LOGO_TEXT_HEIGHT / 2,
+		LOGO_TEXT_WIDTH,
+		LOGO_TEXT_HEIGHT,
+		logo_text);
 
-	/* Initialize RNG */
-	random_init();
-
-	/* Initialize keyboard */
+	/* Initialize keyboard (fast) */
 	ps2_init();
 
-	/* Initialize RTC driver */
+	/* Initialize ADC (fast) */
+	adc_init();
+
+	/* Initialize RNG (fast) */
+	random_init();
+
+	/* Initialize RTC driver (fast) */
 	rtc_init();
+
+	/* Initialize external memory late because of slow memory test */
+	xmem_init();
 
 	/* Initialize SD card driver */
 	sd_init();
 
-	serial_tx_str_P(PSTR("\nREADY.\n\n"));
-
 	/* --- READY --- */
 
+	log_boot_P(LOG_NONE, PSTR("\nStarting RISC-V Emulator Kernel ...\n\n"));
+
+/*
 	{
 		u8 buf[512], i;
 		Status ret;
 
-		/* Test */
-		log_boot_P(PSTR("Printing sectors\n"));
+		log_boot_P(LOG_EXT, PSTR("Printing sectors\n"));
 
 		for(i = 32; i < 42; ++i)
 		{
 			if((ret = sd_read(i, &buf)))
 			{
-				log_boot_P(PSTR("error code = %d\n"), ret);
+				log_boot_P(LOG_EXT, PSTR("error code = %d\n"), ret);
 			}
 			memory_dump(i << 9, buf, sizeof(buf));
 		}
 	}
-
-	serial_tx_str_P(PSTR("\nStarting RISC-V Emulator Kernel ...\n\n"));
+*/
 
 	/* Infinite loop */
 	for(;;)

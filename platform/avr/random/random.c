@@ -16,7 +16,7 @@
 void random_init(void)
 {
 	srand(adc_read(ADC_CHANNEL_NOISE));
-	log_boot_P(PSTR("RNG initialized"));
+	log_boot_P(LOG_INIT, PSTR("RNG initialized"));
 }
 
 u32 random_get(void)

@@ -12,10 +12,20 @@
 #include <types.h>
 #include <status.h>
 
+#define BLOCK_SIZE             512
+#define BLOCK_SIZE_POT           9
+
 /**
  * @brief Initialize SD driver and try to detect card
  */
 void sd_init(void);
+
+/**
+ * @brief Get SD card capacity
+ *
+ * @return Capacity in 512-byte blocks
+ */
+u32 sd_size(void);
 
 /**
  * @brief Read a single 512-byte block from the SD card

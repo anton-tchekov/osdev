@@ -16,7 +16,7 @@ void adc_init(void)
 	ADCSRA = (1 << ADPS1) | (1 << ADPS0);
 	ADCSRA |= (1 << ADEN);
 	adc_read(ADC_CHANNEL_NOISE);
-	log_boot_P(PSTR("ADC initialized"));
+	log_boot_P(LOG_INIT, PSTR("ADC initialized"));
 }
 
 u16 adc_read(u8 channel)

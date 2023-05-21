@@ -14,9 +14,6 @@
 #include <avr/pgmspace.h>
 #include <util/delay.h>
 
-#define BLOCK_SIZE             512
-#define BLOCK_SIZE_POT           9
-
 #define CMD_GO_IDLE_STATE      0x00
 #define CMD_SEND_OP_COND       0x01
 #define CMD_SEND_IF_COND       0x08
@@ -57,7 +54,7 @@ static u8
 /* --- PRIVATE --- */
 
 /**
- * @brief TODO
+ * @brief Put SPI into slow mode for initialization
  */
 static void _spi_configure_slow(void)
 {
@@ -66,7 +63,7 @@ static void _spi_configure_slow(void)
 }
 
 /**
- * @brief TODO
+ * @brief Trigger an SD timeout panic
  */
 static void _sd_timeout(void)
 {
@@ -75,7 +72,7 @@ static void _sd_timeout(void)
 }
 
 /**
- * @brief TODO
+ * @brief Trigger an SD error panic
  */
 static void _sd_error(void)
 {
@@ -84,11 +81,11 @@ static void _sd_error(void)
 }
 
 /**
- * @brief TODO
+ * @brief Execute an SD command (panic if failed)
  *
- * @param cmd TODO
- * @param arg TODO
- * @return TODO
+ * @param cmd Command number
+ * @param arg Address parameter
+ * @return Output byte
  */
 static u8 _sd_command(u8 cmd, u32 arg)
 {
@@ -119,12 +116,12 @@ static u8 _sd_command(u8 cmd, u32 arg)
 }
 
 /**
- * @brief TODO
+ * @brief Try to execute an SD command
  *
- * @param cmd TODO
- * @param arg TODO
- * @param out TODO
- * @return  TODO
+ * @param cmd Command number
+ * @param arg Address parameter
+ * @param out Output byte
+ * @return Status response
  */
 static Status _sd_command_try(u8 cmd, u32 arg, u8 *out)
 {
@@ -169,10 +166,11 @@ static Status _sd_command_try(u8 cmd, u32 arg, u8 *out)
 }
 
 /**
- * @brief TODO
+ * @brief Convert block number to internal SD address
+ *        since SD uses byte address but SDHC uses block number
  *
- * @param block TODO
- * @return TODO
+ * @param block Block number
+ * @return Internal Address
  */
 static u32 _sd_block_addr(u32 block)
 {
@@ -180,41 +178,44 @@ static u32 _sd_block_addr(u32 block)
 }
 
 /**
- * @brief TODO
+ * @brief Print SD card info to serial port
  */
 static void _sd_info_print(void)
 {
-	log_boot_P(PSTR("Card Type          : %S"),
+	log_boot_P(LOG_DEBUG, PSTR("Card Type        : %S"),
 		_card_type & SD_HC ? PSTR("SDHC") : PSTR("SD"));
 
-	log_boot_P(PSTR("Block Size         : %d"),
+	log_boot_P(LOG_DEBUG, PSTR("Block Size       : %d"),
 		BLOCK_SIZE);
 
-	log_boot_P(PSTR("Manufacturer ID    : %02X"),
+	log_boot_P(LOG_DEBUG, PSTR("Manufacturer ID  : %02X"),
 		_manufacturer);
 
-	log_boot_P(PSTR("OEM                : %s"),
+	log_boot_P(LOG_DEBUG, PSTR("OEM              : %s"),
 		_oem);
 
-	log_boot_P(PSTR("Product Name       : %s"),
+	log_boot_P(LOG_DEBUG, PSTR("Product Name     : %s"),
 		_product);
 
-	log_boot_P(PSTR("Revision           : %c.%c"),
+	log_boot_P(LOG_DEBUG, PSTR("Revision         : %c.%c"),
 		(_revision >> 4) + '0', (_revision & 0x0F) + '0');
 
-	log_boot_P(PSTR("Serial Number      : 0x%08lX"),
+	log_boot_P(LOG_DEBUG, PSTR("Serial Number    : 0x%08lX"),
 		_serial);
 
-	log_boot_P(PSTR("Manufacture Date   : %02d-%d"),
+	log_boot_P(LOG_DEBUG, PSTR("Manufacture Date : %02d-%d"),
 		_manufacturing_month, 2000 + _manufacturing_year);
 
-	log_boot_P(PSTR("Capacity           : %ld blocks (%ld bytes)"),
-		_capacity, _capacity * BLOCK_SIZE);
+	log_boot_P(LOG_DEBUG, PSTR("Capacity         : %ld blocks"),
+		_capacity);
 
-	log_boot_P(PSTR("Format             : 0x%02X"),
+	log_boot_P(LOG_OFFSET, PSTR("                   (%ld bytes)"),
+		_capacity * BLOCK_SIZE);
+
+	log_boot_P(LOG_DEBUG, PSTR("Format           : 0x%02X"),
 		_format);
 
-	log_boot_P(PSTR("Flags              : %S%S"),
+	log_boot_P(LOG_DEBUG, PSTR("Flags            : %S%S"),
 		_flag_copy ? PSTR("Copy, ") : PSTR("Original, "),
 		_flag_write_protect_temp ? PSTR("Temporarily Write Protected") :
 			(_flag_write_protect ? PSTR("Write Protected") :
@@ -224,7 +225,7 @@ static void _sd_info_print(void)
 /* --- PUBLIC --- */
 void sd_init(void)
 {
-	log_boot_P(PSTR("SD driver starting"));
+	log_boot_P(LOG_INIT, PSTR("SD driver starting"));
 
 	{
 		u8 response;
@@ -330,8 +331,8 @@ void sd_init(void)
 		_delay_ms(20);
 	}
 
-	log_boot_P(PSTR("SD card initialized"));
-	log_boot_P(PSTR("Reading SD card parameters"));
+	log_boot_P(LOG_INIT, PSTR("SD card initialized"));
+	log_boot_P(LOG_INIT, PSTR("Reading SD card parameters"));
 
 	{
 		u8 i, b, csd_read_bl_len, csd_c_size_mult, csd_structure;
@@ -497,6 +498,11 @@ void sd_init(void)
 
 	/* Print disk info */
 	_sd_info_print();
+}
+
+u32 sd_size(void)
+{
+	return _capacity;
 }
 
 Status sd_read(u32 block, void *data)
