@@ -20,9 +20,9 @@ SRCS = \
 	xmem/xmem.c \
 	lcd/lcd.c \
 	sd/sd.c \
+	initrd/initrd.c \
 	../../status/status.c \
-
-# ../../emulator/emulator.c \
+	../../emulator/emulator.c \
 
 CFLAGS += \
 	-I ../../types \
@@ -38,12 +38,12 @@ CFLAGS += \
 	-I xmem \
 	-I logger \
 	-I lcd \
+	-I initrd \
 	-I ../../status \
-
-# -I ../../emulator \
-# -I ../../platform \
-# -I ../../util \
-# -I ../../keyboard \
+	-I ../../emulator \
+	-I ../../platform \
+	-I ../../util \
+	-I ../../keyboard \
 
 CFLAGS += \
 	-Wno-array-bounds

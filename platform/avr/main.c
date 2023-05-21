@@ -10,6 +10,7 @@
 #include <lcd.h>
 #include <gpio.h>
 #include <sd.h>
+#include <initrd.h>
 #include <avr/pgmspace.h>
 #include "logo/logo_tiny.c"
 #include "logo/logo_text.c"
@@ -128,25 +129,10 @@ int main(void)
 
 	/* --- READY --- */
 
+	/* Load initial ram disk */
+	initrd_load();
+
 	log_boot_P(LOG_NONE, PSTR("\nStarting RISC-V Emulator Kernel ...\n\n"));
-
-/*
-	{
-		u8 buf[512], i;
-		Status ret;
-
-		log_boot_P(LOG_EXT, PSTR("Printing sectors\n"));
-
-		for(i = 32; i < 42; ++i)
-		{
-			if((ret = sd_read(i, &buf)))
-			{
-				log_boot_P(LOG_EXT, PSTR("error code = %d\n"), ret);
-			}
-			memory_dump(i << 9, buf, sizeof(buf));
-		}
-	}
-*/
 
 	/* Infinite loop */
 	for(;;)
