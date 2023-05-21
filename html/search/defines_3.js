@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['gfx_5fheight_0',['GFX_HEIGHT',['../gfx_8h.html#a11b59534db467ebd1fb19b758e6fffd7',1,'gfx.h']]],
-  ['gfx_5fwidth_1',['GFX_WIDTH',['../gfx_8h.html#aae91ae7a3ca585293a2c1031652a49f9',1,'gfx.h']]]
+  ['dummy_0',['DUMMY',['../xmem_8c.html#a35beee7b0f2f3e294c4a4a69a5f02df4',1,'xmem.c']]],
+  ['dump_5fbytes_5fper_5fline_1',['DUMP_BYTES_PER_LINE',['../logger_8c.html#a7e605a71d397f16aa436a31c4d459a82',1,'logger.c']]]
 ];

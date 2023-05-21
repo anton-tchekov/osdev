@@ -15,23 +15,17 @@ struct \mbox{\hyperlink{structAddrHelper}{Addr\+Helper}}
 \doxysubsection*{Macros}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{xmem_8c_a41e71a45e1fd04415bc24952cbf50c9b}\label{xmem_8c_a41e71a45e1fd04415bc24952cbf50c9b}} 
-\#define {\bfseries BANK\+\_\+\+COUNT}~3
+\#define \mbox{\hyperlink{xmem_8c_a41e71a45e1fd04415bc24952cbf50c9b}{BANK\+\_\+\+COUNT}}~3
 \item 
-\mbox{\Hypertarget{xmem_8c_ab15d51766a60c96accc9078415cb87d8}\label{xmem_8c_ab15d51766a60c96accc9078415cb87d8}} 
-\#define {\bfseries BANK\+\_\+\+SIZE\+\_\+\+POT}~17
+\#define \mbox{\hyperlink{xmem_8c_ab15d51766a60c96accc9078415cb87d8}{BANK\+\_\+\+SIZE\+\_\+\+POT}}~17
 \item 
-\mbox{\Hypertarget{xmem_8c_acb7dc5a33a5b4a8d2b71e744832f9523}\label{xmem_8c_acb7dc5a33a5b4a8d2b71e744832f9523}} 
-\#define {\bfseries BANK\+\_\+\+SIZE}~0x20000\+UL
+\#define \mbox{\hyperlink{xmem_8c_acb7dc5a33a5b4a8d2b71e744832f9523}{BANK\+\_\+\+SIZE}}~0x20000\+UL
 \item 
-\mbox{\Hypertarget{xmem_8c_af6f22306e433d0d10bba1b7127d7e198}\label{xmem_8c_af6f22306e433d0d10bba1b7127d7e198}} 
-\#define {\bfseries OUTPUT\+\_\+\+INTERVAL}~0x2000\+UL
+\#define \mbox{\hyperlink{xmem_8c_af6f22306e433d0d10bba1b7127d7e198}{OUTPUT\+\_\+\+INTERVAL}}~0x2000\+UL
 \item 
-\mbox{\Hypertarget{xmem_8c_a35beee7b0f2f3e294c4a4a69a5f02df4}\label{xmem_8c_a35beee7b0f2f3e294c4a4a69a5f02df4}} 
-\#define {\bfseries DUMMY}~0x\+FF
+\#define \mbox{\hyperlink{xmem_8c_a35beee7b0f2f3e294c4a4a69a5f02df4}{DUMMY}}~0x\+FF
 \item 
-\mbox{\Hypertarget{xmem_8c_ad350bae49f72ba58d73027f1316e38b8}\label{xmem_8c_ad350bae49f72ba58d73027f1316e38b8}} 
-\#define {\bfseries SEED}~42
+\#define \mbox{\hyperlink{xmem_8c_ad350bae49f72ba58d73027f1316e38b8}{SEED}}~42
 \item 
 \#define \mbox{\hyperlink{xmem_8c_a5fdcd0ec5530b8e5b1110e54e30e0600}{SRAM\+\_\+\+COMMAND\+\_\+\+WRITE}}~2
 \item 
@@ -64,7 +58,43 @@ Tim Gabrikowski, Anton Tchekov
 
 
 \doxysubsection{Macro Definition Documentation}
-\mbox{\Hypertarget{xmem_8c_aab517c0a80aa9e990d1475df041c2bb8}\label{xmem_8c_aab517c0a80aa9e990d1475df041c2bb8}} 
+\mbox{\Hypertarget{xmem_8c_a41e71a45e1fd04415bc24952cbf50c9b}\label{xmem_8c_a41e71a45e1fd04415bc24952cbf50c9b}} 
+\index{xmem.c@{xmem.c}!BANK\_COUNT@{BANK\_COUNT}}
+\index{BANK\_COUNT@{BANK\_COUNT}!xmem.c@{xmem.c}}
+\doxysubsubsection{\texorpdfstring{BANK\_COUNT}{BANK\_COUNT}}
+{\footnotesize\ttfamily \#define BANK\+\_\+\+COUNT~3}
+
+How many memory banks there are \mbox{\Hypertarget{xmem_8c_acb7dc5a33a5b4a8d2b71e744832f9523}\label{xmem_8c_acb7dc5a33a5b4a8d2b71e744832f9523}} 
+\index{xmem.c@{xmem.c}!BANK\_SIZE@{BANK\_SIZE}}
+\index{BANK\_SIZE@{BANK\_SIZE}!xmem.c@{xmem.c}}
+\doxysubsubsection{\texorpdfstring{BANK\_SIZE}{BANK\_SIZE}}
+{\footnotesize\ttfamily \#define BANK\+\_\+\+SIZE~0x20000\+UL}
+
+The size of each memory bank in bytes \mbox{\Hypertarget{xmem_8c_ab15d51766a60c96accc9078415cb87d8}\label{xmem_8c_ab15d51766a60c96accc9078415cb87d8}} 
+\index{xmem.c@{xmem.c}!BANK\_SIZE\_POT@{BANK\_SIZE\_POT}}
+\index{BANK\_SIZE\_POT@{BANK\_SIZE\_POT}!xmem.c@{xmem.c}}
+\doxysubsubsection{\texorpdfstring{BANK\_SIZE\_POT}{BANK\_SIZE\_POT}}
+{\footnotesize\ttfamily \#define BANK\+\_\+\+SIZE\+\_\+\+POT~17}
+
+The size of each memory bank as a power of two \mbox{\Hypertarget{xmem_8c_a35beee7b0f2f3e294c4a4a69a5f02df4}\label{xmem_8c_a35beee7b0f2f3e294c4a4a69a5f02df4}} 
+\index{xmem.c@{xmem.c}!DUMMY@{DUMMY}}
+\index{DUMMY@{DUMMY}!xmem.c@{xmem.c}}
+\doxysubsubsection{\texorpdfstring{DUMMY}{DUMMY}}
+{\footnotesize\ttfamily \#define DUMMY~0x\+FF}
+
+Dummy SPI value when receiving \mbox{\Hypertarget{xmem_8c_af6f22306e433d0d10bba1b7127d7e198}\label{xmem_8c_af6f22306e433d0d10bba1b7127d7e198}} 
+\index{xmem.c@{xmem.c}!OUTPUT\_INTERVAL@{OUTPUT\_INTERVAL}}
+\index{OUTPUT\_INTERVAL@{OUTPUT\_INTERVAL}!xmem.c@{xmem.c}}
+\doxysubsubsection{\texorpdfstring{OUTPUT\_INTERVAL}{OUTPUT\_INTERVAL}}
+{\footnotesize\ttfamily \#define OUTPUT\+\_\+\+INTERVAL~0x2000\+UL}
+
+The interval in bytes at which to do progress updates in a memory test \mbox{\Hypertarget{xmem_8c_ad350bae49f72ba58d73027f1316e38b8}\label{xmem_8c_ad350bae49f72ba58d73027f1316e38b8}} 
+\index{xmem.c@{xmem.c}!SEED@{SEED}}
+\index{SEED@{SEED}!xmem.c@{xmem.c}}
+\doxysubsubsection{\texorpdfstring{SEED}{SEED}}
+{\footnotesize\ttfamily \#define SEED~42}
+
+Random seed for extended memory test \mbox{\Hypertarget{xmem_8c_aab517c0a80aa9e990d1475df041c2bb8}\label{xmem_8c_aab517c0a80aa9e990d1475df041c2bb8}} 
 \index{xmem.c@{xmem.c}!SRAM\_COMMAND\_READ@{SRAM\_COMMAND\_READ}}
 \index{SRAM\_COMMAND\_READ@{SRAM\_COMMAND\_READ}!xmem.c@{xmem.c}}
 \doxysubsubsection{\texorpdfstring{SRAM\_COMMAND\_READ}{SRAM\_COMMAND\_READ}}

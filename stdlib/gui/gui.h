@@ -125,15 +125,34 @@ typedef struct
 /** Window structure */
 typedef struct
 {
+	/** Foreground (text) color */
 	Color ColorFG;
+
+	/** Background color */
 	Color ColorBG;
+
+	/** Text selection background */
 	Color ColorTextSelBG;
+
+	/** Text selection foreground */
 	Color ColorTextSelFG;
+
+	/** Element border color */
 	Color ColorBorder;
+
+	/** Element border color when selected */
 	Color ColorBorderSel;
+
+	/** Element background color */
 	Color ElementBG;
+
+	/** Element background color when selected */
 	Color ElementSelBG;
+
+	/** Cursor color */
 	Color ColorCursor;
+
+	/** Background color of the title bar */
 	Color ColorTitleBar;
 
 	/** Window title (displayed in top bar) */

@@ -9,17 +9,40 @@
 #include <keyboard-shared.h>
 #include <ctype.h>
 
+/** Uniocde codepoint for section sign (paragraph) */
 #define UNICODE_SECTION_SIGN               0xA7
+
+/** Uniocde codepoint for degree sign */
 #define UNICODE_DEGREE_SIGN                0xB0
+
+/** Uniocde codepoint for superscript two */
 #define UNICODE_SUPERSCRIPT_TWO            0xB2
+
+/** Uniocde codepoint for superscript three */
 #define UNICODE_SUPERSCRIPT_THREE          0xB3
+
+/** Uniocde codepoint for euro sign */
 #define UNICODE_EURO_SIGN                  0x20AC
+
+/** Uniocde codepoint for german sharp S */
 #define UNICODE_SMALL_SHARP_S              0xDF
+
+/** Uniocde codepoint for german capital A-Umlaut */
 #define UNICODE_CAPITAL_A_UMLAUT           0xE4
+
+/** Uniocde codepoint for german small A-Umlaut */
 #define UNICODE_SMALL_A_UMLAUT             0xC4
+
+/** Uniocde codepoint for german capital O-Umlaut */
 #define UNICODE_CAPITAL_O_UMLAUT           0xD6
+
+/** Uniocde codepoint for german small O-Umlaut */
 #define UNICODE_SMALL_O_UMLAUT             0xF6
+
+/** Uniocde codepoint for german capital U-Umlaut */
 #define UNICODE_CAPITAL_U_UMLAUT           0xFC
+
+/** Uniocde codepoint for german small U-Umlaut */
 #define UNICODE_SMALL_U_UMLAUT             0xDC
 
 /* This is horrible, but it works */

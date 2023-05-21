@@ -28,45 +28,65 @@
   14:logger/logger.c **** #include <stdio.h>
   15:logger/logger.c **** #include <ctype.h>
   16:logger/logger.c **** 
-  17:logger/logger.c **** #define MEMORY_DUMP_WIDTH   16
-  18:logger/logger.c **** 
-  19:logger/logger.c **** #define LOG_Y_OFFSET       120
-  20:logger/logger.c **** #define LOG_X_OFFSET        10
-  21:logger/logger.c **** #define LOG_Y_ADVANCE       10
-  22:logger/logger.c **** #define LOG_X_TEXT_OFFSET   49
-  23:logger/logger.c **** #define LOG_START_WIDTH      8
-  24:logger/logger.c **** 
-  25:logger/logger.c **** const RGB565 _log_color[] PROGMEM =
-  26:logger/logger.c **** {
-  27:logger/logger.c **** 	COLOR_CYAN,
-  28:logger/logger.c **** 	COLOR_GREEN,
-  29:logger/logger.c **** 	COLOR_YELLOW,
-  30:logger/logger.c **** 	COLOR_RED,
-  31:logger/logger.c **** 	COLOR_MAGENTA
-  32:logger/logger.c **** };
-  33:logger/logger.c **** 
-  34:logger/logger.c **** const char _init[] PROGMEM = "INIT";
-  35:logger/logger.c **** const char _debug[] PROGMEM = "DEBUG";
-  36:logger/logger.c **** const char _warn[] PROGMEM = "WARN";
-  37:logger/logger.c **** const char _error[] PROGMEM = "ERROR";
-  38:logger/logger.c **** const char _panic[] PROGMEM = "PANIC";
-  39:logger/logger.c **** 
-  40:logger/logger.c **** const char *const _log_msg[] PROGMEM =
-  41:logger/logger.c **** {
-  42:logger/logger.c **** 	_init,
-  43:logger/logger.c **** 	_debug,
-  44:logger/logger.c **** 	_warn,
-  45:logger/logger.c **** 	_error,
-  46:logger/logger.c **** 	_panic
-  47:logger/logger.c **** };
-  48:logger/logger.c **** 
-  49:logger/logger.c **** static u16 _log_y = LOG_Y_OFFSET;
+  17:logger/logger.c **** /** How many bytes to print per line in a hexdump */
+  18:logger/logger.c **** #define DUMP_BYTES_PER_LINE   16
+  19:logger/logger.c **** 
+  20:logger/logger.c **** /** LCD Log top margin */
+  21:logger/logger.c **** #define LOG_Y_OFFSET         120
+  22:logger/logger.c **** 
+  23:logger/logger.c **** /** LCD Log left margin */
+  24:logger/logger.c **** #define LOG_X_OFFSET          10
+  25:logger/logger.c **** 
+  26:logger/logger.c **** /** LCD advance Y direction */
+  27:logger/logger.c **** #define LOG_Y_ADVANCE         10
+  28:logger/logger.c **** 
+  29:logger/logger.c **** /** LCD Log prefix pixel width */
+  30:logger/logger.c **** #define LOG_X_TEXT_OFFSET     49
+  31:logger/logger.c **** 
+  32:logger/logger.c **** /** Serial Log prefix width */
+  33:logger/logger.c **** #define LOG_START_WIDTH        8
+  34:logger/logger.c **** 
+  35:logger/logger.c **** /** Highlight colors of the various log levels */
+  36:logger/logger.c **** const RGB565 _log_color[] PROGMEM =
+  37:logger/logger.c **** {
+  38:logger/logger.c **** 	COLOR_CYAN,
+  39:logger/logger.c **** 	COLOR_GREEN,
+  40:logger/logger.c **** 	COLOR_YELLOW,
+  41:logger/logger.c **** 	COLOR_RED,
+  42:logger/logger.c **** 	COLOR_MAGENTA
+  43:logger/logger.c **** };
+  44:logger/logger.c **** 
+  45:logger/logger.c **** /** Log level [INIT] string */
+  46:logger/logger.c **** const char _init[] PROGMEM = "INIT";
+  47:logger/logger.c **** 
+  48:logger/logger.c **** /** Log level [DEBUG] string */
+  49:logger/logger.c **** const char _debug[] PROGMEM = "DEBUG";
   50:logger/logger.c **** 
-  51:logger/logger.c **** static void _lcd_log(LogLevel level, const char *msg)
-  52:logger/logger.c **** {
-  16               		.loc 1 52 1 view -0
+  51:logger/logger.c **** /** Log level [WARN] string */
+  52:logger/logger.c **** const char _warn[] PROGMEM = "WARN";
+  53:logger/logger.c **** 
+  54:logger/logger.c **** /** Log level [ERROR] string */
+  55:logger/logger.c **** const char _error[] PROGMEM = "ERROR";
+  56:logger/logger.c **** 
+  57:logger/logger.c **** /** Log level [PANIC] string */
+  58:logger/logger.c **** const char _panic[] PROGMEM = "PANIC";
+  59:logger/logger.c **** 
+  60:logger/logger.c **** const char *const _log_msg[] PROGMEM =
+  61:logger/logger.c **** {
+  62:logger/logger.c **** 	_init,
+  63:logger/logger.c **** 	_debug,
+  64:logger/logger.c **** 	_warn,
+  65:logger/logger.c **** 	_error,
+  66:logger/logger.c **** 	_panic
+  67:logger/logger.c **** };
+  68:logger/logger.c **** 
+  69:logger/logger.c **** static u16 _log_y = LOG_Y_OFFSET;
+  70:logger/logger.c **** 
+  71:logger/logger.c **** static void _lcd_log(LogLevel level, const char *msg)
+  72:logger/logger.c **** {
+  16               		.loc 1 72 1 view -0
   17               		.cfi_startproc
-  18               		.loc 1 52 1 is_stmt 0 view .LVU1
+  18               		.loc 1 72 1 is_stmt 0 view .LVU1
   19 0000 AF92      		push r10
   20               		.cfi_def_cfa_offset 3
   21               		.cfi_offset 10, -2
@@ -102,35 +122,35 @@
   51               	/* stack size = 10 */
   52               	.L__stack_usage = 10
   53 0014 7B01      		movw r14,r22
-  53:logger/logger.c **** 	if(level != LOG_EXT)
-  54               		.loc 1 53 2 is_stmt 1 view .LVU2
-  55               		.loc 1 53 4 is_stmt 0 view .LVU3
+  73:logger/logger.c **** 	if(level != LOG_EXT)
+  54               		.loc 1 73 2 is_stmt 1 view .LVU2
+  55               		.loc 1 73 4 is_stmt 0 view .LVU3
   56 0016 8730      		cpi r24,lo8(7)
   57 0018 01F4      		brne .+2
   58 001a 00C0      		rjmp .L3
   59               	.LBB9:
-  54:logger/logger.c **** 	{
-  55:logger/logger.c **** 		u8 len;
-  60               		.loc 1 55 3 is_stmt 1 view .LVU4
-  56:logger/logger.c **** 		u16 x;
-  61               		.loc 1 56 3 view .LVU5
-  57:logger/logger.c **** 		const char *level_str;
-  62               		.loc 1 57 3 view .LVU6
-  58:logger/logger.c **** 
-  59:logger/logger.c **** 		if(level != LOG_NONE && level != LOG_OFFSET)
-  63               		.loc 1 59 3 view .LVU7
-  64               		.loc 1 59 24 is_stmt 0 view .LVU8
+  74:logger/logger.c **** 	{
+  75:logger/logger.c **** 		u8 len;
+  60               		.loc 1 75 3 is_stmt 1 view .LVU4
+  76:logger/logger.c **** 		u16 x;
+  61               		.loc 1 76 3 view .LVU5
+  77:logger/logger.c **** 		const char *level_str;
+  62               		.loc 1 77 3 view .LVU6
+  78:logger/logger.c **** 
+  79:logger/logger.c **** 		if(level != LOG_NONE && level != LOG_OFFSET)
+  63               		.loc 1 79 3 view .LVU7
+  64               		.loc 1 79 24 is_stmt 0 view .LVU8
   65 001c 9BEF      		ldi r25,lo8(-5)
   66 001e 980F      		add r25,r24
-  67               		.loc 1 59 5 view .LVU9
+  67               		.loc 1 79 5 view .LVU9
   68 0020 9230      		cpi r25,lo8(2)
   69 0022 00F4      		brsh .+2
   70 0024 00C0      		rjmp .L4
-  60:logger/logger.c **** 		{
-  61:logger/logger.c **** 			level_str = (const char *)pgm_read_word(&_log_msg[level]);
-  71               		.loc 1 61 4 is_stmt 1 view .LVU10
+  80:logger/logger.c **** 		{
+  81:logger/logger.c **** 			level_str = (const char *)pgm_read_word(&_log_msg[level]);
+  71               		.loc 1 81 4 is_stmt 1 view .LVU10
   72               	.LBB10:
-  73               		.loc 1 61 30 view .LVU11
+  73               		.loc 1 81 30 view .LVU11
   74 0026 C82F      		mov r28,r24
   75 0028 D0E0      		ldi r29,0
   76 002a CC0F      		lsl r28
@@ -139,40 +159,40 @@
   79 0030 E050      		subi r30,lo8(-(_log_msg))
   80 0032 F040      		sbci r31,hi8(-(_log_msg))
   81               	.LVL1:
-  82               		.loc 1 61 30 view .LVU12
-  83               		.loc 1 61 30 view .LVU13
+  82               		.loc 1 81 30 view .LVU12
+  83               		.loc 1 81 30 view .LVU13
   84               	/* #APP */
-  85               	 ;  61 "logger/logger.c" 1
+  85               	 ;  81 "logger/logger.c" 1
   86 0034 C590      		lpm r12, Z+
   87 0036 D490      		lpm r13, Z
   88               		
   89               	 ;  0 "" 2
   90               	.LVL2:
-  91               		.loc 1 61 30 view .LVU14
-  92               		.loc 1 61 30 is_stmt 0 view .LVU15
+  91               		.loc 1 81 30 view .LVU14
+  92               		.loc 1 81 30 is_stmt 0 view .LVU15
   93               	/* #NOAPP */
   94               	.LBE10:
-  62:logger/logger.c **** 
-  63:logger/logger.c **** 			serial_tx('[');
-  95               		.loc 1 63 4 is_stmt 1 view .LVU16
+  82:logger/logger.c **** 
+  83:logger/logger.c **** 			serial_tx('[');
+  95               		.loc 1 83 4 is_stmt 1 view .LVU16
   96 0038 8BE5      		ldi r24,lo8(91)
   97               	.LVL3:
-  98               		.loc 1 63 4 is_stmt 0 view .LVU17
+  98               		.loc 1 83 4 is_stmt 0 view .LVU17
   99 003a 0E94 0000 		call serial_tx
  100               	.LVL4:
-  64:logger/logger.c **** 			serial_tx_str_P(level_str);
- 101               		.loc 1 64 4 is_stmt 1 view .LVU18
+  84:logger/logger.c **** 			serial_tx_str_P(level_str);
+ 101               		.loc 1 84 4 is_stmt 1 view .LVU18
  102 003e C601      		movw r24,r12
  103 0040 0E94 0000 		call serial_tx_str_P
  104               	.LVL5:
-  65:logger/logger.c **** 			serial_tx(']');
- 105               		.loc 1 65 4 view .LVU19
+  85:logger/logger.c **** 			serial_tx(']');
+ 105               		.loc 1 85 4 view .LVU19
  106 0044 8DE5      		ldi r24,lo8(93)
  107 0046 0E94 0000 		call serial_tx
  108               	.LVL6:
-  66:logger/logger.c **** 
-  67:logger/logger.c **** 			len = 2 + strlen_P(level_str);
- 109               		.loc 1 67 4 view .LVU20
+  86:logger/logger.c **** 
+  87:logger/logger.c **** 			len = 2 + strlen_P(level_str);
+ 109               		.loc 1 87 4 view .LVU20
  110               	.LBB11:
  111               	.LBI11:
  112               		.file 2 "/usr/avr/include/avr/pgmspace.h"
@@ -1896,115 +1916,115 @@
  120               		.loc 2 1710 30 view .LVU24
  121               	.LBE12:
  122               	.LBE11:
- 123               		.loc 1 67 8 view .LVU25
+ 123               		.loc 1 87 8 view .LVU25
  124 0050 12E0      		ldi r17,lo8(2)
  125 0052 180F      		add r17,r24
  126               	.LVL8:
-  68:logger/logger.c **** 			while(len < LOG_START_WIDTH)
- 127               		.loc 1 68 4 is_stmt 1 view .LVU26
+  88:logger/logger.c **** 			while(len < LOG_START_WIDTH)
+ 127               		.loc 1 88 4 is_stmt 1 view .LVU26
  128               	.L5:
- 129               		.loc 1 68 14 view .LVU27
+ 129               		.loc 1 88 14 view .LVU27
  130 0054 1830      		cpi r17,lo8(8)
  131 0056 00F0      		brlo .L6
-  69:logger/logger.c **** 			{
-  70:logger/logger.c **** 				serial_tx(' ');
-  71:logger/logger.c **** 				++len;
-  72:logger/logger.c **** 			}
-  73:logger/logger.c **** 
-  74:logger/logger.c **** 			if(lcd_initialized())
- 132               		.loc 1 74 4 view .LVU28
- 133               		.loc 1 74 7 is_stmt 0 view .LVU29
+  89:logger/logger.c **** 			{
+  90:logger/logger.c **** 				serial_tx(' ');
+  91:logger/logger.c **** 				++len;
+  92:logger/logger.c **** 			}
+  93:logger/logger.c **** 
+  94:logger/logger.c **** 			if(lcd_initialized())
+ 132               		.loc 1 94 4 view .LVU28
+ 133               		.loc 1 94 7 is_stmt 0 view .LVU29
  134 0058 0E94 0000 		call lcd_initialized
  135               	.LVL9:
- 136               		.loc 1 74 6 view .LVU30
+ 136               		.loc 1 94 6 view .LVU30
  137 005c 8111      		cpse r24,__zero_reg__
  138 005e 00C0      		rjmp .L7
  139               	.LVL10:
  140               	.L22:
-  75:logger/logger.c **** 			{
-  76:logger/logger.c **** 				RGB565 fg;
-  77:logger/logger.c **** 
-  78:logger/logger.c **** 				fg = pgm_read_word(&_log_color[level]);
-  79:logger/logger.c **** 				x = LOG_X_OFFSET;
-  80:logger/logger.c **** 				x += lcd_char(x, _log_y, COLOR_WHITE, COLOR_BLACK, '[');
-  81:logger/logger.c **** 				x += lcd_string_P(x, _log_y, fg, COLOR_BLACK, level_str);
-  82:logger/logger.c **** 				lcd_char(x, _log_y, COLOR_WHITE, COLOR_BLACK, ']');
-  83:logger/logger.c **** 			}
-  84:logger/logger.c **** 		}
-  85:logger/logger.c **** 		else if(level == LOG_OFFSET)
-  86:logger/logger.c **** 		{
-  87:logger/logger.c **** 			for(len = 0; len < LOG_START_WIDTH; ++len)
-  88:logger/logger.c **** 			{
-  89:logger/logger.c **** 				serial_tx(' ');
-  90:logger/logger.c **** 			}
-  91:logger/logger.c **** 		}
-  92:logger/logger.c **** 
-  93:logger/logger.c **** 		if(lcd_initialized())
- 141               		.loc 1 93 3 is_stmt 1 view .LVU31
- 142               		.loc 1 93 6 is_stmt 0 view .LVU32
+  95:logger/logger.c **** 			{
+  96:logger/logger.c **** 				RGB565 fg;
+  97:logger/logger.c **** 
+  98:logger/logger.c **** 				fg = pgm_read_word(&_log_color[level]);
+  99:logger/logger.c **** 				x = LOG_X_OFFSET;
+ 100:logger/logger.c **** 				x += lcd_char(x, _log_y, COLOR_WHITE, COLOR_BLACK, '[');
+ 101:logger/logger.c **** 				x += lcd_string_P(x, _log_y, fg, COLOR_BLACK, level_str);
+ 102:logger/logger.c **** 				lcd_char(x, _log_y, COLOR_WHITE, COLOR_BLACK, ']');
+ 103:logger/logger.c **** 			}
+ 104:logger/logger.c **** 		}
+ 105:logger/logger.c **** 		else if(level == LOG_OFFSET)
+ 106:logger/logger.c **** 		{
+ 107:logger/logger.c **** 			for(len = 0; len < LOG_START_WIDTH; ++len)
+ 108:logger/logger.c **** 			{
+ 109:logger/logger.c **** 				serial_tx(' ');
+ 110:logger/logger.c **** 			}
+ 111:logger/logger.c **** 		}
+ 112:logger/logger.c **** 
+ 113:logger/logger.c **** 		if(lcd_initialized())
+ 141               		.loc 1 113 3 is_stmt 1 view .LVU31
+ 142               		.loc 1 113 6 is_stmt 0 view .LVU32
  143 0060 0E94 0000 		call lcd_initialized
  144               	.LVL11:
- 145               		.loc 1 93 5 view .LVU33
+ 145               		.loc 1 113 5 view .LVU33
  146 0064 8823      		tst r24
  147 0066 01F4      		brne .+2
  148 0068 00C0      		rjmp .L3
  149               	.LBB13:
-  94:logger/logger.c **** 		{
-  95:logger/logger.c **** 			const char *s;
-  96:logger/logger.c **** 			char c;
-  97:logger/logger.c **** 
-  98:logger/logger.c **** 			x = LOG_X_TEXT_OFFSET;
- 150               		.loc 1 98 6 view .LVU34
+ 114:logger/logger.c **** 		{
+ 115:logger/logger.c **** 			const char *s;
+ 116:logger/logger.c **** 			char c;
+ 117:logger/logger.c **** 
+ 118:logger/logger.c **** 			x = LOG_X_TEXT_OFFSET;
+ 150               		.loc 1 118 6 view .LVU34
  151 006a 81E3      		ldi r24,lo8(49)
  152 006c C82E      		mov r12,r24
  153 006e D12C      		mov r13,__zero_reg__
  154               	.L9:
-  99:logger/logger.c **** 			if(level == LOG_NONE)
- 100:logger/logger.c **** 			{
- 101:logger/logger.c **** 				x = 0;
- 102:logger/logger.c **** 			}
- 103:logger/logger.c **** 
- 104:logger/logger.c **** 			s = msg;
- 105:logger/logger.c **** 			while((c = *s++))
- 106:logger/logger.c **** 			{
- 107:logger/logger.c **** 				if(c == '\n')
- 108:logger/logger.c **** 				{
- 109:logger/logger.c **** 					x = 0;
- 155               		.loc 1 109 8 view .LVU35
+ 119:logger/logger.c **** 			if(level == LOG_NONE)
+ 120:logger/logger.c **** 			{
+ 121:logger/logger.c **** 				x = 0;
+ 122:logger/logger.c **** 			}
+ 123:logger/logger.c **** 
+ 124:logger/logger.c **** 			s = msg;
+ 125:logger/logger.c **** 			while((c = *s++))
+ 126:logger/logger.c **** 			{
+ 127:logger/logger.c **** 				if(c == '\n')
+ 128:logger/logger.c **** 				{
+ 129:logger/logger.c **** 					x = 0;
+ 155               		.loc 1 129 8 view .LVU35
  156 0070 9E2D      		mov r25,r14
  157 0072 8F2D      		mov r24,r15
  158               	.L12:
  159               	.LVL12:
- 105:logger/logger.c **** 			{
- 160               		.loc 1 105 10 is_stmt 1 view .LVU36
- 105:logger/logger.c **** 			{
- 161               		.loc 1 105 17 is_stmt 0 view .LVU37
+ 125:logger/logger.c **** 			{
+ 160               		.loc 1 125 10 is_stmt 1 view .LVU36
+ 125:logger/logger.c **** 			{
+ 161               		.loc 1 125 17 is_stmt 0 view .LVU37
  162 0074 C92F      		mov r28,r25
  163 0076 D82F      		mov r29,r24
  164               	.LVL13:
- 105:logger/logger.c **** 			{
- 165               		.loc 1 105 13 view .LVU38
+ 125:logger/logger.c **** 			{
+ 165               		.loc 1 125 13 view .LVU38
  166 0078 0991      		ld r16,Y+
  167               	.LVL14:
- 110:logger/logger.c **** 					_log_y += LOG_Y_ADVANCE;
- 168               		.loc 1 110 13 view .LVU39
+ 130:logger/logger.c **** 					_log_y += LOG_Y_ADVANCE;
+ 168               		.loc 1 130 13 view .LVU39
  169 007a 6091 0000 		lds r22,_log_y
  170 007e 7091 0000 		lds r23,_log_y+1
- 105:logger/logger.c **** 			{
- 171               		.loc 1 105 10 view .LVU40
+ 125:logger/logger.c **** 			{
+ 171               		.loc 1 125 10 view .LVU40
  172 0082 0111      		cpse r16,__zero_reg__
  173 0084 00C0      		rjmp .L15
- 111:logger/logger.c **** 				}
- 112:logger/logger.c **** 				else
- 113:logger/logger.c **** 				{
- 114:logger/logger.c **** 					x += lcd_char(LOG_X_OFFSET + x, _log_y,
- 115:logger/logger.c **** 						COLOR_WHITE, COLOR_BLACK, c);
- 116:logger/logger.c **** 				}
- 117:logger/logger.c **** 			}
- 118:logger/logger.c **** 
- 119:logger/logger.c **** 			_log_y += LOG_Y_ADVANCE;
- 174               		.loc 1 119 4 is_stmt 1 view .LVU41
- 175               		.loc 1 119 11 is_stmt 0 view .LVU42
+ 131:logger/logger.c **** 				}
+ 132:logger/logger.c **** 				else
+ 133:logger/logger.c **** 				{
+ 134:logger/logger.c **** 					x += lcd_char(LOG_X_OFFSET + x, _log_y,
+ 135:logger/logger.c **** 						COLOR_WHITE, COLOR_BLACK, c);
+ 136:logger/logger.c **** 				}
+ 137:logger/logger.c **** 			}
+ 138:logger/logger.c **** 
+ 139:logger/logger.c **** 			_log_y += LOG_Y_ADVANCE;
+ 174               		.loc 1 139 4 is_stmt 1 view .LVU41
+ 175               		.loc 1 139 11 is_stmt 0 view .LVU42
  176 0086 665F      		subi r22,-10
  177 0088 7F4F      		sbci r23,-1
  178 008a 7093 0000 		sts _log_y+1,r23
@@ -2012,56 +2032,56 @@
  180 0092 00C0      		rjmp .L3
  181               	.LVL15:
  182               	.L6:
- 183               		.loc 1 119 11 view .LVU43
+ 183               		.loc 1 139 11 view .LVU43
  184               	.LBE13:
-  70:logger/logger.c **** 				++len;
- 185               		.loc 1 70 5 is_stmt 1 view .LVU44
+  90:logger/logger.c **** 				++len;
+ 185               		.loc 1 90 5 is_stmt 1 view .LVU44
  186 0094 80E2      		ldi r24,lo8(32)
  187 0096 0E94 0000 		call serial_tx
  188               	.LVL16:
-  71:logger/logger.c **** 			}
- 189               		.loc 1 71 5 view .LVU45
+  91:logger/logger.c **** 			}
+ 189               		.loc 1 91 5 view .LVU45
  190 009a 1F5F      		subi r17,lo8(-(1))
  191               	.LVL17:
-  71:logger/logger.c **** 			}
- 192               		.loc 1 71 5 is_stmt 0 view .LVU46
+  91:logger/logger.c **** 			}
+ 192               		.loc 1 91 5 is_stmt 0 view .LVU46
  193 009c 00C0      		rjmp .L5
  194               	.L7:
  195               	.LBB14:
-  76:logger/logger.c **** 
- 196               		.loc 1 76 5 is_stmt 1 view .LVU47
-  78:logger/logger.c **** 				x = LOG_X_OFFSET;
- 197               		.loc 1 78 5 view .LVU48
+  96:logger/logger.c **** 
+ 196               		.loc 1 96 5 is_stmt 1 view .LVU47
+  98:logger/logger.c **** 				x = LOG_X_OFFSET;
+ 197               		.loc 1 98 5 view .LVU48
  198               	.LBB15:
-  78:logger/logger.c **** 				x = LOG_X_OFFSET;
- 199               		.loc 1 78 10 view .LVU49
+  98:logger/logger.c **** 				x = LOG_X_OFFSET;
+ 199               		.loc 1 98 10 view .LVU49
  200 009e FE01      		movw r30,r28
  201 00a0 E050      		subi r30,lo8(-(_log_color))
  202 00a2 F040      		sbci r31,hi8(-(_log_color))
  203               	.LVL18:
-  78:logger/logger.c **** 				x = LOG_X_OFFSET;
- 204               		.loc 1 78 10 view .LVU50
-  78:logger/logger.c **** 				x = LOG_X_OFFSET;
- 205               		.loc 1 78 10 view .LVU51
+  98:logger/logger.c **** 				x = LOG_X_OFFSET;
+ 204               		.loc 1 98 10 view .LVU50
+  98:logger/logger.c **** 				x = LOG_X_OFFSET;
+ 205               		.loc 1 98 10 view .LVU51
  206               	/* #APP */
- 207               	 ;  78 "logger/logger.c" 1
+ 207               	 ;  98 "logger/logger.c" 1
  208 00a4 A590      		lpm r10, Z+
  209 00a6 B490      		lpm r11, Z
  210               		
  211               	 ;  0 "" 2
  212               	.LVL19:
-  78:logger/logger.c **** 				x = LOG_X_OFFSET;
- 213               		.loc 1 78 10 view .LVU52
-  78:logger/logger.c **** 				x = LOG_X_OFFSET;
- 214               		.loc 1 78 10 is_stmt 0 view .LVU53
+  98:logger/logger.c **** 				x = LOG_X_OFFSET;
+ 213               		.loc 1 98 10 view .LVU52
+  98:logger/logger.c **** 				x = LOG_X_OFFSET;
+ 214               		.loc 1 98 10 is_stmt 0 view .LVU53
  215               	/* #NOAPP */
  216               	.LBE15:
-  79:logger/logger.c **** 				x += lcd_char(x, _log_y, COLOR_WHITE, COLOR_BLACK, '[');
- 217               		.loc 1 79 5 is_stmt 1 view .LVU54
-  80:logger/logger.c **** 				x += lcd_string_P(x, _log_y, fg, COLOR_BLACK, level_str);
- 218               		.loc 1 80 5 view .LVU55
-  80:logger/logger.c **** 				x += lcd_string_P(x, _log_y, fg, COLOR_BLACK, level_str);
- 219               		.loc 1 80 10 is_stmt 0 view .LVU56
+  99:logger/logger.c **** 				x += lcd_char(x, _log_y, COLOR_WHITE, COLOR_BLACK, '[');
+ 217               		.loc 1 99 5 is_stmt 1 view .LVU54
+ 100:logger/logger.c **** 				x += lcd_string_P(x, _log_y, fg, COLOR_BLACK, level_str);
+ 218               		.loc 1 100 5 view .LVU55
+ 100:logger/logger.c **** 				x += lcd_string_P(x, _log_y, fg, COLOR_BLACK, level_str);
+ 219               		.loc 1 100 10 is_stmt 0 view .LVU56
  220 00a8 6091 0000 		lds r22,_log_y
  221 00ac 7091 0000 		lds r23,_log_y+1
  222 00b0 0BE5      		ldi r16,lo8(91)
@@ -2075,14 +2095,14 @@
  230               	.LVL20:
  231 00c2 C82F      		mov r28,r24
  232 00c4 D0E0      		ldi r29,0
-  80:logger/logger.c **** 				x += lcd_string_P(x, _log_y, fg, COLOR_BLACK, level_str);
- 233               		.loc 1 80 7 view .LVU57
+ 100:logger/logger.c **** 				x += lcd_string_P(x, _log_y, fg, COLOR_BLACK, level_str);
+ 233               		.loc 1 100 7 view .LVU57
  234 00c6 2A96      		adiw r28,10
  235               	.LVL21:
-  81:logger/logger.c **** 				lcd_char(x, _log_y, COLOR_WHITE, COLOR_BLACK, ']');
- 236               		.loc 1 81 5 is_stmt 1 view .LVU58
-  81:logger/logger.c **** 				lcd_char(x, _log_y, COLOR_WHITE, COLOR_BLACK, ']');
- 237               		.loc 1 81 10 is_stmt 0 view .LVU59
+ 101:logger/logger.c **** 				lcd_char(x, _log_y, COLOR_WHITE, COLOR_BLACK, ']');
+ 236               		.loc 1 101 5 is_stmt 1 view .LVU58
+ 101:logger/logger.c **** 				lcd_char(x, _log_y, COLOR_WHITE, COLOR_BLACK, ']');
+ 237               		.loc 1 101 10 is_stmt 0 view .LVU59
  238 00c8 6091 0000 		lds r22,_log_y
  239 00cc 7091 0000 		lds r23,_log_y+1
  240 00d0 8601      		movw r16,r12
@@ -2092,8 +2112,8 @@
  244 00d8 CE01      		movw r24,r28
  245 00da 0E94 0000 		call lcd_string_P
  246               	.LVL22:
-  82:logger/logger.c **** 			}
- 247               		.loc 1 82 5 is_stmt 1 view .LVU60
+ 102:logger/logger.c **** 			}
+ 247               		.loc 1 102 5 is_stmt 1 view .LVU60
  248 00de 6091 0000 		lds r22,_log_y
  249 00e2 7091 0000 		lds r23,_log_y+1
  250 00e6 0DE5      		ldi r16,lo8(93)
@@ -2104,47 +2124,47 @@
  255 00f0 8C0F      		add r24,r28
  256 00f2 9D1F      		adc r25,r29
  257               	.LVL23:
-  82:logger/logger.c **** 			}
- 258               		.loc 1 82 5 is_stmt 0 view .LVU61
+ 102:logger/logger.c **** 			}
+ 258               		.loc 1 102 5 is_stmt 0 view .LVU61
  259 00f4 0E94 0000 		call lcd_char
  260               	.LVL24:
-  82:logger/logger.c **** 			}
- 261               		.loc 1 82 5 view .LVU62
+ 102:logger/logger.c **** 			}
+ 261               		.loc 1 102 5 view .LVU62
  262               	.LBE14:
-  93:logger/logger.c **** 		{
- 263               		.loc 1 93 3 is_stmt 1 view .LVU63
+ 113:logger/logger.c **** 		{
+ 263               		.loc 1 113 3 is_stmt 1 view .LVU63
  264 00f8 00C0      		rjmp .L22
  265               	.LVL25:
  266               	.L4:
-  85:logger/logger.c **** 		{
- 267               		.loc 1 85 8 view .LVU64
-  85:logger/logger.c **** 		{
- 268               		.loc 1 85 10 is_stmt 0 view .LVU65
+ 105:logger/logger.c **** 		{
+ 267               		.loc 1 105 8 view .LVU64
+ 105:logger/logger.c **** 		{
+ 268               		.loc 1 105 10 is_stmt 0 view .LVU65
  269 00fa 8530      		cpi r24,lo8(5)
  270 00fc 01F0      		breq .L16
-  93:logger/logger.c **** 		{
- 271               		.loc 1 93 3 is_stmt 1 view .LVU66
-  93:logger/logger.c **** 		{
- 272               		.loc 1 93 6 is_stmt 0 view .LVU67
+ 113:logger/logger.c **** 		{
+ 271               		.loc 1 113 3 is_stmt 1 view .LVU66
+ 113:logger/logger.c **** 		{
+ 272               		.loc 1 113 6 is_stmt 0 view .LVU67
  273 00fe 0E94 0000 		call lcd_initialized
  274               	.LVL26:
-  93:logger/logger.c **** 		{
- 275               		.loc 1 93 5 view .LVU68
+ 113:logger/logger.c **** 		{
+ 275               		.loc 1 113 5 view .LVU68
  276 0102 8111      		cpse r24,__zero_reg__
  277 0104 00C0      		rjmp .L17
  278               	.L3:
-  93:logger/logger.c **** 		{
- 279               		.loc 1 93 5 view .LVU69
+ 113:logger/logger.c **** 		{
+ 279               		.loc 1 113 5 view .LVU69
  280               	.LBE9:
- 120:logger/logger.c **** 		}
- 121:logger/logger.c **** 	}
- 122:logger/logger.c **** 
- 123:logger/logger.c **** 	serial_tx_str(msg);
- 281               		.loc 1 123 2 is_stmt 1 view .LVU70
+ 140:logger/logger.c **** 		}
+ 141:logger/logger.c **** 	}
+ 142:logger/logger.c **** 
+ 143:logger/logger.c **** 	serial_tx_str(msg);
+ 281               		.loc 1 143 2 is_stmt 1 view .LVU70
  282 0106 C701      		movw r24,r14
  283               	/* epilogue start */
- 124:logger/logger.c **** }
- 284               		.loc 1 124 1 is_stmt 0 view .LVU71
+ 144:logger/logger.c **** }
+ 284               		.loc 1 144 1 is_stmt 0 view .LVU71
  285 0108 DF91      		pop r29
  286 010a CF91      		pop r28
  287 010c 1F91      		pop r17
@@ -2152,82 +2172,82 @@
  289 0110 FF90      		pop r15
  290 0112 EF90      		pop r14
  291               	.LVL27:
- 292               		.loc 1 124 1 view .LVU72
+ 292               		.loc 1 144 1 view .LVU72
  293 0114 DF90      		pop r13
  294 0116 CF90      		pop r12
  295 0118 BF90      		pop r11
  296 011a AF90      		pop r10
- 123:logger/logger.c **** }
- 297               		.loc 1 123 2 view .LVU73
+ 143:logger/logger.c **** }
+ 297               		.loc 1 143 2 view .LVU73
  298 011c 0C94 0000 		jmp serial_tx_str
  299               	.LVL28:
  300               	.L16:
  301               	.LBB17:
- 123:logger/logger.c **** }
- 302               		.loc 1 123 2 view .LVU74
+ 143:logger/logger.c **** }
+ 302               		.loc 1 143 2 view .LVU74
  303 0120 C8E0      		ldi r28,lo8(8)
  304               	.LVL29:
  305               	.L11:
-  89:logger/logger.c **** 			}
- 306               		.loc 1 89 5 is_stmt 1 discriminator 3 view .LVU75
+ 109:logger/logger.c **** 			}
+ 306               		.loc 1 109 5 is_stmt 1 discriminator 3 view .LVU75
  307 0122 80E2      		ldi r24,lo8(32)
  308 0124 0E94 0000 		call serial_tx
  309               	.LVL30:
-  87:logger/logger.c **** 			{
- 310               		.loc 1 87 40 discriminator 3 view .LVU76
-  87:logger/logger.c **** 			{
- 311               		.loc 1 87 21 discriminator 3 view .LVU77
+ 107:logger/logger.c **** 			{
+ 310               		.loc 1 107 40 discriminator 3 view .LVU76
+ 107:logger/logger.c **** 			{
+ 311               		.loc 1 107 21 discriminator 3 view .LVU77
  312 0128 C150      		subi r28,lo8(-(-1))
  313               	.LVL31:
-  87:logger/logger.c **** 			{
- 314               		.loc 1 87 21 is_stmt 0 discriminator 3 view .LVU78
+ 107:logger/logger.c **** 			{
+ 314               		.loc 1 107 21 is_stmt 0 discriminator 3 view .LVU78
  315 012a C111      		cpse r28,__zero_reg__
  316 012c 00C0      		rjmp .L11
  317 012e 00C0      		rjmp .L22
  318               	.LVL32:
  319               	.L17:
  320               	.LBB16:
- 101:logger/logger.c **** 			}
- 321               		.loc 1 101 7 view .LVU79
+ 121:logger/logger.c **** 			}
+ 321               		.loc 1 121 7 view .LVU79
  322 0130 C12C      		mov r12,__zero_reg__
  323 0132 D12C      		mov r13,__zero_reg__
  324 0134 00C0      		rjmp .L9
  325               	.LVL33:
  326               	.L15:
- 107:logger/logger.c **** 				{
- 327               		.loc 1 107 5 is_stmt 1 view .LVU80
- 107:logger/logger.c **** 				{
- 328               		.loc 1 107 7 is_stmt 0 view .LVU81
+ 127:logger/logger.c **** 				{
+ 327               		.loc 1 127 5 is_stmt 1 view .LVU80
+ 127:logger/logger.c **** 				{
+ 328               		.loc 1 127 7 is_stmt 0 view .LVU81
  329 0136 0A30      		cpi r16,lo8(10)
  330 0138 01F4      		brne .L13
- 109:logger/logger.c **** 					_log_y += LOG_Y_ADVANCE;
- 331               		.loc 1 109 6 is_stmt 1 view .LVU82
+ 129:logger/logger.c **** 					_log_y += LOG_Y_ADVANCE;
+ 331               		.loc 1 129 6 is_stmt 1 view .LVU82
  332               	.LVL34:
- 110:logger/logger.c **** 				}
- 333               		.loc 1 110 6 view .LVU83
- 110:logger/logger.c **** 				}
- 334               		.loc 1 110 13 is_stmt 0 view .LVU84
+ 130:logger/logger.c **** 				}
+ 333               		.loc 1 130 6 view .LVU83
+ 130:logger/logger.c **** 				}
+ 334               		.loc 1 130 13 is_stmt 0 view .LVU84
  335 013a 665F      		subi r22,-10
  336 013c 7F4F      		sbci r23,-1
  337 013e 7093 0000 		sts _log_y+1,r23
  338 0142 6093 0000 		sts _log_y,r22
- 109:logger/logger.c **** 					_log_y += LOG_Y_ADVANCE;
- 339               		.loc 1 109 8 view .LVU85
+ 129:logger/logger.c **** 					_log_y += LOG_Y_ADVANCE;
+ 339               		.loc 1 129 8 view .LVU85
  340 0146 C12C      		mov r12,__zero_reg__
  341 0148 D12C      		mov r13,__zero_reg__
  342               	.LVL35:
  343               	.L14:
- 109:logger/logger.c **** 					_log_y += LOG_Y_ADVANCE;
- 344               		.loc 1 109 8 view .LVU86
+ 129:logger/logger.c **** 					_log_y += LOG_Y_ADVANCE;
+ 344               		.loc 1 129 8 view .LVU86
  345 014a 9C2F      		mov r25,r28
  346 014c 8D2F      		mov r24,r29
  347 014e 00C0      		rjmp .L12
  348               	.LVL36:
  349               	.L13:
- 114:logger/logger.c **** 						COLOR_WHITE, COLOR_BLACK, c);
- 350               		.loc 1 114 6 is_stmt 1 view .LVU87
- 114:logger/logger.c **** 						COLOR_WHITE, COLOR_BLACK, c);
- 351               		.loc 1 114 11 is_stmt 0 view .LVU88
+ 134:logger/logger.c **** 						COLOR_WHITE, COLOR_BLACK, c);
+ 350               		.loc 1 134 6 is_stmt 1 view .LVU87
+ 134:logger/logger.c **** 						COLOR_WHITE, COLOR_BLACK, c);
+ 351               		.loc 1 134 11 is_stmt 0 view .LVU88
  352 0150 20E0      		ldi r18,0
  353 0152 30E0      		ldi r19,0
  354 0154 4FEF      		ldi r20,lo8(-1)
@@ -2236,13 +2256,13 @@
  357 015a 0A96      		adiw r24,10
  358 015c 0E94 0000 		call lcd_char
  359               	.LVL37:
- 114:logger/logger.c **** 						COLOR_WHITE, COLOR_BLACK, c);
- 360               		.loc 1 114 8 view .LVU89
+ 134:logger/logger.c **** 						COLOR_WHITE, COLOR_BLACK, c);
+ 360               		.loc 1 134 8 view .LVU89
  361 0160 C80E      		add r12,r24
  362 0162 D11C      		adc r13,__zero_reg__
  363               	.LVL38:
- 114:logger/logger.c **** 						COLOR_WHITE, COLOR_BLACK, c);
- 364               		.loc 1 114 8 view .LVU90
+ 134:logger/logger.c **** 						COLOR_WHITE, COLOR_BLACK, c);
+ 364               		.loc 1 134 8 view .LVU90
  365 0164 00C0      		rjmp .L14
  366               	.LBE16:
  367               	.LBE17:
@@ -2252,12 +2272,12 @@
  373               	log_boot_P:
  374               	.LVL39:
  375               	.LFB5:
- 125:logger/logger.c **** 
- 126:logger/logger.c **** void log_boot_P(LogLevel level, const char *msg, ...)
- 127:logger/logger.c **** {
- 376               		.loc 1 127 1 is_stmt 1 view -0
+ 145:logger/logger.c **** 
+ 146:logger/logger.c **** void log_boot_P(LogLevel level, const char *msg, ...)
+ 147:logger/logger.c **** {
+ 376               		.loc 1 147 1 is_stmt 1 view -0
  377               		.cfi_startproc
- 378               		.loc 1 127 1 is_stmt 0 view .LVU92
+ 378               		.loc 1 147 1 is_stmt 0 view .LVU92
  379 0166 CF93      		push r28
  380               		.cfi_def_cfa_offset 3
  381               		.cfi_offset 28, -2
@@ -2279,21 +2299,21 @@
  397               	/* frame size = 128 */
  398               	/* stack size = 130 */
  399               	.L__stack_usage = 130
- 128:logger/logger.c **** 	char buf[128];
- 400               		.loc 1 128 2 is_stmt 1 view .LVU93
- 129:logger/logger.c **** 	va_list v;
- 401               		.loc 1 129 2 view .LVU94
- 130:logger/logger.c **** 
- 131:logger/logger.c **** 	va_start(v, msg);
- 402               		.loc 1 131 2 view .LVU95
+ 148:logger/logger.c **** 	char buf[128];
+ 400               		.loc 1 148 2 is_stmt 1 view .LVU93
+ 149:logger/logger.c **** 	va_list v;
+ 401               		.loc 1 149 2 view .LVU94
+ 150:logger/logger.c **** 
+ 151:logger/logger.c **** 	va_start(v, msg);
+ 402               		.loc 1 151 2 view .LVU95
  403               	.LVL40:
- 132:logger/logger.c **** 	vsnprintf_P(buf, sizeof(buf), msg, v);
- 404               		.loc 1 132 2 view .LVU96
+ 152:logger/logger.c **** 	vsnprintf_P(buf, sizeof(buf), msg, v);
+ 404               		.loc 1 152 2 view .LVU96
  405 017c 9E01      		movw r18,r28
  406 017e 2857      		subi r18,120
  407 0180 3F4F      		sbci r19,-1
  408               	.LVL41:
- 409               		.loc 1 132 2 is_stmt 0 view .LVU97
+ 409               		.loc 1 152 2 is_stmt 0 view .LVU97
  410 0182 CA57      		subi r28,lo8(-134)
  411 0184 DF4F      		sbci r29,hi8(-134)
  412 0186 4881      		ld r20,Y
@@ -2306,11 +2326,11 @@
  419 0194 0196      		adiw r24,1
  420 0196 0E94 0000 		call vsnprintf_P
  421               	.LVL42:
- 133:logger/logger.c **** 	va_end(v);
- 422               		.loc 1 133 2 is_stmt 1 view .LVU98
- 134:logger/logger.c **** 
- 135:logger/logger.c **** 	_lcd_log(level, buf);
- 423               		.loc 1 135 2 view .LVU99
+ 153:logger/logger.c **** 	va_end(v);
+ 422               		.loc 1 153 2 is_stmt 1 view .LVU98
+ 154:logger/logger.c **** 
+ 155:logger/logger.c **** 	_lcd_log(level, buf);
+ 423               		.loc 1 155 2 view .LVU99
  424 019a BE01      		movw r22,r28
  425 019c 6F5F      		subi r22,-1
  426 019e 7F4F      		sbci r23,-1
@@ -2321,14 +2341,14 @@
  431 01a8 D040      		sbci r29,hi8(133)
  432 01aa 0E94 0000 		call _lcd_log
  433               	.LVL43:
- 136:logger/logger.c **** 	serial_tx('\n');
- 434               		.loc 1 136 2 view .LVU100
+ 156:logger/logger.c **** 	serial_tx('\n');
+ 434               		.loc 1 156 2 view .LVU100
  435 01ae 8AE0      		ldi r24,lo8(10)
  436 01b0 0E94 0000 		call serial_tx
  437               	.LVL44:
  438               	/* epilogue start */
- 137:logger/logger.c **** }
- 439               		.loc 1 137 1 is_stmt 0 view .LVU101
+ 157:logger/logger.c **** }
+ 439               		.loc 1 157 1 is_stmt 0 view .LVU101
  440 01b4 C058      		subi r28,-128
  441 01b6 DF4F      		sbci r29,-1
  442 01b8 0FB6      		in __tmp_reg__,__SREG__
@@ -2345,12 +2365,12 @@
  455               	panic:
  456               	.LVL45:
  457               	.LFB6:
- 138:logger/logger.c **** 
- 139:logger/logger.c **** void panic(const char *msg, ...)
- 140:logger/logger.c **** {
- 458               		.loc 1 140 1 is_stmt 1 view -0
+ 158:logger/logger.c **** 
+ 159:logger/logger.c **** void panic(const char *msg, ...)
+ 160:logger/logger.c **** {
+ 458               		.loc 1 160 1 is_stmt 1 view -0
  459               		.cfi_startproc
- 460               		.loc 1 140 1 is_stmt 0 view .LVU103
+ 460               		.loc 1 160 1 is_stmt 0 view .LVU103
  461 01c8 CF93      		push r28
  462               		.cfi_def_cfa_offset 3
  463               		.cfi_offset 28, -2
@@ -2376,85 +2396,85 @@
  483 01e0 2B57      		subi r18,123
  484 01e2 3F4F      		sbci r19,-1
  485               	.LVL46:
- 486               		.loc 1 140 1 view .LVU104
+ 486               		.loc 1 160 1 view .LVU104
  487 01e4 F901      		movw r30,r18
  488 01e6 4191      		ld r20,Z+
  489 01e8 5191      		ld r21,Z+
  490               	.LVL47:
- 491               		.loc 1 140 1 view .LVU105
+ 491               		.loc 1 160 1 view .LVU105
  492 01ea 9F01      		movw r18,r30
- 141:logger/logger.c **** 	char buf[128];
- 493               		.loc 1 141 2 is_stmt 1 view .LVU106
- 142:logger/logger.c **** 	va_list v;
- 494               		.loc 1 142 2 view .LVU107
- 143:logger/logger.c **** 
- 144:logger/logger.c **** 	va_start(v, msg);
- 495               		.loc 1 144 2 view .LVU108
+ 161:logger/logger.c **** 	char buf[128];
+ 493               		.loc 1 161 2 is_stmt 1 view .LVU106
+ 162:logger/logger.c **** 	va_list v;
+ 494               		.loc 1 162 2 view .LVU107
+ 163:logger/logger.c **** 
+ 164:logger/logger.c **** 	va_start(v, msg);
+ 495               		.loc 1 164 2 view .LVU108
  496               	.LVL48:
- 145:logger/logger.c **** 	vsnprintf_P(buf, sizeof(buf), msg, v);
- 497               		.loc 1 145 2 view .LVU109
+ 165:logger/logger.c **** 	vsnprintf_P(buf, sizeof(buf), msg, v);
+ 497               		.loc 1 165 2 view .LVU109
  498 01ec 60E8      		ldi r22,lo8(-128)
  499 01ee 70E0      		ldi r23,0
  500 01f0 CE01      		movw r24,r28
  501 01f2 0196      		adiw r24,1
  502 01f4 0E94 0000 		call vsnprintf_P
  503               	.LVL49:
- 146:logger/logger.c **** 	va_end(v);
- 504               		.loc 1 146 2 view .LVU110
- 147:logger/logger.c **** 
- 148:logger/logger.c **** 	_lcd_log(LOG_PANIC, buf);
- 505               		.loc 1 148 2 view .LVU111
+ 166:logger/logger.c **** 	va_end(v);
+ 504               		.loc 1 166 2 view .LVU110
+ 167:logger/logger.c **** 
+ 168:logger/logger.c **** 	_lcd_log(LOG_PANIC, buf);
+ 505               		.loc 1 168 2 view .LVU111
  506 01f8 BE01      		movw r22,r28
  507 01fa 6F5F      		subi r22,-1
  508 01fc 7F4F      		sbci r23,-1
  509 01fe 84E0      		ldi r24,lo8(4)
  510 0200 0E94 0000 		call _lcd_log
  511               	.LVL50:
- 149:logger/logger.c **** 	serial_tx('\n');
- 512               		.loc 1 149 2 view .LVU112
+ 169:logger/logger.c **** 	serial_tx('\n');
+ 512               		.loc 1 169 2 view .LVU112
  513 0204 8AE0      		ldi r24,lo8(10)
  514 0206 0E94 0000 		call serial_tx
  515               	.LVL51:
- 150:logger/logger.c **** 	strcpy_P(buf, PSTR("\n>>> RESET REQUIRED\n"));
- 516               		.loc 1 150 2 view .LVU113
+ 170:logger/logger.c **** 	strcpy_P(buf, PSTR("\n>>> RESET REQUIRED\n"));
+ 516               		.loc 1 170 2 view .LVU113
  517               	.LBB18:
- 518               		.loc 1 150 16 view .LVU114
- 519               		.loc 1 150 16 view .LVU115
+ 518               		.loc 1 170 16 view .LVU114
+ 519               		.loc 1 170 16 view .LVU115
  520               	.LBE18:
- 521               		.loc 1 150 2 is_stmt 0 view .LVU116
+ 521               		.loc 1 170 2 is_stmt 0 view .LVU116
  522 020a 60E0      		ldi r22,lo8(__c.0)
  523 020c 70E0      		ldi r23,hi8(__c.0)
  524 020e CE01      		movw r24,r28
  525 0210 0196      		adiw r24,1
  526 0212 0E94 0000 		call strcpy_P
  527               	.LVL52:
- 151:logger/logger.c **** 	_lcd_log(LOG_NONE, buf);
- 528               		.loc 1 151 2 is_stmt 1 view .LVU117
+ 171:logger/logger.c **** 	_lcd_log(LOG_NONE, buf);
+ 528               		.loc 1 171 2 is_stmt 1 view .LVU117
  529 0216 BE01      		movw r22,r28
  530 0218 6F5F      		subi r22,-1
  531 021a 7F4F      		sbci r23,-1
  532 021c 86E0      		ldi r24,lo8(6)
  533 021e 0E94 0000 		call _lcd_log
  534               	.LVL53:
- 152:logger/logger.c **** 
- 153:logger/logger.c **** 	/* Disable interrupt */
- 154:logger/logger.c **** 	cli();
- 535               		.loc 1 154 2 view .LVU118
+ 172:logger/logger.c **** 
+ 173:logger/logger.c **** 	/* Disable interrupt */
+ 174:logger/logger.c **** 	cli();
+ 535               		.loc 1 174 2 view .LVU118
  536               	/* #APP */
- 537               	 ;  154 "logger/logger.c" 1
+ 537               	 ;  174 "logger/logger.c" 1
  538 0222 F894      		cli
  539               	 ;  0 "" 2
  540               	/* #NOAPP */
  541               	.L25:
- 155:logger/logger.c **** 
- 156:logger/logger.c **** 	/* Infinite loop */
- 157:logger/logger.c **** 	for(;;)
- 542               		.loc 1 157 2 discriminator 1 view .LVU119
- 158:logger/logger.c **** 	{
- 159:logger/logger.c **** 	}
- 543               		.loc 1 159 2 discriminator 1 view .LVU120
- 157:logger/logger.c **** 	{
- 544               		.loc 1 157 2 discriminator 1 view .LVU121
+ 175:logger/logger.c **** 
+ 176:logger/logger.c **** 	/* Infinite loop */
+ 177:logger/logger.c **** 	for(;;)
+ 542               		.loc 1 177 2 discriminator 1 view .LVU119
+ 178:logger/logger.c **** 	{
+ 179:logger/logger.c **** 	}
+ 543               		.loc 1 179 2 discriminator 1 view .LVU120
+ 177:logger/logger.c **** 	{
+ 544               		.loc 1 177 2 discriminator 1 view .LVU121
  545 0224 00C0      		rjmp .L25
  546               		.cfi_endproc
  547               	.LFE6:
@@ -2472,13 +2492,13 @@
  559               	memory_dump:
  560               	.LVL54:
  561               	.LFB7:
- 160:logger/logger.c **** }
- 161:logger/logger.c **** 
- 162:logger/logger.c **** void memory_dump(u32 addr, const void *data, u16 len)
- 163:logger/logger.c **** {
- 562               		.loc 1 163 1 view -0
+ 180:logger/logger.c **** }
+ 181:logger/logger.c **** 
+ 182:logger/logger.c **** void memory_dump(u32 addr, const void *data, u16 len)
+ 183:logger/logger.c **** {
+ 562               		.loc 1 183 1 view -0
  563               		.cfi_startproc
- 564               		.loc 1 163 1 is_stmt 0 view .LVU123
+ 564               		.loc 1 183 1 is_stmt 0 view .LVU123
  565 0226 2F92      		push r2
  566               		.cfi_def_cfa_offset 3
  567               		.cfi_offset 2, -2
@@ -2550,64 +2570,64 @@
  633 025a 2B01      		movw r4,r22
  634 025c 3C01      		movw r6,r24
  635 025e 6901      		movw r12,r18
- 164:logger/logger.c **** 	u8 j;
- 636               		.loc 1 164 2 is_stmt 1 view .LVU124
- 165:logger/logger.c **** 	const u8 *data8;
- 637               		.loc 1 165 2 view .LVU125
- 166:logger/logger.c **** 	u16 i;
- 638               		.loc 1 166 2 view .LVU126
- 167:logger/logger.c **** 	char c, buf[32];
- 639               		.loc 1 167 2 view .LVU127
- 168:logger/logger.c **** 
- 169:logger/logger.c **** 	data8 = data;
- 640               		.loc 1 169 2 view .LVU128
+ 184:logger/logger.c **** 	u8 j;
+ 636               		.loc 1 184 2 is_stmt 1 view .LVU124
+ 185:logger/logger.c **** 	const u8 *data8;
+ 637               		.loc 1 185 2 view .LVU125
+ 186:logger/logger.c **** 	u16 i;
+ 638               		.loc 1 186 2 view .LVU126
+ 187:logger/logger.c **** 	char c, buf[32];
+ 639               		.loc 1 187 2 view .LVU127
+ 188:logger/logger.c **** 
+ 189:logger/logger.c **** 	data8 = data;
+ 640               		.loc 1 189 2 view .LVU128
  641               	.LVL55:
- 170:logger/logger.c **** 	for(i = 0; i < len; i += MEMORY_DUMP_WIDTH, addr += MEMORY_DUMP_WIDTH)
- 642               		.loc 1 170 2 view .LVU129
- 643               		.loc 1 170 2 is_stmt 0 view .LVU130
+ 190:logger/logger.c **** 	for(i = 0; i < len; i += DUMP_BYTES_PER_LINE, addr += DUMP_BYTES_PER_LINE)
+ 642               		.loc 1 190 2 view .LVU129
+ 643               		.loc 1 190 2 is_stmt 0 view .LVU130
  644 0260 8A01      		movw r16,r20
- 645               		.loc 1 170 8 view .LVU131
+ 645               		.loc 1 190 8 view .LVU131
  646 0262 E12C      		mov r14,__zero_reg__
  647 0264 F12C      		mov r15,__zero_reg__
- 171:logger/logger.c **** 	{
- 172:logger/logger.c **** 		snprintf(buf, sizeof(buf), "%08X | ", addr);
- 173:logger/logger.c **** 		serial_tx_str(buf);
- 174:logger/logger.c **** 		for(j = 0; j < MEMORY_DUMP_WIDTH; ++j)
- 175:logger/logger.c **** 		{
- 176:logger/logger.c **** 			snprintf(buf, sizeof(buf), "%02X ", data8[i + j]);
- 648               		.loc 1 176 4 view .LVU132
+ 191:logger/logger.c **** 	{
+ 192:logger/logger.c **** 		snprintf(buf, sizeof(buf), "%08X | ", addr);
+ 193:logger/logger.c **** 		serial_tx_str(buf);
+ 194:logger/logger.c **** 		for(j = 0; j < DUMP_BYTES_PER_LINE; ++j)
+ 195:logger/logger.c **** 		{
+ 196:logger/logger.c **** 			snprintf(buf, sizeof(buf), "%02X ", data8[i + j]);
+ 648               		.loc 1 196 4 view .LVU132
  649 0266 90E0      		ldi r25,lo8(.LC1)
  650 0268 A92E      		mov r10,r25
  651 026a 90E0      		ldi r25,hi8(.LC1)
  652 026c B92E      		mov r11,r25
  653               	.LVL56:
  654               	.L27:
- 170:logger/logger.c **** 	for(i = 0; i < len; i += MEMORY_DUMP_WIDTH, addr += MEMORY_DUMP_WIDTH)
- 655               		.loc 1 170 15 is_stmt 1 discriminator 1 view .LVU133
+ 190:logger/logger.c **** 	for(i = 0; i < len; i += DUMP_BYTES_PER_LINE, addr += DUMP_BYTES_PER_LINE)
+ 655               		.loc 1 190 15 is_stmt 1 discriminator 1 view .LVU133
  656 026e EC14      		cp r14,r12
  657 0270 FD04      		cpc r15,r13
  658 0272 00F0      		brlo .L31
- 177:logger/logger.c **** 			serial_tx_str(buf);
- 178:logger/logger.c **** 		}
- 179:logger/logger.c **** 
- 180:logger/logger.c **** 		serial_tx_str("| ");
- 181:logger/logger.c **** 		for(j = 0; j < MEMORY_DUMP_WIDTH; ++j)
- 182:logger/logger.c **** 		{
- 183:logger/logger.c **** 			c = data8[i + j];
- 184:logger/logger.c **** 			serial_tx(isprint(c) ? c : '.');
- 185:logger/logger.c **** 		}
- 186:logger/logger.c **** 
- 187:logger/logger.c **** 		serial_tx('\n');
- 188:logger/logger.c **** 	}
- 189:logger/logger.c **** 
- 190:logger/logger.c **** 	serial_tx('\n');
- 659               		.loc 1 190 2 view .LVU134
+ 197:logger/logger.c **** 			serial_tx_str(buf);
+ 198:logger/logger.c **** 		}
+ 199:logger/logger.c **** 
+ 200:logger/logger.c **** 		serial_tx_str("| ");
+ 201:logger/logger.c **** 		for(j = 0; j < DUMP_BYTES_PER_LINE; ++j)
+ 202:logger/logger.c **** 		{
+ 203:logger/logger.c **** 			c = data8[i + j];
+ 204:logger/logger.c **** 			serial_tx(isprint(c) ? c : '.');
+ 205:logger/logger.c **** 		}
+ 206:logger/logger.c **** 
+ 207:logger/logger.c **** 		serial_tx('\n');
+ 208:logger/logger.c **** 	}
+ 209:logger/logger.c **** 
+ 210:logger/logger.c **** 	serial_tx('\n');
+ 659               		.loc 1 210 2 view .LVU134
  660 0274 8AE0      		ldi r24,lo8(10)
  661 0276 0E94 0000 		call serial_tx
  662               	.LVL57:
  663               	/* epilogue start */
- 191:logger/logger.c **** }
- 664               		.loc 1 191 1 is_stmt 0 view .LVU135
+ 211:logger/logger.c **** }
+ 664               		.loc 1 211 1 is_stmt 0 view .LVU135
  665 027a A096      		adiw r28,32
  666 027c 0FB6      		in __tmp_reg__,__SREG__
  667 027e F894      		cli
@@ -2621,11 +2641,11 @@
  675 028e FF90      		pop r15
  676 0290 EF90      		pop r14
  677               	.LVL58:
- 678               		.loc 1 191 1 view .LVU136
+ 678               		.loc 1 211 1 view .LVU136
  679 0292 DF90      		pop r13
  680 0294 CF90      		pop r12
  681               	.LVL59:
- 682               		.loc 1 191 1 view .LVU137
+ 682               		.loc 1 211 1 view .LVU137
  683 0296 BF90      		pop r11
  684 0298 AF90      		pop r10
  685 029a 9F90      		pop r9
@@ -2635,14 +2655,14 @@
  689 02a2 5F90      		pop r5
  690 02a4 4F90      		pop r4
  691               	.LVL60:
- 692               		.loc 1 191 1 view .LVU138
+ 692               		.loc 1 211 1 view .LVU138
  693 02a6 3F90      		pop r3
  694 02a8 2F90      		pop r2
  695 02aa 0895      		ret
  696               	.LVL61:
  697               	.L31:
- 172:logger/logger.c **** 		serial_tx_str(buf);
- 698               		.loc 1 172 3 is_stmt 1 view .LVU139
+ 192:logger/logger.c **** 		serial_tx_str(buf);
+ 698               		.loc 1 192 3 is_stmt 1 view .LVU139
  699 02ac 7F92      		push r7
  700 02ae 6F92      		push r6
  701 02b0 5F92      		push r5
@@ -2662,38 +2682,38 @@
  715 02cc 8F93      		push r24
  716 02ce 0E94 0000 		call snprintf
  717               	.LVL62:
- 173:logger/logger.c **** 		for(j = 0; j < MEMORY_DUMP_WIDTH; ++j)
- 718               		.loc 1 173 3 view .LVU140
+ 193:logger/logger.c **** 		for(j = 0; j < DUMP_BYTES_PER_LINE; ++j)
+ 718               		.loc 1 193 3 view .LVU140
  719 02d2 CE01      		movw r24,r28
  720 02d4 0196      		adiw r24,1
  721 02d6 0E94 0000 		call serial_tx_str
  722               	.LVL63:
- 174:logger/logger.c **** 		{
- 723               		.loc 1 174 3 view .LVU141
- 174:logger/logger.c **** 		{
- 724               		.loc 1 174 16 view .LVU142
- 173:logger/logger.c **** 		for(j = 0; j < MEMORY_DUMP_WIDTH; ++j)
- 725               		.loc 1 173 3 is_stmt 0 view .LVU143
+ 194:logger/logger.c **** 		{
+ 723               		.loc 1 194 3 view .LVU141
+ 194:logger/logger.c **** 		{
+ 724               		.loc 1 194 16 view .LVU142
+ 193:logger/logger.c **** 		for(j = 0; j < DUMP_BYTES_PER_LINE; ++j)
+ 725               		.loc 1 193 3 is_stmt 0 view .LVU143
  726 02da 0FB6      		in __tmp_reg__,__SREG__
  727 02dc F894      		cli
  728 02de DEBF      		out __SP_H__,r29
  729 02e0 0FBE      		out __SREG__,__tmp_reg__
  730 02e2 CDBF      		out __SP_L__,r28
  731 02e4 4801      		movw r8,r16
- 174:logger/logger.c **** 		{
- 732               		.loc 1 174 9 view .LVU144
+ 194:logger/logger.c **** 		{
+ 732               		.loc 1 194 9 view .LVU144
  733 02e6 312C      		mov r3,__zero_reg__
  734               	.LVL64:
  735               	.L28:
- 176:logger/logger.c **** 			serial_tx_str(buf);
- 736               		.loc 1 176 4 is_stmt 1 discriminator 3 view .LVU145
- 176:logger/logger.c **** 			serial_tx_str(buf);
- 737               		.loc 1 176 45 is_stmt 0 discriminator 3 view .LVU146
+ 196:logger/logger.c **** 			serial_tx_str(buf);
+ 736               		.loc 1 196 4 is_stmt 1 discriminator 3 view .LVU145
+ 196:logger/logger.c **** 			serial_tx_str(buf);
+ 737               		.loc 1 196 45 is_stmt 0 discriminator 3 view .LVU146
  738 02e8 F401      		movw r30,r8
  739 02ea 8191      		ld r24,Z+
  740 02ec 4F01      		movw r8,r30
- 176:logger/logger.c **** 			serial_tx_str(buf);
- 741               		.loc 1 176 4 discriminator 3 view .LVU147
+ 196:logger/logger.c **** 			serial_tx_str(buf);
+ 741               		.loc 1 196 4 discriminator 3 view .LVU147
  742 02ee 1F92      		push __zero_reg__
  743 02f0 8F93      		push r24
  744 02f2 BF92      		push r11
@@ -2709,18 +2729,18 @@
  754 0306 8F93      		push r24
  755 0308 0E94 0000 		call snprintf
  756               	.LVL65:
- 177:logger/logger.c **** 		}
- 757               		.loc 1 177 4 is_stmt 1 discriminator 3 view .LVU148
+ 197:logger/logger.c **** 		}
+ 757               		.loc 1 197 4 is_stmt 1 discriminator 3 view .LVU148
  758 030c CE01      		movw r24,r28
  759 030e 0196      		adiw r24,1
  760 0310 0E94 0000 		call serial_tx_str
  761               	.LVL66:
- 174:logger/logger.c **** 		{
- 762               		.loc 1 174 37 discriminator 3 view .LVU149
+ 194:logger/logger.c **** 		{
+ 762               		.loc 1 194 39 discriminator 3 view .LVU149
  763 0314 3394      		inc r3
  764               	.LVL67:
- 174:logger/logger.c **** 		{
- 765               		.loc 1 174 16 discriminator 3 view .LVU150
+ 194:logger/logger.c **** 		{
+ 765               		.loc 1 194 16 discriminator 3 view .LVU150
  766 0316 0FB6      		in __tmp_reg__,__SREG__
  767 0318 F894      		cli
  768 031a DEBF      		out __SP_H__,r29
@@ -2729,85 +2749,85 @@
  771 0320 F0E1      		ldi r31,lo8(16)
  772 0322 3F12      		cpse r3,r31
  773 0324 00C0      		rjmp .L28
- 180:logger/logger.c **** 		for(j = 0; j < MEMORY_DUMP_WIDTH; ++j)
- 774               		.loc 1 180 3 view .LVU151
+ 200:logger/logger.c **** 		for(j = 0; j < DUMP_BYTES_PER_LINE; ++j)
+ 774               		.loc 1 200 3 view .LVU151
  775 0326 80E0      		ldi r24,lo8(.LC2)
  776 0328 90E0      		ldi r25,hi8(.LC2)
  777 032a 0E94 0000 		call serial_tx_str
  778               	.LVL68:
- 181:logger/logger.c **** 		{
- 779               		.loc 1 181 3 view .LVU152
- 181:logger/logger.c **** 		{
- 780               		.loc 1 181 16 view .LVU153
- 180:logger/logger.c **** 		for(j = 0; j < MEMORY_DUMP_WIDTH; ++j)
- 781               		.loc 1 180 3 is_stmt 0 view .LVU154
+ 201:logger/logger.c **** 		{
+ 779               		.loc 1 201 3 view .LVU152
+ 201:logger/logger.c **** 		{
+ 780               		.loc 1 201 16 view .LVU153
+ 200:logger/logger.c **** 		for(j = 0; j < DUMP_BYTES_PER_LINE; ++j)
+ 781               		.loc 1 200 3 is_stmt 0 view .LVU154
  782 032e 4801      		movw r8,r16
- 181:logger/logger.c **** 		{
- 783               		.loc 1 181 9 view .LVU155
+ 201:logger/logger.c **** 		{
+ 783               		.loc 1 201 9 view .LVU155
  784 0330 312C      		mov r3,__zero_reg__
  785               	.LVL69:
  786               	.L30:
- 183:logger/logger.c **** 			serial_tx(isprint(c) ? c : '.');
- 787               		.loc 1 183 4 is_stmt 1 view .LVU156
- 183:logger/logger.c **** 			serial_tx(isprint(c) ? c : '.');
- 788               		.loc 1 183 6 is_stmt 0 view .LVU157
+ 203:logger/logger.c **** 			serial_tx(isprint(c) ? c : '.');
+ 787               		.loc 1 203 4 is_stmt 1 view .LVU156
+ 203:logger/logger.c **** 			serial_tx(isprint(c) ? c : '.');
+ 788               		.loc 1 203 6 is_stmt 0 view .LVU157
  789 0332 F401      		movw r30,r8
  790 0334 2190      		ld r2,Z+
  791 0336 4F01      		movw r8,r30
  792               	.LVL70:
- 184:logger/logger.c **** 		}
- 793               		.loc 1 184 4 is_stmt 1 view .LVU158
- 184:logger/logger.c **** 		}
- 794               		.loc 1 184 14 is_stmt 0 view .LVU159
+ 204:logger/logger.c **** 		}
+ 793               		.loc 1 204 4 is_stmt 1 view .LVU158
+ 204:logger/logger.c **** 		}
+ 794               		.loc 1 204 14 is_stmt 0 view .LVU159
  795 0338 822D      		mov r24,r2
  796 033a 90E0      		ldi r25,0
  797 033c 0E94 0000 		call isprint
  798               	.LVL71:
- 184:logger/logger.c **** 		}
- 799               		.loc 1 184 4 view .LVU160
+ 204:logger/logger.c **** 		}
+ 799               		.loc 1 204 4 view .LVU160
  800 0340 892B      		or r24,r25
  801 0342 01F4      		brne .L29
  802 0344 8EE2      		ldi r24,lo8(46)
  803 0346 282E      		mov r2,r24
  804               	.LVL72:
  805               	.L29:
- 184:logger/logger.c **** 		}
- 806               		.loc 1 184 4 discriminator 4 view .LVU161
+ 204:logger/logger.c **** 		}
+ 806               		.loc 1 204 4 discriminator 4 view .LVU161
  807 0348 822D      		mov r24,r2
  808 034a 0E94 0000 		call serial_tx
  809               	.LVL73:
- 181:logger/logger.c **** 		{
- 810               		.loc 1 181 37 is_stmt 1 discriminator 4 view .LVU162
+ 201:logger/logger.c **** 		{
+ 810               		.loc 1 201 39 is_stmt 1 discriminator 4 view .LVU162
  811 034e 3394      		inc r3
  812               	.LVL74:
- 181:logger/logger.c **** 		{
- 813               		.loc 1 181 16 discriminator 4 view .LVU163
+ 201:logger/logger.c **** 		{
+ 813               		.loc 1 201 16 discriminator 4 view .LVU163
  814 0350 F0E1      		ldi r31,lo8(16)
  815 0352 3F12      		cpse r3,r31
  816 0354 00C0      		rjmp .L30
- 187:logger/logger.c **** 	}
- 817               		.loc 1 187 3 discriminator 2 view .LVU164
+ 207:logger/logger.c **** 	}
+ 817               		.loc 1 207 3 discriminator 2 view .LVU164
  818 0356 8AE0      		ldi r24,lo8(10)
  819 0358 0E94 0000 		call serial_tx
  820               	.LVL75:
- 170:logger/logger.c **** 	{
- 821               		.loc 1 170 44 discriminator 2 view .LVU165
- 170:logger/logger.c **** 	{
- 822               		.loc 1 170 24 is_stmt 0 discriminator 2 view .LVU166
+ 190:logger/logger.c **** 	{
+ 821               		.loc 1 190 46 discriminator 2 view .LVU165
+ 190:logger/logger.c **** 	{
+ 822               		.loc 1 190 24 is_stmt 0 discriminator 2 view .LVU166
  823 035c 20E1      		ldi r18,16
  824 035e E20E      		add r14,r18
  825 0360 F11C      		adc r15,__zero_reg__
  826               	.LVL76:
- 170:logger/logger.c **** 	{
- 827               		.loc 1 170 51 discriminator 2 view .LVU167
+ 190:logger/logger.c **** 	{
+ 827               		.loc 1 190 53 discriminator 2 view .LVU167
  828 0362 80E1      		ldi r24,16
  829 0364 480E      		add r4,r24
  830 0366 511C      		adc r5,__zero_reg__
  831 0368 611C      		adc r6,__zero_reg__
  832 036a 711C      		adc r7,__zero_reg__
  833               	.LVL77:
- 170:logger/logger.c **** 	{
- 834               		.loc 1 170 51 discriminator 2 view .LVU168
+ 190:logger/logger.c **** 	{
+ 834               		.loc 1 190 53 discriminator 2 view .LVU168
  835 036c 005F      		subi r16,-16
  836 036e 1F4F      		sbci r17,-1
  837 0370 00C0      		rjmp .L27
@@ -2871,329 +2891,329 @@
  905               		.file 11 "serial/serial.h"
 DEFINED SYMBOLS
                             *ABS*:00000000 logger.c
-     /tmp/ccetrSNK.s:2      *ABS*:0000003e __SP_H__
-     /tmp/ccetrSNK.s:3      *ABS*:0000003d __SP_L__
-     /tmp/ccetrSNK.s:4      *ABS*:0000003f __SREG__
-     /tmp/ccetrSNK.s:5      *ABS*:00000000 __tmp_reg__
-     /tmp/ccetrSNK.s:6      *ABS*:00000001 __zero_reg__
-     /tmp/ccetrSNK.s:12     .text:00000000 _lcd_log
-     /tmp/ccetrSNK.s:16     .text:00000000 .Loc.0
-     /tmp/ccetrSNK.s:17     .text:00000000 L0
-     /tmp/ccetrSNK.s:18     .text:00000000 .Loc.1
-     /tmp/ccetrSNK.s:54     .text:00000016 .Loc.2
-     /tmp/ccetrSNK.s:55     .text:00000016 .Loc.3
-     /tmp/ccetrSNK.s:57     .text:0000001a L0
-     /tmp/ccetrSNK.s:60     .text:0000001c .Loc.4
-     /tmp/ccetrSNK.s:61     .text:0000001c .Loc.5
-     /tmp/ccetrSNK.s:62     .text:0000001c .Loc.6
-     /tmp/ccetrSNK.s:63     .text:0000001c .Loc.7
-     /tmp/ccetrSNK.s:64     .text:0000001c .Loc.8
-     /tmp/ccetrSNK.s:67     .text:00000020 .Loc.9
-     /tmp/ccetrSNK.s:69     .text:00000024 L0
-     /tmp/ccetrSNK.s:71     .text:00000026 .Loc.10
-     /tmp/ccetrSNK.s:73     .text:00000026 .Loc.11
-     /tmp/ccetrSNK.s:855    .progmem.data:00000015 _log_msg
-     /tmp/ccetrSNK.s:82     .text:00000034 .Loc.12
-     /tmp/ccetrSNK.s:83     .text:00000034 .Loc.13
-     /tmp/ccetrSNK.s:91     .text:00000038 .Loc.14
-     /tmp/ccetrSNK.s:92     .text:00000038 .Loc.15
-     /tmp/ccetrSNK.s:95     .text:00000038 .Loc.16
-     /tmp/ccetrSNK.s:98     .text:0000003a .Loc.17
-     /tmp/ccetrSNK.s:101    .text:0000003e .Loc.18
-     /tmp/ccetrSNK.s:105    .text:00000044 .Loc.19
-     /tmp/ccetrSNK.s:109    .text:0000004a .Loc.20
-     /tmp/ccetrSNK.s:113    .text:0000004a .Loc.21
-     /tmp/ccetrSNK.s:115    .text:0000004a .Loc.22
-     /tmp/ccetrSNK.s:116    .text:0000004a .Loc.23
-     /tmp/ccetrSNK.s:120    .text:00000050 .Loc.24
-     /tmp/ccetrSNK.s:123    .text:00000050 .Loc.25
-     /tmp/ccetrSNK.s:127    .text:00000054 .Loc.26
-     /tmp/ccetrSNK.s:129    .text:00000054 .Loc.27
-     /tmp/ccetrSNK.s:132    .text:00000058 .Loc.28
-     /tmp/ccetrSNK.s:133    .text:00000058 .Loc.29
-     /tmp/ccetrSNK.s:136    .text:0000005c .Loc.30
-     /tmp/ccetrSNK.s:141    .text:00000060 .Loc.31
-     /tmp/ccetrSNK.s:142    .text:00000060 .Loc.32
-     /tmp/ccetrSNK.s:145    .text:00000064 .Loc.33
-     /tmp/ccetrSNK.s:147    .text:00000068 L0
-     /tmp/ccetrSNK.s:150    .text:0000006a .Loc.34
-     /tmp/ccetrSNK.s:155    .text:00000070 .Loc.35
-     /tmp/ccetrSNK.s:160    .text:00000074 .Loc.36
-     /tmp/ccetrSNK.s:161    .text:00000074 .Loc.37
-     /tmp/ccetrSNK.s:165    .text:00000078 .Loc.38
-     /tmp/ccetrSNK.s:168    .text:0000007a .Loc.39
-     /tmp/ccetrSNK.s:849    .data:00000000 _log_y
-     /tmp/ccetrSNK.s:171    .text:00000082 .Loc.40
-     /tmp/ccetrSNK.s:174    .text:00000086 .Loc.41
-     /tmp/ccetrSNK.s:175    .text:00000086 .Loc.42
-     /tmp/ccetrSNK.s:183    .text:00000094 .Loc.43
-     /tmp/ccetrSNK.s:185    .text:00000094 .Loc.44
-     /tmp/ccetrSNK.s:189    .text:0000009a .Loc.45
-     /tmp/ccetrSNK.s:192    .text:0000009c .Loc.46
-     /tmp/ccetrSNK.s:196    .text:0000009e .Loc.47
-     /tmp/ccetrSNK.s:197    .text:0000009e .Loc.48
-     /tmp/ccetrSNK.s:199    .text:0000009e .Loc.49
-     /tmp/ccetrSNK.s:889    .progmem.data:0000003b _log_color
-     /tmp/ccetrSNK.s:204    .text:000000a4 .Loc.50
-     /tmp/ccetrSNK.s:205    .text:000000a4 .Loc.51
-     /tmp/ccetrSNK.s:213    .text:000000a8 .Loc.52
-     /tmp/ccetrSNK.s:214    .text:000000a8 .Loc.53
-     /tmp/ccetrSNK.s:217    .text:000000a8 .Loc.54
-     /tmp/ccetrSNK.s:218    .text:000000a8 .Loc.55
-     /tmp/ccetrSNK.s:219    .text:000000a8 .Loc.56
-     /tmp/ccetrSNK.s:233    .text:000000c6 .Loc.57
-     /tmp/ccetrSNK.s:236    .text:000000c8 .Loc.58
-     /tmp/ccetrSNK.s:237    .text:000000c8 .Loc.59
-     /tmp/ccetrSNK.s:247    .text:000000de .Loc.60
-     /tmp/ccetrSNK.s:258    .text:000000f4 .Loc.61
-     /tmp/ccetrSNK.s:261    .text:000000f8 .Loc.62
-     /tmp/ccetrSNK.s:263    .text:000000f8 .Loc.63
-     /tmp/ccetrSNK.s:267    .text:000000fa .Loc.64
-     /tmp/ccetrSNK.s:268    .text:000000fa .Loc.65
-     /tmp/ccetrSNK.s:271    .text:000000fe .Loc.66
-     /tmp/ccetrSNK.s:272    .text:000000fe .Loc.67
-     /tmp/ccetrSNK.s:275    .text:00000102 .Loc.68
-     /tmp/ccetrSNK.s:279    .text:00000106 .Loc.69
-     /tmp/ccetrSNK.s:281    .text:00000106 .Loc.70
-     /tmp/ccetrSNK.s:284    .text:00000108 .Loc.71
-     /tmp/ccetrSNK.s:292    .text:00000114 .Loc.72
-     /tmp/ccetrSNK.s:297    .text:0000011c .Loc.73
-     /tmp/ccetrSNK.s:302    .text:00000120 .Loc.74
-     /tmp/ccetrSNK.s:306    .text:00000122 .Loc.75
-     /tmp/ccetrSNK.s:310    .text:00000128 .Loc.76
-     /tmp/ccetrSNK.s:311    .text:00000128 .Loc.77
-     /tmp/ccetrSNK.s:314    .text:0000012a .Loc.78
-     /tmp/ccetrSNK.s:321    .text:00000130 .Loc.79
-     /tmp/ccetrSNK.s:327    .text:00000136 .Loc.80
-     /tmp/ccetrSNK.s:328    .text:00000136 .Loc.81
-     /tmp/ccetrSNK.s:331    .text:0000013a .Loc.82
-     /tmp/ccetrSNK.s:333    .text:0000013a .Loc.83
-     /tmp/ccetrSNK.s:334    .text:0000013a .Loc.84
-     /tmp/ccetrSNK.s:339    .text:00000146 .Loc.85
-     /tmp/ccetrSNK.s:344    .text:0000014a .Loc.86
-     /tmp/ccetrSNK.s:350    .text:00000150 .Loc.87
-     /tmp/ccetrSNK.s:351    .text:00000150 .Loc.88
-     /tmp/ccetrSNK.s:360    .text:00000160 .Loc.89
-     /tmp/ccetrSNK.s:364    .text:00000164 .Loc.90
-     /tmp/ccetrSNK.s:368    .text:00000166 L0
-     /tmp/ccetrSNK.s:373    .text:00000166 log_boot_P
-     /tmp/ccetrSNK.s:376    .text:00000166 .Loc.91
-     /tmp/ccetrSNK.s:377    .text:00000166 L0
-     /tmp/ccetrSNK.s:378    .text:00000166 .Loc.92
-     /tmp/ccetrSNK.s:400    .text:0000017c .Loc.93
-     /tmp/ccetrSNK.s:401    .text:0000017c .Loc.94
-     /tmp/ccetrSNK.s:402    .text:0000017c .Loc.95
-     /tmp/ccetrSNK.s:404    .text:0000017c .Loc.96
-     /tmp/ccetrSNK.s:409    .text:00000182 .Loc.97
-     /tmp/ccetrSNK.s:422    .text:0000019a .Loc.98
-     /tmp/ccetrSNK.s:423    .text:0000019a .Loc.99
-     /tmp/ccetrSNK.s:434    .text:000001ae .Loc.100
-     /tmp/ccetrSNK.s:439    .text:000001b4 .Loc.101
-     /tmp/ccetrSNK.s:450    .text:000001c8 L0
-     /tmp/ccetrSNK.s:455    .text:000001c8 panic
-     /tmp/ccetrSNK.s:458    .text:000001c8 .Loc.102
-     /tmp/ccetrSNK.s:459    .text:000001c8 L0
-     /tmp/ccetrSNK.s:460    .text:000001c8 .Loc.103
-     /tmp/ccetrSNK.s:486    .text:000001e4 .Loc.104
-     /tmp/ccetrSNK.s:491    .text:000001ea .Loc.105
-     /tmp/ccetrSNK.s:493    .text:000001ec .Loc.106
-     /tmp/ccetrSNK.s:494    .text:000001ec .Loc.107
-     /tmp/ccetrSNK.s:495    .text:000001ec .Loc.108
-     /tmp/ccetrSNK.s:497    .text:000001ec .Loc.109
-     /tmp/ccetrSNK.s:504    .text:000001f8 .Loc.110
-     /tmp/ccetrSNK.s:505    .text:000001f8 .Loc.111
-     /tmp/ccetrSNK.s:512    .text:00000204 .Loc.112
-     /tmp/ccetrSNK.s:516    .text:0000020a .Loc.113
-     /tmp/ccetrSNK.s:518    .text:0000020a .Loc.114
-     /tmp/ccetrSNK.s:519    .text:0000020a .Loc.115
-     /tmp/ccetrSNK.s:521    .text:0000020a .Loc.116
-     /tmp/ccetrSNK.s:844    .progmem.data:00000000 __c.0
-     /tmp/ccetrSNK.s:528    .text:00000216 .Loc.117
-     /tmp/ccetrSNK.s:535    .text:00000222 .Loc.118
-     /tmp/ccetrSNK.s:542    .text:00000224 .Loc.119
-     /tmp/ccetrSNK.s:543    .text:00000224 .Loc.120
-     /tmp/ccetrSNK.s:544    .text:00000224 .Loc.121
-     /tmp/ccetrSNK.s:546    .text:00000226 L0
-     /tmp/ccetrSNK.s:559    .text:00000226 memory_dump
-     /tmp/ccetrSNK.s:562    .text:00000226 .Loc.122
-     /tmp/ccetrSNK.s:563    .text:00000226 L0
-     /tmp/ccetrSNK.s:564    .text:00000226 .Loc.123
-     /tmp/ccetrSNK.s:636    .text:00000260 .Loc.124
-     /tmp/ccetrSNK.s:637    .text:00000260 .Loc.125
-     /tmp/ccetrSNK.s:638    .text:00000260 .Loc.126
-     /tmp/ccetrSNK.s:639    .text:00000260 .Loc.127
-     /tmp/ccetrSNK.s:640    .text:00000260 .Loc.128
-     /tmp/ccetrSNK.s:642    .text:00000260 .Loc.129
-     /tmp/ccetrSNK.s:643    .text:00000260 .Loc.130
-     /tmp/ccetrSNK.s:645    .text:00000262 .Loc.131
-     /tmp/ccetrSNK.s:648    .text:00000266 .Loc.132
-     /tmp/ccetrSNK.s:655    .text:0000026e .Loc.133
-     /tmp/ccetrSNK.s:659    .text:00000274 .Loc.134
-     /tmp/ccetrSNK.s:664    .text:0000027a .Loc.135
-     /tmp/ccetrSNK.s:678    .text:00000292 .Loc.136
-     /tmp/ccetrSNK.s:682    .text:00000296 .Loc.137
-     /tmp/ccetrSNK.s:692    .text:000002a6 .Loc.138
-     /tmp/ccetrSNK.s:698    .text:000002ac .Loc.139
-     /tmp/ccetrSNK.s:718    .text:000002d2 .Loc.140
-     /tmp/ccetrSNK.s:723    .text:000002da .Loc.141
-     /tmp/ccetrSNK.s:724    .text:000002da .Loc.142
-     /tmp/ccetrSNK.s:725    .text:000002da .Loc.143
-     /tmp/ccetrSNK.s:732    .text:000002e6 .Loc.144
-     /tmp/ccetrSNK.s:736    .text:000002e8 .Loc.145
-     /tmp/ccetrSNK.s:737    .text:000002e8 .Loc.146
-     /tmp/ccetrSNK.s:741    .text:000002ee .Loc.147
-     /tmp/ccetrSNK.s:757    .text:0000030c .Loc.148
-     /tmp/ccetrSNK.s:762    .text:00000314 .Loc.149
-     /tmp/ccetrSNK.s:765    .text:00000316 .Loc.150
-     /tmp/ccetrSNK.s:774    .text:00000326 .Loc.151
-     /tmp/ccetrSNK.s:779    .text:0000032e .Loc.152
-     /tmp/ccetrSNK.s:780    .text:0000032e .Loc.153
-     /tmp/ccetrSNK.s:781    .text:0000032e .Loc.154
-     /tmp/ccetrSNK.s:783    .text:00000330 .Loc.155
-     /tmp/ccetrSNK.s:787    .text:00000332 .Loc.156
-     /tmp/ccetrSNK.s:788    .text:00000332 .Loc.157
-     /tmp/ccetrSNK.s:793    .text:00000338 .Loc.158
-     /tmp/ccetrSNK.s:794    .text:00000338 .Loc.159
-     /tmp/ccetrSNK.s:799    .text:00000340 .Loc.160
-     /tmp/ccetrSNK.s:806    .text:00000348 .Loc.161
-     /tmp/ccetrSNK.s:810    .text:0000034e .Loc.162
-     /tmp/ccetrSNK.s:813    .text:00000350 .Loc.163
-     /tmp/ccetrSNK.s:817    .text:00000356 .Loc.164
-     /tmp/ccetrSNK.s:821    .text:0000035c .Loc.165
-     /tmp/ccetrSNK.s:822    .text:0000035c .Loc.166
-     /tmp/ccetrSNK.s:827    .text:00000362 .Loc.167
-     /tmp/ccetrSNK.s:834    .text:0000036c .Loc.168
-     /tmp/ccetrSNK.s:838    .text:00000372 L0
-     /tmp/ccetrSNK.s:884    .progmem.data:00000036 _init
-     /tmp/ccetrSNK.s:879    .progmem.data:00000030 _debug
-     /tmp/ccetrSNK.s:874    .progmem.data:0000002b _warn
-     /tmp/ccetrSNK.s:869    .progmem.data:00000025 _error
-     /tmp/ccetrSNK.s:864    .progmem.data:0000001f _panic
-     /tmp/ccetrSNK.s:906    .text:00000372 L0
+     /tmp/ccU3Ydbt.s:2      *ABS*:0000003e __SP_H__
+     /tmp/ccU3Ydbt.s:3      *ABS*:0000003d __SP_L__
+     /tmp/ccU3Ydbt.s:4      *ABS*:0000003f __SREG__
+     /tmp/ccU3Ydbt.s:5      *ABS*:00000000 __tmp_reg__
+     /tmp/ccU3Ydbt.s:6      *ABS*:00000001 __zero_reg__
+     /tmp/ccU3Ydbt.s:12     .text:00000000 _lcd_log
+     /tmp/ccU3Ydbt.s:16     .text:00000000 .Loc.0
+     /tmp/ccU3Ydbt.s:17     .text:00000000 L0
+     /tmp/ccU3Ydbt.s:18     .text:00000000 .Loc.1
+     /tmp/ccU3Ydbt.s:54     .text:00000016 .Loc.2
+     /tmp/ccU3Ydbt.s:55     .text:00000016 .Loc.3
+     /tmp/ccU3Ydbt.s:57     .text:0000001a L0
+     /tmp/ccU3Ydbt.s:60     .text:0000001c .Loc.4
+     /tmp/ccU3Ydbt.s:61     .text:0000001c .Loc.5
+     /tmp/ccU3Ydbt.s:62     .text:0000001c .Loc.6
+     /tmp/ccU3Ydbt.s:63     .text:0000001c .Loc.7
+     /tmp/ccU3Ydbt.s:64     .text:0000001c .Loc.8
+     /tmp/ccU3Ydbt.s:67     .text:00000020 .Loc.9
+     /tmp/ccU3Ydbt.s:69     .text:00000024 L0
+     /tmp/ccU3Ydbt.s:71     .text:00000026 .Loc.10
+     /tmp/ccU3Ydbt.s:73     .text:00000026 .Loc.11
+     /tmp/ccU3Ydbt.s:855    .progmem.data:00000015 _log_msg
+     /tmp/ccU3Ydbt.s:82     .text:00000034 .Loc.12
+     /tmp/ccU3Ydbt.s:83     .text:00000034 .Loc.13
+     /tmp/ccU3Ydbt.s:91     .text:00000038 .Loc.14
+     /tmp/ccU3Ydbt.s:92     .text:00000038 .Loc.15
+     /tmp/ccU3Ydbt.s:95     .text:00000038 .Loc.16
+     /tmp/ccU3Ydbt.s:98     .text:0000003a .Loc.17
+     /tmp/ccU3Ydbt.s:101    .text:0000003e .Loc.18
+     /tmp/ccU3Ydbt.s:105    .text:00000044 .Loc.19
+     /tmp/ccU3Ydbt.s:109    .text:0000004a .Loc.20
+     /tmp/ccU3Ydbt.s:113    .text:0000004a .Loc.21
+     /tmp/ccU3Ydbt.s:115    .text:0000004a .Loc.22
+     /tmp/ccU3Ydbt.s:116    .text:0000004a .Loc.23
+     /tmp/ccU3Ydbt.s:120    .text:00000050 .Loc.24
+     /tmp/ccU3Ydbt.s:123    .text:00000050 .Loc.25
+     /tmp/ccU3Ydbt.s:127    .text:00000054 .Loc.26
+     /tmp/ccU3Ydbt.s:129    .text:00000054 .Loc.27
+     /tmp/ccU3Ydbt.s:132    .text:00000058 .Loc.28
+     /tmp/ccU3Ydbt.s:133    .text:00000058 .Loc.29
+     /tmp/ccU3Ydbt.s:136    .text:0000005c .Loc.30
+     /tmp/ccU3Ydbt.s:141    .text:00000060 .Loc.31
+     /tmp/ccU3Ydbt.s:142    .text:00000060 .Loc.32
+     /tmp/ccU3Ydbt.s:145    .text:00000064 .Loc.33
+     /tmp/ccU3Ydbt.s:147    .text:00000068 L0
+     /tmp/ccU3Ydbt.s:150    .text:0000006a .Loc.34
+     /tmp/ccU3Ydbt.s:155    .text:00000070 .Loc.35
+     /tmp/ccU3Ydbt.s:160    .text:00000074 .Loc.36
+     /tmp/ccU3Ydbt.s:161    .text:00000074 .Loc.37
+     /tmp/ccU3Ydbt.s:165    .text:00000078 .Loc.38
+     /tmp/ccU3Ydbt.s:168    .text:0000007a .Loc.39
+     /tmp/ccU3Ydbt.s:849    .data:00000000 _log_y
+     /tmp/ccU3Ydbt.s:171    .text:00000082 .Loc.40
+     /tmp/ccU3Ydbt.s:174    .text:00000086 .Loc.41
+     /tmp/ccU3Ydbt.s:175    .text:00000086 .Loc.42
+     /tmp/ccU3Ydbt.s:183    .text:00000094 .Loc.43
+     /tmp/ccU3Ydbt.s:185    .text:00000094 .Loc.44
+     /tmp/ccU3Ydbt.s:189    .text:0000009a .Loc.45
+     /tmp/ccU3Ydbt.s:192    .text:0000009c .Loc.46
+     /tmp/ccU3Ydbt.s:196    .text:0000009e .Loc.47
+     /tmp/ccU3Ydbt.s:197    .text:0000009e .Loc.48
+     /tmp/ccU3Ydbt.s:199    .text:0000009e .Loc.49
+     /tmp/ccU3Ydbt.s:889    .progmem.data:0000003b _log_color
+     /tmp/ccU3Ydbt.s:204    .text:000000a4 .Loc.50
+     /tmp/ccU3Ydbt.s:205    .text:000000a4 .Loc.51
+     /tmp/ccU3Ydbt.s:213    .text:000000a8 .Loc.52
+     /tmp/ccU3Ydbt.s:214    .text:000000a8 .Loc.53
+     /tmp/ccU3Ydbt.s:217    .text:000000a8 .Loc.54
+     /tmp/ccU3Ydbt.s:218    .text:000000a8 .Loc.55
+     /tmp/ccU3Ydbt.s:219    .text:000000a8 .Loc.56
+     /tmp/ccU3Ydbt.s:233    .text:000000c6 .Loc.57
+     /tmp/ccU3Ydbt.s:236    .text:000000c8 .Loc.58
+     /tmp/ccU3Ydbt.s:237    .text:000000c8 .Loc.59
+     /tmp/ccU3Ydbt.s:247    .text:000000de .Loc.60
+     /tmp/ccU3Ydbt.s:258    .text:000000f4 .Loc.61
+     /tmp/ccU3Ydbt.s:261    .text:000000f8 .Loc.62
+     /tmp/ccU3Ydbt.s:263    .text:000000f8 .Loc.63
+     /tmp/ccU3Ydbt.s:267    .text:000000fa .Loc.64
+     /tmp/ccU3Ydbt.s:268    .text:000000fa .Loc.65
+     /tmp/ccU3Ydbt.s:271    .text:000000fe .Loc.66
+     /tmp/ccU3Ydbt.s:272    .text:000000fe .Loc.67
+     /tmp/ccU3Ydbt.s:275    .text:00000102 .Loc.68
+     /tmp/ccU3Ydbt.s:279    .text:00000106 .Loc.69
+     /tmp/ccU3Ydbt.s:281    .text:00000106 .Loc.70
+     /tmp/ccU3Ydbt.s:284    .text:00000108 .Loc.71
+     /tmp/ccU3Ydbt.s:292    .text:00000114 .Loc.72
+     /tmp/ccU3Ydbt.s:297    .text:0000011c .Loc.73
+     /tmp/ccU3Ydbt.s:302    .text:00000120 .Loc.74
+     /tmp/ccU3Ydbt.s:306    .text:00000122 .Loc.75
+     /tmp/ccU3Ydbt.s:310    .text:00000128 .Loc.76
+     /tmp/ccU3Ydbt.s:311    .text:00000128 .Loc.77
+     /tmp/ccU3Ydbt.s:314    .text:0000012a .Loc.78
+     /tmp/ccU3Ydbt.s:321    .text:00000130 .Loc.79
+     /tmp/ccU3Ydbt.s:327    .text:00000136 .Loc.80
+     /tmp/ccU3Ydbt.s:328    .text:00000136 .Loc.81
+     /tmp/ccU3Ydbt.s:331    .text:0000013a .Loc.82
+     /tmp/ccU3Ydbt.s:333    .text:0000013a .Loc.83
+     /tmp/ccU3Ydbt.s:334    .text:0000013a .Loc.84
+     /tmp/ccU3Ydbt.s:339    .text:00000146 .Loc.85
+     /tmp/ccU3Ydbt.s:344    .text:0000014a .Loc.86
+     /tmp/ccU3Ydbt.s:350    .text:00000150 .Loc.87
+     /tmp/ccU3Ydbt.s:351    .text:00000150 .Loc.88
+     /tmp/ccU3Ydbt.s:360    .text:00000160 .Loc.89
+     /tmp/ccU3Ydbt.s:364    .text:00000164 .Loc.90
+     /tmp/ccU3Ydbt.s:368    .text:00000166 L0
+     /tmp/ccU3Ydbt.s:373    .text:00000166 log_boot_P
+     /tmp/ccU3Ydbt.s:376    .text:00000166 .Loc.91
+     /tmp/ccU3Ydbt.s:377    .text:00000166 L0
+     /tmp/ccU3Ydbt.s:378    .text:00000166 .Loc.92
+     /tmp/ccU3Ydbt.s:400    .text:0000017c .Loc.93
+     /tmp/ccU3Ydbt.s:401    .text:0000017c .Loc.94
+     /tmp/ccU3Ydbt.s:402    .text:0000017c .Loc.95
+     /tmp/ccU3Ydbt.s:404    .text:0000017c .Loc.96
+     /tmp/ccU3Ydbt.s:409    .text:00000182 .Loc.97
+     /tmp/ccU3Ydbt.s:422    .text:0000019a .Loc.98
+     /tmp/ccU3Ydbt.s:423    .text:0000019a .Loc.99
+     /tmp/ccU3Ydbt.s:434    .text:000001ae .Loc.100
+     /tmp/ccU3Ydbt.s:439    .text:000001b4 .Loc.101
+     /tmp/ccU3Ydbt.s:450    .text:000001c8 L0
+     /tmp/ccU3Ydbt.s:455    .text:000001c8 panic
+     /tmp/ccU3Ydbt.s:458    .text:000001c8 .Loc.102
+     /tmp/ccU3Ydbt.s:459    .text:000001c8 L0
+     /tmp/ccU3Ydbt.s:460    .text:000001c8 .Loc.103
+     /tmp/ccU3Ydbt.s:486    .text:000001e4 .Loc.104
+     /tmp/ccU3Ydbt.s:491    .text:000001ea .Loc.105
+     /tmp/ccU3Ydbt.s:493    .text:000001ec .Loc.106
+     /tmp/ccU3Ydbt.s:494    .text:000001ec .Loc.107
+     /tmp/ccU3Ydbt.s:495    .text:000001ec .Loc.108
+     /tmp/ccU3Ydbt.s:497    .text:000001ec .Loc.109
+     /tmp/ccU3Ydbt.s:504    .text:000001f8 .Loc.110
+     /tmp/ccU3Ydbt.s:505    .text:000001f8 .Loc.111
+     /tmp/ccU3Ydbt.s:512    .text:00000204 .Loc.112
+     /tmp/ccU3Ydbt.s:516    .text:0000020a .Loc.113
+     /tmp/ccU3Ydbt.s:518    .text:0000020a .Loc.114
+     /tmp/ccU3Ydbt.s:519    .text:0000020a .Loc.115
+     /tmp/ccU3Ydbt.s:521    .text:0000020a .Loc.116
+     /tmp/ccU3Ydbt.s:844    .progmem.data:00000000 __c.0
+     /tmp/ccU3Ydbt.s:528    .text:00000216 .Loc.117
+     /tmp/ccU3Ydbt.s:535    .text:00000222 .Loc.118
+     /tmp/ccU3Ydbt.s:542    .text:00000224 .Loc.119
+     /tmp/ccU3Ydbt.s:543    .text:00000224 .Loc.120
+     /tmp/ccU3Ydbt.s:544    .text:00000224 .Loc.121
+     /tmp/ccU3Ydbt.s:546    .text:00000226 L0
+     /tmp/ccU3Ydbt.s:559    .text:00000226 memory_dump
+     /tmp/ccU3Ydbt.s:562    .text:00000226 .Loc.122
+     /tmp/ccU3Ydbt.s:563    .text:00000226 L0
+     /tmp/ccU3Ydbt.s:564    .text:00000226 .Loc.123
+     /tmp/ccU3Ydbt.s:636    .text:00000260 .Loc.124
+     /tmp/ccU3Ydbt.s:637    .text:00000260 .Loc.125
+     /tmp/ccU3Ydbt.s:638    .text:00000260 .Loc.126
+     /tmp/ccU3Ydbt.s:639    .text:00000260 .Loc.127
+     /tmp/ccU3Ydbt.s:640    .text:00000260 .Loc.128
+     /tmp/ccU3Ydbt.s:642    .text:00000260 .Loc.129
+     /tmp/ccU3Ydbt.s:643    .text:00000260 .Loc.130
+     /tmp/ccU3Ydbt.s:645    .text:00000262 .Loc.131
+     /tmp/ccU3Ydbt.s:648    .text:00000266 .Loc.132
+     /tmp/ccU3Ydbt.s:655    .text:0000026e .Loc.133
+     /tmp/ccU3Ydbt.s:659    .text:00000274 .Loc.134
+     /tmp/ccU3Ydbt.s:664    .text:0000027a .Loc.135
+     /tmp/ccU3Ydbt.s:678    .text:00000292 .Loc.136
+     /tmp/ccU3Ydbt.s:682    .text:00000296 .Loc.137
+     /tmp/ccU3Ydbt.s:692    .text:000002a6 .Loc.138
+     /tmp/ccU3Ydbt.s:698    .text:000002ac .Loc.139
+     /tmp/ccU3Ydbt.s:718    .text:000002d2 .Loc.140
+     /tmp/ccU3Ydbt.s:723    .text:000002da .Loc.141
+     /tmp/ccU3Ydbt.s:724    .text:000002da .Loc.142
+     /tmp/ccU3Ydbt.s:725    .text:000002da .Loc.143
+     /tmp/ccU3Ydbt.s:732    .text:000002e6 .Loc.144
+     /tmp/ccU3Ydbt.s:736    .text:000002e8 .Loc.145
+     /tmp/ccU3Ydbt.s:737    .text:000002e8 .Loc.146
+     /tmp/ccU3Ydbt.s:741    .text:000002ee .Loc.147
+     /tmp/ccU3Ydbt.s:757    .text:0000030c .Loc.148
+     /tmp/ccU3Ydbt.s:762    .text:00000314 .Loc.149
+     /tmp/ccU3Ydbt.s:765    .text:00000316 .Loc.150
+     /tmp/ccU3Ydbt.s:774    .text:00000326 .Loc.151
+     /tmp/ccU3Ydbt.s:779    .text:0000032e .Loc.152
+     /tmp/ccU3Ydbt.s:780    .text:0000032e .Loc.153
+     /tmp/ccU3Ydbt.s:781    .text:0000032e .Loc.154
+     /tmp/ccU3Ydbt.s:783    .text:00000330 .Loc.155
+     /tmp/ccU3Ydbt.s:787    .text:00000332 .Loc.156
+     /tmp/ccU3Ydbt.s:788    .text:00000332 .Loc.157
+     /tmp/ccU3Ydbt.s:793    .text:00000338 .Loc.158
+     /tmp/ccU3Ydbt.s:794    .text:00000338 .Loc.159
+     /tmp/ccU3Ydbt.s:799    .text:00000340 .Loc.160
+     /tmp/ccU3Ydbt.s:806    .text:00000348 .Loc.161
+     /tmp/ccU3Ydbt.s:810    .text:0000034e .Loc.162
+     /tmp/ccU3Ydbt.s:813    .text:00000350 .Loc.163
+     /tmp/ccU3Ydbt.s:817    .text:00000356 .Loc.164
+     /tmp/ccU3Ydbt.s:821    .text:0000035c .Loc.165
+     /tmp/ccU3Ydbt.s:822    .text:0000035c .Loc.166
+     /tmp/ccU3Ydbt.s:827    .text:00000362 .Loc.167
+     /tmp/ccU3Ydbt.s:834    .text:0000036c .Loc.168
+     /tmp/ccU3Ydbt.s:838    .text:00000372 L0
+     /tmp/ccU3Ydbt.s:884    .progmem.data:00000036 _init
+     /tmp/ccU3Ydbt.s:879    .progmem.data:00000030 _debug
+     /tmp/ccU3Ydbt.s:874    .progmem.data:0000002b _warn
+     /tmp/ccU3Ydbt.s:869    .progmem.data:00000025 _error
+     /tmp/ccU3Ydbt.s:864    .progmem.data:0000001f _panic
+     /tmp/ccU3Ydbt.s:906    .text:00000372 L0
                      .debug_frame:00000000 L0
-     /tmp/ccetrSNK.s:278    .text:00000106 .L3
-     /tmp/ccetrSNK.s:266    .text:000000fa .L4
-     /tmp/ccetrSNK.s:182    .text:00000094 .L6
-     /tmp/ccetrSNK.s:194    .text:0000009e .L7
-     /tmp/ccetrSNK.s:326    .text:00000136 .L15
-     /tmp/ccetrSNK.s:128    .text:00000054 .L5
-     /tmp/ccetrSNK.s:140    .text:00000060 .L22
-     /tmp/ccetrSNK.s:300    .text:00000120 .L16
-     /tmp/ccetrSNK.s:319    .text:00000130 .L17
-     /tmp/ccetrSNK.s:305    .text:00000122 .L11
-     /tmp/ccetrSNK.s:154    .text:00000070 .L9
-     /tmp/ccetrSNK.s:349    .text:00000150 .L13
-     /tmp/ccetrSNK.s:158    .text:00000074 .L12
-     /tmp/ccetrSNK.s:343    .text:0000014a .L14
-     /tmp/ccetrSNK.s:541    .text:00000224 .L25
-     /tmp/ccetrSNK.s:697    .text:000002ac .L31
-     /tmp/ccetrSNK.s:735    .text:000002e8 .L28
-     /tmp/ccetrSNK.s:805    .text:00000348 .L29
-     /tmp/ccetrSNK.s:786    .text:00000332 .L30
-     /tmp/ccetrSNK.s:654    .text:0000026e .L27
-     /tmp/ccetrSNK.s:2118   .debug_abbrev:00000000 .Ldebug_abbrev0
-     /tmp/ccetrSNK.s:8      .text:00000000 .Ltext0
-     /tmp/ccetrSNK.s:896    .text:00000372 .Letext0
-     /tmp/ccetrSNK.s:3497   .debug_line:00000000 .Ldebug_line0
-     /tmp/ccetrSNK.s:561    .text:00000226 .LFB7
-     /tmp/ccetrSNK.s:839    .text:00000372 .LFE7
-     /tmp/ccetrSNK.s:2742   .debug_loclists:00000012 .LLST18
-     /tmp/ccetrSNK.s:2735   .debug_loclists:0000000c .LVUS18
-     /tmp/ccetrSNK.s:2797   .debug_loclists:0000004d .LLST19
-     /tmp/ccetrSNK.s:2792   .debug_loclists:00000049 .LVUS19
-     /tmp/ccetrSNK.s:2826   .debug_loclists:0000006c .LLST20
-     /tmp/ccetrSNK.s:2817   .debug_loclists:00000064 .LVUS20
-     /tmp/ccetrSNK.s:2875   .debug_loclists:000000a3 .LLST21
-     /tmp/ccetrSNK.s:2866   .debug_loclists:0000009b .LVUS21
-     /tmp/ccetrSNK.s:2902   .debug_loclists:000000c4 .LLST22
-     /tmp/ccetrSNK.s:2899   .debug_loclists:000000c2 .LVUS22
-     /tmp/ccetrSNK.s:2921   .debug_loclists:000000d7 .LLST23
-     /tmp/ccetrSNK.s:2914   .debug_loclists:000000d1 .LVUS23
-     /tmp/ccetrSNK.s:2952   .debug_loclists:000000fa .LLST24
-     /tmp/ccetrSNK.s:2949   .debug_loclists:000000f8 .LVUS24
-     /tmp/ccetrSNK.s:662    .text:0000027a .LVL57
-     /tmp/ccetrSNK.s:717    .text:000002d2 .LVL62
-     /tmp/ccetrSNK.s:722    .text:000002da .LVL63
-     /tmp/ccetrSNK.s:756    .text:0000030c .LVL65
-     /tmp/ccetrSNK.s:761    .text:00000314 .LVL66
-     /tmp/ccetrSNK.s:778    .text:0000032e .LVL68
-     /tmp/ccetrSNK.s:798    .text:00000340 .LVL71
-     /tmp/ccetrSNK.s:809    .text:0000034e .LVL73
-     /tmp/ccetrSNK.s:820    .text:0000035c .LVL75
-     /tmp/ccetrSNK.s:457    .text:000001c8 .LFB6
-     /tmp/ccetrSNK.s:547    .text:00000226 .LFE6
-     /tmp/ccetrSNK.s:2964   .debug_loclists:00000106 .LLST16
-     /tmp/ccetrSNK.s:2959   .debug_loclists:00000102 .LVUS16
-     /tmp/ccetrSNK.s:2981   .debug_loclists:00000119 .LLST17
-     /tmp/ccetrSNK.s:2978   .debug_loclists:00000117 .LVUS17
-     /tmp/ccetrSNK.s:517    .text:0000020a .LBB18
-     /tmp/ccetrSNK.s:520    .text:0000020a .LBE18
-     /tmp/ccetrSNK.s:503    .text:000001f8 .LVL49
-     /tmp/ccetrSNK.s:511    .text:00000204 .LVL50
-     /tmp/ccetrSNK.s:515    .text:0000020a .LVL51
-     /tmp/ccetrSNK.s:527    .text:00000216 .LVL52
-     /tmp/ccetrSNK.s:534    .text:00000222 .LVL53
-     /tmp/ccetrSNK.s:375    .text:00000166 .LFB5
-     /tmp/ccetrSNK.s:451    .text:000001c8 .LFE5
-     /tmp/ccetrSNK.s:2996   .debug_loclists:00000128 .LLST15
-     /tmp/ccetrSNK.s:2993   .debug_loclists:00000126 .LVUS15
-     /tmp/ccetrSNK.s:421    .text:0000019a .LVL42
-     /tmp/ccetrSNK.s:433    .text:000001ae .LVL43
-     /tmp/ccetrSNK.s:437    .text:000001b4 .LVL44
-     /tmp/ccetrSNK.s:14     .text:00000000 .LFB4
-     /tmp/ccetrSNK.s:369    .text:00000166 .LFE4
-     /tmp/ccetrSNK.s:3021   .debug_loclists:00000141 .LLST0
-     /tmp/ccetrSNK.s:3008   .debug_loclists:00000135 .LVUS0
-     /tmp/ccetrSNK.s:3073   .debug_loclists:0000017c .LLST1
-     /tmp/ccetrSNK.s:3062   .debug_loclists:00000172 .LVUS1
-     /tmp/ccetrSNK.s:3479   .debug_rnglists:0000000c .LLRL2
-     /tmp/ccetrSNK.s:3134   .debug_loclists:000001be .LLST3
-     /tmp/ccetrSNK.s:3123   .debug_loclists:000001b4 .LVUS3
-     /tmp/ccetrSNK.s:3190   .debug_loclists:000001fc .LLST4
-     /tmp/ccetrSNK.s:3173   .debug_loclists:000001ec .LVUS4
-     /tmp/ccetrSNK.s:3269   .debug_loclists:00000258 .LLST5
-     /tmp/ccetrSNK.s:3264   .debug_loclists:00000254 .LVUS5
-     /tmp/ccetrSNK.s:72     .text:00000026 .LBB10
-     /tmp/ccetrSNK.s:94     .text:00000038 .LBE10
-     /tmp/ccetrSNK.s:3294   .debug_loclists:00000271 .LLST6
-     /tmp/ccetrSNK.s:3291   .debug_loclists:0000026f .LVUS6
-     /tmp/ccetrSNK.s:3311   .debug_loclists:00000280 .LLST7
-     /tmp/ccetrSNK.s:3306   .debug_loclists:0000027c .LVUS7
-     /tmp/ccetrSNK.s:195    .text:0000009e .LBB14
-     /tmp/ccetrSNK.s:262    .text:000000f8 .LBE14
-     /tmp/ccetrSNK.s:3336   .debug_loclists:00000299 .LLST12
-     /tmp/ccetrSNK.s:3333   .debug_loclists:00000297 .LVUS12
-     /tmp/ccetrSNK.s:198    .text:0000009e .LBB15
-     /tmp/ccetrSNK.s:216    .text:000000a8 .LBE15
-     /tmp/ccetrSNK.s:3351   .debug_loclists:000002a8 .LLST13
-     /tmp/ccetrSNK.s:3348   .debug_loclists:000002a6 .LVUS13
-     /tmp/ccetrSNK.s:3366   .debug_loclists:000002b7 .LLST14
-     /tmp/ccetrSNK.s:3363   .debug_loclists:000002b5 .LVUS14
-     /tmp/ccetrSNK.s:230    .text:000000c2 .LVL20
-     /tmp/ccetrSNK.s:246    .text:000000de .LVL22
-     /tmp/ccetrSNK.s:260    .text:000000f8 .LVL24
-     /tmp/ccetrSNK.s:3487   .debug_rnglists:00000016 .LLRL9
-     /tmp/ccetrSNK.s:3387   .debug_loclists:000002cc .LLST10
-     /tmp/ccetrSNK.s:3378   .debug_loclists:000002c4 .LVUS10
-     /tmp/ccetrSNK.s:3431   .debug_loclists:000002f9 .LLST11
-     /tmp/ccetrSNK.s:3426   .debug_loclists:000002f5 .LVUS11
-     /tmp/ccetrSNK.s:359    .text:00000160 .LVL37
-     /tmp/ccetrSNK.s:111    .text:0000004a .LBI11
-     /tmp/ccetrSNK.s:110    .text:0000004a .LBB11
-     /tmp/ccetrSNK.s:122    .text:00000050 .LBE11
-     /tmp/ccetrSNK.s:3446   .debug_loclists:00000309 .LLST8
-     /tmp/ccetrSNK.s:3443   .debug_loclists:00000307 .LVUS8
-     /tmp/ccetrSNK.s:119    .text:00000050 .LVL7
-     /tmp/ccetrSNK.s:100    .text:0000003e .LVL4
-     /tmp/ccetrSNK.s:104    .text:00000044 .LVL5
-     /tmp/ccetrSNK.s:108    .text:0000004a .LVL6
-     /tmp/ccetrSNK.s:135    .text:0000005c .LVL9
-     /tmp/ccetrSNK.s:144    .text:00000064 .LVL11
-     /tmp/ccetrSNK.s:188    .text:0000009a .LVL16
-     /tmp/ccetrSNK.s:274    .text:00000102 .LVL26
-     /tmp/ccetrSNK.s:309    .text:00000128 .LVL30
-     /tmp/ccetrSNK.s:299    .text:00000120 .LVL28
-     /tmp/ccetrSNK.s:907    .debug_info:00000000 .Ldebug_info0
+     /tmp/ccU3Ydbt.s:278    .text:00000106 .L3
+     /tmp/ccU3Ydbt.s:266    .text:000000fa .L4
+     /tmp/ccU3Ydbt.s:182    .text:00000094 .L6
+     /tmp/ccU3Ydbt.s:194    .text:0000009e .L7
+     /tmp/ccU3Ydbt.s:326    .text:00000136 .L15
+     /tmp/ccU3Ydbt.s:128    .text:00000054 .L5
+     /tmp/ccU3Ydbt.s:140    .text:00000060 .L22
+     /tmp/ccU3Ydbt.s:300    .text:00000120 .L16
+     /tmp/ccU3Ydbt.s:319    .text:00000130 .L17
+     /tmp/ccU3Ydbt.s:305    .text:00000122 .L11
+     /tmp/ccU3Ydbt.s:154    .text:00000070 .L9
+     /tmp/ccU3Ydbt.s:349    .text:00000150 .L13
+     /tmp/ccU3Ydbt.s:158    .text:00000074 .L12
+     /tmp/ccU3Ydbt.s:343    .text:0000014a .L14
+     /tmp/ccU3Ydbt.s:541    .text:00000224 .L25
+     /tmp/ccU3Ydbt.s:697    .text:000002ac .L31
+     /tmp/ccU3Ydbt.s:735    .text:000002e8 .L28
+     /tmp/ccU3Ydbt.s:805    .text:00000348 .L29
+     /tmp/ccU3Ydbt.s:786    .text:00000332 .L30
+     /tmp/ccU3Ydbt.s:654    .text:0000026e .L27
+     /tmp/ccU3Ydbt.s:2118   .debug_abbrev:00000000 .Ldebug_abbrev0
+     /tmp/ccU3Ydbt.s:8      .text:00000000 .Ltext0
+     /tmp/ccU3Ydbt.s:896    .text:00000372 .Letext0
+     /tmp/ccU3Ydbt.s:3497   .debug_line:00000000 .Ldebug_line0
+     /tmp/ccU3Ydbt.s:561    .text:00000226 .LFB7
+     /tmp/ccU3Ydbt.s:839    .text:00000372 .LFE7
+     /tmp/ccU3Ydbt.s:2742   .debug_loclists:00000012 .LLST18
+     /tmp/ccU3Ydbt.s:2735   .debug_loclists:0000000c .LVUS18
+     /tmp/ccU3Ydbt.s:2797   .debug_loclists:0000004d .LLST19
+     /tmp/ccU3Ydbt.s:2792   .debug_loclists:00000049 .LVUS19
+     /tmp/ccU3Ydbt.s:2826   .debug_loclists:0000006c .LLST20
+     /tmp/ccU3Ydbt.s:2817   .debug_loclists:00000064 .LVUS20
+     /tmp/ccU3Ydbt.s:2875   .debug_loclists:000000a3 .LLST21
+     /tmp/ccU3Ydbt.s:2866   .debug_loclists:0000009b .LVUS21
+     /tmp/ccU3Ydbt.s:2902   .debug_loclists:000000c4 .LLST22
+     /tmp/ccU3Ydbt.s:2899   .debug_loclists:000000c2 .LVUS22
+     /tmp/ccU3Ydbt.s:2921   .debug_loclists:000000d7 .LLST23
+     /tmp/ccU3Ydbt.s:2914   .debug_loclists:000000d1 .LVUS23
+     /tmp/ccU3Ydbt.s:2952   .debug_loclists:000000fa .LLST24
+     /tmp/ccU3Ydbt.s:2949   .debug_loclists:000000f8 .LVUS24
+     /tmp/ccU3Ydbt.s:662    .text:0000027a .LVL57
+     /tmp/ccU3Ydbt.s:717    .text:000002d2 .LVL62
+     /tmp/ccU3Ydbt.s:722    .text:000002da .LVL63
+     /tmp/ccU3Ydbt.s:756    .text:0000030c .LVL65
+     /tmp/ccU3Ydbt.s:761    .text:00000314 .LVL66
+     /tmp/ccU3Ydbt.s:778    .text:0000032e .LVL68
+     /tmp/ccU3Ydbt.s:798    .text:00000340 .LVL71
+     /tmp/ccU3Ydbt.s:809    .text:0000034e .LVL73
+     /tmp/ccU3Ydbt.s:820    .text:0000035c .LVL75
+     /tmp/ccU3Ydbt.s:457    .text:000001c8 .LFB6
+     /tmp/ccU3Ydbt.s:547    .text:00000226 .LFE6
+     /tmp/ccU3Ydbt.s:2964   .debug_loclists:00000106 .LLST16
+     /tmp/ccU3Ydbt.s:2959   .debug_loclists:00000102 .LVUS16
+     /tmp/ccU3Ydbt.s:2981   .debug_loclists:00000119 .LLST17
+     /tmp/ccU3Ydbt.s:2978   .debug_loclists:00000117 .LVUS17
+     /tmp/ccU3Ydbt.s:517    .text:0000020a .LBB18
+     /tmp/ccU3Ydbt.s:520    .text:0000020a .LBE18
+     /tmp/ccU3Ydbt.s:503    .text:000001f8 .LVL49
+     /tmp/ccU3Ydbt.s:511    .text:00000204 .LVL50
+     /tmp/ccU3Ydbt.s:515    .text:0000020a .LVL51
+     /tmp/ccU3Ydbt.s:527    .text:00000216 .LVL52
+     /tmp/ccU3Ydbt.s:534    .text:00000222 .LVL53
+     /tmp/ccU3Ydbt.s:375    .text:00000166 .LFB5
+     /tmp/ccU3Ydbt.s:451    .text:000001c8 .LFE5
+     /tmp/ccU3Ydbt.s:2996   .debug_loclists:00000128 .LLST15
+     /tmp/ccU3Ydbt.s:2993   .debug_loclists:00000126 .LVUS15
+     /tmp/ccU3Ydbt.s:421    .text:0000019a .LVL42
+     /tmp/ccU3Ydbt.s:433    .text:000001ae .LVL43
+     /tmp/ccU3Ydbt.s:437    .text:000001b4 .LVL44
+     /tmp/ccU3Ydbt.s:14     .text:00000000 .LFB4
+     /tmp/ccU3Ydbt.s:369    .text:00000166 .LFE4
+     /tmp/ccU3Ydbt.s:3021   .debug_loclists:00000141 .LLST0
+     /tmp/ccU3Ydbt.s:3008   .debug_loclists:00000135 .LVUS0
+     /tmp/ccU3Ydbt.s:3073   .debug_loclists:0000017c .LLST1
+     /tmp/ccU3Ydbt.s:3062   .debug_loclists:00000172 .LVUS1
+     /tmp/ccU3Ydbt.s:3479   .debug_rnglists:0000000c .LLRL2
+     /tmp/ccU3Ydbt.s:3134   .debug_loclists:000001be .LLST3
+     /tmp/ccU3Ydbt.s:3123   .debug_loclists:000001b4 .LVUS3
+     /tmp/ccU3Ydbt.s:3190   .debug_loclists:000001fc .LLST4
+     /tmp/ccU3Ydbt.s:3173   .debug_loclists:000001ec .LVUS4
+     /tmp/ccU3Ydbt.s:3269   .debug_loclists:00000258 .LLST5
+     /tmp/ccU3Ydbt.s:3264   .debug_loclists:00000254 .LVUS5
+     /tmp/ccU3Ydbt.s:72     .text:00000026 .LBB10
+     /tmp/ccU3Ydbt.s:94     .text:00000038 .LBE10
+     /tmp/ccU3Ydbt.s:3294   .debug_loclists:00000271 .LLST6
+     /tmp/ccU3Ydbt.s:3291   .debug_loclists:0000026f .LVUS6
+     /tmp/ccU3Ydbt.s:3311   .debug_loclists:00000280 .LLST7
+     /tmp/ccU3Ydbt.s:3306   .debug_loclists:0000027c .LVUS7
+     /tmp/ccU3Ydbt.s:195    .text:0000009e .LBB14
+     /tmp/ccU3Ydbt.s:262    .text:000000f8 .LBE14
+     /tmp/ccU3Ydbt.s:3336   .debug_loclists:00000299 .LLST12
+     /tmp/ccU3Ydbt.s:3333   .debug_loclists:00000297 .LVUS12
+     /tmp/ccU3Ydbt.s:198    .text:0000009e .LBB15
+     /tmp/ccU3Ydbt.s:216    .text:000000a8 .LBE15
+     /tmp/ccU3Ydbt.s:3351   .debug_loclists:000002a8 .LLST13
+     /tmp/ccU3Ydbt.s:3348   .debug_loclists:000002a6 .LVUS13
+     /tmp/ccU3Ydbt.s:3366   .debug_loclists:000002b7 .LLST14
+     /tmp/ccU3Ydbt.s:3363   .debug_loclists:000002b5 .LVUS14
+     /tmp/ccU3Ydbt.s:230    .text:000000c2 .LVL20
+     /tmp/ccU3Ydbt.s:246    .text:000000de .LVL22
+     /tmp/ccU3Ydbt.s:260    .text:000000f8 .LVL24
+     /tmp/ccU3Ydbt.s:3487   .debug_rnglists:00000016 .LLRL9
+     /tmp/ccU3Ydbt.s:3387   .debug_loclists:000002cc .LLST10
+     /tmp/ccU3Ydbt.s:3378   .debug_loclists:000002c4 .LVUS10
+     /tmp/ccU3Ydbt.s:3431   .debug_loclists:000002f9 .LLST11
+     /tmp/ccU3Ydbt.s:3426   .debug_loclists:000002f5 .LVUS11
+     /tmp/ccU3Ydbt.s:359    .text:00000160 .LVL37
+     /tmp/ccU3Ydbt.s:111    .text:0000004a .LBI11
+     /tmp/ccU3Ydbt.s:110    .text:0000004a .LBB11
+     /tmp/ccU3Ydbt.s:122    .text:00000050 .LBE11
+     /tmp/ccU3Ydbt.s:3446   .debug_loclists:00000309 .LLST8
+     /tmp/ccU3Ydbt.s:3443   .debug_loclists:00000307 .LVUS8
+     /tmp/ccU3Ydbt.s:119    .text:00000050 .LVL7
+     /tmp/ccU3Ydbt.s:100    .text:0000003e .LVL4
+     /tmp/ccU3Ydbt.s:104    .text:00000044 .LVL5
+     /tmp/ccU3Ydbt.s:108    .text:0000004a .LVL6
+     /tmp/ccU3Ydbt.s:135    .text:0000005c .LVL9
+     /tmp/ccU3Ydbt.s:144    .text:00000064 .LVL11
+     /tmp/ccU3Ydbt.s:188    .text:0000009a .LVL16
+     /tmp/ccU3Ydbt.s:274    .text:00000102 .LVL26
+     /tmp/ccU3Ydbt.s:309    .text:00000128 .LVL30
+     /tmp/ccU3Ydbt.s:299    .text:00000120 .LVL28
+     /tmp/ccU3Ydbt.s:907    .debug_info:00000000 .Ldebug_info0
 
 UNDEFINED SYMBOLS
 serial_tx

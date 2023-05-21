@@ -11,6 +11,7 @@
 
 #include <types.h>
 
+/** Log Level enum */
 typedef enum
 {
 	LOG_INIT,

@@ -16,30 +16,62 @@
 /** Height of the title bar in pixels */
 #define TITLE_BAR_HEIGHT 20
 
+/** Title bar text left offset */
 #define TITLE_OFFSET_X    4
+
+/** Title bar text top offset */
 #define TITLE_OFFSET_Y    4
 
+/** Border width when not selected */
 #define BORDER_SIZE       1
+
+/** Border width when selected */
 #define BORDER_SIZE_SEL   2
 
-/** Input */
+/* Input */
+
+/** Height of an input field */
 #define INPUT_HEIGHT     24
 
+/** Input field text X padding */
 #define INPUT_PADDING_X   6
+
+/** Input field text Y padding */
 #define INPUT_PADDING_Y   7
 
+/** Input field cursor width */
 #define CURSOR_WIDTH      1
+
+/** Input field cursor height */
 #define CURSOR_HEIGHT    14
+
+/** Input field cursor X offset */
 #define CURSOR_OFFSET    -1
 
+/** Input field cursor Y offset */
 #define CURSOR_OFFSET_Y   5
 
+/** Input field initial capacity */
 #define INPUT_CAPACITY   16
+
+/* Default Theme */
+
+/** Theme Black Color */
+#define THEME_BLACK  0x0F0000FF
+
+/** Theme Dark Color */
+#define THEME_DARK   0x2F0000FF
+
+/** Theme Middle Color */
+#define THEME_MIDDLE 0x4F0000FF
+
+/** Theme Light Color */
+#define THEME_LIGHT  0xFF8000FF
 
 /** Pointer to the currently open window */
 static Window *_current_window;
 
-/** Generic element */
+/** Generic element (header of every element) */
 typedef struct
 {
 	/** Element type */
@@ -685,11 +717,6 @@ void window_event_key(Key key, i32 chr, KeyState state)
 		}
 	}
 }
-
-#define THEME_BLACK  0x0F0000FF
-#define THEME_DARK   0x2F0000FF
-#define THEME_MIDDLE 0x4F0000FF
-#define THEME_LIGHT  0xFF8000FF
 
 void window_init(Window *window, char *title, void *elems, i32 count,
 	KeyEvent onkey)

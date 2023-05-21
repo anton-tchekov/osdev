@@ -86,33 +86,142 @@ $(function() {
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:a1fac9153314479ad0ad495d752f0224a"><td class="memItemLeft" align="right" valign="top"><a id="a1fac9153314479ad0ad495d752f0224a" name="a1fac9153314479ad0ad495d752f0224a"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>UART_BAUD</b>&#160;&#160;&#160;9600</td></tr>
+<tr class="memitem:a1fac9153314479ad0ad495d752f0224a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="platform_2avr_2serial_2serial_8c.html#a1fac9153314479ad0ad495d752f0224a">UART_BAUD</a>&#160;&#160;&#160;9600</td></tr>
 <tr class="separator:a1fac9153314479ad0ad495d752f0224a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4c7f7f9d99b8f7c52064749dcd20cd69"><td class="memItemLeft" align="right" valign="top"><a id="a4c7f7f9d99b8f7c52064749dcd20cd69" name="a4c7f7f9d99b8f7c52064749dcd20cd69"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>_BAUD</b>&#160;&#160;&#160;(((F_CPU / (UART_BAUD * 16UL))) - 1)</td></tr>
-<tr class="separator:a4c7f7f9d99b8f7c52064749dcd20cd69"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac835bcbee0b787bf789f4499f850332c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="platform_2avr_2serial_2serial_8c.html#ac835bcbee0b787bf789f4499f850332c">UART_PRESCALER</a>&#160;&#160;&#160;(((F_CPU / (<a class="el" href="platform_2avr_2serial_2serial_8c.html#a1fac9153314479ad0ad495d752f0224a">UART_BAUD</a> * 16UL))) - 1)</td></tr>
+<tr class="separator:ac835bcbee0b787bf789f4499f850332c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:ad2b461e9e9044364a28a61cfadcacdd8"><td class="memItemLeft" align="right" valign="top"><a id="ad2b461e9e9044364a28a61cfadcacdd8" name="ad2b461e9e9044364a28a61cfadcacdd8"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>serial_init</b> (void)</td></tr>
+<tr class="memdesc:ad2b461e9e9044364a28a61cfadcacdd8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize the serial port. <br /></td></tr>
 <tr class="separator:ad2b461e9e9044364a28a61cfadcacdd8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad1404aaabd8a723599a89c9b9ca08a65"><td class="memItemLeft" align="right" valign="top"><a id="ad1404aaabd8a723599a89c9b9ca08a65" name="ad1404aaabd8a723599a89c9b9ca08a65"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>serial_tx</b> (char c)</td></tr>
+<tr class="memitem:ad1404aaabd8a723599a89c9b9ca08a65"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="platform_2avr_2serial_2serial_8c.html#ad1404aaabd8a723599a89c9b9ca08a65">serial_tx</a> (char c)</td></tr>
+<tr class="memdesc:ad1404aaabd8a723599a89c9b9ca08a65"><td class="mdescLeft">&#160;</td><td class="mdescRight">Print a character.  <br /></td></tr>
 <tr class="separator:ad1404aaabd8a723599a89c9b9ca08a65"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a38ab89a81b380ccbfe63ba026d92b54b"><td class="memItemLeft" align="right" valign="top"><a id="a38ab89a81b380ccbfe63ba026d92b54b" name="a38ab89a81b380ccbfe63ba026d92b54b"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>serial_tx_str</b> (const char *s)</td></tr>
+<tr class="memitem:a38ab89a81b380ccbfe63ba026d92b54b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="platform_2avr_2serial_2serial_8c.html#a38ab89a81b380ccbfe63ba026d92b54b">serial_tx_str</a> (const char *s)</td></tr>
+<tr class="memdesc:a38ab89a81b380ccbfe63ba026d92b54b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Print a null-terminated string.  <br /></td></tr>
 <tr class="separator:a38ab89a81b380ccbfe63ba026d92b54b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a61bd5731ded09bedba568c156e57e0bb"><td class="memItemLeft" align="right" valign="top"><a id="a61bd5731ded09bedba568c156e57e0bb" name="a61bd5731ded09bedba568c156e57e0bb"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>serial_tx_str_P</b> (const char *s)</td></tr>
+<tr class="memitem:a61bd5731ded09bedba568c156e57e0bb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="platform_2avr_2serial_2serial_8c.html#a61bd5731ded09bedba568c156e57e0bb">serial_tx_str_P</a> (const char *s)</td></tr>
+<tr class="memdesc:a61bd5731ded09bedba568c156e57e0bb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Print a null-terminated string from PROGMEM.  <br /></td></tr>
 <tr class="separator:a61bd5731ded09bedba568c156e57e0bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><dl class="section author"><dt>Author</dt><dd>Anton Tchekov </dd></dl>
 <dl class="section version"><dt>Version</dt><dd>0.1 </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>16.05.2023 </dd></dl>
-</div></div><!-- contents -->
+</div><h2 class="groupheader">Macro Definition Documentation</h2>
+<a id="a1fac9153314479ad0ad495d752f0224a" name="a1fac9153314479ad0ad495d752f0224a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1fac9153314479ad0ad495d752f0224a">&#9670;&#160;</a></span>UART_BAUD</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define UART_BAUD&#160;&#160;&#160;9600</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>UART Baudrate </p>
+
+</div>
+</div>
+<a id="ac835bcbee0b787bf789f4499f850332c" name="ac835bcbee0b787bf789f4499f850332c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac835bcbee0b787bf789f4499f850332c">&#9670;&#160;</a></span>UART_PRESCALER</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define UART_PRESCALER&#160;&#160;&#160;(((F_CPU / (<a class="el" href="platform_2avr_2serial_2serial_8c.html#a1fac9153314479ad0ad495d752f0224a">UART_BAUD</a> * 16UL))) - 1)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>UART Prescaler </p>
+
+</div>
+</div>
+<h2 class="groupheader">Function Documentation</h2>
+<a id="ad1404aaabd8a723599a89c9b9ca08a65" name="ad1404aaabd8a723599a89c9b9ca08a65"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad1404aaabd8a723599a89c9b9ca08a65">&#9670;&#160;</a></span>serial_tx()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void serial_tx </td>
+          <td>(</td>
+          <td class="paramtype">char&#160;</td>
+          <td class="paramname"><em>c</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Print a character. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">c</td><td>The ASCII character to print </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a38ab89a81b380ccbfe63ba026d92b54b" name="a38ab89a81b380ccbfe63ba026d92b54b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a38ab89a81b380ccbfe63ba026d92b54b">&#9670;&#160;</a></span>serial_tx_str()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void serial_tx_str </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>s</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Print a null-terminated string. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">s</td><td>Pointer to string </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a61bd5731ded09bedba568c156e57e0bb" name="a61bd5731ded09bedba568c156e57e0bb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a61bd5731ded09bedba568c156e57e0bb">&#9670;&#160;</a></span>serial_tx_str_P()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void serial_tx_str_P </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>s</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Print a null-terminated string from PROGMEM. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">s</td><td>Pointer to string in program memory </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+</div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.6

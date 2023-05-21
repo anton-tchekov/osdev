@@ -56,7 +56,7 @@ static void _lcd_write_data(u8 data)
 	LCD_CS_1;
 }
 
-static void _lcd_window_start(u16 x, u16 y, u16 w, u16 h)
+void _lcd_window_start(u16 x, u16 y, u16 w, u16 h)
 {
 	u16 x_end, y_end;
 
@@ -80,13 +80,13 @@ static void _lcd_window_start(u16 x, u16 y, u16 w, u16 h)
 	LCD_CS_0;
 }
 
-static inline void _lcd_pixel(u16 data)
+void _lcd_pixel(u16 data)
 {
 	spi_xchg(data >> 8);
 	spi_xchg(data);
 }
 
-static inline void _lcd_window_end(void)
+void _lcd_window_end(void)
 {
 	LCD_CS_1;
 }
@@ -286,23 +286,6 @@ void lcd_rect(u16 x, u16 y, u16 w, u16 h, RGB565 color)
 RGB565 lcd_color(u8 r, u8 g, u8 b)
 {
 	return ((r & 0xF8) << 8) | ((g & 0xFC) << 3) | (b >> 3);
-}
-
-void lcd_window(u16 x, u16 y, u16 w, u16 h,
-	RGB565 (*color_callback)(u16, u16))
-{
-	u16 w0, h0;
-
-	_lcd_window_start(x, y, w, h);
-	for(h0 = 0; h0 < h; ++h0)
-	{
-		for(w0 = 0; w0 < w; ++w0)
-		{
-			_lcd_pixel(color_callback(w0, h0));
-		}
-	}
-
-	_lcd_window_end();
 }
 
 void lcd_logo_P(u16 x, u16 y, u16 w, u16 h, const u8 *image)

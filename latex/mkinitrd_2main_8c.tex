@@ -12,11 +12,9 @@ Boot image creator.
 \doxysubsection*{Macros}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{mkinitrd_2main_8c_ad51ded0bbd705f02f73fc60c0b721ced}\label{mkinitrd_2main_8c_ad51ded0bbd705f02f73fc60c0b721ced}} 
-\#define {\bfseries BLOCK\+\_\+\+SIZE}~512
+\#define \mbox{\hyperlink{mkinitrd_2main_8c_ad51ded0bbd705f02f73fc60c0b721ced}{BLOCK\+\_\+\+SIZE}}~512
 \item 
-\mbox{\Hypertarget{mkinitrd_2main_8c_a262979df93bcd7f2da26605be29bb3d6}\label{mkinitrd_2main_8c_a262979df93bcd7f2da26605be29bb3d6}} 
-\#define {\bfseries SECTOR\+\_\+\+BOOT}~0
+\#define \mbox{\hyperlink{mkinitrd_2main_8c_a262979df93bcd7f2da26605be29bb3d6}{SECTOR\+\_\+\+BOOT}}~0
 \item 
 \mbox{\Hypertarget{mkinitrd_2main_8c_a628dc6df1dde01776eda16e61f257ebf}\label{mkinitrd_2main_8c_a628dc6df1dde01776eda16e61f257ebf}} 
 \#define {\bfseries SIZE\+\_\+\+BOOT}~1
@@ -28,7 +26,7 @@ Boot image creator.
 \#define {\bfseries SIZE\+\_\+\+STDLIB}~128
 \item 
 \mbox{\Hypertarget{mkinitrd_2main_8c_a3ece92f0b20ff717a8729ea6cb4cf012}\label{mkinitrd_2main_8c_a3ece92f0b20ff717a8729ea6cb4cf012}} 
-\#define {\bfseries SECTOR\+\_\+\+INIT}~(SECTOR\+\_\+\+BOOT + SIZE\+\_\+\+STDLIB)
+\#define {\bfseries SECTOR\+\_\+\+INIT}~(SIZE\+\_\+\+BOOT + SIZE\+\_\+\+STDLIB)
 \item 
 \mbox{\Hypertarget{mkinitrd_2main_8c_a0ed0cdd613f9a43800d2ae8595904b08}\label{mkinitrd_2main_8c_a0ed0cdd613f9a43800d2ae8595904b08}} 
 \#define {\bfseries SIZE\+\_\+\+INIT}~128
@@ -71,3 +69,19 @@ Anton Tchekov
 \begin{DoxyDate}{Date}
 21.\+05.\+2023 
 \end{DoxyDate}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{mkinitrd_2main_8c_ad51ded0bbd705f02f73fc60c0b721ced}\label{mkinitrd_2main_8c_ad51ded0bbd705f02f73fc60c0b721ced}} 
+\index{main.c@{main.c}!BLOCK\_SIZE@{BLOCK\_SIZE}}
+\index{BLOCK\_SIZE@{BLOCK\_SIZE}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{BLOCK\_SIZE}{BLOCK\_SIZE}}
+{\footnotesize\ttfamily \#define BLOCK\+\_\+\+SIZE~512}
+
+Disk sector size \mbox{\Hypertarget{mkinitrd_2main_8c_a262979df93bcd7f2da26605be29bb3d6}\label{mkinitrd_2main_8c_a262979df93bcd7f2da26605be29bb3d6}} 
+\index{main.c@{main.c}!SECTOR\_BOOT@{SECTOR\_BOOT}}
+\index{SECTOR\_BOOT@{SECTOR\_BOOT}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{SECTOR\_BOOT}{SECTOR\_BOOT}}
+{\footnotesize\ttfamily \#define SECTOR\+\_\+\+BOOT~0}
+
+Boot sector offset in blocks 

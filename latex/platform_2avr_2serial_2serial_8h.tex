@@ -10,16 +10,13 @@ Serial interface driver.
 \item 
 \mbox{\Hypertarget{platform_2avr_2serial_2serial_8h_ad2b461e9e9044364a28a61cfadcacdd8}\label{platform_2avr_2serial_2serial_8h_ad2b461e9e9044364a28a61cfadcacdd8}} 
 void {\bfseries serial\+\_\+init} (void)
-\item 
-\mbox{\Hypertarget{platform_2avr_2serial_2serial_8h_ad1404aaabd8a723599a89c9b9ca08a65}\label{platform_2avr_2serial_2serial_8h_ad1404aaabd8a723599a89c9b9ca08a65}} 
-void {\bfseries serial\+\_\+tx} (char c)
-\item 
-\mbox{\Hypertarget{platform_2avr_2serial_2serial_8h_a38ab89a81b380ccbfe63ba026d92b54b}\label{platform_2avr_2serial_2serial_8h_a38ab89a81b380ccbfe63ba026d92b54b}} 
-void {\bfseries serial\+\_\+tx\+\_\+str} (const char $\ast$s)
-\item 
-\mbox{\Hypertarget{platform_2avr_2serial_2serial_8h_a61bd5731ded09bedba568c156e57e0bb}\label{platform_2avr_2serial_2serial_8h_a61bd5731ded09bedba568c156e57e0bb}} 
-void {\bfseries serial\+\_\+tx\+\_\+str\+\_\+P} (const char $\ast$s)
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Initialize the serial port. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{platform_2avr_2serial_2serial_8h_ad1404aaabd8a723599a89c9b9ca08a65}{serial\+\_\+tx}} (char c)
+\begin{DoxyCompactList}\small\item\em Print a character. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{platform_2avr_2serial_2serial_8h_a38ab89a81b380ccbfe63ba026d92b54b}{serial\+\_\+tx\+\_\+str}} (const char $\ast$s)
+\begin{DoxyCompactList}\small\item\em Print a null-\/terminated string. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{platform_2avr_2serial_2serial_8h_a61bd5731ded09bedba568c156e57e0bb}{serial\+\_\+tx\+\_\+str\+\_\+P}} (const char $\ast$s)
+\begin{DoxyCompactList}\small\item\em Print a null-\/terminated string from PROGMEM. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
@@ -34,3 +31,51 @@ Anton Tchekov
 \begin{DoxyDate}{Date}
 16.\+05.\+2023 
 \end{DoxyDate}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{platform_2avr_2serial_2serial_8h_ad1404aaabd8a723599a89c9b9ca08a65}\label{platform_2avr_2serial_2serial_8h_ad1404aaabd8a723599a89c9b9ca08a65}} 
+\index{serial.h@{serial.h}!serial\_tx@{serial\_tx}}
+\index{serial\_tx@{serial\_tx}!serial.h@{serial.h}}
+\doxysubsubsection{\texorpdfstring{serial\_tx()}{serial\_tx()}}
+{\footnotesize\ttfamily void serial\+\_\+tx (\begin{DoxyParamCaption}\item[{char}]{c }\end{DoxyParamCaption})}
+
+
+
+Print a character. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em c} & The ASCII character to print \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{platform_2avr_2serial_2serial_8h_a38ab89a81b380ccbfe63ba026d92b54b}\label{platform_2avr_2serial_2serial_8h_a38ab89a81b380ccbfe63ba026d92b54b}} 
+\index{serial.h@{serial.h}!serial\_tx\_str@{serial\_tx\_str}}
+\index{serial\_tx\_str@{serial\_tx\_str}!serial.h@{serial.h}}
+\doxysubsubsection{\texorpdfstring{serial\_tx\_str()}{serial\_tx\_str()}}
+{\footnotesize\ttfamily void serial\+\_\+tx\+\_\+str (\begin{DoxyParamCaption}\item[{const char $\ast$}]{s }\end{DoxyParamCaption})}
+
+
+
+Print a null-\/terminated string. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em s} & Pointer to string \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{platform_2avr_2serial_2serial_8h_a61bd5731ded09bedba568c156e57e0bb}\label{platform_2avr_2serial_2serial_8h_a61bd5731ded09bedba568c156e57e0bb}} 
+\index{serial.h@{serial.h}!serial\_tx\_str\_P@{serial\_tx\_str\_P}}
+\index{serial\_tx\_str\_P@{serial\_tx\_str\_P}!serial.h@{serial.h}}
+\doxysubsubsection{\texorpdfstring{serial\_tx\_str\_P()}{serial\_tx\_str\_P()}}
+{\footnotesize\ttfamily void serial\+\_\+tx\+\_\+str\+\_\+P (\begin{DoxyParamCaption}\item[{const char $\ast$}]{s }\end{DoxyParamCaption})}
+
+
+
+Print a null-\/terminated string from PROGMEM. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em s} & Pointer to string in program memory \\
+\hline
+\end{DoxyParams}

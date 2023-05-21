@@ -12,7 +12,10 @@
 #include <types.h>
 #include <status.h>
 
+/** SD card block size in bytes */
 #define BLOCK_SIZE             512
+
+/** SD card block size as a power of two */
 #define BLOCK_SIZE_POT           9
 
 /**

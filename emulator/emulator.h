@@ -15,6 +15,7 @@
 /** Emulated process */
 typedef struct
 {
+	/** Event handler addresses */
 	u32 Events[EVENT_COUNT];
 
 	/** Program counter */

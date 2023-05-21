@@ -5,12 +5,14 @@
 #include "ft2build.h"
 #include FT_FREETYPE_H
 
+/** Font character data struct */
 typedef struct
 {
 	i32 Codepoint, Advance, Size[2], Bearing[2], Offset;
 	u8 *Bitmap;
 } FontChar;
 
+/** Font data struct */
 typedef struct
 {
 	FontChar *Characters;

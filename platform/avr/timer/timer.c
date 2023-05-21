@@ -11,6 +11,7 @@
 #include <avr/interrupt.h>
 #include <avr/pgmspace.h>
 
+/** Millisecond counter */
 static volatile u32 _ms;
 
 void timer_init(void)
@@ -38,7 +39,7 @@ u32 millis(void)
 	return _ms;
 }
 
-/* Timer0 compare interrupt */
+/** Timer0 compare interrupt */
 ISR(TIMER0_COMPA_vect)
 {
 	/* Increment overflows after approx. 50 days */

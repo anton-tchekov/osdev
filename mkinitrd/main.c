@@ -11,10 +11,12 @@
 #include <string.h>
 #include <types.h>
 
-/* Disk sector size */
+/** Disk sector size */
 #define BLOCK_SIZE           512
 
 /* 512 bytes */
+
+/** Boot sector offset in blocks */
 #define SECTOR_BOOT            0
 #define SIZE_BOOT              1
 
@@ -23,7 +25,7 @@
 #define SIZE_STDLIB          128
 
 /* 64 KiB */
-#define SECTOR_INIT             (SECTOR_BOOT + SIZE_STDLIB)
+#define SECTOR_INIT             (SIZE_BOOT + SIZE_STDLIB)
 #define SIZE_INIT            128
 
 /* Root Dir */

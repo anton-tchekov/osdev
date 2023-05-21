@@ -11,28 +11,22 @@
 \doxysubsection*{Macros}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{logger_8c_acd50bfc1231a2b7d02b81bd3304eff6d}\label{logger_8c_acd50bfc1231a2b7d02b81bd3304eff6d}} 
-\#define {\bfseries MEMORY\+\_\+\+DUMP\+\_\+\+WIDTH}~16
+\#define \mbox{\hyperlink{logger_8c_a7e605a71d397f16aa436a31c4d459a82}{DUMP\+\_\+\+BYTES\+\_\+\+PER\+\_\+\+LINE}}~16
 \item 
-\mbox{\Hypertarget{logger_8c_a1c2264aaa6ab403827c0b0ccf4e52c98}\label{logger_8c_a1c2264aaa6ab403827c0b0ccf4e52c98}} 
-\#define {\bfseries LOG\+\_\+\+Y\+\_\+\+OFFSET}~120
+\#define \mbox{\hyperlink{logger_8c_a1c2264aaa6ab403827c0b0ccf4e52c98}{LOG\+\_\+\+Y\+\_\+\+OFFSET}}~120
 \item 
-\mbox{\Hypertarget{logger_8c_aa2f3dc0dd5d312558d3c448c9ff76c4e}\label{logger_8c_aa2f3dc0dd5d312558d3c448c9ff76c4e}} 
-\#define {\bfseries LOG\+\_\+\+X\+\_\+\+OFFSET}~10
+\#define \mbox{\hyperlink{logger_8c_aa2f3dc0dd5d312558d3c448c9ff76c4e}{LOG\+\_\+\+X\+\_\+\+OFFSET}}~10
 \item 
-\mbox{\Hypertarget{logger_8c_a924a8786b2d00a7d13ccf96ba6e7bd41}\label{logger_8c_a924a8786b2d00a7d13ccf96ba6e7bd41}} 
-\#define {\bfseries LOG\+\_\+\+Y\+\_\+\+ADVANCE}~10
+\#define \mbox{\hyperlink{logger_8c_a924a8786b2d00a7d13ccf96ba6e7bd41}{LOG\+\_\+\+Y\+\_\+\+ADVANCE}}~10
 \item 
-\mbox{\Hypertarget{logger_8c_aa18d885e222964b4545d9d36432ddef2}\label{logger_8c_aa18d885e222964b4545d9d36432ddef2}} 
-\#define {\bfseries LOG\+\_\+\+X\+\_\+\+TEXT\+\_\+\+OFFSET}~49
+\#define \mbox{\hyperlink{logger_8c_aa18d885e222964b4545d9d36432ddef2}{LOG\+\_\+\+X\+\_\+\+TEXT\+\_\+\+OFFSET}}~49
 \item 
-\mbox{\Hypertarget{logger_8c_a119ca7f71ff2656a654bce7e413cf9d7}\label{logger_8c_a119ca7f71ff2656a654bce7e413cf9d7}} 
-\#define {\bfseries LOG\+\_\+\+START\+\_\+\+WIDTH}~8
+\#define \mbox{\hyperlink{logger_8c_a119ca7f71ff2656a654bce7e413cf9d7}{LOG\+\_\+\+START\+\_\+\+WIDTH}}~8
 \end{DoxyCompactItemize}
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-void \mbox{\hyperlink{logger_8c_a60bd636ef160c97eb51cf31be5954ba2}{log\+\_\+boot\+\_\+P}} (Log\+Level level, const char $\ast$msg,...)
+void \mbox{\hyperlink{logger_8c_a60bd636ef160c97eb51cf31be5954ba2}{log\+\_\+boot\+\_\+P}} (\mbox{\hyperlink{logger_8h_aca1fd1d8935433e6ba2e3918214e07f9}{Log\+Level}} level, const char $\ast$msg,...)
 \begin{DoxyCompactList}\small\item\em Log boot message. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{logger_8c_a19a313011d8f478ad9799e546199a9ac}{panic}} (const char $\ast$msg,...)
 \begin{DoxyCompactList}\small\item\em Trigger a kernel panic. \end{DoxyCompactList}\item 
@@ -41,7 +35,7 @@ void \mbox{\hyperlink{logger_8c_a0108e0dd64eb1971222c219982138866}{memory\+\_\+d
 \doxysubsection*{Variables}
 \begin{DoxyCompactItemize}
 \item 
-const RGB565 \+\_\+log\+\_\+color\mbox{[}$\,$\mbox{]} \mbox{\hyperlink{logger_8c_a149e41d3c69eb61cab9e3780d0390b39}{PROGMEM}}
+const \mbox{\hyperlink{lcd_8h_a9a75b3f378a8d443f893bd9eceb09642}{RGB565}} \+\_\+log\+\_\+color\mbox{[}$\,$\mbox{]} \mbox{\hyperlink{logger_8c_a149e41d3c69eb61cab9e3780d0390b39}{PROGMEM}}
 \end{DoxyCompactItemize}
 
 
@@ -57,12 +51,51 @@ Tim Gabrikowski, Anton Tchekov
 \end{DoxyDate}
 
 
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{logger_8c_a7e605a71d397f16aa436a31c4d459a82}\label{logger_8c_a7e605a71d397f16aa436a31c4d459a82}} 
+\index{logger.c@{logger.c}!DUMP\_BYTES\_PER\_LINE@{DUMP\_BYTES\_PER\_LINE}}
+\index{DUMP\_BYTES\_PER\_LINE@{DUMP\_BYTES\_PER\_LINE}!logger.c@{logger.c}}
+\doxysubsubsection{\texorpdfstring{DUMP\_BYTES\_PER\_LINE}{DUMP\_BYTES\_PER\_LINE}}
+{\footnotesize\ttfamily \#define DUMP\+\_\+\+BYTES\+\_\+\+PER\+\_\+\+LINE~16}
+
+How many bytes to print per line in a hexdump \mbox{\Hypertarget{logger_8c_a119ca7f71ff2656a654bce7e413cf9d7}\label{logger_8c_a119ca7f71ff2656a654bce7e413cf9d7}} 
+\index{logger.c@{logger.c}!LOG\_START\_WIDTH@{LOG\_START\_WIDTH}}
+\index{LOG\_START\_WIDTH@{LOG\_START\_WIDTH}!logger.c@{logger.c}}
+\doxysubsubsection{\texorpdfstring{LOG\_START\_WIDTH}{LOG\_START\_WIDTH}}
+{\footnotesize\ttfamily \#define LOG\+\_\+\+START\+\_\+\+WIDTH~8}
+
+Serial Log prefix width \mbox{\Hypertarget{logger_8c_aa2f3dc0dd5d312558d3c448c9ff76c4e}\label{logger_8c_aa2f3dc0dd5d312558d3c448c9ff76c4e}} 
+\index{logger.c@{logger.c}!LOG\_X\_OFFSET@{LOG\_X\_OFFSET}}
+\index{LOG\_X\_OFFSET@{LOG\_X\_OFFSET}!logger.c@{logger.c}}
+\doxysubsubsection{\texorpdfstring{LOG\_X\_OFFSET}{LOG\_X\_OFFSET}}
+{\footnotesize\ttfamily \#define LOG\+\_\+\+X\+\_\+\+OFFSET~10}
+
+LCD Log left margin \mbox{\Hypertarget{logger_8c_aa18d885e222964b4545d9d36432ddef2}\label{logger_8c_aa18d885e222964b4545d9d36432ddef2}} 
+\index{logger.c@{logger.c}!LOG\_X\_TEXT\_OFFSET@{LOG\_X\_TEXT\_OFFSET}}
+\index{LOG\_X\_TEXT\_OFFSET@{LOG\_X\_TEXT\_OFFSET}!logger.c@{logger.c}}
+\doxysubsubsection{\texorpdfstring{LOG\_X\_TEXT\_OFFSET}{LOG\_X\_TEXT\_OFFSET}}
+{\footnotesize\ttfamily \#define LOG\+\_\+\+X\+\_\+\+TEXT\+\_\+\+OFFSET~49}
+
+LCD Log prefix pixel width \mbox{\Hypertarget{logger_8c_a924a8786b2d00a7d13ccf96ba6e7bd41}\label{logger_8c_a924a8786b2d00a7d13ccf96ba6e7bd41}} 
+\index{logger.c@{logger.c}!LOG\_Y\_ADVANCE@{LOG\_Y\_ADVANCE}}
+\index{LOG\_Y\_ADVANCE@{LOG\_Y\_ADVANCE}!logger.c@{logger.c}}
+\doxysubsubsection{\texorpdfstring{LOG\_Y\_ADVANCE}{LOG\_Y\_ADVANCE}}
+{\footnotesize\ttfamily \#define LOG\+\_\+\+Y\+\_\+\+ADVANCE~10}
+
+LCD advance Y direction \mbox{\Hypertarget{logger_8c_a1c2264aaa6ab403827c0b0ccf4e52c98}\label{logger_8c_a1c2264aaa6ab403827c0b0ccf4e52c98}} 
+\index{logger.c@{logger.c}!LOG\_Y\_OFFSET@{LOG\_Y\_OFFSET}}
+\index{LOG\_Y\_OFFSET@{LOG\_Y\_OFFSET}!logger.c@{logger.c}}
+\doxysubsubsection{\texorpdfstring{LOG\_Y\_OFFSET}{LOG\_Y\_OFFSET}}
+{\footnotesize\ttfamily \#define LOG\+\_\+\+Y\+\_\+\+OFFSET~120}
+
+LCD Log top margin 
+
 \doxysubsection{Function Documentation}
 \mbox{\Hypertarget{logger_8c_a60bd636ef160c97eb51cf31be5954ba2}\label{logger_8c_a60bd636ef160c97eb51cf31be5954ba2}} 
 \index{logger.c@{logger.c}!log\_boot\_P@{log\_boot\_P}}
 \index{log\_boot\_P@{log\_boot\_P}!logger.c@{logger.c}}
 \doxysubsubsection{\texorpdfstring{log\_boot\_P()}{log\_boot\_P()}}
-{\footnotesize\ttfamily void log\+\_\+boot\+\_\+P (\begin{DoxyParamCaption}\item[{Log\+Level}]{level,  }\item[{const char $\ast$}]{msg,  }\item[{}]{... }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void log\+\_\+boot\+\_\+P (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{logger_8h_aca1fd1d8935433e6ba2e3918214e07f9}{Log\+Level}}}]{level,  }\item[{const char $\ast$}]{msg,  }\item[{}]{... }\end{DoxyParamCaption})}
 
 
 
@@ -126,11 +159,22 @@ Trigger a kernel panic.
 \begin{DoxyCode}{0}
 \DoxyCodeLine{=}
 \DoxyCodeLine{\{}
-\DoxyCodeLine{\ \ \ \ COLOR\_CYAN,}
-\DoxyCodeLine{\ \ \ \ COLOR\_GREEN,}
-\DoxyCodeLine{\ \ \ \ COLOR\_YELLOW,}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{lcd_8h_a82573859711fce56f1aa0a76b18a9b18}{COLOR\_CYAN}},}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{lcd_8h_afc9149f5de51bd9ac4f5ebbfa153f018}{COLOR\_GREEN}},}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{lcd_8h_a4534b577b74a58b0f4b7be027af664e0}{COLOR\_YELLOW}},}
 \DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{lcd_8h_ad86358bf19927183dd7b4ae215a29731}{COLOR\_RED}},}
-\DoxyCodeLine{\ \ \ \ COLOR\_MAGENTA}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{lcd_8h_a8deb0beccea721b35bdb1b4f7264fe75}{COLOR\_MAGENTA}}}
 \DoxyCodeLine{\}}
 
 \end{DoxyCode}
+Highlight colors of the various log levels
+
+Log level \mbox{[}INIT\mbox{]} string
+
+Log level \mbox{[}DEBUG\mbox{]} string
+
+Log level \mbox{[}WARN\mbox{]} string
+
+Log level \mbox{[}ERROR\mbox{]} string
+
+Log level \mbox{[}PANIC\mbox{]} string 

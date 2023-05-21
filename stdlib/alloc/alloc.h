@@ -11,6 +11,7 @@
 
 #include <types.h>
 
+/** Memory allocator information struct */
 typedef struct
 {
 	i32 Used, Total, Size;

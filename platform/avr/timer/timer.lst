@@ -25,57 +25,58 @@
   11:timer/timer.c **** #include <avr/interrupt.h>
   12:timer/timer.c **** #include <avr/pgmspace.h>
   13:timer/timer.c **** 
-  14:timer/timer.c **** static volatile u32 _ms;
-  15:timer/timer.c **** 
-  16:timer/timer.c **** void timer_init(void)
-  17:timer/timer.c **** {
-  16               		.loc 1 17 1 view -0
+  14:timer/timer.c **** /** Millisecond counter */
+  15:timer/timer.c **** static volatile u32 _ms;
+  16:timer/timer.c **** 
+  17:timer/timer.c **** void timer_init(void)
+  18:timer/timer.c **** {
+  16               		.loc 1 18 1 view -0
   17               		.cfi_startproc
   18               	/* prologue: function */
   19               	/* frame size = 0 */
   20               	/* stack size = 0 */
   21               	.L__stack_usage = 0
-  18:timer/timer.c **** 	/* Initialize hardware timers */
-  19:timer/timer.c **** 
-  20:timer/timer.c **** 	/* CTC Mode */
-  21:timer/timer.c **** 	TCCR0A = (1 << WGM01);
-  22               		.loc 1 21 2 view .LVU1
-  23               		.loc 1 21 9 is_stmt 0 view .LVU2
+  19:timer/timer.c **** 	/* Initialize hardware timers */
+  20:timer/timer.c **** 
+  21:timer/timer.c **** 	/* CTC Mode */
+  22:timer/timer.c **** 	TCCR0A = (1 << WGM01);
+  22               		.loc 1 22 2 view .LVU1
+  23               		.loc 1 22 9 is_stmt 0 view .LVU2
   24 0000 82E0      		ldi r24,lo8(2)
   25 0002 84BD      		out 0x24,r24
-  22:timer/timer.c **** 
-  23:timer/timer.c **** 	/* Prescaler 64 */
-  24:timer/timer.c **** 	TCCR0B |= (1 << CS01) | (1 << CS00);
-  26               		.loc 1 24 2 is_stmt 1 view .LVU3
+  23:timer/timer.c **** 
+  24:timer/timer.c **** 	/* Prescaler 64 */
+  25:timer/timer.c **** 	TCCR0B |= (1 << CS01) | (1 << CS00);
+  26               		.loc 1 25 2 is_stmt 1 view .LVU3
   27 0004 85B5      		in r24,0x25
-  28               		.loc 1 24 9 is_stmt 0 view .LVU4
+  28               		.loc 1 25 9 is_stmt 0 view .LVU4
   29 0006 8360      		ori r24,lo8(3)
   30 0008 85BD      		out 0x25,r24
-  25:timer/timer.c **** 
-  26:timer/timer.c **** 	/* 16000000 / 64 / 1000 = 250 */
-  27:timer/timer.c **** 	OCR0A = 250 - 1;
-  31               		.loc 1 27 2 is_stmt 1 view .LVU5
-  32               		.loc 1 27 8 is_stmt 0 view .LVU6
+  26:timer/timer.c **** 
+  27:timer/timer.c **** 	/* 16000000 / 64 / 1000 = 250 */
+  28:timer/timer.c **** 	OCR0A = 250 - 1;
+  31               		.loc 1 28 2 is_stmt 1 view .LVU5
+  32               		.loc 1 28 8 is_stmt 0 view .LVU6
   33 000a 89EF      		ldi r24,lo8(-7)
   34 000c 87BD      		out 0x27,r24
-  28:timer/timer.c **** 
-  29:timer/timer.c **** 	/* Enable compare interrupt */
-  30:timer/timer.c **** 	TIMSK0 |= (1 << OCIE0A);
-  35               		.loc 1 30 2 is_stmt 1 view .LVU7
+  29:timer/timer.c **** 
+  30:timer/timer.c **** 	/* Enable compare interrupt */
+  31:timer/timer.c **** 	TIMSK0 |= (1 << OCIE0A);
+  35               		.loc 1 31 2 is_stmt 1 view .LVU7
   36 000e EEE6      		ldi r30,lo8(110)
   37 0010 F0E0      		ldi r31,0
   38 0012 8081      		ld r24,Z
-  39               		.loc 1 30 9 is_stmt 0 view .LVU8
+  39               		.loc 1 31 9 is_stmt 0 view .LVU8
   40 0014 8260      		ori r24,lo8(2)
   41 0016 8083      		st Z,r24
-  31:timer/timer.c **** 
-  32:timer/timer.c **** 	log_boot_P(LOG_INIT, PSTR("Millisecond timer initialized"));
-  42               		.loc 1 32 2 is_stmt 1 view .LVU9
+  32:timer/timer.c **** 
+  33:timer/timer.c **** 	log_boot_P(LOG_INIT, PSTR("Millisecond timer initialized"));
+  42               		.loc 1 33 2 is_stmt 1 view .LVU9
   43               	.LBB2:
-  44               		.loc 1 32 23 view .LVU10
-  45               		.loc 1 32 23 view .LVU11
+  44               		.loc 1 33 23 view .LVU10
+  45               		.loc 1 33 23 view .LVU11
   46               	.LBE2:
-  47               		.loc 1 32 2 is_stmt 0 view .LVU12
+  47               		.loc 1 33 2 is_stmt 0 view .LVU12
   48 0018 80E0      		ldi r24,lo8(__c.0)
   49 001a 90E0      		ldi r25,hi8(__c.0)
   50 001c 9F93      		push r25
@@ -86,8 +87,8 @@
   55               		.cfi_def_cfa_offset 5
   56 0022 0E94 0000 		call log_boot_P
   57               	.LVL0:
-  33:timer/timer.c **** }
-  58               		.loc 1 33 1 view .LVU13
+  34:timer/timer.c **** }
+  58               		.loc 1 34 1 view .LVU13
   59 0026 0F90      		pop __tmp_reg__
   60 0028 0F90      		pop __tmp_reg__
   61 002a 0F90      		pop __tmp_reg__
@@ -99,10 +100,10 @@
   68               	.global	millis
   70               	millis:
   71               	.LFB4:
-  34:timer/timer.c **** 
-  35:timer/timer.c **** u32 millis(void)
-  36:timer/timer.c **** {
-  72               		.loc 1 36 1 is_stmt 1 view -0
+  35:timer/timer.c **** 
+  36:timer/timer.c **** u32 millis(void)
+  37:timer/timer.c **** {
+  72               		.loc 1 37 1 is_stmt 1 view -0
   73               		.cfi_startproc
   74 002e CF93      		push r28
   75               		.cfi_def_cfa_offset 3
@@ -120,16 +121,16 @@
   87               	/* frame size = 4 */
   88               	/* stack size = 6 */
   89               	.L__stack_usage = 6
-  37:timer/timer.c **** 	/* Return number of milliseconds since boot */
-  38:timer/timer.c **** 	return _ms;
-  90               		.loc 1 38 2 view .LVU15
-  91               		.loc 1 38 9 is_stmt 0 view .LVU16
+  38:timer/timer.c **** 	/* Return number of milliseconds since boot */
+  39:timer/timer.c **** 	return _ms;
+  90               		.loc 1 39 2 view .LVU15
+  91               		.loc 1 39 9 is_stmt 0 view .LVU16
   92 003a 8091 0000 		lds r24,_ms
   93 003e 9091 0000 		lds r25,_ms+1
   94 0042 A091 0000 		lds r26,_ms+2
   95 0046 B091 0000 		lds r27,_ms+3
-  39:timer/timer.c **** }
-  96               		.loc 1 39 1 view .LVU17
+  40:timer/timer.c **** }
+  96               		.loc 1 40 1 view .LVU17
   97 004a BC01      		movw r22,r24
   98 004c CD01      		movw r24,r26
   99               	/* epilogue start */
@@ -145,11 +146,11 @@
  110               	.global	__vector_14
  112               	__vector_14:
  113               	.LFB5:
-  40:timer/timer.c **** 
-  41:timer/timer.c **** /* Timer0 compare interrupt */
-  42:timer/timer.c **** ISR(TIMER0_COMPA_vect)
-  43:timer/timer.c **** {
- 114               		.loc 1 43 1 is_stmt 1 view -0
+  41:timer/timer.c **** 
+  42:timer/timer.c **** /** Timer0 compare interrupt */
+  43:timer/timer.c **** ISR(TIMER0_COMPA_vect)
+  44:timer/timer.c **** {
+ 114               		.loc 1 44 1 is_stmt 1 view -0
  115               		.cfi_startproc
  116 005c 1F92 1FB6 		__gcc_isr 1
  116      1F92 1124 
@@ -167,9 +168,9 @@
  127               	/* frame size = 0 */
  128               	/* stack size = 3...7 */
  129               	.L__stack_usage = 3 + __gcc_isr.n_pushed
-  44:timer/timer.c **** 	/* Increment overflows after approx. 50 days */
-  45:timer/timer.c **** 	++_ms;
- 130               		.loc 1 45 2 view .LVU19
+  45:timer/timer.c **** 	/* Increment overflows after approx. 50 days */
+  46:timer/timer.c **** 	++_ms;
+ 130               		.loc 1 46 2 view .LVU19
  131 006c 8091 0000 		lds r24,_ms
  132 0070 9091 0000 		lds r25,_ms+1
  133 0074 A091 0000 		lds r26,_ms+2
@@ -182,8 +183,8 @@
  140 008a A093 0000 		sts _ms+2,r26
  141 008e B093 0000 		sts _ms+3,r27
  142               	/* epilogue start */
-  46:timer/timer.c **** }
- 143               		.loc 1 46 1 is_stmt 0 view .LVU20
+  47:timer/timer.c **** }
+ 143               		.loc 1 47 1 is_stmt 0 view .LVU20
  144 0092 BF91      		pop r27
  145 0094 AF91      		pop r26
  146 0096 9F91      		pop r25
@@ -209,62 +210,62 @@
  164               		.file 4 "../../types/types.h"
 DEFINED SYMBOLS
                             *ABS*:00000000 timer.c
-     /tmp/cci6NVdz.s:2      *ABS*:0000003e __SP_H__
-     /tmp/cci6NVdz.s:3      *ABS*:0000003d __SP_L__
-     /tmp/cci6NVdz.s:4      *ABS*:0000003f __SREG__
-     /tmp/cci6NVdz.s:5      *ABS*:00000000 __tmp_reg__
-     /tmp/cci6NVdz.s:6      *ABS*:00000001 __zero_reg__
-     /tmp/cci6NVdz.s:13     .text:00000000 timer_init
-     /tmp/cci6NVdz.s:16     .text:00000000 .Loc.0
-     /tmp/cci6NVdz.s:17     .text:00000000 L0
-     /tmp/cci6NVdz.s:22     .text:00000000 .Loc.1
-     /tmp/cci6NVdz.s:23     .text:00000000 .Loc.2
-     /tmp/cci6NVdz.s:26     .text:00000004 .Loc.3
-     /tmp/cci6NVdz.s:28     .text:00000006 .Loc.4
-     /tmp/cci6NVdz.s:31     .text:0000000a .Loc.5
-     /tmp/cci6NVdz.s:32     .text:0000000a .Loc.6
-     /tmp/cci6NVdz.s:35     .text:0000000e .Loc.7
-     /tmp/cci6NVdz.s:39     .text:00000014 .Loc.8
-     /tmp/cci6NVdz.s:42     .text:00000018 .Loc.9
-     /tmp/cci6NVdz.s:44     .text:00000018 .Loc.10
-     /tmp/cci6NVdz.s:45     .text:00000018 .Loc.11
-     /tmp/cci6NVdz.s:47     .text:00000018 .Loc.12
-     /tmp/cci6NVdz.s:156    .progmem.data:00000000 __c.0
-     /tmp/cci6NVdz.s:58     .text:00000026 .Loc.13
-     /tmp/cci6NVdz.s:65     .text:0000002e L0
-     /tmp/cci6NVdz.s:70     .text:0000002e millis
-     /tmp/cci6NVdz.s:72     .text:0000002e .Loc.14
-     /tmp/cci6NVdz.s:73     .text:0000002e L0
-     /tmp/cci6NVdz.s:80     .text:00000034 L0
-     /tmp/cci6NVdz.s:81     .text:00000036 L0
-     /tmp/cci6NVdz.s:90     .text:0000003a .Loc.15
-     /tmp/cci6NVdz.s:91     .text:0000003a .Loc.16
+     /tmp/cckYOfOM.s:2      *ABS*:0000003e __SP_H__
+     /tmp/cckYOfOM.s:3      *ABS*:0000003d __SP_L__
+     /tmp/cckYOfOM.s:4      *ABS*:0000003f __SREG__
+     /tmp/cckYOfOM.s:5      *ABS*:00000000 __tmp_reg__
+     /tmp/cckYOfOM.s:6      *ABS*:00000001 __zero_reg__
+     /tmp/cckYOfOM.s:13     .text:00000000 timer_init
+     /tmp/cckYOfOM.s:16     .text:00000000 .Loc.0
+     /tmp/cckYOfOM.s:17     .text:00000000 L0
+     /tmp/cckYOfOM.s:22     .text:00000000 .Loc.1
+     /tmp/cckYOfOM.s:23     .text:00000000 .Loc.2
+     /tmp/cckYOfOM.s:26     .text:00000004 .Loc.3
+     /tmp/cckYOfOM.s:28     .text:00000006 .Loc.4
+     /tmp/cckYOfOM.s:31     .text:0000000a .Loc.5
+     /tmp/cckYOfOM.s:32     .text:0000000a .Loc.6
+     /tmp/cckYOfOM.s:35     .text:0000000e .Loc.7
+     /tmp/cckYOfOM.s:39     .text:00000014 .Loc.8
+     /tmp/cckYOfOM.s:42     .text:00000018 .Loc.9
+     /tmp/cckYOfOM.s:44     .text:00000018 .Loc.10
+     /tmp/cckYOfOM.s:45     .text:00000018 .Loc.11
+     /tmp/cckYOfOM.s:47     .text:00000018 .Loc.12
+     /tmp/cckYOfOM.s:156    .progmem.data:00000000 __c.0
+     /tmp/cckYOfOM.s:58     .text:00000026 .Loc.13
+     /tmp/cckYOfOM.s:65     .text:0000002e L0
+     /tmp/cckYOfOM.s:70     .text:0000002e millis
+     /tmp/cckYOfOM.s:72     .text:0000002e .Loc.14
+     /tmp/cckYOfOM.s:73     .text:0000002e L0
+     /tmp/cckYOfOM.s:80     .text:00000034 L0
+     /tmp/cckYOfOM.s:81     .text:00000036 L0
+     /tmp/cckYOfOM.s:90     .text:0000003a .Loc.15
+     /tmp/cckYOfOM.s:91     .text:0000003a .Loc.16
                              .bss:00000000 _ms
-     /tmp/cci6NVdz.s:96     .text:0000004a .Loc.17
-     /tmp/cci6NVdz.s:107    .text:0000005c L0
-     /tmp/cci6NVdz.s:112    .text:0000005c __vector_14
-     /tmp/cci6NVdz.s:114    .text:0000005c .Loc.18
-     /tmp/cci6NVdz.s:115    .text:0000005c L0
+     /tmp/cckYOfOM.s:96     .text:0000004a .Loc.17
+     /tmp/cckYOfOM.s:107    .text:0000005c L0
+     /tmp/cckYOfOM.s:112    .text:0000005c __vector_14
+     /tmp/cckYOfOM.s:114    .text:0000005c .Loc.18
+     /tmp/cckYOfOM.s:115    .text:0000005c L0
                             *ABS*:00000003 __gcc_isr.n_pushed.001
-     /tmp/cci6NVdz.s:130    .text:0000006c .Loc.19
-     /tmp/cci6NVdz.s:143    .text:00000092 .Loc.20
-     /tmp/cci6NVdz.s:150    .text:000000a2 L0
-     /tmp/cci6NVdz.s:165    .text:000000a2 L0
+     /tmp/cckYOfOM.s:130    .text:0000006c .Loc.19
+     /tmp/cckYOfOM.s:143    .text:00000092 .Loc.20
+     /tmp/cckYOfOM.s:150    .text:000000a2 L0
+     /tmp/cckYOfOM.s:165    .text:000000a2 L0
                      .debug_frame:00000000 L0
-     /tmp/cci6NVdz.s:365    .debug_abbrev:00000000 .Ldebug_abbrev0
-     /tmp/cci6NVdz.s:8      .text:00000000 .Ltext0
-     /tmp/cci6NVdz.s:161    .text:000000a2 .Letext0
-     /tmp/cci6NVdz.s:670    .debug_line:00000000 .Ldebug_line0
-     /tmp/cci6NVdz.s:113    .text:0000005c .LFB5
-     /tmp/cci6NVdz.s:151    .text:000000a2 .LFE5
-     /tmp/cci6NVdz.s:71     .text:0000002e .LFB4
-     /tmp/cci6NVdz.s:108    .text:0000005c .LFE4
-     /tmp/cci6NVdz.s:14     .text:00000000 .LFB3
-     /tmp/cci6NVdz.s:66     .text:0000002e .LFE3
-     /tmp/cci6NVdz.s:43     .text:00000018 .LBB2
-     /tmp/cci6NVdz.s:46     .text:00000018 .LBE2
-     /tmp/cci6NVdz.s:57     .text:00000026 .LVL0
-     /tmp/cci6NVdz.s:166    .debug_info:00000000 .Ldebug_info0
+     /tmp/cckYOfOM.s:365    .debug_abbrev:00000000 .Ldebug_abbrev0
+     /tmp/cckYOfOM.s:8      .text:00000000 .Ltext0
+     /tmp/cckYOfOM.s:161    .text:000000a2 .Letext0
+     /tmp/cckYOfOM.s:670    .debug_line:00000000 .Ldebug_line0
+     /tmp/cckYOfOM.s:113    .text:0000005c .LFB5
+     /tmp/cckYOfOM.s:151    .text:000000a2 .LFE5
+     /tmp/cckYOfOM.s:71     .text:0000002e .LFB4
+     /tmp/cckYOfOM.s:108    .text:0000005c .LFE4
+     /tmp/cckYOfOM.s:14     .text:00000000 .LFB3
+     /tmp/cckYOfOM.s:66     .text:0000002e .LFE3
+     /tmp/cckYOfOM.s:43     .text:00000018 .LBB2
+     /tmp/cckYOfOM.s:46     .text:00000018 .LBE2
+     /tmp/cckYOfOM.s:57     .text:00000026 .LVL0
+     /tmp/cckYOfOM.s:166    .debug_info:00000000 .Ldebug_info0
 
 UNDEFINED SYMBOLS
 log_boot_P

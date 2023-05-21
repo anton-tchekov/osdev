@@ -9,6 +9,7 @@ var searchData=
   ['random_5finit_6',['random_init',['../random_8c.html#acc9caf986ad394f055fe6f511f7109f6',1,'random_init(void):&#160;random.c'],['../random_8h.html#acc9caf986ad394f055fe6f511f7109f6',1,'random_init(void):&#160;random.c']]],
   ['rectangle_7',['Rectangle',['../structRectangle.html',1,'']]],
   ['registers_8',['Registers',['../structEmulator.html#a8c2f51f67d4656f760fd7aa2c986d66e',1,'Emulator']]],
-  ['rtc_2ec_9',['rtc.c',['../rtc_8c.html',1,'']]],
-  ['rtc_5finit_10',['rtc_init',['../rtc_8c.html#acf9024748b942a7ae375cf75951afa9c',1,'rtc.c']]]
+  ['rgb565_9',['RGB565',['../lcd_8h.html#a9a75b3f378a8d443f893bd9eceb09642',1,'lcd.h']]],
+  ['rtc_2ec_10',['rtc.c',['../rtc_8c.html',1,'']]],
+  ['rtc_5finit_11',['rtc_init',['../rtc_8c.html#acf9024748b942a7ae375cf75951afa9c',1,'rtc.c']]]
 ];

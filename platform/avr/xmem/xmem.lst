@@ -27,157 +27,183 @@
   13:xmem/xmem.c   **** #include <avr/pgmspace.h>
   14:xmem/xmem.c   **** #include <stdlib.h>
   15:xmem/xmem.c   **** 
-  16:xmem/xmem.c   **** #define BANK_COUNT            3
-  17:xmem/xmem.c   **** #define BANK_SIZE_POT        17
-  18:xmem/xmem.c   **** #define BANK_SIZE              0x20000UL
-  19:xmem/xmem.c   **** #define OUTPUT_INTERVAL        0x2000UL
-  20:xmem/xmem.c   **** #define DUMMY                  0xFF
-  21:xmem/xmem.c   **** #define SEED                 42
-  22:xmem/xmem.c   **** 
-  23:xmem/xmem.c   **** /** Write block command */
-  24:xmem/xmem.c   **** #define SRAM_COMMAND_WRITE    2
-  25:xmem/xmem.c   **** 
-  26:xmem/xmem.c   **** /** Read block command */
-  27:xmem/xmem.c   **** #define SRAM_COMMAND_READ     3
-  28:xmem/xmem.c   **** 
-  29:xmem/xmem.c   **** /* --- PRIVATE --- */
-  30:xmem/xmem.c   **** static void _xmem_start(u8 bank, u8 command, u32 addr)
-  31:xmem/xmem.c   **** {
-  32:xmem/xmem.c   **** 	XMEM_SELECT(bank);
-  33:xmem/xmem.c   **** 	spi_xchg(command);
-  34:xmem/xmem.c   **** 	spi_xchg(addr >> 16);
-  35:xmem/xmem.c   **** 	spi_xchg(addr >> 8);
-  36:xmem/xmem.c   **** 	spi_xchg(addr);
-  37:xmem/xmem.c   **** }
+  16:xmem/xmem.c   **** /* TODO: MEMORY TEST TYPE DEFINE */
+  17:xmem/xmem.c   **** 
+  18:xmem/xmem.c   **** /** How many memory banks there are */
+  19:xmem/xmem.c   **** #define BANK_COUNT            3
+  20:xmem/xmem.c   **** 
+  21:xmem/xmem.c   **** /** The size of each memory bank as a power of two */
+  22:xmem/xmem.c   **** #define BANK_SIZE_POT        17
+  23:xmem/xmem.c   **** 
+  24:xmem/xmem.c   **** /** The size of each memory bank in bytes */
+  25:xmem/xmem.c   **** #define BANK_SIZE              0x20000UL
+  26:xmem/xmem.c   **** 
+  27:xmem/xmem.c   **** /** The interval in bytes at which to do progress updates in a memory test */
+  28:xmem/xmem.c   **** #define OUTPUT_INTERVAL        0x2000UL
+  29:xmem/xmem.c   **** 
+  30:xmem/xmem.c   **** /** Dummy SPI value when receiving */
+  31:xmem/xmem.c   **** #define DUMMY                  0xFF
+  32:xmem/xmem.c   **** 
+  33:xmem/xmem.c   **** /** Random seed for extended memory test */
+  34:xmem/xmem.c   **** #define SEED                 42
+  35:xmem/xmem.c   **** 
+  36:xmem/xmem.c   **** /** Write block command */
+  37:xmem/xmem.c   **** #define SRAM_COMMAND_WRITE    2
   38:xmem/xmem.c   **** 
-  39:xmem/xmem.c   **** static void _memtest(void)
-  40:xmem/xmem.c   **** {
-  41:xmem/xmem.c   **** 	u8 bank, w, v;
-  42:xmem/xmem.c   **** 	u32 i;
-  43:xmem/xmem.c   **** 
-  44:xmem/xmem.c   **** 	/* Run checkerboard memory test */
-  45:xmem/xmem.c   **** 	log_boot_P(LOG_INIT, PSTR("Starting complete memory test"));
-  46:xmem/xmem.c   **** 
-  47:xmem/xmem.c   **** 	spi_fast();
-  48:xmem/xmem.c   **** 	for(bank = 0; bank < BANK_COUNT; ++bank)
-  49:xmem/xmem.c   **** 	{
-  50:xmem/xmem.c   **** 		log_boot_P(LOG_INIT, PSTR("Testing memory bank [%02d]"), bank + 1);
+  39:xmem/xmem.c   **** /** Read block command */
+  40:xmem/xmem.c   **** #define SRAM_COMMAND_READ     3
+  41:xmem/xmem.c   **** 
+  42:xmem/xmem.c   **** /* --- PRIVATE --- */
+  43:xmem/xmem.c   **** static void _xmem_start(u8 bank, u8 command, u32 addr)
+  44:xmem/xmem.c   **** {
+  45:xmem/xmem.c   **** 	XMEM_SELECT(bank);
+  46:xmem/xmem.c   **** 	spi_xchg(command);
+  47:xmem/xmem.c   **** 	spi_xchg(addr >> 16);
+  48:xmem/xmem.c   **** 	spi_xchg(addr >> 8);
+  49:xmem/xmem.c   **** 	spi_xchg(addr);
+  50:xmem/xmem.c   **** }
   51:xmem/xmem.c   **** 
-  52:xmem/xmem.c   **** 		/* Write */
-  53:xmem/xmem.c   **** 		log_boot_P(LOG_INIT, PSTR("Writing pattern"));
-  54:xmem/xmem.c   **** 		_xmem_start(bank, SRAM_COMMAND_WRITE, 0);
-  55:xmem/xmem.c   **** 		/* srand(SEED); */
-  56:xmem/xmem.c   **** 		v = 0xAA;
-  57:xmem/xmem.c   **** 		for(i = 0; ; ++i)
-  58:xmem/xmem.c   **** 		{
-  59:xmem/xmem.c   **** 			v = ~v; /* rand(); */
-  60:xmem/xmem.c   **** 			if(i % OUTPUT_INTERVAL == 0)
-  61:xmem/xmem.c   **** 			{
-  62:xmem/xmem.c   **** 				log_boot_P(LOG_EXT, PSTR("0x%06lX"), i);
-  63:xmem/xmem.c   **** 			}
+  52:xmem/xmem.c   **** static void _memtest(void)
+  53:xmem/xmem.c   **** {
+  54:xmem/xmem.c   **** 	u8 bank, w, v;
+  55:xmem/xmem.c   **** 	u32 i;
+  56:xmem/xmem.c   **** 
+  57:xmem/xmem.c   **** 	/* Run checkerboard memory test */
+  58:xmem/xmem.c   **** 	log_boot_P(LOG_INIT, PSTR("Starting complete memory test"));
+  59:xmem/xmem.c   **** 
+  60:xmem/xmem.c   **** 	spi_fast();
+  61:xmem/xmem.c   **** 	for(bank = 0; bank < BANK_COUNT; ++bank)
+  62:xmem/xmem.c   **** 	{
+  63:xmem/xmem.c   **** 		log_boot_P(LOG_INIT, PSTR("Testing memory bank [%02d]"), bank + 1);
   64:xmem/xmem.c   **** 
-  65:xmem/xmem.c   **** 			if(i >= BANK_SIZE)
-  66:xmem/xmem.c   **** 			{
-  67:xmem/xmem.c   **** 				break;
-  68:xmem/xmem.c   **** 			}
-  69:xmem/xmem.c   **** 
-  70:xmem/xmem.c   **** 			spi_xchg(v);
-  71:xmem/xmem.c   **** 		}
-  72:xmem/xmem.c   **** 
-  73:xmem/xmem.c   **** 		XMEM_DESELECT(bank);
-  74:xmem/xmem.c   **** 
-  75:xmem/xmem.c   **** 		/* Read */
-  76:xmem/xmem.c   **** 		log_boot_P(LOG_INIT, PSTR("Verifying pattern"));
-  77:xmem/xmem.c   **** 		_xmem_start(bank, SRAM_COMMAND_READ, 0);
-  78:xmem/xmem.c   **** 		/* srand(SEED); */
-  79:xmem/xmem.c   **** 		v = 0xAA;
-  80:xmem/xmem.c   **** 		for(i = 0; ; ++i)
-  81:xmem/xmem.c   **** 		{
-  82:xmem/xmem.c   **** 			v = ~v; /* rand(); */
-  83:xmem/xmem.c   **** 			if(i % OUTPUT_INTERVAL == 0)
-  84:xmem/xmem.c   **** 			{
-  85:xmem/xmem.c   **** 				log_boot_P(LOG_EXT, PSTR("0x%06lX"), i);
-  86:xmem/xmem.c   **** 			}
+  65:xmem/xmem.c   **** 		/* Write */
+  66:xmem/xmem.c   **** 		log_boot_P(LOG_INIT, PSTR("Writing pattern"));
+  67:xmem/xmem.c   **** 		_xmem_start(bank, SRAM_COMMAND_WRITE, 0);
+  68:xmem/xmem.c   **** 		/* srand(SEED); */
+  69:xmem/xmem.c   **** 		v = 0xAA;
+  70:xmem/xmem.c   **** 		for(i = 0; ; ++i)
+  71:xmem/xmem.c   **** 		{
+  72:xmem/xmem.c   **** 			v = ~v; /* rand(); */
+  73:xmem/xmem.c   **** 			if(i % OUTPUT_INTERVAL == 0)
+  74:xmem/xmem.c   **** 			{
+  75:xmem/xmem.c   **** 				log_boot_P(LOG_EXT, PSTR("0x%06lX"), i);
+  76:xmem/xmem.c   **** 			}
+  77:xmem/xmem.c   **** 
+  78:xmem/xmem.c   **** 			if(i >= BANK_SIZE)
+  79:xmem/xmem.c   **** 			{
+  80:xmem/xmem.c   **** 				break;
+  81:xmem/xmem.c   **** 			}
+  82:xmem/xmem.c   **** 
+  83:xmem/xmem.c   **** 			spi_xchg(v);
+  84:xmem/xmem.c   **** 		}
+  85:xmem/xmem.c   **** 
+  86:xmem/xmem.c   **** 		XMEM_DESELECT(bank);
   87:xmem/xmem.c   **** 
-  88:xmem/xmem.c   **** 			if(i >= BANK_SIZE)
-  89:xmem/xmem.c   **** 			{
-  90:xmem/xmem.c   **** 				break;
-  91:xmem/xmem.c   **** 			}
-  92:xmem/xmem.c   **** 
-  93:xmem/xmem.c   **** 			w = spi_xchg(DUMMY);
-  94:xmem/xmem.c   **** 			if(w != v)
-  95:xmem/xmem.c   **** 			{
-  96:xmem/xmem.c   **** 				XMEM_DESELECT(bank);
-  97:xmem/xmem.c   **** 				panic(PSTR(
-  98:xmem/xmem.c   **** 					"Memory test failed at address 0x%06lX\n"
-  99:xmem/xmem.c   **** 					"         [0x%02X != 0x%02X]"),
- 100:xmem/xmem.c   **** 					i, w, v);
- 101:xmem/xmem.c   **** 			}
- 102:xmem/xmem.c   **** 		}
- 103:xmem/xmem.c   **** 
- 104:xmem/xmem.c   **** 		XMEM_DESELECT(bank);
- 105:xmem/xmem.c   **** 	}
- 106:xmem/xmem.c   **** }
- 107:xmem/xmem.c   **** 
- 108:xmem/xmem.c   **** static void _xmem_read(u8 bank, u16 addr, void *data, u16 size)
- 109:xmem/xmem.c   **** {
- 110:xmem/xmem.c   **** 	u16 i;
- 111:xmem/xmem.c   **** 	u8 *data8 = data;
- 112:xmem/xmem.c   **** 	_xmem_start(bank, SRAM_COMMAND_READ, addr);
- 113:xmem/xmem.c   **** 	for(i = 0; i < size; ++i)
- 114:xmem/xmem.c   **** 	{
- 115:xmem/xmem.c   **** 		data8[i] = spi_xchg(DUMMY);
- 116:xmem/xmem.c   **** 	}
- 117:xmem/xmem.c   **** 
- 118:xmem/xmem.c   **** 	XMEM_DESELECT(bank);
+  88:xmem/xmem.c   **** 		/* Read */
+  89:xmem/xmem.c   **** 		log_boot_P(LOG_INIT, PSTR("Verifying pattern"));
+  90:xmem/xmem.c   **** 		_xmem_start(bank, SRAM_COMMAND_READ, 0);
+  91:xmem/xmem.c   **** 		/* srand(SEED); */
+  92:xmem/xmem.c   **** 		v = 0xAA;
+  93:xmem/xmem.c   **** 		for(i = 0; ; ++i)
+  94:xmem/xmem.c   **** 		{
+  95:xmem/xmem.c   **** 			v = ~v; /* rand(); */
+  96:xmem/xmem.c   **** 			if(i % OUTPUT_INTERVAL == 0)
+  97:xmem/xmem.c   **** 			{
+  98:xmem/xmem.c   **** 				log_boot_P(LOG_EXT, PSTR("0x%06lX"), i);
+  99:xmem/xmem.c   **** 			}
+ 100:xmem/xmem.c   **** 
+ 101:xmem/xmem.c   **** 			if(i >= BANK_SIZE)
+ 102:xmem/xmem.c   **** 			{
+ 103:xmem/xmem.c   **** 				break;
+ 104:xmem/xmem.c   **** 			}
+ 105:xmem/xmem.c   **** 
+ 106:xmem/xmem.c   **** 			w = spi_xchg(DUMMY);
+ 107:xmem/xmem.c   **** 			if(w != v)
+ 108:xmem/xmem.c   **** 			{
+ 109:xmem/xmem.c   **** 				XMEM_DESELECT(bank);
+ 110:xmem/xmem.c   **** 				panic(PSTR(
+ 111:xmem/xmem.c   **** 					"Memory test failed at address 0x%06lX\n"
+ 112:xmem/xmem.c   **** 					"         [0x%02X != 0x%02X]"),
+ 113:xmem/xmem.c   **** 					i, w, v);
+ 114:xmem/xmem.c   **** 			}
+ 115:xmem/xmem.c   **** 		}
+ 116:xmem/xmem.c   **** 
+ 117:xmem/xmem.c   **** 		XMEM_DESELECT(bank);
+ 118:xmem/xmem.c   **** 	}
  119:xmem/xmem.c   **** }
  120:xmem/xmem.c   **** 
- 121:xmem/xmem.c   **** static void _xmem_write(u8 bank, u16 addr, const void *data, u16 size)
+ 121:xmem/xmem.c   **** static void _xmem_read(u8 bank, u16 addr, void *data, u16 size)
  122:xmem/xmem.c   **** {
  123:xmem/xmem.c   **** 	u16 i;
- 124:xmem/xmem.c   **** 	const u8 *data8 = data;
- 125:xmem/xmem.c   **** 	_xmem_start(bank, SRAM_COMMAND_WRITE, addr);
+ 124:xmem/xmem.c   **** 	u8 *data8 = data;
+ 125:xmem/xmem.c   **** 	_xmem_start(bank, SRAM_COMMAND_READ, addr);
  126:xmem/xmem.c   **** 	for(i = 0; i < size; ++i)
  127:xmem/xmem.c   **** 	{
- 128:xmem/xmem.c   **** 		spi_xchg(data8[i]);
+ 128:xmem/xmem.c   **** 		data8[i] = spi_xchg(DUMMY);
  129:xmem/xmem.c   **** 	}
  130:xmem/xmem.c   **** 
  131:xmem/xmem.c   **** 	XMEM_DESELECT(bank);
  132:xmem/xmem.c   **** }
  133:xmem/xmem.c   **** 
- 134:xmem/xmem.c   **** static void _xmem_set(u8 bank, u16 addr, u8 value, u16 size)
+ 134:xmem/xmem.c   **** static void _xmem_write(u8 bank, u16 addr, const void *data, u16 size)
  135:xmem/xmem.c   **** {
  136:xmem/xmem.c   **** 	u16 i;
- 137:xmem/xmem.c   **** 	_xmem_start(bank, SRAM_COMMAND_WRITE, addr);
- 138:xmem/xmem.c   **** 	for(i = 0; i < size; ++i)
- 139:xmem/xmem.c   **** 	{
- 140:xmem/xmem.c   **** 		spi_xchg(value);
- 141:xmem/xmem.c   **** 	}
- 142:xmem/xmem.c   **** 
- 143:xmem/xmem.c   **** 	XMEM_DESELECT(bank);
- 144:xmem/xmem.c   **** }
- 145:xmem/xmem.c   **** 
- 146:xmem/xmem.c   **** static u8 _addr_to_bank(u32 addr)
- 147:xmem/xmem.c   **** {
- 148:xmem/xmem.c   **** 	return addr >> BANK_SIZE_POT;
- 149:xmem/xmem.c   **** }
- 150:xmem/xmem.c   **** 
- 151:xmem/xmem.c   **** static u32 _addr_bank_offset(u32 addr)
- 152:xmem/xmem.c   **** {
- 153:xmem/xmem.c   **** 	return addr & (BANK_SIZE - 1);
- 154:xmem/xmem.c   **** }
+ 137:xmem/xmem.c   **** 	const u8 *data8 = data;
+ 138:xmem/xmem.c   **** 	_xmem_start(bank, SRAM_COMMAND_WRITE, addr);
+ 139:xmem/xmem.c   **** 	for(i = 0; i < size; ++i)
+ 140:xmem/xmem.c   **** 	{
+ 141:xmem/xmem.c   **** 		spi_xchg(data8[i]);
+ 142:xmem/xmem.c   **** 	}
+ 143:xmem/xmem.c   **** 
+ 144:xmem/xmem.c   **** 	XMEM_DESELECT(bank);
+ 145:xmem/xmem.c   **** }
+ 146:xmem/xmem.c   **** 
+ 147:xmem/xmem.c   **** static void _xmem_set(u8 bank, u16 addr, u8 value, u16 size)
+ 148:xmem/xmem.c   **** {
+ 149:xmem/xmem.c   **** 	u16 i;
+ 150:xmem/xmem.c   **** 	_xmem_start(bank, SRAM_COMMAND_WRITE, addr);
+ 151:xmem/xmem.c   **** 	for(i = 0; i < size; ++i)
+ 152:xmem/xmem.c   **** 	{
+ 153:xmem/xmem.c   **** 		spi_xchg(value);
+ 154:xmem/xmem.c   **** 	}
  155:xmem/xmem.c   **** 
- 156:xmem/xmem.c   **** typedef struct
- 157:xmem/xmem.c   **** {
- 158:xmem/xmem.c   **** 	u8 BankFirst, BankSecond;
- 159:xmem/xmem.c   **** 	u16 AddrFirst, SizeFirst, SizeSecond;
- 160:xmem/xmem.c   **** } AddrHelper;
- 161:xmem/xmem.c   **** 
- 162:xmem/xmem.c   **** static void _xmem_overlap(u32 addr, u16 size, AddrHelper *h)
- 163:xmem/xmem.c   **** {
-  16               		.loc 1 163 1 view -0
+ 156:xmem/xmem.c   **** 	XMEM_DESELECT(bank);
+ 157:xmem/xmem.c   **** }
+ 158:xmem/xmem.c   **** 
+ 159:xmem/xmem.c   **** static u8 _addr_to_bank(u32 addr)
+ 160:xmem/xmem.c   **** {
+ 161:xmem/xmem.c   **** 	return addr >> BANK_SIZE_POT;
+ 162:xmem/xmem.c   **** }
+ 163:xmem/xmem.c   **** 
+ 164:xmem/xmem.c   **** static u32 _addr_bank_offset(u32 addr)
+ 165:xmem/xmem.c   **** {
+ 166:xmem/xmem.c   **** 	return addr & (BANK_SIZE - 1);
+ 167:xmem/xmem.c   **** }
+ 168:xmem/xmem.c   **** 
+ 169:xmem/xmem.c   **** /** Internal struct to handle reads and writes across bank boundaries */
+ 170:xmem/xmem.c   **** typedef struct
+ 171:xmem/xmem.c   **** {
+ 172:xmem/xmem.c   **** 	/** First bank to access */
+ 173:xmem/xmem.c   **** 	u8 BankFirst;
+ 174:xmem/xmem.c   **** 
+ 175:xmem/xmem.c   **** 	/** Second bank to access */
+ 176:xmem/xmem.c   **** 	u8 BankSecond;
+ 177:xmem/xmem.c   **** 
+ 178:xmem/xmem.c   **** 	/** Start address of the first part */
+ 179:xmem/xmem.c   **** 	u16 AddrFirst;
+ 180:xmem/xmem.c   **** 
+ 181:xmem/xmem.c   **** 	/** Size of the first part */
+ 182:xmem/xmem.c   **** 	u16 SizeFirst;
+ 183:xmem/xmem.c   **** 
+ 184:xmem/xmem.c   **** 	/** Size of the second part */
+ 185:xmem/xmem.c   **** 	u16 SizeSecond;
+ 186:xmem/xmem.c   **** } AddrHelper;
+ 187:xmem/xmem.c   **** 
+ 188:xmem/xmem.c   **** static void _xmem_overlap(u32 addr, u16 size, AddrHelper *h)
+ 189:xmem/xmem.c   **** {
+  16               		.loc 1 189 1 view -0
   17               		.cfi_startproc
-  18               		.loc 1 163 1 is_stmt 0 view .LVU1
+  18               		.loc 1 189 1 is_stmt 0 view .LVU1
   19 0000 CF92      		push r12
   20               		.cfi_def_cfa_offset 3
   21               		.cfi_offset 12, -2
@@ -204,36 +230,36 @@
   42 000e 7C01      		movw r14,r24
   43 0010 CA01      		movw r24,r20
   44 0012 F901      		movw r30,r18
- 164:xmem/xmem.c   **** 	u32 addr_end;
-  45               		.loc 1 164 2 is_stmt 1 view .LVU2
- 165:xmem/xmem.c   **** 
- 166:xmem/xmem.c   **** 	h->AddrFirst = _addr_bank_offset(addr);
-  46               		.loc 1 166 2 view .LVU3
+ 190:xmem/xmem.c   **** 	u32 addr_end;
+  45               		.loc 1 190 2 is_stmt 1 view .LVU2
+ 191:xmem/xmem.c   **** 
+ 192:xmem/xmem.c   **** 	h->AddrFirst = _addr_bank_offset(addr);
+  46               		.loc 1 192 2 view .LVU3
   47               	.LVL1:
   48               	.LBB10:
   49               	.LBI10:
- 151:xmem/xmem.c   **** {
-  50               		.loc 1 151 12 view .LVU4
+ 164:xmem/xmem.c   **** {
+  50               		.loc 1 164 12 view .LVU4
   51               	.LBB11:
- 153:xmem/xmem.c   **** }
-  52               		.loc 1 153 2 view .LVU5
- 153:xmem/xmem.c   **** }
-  53               		.loc 1 153 14 is_stmt 0 view .LVU6
+ 166:xmem/xmem.c   **** }
+  52               		.loc 1 166 2 view .LVU5
+ 166:xmem/xmem.c   **** }
+  53               		.loc 1 166 14 is_stmt 0 view .LVU6
   54 0014 B701      		movw r22,r14
   55 0016 A601      		movw r20,r12
   56               	.LVL2:
- 153:xmem/xmem.c   **** }
-  57               		.loc 1 153 14 view .LVU7
+ 166:xmem/xmem.c   **** }
+  57               		.loc 1 166 14 view .LVU7
   58 0018 6170      		andi r22,1
   59 001a 7727      		clr r23
   60               	.LBE11:
   61               	.LBE10:
-  62               		.loc 1 166 15 view .LVU8
+  62               		.loc 1 192 15 view .LVU8
   63 001c 5383      		std Z+3,r21
   64 001e 4283      		std Z+2,r20
- 167:xmem/xmem.c   **** 	addr_end = addr + size;
-  65               		.loc 1 167 2 is_stmt 1 view .LVU9
-  66               		.loc 1 167 11 is_stmt 0 view .LVU10
+ 193:xmem/xmem.c   **** 	addr_end = addr + size;
+  65               		.loc 1 193 2 is_stmt 1 view .LVU9
+  66               		.loc 1 193 11 is_stmt 0 view .LVU10
   67 0020 B701      		movw r22,r14
   68 0022 A601      		movw r20,r12
   69 0024 480F      		add r20,r24
@@ -241,18 +267,18 @@
   71 0028 611D      		adc r22,__zero_reg__
   72 002a 711D      		adc r23,__zero_reg__
   73               	.LVL3:
- 168:xmem/xmem.c   **** 
- 169:xmem/xmem.c   **** 	h->BankFirst = _addr_to_bank(addr);
-  74               		.loc 1 169 2 is_stmt 1 view .LVU11
+ 194:xmem/xmem.c   **** 
+ 195:xmem/xmem.c   **** 	h->BankFirst = _addr_to_bank(addr);
+  74               		.loc 1 195 2 is_stmt 1 view .LVU11
   75               	.LBB12:
   76               	.LBI12:
- 146:xmem/xmem.c   **** {
-  77               		.loc 1 146 11 view .LVU12
+ 159:xmem/xmem.c   **** {
+  77               		.loc 1 159 11 view .LVU12
   78               	.LBB13:
- 148:xmem/xmem.c   **** }
-  79               		.loc 1 148 2 view .LVU13
- 148:xmem/xmem.c   **** }
-  80               		.loc 1 148 14 is_stmt 0 view .LVU14
+ 161:xmem/xmem.c   **** }
+  79               		.loc 1 161 2 view .LVU13
+ 161:xmem/xmem.c   **** }
+  80               		.loc 1 161 14 is_stmt 0 view .LVU14
   81 002c 21E1      		ldi r18,17
   82               		1:
   83 002e F694      		lsr r15
@@ -262,24 +288,24 @@
   87 0036 2A95      		dec r18
   88 0038 01F4      		brne 1b
   89               	.LVL4:
- 148:xmem/xmem.c   **** }
-  90               		.loc 1 148 14 view .LVU15
+ 161:xmem/xmem.c   **** }
+  90               		.loc 1 161 14 view .LVU15
   91               	.LBE13:
   92               	.LBE12:
-  93               		.loc 1 169 15 view .LVU16
+  93               		.loc 1 195 15 view .LVU16
   94 003a C082      		st Z,r12
- 170:xmem/xmem.c   **** 	h->BankSecond = _addr_to_bank(addr_end);
-  95               		.loc 1 170 2 is_stmt 1 view .LVU17
+ 196:xmem/xmem.c   **** 	h->BankSecond = _addr_to_bank(addr_end);
+  95               		.loc 1 196 2 is_stmt 1 view .LVU17
   96               	.LVL5:
   97               	.LBB14:
   98               	.LBI14:
- 146:xmem/xmem.c   **** {
-  99               		.loc 1 146 11 view .LVU18
+ 159:xmem/xmem.c   **** {
+  99               		.loc 1 159 11 view .LVU18
  100               	.LBB15:
- 148:xmem/xmem.c   **** }
- 101               		.loc 1 148 2 view .LVU19
- 148:xmem/xmem.c   **** }
- 102               		.loc 1 148 14 is_stmt 0 view .LVU20
+ 161:xmem/xmem.c   **** }
+ 101               		.loc 1 161 2 view .LVU19
+ 161:xmem/xmem.c   **** }
+ 102               		.loc 1 161 14 is_stmt 0 view .LVU20
  103 003c 8A01      		movw r16,r20
  104 003e 9B01      		movw r18,r22
  105 0040 A1E1      		ldi r26,17
@@ -291,59 +317,59 @@
  111 004a AA95      		dec r26
  112 004c 01F4      		brne 1b
  113               	.LVL6:
- 148:xmem/xmem.c   **** }
- 114               		.loc 1 148 14 view .LVU21
+ 161:xmem/xmem.c   **** }
+ 114               		.loc 1 161 14 view .LVU21
  115               	.LBE15:
  116               	.LBE14:
- 117               		.loc 1 170 16 view .LVU22
+ 117               		.loc 1 196 16 view .LVU22
  118 004e 0183      		std Z+1,r16
- 171:xmem/xmem.c   **** 	if(h->BankFirst == h->BankSecond)
- 119               		.loc 1 171 2 is_stmt 1 view .LVU23
- 120               		.loc 1 171 4 is_stmt 0 view .LVU24
+ 197:xmem/xmem.c   **** 	if(h->BankFirst == h->BankSecond)
+ 119               		.loc 1 197 2 is_stmt 1 view .LVU23
+ 120               		.loc 1 197 4 is_stmt 0 view .LVU24
  121 0050 0C15      		cp r16,r12
  122 0052 01F0      		breq .L2
- 172:xmem/xmem.c   **** 	{
- 173:xmem/xmem.c   **** 		h->SizeFirst = size;
- 174:xmem/xmem.c   **** 	}
- 175:xmem/xmem.c   **** 	else
- 176:xmem/xmem.c   **** 	{
- 177:xmem/xmem.c   **** 		h->SizeSecond = _addr_bank_offset(addr_end);
- 123               		.loc 1 177 3 is_stmt 1 view .LVU25
+ 198:xmem/xmem.c   **** 	{
+ 199:xmem/xmem.c   **** 		h->SizeFirst = size;
+ 200:xmem/xmem.c   **** 	}
+ 201:xmem/xmem.c   **** 	else
+ 202:xmem/xmem.c   **** 	{
+ 203:xmem/xmem.c   **** 		h->SizeSecond = _addr_bank_offset(addr_end);
+ 123               		.loc 1 203 3 is_stmt 1 view .LVU25
  124               	.LVL7:
  125               	.LBB16:
  126               	.LBI16:
- 151:xmem/xmem.c   **** {
- 127               		.loc 1 151 12 view .LVU26
+ 164:xmem/xmem.c   **** {
+ 127               		.loc 1 164 12 view .LVU26
  128               	.LBB17:
- 153:xmem/xmem.c   **** }
- 129               		.loc 1 153 2 view .LVU27
- 153:xmem/xmem.c   **** }
- 130               		.loc 1 153 14 is_stmt 0 view .LVU28
+ 166:xmem/xmem.c   **** }
+ 129               		.loc 1 166 2 view .LVU27
+ 166:xmem/xmem.c   **** }
+ 130               		.loc 1 166 14 is_stmt 0 view .LVU28
  131 0054 6170      		andi r22,1
  132 0056 7727      		clr r23
  133               	.LVL8:
- 153:xmem/xmem.c   **** }
- 134               		.loc 1 153 14 view .LVU29
+ 166:xmem/xmem.c   **** }
+ 134               		.loc 1 166 14 view .LVU29
  135               	.LBE17:
  136               	.LBE16:
- 137               		.loc 1 177 17 view .LVU30
+ 137               		.loc 1 203 17 view .LVU30
  138 0058 5783      		std Z+7,r21
  139 005a 4683      		std Z+6,r20
- 178:xmem/xmem.c   **** 		h->SizeFirst = size - h->SizeSecond;
- 140               		.loc 1 178 3 is_stmt 1 view .LVU31
- 141               		.loc 1 178 23 is_stmt 0 view .LVU32
+ 204:xmem/xmem.c   **** 		h->SizeFirst = size - h->SizeSecond;
+ 140               		.loc 1 204 3 is_stmt 1 view .LVU31
+ 141               		.loc 1 204 23 is_stmt 0 view .LVU32
  142 005c 841B      		sub r24,r20
  143 005e 950B      		sbc r25,r21
  144               	.LVL9:
  145               	.L2:
- 173:xmem/xmem.c   **** 	}
- 146               		.loc 1 173 16 view .LVU33
+ 199:xmem/xmem.c   **** 	}
+ 146               		.loc 1 199 16 view .LVU33
  147 0060 9583      		std Z+5,r25
  148 0062 8483      		std Z+4,r24
  149               	/* epilogue start */
- 179:xmem/xmem.c   **** 	}
- 180:xmem/xmem.c   **** }
- 150               		.loc 1 180 1 view .LVU34
+ 205:xmem/xmem.c   **** 	}
+ 206:xmem/xmem.c   **** }
+ 150               		.loc 1 206 1 view .LVU34
  151 0064 1F91      		pop r17
  152 0066 0F91      		pop r16
  153 0068 FF90      		pop r15
@@ -356,11 +382,11 @@
  162               	_xmem_start:
  163               	.LVL10:
  164               	.LFB7:
-  31:xmem/xmem.c   **** 	XMEM_SELECT(bank);
- 165               		.loc 1 31 1 is_stmt 1 view -0
+  44:xmem/xmem.c   **** 	XMEM_SELECT(bank);
+ 165               		.loc 1 44 1 is_stmt 1 view -0
  166               		.cfi_startproc
-  31:xmem/xmem.c   **** 	XMEM_SELECT(bank);
- 167               		.loc 1 31 1 is_stmt 0 view .LVU36
+  44:xmem/xmem.c   **** 	XMEM_SELECT(bank);
+ 167               		.loc 1 44 1 is_stmt 0 view .LVU36
  168 0072 CF93      		push r28
  169               		.cfi_def_cfa_offset 3
  170               		.cfi_offset 28, -2
@@ -372,8 +398,8 @@
  176               	/* stack size = 2 */
  177               	.L__stack_usage = 2
  178 0076 E901      		movw r28,r18
-  32:xmem/xmem.c   **** 	spi_xchg(command);
- 179               		.loc 1 32 2 is_stmt 1 view .LVU37
+  45:xmem/xmem.c   **** 	spi_xchg(command);
+ 179               		.loc 1 45 2 is_stmt 1 view .LVU37
  180 0078 95B1      		in r25,0x5
  181 007a 41E0      		ldi r20,lo8(1)
  182 007c 50E0      		ldi r21,0
@@ -386,34 +412,34 @@
  189 0086 4095      		com r20
  190 0088 4923      		and r20,r25
  191 008a 45B9      		out 0x5,r20
-  33:xmem/xmem.c   **** 	spi_xchg(addr >> 16);
- 192               		.loc 1 33 2 view .LVU38
+  46:xmem/xmem.c   **** 	spi_xchg(addr >> 16);
+ 192               		.loc 1 46 2 view .LVU38
  193 008c 862F      		mov r24,r22
  194               	.LVL11:
-  33:xmem/xmem.c   **** 	spi_xchg(addr >> 16);
- 195               		.loc 1 33 2 is_stmt 0 view .LVU39
+  46:xmem/xmem.c   **** 	spi_xchg(addr >> 16);
+ 195               		.loc 1 46 2 is_stmt 0 view .LVU39
  196 008e 0E94 0000 		call spi_xchg
  197               	.LVL12:
-  34:xmem/xmem.c   **** 	spi_xchg(addr >> 8);
- 198               		.loc 1 34 2 is_stmt 1 view .LVU40
+  47:xmem/xmem.c   **** 	spi_xchg(addr >> 8);
+ 198               		.loc 1 47 2 is_stmt 1 view .LVU40
  199 0092 80E0      		ldi r24,0
  200 0094 0E94 0000 		call spi_xchg
  201               	.LVL13:
-  35:xmem/xmem.c   **** 	spi_xchg(addr);
- 202               		.loc 1 35 2 view .LVU41
+  48:xmem/xmem.c   **** 	spi_xchg(addr);
+ 202               		.loc 1 48 2 view .LVU41
  203 0098 8D2F      		mov r24,r29
  204 009a 0E94 0000 		call spi_xchg
  205               	.LVL14:
-  36:xmem/xmem.c   **** }
- 206               		.loc 1 36 2 view .LVU42
+  49:xmem/xmem.c   **** }
+ 206               		.loc 1 49 2 view .LVU42
  207 009e 8C2F      		mov r24,r28
  208               	/* epilogue start */
-  37:xmem/xmem.c   **** 
- 209               		.loc 1 37 1 is_stmt 0 view .LVU43
+  50:xmem/xmem.c   **** 
+ 209               		.loc 1 50 1 is_stmt 0 view .LVU43
  210 00a0 DF91      		pop r29
  211 00a2 CF91      		pop r28
-  36:xmem/xmem.c   **** }
- 212               		.loc 1 36 2 view .LVU44
+  49:xmem/xmem.c   **** }
+ 212               		.loc 1 49 2 view .LVU44
  213 00a4 0C94 0000 		jmp spi_xchg
  214               	.LVL15:
  215               		.cfi_endproc
@@ -421,11 +447,11 @@
  219               	_xmem_read:
  220               	.LVL16:
  221               	.LFB9:
- 109:xmem/xmem.c   **** 	u16 i;
- 222               		.loc 1 109 1 is_stmt 1 view -0
+ 122:xmem/xmem.c   **** 	u16 i;
+ 222               		.loc 1 122 1 is_stmt 1 view -0
  223               		.cfi_startproc
- 109:xmem/xmem.c   **** 	u16 i;
- 224               		.loc 1 109 1 is_stmt 0 view .LVU46
+ 122:xmem/xmem.c   **** 	u16 i;
+ 224               		.loc 1 122 1 is_stmt 0 view .LVU46
  225 00a8 DF92      		push r13
  226               		.cfi_def_cfa_offset 3
  227               		.cfi_offset 13, -2
@@ -455,45 +481,45 @@
  251 00b8 D42E      		mov r13,r20
  252 00ba E52E      		mov r14,r21
  253 00bc 8901      		movw r16,r18
- 110:xmem/xmem.c   **** 	u8 *data8 = data;
- 254               		.loc 1 110 2 is_stmt 1 view .LVU47
- 111:xmem/xmem.c   **** 	_xmem_start(bank, SRAM_COMMAND_READ, addr);
- 255               		.loc 1 111 2 view .LVU48
+ 123:xmem/xmem.c   **** 	u8 *data8 = data;
+ 254               		.loc 1 123 2 is_stmt 1 view .LVU47
+ 124:xmem/xmem.c   **** 	_xmem_start(bank, SRAM_COMMAND_READ, addr);
+ 255               		.loc 1 124 2 view .LVU48
  256               	.LVL17:
- 112:xmem/xmem.c   **** 	for(i = 0; i < size; ++i)
- 257               		.loc 1 112 2 view .LVU49
+ 125:xmem/xmem.c   **** 	for(i = 0; i < size; ++i)
+ 257               		.loc 1 125 2 view .LVU49
  258 00be 9B01      		movw r18,r22
  259               	.LVL18:
- 112:xmem/xmem.c   **** 	for(i = 0; i < size; ++i)
- 260               		.loc 1 112 2 is_stmt 0 view .LVU50
+ 125:xmem/xmem.c   **** 	for(i = 0; i < size; ++i)
+ 260               		.loc 1 125 2 is_stmt 0 view .LVU50
  261 00c0 40E0      		ldi r20,0
  262 00c2 50E0      		ldi r21,0
  263               	.LVL19:
- 112:xmem/xmem.c   **** 	for(i = 0; i < size; ++i)
- 264               		.loc 1 112 2 view .LVU51
+ 125:xmem/xmem.c   **** 	for(i = 0; i < size; ++i)
+ 264               		.loc 1 125 2 view .LVU51
  265 00c4 63E0      		ldi r22,lo8(3)
  266               	.LVL20:
- 112:xmem/xmem.c   **** 	for(i = 0; i < size; ++i)
- 267               		.loc 1 112 2 view .LVU52
+ 125:xmem/xmem.c   **** 	for(i = 0; i < size; ++i)
+ 267               		.loc 1 125 2 view .LVU52
  268 00c6 0E94 0000 		call _xmem_start
  269               	.LVL21:
- 113:xmem/xmem.c   **** 	{
- 270               		.loc 1 113 2 is_stmt 1 view .LVU53
- 113:xmem/xmem.c   **** 	{
- 271               		.loc 1 113 2 is_stmt 0 view .LVU54
+ 126:xmem/xmem.c   **** 	{
+ 270               		.loc 1 126 2 is_stmt 1 view .LVU53
+ 126:xmem/xmem.c   **** 	{
+ 271               		.loc 1 126 2 is_stmt 0 view .LVU54
  272 00ca CD2D      		mov r28,r13
  273 00cc DE2D      		mov r29,r14
  274 00ce 0C0F      		add r16,r28
  275 00d0 1D1F      		adc r17,r29
  276               	.LVL22:
  277               	.L5:
- 113:xmem/xmem.c   **** 	{
- 278               		.loc 1 113 15 is_stmt 1 discriminator 1 view .LVU55
+ 126:xmem/xmem.c   **** 	{
+ 278               		.loc 1 126 15 is_stmt 1 discriminator 1 view .LVU55
  279 00d2 C017      		cp r28,r16
  280 00d4 D107      		cpc r29,r17
  281 00d6 01F4      		brne .L6
- 118:xmem/xmem.c   **** }
- 282               		.loc 1 118 2 view .LVU56
+ 131:xmem/xmem.c   **** }
+ 282               		.loc 1 131 2 view .LVU56
  283 00d8 85B1      		in r24,0x5
  284 00da 21E0      		ldi r18,lo8(1)
  285 00dc 30E0      		ldi r19,0
@@ -506,50 +532,50 @@
  292 00e6 822B      		or r24,r18
  293 00e8 85B9      		out 0x5,r24
  294               	/* epilogue start */
- 119:xmem/xmem.c   **** 
- 295               		.loc 1 119 1 is_stmt 0 view .LVU57
+ 132:xmem/xmem.c   **** 
+ 295               		.loc 1 132 1 is_stmt 0 view .LVU57
  296 00ea DF91      		pop r29
  297 00ec CF91      		pop r28
  298               	.LVL23:
- 119:xmem/xmem.c   **** 
- 299               		.loc 1 119 1 view .LVU58
+ 132:xmem/xmem.c   **** 
+ 299               		.loc 1 132 1 view .LVU58
  300 00ee 1F91      		pop r17
  301 00f0 0F91      		pop r16
  302 00f2 FF90      		pop r15
  303               	.LVL24:
- 119:xmem/xmem.c   **** 
- 304               		.loc 1 119 1 view .LVU59
+ 132:xmem/xmem.c   **** 
+ 304               		.loc 1 132 1 view .LVU59
  305 00f4 EF90      		pop r14
  306 00f6 DF90      		pop r13
  307 00f8 0895      		ret
  308               	.LVL25:
  309               	.L6:
- 115:xmem/xmem.c   **** 	}
- 310               		.loc 1 115 3 is_stmt 1 discriminator 3 view .LVU60
- 115:xmem/xmem.c   **** 	}
- 311               		.loc 1 115 14 is_stmt 0 discriminator 3 view .LVU61
+ 128:xmem/xmem.c   **** 	}
+ 310               		.loc 1 128 3 is_stmt 1 discriminator 3 view .LVU60
+ 128:xmem/xmem.c   **** 	}
+ 311               		.loc 1 128 14 is_stmt 0 discriminator 3 view .LVU61
  312 00fa 8FEF      		ldi r24,lo8(-1)
  313 00fc 0E94 0000 		call spi_xchg
  314               	.LVL26:
- 115:xmem/xmem.c   **** 	}
- 315               		.loc 1 115 12 discriminator 3 view .LVU62
+ 128:xmem/xmem.c   **** 	}
+ 315               		.loc 1 128 12 discriminator 3 view .LVU62
  316 0100 8993      		st Y+,r24
  317               	.LVL27:
- 113:xmem/xmem.c   **** 	{
- 318               		.loc 1 113 23 is_stmt 1 discriminator 3 view .LVU63
- 113:xmem/xmem.c   **** 	{
- 319               		.loc 1 113 23 is_stmt 0 discriminator 3 view .LVU64
+ 126:xmem/xmem.c   **** 	{
+ 318               		.loc 1 126 23 is_stmt 1 discriminator 3 view .LVU63
+ 126:xmem/xmem.c   **** 	{
+ 319               		.loc 1 126 23 is_stmt 0 discriminator 3 view .LVU64
  320 0102 00C0      		rjmp .L5
  321               		.cfi_endproc
  322               	.LFE9:
  325               	_xmem_write:
  326               	.LVL28:
  327               	.LFB10:
- 122:xmem/xmem.c   **** 	u16 i;
- 328               		.loc 1 122 1 is_stmt 1 view -0
+ 135:xmem/xmem.c   **** 	u16 i;
+ 328               		.loc 1 135 1 is_stmt 1 view -0
  329               		.cfi_startproc
- 122:xmem/xmem.c   **** 	u16 i;
- 330               		.loc 1 122 1 is_stmt 0 view .LVU66
+ 135:xmem/xmem.c   **** 	u16 i;
+ 330               		.loc 1 135 1 is_stmt 0 view .LVU66
  331 0104 DF92      		push r13
  332               		.cfi_def_cfa_offset 3
  333               		.cfi_offset 13, -2
@@ -579,45 +605,45 @@
  357 0114 D42E      		mov r13,r20
  358 0116 E52E      		mov r14,r21
  359 0118 8901      		movw r16,r18
- 123:xmem/xmem.c   **** 	const u8 *data8 = data;
- 360               		.loc 1 123 2 is_stmt 1 view .LVU67
- 124:xmem/xmem.c   **** 	_xmem_start(bank, SRAM_COMMAND_WRITE, addr);
- 361               		.loc 1 124 2 view .LVU68
+ 136:xmem/xmem.c   **** 	const u8 *data8 = data;
+ 360               		.loc 1 136 2 is_stmt 1 view .LVU67
+ 137:xmem/xmem.c   **** 	_xmem_start(bank, SRAM_COMMAND_WRITE, addr);
+ 361               		.loc 1 137 2 view .LVU68
  362               	.LVL29:
- 125:xmem/xmem.c   **** 	for(i = 0; i < size; ++i)
- 363               		.loc 1 125 2 view .LVU69
+ 138:xmem/xmem.c   **** 	for(i = 0; i < size; ++i)
+ 363               		.loc 1 138 2 view .LVU69
  364 011a 9B01      		movw r18,r22
  365               	.LVL30:
- 125:xmem/xmem.c   **** 	for(i = 0; i < size; ++i)
- 366               		.loc 1 125 2 is_stmt 0 view .LVU70
+ 138:xmem/xmem.c   **** 	for(i = 0; i < size; ++i)
+ 366               		.loc 1 138 2 is_stmt 0 view .LVU70
  367 011c 40E0      		ldi r20,0
  368 011e 50E0      		ldi r21,0
  369               	.LVL31:
- 125:xmem/xmem.c   **** 	for(i = 0; i < size; ++i)
- 370               		.loc 1 125 2 view .LVU71
+ 138:xmem/xmem.c   **** 	for(i = 0; i < size; ++i)
+ 370               		.loc 1 138 2 view .LVU71
  371 0120 62E0      		ldi r22,lo8(2)
  372               	.LVL32:
- 125:xmem/xmem.c   **** 	for(i = 0; i < size; ++i)
- 373               		.loc 1 125 2 view .LVU72
+ 138:xmem/xmem.c   **** 	for(i = 0; i < size; ++i)
+ 373               		.loc 1 138 2 view .LVU72
  374 0122 0E94 0000 		call _xmem_start
  375               	.LVL33:
- 126:xmem/xmem.c   **** 	{
- 376               		.loc 1 126 2 is_stmt 1 view .LVU73
- 126:xmem/xmem.c   **** 	{
- 377               		.loc 1 126 2 is_stmt 0 view .LVU74
+ 139:xmem/xmem.c   **** 	{
+ 376               		.loc 1 139 2 is_stmt 1 view .LVU73
+ 139:xmem/xmem.c   **** 	{
+ 377               		.loc 1 139 2 is_stmt 0 view .LVU74
  378 0126 CD2D      		mov r28,r13
  379 0128 DE2D      		mov r29,r14
  380 012a 0C0F      		add r16,r28
  381 012c 1D1F      		adc r17,r29
  382               	.LVL34:
  383               	.L8:
- 126:xmem/xmem.c   **** 	{
- 384               		.loc 1 126 15 is_stmt 1 discriminator 1 view .LVU75
+ 139:xmem/xmem.c   **** 	{
+ 384               		.loc 1 139 15 is_stmt 1 discriminator 1 view .LVU75
  385 012e C017      		cp r28,r16
  386 0130 D107      		cpc r29,r17
  387 0132 01F4      		brne .L9
- 131:xmem/xmem.c   **** }
- 388               		.loc 1 131 2 view .LVU76
+ 144:xmem/xmem.c   **** }
+ 388               		.loc 1 144 2 view .LVU76
  389 0134 85B1      		in r24,0x5
  390 0136 21E0      		ldi r18,lo8(1)
  391 0138 30E0      		ldi r19,0
@@ -630,47 +656,47 @@
  398 0142 822B      		or r24,r18
  399 0144 85B9      		out 0x5,r24
  400               	/* epilogue start */
- 132:xmem/xmem.c   **** 
- 401               		.loc 1 132 1 is_stmt 0 view .LVU77
+ 145:xmem/xmem.c   **** 
+ 401               		.loc 1 145 1 is_stmt 0 view .LVU77
  402 0146 DF91      		pop r29
  403 0148 CF91      		pop r28
  404               	.LVL35:
- 132:xmem/xmem.c   **** 
- 405               		.loc 1 132 1 view .LVU78
+ 145:xmem/xmem.c   **** 
+ 405               		.loc 1 145 1 view .LVU78
  406 014a 1F91      		pop r17
  407 014c 0F91      		pop r16
  408 014e FF90      		pop r15
  409               	.LVL36:
- 132:xmem/xmem.c   **** 
- 410               		.loc 1 132 1 view .LVU79
+ 145:xmem/xmem.c   **** 
+ 410               		.loc 1 145 1 view .LVU79
  411 0150 EF90      		pop r14
  412 0152 DF90      		pop r13
  413 0154 0895      		ret
  414               	.LVL37:
  415               	.L9:
- 128:xmem/xmem.c   **** 	}
- 416               		.loc 1 128 3 is_stmt 1 discriminator 3 view .LVU80
+ 141:xmem/xmem.c   **** 	}
+ 416               		.loc 1 141 3 is_stmt 1 discriminator 3 view .LVU80
  417 0156 8991      		ld r24,Y+
  418               	.LVL38:
- 128:xmem/xmem.c   **** 	}
- 419               		.loc 1 128 3 is_stmt 0 discriminator 3 view .LVU81
+ 141:xmem/xmem.c   **** 	}
+ 419               		.loc 1 141 3 is_stmt 0 discriminator 3 view .LVU81
  420 0158 0E94 0000 		call spi_xchg
  421               	.LVL39:
- 126:xmem/xmem.c   **** 	{
- 422               		.loc 1 126 23 is_stmt 1 discriminator 3 view .LVU82
- 126:xmem/xmem.c   **** 	{
- 423               		.loc 1 126 23 is_stmt 0 discriminator 3 view .LVU83
+ 139:xmem/xmem.c   **** 	{
+ 422               		.loc 1 139 23 is_stmt 1 discriminator 3 view .LVU82
+ 139:xmem/xmem.c   **** 	{
+ 423               		.loc 1 139 23 is_stmt 0 discriminator 3 view .LVU83
  424 015c 00C0      		rjmp .L8
  425               		.cfi_endproc
  426               	.LFE10:
  429               	_xmem_set:
  430               	.LVL40:
  431               	.LFB11:
- 135:xmem/xmem.c   **** 	u16 i;
- 432               		.loc 1 135 1 is_stmt 1 view -0
+ 148:xmem/xmem.c   **** 	u16 i;
+ 432               		.loc 1 148 1 is_stmt 1 view -0
  433               		.cfi_startproc
- 135:xmem/xmem.c   **** 	u16 i;
- 434               		.loc 1 135 1 is_stmt 0 view .LVU85
+ 148:xmem/xmem.c   **** 	u16 i;
+ 434               		.loc 1 148 1 is_stmt 0 view .LVU85
  435 015e EF92      		push r14
  436               		.cfi_def_cfa_offset 3
  437               		.cfi_offset 14, -2
@@ -696,40 +722,40 @@
  457 016a C82F      		mov r28,r24
  458 016c D42F      		mov r29,r20
  459 016e 8901      		movw r16,r18
- 136:xmem/xmem.c   **** 	_xmem_start(bank, SRAM_COMMAND_WRITE, addr);
- 460               		.loc 1 136 2 is_stmt 1 view .LVU86
- 137:xmem/xmem.c   **** 	for(i = 0; i < size; ++i)
- 461               		.loc 1 137 2 view .LVU87
+ 149:xmem/xmem.c   **** 	_xmem_start(bank, SRAM_COMMAND_WRITE, addr);
+ 460               		.loc 1 149 2 is_stmt 1 view .LVU86
+ 150:xmem/xmem.c   **** 	for(i = 0; i < size; ++i)
+ 461               		.loc 1 150 2 view .LVU87
  462 0170 9B01      		movw r18,r22
  463               	.LVL41:
- 137:xmem/xmem.c   **** 	for(i = 0; i < size; ++i)
- 464               		.loc 1 137 2 is_stmt 0 view .LVU88
+ 150:xmem/xmem.c   **** 	for(i = 0; i < size; ++i)
+ 464               		.loc 1 150 2 is_stmt 0 view .LVU88
  465 0172 40E0      		ldi r20,0
  466 0174 50E0      		ldi r21,0
  467               	.LVL42:
- 137:xmem/xmem.c   **** 	for(i = 0; i < size; ++i)
- 468               		.loc 1 137 2 view .LVU89
+ 150:xmem/xmem.c   **** 	for(i = 0; i < size; ++i)
+ 468               		.loc 1 150 2 view .LVU89
  469 0176 62E0      		ldi r22,lo8(2)
  470               	.LVL43:
- 137:xmem/xmem.c   **** 	for(i = 0; i < size; ++i)
- 471               		.loc 1 137 2 view .LVU90
+ 150:xmem/xmem.c   **** 	for(i = 0; i < size; ++i)
+ 471               		.loc 1 150 2 view .LVU90
  472 0178 0E94 0000 		call _xmem_start
  473               	.LVL44:
- 138:xmem/xmem.c   **** 	{
- 474               		.loc 1 138 2 is_stmt 1 view .LVU91
- 138:xmem/xmem.c   **** 	{
- 475               		.loc 1 138 8 is_stmt 0 view .LVU92
+ 151:xmem/xmem.c   **** 	{
+ 474               		.loc 1 151 2 is_stmt 1 view .LVU91
+ 151:xmem/xmem.c   **** 	{
+ 475               		.loc 1 151 8 is_stmt 0 view .LVU92
  476 017c E12C      		mov r14,__zero_reg__
  477 017e F12C      		mov r15,__zero_reg__
  478               	.LVL45:
  479               	.L11:
- 138:xmem/xmem.c   **** 	{
- 480               		.loc 1 138 15 is_stmt 1 discriminator 1 view .LVU93
+ 151:xmem/xmem.c   **** 	{
+ 480               		.loc 1 151 15 is_stmt 1 discriminator 1 view .LVU93
  481 0180 E016      		cp r14,r16
  482 0182 F106      		cpc r15,r17
  483 0184 01F4      		brne .L12
- 143:xmem/xmem.c   **** }
- 484               		.loc 1 143 2 view .LVU94
+ 156:xmem/xmem.c   **** }
+ 484               		.loc 1 156 2 view .LVU94
  485 0186 85B1      		in r24,0x5
  486 0188 21E0      		ldi r18,lo8(1)
  487 018a 30E0      		ldi r19,0
@@ -742,53 +768,53 @@
  494 0194 822B      		or r24,r18
  495 0196 85B9      		out 0x5,r24
  496               	/* epilogue start */
- 144:xmem/xmem.c   **** 
- 497               		.loc 1 144 1 is_stmt 0 view .LVU95
+ 157:xmem/xmem.c   **** 
+ 497               		.loc 1 157 1 is_stmt 0 view .LVU95
  498 0198 DF91      		pop r29
  499               	.LVL46:
- 144:xmem/xmem.c   **** 
- 500               		.loc 1 144 1 view .LVU96
+ 157:xmem/xmem.c   **** 
+ 500               		.loc 1 157 1 view .LVU96
  501 019a CF91      		pop r28
  502               	.LVL47:
- 144:xmem/xmem.c   **** 
- 503               		.loc 1 144 1 view .LVU97
+ 157:xmem/xmem.c   **** 
+ 503               		.loc 1 157 1 view .LVU97
  504 019c 1F91      		pop r17
  505 019e 0F91      		pop r16
  506               	.LVL48:
- 144:xmem/xmem.c   **** 
- 507               		.loc 1 144 1 view .LVU98
+ 157:xmem/xmem.c   **** 
+ 507               		.loc 1 157 1 view .LVU98
  508 01a0 FF90      		pop r15
  509 01a2 EF90      		pop r14
  510               	.LVL49:
- 144:xmem/xmem.c   **** 
- 511               		.loc 1 144 1 view .LVU99
+ 157:xmem/xmem.c   **** 
+ 511               		.loc 1 157 1 view .LVU99
  512 01a4 0895      		ret
  513               	.LVL50:
  514               	.L12:
- 140:xmem/xmem.c   **** 	}
- 515               		.loc 1 140 3 is_stmt 1 discriminator 3 view .LVU100
+ 153:xmem/xmem.c   **** 	}
+ 515               		.loc 1 153 3 is_stmt 1 discriminator 3 view .LVU100
  516 01a6 8D2F      		mov r24,r29
  517 01a8 0E94 0000 		call spi_xchg
  518               	.LVL51:
- 138:xmem/xmem.c   **** 	{
- 519               		.loc 1 138 23 discriminator 3 view .LVU101
+ 151:xmem/xmem.c   **** 	{
+ 519               		.loc 1 151 23 discriminator 3 view .LVU101
  520 01ac 8FEF      		ldi r24,-1
  521 01ae E81A      		sub r14,r24
  522 01b0 F80A      		sbc r15,r24
  523               	.LVL52:
- 138:xmem/xmem.c   **** 	{
- 524               		.loc 1 138 23 is_stmt 0 discriminator 3 view .LVU102
+ 151:xmem/xmem.c   **** 	{
+ 524               		.loc 1 151 23 is_stmt 0 discriminator 3 view .LVU102
  525 01b2 00C0      		rjmp .L11
  526               		.cfi_endproc
  527               	.LFE11:
  529               	.global	xmem_init
  531               	xmem_init:
  532               	.LFB15:
- 181:xmem/xmem.c   **** 
- 182:xmem/xmem.c   **** /* --- PUBLIC --- */
- 183:xmem/xmem.c   **** void xmem_init(void)
- 184:xmem/xmem.c   **** {
- 533               		.loc 1 184 1 is_stmt 1 view -0
+ 207:xmem/xmem.c   **** 
+ 208:xmem/xmem.c   **** /* --- PUBLIC --- */
+ 209:xmem/xmem.c   **** void xmem_init(void)
+ 210:xmem/xmem.c   **** {
+ 533               		.loc 1 210 1 is_stmt 1 view -0
  534               		.cfi_startproc
  535 01b4 2F92      		push r2
  536               		.cfi_def_cfa_offset 3
@@ -851,14 +877,14 @@
  593               	/* frame size = 3 */
  594               	/* stack size = 20 */
  595               	.L__stack_usage = 20
- 185:xmem/xmem.c   **** 	/* Initialize XMEM */
- 186:xmem/xmem.c   **** 	log_boot_P(LOG_INIT, PSTR("External memory driver initialized"));
- 596               		.loc 1 186 2 view .LVU104
+ 211:xmem/xmem.c   **** 	/* Initialize XMEM */
+ 212:xmem/xmem.c   **** 	log_boot_P(LOG_INIT, PSTR("External memory driver initialized"));
+ 596               		.loc 1 212 2 view .LVU104
  597               	.LBB28:
- 598               		.loc 1 186 23 view .LVU105
- 599               		.loc 1 186 23 view .LVU106
+ 598               		.loc 1 212 23 view .LVU105
+ 599               		.loc 1 212 23 view .LVU106
  600               	.LBE28:
- 601               		.loc 1 186 2 is_stmt 0 view .LVU107
+ 601               		.loc 1 212 2 is_stmt 0 view .LVU107
  602 01de 80E0      		ldi r24,lo8(__c.7)
  603 01e0 90E0      		ldi r25,hi8(__c.7)
  604 01e2 9F93      		push r25
@@ -866,27 +892,27 @@
  606 01e6 1F92      		push __zero_reg__
  607 01e8 0E94 0000 		call log_boot_P
  608               	.LVL53:
- 187:xmem/xmem.c   **** 	_memtest();
- 609               		.loc 1 187 2 is_stmt 1 view .LVU108
+ 213:xmem/xmem.c   **** 	_memtest();
+ 609               		.loc 1 213 2 is_stmt 1 view .LVU108
  610               	.LBB29:
  611               	.LBI29:
-  39:xmem/xmem.c   **** {
- 612               		.loc 1 39 13 view .LVU109
+  52:xmem/xmem.c   **** {
+ 612               		.loc 1 52 13 view .LVU109
  613               	.LBB30:
-  41:xmem/xmem.c   **** 	u32 i;
- 614               		.loc 1 41 2 view .LVU110
-  42:xmem/xmem.c   **** 
- 615               		.loc 1 42 2 view .LVU111
-  45:xmem/xmem.c   **** 
- 616               		.loc 1 45 2 view .LVU112
+  54:xmem/xmem.c   **** 	u32 i;
+ 614               		.loc 1 54 2 view .LVU110
+  55:xmem/xmem.c   **** 
+ 615               		.loc 1 55 2 view .LVU111
+  58:xmem/xmem.c   **** 
+ 616               		.loc 1 58 2 view .LVU112
  617               	.LBE30:
-  45:xmem/xmem.c   **** 
- 618               		.loc 1 45 23 view .LVU113
-  45:xmem/xmem.c   **** 
- 619               		.loc 1 45 23 view .LVU114
+  58:xmem/xmem.c   **** 
+ 618               		.loc 1 58 23 view .LVU113
+  58:xmem/xmem.c   **** 
+ 619               		.loc 1 58 23 view .LVU114
  620               	.LBB31:
-  45:xmem/xmem.c   **** 
- 621               		.loc 1 45 2 is_stmt 0 view .LVU115
+  58:xmem/xmem.c   **** 
+ 621               		.loc 1 58 2 is_stmt 0 view .LVU115
  622 01ec 80E0      		ldi r24,lo8(__c.6)
  623 01ee 90E0      		ldi r25,hi8(__c.6)
  624 01f0 9F93      		push r25
@@ -894,16 +920,16 @@
  626 01f4 1F92      		push __zero_reg__
  627 01f6 0E94 0000 		call log_boot_P
  628               	.LVL54:
-  47:xmem/xmem.c   **** 	for(bank = 0; bank < BANK_COUNT; ++bank)
- 629               		.loc 1 47 2 is_stmt 1 view .LVU116
+  60:xmem/xmem.c   **** 	for(bank = 0; bank < BANK_COUNT; ++bank)
+ 629               		.loc 1 60 2 is_stmt 1 view .LVU116
  630 01fa 0E94 0000 		call spi_fast
  631               	.LVL55:
-  48:xmem/xmem.c   **** 	{
- 632               		.loc 1 48 2 view .LVU117
-  48:xmem/xmem.c   **** 	{
- 633               		.loc 1 48 21 view .LVU118
-  47:xmem/xmem.c   **** 	for(bank = 0; bank < BANK_COUNT; ++bank)
- 634               		.loc 1 47 2 is_stmt 0 view .LVU119
+  61:xmem/xmem.c   **** 	{
+ 632               		.loc 1 61 2 view .LVU117
+  61:xmem/xmem.c   **** 	{
+ 633               		.loc 1 61 21 view .LVU118
+  60:xmem/xmem.c   **** 	for(bank = 0; bank < BANK_COUNT; ++bank)
+ 634               		.loc 1 60 2 is_stmt 0 view .LVU119
  635 01fe 0F90      		pop __tmp_reg__
  636 0200 0F90      		pop __tmp_reg__
  637 0202 0F90      		pop __tmp_reg__
@@ -912,37 +938,37 @@
  640 0208 0F90      		pop __tmp_reg__
  641 020a 1B82      		std Y+3,__zero_reg__
  642 020c 1A82      		std Y+2,__zero_reg__
-  62:xmem/xmem.c   **** 			}
- 643               		.loc 1 62 5 view .LVU120
+  75:xmem/xmem.c   **** 			}
+ 643               		.loc 1 75 5 view .LVU120
  644 020e 90E0      		ldi r25,lo8(__c.3)
  645 0210 A92E      		mov r10,r25
  646 0212 90E0      		ldi r25,hi8(__c.3)
  647 0214 B92E      		mov r11,r25
-  73:xmem/xmem.c   **** 
- 648               		.loc 1 73 3 view .LVU121
+  86:xmem/xmem.c   **** 
+ 648               		.loc 1 86 3 view .LVU121
  649 0216 2224      		clr r2
  650 0218 2394      		inc r2
  651 021a 312C      		mov r3,__zero_reg__
-  76:xmem/xmem.c   **** 		_xmem_start(bank, SRAM_COMMAND_READ, 0);
- 652               		.loc 1 76 3 view .LVU122
+  89:xmem/xmem.c   **** 		_xmem_start(bank, SRAM_COMMAND_READ, 0);
+ 652               		.loc 1 89 3 view .LVU122
  653 021c 30E0      		ldi r19,lo8(__c.2)
  654 021e 832E      		mov r8,r19
  655 0220 30E0      		ldi r19,hi8(__c.2)
  656 0222 932E      		mov r9,r19
-  97:xmem/xmem.c   **** 					"Memory test failed at address 0x%06lX\n"
- 657               		.loc 1 97 5 view .LVU123
+ 110:xmem/xmem.c   **** 					"Memory test failed at address 0x%06lX\n"
+ 657               		.loc 1 110 5 view .LVU123
  658 0224 40E0      		ldi r20,lo8(__c.0)
  659 0226 C42E      		mov r12,r20
  660 0228 40E0      		ldi r20,hi8(__c.0)
  661 022a D42E      		mov r13,r20
  662               	.LVL56:
  663               	.L21:
-  97:xmem/xmem.c   **** 					"Memory test failed at address 0x%06lX\n"
- 664               		.loc 1 97 5 view .LVU124
+ 110:xmem/xmem.c   **** 					"Memory test failed at address 0x%06lX\n"
+ 664               		.loc 1 110 5 view .LVU124
  665 022c FA80      		ldd r15,Y+2
  666               	.LVL57:
-  50:xmem/xmem.c   **** 
- 667               		.loc 1 50 3 is_stmt 1 view .LVU125
+  63:xmem/xmem.c   **** 
+ 667               		.loc 1 63 3 is_stmt 1 view .LVU125
  668 022e 0F2D      		mov r16,r15
  669 0230 2A81      		ldd r18,Y+2
  670 0232 3B81      		ldd r19,Y+3
@@ -951,13 +977,13 @@
  673 0238 3B83      		std Y+3,r19
  674 023a 2A83      		std Y+2,r18
  675               	.LBE31:
-  50:xmem/xmem.c   **** 
- 676               		.loc 1 50 24 view .LVU126
-  50:xmem/xmem.c   **** 
- 677               		.loc 1 50 24 view .LVU127
+  63:xmem/xmem.c   **** 
+ 676               		.loc 1 63 24 view .LVU126
+  63:xmem/xmem.c   **** 
+ 677               		.loc 1 63 24 view .LVU127
  678               	.LBB32:
-  50:xmem/xmem.c   **** 
- 679               		.loc 1 50 3 is_stmt 0 view .LVU128
+  63:xmem/xmem.c   **** 
+ 679               		.loc 1 63 3 is_stmt 0 view .LVU128
  680 023c 3F93      		push r19
  681 023e 2F93      		push r18
  682 0240 80E0      		ldi r24,lo8(__c.5)
@@ -967,16 +993,16 @@
  686 0248 1F92      		push __zero_reg__
  687 024a 0E94 0000 		call log_boot_P
  688               	.LVL58:
-  53:xmem/xmem.c   **** 		_xmem_start(bank, SRAM_COMMAND_WRITE, 0);
- 689               		.loc 1 53 3 is_stmt 1 view .LVU129
+  66:xmem/xmem.c   **** 		_xmem_start(bank, SRAM_COMMAND_WRITE, 0);
+ 689               		.loc 1 66 3 is_stmt 1 view .LVU129
  690               	.LBE32:
-  53:xmem/xmem.c   **** 		_xmem_start(bank, SRAM_COMMAND_WRITE, 0);
- 691               		.loc 1 53 24 view .LVU130
-  53:xmem/xmem.c   **** 		_xmem_start(bank, SRAM_COMMAND_WRITE, 0);
- 692               		.loc 1 53 24 view .LVU131
+  66:xmem/xmem.c   **** 		_xmem_start(bank, SRAM_COMMAND_WRITE, 0);
+ 691               		.loc 1 66 24 view .LVU130
+  66:xmem/xmem.c   **** 		_xmem_start(bank, SRAM_COMMAND_WRITE, 0);
+ 692               		.loc 1 66 24 view .LVU131
  693               	.LBB33:
-  53:xmem/xmem.c   **** 		_xmem_start(bank, SRAM_COMMAND_WRITE, 0);
- 694               		.loc 1 53 3 is_stmt 0 view .LVU132
+  66:xmem/xmem.c   **** 		_xmem_start(bank, SRAM_COMMAND_WRITE, 0);
+ 694               		.loc 1 66 3 is_stmt 0 view .LVU132
  695 024e 80E0      		ldi r24,lo8(__c.4)
  696 0250 90E0      		ldi r25,hi8(__c.4)
  697 0252 9F93      		push r25
@@ -984,8 +1010,8 @@
  699 0256 1F92      		push __zero_reg__
  700 0258 0E94 0000 		call log_boot_P
  701               	.LVL59:
-  54:xmem/xmem.c   **** 		/* srand(SEED); */
- 702               		.loc 1 54 3 is_stmt 1 view .LVU133
+  67:xmem/xmem.c   **** 		/* srand(SEED); */
+ 702               		.loc 1 67 3 is_stmt 1 view .LVU133
  703 025c 20E0      		ldi r18,0
  704 025e 30E0      		ldi r19,0
  705 0260 A901      		movw r20,r18
@@ -993,58 +1019,58 @@
  707 0264 8F2D      		mov r24,r15
  708 0266 0E94 0000 		call _xmem_start
  709               	.LVL60:
-  56:xmem/xmem.c   **** 		for(i = 0; ; ++i)
- 710               		.loc 1 56 3 view .LVU134
-  57:xmem/xmem.c   **** 		{
- 711               		.loc 1 57 3 view .LVU135
-  54:xmem/xmem.c   **** 		/* srand(SEED); */
- 712               		.loc 1 54 3 is_stmt 0 view .LVU136
+  69:xmem/xmem.c   **** 		for(i = 0; ; ++i)
+ 710               		.loc 1 69 3 view .LVU134
+  70:xmem/xmem.c   **** 		{
+ 711               		.loc 1 70 3 view .LVU135
+  67:xmem/xmem.c   **** 		/* srand(SEED); */
+ 712               		.loc 1 67 3 is_stmt 0 view .LVU136
  713 026a 0FB6      		in __tmp_reg__,__SREG__
  714 026c F894      		cli
  715 026e DEBF      		out __SP_H__,r29
  716 0270 0FBE      		out __SREG__,__tmp_reg__
  717 0272 CDBF      		out __SP_L__,r28
-  57:xmem/xmem.c   **** 		{
- 718               		.loc 1 57 9 view .LVU137
+  70:xmem/xmem.c   **** 		{
+ 718               		.loc 1 70 9 view .LVU137
  719 0274 412C      		mov r4,__zero_reg__
  720 0276 512C      		mov r5,__zero_reg__
  721 0278 3201      		movw r6,r4
-  56:xmem/xmem.c   **** 		for(i = 0; ; ++i)
- 722               		.loc 1 56 5 view .LVU138
+  69:xmem/xmem.c   **** 		for(i = 0; ; ++i)
+ 722               		.loc 1 69 5 view .LVU138
  723 027a 1AEA      		ldi r17,lo8(-86)
  724               	.LVL61:
  725               	.L16:
-  59:xmem/xmem.c   **** 			if(i % OUTPUT_INTERVAL == 0)
- 726               		.loc 1 59 4 is_stmt 1 view .LVU139
-  59:xmem/xmem.c   **** 			if(i % OUTPUT_INTERVAL == 0)
- 727               		.loc 1 59 6 is_stmt 0 view .LVU140
+  72:xmem/xmem.c   **** 			if(i % OUTPUT_INTERVAL == 0)
+ 726               		.loc 1 72 4 is_stmt 1 view .LVU139
+  72:xmem/xmem.c   **** 			if(i % OUTPUT_INTERVAL == 0)
+ 727               		.loc 1 72 6 is_stmt 0 view .LVU140
  728 027c 1095      		com r17
  729               	.LVL62:
-  60:xmem/xmem.c   **** 			{
- 730               		.loc 1 60 4 is_stmt 1 view .LVU141
-  60:xmem/xmem.c   **** 			{
- 731               		.loc 1 60 9 is_stmt 0 view .LVU142
+  73:xmem/xmem.c   **** 			{
+ 730               		.loc 1 73 4 is_stmt 1 view .LVU141
+  73:xmem/xmem.c   **** 			{
+ 731               		.loc 1 73 9 is_stmt 0 view .LVU142
  732 027e D301      		movw r26,r6
  733 0280 C201      		movw r24,r4
  734 0282 9F71      		andi r25,31
  735 0284 AA27      		clr r26
  736 0286 BB27      		clr r27
-  60:xmem/xmem.c   **** 			{
- 737               		.loc 1 60 6 view .LVU143
+  73:xmem/xmem.c   **** 			{
+ 737               		.loc 1 73 6 view .LVU143
  738 0288 892B      		or r24,r25
  739 028a 8A2B      		or r24,r26
  740 028c 8B2B      		or r24,r27
  741 028e 01F4      		brne .L14
-  62:xmem/xmem.c   **** 			}
- 742               		.loc 1 62 5 is_stmt 1 view .LVU144
+  75:xmem/xmem.c   **** 			}
+ 742               		.loc 1 75 5 is_stmt 1 view .LVU144
  743               	.LBE33:
-  62:xmem/xmem.c   **** 			}
- 744               		.loc 1 62 25 view .LVU145
-  62:xmem/xmem.c   **** 			}
- 745               		.loc 1 62 25 view .LVU146
+  75:xmem/xmem.c   **** 			}
+ 744               		.loc 1 75 25 view .LVU145
+  75:xmem/xmem.c   **** 			}
+ 745               		.loc 1 75 25 view .LVU146
  746               	.LBB34:
-  62:xmem/xmem.c   **** 			}
- 747               		.loc 1 62 5 is_stmt 0 view .LVU147
+  75:xmem/xmem.c   **** 			}
+ 747               		.loc 1 75 5 is_stmt 0 view .LVU147
  748 0290 7F92      		push r7
  749 0292 6F92      		push r6
  750 0294 5F92      		push r5
@@ -1061,37 +1087,37 @@
  761 02aa 0FBE      		out __SREG__,__tmp_reg__
  762 02ac CDBF      		out __SP_L__,r28
  763               	.L14:
-  65:xmem/xmem.c   **** 			{
- 764               		.loc 1 65 4 is_stmt 1 view .LVU148
-  65:xmem/xmem.c   **** 			{
- 765               		.loc 1 65 6 is_stmt 0 view .LVU149
+  78:xmem/xmem.c   **** 			{
+ 764               		.loc 1 78 4 is_stmt 1 view .LVU148
+  78:xmem/xmem.c   **** 			{
+ 765               		.loc 1 78 6 is_stmt 0 view .LVU149
  766 02ae 4114      		cp r4,__zero_reg__
  767 02b0 5104      		cpc r5,__zero_reg__
  768 02b2 32E0      		ldi r19,2
  769 02b4 6306      		cpc r6,r19
  770 02b6 7104      		cpc r7,__zero_reg__
  771 02b8 01F0      		breq .L15
-  70:xmem/xmem.c   **** 		}
- 772               		.loc 1 70 4 is_stmt 1 view .LVU150
+  83:xmem/xmem.c   **** 		}
+ 772               		.loc 1 83 4 is_stmt 1 view .LVU150
  773 02ba 812F      		mov r24,r17
  774 02bc 0E94 0000 		call spi_xchg
  775               	.LVL64:
-  57:xmem/xmem.c   **** 		{
- 776               		.loc 1 57 16 view .LVU151
+  70:xmem/xmem.c   **** 		{
+ 776               		.loc 1 70 16 view .LVU151
  777 02c0 8FEF      		ldi r24,-1
  778 02c2 481A      		sub r4,r24
  779 02c4 580A      		sbc r5,r24
  780 02c6 680A      		sbc r6,r24
  781 02c8 780A      		sbc r7,r24
  782               	.LVL65:
-  57:xmem/xmem.c   **** 		{
- 783               		.loc 1 57 3 view .LVU152
-  59:xmem/xmem.c   **** 			if(i % OUTPUT_INTERVAL == 0)
- 784               		.loc 1 59 6 is_stmt 0 view .LVU153
+  70:xmem/xmem.c   **** 		{
+ 783               		.loc 1 70 3 view .LVU152
+  72:xmem/xmem.c   **** 			if(i % OUTPUT_INTERVAL == 0)
+ 784               		.loc 1 72 6 is_stmt 0 view .LVU153
  785 02ca 00C0      		rjmp .L16
  786               	.L15:
-  73:xmem/xmem.c   **** 
- 787               		.loc 1 73 3 is_stmt 1 view .LVU154
+  86:xmem/xmem.c   **** 
+ 787               		.loc 1 86 3 is_stmt 1 view .LVU154
  788 02cc 85B1      		in r24,0x5
  789 02ce 9101      		movw r18,r2
  790 02d0 00C0      		rjmp 2f
@@ -1105,23 +1131,23 @@
  798 02dc 2983      		std Y+1,r18
  799 02de 822B      		or r24,r18
  800 02e0 85B9      		out 0x5,r24
-  76:xmem/xmem.c   **** 		_xmem_start(bank, SRAM_COMMAND_READ, 0);
- 801               		.loc 1 76 3 view .LVU155
+  89:xmem/xmem.c   **** 		_xmem_start(bank, SRAM_COMMAND_READ, 0);
+ 801               		.loc 1 89 3 view .LVU155
  802               	.LBE34:
-  76:xmem/xmem.c   **** 		_xmem_start(bank, SRAM_COMMAND_READ, 0);
- 803               		.loc 1 76 24 view .LVU156
-  76:xmem/xmem.c   **** 		_xmem_start(bank, SRAM_COMMAND_READ, 0);
- 804               		.loc 1 76 24 view .LVU157
+  89:xmem/xmem.c   **** 		_xmem_start(bank, SRAM_COMMAND_READ, 0);
+ 803               		.loc 1 89 24 view .LVU156
+  89:xmem/xmem.c   **** 		_xmem_start(bank, SRAM_COMMAND_READ, 0);
+ 804               		.loc 1 89 24 view .LVU157
  805               	.LBB35:
-  76:xmem/xmem.c   **** 		_xmem_start(bank, SRAM_COMMAND_READ, 0);
- 806               		.loc 1 76 3 is_stmt 0 view .LVU158
+  89:xmem/xmem.c   **** 		_xmem_start(bank, SRAM_COMMAND_READ, 0);
+ 806               		.loc 1 89 3 is_stmt 0 view .LVU158
  807 02e2 9F92      		push r9
  808 02e4 8F92      		push r8
  809 02e6 1F92      		push __zero_reg__
  810 02e8 0E94 0000 		call log_boot_P
  811               	.LVL66:
-  77:xmem/xmem.c   **** 		/* srand(SEED); */
- 812               		.loc 1 77 3 is_stmt 1 view .LVU159
+  90:xmem/xmem.c   **** 		/* srand(SEED); */
+ 812               		.loc 1 90 3 is_stmt 1 view .LVU159
  813 02ec 20E0      		ldi r18,0
  814 02ee 30E0      		ldi r19,0
  815 02f0 A901      		movw r20,r18
@@ -1129,57 +1155,57 @@
  817 02f4 8F2D      		mov r24,r15
  818 02f6 0E94 0000 		call _xmem_start
  819               	.LVL67:
-  79:xmem/xmem.c   **** 		for(i = 0; ; ++i)
- 820               		.loc 1 79 3 view .LVU160
-  80:xmem/xmem.c   **** 		{
- 821               		.loc 1 80 3 view .LVU161
-  77:xmem/xmem.c   **** 		/* srand(SEED); */
- 822               		.loc 1 77 3 is_stmt 0 view .LVU162
+  92:xmem/xmem.c   **** 		for(i = 0; ; ++i)
+ 820               		.loc 1 92 3 view .LVU160
+  93:xmem/xmem.c   **** 		{
+ 821               		.loc 1 93 3 view .LVU161
+  90:xmem/xmem.c   **** 		/* srand(SEED); */
+ 822               		.loc 1 90 3 is_stmt 0 view .LVU162
  823 02fa 0F90      		pop __tmp_reg__
  824 02fc 0F90      		pop __tmp_reg__
  825 02fe 0F90      		pop __tmp_reg__
-  80:xmem/xmem.c   **** 		{
- 826               		.loc 1 80 9 view .LVU163
+  93:xmem/xmem.c   **** 		{
+ 826               		.loc 1 93 9 view .LVU163
  827 0300 412C      		mov r4,__zero_reg__
  828 0302 512C      		mov r5,__zero_reg__
  829 0304 3201      		movw r6,r4
-  79:xmem/xmem.c   **** 		for(i = 0; ; ++i)
- 830               		.loc 1 79 5 view .LVU164
+  92:xmem/xmem.c   **** 		for(i = 0; ; ++i)
+ 830               		.loc 1 92 5 view .LVU164
  831 0306 8AEA      		ldi r24,lo8(-86)
  832 0308 F82E      		mov r15,r24
  833               	.LVL68:
  834               	.L20:
-  82:xmem/xmem.c   **** 			if(i % OUTPUT_INTERVAL == 0)
- 835               		.loc 1 82 4 is_stmt 1 view .LVU165
-  82:xmem/xmem.c   **** 			if(i % OUTPUT_INTERVAL == 0)
- 836               		.loc 1 82 6 is_stmt 0 view .LVU166
+  95:xmem/xmem.c   **** 			if(i % OUTPUT_INTERVAL == 0)
+ 835               		.loc 1 95 4 is_stmt 1 view .LVU165
+  95:xmem/xmem.c   **** 			if(i % OUTPUT_INTERVAL == 0)
+ 836               		.loc 1 95 6 is_stmt 0 view .LVU166
  837 030a F094      		com r15
  838               	.LVL69:
-  83:xmem/xmem.c   **** 			{
- 839               		.loc 1 83 4 is_stmt 1 view .LVU167
-  83:xmem/xmem.c   **** 			{
- 840               		.loc 1 83 9 is_stmt 0 view .LVU168
+  96:xmem/xmem.c   **** 			{
+ 839               		.loc 1 96 4 is_stmt 1 view .LVU167
+  96:xmem/xmem.c   **** 			{
+ 840               		.loc 1 96 9 is_stmt 0 view .LVU168
  841 030c D301      		movw r26,r6
  842 030e C201      		movw r24,r4
  843 0310 9F71      		andi r25,31
  844 0312 AA27      		clr r26
  845 0314 BB27      		clr r27
-  83:xmem/xmem.c   **** 			{
- 846               		.loc 1 83 6 view .LVU169
+  96:xmem/xmem.c   **** 			{
+ 846               		.loc 1 96 6 view .LVU169
  847 0316 892B      		or r24,r25
  848 0318 8A2B      		or r24,r26
  849 031a 8B2B      		or r24,r27
  850 031c 01F4      		brne .L17
-  85:xmem/xmem.c   **** 			}
- 851               		.loc 1 85 5 is_stmt 1 view .LVU170
+  98:xmem/xmem.c   **** 			}
+ 851               		.loc 1 98 5 is_stmt 1 view .LVU170
  852               	.LBE35:
-  85:xmem/xmem.c   **** 			}
- 853               		.loc 1 85 25 view .LVU171
-  85:xmem/xmem.c   **** 			}
- 854               		.loc 1 85 25 view .LVU172
+  98:xmem/xmem.c   **** 			}
+ 853               		.loc 1 98 25 view .LVU171
+  98:xmem/xmem.c   **** 			}
+ 854               		.loc 1 98 25 view .LVU172
  855               	.LBB36:
-  85:xmem/xmem.c   **** 			}
- 856               		.loc 1 85 5 is_stmt 0 view .LVU173
+  98:xmem/xmem.c   **** 			}
+ 856               		.loc 1 98 5 is_stmt 0 view .LVU173
  857 031e 7F92      		push r7
  858 0320 6F92      		push r6
  859 0322 5F92      		push r5
@@ -1198,45 +1224,45 @@
  872 033c 0FBE      		out __SREG__,__tmp_reg__
  873 033e CDBF      		out __SP_L__,r28
  874               	.L17:
-  88:xmem/xmem.c   **** 			{
- 875               		.loc 1 88 4 is_stmt 1 view .LVU174
-  88:xmem/xmem.c   **** 			{
- 876               		.loc 1 88 6 is_stmt 0 view .LVU175
+ 101:xmem/xmem.c   **** 			{
+ 875               		.loc 1 101 4 is_stmt 1 view .LVU174
+ 101:xmem/xmem.c   **** 			{
+ 876               		.loc 1 101 6 is_stmt 0 view .LVU175
  877 0340 4114      		cp r4,__zero_reg__
  878 0342 5104      		cpc r5,__zero_reg__
  879 0344 92E0      		ldi r25,2
  880 0346 6906      		cpc r6,r25
  881 0348 7104      		cpc r7,__zero_reg__
  882 034a 01F0      		breq .L18
-  93:xmem/xmem.c   **** 			if(w != v)
- 883               		.loc 1 93 4 is_stmt 1 view .LVU176
-  93:xmem/xmem.c   **** 			if(w != v)
- 884               		.loc 1 93 8 is_stmt 0 view .LVU177
+ 106:xmem/xmem.c   **** 			if(w != v)
+ 883               		.loc 1 106 4 is_stmt 1 view .LVU176
+ 106:xmem/xmem.c   **** 			if(w != v)
+ 884               		.loc 1 106 8 is_stmt 0 view .LVU177
  885 034c 8FEF      		ldi r24,lo8(-1)
  886 034e 0E94 0000 		call spi_xchg
  887               	.LVL71:
-  94:xmem/xmem.c   **** 			{
- 888               		.loc 1 94 4 is_stmt 1 view .LVU178
-  94:xmem/xmem.c   **** 			{
- 889               		.loc 1 94 6 is_stmt 0 view .LVU179
+ 107:xmem/xmem.c   **** 			{
+ 888               		.loc 1 107 4 is_stmt 1 view .LVU178
+ 107:xmem/xmem.c   **** 			{
+ 889               		.loc 1 107 6 is_stmt 0 view .LVU179
  890 0352 F816      		cp r15,r24
  891 0354 01F0      		breq .L19
-  96:xmem/xmem.c   **** 				panic(PSTR(
- 892               		.loc 1 96 5 is_stmt 1 view .LVU180
+ 109:xmem/xmem.c   **** 				panic(PSTR(
+ 892               		.loc 1 109 5 is_stmt 1 view .LVU180
  893 0356 95B1      		in r25,0x5
  894 0358 2981      		ldd r18,Y+1
  895 035a 922B      		or r25,r18
  896 035c 95B9      		out 0x5,r25
-  97:xmem/xmem.c   **** 					"Memory test failed at address 0x%06lX\n"
- 897               		.loc 1 97 5 view .LVU181
+ 110:xmem/xmem.c   **** 					"Memory test failed at address 0x%06lX\n"
+ 897               		.loc 1 110 5 view .LVU181
  898               	.LBE36:
-  97:xmem/xmem.c   **** 					"Memory test failed at address 0x%06lX\n"
- 899               		.loc 1 97 11 view .LVU182
-  97:xmem/xmem.c   **** 					"Memory test failed at address 0x%06lX\n"
- 900               		.loc 1 97 11 view .LVU183
+ 110:xmem/xmem.c   **** 					"Memory test failed at address 0x%06lX\n"
+ 899               		.loc 1 110 11 view .LVU182
+ 110:xmem/xmem.c   **** 					"Memory test failed at address 0x%06lX\n"
+ 900               		.loc 1 110 11 view .LVU183
  901               	.LBB37:
-  97:xmem/xmem.c   **** 					"Memory test failed at address 0x%06lX\n"
- 902               		.loc 1 97 5 is_stmt 0 view .LVU184
+ 110:xmem/xmem.c   **** 					"Memory test failed at address 0x%06lX\n"
+ 902               		.loc 1 110 5 is_stmt 0 view .LVU184
  903 035e 1F92      		push __zero_reg__
  904 0360 FF92      		push r15
  905 0362 1F92      		push __zero_reg__
@@ -1249,39 +1275,39 @@
  912 0370 CF92      		push r12
  913 0372 0E94 0000 		call panic
  914               	.LVL72:
-  97:xmem/xmem.c   **** 					"Memory test failed at address 0x%06lX\n"
- 915               		.loc 1 97 5 view .LVU185
+ 110:xmem/xmem.c   **** 					"Memory test failed at address 0x%06lX\n"
+ 915               		.loc 1 110 5 view .LVU185
  916 0376 0FB6      		in __tmp_reg__,__SREG__
  917 0378 F894      		cli
  918 037a DEBF      		out __SP_H__,r29
  919 037c 0FBE      		out __SREG__,__tmp_reg__
  920 037e CDBF      		out __SP_L__,r28
  921               	.L19:
-  80:xmem/xmem.c   **** 		{
- 922               		.loc 1 80 16 is_stmt 1 view .LVU186
+  93:xmem/xmem.c   **** 		{
+ 922               		.loc 1 93 16 is_stmt 1 view .LVU186
  923 0380 9FEF      		ldi r25,-1
  924 0382 491A      		sub r4,r25
  925 0384 590A      		sbc r5,r25
  926 0386 690A      		sbc r6,r25
  927 0388 790A      		sbc r7,r25
  928               	.LVL73:
-  80:xmem/xmem.c   **** 		{
- 929               		.loc 1 80 3 view .LVU187
-  82:xmem/xmem.c   **** 			if(i % OUTPUT_INTERVAL == 0)
- 930               		.loc 1 82 6 is_stmt 0 view .LVU188
+  93:xmem/xmem.c   **** 		{
+ 929               		.loc 1 93 3 view .LVU187
+  95:xmem/xmem.c   **** 			if(i % OUTPUT_INTERVAL == 0)
+ 930               		.loc 1 95 6 is_stmt 0 view .LVU188
  931 038a 00C0      		rjmp .L20
  932               	.LVL74:
  933               	.L18:
- 104:xmem/xmem.c   **** 	}
- 934               		.loc 1 104 3 is_stmt 1 view .LVU189
+ 117:xmem/xmem.c   **** 	}
+ 934               		.loc 1 117 3 is_stmt 1 view .LVU189
  935 038c 85B1      		in r24,0x5
  936 038e 802B      		or r24,r16
  937 0390 85B9      		out 0x5,r24
-  48:xmem/xmem.c   **** 	{
- 938               		.loc 1 48 35 view .LVU190
+  61:xmem/xmem.c   **** 	{
+ 938               		.loc 1 61 35 view .LVU190
  939               	.LVL75:
-  48:xmem/xmem.c   **** 	{
- 940               		.loc 1 48 21 view .LVU191
+  61:xmem/xmem.c   **** 	{
+ 940               		.loc 1 61 21 view .LVU191
  941 0392 2A81      		ldd r18,Y+2
  942 0394 3B81      		ldd r19,Y+3
  943 0396 2330      		cpi r18,3
@@ -1291,8 +1317,8 @@
  947               	/* epilogue start */
  948               	.LBE37:
  949               	.LBE29:
- 188:xmem/xmem.c   **** }
- 950               		.loc 1 188 1 is_stmt 0 view .LVU192
+ 214:xmem/xmem.c   **** }
+ 950               		.loc 1 214 1 is_stmt 0 view .LVU192
  951 039e 0F90      		pop __tmp_reg__
  952 03a0 0F90      		pop __tmp_reg__
  953 03a2 0F90      		pop __tmp_reg__
@@ -1302,7 +1328,7 @@
  957 03aa 0F91      		pop r16
  958 03ac FF90      		pop r15
  959               	.LVL76:
- 960               		.loc 1 188 1 view .LVU193
+ 960               		.loc 1 214 1 view .LVU193
  961 03ae DF90      		pop r13
  962 03b0 CF90      		pop r12
  963 03b2 BF90      		pop r11
@@ -1314,7 +1340,7 @@
  969 03be 5F90      		pop r5
  970 03c0 4F90      		pop r4
  971               	.LVL77:
- 972               		.loc 1 188 1 view .LVU194
+ 972               		.loc 1 214 1 view .LVU194
  973 03c2 3F90      		pop r3
  974 03c4 2F90      		pop r2
  975 03c6 0895      		ret
@@ -1324,12 +1350,12 @@
  981               	xmem_read:
  982               	.LVL78:
  983               	.LFB16:
- 189:xmem/xmem.c   **** 
- 190:xmem/xmem.c   **** void xmem_read(u32 addr, void *data, u16 size)
- 191:xmem/xmem.c   **** {
- 984               		.loc 1 191 1 is_stmt 1 view -0
+ 215:xmem/xmem.c   **** 
+ 216:xmem/xmem.c   **** void xmem_read(u32 addr, void *data, u16 size)
+ 217:xmem/xmem.c   **** {
+ 984               		.loc 1 217 1 is_stmt 1 view -0
  985               		.cfi_startproc
- 986               		.loc 1 191 1 is_stmt 0 view .LVU196
+ 986               		.loc 1 217 1 is_stmt 0 view .LVU196
  987 03c8 DF92      		push r13
  988               		.cfi_def_cfa_offset 3
  989               		.cfi_offset 13, -2
@@ -1368,19 +1394,19 @@
  1022 03e6 8A01      		movw r16,r20
  1023 03e8 A901      		movw r20,r18
  1024               	.LVL79:
- 192:xmem/xmem.c   **** 	AddrHelper h;
- 1025               		.loc 1 192 2 is_stmt 1 view .LVU197
- 193:xmem/xmem.c   **** 	_xmem_overlap(addr, size, &h);
- 1026               		.loc 1 193 2 view .LVU198
+ 218:xmem/xmem.c   **** 	AddrHelper h;
+ 1025               		.loc 1 218 2 is_stmt 1 view .LVU197
+ 219:xmem/xmem.c   **** 	_xmem_overlap(addr, size, &h);
+ 1026               		.loc 1 219 2 view .LVU198
  1027 03ea 9E01      		movw r18,r28
  1028               	.LVL80:
- 1029               		.loc 1 193 2 is_stmt 0 view .LVU199
+ 1029               		.loc 1 219 2 is_stmt 0 view .LVU199
  1030 03ec 2F5F      		subi r18,-1
  1031 03ee 3F4F      		sbci r19,-1
  1032 03f0 0E94 0000 		call _xmem_overlap
  1033               	.LVL81:
- 194:xmem/xmem.c   **** 	_xmem_read(h.BankFirst, h.AddrFirst, data, h.SizeFirst);
- 1034               		.loc 1 194 2 is_stmt 1 view .LVU200
+ 220:xmem/xmem.c   **** 	_xmem_read(h.BankFirst, h.AddrFirst, data, h.SizeFirst);
+ 1034               		.loc 1 220 2 is_stmt 1 view .LVU200
  1035 03f4 ED80      		ldd r14,Y+5
  1036 03f6 FE80      		ldd r15,Y+6
  1037 03f8 D980      		ldd r13,Y+1
@@ -1391,16 +1417,16 @@
  1042 0402 8D2D      		mov r24,r13
  1043 0404 0E94 0000 		call _xmem_read
  1044               	.LVL82:
- 195:xmem/xmem.c   **** 	if(h.BankSecond != h.BankFirst)
- 1045               		.loc 1 195 2 view .LVU201
- 1046               		.loc 1 195 6 is_stmt 0 view .LVU202
+ 221:xmem/xmem.c   **** 	if(h.BankSecond != h.BankFirst)
+ 1045               		.loc 1 221 2 view .LVU201
+ 1046               		.loc 1 221 6 is_stmt 0 view .LVU202
  1047 0408 8A81      		ldd r24,Y+2
- 1048               		.loc 1 195 4 view .LVU203
+ 1048               		.loc 1 221 4 view .LVU203
  1049 040a D816      		cp r13,r24
  1050 040c 01F0      		breq .L23
- 196:xmem/xmem.c   **** 	{
- 197:xmem/xmem.c   **** 		_xmem_read(h.BankSecond, 0, (u8 *)data + h.SizeFirst, h.SizeSecond);
- 1051               		.loc 1 197 3 is_stmt 1 view .LVU204
+ 222:xmem/xmem.c   **** 	{
+ 223:xmem/xmem.c   **** 		_xmem_read(h.BankSecond, 0, (u8 *)data + h.SizeFirst, h.SizeSecond);
+ 1051               		.loc 1 223 3 is_stmt 1 view .LVU204
  1052 040e 2F81      		ldd r18,Y+7
  1053 0410 3885      		ldd r19,Y+8
  1054 0412 A801      		movw r20,r16
@@ -1409,9 +1435,9 @@
  1057 0418 60E0      		ldi r22,0
  1058 041a 70E0      		ldi r23,0
  1059               	/* epilogue start */
- 198:xmem/xmem.c   **** 	}
- 199:xmem/xmem.c   **** }
- 1060               		.loc 1 199 1 is_stmt 0 view .LVU205
+ 224:xmem/xmem.c   **** 	}
+ 225:xmem/xmem.c   **** }
+ 1060               		.loc 1 225 1 is_stmt 0 view .LVU205
  1061 041c 2896      		adiw r28,8
  1062 041e 0FB6      		in __tmp_reg__,__SREG__
  1063 0420 F894      		cli
@@ -1423,17 +1449,17 @@
  1069 042c 1F91      		pop r17
  1070 042e 0F91      		pop r16
  1071               	.LVL83:
- 1072               		.loc 1 199 1 view .LVU206
+ 1072               		.loc 1 225 1 view .LVU206
  1073 0430 FF90      		pop r15
  1074 0432 EF90      		pop r14
  1075 0434 DF90      		pop r13
- 197:xmem/xmem.c   **** 	}
- 1076               		.loc 1 197 3 view .LVU207
+ 223:xmem/xmem.c   **** 	}
+ 1076               		.loc 1 223 3 view .LVU207
  1077 0436 0C94 0000 		jmp _xmem_read
  1078               	.LVL84:
  1079               	.L23:
  1080               	/* epilogue start */
- 1081               		.loc 1 199 1 view .LVU208
+ 1081               		.loc 1 225 1 view .LVU208
  1082 043a 2896      		adiw r28,8
  1083 043c 0FB6      		in __tmp_reg__,__SREG__
  1084 043e F894      		cli
@@ -1445,7 +1471,7 @@
  1090 044a 1F91      		pop r17
  1091 044c 0F91      		pop r16
  1092               	.LVL85:
- 1093               		.loc 1 199 1 view .LVU209
+ 1093               		.loc 1 225 1 view .LVU209
  1094 044e FF90      		pop r15
  1095 0450 EF90      		pop r14
  1096 0452 DF90      		pop r13
@@ -1456,12 +1482,12 @@
  1103               	xmem_write:
  1104               	.LVL86:
  1105               	.LFB17:
- 200:xmem/xmem.c   **** 
- 201:xmem/xmem.c   **** void xmem_write(u32 addr, const void *data, u16 size)
- 202:xmem/xmem.c   **** {
- 1106               		.loc 1 202 1 is_stmt 1 view -0
+ 226:xmem/xmem.c   **** 
+ 227:xmem/xmem.c   **** void xmem_write(u32 addr, const void *data, u16 size)
+ 228:xmem/xmem.c   **** {
+ 1106               		.loc 1 228 1 is_stmt 1 view -0
  1107               		.cfi_startproc
- 1108               		.loc 1 202 1 is_stmt 0 view .LVU211
+ 1108               		.loc 1 228 1 is_stmt 0 view .LVU211
  1109 0456 DF92      		push r13
  1110               		.cfi_def_cfa_offset 3
  1111               		.cfi_offset 13, -2
@@ -1500,19 +1526,19 @@
  1144 0474 8A01      		movw r16,r20
  1145 0476 A901      		movw r20,r18
  1146               	.LVL87:
- 203:xmem/xmem.c   **** 	AddrHelper h;
- 1147               		.loc 1 203 2 is_stmt 1 view .LVU212
- 204:xmem/xmem.c   **** 	_xmem_overlap(addr, size, &h);
- 1148               		.loc 1 204 2 view .LVU213
+ 229:xmem/xmem.c   **** 	AddrHelper h;
+ 1147               		.loc 1 229 2 is_stmt 1 view .LVU212
+ 230:xmem/xmem.c   **** 	_xmem_overlap(addr, size, &h);
+ 1148               		.loc 1 230 2 view .LVU213
  1149 0478 9E01      		movw r18,r28
  1150               	.LVL88:
- 1151               		.loc 1 204 2 is_stmt 0 view .LVU214
+ 1151               		.loc 1 230 2 is_stmt 0 view .LVU214
  1152 047a 2F5F      		subi r18,-1
  1153 047c 3F4F      		sbci r19,-1
  1154 047e 0E94 0000 		call _xmem_overlap
  1155               	.LVL89:
- 205:xmem/xmem.c   **** 	_xmem_write(h.BankFirst, h.AddrFirst, data, h.SizeFirst);
- 1156               		.loc 1 205 2 is_stmt 1 view .LVU215
+ 231:xmem/xmem.c   **** 	_xmem_write(h.BankFirst, h.AddrFirst, data, h.SizeFirst);
+ 1156               		.loc 1 231 2 is_stmt 1 view .LVU215
  1157 0482 ED80      		ldd r14,Y+5
  1158 0484 FE80      		ldd r15,Y+6
  1159 0486 D980      		ldd r13,Y+1
@@ -1523,16 +1549,16 @@
  1164 0490 8D2D      		mov r24,r13
  1165 0492 0E94 0000 		call _xmem_write
  1166               	.LVL90:
- 206:xmem/xmem.c   **** 	if(h.BankSecond != h.BankFirst)
- 1167               		.loc 1 206 2 view .LVU216
- 1168               		.loc 1 206 6 is_stmt 0 view .LVU217
+ 232:xmem/xmem.c   **** 	if(h.BankSecond != h.BankFirst)
+ 1167               		.loc 1 232 2 view .LVU216
+ 1168               		.loc 1 232 6 is_stmt 0 view .LVU217
  1169 0496 8A81      		ldd r24,Y+2
- 1170               		.loc 1 206 4 view .LVU218
+ 1170               		.loc 1 232 4 view .LVU218
  1171 0498 D816      		cp r13,r24
  1172 049a 01F0      		breq .L25
- 207:xmem/xmem.c   **** 	{
- 208:xmem/xmem.c   **** 		_xmem_write(h.BankSecond, 0, (const u8 *)data + h.SizeFirst,
- 1173               		.loc 1 208 3 is_stmt 1 view .LVU219
+ 233:xmem/xmem.c   **** 	{
+ 234:xmem/xmem.c   **** 		_xmem_write(h.BankSecond, 0, (const u8 *)data + h.SizeFirst,
+ 1173               		.loc 1 234 3 is_stmt 1 view .LVU219
  1174 049c 2F81      		ldd r18,Y+7
  1175 049e 3885      		ldd r19,Y+8
  1176 04a0 A801      		movw r20,r16
@@ -1541,10 +1567,10 @@
  1179 04a6 60E0      		ldi r22,0
  1180 04a8 70E0      		ldi r23,0
  1181               	/* epilogue start */
- 209:xmem/xmem.c   **** 			h.SizeSecond);
- 210:xmem/xmem.c   **** 	}
- 211:xmem/xmem.c   **** }
- 1182               		.loc 1 211 1 is_stmt 0 view .LVU220
+ 235:xmem/xmem.c   **** 			h.SizeSecond);
+ 236:xmem/xmem.c   **** 	}
+ 237:xmem/xmem.c   **** }
+ 1182               		.loc 1 237 1 is_stmt 0 view .LVU220
  1183 04aa 2896      		adiw r28,8
  1184 04ac 0FB6      		in __tmp_reg__,__SREG__
  1185 04ae F894      		cli
@@ -1556,17 +1582,17 @@
  1191 04ba 1F91      		pop r17
  1192 04bc 0F91      		pop r16
  1193               	.LVL91:
- 1194               		.loc 1 211 1 view .LVU221
+ 1194               		.loc 1 237 1 view .LVU221
  1195 04be FF90      		pop r15
  1196 04c0 EF90      		pop r14
  1197 04c2 DF90      		pop r13
- 208:xmem/xmem.c   **** 			h.SizeSecond);
- 1198               		.loc 1 208 3 view .LVU222
+ 234:xmem/xmem.c   **** 			h.SizeSecond);
+ 1198               		.loc 1 234 3 view .LVU222
  1199 04c4 0C94 0000 		jmp _xmem_write
  1200               	.LVL92:
  1201               	.L25:
  1202               	/* epilogue start */
- 1203               		.loc 1 211 1 view .LVU223
+ 1203               		.loc 1 237 1 view .LVU223
  1204 04c8 2896      		adiw r28,8
  1205 04ca 0FB6      		in __tmp_reg__,__SREG__
  1206 04cc F894      		cli
@@ -1578,7 +1604,7 @@
  1212 04d8 1F91      		pop r17
  1213 04da 0F91      		pop r16
  1214               	.LVL93:
- 1215               		.loc 1 211 1 view .LVU224
+ 1215               		.loc 1 237 1 view .LVU224
  1216 04dc FF90      		pop r15
  1217 04de EF90      		pop r14
  1218 04e0 DF90      		pop r13
@@ -1589,12 +1615,12 @@
  1225               	xmem_set:
  1226               	.LVL94:
  1227               	.LFB18:
- 212:xmem/xmem.c   **** 
- 213:xmem/xmem.c   **** void xmem_set(u32 addr, u8 value, u16 size)
- 214:xmem/xmem.c   **** {
- 1228               		.loc 1 214 1 is_stmt 1 view -0
+ 238:xmem/xmem.c   **** 
+ 239:xmem/xmem.c   **** void xmem_set(u32 addr, u8 value, u16 size)
+ 240:xmem/xmem.c   **** {
+ 1228               		.loc 1 240 1 is_stmt 1 view -0
  1229               		.cfi_startproc
- 1230               		.loc 1 214 1 is_stmt 0 view .LVU226
+ 1230               		.loc 1 240 1 is_stmt 0 view .LVU226
  1231 04e4 0F93      		push r16
  1232               		.cfi_def_cfa_offset 3
  1233               		.cfi_offset 16, -2
@@ -1624,19 +1650,19 @@
  1257 04fc 142F      		mov r17,r20
  1258 04fe A901      		movw r20,r18
  1259               	.LVL95:
- 215:xmem/xmem.c   **** 	AddrHelper h;
- 1260               		.loc 1 215 2 is_stmt 1 view .LVU227
- 216:xmem/xmem.c   **** 	_xmem_overlap(addr, size, &h);
- 1261               		.loc 1 216 2 view .LVU228
+ 241:xmem/xmem.c   **** 	AddrHelper h;
+ 1260               		.loc 1 241 2 is_stmt 1 view .LVU227
+ 242:xmem/xmem.c   **** 	_xmem_overlap(addr, size, &h);
+ 1261               		.loc 1 242 2 view .LVU228
  1262 0500 9E01      		movw r18,r28
  1263               	.LVL96:
- 1264               		.loc 1 216 2 is_stmt 0 view .LVU229
+ 1264               		.loc 1 242 2 is_stmt 0 view .LVU229
  1265 0502 2F5F      		subi r18,-1
  1266 0504 3F4F      		sbci r19,-1
  1267 0506 0E94 0000 		call _xmem_overlap
  1268               	.LVL97:
- 217:xmem/xmem.c   **** 	_xmem_set(h.BankFirst, h.AddrFirst, value, h.SizeFirst);
- 1269               		.loc 1 217 2 is_stmt 1 view .LVU230
+ 243:xmem/xmem.c   **** 	_xmem_set(h.BankFirst, h.AddrFirst, value, h.SizeFirst);
+ 1269               		.loc 1 243 2 is_stmt 1 view .LVU230
  1270 050a 0981      		ldd r16,Y+1
  1271 050c 2D81      		ldd r18,Y+5
  1272 050e 3E81      		ldd r19,Y+6
@@ -1646,25 +1672,25 @@
  1276 0516 802F      		mov r24,r16
  1277 0518 0E94 0000 		call _xmem_set
  1278               	.LVL98:
- 218:xmem/xmem.c   **** 	if(h.BankSecond != h.BankFirst)
- 1279               		.loc 1 218 2 view .LVU231
- 1280               		.loc 1 218 6 is_stmt 0 view .LVU232
+ 244:xmem/xmem.c   **** 	if(h.BankSecond != h.BankFirst)
+ 1279               		.loc 1 244 2 view .LVU231
+ 1280               		.loc 1 244 6 is_stmt 0 view .LVU232
  1281 051c 8A81      		ldd r24,Y+2
- 1282               		.loc 1 218 4 view .LVU233
+ 1282               		.loc 1 244 4 view .LVU233
  1283 051e 0817      		cp r16,r24
  1284 0520 01F0      		breq .L27
- 219:xmem/xmem.c   **** 	{
- 220:xmem/xmem.c   **** 		_xmem_set(h.BankSecond, 0, value, h.SizeSecond);
- 1285               		.loc 1 220 3 is_stmt 1 view .LVU234
+ 245:xmem/xmem.c   **** 	{
+ 246:xmem/xmem.c   **** 		_xmem_set(h.BankSecond, 0, value, h.SizeSecond);
+ 1285               		.loc 1 246 3 is_stmt 1 view .LVU234
  1286 0522 2F81      		ldd r18,Y+7
  1287 0524 3885      		ldd r19,Y+8
  1288 0526 412F      		mov r20,r17
  1289 0528 60E0      		ldi r22,0
  1290 052a 70E0      		ldi r23,0
  1291               	/* epilogue start */
- 221:xmem/xmem.c   **** 	}
- 222:xmem/xmem.c   **** }
- 1292               		.loc 1 222 1 is_stmt 0 view .LVU235
+ 247:xmem/xmem.c   **** 	}
+ 248:xmem/xmem.c   **** }
+ 1292               		.loc 1 248 1 is_stmt 0 view .LVU235
  1293 052c 2896      		adiw r28,8
  1294 052e 0FB6      		in __tmp_reg__,__SREG__
  1295 0530 F894      		cli
@@ -1675,15 +1701,15 @@
  1300 053a CF91      		pop r28
  1301 053c 1F91      		pop r17
  1302               	.LVL99:
- 1303               		.loc 1 222 1 view .LVU236
+ 1303               		.loc 1 248 1 view .LVU236
  1304 053e 0F91      		pop r16
- 220:xmem/xmem.c   **** 	}
- 1305               		.loc 1 220 3 view .LVU237
+ 246:xmem/xmem.c   **** 	}
+ 1305               		.loc 1 246 3 view .LVU237
  1306 0540 0C94 0000 		jmp _xmem_set
  1307               	.LVL100:
  1308               	.L27:
  1309               	/* epilogue start */
- 1310               		.loc 1 222 1 view .LVU238
+ 1310               		.loc 1 248 1 view .LVU238
  1311 0544 2896      		adiw r28,8
  1312 0546 0FB6      		in __tmp_reg__,__SREG__
  1313 0548 F894      		cli
@@ -1694,7 +1720,7 @@
  1318 0552 CF91      		pop r28
  1319 0554 1F91      		pop r17
  1320               	.LVL101:
- 1321               		.loc 1 222 1 view .LVU239
+ 1321               		.loc 1 248 1 view .LVU239
  1322 0556 0F91      		pop r16
  1323 0558 0895      		ret
  1324               		.cfi_endproc
@@ -1749,473 +1775,473 @@
  1365               		.file 5 "spi/spi.h"
 DEFINED SYMBOLS
                             *ABS*:00000000 xmem.c
-     /tmp/ccsWsR0a.s:2      *ABS*:0000003e __SP_H__
-     /tmp/ccsWsR0a.s:3      *ABS*:0000003d __SP_L__
-     /tmp/ccsWsR0a.s:4      *ABS*:0000003f __SREG__
-     /tmp/ccsWsR0a.s:5      *ABS*:00000000 __tmp_reg__
-     /tmp/ccsWsR0a.s:6      *ABS*:00000001 __zero_reg__
-     /tmp/ccsWsR0a.s:12     .text:00000000 _xmem_overlap
-     /tmp/ccsWsR0a.s:16     .text:00000000 .Loc.0
-     /tmp/ccsWsR0a.s:17     .text:00000000 L0
-     /tmp/ccsWsR0a.s:18     .text:00000000 .Loc.1
-     /tmp/ccsWsR0a.s:45     .text:00000014 .Loc.2
-     /tmp/ccsWsR0a.s:46     .text:00000014 .Loc.3
-     /tmp/ccsWsR0a.s:50     .text:00000014 .Loc.4
-     /tmp/ccsWsR0a.s:52     .text:00000014 .Loc.5
-     /tmp/ccsWsR0a.s:53     .text:00000014 .Loc.6
-     /tmp/ccsWsR0a.s:57     .text:00000018 .Loc.7
-     /tmp/ccsWsR0a.s:62     .text:0000001c .Loc.8
-     /tmp/ccsWsR0a.s:65     .text:00000020 .Loc.9
-     /tmp/ccsWsR0a.s:66     .text:00000020 .Loc.10
-     /tmp/ccsWsR0a.s:74     .text:0000002c .Loc.11
-     /tmp/ccsWsR0a.s:77     .text:0000002c .Loc.12
-     /tmp/ccsWsR0a.s:79     .text:0000002c .Loc.13
-     /tmp/ccsWsR0a.s:80     .text:0000002c .Loc.14
-     /tmp/ccsWsR0a.s:90     .text:0000003a .Loc.15
-     /tmp/ccsWsR0a.s:93     .text:0000003a .Loc.16
-     /tmp/ccsWsR0a.s:95     .text:0000003c .Loc.17
-     /tmp/ccsWsR0a.s:99     .text:0000003c .Loc.18
-     /tmp/ccsWsR0a.s:101    .text:0000003c .Loc.19
-     /tmp/ccsWsR0a.s:102    .text:0000003c .Loc.20
-     /tmp/ccsWsR0a.s:114    .text:0000004e .Loc.21
-     /tmp/ccsWsR0a.s:117    .text:0000004e .Loc.22
-     /tmp/ccsWsR0a.s:119    .text:00000050 .Loc.23
-     /tmp/ccsWsR0a.s:120    .text:00000050 .Loc.24
-     /tmp/ccsWsR0a.s:123    .text:00000054 .Loc.25
-     /tmp/ccsWsR0a.s:127    .text:00000054 .Loc.26
-     /tmp/ccsWsR0a.s:129    .text:00000054 .Loc.27
-     /tmp/ccsWsR0a.s:130    .text:00000054 .Loc.28
-     /tmp/ccsWsR0a.s:134    .text:00000058 .Loc.29
-     /tmp/ccsWsR0a.s:137    .text:00000058 .Loc.30
-     /tmp/ccsWsR0a.s:140    .text:0000005c .Loc.31
-     /tmp/ccsWsR0a.s:141    .text:0000005c .Loc.32
-     /tmp/ccsWsR0a.s:146    .text:00000060 .Loc.33
-     /tmp/ccsWsR0a.s:150    .text:00000064 .Loc.34
-     /tmp/ccsWsR0a.s:158    .text:00000072 L0
-     /tmp/ccsWsR0a.s:162    .text:00000072 _xmem_start
-     /tmp/ccsWsR0a.s:165    .text:00000072 .Loc.35
-     /tmp/ccsWsR0a.s:166    .text:00000072 L0
-     /tmp/ccsWsR0a.s:167    .text:00000072 .Loc.36
-     /tmp/ccsWsR0a.s:179    .text:00000078 .Loc.37
-     /tmp/ccsWsR0a.s:192    .text:0000008c .Loc.38
-     /tmp/ccsWsR0a.s:195    .text:0000008e .Loc.39
-     /tmp/ccsWsR0a.s:198    .text:00000092 .Loc.40
-     /tmp/ccsWsR0a.s:202    .text:00000098 .Loc.41
-     /tmp/ccsWsR0a.s:206    .text:0000009e .Loc.42
-     /tmp/ccsWsR0a.s:209    .text:000000a0 .Loc.43
-     /tmp/ccsWsR0a.s:212    .text:000000a4 .Loc.44
-     /tmp/ccsWsR0a.s:215    .text:000000a8 L0
-     /tmp/ccsWsR0a.s:219    .text:000000a8 _xmem_read
-     /tmp/ccsWsR0a.s:222    .text:000000a8 .Loc.45
-     /tmp/ccsWsR0a.s:223    .text:000000a8 L0
-     /tmp/ccsWsR0a.s:224    .text:000000a8 .Loc.46
-     /tmp/ccsWsR0a.s:254    .text:000000be .Loc.47
-     /tmp/ccsWsR0a.s:255    .text:000000be .Loc.48
-     /tmp/ccsWsR0a.s:257    .text:000000be .Loc.49
-     /tmp/ccsWsR0a.s:260    .text:000000c0 .Loc.50
-     /tmp/ccsWsR0a.s:264    .text:000000c4 .Loc.51
-     /tmp/ccsWsR0a.s:267    .text:000000c6 .Loc.52
-     /tmp/ccsWsR0a.s:270    .text:000000ca .Loc.53
-     /tmp/ccsWsR0a.s:271    .text:000000ca .Loc.54
-     /tmp/ccsWsR0a.s:278    .text:000000d2 .Loc.55
-     /tmp/ccsWsR0a.s:282    .text:000000d8 .Loc.56
-     /tmp/ccsWsR0a.s:295    .text:000000ea .Loc.57
-     /tmp/ccsWsR0a.s:299    .text:000000ee .Loc.58
-     /tmp/ccsWsR0a.s:304    .text:000000f4 .Loc.59
-     /tmp/ccsWsR0a.s:310    .text:000000fa .Loc.60
-     /tmp/ccsWsR0a.s:311    .text:000000fa .Loc.61
-     /tmp/ccsWsR0a.s:315    .text:00000100 .Loc.62
-     /tmp/ccsWsR0a.s:318    .text:00000102 .Loc.63
-     /tmp/ccsWsR0a.s:319    .text:00000102 .Loc.64
-     /tmp/ccsWsR0a.s:321    .text:00000104 L0
-     /tmp/ccsWsR0a.s:325    .text:00000104 _xmem_write
-     /tmp/ccsWsR0a.s:328    .text:00000104 .Loc.65
-     /tmp/ccsWsR0a.s:329    .text:00000104 L0
-     /tmp/ccsWsR0a.s:330    .text:00000104 .Loc.66
-     /tmp/ccsWsR0a.s:360    .text:0000011a .Loc.67
-     /tmp/ccsWsR0a.s:361    .text:0000011a .Loc.68
-     /tmp/ccsWsR0a.s:363    .text:0000011a .Loc.69
-     /tmp/ccsWsR0a.s:366    .text:0000011c .Loc.70
-     /tmp/ccsWsR0a.s:370    .text:00000120 .Loc.71
-     /tmp/ccsWsR0a.s:373    .text:00000122 .Loc.72
-     /tmp/ccsWsR0a.s:376    .text:00000126 .Loc.73
-     /tmp/ccsWsR0a.s:377    .text:00000126 .Loc.74
-     /tmp/ccsWsR0a.s:384    .text:0000012e .Loc.75
-     /tmp/ccsWsR0a.s:388    .text:00000134 .Loc.76
-     /tmp/ccsWsR0a.s:401    .text:00000146 .Loc.77
-     /tmp/ccsWsR0a.s:405    .text:0000014a .Loc.78
-     /tmp/ccsWsR0a.s:410    .text:00000150 .Loc.79
-     /tmp/ccsWsR0a.s:416    .text:00000156 .Loc.80
-     /tmp/ccsWsR0a.s:419    .text:00000158 .Loc.81
-     /tmp/ccsWsR0a.s:422    .text:0000015c .Loc.82
-     /tmp/ccsWsR0a.s:423    .text:0000015c .Loc.83
-     /tmp/ccsWsR0a.s:425    .text:0000015e L0
-     /tmp/ccsWsR0a.s:429    .text:0000015e _xmem_set
-     /tmp/ccsWsR0a.s:432    .text:0000015e .Loc.84
-     /tmp/ccsWsR0a.s:433    .text:0000015e L0
-     /tmp/ccsWsR0a.s:434    .text:0000015e .Loc.85
-     /tmp/ccsWsR0a.s:460    .text:00000170 .Loc.86
-     /tmp/ccsWsR0a.s:461    .text:00000170 .Loc.87
-     /tmp/ccsWsR0a.s:464    .text:00000172 .Loc.88
-     /tmp/ccsWsR0a.s:468    .text:00000176 .Loc.89
-     /tmp/ccsWsR0a.s:471    .text:00000178 .Loc.90
-     /tmp/ccsWsR0a.s:474    .text:0000017c .Loc.91
-     /tmp/ccsWsR0a.s:475    .text:0000017c .Loc.92
-     /tmp/ccsWsR0a.s:480    .text:00000180 .Loc.93
-     /tmp/ccsWsR0a.s:484    .text:00000186 .Loc.94
-     /tmp/ccsWsR0a.s:497    .text:00000198 .Loc.95
-     /tmp/ccsWsR0a.s:500    .text:0000019a .Loc.96
-     /tmp/ccsWsR0a.s:503    .text:0000019c .Loc.97
-     /tmp/ccsWsR0a.s:507    .text:000001a0 .Loc.98
-     /tmp/ccsWsR0a.s:511    .text:000001a4 .Loc.99
-     /tmp/ccsWsR0a.s:515    .text:000001a6 .Loc.100
-     /tmp/ccsWsR0a.s:519    .text:000001ac .Loc.101
-     /tmp/ccsWsR0a.s:524    .text:000001b2 .Loc.102
-     /tmp/ccsWsR0a.s:526    .text:000001b4 L0
-     /tmp/ccsWsR0a.s:531    .text:000001b4 xmem_init
-     /tmp/ccsWsR0a.s:533    .text:000001b4 .Loc.103
-     /tmp/ccsWsR0a.s:534    .text:000001b4 L0
-     /tmp/ccsWsR0a.s:586    .text:000001d8 L0
-     /tmp/ccsWsR0a.s:596    .text:000001de .Loc.104
-     /tmp/ccsWsR0a.s:598    .text:000001de .Loc.105
-     /tmp/ccsWsR0a.s:599    .text:000001de .Loc.106
-     /tmp/ccsWsR0a.s:601    .text:000001de .Loc.107
-     /tmp/ccsWsR0a.s:1358   .progmem.data:000000ad __c.7
-     /tmp/ccsWsR0a.s:609    .text:000001ec .Loc.108
-     /tmp/ccsWsR0a.s:612    .text:000001ec .Loc.109
-     /tmp/ccsWsR0a.s:614    .text:000001ec .Loc.110
-     /tmp/ccsWsR0a.s:615    .text:000001ec .Loc.111
-     /tmp/ccsWsR0a.s:616    .text:000001ec .Loc.112
-     /tmp/ccsWsR0a.s:618    .text:000001ec .Loc.113
-     /tmp/ccsWsR0a.s:619    .text:000001ec .Loc.114
-     /tmp/ccsWsR0a.s:621    .text:000001ec .Loc.115
-     /tmp/ccsWsR0a.s:1354   .progmem.data:0000008f __c.6
-     /tmp/ccsWsR0a.s:629    .text:000001fa .Loc.116
-     /tmp/ccsWsR0a.s:632    .text:000001fe .Loc.117
-     /tmp/ccsWsR0a.s:633    .text:000001fe .Loc.118
-     /tmp/ccsWsR0a.s:634    .text:000001fe .Loc.119
-     /tmp/ccsWsR0a.s:643    .text:0000020e .Loc.120
-     /tmp/ccsWsR0a.s:1342   .progmem.data:0000005c __c.3
-     /tmp/ccsWsR0a.s:648    .text:00000216 .Loc.121
-     /tmp/ccsWsR0a.s:652    .text:0000021c .Loc.122
-     /tmp/ccsWsR0a.s:1338   .progmem.data:0000004a __c.2
-     /tmp/ccsWsR0a.s:657    .text:00000224 .Loc.123
-     /tmp/ccsWsR0a.s:1330   .progmem.data:00000000 __c.0
-     /tmp/ccsWsR0a.s:664    .text:0000022c .Loc.124
-     /tmp/ccsWsR0a.s:667    .text:0000022e .Loc.125
-     /tmp/ccsWsR0a.s:676    .text:0000023c .Loc.126
-     /tmp/ccsWsR0a.s:677    .text:0000023c .Loc.127
-     /tmp/ccsWsR0a.s:679    .text:0000023c .Loc.128
-     /tmp/ccsWsR0a.s:1350   .progmem.data:00000074 __c.5
-     /tmp/ccsWsR0a.s:689    .text:0000024e .Loc.129
-     /tmp/ccsWsR0a.s:691    .text:0000024e .Loc.130
-     /tmp/ccsWsR0a.s:692    .text:0000024e .Loc.131
-     /tmp/ccsWsR0a.s:694    .text:0000024e .Loc.132
-     /tmp/ccsWsR0a.s:1346   .progmem.data:00000064 __c.4
-     /tmp/ccsWsR0a.s:702    .text:0000025c .Loc.133
-     /tmp/ccsWsR0a.s:710    .text:0000026a .Loc.134
-     /tmp/ccsWsR0a.s:711    .text:0000026a .Loc.135
-     /tmp/ccsWsR0a.s:712    .text:0000026a .Loc.136
-     /tmp/ccsWsR0a.s:718    .text:00000274 .Loc.137
-     /tmp/ccsWsR0a.s:722    .text:0000027a .Loc.138
-     /tmp/ccsWsR0a.s:726    .text:0000027c .Loc.139
-     /tmp/ccsWsR0a.s:727    .text:0000027c .Loc.140
-     /tmp/ccsWsR0a.s:730    .text:0000027e .Loc.141
-     /tmp/ccsWsR0a.s:731    .text:0000027e .Loc.142
-     /tmp/ccsWsR0a.s:737    .text:00000288 .Loc.143
-     /tmp/ccsWsR0a.s:742    .text:00000290 .Loc.144
-     /tmp/ccsWsR0a.s:744    .text:00000290 .Loc.145
-     /tmp/ccsWsR0a.s:745    .text:00000290 .Loc.146
-     /tmp/ccsWsR0a.s:747    .text:00000290 .Loc.147
-     /tmp/ccsWsR0a.s:764    .text:000002ae .Loc.148
-     /tmp/ccsWsR0a.s:765    .text:000002ae .Loc.149
-     /tmp/ccsWsR0a.s:772    .text:000002ba .Loc.150
-     /tmp/ccsWsR0a.s:776    .text:000002c0 .Loc.151
-     /tmp/ccsWsR0a.s:783    .text:000002ca .Loc.152
-     /tmp/ccsWsR0a.s:784    .text:000002ca .Loc.153
-     /tmp/ccsWsR0a.s:787    .text:000002cc .Loc.154
-     /tmp/ccsWsR0a.s:801    .text:000002e2 .Loc.155
-     /tmp/ccsWsR0a.s:803    .text:000002e2 .Loc.156
-     /tmp/ccsWsR0a.s:804    .text:000002e2 .Loc.157
-     /tmp/ccsWsR0a.s:806    .text:000002e2 .Loc.158
-     /tmp/ccsWsR0a.s:812    .text:000002ec .Loc.159
-     /tmp/ccsWsR0a.s:820    .text:000002fa .Loc.160
-     /tmp/ccsWsR0a.s:821    .text:000002fa .Loc.161
-     /tmp/ccsWsR0a.s:822    .text:000002fa .Loc.162
-     /tmp/ccsWsR0a.s:826    .text:00000300 .Loc.163
-     /tmp/ccsWsR0a.s:830    .text:00000306 .Loc.164
-     /tmp/ccsWsR0a.s:835    .text:0000030a .Loc.165
-     /tmp/ccsWsR0a.s:836    .text:0000030a .Loc.166
-     /tmp/ccsWsR0a.s:839    .text:0000030c .Loc.167
-     /tmp/ccsWsR0a.s:840    .text:0000030c .Loc.168
-     /tmp/ccsWsR0a.s:846    .text:00000316 .Loc.169
-     /tmp/ccsWsR0a.s:851    .text:0000031e .Loc.170
-     /tmp/ccsWsR0a.s:853    .text:0000031e .Loc.171
-     /tmp/ccsWsR0a.s:854    .text:0000031e .Loc.172
-     /tmp/ccsWsR0a.s:856    .text:0000031e .Loc.173
-     /tmp/ccsWsR0a.s:1334   .progmem.data:00000042 __c.1
-     /tmp/ccsWsR0a.s:875    .text:00000340 .Loc.174
-     /tmp/ccsWsR0a.s:876    .text:00000340 .Loc.175
-     /tmp/ccsWsR0a.s:883    .text:0000034c .Loc.176
-     /tmp/ccsWsR0a.s:884    .text:0000034c .Loc.177
-     /tmp/ccsWsR0a.s:888    .text:00000352 .Loc.178
-     /tmp/ccsWsR0a.s:889    .text:00000352 .Loc.179
-     /tmp/ccsWsR0a.s:892    .text:00000356 .Loc.180
-     /tmp/ccsWsR0a.s:897    .text:0000035e .Loc.181
-     /tmp/ccsWsR0a.s:899    .text:0000035e .Loc.182
-     /tmp/ccsWsR0a.s:900    .text:0000035e .Loc.183
-     /tmp/ccsWsR0a.s:902    .text:0000035e .Loc.184
-     /tmp/ccsWsR0a.s:915    .text:00000376 .Loc.185
-     /tmp/ccsWsR0a.s:922    .text:00000380 .Loc.186
-     /tmp/ccsWsR0a.s:929    .text:0000038a .Loc.187
-     /tmp/ccsWsR0a.s:930    .text:0000038a .Loc.188
-     /tmp/ccsWsR0a.s:934    .text:0000038c .Loc.189
-     /tmp/ccsWsR0a.s:938    .text:00000392 .Loc.190
-     /tmp/ccsWsR0a.s:940    .text:00000392 .Loc.191
-     /tmp/ccsWsR0a.s:945    .text:0000039c L0
-     /tmp/ccsWsR0a.s:950    .text:0000039e .Loc.192
-     /tmp/ccsWsR0a.s:960    .text:000003ae .Loc.193
-     /tmp/ccsWsR0a.s:972    .text:000003c2 .Loc.194
-     /tmp/ccsWsR0a.s:976    .text:000003c8 L0
-     /tmp/ccsWsR0a.s:981    .text:000003c8 xmem_read
-     /tmp/ccsWsR0a.s:984    .text:000003c8 .Loc.195
-     /tmp/ccsWsR0a.s:985    .text:000003c8 L0
-     /tmp/ccsWsR0a.s:986    .text:000003c8 .Loc.196
-     /tmp/ccsWsR0a.s:1025   .text:000003ea .Loc.197
-     /tmp/ccsWsR0a.s:1026   .text:000003ea .Loc.198
-     /tmp/ccsWsR0a.s:1029   .text:000003ec .Loc.199
-     /tmp/ccsWsR0a.s:1034   .text:000003f4 .Loc.200
-     /tmp/ccsWsR0a.s:1045   .text:00000408 .Loc.201
-     /tmp/ccsWsR0a.s:1046   .text:00000408 .Loc.202
-     /tmp/ccsWsR0a.s:1048   .text:0000040a .Loc.203
-     /tmp/ccsWsR0a.s:1051   .text:0000040e .Loc.204
-     /tmp/ccsWsR0a.s:1060   .text:0000041c .Loc.205
-     /tmp/ccsWsR0a.s:1072   .text:00000430 .Loc.206
-     /tmp/ccsWsR0a.s:1076   .text:00000436 .Loc.207
-     /tmp/ccsWsR0a.s:1081   .text:0000043a .Loc.208
-     /tmp/ccsWsR0a.s:1093   .text:0000044e .Loc.209
-     /tmp/ccsWsR0a.s:1098   .text:00000456 L0
-     /tmp/ccsWsR0a.s:1103   .text:00000456 xmem_write
-     /tmp/ccsWsR0a.s:1106   .text:00000456 .Loc.210
-     /tmp/ccsWsR0a.s:1107   .text:00000456 L0
-     /tmp/ccsWsR0a.s:1108   .text:00000456 .Loc.211
-     /tmp/ccsWsR0a.s:1147   .text:00000478 .Loc.212
-     /tmp/ccsWsR0a.s:1148   .text:00000478 .Loc.213
-     /tmp/ccsWsR0a.s:1151   .text:0000047a .Loc.214
-     /tmp/ccsWsR0a.s:1156   .text:00000482 .Loc.215
-     /tmp/ccsWsR0a.s:1167   .text:00000496 .Loc.216
-     /tmp/ccsWsR0a.s:1168   .text:00000496 .Loc.217
-     /tmp/ccsWsR0a.s:1170   .text:00000498 .Loc.218
-     /tmp/ccsWsR0a.s:1173   .text:0000049c .Loc.219
-     /tmp/ccsWsR0a.s:1182   .text:000004aa .Loc.220
-     /tmp/ccsWsR0a.s:1194   .text:000004be .Loc.221
-     /tmp/ccsWsR0a.s:1198   .text:000004c4 .Loc.222
-     /tmp/ccsWsR0a.s:1203   .text:000004c8 .Loc.223
-     /tmp/ccsWsR0a.s:1215   .text:000004dc .Loc.224
-     /tmp/ccsWsR0a.s:1220   .text:000004e4 L0
-     /tmp/ccsWsR0a.s:1225   .text:000004e4 xmem_set
-     /tmp/ccsWsR0a.s:1228   .text:000004e4 .Loc.225
-     /tmp/ccsWsR0a.s:1229   .text:000004e4 L0
-     /tmp/ccsWsR0a.s:1230   .text:000004e4 .Loc.226
-     /tmp/ccsWsR0a.s:1260   .text:00000500 .Loc.227
-     /tmp/ccsWsR0a.s:1261   .text:00000500 .Loc.228
-     /tmp/ccsWsR0a.s:1264   .text:00000502 .Loc.229
-     /tmp/ccsWsR0a.s:1269   .text:0000050a .Loc.230
-     /tmp/ccsWsR0a.s:1279   .text:0000051c .Loc.231
-     /tmp/ccsWsR0a.s:1280   .text:0000051c .Loc.232
-     /tmp/ccsWsR0a.s:1282   .text:0000051e .Loc.233
-     /tmp/ccsWsR0a.s:1285   .text:00000522 .Loc.234
-     /tmp/ccsWsR0a.s:1292   .text:0000052c .Loc.235
-     /tmp/ccsWsR0a.s:1303   .text:0000053e .Loc.236
-     /tmp/ccsWsR0a.s:1305   .text:00000540 .Loc.237
-     /tmp/ccsWsR0a.s:1310   .text:00000544 .Loc.238
-     /tmp/ccsWsR0a.s:1321   .text:00000556 .Loc.239
-     /tmp/ccsWsR0a.s:1324   .text:0000055a L0
-     /tmp/ccsWsR0a.s:1366   .text:0000055a L0
+     /tmp/ccWpAF9v.s:2      *ABS*:0000003e __SP_H__
+     /tmp/ccWpAF9v.s:3      *ABS*:0000003d __SP_L__
+     /tmp/ccWpAF9v.s:4      *ABS*:0000003f __SREG__
+     /tmp/ccWpAF9v.s:5      *ABS*:00000000 __tmp_reg__
+     /tmp/ccWpAF9v.s:6      *ABS*:00000001 __zero_reg__
+     /tmp/ccWpAF9v.s:12     .text:00000000 _xmem_overlap
+     /tmp/ccWpAF9v.s:16     .text:00000000 .Loc.0
+     /tmp/ccWpAF9v.s:17     .text:00000000 L0
+     /tmp/ccWpAF9v.s:18     .text:00000000 .Loc.1
+     /tmp/ccWpAF9v.s:45     .text:00000014 .Loc.2
+     /tmp/ccWpAF9v.s:46     .text:00000014 .Loc.3
+     /tmp/ccWpAF9v.s:50     .text:00000014 .Loc.4
+     /tmp/ccWpAF9v.s:52     .text:00000014 .Loc.5
+     /tmp/ccWpAF9v.s:53     .text:00000014 .Loc.6
+     /tmp/ccWpAF9v.s:57     .text:00000018 .Loc.7
+     /tmp/ccWpAF9v.s:62     .text:0000001c .Loc.8
+     /tmp/ccWpAF9v.s:65     .text:00000020 .Loc.9
+     /tmp/ccWpAF9v.s:66     .text:00000020 .Loc.10
+     /tmp/ccWpAF9v.s:74     .text:0000002c .Loc.11
+     /tmp/ccWpAF9v.s:77     .text:0000002c .Loc.12
+     /tmp/ccWpAF9v.s:79     .text:0000002c .Loc.13
+     /tmp/ccWpAF9v.s:80     .text:0000002c .Loc.14
+     /tmp/ccWpAF9v.s:90     .text:0000003a .Loc.15
+     /tmp/ccWpAF9v.s:93     .text:0000003a .Loc.16
+     /tmp/ccWpAF9v.s:95     .text:0000003c .Loc.17
+     /tmp/ccWpAF9v.s:99     .text:0000003c .Loc.18
+     /tmp/ccWpAF9v.s:101    .text:0000003c .Loc.19
+     /tmp/ccWpAF9v.s:102    .text:0000003c .Loc.20
+     /tmp/ccWpAF9v.s:114    .text:0000004e .Loc.21
+     /tmp/ccWpAF9v.s:117    .text:0000004e .Loc.22
+     /tmp/ccWpAF9v.s:119    .text:00000050 .Loc.23
+     /tmp/ccWpAF9v.s:120    .text:00000050 .Loc.24
+     /tmp/ccWpAF9v.s:123    .text:00000054 .Loc.25
+     /tmp/ccWpAF9v.s:127    .text:00000054 .Loc.26
+     /tmp/ccWpAF9v.s:129    .text:00000054 .Loc.27
+     /tmp/ccWpAF9v.s:130    .text:00000054 .Loc.28
+     /tmp/ccWpAF9v.s:134    .text:00000058 .Loc.29
+     /tmp/ccWpAF9v.s:137    .text:00000058 .Loc.30
+     /tmp/ccWpAF9v.s:140    .text:0000005c .Loc.31
+     /tmp/ccWpAF9v.s:141    .text:0000005c .Loc.32
+     /tmp/ccWpAF9v.s:146    .text:00000060 .Loc.33
+     /tmp/ccWpAF9v.s:150    .text:00000064 .Loc.34
+     /tmp/ccWpAF9v.s:158    .text:00000072 L0
+     /tmp/ccWpAF9v.s:162    .text:00000072 _xmem_start
+     /tmp/ccWpAF9v.s:165    .text:00000072 .Loc.35
+     /tmp/ccWpAF9v.s:166    .text:00000072 L0
+     /tmp/ccWpAF9v.s:167    .text:00000072 .Loc.36
+     /tmp/ccWpAF9v.s:179    .text:00000078 .Loc.37
+     /tmp/ccWpAF9v.s:192    .text:0000008c .Loc.38
+     /tmp/ccWpAF9v.s:195    .text:0000008e .Loc.39
+     /tmp/ccWpAF9v.s:198    .text:00000092 .Loc.40
+     /tmp/ccWpAF9v.s:202    .text:00000098 .Loc.41
+     /tmp/ccWpAF9v.s:206    .text:0000009e .Loc.42
+     /tmp/ccWpAF9v.s:209    .text:000000a0 .Loc.43
+     /tmp/ccWpAF9v.s:212    .text:000000a4 .Loc.44
+     /tmp/ccWpAF9v.s:215    .text:000000a8 L0
+     /tmp/ccWpAF9v.s:219    .text:000000a8 _xmem_read
+     /tmp/ccWpAF9v.s:222    .text:000000a8 .Loc.45
+     /tmp/ccWpAF9v.s:223    .text:000000a8 L0
+     /tmp/ccWpAF9v.s:224    .text:000000a8 .Loc.46
+     /tmp/ccWpAF9v.s:254    .text:000000be .Loc.47
+     /tmp/ccWpAF9v.s:255    .text:000000be .Loc.48
+     /tmp/ccWpAF9v.s:257    .text:000000be .Loc.49
+     /tmp/ccWpAF9v.s:260    .text:000000c0 .Loc.50
+     /tmp/ccWpAF9v.s:264    .text:000000c4 .Loc.51
+     /tmp/ccWpAF9v.s:267    .text:000000c6 .Loc.52
+     /tmp/ccWpAF9v.s:270    .text:000000ca .Loc.53
+     /tmp/ccWpAF9v.s:271    .text:000000ca .Loc.54
+     /tmp/ccWpAF9v.s:278    .text:000000d2 .Loc.55
+     /tmp/ccWpAF9v.s:282    .text:000000d8 .Loc.56
+     /tmp/ccWpAF9v.s:295    .text:000000ea .Loc.57
+     /tmp/ccWpAF9v.s:299    .text:000000ee .Loc.58
+     /tmp/ccWpAF9v.s:304    .text:000000f4 .Loc.59
+     /tmp/ccWpAF9v.s:310    .text:000000fa .Loc.60
+     /tmp/ccWpAF9v.s:311    .text:000000fa .Loc.61
+     /tmp/ccWpAF9v.s:315    .text:00000100 .Loc.62
+     /tmp/ccWpAF9v.s:318    .text:00000102 .Loc.63
+     /tmp/ccWpAF9v.s:319    .text:00000102 .Loc.64
+     /tmp/ccWpAF9v.s:321    .text:00000104 L0
+     /tmp/ccWpAF9v.s:325    .text:00000104 _xmem_write
+     /tmp/ccWpAF9v.s:328    .text:00000104 .Loc.65
+     /tmp/ccWpAF9v.s:329    .text:00000104 L0
+     /tmp/ccWpAF9v.s:330    .text:00000104 .Loc.66
+     /tmp/ccWpAF9v.s:360    .text:0000011a .Loc.67
+     /tmp/ccWpAF9v.s:361    .text:0000011a .Loc.68
+     /tmp/ccWpAF9v.s:363    .text:0000011a .Loc.69
+     /tmp/ccWpAF9v.s:366    .text:0000011c .Loc.70
+     /tmp/ccWpAF9v.s:370    .text:00000120 .Loc.71
+     /tmp/ccWpAF9v.s:373    .text:00000122 .Loc.72
+     /tmp/ccWpAF9v.s:376    .text:00000126 .Loc.73
+     /tmp/ccWpAF9v.s:377    .text:00000126 .Loc.74
+     /tmp/ccWpAF9v.s:384    .text:0000012e .Loc.75
+     /tmp/ccWpAF9v.s:388    .text:00000134 .Loc.76
+     /tmp/ccWpAF9v.s:401    .text:00000146 .Loc.77
+     /tmp/ccWpAF9v.s:405    .text:0000014a .Loc.78
+     /tmp/ccWpAF9v.s:410    .text:00000150 .Loc.79
+     /tmp/ccWpAF9v.s:416    .text:00000156 .Loc.80
+     /tmp/ccWpAF9v.s:419    .text:00000158 .Loc.81
+     /tmp/ccWpAF9v.s:422    .text:0000015c .Loc.82
+     /tmp/ccWpAF9v.s:423    .text:0000015c .Loc.83
+     /tmp/ccWpAF9v.s:425    .text:0000015e L0
+     /tmp/ccWpAF9v.s:429    .text:0000015e _xmem_set
+     /tmp/ccWpAF9v.s:432    .text:0000015e .Loc.84
+     /tmp/ccWpAF9v.s:433    .text:0000015e L0
+     /tmp/ccWpAF9v.s:434    .text:0000015e .Loc.85
+     /tmp/ccWpAF9v.s:460    .text:00000170 .Loc.86
+     /tmp/ccWpAF9v.s:461    .text:00000170 .Loc.87
+     /tmp/ccWpAF9v.s:464    .text:00000172 .Loc.88
+     /tmp/ccWpAF9v.s:468    .text:00000176 .Loc.89
+     /tmp/ccWpAF9v.s:471    .text:00000178 .Loc.90
+     /tmp/ccWpAF9v.s:474    .text:0000017c .Loc.91
+     /tmp/ccWpAF9v.s:475    .text:0000017c .Loc.92
+     /tmp/ccWpAF9v.s:480    .text:00000180 .Loc.93
+     /tmp/ccWpAF9v.s:484    .text:00000186 .Loc.94
+     /tmp/ccWpAF9v.s:497    .text:00000198 .Loc.95
+     /tmp/ccWpAF9v.s:500    .text:0000019a .Loc.96
+     /tmp/ccWpAF9v.s:503    .text:0000019c .Loc.97
+     /tmp/ccWpAF9v.s:507    .text:000001a0 .Loc.98
+     /tmp/ccWpAF9v.s:511    .text:000001a4 .Loc.99
+     /tmp/ccWpAF9v.s:515    .text:000001a6 .Loc.100
+     /tmp/ccWpAF9v.s:519    .text:000001ac .Loc.101
+     /tmp/ccWpAF9v.s:524    .text:000001b2 .Loc.102
+     /tmp/ccWpAF9v.s:526    .text:000001b4 L0
+     /tmp/ccWpAF9v.s:531    .text:000001b4 xmem_init
+     /tmp/ccWpAF9v.s:533    .text:000001b4 .Loc.103
+     /tmp/ccWpAF9v.s:534    .text:000001b4 L0
+     /tmp/ccWpAF9v.s:586    .text:000001d8 L0
+     /tmp/ccWpAF9v.s:596    .text:000001de .Loc.104
+     /tmp/ccWpAF9v.s:598    .text:000001de .Loc.105
+     /tmp/ccWpAF9v.s:599    .text:000001de .Loc.106
+     /tmp/ccWpAF9v.s:601    .text:000001de .Loc.107
+     /tmp/ccWpAF9v.s:1358   .progmem.data:000000ad __c.7
+     /tmp/ccWpAF9v.s:609    .text:000001ec .Loc.108
+     /tmp/ccWpAF9v.s:612    .text:000001ec .Loc.109
+     /tmp/ccWpAF9v.s:614    .text:000001ec .Loc.110
+     /tmp/ccWpAF9v.s:615    .text:000001ec .Loc.111
+     /tmp/ccWpAF9v.s:616    .text:000001ec .Loc.112
+     /tmp/ccWpAF9v.s:618    .text:000001ec .Loc.113
+     /tmp/ccWpAF9v.s:619    .text:000001ec .Loc.114
+     /tmp/ccWpAF9v.s:621    .text:000001ec .Loc.115
+     /tmp/ccWpAF9v.s:1354   .progmem.data:0000008f __c.6
+     /tmp/ccWpAF9v.s:629    .text:000001fa .Loc.116
+     /tmp/ccWpAF9v.s:632    .text:000001fe .Loc.117
+     /tmp/ccWpAF9v.s:633    .text:000001fe .Loc.118
+     /tmp/ccWpAF9v.s:634    .text:000001fe .Loc.119
+     /tmp/ccWpAF9v.s:643    .text:0000020e .Loc.120
+     /tmp/ccWpAF9v.s:1342   .progmem.data:0000005c __c.3
+     /tmp/ccWpAF9v.s:648    .text:00000216 .Loc.121
+     /tmp/ccWpAF9v.s:652    .text:0000021c .Loc.122
+     /tmp/ccWpAF9v.s:1338   .progmem.data:0000004a __c.2
+     /tmp/ccWpAF9v.s:657    .text:00000224 .Loc.123
+     /tmp/ccWpAF9v.s:1330   .progmem.data:00000000 __c.0
+     /tmp/ccWpAF9v.s:664    .text:0000022c .Loc.124
+     /tmp/ccWpAF9v.s:667    .text:0000022e .Loc.125
+     /tmp/ccWpAF9v.s:676    .text:0000023c .Loc.126
+     /tmp/ccWpAF9v.s:677    .text:0000023c .Loc.127
+     /tmp/ccWpAF9v.s:679    .text:0000023c .Loc.128
+     /tmp/ccWpAF9v.s:1350   .progmem.data:00000074 __c.5
+     /tmp/ccWpAF9v.s:689    .text:0000024e .Loc.129
+     /tmp/ccWpAF9v.s:691    .text:0000024e .Loc.130
+     /tmp/ccWpAF9v.s:692    .text:0000024e .Loc.131
+     /tmp/ccWpAF9v.s:694    .text:0000024e .Loc.132
+     /tmp/ccWpAF9v.s:1346   .progmem.data:00000064 __c.4
+     /tmp/ccWpAF9v.s:702    .text:0000025c .Loc.133
+     /tmp/ccWpAF9v.s:710    .text:0000026a .Loc.134
+     /tmp/ccWpAF9v.s:711    .text:0000026a .Loc.135
+     /tmp/ccWpAF9v.s:712    .text:0000026a .Loc.136
+     /tmp/ccWpAF9v.s:718    .text:00000274 .Loc.137
+     /tmp/ccWpAF9v.s:722    .text:0000027a .Loc.138
+     /tmp/ccWpAF9v.s:726    .text:0000027c .Loc.139
+     /tmp/ccWpAF9v.s:727    .text:0000027c .Loc.140
+     /tmp/ccWpAF9v.s:730    .text:0000027e .Loc.141
+     /tmp/ccWpAF9v.s:731    .text:0000027e .Loc.142
+     /tmp/ccWpAF9v.s:737    .text:00000288 .Loc.143
+     /tmp/ccWpAF9v.s:742    .text:00000290 .Loc.144
+     /tmp/ccWpAF9v.s:744    .text:00000290 .Loc.145
+     /tmp/ccWpAF9v.s:745    .text:00000290 .Loc.146
+     /tmp/ccWpAF9v.s:747    .text:00000290 .Loc.147
+     /tmp/ccWpAF9v.s:764    .text:000002ae .Loc.148
+     /tmp/ccWpAF9v.s:765    .text:000002ae .Loc.149
+     /tmp/ccWpAF9v.s:772    .text:000002ba .Loc.150
+     /tmp/ccWpAF9v.s:776    .text:000002c0 .Loc.151
+     /tmp/ccWpAF9v.s:783    .text:000002ca .Loc.152
+     /tmp/ccWpAF9v.s:784    .text:000002ca .Loc.153
+     /tmp/ccWpAF9v.s:787    .text:000002cc .Loc.154
+     /tmp/ccWpAF9v.s:801    .text:000002e2 .Loc.155
+     /tmp/ccWpAF9v.s:803    .text:000002e2 .Loc.156
+     /tmp/ccWpAF9v.s:804    .text:000002e2 .Loc.157
+     /tmp/ccWpAF9v.s:806    .text:000002e2 .Loc.158
+     /tmp/ccWpAF9v.s:812    .text:000002ec .Loc.159
+     /tmp/ccWpAF9v.s:820    .text:000002fa .Loc.160
+     /tmp/ccWpAF9v.s:821    .text:000002fa .Loc.161
+     /tmp/ccWpAF9v.s:822    .text:000002fa .Loc.162
+     /tmp/ccWpAF9v.s:826    .text:00000300 .Loc.163
+     /tmp/ccWpAF9v.s:830    .text:00000306 .Loc.164
+     /tmp/ccWpAF9v.s:835    .text:0000030a .Loc.165
+     /tmp/ccWpAF9v.s:836    .text:0000030a .Loc.166
+     /tmp/ccWpAF9v.s:839    .text:0000030c .Loc.167
+     /tmp/ccWpAF9v.s:840    .text:0000030c .Loc.168
+     /tmp/ccWpAF9v.s:846    .text:00000316 .Loc.169
+     /tmp/ccWpAF9v.s:851    .text:0000031e .Loc.170
+     /tmp/ccWpAF9v.s:853    .text:0000031e .Loc.171
+     /tmp/ccWpAF9v.s:854    .text:0000031e .Loc.172
+     /tmp/ccWpAF9v.s:856    .text:0000031e .Loc.173
+     /tmp/ccWpAF9v.s:1334   .progmem.data:00000042 __c.1
+     /tmp/ccWpAF9v.s:875    .text:00000340 .Loc.174
+     /tmp/ccWpAF9v.s:876    .text:00000340 .Loc.175
+     /tmp/ccWpAF9v.s:883    .text:0000034c .Loc.176
+     /tmp/ccWpAF9v.s:884    .text:0000034c .Loc.177
+     /tmp/ccWpAF9v.s:888    .text:00000352 .Loc.178
+     /tmp/ccWpAF9v.s:889    .text:00000352 .Loc.179
+     /tmp/ccWpAF9v.s:892    .text:00000356 .Loc.180
+     /tmp/ccWpAF9v.s:897    .text:0000035e .Loc.181
+     /tmp/ccWpAF9v.s:899    .text:0000035e .Loc.182
+     /tmp/ccWpAF9v.s:900    .text:0000035e .Loc.183
+     /tmp/ccWpAF9v.s:902    .text:0000035e .Loc.184
+     /tmp/ccWpAF9v.s:915    .text:00000376 .Loc.185
+     /tmp/ccWpAF9v.s:922    .text:00000380 .Loc.186
+     /tmp/ccWpAF9v.s:929    .text:0000038a .Loc.187
+     /tmp/ccWpAF9v.s:930    .text:0000038a .Loc.188
+     /tmp/ccWpAF9v.s:934    .text:0000038c .Loc.189
+     /tmp/ccWpAF9v.s:938    .text:00000392 .Loc.190
+     /tmp/ccWpAF9v.s:940    .text:00000392 .Loc.191
+     /tmp/ccWpAF9v.s:945    .text:0000039c L0
+     /tmp/ccWpAF9v.s:950    .text:0000039e .Loc.192
+     /tmp/ccWpAF9v.s:960    .text:000003ae .Loc.193
+     /tmp/ccWpAF9v.s:972    .text:000003c2 .Loc.194
+     /tmp/ccWpAF9v.s:976    .text:000003c8 L0
+     /tmp/ccWpAF9v.s:981    .text:000003c8 xmem_read
+     /tmp/ccWpAF9v.s:984    .text:000003c8 .Loc.195
+     /tmp/ccWpAF9v.s:985    .text:000003c8 L0
+     /tmp/ccWpAF9v.s:986    .text:000003c8 .Loc.196
+     /tmp/ccWpAF9v.s:1025   .text:000003ea .Loc.197
+     /tmp/ccWpAF9v.s:1026   .text:000003ea .Loc.198
+     /tmp/ccWpAF9v.s:1029   .text:000003ec .Loc.199
+     /tmp/ccWpAF9v.s:1034   .text:000003f4 .Loc.200
+     /tmp/ccWpAF9v.s:1045   .text:00000408 .Loc.201
+     /tmp/ccWpAF9v.s:1046   .text:00000408 .Loc.202
+     /tmp/ccWpAF9v.s:1048   .text:0000040a .Loc.203
+     /tmp/ccWpAF9v.s:1051   .text:0000040e .Loc.204
+     /tmp/ccWpAF9v.s:1060   .text:0000041c .Loc.205
+     /tmp/ccWpAF9v.s:1072   .text:00000430 .Loc.206
+     /tmp/ccWpAF9v.s:1076   .text:00000436 .Loc.207
+     /tmp/ccWpAF9v.s:1081   .text:0000043a .Loc.208
+     /tmp/ccWpAF9v.s:1093   .text:0000044e .Loc.209
+     /tmp/ccWpAF9v.s:1098   .text:00000456 L0
+     /tmp/ccWpAF9v.s:1103   .text:00000456 xmem_write
+     /tmp/ccWpAF9v.s:1106   .text:00000456 .Loc.210
+     /tmp/ccWpAF9v.s:1107   .text:00000456 L0
+     /tmp/ccWpAF9v.s:1108   .text:00000456 .Loc.211
+     /tmp/ccWpAF9v.s:1147   .text:00000478 .Loc.212
+     /tmp/ccWpAF9v.s:1148   .text:00000478 .Loc.213
+     /tmp/ccWpAF9v.s:1151   .text:0000047a .Loc.214
+     /tmp/ccWpAF9v.s:1156   .text:00000482 .Loc.215
+     /tmp/ccWpAF9v.s:1167   .text:00000496 .Loc.216
+     /tmp/ccWpAF9v.s:1168   .text:00000496 .Loc.217
+     /tmp/ccWpAF9v.s:1170   .text:00000498 .Loc.218
+     /tmp/ccWpAF9v.s:1173   .text:0000049c .Loc.219
+     /tmp/ccWpAF9v.s:1182   .text:000004aa .Loc.220
+     /tmp/ccWpAF9v.s:1194   .text:000004be .Loc.221
+     /tmp/ccWpAF9v.s:1198   .text:000004c4 .Loc.222
+     /tmp/ccWpAF9v.s:1203   .text:000004c8 .Loc.223
+     /tmp/ccWpAF9v.s:1215   .text:000004dc .Loc.224
+     /tmp/ccWpAF9v.s:1220   .text:000004e4 L0
+     /tmp/ccWpAF9v.s:1225   .text:000004e4 xmem_set
+     /tmp/ccWpAF9v.s:1228   .text:000004e4 .Loc.225
+     /tmp/ccWpAF9v.s:1229   .text:000004e4 L0
+     /tmp/ccWpAF9v.s:1230   .text:000004e4 .Loc.226
+     /tmp/ccWpAF9v.s:1260   .text:00000500 .Loc.227
+     /tmp/ccWpAF9v.s:1261   .text:00000500 .Loc.228
+     /tmp/ccWpAF9v.s:1264   .text:00000502 .Loc.229
+     /tmp/ccWpAF9v.s:1269   .text:0000050a .Loc.230
+     /tmp/ccWpAF9v.s:1279   .text:0000051c .Loc.231
+     /tmp/ccWpAF9v.s:1280   .text:0000051c .Loc.232
+     /tmp/ccWpAF9v.s:1282   .text:0000051e .Loc.233
+     /tmp/ccWpAF9v.s:1285   .text:00000522 .Loc.234
+     /tmp/ccWpAF9v.s:1292   .text:0000052c .Loc.235
+     /tmp/ccWpAF9v.s:1303   .text:0000053e .Loc.236
+     /tmp/ccWpAF9v.s:1305   .text:00000540 .Loc.237
+     /tmp/ccWpAF9v.s:1310   .text:00000544 .Loc.238
+     /tmp/ccWpAF9v.s:1321   .text:00000556 .Loc.239
+     /tmp/ccWpAF9v.s:1324   .text:0000055a L0
+     /tmp/ccWpAF9v.s:1366   .text:0000055a L0
                      .debug_frame:00000000 L0
-     /tmp/ccsWsR0a.s:82     .text:0000002e .L11
-     /tmp/ccsWsR0a.s:106    .text:00000042 .L12
-     /tmp/ccsWsR0a.s:145    .text:00000060 .L2
-     /tmp/ccsWsR0a.s:186    .text:00000082 .L21
-     /tmp/ccsWsR0a.s:184    .text:00000080 .L13
-     /tmp/ccsWsR0a.s:309    .text:000000fa .L6
-     /tmp/ccsWsR0a.s:289    .text:000000e2 .L22
-     /tmp/ccsWsR0a.s:287    .text:000000e0 .L14
-     /tmp/ccsWsR0a.s:277    .text:000000d2 .L5
-     /tmp/ccsWsR0a.s:415    .text:00000156 .L9
-     /tmp/ccsWsR0a.s:395    .text:0000013e .L23
-     /tmp/ccsWsR0a.s:393    .text:0000013c .L15
-     /tmp/ccsWsR0a.s:383    .text:0000012e .L8
-     /tmp/ccsWsR0a.s:514    .text:000001a6 .L12
-     /tmp/ccsWsR0a.s:491    .text:00000190 .L24
-     /tmp/ccsWsR0a.s:489    .text:0000018e .L16
-     /tmp/ccsWsR0a.s:479    .text:00000180 .L11
-     /tmp/ccsWsR0a.s:763    .text:000002ae .L14
-     /tmp/ccsWsR0a.s:786    .text:000002cc .L15
-     /tmp/ccsWsR0a.s:725    .text:0000027c .L16
-     /tmp/ccsWsR0a.s:794    .text:000002d6 .L25
-     /tmp/ccsWsR0a.s:791    .text:000002d2 .L17
-     /tmp/ccsWsR0a.s:874    .text:00000340 .L17
-     /tmp/ccsWsR0a.s:933    .text:0000038c .L18
-     /tmp/ccsWsR0a.s:921    .text:00000380 .L19
-     /tmp/ccsWsR0a.s:834    .text:0000030a .L20
-     /tmp/ccsWsR0a.s:663    .text:0000022c .L21
-     /tmp/ccsWsR0a.s:1079   .text:0000043a .L23
-     /tmp/ccsWsR0a.s:1201   .text:000004c8 .L25
-     /tmp/ccsWsR0a.s:1308   .text:00000544 .L27
-     /tmp/ccsWsR0a.s:2686   .debug_abbrev:00000000 .Ldebug_abbrev0
-     /tmp/ccsWsR0a.s:8      .text:00000000 .Ltext0
-     /tmp/ccsWsR0a.s:1361   .text:0000055a .Letext0
-     /tmp/ccsWsR0a.s:4819   .debug_line:00000000 .Ldebug_line0
-     /tmp/ccsWsR0a.s:1227   .text:000004e4 .LFB18
-     /tmp/ccsWsR0a.s:1325   .text:0000055a .LFE18
-     /tmp/ccsWsR0a.s:3398   .debug_loclists:00000010 .LLST38
-     /tmp/ccsWsR0a.s:3393   .debug_loclists:0000000c .LVUS38
-     /tmp/ccsWsR0a.s:3437   .debug_loclists:00000039 .LLST39
-     /tmp/ccsWsR0a.s:3424   .debug_loclists:0000002d .LVUS39
-     /tmp/ccsWsR0a.s:3482   .debug_loclists:00000070 .LLST40
-     /tmp/ccsWsR0a.s:3475   .debug_loclists:0000006a .LVUS40
-     /tmp/ccsWsR0a.s:1268   .text:0000050a .LVL97
-     /tmp/ccsWsR0a.s:1278   .text:0000051c .LVL98
-     /tmp/ccsWsR0a.s:1307   .text:00000544 .LVL100
-     /tmp/ccsWsR0a.s:1105   .text:00000456 .LFB17
-     /tmp/ccsWsR0a.s:1221   .text:000004e4 .LFE17
-     /tmp/ccsWsR0a.s:3517   .debug_loclists:00000097 .LLST35
-     /tmp/ccsWsR0a.s:3512   .debug_loclists:00000093 .LVUS35
-     /tmp/ccsWsR0a.s:3554   .debug_loclists:000000be .LLST36
-     /tmp/ccsWsR0a.s:3543   .debug_loclists:000000b4 .LVUS36
-     /tmp/ccsWsR0a.s:3609   .debug_loclists:000000fd .LLST37
-     /tmp/ccsWsR0a.s:3602   .debug_loclists:000000f7 .LVUS37
-     /tmp/ccsWsR0a.s:1155   .text:00000482 .LVL89
-     /tmp/ccsWsR0a.s:1166   .text:00000496 .LVL90
-     /tmp/ccsWsR0a.s:1200   .text:000004c8 .LVL92
-     /tmp/ccsWsR0a.s:983    .text:000003c8 .LFB16
-     /tmp/ccsWsR0a.s:1099   .text:00000456 .LFE16
-     /tmp/ccsWsR0a.s:3644   .debug_loclists:00000124 .LLST32
-     /tmp/ccsWsR0a.s:3639   .debug_loclists:00000120 .LVUS32
-     /tmp/ccsWsR0a.s:3681   .debug_loclists:0000014b .LLST33
-     /tmp/ccsWsR0a.s:3670   .debug_loclists:00000141 .LVUS33
-     /tmp/ccsWsR0a.s:3736   .debug_loclists:0000018a .LLST34
-     /tmp/ccsWsR0a.s:3729   .debug_loclists:00000184 .LVUS34
-     /tmp/ccsWsR0a.s:1033   .text:000003f4 .LVL81
-     /tmp/ccsWsR0a.s:1044   .text:00000408 .LVL82
-     /tmp/ccsWsR0a.s:1078   .text:0000043a .LVL84
-     /tmp/ccsWsR0a.s:532    .text:000001b4 .LFB15
-     /tmp/ccsWsR0a.s:977    .text:000003c8 .LFE15
-     /tmp/ccsWsR0a.s:597    .text:000001de .LBB28
-     /tmp/ccsWsR0a.s:600    .text:000001de .LBE28
-     /tmp/ccsWsR0a.s:611    .text:000001ec .LBI29
-     /tmp/ccsWsR0a.s:610    .text:000001ec .LBB29
-     /tmp/ccsWsR0a.s:949    .text:0000039e .LBE29
-     /tmp/ccsWsR0a.s:4791   .debug_rnglists:0000000c .LLRL27
-     /tmp/ccsWsR0a.s:3773   .debug_loclists:000001b3 .LLST28
-     /tmp/ccsWsR0a.s:3766   .debug_loclists:000001ad .LVUS28
-     /tmp/ccsWsR0a.s:3800   .debug_loclists:000001d2 .LLST29
-     /tmp/ccsWsR0a.s:3797   .debug_loclists:000001d0 .LVUS29
-     /tmp/ccsWsR0a.s:3816   .debug_loclists:000001e2 .LLST30
-     /tmp/ccsWsR0a.s:3807   .debug_loclists:000001da .LVUS30
-     /tmp/ccsWsR0a.s:3851   .debug_loclists:0000020b .LLST31
-     /tmp/ccsWsR0a.s:3842   .debug_loclists:00000203 .LVUS31
-     /tmp/ccsWsR0a.s:628    .text:000001fa .LVL54
-     /tmp/ccsWsR0a.s:631    .text:000001fe .LVL55
-     /tmp/ccsWsR0a.s:688    .text:0000024e .LVL58
-     /tmp/ccsWsR0a.s:701    .text:0000025c .LVL59
-     /tmp/ccsWsR0a.s:709    .text:0000026a .LVL60
-     /tmp/ccsWsR0a.s:757    .text:000002a4 .LVL63
-     /tmp/ccsWsR0a.s:775    .text:000002c0 .LVL64
-     /tmp/ccsWsR0a.s:811    .text:000002ec .LVL66
-     /tmp/ccsWsR0a.s:819    .text:000002fa .LVL67
-     /tmp/ccsWsR0a.s:868    .text:00000336 .LVL70
-     /tmp/ccsWsR0a.s:887    .text:00000352 .LVL71
-     /tmp/ccsWsR0a.s:914    .text:00000376 .LVL72
-     /tmp/ccsWsR0a.s:608    .text:000001ec .LVL53
-     /tmp/ccsWsR0a.s:14     .text:00000000 .LFB14
-     /tmp/ccsWsR0a.s:159    .text:00000072 .LFE14
-     /tmp/ccsWsR0a.s:3904   .debug_loclists:00000246 .LLST0
-     /tmp/ccsWsR0a.s:3897   .debug_loclists:00000240 .LVUS0
-     /tmp/ccsWsR0a.s:3939   .debug_loclists:00000267 .LLST1
-     /tmp/ccsWsR0a.s:3934   .debug_loclists:00000263 .LVUS1
-     /tmp/ccsWsR0a.s:3964   .debug_loclists:0000027e .LLST2
-     /tmp/ccsWsR0a.s:3961   .debug_loclists:0000027c .LVUS2
-     /tmp/ccsWsR0a.s:49     .text:00000014 .LBI10
-     /tmp/ccsWsR0a.s:48     .text:00000014 .LBB10
-     /tmp/ccsWsR0a.s:61     .text:0000001c .LBE10
-     /tmp/ccsWsR0a.s:3985   .debug_loclists:00000291 .LLST3
-     /tmp/ccsWsR0a.s:3982   .debug_loclists:0000028f .LVUS3
-     /tmp/ccsWsR0a.s:76     .text:0000002c .LBI12
-     /tmp/ccsWsR0a.s:75     .text:0000002c .LBB12
-     /tmp/ccsWsR0a.s:92     .text:0000003a .LBE12
-     /tmp/ccsWsR0a.s:4006   .debug_loclists:000002a4 .LLST4
-     /tmp/ccsWsR0a.s:4003   .debug_loclists:000002a2 .LVUS4
-     /tmp/ccsWsR0a.s:98     .text:0000003c .LBI14
-     /tmp/ccsWsR0a.s:97     .text:0000003c .LBB14
-     /tmp/ccsWsR0a.s:116    .text:0000004e .LBE14
-     /tmp/ccsWsR0a.s:4027   .debug_loclists:000002b7 .LLST5
-     /tmp/ccsWsR0a.s:4024   .debug_loclists:000002b5 .LVUS5
-     /tmp/ccsWsR0a.s:126    .text:00000054 .LBI16
-     /tmp/ccsWsR0a.s:125    .text:00000054 .LBB16
-     /tmp/ccsWsR0a.s:136    .text:00000058 .LBE16
-     /tmp/ccsWsR0a.s:4048   .debug_loclists:000002ca .LLST6
-     /tmp/ccsWsR0a.s:4045   .debug_loclists:000002c8 .LVUS6
-     /tmp/ccsWsR0a.s:431    .text:0000015e .LFB11
-     /tmp/ccsWsR0a.s:527    .text:000001b4 .LFE11
-     /tmp/ccsWsR0a.s:4075   .debug_loclists:000002e3 .LLST22
-     /tmp/ccsWsR0a.s:4066   .debug_loclists:000002db .LVUS22
-     /tmp/ccsWsR0a.s:4107   .debug_loclists:00000309 .LLST23
-     /tmp/ccsWsR0a.s:4100   .debug_loclists:00000303 .LVUS23
-     /tmp/ccsWsR0a.s:4146   .debug_loclists:00000334 .LLST24
-     /tmp/ccsWsR0a.s:4137   .debug_loclists:0000032c .LVUS24
-     /tmp/ccsWsR0a.s:4180   .debug_loclists:0000035c .LLST25
-     /tmp/ccsWsR0a.s:4171   .debug_loclists:00000354 .LVUS25
-     /tmp/ccsWsR0a.s:4227   .debug_loclists:00000391 .LLST26
-     /tmp/ccsWsR0a.s:4220   .debug_loclists:0000038b .LVUS26
-     /tmp/ccsWsR0a.s:473    .text:0000017c .LVL44
-     /tmp/ccsWsR0a.s:518    .text:000001ac .LVL51
-     /tmp/ccsWsR0a.s:327    .text:00000104 .LFB10
-     /tmp/ccsWsR0a.s:426    .text:0000015e .LFE10
-     /tmp/ccsWsR0a.s:4264   .debug_loclists:000003ba .LLST16
-     /tmp/ccsWsR0a.s:4255   .debug_loclists:000003b2 .LVUS16
-     /tmp/ccsWsR0a.s:4296   .debug_loclists:000003e0 .LLST17
-     /tmp/ccsWsR0a.s:4289   .debug_loclists:000003da .LVUS17
-     /tmp/ccsWsR0a.s:4331   .debug_loclists:00000407 .LLST18
-     /tmp/ccsWsR0a.s:4326   .debug_loclists:00000403 .LVUS18
-     /tmp/ccsWsR0a.s:4358   .debug_loclists:00000424 .LLST19
-     /tmp/ccsWsR0a.s:4351   .debug_loclists:0000041e .LVUS19
-     /tmp/ccsWsR0a.s:4399   .debug_loclists:00000451 .LLST20
-     /tmp/ccsWsR0a.s:4388   .debug_loclists:00000447 .LVUS20
-     /tmp/ccsWsR0a.s:4457   .debug_loclists:00000493 .LLST21
-     /tmp/ccsWsR0a.s:4452   .debug_loclists:0000048f .LVUS21
-     /tmp/ccsWsR0a.s:375    .text:00000126 .LVL33
-     /tmp/ccsWsR0a.s:421    .text:0000015c .LVL39
-     /tmp/ccsWsR0a.s:221    .text:000000a8 .LFB9
-     /tmp/ccsWsR0a.s:322    .text:00000104 .LFE9
-     /tmp/ccsWsR0a.s:4486   .debug_loclists:000004b2 .LLST10
-     /tmp/ccsWsR0a.s:4477   .debug_loclists:000004aa .LVUS10
-     /tmp/ccsWsR0a.s:4518   .debug_loclists:000004d8 .LLST11
-     /tmp/ccsWsR0a.s:4511   .debug_loclists:000004d2 .LVUS11
-     /tmp/ccsWsR0a.s:4553   .debug_loclists:000004ff .LLST12
-     /tmp/ccsWsR0a.s:4548   .debug_loclists:000004fb .LVUS12
-     /tmp/ccsWsR0a.s:4580   .debug_loclists:0000051c .LLST13
-     /tmp/ccsWsR0a.s:4573   .debug_loclists:00000516 .LVUS13
-     /tmp/ccsWsR0a.s:4621   .debug_loclists:00000549 .LLST14
-     /tmp/ccsWsR0a.s:4610   .debug_loclists:0000053f .LVUS14
-     /tmp/ccsWsR0a.s:4679   .debug_loclists:0000058b .LLST15
-     /tmp/ccsWsR0a.s:4674   .debug_loclists:00000587 .LVUS15
-     /tmp/ccsWsR0a.s:269    .text:000000ca .LVL21
-     /tmp/ccsWsR0a.s:314    .text:00000100 .LVL26
-     /tmp/ccsWsR0a.s:164    .text:00000072 .LFB7
-     /tmp/ccsWsR0a.s:216    .text:000000a8 .LFE7
-     /tmp/ccsWsR0a.s:4704   .debug_loclists:000005a6 .LLST7
-     /tmp/ccsWsR0a.s:4699   .debug_loclists:000005a2 .LVUS7
-     /tmp/ccsWsR0a.s:4724   .debug_loclists:000005bb .LLST8
-     /tmp/ccsWsR0a.s:4719   .debug_loclists:000005b7 .LVUS8
-     /tmp/ccsWsR0a.s:4744   .debug_loclists:000005d0 .LLST9
-     /tmp/ccsWsR0a.s:4739   .debug_loclists:000005cc .LVUS9
-     /tmp/ccsWsR0a.s:197    .text:00000092 .LVL12
-     /tmp/ccsWsR0a.s:201    .text:00000098 .LVL13
-     /tmp/ccsWsR0a.s:205    .text:0000009e .LVL14
-     /tmp/ccsWsR0a.s:214    .text:000000a8 .LVL15
-     /tmp/ccsWsR0a.s:1367   .debug_info:00000000 .Ldebug_info0
+     /tmp/ccWpAF9v.s:82     .text:0000002e .L11
+     /tmp/ccWpAF9v.s:106    .text:00000042 .L12
+     /tmp/ccWpAF9v.s:145    .text:00000060 .L2
+     /tmp/ccWpAF9v.s:186    .text:00000082 .L21
+     /tmp/ccWpAF9v.s:184    .text:00000080 .L13
+     /tmp/ccWpAF9v.s:309    .text:000000fa .L6
+     /tmp/ccWpAF9v.s:289    .text:000000e2 .L22
+     /tmp/ccWpAF9v.s:287    .text:000000e0 .L14
+     /tmp/ccWpAF9v.s:277    .text:000000d2 .L5
+     /tmp/ccWpAF9v.s:415    .text:00000156 .L9
+     /tmp/ccWpAF9v.s:395    .text:0000013e .L23
+     /tmp/ccWpAF9v.s:393    .text:0000013c .L15
+     /tmp/ccWpAF9v.s:383    .text:0000012e .L8
+     /tmp/ccWpAF9v.s:514    .text:000001a6 .L12
+     /tmp/ccWpAF9v.s:491    .text:00000190 .L24
+     /tmp/ccWpAF9v.s:489    .text:0000018e .L16
+     /tmp/ccWpAF9v.s:479    .text:00000180 .L11
+     /tmp/ccWpAF9v.s:763    .text:000002ae .L14
+     /tmp/ccWpAF9v.s:786    .text:000002cc .L15
+     /tmp/ccWpAF9v.s:725    .text:0000027c .L16
+     /tmp/ccWpAF9v.s:794    .text:000002d6 .L25
+     /tmp/ccWpAF9v.s:791    .text:000002d2 .L17
+     /tmp/ccWpAF9v.s:874    .text:00000340 .L17
+     /tmp/ccWpAF9v.s:933    .text:0000038c .L18
+     /tmp/ccWpAF9v.s:921    .text:00000380 .L19
+     /tmp/ccWpAF9v.s:834    .text:0000030a .L20
+     /tmp/ccWpAF9v.s:663    .text:0000022c .L21
+     /tmp/ccWpAF9v.s:1079   .text:0000043a .L23
+     /tmp/ccWpAF9v.s:1201   .text:000004c8 .L25
+     /tmp/ccWpAF9v.s:1308   .text:00000544 .L27
+     /tmp/ccWpAF9v.s:2686   .debug_abbrev:00000000 .Ldebug_abbrev0
+     /tmp/ccWpAF9v.s:8      .text:00000000 .Ltext0
+     /tmp/ccWpAF9v.s:1361   .text:0000055a .Letext0
+     /tmp/ccWpAF9v.s:4819   .debug_line:00000000 .Ldebug_line0
+     /tmp/ccWpAF9v.s:1227   .text:000004e4 .LFB18
+     /tmp/ccWpAF9v.s:1325   .text:0000055a .LFE18
+     /tmp/ccWpAF9v.s:3398   .debug_loclists:00000010 .LLST38
+     /tmp/ccWpAF9v.s:3393   .debug_loclists:0000000c .LVUS38
+     /tmp/ccWpAF9v.s:3437   .debug_loclists:00000039 .LLST39
+     /tmp/ccWpAF9v.s:3424   .debug_loclists:0000002d .LVUS39
+     /tmp/ccWpAF9v.s:3482   .debug_loclists:00000070 .LLST40
+     /tmp/ccWpAF9v.s:3475   .debug_loclists:0000006a .LVUS40
+     /tmp/ccWpAF9v.s:1268   .text:0000050a .LVL97
+     /tmp/ccWpAF9v.s:1278   .text:0000051c .LVL98
+     /tmp/ccWpAF9v.s:1307   .text:00000544 .LVL100
+     /tmp/ccWpAF9v.s:1105   .text:00000456 .LFB17
+     /tmp/ccWpAF9v.s:1221   .text:000004e4 .LFE17
+     /tmp/ccWpAF9v.s:3517   .debug_loclists:00000097 .LLST35
+     /tmp/ccWpAF9v.s:3512   .debug_loclists:00000093 .LVUS35
+     /tmp/ccWpAF9v.s:3554   .debug_loclists:000000be .LLST36
+     /tmp/ccWpAF9v.s:3543   .debug_loclists:000000b4 .LVUS36
+     /tmp/ccWpAF9v.s:3609   .debug_loclists:000000fd .LLST37
+     /tmp/ccWpAF9v.s:3602   .debug_loclists:000000f7 .LVUS37
+     /tmp/ccWpAF9v.s:1155   .text:00000482 .LVL89
+     /tmp/ccWpAF9v.s:1166   .text:00000496 .LVL90
+     /tmp/ccWpAF9v.s:1200   .text:000004c8 .LVL92
+     /tmp/ccWpAF9v.s:983    .text:000003c8 .LFB16
+     /tmp/ccWpAF9v.s:1099   .text:00000456 .LFE16
+     /tmp/ccWpAF9v.s:3644   .debug_loclists:00000124 .LLST32
+     /tmp/ccWpAF9v.s:3639   .debug_loclists:00000120 .LVUS32
+     /tmp/ccWpAF9v.s:3681   .debug_loclists:0000014b .LLST33
+     /tmp/ccWpAF9v.s:3670   .debug_loclists:00000141 .LVUS33
+     /tmp/ccWpAF9v.s:3736   .debug_loclists:0000018a .LLST34
+     /tmp/ccWpAF9v.s:3729   .debug_loclists:00000184 .LVUS34
+     /tmp/ccWpAF9v.s:1033   .text:000003f4 .LVL81
+     /tmp/ccWpAF9v.s:1044   .text:00000408 .LVL82
+     /tmp/ccWpAF9v.s:1078   .text:0000043a .LVL84
+     /tmp/ccWpAF9v.s:532    .text:000001b4 .LFB15
+     /tmp/ccWpAF9v.s:977    .text:000003c8 .LFE15
+     /tmp/ccWpAF9v.s:597    .text:000001de .LBB28
+     /tmp/ccWpAF9v.s:600    .text:000001de .LBE28
+     /tmp/ccWpAF9v.s:611    .text:000001ec .LBI29
+     /tmp/ccWpAF9v.s:610    .text:000001ec .LBB29
+     /tmp/ccWpAF9v.s:949    .text:0000039e .LBE29
+     /tmp/ccWpAF9v.s:4791   .debug_rnglists:0000000c .LLRL27
+     /tmp/ccWpAF9v.s:3773   .debug_loclists:000001b3 .LLST28
+     /tmp/ccWpAF9v.s:3766   .debug_loclists:000001ad .LVUS28
+     /tmp/ccWpAF9v.s:3800   .debug_loclists:000001d2 .LLST29
+     /tmp/ccWpAF9v.s:3797   .debug_loclists:000001d0 .LVUS29
+     /tmp/ccWpAF9v.s:3816   .debug_loclists:000001e2 .LLST30
+     /tmp/ccWpAF9v.s:3807   .debug_loclists:000001da .LVUS30
+     /tmp/ccWpAF9v.s:3851   .debug_loclists:0000020b .LLST31
+     /tmp/ccWpAF9v.s:3842   .debug_loclists:00000203 .LVUS31
+     /tmp/ccWpAF9v.s:628    .text:000001fa .LVL54
+     /tmp/ccWpAF9v.s:631    .text:000001fe .LVL55
+     /tmp/ccWpAF9v.s:688    .text:0000024e .LVL58
+     /tmp/ccWpAF9v.s:701    .text:0000025c .LVL59
+     /tmp/ccWpAF9v.s:709    .text:0000026a .LVL60
+     /tmp/ccWpAF9v.s:757    .text:000002a4 .LVL63
+     /tmp/ccWpAF9v.s:775    .text:000002c0 .LVL64
+     /tmp/ccWpAF9v.s:811    .text:000002ec .LVL66
+     /tmp/ccWpAF9v.s:819    .text:000002fa .LVL67
+     /tmp/ccWpAF9v.s:868    .text:00000336 .LVL70
+     /tmp/ccWpAF9v.s:887    .text:00000352 .LVL71
+     /tmp/ccWpAF9v.s:914    .text:00000376 .LVL72
+     /tmp/ccWpAF9v.s:608    .text:000001ec .LVL53
+     /tmp/ccWpAF9v.s:14     .text:00000000 .LFB14
+     /tmp/ccWpAF9v.s:159    .text:00000072 .LFE14
+     /tmp/ccWpAF9v.s:3904   .debug_loclists:00000246 .LLST0
+     /tmp/ccWpAF9v.s:3897   .debug_loclists:00000240 .LVUS0
+     /tmp/ccWpAF9v.s:3939   .debug_loclists:00000267 .LLST1
+     /tmp/ccWpAF9v.s:3934   .debug_loclists:00000263 .LVUS1
+     /tmp/ccWpAF9v.s:3964   .debug_loclists:0000027e .LLST2
+     /tmp/ccWpAF9v.s:3961   .debug_loclists:0000027c .LVUS2
+     /tmp/ccWpAF9v.s:49     .text:00000014 .LBI10
+     /tmp/ccWpAF9v.s:48     .text:00000014 .LBB10
+     /tmp/ccWpAF9v.s:61     .text:0000001c .LBE10
+     /tmp/ccWpAF9v.s:3985   .debug_loclists:00000291 .LLST3
+     /tmp/ccWpAF9v.s:3982   .debug_loclists:0000028f .LVUS3
+     /tmp/ccWpAF9v.s:76     .text:0000002c .LBI12
+     /tmp/ccWpAF9v.s:75     .text:0000002c .LBB12
+     /tmp/ccWpAF9v.s:92     .text:0000003a .LBE12
+     /tmp/ccWpAF9v.s:4006   .debug_loclists:000002a4 .LLST4
+     /tmp/ccWpAF9v.s:4003   .debug_loclists:000002a2 .LVUS4
+     /tmp/ccWpAF9v.s:98     .text:0000003c .LBI14
+     /tmp/ccWpAF9v.s:97     .text:0000003c .LBB14
+     /tmp/ccWpAF9v.s:116    .text:0000004e .LBE14
+     /tmp/ccWpAF9v.s:4027   .debug_loclists:000002b7 .LLST5
+     /tmp/ccWpAF9v.s:4024   .debug_loclists:000002b5 .LVUS5
+     /tmp/ccWpAF9v.s:126    .text:00000054 .LBI16
+     /tmp/ccWpAF9v.s:125    .text:00000054 .LBB16
+     /tmp/ccWpAF9v.s:136    .text:00000058 .LBE16
+     /tmp/ccWpAF9v.s:4048   .debug_loclists:000002ca .LLST6
+     /tmp/ccWpAF9v.s:4045   .debug_loclists:000002c8 .LVUS6
+     /tmp/ccWpAF9v.s:431    .text:0000015e .LFB11
+     /tmp/ccWpAF9v.s:527    .text:000001b4 .LFE11
+     /tmp/ccWpAF9v.s:4075   .debug_loclists:000002e3 .LLST22
+     /tmp/ccWpAF9v.s:4066   .debug_loclists:000002db .LVUS22
+     /tmp/ccWpAF9v.s:4107   .debug_loclists:00000309 .LLST23
+     /tmp/ccWpAF9v.s:4100   .debug_loclists:00000303 .LVUS23
+     /tmp/ccWpAF9v.s:4146   .debug_loclists:00000334 .LLST24
+     /tmp/ccWpAF9v.s:4137   .debug_loclists:0000032c .LVUS24
+     /tmp/ccWpAF9v.s:4180   .debug_loclists:0000035c .LLST25
+     /tmp/ccWpAF9v.s:4171   .debug_loclists:00000354 .LVUS25
+     /tmp/ccWpAF9v.s:4227   .debug_loclists:00000391 .LLST26
+     /tmp/ccWpAF9v.s:4220   .debug_loclists:0000038b .LVUS26
+     /tmp/ccWpAF9v.s:473    .text:0000017c .LVL44
+     /tmp/ccWpAF9v.s:518    .text:000001ac .LVL51
+     /tmp/ccWpAF9v.s:327    .text:00000104 .LFB10
+     /tmp/ccWpAF9v.s:426    .text:0000015e .LFE10
+     /tmp/ccWpAF9v.s:4264   .debug_loclists:000003ba .LLST16
+     /tmp/ccWpAF9v.s:4255   .debug_loclists:000003b2 .LVUS16
+     /tmp/ccWpAF9v.s:4296   .debug_loclists:000003e0 .LLST17
+     /tmp/ccWpAF9v.s:4289   .debug_loclists:000003da .LVUS17
+     /tmp/ccWpAF9v.s:4331   .debug_loclists:00000407 .LLST18
+     /tmp/ccWpAF9v.s:4326   .debug_loclists:00000403 .LVUS18
+     /tmp/ccWpAF9v.s:4358   .debug_loclists:00000424 .LLST19
+     /tmp/ccWpAF9v.s:4351   .debug_loclists:0000041e .LVUS19
+     /tmp/ccWpAF9v.s:4399   .debug_loclists:00000451 .LLST20
+     /tmp/ccWpAF9v.s:4388   .debug_loclists:00000447 .LVUS20
+     /tmp/ccWpAF9v.s:4457   .debug_loclists:00000493 .LLST21
+     /tmp/ccWpAF9v.s:4452   .debug_loclists:0000048f .LVUS21
+     /tmp/ccWpAF9v.s:375    .text:00000126 .LVL33
+     /tmp/ccWpAF9v.s:421    .text:0000015c .LVL39
+     /tmp/ccWpAF9v.s:221    .text:000000a8 .LFB9
+     /tmp/ccWpAF9v.s:322    .text:00000104 .LFE9
+     /tmp/ccWpAF9v.s:4486   .debug_loclists:000004b2 .LLST10
+     /tmp/ccWpAF9v.s:4477   .debug_loclists:000004aa .LVUS10
+     /tmp/ccWpAF9v.s:4518   .debug_loclists:000004d8 .LLST11
+     /tmp/ccWpAF9v.s:4511   .debug_loclists:000004d2 .LVUS11
+     /tmp/ccWpAF9v.s:4553   .debug_loclists:000004ff .LLST12
+     /tmp/ccWpAF9v.s:4548   .debug_loclists:000004fb .LVUS12
+     /tmp/ccWpAF9v.s:4580   .debug_loclists:0000051c .LLST13
+     /tmp/ccWpAF9v.s:4573   .debug_loclists:00000516 .LVUS13
+     /tmp/ccWpAF9v.s:4621   .debug_loclists:00000549 .LLST14
+     /tmp/ccWpAF9v.s:4610   .debug_loclists:0000053f .LVUS14
+     /tmp/ccWpAF9v.s:4679   .debug_loclists:0000058b .LLST15
+     /tmp/ccWpAF9v.s:4674   .debug_loclists:00000587 .LVUS15
+     /tmp/ccWpAF9v.s:269    .text:000000ca .LVL21
+     /tmp/ccWpAF9v.s:314    .text:00000100 .LVL26
+     /tmp/ccWpAF9v.s:164    .text:00000072 .LFB7
+     /tmp/ccWpAF9v.s:216    .text:000000a8 .LFE7
+     /tmp/ccWpAF9v.s:4704   .debug_loclists:000005a6 .LLST7
+     /tmp/ccWpAF9v.s:4699   .debug_loclists:000005a2 .LVUS7
+     /tmp/ccWpAF9v.s:4724   .debug_loclists:000005bb .LLST8
+     /tmp/ccWpAF9v.s:4719   .debug_loclists:000005b7 .LVUS8
+     /tmp/ccWpAF9v.s:4744   .debug_loclists:000005d0 .LLST9
+     /tmp/ccWpAF9v.s:4739   .debug_loclists:000005cc .LVUS9
+     /tmp/ccWpAF9v.s:197    .text:00000092 .LVL12
+     /tmp/ccWpAF9v.s:201    .text:00000098 .LVL13
+     /tmp/ccWpAF9v.s:205    .text:0000009e .LVL14
+     /tmp/ccWpAF9v.s:214    .text:000000a8 .LVL15
+     /tmp/ccWpAF9v.s:1367   .debug_info:00000000 .Ldebug_info0
 
 UNDEFINED SYMBOLS
 spi_xchg

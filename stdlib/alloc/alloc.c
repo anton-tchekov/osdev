@@ -7,17 +7,32 @@
 
 #include <alloc.h>
 
+/** Allocation alignment */
 #define ALIGN        4
+
+/** Minimum allocation size in bytes */
 #define MIN_ALLOC    8
+
+/** Heap end */
 #define END          0xFFFFFFFF
 
+/** Linked list chunk header */
 typedef struct CHUNK_HEADER
 {
-	u32 Size, Next;
+	/** Allocation size in bytes */
+	u32 Size;
+
+	/** Next block offset */
+	u32 Next;
 } ChunkHeader;
 
+/** Heap start address */
 static ptr _heap_start;
+
+/** First dummy memory chunk */
 static ChunkHeader _first;
+
+/** Memory allocator state info */
 static MemAllocInfo _info;
 
 /* --- PRIVATE --- */

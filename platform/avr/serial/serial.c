@@ -10,14 +10,17 @@
 #include <avr/interrupt.h>
 #include <avr/pgmspace.h>
 
+/** UART Baudrate */
 #define UART_BAUD        9600
-#define _BAUD                (((F_CPU / (UART_BAUD * 16UL))) - 1)
+
+/** UART Prescaler */
+#define UART_PRESCALER       (((F_CPU / (UART_BAUD * 16UL))) - 1)
 
 void serial_init(void)
 {
 	UCSR0B = (1 << RXEN0) | (1 << TXEN0);
 	UCSR0C = (1 << UCSZ01) | (1 << UCSZ00);
-	UBRR0 = _BAUD;
+	UBRR0 = UART_PRESCALER;
 }
 
 void serial_tx(char c)

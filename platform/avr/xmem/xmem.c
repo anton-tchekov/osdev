@@ -13,11 +13,24 @@
 #include <avr/pgmspace.h>
 #include <stdlib.h>
 
+/* TODO: MEMORY TEST TYPE DEFINE */
+
+/** How many memory banks there are */
 #define BANK_COUNT            3
+
+/** The size of each memory bank as a power of two */
 #define BANK_SIZE_POT        17
+
+/** The size of each memory bank in bytes */
 #define BANK_SIZE              0x20000UL
+
+/** The interval in bytes at which to do progress updates in a memory test */
 #define OUTPUT_INTERVAL        0x2000UL
+
+/** Dummy SPI value when receiving */
 #define DUMMY                  0xFF
+
+/** Random seed for extended memory test */
 #define SEED                 42
 
 /** Write block command */
@@ -153,10 +166,23 @@ static u32 _addr_bank_offset(u32 addr)
 	return addr & (BANK_SIZE - 1);
 }
 
+/** Internal struct to handle reads and writes across bank boundaries */
 typedef struct
 {
-	u8 BankFirst, BankSecond;
-	u16 AddrFirst, SizeFirst, SizeSecond;
+	/** First bank to access */
+	u8 BankFirst;
+
+	/** Second bank to access */
+	u8 BankSecond;
+
+	/** Start address of the first part */
+	u16 AddrFirst;
+
+	/** Size of the first part */
+	u16 SizeFirst;
+
+	/** Size of the second part */
+	u16 SizeSecond;
 } AddrHelper;
 
 static void _xmem_overlap(u32 addr, u16 size, AddrHelper *h)

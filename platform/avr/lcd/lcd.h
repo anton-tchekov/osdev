@@ -11,34 +11,60 @@
 
 #include <types.h>
 
-/** Color definitions in RGB565 format */
+/* Color definitions in RGB565 format */
+
+/** Red Color as RGB565 */
 #define COLOR_RED      0xF800
+
+/** Yellow Color as RGB565 */
 #define COLOR_YELLOW   0xFFE0
+
+/** Green Color as RGB565 */
 #define COLOR_GREEN    0x07E0
+
+/** Cyan Color as RGB565 */
 #define COLOR_CYAN     0x07FF
+
+/** Blue Color as RGB565 */
 #define COLOR_BLUE     0x001F
+
+/** Magenta Color as RGB565 */
 #define COLOR_MAGENTA  0xF81F
 
+/** White Color as RGB565 */
 #define COLOR_WHITE    0xFFFF
+
+/** Black Color as RGB565 */
 #define COLOR_BLACK    0x0000
 
-/** Width and height of the display */
+/** Height of the display */
 #define LCD_HEIGHT     480
+
+/** Width of the display */
 #define LCD_WIDTH      320
 
+/** RGB565 data type */
 typedef u16 RGB565;
 
 /**
- * @brief Set LCD backligh brightness
+ * @brief Set LCD backlight brightness
  *
- * @param backlight Backlight brightness from 0-255
+ * @param value Backlight brightness from 0-255
  */
 void lcd_backlight(u8 value);
 
 /**
- * @brief TODO
+ * @brief Returns whether or not the LCD driver is initialized
+ *
+ * @return true if the LCD is initialized
  */
 bool lcd_initialized(void);
+
+/* TODO !!! */
+
+void _lcd_window_start(u16 x, u16 y, u16 w, u16 h);
+void _lcd_pixel(u16 data);
+void _lcd_window_end(void);
 
 /**
  * @brief Initialize LCD
@@ -68,18 +94,6 @@ RGB565 lcd_color(u8 r, u8 g, u8 b);
  * @param color Fill color
  */
 void lcd_rect(u16 x, u16 y, u16 w, u16 h, RGB565 color);
-
-/**
- * @brief Draw an image with a callback
- *
- * @param x X-Coordinate
- * @param y Y-Coordinate
- * @param w Width
- * @param h Height
- * @param color_callback Callback function that receives x and y offsets from
- *                       inside the rectangle and returns RGB565 color
- */
-void lcd_window(u16 x, u16 y, u16 w, u16 h, RGB565 (*color_callback)(u16, u16));
 
 /**
  * @brief TODO

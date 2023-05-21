@@ -14,14 +14,25 @@
 #include <stdio.h>
 #include <ctype.h>
 
-#define MEMORY_DUMP_WIDTH   16
+/** How many bytes to print per line in a hexdump */
+#define DUMP_BYTES_PER_LINE   16
 
-#define LOG_Y_OFFSET       120
-#define LOG_X_OFFSET        10
-#define LOG_Y_ADVANCE       10
-#define LOG_X_TEXT_OFFSET   49
-#define LOG_START_WIDTH      8
+/** LCD Log top margin */
+#define LOG_Y_OFFSET         120
 
+/** LCD Log left margin */
+#define LOG_X_OFFSET          10
+
+/** LCD advance Y direction */
+#define LOG_Y_ADVANCE         10
+
+/** LCD Log prefix pixel width */
+#define LOG_X_TEXT_OFFSET     49
+
+/** Serial Log prefix width */
+#define LOG_START_WIDTH        8
+
+/** Highlight colors of the various log levels */
 const RGB565 _log_color[] PROGMEM =
 {
 	COLOR_CYAN,
@@ -31,10 +42,19 @@ const RGB565 _log_color[] PROGMEM =
 	COLOR_MAGENTA
 };
 
+/** Log level [INIT] string */
 const char _init[] PROGMEM = "INIT";
+
+/** Log level [DEBUG] string */
 const char _debug[] PROGMEM = "DEBUG";
+
+/** Log level [WARN] string */
 const char _warn[] PROGMEM = "WARN";
+
+/** Log level [ERROR] string */
 const char _error[] PROGMEM = "ERROR";
+
+/** Log level [PANIC] string */
 const char _panic[] PROGMEM = "PANIC";
 
 const char *const _log_msg[] PROGMEM =
@@ -167,18 +187,18 @@ void memory_dump(u32 addr, const void *data, u16 len)
 	char c, buf[32];
 
 	data8 = data;
-	for(i = 0; i < len; i += MEMORY_DUMP_WIDTH, addr += MEMORY_DUMP_WIDTH)
+	for(i = 0; i < len; i += DUMP_BYTES_PER_LINE, addr += DUMP_BYTES_PER_LINE)
 	{
 		snprintf(buf, sizeof(buf), "%08X | ", addr);
 		serial_tx_str(buf);
-		for(j = 0; j < MEMORY_DUMP_WIDTH; ++j)
+		for(j = 0; j < DUMP_BYTES_PER_LINE; ++j)
 		{
 			snprintf(buf, sizeof(buf), "%02X ", data8[i + j]);
 			serial_tx_str(buf);
 		}
 
 		serial_tx_str("| ");
-		for(j = 0; j < MEMORY_DUMP_WIDTH; ++j)
+		for(j = 0; j < DUMP_BYTES_PER_LINE; ++j)
 		{
 			c = data8[i + j];
 			serial_tx(isprint(c) ? c : '.');
