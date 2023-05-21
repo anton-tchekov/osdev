@@ -196,7 +196,7 @@
  154               	.L__stack_usage = 0
  155               		.loc 1 40 1 is_stmt 0 view .LVU33
  156 0050 FB01      		movw r30,r22
-  41:spi/spi.c     **** 	u32 cnt = 0;
+  41:spi/spi.c     **** 	u16 cnt = 0;
  157               		.loc 1 41 2 is_stmt 1 view .LVU34
  158               	.LVL10:
   42:spi/spi.c     **** 	SPDR = in;
@@ -208,14 +208,12 @@
  163               		.loc 1 43 7 is_stmt 0 view .LVU38
  164 0054 80E0      		ldi r24,0
  165 0056 90E0      		ldi r25,0
- 166 0058 A1E0      		ldi r26,lo8(1)
- 167 005a B0E0      		ldi r27,0
- 168               	.LVL11:
- 169               	.L9:
- 170               		.loc 1 43 8 is_stmt 1 view .LVU39
- 171 005c 0DB4      		in __tmp_reg__,0x2d
- 172 005e 07FE      		sbrs __tmp_reg__,7
- 173 0060 00C0      		rjmp .L11
+ 166               	.LVL11:
+ 167               	.L9:
+ 168               		.loc 1 43 8 is_stmt 1 view .LVU39
+ 169 0058 0DB4      		in __tmp_reg__,0x2d
+ 170 005a 07FE      		sbrs __tmp_reg__,7
+ 171 005c 00C0      		rjmp .L11
   44:spi/spi.c     **** 	{
   45:spi/spi.c     **** 		if(cnt++ == 0xFFFF)
   46:spi/spi.c     **** 		{
@@ -224,263 +222,259 @@
   49:spi/spi.c     **** 	}
   50:spi/spi.c     **** 
   51:spi/spi.c     **** 	*out = SPDR;
- 174               		.loc 1 51 2 view .LVU40
- 175               		.loc 1 51 9 is_stmt 0 view .LVU41
- 176 0062 8EB5      		in r24,0x2e
- 177               	.LVL12:
- 178               		.loc 1 51 7 view .LVU42
- 179 0064 8083      		st Z,r24
- 180               	.LVL13:
+ 172               		.loc 1 51 2 view .LVU40
+ 173               		.loc 1 51 9 is_stmt 0 view .LVU41
+ 174 005e 8EB5      		in r24,0x2e
+ 175               	.LVL12:
+ 176               		.loc 1 51 7 view .LVU42
+ 177 0060 8083      		st Z,r24
+ 178               	.LVL13:
   52:spi/spi.c     **** 	return STATUS_OK;
- 181               		.loc 1 52 2 is_stmt 1 view .LVU43
- 182               		.loc 1 52 9 is_stmt 0 view .LVU44
- 183 0066 80E0      		ldi r24,0
- 184 0068 0895      		ret
- 185               	.LVL14:
- 186               	.L11:
+ 179               		.loc 1 52 2 is_stmt 1 view .LVU43
+ 180               		.loc 1 52 9 is_stmt 0 view .LVU44
+ 181 0062 80E0      		ldi r24,0
+ 182 0064 0895      		ret
+ 183               	.LVL14:
+ 184               	.L11:
   45:spi/spi.c     **** 		{
- 187               		.loc 1 45 3 is_stmt 1 view .LVU45
+ 185               		.loc 1 45 3 is_stmt 1 view .LVU45
   45:spi/spi.c     **** 		{
- 188               		.loc 1 45 5 is_stmt 0 view .LVU46
- 189 006a 0197      		sbiw r24,1
- 190 006c A109      		sbc r26,__zero_reg__
- 191 006e B109      		sbc r27,__zero_reg__
- 192               	.LVL15:
+ 186               		.loc 1 45 5 is_stmt 0 view .LVU46
+ 187 0066 0197      		sbiw r24,1
+ 188               	.LVL15:
   45:spi/spi.c     **** 		{
- 193               		.loc 1 45 5 view .LVU47
- 194 0070 0097      		sbiw r24,0
- 195 0072 A105      		cpc r26,__zero_reg__
- 196 0074 B105      		cpc r27,__zero_reg__
- 197 0076 01F4      		brne .L9
+ 189               		.loc 1 45 5 view .LVU47
+ 190 0068 0097      		sbiw r24,0
+ 191 006a 01F4      		brne .L9
   47:spi/spi.c     **** 		}
- 198               		.loc 1 47 11 view .LVU48
- 199 0078 82E0      		ldi r24,lo8(2)
- 200               	.LVL16:
- 201               	/* epilogue start */
+ 192               		.loc 1 47 11 view .LVU48
+ 193 006c 82E0      		ldi r24,lo8(2)
+ 194               	.LVL16:
+ 195               	/* epilogue start */
   53:spi/spi.c     **** }
- 202               		.loc 1 53 1 view .LVU49
- 203 007a 0895      		ret
- 204               		.cfi_endproc
- 205               	.LFE6:
- 207               	.global	spi_tx_try
- 209               	spi_tx_try:
- 210               	.LVL17:
- 211               	.LFB7:
+ 196               		.loc 1 53 1 view .LVU49
+ 197 006e 0895      		ret
+ 198               		.cfi_endproc
+ 199               	.LFE6:
+ 201               	.global	spi_tx_try
+ 203               	spi_tx_try:
+ 204               	.LVL17:
+ 205               	.LFB7:
   54:spi/spi.c     **** 
   55:spi/spi.c     **** Status spi_tx_try(u8 in)
   56:spi/spi.c     **** {
- 212               		.loc 1 56 1 is_stmt 1 view -0
- 213               		.cfi_startproc
- 214               		.loc 1 56 1 is_stmt 0 view .LVU51
- 215 007c CF93      		push r28
- 216               		.cfi_def_cfa_offset 3
- 217               		.cfi_offset 28, -2
- 218 007e DF93      		push r29
- 219               		.cfi_def_cfa_offset 4
- 220               		.cfi_offset 29, -3
- 221 0080 0F92      		push __tmp_reg__
- 222               		.cfi_def_cfa_offset 5
- 223 0082 CDB7      		in r28,__SP_L__
- 224 0084 DEB7      		in r29,__SP_H__
- 225               		.cfi_def_cfa_register 28
- 226               	/* prologue: function */
- 227               	/* frame size = 1 */
- 228               	/* stack size = 3 */
- 229               	.L__stack_usage = 3
+ 206               		.loc 1 56 1 is_stmt 1 view -0
+ 207               		.cfi_startproc
+ 208               		.loc 1 56 1 is_stmt 0 view .LVU51
+ 209 0070 CF93      		push r28
+ 210               		.cfi_def_cfa_offset 3
+ 211               		.cfi_offset 28, -2
+ 212 0072 DF93      		push r29
+ 213               		.cfi_def_cfa_offset 4
+ 214               		.cfi_offset 29, -3
+ 215 0074 0F92      		push __tmp_reg__
+ 216               		.cfi_def_cfa_offset 5
+ 217 0076 CDB7      		in r28,__SP_L__
+ 218 0078 DEB7      		in r29,__SP_H__
+ 219               		.cfi_def_cfa_register 28
+ 220               	/* prologue: function */
+ 221               	/* frame size = 1 */
+ 222               	/* stack size = 3 */
+ 223               	.L__stack_usage = 3
   57:spi/spi.c     **** 	u8 dummy;
- 230               		.loc 1 57 2 is_stmt 1 view .LVU52
+ 224               		.loc 1 57 2 is_stmt 1 view .LVU52
   58:spi/spi.c     **** 	return spi_xchg_try(in, &dummy);
- 231               		.loc 1 58 2 view .LVU53
- 232               		.loc 1 58 9 is_stmt 0 view .LVU54
- 233 0086 BE01      		movw r22,r28
- 234 0088 6F5F      		subi r22,-1
- 235 008a 7F4F      		sbci r23,-1
- 236 008c 0E94 0000 		call spi_xchg_try
- 237               	.LVL18:
- 238               	/* epilogue start */
+ 225               		.loc 1 58 2 view .LVU53
+ 226               		.loc 1 58 9 is_stmt 0 view .LVU54
+ 227 007a BE01      		movw r22,r28
+ 228 007c 6F5F      		subi r22,-1
+ 229 007e 7F4F      		sbci r23,-1
+ 230 0080 0E94 0000 		call spi_xchg_try
+ 231               	.LVL18:
+ 232               	/* epilogue start */
   59:spi/spi.c     **** }
- 239               		.loc 1 59 1 view .LVU55
- 240 0090 0F90      		pop __tmp_reg__
- 241 0092 DF91      		pop r29
- 242 0094 CF91      		pop r28
- 243 0096 0895      		ret
- 244               		.cfi_endproc
- 245               	.LFE7:
- 247               	.global	spi_rx_try
- 249               	spi_rx_try:
- 250               	.LVL19:
- 251               	.LFB8:
+ 233               		.loc 1 59 1 view .LVU55
+ 234 0084 0F90      		pop __tmp_reg__
+ 235 0086 DF91      		pop r29
+ 236 0088 CF91      		pop r28
+ 237 008a 0895      		ret
+ 238               		.cfi_endproc
+ 239               	.LFE7:
+ 241               	.global	spi_rx_try
+ 243               	spi_rx_try:
+ 244               	.LVL19:
+ 245               	.LFB8:
   60:spi/spi.c     **** 
   61:spi/spi.c     **** Status spi_rx_try(u8 *out)
   62:spi/spi.c     **** {
- 252               		.loc 1 62 1 is_stmt 1 view -0
- 253               		.cfi_startproc
- 254               	/* prologue: function */
- 255               	/* frame size = 0 */
- 256               	/* stack size = 0 */
- 257               	.L__stack_usage = 0
- 258               		.loc 1 62 1 is_stmt 0 view .LVU57
- 259 0098 BC01      		movw r22,r24
+ 246               		.loc 1 62 1 is_stmt 1 view -0
+ 247               		.cfi_startproc
+ 248               	/* prologue: function */
+ 249               	/* frame size = 0 */
+ 250               	/* stack size = 0 */
+ 251               	.L__stack_usage = 0
+ 252               		.loc 1 62 1 is_stmt 0 view .LVU57
+ 253 008c BC01      		movw r22,r24
   63:spi/spi.c     **** 	return spi_xchg_try(0xFF, out);
- 260               		.loc 1 63 2 is_stmt 1 view .LVU58
- 261               		.loc 1 63 9 is_stmt 0 view .LVU59
- 262 009a 8FEF      		ldi r24,lo8(-1)
- 263               	.LVL20:
- 264               		.loc 1 63 9 view .LVU60
- 265 009c 0C94 0000 		jmp spi_xchg_try
- 266               	.LVL21:
- 267               		.loc 1 63 9 view .LVU61
- 268               		.cfi_endproc
- 269               	.LFE8:
- 271               		.section	.progmem.data,"a",@progbits
- 274               	__c.0:
- 275 0000 5350 4920 		.string	"SPI timeout"
- 275      7469 6D65 
- 275      6F75 7400 
- 278               	__c.1:
- 279 000c 5350 4920 		.string	"SPI initialized"
- 279      696E 6974 
- 279      6961 6C69 
- 279      7A65 6400 
- 280               		.text
- 281               	.Letext0:
- 282               		.file 2 "/usr/lib/gcc/avr/12.2.0/include/stdint-gcc.h"
- 283               		.file 3 "../../types/types.h"
- 284               		.file 4 "../../status/status.h"
- 285               		.file 5 "logger/logger.h"
+ 254               		.loc 1 63 2 is_stmt 1 view .LVU58
+ 255               		.loc 1 63 9 is_stmt 0 view .LVU59
+ 256 008e 8FEF      		ldi r24,lo8(-1)
+ 257               	.LVL20:
+ 258               		.loc 1 63 9 view .LVU60
+ 259 0090 0C94 0000 		jmp spi_xchg_try
+ 260               	.LVL21:
+ 261               		.loc 1 63 9 view .LVU61
+ 262               		.cfi_endproc
+ 263               	.LFE8:
+ 265               		.section	.progmem.data,"a",@progbits
+ 268               	__c.0:
+ 269 0000 5350 4920 		.string	"SPI timeout"
+ 269      7469 6D65 
+ 269      6F75 7400 
+ 272               	__c.1:
+ 273 000c 5350 4920 		.string	"SPI initialized"
+ 273      696E 6974 
+ 273      6961 6C69 
+ 273      7A65 6400 
+ 274               		.text
+ 275               	.Letext0:
+ 276               		.file 2 "/usr/lib/gcc/avr/12.2.0/include/stdint-gcc.h"
+ 277               		.file 3 "../../types/types.h"
+ 278               		.file 4 "../../status/status.h"
+ 279               		.file 5 "logger/logger.h"
 DEFINED SYMBOLS
                             *ABS*:00000000 spi.c
-     /tmp/ccyUveRN.s:2      *ABS*:0000003e __SP_H__
-     /tmp/ccyUveRN.s:3      *ABS*:0000003d __SP_L__
-     /tmp/ccyUveRN.s:4      *ABS*:0000003f __SREG__
-     /tmp/ccyUveRN.s:5      *ABS*:00000000 __tmp_reg__
-     /tmp/ccyUveRN.s:6      *ABS*:00000001 __zero_reg__
-     /tmp/ccyUveRN.s:13     .text:00000000 spi_init
-     /tmp/ccyUveRN.s:16     .text:00000000 .Loc.0
-     /tmp/ccyUveRN.s:17     .text:00000000 L0
-     /tmp/ccyUveRN.s:22     .text:00000000 .Loc.1
-     /tmp/ccyUveRN.s:23     .text:00000000 .Loc.2
-     /tmp/ccyUveRN.s:26     .text:00000004 .Loc.3
-     /tmp/ccyUveRN.s:28     .text:00000004 .Loc.4
-     /tmp/ccyUveRN.s:29     .text:00000004 .Loc.5
-     /tmp/ccyUveRN.s:31     .text:00000004 .Loc.6
-     /tmp/ccyUveRN.s:278    .progmem.data:0000000c __c.1
-     /tmp/ccyUveRN.s:42     .text:00000012 .Loc.7
-     /tmp/ccyUveRN.s:49     .text:0000001a L0
-     /tmp/ccyUveRN.s:54     .text:0000001a spi_fast
-     /tmp/ccyUveRN.s:56     .text:0000001a .Loc.8
-     /tmp/ccyUveRN.s:57     .text:0000001a L0
-     /tmp/ccyUveRN.s:62     .text:0000001a .Loc.9
-     /tmp/ccyUveRN.s:63     .text:0000001a .Loc.10
-     /tmp/ccyUveRN.s:67     .text:00000020 .Loc.11
-     /tmp/ccyUveRN.s:69     .text:00000022 .Loc.12
-     /tmp/ccyUveRN.s:73     .text:00000026 .Loc.13
-     /tmp/ccyUveRN.s:75     .text:00000028 L0
-     /tmp/ccyUveRN.s:80     .text:00000028 spi_xchg
-     /tmp/ccyUveRN.s:83     .text:00000028 .Loc.14
-     /tmp/ccyUveRN.s:84     .text:00000028 L0
-     /tmp/ccyUveRN.s:89     .text:00000028 .Loc.15
-     /tmp/ccyUveRN.s:90     .text:00000028 .Loc.16
-     /tmp/ccyUveRN.s:91     .text:00000028 .Loc.17
-     /tmp/ccyUveRN.s:93     .text:0000002a .Loc.18
-     /tmp/ccyUveRN.s:96     .text:0000002a .Loc.19
-     /tmp/ccyUveRN.s:101    .text:0000002e .Loc.20
-     /tmp/ccyUveRN.s:105    .text:00000034 .Loc.21
-     /tmp/ccyUveRN.s:106    .text:00000034 .Loc.22
-     /tmp/ccyUveRN.s:110    .text:00000036 .Loc.23
-     /tmp/ccyUveRN.s:114    .text:00000038 .Loc.24
-     /tmp/ccyUveRN.s:115    .text:00000038 .Loc.25
-     /tmp/ccyUveRN.s:118    .text:0000003a .Loc.26
-     /tmp/ccyUveRN.s:121    .text:0000003e .Loc.27
-     /tmp/ccyUveRN.s:123    .text:0000003e .Loc.28
-     /tmp/ccyUveRN.s:124    .text:0000003e .Loc.29
-     /tmp/ccyUveRN.s:126    .text:0000003e .Loc.30
-     /tmp/ccyUveRN.s:274    .progmem.data:00000000 __c.0
-     /tmp/ccyUveRN.s:130    .text:00000042 .Loc.31
-     /tmp/ccyUveRN.s:141    .text:00000050 L0
-     /tmp/ccyUveRN.s:146    .text:00000050 spi_xchg_try
-     /tmp/ccyUveRN.s:149    .text:00000050 .Loc.32
-     /tmp/ccyUveRN.s:150    .text:00000050 L0
-     /tmp/ccyUveRN.s:155    .text:00000050 .Loc.33
-     /tmp/ccyUveRN.s:157    .text:00000052 .Loc.34
-     /tmp/ccyUveRN.s:159    .text:00000052 .Loc.35
-     /tmp/ccyUveRN.s:160    .text:00000052 .Loc.36
-     /tmp/ccyUveRN.s:162    .text:00000054 .Loc.37
-     /tmp/ccyUveRN.s:163    .text:00000054 .Loc.38
-     /tmp/ccyUveRN.s:170    .text:0000005c .Loc.39
-     /tmp/ccyUveRN.s:174    .text:00000062 .Loc.40
-     /tmp/ccyUveRN.s:175    .text:00000062 .Loc.41
-     /tmp/ccyUveRN.s:178    .text:00000064 .Loc.42
-     /tmp/ccyUveRN.s:181    .text:00000066 .Loc.43
-     /tmp/ccyUveRN.s:182    .text:00000066 .Loc.44
-     /tmp/ccyUveRN.s:187    .text:0000006a .Loc.45
-     /tmp/ccyUveRN.s:188    .text:0000006a .Loc.46
-     /tmp/ccyUveRN.s:193    .text:00000070 .Loc.47
-     /tmp/ccyUveRN.s:198    .text:00000078 .Loc.48
-     /tmp/ccyUveRN.s:202    .text:0000007a .Loc.49
-     /tmp/ccyUveRN.s:204    .text:0000007c L0
-     /tmp/ccyUveRN.s:209    .text:0000007c spi_tx_try
-     /tmp/ccyUveRN.s:212    .text:0000007c .Loc.50
-     /tmp/ccyUveRN.s:213    .text:0000007c L0
-     /tmp/ccyUveRN.s:214    .text:0000007c .Loc.51
-     /tmp/ccyUveRN.s:230    .text:00000086 .Loc.52
-     /tmp/ccyUveRN.s:231    .text:00000086 .Loc.53
-     /tmp/ccyUveRN.s:232    .text:00000086 .Loc.54
-     /tmp/ccyUveRN.s:239    .text:00000090 .Loc.55
-     /tmp/ccyUveRN.s:244    .text:00000098 L0
-     /tmp/ccyUveRN.s:249    .text:00000098 spi_rx_try
-     /tmp/ccyUveRN.s:252    .text:00000098 .Loc.56
-     /tmp/ccyUveRN.s:253    .text:00000098 L0
-     /tmp/ccyUveRN.s:258    .text:00000098 .Loc.57
-     /tmp/ccyUveRN.s:260    .text:0000009a .Loc.58
-     /tmp/ccyUveRN.s:261    .text:0000009a .Loc.59
-     /tmp/ccyUveRN.s:264    .text:0000009c .Loc.60
-     /tmp/ccyUveRN.s:267    .text:000000a0 .Loc.61
-     /tmp/ccyUveRN.s:268    .text:000000a0 L0
-     /tmp/ccyUveRN.s:286    .text:000000a0 L0
+     /tmp/ccVLM9qm.s:2      *ABS*:0000003e __SP_H__
+     /tmp/ccVLM9qm.s:3      *ABS*:0000003d __SP_L__
+     /tmp/ccVLM9qm.s:4      *ABS*:0000003f __SREG__
+     /tmp/ccVLM9qm.s:5      *ABS*:00000000 __tmp_reg__
+     /tmp/ccVLM9qm.s:6      *ABS*:00000001 __zero_reg__
+     /tmp/ccVLM9qm.s:13     .text:00000000 spi_init
+     /tmp/ccVLM9qm.s:16     .text:00000000 .Loc.0
+     /tmp/ccVLM9qm.s:17     .text:00000000 L0
+     /tmp/ccVLM9qm.s:22     .text:00000000 .Loc.1
+     /tmp/ccVLM9qm.s:23     .text:00000000 .Loc.2
+     /tmp/ccVLM9qm.s:26     .text:00000004 .Loc.3
+     /tmp/ccVLM9qm.s:28     .text:00000004 .Loc.4
+     /tmp/ccVLM9qm.s:29     .text:00000004 .Loc.5
+     /tmp/ccVLM9qm.s:31     .text:00000004 .Loc.6
+     /tmp/ccVLM9qm.s:272    .progmem.data:0000000c __c.1
+     /tmp/ccVLM9qm.s:42     .text:00000012 .Loc.7
+     /tmp/ccVLM9qm.s:49     .text:0000001a L0
+     /tmp/ccVLM9qm.s:54     .text:0000001a spi_fast
+     /tmp/ccVLM9qm.s:56     .text:0000001a .Loc.8
+     /tmp/ccVLM9qm.s:57     .text:0000001a L0
+     /tmp/ccVLM9qm.s:62     .text:0000001a .Loc.9
+     /tmp/ccVLM9qm.s:63     .text:0000001a .Loc.10
+     /tmp/ccVLM9qm.s:67     .text:00000020 .Loc.11
+     /tmp/ccVLM9qm.s:69     .text:00000022 .Loc.12
+     /tmp/ccVLM9qm.s:73     .text:00000026 .Loc.13
+     /tmp/ccVLM9qm.s:75     .text:00000028 L0
+     /tmp/ccVLM9qm.s:80     .text:00000028 spi_xchg
+     /tmp/ccVLM9qm.s:83     .text:00000028 .Loc.14
+     /tmp/ccVLM9qm.s:84     .text:00000028 L0
+     /tmp/ccVLM9qm.s:89     .text:00000028 .Loc.15
+     /tmp/ccVLM9qm.s:90     .text:00000028 .Loc.16
+     /tmp/ccVLM9qm.s:91     .text:00000028 .Loc.17
+     /tmp/ccVLM9qm.s:93     .text:0000002a .Loc.18
+     /tmp/ccVLM9qm.s:96     .text:0000002a .Loc.19
+     /tmp/ccVLM9qm.s:101    .text:0000002e .Loc.20
+     /tmp/ccVLM9qm.s:105    .text:00000034 .Loc.21
+     /tmp/ccVLM9qm.s:106    .text:00000034 .Loc.22
+     /tmp/ccVLM9qm.s:110    .text:00000036 .Loc.23
+     /tmp/ccVLM9qm.s:114    .text:00000038 .Loc.24
+     /tmp/ccVLM9qm.s:115    .text:00000038 .Loc.25
+     /tmp/ccVLM9qm.s:118    .text:0000003a .Loc.26
+     /tmp/ccVLM9qm.s:121    .text:0000003e .Loc.27
+     /tmp/ccVLM9qm.s:123    .text:0000003e .Loc.28
+     /tmp/ccVLM9qm.s:124    .text:0000003e .Loc.29
+     /tmp/ccVLM9qm.s:126    .text:0000003e .Loc.30
+     /tmp/ccVLM9qm.s:268    .progmem.data:00000000 __c.0
+     /tmp/ccVLM9qm.s:130    .text:00000042 .Loc.31
+     /tmp/ccVLM9qm.s:141    .text:00000050 L0
+     /tmp/ccVLM9qm.s:146    .text:00000050 spi_xchg_try
+     /tmp/ccVLM9qm.s:149    .text:00000050 .Loc.32
+     /tmp/ccVLM9qm.s:150    .text:00000050 L0
+     /tmp/ccVLM9qm.s:155    .text:00000050 .Loc.33
+     /tmp/ccVLM9qm.s:157    .text:00000052 .Loc.34
+     /tmp/ccVLM9qm.s:159    .text:00000052 .Loc.35
+     /tmp/ccVLM9qm.s:160    .text:00000052 .Loc.36
+     /tmp/ccVLM9qm.s:162    .text:00000054 .Loc.37
+     /tmp/ccVLM9qm.s:163    .text:00000054 .Loc.38
+     /tmp/ccVLM9qm.s:168    .text:00000058 .Loc.39
+     /tmp/ccVLM9qm.s:172    .text:0000005e .Loc.40
+     /tmp/ccVLM9qm.s:173    .text:0000005e .Loc.41
+     /tmp/ccVLM9qm.s:176    .text:00000060 .Loc.42
+     /tmp/ccVLM9qm.s:179    .text:00000062 .Loc.43
+     /tmp/ccVLM9qm.s:180    .text:00000062 .Loc.44
+     /tmp/ccVLM9qm.s:185    .text:00000066 .Loc.45
+     /tmp/ccVLM9qm.s:186    .text:00000066 .Loc.46
+     /tmp/ccVLM9qm.s:189    .text:00000068 .Loc.47
+     /tmp/ccVLM9qm.s:192    .text:0000006c .Loc.48
+     /tmp/ccVLM9qm.s:196    .text:0000006e .Loc.49
+     /tmp/ccVLM9qm.s:198    .text:00000070 L0
+     /tmp/ccVLM9qm.s:203    .text:00000070 spi_tx_try
+     /tmp/ccVLM9qm.s:206    .text:00000070 .Loc.50
+     /tmp/ccVLM9qm.s:207    .text:00000070 L0
+     /tmp/ccVLM9qm.s:208    .text:00000070 .Loc.51
+     /tmp/ccVLM9qm.s:224    .text:0000007a .Loc.52
+     /tmp/ccVLM9qm.s:225    .text:0000007a .Loc.53
+     /tmp/ccVLM9qm.s:226    .text:0000007a .Loc.54
+     /tmp/ccVLM9qm.s:233    .text:00000084 .Loc.55
+     /tmp/ccVLM9qm.s:238    .text:0000008c L0
+     /tmp/ccVLM9qm.s:243    .text:0000008c spi_rx_try
+     /tmp/ccVLM9qm.s:246    .text:0000008c .Loc.56
+     /tmp/ccVLM9qm.s:247    .text:0000008c L0
+     /tmp/ccVLM9qm.s:252    .text:0000008c .Loc.57
+     /tmp/ccVLM9qm.s:254    .text:0000008e .Loc.58
+     /tmp/ccVLM9qm.s:255    .text:0000008e .Loc.59
+     /tmp/ccVLM9qm.s:258    .text:00000090 .Loc.60
+     /tmp/ccVLM9qm.s:261    .text:00000094 .Loc.61
+     /tmp/ccVLM9qm.s:262    .text:00000094 L0
+     /tmp/ccVLM9qm.s:280    .text:00000094 L0
                      .debug_frame:00000000 L0
-     /tmp/ccyUveRN.s:113    .text:00000038 .L6
-     /tmp/ccyUveRN.s:99     .text:0000002e .L5
-     /tmp/ccyUveRN.s:95     .text:0000002a .L4
-     /tmp/ccyUveRN.s:186    .text:0000006a .L11
-     /tmp/ccyUveRN.s:169    .text:0000005c .L9
-     /tmp/ccyUveRN.s:671    .debug_abbrev:00000000 .Ldebug_abbrev0
-     /tmp/ccyUveRN.s:8      .text:00000000 .Ltext0
-     /tmp/ccyUveRN.s:281    .text:000000a0 .Letext0
-     /tmp/ccyUveRN.s:1338   .debug_line:00000000 .Ldebug_line0
-     /tmp/ccyUveRN.s:251    .text:00000098 .LFB8
-     /tmp/ccyUveRN.s:269    .text:000000a0 .LFE8
-     /tmp/ccyUveRN.s:1104   .debug_loclists:00000012 .LLST5
-     /tmp/ccyUveRN.s:1097   .debug_loclists:0000000c .LVUS5
-     /tmp/ccyUveRN.s:266    .text:000000a0 .LVL21
-     /tmp/ccyUveRN.s:211    .text:0000007c .LFB7
-     /tmp/ccyUveRN.s:245    .text:00000098 .LFE7
-     /tmp/ccyUveRN.s:1139   .debug_loclists:00000039 .LLST4
-     /tmp/ccyUveRN.s:1134   .debug_loclists:00000035 .LVUS4
-     /tmp/ccyUveRN.s:237    .text:00000090 .LVL18
-     /tmp/ccyUveRN.s:148    .text:00000050 .LFB6
-     /tmp/ccyUveRN.s:205    .text:0000007c .LFE6
-     /tmp/ccyUveRN.s:1163   .debug_loclists:00000052 .LLST2
-     /tmp/ccyUveRN.s:1154   .debug_loclists:0000004a .LVUS2
-     /tmp/ccyUveRN.s:1201   .debug_loclists:00000076 .LLST3
-     /tmp/ccyUveRN.s:1190   .debug_loclists:0000006c .LVUS3
-     /tmp/ccyUveRN.s:82     .text:00000028 .LFB5
-     /tmp/ccyUveRN.s:142    .text:00000050 .LFE5
-     /tmp/ccyUveRN.s:1257   .debug_loclists:000000af .LLST0
-     /tmp/ccyUveRN.s:1252   .debug_loclists:000000ab .LVUS0
-     /tmp/ccyUveRN.s:1283   .debug_loclists:000000c7 .LLST1
-     /tmp/ccyUveRN.s:1272   .debug_loclists:000000bd .LVUS1
-     /tmp/ccyUveRN.s:122    .text:0000003e .LBB3
-     /tmp/ccyUveRN.s:125    .text:0000003e .LBE3
-     /tmp/ccyUveRN.s:136    .text:0000004a .LVL8
-     /tmp/ccyUveRN.s:55     .text:0000001a .LFB4
-     /tmp/ccyUveRN.s:76     .text:00000028 .LFE4
-     /tmp/ccyUveRN.s:14     .text:00000000 .LFB3
-     /tmp/ccyUveRN.s:50     .text:0000001a .LFE3
-     /tmp/ccyUveRN.s:27     .text:00000004 .LBB2
-     /tmp/ccyUveRN.s:30     .text:00000004 .LBE2
-     /tmp/ccyUveRN.s:41     .text:00000012 .LVL0
-     /tmp/ccyUveRN.s:287    .debug_info:00000000 .Ldebug_info0
+     /tmp/ccVLM9qm.s:113    .text:00000038 .L6
+     /tmp/ccVLM9qm.s:99     .text:0000002e .L5
+     /tmp/ccVLM9qm.s:95     .text:0000002a .L4
+     /tmp/ccVLM9qm.s:184    .text:00000066 .L11
+     /tmp/ccVLM9qm.s:167    .text:00000058 .L9
+     /tmp/ccVLM9qm.s:654    .debug_abbrev:00000000 .Ldebug_abbrev0
+     /tmp/ccVLM9qm.s:8      .text:00000000 .Ltext0
+     /tmp/ccVLM9qm.s:275    .text:00000094 .Letext0
+     /tmp/ccVLM9qm.s:1311   .debug_line:00000000 .Ldebug_line0
+     /tmp/ccVLM9qm.s:245    .text:0000008c .LFB8
+     /tmp/ccVLM9qm.s:263    .text:00000094 .LFE8
+     /tmp/ccVLM9qm.s:1087   .debug_loclists:00000012 .LLST5
+     /tmp/ccVLM9qm.s:1080   .debug_loclists:0000000c .LVUS5
+     /tmp/ccVLM9qm.s:260    .text:00000094 .LVL21
+     /tmp/ccVLM9qm.s:205    .text:00000070 .LFB7
+     /tmp/ccVLM9qm.s:239    .text:0000008c .LFE7
+     /tmp/ccVLM9qm.s:1122   .debug_loclists:00000039 .LLST4
+     /tmp/ccVLM9qm.s:1117   .debug_loclists:00000035 .LVUS4
+     /tmp/ccVLM9qm.s:231    .text:00000084 .LVL18
+     /tmp/ccVLM9qm.s:148    .text:00000050 .LFB6
+     /tmp/ccVLM9qm.s:199    .text:00000070 .LFE6
+     /tmp/ccVLM9qm.s:1146   .debug_loclists:00000052 .LLST2
+     /tmp/ccVLM9qm.s:1137   .debug_loclists:0000004a .LVUS2
+     /tmp/ccVLM9qm.s:1184   .debug_loclists:00000076 .LLST3
+     /tmp/ccVLM9qm.s:1173   .debug_loclists:0000006c .LVUS3
+     /tmp/ccVLM9qm.s:82     .text:00000028 .LFB5
+     /tmp/ccVLM9qm.s:142    .text:00000050 .LFE5
+     /tmp/ccVLM9qm.s:1230   .debug_loclists:000000a2 .LLST0
+     /tmp/ccVLM9qm.s:1225   .debug_loclists:0000009e .LVUS0
+     /tmp/ccVLM9qm.s:1256   .debug_loclists:000000ba .LLST1
+     /tmp/ccVLM9qm.s:1245   .debug_loclists:000000b0 .LVUS1
+     /tmp/ccVLM9qm.s:122    .text:0000003e .LBB3
+     /tmp/ccVLM9qm.s:125    .text:0000003e .LBE3
+     /tmp/ccVLM9qm.s:136    .text:0000004a .LVL8
+     /tmp/ccVLM9qm.s:55     .text:0000001a .LFB4
+     /tmp/ccVLM9qm.s:76     .text:00000028 .LFE4
+     /tmp/ccVLM9qm.s:14     .text:00000000 .LFB3
+     /tmp/ccVLM9qm.s:50     .text:0000001a .LFE3
+     /tmp/ccVLM9qm.s:27     .text:00000004 .LBB2
+     /tmp/ccVLM9qm.s:30     .text:00000004 .LBE2
+     /tmp/ccVLM9qm.s:41     .text:00000012 .LVL0
+     /tmp/ccVLM9qm.s:281    .debug_info:00000000 .Ldebug_info0
 
 UNDEFINED SYMBOLS
 log_boot_P

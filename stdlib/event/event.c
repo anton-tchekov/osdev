@@ -30,7 +30,7 @@ void __setup(void)
 	event_register(EVENT_LOOP, (u32)_event_loop_handler);
 
 	/* TODO: What are good values? */
-	memalloc_init(0x10000, 0x100000);
+	memalloc_init(0x10000, 0x40000);
 
 	keyboard_init();
 	setup();

@@ -11,7 +11,7 @@
   11               	.global	byte_to_hex
   13               	byte_to_hex:
   14               	.LVL0:
-  15               	.LFB3:
+  15               	.LFB4:
   16               		.file 1 "main.c"
    1:main.c        **** #include <ps2.h>
    2:main.c        **** #include <serial.h>
@@ -29,77 +29,78 @@
   14:main.c        **** #include <avr/pgmspace.h>
   15:main.c        **** #include "logo/logo_tiny.c"
   16:main.c        **** #include "logo/logo_text.c"
-  17:main.c        **** 
-  18:main.c        **** char byte_to_hex(u8 byte)
-  19:main.c        **** {
-  17               		.loc 1 19 1 view -0
+  17:main.c        **** #include <emulator.h>
+  18:main.c        **** 
+  19:main.c        **** char byte_to_hex(u8 byte)
+  20:main.c        **** {
+  17               		.loc 1 20 1 view -0
   18               		.cfi_startproc
   19               	/* prologue: function */
   20               	/* frame size = 0 */
   21               	/* stack size = 0 */
   22               	.L__stack_usage = 0
-  20:main.c        **** 	if(byte < 10)
-  23               		.loc 1 20 2 view .LVU1
-  24               		.loc 1 20 4 is_stmt 0 view .LVU2
+  21:main.c        **** 	if(byte < 10)
+  23               		.loc 1 21 2 view .LVU1
+  24               		.loc 1 21 4 is_stmt 0 view .LVU2
   25 0000 8A30      		cpi r24,lo8(10)
   26 0002 00F4      		brsh .L2
-  21:main.c        **** 	{
-  22:main.c        **** 		return byte + '0';
-  27               		.loc 1 22 3 is_stmt 1 view .LVU3
-  28               		.loc 1 22 15 is_stmt 0 view .LVU4
+  22:main.c        **** 	{
+  23:main.c        **** 		return byte + '0';
+  27               		.loc 1 23 3 is_stmt 1 view .LVU3
+  28               		.loc 1 23 15 is_stmt 0 view .LVU4
   29 0004 805D      		subi r24,lo8(-(48))
   30               	.LVL1:
-  31               		.loc 1 22 15 view .LVU5
+  31               		.loc 1 23 15 view .LVU5
   32 0006 0895      		ret
   33               	.LVL2:
   34               	.L2:
-  23:main.c        **** 	}
-  24:main.c        **** 
-  25:main.c        **** 	return byte - 10 + 'A';
-  35               		.loc 1 25 2 is_stmt 1 view .LVU6
-  36               		.loc 1 25 19 is_stmt 0 view .LVU7
+  24:main.c        **** 	}
+  25:main.c        **** 
+  26:main.c        **** 	return byte - 10 + 'A';
+  35               		.loc 1 26 2 is_stmt 1 view .LVU6
+  36               		.loc 1 26 19 is_stmt 0 view .LVU7
   37 0008 895C      		subi r24,lo8(-(55))
   38               	.LVL3:
   39               	/* epilogue start */
-  26:main.c        **** }
-  40               		.loc 1 26 1 view .LVU8
+  27:main.c        **** }
+  40               		.loc 1 27 1 view .LVU8
   41 000a 0895      		ret
   42               		.cfi_endproc
-  43               	.LFE3:
+  43               	.LFE4:
   45               	.global	ps2_event
   47               	ps2_event:
   48               	.LVL4:
-  49               	.LFB4:
-  27:main.c        **** 
-  28:main.c        **** void ps2_event(u8 byte)
-  29:main.c        **** {
-  50               		.loc 1 29 1 is_stmt 1 view -0
+  49               	.LFB5:
+  28:main.c        **** 
+  29:main.c        **** void ps2_event(u8 byte)
+  30:main.c        **** {
+  50               		.loc 1 30 1 is_stmt 1 view -0
   51               		.cfi_startproc
   52               	/* prologue: function */
   53               	/* frame size = 0 */
   54               	/* stack size = 0 */
   55               	.L__stack_usage = 0
-  30:main.c        **** 	/* Called when a byte is received from the keyboard */
-  31:main.c        **** 	/* serial_tx('0'); */
-  32:main.c        **** 	/* serial_tx('x'); */
-  33:main.c        **** 	/* serial_tx(byte_to_hex((byte >> 4) & 0x0F)); */
-  34:main.c        **** 	/* serial_tx(byte_to_hex(byte & 0x0F)); */
-  35:main.c        **** }
-  56               		.loc 1 35 1 view .LVU10
+  31:main.c        **** 	/* Called when a byte is received from the keyboard */
+  32:main.c        **** 	/* serial_tx('0'); */
+  33:main.c        **** 	/* serial_tx('x'); */
+  34:main.c        **** 	/* serial_tx(byte_to_hex((byte >> 4) & 0x0F)); */
+  35:main.c        **** 	/* serial_tx(byte_to_hex(byte & 0x0F)); */
+  36:main.c        **** }
+  56               		.loc 1 36 1 view .LVU10
   57               	/* epilogue start */
   58 000c 0895      		ret
   59               		.cfi_endproc
-  60               	.LFE4:
+  60               	.LFE5:
   62               	.global	serial_write
   64               	serial_write:
   65               	.LVL5:
-  66               	.LFB5:
-  36:main.c        **** 
-  37:main.c        **** void serial_write(const void *data, u32 len)
-  38:main.c        **** {
-  67               		.loc 1 38 1 view -0
+  66               	.LFB6:
+  37:main.c        **** 
+  38:main.c        **** void serial_write(const void *data, u32 len)
+  39:main.c        **** {
+  67               		.loc 1 39 1 view -0
   68               		.cfi_startproc
-  69               		.loc 1 38 1 is_stmt 0 view .LVU12
+  69               		.loc 1 39 1 is_stmt 0 view .LVU12
   70 000e 8F92      		push r8
   71               		.cfi_def_cfa_offset 3
   72               		.cfi_offset 8, -2
@@ -136,33 +137,33 @@
  103               	.L__stack_usage = 10
  104 0022 6A01      		movw r12,r20
  105 0024 7B01      		movw r14,r22
-  39:main.c        **** 	u32 i;
- 106               		.loc 1 39 2 is_stmt 1 view .LVU13
-  40:main.c        **** 	const char *data8 = data;
- 107               		.loc 1 40 2 view .LVU14
+  40:main.c        **** 	u32 i;
+ 106               		.loc 1 40 2 is_stmt 1 view .LVU13
+  41:main.c        **** 	const char *data8 = data;
+ 107               		.loc 1 41 2 view .LVU14
  108               	.LVL6:
-  41:main.c        **** 	for(i = 0; i < len; ++i)
- 109               		.loc 1 41 2 view .LVU15
- 110               		.loc 1 41 2 is_stmt 0 view .LVU16
+  42:main.c        **** 	for(i = 0; i < len; ++i)
+ 109               		.loc 1 42 2 view .LVU15
+ 110               		.loc 1 42 2 is_stmt 0 view .LVU16
  111 0026 EC01      		movw r28,r24
- 112               		.loc 1 41 8 view .LVU17
+ 112               		.loc 1 42 8 view .LVU17
  113 0028 812C      		mov r8,__zero_reg__
  114 002a 912C      		mov r9,__zero_reg__
  115 002c 5401      		movw r10,r8
  116               	.LVL7:
  117               	.L6:
- 118               		.loc 1 41 15 is_stmt 1 discriminator 1 view .LVU18
+ 118               		.loc 1 42 15 is_stmt 1 discriminator 1 view .LVU18
  119 002e 8C14      		cp r8,r12
  120 0030 9D04      		cpc r9,r13
  121 0032 AE04      		cpc r10,r14
  122 0034 BF04      		cpc r11,r15
  123 0036 01F4      		brne .L7
  124               	/* epilogue start */
-  42:main.c        **** 	{
-  43:main.c        **** 		serial_tx(data8[i]);
-  44:main.c        **** 	}
-  45:main.c        **** }
- 125               		.loc 1 45 1 is_stmt 0 view .LVU19
+  43:main.c        **** 	{
+  44:main.c        **** 		serial_tx(data8[i]);
+  45:main.c        **** 	}
+  46:main.c        **** }
+ 125               		.loc 1 46 1 is_stmt 0 view .LVU19
  126 0038 DF91      		pop r29
  127 003a CF91      		pop r28
  128 003c FF90      		pop r15
@@ -174,44 +175,44 @@
  134 0048 9F90      		pop r9
  135 004a 8F90      		pop r8
  136               	.LVL8:
- 137               		.loc 1 45 1 view .LVU20
+ 137               		.loc 1 46 1 view .LVU20
  138 004c 0895      		ret
  139               	.LVL9:
  140               	.L7:
-  43:main.c        **** 	}
- 141               		.loc 1 43 3 is_stmt 1 discriminator 3 view .LVU21
+  44:main.c        **** 	}
+ 141               		.loc 1 44 3 is_stmt 1 discriminator 3 view .LVU21
  142 004e 8991      		ld r24,Y+
  143 0050 0E94 0000 		call serial_tx
  144               	.LVL10:
-  41:main.c        **** 	for(i = 0; i < len; ++i)
- 145               		.loc 1 41 22 discriminator 3 view .LVU22
+  42:main.c        **** 	for(i = 0; i < len; ++i)
+ 145               		.loc 1 42 22 discriminator 3 view .LVU22
  146 0054 8FEF      		ldi r24,-1
  147 0056 881A      		sub r8,r24
  148 0058 980A      		sbc r9,r24
  149 005a A80A      		sbc r10,r24
  150 005c B80A      		sbc r11,r24
  151               	.LVL11:
-  41:main.c        **** 	for(i = 0; i < len; ++i)
- 152               		.loc 1 41 22 is_stmt 0 discriminator 3 view .LVU23
+  42:main.c        **** 	for(i = 0; i < len; ++i)
+ 152               		.loc 1 42 22 is_stmt 0 discriminator 3 view .LVU23
  153 005e 00C0      		rjmp .L6
  154               		.cfi_endproc
- 155               	.LFE5:
+ 155               	.LFE6:
  157               	.global	memory_size
  159               	memory_size:
- 160               	.LFB6:
-  46:main.c        **** 
-  47:main.c        **** u32 memory_size(void)
-  48:main.c        **** {
- 161               		.loc 1 48 1 is_stmt 1 view -0
+ 160               	.LFB7:
+  47:main.c        **** 
+  48:main.c        **** u32 memory_size(void)
+  49:main.c        **** {
+ 161               		.loc 1 49 1 is_stmt 1 view -0
  162               		.cfi_startproc
  163               	/* prologue: function */
  164               	/* frame size = 0 */
  165               	/* stack size = 0 */
  166               	.L__stack_usage = 0
-  49:main.c        **** 	return 3UL * 128UL * 1024UL;
- 167               		.loc 1 49 2 view .LVU25
-  50:main.c        **** }
- 168               		.loc 1 50 1 is_stmt 0 view .LVU26
+  50:main.c        **** 	return 3UL * 128UL * 1024UL;
+ 167               		.loc 1 50 2 view .LVU25
+  51:main.c        **** }
+ 168               		.loc 1 51 1 is_stmt 0 view .LVU26
  169 0060 60E0      		ldi r22,0
  170 0062 70E0      		ldi r23,0
  171 0064 86E0      		ldi r24,lo8(6)
@@ -219,17 +220,17 @@
  173               	/* epilogue start */
  174 0068 0895      		ret
  175               		.cfi_endproc
- 176               	.LFE6:
+ 176               	.LFE7:
  178               	.global	memory_read
  180               	memory_read:
  181               	.LVL12:
- 182               	.LFB7:
-  51:main.c        **** 
-  52:main.c        **** void memory_read(u32 addr, void *data, u32 size)
-  53:main.c        **** {
- 183               		.loc 1 53 1 is_stmt 1 view -0
+ 182               	.LFB8:
+  52:main.c        **** 
+  53:main.c        **** void memory_read(u32 addr, void *data, u32 size)
+  54:main.c        **** {
+ 183               		.loc 1 54 1 is_stmt 1 view -0
  184               		.cfi_startproc
- 185               		.loc 1 53 1 is_stmt 0 view .LVU28
+ 185               		.loc 1 54 1 is_stmt 0 view .LVU28
  186 006a 0F93      		push r16
  187               		.cfi_def_cfa_offset 3
  188               		.cfi_offset 16, -2
@@ -240,33 +241,33 @@
  193               	/* frame size = 0 */
  194               	/* stack size = 2 */
  195               	.L__stack_usage = 2
-  54:main.c        **** 	xmem_read(addr, data, size);
- 196               		.loc 1 54 2 is_stmt 1 view .LVU29
+  55:main.c        **** 	xmem_read(addr, data, size);
+ 196               		.loc 1 55 2 is_stmt 1 view .LVU29
  197 006e 9801      		movw r18,r16
  198               	/* epilogue start */
-  55:main.c        **** }
- 199               		.loc 1 55 1 is_stmt 0 view .LVU30
+  56:main.c        **** }
+ 199               		.loc 1 56 1 is_stmt 0 view .LVU30
  200 0070 1F91      		pop r17
  201 0072 0F91      		pop r16
  202               	.LVL13:
-  54:main.c        **** 	xmem_read(addr, data, size);
- 203               		.loc 1 54 2 view .LVU31
+  55:main.c        **** 	xmem_read(addr, data, size);
+ 203               		.loc 1 55 2 view .LVU31
  204 0074 0C94 0000 		jmp xmem_read
  205               	.LVL14:
-  54:main.c        **** 	xmem_read(addr, data, size);
- 206               		.loc 1 54 2 view .LVU32
+  55:main.c        **** 	xmem_read(addr, data, size);
+ 206               		.loc 1 55 2 view .LVU32
  207               		.cfi_endproc
- 208               	.LFE7:
+ 208               	.LFE8:
  210               	.global	memory_write
  212               	memory_write:
  213               	.LVL15:
- 214               	.LFB8:
-  56:main.c        **** 
-  57:main.c        **** void memory_write(u32 addr, const void *data, u32 size)
-  58:main.c        **** {
- 215               		.loc 1 58 1 is_stmt 1 view -0
+ 214               	.LFB9:
+  57:main.c        **** 
+  58:main.c        **** void memory_write(u32 addr, const void *data, u32 size)
+  59:main.c        **** {
+ 215               		.loc 1 59 1 is_stmt 1 view -0
  216               		.cfi_startproc
- 217               		.loc 1 58 1 is_stmt 0 view .LVU34
+ 217               		.loc 1 59 1 is_stmt 0 view .LVU34
  218 0078 0F93      		push r16
  219               		.cfi_def_cfa_offset 3
  220               		.cfi_offset 16, -2
@@ -277,2308 +278,2528 @@
  225               	/* frame size = 0 */
  226               	/* stack size = 2 */
  227               	.L__stack_usage = 2
-  59:main.c        **** 	xmem_write(addr, data, size);
- 228               		.loc 1 59 2 is_stmt 1 view .LVU35
+  60:main.c        **** 	xmem_write(addr, data, size);
+ 228               		.loc 1 60 2 is_stmt 1 view .LVU35
  229 007c 9801      		movw r18,r16
  230               	/* epilogue start */
-  60:main.c        **** }
- 231               		.loc 1 60 1 is_stmt 0 view .LVU36
+  61:main.c        **** }
+ 231               		.loc 1 61 1 is_stmt 0 view .LVU36
  232 007e 1F91      		pop r17
  233 0080 0F91      		pop r16
  234               	.LVL16:
-  59:main.c        **** 	xmem_write(addr, data, size);
- 235               		.loc 1 59 2 view .LVU37
+  60:main.c        **** 	xmem_write(addr, data, size);
+ 235               		.loc 1 60 2 view .LVU37
  236 0082 0C94 0000 		jmp xmem_write
  237               	.LVL17:
-  59:main.c        **** 	xmem_write(addr, data, size);
- 238               		.loc 1 59 2 view .LVU38
+  60:main.c        **** 	xmem_write(addr, data, size);
+ 238               		.loc 1 60 2 view .LVU38
  239               		.cfi_endproc
- 240               	.LFE8:
+ 240               	.LFE9:
  242               	.global	gfx_rect
  244               	gfx_rect:
  245               	.LVL18:
- 246               	.LFB9:
-  61:main.c        **** 
-  62:main.c        **** void gfx_rect(i32 x, i32 y, i32 w, i32 h, u32 color){}
- 247               		.loc 1 62 53 is_stmt 1 view -0
+ 246               	.LFB13:
+  62:main.c        **** 
+  63:main.c        **** static inline u8 _abgr_r(u32 color) { return (color >> 24) & 0xFF; }
+  64:main.c        **** static inline u8 _abgr_g(u32 color) { return (color >> 16) & 0xFF; }
+  65:main.c        **** static inline u8 _abgr_b(u32 color) { return (color >>  8) & 0xFF; }
+  66:main.c        **** 
+  67:main.c        **** void gfx_rect(i32 x, i32 y, i32 w, i32 h, u32 color)
+  68:main.c        **** {
+ 247               		.loc 1 68 1 is_stmt 1 view -0
  248               		.cfi_startproc
- 249               		.loc 1 62 53 is_stmt 0 view .LVU40
- 250 0086 CF93      		push r28
+ 249               		.loc 1 68 1 is_stmt 0 view .LVU40
+ 250 0086 8F92      		push r8
  251               		.cfi_def_cfa_offset 3
- 252               		.cfi_offset 28, -2
- 253 0088 DF93      		push r29
+ 252               		.cfi_offset 8, -2
+ 253 0088 9F92      		push r9
  254               		.cfi_def_cfa_offset 4
- 255               		.cfi_offset 29, -3
- 256 008a CDB7      		in r28,__SP_L__
- 257 008c DEB7      		in r29,__SP_H__
- 258               		.cfi_def_cfa_register 28
- 259               	/* prologue: function */
- 260               	/* frame size = 0 */
- 261               	/* stack size = 2 */
- 262               	.L__stack_usage = 2
- 263               		.loc 1 62 54 is_stmt 1 view .LVU41
- 264               	/* epilogue start */
- 265 008e DF91      		pop r29
- 266 0090 CF91      		pop r28
- 267 0092 0895      		ret
- 268               		.cfi_endproc
- 269               	.LFE9:
- 271               	.global	syscall_gfx_image_rgba
- 273               	syscall_gfx_image_rgba:
- 274               	.LVL19:
- 275               	.LFB10:
-  63:main.c        **** u32 syscall_gfx_image_rgba(u32 *args){}
- 276               		.loc 1 63 38 view -0
- 277               		.cfi_startproc
- 278               		.loc 1 63 38 is_stmt 0 view .LVU43
- 279 0094 CF93      		push r28
- 280               		.cfi_def_cfa_offset 3
- 281               		.cfi_offset 28, -2
- 282 0096 DF93      		push r29
- 283               		.cfi_def_cfa_offset 4
- 284               		.cfi_offset 29, -3
- 285 0098 00D0      		rcall .
- 286 009a 00D0      		rcall .
- 287               		.cfi_def_cfa_offset 8
- 288 009c CDB7      		in r28,__SP_L__
- 289 009e DEB7      		in r29,__SP_H__
- 290               		.cfi_def_cfa_register 28
- 291               	/* prologue: function */
- 292               	/* frame size = 4 */
- 293               	/* stack size = 6 */
- 294               	.L__stack_usage = 6
- 295               		.loc 1 63 39 is_stmt 1 view .LVU44
- 296 00a0 6981      		ldd r22,Y+1
- 297 00a2 7A81      		ldd r23,Y+2
- 298 00a4 8B81      		ldd r24,Y+3
- 299 00a6 9C81      		ldd r25,Y+4
- 300               	/* epilogue start */
- 301 00a8 0F90      		pop __tmp_reg__
- 302 00aa 0F90      		pop __tmp_reg__
- 303 00ac 0F90      		pop __tmp_reg__
- 304 00ae 0F90      		pop __tmp_reg__
- 305 00b0 DF91      		pop r29
- 306 00b2 CF91      		pop r28
- 307 00b4 0895      		ret
- 308               		.cfi_endproc
- 309               	.LFE10:
- 311               	.global	syscall_gfx_image_rgb
- 313               	syscall_gfx_image_rgb:
- 314               	.LFB17:
- 315               		.cfi_startproc
-  64:main.c        **** u32 syscall_gfx_image_rgb(u32 *args){}
- 316               		.loc 1 64 5 view .LVU45
- 317 00b6 CF93      		push r28
- 318               		.cfi_def_cfa_offset 3
- 319               		.cfi_offset 28, -2
- 320 00b8 DF93      		push r29
- 321               		.cfi_def_cfa_offset 4
- 322               		.cfi_offset 29, -3
- 323 00ba 00D0      		rcall .
- 324 00bc 00D0      		rcall .
- 325               		.cfi_def_cfa_offset 8
- 326 00be CDB7      		in r28,__SP_L__
- 327 00c0 DEB7      		in r29,__SP_H__
- 328               		.cfi_def_cfa_register 28
- 329               	/* prologue: function */
- 330               	/* frame size = 4 */
- 331               	/* stack size = 6 */
- 332               	.L__stack_usage = 6
- 333 00c2 60E0      		ldi r22,0
- 334 00c4 70E0      		ldi r23,0
- 335 00c6 CB01      		movw r24,r22
- 336               	/* epilogue start */
- 337 00c8 0F90      		pop __tmp_reg__
- 338 00ca 0F90      		pop __tmp_reg__
- 339 00cc 0F90      		pop __tmp_reg__
- 340 00ce 0F90      		pop __tmp_reg__
- 341 00d0 DF91      		pop r29
- 342 00d2 CF91      		pop r28
- 343 00d4 0895      		ret
- 344               		.cfi_endproc
- 345               	.LFE17:
- 347               	.global	syscall_gfx_image_rgb565
- 349               	syscall_gfx_image_rgb565:
- 350               	.LFB19:
- 351               		.cfi_startproc
-  65:main.c        **** u32 syscall_gfx_image_rgb565(u32 *args){}
- 352               		.loc 1 65 5 view .LVU46
- 353 00d6 CF93      		push r28
- 354               		.cfi_def_cfa_offset 3
- 355               		.cfi_offset 28, -2
- 356 00d8 DF93      		push r29
- 357               		.cfi_def_cfa_offset 4
- 358               		.cfi_offset 29, -3
- 359 00da 00D0      		rcall .
- 360 00dc 00D0      		rcall .
- 361               		.cfi_def_cfa_offset 8
- 362 00de CDB7      		in r28,__SP_L__
- 363 00e0 DEB7      		in r29,__SP_H__
- 364               		.cfi_def_cfa_register 28
- 365               	/* prologue: function */
- 366               	/* frame size = 4 */
- 367               	/* stack size = 6 */
- 368               	.L__stack_usage = 6
- 369 00e2 60E0      		ldi r22,0
- 370 00e4 70E0      		ldi r23,0
- 371 00e6 CB01      		movw r24,r22
- 372               	/* epilogue start */
- 373 00e8 0F90      		pop __tmp_reg__
- 374 00ea 0F90      		pop __tmp_reg__
- 375 00ec 0F90      		pop __tmp_reg__
- 376 00ee 0F90      		pop __tmp_reg__
- 377 00f0 DF91      		pop r29
- 378 00f2 CF91      		pop r28
- 379 00f4 0895      		ret
- 380               		.cfi_endproc
- 381               	.LFE19:
- 383               	.global	syscall_gfx_image_grayscale
- 385               	syscall_gfx_image_grayscale:
- 386               	.LFB21:
- 387               		.cfi_startproc
-  66:main.c        **** u32 syscall_gfx_image_grayscale(u32 *args){}
- 388               		.loc 1 66 5 view .LVU47
- 389 00f6 CF93      		push r28
- 390               		.cfi_def_cfa_offset 3
- 391               		.cfi_offset 28, -2
- 392 00f8 DF93      		push r29
- 393               		.cfi_def_cfa_offset 4
- 394               		.cfi_offset 29, -3
- 395 00fa 00D0      		rcall .
- 396 00fc 00D0      		rcall .
- 397               		.cfi_def_cfa_offset 8
- 398 00fe CDB7      		in r28,__SP_L__
- 399 0100 DEB7      		in r29,__SP_H__
- 400               		.cfi_def_cfa_register 28
- 401               	/* prologue: function */
- 402               	/* frame size = 4 */
- 403               	/* stack size = 6 */
- 404               	.L__stack_usage = 6
- 405 0102 60E0      		ldi r22,0
- 406 0104 70E0      		ldi r23,0
- 407 0106 CB01      		movw r24,r22
- 408               	/* epilogue start */
- 409 0108 0F90      		pop __tmp_reg__
- 410 010a 0F90      		pop __tmp_reg__
- 411 010c 0F90      		pop __tmp_reg__
- 412 010e 0F90      		pop __tmp_reg__
- 413 0110 DF91      		pop r29
- 414 0112 CF91      		pop r28
- 415 0114 0895      		ret
- 416               		.cfi_endproc
- 417               	.LFE21:
- 419               	.global	syscall_gfx_image_1bit
- 421               	syscall_gfx_image_1bit:
- 422               	.LFB23:
- 423               		.cfi_startproc
-  67:main.c        **** u32 syscall_gfx_image_1bit(u32 *args){}
- 424               		.loc 1 67 5 view .LVU48
- 425 0116 CF93      		push r28
- 426               		.cfi_def_cfa_offset 3
- 427               		.cfi_offset 28, -2
- 428 0118 DF93      		push r29
- 429               		.cfi_def_cfa_offset 4
- 430               		.cfi_offset 29, -3
- 431 011a 00D0      		rcall .
- 432 011c 00D0      		rcall .
- 433               		.cfi_def_cfa_offset 8
- 434 011e CDB7      		in r28,__SP_L__
- 435 0120 DEB7      		in r29,__SP_H__
- 436               		.cfi_def_cfa_register 28
- 437               	/* prologue: function */
- 438               	/* frame size = 4 */
- 439               	/* stack size = 6 */
- 440               	.L__stack_usage = 6
- 441 0122 60E0      		ldi r22,0
- 442 0124 70E0      		ldi r23,0
- 443 0126 CB01      		movw r24,r22
- 444               	/* epilogue start */
- 445 0128 0F90      		pop __tmp_reg__
- 446 012a 0F90      		pop __tmp_reg__
- 447 012c 0F90      		pop __tmp_reg__
- 448 012e 0F90      		pop __tmp_reg__
- 449 0130 DF91      		pop r29
- 450 0132 CF91      		pop r28
- 451 0134 0895      		ret
- 452               		.cfi_endproc
- 453               	.LFE23:
- 455               		.section	.text.startup,"ax",@progbits
- 456               	.global	main
- 458               	main:
- 459               	.LFB15:
-  68:main.c        **** 
-  69:main.c        **** 
-  70:main.c        **** #define LOGO_X_OFFSET      30
-  71:main.c        **** #define LOGO_TEXT_X_OFFSET 56
-  72:main.c        **** #define LOGO_Y_OFFSET      50
-  73:main.c        **** 
-  74:main.c        **** int main(void)
-  75:main.c        **** {
- 460               		.loc 1 75 1 view -0
- 461               		.cfi_startproc
- 462               	/* prologue: function */
- 463               	/* frame size = 0 */
- 464               	/* stack size = 0 */
- 465               	.L__stack_usage = 0
-  76:main.c        **** 	/* --- BOOT SEQUENCE --- */
-  77:main.c        **** 
-  78:main.c        **** 	/* Enable interrupts */
-  79:main.c        **** 	sei();
- 466               		.loc 1 79 2 view .LVU50
- 467               	/* #APP */
- 468               	 ;  79 "main.c" 1
- 469 0000 7894      		sei
- 470               	 ;  0 "" 2
-  80:main.c        **** 
-  81:main.c        **** 	/* First, configure GPIO, because all modules that do I/O depend on it */
-  82:main.c        **** 	gpio_configure();
- 471               		.loc 1 82 2 view .LVU51
- 472               	/* #NOAPP */
- 473 0002 0E94 0000 		call gpio_configure
- 474               	.LVL20:
-  83:main.c        **** 
-  84:main.c        **** 	/* Second, initialize serial port so that we can print boot messages */
-  85:main.c        **** 	serial_init();
- 475               		.loc 1 85 2 view .LVU52
- 476 0006 0E94 0000 		call serial_init
- 477               	.LVL21:
+ 255               		.cfi_offset 9, -3
+ 256 008a AF92      		push r10
+ 257               		.cfi_def_cfa_offset 5
+ 258               		.cfi_offset 10, -4
+ 259 008c BF92      		push r11
+ 260               		.cfi_def_cfa_offset 6
+ 261               		.cfi_offset 11, -5
+ 262 008e CF92      		push r12
+ 263               		.cfi_def_cfa_offset 7
+ 264               		.cfi_offset 12, -6
+ 265 0090 DF92      		push r13
+ 266               		.cfi_def_cfa_offset 8
+ 267               		.cfi_offset 13, -7
+ 268 0092 EF92      		push r14
+ 269               		.cfi_def_cfa_offset 9
+ 270               		.cfi_offset 14, -8
+ 271 0094 FF92      		push r15
+ 272               		.cfi_def_cfa_offset 10
+ 273               		.cfi_offset 15, -9
+ 274 0096 0F93      		push r16
+ 275               		.cfi_def_cfa_offset 11
+ 276               		.cfi_offset 16, -10
+ 277 0098 1F93      		push r17
+ 278               		.cfi_def_cfa_offset 12
+ 279               		.cfi_offset 17, -11
+ 280 009a CF93      		push r28
+ 281               		.cfi_def_cfa_offset 13
+ 282               		.cfi_offset 28, -12
+ 283 009c DF93      		push r29
+ 284               		.cfi_def_cfa_offset 14
+ 285               		.cfi_offset 29, -13
+ 286 009e CDB7      		in r28,__SP_L__
+ 287 00a0 DEB7      		in r29,__SP_H__
+ 288               		.cfi_def_cfa_register 28
+ 289               	/* prologue: function */
+ 290               	/* frame size = 0 */
+ 291               	/* stack size = 12 */
+ 292               	.L__stack_usage = 12
+ 293 00a2 6B01      		movw r12,r22
+ 294 00a4 4901      		movw r8,r18
+ 295 00a6 8F85      		ldd r24,Y+15
+ 296 00a8 9889      		ldd r25,Y+16
+ 297 00aa A989      		ldd r26,Y+17
+ 298 00ac BA89      		ldd r27,Y+18
+ 299               	.LVL19:
+  69:main.c        **** 	lcd_rect(x, y, w, h,
+ 300               		.loc 1 69 2 is_stmt 1 view .LVU41
+ 301               	.LBB8:
+ 302               	.LBI8:
+  65:main.c        **** 
+ 303               		.loc 1 65 18 view .LVU42
+ 304               	.LBB9:
+  65:main.c        **** 
+ 305               		.loc 1 65 39 view .LVU43
+  65:main.c        **** 
+ 306               		.loc 1 65 39 is_stmt 0 view .LVU44
+ 307               	.LBE9:
+ 308               	.LBE8:
+ 309               	.LBB11:
+ 310               	.LBI11:
+  64:main.c        **** static inline u8 _abgr_b(u32 color) { return (color >>  8) & 0xFF; }
+ 311               		.loc 1 64 18 is_stmt 1 view .LVU45
+ 312               	.LBB12:
+  64:main.c        **** static inline u8 _abgr_b(u32 color) { return (color >>  8) & 0xFF; }
+ 313               		.loc 1 64 39 view .LVU46
+  64:main.c        **** static inline u8 _abgr_b(u32 color) { return (color >>  8) & 0xFF; }
+ 314               		.loc 1 64 39 is_stmt 0 view .LVU47
+ 315               	.LBE12:
+ 316               	.LBE11:
+ 317               	.LBB14:
+ 318               	.LBI14:
+  63:main.c        **** static inline u8 _abgr_g(u32 color) { return (color >> 16) & 0xFF; }
+ 319               		.loc 1 63 18 is_stmt 1 view .LVU48
+ 320               	.LBB15:
+  63:main.c        **** static inline u8 _abgr_g(u32 color) { return (color >> 16) & 0xFF; }
+ 321               		.loc 1 63 39 view .LVU49
+  63:main.c        **** static inline u8 _abgr_g(u32 color) { return (color >> 16) & 0xFF; }
+ 322               		.loc 1 63 39 is_stmt 0 view .LVU50
+ 323               	.LBE15:
+ 324               	.LBE14:
+ 325               	.LBB16:
+ 326               	.LBB10:
+  65:main.c        **** 
+ 327               		.loc 1 65 53 view .LVU51
+ 328 00ae 492F      		mov r20,r25
+ 329 00b0 5A2F      		mov r21,r26
+ 330 00b2 6B2F      		mov r22,r27
+ 331 00b4 7727      		clr r23
+ 332               	.LVL20:
+  65:main.c        **** 
+ 333               		.loc 1 65 53 view .LVU52
+ 334               	.LBE10:
+ 335               	.LBE16:
+ 336               	.LBB17:
+ 337               	.LBB13:
+  64:main.c        **** static inline u8 _abgr_b(u32 color) { return (color >>  8) & 0xFF; }
+ 338               		.loc 1 64 53 view .LVU53
+ 339 00b6 8D01      		movw r16,r26
+ 340 00b8 2227      		clr r18
+ 341 00ba 3327      		clr r19
+ 342               	.LBE13:
+ 343               	.LBE17:
+ 344               		.loc 1 69 2 view .LVU54
+ 345 00bc 602F      		mov r22,r16
+ 346               	.LVL21:
+ 347               		.loc 1 69 2 view .LVU55
+ 348 00be 8B2F      		mov r24,r27
+ 349               	.LVL22:
+ 350               		.loc 1 69 2 view .LVU56
+ 351 00c0 0E94 0000 		call lcd_color
+ 352               	.LVL23:
+ 353 00c4 8C01      		movw r16,r24
+ 354 00c6 9501      		movw r18,r10
+ 355 00c8 A701      		movw r20,r14
+ 356 00ca B401      		movw r22,r8
+ 357 00cc C601      		movw r24,r12
+ 358 00ce 0E94 0000 		call lcd_rect
+ 359               	.LVL24:
+ 360               	/* epilogue start */
+  70:main.c        **** 		lcd_color(_abgr_r(color), _abgr_g(color), _abgr_b(color)));
+  71:main.c        **** }
+ 361               		.loc 1 71 1 view .LVU57
+ 362 00d2 DF91      		pop r29
+ 363 00d4 CF91      		pop r28
+ 364 00d6 1F91      		pop r17
+ 365 00d8 0F91      		pop r16
+ 366 00da FF90      		pop r15
+ 367 00dc EF90      		pop r14
+ 368               	.LVL25:
+ 369               		.loc 1 71 1 view .LVU58
+ 370 00de DF90      		pop r13
+ 371 00e0 CF90      		pop r12
+ 372 00e2 BF90      		pop r11
+ 373 00e4 AF90      		pop r10
+ 374               	.LVL26:
+ 375               		.loc 1 71 1 view .LVU59
+ 376 00e6 9F90      		pop r9
+ 377 00e8 8F90      		pop r8
+ 378 00ea 0895      		ret
+ 379               		.cfi_endproc
+ 380               	.LFE13:
+ 382               	.global	syscall_gfx_image_rgba
+ 384               	syscall_gfx_image_rgba:
+ 385               	.LVL27:
+ 386               	.LFB14:
+  72:main.c        **** 
+  73:main.c        **** u32 syscall_gfx_image_rgba(u32 *args){}
+ 387               		.loc 1 73 38 is_stmt 1 view -0
+ 388               		.cfi_startproc
+ 389               		.loc 1 73 38 is_stmt 0 view .LVU61
+ 390 00ec CF93      		push r28
+ 391               		.cfi_def_cfa_offset 3
+ 392               		.cfi_offset 28, -2
+ 393 00ee DF93      		push r29
+ 394               		.cfi_def_cfa_offset 4
+ 395               		.cfi_offset 29, -3
+ 396 00f0 00D0      		rcall .
+ 397 00f2 00D0      		rcall .
+ 398               		.cfi_def_cfa_offset 8
+ 399 00f4 CDB7      		in r28,__SP_L__
+ 400 00f6 DEB7      		in r29,__SP_H__
+ 401               		.cfi_def_cfa_register 28
+ 402               	/* prologue: function */
+ 403               	/* frame size = 4 */
+ 404               	/* stack size = 6 */
+ 405               	.L__stack_usage = 6
+ 406               		.loc 1 73 39 is_stmt 1 view .LVU62
+ 407 00f8 6981      		ldd r22,Y+1
+ 408 00fa 7A81      		ldd r23,Y+2
+ 409 00fc 8B81      		ldd r24,Y+3
+ 410 00fe 9C81      		ldd r25,Y+4
+ 411               	/* epilogue start */
+ 412 0100 0F90      		pop __tmp_reg__
+ 413 0102 0F90      		pop __tmp_reg__
+ 414 0104 0F90      		pop __tmp_reg__
+ 415 0106 0F90      		pop __tmp_reg__
+ 416 0108 DF91      		pop r29
+ 417 010a CF91      		pop r28
+ 418 010c 0895      		ret
+ 419               		.cfi_endproc
+ 420               	.LFE14:
+ 422               	.global	syscall_gfx_image_rgb
+ 424               	syscall_gfx_image_rgb:
+ 425               	.LFB21:
+ 426               		.cfi_startproc
+  74:main.c        **** u32 syscall_gfx_image_rgb(u32 *args){}
+ 427               		.loc 1 74 5 view .LVU63
+ 428 010e CF93      		push r28
+ 429               		.cfi_def_cfa_offset 3
+ 430               		.cfi_offset 28, -2
+ 431 0110 DF93      		push r29
+ 432               		.cfi_def_cfa_offset 4
+ 433               		.cfi_offset 29, -3
+ 434 0112 00D0      		rcall .
+ 435 0114 00D0      		rcall .
+ 436               		.cfi_def_cfa_offset 8
+ 437 0116 CDB7      		in r28,__SP_L__
+ 438 0118 DEB7      		in r29,__SP_H__
+ 439               		.cfi_def_cfa_register 28
+ 440               	/* prologue: function */
+ 441               	/* frame size = 4 */
+ 442               	/* stack size = 6 */
+ 443               	.L__stack_usage = 6
+ 444 011a 60E0      		ldi r22,0
+ 445 011c 70E0      		ldi r23,0
+ 446 011e CB01      		movw r24,r22
+ 447               	/* epilogue start */
+ 448 0120 0F90      		pop __tmp_reg__
+ 449 0122 0F90      		pop __tmp_reg__
+ 450 0124 0F90      		pop __tmp_reg__
+ 451 0126 0F90      		pop __tmp_reg__
+ 452 0128 DF91      		pop r29
+ 453 012a CF91      		pop r28
+ 454 012c 0895      		ret
+ 455               		.cfi_endproc
+ 456               	.LFE21:
+ 458               	.global	syscall_gfx_image_rgb565
+ 460               	syscall_gfx_image_rgb565:
+ 461               	.LFB23:
+ 462               		.cfi_startproc
+  75:main.c        **** u32 syscall_gfx_image_rgb565(u32 *args){}
+ 463               		.loc 1 75 5 view .LVU64
+ 464 012e CF93      		push r28
+ 465               		.cfi_def_cfa_offset 3
+ 466               		.cfi_offset 28, -2
+ 467 0130 DF93      		push r29
+ 468               		.cfi_def_cfa_offset 4
+ 469               		.cfi_offset 29, -3
+ 470 0132 00D0      		rcall .
+ 471 0134 00D0      		rcall .
+ 472               		.cfi_def_cfa_offset 8
+ 473 0136 CDB7      		in r28,__SP_L__
+ 474 0138 DEB7      		in r29,__SP_H__
+ 475               		.cfi_def_cfa_register 28
+ 476               	/* prologue: function */
+ 477               	/* frame size = 4 */
+ 478               	/* stack size = 6 */
+ 479               	.L__stack_usage = 6
+ 480 013a 60E0      		ldi r22,0
+ 481 013c 70E0      		ldi r23,0
+ 482 013e CB01      		movw r24,r22
+ 483               	/* epilogue start */
+ 484 0140 0F90      		pop __tmp_reg__
+ 485 0142 0F90      		pop __tmp_reg__
+ 486 0144 0F90      		pop __tmp_reg__
+ 487 0146 0F90      		pop __tmp_reg__
+ 488 0148 DF91      		pop r29
+ 489 014a CF91      		pop r28
+ 490 014c 0895      		ret
+ 491               		.cfi_endproc
+ 492               	.LFE23:
+ 494               	.global	syscall_gfx_image_grayscale
+ 496               	syscall_gfx_image_grayscale:
+ 497               	.LFB25:
+ 498               		.cfi_startproc
+  76:main.c        **** u32 syscall_gfx_image_grayscale(u32 *args){}
+ 499               		.loc 1 76 5 view .LVU65
+ 500 014e CF93      		push r28
+ 501               		.cfi_def_cfa_offset 3
+ 502               		.cfi_offset 28, -2
+ 503 0150 DF93      		push r29
+ 504               		.cfi_def_cfa_offset 4
+ 505               		.cfi_offset 29, -3
+ 506 0152 00D0      		rcall .
+ 507 0154 00D0      		rcall .
+ 508               		.cfi_def_cfa_offset 8
+ 509 0156 CDB7      		in r28,__SP_L__
+ 510 0158 DEB7      		in r29,__SP_H__
+ 511               		.cfi_def_cfa_register 28
+ 512               	/* prologue: function */
+ 513               	/* frame size = 4 */
+ 514               	/* stack size = 6 */
+ 515               	.L__stack_usage = 6
+ 516 015a 60E0      		ldi r22,0
+ 517 015c 70E0      		ldi r23,0
+ 518 015e CB01      		movw r24,r22
+ 519               	/* epilogue start */
+ 520 0160 0F90      		pop __tmp_reg__
+ 521 0162 0F90      		pop __tmp_reg__
+ 522 0164 0F90      		pop __tmp_reg__
+ 523 0166 0F90      		pop __tmp_reg__
+ 524 0168 DF91      		pop r29
+ 525 016a CF91      		pop r28
+ 526 016c 0895      		ret
+ 527               		.cfi_endproc
+ 528               	.LFE25:
+ 530               	.global	syscall_gfx_image_1bit
+ 532               	syscall_gfx_image_1bit:
+ 533               	.LFB27:
+ 534               		.cfi_startproc
+  77:main.c        **** u32 syscall_gfx_image_1bit(u32 *args){}
+ 535               		.loc 1 77 5 view .LVU66
+ 536 016e CF93      		push r28
+ 537               		.cfi_def_cfa_offset 3
+ 538               		.cfi_offset 28, -2
+ 539 0170 DF93      		push r29
+ 540               		.cfi_def_cfa_offset 4
+ 541               		.cfi_offset 29, -3
+ 542 0172 00D0      		rcall .
+ 543 0174 00D0      		rcall .
+ 544               		.cfi_def_cfa_offset 8
+ 545 0176 CDB7      		in r28,__SP_L__
+ 546 0178 DEB7      		in r29,__SP_H__
+ 547               		.cfi_def_cfa_register 28
+ 548               	/* prologue: function */
+ 549               	/* frame size = 4 */
+ 550               	/* stack size = 6 */
+ 551               	.L__stack_usage = 6
+ 552 017a 60E0      		ldi r22,0
+ 553 017c 70E0      		ldi r23,0
+ 554 017e CB01      		movw r24,r22
+ 555               	/* epilogue start */
+ 556 0180 0F90      		pop __tmp_reg__
+ 557 0182 0F90      		pop __tmp_reg__
+ 558 0184 0F90      		pop __tmp_reg__
+ 559 0186 0F90      		pop __tmp_reg__
+ 560 0188 DF91      		pop r29
+ 561 018a CF91      		pop r28
+ 562 018c 0895      		ret
+ 563               		.cfi_endproc
+ 564               	.LFE27:
+ 566               		.section	.text.startup,"ax",@progbits
+ 567               	.global	main
+ 569               	main:
+ 570               	.LFB19:
+  78:main.c        **** 
+  79:main.c        **** #define LOGO_X_OFFSET      30
+  80:main.c        **** #define LOGO_TEXT_X_OFFSET 56
+  81:main.c        **** #define LOGO_Y_OFFSET      50
+  82:main.c        **** 
+  83:main.c        **** int main(void)
+  84:main.c        **** {
+ 571               		.loc 1 84 1 view -0
+ 572               		.cfi_startproc
+ 573               	/* prologue: function */
+ 574               	/* frame size = 0 */
+ 575               	/* stack size = 0 */
+ 576               	.L__stack_usage = 0
+  85:main.c        **** 	/* --- BOOT SEQUENCE --- */
   86:main.c        **** 
-  87:main.c        **** 	/* Print startup message */
-  88:main.c        **** 	log_boot_P(LOG_NONE, PSTR("\nImaginaryOS Version 0.1 Booting ...\n"));
- 478               		.loc 1 88 2 view .LVU53
- 479               	.LBB2:
- 480               		.loc 1 88 23 view .LVU54
- 481               		.loc 1 88 23 view .LVU55
- 482               	.LBE2:
- 483               		.loc 1 88 2 is_stmt 0 view .LVU56
- 484 000a 80E0      		ldi r24,lo8(__c.1)
- 485 000c 90E0      		ldi r25,hi8(__c.1)
- 486 000e 9F93      		push r25
- 487               		.cfi_def_cfa_offset 3
- 488 0010 8F93      		push r24
- 489               		.cfi_def_cfa_offset 4
- 490 0012 C6E0      		ldi r28,lo8(6)
- 491 0014 CF93      		push r28
- 492               		.cfi_def_cfa_offset 5
- 493 0016 0E94 0000 		call log_boot_P
- 494               	.LVL22:
+  87:main.c        **** 	/* Enable interrupts */
+  88:main.c        **** 	sei();
+ 577               		.loc 1 88 2 view .LVU68
+ 578               	/* #APP */
+ 579               	 ;  88 "main.c" 1
+ 580 0000 7894      		sei
+ 581               	 ;  0 "" 2
   89:main.c        **** 
-  90:main.c        **** 	/* Initialize millisecond timer */
-  91:main.c        **** 	timer_init();
- 495               		.loc 1 91 2 is_stmt 1 view .LVU57
- 496 001a 0E94 0000 		call timer_init
- 497               	.LVL23:
+  90:main.c        **** 	/* First, configure GPIO, because all modules that do I/O depend on it */
+  91:main.c        **** 	gpio_configure();
+ 582               		.loc 1 91 2 view .LVU69
+ 583               	/* #NOAPP */
+ 584 0002 0E94 0000 		call gpio_configure
+ 585               	.LVL28:
   92:main.c        **** 
-  93:main.c        **** 	/* Initialize SPI (Needed for SD Card, External Memory and LCD) */
-  94:main.c        **** 	spi_init();
- 498               		.loc 1 94 2 view .LVU58
- 499 001e 0E94 0000 		call spi_init
- 500               	.LVL24:
+  93:main.c        **** 	/* Second, initialize serial port so that we can print boot messages */
+  94:main.c        **** 	serial_init();
+ 586               		.loc 1 94 2 view .LVU70
+ 587 0006 0E94 0000 		call serial_init
+ 588               	.LVL29:
   95:main.c        **** 
-  96:main.c        **** 	/* Initialize LCD driver early for boot image and messages */
-  97:main.c        **** 	lcd_init(0xFF, COLOR_BLACK);
- 501               		.loc 1 97 2 view .LVU59
- 502 0022 60E0      		ldi r22,0
- 503 0024 70E0      		ldi r23,0
- 504 0026 8FEF      		ldi r24,lo8(-1)
- 505 0028 0E94 0000 		call lcd_init
- 506               	.LVL25:
-  98:main.c        **** 	lcd_logo_P(
- 507               		.loc 1 98 2 view .LVU60
- 508 002c 00E0      		ldi r16,lo8(logo_tiny)
- 509 002e 10E0      		ldi r17,hi8(logo_tiny)
- 510 0030 28E3      		ldi r18,lo8(56)
- 511 0032 30E0      		ldi r19,0
- 512 0034 44E2      		ldi r20,lo8(36)
- 513 0036 50E0      		ldi r21,0
- 514 0038 62E3      		ldi r22,lo8(50)
- 515 003a 70E0      		ldi r23,0
- 516 003c 8EE1      		ldi r24,lo8(30)
- 517 003e 90E0      		ldi r25,0
- 518 0040 0E94 0000 		call lcd_logo_P
- 519               	.LVL26:
-  99:main.c        **** 		LOGO_X_OFFSET,
- 100:main.c        **** 		LOGO_Y_OFFSET,
- 101:main.c        **** 		LOGO_TINY_WIDTH,
- 102:main.c        **** 		LOGO_TINY_HEIGHT,
- 103:main.c        **** 		logo_tiny);
+  96:main.c        **** 	/* Print startup message */
+  97:main.c        **** 	log_boot_P(LOG_NONE, PSTR("\nImaginaryOS Version 0.1 Booting ...\n"));
+ 589               		.loc 1 97 2 view .LVU71
+ 590               	.LBB18:
+ 591               		.loc 1 97 23 view .LVU72
+ 592               		.loc 1 97 23 view .LVU73
+ 593               	.LBE18:
+ 594               		.loc 1 97 2 is_stmt 0 view .LVU74
+ 595 000a 80E0      		ldi r24,lo8(__c.2)
+ 596 000c 90E0      		ldi r25,hi8(__c.2)
+ 597 000e 9F93      		push r25
+ 598               		.cfi_def_cfa_offset 3
+ 599 0010 8F93      		push r24
+ 600               		.cfi_def_cfa_offset 4
+ 601 0012 C6E0      		ldi r28,lo8(6)
+ 602 0014 CF93      		push r28
+ 603               		.cfi_def_cfa_offset 5
+ 604 0016 0E94 0000 		call log_boot_P
+ 605               	.LVL30:
+  98:main.c        **** 
+  99:main.c        **** 	/* Initialize millisecond timer */
+ 100:main.c        **** 	timer_init();
+ 606               		.loc 1 100 2 is_stmt 1 view .LVU75
+ 607 001a 0E94 0000 		call timer_init
+ 608               	.LVL31:
+ 101:main.c        **** 
+ 102:main.c        **** 	/* Initialize SPI (Needed for SD Card, External Memory and LCD) */
+ 103:main.c        **** 	spi_init();
+ 609               		.loc 1 103 2 view .LVU76
+ 610 001e 0E94 0000 		call spi_init
+ 611               	.LVL32:
  104:main.c        **** 
- 105:main.c        **** 	lcd_logo_P(
- 520               		.loc 1 105 2 view .LVU61
- 521 0044 00E0      		ldi r16,lo8(logo_text)
- 522 0046 10E0      		ldi r17,hi8(logo_text)
- 523 0048 2EE0      		ldi r18,lo8(14)
- 524 004a 30E0      		ldi r19,0
- 525 004c 4AE6      		ldi r20,lo8(106)
- 526 004e 50E0      		ldi r21,0
- 527 0050 67E4      		ldi r22,lo8(71)
- 528 0052 70E0      		ldi r23,0
- 529 0054 86E5      		ldi r24,lo8(86)
- 530 0056 90E0      		ldi r25,0
- 531 0058 0E94 0000 		call lcd_logo_P
- 532               	.LVL27:
- 106:main.c        **** 		LOGO_X_OFFSET + LOGO_TEXT_X_OFFSET,
- 107:main.c        **** 		LOGO_Y_OFFSET + LOGO_TINY_HEIGHT / 2 - LOGO_TEXT_HEIGHT / 2,
- 108:main.c        **** 		LOGO_TEXT_WIDTH,
- 109:main.c        **** 		LOGO_TEXT_HEIGHT,
- 110:main.c        **** 		logo_text);
- 111:main.c        **** 
- 112:main.c        **** 	/* Initialize keyboard (fast) */
- 113:main.c        **** 	ps2_init();
- 533               		.loc 1 113 2 view .LVU62
- 534 005c 0E94 0000 		call ps2_init
- 535               	.LVL28:
- 114:main.c        **** 
- 115:main.c        **** 	/* Initialize ADC (fast) */
- 116:main.c        **** 	adc_init();
- 536               		.loc 1 116 2 view .LVU63
- 537 0060 0E94 0000 		call adc_init
- 538               	.LVL29:
- 117:main.c        **** 
- 118:main.c        **** 	/* Initialize RNG (fast) */
- 119:main.c        **** 	random_init();
- 539               		.loc 1 119 2 view .LVU64
- 540 0064 0E94 0000 		call random_init
- 541               	.LVL30:
+ 105:main.c        **** 	/* Initialize LCD driver early for boot image and messages */
+ 106:main.c        **** 	lcd_init(0xFF, COLOR_BLACK);
+ 612               		.loc 1 106 2 view .LVU77
+ 613 0022 60E0      		ldi r22,0
+ 614 0024 70E0      		ldi r23,0
+ 615 0026 8FEF      		ldi r24,lo8(-1)
+ 616 0028 0E94 0000 		call lcd_init
+ 617               	.LVL33:
+ 107:main.c        **** 	lcd_logo_P(
+ 618               		.loc 1 107 2 view .LVU78
+ 619 002c 00E0      		ldi r16,lo8(logo_tiny)
+ 620 002e 10E0      		ldi r17,hi8(logo_tiny)
+ 621 0030 28E3      		ldi r18,lo8(56)
+ 622 0032 30E0      		ldi r19,0
+ 623 0034 44E2      		ldi r20,lo8(36)
+ 624 0036 50E0      		ldi r21,0
+ 625 0038 62E3      		ldi r22,lo8(50)
+ 626 003a 70E0      		ldi r23,0
+ 627 003c 8EE1      		ldi r24,lo8(30)
+ 628 003e 90E0      		ldi r25,0
+ 629 0040 0E94 0000 		call lcd_logo_P
+ 630               	.LVL34:
+ 108:main.c        **** 		LOGO_X_OFFSET,
+ 109:main.c        **** 		LOGO_Y_OFFSET,
+ 110:main.c        **** 		LOGO_TINY_WIDTH,
+ 111:main.c        **** 		LOGO_TINY_HEIGHT,
+ 112:main.c        **** 		logo_tiny);
+ 113:main.c        **** 
+ 114:main.c        **** 	lcd_logo_P(
+ 631               		.loc 1 114 2 view .LVU79
+ 632 0044 00E0      		ldi r16,lo8(logo_text)
+ 633 0046 10E0      		ldi r17,hi8(logo_text)
+ 634 0048 2EE0      		ldi r18,lo8(14)
+ 635 004a 30E0      		ldi r19,0
+ 636 004c 4AE6      		ldi r20,lo8(106)
+ 637 004e 50E0      		ldi r21,0
+ 638 0050 67E4      		ldi r22,lo8(71)
+ 639 0052 70E0      		ldi r23,0
+ 640 0054 86E5      		ldi r24,lo8(86)
+ 641 0056 90E0      		ldi r25,0
+ 642 0058 0E94 0000 		call lcd_logo_P
+ 643               	.LVL35:
+ 115:main.c        **** 		LOGO_X_OFFSET + LOGO_TEXT_X_OFFSET,
+ 116:main.c        **** 		LOGO_Y_OFFSET + LOGO_TINY_HEIGHT / 2 - LOGO_TEXT_HEIGHT / 2,
+ 117:main.c        **** 		LOGO_TEXT_WIDTH,
+ 118:main.c        **** 		LOGO_TEXT_HEIGHT,
+ 119:main.c        **** 		logo_text);
  120:main.c        **** 
- 121:main.c        **** 	/* Initialize RTC driver (fast) */
- 122:main.c        **** 	rtc_init();
- 542               		.loc 1 122 2 view .LVU65
- 543 0068 0E94 0000 		call rtc_init
- 544               	.LVL31:
+ 121:main.c        **** 	/* Initialize keyboard (fast) */
+ 122:main.c        **** 	ps2_init();
+ 644               		.loc 1 122 2 view .LVU80
+ 645 005c 0E94 0000 		call ps2_init
+ 646               	.LVL36:
  123:main.c        **** 
- 124:main.c        **** 	/* Initialize external memory late because of slow memory test */
- 125:main.c        **** 	xmem_init();
- 545               		.loc 1 125 2 view .LVU66
- 546 006c 0E94 0000 		call xmem_init
- 547               	.LVL32:
+ 124:main.c        **** 	/* Initialize ADC (fast) */
+ 125:main.c        **** 	adc_init();
+ 647               		.loc 1 125 2 view .LVU81
+ 648 0060 0E94 0000 		call adc_init
+ 649               	.LVL37:
  126:main.c        **** 
- 127:main.c        **** 	/* Initialize SD card driver */
- 128:main.c        **** 	sd_init();
- 548               		.loc 1 128 2 view .LVU67
- 549 0070 0E94 0000 		call sd_init
- 550               	.LVL33:
+ 127:main.c        **** 	/* Initialize RNG (fast) */
+ 128:main.c        **** 	random_init();
+ 650               		.loc 1 128 2 view .LVU82
+ 651 0064 0E94 0000 		call random_init
+ 652               	.LVL38:
  129:main.c        **** 
- 130:main.c        **** 	/* --- READY --- */
- 131:main.c        **** 
- 132:main.c        **** 	/* Load initial ram disk */
- 133:main.c        **** 	initrd_load();
- 551               		.loc 1 133 2 view .LVU68
- 552 0074 0E94 0000 		call initrd_load
- 553               	.LVL34:
- 134:main.c        **** 
- 135:main.c        **** 	log_boot_P(LOG_NONE, PSTR("\nStarting RISC-V Emulator Kernel ...\n\n"));
- 554               		.loc 1 135 2 view .LVU69
- 555               	.LBB3:
- 556               		.loc 1 135 23 view .LVU70
- 557               		.loc 1 135 23 view .LVU71
- 558               	.LBE3:
- 559               		.loc 1 135 2 is_stmt 0 view .LVU72
- 560 0078 80E0      		ldi r24,lo8(__c.0)
- 561 007a 90E0      		ldi r25,hi8(__c.0)
- 562 007c 9F93      		push r25
- 563               		.cfi_def_cfa_offset 6
- 564 007e 8F93      		push r24
- 565               		.cfi_def_cfa_offset 7
- 566 0080 CF93      		push r28
- 567               		.cfi_def_cfa_offset 8
- 568 0082 0E94 0000 		call log_boot_P
- 569               	.LVL35:
- 570 0086 0F90      		pop __tmp_reg__
- 571 0088 0F90      		pop __tmp_reg__
- 572 008a 0F90      		pop __tmp_reg__
- 573 008c 0F90      		pop __tmp_reg__
- 574 008e 0F90      		pop __tmp_reg__
- 575 0090 0F90      		pop __tmp_reg__
- 576               		.cfi_def_cfa_offset 2
- 577               	.L18:
- 136:main.c        **** 
- 137:main.c        **** 	/* Infinite loop */
- 138:main.c        **** 	for(;;)
- 578               		.loc 1 138 2 is_stmt 1 discriminator 1 view .LVU73
- 139:main.c        **** 	{
- 140:main.c        **** 	}
- 579               		.loc 1 140 2 discriminator 1 view .LVU74
- 138:main.c        **** 	{
- 580               		.loc 1 138 2 discriminator 1 view .LVU75
- 581 0092 00C0      		rjmp .L18
- 582               		.cfi_endproc
- 583               	.LFE15:
- 585               		.section	.progmem.data,"a",@progbits
- 588               	__c.0:
- 589 0000 0A53 7461 		.string	"\nStarting RISC-V Emulator Kernel ...\n\n"
- 589      7274 696E 
- 589      6720 5249 
- 589      5343 2D56 
- 589      2045 6D75 
- 592               	__c.1:
- 593 0027 0A49 6D61 		.string	"\nImaginaryOS Version 0.1 Booting ...\n"
- 593      6769 6E61 
- 593      7279 4F53 
- 593      2056 6572 
- 593      7369 6F6E 
- 596               	logo_text:
- 597 004d 00        		.string	""
- 598 004e 00        		.string	""
- 599 004f DFFF FFBC 		.string	"\337\377\377\274"
- 599      00
- 600 0054 00        		.string	""
- 601 0055 00        		.string	""
- 602 0056 00        		.string	""
- 603 0057 00        		.string	""
- 604 0058 00        		.string	""
- 605 0059 00        		.string	""
- 606 005a 00        		.string	""
- 607 005b 00        		.string	""
- 608 005c 00        		.string	""
- 609 005d 00        		.string	""
- 610 005e 00        		.string	""
- 611 005f 00        		.string	""
- 612 0060 00        		.string	""
- 613 0061 00        		.string	""
- 614 0062 00        		.string	""
- 615 0063 00        		.string	""
- 616 0064 00        		.string	""
- 617 0065 00        		.string	""
- 618 0066 00        		.string	""
- 619 0067 00        		.string	""
- 620 0068 00        		.string	""
- 621 0069 00        		.string	""
- 622 006a 00        		.string	""
- 623 006b 00        		.string	""
- 624 006c 00        		.string	""
- 625 006d 00        		.string	""
- 626 006e 00        		.string	""
- 627 006f 00        		.string	""
- 628 0070 00        		.string	""
- 629 0071 00        		.string	""
- 630 0072 00        		.string	""
- 631 0073 00        		.string	""
- 632 0074 00        		.string	""
- 633 0075 00        		.string	""
- 634 0076 00        		.string	""
- 635 0077 00        		.string	""
- 636 0078 00        		.string	""
- 637 0079 00        		.string	""
- 638 007a C5F9 9C00 		.string	"\305\371\234"
- 639 007e 00        		.string	""
- 640 007f 00        		.string	""
- 641 0080 00        		.string	""
- 642 0081 00        		.string	""
- 643 0082 00        		.string	""
- 644 0083 00        		.string	""
- 645 0084 00        		.string	""
- 646 0085 00        		.string	""
- 647 0086 00        		.string	""
- 648 0087 00        		.string	""
- 649 0088 00        		.string	""
- 650 0089 00        		.string	""
- 651 008a 00        		.string	""
- 652 008b 00        		.string	""
- 653 008c 00        		.string	""
- 654 008d 00        		.string	""
- 655 008e 00        		.string	""
- 656 008f 00        		.string	""
- 657 0090 00        		.string	""
- 658 0091 00        		.string	""
- 659 0092 00        		.string	""
- 660 0093 00        		.string	""
- 661 0094 00        		.string	""
- 662 0095 00        		.string	""
- 663 0096 00        		.string	""
- 664 0097 00        		.string	""
- 665 0098 00        		.string	""
- 666 0099 00        		.string	""
- 667 009a 00        		.string	""
- 668 009b 00        		.string	""
- 669 009c 00        		.string	""
- 670 009d 00        		.string	""
- 671 009e 00        		.string	""
- 672 009f 00        		.string	""
- 673 00a0 00        		.string	""
- 674 00a1 00        		.string	""
- 675 00a2 00        		.string	""
- 676 00a3 00        		.string	""
- 677 00a4 00        		.string	""
- 678 00a5 00        		.string	""
- 679 00a6 00        		.string	""
- 680 00a7 00        		.string	""
- 681 00a8 00        		.string	""
- 682 00a9 00        		.string	""
- 683 00aa 00        		.string	""
- 684 00ab 00        		.string	""
- 685 00ac 00        		.string	""
- 686 00ad 00        		.string	""
- 687 00ae 00        		.string	""
- 688 00af 00        		.string	""
- 689 00b0 00        		.string	""
- 690 00b1 00        		.string	""
- 691 00b2 00        		.string	""
- 692 00b3 B0FF FFE5 		.string	"\260\377\377\345"
- 692      00
- 693 00b8 0DF8 F8DC 		.string	"\r\370\370\334\210"
- 693      8800 
- 694 00be 00        		.string	""
- 695 00bf 00        		.string	""
- 696 00c0 00        		.string	""
- 697 00c1 AAFF FFFF 		.string	"\252\377\377\377\3745"
- 697      FC35 00
- 698 00c8 00        		.string	""
- 699 00c9 00        		.string	""
- 700 00ca 00        		.string	""
- 701 00cb 00        		.string	""
- 702 00cc 00        		.string	""
- 703 00cd 00        		.string	""
- 704 00ce 00        		.string	""
- 705 00cf 00        		.string	""
- 706 00d0 00        		.string	""
- 707 00d1 00        		.string	""
- 708 00d2 00        		.string	""
- 709 00d3 00        		.string	""
- 710 00d4 00        		.string	""
- 711 00d5 00        		.string	""
- 712 00d6 00        		.string	""
- 713 00d7 00        		.string	""
- 714 00d8 00        		.string	""
- 715 00d9 00        		.string	""
- 716 00da 00        		.string	""
- 717 00db 00        		.string	""
- 718 00dc 00        		.string	""
- 719 00dd 00        		.string	""
- 720 00de 00        		.string	""
- 721 00df 00        		.string	""
- 722 00e0 00        		.string	""
- 723 00e1 00        		.string	""
- 724 00e2 00        		.string	""
- 725 00e3 00        		.string	""
- 726 00e4 ADD5 6700 		.string	"\255\325g"
- 727 00e8 00        		.string	""
- 728 00e9 00        		.string	""
- 729 00ea 00        		.string	""
- 730 00eb 00        		.string	""
- 731 00ec 00        		.string	""
- 732 00ed 00        		.string	""
- 733 00ee 00        		.string	""
- 734 00ef 00        		.string	""
- 735 00f0 00        		.string	""
- 736 00f1 00        		.string	""
- 737 00f2 00        		.string	""
- 738 00f3 00        		.string	""
- 739 00f4 00        		.string	""
- 740 00f5 00        		.string	""
- 741 00f6 00        		.string	""
- 742 00f7 00        		.string	""
- 743 00f8 00        		.string	""
- 744 00f9 00        		.string	""
- 745 00fa 00        		.string	""
- 746 00fb 00        		.string	""
- 747 00fc 00        		.string	""
- 748 00fd 00        		.string	""
- 749 00fe 00        		.string	""
- 750 00ff 00        		.string	""
- 751 0100 00        		.string	""
- 752 0101 00        		.string	""
- 753 0102 00        		.string	""
- 754 0103 00        		.string	""
- 755 0104 00        		.string	""
- 756 0105 00        		.string	""
- 757 0106 00        		.string	""
- 758 0107 00        		.string	""
- 759 0108 00        		.string	""
- 760 0109 00        		.string	""
- 761 010a 89DB F6F7 		.string	"\211\333\366\367\342\207"
- 761      E287 00
- 762 0111 00        		.string	""
- 763 0112 00        		.string	""
- 764 0113 86E1 FAF5 		.string	"\206\341\372\365\337\206"
- 764      DF86 00
- 765 011a 00        		.string	""
- 766 011b 00        		.string	""
- 767 011c 00        		.string	""
- 768 011d ADE4 FFC9 		.string	"\255\344\377\311"
- 768      00
- 769 0122 6AFF D200 		.string	"j\377\322"
- 770 0126 00        		.string	""
- 771 0127 00        		.string	""
- 772 0128 00        		.string	""
- 773 0129 00        		.string	""
- 774 012a 00        		.string	""
- 775 012b 7EED FFEE 		.string	"~\355\377\356\237"
- 775      9F00 
- 776 0131 00        		.string	""
- 777 0132 00        		.string	""
- 778 0133 00        		.string	""
- 779 0134 00        		.string	""
- 780 0135 00        		.string	""
- 781 0136 00        		.string	""
- 782 0137 00        		.string	""
- 783 0138 00        		.string	""
- 784 0139 00        		.string	""
- 785 013a 00        		.string	""
- 786 013b 00        		.string	""
- 787 013c 00        		.string	""
- 788 013d 00        		.string	""
- 789 013e 00        		.string	""
- 790 013f 00        		.string	""
- 791 0140 00        		.string	""
- 792 0141 00        		.string	""
- 793 0142 00        		.string	""
- 794 0143 00        		.string	""
- 795 0144 00        		.string	""
- 796 0145 00        		.string	""
- 797 0146 00        		.string	""
- 798 0147 00        		.string	""
- 799 0148 00        		.string	""
- 800 0149 00        		.string	""
- 801 014a 00        		.string	""
- 802 014b 00        		.string	""
- 803 014c 00        		.string	""
- 804 014d 00        		.string	""
- 805 014e 00        		.string	""
- 806 014f 00        		.string	""
- 807 0150 00        		.string	""
- 808 0151 00        		.string	""
- 809 0152 00        		.string	""
- 810 0153 00        		.string	""
- 811 0154 00        		.string	""
- 812 0155 00        		.string	""
- 813 0156 00        		.string	""
- 814 0157 00        		.string	""
- 815 0158 00        		.string	""
- 816 0159 00        		.string	""
- 817 015a 00        		.string	""
- 818 015b 00        		.string	""
- 819 015c 00        		.string	""
- 820 015d 00        		.string	""
- 821 015e 00        		.string	""
- 822 015f 00        		.string	""
- 823 0160 00        		.string	""
- 824 0161 00        		.string	""
- 825 0162 00        		.string	""
- 826 0163 00        		.string	""
- 827 0164 00        		.string	""
- 828 0165 00        		.string	""
- 829 0166 1C00      		.string	"\034"
- 830 0168 00        		.string	""
- 831 0169 00        		.string	""
- 832 016a 00        		.string	""
- 833 016b 00        		.string	""
- 834 016c 00        		.string	""
- 835 016d 00        		.string	""
- 836 016e 00        		.string	""
- 837 016f 00        		.string	""
- 838 0170 00        		.string	""
- 839 0171 00        		.string	""
- 840 0172 00        		.string	""
- 841 0173 ADFE FFE7 		.string	"\255\376\377\347\354\377\374t"
- 841      ECFF FC74 
- 841      00
- 842 017c 70FB FFE7 		.string	"p\373\377\347\350\375y"
- 842      E8FD 7900 
- 843 0184 00        		.string	""
- 844 0185 00        		.string	""
- 845 0186 00        		.string	""
- 846 0187 00        		.string	""
- 847 0188 A0FF A700 		.string	"\240\377\247"
- 848 018c 9EFF B000 		.string	"\236\377\260"
- 849 0190 00        		.string	""
- 850 0191 00        		.string	""
- 851 0192 00        		.string	""
- 852 0193 00        		.string	""
- 853 0194 00        		.string	""
- 854 0195 00        		.string	""
- 855 0196 D5FF AD00 		.string	"\325\377\255"
- 856 019a 84FF AAC7 		.string	"\204\377\252\307\371\351]\247\363\364\226"
- 856      F9E9 5DA7 
- 856      F3F4 9600 
- 857 01a6 00        		.string	""
- 858 01a7 00        		.string	""
- 859 01a8 A1F0 F8B2 		.string	"\241\360\370\262\325\372\034"
- 859      D5FA 1C00 
- 860 01b0 A2F1 F8AD 		.string	"\242\361\370\255\325\371\034\204\377\353"
- 860      D5F9 1C84 
- 860      FFEB 00
- 861 01bb 84FF AAC7 		.string	"\204\377\252\307\371\353n"
- 861      F9EB 6E00 
- 862 01c3 00        		.string	""
- 863 01c4 A1F0 F8B2 		.string	"\241\360\370\262\325\372\034\204\377\260\321\372\274\377\343"
- 863      D5FA 1C84 
- 863      FFB0 D1FA 
- 863      BCFF E300 
- 864 01d4 00        		.string	""
- 865 01d5 BAFF DE00 		.string	"\272\377\336"
- 866 01d9 00        		.string	""
- 867 01da 00        		.string	""
- 868 01db 00        		.string	""
- 869 01dc 75FD FD9A 		.string	"u\375\375\232"
- 869      00
- 870 01e1 0DD7 FFCB 		.string	"\r\327\377\313"
- 870      00
- 871 01e6 BCFF D700 		.string	"\274\377\327"
- 872 01ea 00        		.string	""
- 873 01eb 5100      		.string	"Q"
- 874 01ed 00        		.string	""
- 875 01ee 00        		.string	""
- 876 01ef 00        		.string	""
- 877 01f0 00        		.string	""
- 878 01f1 00        		.string	""
- 879 01f2 C5FF 7600 		.string	"\305\377v"
- 880 01f6 C2FF 8300 		.string	"\302\377\203"
- 881 01fa 00        		.string	""
- 882 01fb 00        		.string	""
- 883 01fc 00        		.string	""
- 884 01fd 00        		.string	""
- 885 01fe 00        		.string	""
- 886 01ff 00        		.string	""
- 887 0200 F0FF 7D00 		.string	"\360\377}"
- 888 0204 B0FF ECEE 		.string	"\260\377\354\356\366\377\344\366\356\377\353"
- 888      F6FF E4F6 
- 888      EEFF EB00 
- 889 0210 00        		.string	""
- 890 0211 90FE FDE3 		.string	"\220\376\375\343\374\374\343"
- 890      FCFC E300 
- 891 0219 90FE FDE3 		.string	"\220\376\375\343\375\374\341"
- 891      FDFC E100 
- 892 0221 B0FF CF00 		.string	"\260\377\317"
- 893 0225 B0FF ECEE 		.string	"\260\377\354\356\365\377\315"
- 893      F5FF CD00 
- 894 022d 90FE FDE3 		.string	"\220\376\375\343\374\374\343"
- 894      FCFC E300 
- 895 0235 B0FF F6F5 		.string	"\260\377\366\365\342f\377\360"
- 895      E266 FFF0 
- 895      00
- 896 023e 3DF6 FE7C 		.string	"=\366\376|"
- 896      00
- 897 0243 00        		.string	""
- 898 0244 00        		.string	""
- 899 0245 00        		.string	""
- 900 0246 D2FF D000 		.string	"\322\377\320"
- 901 024a 00        		.string	""
- 902 024b 00        		.string	""
- 903 024c A5FF DF00 		.string	"\245\377\337"
- 904 0250 B2FF E942 		.string	"\262\377\351B"
- 904      00
- 905 0255 00        		.string	""
- 906 0256 00        		.string	""
- 907 0257 00        		.string	""
- 908 0258 00        		.string	""
- 909 0259 00        		.string	""
- 910 025a 00        		.string	""
- 911 025b 00        		.string	""
- 912 025c E2FA 2200 		.string	"\342\372\""
- 913 0260 E0FC 3500 		.string	"\340\3745"
- 914 0264 00        		.string	""
- 915 0265 00        		.string	""
- 916 0266 00        		.string	""
- 917 0267 00        		.string	""
- 918 0268 00        		.string	""
- 919 0269 51FF FB2A 		.string	"Q\377\373*"
- 919      00
- 920 026e D0FF E72A 		.string	"\320\377\347*\264\377\373mp\377\364"
- 920      B4FF FB6D 
- 920      70FF F400 
- 921 027a 00        		.string	""
- 922 027b E4FF B200 		.string	"\344\377\262"
- 923 027f D3FF C600 		.string	"\323\377\306"
- 924 0283 E4FF B200 		.string	"\344\377\262"
- 925 0287 D5FF C100 		.string	"\325\377\301"
- 926 028b D0FF AE00 		.string	"\320\377\256"
- 927 028f D0FF E72A 		.string	"\320\377\347*\247\377\331"
- 927      A7FF D900 
- 928 0297 E4FF B200 		.string	"\344\377\262"
- 929 029b D3FF C600 		.string	"\323\377\306"
- 930 029f D0FF E845 		.string	"\320\377\350E"
- 930      00
- 931 02a4 00        		.string	""
- 932 02a5 F7FC 0DB4 		.string	"\367\374\r\264\377\325"
- 932      FFD5 00
- 933 02ac 00        		.string	""
- 934 02ad 00        		.string	""
- 935 02ae 00        		.string	""
- 936 02af 0DF7 FF85 		.string	"\r\367\377\205"
- 936      00
- 937 02b4 00        		.string	""
- 938 02b5 00        		.string	""
- 939 02b6 AAFF DC00 		.string	"\252\377\334"
- 940 02ba 58F5 FFEE 		.string	"X\365\377\356v"
- 940      7600 
- 941 02c0 00        		.string	""
- 942 02c1 00        		.string	""
- 943 02c2 00        		.string	""
- 944 02c3 00        		.string	""
- 945 02c4 00        		.string	""
- 946 02c5 1CFA E500 		.string	"\034\372\345"
- 947 02c9 0DF8 E800 		.string	"\r\370\350"
- 948 02cd 00        		.string	""
- 949 02ce 00        		.string	""
- 950 02cf 00        		.string	""
- 951 02d0 00        		.string	""
- 952 02d1 00        		.string	""
- 953 02d2 00        		.string	""
- 954 02d3 94FF E500 		.string	"\224\377\345"
- 955 02d7 00        		.string	""
- 956 02d8 ECFF 9F00 		.string	"\354\377\237"
- 957 02dc C1FF D000 		.string	"\301\377\320"
- 958 02e0 8AFF E500 		.string	"\212\377\345"
- 959 02e4 6AFF F832 		.string	"j\377\3702"
- 959      00
- 960 02e9 CBFF A26A 		.string	"\313\377\242j\377\3702"
- 960      FFF8 3200 
- 961 02f1 CDFF 9B00 		.string	"\315\377\233"
- 962 02f5 ECFF 8200 		.string	"\354\377\202"
- 963 02f9 ECFF 9F00 		.string	"\354\377\237"
- 964 02fd B4FF C96A 		.string	"\264\377\311j\377\3702"
- 964      FFF8 3200 
- 965 0305 CBFF A200 		.string	"\313\377\242"
- 966 0309 ECFF 9200 		.string	"\354\377\222"
- 967 030d 00        		.string	""
- 968 030e 00        		.string	""
- 969 030f E5FF 5EF3 		.string	"\345\377^\363\374k"
- 969      FC6B 00
- 970 0316 00        		.string	""
- 971 0317 00        		.string	""
- 972 0318 00        		.string	""
- 973 0319 58FF FF49 		.string	"X\377\377I"
- 973      00
- 974 031e 00        		.string	""
- 975 031f 00        		.string	""
- 976 0320 C8FF C500 		.string	"\310\377\305"
- 977 0324 00        		.string	""
- 978 0325 70EE FFF5 		.string	"p\356\377\365Q"
- 978      5100 
- 979 032b 00        		.string	""
- 980 032c 00        		.string	""
- 981 032d 00        		.string	""
- 982 032e 00        		.string	""
- 983 032f 75FF C800 		.string	"u\377\310"
- 984 0333 6BFF CB00 		.string	"k\377\313"
- 985 0337 00        		.string	""
- 986 0338 00        		.string	""
- 987 0339 00        		.string	""
- 988 033a 00        		.string	""
- 989 033b 00        		.string	""
- 990 033c 00        		.string	""
- 991 033d BCFF C600 		.string	"\274\377\306"
- 992 0341 3DFD FD49 		.string	"=\375\375I"
- 992      00
- 993 0346 DFFF 9C00 		.string	"\337\377\234"
- 994 034a B4FF CB00 		.string	"\264\377\313"
- 995 034e 94FF E300 		.string	"\224\377\343"
- 996 0352 00        		.string	""
- 997 0353 E9FF 6F94 		.string	"\351\377o\224\377\343"
- 997      FFE3 00
- 998 035a 00        		.string	""
- 999 035b EAFF 5E3D 		.string	"\352\377^=\375\3745=\375\375I"
- 999      FDFC 353D 
- 999      FDFD 4900 
- 1000 0367 D4FF A794 		.string	"\324\377\247\224\377\343"
- 1000      FFE3 00
- 1001 036e 00        		.string	""
- 1002 036f E9FF 6F3D 		.string	"\351\377o=\375\373."
- 1002      FDFB 2E00 
- 1003 0377 00        		.string	""
- 1004 0378 00        		.string	""
- 1005 0379 D2FF BCFF 		.string	"\322\377\274\377\313"
- 1005      CB00 
- 1006 037f 00        		.string	""
- 1007 0380 00        		.string	""
- 1008 0381 00        		.string	""
- 1009 0382 00        		.string	""
- 1010 0383 5EFF FE1C 		.string	"^\377\376\034"
- 1010      00
- 1011 0388 00        		.string	""
- 1012 0389 35F3 FF8E 		.string	"5\363\377\216"
- 1012      00
- 1013 038e 00        		.string	""
- 1014 038f 00        		.string	""
- 1015 0390 49EE FFAA 		.string	"I\356\377\252"
- 1015      00
- 1016 0395 00        		.string	""
- 1017 0396 00        		.string	""
- 1018 0397 00        		.string	""
- 1019 0398 00        		.string	""
- 1020 0399 A7FF A600 		.string	"\247\377\246"
- 1021 039d 9FFF A700 		.string	"\237\377\247"
- 1022 03a1 00        		.string	""
- 1023 03a2 00        		.string	""
- 1024 03a3 00        		.string	""
- 1025 03a4 00        		.string	""
- 1026 03a5 00        		.string	""
- 1027 03a6 00        		.string	""
- 1028 03a7 DCFF A100 		.string	"\334\377\241"
- 1029 03ab 88FF EA00 		.string	"\210\377\352"
- 1030 03af 0DF7 FF5D 		.string	"\r\367\377]"
- 1030      00
- 1031 03b4 D4FF A800 		.string	"\324\377\250"
- 1032 03b8 A1FF E300 		.string	"\241\377\343"
- 1033 03bc 98FF F916 		.string	"\230\377\371\026\242\377\344"
- 1033      A2FF E400 
- 1034 03c4 8DFF F300 		.string	"\215\377\363"
- 1035 03c8 88FF E900 		.string	"\210\377\351"
- 1036 03cc 88FF EA00 		.string	"\210\377\352"
- 1037 03d0 00        		.string	""
- 1038 03d1 EEFF 76A1 		.string	"\356\377v\241\377\343"
- 1038      FFE3 00
- 1039 03d8 98FF F916 		.string	"\230\377\371\026\210\377\347"
- 1039      88FF E700 
- 1040 03e0 00        		.string	""
- 1041 03e1 00        		.string	""
- 1042 03e2 00        		.string	""
- 1043 03e3 BAFF F3FA 		.string	"\272\377\363\372Y"
- 1043      5900 
- 1044 03e9 00        		.string	""
- 1045 03ea 00        		.string	""
- 1046 03eb 00        		.string	""
- 1047 03ec 00        		.string	""
- 1048 03ed 0DF9 FF93 		.string	"\r\371\377\223"
- 1048      00
- 1049 03f2 2AD0 FFE8 		.string	"*\320\377\350\026}\""
- 1049      167D 2200 
- 1050 03fa 00        		.string	""
- 1051 03fb E1FF A800 		.string	"\341\377\250"
- 1052 03ff 00        		.string	""
- 1053 0400 00        		.string	""
- 1054 0401 00        		.string	""
- 1055 0402 00        		.string	""
- 1056 0403 CAFF 7500 		.string	"\312\377u"
- 1057 0407 C3FF 7600 		.string	"\303\377v"
- 1058 040b 00        		.string	""
- 1059 040c 00        		.string	""
- 1060 040d 00        		.string	""
- 1061 040e 00        		.string	""
- 1062 040f 38B8 FAFF 		.string	"8\270\372\377\321I\262\377\316"
- 1062      D149 B2FF 
- 1062      CE00 
- 1063 0419 6BFF F400 		.string	"k\377\364"
- 1064 041d 00        		.string	""
- 1065 041e EFFF 7900 		.string	"\357\377y"
- 1066 0422 76FF FFE4 		.string	"v\377\377\344\371\377\341"
- 1066      F9FF E100 
- 1067 042a 78FF FFE5 		.string	"x\377\377\345\367\377\330"
- 1067      F7FF D800 
- 1068 0432 B2FF CD00 		.string	"\262\377\315"
- 1069 0436 B2FF CE00 		.string	"\262\377\316"
- 1070 043a 4BFF FA22 		.string	"K\377\372\"v\377\377\344\371\377\341"
- 1070      76FF FFE4 
- 1070      F9FF E100 
- 1071 0446 B2FF CC00 		.string	"\262\377\314"
- 1072 044a 00        		.string	""
- 1073 044b 00        		.string	""
- 1074 044c 00        		.string	""
- 1075 044d A0FF FFC1 		.string	"\240\377\377\301"
- 1075      00
- 1076 0452 00        		.string	""
- 1077 0453 00        		.string	""
- 1078 0454 00        		.string	""
- 1079 0455 00        		.string	""
- 1080 0456 00        		.string	""
- 1081 0457 00        		.string	""
- 1082 0458 BCFF FCE2 		.string	"\274\377\374\342\362\377\366p"
- 1082      F2FF F670 
- 1082      00
- 1083 0461 DCF5 E2F1 		.string	"\334\365\342\361\377\366T"
- 1083      FFF6 5400 
- 1084 0469 00        		.string	""
- 1085 046a 00        		.string	""
- 1086 046b 00        		.string	""
- 1087 046c 00        		.string	""
- 1088 046d E7FA 2200 		.string	"\347\372\""
- 1089 0471 E1FA 1C00 		.string	"\341\372\034"
- 1090 0475 00        		.string	""
- 1091 0476 00        		.string	""
- 1092 0477 00        		.string	""
- 1093 0478 00        		.string	""
- 1094 0479 95FF FFFF 		.string	"\225\377\377\377\377`\322\377\254"
- 1094      FF60 D2FF 
- 1094      AC00 
- 1095 0483 A0FF DA00 		.string	"\240\377\332"
- 1096 0487 4BFF FB26 		.string	"K\377\373&"
+ 130:main.c        **** 	/* Initialize RTC driver (fast) */
+ 131:main.c        **** 	rtc_init();
+ 653               		.loc 1 131 2 view .LVU83
+ 654 0068 0E94 0000 		call rtc_init
+ 655               	.LVL39:
+ 132:main.c        **** 
+ 133:main.c        **** 	/* Initialize external memory late because of slow memory test */
+ 134:main.c        **** 	xmem_init();
+ 656               		.loc 1 134 2 view .LVU84
+ 657 006c 0E94 0000 		call xmem_init
+ 658               	.LVL40:
+ 135:main.c        **** 
+ 136:main.c        **** 	/* Initialize SD card driver */
+ 137:main.c        **** 	sd_init();
+ 659               		.loc 1 137 2 view .LVU85
+ 660 0070 0E94 0000 		call sd_init
+ 661               	.LVL41:
+ 138:main.c        **** 
+ 139:main.c        **** 	/* --- READY --- */
+ 140:main.c        **** 
+ 141:main.c        **** 	/* Load initial ram disk */
+ 142:main.c        **** 	initrd_load();
+ 662               		.loc 1 142 2 view .LVU86
+ 663 0074 0E94 0000 		call initrd_load
+ 664               	.LVL42:
+ 143:main.c        **** 
+ 144:main.c        **** 	log_boot_P(LOG_NONE, PSTR("\nStarting RISC-V Emulator Kernel ...\n\n"));
+ 665               		.loc 1 144 2 view .LVU87
+ 666               	.LBB19:
+ 667               		.loc 1 144 23 view .LVU88
+ 668               		.loc 1 144 23 view .LVU89
+ 669               	.LBE19:
+ 670               		.loc 1 144 2 is_stmt 0 view .LVU90
+ 671 0078 80E0      		ldi r24,lo8(__c.1)
+ 672 007a 90E0      		ldi r25,hi8(__c.1)
+ 673 007c 9F93      		push r25
+ 674               		.cfi_def_cfa_offset 6
+ 675 007e 8F93      		push r24
+ 676               		.cfi_def_cfa_offset 7
+ 677 0080 CF93      		push r28
+ 678               		.cfi_def_cfa_offset 8
+ 679 0082 0E94 0000 		call log_boot_P
+ 680               	.LVL43:
+ 145:main.c        **** 
+ 146:main.c        **** 	kernel_init();
+ 681               		.loc 1 146 2 is_stmt 1 view .LVU91
+ 682 0086 0E94 0000 		call kernel_init
+ 683               	.LVL44:
+ 147:main.c        **** 	log_boot_P(LOG_EXT, PSTR("Setup done!"));
+ 684               		.loc 1 147 2 view .LVU92
+ 685               	.LBB20:
+ 686               		.loc 1 147 22 view .LVU93
+ 687               		.loc 1 147 22 view .LVU94
+ 688               	.LBE20:
+ 689               		.loc 1 147 2 is_stmt 0 view .LVU95
+ 690 008a 80E0      		ldi r24,lo8(__c.0)
+ 691 008c 90E0      		ldi r25,hi8(__c.0)
+ 692 008e 9F93      		push r25
+ 693               		.cfi_def_cfa_offset 9
+ 694 0090 8F93      		push r24
+ 695               		.cfi_def_cfa_offset 10
+ 696 0092 87E0      		ldi r24,lo8(7)
+ 697 0094 8F93      		push r24
+ 698               		.cfi_def_cfa_offset 11
+ 699 0096 0E94 0000 		call log_boot_P
+ 700               	.LVL45:
+ 701 009a 8DB7      		in r24,__SP_L__
+ 702 009c 9EB7      		in r25,__SP_H__
+ 703 009e 0996      		adiw r24,9
+ 704 00a0 0FB6      		in __tmp_reg__,__SREG__
+ 705 00a2 F894      		cli
+ 706 00a4 9EBF      		out __SP_H__,r25
+ 707 00a6 0FBE      		out __SREG__,__tmp_reg__
+ 708 00a8 8DBF      		out __SP_L__,r24
+ 709               		.cfi_def_cfa_offset 2
+ 710               	.L18:
+ 148:main.c        **** 
+ 149:main.c        **** 	/* Infinite loop */
+ 150:main.c        **** 	for(;;)
+ 711               		.loc 1 150 2 is_stmt 1 discriminator 1 view .LVU96
+ 151:main.c        **** 	{
+ 152:main.c        **** 	}
+ 712               		.loc 1 152 2 discriminator 1 view .LVU97
+ 150:main.c        **** 	{
+ 713               		.loc 1 150 2 discriminator 1 view .LVU98
+ 714 00aa 00C0      		rjmp .L18
+ 715               		.cfi_endproc
+ 716               	.LFE19:
+ 718               		.section	.progmem.data,"a",@progbits
+ 721               	__c.0:
+ 722 0000 5365 7475 		.string	"Setup done!"
+ 722      7020 646F 
+ 722      6E65 2100 
+ 725               	__c.1:
+ 726 000c 0A53 7461 		.string	"\nStarting RISC-V Emulator Kernel ...\n\n"
+ 726      7274 696E 
+ 726      6720 5249 
+ 726      5343 2D56 
+ 726      2045 6D75 
+ 729               	__c.2:
+ 730 0033 0A49 6D61 		.string	"\nImaginaryOS Version 0.1 Booting ...\n"
+ 730      6769 6E61 
+ 730      7279 4F53 
+ 730      2056 6572 
+ 730      7369 6F6E 
+ 733               	logo_text:
+ 734 0059 00        		.string	""
+ 735 005a 00        		.string	""
+ 736 005b DFFF FFBC 		.string	"\337\377\377\274"
+ 736      00
+ 737 0060 00        		.string	""
+ 738 0061 00        		.string	""
+ 739 0062 00        		.string	""
+ 740 0063 00        		.string	""
+ 741 0064 00        		.string	""
+ 742 0065 00        		.string	""
+ 743 0066 00        		.string	""
+ 744 0067 00        		.string	""
+ 745 0068 00        		.string	""
+ 746 0069 00        		.string	""
+ 747 006a 00        		.string	""
+ 748 006b 00        		.string	""
+ 749 006c 00        		.string	""
+ 750 006d 00        		.string	""
+ 751 006e 00        		.string	""
+ 752 006f 00        		.string	""
+ 753 0070 00        		.string	""
+ 754 0071 00        		.string	""
+ 755 0072 00        		.string	""
+ 756 0073 00        		.string	""
+ 757 0074 00        		.string	""
+ 758 0075 00        		.string	""
+ 759 0076 00        		.string	""
+ 760 0077 00        		.string	""
+ 761 0078 00        		.string	""
+ 762 0079 00        		.string	""
+ 763 007a 00        		.string	""
+ 764 007b 00        		.string	""
+ 765 007c 00        		.string	""
+ 766 007d 00        		.string	""
+ 767 007e 00        		.string	""
+ 768 007f 00        		.string	""
+ 769 0080 00        		.string	""
+ 770 0081 00        		.string	""
+ 771 0082 00        		.string	""
+ 772 0083 00        		.string	""
+ 773 0084 00        		.string	""
+ 774 0085 00        		.string	""
+ 775 0086 C5F9 9C00 		.string	"\305\371\234"
+ 776 008a 00        		.string	""
+ 777 008b 00        		.string	""
+ 778 008c 00        		.string	""
+ 779 008d 00        		.string	""
+ 780 008e 00        		.string	""
+ 781 008f 00        		.string	""
+ 782 0090 00        		.string	""
+ 783 0091 00        		.string	""
+ 784 0092 00        		.string	""
+ 785 0093 00        		.string	""
+ 786 0094 00        		.string	""
+ 787 0095 00        		.string	""
+ 788 0096 00        		.string	""
+ 789 0097 00        		.string	""
+ 790 0098 00        		.string	""
+ 791 0099 00        		.string	""
+ 792 009a 00        		.string	""
+ 793 009b 00        		.string	""
+ 794 009c 00        		.string	""
+ 795 009d 00        		.string	""
+ 796 009e 00        		.string	""
+ 797 009f 00        		.string	""
+ 798 00a0 00        		.string	""
+ 799 00a1 00        		.string	""
+ 800 00a2 00        		.string	""
+ 801 00a3 00        		.string	""
+ 802 00a4 00        		.string	""
+ 803 00a5 00        		.string	""
+ 804 00a6 00        		.string	""
+ 805 00a7 00        		.string	""
+ 806 00a8 00        		.string	""
+ 807 00a9 00        		.string	""
+ 808 00aa 00        		.string	""
+ 809 00ab 00        		.string	""
+ 810 00ac 00        		.string	""
+ 811 00ad 00        		.string	""
+ 812 00ae 00        		.string	""
+ 813 00af 00        		.string	""
+ 814 00b0 00        		.string	""
+ 815 00b1 00        		.string	""
+ 816 00b2 00        		.string	""
+ 817 00b3 00        		.string	""
+ 818 00b4 00        		.string	""
+ 819 00b5 00        		.string	""
+ 820 00b6 00        		.string	""
+ 821 00b7 00        		.string	""
+ 822 00b8 00        		.string	""
+ 823 00b9 00        		.string	""
+ 824 00ba 00        		.string	""
+ 825 00bb 00        		.string	""
+ 826 00bc 00        		.string	""
+ 827 00bd 00        		.string	""
+ 828 00be 00        		.string	""
+ 829 00bf B0FF FFE5 		.string	"\260\377\377\345"
+ 829      00
+ 830 00c4 0DF8 F8DC 		.string	"\r\370\370\334\210"
+ 830      8800 
+ 831 00ca 00        		.string	""
+ 832 00cb 00        		.string	""
+ 833 00cc 00        		.string	""
+ 834 00cd AAFF FFFF 		.string	"\252\377\377\377\3745"
+ 834      FC35 00
+ 835 00d4 00        		.string	""
+ 836 00d5 00        		.string	""
+ 837 00d6 00        		.string	""
+ 838 00d7 00        		.string	""
+ 839 00d8 00        		.string	""
+ 840 00d9 00        		.string	""
+ 841 00da 00        		.string	""
+ 842 00db 00        		.string	""
+ 843 00dc 00        		.string	""
+ 844 00dd 00        		.string	""
+ 845 00de 00        		.string	""
+ 846 00df 00        		.string	""
+ 847 00e0 00        		.string	""
+ 848 00e1 00        		.string	""
+ 849 00e2 00        		.string	""
+ 850 00e3 00        		.string	""
+ 851 00e4 00        		.string	""
+ 852 00e5 00        		.string	""
+ 853 00e6 00        		.string	""
+ 854 00e7 00        		.string	""
+ 855 00e8 00        		.string	""
+ 856 00e9 00        		.string	""
+ 857 00ea 00        		.string	""
+ 858 00eb 00        		.string	""
+ 859 00ec 00        		.string	""
+ 860 00ed 00        		.string	""
+ 861 00ee 00        		.string	""
+ 862 00ef 00        		.string	""
+ 863 00f0 ADD5 6700 		.string	"\255\325g"
+ 864 00f4 00        		.string	""
+ 865 00f5 00        		.string	""
+ 866 00f6 00        		.string	""
+ 867 00f7 00        		.string	""
+ 868 00f8 00        		.string	""
+ 869 00f9 00        		.string	""
+ 870 00fa 00        		.string	""
+ 871 00fb 00        		.string	""
+ 872 00fc 00        		.string	""
+ 873 00fd 00        		.string	""
+ 874 00fe 00        		.string	""
+ 875 00ff 00        		.string	""
+ 876 0100 00        		.string	""
+ 877 0101 00        		.string	""
+ 878 0102 00        		.string	""
+ 879 0103 00        		.string	""
+ 880 0104 00        		.string	""
+ 881 0105 00        		.string	""
+ 882 0106 00        		.string	""
+ 883 0107 00        		.string	""
+ 884 0108 00        		.string	""
+ 885 0109 00        		.string	""
+ 886 010a 00        		.string	""
+ 887 010b 00        		.string	""
+ 888 010c 00        		.string	""
+ 889 010d 00        		.string	""
+ 890 010e 00        		.string	""
+ 891 010f 00        		.string	""
+ 892 0110 00        		.string	""
+ 893 0111 00        		.string	""
+ 894 0112 00        		.string	""
+ 895 0113 00        		.string	""
+ 896 0114 00        		.string	""
+ 897 0115 00        		.string	""
+ 898 0116 89DB F6F7 		.string	"\211\333\366\367\342\207"
+ 898      E287 00
+ 899 011d 00        		.string	""
+ 900 011e 00        		.string	""
+ 901 011f 86E1 FAF5 		.string	"\206\341\372\365\337\206"
+ 901      DF86 00
+ 902 0126 00        		.string	""
+ 903 0127 00        		.string	""
+ 904 0128 00        		.string	""
+ 905 0129 ADE4 FFC9 		.string	"\255\344\377\311"
+ 905      00
+ 906 012e 6AFF D200 		.string	"j\377\322"
+ 907 0132 00        		.string	""
+ 908 0133 00        		.string	""
+ 909 0134 00        		.string	""
+ 910 0135 00        		.string	""
+ 911 0136 00        		.string	""
+ 912 0137 7EED FFEE 		.string	"~\355\377\356\237"
+ 912      9F00 
+ 913 013d 00        		.string	""
+ 914 013e 00        		.string	""
+ 915 013f 00        		.string	""
+ 916 0140 00        		.string	""
+ 917 0141 00        		.string	""
+ 918 0142 00        		.string	""
+ 919 0143 00        		.string	""
+ 920 0144 00        		.string	""
+ 921 0145 00        		.string	""
+ 922 0146 00        		.string	""
+ 923 0147 00        		.string	""
+ 924 0148 00        		.string	""
+ 925 0149 00        		.string	""
+ 926 014a 00        		.string	""
+ 927 014b 00        		.string	""
+ 928 014c 00        		.string	""
+ 929 014d 00        		.string	""
+ 930 014e 00        		.string	""
+ 931 014f 00        		.string	""
+ 932 0150 00        		.string	""
+ 933 0151 00        		.string	""
+ 934 0152 00        		.string	""
+ 935 0153 00        		.string	""
+ 936 0154 00        		.string	""
+ 937 0155 00        		.string	""
+ 938 0156 00        		.string	""
+ 939 0157 00        		.string	""
+ 940 0158 00        		.string	""
+ 941 0159 00        		.string	""
+ 942 015a 00        		.string	""
+ 943 015b 00        		.string	""
+ 944 015c 00        		.string	""
+ 945 015d 00        		.string	""
+ 946 015e 00        		.string	""
+ 947 015f 00        		.string	""
+ 948 0160 00        		.string	""
+ 949 0161 00        		.string	""
+ 950 0162 00        		.string	""
+ 951 0163 00        		.string	""
+ 952 0164 00        		.string	""
+ 953 0165 00        		.string	""
+ 954 0166 00        		.string	""
+ 955 0167 00        		.string	""
+ 956 0168 00        		.string	""
+ 957 0169 00        		.string	""
+ 958 016a 00        		.string	""
+ 959 016b 00        		.string	""
+ 960 016c 00        		.string	""
+ 961 016d 00        		.string	""
+ 962 016e 00        		.string	""
+ 963 016f 00        		.string	""
+ 964 0170 00        		.string	""
+ 965 0171 00        		.string	""
+ 966 0172 1C00      		.string	"\034"
+ 967 0174 00        		.string	""
+ 968 0175 00        		.string	""
+ 969 0176 00        		.string	""
+ 970 0177 00        		.string	""
+ 971 0178 00        		.string	""
+ 972 0179 00        		.string	""
+ 973 017a 00        		.string	""
+ 974 017b 00        		.string	""
+ 975 017c 00        		.string	""
+ 976 017d 00        		.string	""
+ 977 017e 00        		.string	""
+ 978 017f ADFE FFE7 		.string	"\255\376\377\347\354\377\374t"
+ 978      ECFF FC74 
+ 978      00
+ 979 0188 70FB FFE7 		.string	"p\373\377\347\350\375y"
+ 979      E8FD 7900 
+ 980 0190 00        		.string	""
+ 981 0191 00        		.string	""
+ 982 0192 00        		.string	""
+ 983 0193 00        		.string	""
+ 984 0194 A0FF A700 		.string	"\240\377\247"
+ 985 0198 9EFF B000 		.string	"\236\377\260"
+ 986 019c 00        		.string	""
+ 987 019d 00        		.string	""
+ 988 019e 00        		.string	""
+ 989 019f 00        		.string	""
+ 990 01a0 00        		.string	""
+ 991 01a1 00        		.string	""
+ 992 01a2 D5FF AD00 		.string	"\325\377\255"
+ 993 01a6 84FF AAC7 		.string	"\204\377\252\307\371\351]\247\363\364\226"
+ 993      F9E9 5DA7 
+ 993      F3F4 9600 
+ 994 01b2 00        		.string	""
+ 995 01b3 00        		.string	""
+ 996 01b4 A1F0 F8B2 		.string	"\241\360\370\262\325\372\034"
+ 996      D5FA 1C00 
+ 997 01bc A2F1 F8AD 		.string	"\242\361\370\255\325\371\034\204\377\353"
+ 997      D5F9 1C84 
+ 997      FFEB 00
+ 998 01c7 84FF AAC7 		.string	"\204\377\252\307\371\353n"
+ 998      F9EB 6E00 
+ 999 01cf 00        		.string	""
+ 1000 01d0 A1F0 F8B2 		.string	"\241\360\370\262\325\372\034\204\377\260\321\372\274\377\343"
+ 1000      D5FA 1C84 
+ 1000      FFB0 D1FA 
+ 1000      BCFF E300 
+ 1001 01e0 00        		.string	""
+ 1002 01e1 BAFF DE00 		.string	"\272\377\336"
+ 1003 01e5 00        		.string	""
+ 1004 01e6 00        		.string	""
+ 1005 01e7 00        		.string	""
+ 1006 01e8 75FD FD9A 		.string	"u\375\375\232"
+ 1006      00
+ 1007 01ed 0DD7 FFCB 		.string	"\r\327\377\313"
+ 1007      00
+ 1008 01f2 BCFF D700 		.string	"\274\377\327"
+ 1009 01f6 00        		.string	""
+ 1010 01f7 5100      		.string	"Q"
+ 1011 01f9 00        		.string	""
+ 1012 01fa 00        		.string	""
+ 1013 01fb 00        		.string	""
+ 1014 01fc 00        		.string	""
+ 1015 01fd 00        		.string	""
+ 1016 01fe C5FF 7600 		.string	"\305\377v"
+ 1017 0202 C2FF 8300 		.string	"\302\377\203"
+ 1018 0206 00        		.string	""
+ 1019 0207 00        		.string	""
+ 1020 0208 00        		.string	""
+ 1021 0209 00        		.string	""
+ 1022 020a 00        		.string	""
+ 1023 020b 00        		.string	""
+ 1024 020c F0FF 7D00 		.string	"\360\377}"
+ 1025 0210 B0FF ECEE 		.string	"\260\377\354\356\366\377\344\366\356\377\353"
+ 1025      F6FF E4F6 
+ 1025      EEFF EB00 
+ 1026 021c 00        		.string	""
+ 1027 021d 90FE FDE3 		.string	"\220\376\375\343\374\374\343"
+ 1027      FCFC E300 
+ 1028 0225 90FE FDE3 		.string	"\220\376\375\343\375\374\341"
+ 1028      FDFC E100 
+ 1029 022d B0FF CF00 		.string	"\260\377\317"
+ 1030 0231 B0FF ECEE 		.string	"\260\377\354\356\365\377\315"
+ 1030      F5FF CD00 
+ 1031 0239 90FE FDE3 		.string	"\220\376\375\343\374\374\343"
+ 1031      FCFC E300 
+ 1032 0241 B0FF F6F5 		.string	"\260\377\366\365\342f\377\360"
+ 1032      E266 FFF0 
+ 1032      00
+ 1033 024a 3DF6 FE7C 		.string	"=\366\376|"
+ 1033      00
+ 1034 024f 00        		.string	""
+ 1035 0250 00        		.string	""
+ 1036 0251 00        		.string	""
+ 1037 0252 D2FF D000 		.string	"\322\377\320"
+ 1038 0256 00        		.string	""
+ 1039 0257 00        		.string	""
+ 1040 0258 A5FF DF00 		.string	"\245\377\337"
+ 1041 025c B2FF E942 		.string	"\262\377\351B"
+ 1041      00
+ 1042 0261 00        		.string	""
+ 1043 0262 00        		.string	""
+ 1044 0263 00        		.string	""
+ 1045 0264 00        		.string	""
+ 1046 0265 00        		.string	""
+ 1047 0266 00        		.string	""
+ 1048 0267 00        		.string	""
+ 1049 0268 E2FA 2200 		.string	"\342\372\""
+ 1050 026c E0FC 3500 		.string	"\340\3745"
+ 1051 0270 00        		.string	""
+ 1052 0271 00        		.string	""
+ 1053 0272 00        		.string	""
+ 1054 0273 00        		.string	""
+ 1055 0274 00        		.string	""
+ 1056 0275 51FF FB2A 		.string	"Q\377\373*"
+ 1056      00
+ 1057 027a D0FF E72A 		.string	"\320\377\347*\264\377\373mp\377\364"
+ 1057      B4FF FB6D 
+ 1057      70FF F400 
+ 1058 0286 00        		.string	""
+ 1059 0287 E4FF B200 		.string	"\344\377\262"
+ 1060 028b D3FF C600 		.string	"\323\377\306"
+ 1061 028f E4FF B200 		.string	"\344\377\262"
+ 1062 0293 D5FF C100 		.string	"\325\377\301"
+ 1063 0297 D0FF AE00 		.string	"\320\377\256"
+ 1064 029b D0FF E72A 		.string	"\320\377\347*\247\377\331"
+ 1064      A7FF D900 
+ 1065 02a3 E4FF B200 		.string	"\344\377\262"
+ 1066 02a7 D3FF C600 		.string	"\323\377\306"
+ 1067 02ab D0FF E845 		.string	"\320\377\350E"
+ 1067      00
+ 1068 02b0 00        		.string	""
+ 1069 02b1 F7FC 0DB4 		.string	"\367\374\r\264\377\325"
+ 1069      FFD5 00
+ 1070 02b8 00        		.string	""
+ 1071 02b9 00        		.string	""
+ 1072 02ba 00        		.string	""
+ 1073 02bb 0DF7 FF85 		.string	"\r\367\377\205"
+ 1073      00
+ 1074 02c0 00        		.string	""
+ 1075 02c1 00        		.string	""
+ 1076 02c2 AAFF DC00 		.string	"\252\377\334"
+ 1077 02c6 58F5 FFEE 		.string	"X\365\377\356v"
+ 1077      7600 
+ 1078 02cc 00        		.string	""
+ 1079 02cd 00        		.string	""
+ 1080 02ce 00        		.string	""
+ 1081 02cf 00        		.string	""
+ 1082 02d0 00        		.string	""
+ 1083 02d1 1CFA E500 		.string	"\034\372\345"
+ 1084 02d5 0DF8 E800 		.string	"\r\370\350"
+ 1085 02d9 00        		.string	""
+ 1086 02da 00        		.string	""
+ 1087 02db 00        		.string	""
+ 1088 02dc 00        		.string	""
+ 1089 02dd 00        		.string	""
+ 1090 02de 00        		.string	""
+ 1091 02df 94FF E500 		.string	"\224\377\345"
+ 1092 02e3 00        		.string	""
+ 1093 02e4 ECFF 9F00 		.string	"\354\377\237"
+ 1094 02e8 C1FF D000 		.string	"\301\377\320"
+ 1095 02ec 8AFF E500 		.string	"\212\377\345"
+ 1096 02f0 6AFF F832 		.string	"j\377\3702"
  1096      00
- 1097 048c 00        		.string	""
- 1098 048d BDF9 EF98 		.string	"\275\371\357\230\377\303"
- 1098      FFC3 00
- 1099 0494 00        		.string	""
- 1100 0495 BEFA E7CB 		.string	"\276\372\347\313\377\266"
- 1100      FFB6 00
- 1101 049c D2FF AB00 		.string	"\322\377\253"
- 1102 04a0 D2FF AC00 		.string	"\322\377\254"
- 1103 04a4 8EFF E300 		.string	"\216\377\343"
- 1104 04a8 00        		.string	""
- 1105 04a9 BDF9 EF98 		.string	"\275\371\357\230\377\303"
- 1105      FFC3 00
- 1106 04b0 D2FF AB00 		.string	"\322\377\253"
- 1107 04b4 00        		.string	""
- 1108 04b5 00        		.string	""
- 1109 04b6 00        		.string	""
- 1110 04b7 8AFF F749 		.string	"\212\377\367I"
+ 1097 02f5 CBFF A26A 		.string	"\313\377\242j\377\3702"
+ 1097      FFF8 3200 
+ 1098 02fd CDFF 9B00 		.string	"\315\377\233"
+ 1099 0301 ECFF 8200 		.string	"\354\377\202"
+ 1100 0305 ECFF 9F00 		.string	"\354\377\237"
+ 1101 0309 B4FF C96A 		.string	"\264\377\311j\377\3702"
+ 1101      FFF8 3200 
+ 1102 0311 CBFF A200 		.string	"\313\377\242"
+ 1103 0315 ECFF 9200 		.string	"\354\377\222"
+ 1104 0319 00        		.string	""
+ 1105 031a 00        		.string	""
+ 1106 031b E5FF 5EF3 		.string	"\345\377^\363\374k"
+ 1106      FC6B 00
+ 1107 0322 00        		.string	""
+ 1108 0323 00        		.string	""
+ 1109 0324 00        		.string	""
+ 1110 0325 58FF FF49 		.string	"X\377\377I"
  1110      00
- 1111 04bc 00        		.string	""
- 1112 04bd 00        		.string	""
- 1113 04be 00        		.string	""
- 1114 04bf 00        		.string	""
- 1115 04c0 00        		.string	""
- 1116 04c1 00        		.string	""
- 1117 04c2 22BC F0FC 		.string	"\"\274\360\374\362\316^"
- 1117      F2CE 5E00 
- 1118 04ca 00        		.string	""
- 1119 04cb AAED FBF6 		.string	"\252\355\373\366\326p"
- 1119      D670 00
- 1120 04d2 00        		.string	""
- 1121 04d3 00        		.string	""
- 1122 04d4 00        		.string	""
- 1123 04d5 00        		.string	""
- 1124 04d6 32FC E400 		.string	"2\374\344"
- 1125 04da 00        		.string	""
- 1126 04db F8F9 DC70 		.string	"\370\371\334p"
- 1126      00
- 1127 04e0 00        		.string	""
- 1128 04e1 00        		.string	""
- 1129 04e2 00        		.string	""
- 1130 04e3 00        		.string	""
- 1131 04e4 00        		.string	""
- 1132 04e5 00        		.string	""
- 1133 04e6 00        		.string	""
- 1134 04e7 00        		.string	""
- 1135 04e8 00        		.string	""
- 1136 04e9 00        		.string	""
- 1137 04ea 00        		.string	""
- 1138 04eb 00        		.string	""
- 1139 04ec 00        		.string	""
- 1140 04ed 00        		.string	""
- 1141 04ee 00        		.string	""
- 1142 04ef 00        		.string	""
- 1143 04f0 00        		.string	""
- 1144 04f1 00        		.string	""
- 1145 04f2 00        		.string	""
- 1146 04f3 00        		.string	""
- 1147 04f4 00        		.string	""
- 1148 04f5 00        		.string	""
- 1149 04f6 00        		.string	""
- 1150 04f7 00        		.string	""
- 1151 04f8 00        		.string	""
- 1152 04f9 00        		.string	""
- 1153 04fa 00        		.string	""
- 1154 04fb 00        		.string	""
- 1155 04fc 00        		.string	""
- 1156 04fd 00        		.string	""
- 1157 04fe 4700      		.string	"G"
- 1158 0500 00        		.string	""
- 1159 0501 38EB FF7C 		.string	"8\353\377|"
- 1159      00
- 1160 0506 00        		.string	""
- 1161 0507 00        		.string	""
- 1162 0508 00        		.string	""
- 1163 0509 00        		.string	""
- 1164 050a 00        		.string	""
- 1165 050b 00        		.string	""
- 1166 050c 00        		.string	""
- 1167 050d 00        		.string	""
- 1168 050e 00        		.string	""
- 1169 050f 00        		.string	""
- 1170 0510 00        		.string	""
- 1171 0511 00        		.string	""
- 1172 0512 00        		.string	""
- 1173 0513 00        		.string	""
- 1174 0514 00        		.string	""
- 1175 0515 00        		.string	""
- 1176 0516 00        		.string	""
- 1177 0517 00        		.string	""
- 1178 0518 00        		.string	""
- 1179 0519 00        		.string	""
- 1180 051a 00        		.string	""
- 1181 051b 00        		.string	""
- 1182 051c 00        		.string	""
- 1183 051d 00        		.string	""
- 1184 051e 00        		.string	""
- 1185 051f 00        		.string	""
- 1186 0520 26E2 FFB4 		.string	"&\342\377\264"
- 1186      00
- 1187 0525 00        		.string	""
- 1188 0526 00        		.string	""
- 1189 0527 00        		.string	""
- 1190 0528 00        		.string	""
- 1191 0529 00        		.string	""
- 1192 052a 00        		.string	""
- 1193 052b 00        		.string	""
- 1194 052c 00        		.string	""
- 1195 052d 00        		.string	""
- 1196 052e 00        		.string	""
- 1197 052f 00        		.string	""
- 1198 0530 00        		.string	""
- 1199 0531 00        		.string	""
- 1200 0532 00        		.string	""
- 1201 0533 00        		.string	""
- 1202 0534 00        		.string	""
- 1203 0535 00        		.string	""
- 1204 0536 00        		.string	""
- 1205 0537 00        		.string	""
- 1206 0538 00        		.string	""
- 1207 0539 00        		.string	""
- 1208 053a 00        		.string	""
- 1209 053b 00        		.string	""
- 1210 053c 00        		.string	""
- 1211 053d 00        		.string	""
- 1212 053e 00        		.string	""
- 1213 053f BAE1 FFC8 		.string	"\272\341\377\310"
- 1213      00
- 1214 0544 00        		.string	""
- 1215 0545 FFFF FF4D 		.string	"\377\377\377M"
- 1215      00
- 1216 054a 00        		.string	""
- 1217 054b 00        		.string	""
- 1218 054c 00        		.string	""
- 1219 054d 00        		.string	""
- 1220 054e 00        		.string	""
- 1221 054f 00        		.string	""
- 1222 0550 00        		.string	""
- 1223 0551 00        		.string	""
- 1224 0552 00        		.string	""
- 1225 0553 00        		.string	""
- 1226 0554 00        		.string	""
- 1227 0555 00        		.string	""
- 1228 0556 00        		.string	""
- 1229 0557 00        		.string	""
- 1230 0558 00        		.string	""
- 1231 0559 00        		.string	""
- 1232 055a 00        		.string	""
- 1233 055b 00        		.string	""
- 1234 055c 00        		.string	""
- 1235 055d 00        		.string	""
- 1236 055e 00        		.string	""
- 1237 055f 00        		.string	""
- 1238 0560 00        		.string	""
- 1239 0561 00        		.string	""
- 1240 0562 00        		.string	""
- 1241 0563 00        		.string	""
- 1242 0564 00        		.string	""
- 1243 0565 00        		.string	""
- 1244 0566 00        		.string	""
- 1245 0567 00        		.string	""
- 1246 0568 E7EB DFF3 		.string	"\347\353\337\363\377\336"
- 1246      FFDE 00
- 1247 056f 00        		.string	""
- 1248 0570 00        		.string	""
- 1249 0571 00        		.string	""
- 1250 0572 00        		.string	""
- 1251 0573 00        		.string	""
- 1252 0574 00        		.string	""
- 1253 0575 00        		.string	""
- 1254 0576 00        		.string	""
- 1255 0577 00        		.string	""
- 1256 0578 00        		.string	""
- 1257 0579 00        		.string	""
- 1258 057a 00        		.string	""
- 1259 057b 00        		.string	""
- 1260 057c 00        		.string	""
- 1261 057d 00        		.string	""
- 1262 057e 00        		.string	""
- 1263 057f 00        		.string	""
- 1264 0580 00        		.string	""
- 1265 0581 00        		.string	""
- 1266 0582 00        		.string	""
- 1267 0583 00        		.string	""
- 1268 0584 00        		.string	""
- 1269 0585 00        		.string	""
- 1270 0586 00        		.string	""
- 1271 0587 00        		.string	""
- 1272 0588 00        		.string	""
- 1273 0589 DCF0 FFE7 		.string	"\334\360\377\347&"
- 1273      2600 
- 1274 058f 00        		.string	""
- 1275 0590 00        		.string	""
- 1276 0591 00        		.string	""
- 1277 0592 00        		.string	""
- 1278 0593 00        		.string	""
- 1279 0594 00        		.string	""
- 1280 0595 00        		.string	""
- 1281 0596 00        		.string	""
- 1282 0597 00        		.string	""
- 1283 0598 00        		.string	""
- 1284 0599 00        		.string	""
- 1285 059a 00        		.string	""
- 1286 059b 00        		.string	""
- 1287 059c 00        		.string	""
- 1288 059d 00        		.string	""
- 1289 059e 00        		.string	""
- 1290 059f 00        		.string	""
- 1291 05a0 00        		.string	""
- 1292 05a1 00        		.string	""
- 1293 05a2 00        		.string	""
- 1294 05a3 00        		.string	""
- 1295 05a4 00        		.string	""
- 1296 05a5 00        		.string	""
- 1297 05a6 00        		.string	""
- 1298 05a7 00        		.string	""
- 1299 05a8 00        		.string	""
- 1300 05a9 EDFF FFA5 		.string	"\355\377\377\245"
- 1300      00
- 1301 05ae 00        		.string	""
- 1302 05af 00        		.string	""
- 1303 05b0 00        		.string	""
- 1304 05b1 00        		.string	""
- 1305 05b2 00        		.string	""
- 1306 05b3 00        		.string	""
- 1307 05b4 00        		.string	""
- 1308 05b5 00        		.string	""
- 1309 05b6 00        		.string	""
- 1310 05b7 00        		.string	""
- 1311 05b8 00        		.string	""
- 1312 05b9 00        		.string	""
- 1313 05ba 00        		.string	""
- 1314 05bb 00        		.string	""
- 1315 05bc 00        		.string	""
- 1316 05bd 00        		.string	""
- 1317 05be 00        		.string	""
- 1318 05bf 00        		.string	""
- 1319 05c0 00        		.string	""
- 1320 05c1 00        		.string	""
- 1321 05c2 00        		.string	""
- 1322 05c3 00        		.string	""
- 1323 05c4 00        		.string	""
- 1324 05c5 00        		.string	""
- 1325 05c6 00        		.string	""
- 1326 05c7 00        		.string	""
- 1327 05c8 00        		.string	""
- 1328 05c9 00        		.string	""
- 1329 05ca 00        		.string	""
- 1330 05cb 00        		.string	""
- 1331 05cc 00        		.string	""
- 1332 05cd 00        		.string	""
- 1333 05ce 00        		.string	""
- 1334 05cf 00        		.string	""
- 1335 05d0 00        		.string	""
- 1336 05d1 00        		.string	""
- 1337 05d2 C1F3 FDF5 		.string	"\301\363\375\365\313E"
- 1337      CB45 00
- 1338 05d9 00        		.string	""
- 1339 05da 00        		.string	""
- 1340 05db 00        		.string	""
- 1341 05dc 00        		.string	""
- 1342 05dd 00        		.string	""
- 1343 05de 00        		.string	""
- 1344 05df 00        		.string	""
- 1345 05e0 00        		.string	""
- 1346 05e1 00        		.string	""
- 1347 05e2 00        		.string	""
- 1348 05e3 00        		.string	""
- 1349 05e4 00        		.string	""
- 1350 05e5 00        		.string	""
- 1351 05e6 00        		.string	""
- 1352 05e7 00        		.string	""
- 1353 05e8 00        		.string	""
- 1354 05e9 00        		.string	""
- 1355 05ea 00        		.string	""
- 1356 05eb 00        		.string	""
- 1357 05ec 00        		.string	""
- 1358 05ed 00        		.string	""
- 1359 05ee 00        		.string	""
- 1360 05ef 00        		.string	""
- 1361 05f0 00        		.string	""
- 1362 05f1 00        		.string	""
- 1363 05f2 00        		.string	""
- 1364 05f3 F6F7 D049 		.string	"\366\367\320I"
- 1364      00
- 1365 05f8 00        		.string	""
- 1366 05f9 00        		.string	""
- 1367 05fa 00        		.string	""
- 1368 05fb 00        		.string	""
- 1369 05fc 00        		.string	""
- 1370 05fd 00        		.string	""
- 1371 05fe 00        		.string	""
- 1372 05ff 00        		.string	""
- 1373 0600 00        		.string	""
- 1374 0601 00        		.string	""
- 1375 0602 00        		.string	""
- 1376 0603 00        		.string	""
- 1377 0604 00        		.string	""
- 1378 0605 00        		.string	""
- 1379 0606 00        		.string	""
- 1380 0607 00        		.string	""
- 1381 0608 00        		.string	""
- 1382 0609 00        		.string	""
- 1383 060a 00        		.string	""
- 1384 060b 00        		.string	""
- 1385 060c 00        		.string	""
- 1386 060d 00        		.string	""
- 1387 060e 00        		.string	""
- 1388 060f 00        		.string	""
- 1389 0610 00        		.string	""
- 1390 0611 00        		.string	""
- 1391 0612 00        		.string	""
- 1392 0613 00        		.string	""
- 1393 0614 00        		.string	""
- 1394 0615 00        		.string	""
- 1395 0616 00        		.string	""
- 1396 0617 00        		.string	""
- 1397 0618 00        		.string	""
- 1400               	logo_tiny:
- 1401 0619 00        		.string	""
- 1402 061a 00        		.string	""
- 1403 061b 00        		.string	""
- 1404 061c 00        		.string	""
- 1405 061d 00        		.string	""
- 1406 061e 00        		.string	""
- 1407 061f 00        		.string	""
- 1408 0620 00        		.string	""
- 1409 0621 00        		.string	""
- 1410 0622 00        		.string	""
- 1411 0623 00        		.string	""
- 1412 0624 00        		.string	""
- 1413 0625 00        		.string	""
- 1414 0626 0B13 1A1F 		.string	"\013\023\032\037##\037\032\023\013\013"
- 1414      2323 1F1A 
- 1414      130B 0B00 
- 1415 0632 00        		.string	""
- 1416 0633 00        		.string	""
- 1417 0634 00        		.string	""
- 1418 0635 00        		.string	""
- 1419 0636 00        		.string	""
- 1420 0637 00        		.string	""
- 1421 0638 00        		.string	""
- 1422 0639 00        		.string	""
- 1423 063a 00        		.string	""
- 1424 063b 00        		.string	""
- 1425 063c 00        		.string	""
- 1426 063d 00        		.string	""
- 1427 063e 00        		.string	""
- 1428 063f 00        		.string	""
- 1429 0640 00        		.string	""
- 1430 0641 00        		.string	""
- 1431 0642 00        		.string	""
- 1432 0643 00        		.string	""
- 1433 0644 00        		.string	""
- 1434 0645 00        		.string	""
- 1435 0646 00        		.string	""
- 1436 0647 00        		.string	""
- 1437 0648 00        		.string	""
- 1438 0649 0B13 1A23 		.string	"\013\023\032#.691'\037\023\013\013"
- 1438      2E36 3931 
- 1438      271F 130B 
- 1438      0B00 
- 1439 0657 00        		.string	""
- 1440 0658 00        		.string	""
- 1441 0659 00        		.string	""
- 1442 065a 00        		.string	""
- 1443 065b 00        		.string	""
- 1444 065c 00        		.string	""
- 1445 065d 00        		.string	""
- 1446 065e 00        		.string	""
- 1447 065f 00        		.string	""
- 1448 0660 00        		.string	""
- 1449 0661 00        		.string	""
- 1450 0662 00        		.string	""
- 1451 0663 00        		.string	""
- 1452 0664 00        		.string	""
- 1453 0665 00        		.string	""
- 1454 0666 00        		.string	""
- 1455 0667 00        		.string	""
- 1456 0668 00        		.string	""
- 1457 0669 00        		.string	""
- 1458 066a 00        		.string	""
- 1459 066b 00        		.string	""
- 1460 066c 0B13 1F27 		.string	"\013\023\037'3AQTI9.\037\023\013"
- 1460      3341 5154 
- 1460      4939 2E1F 
- 1460      130B 00
- 1461 067b 00        		.string	""
- 1462 067c 00        		.string	""
- 1463 067d 00        		.string	""
- 1464 067e 00        		.string	""
- 1465 067f 00        		.string	""
- 1466 0680 00        		.string	""
- 1467 0681 00        		.string	""
- 1468 0682 00        		.string	""
- 1469 0683 00        		.string	""
- 1470 0684 00        		.string	""
- 1471 0685 00        		.string	""
- 1472 0686 00        		.string	""
- 1473 0687 00        		.string	""
- 1474 0688 00        		.string	""
- 1475 0689 00        		.string	""
- 1476 068a 00        		.string	""
- 1477 068b 00        		.string	""
- 1478 068c 00        		.string	""
- 1479 068d 00        		.string	""
- 1480 068e 00        		.string	""
- 1481 068f 0B13 1A27 		.string	"\013\023\032'6Ib\205\215oQ<.\037\023\013"
- 1481      3649 6285 
- 1481      8D6F 513C 
- 1481      2E1F 130B 
- 1481      00
- 1482 06a0 00        		.string	""
- 1483 06a1 00        		.string	""
- 1484 06a2 00        		.string	""
- 1485 06a3 00        		.string	""
- 1486 06a4 00        		.string	""
- 1487 06a5 00        		.string	""
- 1488 06a6 00        		.string	""
- 1489 06a7 00        		.string	""
- 1490 06a8 00        		.string	""
- 1491 06a9 00        		.string	""
- 1492 06aa 00        		.string	""
- 1493 06ab 00        		.string	""
- 1494 06ac 00        		.string	""
- 1495 06ad 00        		.string	""
- 1496 06ae 00        		.string	""
- 1497 06af 00        		.string	""
- 1498 06b0 00        		.string	""
- 1499 06b1 00        		.string	""
- 1500 06b2 0B0B 1A23 		.string	"\013\013\032#3Gb\223\377\377\251oO9'\032\023\013"
- 1500      3347 6293 
- 1500      FFFF A96F 
- 1500      4F39 271A 
- 1500      130B 00
- 1501 06c5 00        		.string	""
- 1502 06c6 00        		.string	""
- 1503 06c7 00        		.string	""
- 1504 06c8 00        		.string	""
- 1505 06c9 00        		.string	""
- 1506 06ca 00        		.string	""
- 1507 06cb 00        		.string	""
- 1508 06cc 00        		.string	""
- 1509 06cd 00        		.string	""
- 1510 06ce 00        		.string	""
- 1511 06cf 00        		.string	""
- 1512 06d0 00        		.string	""
- 1513 06d1 00        		.string	""
- 1514 06d2 00        		.string	""
- 1515 06d3 00        		.string	""
- 1516 06d4 00        		.string	""
- 1517 06d5 00        		.string	""
- 1518 06d6 0B13 1F2E 		.string	"\013\023\037.AW\200\317\377\377\377\223bI3#\023\013"
- 1518      4157 80CF 
- 1518      FFFF FF93 
- 1518      6249 3323 
- 1518      130B 00
- 1519 06e9 00        		.string	""
- 1520 06ea 00        		.string	""
- 1521 06eb 00        		.string	""
- 1522 06ec 00        		.string	""
- 1523 06ed 00        		.string	""
- 1524 06ee 00        		.string	""
- 1525 06ef 00        		.string	""
- 1526 06f0 00        		.string	""
- 1527 06f1 00        		.string	""
- 1528 06f2 00        		.string	""
- 1529 06f3 00        		.string	""
- 1530 06f4 00        		.string	""
- 1531 06f5 00        		.string	""
- 1532 06f6 00        		.string	""
- 1533 06f7 00        		.string	""
- 1534 06f8 00        		.string	""
- 1535 06f9 0B13 1A27 		.string	"\013\023\032'9Om\243\377\377\377\377\266xT>*\037\023\013"
- 1535      394F 6DA3 
- 1535      FFFF FFFF 
- 1535      B678 543E 
- 1535      2A1F 130B 
- 1536 070e 00        		.string	""
- 1537 070f 00        		.string	""
- 1538 0710 00        		.string	""
- 1539 0711 00        		.string	""
- 1540 0712 00        		.string	""
- 1541 0713 00        		.string	""
- 1542 0714 00        		.string	""
- 1543 0715 00        		.string	""
- 1544 0716 00        		.string	""
- 1545 0717 00        		.string	""
- 1546 0718 00        		.string	""
- 1547 0719 00        		.string	""
- 1548 071a 00        		.string	""
- 1549 071b 00        		.string	""
- 1550 071c 00        		.string	""
- 1551 071d 0B13 1F2E 		.string	"\013\023\037.AZ\210\377\377\377\377\377\377\223bG3#\023\013"
- 1551      415A 88FF 
- 1551      FFFF FFFF 
- 1551      FF93 6247 
- 1551      3323 130B 
- 1552 0732 00        		.string	""
- 1553 0733 00        		.string	""
- 1554 0734 00        		.string	""
- 1555 0735 00        		.string	""
- 1556 0736 00        		.string	""
- 1557 0737 00        		.string	""
- 1558 0738 00        		.string	""
- 1559 0739 00        		.string	""
- 1560 073a 00        		.string	""
- 1561 073b 00        		.string	""
- 1562 073c 00        		.string	""
- 1563 073d 00        		.string	""
- 1564 073e 00        		.string	""
- 1565 073f 00        		.string	""
- 1566 0740 0B13 1A27 		.string	"\013\023\032'6Lo\251\377\377\377\377\377\377\256rQ9'\032\023\013"
- 1566      364C 6FA9 
- 1566      FFFF FFFF 
- 1566      FFFF AE72 
- 1566      5139 271A 
- 1567 0757 00        		.string	""
- 1568 0758 00        		.string	""
- 1569 0759 00        		.string	""
- 1570 075a 00        		.string	""
- 1571 075b 00        		.string	""
- 1572 075c 00        		.string	""
- 1573 075d 00        		.string	""
- 1574 075e 00        		.string	""
- 1575 075f 00        		.string	""
- 1576 0760 00        		.string	""
- 1577 0761 00        		.string	""
- 1578 0762 00        		.string	""
- 1579 0763 0B0B 131F 		.string	"\013\013\023\037.AZ\215\377\377\345\377\327\377\377\377\213ZA.\037\023\013"
- 1579      2E41 5A8D 
- 1579      FFFF E5FF 
- 1579      D7FF FFFF 
- 1579      8B5A 412E 
- 1580 077b 00        		.string	""
- 1581 077c 00        		.string	""
- 1582 077d 00        		.string	""
- 1583 077e 00        		.string	""
- 1584 077f 00        		.string	""
- 1585 0780 00        		.string	""
- 1586 0781 00        		.string	""
- 1587 0782 00        		.string	""
- 1588 0783 00        		.string	""
- 1589 0784 00        		.string	""
- 1590 0785 00        		.string	""
- 1591 0786 00        		.string	""
- 1592 0787 0B13 1F27 		.string	"\013\023\037'9Ou\324\377\311\377\377\276\377\377\377\246mL6#\032\013\013"
- 1592      394F 75D4 
- 1592      FFC9 FFFF 
- 1592      BEFF FFFF 
- 1592      A66D 4C36 
- 1593 07a0 00        		.string	""
- 1594 07a1 00        		.string	""
- 1595 07a2 00        		.string	""
- 1596 07a3 00        		.string	""
- 1597 07a4 00        		.string	""
- 1598 07a5 00        		.string	""
- 1599 07a6 00        		.string	""
- 1600 07a7 00        		.string	""
- 1601 07a8 00        		.string	""
- 1602 07a9 00        		.string	""
- 1603 07aa 0B0B 1A23 		.string	"\013\013\032#1Ab\230\377\377\256\377\377\251\377\377\377\377\205W>*\037\023\013"
- 1603      3141 6298 
- 1603      FFFF AEFF 
- 1603      FFA9 FFFF 
- 1603      FFFF 8557 
- 1604 07c4 00        		.string	""
- 1605 07c5 00        		.string	""
- 1606 07c6 00        		.string	""
- 1607 07c7 00        		.string	""
- 1608 07c8 00        		.string	""
- 1609 07c9 00        		.string	""
- 1610 07ca 00        		.string	""
- 1611 07cb 00        		.string	""
- 1612 07cc 00        		.string	""
- 1613 07cd 00        		.string	""
- 1614 07ce 0B13 1F2A 		.string	"\013\023\037*<Q\202\377\377\246\240\377\324\226\307\377\370\377\240jG3#\032\013\013"
- 1614      3C51 82FF 
- 1614      FFA6 A0FF 
- 1614      D496 C7FF 
- 1614      F8FF A06A 
- 1615 07e9 00        		.string	""
- 1616 07ea 00        		.string	""
- 1617 07eb 00        		.string	""
- 1618 07ec 00        		.string	""
- 1619 07ed 00        		.string	""
- 1620 07ee 00        		.string	""
- 1621 07ef 00        		.string	""
- 1622 07f0 00        		.string	""
- 1623 07f1 0B13 1A23 		.string	"\013\023\032#3Gm\256\377\324\215\240\377\246\205\246\377\317\377\377\205T<*\037\023\013"
- 1623      3347 6DAE 
- 1623      FFD4 8DA0 
- 1623      FFA6 85A6 
- 1623      FFCF FFFF 
- 1624 080d 00        		.string	""
- 1625 080e 00        		.string	""
- 1626 080f 00        		.string	""
- 1627 0810 00        		.string	""
- 1628 0811 00        		.string	""
- 1629 0812 00        		.string	""
- 1630 0813 00        		.string	""
- 1631 0814 0B0B 131F 		.string	"\013\013\023\037.>Z\215\377\377\220}\251\377\230u\223\377\377\345\377\240gD1#\023\013\013
- 1631      2E3E 5A8D 
- 1631      FFFF 907D 
- 1631      A9FF 9875 
- 1631      93FF FFE5 
- 1632 0832 00        		.string	""
- 1633 0833 00        		.string	""
- 1634 0834 00        		.string	""
- 1635 0835 00        		.string	""
- 1636 0836 00        		.string	""
- 1637 0837 00        		.string	""
- 1638 0838 0B13 1F27 		.string	"\013\023\037'9Lx\355\377\240uz\342\377\213g\200\377\377\266\377\377\202Q9'\037\023\013"
- 1638      394C 78ED 
- 1638      FFA0 757A 
- 1638      E2FF 8B67 
- 1638      80FF FFB6 
- 1639 0856 00        		.string	""
- 1640 0857 00        		.string	""
- 1641 0858 00        		.string	""
- 1642 0859 00        		.string	""
- 1643 085a 00        		.string	""
- 1644 085b 0B13 1A23 		.string	"\013\023\032#3Ad\233\377\372\200d}\377\377}_o\253\377\264\327\377\240gD1#\023\013\013"
- 1644      3341 649B 
- 1644      FFFA 8064 
- 1644      7DFF FF7D 
- 1644      5F6F ABFF 
- 1645 087b 00        		.string	""
- 1646 087c 00        		.string	""
- 1647 087d 00        		.string	""
- 1648 087e 00        		.string	""
- 1649 087f 0B13 1F2A 		.string	"\013\023\037*<T\205\377\377\223g_\210\377\355rTd\230\377\276\246\377\377\202Q9'\037\023\0
- 1649      3C54 85FF 
- 1649      FF93 675F 
- 1649      88FF ED72 
- 1649      5464 98FF 
- 1650 089f 00        		.string	""
- 1651 08a0 00        		.string	""
- 1652 08a1 00        		.string	""
- 1653 08a2 0B13 1A27 		.string	"\013\023\032'6Io\307\377\266uWb\220\377\246gQZ\210\377\377\233\311\377\243gD1#\023\013\01
- 1653      3649 6FC7 
- 1653      FFB6 7557 
- 1653      6290 FFA6 
- 1653      6751 5A88 
- 1654 08c4 00        		.string	""
- 1655 08c5 0B0B 1323 		.string	"\013\013\023#1A_\223\377\377\205_Qg\233\377\226bOTx\370\377\233\236\377\377\202Q9'\037\02
- 1655      3141 5F93 
- 1655      FFFF 855F 
- 1655      5167 9BFF 
- 1655      9662 4F54 
- 1656 08e8 00        		.string	""
- 1657 08e9 0B13 1F2A 		.string	"\013\023\037*<T\200\377\377\230gTQm\274\377\215_QTm\246\377\246\215\311\377\246gD1#\032\0
- 1657      3C54 80FF 
- 1657      FF98 6754 
- 1657      516D BCFF 
- 1657      8D5F 5154 
- 1658 090d 131A 2736 		.string	"\023\032'6Lm\251\377\334}ZQWz\377\377\205_TZm\236\377\321\213\230\377\377\205T<*\037\023\
- 1658      4C6D A9FF 
- 1658      DC7D 5A51 
- 1658      577A FFFF 
- 1658      855F 545A 
- 1659 0931 131F 2E41 		.ascii	"\023\037.A_\223\377\377\223jZZb\213\377\377\213ruz\213\251\377"
- 1659      5F93 FFFF 
- 1659      936A 5A5A 
- 1659      628B FFFF 
- 1659      8B72 757A 
- 1660 0948 FFA0 8DC7 		.ascii	"\377\240\215\307\377\246jI3#\032\023\013\032'9Q\200\355\377\264"
- 1660      FFA6 6A49 
- 1660      3323 1A13 
- 1660      0B1A 2739 
- 1660      5180 EDFF 
- 1661 095d 8875 7578 		.ascii	"\210uux\210\251\377\342\251\256\337\377\377\377\377\377\332\236"
- 1661      88A9 FFE2 
- 1661      A9AE DFFF 
- 1661      FFFF FFFF 
- 1661      DA9E 
- 1662 096f A3FF FF8B 		.ascii	"\243\377\377\213Z>.\037\023\013\037.Ag\251\377\377\266\246\243"
- 1662      5A3E 2E1F 
- 1662      130B 1F2E 
- 1662      4167 A9FF 
- 1662      FFB6 A6A3 
- 1663 0983 BCF5 FFFF 		.ascii	"\274\365\377\377\377\377\377\377\377\377\377\342\377\377\377"
- 1663      FFFF FFFF 
- 1663      FFFF FFE2 
- 1663      FFFF FF
- 1664 0992 FDAB C9FF 		.ascii	"\375\253\311\377\256rL9'\037\023#3L\200\377\377\377\377\377\377"
- 1664      AE72 4C39 
- 1664      271F 1323 
- 1664      334C 80FF 
- 1664      FFFF FFFF 
- 1665 09a7 FFFF FFFF 		.ascii	"\377\377\377\377\377\301\240\220\210\202\202\236\377\377\377"
- 1665      FFC1 A090 
- 1665      8882 829E 
- 1665      FFFF FF
- 1666 09b6 FFFF C1FF 		.ascii	"\377\377\301\377\377\220_A3#\023#3O\205\377\377\377\334\266\243"
- 1666      FF90 5F41 
- 1666      3323 1323 
- 1666      334F 85FF 
- 1666      FFFF DCB6 
- 1667 09cb 9690 9BFD 		.ascii	"\226\220\233\375\377\230obZZg\226\377\332\240\314\377\377\347"
- 1667      FF98 6F62 
- 1667      5A5A 6796 
- 1667      FFDA A0CC 
- 1667      FFFF E7
- 1668 09de FFBC 78   		.ascii	"\377\274x"
- 1669 09e1 513C 2A1A 		.string	"Q<*\032#3Iu\311\377\377\377\256\215xr\215\377\377\202ZQQTg\236\377\246\202\215\256\377\37
- 1669      2333 4975 
- 1669      C9FF FFFF 
- 1669      AE8D 7872 
- 1669      8DFF FF82 
- 1670 0ae2 0B13 1F2A 		.string	"\013\023\037*<T\210\377\377\230\213\266\377\251zd__u\324\377\215bTWo\240\377\365}Q<*\037\
- 1670      3C54 88FF 
- 1670      FF98 8BB6 
- 1670      FFA9 7A64 
- 1670      5F5F 75D4 
- 1671 0b06 0B0B 1A23 		.string	"\013\013\032#3Dj\251\377\307\215\240\377\266uWQTz\377\377\200ZTb\213\377\377\220_A.#\023\
- 1671      3344 6AA9 
- 1671      FFC7 8DA0 
- 1671      FFB6 7557 
- 1671      5154 7AFF 
- 1672 0b2a 00        		.string	""
- 1673 0b2b 0B13 1F27 		.string	"\013\023\037'9Q\205\377\377\230\226\377\377}WOW\202\377\377uTWu\311\377\256mI6'\032\023\0
- 1673      3951 85FF 
- 1673      FF98 96FF 
- 1673      FF7D 574F 
- 1673      5782 FFFF 
- 1674 0b4e 00        		.string	""
- 1675 0b4f 0B0B 1323 		.string	"\013\013\023#1Dg\243\377\307\230\372\377\215_QZ\215\377\251mWg\223\377\377\202Q<*\037\023
- 1675      3144 67A3 
- 1675      FFC7 98FA 
- 1675      FF8D 5F51 
- 1675      5A8D FFA9 
- 1676 0b71 00        		.string	""
- 1677 0b72 00        		.string	""
- 1678 0b73 00        		.string	""
- 1679 0b74 0B13 1F27 		.string	"\013\023\037'9Q\202\377\377\243\256\377\233gTd\230\377\230g_\200\377\377\230bA1#\032\013\
- 1679      3951 82FF 
- 1679      FFA3 AEFF 
- 1679      9B67 5464 
- 1679      98FF 9867 
- 1680 0b95 00        		.string	""
- 1681 0b96 00        		.string	""
- 1682 0b97 00        		.string	""
- 1683 0b98 0B0B 1323 		.string	"\013\013\023#1Dg\246\377\321\253\377\311uZm\271\377\215gr\246\377\334uL6'\032\023\013"
- 1683      3144 67A6 
- 1683      FFD1 ABFF 
- 1683      C975 5A6D 
- 1683      B9FF 8D67 
- 1684 0bb8 00        		.string	""
- 1685 0bb9 00        		.string	""
- 1686 0bba 00        		.string	""
- 1687 0bbb 00        		.string	""
- 1688 0bbc 00        		.string	""
- 1689 0bbd 0B13 1F27 		.string	"\013\023\037'9Q\202\377\377\264\377\377\202bz\377\377\210m\220\377\377\213W>.\037\023\013
- 1689      3951 82FF 
- 1689      FFB4 FFFF 
- 1689      8262 7AFF 
- 1689      FF88 6D90 
- 1690 0bdb 00        		.string	""
- 1691 0bdc 00        		.string	""
- 1692 0bdd 00        		.string	""
- 1693 0bde 00        		.string	""
- 1694 0bdf 00        		.string	""
- 1695 0be0 00        		.string	""
- 1696 0be1 0B0B 1323 		.string	"\013\013\023#1Dg\243\377\334\365\377\226o\210\377\377\205\202\337\377\246gD3#\032\023\013
- 1696      3144 67A3 
- 1696      FFDC F5FF 
- 1696      966F 88FF 
- 1696      FF85 82DF 
- 1697 0bff 00        		.string	""
- 1698 0c00 00        		.string	""
- 1699 0c01 00        		.string	""
- 1700 0c02 00        		.string	""
- 1701 0c03 00        		.string	""
- 1702 0c04 00        		.string	""
- 1703 0c05 00        		.string	""
- 1704 0c06 0B13 1F2A 		.string	"\013\023\037*9T\205\377\377\311\377\246\200\226\377\301\210\240\377\377}Q9'\037\023\013"
- 1704      3954 85FF 
- 1704      FFC9 FFA6 
- 1704      8096 FFC1 
- 1704      88A0 FFFF 
- 1705 0c22 00        		.string	""
- 1706 0c23 00        		.string	""
- 1707 0c24 00        		.string	""
- 1708 0c25 00        		.string	""
- 1709 0c26 00        		.string	""
- 1710 0c27 00        		.string	""
- 1711 0c28 00        		.string	""
- 1712 0c29 00        		.string	""
- 1713 0c2a 0B0B 1323 		.string	"\013\013\023#3Gg\243\377\362\377\345\220\246\377\251\230\377\377\223_A.\037\023\013\013"
- 1713      3347 67A3 
- 1713      FFF2 FFE5 
- 1713      90A6 FFA9 
- 1713      98FF FF93 
- 1714 0c46 00        		.string	""
- 1715 0c47 00        		.string	""
- 1716 0c48 00        		.string	""
- 1717 0c49 00        		.string	""
- 1718 0c4a 00        		.string	""
- 1719 0c4b 00        		.string	""
- 1720 0c4c 00        		.string	""
- 1721 0c4d 00        		.string	""
- 1722 0c4e 00        		.string	""
- 1723 0c4f 0B13 1F2A 		.string	"\013\023\037*>T\210\377\377\377\377\246\274\377\256\301\377\311uL6'\032\023\013"
- 1723      3E54 88FF 
- 1723      FFFF FFA6 
- 1723      BCFF AEC1 
- 1723      FFC9 754C 
- 1724 0c69 00        		.string	""
- 1725 0c6a 00        		.string	""
- 1726 0c6b 00        		.string	""
- 1727 0c6c 00        		.string	""
- 1728 0c6d 00        		.string	""
- 1729 0c6e 00        		.string	""
- 1730 0c6f 00        		.string	""
- 1731 0c70 00        		.string	""
- 1732 0c71 00        		.string	""
- 1733 0c72 00        		.string	""
- 1734 0c73 0B0B 1A23 		.string	"\013\013\032#6Lm\246\377\377\377\271\377\377\274\377\377\213W>.\037\023\013"
- 1734      364C 6DA6 
- 1734      FFFF FFB9 
- 1734      FFFF BCFF 
- 1734      FF8B 573E 
- 1735 0c8c 00        		.string	""
- 1736 0c8d 00        		.string	""
- 1737 0c8e 00        		.string	""
- 1738 0c8f 00        		.string	""
- 1739 0c90 00        		.string	""
- 1740 0c91 00        		.string	""
- 1741 0c92 00        		.string	""
- 1742 0c93 00        		.string	""
- 1743 0c94 00        		.string	""
- 1744 0c95 00        		.string	""
- 1745 0c96 00        		.string	""
- 1746 0c97 00        		.string	""
- 1747 0c98 0B13 1F2E 		.string	"\013\023\037.AZ\213\377\377\377\321\377\377\377\377\246mI3#\032\023\013"
- 1747      415A 8BFF 
- 1747      FFFF D1FF 
- 1747      FFFF FFA6 
- 1747      6D49 3323 
- 1748 0cb0 00        		.string	""
- 1749 0cb1 00        		.string	""
- 1750 0cb2 00        		.string	""
- 1751 0cb3 00        		.string	""
- 1752 0cb4 00        		.string	""
- 1753 0cb5 00        		.string	""
- 1754 0cb6 00        		.string	""
- 1755 0cb7 00        		.string	""
- 1756 0cb8 00        		.string	""
- 1757 0cb9 00        		.string	""
- 1758 0cba 00        		.string	""
- 1759 0cbb 00        		.string	""
- 1760 0cbc 0B13 1A27 		.string	"\013\023\032'9Or\256\377\377\377\377\375\377\377\202T>.\037\023\013"
- 1760      394F 72AE 
- 1760      FFFF FFFF 
- 1760      FDFF FF82 
- 1760      543E 2E1F 
- 1761 0cd3 00        		.string	""
- 1762 0cd4 00        		.string	""
- 1763 0cd5 00        		.string	""
- 1764 0cd6 00        		.string	""
- 1765 0cd7 00        		.string	""
- 1766 0cd8 00        		.string	""
- 1767 0cd9 00        		.string	""
- 1768 0cda 00        		.string	""
- 1769 0cdb 00        		.string	""
- 1770 0cdc 00        		.string	""
- 1771 0cdd 00        		.string	""
- 1772 0cde 00        		.string	""
- 1773 0cdf 00        		.string	""
- 1774 0ce0 00        		.string	""
- 1775 0ce1 0B13 1F31 		.string	"\013\023\0371D_\223\377\377\377\377\377\377\236gI3#\032\023\013"
- 1775      445F 93FF 
- 1775      FFFF FFFF 
- 1775      FF9E 6749 
- 1775      3323 1A13 
- 1776 0cf7 00        		.string	""
- 1777 0cf8 00        		.string	""
- 1778 0cf9 00        		.string	""
- 1779 0cfa 00        		.string	""
- 1780 0cfb 00        		.string	""
- 1781 0cfc 00        		.string	""
- 1782 0cfd 00        		.string	""
- 1783 0cfe 00        		.string	""
- 1784 0cff 00        		.string	""
- 1785 0d00 00        		.string	""
- 1786 0d01 00        		.string	""
- 1787 0d02 00        		.string	""
- 1788 0d03 00        		.string	""
- 1789 0d04 00        		.string	""
- 1790 0d05 0B13 1F2A 		.string	"\013\023\037*>Tx\266\377\377\377\377\311}T>.\037\023\013"
- 1790      3E54 78B6 
- 1790      FFFF FFFF 
- 1790      C97D 543E 
- 1790      2E1F 130B 
- 1791 0d1a 00        		.string	""
- 1792 0d1b 00        		.string	""
- 1793 0d1c 00        		.string	""
- 1794 0d1d 00        		.string	""
- 1795 0d1e 00        		.string	""
- 1796 0d1f 00        		.string	""
- 1797 0d20 00        		.string	""
- 1798 0d21 00        		.string	""
- 1799 0d22 00        		.string	""
- 1800 0d23 00        		.string	""
- 1801 0d24 00        		.string	""
- 1802 0d25 00        		.string	""
- 1803 0d26 00        		.string	""
- 1804 0d27 00        		.string	""
- 1805 0d28 00        		.string	""
- 1806 0d29 00        		.string	""
- 1807 0d2a 0B13 2333 		.string	"\013\023#3Ib\226\377\377\377\377\230dI6#\032\013\013"
- 1807      4962 96FF 
- 1807      FFFF FF98 
- 1807      6449 3623 
- 1807      1A0B 0B00 
- 1808 0d3e 00        		.string	""
- 1809 0d3f 00        		.string	""
- 1810 0d40 00        		.string	""
- 1811 0d41 00        		.string	""
- 1812 0d42 00        		.string	""
- 1813 0d43 00        		.string	""
- 1814 0d44 00        		.string	""
- 1815 0d45 00        		.string	""
- 1816 0d46 00        		.string	""
- 1817 0d47 00        		.string	""
- 1818 0d48 00        		.string	""
- 1819 0d49 00        		.string	""
- 1820 0d4a 00        		.string	""
- 1821 0d4b 00        		.string	""
- 1822 0d4c 00        		.string	""
- 1823 0d4d 00        		.string	""
- 1824 0d4e 0B13 1F2A 		.string	"\013\023\037*<Qu\264\377\377\264uQ<*\037\023\013"
- 1824      3C51 75B4 
- 1824      FFFF B475 
- 1824      513C 2A1F 
- 1824      130B 00
- 1825 0d61 00        		.string	""
- 1826 0d62 00        		.string	""
- 1827 0d63 00        		.string	""
- 1828 0d64 00        		.string	""
- 1829 0d65 00        		.string	""
- 1830 0d66 00        		.string	""
- 1831 0d67 00        		.string	""
- 1832 0d68 00        		.string	""
- 1833 0d69 00        		.string	""
- 1834 0d6a 00        		.string	""
- 1835 0d6b 00        		.string	""
- 1836 0d6c 00        		.string	""
- 1837 0d6d 00        		.string	""
- 1838 0d6e 00        		.string	""
- 1839 0d6f 00        		.string	""
- 1840 0d70 00        		.string	""
- 1841 0d71 00        		.string	""
- 1842 0d72 00        		.string	""
- 1843 0d73 0B13 1F2E 		.string	"\013\023\037.>T}\334\317zT>.\037\023\013"
- 1843      3E54 7DDC 
- 1843      CF7A 543E 
- 1843      2E1F 130B 
- 1843      00
- 1844 0d84 00        		.string	""
- 1845 0d85 00        		.string	""
- 1846 0d86 00        		.string	""
- 1847 0d87 00        		.string	""
- 1848 0d88 00        		.string	""
- 1849 0d89 00        		.string	""
- 1850 0d8a 00        		.string	""
- 1851 0d8b 00        		.string	""
- 1852 0d8c 00        		.string	""
- 1853 0d8d 00        		.string	""
- 1854 0d8e 00        		.string	""
- 1855 0d8f 00        		.string	""
- 1856 0d90 00        		.string	""
- 1857 0d91 00        		.string	""
- 1858 0d92 00        		.string	""
- 1859 0d93 00        		.string	""
- 1860 0d94 00        		.string	""
- 1861 0d95 00        		.string	""
- 1862 0d96 00        		.string	""
- 1863 0d97 0B0B 1323 		.string	"\013\013\023#.>QdbQ>.#\023\013\013"
- 1863      2E3E 5164 
- 1863      6251 3E2E 
- 1863      2313 0B0B 
- 1863      00
- 1864 0da8 00        		.string	""
- 1865 0da9 00        		.string	""
- 1866 0daa 00        		.string	""
- 1867 0dab 00        		.string	""
- 1868 0dac 00        		.string	""
- 1869 0dad 00        		.string	""
- 1870 0dae 00        		.string	""
- 1871 0daf 00        		.string	""
- 1872 0db0 00        		.string	""
- 1873 0db1 00        		.string	""
- 1874 0db2 00        		.string	""
- 1875 0db3 00        		.string	""
- 1876 0db4 00        		.string	""
- 1877 0db5 00        		.string	""
- 1878 0db6 00        		.string	""
- 1879 0db7 00        		.string	""
- 1880 0db8 00        		.string	""
- 1881 0db9 00        		.string	""
- 1882 0dba 00        		.string	""
- 1883 0dbb 00        		.string	""
- 1884 0dbc 0B0B 1A1F 		.string	"\013\013\032\037.9>>9.\037\032\023\013"
- 1884      2E39 3E3E 
- 1884      392E 1F1A 
- 1884      130B 00
- 1885 0dcb 00        		.string	""
- 1886 0dcc 00        		.string	""
- 1887 0dcd 00        		.string	""
- 1888 0dce 00        		.string	""
- 1889 0dcf 00        		.string	""
- 1890 0dd0 00        		.string	""
- 1891 0dd1 00        		.string	""
- 1892 0dd2 00        		.string	""
- 1893 0dd3 00        		.string	""
- 1894 0dd4 00        		.string	""
- 1895 0dd5 00        		.string	""
- 1896 0dd6 00        		.string	""
- 1897 0dd7 00        		.string	""
- 1898 0dd8 00        		.string	""
- 1899 0dd9 00        		.string	""
- 1900 0dda 00        		.string	""
- 1901 0ddb 00        		.string	""
- 1902 0ddc 00        		.string	""
- 1903 0ddd 00        		.string	""
- 1904 0dde 00        		.string	""
- 1905 0ddf 00        		.string	""
- 1906 0de0 00        		.string	""
- 1907 0de1 0B13 131F 		.ascii	"\013\023\023\037'**#"
- 1907      272A 2A23 
- 1908 0de9 1F13 130B 		.string	"\037\023\023\013"
- 1908      00
- 1909 0dee 00        		.string	""
- 1910 0def 00        		.string	""
- 1911 0df0 00        		.string	""
- 1912 0df1 00        		.string	""
- 1913 0df2 00        		.string	""
- 1914 0df3 00        		.string	""
- 1915 0df4 00        		.string	""
- 1916 0df5 00        		.string	""
- 1917 0df6 00        		.string	""
- 1918 0df7 00        		.string	""
- 1919 0df8 00        		.string	""
- 1920               		.text
- 1921               	.Letext0:
- 1922               		.file 2 "/usr/lib/gcc/avr/12.2.0/include/stdint-gcc.h"
- 1923               		.file 3 "../../types/types.h"
- 1924               		.file 4 "logger/logger.h"
- 1925               		.file 5 "lcd/lcd.h"
- 1926               		.file 6 "logo/logo_tiny.c"
- 1927               		.file 7 "logo/logo_text.c"
- 1928               		.file 8 "initrd/initrd.h"
- 1929               		.file 9 "sd/sd.h"
- 1930               		.file 10 "xmem/xmem.h"
- 1931               		.file 11 "rtc/rtc.h"
- 1932               		.file 12 "random/random.h"
- 1933               		.file 13 "adc/adc.h"
- 1934               		.file 14 "ps2/ps2.h"
- 1935               		.file 15 "spi/spi.h"
- 1936               		.file 16 "timer/timer.h"
- 1937               		.file 17 "serial/serial.h"
- 1938               		.file 18 "gpio/gpio.h"
+ 1111 032a 00        		.string	""
+ 1112 032b 00        		.string	""
+ 1113 032c C8FF C500 		.string	"\310\377\305"
+ 1114 0330 00        		.string	""
+ 1115 0331 70EE FFF5 		.string	"p\356\377\365Q"
+ 1115      5100 
+ 1116 0337 00        		.string	""
+ 1117 0338 00        		.string	""
+ 1118 0339 00        		.string	""
+ 1119 033a 00        		.string	""
+ 1120 033b 75FF C800 		.string	"u\377\310"
+ 1121 033f 6BFF CB00 		.string	"k\377\313"
+ 1122 0343 00        		.string	""
+ 1123 0344 00        		.string	""
+ 1124 0345 00        		.string	""
+ 1125 0346 00        		.string	""
+ 1126 0347 00        		.string	""
+ 1127 0348 00        		.string	""
+ 1128 0349 BCFF C600 		.string	"\274\377\306"
+ 1129 034d 3DFD FD49 		.string	"=\375\375I"
+ 1129      00
+ 1130 0352 DFFF 9C00 		.string	"\337\377\234"
+ 1131 0356 B4FF CB00 		.string	"\264\377\313"
+ 1132 035a 94FF E300 		.string	"\224\377\343"
+ 1133 035e 00        		.string	""
+ 1134 035f E9FF 6F94 		.string	"\351\377o\224\377\343"
+ 1134      FFE3 00
+ 1135 0366 00        		.string	""
+ 1136 0367 EAFF 5E3D 		.string	"\352\377^=\375\3745=\375\375I"
+ 1136      FDFC 353D 
+ 1136      FDFD 4900 
+ 1137 0373 D4FF A794 		.string	"\324\377\247\224\377\343"
+ 1137      FFE3 00
+ 1138 037a 00        		.string	""
+ 1139 037b E9FF 6F3D 		.string	"\351\377o=\375\373."
+ 1139      FDFB 2E00 
+ 1140 0383 00        		.string	""
+ 1141 0384 00        		.string	""
+ 1142 0385 D2FF BCFF 		.string	"\322\377\274\377\313"
+ 1142      CB00 
+ 1143 038b 00        		.string	""
+ 1144 038c 00        		.string	""
+ 1145 038d 00        		.string	""
+ 1146 038e 00        		.string	""
+ 1147 038f 5EFF FE1C 		.string	"^\377\376\034"
+ 1147      00
+ 1148 0394 00        		.string	""
+ 1149 0395 35F3 FF8E 		.string	"5\363\377\216"
+ 1149      00
+ 1150 039a 00        		.string	""
+ 1151 039b 00        		.string	""
+ 1152 039c 49EE FFAA 		.string	"I\356\377\252"
+ 1152      00
+ 1153 03a1 00        		.string	""
+ 1154 03a2 00        		.string	""
+ 1155 03a3 00        		.string	""
+ 1156 03a4 00        		.string	""
+ 1157 03a5 A7FF A600 		.string	"\247\377\246"
+ 1158 03a9 9FFF A700 		.string	"\237\377\247"
+ 1159 03ad 00        		.string	""
+ 1160 03ae 00        		.string	""
+ 1161 03af 00        		.string	""
+ 1162 03b0 00        		.string	""
+ 1163 03b1 00        		.string	""
+ 1164 03b2 00        		.string	""
+ 1165 03b3 DCFF A100 		.string	"\334\377\241"
+ 1166 03b7 88FF EA00 		.string	"\210\377\352"
+ 1167 03bb 0DF7 FF5D 		.string	"\r\367\377]"
+ 1167      00
+ 1168 03c0 D4FF A800 		.string	"\324\377\250"
+ 1169 03c4 A1FF E300 		.string	"\241\377\343"
+ 1170 03c8 98FF F916 		.string	"\230\377\371\026\242\377\344"
+ 1170      A2FF E400 
+ 1171 03d0 8DFF F300 		.string	"\215\377\363"
+ 1172 03d4 88FF E900 		.string	"\210\377\351"
+ 1173 03d8 88FF EA00 		.string	"\210\377\352"
+ 1174 03dc 00        		.string	""
+ 1175 03dd EEFF 76A1 		.string	"\356\377v\241\377\343"
+ 1175      FFE3 00
+ 1176 03e4 98FF F916 		.string	"\230\377\371\026\210\377\347"
+ 1176      88FF E700 
+ 1177 03ec 00        		.string	""
+ 1178 03ed 00        		.string	""
+ 1179 03ee 00        		.string	""
+ 1180 03ef BAFF F3FA 		.string	"\272\377\363\372Y"
+ 1180      5900 
+ 1181 03f5 00        		.string	""
+ 1182 03f6 00        		.string	""
+ 1183 03f7 00        		.string	""
+ 1184 03f8 00        		.string	""
+ 1185 03f9 0DF9 FF93 		.string	"\r\371\377\223"
+ 1185      00
+ 1186 03fe 2AD0 FFE8 		.string	"*\320\377\350\026}\""
+ 1186      167D 2200 
+ 1187 0406 00        		.string	""
+ 1188 0407 E1FF A800 		.string	"\341\377\250"
+ 1189 040b 00        		.string	""
+ 1190 040c 00        		.string	""
+ 1191 040d 00        		.string	""
+ 1192 040e 00        		.string	""
+ 1193 040f CAFF 7500 		.string	"\312\377u"
+ 1194 0413 C3FF 7600 		.string	"\303\377v"
+ 1195 0417 00        		.string	""
+ 1196 0418 00        		.string	""
+ 1197 0419 00        		.string	""
+ 1198 041a 00        		.string	""
+ 1199 041b 38B8 FAFF 		.string	"8\270\372\377\321I\262\377\316"
+ 1199      D149 B2FF 
+ 1199      CE00 
+ 1200 0425 6BFF F400 		.string	"k\377\364"
+ 1201 0429 00        		.string	""
+ 1202 042a EFFF 7900 		.string	"\357\377y"
+ 1203 042e 76FF FFE4 		.string	"v\377\377\344\371\377\341"
+ 1203      F9FF E100 
+ 1204 0436 78FF FFE5 		.string	"x\377\377\345\367\377\330"
+ 1204      F7FF D800 
+ 1205 043e B2FF CD00 		.string	"\262\377\315"
+ 1206 0442 B2FF CE00 		.string	"\262\377\316"
+ 1207 0446 4BFF FA22 		.string	"K\377\372\"v\377\377\344\371\377\341"
+ 1207      76FF FFE4 
+ 1207      F9FF E100 
+ 1208 0452 B2FF CC00 		.string	"\262\377\314"
+ 1209 0456 00        		.string	""
+ 1210 0457 00        		.string	""
+ 1211 0458 00        		.string	""
+ 1212 0459 A0FF FFC1 		.string	"\240\377\377\301"
+ 1212      00
+ 1213 045e 00        		.string	""
+ 1214 045f 00        		.string	""
+ 1215 0460 00        		.string	""
+ 1216 0461 00        		.string	""
+ 1217 0462 00        		.string	""
+ 1218 0463 00        		.string	""
+ 1219 0464 BCFF FCE2 		.string	"\274\377\374\342\362\377\366p"
+ 1219      F2FF F670 
+ 1219      00
+ 1220 046d DCF5 E2F1 		.string	"\334\365\342\361\377\366T"
+ 1220      FFF6 5400 
+ 1221 0475 00        		.string	""
+ 1222 0476 00        		.string	""
+ 1223 0477 00        		.string	""
+ 1224 0478 00        		.string	""
+ 1225 0479 E7FA 2200 		.string	"\347\372\""
+ 1226 047d E1FA 1C00 		.string	"\341\372\034"
+ 1227 0481 00        		.string	""
+ 1228 0482 00        		.string	""
+ 1229 0483 00        		.string	""
+ 1230 0484 00        		.string	""
+ 1231 0485 95FF FFFF 		.string	"\225\377\377\377\377`\322\377\254"
+ 1231      FF60 D2FF 
+ 1231      AC00 
+ 1232 048f A0FF DA00 		.string	"\240\377\332"
+ 1233 0493 4BFF FB26 		.string	"K\377\373&"
+ 1233      00
+ 1234 0498 00        		.string	""
+ 1235 0499 BDF9 EF98 		.string	"\275\371\357\230\377\303"
+ 1235      FFC3 00
+ 1236 04a0 00        		.string	""
+ 1237 04a1 BEFA E7CB 		.string	"\276\372\347\313\377\266"
+ 1237      FFB6 00
+ 1238 04a8 D2FF AB00 		.string	"\322\377\253"
+ 1239 04ac D2FF AC00 		.string	"\322\377\254"
+ 1240 04b0 8EFF E300 		.string	"\216\377\343"
+ 1241 04b4 00        		.string	""
+ 1242 04b5 BDF9 EF98 		.string	"\275\371\357\230\377\303"
+ 1242      FFC3 00
+ 1243 04bc D2FF AB00 		.string	"\322\377\253"
+ 1244 04c0 00        		.string	""
+ 1245 04c1 00        		.string	""
+ 1246 04c2 00        		.string	""
+ 1247 04c3 8AFF F749 		.string	"\212\377\367I"
+ 1247      00
+ 1248 04c8 00        		.string	""
+ 1249 04c9 00        		.string	""
+ 1250 04ca 00        		.string	""
+ 1251 04cb 00        		.string	""
+ 1252 04cc 00        		.string	""
+ 1253 04cd 00        		.string	""
+ 1254 04ce 22BC F0FC 		.string	"\"\274\360\374\362\316^"
+ 1254      F2CE 5E00 
+ 1255 04d6 00        		.string	""
+ 1256 04d7 AAED FBF6 		.string	"\252\355\373\366\326p"
+ 1256      D670 00
+ 1257 04de 00        		.string	""
+ 1258 04df 00        		.string	""
+ 1259 04e0 00        		.string	""
+ 1260 04e1 00        		.string	""
+ 1261 04e2 32FC E400 		.string	"2\374\344"
+ 1262 04e6 00        		.string	""
+ 1263 04e7 F8F9 DC70 		.string	"\370\371\334p"
+ 1263      00
+ 1264 04ec 00        		.string	""
+ 1265 04ed 00        		.string	""
+ 1266 04ee 00        		.string	""
+ 1267 04ef 00        		.string	""
+ 1268 04f0 00        		.string	""
+ 1269 04f1 00        		.string	""
+ 1270 04f2 00        		.string	""
+ 1271 04f3 00        		.string	""
+ 1272 04f4 00        		.string	""
+ 1273 04f5 00        		.string	""
+ 1274 04f6 00        		.string	""
+ 1275 04f7 00        		.string	""
+ 1276 04f8 00        		.string	""
+ 1277 04f9 00        		.string	""
+ 1278 04fa 00        		.string	""
+ 1279 04fb 00        		.string	""
+ 1280 04fc 00        		.string	""
+ 1281 04fd 00        		.string	""
+ 1282 04fe 00        		.string	""
+ 1283 04ff 00        		.string	""
+ 1284 0500 00        		.string	""
+ 1285 0501 00        		.string	""
+ 1286 0502 00        		.string	""
+ 1287 0503 00        		.string	""
+ 1288 0504 00        		.string	""
+ 1289 0505 00        		.string	""
+ 1290 0506 00        		.string	""
+ 1291 0507 00        		.string	""
+ 1292 0508 00        		.string	""
+ 1293 0509 00        		.string	""
+ 1294 050a 4700      		.string	"G"
+ 1295 050c 00        		.string	""
+ 1296 050d 38EB FF7C 		.string	"8\353\377|"
+ 1296      00
+ 1297 0512 00        		.string	""
+ 1298 0513 00        		.string	""
+ 1299 0514 00        		.string	""
+ 1300 0515 00        		.string	""
+ 1301 0516 00        		.string	""
+ 1302 0517 00        		.string	""
+ 1303 0518 00        		.string	""
+ 1304 0519 00        		.string	""
+ 1305 051a 00        		.string	""
+ 1306 051b 00        		.string	""
+ 1307 051c 00        		.string	""
+ 1308 051d 00        		.string	""
+ 1309 051e 00        		.string	""
+ 1310 051f 00        		.string	""
+ 1311 0520 00        		.string	""
+ 1312 0521 00        		.string	""
+ 1313 0522 00        		.string	""
+ 1314 0523 00        		.string	""
+ 1315 0524 00        		.string	""
+ 1316 0525 00        		.string	""
+ 1317 0526 00        		.string	""
+ 1318 0527 00        		.string	""
+ 1319 0528 00        		.string	""
+ 1320 0529 00        		.string	""
+ 1321 052a 00        		.string	""
+ 1322 052b 00        		.string	""
+ 1323 052c 26E2 FFB4 		.string	"&\342\377\264"
+ 1323      00
+ 1324 0531 00        		.string	""
+ 1325 0532 00        		.string	""
+ 1326 0533 00        		.string	""
+ 1327 0534 00        		.string	""
+ 1328 0535 00        		.string	""
+ 1329 0536 00        		.string	""
+ 1330 0537 00        		.string	""
+ 1331 0538 00        		.string	""
+ 1332 0539 00        		.string	""
+ 1333 053a 00        		.string	""
+ 1334 053b 00        		.string	""
+ 1335 053c 00        		.string	""
+ 1336 053d 00        		.string	""
+ 1337 053e 00        		.string	""
+ 1338 053f 00        		.string	""
+ 1339 0540 00        		.string	""
+ 1340 0541 00        		.string	""
+ 1341 0542 00        		.string	""
+ 1342 0543 00        		.string	""
+ 1343 0544 00        		.string	""
+ 1344 0545 00        		.string	""
+ 1345 0546 00        		.string	""
+ 1346 0547 00        		.string	""
+ 1347 0548 00        		.string	""
+ 1348 0549 00        		.string	""
+ 1349 054a 00        		.string	""
+ 1350 054b BAE1 FFC8 		.string	"\272\341\377\310"
+ 1350      00
+ 1351 0550 00        		.string	""
+ 1352 0551 FFFF FF4D 		.string	"\377\377\377M"
+ 1352      00
+ 1353 0556 00        		.string	""
+ 1354 0557 00        		.string	""
+ 1355 0558 00        		.string	""
+ 1356 0559 00        		.string	""
+ 1357 055a 00        		.string	""
+ 1358 055b 00        		.string	""
+ 1359 055c 00        		.string	""
+ 1360 055d 00        		.string	""
+ 1361 055e 00        		.string	""
+ 1362 055f 00        		.string	""
+ 1363 0560 00        		.string	""
+ 1364 0561 00        		.string	""
+ 1365 0562 00        		.string	""
+ 1366 0563 00        		.string	""
+ 1367 0564 00        		.string	""
+ 1368 0565 00        		.string	""
+ 1369 0566 00        		.string	""
+ 1370 0567 00        		.string	""
+ 1371 0568 00        		.string	""
+ 1372 0569 00        		.string	""
+ 1373 056a 00        		.string	""
+ 1374 056b 00        		.string	""
+ 1375 056c 00        		.string	""
+ 1376 056d 00        		.string	""
+ 1377 056e 00        		.string	""
+ 1378 056f 00        		.string	""
+ 1379 0570 00        		.string	""
+ 1380 0571 00        		.string	""
+ 1381 0572 00        		.string	""
+ 1382 0573 00        		.string	""
+ 1383 0574 E7EB DFF3 		.string	"\347\353\337\363\377\336"
+ 1383      FFDE 00
+ 1384 057b 00        		.string	""
+ 1385 057c 00        		.string	""
+ 1386 057d 00        		.string	""
+ 1387 057e 00        		.string	""
+ 1388 057f 00        		.string	""
+ 1389 0580 00        		.string	""
+ 1390 0581 00        		.string	""
+ 1391 0582 00        		.string	""
+ 1392 0583 00        		.string	""
+ 1393 0584 00        		.string	""
+ 1394 0585 00        		.string	""
+ 1395 0586 00        		.string	""
+ 1396 0587 00        		.string	""
+ 1397 0588 00        		.string	""
+ 1398 0589 00        		.string	""
+ 1399 058a 00        		.string	""
+ 1400 058b 00        		.string	""
+ 1401 058c 00        		.string	""
+ 1402 058d 00        		.string	""
+ 1403 058e 00        		.string	""
+ 1404 058f 00        		.string	""
+ 1405 0590 00        		.string	""
+ 1406 0591 00        		.string	""
+ 1407 0592 00        		.string	""
+ 1408 0593 00        		.string	""
+ 1409 0594 00        		.string	""
+ 1410 0595 DCF0 FFE7 		.string	"\334\360\377\347&"
+ 1410      2600 
+ 1411 059b 00        		.string	""
+ 1412 059c 00        		.string	""
+ 1413 059d 00        		.string	""
+ 1414 059e 00        		.string	""
+ 1415 059f 00        		.string	""
+ 1416 05a0 00        		.string	""
+ 1417 05a1 00        		.string	""
+ 1418 05a2 00        		.string	""
+ 1419 05a3 00        		.string	""
+ 1420 05a4 00        		.string	""
+ 1421 05a5 00        		.string	""
+ 1422 05a6 00        		.string	""
+ 1423 05a7 00        		.string	""
+ 1424 05a8 00        		.string	""
+ 1425 05a9 00        		.string	""
+ 1426 05aa 00        		.string	""
+ 1427 05ab 00        		.string	""
+ 1428 05ac 00        		.string	""
+ 1429 05ad 00        		.string	""
+ 1430 05ae 00        		.string	""
+ 1431 05af 00        		.string	""
+ 1432 05b0 00        		.string	""
+ 1433 05b1 00        		.string	""
+ 1434 05b2 00        		.string	""
+ 1435 05b3 00        		.string	""
+ 1436 05b4 00        		.string	""
+ 1437 05b5 EDFF FFA5 		.string	"\355\377\377\245"
+ 1437      00
+ 1438 05ba 00        		.string	""
+ 1439 05bb 00        		.string	""
+ 1440 05bc 00        		.string	""
+ 1441 05bd 00        		.string	""
+ 1442 05be 00        		.string	""
+ 1443 05bf 00        		.string	""
+ 1444 05c0 00        		.string	""
+ 1445 05c1 00        		.string	""
+ 1446 05c2 00        		.string	""
+ 1447 05c3 00        		.string	""
+ 1448 05c4 00        		.string	""
+ 1449 05c5 00        		.string	""
+ 1450 05c6 00        		.string	""
+ 1451 05c7 00        		.string	""
+ 1452 05c8 00        		.string	""
+ 1453 05c9 00        		.string	""
+ 1454 05ca 00        		.string	""
+ 1455 05cb 00        		.string	""
+ 1456 05cc 00        		.string	""
+ 1457 05cd 00        		.string	""
+ 1458 05ce 00        		.string	""
+ 1459 05cf 00        		.string	""
+ 1460 05d0 00        		.string	""
+ 1461 05d1 00        		.string	""
+ 1462 05d2 00        		.string	""
+ 1463 05d3 00        		.string	""
+ 1464 05d4 00        		.string	""
+ 1465 05d5 00        		.string	""
+ 1466 05d6 00        		.string	""
+ 1467 05d7 00        		.string	""
+ 1468 05d8 00        		.string	""
+ 1469 05d9 00        		.string	""
+ 1470 05da 00        		.string	""
+ 1471 05db 00        		.string	""
+ 1472 05dc 00        		.string	""
+ 1473 05dd 00        		.string	""
+ 1474 05de C1F3 FDF5 		.string	"\301\363\375\365\313E"
+ 1474      CB45 00
+ 1475 05e5 00        		.string	""
+ 1476 05e6 00        		.string	""
+ 1477 05e7 00        		.string	""
+ 1478 05e8 00        		.string	""
+ 1479 05e9 00        		.string	""
+ 1480 05ea 00        		.string	""
+ 1481 05eb 00        		.string	""
+ 1482 05ec 00        		.string	""
+ 1483 05ed 00        		.string	""
+ 1484 05ee 00        		.string	""
+ 1485 05ef 00        		.string	""
+ 1486 05f0 00        		.string	""
+ 1487 05f1 00        		.string	""
+ 1488 05f2 00        		.string	""
+ 1489 05f3 00        		.string	""
+ 1490 05f4 00        		.string	""
+ 1491 05f5 00        		.string	""
+ 1492 05f6 00        		.string	""
+ 1493 05f7 00        		.string	""
+ 1494 05f8 00        		.string	""
+ 1495 05f9 00        		.string	""
+ 1496 05fa 00        		.string	""
+ 1497 05fb 00        		.string	""
+ 1498 05fc 00        		.string	""
+ 1499 05fd 00        		.string	""
+ 1500 05fe 00        		.string	""
+ 1501 05ff F6F7 D049 		.string	"\366\367\320I"
+ 1501      00
+ 1502 0604 00        		.string	""
+ 1503 0605 00        		.string	""
+ 1504 0606 00        		.string	""
+ 1505 0607 00        		.string	""
+ 1506 0608 00        		.string	""
+ 1507 0609 00        		.string	""
+ 1508 060a 00        		.string	""
+ 1509 060b 00        		.string	""
+ 1510 060c 00        		.string	""
+ 1511 060d 00        		.string	""
+ 1512 060e 00        		.string	""
+ 1513 060f 00        		.string	""
+ 1514 0610 00        		.string	""
+ 1515 0611 00        		.string	""
+ 1516 0612 00        		.string	""
+ 1517 0613 00        		.string	""
+ 1518 0614 00        		.string	""
+ 1519 0615 00        		.string	""
+ 1520 0616 00        		.string	""
+ 1521 0617 00        		.string	""
+ 1522 0618 00        		.string	""
+ 1523 0619 00        		.string	""
+ 1524 061a 00        		.string	""
+ 1525 061b 00        		.string	""
+ 1526 061c 00        		.string	""
+ 1527 061d 00        		.string	""
+ 1528 061e 00        		.string	""
+ 1529 061f 00        		.string	""
+ 1530 0620 00        		.string	""
+ 1531 0621 00        		.string	""
+ 1532 0622 00        		.string	""
+ 1533 0623 00        		.string	""
+ 1534 0624 00        		.string	""
+ 1537               	logo_tiny:
+ 1538 0625 00        		.string	""
+ 1539 0626 00        		.string	""
+ 1540 0627 00        		.string	""
+ 1541 0628 00        		.string	""
+ 1542 0629 00        		.string	""
+ 1543 062a 00        		.string	""
+ 1544 062b 00        		.string	""
+ 1545 062c 00        		.string	""
+ 1546 062d 00        		.string	""
+ 1547 062e 00        		.string	""
+ 1548 062f 00        		.string	""
+ 1549 0630 00        		.string	""
+ 1550 0631 00        		.string	""
+ 1551 0632 0B13 1A1F 		.string	"\013\023\032\037##\037\032\023\013\013"
+ 1551      2323 1F1A 
+ 1551      130B 0B00 
+ 1552 063e 00        		.string	""
+ 1553 063f 00        		.string	""
+ 1554 0640 00        		.string	""
+ 1555 0641 00        		.string	""
+ 1556 0642 00        		.string	""
+ 1557 0643 00        		.string	""
+ 1558 0644 00        		.string	""
+ 1559 0645 00        		.string	""
+ 1560 0646 00        		.string	""
+ 1561 0647 00        		.string	""
+ 1562 0648 00        		.string	""
+ 1563 0649 00        		.string	""
+ 1564 064a 00        		.string	""
+ 1565 064b 00        		.string	""
+ 1566 064c 00        		.string	""
+ 1567 064d 00        		.string	""
+ 1568 064e 00        		.string	""
+ 1569 064f 00        		.string	""
+ 1570 0650 00        		.string	""
+ 1571 0651 00        		.string	""
+ 1572 0652 00        		.string	""
+ 1573 0653 00        		.string	""
+ 1574 0654 00        		.string	""
+ 1575 0655 0B13 1A23 		.string	"\013\023\032#.691'\037\023\013\013"
+ 1575      2E36 3931 
+ 1575      271F 130B 
+ 1575      0B00 
+ 1576 0663 00        		.string	""
+ 1577 0664 00        		.string	""
+ 1578 0665 00        		.string	""
+ 1579 0666 00        		.string	""
+ 1580 0667 00        		.string	""
+ 1581 0668 00        		.string	""
+ 1582 0669 00        		.string	""
+ 1583 066a 00        		.string	""
+ 1584 066b 00        		.string	""
+ 1585 066c 00        		.string	""
+ 1586 066d 00        		.string	""
+ 1587 066e 00        		.string	""
+ 1588 066f 00        		.string	""
+ 1589 0670 00        		.string	""
+ 1590 0671 00        		.string	""
+ 1591 0672 00        		.string	""
+ 1592 0673 00        		.string	""
+ 1593 0674 00        		.string	""
+ 1594 0675 00        		.string	""
+ 1595 0676 00        		.string	""
+ 1596 0677 00        		.string	""
+ 1597 0678 0B13 1F27 		.string	"\013\023\037'3AQTI9.\037\023\013"
+ 1597      3341 5154 
+ 1597      4939 2E1F 
+ 1597      130B 00
+ 1598 0687 00        		.string	""
+ 1599 0688 00        		.string	""
+ 1600 0689 00        		.string	""
+ 1601 068a 00        		.string	""
+ 1602 068b 00        		.string	""
+ 1603 068c 00        		.string	""
+ 1604 068d 00        		.string	""
+ 1605 068e 00        		.string	""
+ 1606 068f 00        		.string	""
+ 1607 0690 00        		.string	""
+ 1608 0691 00        		.string	""
+ 1609 0692 00        		.string	""
+ 1610 0693 00        		.string	""
+ 1611 0694 00        		.string	""
+ 1612 0695 00        		.string	""
+ 1613 0696 00        		.string	""
+ 1614 0697 00        		.string	""
+ 1615 0698 00        		.string	""
+ 1616 0699 00        		.string	""
+ 1617 069a 00        		.string	""
+ 1618 069b 0B13 1A27 		.string	"\013\023\032'6Ib\205\215oQ<.\037\023\013"
+ 1618      3649 6285 
+ 1618      8D6F 513C 
+ 1618      2E1F 130B 
+ 1618      00
+ 1619 06ac 00        		.string	""
+ 1620 06ad 00        		.string	""
+ 1621 06ae 00        		.string	""
+ 1622 06af 00        		.string	""
+ 1623 06b0 00        		.string	""
+ 1624 06b1 00        		.string	""
+ 1625 06b2 00        		.string	""
+ 1626 06b3 00        		.string	""
+ 1627 06b4 00        		.string	""
+ 1628 06b5 00        		.string	""
+ 1629 06b6 00        		.string	""
+ 1630 06b7 00        		.string	""
+ 1631 06b8 00        		.string	""
+ 1632 06b9 00        		.string	""
+ 1633 06ba 00        		.string	""
+ 1634 06bb 00        		.string	""
+ 1635 06bc 00        		.string	""
+ 1636 06bd 00        		.string	""
+ 1637 06be 0B0B 1A23 		.string	"\013\013\032#3Gb\223\377\377\251oO9'\032\023\013"
+ 1637      3347 6293 
+ 1637      FFFF A96F 
+ 1637      4F39 271A 
+ 1637      130B 00
+ 1638 06d1 00        		.string	""
+ 1639 06d2 00        		.string	""
+ 1640 06d3 00        		.string	""
+ 1641 06d4 00        		.string	""
+ 1642 06d5 00        		.string	""
+ 1643 06d6 00        		.string	""
+ 1644 06d7 00        		.string	""
+ 1645 06d8 00        		.string	""
+ 1646 06d9 00        		.string	""
+ 1647 06da 00        		.string	""
+ 1648 06db 00        		.string	""
+ 1649 06dc 00        		.string	""
+ 1650 06dd 00        		.string	""
+ 1651 06de 00        		.string	""
+ 1652 06df 00        		.string	""
+ 1653 06e0 00        		.string	""
+ 1654 06e1 00        		.string	""
+ 1655 06e2 0B13 1F2E 		.string	"\013\023\037.AW\200\317\377\377\377\223bI3#\023\013"
+ 1655      4157 80CF 
+ 1655      FFFF FF93 
+ 1655      6249 3323 
+ 1655      130B 00
+ 1656 06f5 00        		.string	""
+ 1657 06f6 00        		.string	""
+ 1658 06f7 00        		.string	""
+ 1659 06f8 00        		.string	""
+ 1660 06f9 00        		.string	""
+ 1661 06fa 00        		.string	""
+ 1662 06fb 00        		.string	""
+ 1663 06fc 00        		.string	""
+ 1664 06fd 00        		.string	""
+ 1665 06fe 00        		.string	""
+ 1666 06ff 00        		.string	""
+ 1667 0700 00        		.string	""
+ 1668 0701 00        		.string	""
+ 1669 0702 00        		.string	""
+ 1670 0703 00        		.string	""
+ 1671 0704 00        		.string	""
+ 1672 0705 0B13 1A27 		.string	"\013\023\032'9Om\243\377\377\377\377\266xT>*\037\023\013"
+ 1672      394F 6DA3 
+ 1672      FFFF FFFF 
+ 1672      B678 543E 
+ 1672      2A1F 130B 
+ 1673 071a 00        		.string	""
+ 1674 071b 00        		.string	""
+ 1675 071c 00        		.string	""
+ 1676 071d 00        		.string	""
+ 1677 071e 00        		.string	""
+ 1678 071f 00        		.string	""
+ 1679 0720 00        		.string	""
+ 1680 0721 00        		.string	""
+ 1681 0722 00        		.string	""
+ 1682 0723 00        		.string	""
+ 1683 0724 00        		.string	""
+ 1684 0725 00        		.string	""
+ 1685 0726 00        		.string	""
+ 1686 0727 00        		.string	""
+ 1687 0728 00        		.string	""
+ 1688 0729 0B13 1F2E 		.string	"\013\023\037.AZ\210\377\377\377\377\377\377\223bG3#\023\013"
+ 1688      415A 88FF 
+ 1688      FFFF FFFF 
+ 1688      FF93 6247 
+ 1688      3323 130B 
+ 1689 073e 00        		.string	""
+ 1690 073f 00        		.string	""
+ 1691 0740 00        		.string	""
+ 1692 0741 00        		.string	""
+ 1693 0742 00        		.string	""
+ 1694 0743 00        		.string	""
+ 1695 0744 00        		.string	""
+ 1696 0745 00        		.string	""
+ 1697 0746 00        		.string	""
+ 1698 0747 00        		.string	""
+ 1699 0748 00        		.string	""
+ 1700 0749 00        		.string	""
+ 1701 074a 00        		.string	""
+ 1702 074b 00        		.string	""
+ 1703 074c 0B13 1A27 		.string	"\013\023\032'6Lo\251\377\377\377\377\377\377\256rQ9'\032\023\013"
+ 1703      364C 6FA9 
+ 1703      FFFF FFFF 
+ 1703      FFFF AE72 
+ 1703      5139 271A 
+ 1704 0763 00        		.string	""
+ 1705 0764 00        		.string	""
+ 1706 0765 00        		.string	""
+ 1707 0766 00        		.string	""
+ 1708 0767 00        		.string	""
+ 1709 0768 00        		.string	""
+ 1710 0769 00        		.string	""
+ 1711 076a 00        		.string	""
+ 1712 076b 00        		.string	""
+ 1713 076c 00        		.string	""
+ 1714 076d 00        		.string	""
+ 1715 076e 00        		.string	""
+ 1716 076f 0B0B 131F 		.string	"\013\013\023\037.AZ\215\377\377\345\377\327\377\377\377\213ZA.\037\023\013"
+ 1716      2E41 5A8D 
+ 1716      FFFF E5FF 
+ 1716      D7FF FFFF 
+ 1716      8B5A 412E 
+ 1717 0787 00        		.string	""
+ 1718 0788 00        		.string	""
+ 1719 0789 00        		.string	""
+ 1720 078a 00        		.string	""
+ 1721 078b 00        		.string	""
+ 1722 078c 00        		.string	""
+ 1723 078d 00        		.string	""
+ 1724 078e 00        		.string	""
+ 1725 078f 00        		.string	""
+ 1726 0790 00        		.string	""
+ 1727 0791 00        		.string	""
+ 1728 0792 00        		.string	""
+ 1729 0793 0B13 1F27 		.string	"\013\023\037'9Ou\324\377\311\377\377\276\377\377\377\246mL6#\032\013\013"
+ 1729      394F 75D4 
+ 1729      FFC9 FFFF 
+ 1729      BEFF FFFF 
+ 1729      A66D 4C36 
+ 1730 07ac 00        		.string	""
+ 1731 07ad 00        		.string	""
+ 1732 07ae 00        		.string	""
+ 1733 07af 00        		.string	""
+ 1734 07b0 00        		.string	""
+ 1735 07b1 00        		.string	""
+ 1736 07b2 00        		.string	""
+ 1737 07b3 00        		.string	""
+ 1738 07b4 00        		.string	""
+ 1739 07b5 00        		.string	""
+ 1740 07b6 0B0B 1A23 		.string	"\013\013\032#1Ab\230\377\377\256\377\377\251\377\377\377\377\205W>*\037\023\013"
+ 1740      3141 6298 
+ 1740      FFFF AEFF 
+ 1740      FFA9 FFFF 
+ 1740      FFFF 8557 
+ 1741 07d0 00        		.string	""
+ 1742 07d1 00        		.string	""
+ 1743 07d2 00        		.string	""
+ 1744 07d3 00        		.string	""
+ 1745 07d4 00        		.string	""
+ 1746 07d5 00        		.string	""
+ 1747 07d6 00        		.string	""
+ 1748 07d7 00        		.string	""
+ 1749 07d8 00        		.string	""
+ 1750 07d9 00        		.string	""
+ 1751 07da 0B13 1F2A 		.string	"\013\023\037*<Q\202\377\377\246\240\377\324\226\307\377\370\377\240jG3#\032\013\013"
+ 1751      3C51 82FF 
+ 1751      FFA6 A0FF 
+ 1751      D496 C7FF 
+ 1751      F8FF A06A 
+ 1752 07f5 00        		.string	""
+ 1753 07f6 00        		.string	""
+ 1754 07f7 00        		.string	""
+ 1755 07f8 00        		.string	""
+ 1756 07f9 00        		.string	""
+ 1757 07fa 00        		.string	""
+ 1758 07fb 00        		.string	""
+ 1759 07fc 00        		.string	""
+ 1760 07fd 0B13 1A23 		.string	"\013\023\032#3Gm\256\377\324\215\240\377\246\205\246\377\317\377\377\205T<*\037\023\013"
+ 1760      3347 6DAE 
+ 1760      FFD4 8DA0 
+ 1760      FFA6 85A6 
+ 1760      FFCF FFFF 
+ 1761 0819 00        		.string	""
+ 1762 081a 00        		.string	""
+ 1763 081b 00        		.string	""
+ 1764 081c 00        		.string	""
+ 1765 081d 00        		.string	""
+ 1766 081e 00        		.string	""
+ 1767 081f 00        		.string	""
+ 1768 0820 0B0B 131F 		.string	"\013\013\023\037.>Z\215\377\377\220}\251\377\230u\223\377\377\345\377\240gD1#\023\013\013
+ 1768      2E3E 5A8D 
+ 1768      FFFF 907D 
+ 1768      A9FF 9875 
+ 1768      93FF FFE5 
+ 1769 083e 00        		.string	""
+ 1770 083f 00        		.string	""
+ 1771 0840 00        		.string	""
+ 1772 0841 00        		.string	""
+ 1773 0842 00        		.string	""
+ 1774 0843 00        		.string	""
+ 1775 0844 0B13 1F27 		.string	"\013\023\037'9Lx\355\377\240uz\342\377\213g\200\377\377\266\377\377\202Q9'\037\023\013"
+ 1775      394C 78ED 
+ 1775      FFA0 757A 
+ 1775      E2FF 8B67 
+ 1775      80FF FFB6 
+ 1776 0862 00        		.string	""
+ 1777 0863 00        		.string	""
+ 1778 0864 00        		.string	""
+ 1779 0865 00        		.string	""
+ 1780 0866 00        		.string	""
+ 1781 0867 0B13 1A23 		.string	"\013\023\032#3Ad\233\377\372\200d}\377\377}_o\253\377\264\327\377\240gD1#\023\013\013"
+ 1781      3341 649B 
+ 1781      FFFA 8064 
+ 1781      7DFF FF7D 
+ 1781      5F6F ABFF 
+ 1782 0887 00        		.string	""
+ 1783 0888 00        		.string	""
+ 1784 0889 00        		.string	""
+ 1785 088a 00        		.string	""
+ 1786 088b 0B13 1F2A 		.string	"\013\023\037*<T\205\377\377\223g_\210\377\355rTd\230\377\276\246\377\377\202Q9'\037\023\0
+ 1786      3C54 85FF 
+ 1786      FF93 675F 
+ 1786      88FF ED72 
+ 1786      5464 98FF 
+ 1787 08ab 00        		.string	""
+ 1788 08ac 00        		.string	""
+ 1789 08ad 00        		.string	""
+ 1790 08ae 0B13 1A27 		.string	"\013\023\032'6Io\307\377\266uWb\220\377\246gQZ\210\377\377\233\311\377\243gD1#\023\013\01
+ 1790      3649 6FC7 
+ 1790      FFB6 7557 
+ 1790      6290 FFA6 
+ 1790      6751 5A88 
+ 1791 08d0 00        		.string	""
+ 1792 08d1 0B0B 1323 		.string	"\013\013\023#1A_\223\377\377\205_Qg\233\377\226bOTx\370\377\233\236\377\377\202Q9'\037\02
+ 1792      3141 5F93 
+ 1792      FFFF 855F 
+ 1792      5167 9BFF 
+ 1792      9662 4F54 
+ 1793 08f4 00        		.string	""
+ 1794 08f5 0B13 1F2A 		.string	"\013\023\037*<T\200\377\377\230gTQm\274\377\215_QTm\246\377\246\215\311\377\246gD1#\032\0
+ 1794      3C54 80FF 
+ 1794      FF98 6754 
+ 1794      516D BCFF 
+ 1794      8D5F 5154 
+ 1795 0919 131A 2736 		.string	"\023\032'6Lm\251\377\334}ZQWz\377\377\205_TZm\236\377\321\213\230\377\377\205T<*\037\023\
+ 1795      4C6D A9FF 
+ 1795      DC7D 5A51 
+ 1795      577A FFFF 
+ 1795      855F 545A 
+ 1796 093d 131F 2E41 		.ascii	"\023\037.A_\223\377\377\223jZZb\213\377\377\213ruz\213\251\377"
+ 1796      5F93 FFFF 
+ 1796      936A 5A5A 
+ 1796      628B FFFF 
+ 1796      8B72 757A 
+ 1797 0954 FFA0 8DC7 		.ascii	"\377\240\215\307\377\246jI3#\032\023\013\032'9Q\200\355\377\264"
+ 1797      FFA6 6A49 
+ 1797      3323 1A13 
+ 1797      0B1A 2739 
+ 1797      5180 EDFF 
+ 1798 0969 8875 7578 		.ascii	"\210uux\210\251\377\342\251\256\337\377\377\377\377\377\332\236"
+ 1798      88A9 FFE2 
+ 1798      A9AE DFFF 
+ 1798      FFFF FFFF 
+ 1798      DA9E 
+ 1799 097b A3FF FF8B 		.ascii	"\243\377\377\213Z>.\037\023\013\037.Ag\251\377\377\266\246\243"
+ 1799      5A3E 2E1F 
+ 1799      130B 1F2E 
+ 1799      4167 A9FF 
+ 1799      FFB6 A6A3 
+ 1800 098f BCF5 FFFF 		.ascii	"\274\365\377\377\377\377\377\377\377\377\377\342\377\377\377"
+ 1800      FFFF FFFF 
+ 1800      FFFF FFE2 
+ 1800      FFFF FF
+ 1801 099e FDAB C9FF 		.ascii	"\375\253\311\377\256rL9'\037\023#3L\200\377\377\377\377\377\377"
+ 1801      AE72 4C39 
+ 1801      271F 1323 
+ 1801      334C 80FF 
+ 1801      FFFF FFFF 
+ 1802 09b3 FFFF FFFF 		.ascii	"\377\377\377\377\377\301\240\220\210\202\202\236\377\377\377"
+ 1802      FFC1 A090 
+ 1802      8882 829E 
+ 1802      FFFF FF
+ 1803 09c2 FFFF C1FF 		.ascii	"\377\377\301\377\377\220_A3#\023#3O\205\377\377\377\334\266\243"
+ 1803      FF90 5F41 
+ 1803      3323 1323 
+ 1803      334F 85FF 
+ 1803      FFFF DCB6 
+ 1804 09d7 9690 9BFD 		.ascii	"\226\220\233\375\377\230obZZg\226\377\332\240\314\377\377\347"
+ 1804      FF98 6F62 
+ 1804      5A5A 6796 
+ 1804      FFDA A0CC 
+ 1804      FFFF E7
+ 1805 09ea FFBC 78   		.ascii	"\377\274x"
+ 1806 09ed 513C 2A1A 		.string	"Q<*\032#3Iu\311\377\377\377\256\215xr\215\377\377\202ZQQTg\236\377\246\202\215\256\377\37
+ 1806      2333 4975 
+ 1806      C9FF FFFF 
+ 1806      AE8D 7872 
+ 1806      8DFF FF82 
+ 1807 0aee 0B13 1F2A 		.string	"\013\023\037*<T\210\377\377\230\213\266\377\251zd__u\324\377\215bTWo\240\377\365}Q<*\037\
+ 1807      3C54 88FF 
+ 1807      FF98 8BB6 
+ 1807      FFA9 7A64 
+ 1807      5F5F 75D4 
+ 1808 0b12 0B0B 1A23 		.string	"\013\013\032#3Dj\251\377\307\215\240\377\266uWQTz\377\377\200ZTb\213\377\377\220_A.#\023\
+ 1808      3344 6AA9 
+ 1808      FFC7 8DA0 
+ 1808      FFB6 7557 
+ 1808      5154 7AFF 
+ 1809 0b36 00        		.string	""
+ 1810 0b37 0B13 1F27 		.string	"\013\023\037'9Q\205\377\377\230\226\377\377}WOW\202\377\377uTWu\311\377\256mI6'\032\023\0
+ 1810      3951 85FF 
+ 1810      FF98 96FF 
+ 1810      FF7D 574F 
+ 1810      5782 FFFF 
+ 1811 0b5a 00        		.string	""
+ 1812 0b5b 0B0B 1323 		.string	"\013\013\023#1Dg\243\377\307\230\372\377\215_QZ\215\377\251mWg\223\377\377\202Q<*\037\023
+ 1812      3144 67A3 
+ 1812      FFC7 98FA 
+ 1812      FF8D 5F51 
+ 1812      5A8D FFA9 
+ 1813 0b7d 00        		.string	""
+ 1814 0b7e 00        		.string	""
+ 1815 0b7f 00        		.string	""
+ 1816 0b80 0B13 1F27 		.string	"\013\023\037'9Q\202\377\377\243\256\377\233gTd\230\377\230g_\200\377\377\230bA1#\032\013\
+ 1816      3951 82FF 
+ 1816      FFA3 AEFF 
+ 1816      9B67 5464 
+ 1816      98FF 9867 
+ 1817 0ba1 00        		.string	""
+ 1818 0ba2 00        		.string	""
+ 1819 0ba3 00        		.string	""
+ 1820 0ba4 0B0B 1323 		.string	"\013\013\023#1Dg\246\377\321\253\377\311uZm\271\377\215gr\246\377\334uL6'\032\023\013"
+ 1820      3144 67A6 
+ 1820      FFD1 ABFF 
+ 1820      C975 5A6D 
+ 1820      B9FF 8D67 
+ 1821 0bc4 00        		.string	""
+ 1822 0bc5 00        		.string	""
+ 1823 0bc6 00        		.string	""
+ 1824 0bc7 00        		.string	""
+ 1825 0bc8 00        		.string	""
+ 1826 0bc9 0B13 1F27 		.string	"\013\023\037'9Q\202\377\377\264\377\377\202bz\377\377\210m\220\377\377\213W>.\037\023\013
+ 1826      3951 82FF 
+ 1826      FFB4 FFFF 
+ 1826      8262 7AFF 
+ 1826      FF88 6D90 
+ 1827 0be7 00        		.string	""
+ 1828 0be8 00        		.string	""
+ 1829 0be9 00        		.string	""
+ 1830 0bea 00        		.string	""
+ 1831 0beb 00        		.string	""
+ 1832 0bec 00        		.string	""
+ 1833 0bed 0B0B 1323 		.string	"\013\013\023#1Dg\243\377\334\365\377\226o\210\377\377\205\202\337\377\246gD3#\032\023\013
+ 1833      3144 67A3 
+ 1833      FFDC F5FF 
+ 1833      966F 88FF 
+ 1833      FF85 82DF 
+ 1834 0c0b 00        		.string	""
+ 1835 0c0c 00        		.string	""
+ 1836 0c0d 00        		.string	""
+ 1837 0c0e 00        		.string	""
+ 1838 0c0f 00        		.string	""
+ 1839 0c10 00        		.string	""
+ 1840 0c11 00        		.string	""
+ 1841 0c12 0B13 1F2A 		.string	"\013\023\037*9T\205\377\377\311\377\246\200\226\377\301\210\240\377\377}Q9'\037\023\013"
+ 1841      3954 85FF 
+ 1841      FFC9 FFA6 
+ 1841      8096 FFC1 
+ 1841      88A0 FFFF 
+ 1842 0c2e 00        		.string	""
+ 1843 0c2f 00        		.string	""
+ 1844 0c30 00        		.string	""
+ 1845 0c31 00        		.string	""
+ 1846 0c32 00        		.string	""
+ 1847 0c33 00        		.string	""
+ 1848 0c34 00        		.string	""
+ 1849 0c35 00        		.string	""
+ 1850 0c36 0B0B 1323 		.string	"\013\013\023#3Gg\243\377\362\377\345\220\246\377\251\230\377\377\223_A.\037\023\013\013"
+ 1850      3347 67A3 
+ 1850      FFF2 FFE5 
+ 1850      90A6 FFA9 
+ 1850      98FF FF93 
+ 1851 0c52 00        		.string	""
+ 1852 0c53 00        		.string	""
+ 1853 0c54 00        		.string	""
+ 1854 0c55 00        		.string	""
+ 1855 0c56 00        		.string	""
+ 1856 0c57 00        		.string	""
+ 1857 0c58 00        		.string	""
+ 1858 0c59 00        		.string	""
+ 1859 0c5a 00        		.string	""
+ 1860 0c5b 0B13 1F2A 		.string	"\013\023\037*>T\210\377\377\377\377\246\274\377\256\301\377\311uL6'\032\023\013"
+ 1860      3E54 88FF 
+ 1860      FFFF FFA6 
+ 1860      BCFF AEC1 
+ 1860      FFC9 754C 
+ 1861 0c75 00        		.string	""
+ 1862 0c76 00        		.string	""
+ 1863 0c77 00        		.string	""
+ 1864 0c78 00        		.string	""
+ 1865 0c79 00        		.string	""
+ 1866 0c7a 00        		.string	""
+ 1867 0c7b 00        		.string	""
+ 1868 0c7c 00        		.string	""
+ 1869 0c7d 00        		.string	""
+ 1870 0c7e 00        		.string	""
+ 1871 0c7f 0B0B 1A23 		.string	"\013\013\032#6Lm\246\377\377\377\271\377\377\274\377\377\213W>.\037\023\013"
+ 1871      364C 6DA6 
+ 1871      FFFF FFB9 
+ 1871      FFFF BCFF 
+ 1871      FF8B 573E 
+ 1872 0c98 00        		.string	""
+ 1873 0c99 00        		.string	""
+ 1874 0c9a 00        		.string	""
+ 1875 0c9b 00        		.string	""
+ 1876 0c9c 00        		.string	""
+ 1877 0c9d 00        		.string	""
+ 1878 0c9e 00        		.string	""
+ 1879 0c9f 00        		.string	""
+ 1880 0ca0 00        		.string	""
+ 1881 0ca1 00        		.string	""
+ 1882 0ca2 00        		.string	""
+ 1883 0ca3 00        		.string	""
+ 1884 0ca4 0B13 1F2E 		.string	"\013\023\037.AZ\213\377\377\377\321\377\377\377\377\246mI3#\032\023\013"
+ 1884      415A 8BFF 
+ 1884      FFFF D1FF 
+ 1884      FFFF FFA6 
+ 1884      6D49 3323 
+ 1885 0cbc 00        		.string	""
+ 1886 0cbd 00        		.string	""
+ 1887 0cbe 00        		.string	""
+ 1888 0cbf 00        		.string	""
+ 1889 0cc0 00        		.string	""
+ 1890 0cc1 00        		.string	""
+ 1891 0cc2 00        		.string	""
+ 1892 0cc3 00        		.string	""
+ 1893 0cc4 00        		.string	""
+ 1894 0cc5 00        		.string	""
+ 1895 0cc6 00        		.string	""
+ 1896 0cc7 00        		.string	""
+ 1897 0cc8 0B13 1A27 		.string	"\013\023\032'9Or\256\377\377\377\377\375\377\377\202T>.\037\023\013"
+ 1897      394F 72AE 
+ 1897      FFFF FFFF 
+ 1897      FDFF FF82 
+ 1897      543E 2E1F 
+ 1898 0cdf 00        		.string	""
+ 1899 0ce0 00        		.string	""
+ 1900 0ce1 00        		.string	""
+ 1901 0ce2 00        		.string	""
+ 1902 0ce3 00        		.string	""
+ 1903 0ce4 00        		.string	""
+ 1904 0ce5 00        		.string	""
+ 1905 0ce6 00        		.string	""
+ 1906 0ce7 00        		.string	""
+ 1907 0ce8 00        		.string	""
+ 1908 0ce9 00        		.string	""
+ 1909 0cea 00        		.string	""
+ 1910 0ceb 00        		.string	""
+ 1911 0cec 00        		.string	""
+ 1912 0ced 0B13 1F31 		.string	"\013\023\0371D_\223\377\377\377\377\377\377\236gI3#\032\023\013"
+ 1912      445F 93FF 
+ 1912      FFFF FFFF 
+ 1912      FF9E 6749 
+ 1912      3323 1A13 
+ 1913 0d03 00        		.string	""
+ 1914 0d04 00        		.string	""
+ 1915 0d05 00        		.string	""
+ 1916 0d06 00        		.string	""
+ 1917 0d07 00        		.string	""
+ 1918 0d08 00        		.string	""
+ 1919 0d09 00        		.string	""
+ 1920 0d0a 00        		.string	""
+ 1921 0d0b 00        		.string	""
+ 1922 0d0c 00        		.string	""
+ 1923 0d0d 00        		.string	""
+ 1924 0d0e 00        		.string	""
+ 1925 0d0f 00        		.string	""
+ 1926 0d10 00        		.string	""
+ 1927 0d11 0B13 1F2A 		.string	"\013\023\037*>Tx\266\377\377\377\377\311}T>.\037\023\013"
+ 1927      3E54 78B6 
+ 1927      FFFF FFFF 
+ 1927      C97D 543E 
+ 1927      2E1F 130B 
+ 1928 0d26 00        		.string	""
+ 1929 0d27 00        		.string	""
+ 1930 0d28 00        		.string	""
+ 1931 0d29 00        		.string	""
+ 1932 0d2a 00        		.string	""
+ 1933 0d2b 00        		.string	""
+ 1934 0d2c 00        		.string	""
+ 1935 0d2d 00        		.string	""
+ 1936 0d2e 00        		.string	""
+ 1937 0d2f 00        		.string	""
+ 1938 0d30 00        		.string	""
+ 1939 0d31 00        		.string	""
+ 1940 0d32 00        		.string	""
+ 1941 0d33 00        		.string	""
+ 1942 0d34 00        		.string	""
+ 1943 0d35 00        		.string	""
+ 1944 0d36 0B13 2333 		.string	"\013\023#3Ib\226\377\377\377\377\230dI6#\032\013\013"
+ 1944      4962 96FF 
+ 1944      FFFF FF98 
+ 1944      6449 3623 
+ 1944      1A0B 0B00 
+ 1945 0d4a 00        		.string	""
+ 1946 0d4b 00        		.string	""
+ 1947 0d4c 00        		.string	""
+ 1948 0d4d 00        		.string	""
+ 1949 0d4e 00        		.string	""
+ 1950 0d4f 00        		.string	""
+ 1951 0d50 00        		.string	""
+ 1952 0d51 00        		.string	""
+ 1953 0d52 00        		.string	""
+ 1954 0d53 00        		.string	""
+ 1955 0d54 00        		.string	""
+ 1956 0d55 00        		.string	""
+ 1957 0d56 00        		.string	""
+ 1958 0d57 00        		.string	""
+ 1959 0d58 00        		.string	""
+ 1960 0d59 00        		.string	""
+ 1961 0d5a 0B13 1F2A 		.string	"\013\023\037*<Qu\264\377\377\264uQ<*\037\023\013"
+ 1961      3C51 75B4 
+ 1961      FFFF B475 
+ 1961      513C 2A1F 
+ 1961      130B 00
+ 1962 0d6d 00        		.string	""
+ 1963 0d6e 00        		.string	""
+ 1964 0d6f 00        		.string	""
+ 1965 0d70 00        		.string	""
+ 1966 0d71 00        		.string	""
+ 1967 0d72 00        		.string	""
+ 1968 0d73 00        		.string	""
+ 1969 0d74 00        		.string	""
+ 1970 0d75 00        		.string	""
+ 1971 0d76 00        		.string	""
+ 1972 0d77 00        		.string	""
+ 1973 0d78 00        		.string	""
+ 1974 0d79 00        		.string	""
+ 1975 0d7a 00        		.string	""
+ 1976 0d7b 00        		.string	""
+ 1977 0d7c 00        		.string	""
+ 1978 0d7d 00        		.string	""
+ 1979 0d7e 00        		.string	""
+ 1980 0d7f 0B13 1F2E 		.string	"\013\023\037.>T}\334\317zT>.\037\023\013"
+ 1980      3E54 7DDC 
+ 1980      CF7A 543E 
+ 1980      2E1F 130B 
+ 1980      00
+ 1981 0d90 00        		.string	""
+ 1982 0d91 00        		.string	""
+ 1983 0d92 00        		.string	""
+ 1984 0d93 00        		.string	""
+ 1985 0d94 00        		.string	""
+ 1986 0d95 00        		.string	""
+ 1987 0d96 00        		.string	""
+ 1988 0d97 00        		.string	""
+ 1989 0d98 00        		.string	""
+ 1990 0d99 00        		.string	""
+ 1991 0d9a 00        		.string	""
+ 1992 0d9b 00        		.string	""
+ 1993 0d9c 00        		.string	""
+ 1994 0d9d 00        		.string	""
+ 1995 0d9e 00        		.string	""
+ 1996 0d9f 00        		.string	""
+ 1997 0da0 00        		.string	""
+ 1998 0da1 00        		.string	""
+ 1999 0da2 00        		.string	""
+ 2000 0da3 0B0B 1323 		.string	"\013\013\023#.>QdbQ>.#\023\013\013"
+ 2000      2E3E 5164 
+ 2000      6251 3E2E 
+ 2000      2313 0B0B 
+ 2000      00
+ 2001 0db4 00        		.string	""
+ 2002 0db5 00        		.string	""
+ 2003 0db6 00        		.string	""
+ 2004 0db7 00        		.string	""
+ 2005 0db8 00        		.string	""
+ 2006 0db9 00        		.string	""
+ 2007 0dba 00        		.string	""
+ 2008 0dbb 00        		.string	""
+ 2009 0dbc 00        		.string	""
+ 2010 0dbd 00        		.string	""
+ 2011 0dbe 00        		.string	""
+ 2012 0dbf 00        		.string	""
+ 2013 0dc0 00        		.string	""
+ 2014 0dc1 00        		.string	""
+ 2015 0dc2 00        		.string	""
+ 2016 0dc3 00        		.string	""
+ 2017 0dc4 00        		.string	""
+ 2018 0dc5 00        		.string	""
+ 2019 0dc6 00        		.string	""
+ 2020 0dc7 00        		.string	""
+ 2021 0dc8 0B0B 1A1F 		.string	"\013\013\032\037.9>>9.\037\032\023\013"
+ 2021      2E39 3E3E 
+ 2021      392E 1F1A 
+ 2021      130B 00
+ 2022 0dd7 00        		.string	""
+ 2023 0dd8 00        		.string	""
+ 2024 0dd9 00        		.string	""
+ 2025 0dda 00        		.string	""
+ 2026 0ddb 00        		.string	""
+ 2027 0ddc 00        		.string	""
+ 2028 0ddd 00        		.string	""
+ 2029 0dde 00        		.string	""
+ 2030 0ddf 00        		.string	""
+ 2031 0de0 00        		.string	""
+ 2032 0de1 00        		.string	""
+ 2033 0de2 00        		.string	""
+ 2034 0de3 00        		.string	""
+ 2035 0de4 00        		.string	""
+ 2036 0de5 00        		.string	""
+ 2037 0de6 00        		.string	""
+ 2038 0de7 00        		.string	""
+ 2039 0de8 00        		.string	""
+ 2040 0de9 00        		.string	""
+ 2041 0dea 00        		.string	""
+ 2042 0deb 00        		.string	""
+ 2043 0dec 00        		.string	""
+ 2044 0ded 0B13 131F 		.ascii	"\013\023\023\037'**#"
+ 2044      272A 2A23 
+ 2045 0df5 1F13 130B 		.string	"\037\023\023\013"
+ 2045      00
+ 2046 0dfa 00        		.string	""
+ 2047 0dfb 00        		.string	""
+ 2048 0dfc 00        		.string	""
+ 2049 0dfd 00        		.string	""
+ 2050 0dfe 00        		.string	""
+ 2051 0dff 00        		.string	""
+ 2052 0e00 00        		.string	""
+ 2053 0e01 00        		.string	""
+ 2054 0e02 00        		.string	""
+ 2055 0e03 00        		.string	""
+ 2056 0e04 00        		.string	""
+ 2057               		.text
+ 2058               	.Letext0:
+ 2059               		.file 2 "/usr/lib/gcc/avr/12.2.0/include/stdint-gcc.h"
+ 2060               		.file 3 "../../types/types.h"
+ 2061               		.file 4 "logger/logger.h"
+ 2062               		.file 5 "lcd/lcd.h"
+ 2063               		.file 6 "logo/logo_tiny.c"
+ 2064               		.file 7 "logo/logo_text.c"
+ 2065               		.file 8 "../../emulator/emulator.h"
+ 2066               		.file 9 "initrd/initrd.h"
+ 2067               		.file 10 "sd/sd.h"
+ 2068               		.file 11 "xmem/xmem.h"
+ 2069               		.file 12 "rtc/rtc.h"
+ 2070               		.file 13 "random/random.h"
+ 2071               		.file 14 "adc/adc.h"
+ 2072               		.file 15 "ps2/ps2.h"
+ 2073               		.file 16 "spi/spi.h"
+ 2074               		.file 17 "timer/timer.h"
+ 2075               		.file 18 "serial/serial.h"
+ 2076               		.file 19 "gpio/gpio.h"
 DEFINED SYMBOLS
                             *ABS*:00000000 main.c
-     /tmp/cc1JBKF8.s:2      *ABS*:0000003e __SP_H__
-     /tmp/cc1JBKF8.s:3      *ABS*:0000003d __SP_L__
-     /tmp/cc1JBKF8.s:4      *ABS*:0000003f __SREG__
-     /tmp/cc1JBKF8.s:5      *ABS*:00000000 __tmp_reg__
-     /tmp/cc1JBKF8.s:6      *ABS*:00000001 __zero_reg__
-     /tmp/cc1JBKF8.s:13     .text:00000000 byte_to_hex
-     /tmp/cc1JBKF8.s:17     .text:00000000 .Loc.0
-     /tmp/cc1JBKF8.s:18     .text:00000000 L0
-     /tmp/cc1JBKF8.s:23     .text:00000000 .Loc.1
-     /tmp/cc1JBKF8.s:24     .text:00000000 .Loc.2
-     /tmp/cc1JBKF8.s:27     .text:00000004 .Loc.3
-     /tmp/cc1JBKF8.s:28     .text:00000004 .Loc.4
-     /tmp/cc1JBKF8.s:31     .text:00000006 .Loc.5
-     /tmp/cc1JBKF8.s:35     .text:00000008 .Loc.6
-     /tmp/cc1JBKF8.s:36     .text:00000008 .Loc.7
-     /tmp/cc1JBKF8.s:40     .text:0000000a .Loc.8
-     /tmp/cc1JBKF8.s:42     .text:0000000c L0
-     /tmp/cc1JBKF8.s:47     .text:0000000c ps2_event
-     /tmp/cc1JBKF8.s:50     .text:0000000c .Loc.9
-     /tmp/cc1JBKF8.s:51     .text:0000000c L0
-     /tmp/cc1JBKF8.s:56     .text:0000000c .Loc.10
-     /tmp/cc1JBKF8.s:59     .text:0000000e L0
-     /tmp/cc1JBKF8.s:64     .text:0000000e serial_write
-     /tmp/cc1JBKF8.s:67     .text:0000000e .Loc.11
-     /tmp/cc1JBKF8.s:68     .text:0000000e L0
-     /tmp/cc1JBKF8.s:69     .text:0000000e .Loc.12
-     /tmp/cc1JBKF8.s:106    .text:00000026 .Loc.13
-     /tmp/cc1JBKF8.s:107    .text:00000026 .Loc.14
-     /tmp/cc1JBKF8.s:109    .text:00000026 .Loc.15
-     /tmp/cc1JBKF8.s:110    .text:00000026 .Loc.16
-     /tmp/cc1JBKF8.s:112    .text:00000028 .Loc.17
-     /tmp/cc1JBKF8.s:118    .text:0000002e .Loc.18
-     /tmp/cc1JBKF8.s:125    .text:00000038 .Loc.19
-     /tmp/cc1JBKF8.s:137    .text:0000004c .Loc.20
-     /tmp/cc1JBKF8.s:141    .text:0000004e .Loc.21
-     /tmp/cc1JBKF8.s:145    .text:00000054 .Loc.22
-     /tmp/cc1JBKF8.s:152    .text:0000005e .Loc.23
-     /tmp/cc1JBKF8.s:154    .text:00000060 L0
-     /tmp/cc1JBKF8.s:159    .text:00000060 memory_size
-     /tmp/cc1JBKF8.s:161    .text:00000060 .Loc.24
-     /tmp/cc1JBKF8.s:162    .text:00000060 L0
-     /tmp/cc1JBKF8.s:167    .text:00000060 .Loc.25
-     /tmp/cc1JBKF8.s:168    .text:00000060 .Loc.26
-     /tmp/cc1JBKF8.s:175    .text:0000006a L0
-     /tmp/cc1JBKF8.s:180    .text:0000006a memory_read
-     /tmp/cc1JBKF8.s:183    .text:0000006a .Loc.27
-     /tmp/cc1JBKF8.s:184    .text:0000006a L0
-     /tmp/cc1JBKF8.s:185    .text:0000006a .Loc.28
-     /tmp/cc1JBKF8.s:196    .text:0000006e .Loc.29
-     /tmp/cc1JBKF8.s:199    .text:00000070 .Loc.30
-     /tmp/cc1JBKF8.s:203    .text:00000074 .Loc.31
-     /tmp/cc1JBKF8.s:206    .text:00000078 .Loc.32
-     /tmp/cc1JBKF8.s:207    .text:00000078 L0
-     /tmp/cc1JBKF8.s:212    .text:00000078 memory_write
-     /tmp/cc1JBKF8.s:215    .text:00000078 .Loc.33
-     /tmp/cc1JBKF8.s:216    .text:00000078 L0
-     /tmp/cc1JBKF8.s:217    .text:00000078 .Loc.34
-     /tmp/cc1JBKF8.s:228    .text:0000007c .Loc.35
-     /tmp/cc1JBKF8.s:231    .text:0000007e .Loc.36
-     /tmp/cc1JBKF8.s:235    .text:00000082 .Loc.37
-     /tmp/cc1JBKF8.s:238    .text:00000086 .Loc.38
-     /tmp/cc1JBKF8.s:239    .text:00000086 L0
-     /tmp/cc1JBKF8.s:244    .text:00000086 gfx_rect
-     /tmp/cc1JBKF8.s:247    .text:00000086 .Loc.39
-     /tmp/cc1JBKF8.s:248    .text:00000086 L0
-     /tmp/cc1JBKF8.s:249    .text:00000086 .Loc.40
-     /tmp/cc1JBKF8.s:263    .text:0000008e .Loc.41
-     /tmp/cc1JBKF8.s:268    .text:00000094 L0
-     /tmp/cc1JBKF8.s:273    .text:00000094 syscall_gfx_image_rgba
-     /tmp/cc1JBKF8.s:276    .text:00000094 .Loc.42
-     /tmp/cc1JBKF8.s:277    .text:00000094 L0
-     /tmp/cc1JBKF8.s:278    .text:00000094 .Loc.43
-     /tmp/cc1JBKF8.s:285    .text:0000009a L0
-     /tmp/cc1JBKF8.s:286    .text:0000009c L0
-     /tmp/cc1JBKF8.s:295    .text:000000a0 .Loc.44
-     /tmp/cc1JBKF8.s:308    .text:000000b6 L0
-     /tmp/cc1JBKF8.s:313    .text:000000b6 syscall_gfx_image_rgb
-     /tmp/cc1JBKF8.s:315    .text:000000b6 L0
-     /tmp/cc1JBKF8.s:316    .text:000000b6 .Loc.45
-     /tmp/cc1JBKF8.s:323    .text:000000bc L0
-     /tmp/cc1JBKF8.s:324    .text:000000be L0
-     /tmp/cc1JBKF8.s:344    .text:000000d6 L0
-     /tmp/cc1JBKF8.s:349    .text:000000d6 syscall_gfx_image_rgb565
-     /tmp/cc1JBKF8.s:351    .text:000000d6 L0
-     /tmp/cc1JBKF8.s:352    .text:000000d6 .Loc.46
-     /tmp/cc1JBKF8.s:359    .text:000000dc L0
-     /tmp/cc1JBKF8.s:360    .text:000000de L0
-     /tmp/cc1JBKF8.s:380    .text:000000f6 L0
-     /tmp/cc1JBKF8.s:385    .text:000000f6 syscall_gfx_image_grayscale
-     /tmp/cc1JBKF8.s:387    .text:000000f6 L0
-     /tmp/cc1JBKF8.s:388    .text:000000f6 .Loc.47
-     /tmp/cc1JBKF8.s:395    .text:000000fc L0
-     /tmp/cc1JBKF8.s:396    .text:000000fe L0
-     /tmp/cc1JBKF8.s:416    .text:00000116 L0
-     /tmp/cc1JBKF8.s:421    .text:00000116 syscall_gfx_image_1bit
-     /tmp/cc1JBKF8.s:423    .text:00000116 L0
-     /tmp/cc1JBKF8.s:424    .text:00000116 .Loc.48
-     /tmp/cc1JBKF8.s:431    .text:0000011c L0
-     /tmp/cc1JBKF8.s:432    .text:0000011e L0
-     /tmp/cc1JBKF8.s:452    .text:00000136 L0
-     /tmp/cc1JBKF8.s:458    .text.startup:00000000 main
-     /tmp/cc1JBKF8.s:460    .text.startup:00000000 .Loc.49
-     /tmp/cc1JBKF8.s:461    .text.startup:00000000 L0
-     /tmp/cc1JBKF8.s:466    .text.startup:00000000 .Loc.50
-     /tmp/cc1JBKF8.s:471    .text.startup:00000002 .Loc.51
-     /tmp/cc1JBKF8.s:475    .text.startup:00000006 .Loc.52
-     /tmp/cc1JBKF8.s:478    .text.startup:0000000a .Loc.53
-     /tmp/cc1JBKF8.s:480    .text.startup:0000000a .Loc.54
-     /tmp/cc1JBKF8.s:481    .text.startup:0000000a .Loc.55
-     /tmp/cc1JBKF8.s:483    .text.startup:0000000a .Loc.56
-     /tmp/cc1JBKF8.s:592    .progmem.data:00000027 __c.1
-     /tmp/cc1JBKF8.s:495    .text.startup:0000001a .Loc.57
-     /tmp/cc1JBKF8.s:498    .text.startup:0000001e .Loc.58
-     /tmp/cc1JBKF8.s:501    .text.startup:00000022 .Loc.59
-     /tmp/cc1JBKF8.s:507    .text.startup:0000002c .Loc.60
-     /tmp/cc1JBKF8.s:1400   .progmem.data:00000619 logo_tiny
-     /tmp/cc1JBKF8.s:520    .text.startup:00000044 .Loc.61
-     /tmp/cc1JBKF8.s:596    .progmem.data:0000004d logo_text
-     /tmp/cc1JBKF8.s:533    .text.startup:0000005c .Loc.62
-     /tmp/cc1JBKF8.s:536    .text.startup:00000060 .Loc.63
-     /tmp/cc1JBKF8.s:539    .text.startup:00000064 .Loc.64
-     /tmp/cc1JBKF8.s:542    .text.startup:00000068 .Loc.65
-     /tmp/cc1JBKF8.s:545    .text.startup:0000006c .Loc.66
-     /tmp/cc1JBKF8.s:548    .text.startup:00000070 .Loc.67
-     /tmp/cc1JBKF8.s:551    .text.startup:00000074 .Loc.68
-     /tmp/cc1JBKF8.s:554    .text.startup:00000078 .Loc.69
-     /tmp/cc1JBKF8.s:556    .text.startup:00000078 .Loc.70
-     /tmp/cc1JBKF8.s:557    .text.startup:00000078 .Loc.71
-     /tmp/cc1JBKF8.s:559    .text.startup:00000078 .Loc.72
-     /tmp/cc1JBKF8.s:588    .progmem.data:00000000 __c.0
-     /tmp/cc1JBKF8.s:578    .text.startup:00000092 .Loc.73
-     /tmp/cc1JBKF8.s:579    .text.startup:00000092 .Loc.74
-     /tmp/cc1JBKF8.s:580    .text.startup:00000092 .Loc.75
-     /tmp/cc1JBKF8.s:582    .text.startup:00000094 L0
-     /tmp/cc1JBKF8.s:1939   .text:00000136 L0
-     /tmp/cc1JBKF8.s:585    .text.startup:00000094 L0
+     /tmp/ccXjgCet.s:2      *ABS*:0000003e __SP_H__
+     /tmp/ccXjgCet.s:3      *ABS*:0000003d __SP_L__
+     /tmp/ccXjgCet.s:4      *ABS*:0000003f __SREG__
+     /tmp/ccXjgCet.s:5      *ABS*:00000000 __tmp_reg__
+     /tmp/ccXjgCet.s:6      *ABS*:00000001 __zero_reg__
+     /tmp/ccXjgCet.s:13     .text:00000000 byte_to_hex
+     /tmp/ccXjgCet.s:17     .text:00000000 .Loc.0
+     /tmp/ccXjgCet.s:18     .text:00000000 L0
+     /tmp/ccXjgCet.s:23     .text:00000000 .Loc.1
+     /tmp/ccXjgCet.s:24     .text:00000000 .Loc.2
+     /tmp/ccXjgCet.s:27     .text:00000004 .Loc.3
+     /tmp/ccXjgCet.s:28     .text:00000004 .Loc.4
+     /tmp/ccXjgCet.s:31     .text:00000006 .Loc.5
+     /tmp/ccXjgCet.s:35     .text:00000008 .Loc.6
+     /tmp/ccXjgCet.s:36     .text:00000008 .Loc.7
+     /tmp/ccXjgCet.s:40     .text:0000000a .Loc.8
+     /tmp/ccXjgCet.s:42     .text:0000000c L0
+     /tmp/ccXjgCet.s:47     .text:0000000c ps2_event
+     /tmp/ccXjgCet.s:50     .text:0000000c .Loc.9
+     /tmp/ccXjgCet.s:51     .text:0000000c L0
+     /tmp/ccXjgCet.s:56     .text:0000000c .Loc.10
+     /tmp/ccXjgCet.s:59     .text:0000000e L0
+     /tmp/ccXjgCet.s:64     .text:0000000e serial_write
+     /tmp/ccXjgCet.s:67     .text:0000000e .Loc.11
+     /tmp/ccXjgCet.s:68     .text:0000000e L0
+     /tmp/ccXjgCet.s:69     .text:0000000e .Loc.12
+     /tmp/ccXjgCet.s:106    .text:00000026 .Loc.13
+     /tmp/ccXjgCet.s:107    .text:00000026 .Loc.14
+     /tmp/ccXjgCet.s:109    .text:00000026 .Loc.15
+     /tmp/ccXjgCet.s:110    .text:00000026 .Loc.16
+     /tmp/ccXjgCet.s:112    .text:00000028 .Loc.17
+     /tmp/ccXjgCet.s:118    .text:0000002e .Loc.18
+     /tmp/ccXjgCet.s:125    .text:00000038 .Loc.19
+     /tmp/ccXjgCet.s:137    .text:0000004c .Loc.20
+     /tmp/ccXjgCet.s:141    .text:0000004e .Loc.21
+     /tmp/ccXjgCet.s:145    .text:00000054 .Loc.22
+     /tmp/ccXjgCet.s:152    .text:0000005e .Loc.23
+     /tmp/ccXjgCet.s:154    .text:00000060 L0
+     /tmp/ccXjgCet.s:159    .text:00000060 memory_size
+     /tmp/ccXjgCet.s:161    .text:00000060 .Loc.24
+     /tmp/ccXjgCet.s:162    .text:00000060 L0
+     /tmp/ccXjgCet.s:167    .text:00000060 .Loc.25
+     /tmp/ccXjgCet.s:168    .text:00000060 .Loc.26
+     /tmp/ccXjgCet.s:175    .text:0000006a L0
+     /tmp/ccXjgCet.s:180    .text:0000006a memory_read
+     /tmp/ccXjgCet.s:183    .text:0000006a .Loc.27
+     /tmp/ccXjgCet.s:184    .text:0000006a L0
+     /tmp/ccXjgCet.s:185    .text:0000006a .Loc.28
+     /tmp/ccXjgCet.s:196    .text:0000006e .Loc.29
+     /tmp/ccXjgCet.s:199    .text:00000070 .Loc.30
+     /tmp/ccXjgCet.s:203    .text:00000074 .Loc.31
+     /tmp/ccXjgCet.s:206    .text:00000078 .Loc.32
+     /tmp/ccXjgCet.s:207    .text:00000078 L0
+     /tmp/ccXjgCet.s:212    .text:00000078 memory_write
+     /tmp/ccXjgCet.s:215    .text:00000078 .Loc.33
+     /tmp/ccXjgCet.s:216    .text:00000078 L0
+     /tmp/ccXjgCet.s:217    .text:00000078 .Loc.34
+     /tmp/ccXjgCet.s:228    .text:0000007c .Loc.35
+     /tmp/ccXjgCet.s:231    .text:0000007e .Loc.36
+     /tmp/ccXjgCet.s:235    .text:00000082 .Loc.37
+     /tmp/ccXjgCet.s:238    .text:00000086 .Loc.38
+     /tmp/ccXjgCet.s:239    .text:00000086 L0
+     /tmp/ccXjgCet.s:244    .text:00000086 gfx_rect
+     /tmp/ccXjgCet.s:247    .text:00000086 .Loc.39
+     /tmp/ccXjgCet.s:248    .text:00000086 L0
+     /tmp/ccXjgCet.s:249    .text:00000086 .Loc.40
+     /tmp/ccXjgCet.s:300    .text:000000ae .Loc.41
+     /tmp/ccXjgCet.s:303    .text:000000ae .Loc.42
+     /tmp/ccXjgCet.s:305    .text:000000ae .Loc.43
+     /tmp/ccXjgCet.s:306    .text:000000ae .Loc.44
+     /tmp/ccXjgCet.s:311    .text:000000ae .Loc.45
+     /tmp/ccXjgCet.s:313    .text:000000ae .Loc.46
+     /tmp/ccXjgCet.s:314    .text:000000ae .Loc.47
+     /tmp/ccXjgCet.s:319    .text:000000ae .Loc.48
+     /tmp/ccXjgCet.s:321    .text:000000ae .Loc.49
+     /tmp/ccXjgCet.s:322    .text:000000ae .Loc.50
+     /tmp/ccXjgCet.s:327    .text:000000ae .Loc.51
+     /tmp/ccXjgCet.s:333    .text:000000b6 .Loc.52
+     /tmp/ccXjgCet.s:338    .text:000000b6 .Loc.53
+     /tmp/ccXjgCet.s:344    .text:000000bc .Loc.54
+     /tmp/ccXjgCet.s:347    .text:000000be .Loc.55
+     /tmp/ccXjgCet.s:350    .text:000000c0 .Loc.56
+     /tmp/ccXjgCet.s:361    .text:000000d2 .Loc.57
+     /tmp/ccXjgCet.s:369    .text:000000de .Loc.58
+     /tmp/ccXjgCet.s:375    .text:000000e6 .Loc.59
+     /tmp/ccXjgCet.s:379    .text:000000ec L0
+     /tmp/ccXjgCet.s:384    .text:000000ec syscall_gfx_image_rgba
+     /tmp/ccXjgCet.s:387    .text:000000ec .Loc.60
+     /tmp/ccXjgCet.s:388    .text:000000ec L0
+     /tmp/ccXjgCet.s:389    .text:000000ec .Loc.61
+     /tmp/ccXjgCet.s:396    .text:000000f2 L0
+     /tmp/ccXjgCet.s:397    .text:000000f4 L0
+     /tmp/ccXjgCet.s:406    .text:000000f8 .Loc.62
+     /tmp/ccXjgCet.s:419    .text:0000010e L0
+     /tmp/ccXjgCet.s:424    .text:0000010e syscall_gfx_image_rgb
+     /tmp/ccXjgCet.s:426    .text:0000010e L0
+     /tmp/ccXjgCet.s:427    .text:0000010e .Loc.63
+     /tmp/ccXjgCet.s:434    .text:00000114 L0
+     /tmp/ccXjgCet.s:435    .text:00000116 L0
+     /tmp/ccXjgCet.s:455    .text:0000012e L0
+     /tmp/ccXjgCet.s:460    .text:0000012e syscall_gfx_image_rgb565
+     /tmp/ccXjgCet.s:462    .text:0000012e L0
+     /tmp/ccXjgCet.s:463    .text:0000012e .Loc.64
+     /tmp/ccXjgCet.s:470    .text:00000134 L0
+     /tmp/ccXjgCet.s:471    .text:00000136 L0
+     /tmp/ccXjgCet.s:491    .text:0000014e L0
+     /tmp/ccXjgCet.s:496    .text:0000014e syscall_gfx_image_grayscale
+     /tmp/ccXjgCet.s:498    .text:0000014e L0
+     /tmp/ccXjgCet.s:499    .text:0000014e .Loc.65
+     /tmp/ccXjgCet.s:506    .text:00000154 L0
+     /tmp/ccXjgCet.s:507    .text:00000156 L0
+     /tmp/ccXjgCet.s:527    .text:0000016e L0
+     /tmp/ccXjgCet.s:532    .text:0000016e syscall_gfx_image_1bit
+     /tmp/ccXjgCet.s:534    .text:0000016e L0
+     /tmp/ccXjgCet.s:535    .text:0000016e .Loc.66
+     /tmp/ccXjgCet.s:542    .text:00000174 L0
+     /tmp/ccXjgCet.s:543    .text:00000176 L0
+     /tmp/ccXjgCet.s:563    .text:0000018e L0
+     /tmp/ccXjgCet.s:569    .text.startup:00000000 main
+     /tmp/ccXjgCet.s:571    .text.startup:00000000 .Loc.67
+     /tmp/ccXjgCet.s:572    .text.startup:00000000 L0
+     /tmp/ccXjgCet.s:577    .text.startup:00000000 .Loc.68
+     /tmp/ccXjgCet.s:582    .text.startup:00000002 .Loc.69
+     /tmp/ccXjgCet.s:586    .text.startup:00000006 .Loc.70
+     /tmp/ccXjgCet.s:589    .text.startup:0000000a .Loc.71
+     /tmp/ccXjgCet.s:591    .text.startup:0000000a .Loc.72
+     /tmp/ccXjgCet.s:592    .text.startup:0000000a .Loc.73
+     /tmp/ccXjgCet.s:594    .text.startup:0000000a .Loc.74
+     /tmp/ccXjgCet.s:729    .progmem.data:00000033 __c.2
+     /tmp/ccXjgCet.s:606    .text.startup:0000001a .Loc.75
+     /tmp/ccXjgCet.s:609    .text.startup:0000001e .Loc.76
+     /tmp/ccXjgCet.s:612    .text.startup:00000022 .Loc.77
+     /tmp/ccXjgCet.s:618    .text.startup:0000002c .Loc.78
+     /tmp/ccXjgCet.s:1537   .progmem.data:00000625 logo_tiny
+     /tmp/ccXjgCet.s:631    .text.startup:00000044 .Loc.79
+     /tmp/ccXjgCet.s:733    .progmem.data:00000059 logo_text
+     /tmp/ccXjgCet.s:644    .text.startup:0000005c .Loc.80
+     /tmp/ccXjgCet.s:647    .text.startup:00000060 .Loc.81
+     /tmp/ccXjgCet.s:650    .text.startup:00000064 .Loc.82
+     /tmp/ccXjgCet.s:653    .text.startup:00000068 .Loc.83
+     /tmp/ccXjgCet.s:656    .text.startup:0000006c .Loc.84
+     /tmp/ccXjgCet.s:659    .text.startup:00000070 .Loc.85
+     /tmp/ccXjgCet.s:662    .text.startup:00000074 .Loc.86
+     /tmp/ccXjgCet.s:665    .text.startup:00000078 .Loc.87
+     /tmp/ccXjgCet.s:667    .text.startup:00000078 .Loc.88
+     /tmp/ccXjgCet.s:668    .text.startup:00000078 .Loc.89
+     /tmp/ccXjgCet.s:670    .text.startup:00000078 .Loc.90
+     /tmp/ccXjgCet.s:725    .progmem.data:0000000c __c.1
+     /tmp/ccXjgCet.s:681    .text.startup:00000086 .Loc.91
+     /tmp/ccXjgCet.s:684    .text.startup:0000008a .Loc.92
+     /tmp/ccXjgCet.s:686    .text.startup:0000008a .Loc.93
+     /tmp/ccXjgCet.s:687    .text.startup:0000008a .Loc.94
+     /tmp/ccXjgCet.s:689    .text.startup:0000008a .Loc.95
+     /tmp/ccXjgCet.s:721    .progmem.data:00000000 __c.0
+     /tmp/ccXjgCet.s:711    .text.startup:000000aa .Loc.96
+     /tmp/ccXjgCet.s:712    .text.startup:000000aa .Loc.97
+     /tmp/ccXjgCet.s:713    .text.startup:000000aa .Loc.98
+     /tmp/ccXjgCet.s:715    .text.startup:000000ac L0
+     /tmp/ccXjgCet.s:2077   .text:0000018e L0
+     /tmp/ccXjgCet.s:718    .text.startup:000000ac L0
                      .debug_frame:00000000 L0
-     /tmp/cc1JBKF8.s:34     .text:00000008 .L2
-     /tmp/cc1JBKF8.s:140    .text:0000004e .L7
-     /tmp/cc1JBKF8.s:117    .text:0000002e .L6
-     /tmp/cc1JBKF8.s:577    .text.startup:00000092 .L18
-     /tmp/cc1JBKF8.s:2854   .debug_abbrev:00000000 .Ldebug_abbrev0
-     /tmp/cc1JBKF8.s:3819   .debug_rnglists:0000000c .LLRL11
-     /tmp/cc1JBKF8.s:3829   .debug_line:00000000 .Ldebug_line0
-     /tmp/cc1JBKF8.s:459    .text.startup:00000000 .LFB15
-     /tmp/cc1JBKF8.s:583    .text.startup:00000094 .LFE15
-     /tmp/cc1JBKF8.s:479    .text.startup:0000000a .LBB2
-     /tmp/cc1JBKF8.s:482    .text.startup:0000000a .LBE2
-     /tmp/cc1JBKF8.s:555    .text.startup:00000078 .LBB3
-     /tmp/cc1JBKF8.s:558    .text.startup:00000078 .LBE3
-     /tmp/cc1JBKF8.s:474    .text.startup:00000006 .LVL20
-     /tmp/cc1JBKF8.s:477    .text.startup:0000000a .LVL21
-     /tmp/cc1JBKF8.s:494    .text.startup:0000001a .LVL22
-     /tmp/cc1JBKF8.s:497    .text.startup:0000001e .LVL23
-     /tmp/cc1JBKF8.s:500    .text.startup:00000022 .LVL24
-     /tmp/cc1JBKF8.s:506    .text.startup:0000002c .LVL25
-     /tmp/cc1JBKF8.s:519    .text.startup:00000044 .LVL26
-     /tmp/cc1JBKF8.s:532    .text.startup:0000005c .LVL27
-     /tmp/cc1JBKF8.s:535    .text.startup:00000060 .LVL28
-     /tmp/cc1JBKF8.s:538    .text.startup:00000064 .LVL29
-     /tmp/cc1JBKF8.s:541    .text.startup:00000068 .LVL30
-     /tmp/cc1JBKF8.s:544    .text.startup:0000006c .LVL31
-     /tmp/cc1JBKF8.s:547    .text.startup:00000070 .LVL32
-     /tmp/cc1JBKF8.s:550    .text.startup:00000074 .LVL33
-     /tmp/cc1JBKF8.s:553    .text.startup:00000078 .LVL34
-     /tmp/cc1JBKF8.s:569    .text.startup:00000086 .LVL35
-     /tmp/cc1JBKF8.s:246    .text:00000086 .LFB9
-     /tmp/cc1JBKF8.s:269    .text:00000094 .LFE9
-     /tmp/cc1JBKF8.s:214    .text:00000078 .LFB8
-     /tmp/cc1JBKF8.s:240    .text:00000086 .LFE8
-     /tmp/cc1JBKF8.s:3454   .debug_loclists:00000010 .LLST8
-     /tmp/cc1JBKF8.s:3449   .debug_loclists:0000000c .LVUS8
-     /tmp/cc1JBKF8.s:3487   .debug_loclists:00000032 .LLST9
-     /tmp/cc1JBKF8.s:3482   .debug_loclists:0000002e .LVUS9
-     /tmp/cc1JBKF8.s:3514   .debug_loclists:0000004e .LLST10
-     /tmp/cc1JBKF8.s:3509   .debug_loclists:0000004a .LVUS10
-     /tmp/cc1JBKF8.s:237    .text:00000086 .LVL17
-     /tmp/cc1JBKF8.s:182    .text:0000006a .LFB7
-     /tmp/cc1JBKF8.s:208    .text:00000078 .LFE7
-     /tmp/cc1JBKF8.s:3547   .debug_loclists:00000070 .LLST5
-     /tmp/cc1JBKF8.s:3542   .debug_loclists:0000006c .LVUS5
-     /tmp/cc1JBKF8.s:3580   .debug_loclists:00000092 .LLST6
-     /tmp/cc1JBKF8.s:3575   .debug_loclists:0000008e .LVUS6
-     /tmp/cc1JBKF8.s:3607   .debug_loclists:000000ae .LLST7
-     /tmp/cc1JBKF8.s:3602   .debug_loclists:000000aa .LVUS7
-     /tmp/cc1JBKF8.s:205    .text:00000078 .LVL14
-     /tmp/cc1JBKF8.s:160    .text:00000060 .LFB6
-     /tmp/cc1JBKF8.s:176    .text:0000006a .LFE6
-     /tmp/cc1JBKF8.s:66     .text:0000000e .LFB5
-     /tmp/cc1JBKF8.s:155    .text:00000060 .LFE5
-     /tmp/cc1JBKF8.s:3640   .debug_loclists:000000d0 .LLST1
-     /tmp/cc1JBKF8.s:3635   .debug_loclists:000000cc .LVUS1
-     /tmp/cc1JBKF8.s:3667   .debug_loclists:000000ec .LLST2
-     /tmp/cc1JBKF8.s:3662   .debug_loclists:000000e8 .LVUS2
-     /tmp/cc1JBKF8.s:3702   .debug_loclists:00000110 .LLST3
-     /tmp/cc1JBKF8.s:3695   .debug_loclists:0000010a .LVUS3
-     /tmp/cc1JBKF8.s:3747   .debug_loclists:0000013e .LLST4
-     /tmp/cc1JBKF8.s:3744   .debug_loclists:0000013c .LVUS4
-     /tmp/cc1JBKF8.s:144    .text:00000054 .LVL10
-     /tmp/cc1JBKF8.s:49     .text:0000000c .LFB4
-     /tmp/cc1JBKF8.s:60     .text:0000000e .LFE4
-     /tmp/cc1JBKF8.s:15     .text:00000000 .LFB3
-     /tmp/cc1JBKF8.s:43     .text:0000000c .LFE3
-     /tmp/cc1JBKF8.s:3768   .debug_loclists:00000154 .LLST0
-     /tmp/cc1JBKF8.s:3759   .debug_loclists:0000014c .LVUS0
-     /tmp/cc1JBKF8.s:275    .text:00000094 .LFB10
-     /tmp/cc1JBKF8.s:309    .text:000000b6 .LFE10
-     /tmp/cc1JBKF8.s:213    .text:00000078 .LVL15
-     /tmp/cc1JBKF8.s:181    .text:0000006a .LVL12
-     /tmp/cc1JBKF8.s:65     .text:0000000e .LVL5
-     /tmp/cc1JBKF8.s:108    .text:00000026 .LVL6
-     /tmp/cc1JBKF8.s:14     .text:00000000 .LVL0
-     /tmp/cc1JBKF8.s:1940   .debug_info:00000000 .Ldebug_info0
-     /tmp/cc1JBKF8.s:8      .text:00000000 .Ltext0
-     /tmp/cc1JBKF8.s:1921   .text:00000136 .Letext0
+     /tmp/ccXjgCet.s:34     .text:00000008 .L2
+     /tmp/ccXjgCet.s:140    .text:0000004e .L7
+     /tmp/ccXjgCet.s:117    .text:0000002e .L6
+     /tmp/ccXjgCet.s:710    .text.startup:000000aa .L18
+     /tmp/ccXjgCet.s:3157   .debug_abbrev:00000000 .Ldebug_abbrev0
+     /tmp/ccXjgCet.s:4451   .debug_rnglists:00000024 .LLRL21
+     /tmp/ccXjgCet.s:4461   .debug_line:00000000 .Ldebug_line0
+     /tmp/ccXjgCet.s:570    .text.startup:00000000 .LFB19
+     /tmp/ccXjgCet.s:716    .text.startup:000000ac .LFE19
+     /tmp/ccXjgCet.s:590    .text.startup:0000000a .LBB18
+     /tmp/ccXjgCet.s:593    .text.startup:0000000a .LBE18
+     /tmp/ccXjgCet.s:666    .text.startup:00000078 .LBB19
+     /tmp/ccXjgCet.s:669    .text.startup:00000078 .LBE19
+     /tmp/ccXjgCet.s:685    .text.startup:0000008a .LBB20
+     /tmp/ccXjgCet.s:688    .text.startup:0000008a .LBE20
+     /tmp/ccXjgCet.s:585    .text.startup:00000006 .LVL28
+     /tmp/ccXjgCet.s:588    .text.startup:0000000a .LVL29
+     /tmp/ccXjgCet.s:605    .text.startup:0000001a .LVL30
+     /tmp/ccXjgCet.s:608    .text.startup:0000001e .LVL31
+     /tmp/ccXjgCet.s:611    .text.startup:00000022 .LVL32
+     /tmp/ccXjgCet.s:617    .text.startup:0000002c .LVL33
+     /tmp/ccXjgCet.s:630    .text.startup:00000044 .LVL34
+     /tmp/ccXjgCet.s:643    .text.startup:0000005c .LVL35
+     /tmp/ccXjgCet.s:646    .text.startup:00000060 .LVL36
+     /tmp/ccXjgCet.s:649    .text.startup:00000064 .LVL37
+     /tmp/ccXjgCet.s:652    .text.startup:00000068 .LVL38
+     /tmp/ccXjgCet.s:655    .text.startup:0000006c .LVL39
+     /tmp/ccXjgCet.s:658    .text.startup:00000070 .LVL40
+     /tmp/ccXjgCet.s:661    .text.startup:00000074 .LVL41
+     /tmp/ccXjgCet.s:664    .text.startup:00000078 .LVL42
+     /tmp/ccXjgCet.s:680    .text.startup:00000086 .LVL43
+     /tmp/ccXjgCet.s:683    .text.startup:0000008a .LVL44
+     /tmp/ccXjgCet.s:700    .text.startup:0000009a .LVL45
+     /tmp/ccXjgCet.s:246    .text:00000086 .LFB13
+     /tmp/ccXjgCet.s:380    .text:000000ec .LFE13
+     /tmp/ccXjgCet.s:3850   .debug_loclists:00000010 .LLST11
+     /tmp/ccXjgCet.s:3845   .debug_loclists:0000000c .LVUS11
+     /tmp/ccXjgCet.s:3883   .debug_loclists:00000032 .LLST12
+     /tmp/ccXjgCet.s:3878   .debug_loclists:0000002e .LVUS12
+     /tmp/ccXjgCet.s:3916   .debug_loclists:00000054 .LLST13
+     /tmp/ccXjgCet.s:3911   .debug_loclists:00000050 .LVUS13
+     /tmp/ccXjgCet.s:3949   .debug_loclists:00000076 .LLST14
+     /tmp/ccXjgCet.s:3944   .debug_loclists:00000072 .LVUS14
+     /tmp/ccXjgCet.s:3980   .debug_loclists:00000096 .LLST15
+     /tmp/ccXjgCet.s:3977   .debug_loclists:00000094 .LVUS15
+     /tmp/ccXjgCet.s:302    .text:000000ae .LBI8
+     /tmp/ccXjgCet.s:4431   .debug_rnglists:0000000c .LLRL16
+     /tmp/ccXjgCet.s:4001   .debug_loclists:000000ac .LLST17
+     /tmp/ccXjgCet.s:3998   .debug_loclists:000000aa .LVUS17
+     /tmp/ccXjgCet.s:310    .text:000000ae .LBI11
+     /tmp/ccXjgCet.s:4441   .debug_rnglists:00000018 .LLRL18
+     /tmp/ccXjgCet.s:4022   .debug_loclists:000000c2 .LLST19
+     /tmp/ccXjgCet.s:4019   .debug_loclists:000000c0 .LVUS19
+     /tmp/ccXjgCet.s:318    .text:000000ae .LBI14
+     /tmp/ccXjgCet.s:317    .text:000000ae .LBB14
+     /tmp/ccXjgCet.s:324    .text:000000ae .LBE14
+     /tmp/ccXjgCet.s:4043   .debug_loclists:000000d8 .LLST20
+     /tmp/ccXjgCet.s:4040   .debug_loclists:000000d6 .LVUS20
+     /tmp/ccXjgCet.s:352    .text:000000c4 .LVL23
+     /tmp/ccXjgCet.s:359    .text:000000d2 .LVL24
+     /tmp/ccXjgCet.s:214    .text:00000078 .LFB9
+     /tmp/ccXjgCet.s:240    .text:00000086 .LFE9
+     /tmp/ccXjgCet.s:4066   .debug_loclists:000000f0 .LLST8
+     /tmp/ccXjgCet.s:4061   .debug_loclists:000000ec .LVUS8
+     /tmp/ccXjgCet.s:4099   .debug_loclists:00000112 .LLST9
+     /tmp/ccXjgCet.s:4094   .debug_loclists:0000010e .LVUS9
+     /tmp/ccXjgCet.s:4126   .debug_loclists:0000012e .LLST10
+     /tmp/ccXjgCet.s:4121   .debug_loclists:0000012a .LVUS10
+     /tmp/ccXjgCet.s:237    .text:00000086 .LVL17
+     /tmp/ccXjgCet.s:182    .text:0000006a .LFB8
+     /tmp/ccXjgCet.s:208    .text:00000078 .LFE8
+     /tmp/ccXjgCet.s:4159   .debug_loclists:00000150 .LLST5
+     /tmp/ccXjgCet.s:4154   .debug_loclists:0000014c .LVUS5
+     /tmp/ccXjgCet.s:4192   .debug_loclists:00000172 .LLST6
+     /tmp/ccXjgCet.s:4187   .debug_loclists:0000016e .LVUS6
+     /tmp/ccXjgCet.s:4219   .debug_loclists:0000018e .LLST7
+     /tmp/ccXjgCet.s:4214   .debug_loclists:0000018a .LVUS7
+     /tmp/ccXjgCet.s:205    .text:00000078 .LVL14
+     /tmp/ccXjgCet.s:160    .text:00000060 .LFB7
+     /tmp/ccXjgCet.s:176    .text:0000006a .LFE7
+     /tmp/ccXjgCet.s:66     .text:0000000e .LFB6
+     /tmp/ccXjgCet.s:155    .text:00000060 .LFE6
+     /tmp/ccXjgCet.s:4252   .debug_loclists:000001b0 .LLST1
+     /tmp/ccXjgCet.s:4247   .debug_loclists:000001ac .LVUS1
+     /tmp/ccXjgCet.s:4279   .debug_loclists:000001cc .LLST2
+     /tmp/ccXjgCet.s:4274   .debug_loclists:000001c8 .LVUS2
+     /tmp/ccXjgCet.s:4314   .debug_loclists:000001f0 .LLST3
+     /tmp/ccXjgCet.s:4307   .debug_loclists:000001ea .LVUS3
+     /tmp/ccXjgCet.s:4359   .debug_loclists:0000021e .LLST4
+     /tmp/ccXjgCet.s:4356   .debug_loclists:0000021c .LVUS4
+     /tmp/ccXjgCet.s:144    .text:00000054 .LVL10
+     /tmp/ccXjgCet.s:49     .text:0000000c .LFB5
+     /tmp/ccXjgCet.s:60     .text:0000000e .LFE5
+     /tmp/ccXjgCet.s:15     .text:00000000 .LFB4
+     /tmp/ccXjgCet.s:43     .text:0000000c .LFE4
+     /tmp/ccXjgCet.s:4380   .debug_loclists:00000234 .LLST0
+     /tmp/ccXjgCet.s:4371   .debug_loclists:0000022c .LVUS0
+     /tmp/ccXjgCet.s:386    .text:000000ec .LFB14
+     /tmp/ccXjgCet.s:420    .text:0000010e .LFE14
+     /tmp/ccXjgCet.s:245    .text:00000086 .LVL18
+     /tmp/ccXjgCet.s:299    .text:000000ae .LVL19
+     /tmp/ccXjgCet.s:213    .text:00000078 .LVL15
+     /tmp/ccXjgCet.s:181    .text:0000006a .LVL12
+     /tmp/ccXjgCet.s:65     .text:0000000e .LVL5
+     /tmp/ccXjgCet.s:108    .text:00000026 .LVL6
+     /tmp/ccXjgCet.s:14     .text:00000000 .LVL0
+     /tmp/ccXjgCet.s:2078   .debug_info:00000000 .Ldebug_info0
+     /tmp/ccXjgCet.s:8      .text:00000000 .Ltext0
+     /tmp/ccXjgCet.s:2058   .text:0000018e .Letext0
+     /tmp/ccXjgCet.s:301    .text:000000ae .LBB8
+     /tmp/ccXjgCet.s:309    .text:000000ae .LBB11
 
 UNDEFINED SYMBOLS
 serial_tx
 xmem_read
 xmem_write
+lcd_color
+lcd_rect
 gpio_configure
 serial_init
 log_boot_P
@@ -2593,3 +2814,4 @@ rtc_init
 xmem_init
 sd_init
 initrd_load
+kernel_init

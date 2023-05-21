@@ -12,6 +12,7 @@
 #include <vector.h>
 #include <types.h>
 #include <keyboard.h>
+#include <gfx.h>
 
 /** Element type */
 typedef enum
@@ -25,19 +26,22 @@ typedef enum
 #define LABEL_ALIGN_MASK      0x03
 
 /** Left align label (default) */
-#define LABEL_FLAG_LEFT       0x00
+#define FLAG_ALIGN_LEFT       0x00
 
 /** Center align label */
-#define LABEL_FLAG_CENTER     0x01
+#define FLAG_ALIGN_CENTER     0x01
 
 /** Right align label */
-#define LABEL_FLAG_RIGHT      0x02
+#define FLAG_ALIGN_RIGHT      0x02
 
 /** Enable/Disable Line numbers in input field */
 #define FLAG_LINE_NUMBERS     0x04
 
 /** Enable/Disable Syntax highlighting in input field */
 #define FLAG_SYNTAX_HIGHLIGHT 0x08
+
+/** Display content as stars in input field */
+#define FLAG_PASSWORD         0x10
 
 /** Label element structure */
 typedef struct
@@ -121,6 +125,17 @@ typedef struct
 /** Window structure */
 typedef struct
 {
+	Color ColorFG;
+	Color ColorBG;
+	Color ColorTextSelBG;
+	Color ColorTextSelFG;
+	Color ColorBorder;
+	Color ColorBorderSel;
+	Color ElementBG;
+	Color ElementSelBG;
+	Color ColorCursor;
+	Color ColorTitleBar;
+
 	/** Window title (displayed in top bar) */
 	char *Title;
 

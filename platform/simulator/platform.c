@@ -450,7 +450,6 @@ int main(int argc, char **argv)
 	timer_init();
 	gfx_init();
 	kernel_init();
-	process_setup();
 
 	while(running)
 	{

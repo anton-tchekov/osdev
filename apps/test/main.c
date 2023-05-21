@@ -1,23 +1,22 @@
 #include <std.h>
 
 static Window window;
-static Button button, button2;
-static Label label_left, label_center, label_right;
-static Input input;
+static Button button_login;
+static Label label_username, label_password;
+static Input input_username, input_password;
 
 static void *elements[] =
 {
-	&button,
-	&label_left,
-	&label_center,
-	&label_right,
-	&input,
-	&button2,
+	&label_username,
+	&input_username,
+	&label_password,
+	&input_password,
+	&button_login,
 };
 
-void button_onclick(void)
+void button_login_onclick(void)
 {
-	debug_print("Button OnClick\n");
+	debug_print("Login button pressed\n");
 }
 
 void event_key(Key key, i32 chr, KeyState state)
@@ -25,26 +24,53 @@ void event_key(Key key, i32 chr, KeyState state)
 	window_event_key(key, chr, state);
 }
 
+#define INPUT_WIDTH        220
+#define BUTTON_WIDTH       140
+#define BUTTON_HEIGHT       28
+#define INPUT_USERNAME_Y   110
+#define INPUT_PASSWORD_Y   160
+#define BUTTON_LOGIN_Y     204
+#define INPUT_LABEL_OFFSET  16
+
 void setup(void)
 {
 	string_test();
-
 	keyboard_register_event(event_key);
-	input_init(&input, 20, 220, 200);
 
-	button_init(&button, 10, 10, 100, 30, "Click Me!", button_onclick);
-	button_init(&button2, 60, 300, 100, 30, "TEST 123 ...", NULL);
+	label_init(&label_username,
+		GFX_WIDTH / 2 - INPUT_WIDTH / 2,
+		INPUT_USERNAME_Y - INPUT_LABEL_OFFSET,
+		FLAG_ALIGN_LEFT,
+		"Username:");
 
-	label_init(&label_left, GFX_WIDTH / 2, 120, LABEL_FLAG_LEFT, "Align Left");
-	label_init(&label_center, GFX_WIDTH / 2, 140, LABEL_FLAG_CENTER, "Align Center");
-	label_init(&label_right, GFX_WIDTH / 2, 160, LABEL_FLAG_RIGHT, "Align Right");
+	input_init(&input_username,
+		GFX_WIDTH / 2 - INPUT_WIDTH / 2,
+		INPUT_USERNAME_Y,
+		INPUT_WIDTH);
 
-	window_init(&window, "Test", elements, ARRLEN(elements), NULL);
+	label_init(&label_password,
+		GFX_WIDTH / 2 - INPUT_WIDTH / 2,
+		INPUT_PASSWORD_Y - INPUT_LABEL_OFFSET,
+		FLAG_ALIGN_LEFT,
+		"Password:");
+
+	input_init(&input_password,
+		GFX_WIDTH / 2 - INPUT_WIDTH / 2,
+		INPUT_PASSWORD_Y,
+		INPUT_WIDTH);
+
+	button_init(&button_login,
+		GFX_WIDTH / 2 - BUTTON_WIDTH / 2,
+		BUTTON_LOGIN_Y,
+		BUTTON_WIDTH,
+		BUTTON_HEIGHT,
+		"[ Login ]",
+		button_login_onclick);
+
+	window_init(&window, "Login", elements, ARRLEN(elements), NULL);
 	window_open(&window);
 }
 
 void loop(void)
 {
 }
-
-

@@ -12,6 +12,7 @@
 		- Hide / Show elements
 
 	- Text field
+		- Password stars option
 		- Changable Font(Size)
 		- Multiline(Select)
 		- Line Numbers

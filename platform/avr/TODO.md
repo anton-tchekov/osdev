@@ -17,7 +17,7 @@ ANNOYING:
 INTERESTING:
 - Load binary (App Launcher/Login Screen) from SD card and launch emulator
 - Find solution for emulator image routine problem
-
+- Make STDLIB Shared
 
 ## DISK LAYOUT / FILE SYSTEM
 
@@ -37,11 +37,11 @@ START = Start block
 SIZE = Size in blocks
 
 START | SIZE | DESCRIPTION
--------------+--------
+------+------+-----------------------------------------------
     0 |    1 | FS Info (Boot sector)
     1 |  128 | Standard Libary (Shared Libary) (MAX. 64 KiB)
-  129 |  512 | Init Program Binary (MAX. 256 KiB)
-  641 |    1 | FS Root Directory (Rev. 00)
+  129 |  128 | Init Program Binary (MAX. 256 KiB)
+  257 |    1 | FS Root Directory (Rev. 00)
 
 FS Info Struct
 
@@ -51,12 +51,13 @@ START = Start byte
 SIZE = Size in bytes
 
 START | SIZE | DESCRIPTION
+------+------+-------------------------------------
     0 |    4 | FS Signature { 'A', 'T', 'F', 'S' }
-FS VERSION NUMBER HERE 4 bytes
-    4 |    4 | Disk Size in blocks
+    4 |    4 | FS Revision (0)
     8 |    4 | STDLIB Size in bytes
    12 |    4 | INIT Program Size in bytes
    16 |    4 | Write Pointer Location
+   20 |  492 | Reserved
 
 All files are contiguous
 
@@ -72,6 +73,15 @@ File extensions are not supported
 Example path: "root.images.vacation.me_on_the_beach"
 
 START | SIZE | DESCRIPTION
-    0 |    4 | File Location
-    4 |    8 | File Size
-    8 |    N | File Name + null terminator
+------+------+-----------------------------
+    0 |    4 | Number of files
+
+File Info struct
+
+START | SIZE | DESCRIPTION
+------+------+-----------------------------
+    0 |    4 | File Location (start block)
+    4 |    8 | File Size (in bytes)
+    8 |    N | File Name + null terminator (padding to align at 4 bytes)
+
+Files are sequentially listed with padding to ensure 4 byte align

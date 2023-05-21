@@ -200,16 +200,16 @@ static void _sd_info_print(void)
 	log_boot_P(LOG_DEBUG, PSTR("Revision         : %c.%c"),
 		(_revision >> 4) + '0', (_revision & 0x0F) + '0');
 
-	log_boot_P(LOG_DEBUG, PSTR("Serial Number    : 0x%08lX"),
+	log_boot_P(LOG_DEBUG, PSTR("Serial Number    : 0x%08"PRIx32),
 		_serial);
 
 	log_boot_P(LOG_DEBUG, PSTR("Manufacture Date : %02d-%d"),
 		_manufacturing_month, 2000 + _manufacturing_year);
 
-	log_boot_P(LOG_DEBUG, PSTR("Capacity         : %ld blocks"),
+	log_boot_P(LOG_DEBUG, PSTR("Capacity         : %"PRIu32" blocks"),
 		_capacity);
 
-	log_boot_P(LOG_OFFSET, PSTR("                   (%ld bytes)"),
+	log_boot_P(LOG_OFFSET, PSTR("                   (%"PRIu32" bytes)"),
 		_capacity * BLOCK_SIZE);
 
 	log_boot_P(LOG_DEBUG, PSTR("Format           : 0x%02X"),

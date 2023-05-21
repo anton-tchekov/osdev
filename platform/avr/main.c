@@ -14,6 +14,7 @@
 #include <avr/pgmspace.h>
 #include "logo/logo_tiny.c"
 #include "logo/logo_text.c"
+#include <emulator.h>
 
 char byte_to_hex(u8 byte)
 {
@@ -59,13 +60,21 @@ void memory_write(u32 addr, const void *data, u32 size)
 	xmem_write(addr, data, size);
 }
 
-void gfx_rect(i32 x, i32 y, i32 w, i32 h, u32 color){}
+static inline u8 _abgr_r(u32 color) { return (color >> 24) & 0xFF; }
+static inline u8 _abgr_g(u32 color) { return (color >> 16) & 0xFF; }
+static inline u8 _abgr_b(u32 color) { return (color >>  8) & 0xFF; }
+
+void gfx_rect(i32 x, i32 y, i32 w, i32 h, u32 color)
+{
+	lcd_rect(x, y, w, h,
+		lcd_color(_abgr_r(color), _abgr_g(color), _abgr_b(color)));
+}
+
 u32 syscall_gfx_image_rgba(u32 *args){}
 u32 syscall_gfx_image_rgb(u32 *args){}
 u32 syscall_gfx_image_rgb565(u32 *args){}
 u32 syscall_gfx_image_grayscale(u32 *args){}
 u32 syscall_gfx_image_1bit(u32 *args){}
-
 
 #define LOGO_X_OFFSET      30
 #define LOGO_TEXT_X_OFFSET 56
@@ -133,6 +142,9 @@ int main(void)
 	initrd_load();
 
 	log_boot_P(LOG_NONE, PSTR("\nStarting RISC-V Emulator Kernel ...\n\n"));
+
+	kernel_init();
+	log_boot_P(LOG_EXT, PSTR("Setup done!"));
 
 	/* Infinite loop */
 	for(;;)

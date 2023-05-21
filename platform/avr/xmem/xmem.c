@@ -164,7 +164,7 @@ static void _xmem_overlap(u32 addr, u16 size, AddrHelper *h)
 	u32 addr_end;
 
 	h->AddrFirst = _addr_bank_offset(addr);
-	addr_end = addr + size - 1;
+	addr_end = addr + size;
 
 	h->BankFirst = _addr_to_bank(addr);
 	h->BankSecond = _addr_to_bank(addr_end);

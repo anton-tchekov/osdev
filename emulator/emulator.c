@@ -9,6 +9,39 @@
 #include <time.h>
 #include <util.h>
 
+/* --- LOGGING --- */
+#ifdef DEBUG
+
+#ifdef __linux__
+
+#define EMU_LOG(...) { printf(__VA_ARGS__); fputc('\n', stdout); }
+#define PSTR(X) X
+
+#else /* __linux__ */
+
+#include <logger.h>
+#include <avr/pgmspace.h>
+
+#define EMU_LOG(...) log_boot_P(LOG_EXT, __VA_ARGS__)
+
+#endif /* __linux__ */
+
+static void emulator_dump_registers(Emulator *emu)
+{
+	EMU_LOG(PSTR("\nPC  0x%08"PRIx32" %10d"), emu->PC, emu->PC);
+	for(i32 i = 0; i < 32; ++i)
+	{
+		EMU_LOG(PSTR("r%"PRIu8"%s 0x%08"PRIx32" %10d"), i, i < 10 ? " " : "",
+			emu->Registers[i], emu->Registers[i]);
+	}
+}
+
+#else /* DEBUG */
+
+#define EMU_LOG(...)
+
+#endif /* DEBUG */
+
 /* --- OPCODES --- */
 #define OPCODE_LOAD   0x00
 #define OPCODE_IMM    0x04
@@ -22,15 +55,15 @@
 #define OPCODE_ECALL  0x1C
 
 /**
- * @brief Sign extend
+ * @brief Sign extend twos-complement value to 32-bit
  *
- * @param bits
- * @param value
- * @return u32
+ * @param bits Number of bits
+ * @param value Value to sign extent
+ * @return Result
  */
-static inline u32 sext(u32 bits, u32 value)
+static inline u32 sext(u8 bits, u32 value)
 {
-	u32 m = 1 << (bits - 1);
+	u32 m = ((u32)1) << (bits - 1);
 	return (value ^ m) - m;
 }
 
@@ -42,11 +75,7 @@ static u32 _memory_size;
 void kernel_init(void)
 {
 	_memory_size = memory_size();
-}
-
-void process_setup(void)
-{
-	emulator_call(_emu, 0, NULL, 0, _memory_size, 1000000);
+	emulator_call(_emu, 0, NULL, 0, _memory_size);
 }
 
 void os_update(void)
@@ -54,20 +83,8 @@ void os_update(void)
 	u32 addr = _emu->Events[EVENT_LOOP];
 	if(addr)
 	{
-		emulator_call(_emu, addr, NULL, 0, _memory_size, 1000000);
+		emulator_call(_emu, addr, NULL, 0, _memory_size);
 	}
-}
-
-u32 syscall_event_register(u32 *args)
-{
-	u32 type = args[0];
-	u32 addr = args[1];
-	if(type < EVENT_COUNT)
-	{
-		_emu->Events[type] = addr;
-	}
-
-	return 0;
 }
 
 void keyboard_event(Key key, i32 chr, KeyState down)
@@ -76,7 +93,7 @@ void keyboard_event(Key key, i32 chr, KeyState down)
 	if(addr)
 	{
 		u32 args[] = { key, chr, down };
-		emulator_call(_emu, addr, args, ARRLEN(args), _memory_size, 1000000);
+		emulator_call(_emu, addr, args, ARRLEN(args), _memory_size);
 	}
 
 	key = key_mod_remove(key);
@@ -87,18 +104,6 @@ void keyboard_event(Key key, i32 chr, KeyState down)
 
 	_keys[key] = down;
 }
-
-static bool keyboard_is_key_pressed(Key key)
-{
-	if(key >= KEY_COUNT)
-	{
-		return false;
-	}
-
-	return _keys[key];
-}
-
-/* TODO: Paging/MProt */
 
 /* Store */
 static void memory_sb(u32 addr, u32 value)
@@ -154,15 +159,16 @@ static u32 memory_lhu(u32 addr)
 	return value16;
 }
 
-u32 syscall_exit(u32 *args)
+/* Syscalls */
+static u32 syscall_exit(u32 *args)
 {
+	/* TODO */
+
 	/* Remove process from scheduler */
 
 	/* If init process, crash system */
-
-	/* TODO: We only have one process right now */
-	exit(args[0]);
 	return 0;
+	(void)args;
 }
 
 static u32 syscall_finish(u32 *args)
@@ -170,6 +176,19 @@ static u32 syscall_finish(u32 *args)
 	_finished = true;
 	return 0;
 	(void)args;
+}
+
+static u32 syscall_event_register(u32 *args)
+{
+	u32 type = args[0];
+	u32 addr = args[1];
+	if(type < EVENT_COUNT)
+	{
+		EMU_LOG(PSTR("Registered Event %"PRIu32" %"PRIu32), type, addr);
+		_emu->Events[type] = addr;
+	}
+
+	return 0;
 }
 
 static u32 syscall_millis(u32 *args)
@@ -186,18 +205,24 @@ static u32 syscall_datetime_now(u32 *args)
 	return 0;
 }
 
-u32 syscall_rand(u32 *args)
+static u32 syscall_rand(u32 *args)
 {
 	return random_get();
 	(void)args;
 }
 
-u32 syscall_keyboard_is_key_pressed(u32 *args)
+static u32 syscall_keyboard_is_key_pressed(u32 *args)
 {
-	return keyboard_is_key_pressed(args[0]);
+	u32 key = args[0];
+	if(key >= KEY_COUNT)
+	{
+		return false;
+	}
+
+	return _keys[key];
 }
 
-u32 syscall_serial_write(u32 *args)
+static u32 syscall_serial_write(u32 *args)
 {
 	u16 cur;
 	u32 ptr = args[0];
@@ -254,31 +279,8 @@ static i32 syscall(u32 id, u32 *args)
 }
 
 /* EMULATOR */
-#ifdef DEBUG
-
-void emulator_dump_registers(Emulator *emu)
+static bool emulator_next(Emulator *emu)
 {
-	printf("PC  0x%08X %10d\n", emu->PC, emu->PC);
-	for(i32 i = 0; i < 32; ++i)
-	{
-		printf("R%d%s 0x%08X %10d\n", i, i < 10 ? " " : "",
-			emu->Registers[i], emu->Registers[i]);
-	}
-
-	printf("\n");
-}
-
-#endif
-
-static i32 emulator_next(Emulator *emu)
-{
-#ifdef DEBUG
-	clock_t begin, end;
-	double time_spent;
-
-	begin = clock();
-#endif
-
 	u32 instr, opcode;
 	instr = memory_lw(emu->PC);
 
@@ -289,11 +291,8 @@ static i32 emulator_next(Emulator *emu)
 	opcode = instr & 0x7F;
 	if((opcode & 0x03) != 0x03)
 	{
-		/* INVALID */
-#ifdef DEBUG
-		printf("INVALID\n");
-#endif
-		return -1;
+		EMU_LOG(PSTR("INVALID"));
+		return true;
 	}
 
 	opcode >>= 2;
@@ -302,17 +301,16 @@ static i32 emulator_next(Emulator *emu)
 		case OPCODE_ECALL:
 			if(syscall(emu->Registers[17], &emu->Registers[10]))
 			{
-#ifdef DEBUG
-				printf("SYSCALL ERROR\n");
-#endif
-				return -1;
+				EMU_LOG(PSTR("SYSCALL ERROR"));
+				return true;
 			}
 			break;
 
 		case OPCODE_LOAD:
 		{
 			i32 offset;
-			u32 rd, rs1, funct3, imm;
+			u32 imm;
+			u8 rd, rs1, funct3;
 			rd = (instr >> 7) & 0x1F;
 			funct3 = (instr >> 12) & 0x07;
 			rs1 = (instr >> 15) & 0x1F;
@@ -322,57 +320,45 @@ static i32 emulator_next(Emulator *emu)
 			{
 				case 0:
 					/* LB */
-#ifdef DEBUG
-					printf("lb r%d, r%d%+d\n", rd, rs1, offset);
-#endif
+					EMU_LOG(PSTR("lb r%"PRIu8", r%"PRIu8"%+"PRIi32), rd, rs1, offset);
 					emu->Registers[rd] = memory_lb(emu->Registers[rs1] + offset);
 					break;
 
 				case 1:
 					/* LH */
-#ifdef DEBUG
-					printf("lh r%d, r%d%+d\n", rd, rs1, offset);
-#endif
+					EMU_LOG(PSTR("lh r%"PRIu8", r%"PRIu8"%"PRIi32), rd, rs1, offset);
 					emu->Registers[rd] = memory_lh(emu->Registers[rs1] + offset);
 					break;
 
 				case 2:
 					/* LW */
-#ifdef DEBUG
-					printf("lw r%d, r%d%+d\n", rd, rs1, offset);
-#endif
+					EMU_LOG(PSTR("lw r%"PRIu8", r%"PRIu8"%"PRIi32), rd, rs1, offset);
 					emu->Registers[rd] = memory_lw(emu->Registers[rs1] + offset);
 					break;
 
 				case 4:
 					/* LBU */
-#ifdef DEBUG
-					printf("lbu r%d, r%d%+d\n", rd, rs1, offset);
-#endif
+					EMU_LOG(PSTR("lbu r%"PRIu8", r%"PRIu8"%"PRIi32), rd, rs1, offset);
 					emu->Registers[rd] = memory_lbu(emu->Registers[rs1] + offset);
 					break;
 
 				case 5:
 					/* LHU */
-#ifdef DEBUG
-					printf("lhu r%d, r%d%+d\n", rd, rs1, offset);
-#endif
+					EMU_LOG(PSTR("lhu r%"PRIu8", r%"PRIu8"%"PRIi32), rd, rs1, offset);
 					emu->Registers[rd] = memory_lhu(emu->Registers[rs1] + offset);
 					break;
 
 				default:
-					/* INVALID */
-#ifdef DEBUG
-					printf("INVALID\n");
-#endif
-					return -1;
+					EMU_LOG(PSTR("INVALID"));
+					return true;
 			}
 			break;
 		}
 
 		case OPCODE_IMM:
 		{
-			u32 rd, rs1, funct3, imm;
+			u8 rd, rs1, funct3;
+			u32 imm;
 			rd = (instr >> 7) & 0x1F;
 			funct3 = (instr >> 12) & 0x07;
 			rs1 = (instr >> 15) & 0x1F;
@@ -382,44 +368,34 @@ static i32 emulator_next(Emulator *emu)
 				case 0:
 					/* ADDI */
 					imm = sext(12, imm);
-#ifdef DEBUG
-					printf("addi r%d, r%d, %d\n", rd, rs1, imm);
-#endif
+					EMU_LOG(PSTR("addi r%"PRIu8", r%"PRIu8", %"PRIi32), rd, rs1, imm);
 					emu->Registers[rd] = emu->Registers[rs1] + imm;
 					break;
 
 				case 1:
 					/* SLLI */
 					imm &= 0x1F;
-#ifdef DEBUG
-					printf("slli r%d, r%d, %d\n", rd, rs1, imm);
-#endif
+					EMU_LOG(PSTR("slli r%"PRIu8", r%"PRIu8", %"PRIi32), rd, rs1, imm);
 					emu->Registers[rd] = emu->Registers[rs1] << imm;
 					break;
 
 				case 2:
 					/* SLTI */
 					imm = sext(12, imm);
-#ifdef DEBUG
-					printf("slti r%d, r%d, %d\n", rd, rs1, imm);
-#endif
+					EMU_LOG(PSTR("slti r%"PRIu8", r%"PRIu8", %"PRIi32), rd, rs1, imm);
 					emu->Registers[rd] = (i32)emu->Registers[rs1] < (i32)imm;
 					break;
 
 				case 3:
 					/* SLTIU */
-#ifdef DEBUG
-					printf("sltiu r%d, r%d, %d\n", rd, rs1, imm);
-#endif
+					EMU_LOG(PSTR("sltiu r%"PRIu8", r%"PRIu8", %"PRIi32), rd, rs1, imm);
 					emu->Registers[rd] = emu->Registers[rs1] < imm;
 					break;
 
 				case 4:
 					/* XORI */
 					imm = sext(12, imm);
-#ifdef DEBUG
-					printf("xori r%d, r%d, 0x%08X\n", rd, rs1, imm);
-#endif
+					EMU_LOG(PSTR("xori r%"PRIu8", r%"PRIu8", 0x%08"PRIx32), rd, rs1, imm);
 					emu->Registers[rd] = emu->Registers[rs1] ^ imm;
 					break;
 
@@ -428,18 +404,14 @@ static i32 emulator_next(Emulator *emu)
 					{
 						/* SRAI */
 						imm &= 0x1F;
-#ifdef DEBUG
-						printf("srai r%d, r%d, %d\n", rd, rs1, imm);
-#endif
+						EMU_LOG(PSTR("srai r%"PRIu8", r%"PRIu8", %"PRIi32), rd, rs1, imm);
 						emu->Registers[rd] = (i32)emu->Registers[rs1] >> imm;
 					}
 					else
 					{
 						/* SRLI */
 						imm &= 0x1F;
-#ifdef DEBUG
-						printf("srli r%d, r%d, %d\n", rd, rs1, imm);
-#endif
+						EMU_LOG(PSTR("srli r%"PRIu8", r%"PRIu8", %"PRIi32), rd, rs1, imm);
 						emu->Registers[rd] = emu->Registers[rs1] >> imm;
 					}
 					break;
@@ -447,18 +419,14 @@ static i32 emulator_next(Emulator *emu)
 				case 6:
 					/* ORI */
 					imm = sext(12, imm);
-#ifdef DEBUG
-					printf("ori r%d, r%d, 0x%08X\n", rd, rs1, imm);
-#endif
+					EMU_LOG(PSTR("ori r%"PRIu8", r%"PRIu8", 0x%08"PRIx32), rd, rs1, imm);
 					emu->Registers[rd] = emu->Registers[rs1] | imm;
 					break;
 
 				case 7:
 					/* ANDI */
 					imm = sext(12, imm);
-#ifdef DEBUG
-					printf("andi r%d, r%d, 0x%08X\n", rd, rs1, imm);
-#endif
+					EMU_LOG(PSTR("andi r%"PRIu8", r%"PRIu8", 0x%08"PRIx32), rd, rs1, imm);
 					emu->Registers[rd] = emu->Registers[rs1] & imm;
 					break;
 			}
@@ -467,12 +435,11 @@ static i32 emulator_next(Emulator *emu)
 
 		case OPCODE_AUIPC:
 		{
-			u32 rd, imm;
+			u8 rd;
+			u32 imm;
 			rd = (instr >> 7) & 0x1F;
 			imm = (instr >> 12);
-#ifdef DEBUG
-			printf("auipc r%d, 0x%08X\n", rd, imm);
-#endif
+			EMU_LOG(PSTR("auipc r%"PRIu8", 0x%08"PRIx32), rd, imm);
 			emu->Registers[rd] = emu->PC + (imm << 12);
 			break;
 		}
@@ -480,7 +447,8 @@ static i32 emulator_next(Emulator *emu)
 		case OPCODE_STORE:
 		{
 			i32 offset;
-			u32 imm, rs1, rs2, funct3;
+			u32 imm;
+			u8 rs1, rs2, funct3;
 			funct3 = (instr >> 12) & 0x07;
 			rs1 = (instr >> 15) & 0x1F;
 			rs2 = (instr >> 20) & 0x1F;
@@ -490,41 +458,32 @@ static i32 emulator_next(Emulator *emu)
 			{
 				case 0:
 					/* SB */
-#ifdef DEBUG
-					printf("sb r%d%+d, r%d\n", rs1, offset, rs2);
-#endif
+					EMU_LOG(PSTR("sb r%"PRIu8"%"PRIi32", r%"PRIu8), rs1, offset, rs2);
 					memory_sb(emu->Registers[rs1] + offset, emu->Registers[rs2]);
 					break;
 
 				case 1:
 					/* SH */
-#ifdef DEBUG
-					printf("sh r%d%+d, r%d\n", rs1, offset, rs2);
-#endif
+					EMU_LOG(PSTR("sh r%"PRIu8"%"PRIi32", r%"PRIu8), rs1, offset, rs2);
 					memory_sh(emu->Registers[rs1] + offset, emu->Registers[rs2]);
 					break;
 
 				case 2:
 					/* SW */
-#ifdef DEBUG
-					printf("sw r%d%+d, r%d\n", rs1, offset, rs2);
-#endif
+					EMU_LOG(PSTR("sw r%"PRIu8"%"PRIi32", r%"PRIu8), rs1, offset, rs2);
 					memory_sw(emu->Registers[rs1] + offset, emu->Registers[rs2]);
 					break;
 
 				default:
-					/* INVALID */
-#ifdef DEBUG
-					printf("INVALID\n");
-#endif
-					return -1;
+					EMU_LOG(PSTR("INVALID"));
+					return true;
 			}
 			break;
 		}
 
 		case OPCODE_REG:
 		{
-			u32 rd, rs1, rs2, funct3, funct7;
+			u8 rd, rs1, rs2, funct3, funct7;
 			rd = (instr >> 7) & 0x1F;
 			funct3 = (instr >> 12) & 0x07;
 			rs1 = (instr >> 15) & 0x1F;
@@ -537,65 +496,49 @@ static i32 emulator_next(Emulator *emu)
 				{
 					case 0:
 						/* MUL */
-#ifdef DEBUG
-						printf("mul r%d, r%d, r%d\n", rd, rs1, rs2);
-#endif
+						EMU_LOG(PSTR("mul r%"PRIu8", r%"PRIu8", r%"PRIu8), rd, rs1, rs2);
 						emu->Registers[rd] = (i32)emu->Registers[rs1] * (i32)emu->Registers[rs2];
 						break;
 
 					case 1:
 						/* MULH */
-#ifdef DEBUG
-						printf("mulh r%d, r%d, r%d\n", rd, rs1, rs2);
-#endif
+						EMU_LOG(PSTR("mulh r%"PRIu8", r%"PRIu8", r%"PRIu8), rd, rs1, rs2);
 						emu->Registers[rd] = ((i64)emu->Registers[rs1] * (i64)emu->Registers[rs2]) >> 32;
 						break;
 
 					case 2:
 						/* MULHSU */
-#ifdef DEBUG
-						printf("mulhsu r%d, r%d, r%d\n", rd, rs1, rs2);
-#endif
+						EMU_LOG(PSTR("mulhsu r%"PRIu8", r%"PRIu8", r%"PRIu8), rd, rs1, rs2);
 						emu->Registers[rd] = ((i64)emu->Registers[rs1] * (u64)emu->Registers[rs2]) >> 32;
 						break;
 
 					case 3:
 						/* MULHU */
-#ifdef DEBUG
-						printf("mulhu r%d, r%d, r%d\n", rd, rs1, rs2);
-#endif
+						EMU_LOG(PSTR("mulhu r%"PRIu8", r%"PRIu8", r%"PRIu8), rd, rs1, rs2);
 						emu->Registers[rd] = ((u64)emu->Registers[rs1] * (u64)emu->Registers[rs2]) >> 32;
 						break;
 
 					case 4:
 						/* DIV */
-#ifdef DEBUG
-						printf("div r%d, r%d, r%d\n", rd, rs1, rs2);
-#endif
+						EMU_LOG(PSTR("div r%"PRIu8", r%"PRIu8", r%"PRIu8), rd, rs1, rs2);
 						emu->Registers[rd] = (i32)emu->Registers[rs1] / (i32)emu->Registers[rs2];
 						break;
 
 					case 5:
 						/* DIVU */
-#ifdef DEBUG
-						printf("divu r%d, r%d, r%d\n", rd, rs1, rs2);
-#endif
+						EMU_LOG(PSTR("divu r%"PRIu8", r%"PRIu8", r%"PRIu8), rd, rs1, rs2);
 						emu->Registers[rd] = emu->Registers[rs1] / emu->Registers[rs2];
 						break;
 
 					case 6:
 						/* REM */
-#ifdef DEBUG
-						printf("rem r%d, r%d, r%d\n", rd, rs1, rs2);
-#endif
+						EMU_LOG(PSTR("rem r%"PRIu8", r%"PRIu8", r%"PRIu8), rd, rs1, rs2);
 						emu->Registers[rd] = (i32)emu->Registers[rs1] % (i32)emu->Registers[rs2];
 						break;
 
 					case 7:
 						/* REMU */
-#ifdef DEBUG
-						printf("remu r%d, r%d, r%d\n", rd, rs1, rs2);
-#endif
+						EMU_LOG(PSTR("remu r%"PRIu8", r%"PRIu8", r%"PRIu8), rd, rs1, rs2);
 						emu->Registers[rd] = emu->Registers[rs1] % emu->Registers[rs2];
 						break;
 				}
@@ -608,50 +551,38 @@ static i32 emulator_next(Emulator *emu)
 						if(funct7)
 						{
 							/* SUB */
-#ifdef DEBUG
-							printf("sub r%d, r%d, r%d\n", rd, rs1, rs2);
-#endif
+							EMU_LOG(PSTR("sub r%"PRIu8", r%"PRIu8", r%"PRIu8), rd, rs1, rs2);
 							emu->Registers[rd] = emu->Registers[rs1] - emu->Registers[rs2];
 						}
 						else
 						{
 							/* ADD */
-#ifdef DEBUG
-							printf("add r%d, r%d, r%d\n", rd, rs1, rs2);
-#endif
+							EMU_LOG(PSTR("add r%"PRIu8", r%"PRIu8", r%"PRIu8), rd, rs1, rs2);
 							emu->Registers[rd] = emu->Registers[rs1] + emu->Registers[rs2];
 						}
 						break;
 
 					case 1:
 						/* SLL */
-#ifdef DEBUG
-						printf("sll r%d, r%d, r%d\n", rd, rs1, rs2);
-#endif
+						EMU_LOG(PSTR("sll r%"PRIu8", r%"PRIu8", r%"PRIu8), rd, rs1, rs2);
 						emu->Registers[rd] = emu->Registers[rs1] << (emu->Registers[rs2] & 0x1F);
 						break;
 
 					case 2:
 						/* SLT */
-#ifdef DEBUG
-						printf("slt r%d, r%d, r%d\n", rd, rs1, rs2);
-#endif
+						EMU_LOG(PSTR("slt r%"PRIu8", r%"PRIu8", r%"PRIu8), rd, rs1, rs2);
 						emu->Registers[rd] = (i32)emu->Registers[rs1] < (i32)emu->Registers[rs2];
 						break;
 
 					case 3:
 						/* SLTU */
-#ifdef DEBUG
-						printf("sltu r%d, r%d, r%d\n", rd, rs1, rs2);
-#endif
+						EMU_LOG(PSTR("sltu r%"PRIu8", r%"PRIu8", r%"PRIu8), rd, rs1, rs2);
 						emu->Registers[rd] = emu->Registers[rs1] < emu->Registers[rs2];
 						break;
 
 					case 4:
 						/* XOR */
-#ifdef DEBUG
-						printf("xor r%d, r%d, r%d\n", rd, rs1, rs2);
-#endif
+						EMU_LOG(PSTR("xor r%"PRIu8", r%"PRIu8", r%"PRIu8), rd, rs1, rs2);
 						emu->Registers[rd] = emu->Registers[rs1] ^ emu->Registers[rs2];
 						break;
 
@@ -659,34 +590,26 @@ static i32 emulator_next(Emulator *emu)
 						if(funct7)
 						{
 							/* SRA */
-#ifdef DEBUG
-							printf("srl r%d, r%d, r%d\n", rd, rs1, rs2);
-#endif
+							EMU_LOG(PSTR("srl r%"PRIu8", r%"PRIu8", r%"PRIu8), rd, rs1, rs2);
 							emu->Registers[rd] = (i32)emu->Registers[rs1] >> (emu->Registers[rs2] & 0x1F);
 						}
 						else
 						{
 							/* SRL */
-#ifdef DEBUG
-							printf("sra r%d, r%d, r%d\n", rd, rs1, rs2);
-#endif
+							EMU_LOG(PSTR("sra r%"PRIu8", r%"PRIu8", r%"PRIu8), rd, rs1, rs2);
 							emu->Registers[rd] = emu->Registers[rs1] >> (emu->Registers[rs2] & 0x1F);
 						}
 						break;
 
 					case 6:
 						/* OR */
-#ifdef DEBUG
-						printf("or r%d, r%d, r%d\n", rd, rs1, rs2);
-#endif
+						EMU_LOG(PSTR("or r%"PRIu8", r%"PRIu8", r%"PRIu8), rd, rs1, rs2);
 						emu->Registers[rd] = emu->Registers[rs1] | emu->Registers[rs2];
 						break;
 
 					case 7:
 						/* AND */
-#ifdef DEBUG
-						printf("and r%d, r%d, r%d\n", rd, rs1, rs2);
-#endif
+						EMU_LOG(PSTR("and r%"PRIu8", r%"PRIu8", r%"PRIu8), rd, rs1, rs2);
 						emu->Registers[rd] = emu->Registers[rs1] & emu->Registers[rs2];
 						break;
 				}
@@ -696,12 +619,11 @@ static i32 emulator_next(Emulator *emu)
 
 		case OPCODE_LUI:
 		{
-			u32 rd, imm;
+			u8 rd;
+			u32 imm;
 			rd = (instr >> 7) & 0x1F;
 			imm = (instr >> 12);
-#ifdef DEBUG
-			printf("lui r%d, 0x%08X\n", rd, imm);
-#endif
+			EMU_LOG(PSTR("lui r%"PRIu8", 0x%08"PRIx32), rd, imm);
 			emu->Registers[rd] = (imm << 12);
 			break;
 		}
@@ -709,12 +631,11 @@ static i32 emulator_next(Emulator *emu)
 		case OPCODE_BRANCH:
 		{
 			i32 offset;
-			u32 imm, rs1, rs2, funct3;
-
+			u32 imm;
+			u8 rs1, rs2, funct3;
 			funct3 = (instr >> 12) & 0x07;
 			rs1 = (instr >> 15) & 0x1F;
 			rs2 = (instr >> 20) & 0x1F;
-
 			imm = ((instr & 0xF00) >> 7) |
 				((instr & 0x7E000000) >> 20) |
 				((instr & 0x80) << 4) |
@@ -725,9 +646,7 @@ static i32 emulator_next(Emulator *emu)
 			{
 				case 0:
 					/* BEQ */
-#ifdef DEBUG
-					printf("beq r%d, r%d, pc%+d\n", rs1, rs2, offset);
-#endif
+					EMU_LOG(PSTR("beq r%"PRIu8", r%"PRIu8", pc%+"PRIi32), rs1, rs2, offset);
 					if(emu->Registers[rs1] == emu->Registers[rs2])
 					{
 						emu->PC += offset;
@@ -737,9 +656,7 @@ static i32 emulator_next(Emulator *emu)
 
 				case 1:
 					/* BNE */
-#ifdef DEBUG
-					printf("bne r%d, r%d, pc%+d\n", rs1, rs2, offset);
-#endif
+					EMU_LOG(PSTR("bne r%"PRIu8", r%"PRIu8", pc%+"PRIi32), rs1, rs2, offset);
 					if(emu->Registers[rs1] != emu->Registers[rs2])
 					{
 						emu->PC += offset;
@@ -749,9 +666,7 @@ static i32 emulator_next(Emulator *emu)
 
 				case 4:
 					/* BLT */
-#ifdef DEBUG
-					printf("blt r%d, r%d, pc%+d\n", rs1, rs2, offset);
-#endif
+					EMU_LOG(PSTR("blt r%"PRIu8", r%"PRIu8", pc%+"PRIi32), rs1, rs2, offset);
 					if((i32)emu->Registers[rs1] < (i32)emu->Registers[rs2])
 					{
 						emu->PC += offset;
@@ -761,9 +676,7 @@ static i32 emulator_next(Emulator *emu)
 
 				case 5:
 					/* BGE */
-#ifdef DEBUG
-					printf("bge r%d, r%d, pc%+d\n", rs1, rs2, offset);
-#endif
+					EMU_LOG(PSTR("bge r%"PRIu8", r%"PRIu8", pc%+"PRIi32), rs1, rs2, offset);
 					if((i32)emu->Registers[rs1] >= (i32)emu->Registers[rs2])
 					{
 						emu->PC += offset;
@@ -773,9 +686,7 @@ static i32 emulator_next(Emulator *emu)
 
 				case 6:
 					/* BLTU */
-#ifdef DEBUG
-					printf("bltu r%d, r%d, pc%+d\n", rs1, rs2, offset);
-#endif
+					EMU_LOG(PSTR("bltu r%"PRIu8", r%"PRIu8", pc%+"PRIi32), rs1, rs2, offset);
 					if(emu->Registers[rs1] < emu->Registers[rs2])
 					{
 						emu->PC += offset;
@@ -785,9 +696,7 @@ static i32 emulator_next(Emulator *emu)
 
 				case 7:
 					/* BGEU */
-#ifdef DEBUG
-					printf("bgeu r%d, r%d, pc%+d\n", rs1, rs2, offset);
-#endif
+					EMU_LOG(PSTR("bgeu r%"PRIu8", r%"PRIu8", pc%+"PRIi32), rs1, rs2, offset);
 					if(emu->Registers[rs1] >= emu->Registers[rs2])
 					{
 						emu->PC += offset;
@@ -796,11 +705,8 @@ static i32 emulator_next(Emulator *emu)
 					break;
 
 				default:
-					/* INVALID */
-#ifdef DEBUG
-					printf("INVALID\n");
-#endif
-					return -1;
+					EMU_LOG(PSTR("INVALID"));
+					return true;
 			}
 			break;
 		}
@@ -808,7 +714,9 @@ static i32 emulator_next(Emulator *emu)
 		case OPCODE_JAL:
 		{
 			i32 offset;
-			u32 rd, imm;
+			u32 imm;
+			u8 rd;
+
 			rd = (instr >> 7) & 0x1F;
 
 			imm = ((instr & 0x80000000) >> 12) |
@@ -817,9 +725,7 @@ static i32 emulator_next(Emulator *emu)
 					((instr & 0x7FE00000) >> 20);
 
 			offset = sext(20, imm);
-#ifdef DEBUG
-			printf("jal r%d, pc%+d\n", rd, offset);
-#endif
+			EMU_LOG(PSTR("jal r%"PRIu8", pc%+"PRIi32), rd, offset);
 			emu->Registers[rd] = emu->PC + 4;
 			emu->PC += offset;
 			return 0;
@@ -827,64 +733,54 @@ static i32 emulator_next(Emulator *emu)
 
 		case OPCODE_JALR:
 		{
+			u8 rd, rs1;
 			i32 offset;
-			u32 rd, rs1, imm;
+			u32 imm;
 			rd = (instr >> 7) & 0x1F;
 			rs1 = (instr >> 15) & 0x1F;
 			imm = (instr >> 20) & ~1;
 
 			offset = sext(12, imm);
-#ifdef DEBUG
-			printf("jalr r%d, r%d%+d\n", rd, rs1, offset);
-#endif
+
+			EMU_LOG(PSTR("jalr r%"PRIu8", r%"PRIu8"%+"PRIi32),
+				rd, rs1, offset);
+
 			emu->Registers[rd] = emu->PC + 4;
 			emu->PC = emu->Registers[rs1] + offset;
 			return 0;
 		}
 
 		default:
-			/* INVALID */
-#ifdef DEBUG
-			printf("INVALID\n");
-#endif
-			return -1;
+			EMU_LOG(PSTR("INVALID"));
+			return true;
 	}
 
-#ifdef DEBUG
-	end = clock();
-	time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
-	printf("time spent = %f\n", time_spent);
-#endif
-
 	emu->PC += 4;
-	return 0;
+	return false;
 }
 
-#define BOLDRED   "\033[1m\033[31m"
-#define RESET     "\033[0m"
-
-i32 emulator_call(Emulator *emu, u32 addr, u32 *args, u32 num, u32 sp, u32 max_instr)
+void emulator_call(Emulator *emu, u32 addr, u32 *args, u8 num, u32 sp)
 {
-	u32 i;
-
 	/* Initialize Stack Pointer at end of memory */
-	emu->Registers[2] = sp;
+	emu->Registers[2] = sp - 4;
 
 	emu->PC = addr;
 	memcpy(&emu->Registers[10], args, num * sizeof(*emu->Registers));
 
+	u32 i = 0;
 	_finished = false;
-	for(i = 0; i < max_instr; ++i)
+	for(;;)
 	{
-		emulator_next(emu);
+		if(emulator_next(emu))
+		{
+			return;
+		}
+
+		++i;
 		if(_finished)
 		{
-			return 0;
+			EMU_LOG(PSTR("%"PRIu32" Cycles"), i);
+			return;
 		}
 	}
-
-	/* TODO */
-	fprintf(stderr, BOLDRED "INSTRUCTION LIMIT EXCEEDED!\n" RESET);
-	exit(1);
-	return 1;
 }

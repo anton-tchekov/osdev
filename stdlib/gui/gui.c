@@ -16,21 +16,23 @@
 /** Height of the title bar in pixels */
 #define TITLE_BAR_HEIGHT 20
 
-#define INPUT_HEIGHT     20
-
-#define INPUT_PADDING_X   5
-#define INPUT_PADDING_Y   5
-
 #define TITLE_OFFSET_X    4
 #define TITLE_OFFSET_Y    4
 
 #define BORDER_SIZE       1
 #define BORDER_SIZE_SEL   2
 
-#define COLOR_SELECTION    COLOR_STEEL_BLUE
+/** Input */
+#define INPUT_HEIGHT     24
+
+#define INPUT_PADDING_X   6
+#define INPUT_PADDING_Y   7
+
 #define CURSOR_WIDTH      1
 #define CURSOR_HEIGHT    14
 #define CURSOR_OFFSET    -1
+
+#define CURSOR_OFFSET_Y   5
 
 #define INPUT_CAPACITY   16
 
@@ -54,35 +56,35 @@ typedef struct
 static void label_render(Label *l)
 {
 	u32 align = l->Flags & LABEL_ALIGN_MASK;
-	if(align == LABEL_FLAG_CENTER)
+	if(align == FLAG_ALIGN_CENTER)
 	{
 		font_string(
 			l->X - font_string_width(l->Text, font_default) / 2,
 			TITLE_BAR_HEIGHT + l->Y,
 			l->Text,
 			font_default,
-			COLOR_BLACK,
-			COLOR_WHITE);
+			_current_window->ColorFG,
+			_current_window->ColorBG);
 	}
-	else if(align == LABEL_FLAG_RIGHT)
+	else if(align == FLAG_ALIGN_RIGHT)
 	{
 		font_string(
 			l->X - font_string_width(l->Text, font_default),
 			TITLE_BAR_HEIGHT + l->Y,
 			l->Text,
 			font_default,
-			COLOR_BLACK,
-			COLOR_WHITE);
+			_current_window->ColorFG,
+			_current_window->ColorBG);
 	}
-	else if(align == LABEL_FLAG_LEFT)
+	else if(align == FLAG_ALIGN_LEFT)
 	{
 		font_string(
 			l->X,
 			TITLE_BAR_HEIGHT + l->Y,
 			l->Text,
 			font_default,
-			COLOR_BLACK,
-			COLOR_WHITE);
+			_current_window->ColorFG,
+			_current_window->ColorBG);
 	}
 }
 
@@ -96,22 +98,32 @@ static void label_render(Label *l)
  */
 static void button_render(Button *b, bool sel)
 {
+	Color inner_color;
 	i32 x, y;
 
 	y = TITLE_BAR_HEIGHT + b->Y;
-	gfx_rect(b->X, y, b->W, b->H, COLOR_WHITE);
+
+	inner_color = sel ? _current_window->ElementSelBG :
+		_current_window->ElementBG;
+
+	gfx_rect(b->X, y, b->W, b->H, inner_color);
+
 	if(sel)
 	{
-		gfx_rect_border(b->X, y, b->W, b->H, BORDER_SIZE_SEL, COLOR_RED);
+		gfx_rect_border(b->X, y, b->W, b->H, BORDER_SIZE_SEL,
+			_current_window->ColorBorderSel);
 	}
 	else
 	{
-		gfx_rect_border(b->X, y, b->W, b->H, BORDER_SIZE, COLOR_BLACK);
+		gfx_rect_border(b->X, y, b->W, b->H, BORDER_SIZE,
+			_current_window->ColorBorder);
 	}
 
 	x = b->X + b->W / 2 - font_string_width(b->Text, font_default) / 2;
 	font_string(x, y + b->H / 2 - 5,
-		b->Text, font_default, COLOR_BLACK, COLOR_WHITE);
+		b->Text, font_default,
+		_current_window->ColorFG,
+		inner_color);
 }
 
 /* INPUT */
@@ -124,31 +136,37 @@ static void button_render(Button *b, bool sel)
  */
 static void input_render(Input *i, bool sel)
 {
+	Color inner_color;
 	i32 y = TITLE_BAR_HEIGHT + i->Y;
 
 	const char *text = vector_data(&i->Text);
 
+	inner_color = sel ? _current_window->ElementSelBG : _current_window->ElementBG;
 	gfx_rect(i->X + BORDER_SIZE,
 		TITLE_BAR_HEIGHT + i->Y + BORDER_SIZE,
 		i->W - 2 * BORDER_SIZE,
 		INPUT_HEIGHT - 2 + BORDER_SIZE,
-		COLOR_WHITE);
+		inner_color);
 
 	if(sel)
 	{
 		gfx_rect_border(i->X, TITLE_BAR_HEIGHT + i->Y,
-			i->W, INPUT_HEIGHT, BORDER_SIZE_SEL, COLOR_RED);
+			i->W, INPUT_HEIGHT, BORDER_SIZE_SEL,
+			_current_window->ColorBorderSel);
 	}
 	else
 	{
-		gfx_rect_border(i->X, y, i->W, INPUT_HEIGHT, BORDER_SIZE, COLOR_BLACK);
+		gfx_rect_border(i->X, y, i->W, INPUT_HEIGHT, BORDER_SIZE,
+			_current_window->ColorBorder);
 	}
 
 	if(i->Selection == i->Position)
 	{
 		font_string_len(i->X + INPUT_PADDING_X, y + INPUT_PADDING_Y,
 			text, vector_len(&i->Text),
-			font_default, COLOR_BLACK, COLOR_WHITE);
+			font_default,
+			_current_window->ColorFG,
+			inner_color);
 	}
 	else
 	{
@@ -161,18 +179,23 @@ static void input_render(Input *i, bool sel)
 		font_string_len(i->X + INPUT_PADDING_X,
 			y + INPUT_PADDING_Y,
 			text, sel_start,
-			font_default, COLOR_BLACK, COLOR_WHITE);
+			font_default,
+			_current_window->ColorFG,
+			inner_color);
 
 		/* Selection */
 		sel_x = font_string_width_len(text, sel_start, font_default);
 
-		gfx_rect(i->X + INPUT_PADDING_X + sel_x, y + 3,
+		gfx_rect(i->X + INPUT_PADDING_X + sel_x, y + CURSOR_OFFSET_Y,
 			font_string_width_len(text + sel_start, sel_len, font_default),
-			CURSOR_HEIGHT, COLOR_SELECTION);
+			CURSOR_HEIGHT,
+			_current_window->ColorFG);
 
 		font_string_len(i->X + INPUT_PADDING_X + sel_x, y + INPUT_PADDING_Y,
 			text + sel_start, sel_len,
-			font_default, COLOR_BLACK, COLOR_SELECTION);
+			font_default,
+			_current_window->ColorTextSelFG,
+			inner_color);
 
 		/* After selection */
 		font_string_len(i->X + INPUT_PADDING_X +
@@ -180,7 +203,9 @@ static void input_render(Input *i, bool sel)
 			y + INPUT_PADDING_Y,
 			text + sel_start + sel_len,
 			vector_len(&i->Text) - sel_start - sel_len,
-			font_default, COLOR_BLACK, COLOR_WHITE);
+			font_default,
+			_current_window->ColorFG,
+			inner_color);
 	}
 
 	if(sel)
@@ -188,10 +213,10 @@ static void input_render(Input *i, bool sel)
 		/* Cursor */
 		gfx_rect(i->X + INPUT_PADDING_X +
 			font_string_width_len(text, i->Position, font_default) +
-			CURSOR_OFFSET, TITLE_BAR_HEIGHT + i->Y + 3,
+			CURSOR_OFFSET, TITLE_BAR_HEIGHT + i->Y + CURSOR_OFFSET_Y,
 			CURSOR_WIDTH,
 			CURSOR_HEIGHT,
-			COLOR_BLACK);
+			_current_window->ColorCursor);
 	}
 }
 
@@ -576,15 +601,20 @@ static void window_render(Window *window)
 	i32 i;
 
 	/* Title Bar */
-	gfx_rect(0, 0, GFX_WIDTH, TITLE_BAR_HEIGHT, COLOR_BLUE);
+	gfx_rect(0, 0, GFX_WIDTH, TITLE_BAR_HEIGHT - 1,
+		_current_window->ColorTitleBar);
+
+	gfx_rect(0, TITLE_BAR_HEIGHT - 1, GFX_WIDTH, 1,
+		_current_window->ColorFG);
 
 	/* Background */
 	gfx_rect(0, TITLE_BAR_HEIGHT, GFX_WIDTH, GFX_HEIGHT - TITLE_BAR_HEIGHT,
-		COLOR_WHITE);
+		_current_window->ColorBG);
 
 	/* Title */
 	font_string(TITLE_OFFSET_X, TITLE_OFFSET_Y, window->Title,
-		font_default, COLOR_WHITE, COLOR_BLUE);
+		font_default, _current_window->ColorFG,
+		_current_window->ColorTitleBar);
 
 	for(i = 0; i < window->Count; ++i)
 	{
@@ -656,9 +686,25 @@ void window_event_key(Key key, i32 chr, KeyState state)
 	}
 }
 
+#define THEME_BLACK  0x0F0000FF
+#define THEME_DARK   0x2F0000FF
+#define THEME_MIDDLE 0x4F0000FF
+#define THEME_LIGHT  0xFF8000FF
+
 void window_init(Window *window, char *title, void *elems, i32 count,
 	KeyEvent onkey)
 {
+	window->ColorFG = THEME_LIGHT;
+	window->ColorBG = THEME_BLACK;
+	window->ColorTextSelBG = THEME_LIGHT;
+	window->ColorTextSelFG = THEME_DARK;
+	window->ColorBorder = THEME_MIDDLE;
+	window->ColorBorderSel = THEME_LIGHT;
+	window->ElementBG = THEME_DARK;
+	window->ElementSelBG = THEME_MIDDLE;
+	window->ColorCursor = THEME_LIGHT;
+	window->ColorTitleBar = THEME_DARK;
+
 	window->Title = title;
 	window->Elements = elems;
 	window->Count = count;

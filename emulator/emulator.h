@@ -41,7 +41,7 @@ void emulator_dump_registers(Emulator *emu);
 void kernel_init(void);
 
 /**
- * @brief This is ugly and needs to be replaced
+ * @brief TODO: This is ugly and needs to be replaced
  */
 void process_setup(void);
 
@@ -67,9 +67,8 @@ void keyboard_event(Key key, i32 chr, KeyState state);
  * @param args
  * @param num
  * @param sp
- * @param max_instr
  * @return i32
  */
-i32 emulator_call(Emulator *emu, u32 addr, u32 *args, u32 num, u32 sp, u32 max_instr);
+void emulator_call(Emulator *emu, u32 addr, u32 *args, u8 num, u32 sp);
 
 #endif /* __EMULATOR_H__ */
