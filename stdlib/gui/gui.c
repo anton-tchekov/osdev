@@ -55,7 +55,7 @@ typedef struct
  */
 static void label_render(Label *l)
 {
-	u32 align = l->Flags & LABEL_ALIGN_MASK;
+	u32 align = l->Flags & ALIGN_MASK;
 	if(align == FLAG_ALIGN_CENTER)
 	{
 		font_string(

@@ -1,0 +1,50 @@
+\hypertarget{ps2_8h}{}\doxysection{platform/avr/ps2/ps2.h File Reference}
+\label{ps2_8h}\index{platform/avr/ps2/ps2.h@{platform/avr/ps2/ps2.h}}
+
+
+PS/2 Keyboard Driver with Interrupts.  
+
+
+{\ttfamily \#include $<$types.\+h$>$}\newline
+{\ttfamily \#include $<$avr/io.\+h$>$}\newline
+{\ttfamily \#include $<$avr/interrupt.\+h$>$}\newline
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{ps2_8h_af0a83745146d1ce5fe4ef4372520e372}\label{ps2_8h_af0a83745146d1ce5fe4ef4372520e372}} 
+void {\bfseries ps2\+\_\+init} (void)
+\begin{DoxyCompactList}\small\item\em Initialize PS/2 keyboard driver and interrupt, Interrupts must be enabled afterwards using {\ttfamily sei()}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{ps2_8h_af7f4bc35d95b7572e19fff58cbf089f6}{ps2\+\_\+event}} (\mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}} byte)
+\begin{DoxyCompactList}\small\item\em This function must be implemented by the user and is called by the driver when a byte is received. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+PS/2 Keyboard Driver with Interrupts. 
+
+\begin{DoxyAuthor}{Author}
+Haron Nazari, Anton Tchekov 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+0.\+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+16.\+05.\+2023 
+\end{DoxyDate}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{ps2_8h_af7f4bc35d95b7572e19fff58cbf089f6}\label{ps2_8h_af7f4bc35d95b7572e19fff58cbf089f6}} 
+\index{ps2.h@{ps2.h}!ps2\_event@{ps2\_event}}
+\index{ps2\_event@{ps2\_event}!ps2.h@{ps2.h}}
+\doxysubsubsection{\texorpdfstring{ps2\_event()}{ps2\_event()}}
+{\footnotesize\ttfamily void ps2\+\_\+event (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}}}]{byte }\end{DoxyParamCaption})}
+
+
+
+This function must be implemented by the user and is called by the driver when a byte is received. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em byte} & The byte that was received from the PS/2 keyboard \\
+\hline
+\end{DoxyParams}

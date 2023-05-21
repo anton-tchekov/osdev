@@ -1,0 +1,204 @@
+\hypertarget{platform_8h}{}\doxysection{platform/platform.h File Reference}
+\label{platform_8h}\index{platform/platform.h@{platform/platform.h}}
+
+
+Interface between \mbox{\hyperlink{structEmulator}{Emulator}} and Drivers Arguably the most important file in this project.  
+
+
+{\ttfamily \#include $<$types.\+h$>$}\newline
+{\ttfamily \#include $<$keyboard-\/shared.\+h$>$}\newline
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} \mbox{\hyperlink{platform_8h_ad45321d3cde348956064544ac2a6fc1e}{memory\+\_\+size}} (void)
+\begin{DoxyCompactList}\small\item\em Get the size of the installed memory. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{platform_8h_a823f7ab0a4d7dbf7e17db89187383e95}{memory\+\_\+read}} (\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} addr, void $\ast$data, \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} size)
+\begin{DoxyCompactList}\small\item\em Read data from physical memory. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{platform_8h_adf3aa4ce4d4b7c8606f4d226f7547c6f}{memory\+\_\+write}} (\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} addr, const void $\ast$data, \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} size)
+\begin{DoxyCompactList}\small\item\em Write data to physical memory. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{platform_8h_a47734537b467eaaf7fc992a09dcd44bf}{gfx\+\_\+rect}} (\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} x, \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} y, \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} w, \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} h, \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} color)
+\begin{DoxyCompactList}\small\item\em Draw rectangle. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{platform_8h_a245ef36ec35ade5b2794f77419931040}\label{platform_8h_a245ef36ec35ade5b2794f77419931040}} 
+\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} {\bfseries syscall\+\_\+gfx\+\_\+image\+\_\+rgba} (\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} $\ast$args)
+\item 
+\mbox{\Hypertarget{platform_8h_ab9cc50b5ccbc8a61a1eca272725ef270}\label{platform_8h_ab9cc50b5ccbc8a61a1eca272725ef270}} 
+\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} {\bfseries syscall\+\_\+gfx\+\_\+image\+\_\+rgb} (\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} $\ast$args)
+\item 
+\mbox{\Hypertarget{platform_8h_a8e135f3ebd54b829a83c47c341d1bf3e}\label{platform_8h_a8e135f3ebd54b829a83c47c341d1bf3e}} 
+\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} {\bfseries syscall\+\_\+gfx\+\_\+image\+\_\+rgb565} (\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} $\ast$args)
+\item 
+\mbox{\Hypertarget{platform_8h_af0d36ba933043b7eb03210dd2bd1bb69}\label{platform_8h_af0d36ba933043b7eb03210dd2bd1bb69}} 
+\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} {\bfseries syscall\+\_\+gfx\+\_\+image\+\_\+grayscale} (\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} $\ast$args)
+\item 
+\mbox{\Hypertarget{platform_8h_ac76cb6e2ba82e2adc9828489097e93e3}\label{platform_8h_ac76cb6e2ba82e2adc9828489097e93e3}} 
+\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} {\bfseries syscall\+\_\+gfx\+\_\+image\+\_\+1bit} (\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} $\ast$args)
+\item 
+void \mbox{\hyperlink{platform_8h_a310a4eafbbbe42aa413c5d5c2c391d8b}{serial\+\_\+write}} (const void $\ast$data, \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} len)
+\begin{DoxyCompactList}\small\item\em Send data over the serial interface. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} \mbox{\hyperlink{platform_8h_acd70dc015ebddf28c8650af3a91480f8}{random\+\_\+get}} (void)
+\begin{DoxyCompactList}\small\item\em Generate a pseudo-\/random number. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structDateTime}{Date\+Time}} $\ast$ \mbox{\hyperlink{platform_8h_ad322d5c8bfa7fa948cb6597e1a7a7015}{datetime\+\_\+now}} (\mbox{\hyperlink{structDateTime}{Date\+Time}} $\ast$now)
+\begin{DoxyCompactList}\small\item\em Get the current date and time. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} \mbox{\hyperlink{platform_8h_aee701eeb891b748ed2e12da119816882}{millis}} (void)
+\begin{DoxyCompactList}\small\item\em Get the number of milliseconds since boot. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Interface between \mbox{\hyperlink{structEmulator}{Emulator}} and Drivers Arguably the most important file in this project. 
+
+\begin{DoxyAuthor}{Author}
+Anton Tchekov 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+0.\+3 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+16.\+05.\+2023 
+\end{DoxyDate}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{platform_8h_ad322d5c8bfa7fa948cb6597e1a7a7015}\label{platform_8h_ad322d5c8bfa7fa948cb6597e1a7a7015}} 
+\index{platform.h@{platform.h}!datetime\_now@{datetime\_now}}
+\index{datetime\_now@{datetime\_now}!platform.h@{platform.h}}
+\doxysubsubsection{\texorpdfstring{datetime\_now()}{datetime\_now()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structDateTime}{Date\+Time}} $\ast$ datetime\+\_\+now (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structDateTime}{Date\+Time}} $\ast$}]{now }\end{DoxyParamCaption})}
+
+
+
+Get the current date and time. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em now} & Output parameter\\
+\hline
+\end{DoxyParams}
+Get the current date and time.
+
+
+\begin{DoxyParams}{Parameters}
+{\em now} & Output parameter \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{platform_8h_a47734537b467eaaf7fc992a09dcd44bf}\label{platform_8h_a47734537b467eaaf7fc992a09dcd44bf}} 
+\index{platform.h@{platform.h}!gfx\_rect@{gfx\_rect}}
+\index{gfx\_rect@{gfx\_rect}!platform.h@{platform.h}}
+\doxysubsubsection{\texorpdfstring{gfx\_rect()}{gfx\_rect()}}
+{\footnotesize\ttfamily void gfx\+\_\+rect (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}}]{x,  }\item[{\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}}]{y,  }\item[{\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}}]{w,  }\item[{\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}}]{h,  }\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{color }\end{DoxyParamCaption})}
+
+
+
+Draw rectangle. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & X-\/\+Coordinate \\
+\hline
+{\em y} & Y-\/\+Coordinate \\
+\hline
+{\em w} & Width \\
+\hline
+{\em h} & Height \\
+\hline
+{\em color} & Fill color \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{platform_8h_a823f7ab0a4d7dbf7e17db89187383e95}\label{platform_8h_a823f7ab0a4d7dbf7e17db89187383e95}} 
+\index{platform.h@{platform.h}!memory\_read@{memory\_read}}
+\index{memory\_read@{memory\_read}!platform.h@{platform.h}}
+\doxysubsubsection{\texorpdfstring{memory\_read()}{memory\_read()}}
+{\footnotesize\ttfamily void memory\+\_\+read (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{addr,  }\item[{void $\ast$}]{data,  }\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{size }\end{DoxyParamCaption})}
+
+
+
+Read data from physical memory. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em addr} & Start address \\
+\hline
+{\em data} & Data buffer \\
+\hline
+{\em size} & Size in bytes \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{platform_8h_ad45321d3cde348956064544ac2a6fc1e}\label{platform_8h_ad45321d3cde348956064544ac2a6fc1e}} 
+\index{platform.h@{platform.h}!memory\_size@{memory\_size}}
+\index{memory\_size@{memory\_size}!platform.h@{platform.h}}
+\doxysubsubsection{\texorpdfstring{memory\_size()}{memory\_size()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} memory\+\_\+size (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Get the size of the installed memory. 
+
+\begin{DoxyReturn}{Returns}
+The size of the memory in bytes 
+\end{DoxyReturn}
+\mbox{\Hypertarget{platform_8h_adf3aa4ce4d4b7c8606f4d226f7547c6f}\label{platform_8h_adf3aa4ce4d4b7c8606f4d226f7547c6f}} 
+\index{platform.h@{platform.h}!memory\_write@{memory\_write}}
+\index{memory\_write@{memory\_write}!platform.h@{platform.h}}
+\doxysubsubsection{\texorpdfstring{memory\_write()}{memory\_write()}}
+{\footnotesize\ttfamily void memory\+\_\+write (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{addr,  }\item[{const void $\ast$}]{data,  }\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{size }\end{DoxyParamCaption})}
+
+
+
+Write data to physical memory. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em addr} & Start address \\
+\hline
+{\em data} & Data buffer \\
+\hline
+{\em size} & Size in bytes \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{platform_8h_aee701eeb891b748ed2e12da119816882}\label{platform_8h_aee701eeb891b748ed2e12da119816882}} 
+\index{platform.h@{platform.h}!millis@{millis}}
+\index{millis@{millis}!platform.h@{platform.h}}
+\doxysubsubsection{\texorpdfstring{millis()}{millis()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} millis (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Get the number of milliseconds since boot. 
+
+\begin{DoxyReturn}{Returns}
+The number of milliseconds 
+\end{DoxyReturn}
+\mbox{\Hypertarget{platform_8h_acd70dc015ebddf28c8650af3a91480f8}\label{platform_8h_acd70dc015ebddf28c8650af3a91480f8}} 
+\index{platform.h@{platform.h}!random\_get@{random\_get}}
+\index{random\_get@{random\_get}!platform.h@{platform.h}}
+\doxysubsubsection{\texorpdfstring{random\_get()}{random\_get()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} random\+\_\+get (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Generate a pseudo-\/random number. 
+
+\begin{DoxyReturn}{Returns}
+The number
+\end{DoxyReturn}
+
+
+\begin{DoxyReturn}{Returns}
+The number 
+\end{DoxyReturn}
+\mbox{\Hypertarget{platform_8h_a310a4eafbbbe42aa413c5d5c2c391d8b}\label{platform_8h_a310a4eafbbbe42aa413c5d5c2c391d8b}} 
+\index{platform.h@{platform.h}!serial\_write@{serial\_write}}
+\index{serial\_write@{serial\_write}!platform.h@{platform.h}}
+\doxysubsubsection{\texorpdfstring{serial\_write()}{serial\_write()}}
+{\footnotesize\ttfamily void serial\+\_\+write (\begin{DoxyParamCaption}\item[{const void $\ast$}]{data,  }\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{len }\end{DoxyParamCaption})}
+
+
+
+Send data over the serial interface. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em data} & The data to send \\
+\hline
+{\em len} & The number of bytes \\
+\hline
+\end{DoxyParams}

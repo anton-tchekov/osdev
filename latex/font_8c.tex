@@ -1,0 +1,73 @@
+\hypertarget{font_8c}{}\doxysection{stdlib/font/font.c File Reference}
+\label{font_8c}\index{stdlib/font/font.c@{stdlib/font/font.c}}
+{\ttfamily \#include $<$font.\+h$>$}\newline
+{\ttfamily \#include $<$utf8.\+h$>$}\newline
+{\ttfamily \#include $<$algo.\+h$>$}\newline
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} \mbox{\hyperlink{font_8c_a0fb43ab4a095679d631a2c0652ee3f08}{font\+\_\+string\+\_\+len}} (\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} x, \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} y, const char $\ast$s, \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} len, \mbox{\hyperlink{structFont}{Font}} $\ast$font, \mbox{\hyperlink{gfx_8h_acbbccb6085c654282ef64cdcefc81be5}{Color}} fg, \mbox{\hyperlink{gfx_8h_acbbccb6085c654282ef64cdcefc81be5}{Color}} bg)
+\begin{DoxyCompactList}\small\item\em Draw an UTF-\/8 string {\ttfamily s} with a maximum number of chars. This function will also stop at a \textquotesingle{}\textbackslash{}0\textquotesingle{} character. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} \mbox{\hyperlink{font_8c_aa965d55e47b225d39bcf70c39ece24c4}{font\+\_\+string\+\_\+width\+\_\+len}} (const char $\ast$s, \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} len, \mbox{\hyperlink{structFont}{Font}} $\ast$font)
+\begin{DoxyCompactList}\small\item\em Calculate the width of a string in pixels. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyAuthor}{Author}
+Tim Gabrikowski, Anton Tchekov 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+0.\+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+23.\+04.\+2023 
+\end{DoxyDate}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{font_8c_a0fb43ab4a095679d631a2c0652ee3f08}\label{font_8c_a0fb43ab4a095679d631a2c0652ee3f08}} 
+\index{font.c@{font.c}!font\_string\_len@{font\_string\_len}}
+\index{font\_string\_len@{font\_string\_len}!font.c@{font.c}}
+\doxysubsubsection{\texorpdfstring{font\_string\_len()}{font\_string\_len()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} font\+\_\+string\+\_\+len (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}}]{x,  }\item[{\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}}]{y,  }\item[{const char $\ast$}]{s,  }\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{len,  }\item[{\mbox{\hyperlink{structFont}{Font}} $\ast$}]{font,  }\item[{\mbox{\hyperlink{gfx_8h_acbbccb6085c654282ef64cdcefc81be5}{Color}}}]{fg,  }\item[{\mbox{\hyperlink{gfx_8h_acbbccb6085c654282ef64cdcefc81be5}{Color}}}]{bg }\end{DoxyParamCaption})}
+
+
+
+Draw an UTF-\/8 string {\ttfamily s} with a maximum number of chars. This function will also stop at a \textquotesingle{}\textbackslash{}0\textquotesingle{} character. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & X-\/\+Coordinate (Top) \\
+\hline
+{\em y} & Y-\/\+Coordinate (Left) \\
+\hline
+{\em s} & Character array \\
+\hline
+{\em len} & Maximum number of unicode characters \\
+\hline
+{\em font} & The font to use \\
+\hline
+{\em fg} & Foreground color \\
+\hline
+{\em bg} & Background color \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{font_8c_aa965d55e47b225d39bcf70c39ece24c4}\label{font_8c_aa965d55e47b225d39bcf70c39ece24c4}} 
+\index{font.c@{font.c}!font\_string\_width\_len@{font\_string\_width\_len}}
+\index{font\_string\_width\_len@{font\_string\_width\_len}!font.c@{font.c}}
+\doxysubsubsection{\texorpdfstring{font\_string\_width\_len()}{font\_string\_width\_len()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} font\+\_\+string\+\_\+width\+\_\+len (\begin{DoxyParamCaption}\item[{const char $\ast$}]{s,  }\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{len,  }\item[{\mbox{\hyperlink{structFont}{Font}} $\ast$}]{font }\end{DoxyParamCaption})}
+
+
+
+Calculate the width of a string in pixels. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em s} & The string \\
+\hline
+{\em len} & Maximum number of unicode characters \\
+\hline
+{\em font} & The font \\
+\hline
+\end{DoxyParams}

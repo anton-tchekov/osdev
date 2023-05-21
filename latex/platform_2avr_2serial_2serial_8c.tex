@@ -1,0 +1,42 @@
+\hypertarget{platform_2avr_2serial_2serial_8c}{}\doxysection{platform/avr/serial/serial.c File Reference}
+\label{platform_2avr_2serial_2serial_8c}\index{platform/avr/serial/serial.c@{platform/avr/serial/serial.c}}
+{\ttfamily \#include \char`\"{}serial.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$avr/io.\+h$>$}\newline
+{\ttfamily \#include $<$avr/interrupt.\+h$>$}\newline
+{\ttfamily \#include $<$avr/pgmspace.\+h$>$}\newline
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{platform_2avr_2serial_2serial_8c_a1fac9153314479ad0ad495d752f0224a}\label{platform_2avr_2serial_2serial_8c_a1fac9153314479ad0ad495d752f0224a}} 
+\#define {\bfseries UART\+\_\+\+BAUD}~9600
+\item 
+\mbox{\Hypertarget{platform_2avr_2serial_2serial_8c_a4c7f7f9d99b8f7c52064749dcd20cd69}\label{platform_2avr_2serial_2serial_8c_a4c7f7f9d99b8f7c52064749dcd20cd69}} 
+\#define {\bfseries \+\_\+\+BAUD}~(((F\+\_\+\+CPU / (UART\+\_\+\+BAUD $\ast$ 16UL))) -\/ 1)
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{platform_2avr_2serial_2serial_8c_ad2b461e9e9044364a28a61cfadcacdd8}\label{platform_2avr_2serial_2serial_8c_ad2b461e9e9044364a28a61cfadcacdd8}} 
+void {\bfseries serial\+\_\+init} (void)
+\item 
+\mbox{\Hypertarget{platform_2avr_2serial_2serial_8c_ad1404aaabd8a723599a89c9b9ca08a65}\label{platform_2avr_2serial_2serial_8c_ad1404aaabd8a723599a89c9b9ca08a65}} 
+void {\bfseries serial\+\_\+tx} (char c)
+\item 
+\mbox{\Hypertarget{platform_2avr_2serial_2serial_8c_a38ab89a81b380ccbfe63ba026d92b54b}\label{platform_2avr_2serial_2serial_8c_a38ab89a81b380ccbfe63ba026d92b54b}} 
+void {\bfseries serial\+\_\+tx\+\_\+str} (const char $\ast$s)
+\item 
+\mbox{\Hypertarget{platform_2avr_2serial_2serial_8c_a61bd5731ded09bedba568c156e57e0bb}\label{platform_2avr_2serial_2serial_8c_a61bd5731ded09bedba568c156e57e0bb}} 
+void {\bfseries serial\+\_\+tx\+\_\+str\+\_\+P} (const char $\ast$s)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyAuthor}{Author}
+Anton Tchekov 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+0.\+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+16.\+05.\+2023 
+\end{DoxyDate}

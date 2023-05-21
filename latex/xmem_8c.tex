@@ -1,0 +1,138 @@
+\hypertarget{xmem_8c}{}\doxysection{platform/avr/xmem/xmem.c File Reference}
+\label{xmem_8c}\index{platform/avr/xmem/xmem.c@{platform/avr/xmem/xmem.c}}
+{\ttfamily \#include $<$xmem.\+h$>$}\newline
+{\ttfamily \#include $<$spi.\+h$>$}\newline
+{\ttfamily \#include $<$logger.\+h$>$}\newline
+{\ttfamily \#include $<$gpio.\+h$>$}\newline
+{\ttfamily \#include $<$avr/io.\+h$>$}\newline
+{\ttfamily \#include $<$avr/pgmspace.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+\doxysubsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structAddrHelper}{Addr\+Helper}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{xmem_8c_a41e71a45e1fd04415bc24952cbf50c9b}\label{xmem_8c_a41e71a45e1fd04415bc24952cbf50c9b}} 
+\#define {\bfseries BANK\+\_\+\+COUNT}~3
+\item 
+\mbox{\Hypertarget{xmem_8c_ab15d51766a60c96accc9078415cb87d8}\label{xmem_8c_ab15d51766a60c96accc9078415cb87d8}} 
+\#define {\bfseries BANK\+\_\+\+SIZE\+\_\+\+POT}~17
+\item 
+\mbox{\Hypertarget{xmem_8c_acb7dc5a33a5b4a8d2b71e744832f9523}\label{xmem_8c_acb7dc5a33a5b4a8d2b71e744832f9523}} 
+\#define {\bfseries BANK\+\_\+\+SIZE}~0x20000\+UL
+\item 
+\mbox{\Hypertarget{xmem_8c_af6f22306e433d0d10bba1b7127d7e198}\label{xmem_8c_af6f22306e433d0d10bba1b7127d7e198}} 
+\#define {\bfseries OUTPUT\+\_\+\+INTERVAL}~0x2000\+UL
+\item 
+\mbox{\Hypertarget{xmem_8c_a35beee7b0f2f3e294c4a4a69a5f02df4}\label{xmem_8c_a35beee7b0f2f3e294c4a4a69a5f02df4}} 
+\#define {\bfseries DUMMY}~0x\+FF
+\item 
+\mbox{\Hypertarget{xmem_8c_ad350bae49f72ba58d73027f1316e38b8}\label{xmem_8c_ad350bae49f72ba58d73027f1316e38b8}} 
+\#define {\bfseries SEED}~42
+\item 
+\#define \mbox{\hyperlink{xmem_8c_a5fdcd0ec5530b8e5b1110e54e30e0600}{SRAM\+\_\+\+COMMAND\+\_\+\+WRITE}}~2
+\item 
+\#define \mbox{\hyperlink{xmem_8c_aab517c0a80aa9e990d1475df041c2bb8}{SRAM\+\_\+\+COMMAND\+\_\+\+READ}}~3
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{xmem_8c_aa98b163510e84b9e79394397efdb8dde}\label{xmem_8c_aa98b163510e84b9e79394397efdb8dde}} 
+void {\bfseries xmem\+\_\+init} (void)
+\begin{DoxyCompactList}\small\item\em Initialize external memory and run memory test. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{xmem_8c_ac439854f5a1e0bd1b2f52c1028fc900a}{xmem\+\_\+read}} (\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} addr, void $\ast$data, \mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}} size)
+\begin{DoxyCompactList}\small\item\em Read the specified number of bytes from the external memory. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{xmem_8c_afef9c92490450d98f177f53f2b174f20}{xmem\+\_\+write}} (\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} addr, const void $\ast$data, \mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}} size)
+\begin{DoxyCompactList}\small\item\em Write the specified number of bytes to the external memory. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{xmem_8c_ab820b468ff9c382227cb704e6935a986}{xmem\+\_\+set}} (\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} addr, \mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}} value, \mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}} size)
+\begin{DoxyCompactList}\small\item\em Set a specified number of bytes in the external memory to a value. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyAuthor}{Author}
+Tim Gabrikowski, Anton Tchekov 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+0.\+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+01.\+05.\+2023 
+\end{DoxyDate}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{xmem_8c_aab517c0a80aa9e990d1475df041c2bb8}\label{xmem_8c_aab517c0a80aa9e990d1475df041c2bb8}} 
+\index{xmem.c@{xmem.c}!SRAM\_COMMAND\_READ@{SRAM\_COMMAND\_READ}}
+\index{SRAM\_COMMAND\_READ@{SRAM\_COMMAND\_READ}!xmem.c@{xmem.c}}
+\doxysubsubsection{\texorpdfstring{SRAM\_COMMAND\_READ}{SRAM\_COMMAND\_READ}}
+{\footnotesize\ttfamily \#define SRAM\+\_\+\+COMMAND\+\_\+\+READ~3}
+
+Read block command \mbox{\Hypertarget{xmem_8c_a5fdcd0ec5530b8e5b1110e54e30e0600}\label{xmem_8c_a5fdcd0ec5530b8e5b1110e54e30e0600}} 
+\index{xmem.c@{xmem.c}!SRAM\_COMMAND\_WRITE@{SRAM\_COMMAND\_WRITE}}
+\index{SRAM\_COMMAND\_WRITE@{SRAM\_COMMAND\_WRITE}!xmem.c@{xmem.c}}
+\doxysubsubsection{\texorpdfstring{SRAM\_COMMAND\_WRITE}{SRAM\_COMMAND\_WRITE}}
+{\footnotesize\ttfamily \#define SRAM\+\_\+\+COMMAND\+\_\+\+WRITE~2}
+
+Write block command 
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{xmem_8c_ac439854f5a1e0bd1b2f52c1028fc900a}\label{xmem_8c_ac439854f5a1e0bd1b2f52c1028fc900a}} 
+\index{xmem.c@{xmem.c}!xmem\_read@{xmem\_read}}
+\index{xmem\_read@{xmem\_read}!xmem.c@{xmem.c}}
+\doxysubsubsection{\texorpdfstring{xmem\_read()}{xmem\_read()}}
+{\footnotesize\ttfamily void xmem\+\_\+read (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{addr,  }\item[{void $\ast$}]{data,  }\item[{\mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}}}]{size }\end{DoxyParamCaption})}
+
+
+
+Read the specified number of bytes from the external memory. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em addr} & Start address \\
+\hline
+{\em data} & Destination buffer \\
+\hline
+{\em size} & Number of bytes to read \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{xmem_8c_ab820b468ff9c382227cb704e6935a986}\label{xmem_8c_ab820b468ff9c382227cb704e6935a986}} 
+\index{xmem.c@{xmem.c}!xmem\_set@{xmem\_set}}
+\index{xmem\_set@{xmem\_set}!xmem.c@{xmem.c}}
+\doxysubsubsection{\texorpdfstring{xmem\_set()}{xmem\_set()}}
+{\footnotesize\ttfamily void xmem\+\_\+set (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{addr,  }\item[{\mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}}}]{value,  }\item[{\mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}}}]{size }\end{DoxyParamCaption})}
+
+
+
+Set a specified number of bytes in the external memory to a value. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em addr} & Start address \\
+\hline
+{\em value} & The value to write \\
+\hline
+{\em size} & Number of bytes to set \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{xmem_8c_afef9c92490450d98f177f53f2b174f20}\label{xmem_8c_afef9c92490450d98f177f53f2b174f20}} 
+\index{xmem.c@{xmem.c}!xmem\_write@{xmem\_write}}
+\index{xmem\_write@{xmem\_write}!xmem.c@{xmem.c}}
+\doxysubsubsection{\texorpdfstring{xmem\_write()}{xmem\_write()}}
+{\footnotesize\ttfamily void xmem\+\_\+write (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{addr,  }\item[{const void $\ast$}]{data,  }\item[{\mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}}}]{size }\end{DoxyParamCaption})}
+
+
+
+Write the specified number of bytes to the external memory. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em addr} & Start address \\
+\hline
+{\em data} & Source buffer \\
+\hline
+{\em size} & Number of bytes to write \\
+\hline
+\end{DoxyParams}

@@ -1,0 +1,87 @@
+\hypertarget{gpio_8h_source}{}\doxysection{gpio.\+h}
+\label{gpio_8h_source}\index{platform/avr/gpio/gpio.h@{platform/avr/gpio/gpio.h}}
+\mbox{\hyperlink{gpio_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#ifndef\ \_\_GPIO\_H\_\_}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#define\ \_\_GPIO\_H\_\_}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <avr/io.h>}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{comment}{/*\ SPI\ */}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#define\ SPI\_DIR\ \ \ \ \ \ \ \ \ \ \ \ DDRB}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#define\ SPI\_MOSI\ \ \ \ \ \ \ \ \ \ 3}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#define\ SPI\_MISO\ \ \ \ \ \ \ \ \ \ 4}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#define\ SPI\_SCK\ \ \ \ \ \ \ \ \ \ \ 5}}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{comment}{/*\ LCD\ */}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#define\ LCD\_RST\_DIR\ \ \ \ \ \ \ \ DDRD}}
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#define\ LCD\_RST\_OUT\ \ \ \ \ \ \ \ PORTD}}
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#define\ LCD\_RST\_PIN\ \ \ \ \ \ \ 7}}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#define\ LCD\_CS\_DIR\ \ \ \ \ \ \ \ \ DDRC}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#define\ LCD\_CS\_OUT\ \ \ \ \ \ \ \ \ PORTC}}
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#define\ LCD\_CS\_PIN\ \ \ \ \ \ \ \ 0}}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#define\ LCD\_DC\_DIR\ \ \ \ \ \ \ \ \ DDRC}}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#define\ LCD\_DC\_OUT\ \ \ \ \ \ \ \ \ PORTC}}
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#define\ LCD\_DC\_PIN\ \ \ \ \ \ \ \ 1}}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#define\ LCD\_CS\_0\ \ \ \ \ \ \ \ \ \ \ \ LCD\_CS\_OUT\ \&=\ \string~(1\ <<\ LCD\_CS\_PIN)}}
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#define\ LCD\_CS\_1\ \ \ \ \ \ \ \ \ \ \ \ LCD\_CS\_OUT\ |=\ (1\ <<\ LCD\_CS\_PIN)}}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#define\ LCD\_DC\_0\ \ \ \ \ \ \ \ \ \ \ \ LCD\_DC\_OUT\ \&=\ \string~(1\ <<\ LCD\_DC\_PIN)}}
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#define\ LCD\_DC\_1\ \ \ \ \ \ \ \ \ \ \ \ LCD\_DC\_OUT\ |=\ (1\ <<\ LCD\_DC\_PIN)}}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#define\ LCD\_RST\_0\ \ \ \ \ \ \ \ \ \ \ LCD\_RST\_OUT\ \&=\ \string~(1\ <<\ LCD\_RST\_PIN)}}
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#define\ LCD\_RST\_1\ \ \ \ \ \ \ \ \ \ \ LCD\_RST\_OUT\ |=\ (1\ <<\ LCD\_RST\_PIN)}}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \textcolor{comment}{/*\ SD\ */}}
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#define\ SD\_CS\_DIR\ \ \ \ \ \ \ \ \ \ \ DDRD}}
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#define\ SD\_CS\_OUT\ \ \ \ \ \ \ \ \ \ \ PORTD}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ SD\_CS\_PIN\ \ \ \ \ \ \ \ \ \ 4}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#define\ SD\_SELECT\ \ \ \ \ \ \ \ \ \ \ SD\_CS\_OUT\ \&=\ \string~(1\ <<\ SD\_CS\_PIN)}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#define\ SD\_DESELECT\ \ \ \ \ \ \ \ \ SD\_CS\_OUT\ |=\ (1\ <<\ SD\_CS\_PIN)}}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \textcolor{comment}{/*\ XMEM\ */}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#define\ XMEM\_CS\_DIR\ \ \ \ \ \ \ \ \ DDRB}}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#define\ XMEM\_CS\_OUT\ \ \ \ \ \ \ \ \ PORTB}}
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#define\ XMEM\_CS\_0\_PIN\ \ \ \ \ \ 0}}
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#define\ XMEM\_CS\_1\_PIN\ \ \ \ \ \ 1}}
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#define\ XMEM\_CS\_2\_PIN\ \ \ \ \ \ 2}}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\#define\ XMEM\_SELECT(BANK)\ \ \ XMEM\_CS\_OUT\ \&=\ \string~(1\ <<\ bank)}}
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#define\ XMEM\_DESELECT(BANK)\ XMEM\_CS\_OUT\ |=\ (1\ <<\ bank)}}
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#define\ XMEM\_DESELECT\_ALL\ \ \ XMEM\_CS\_OUT\ |=\ \(\backslash\)}}
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\ \ \ \ (1\ <<\ XMEM\_CS\_0\_PIN)\ |\ \(\backslash\)}}
+\DoxyCodeLine{00061\ \textcolor{preprocessor}{\ \ \ \ (1\ <<\ XMEM\_CS\_1\_PIN)\ |\ \(\backslash\)}}
+\DoxyCodeLine{00062\ \textcolor{preprocessor}{\ \ \ \ (1\ <<\ XMEM\_CS\_2\_PIN)}}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ \textcolor{comment}{/*\ KBD\ */}}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \textcolor{comment}{/*\ -\/-\/-\/\ CLOCK:\ Arduino\ pin\ 2\ -\/-\/-\/\ */}}
+\DoxyCodeLine{00068\ \textcolor{preprocessor}{\#define\ PS2\_CLOCK\_PORT\_DIR\ \ DDRB}}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00071\ \textcolor{preprocessor}{\#define\ PS2\_CLOCK\_PORT\_IN\ \ \ PINB}}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00074\ \textcolor{preprocessor}{\#define\ PS2\_CLOCK\_PORT\_OUT\ \ PORTB}}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00077\ \textcolor{preprocessor}{\#define\ PS2\_CLOCK\_PIN\ \ \ \ \ \ \ 2}}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00080\ \textcolor{preprocessor}{\#define\ PS2\_EXT\_INTERRUPT\ \ \ INT0}}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00082\ \textcolor{comment}{/*\ -\/-\/-\/\ DATA:\ Arduino\ pin\ 3\ -\/-\/-\/\ */}}
+\DoxyCodeLine{00084\ \textcolor{preprocessor}{\#define\ PS2\_DATA\_PORT\_DIR\ \ \ DDRB}}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00087\ \textcolor{preprocessor}{\#define\ PS2\_DATA\_PORT\_IN\ \ \ \ PINB}}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00090\ \textcolor{preprocessor}{\#define\ PS2\_DATA\_PORT\_OUT\ \ \ PORTB}}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00093\ \textcolor{preprocessor}{\#define\ PS2\_DATA\_PIN\ \ \ \ \ \ \ \ 3}}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00101\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{gpio_8h_a7159e787d0c4fb89346383b7987ab6d3}{gpio\_configure}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00102\ }
+\DoxyCodeLine{00103\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ \_\_GPIO\_H\_\_\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

@@ -1,0 +1,27 @@
+\hypertarget{initrd_8h}{}\doxysection{platform/avr/initrd/initrd.h File Reference}
+\label{initrd_8h}\index{platform/avr/initrd/initrd.h@{platform/avr/initrd/initrd.h}}
+
+
+Load INIT program and STDLIB from reserved area on disk. This module contains a very rudimentary ATFS driver to do that. It is kind of a hack to avoid a chicken-\/egg problem because we want the filesystem driver to be in userspace but we can\textquotesingle{}t load the FS driver without already having an FS driver.  
+
+
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{initrd_8h_afb664c3988d855629cd7b611cf610561}\label{initrd_8h_afb664c3988d855629cd7b611cf610561}} 
+void {\bfseries initrd\+\_\+load} (void)
+\begin{DoxyCompactList}\small\item\em Load the INIT program and Standard Shared Library from special area on disk. The full featured filesystem driver is in userspace. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Load INIT program and STDLIB from reserved area on disk. This module contains a very rudimentary ATFS driver to do that. It is kind of a hack to avoid a chicken-\/egg problem because we want the filesystem driver to be in userspace but we can\textquotesingle{}t load the FS driver without already having an FS driver. 
+
+\begin{DoxyAuthor}{Author}
+Anton Tchekov 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+0.\+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+21.\+05.\+2023 
+\end{DoxyDate}

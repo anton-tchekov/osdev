@@ -22,16 +22,16 @@ typedef enum
 	ELEMENT_TYPE_LABEL
 } ElementType;
 
-/** Label align bitmask */
-#define LABEL_ALIGN_MASK      0x03
+/** Align bitmask */
+#define ALIGN_MASK      0x03
 
-/** Left align label (default) */
+/** Left align (default) */
 #define FLAG_ALIGN_LEFT       0x00
 
-/** Center align label */
+/** Center align */
 #define FLAG_ALIGN_CENTER     0x01
 
-/** Right align label */
+/** Right align */
 #define FLAG_ALIGN_RIGHT      0x02
 
 /** Enable/Disable Line numbers in input field */

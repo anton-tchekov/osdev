@@ -1,0 +1,85 @@
+\hypertarget{utf8_8c}{}\doxysection{utf8/utf8.c File Reference}
+\label{utf8_8c}\index{utf8/utf8.c@{utf8/utf8.c}}
+{\ttfamily \#include $<$utf8.\+h$>$}\newline
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} \mbox{\hyperlink{utf8_8c_a219bdc3b931e492ac3910593854506bf}{codepoint\+\_\+utf8}} (\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} codepoint, char $\ast$out)
+\begin{DoxyCompactList}\small\item\em Gets the UTF-\/8 string from a unicode codepoint. \end{DoxyCompactList}\item 
+const char $\ast$ \mbox{\hyperlink{utf8_8c_ade1388575c222237b5a428e29f45ac18}{utf8\+\_\+codepoint}} (const char $\ast$s, \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} $\ast$out)
+\begin{DoxyCompactList}\small\item\em Gets the unicode codepoint of the first character in a UTF-\/8 string. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} \mbox{\hyperlink{utf8_8c_aa77d909104ed431981d2a2da02d125a7}{utf8\+\_\+length}} (const char $\ast$s)
+\begin{DoxyCompactList}\small\item\em Gets the number of unicode codepoints in a UTF-\/8 string. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyAuthor}{Author}
+Tim Gabrikowski, Anton Tchekov 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+0.\+2 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+16.\+05.\+2023 
+\end{DoxyDate}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{utf8_8c_a219bdc3b931e492ac3910593854506bf}\label{utf8_8c_a219bdc3b931e492ac3910593854506bf}} 
+\index{utf8.c@{utf8.c}!codepoint\_utf8@{codepoint\_utf8}}
+\index{codepoint\_utf8@{codepoint\_utf8}!utf8.c@{utf8.c}}
+\doxysubsubsection{\texorpdfstring{codepoint\_utf8()}{codepoint\_utf8()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} codepoint\+\_\+utf8 (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}}]{codepoint,  }\item[{char $\ast$}]{out }\end{DoxyParamCaption})}
+
+
+
+Gets the UTF-\/8 string from a unicode codepoint. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em codepoint} & Unicode codepoint \\
+\hline
+{\em out} & Output parameter for UTF-\/8 string \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Number of bytes written or 0 on error 
+\end{DoxyReturn}
+\mbox{\Hypertarget{utf8_8c_ade1388575c222237b5a428e29f45ac18}\label{utf8_8c_ade1388575c222237b5a428e29f45ac18}} 
+\index{utf8.c@{utf8.c}!utf8\_codepoint@{utf8\_codepoint}}
+\index{utf8\_codepoint@{utf8\_codepoint}!utf8.c@{utf8.c}}
+\doxysubsubsection{\texorpdfstring{utf8\_codepoint()}{utf8\_codepoint()}}
+{\footnotesize\ttfamily const char $\ast$ utf8\+\_\+codepoint (\begin{DoxyParamCaption}\item[{const char $\ast$}]{s,  }\item[{\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} $\ast$}]{out }\end{DoxyParamCaption})}
+
+
+
+Gets the unicode codepoint of the first character in a UTF-\/8 string. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em s} & The string \\
+\hline
+{\em out} & Output parameter for codepoint \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Pointer to the string without the first character 
+\end{DoxyReturn}
+\mbox{\Hypertarget{utf8_8c_aa77d909104ed431981d2a2da02d125a7}\label{utf8_8c_aa77d909104ed431981d2a2da02d125a7}} 
+\index{utf8.c@{utf8.c}!utf8\_length@{utf8\_length}}
+\index{utf8\_length@{utf8\_length}!utf8.c@{utf8.c}}
+\doxysubsubsection{\texorpdfstring{utf8\_length()}{utf8\_length()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} utf8\+\_\+length (\begin{DoxyParamCaption}\item[{const char $\ast$}]{s }\end{DoxyParamCaption})}
+
+
+
+Gets the number of unicode codepoints in a UTF-\/8 string. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em s} & The string \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Number of codepoints in the string 
+\end{DoxyReturn}

@@ -5,8 +5,8 @@
 ### stdlib
 - GUI Library [PRIO]
 	- Init function refactoring [DONE]
-	- Replace current theme with Dark Mode []
-		- Make theme easily changable []
+	- Replace current theme with Dark Mode [DONE]
+		- Make theme easily changable [DONE]
 
 	- Add utility functions
 		- Hide / Show elements

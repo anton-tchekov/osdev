@@ -1,0 +1,72 @@
+\hypertarget{initrd_8c}{}\doxysection{platform/avr/initrd/initrd.c File Reference}
+\label{initrd_8c}\index{platform/avr/initrd/initrd.c@{platform/avr/initrd/initrd.c}}
+{\ttfamily \#include $<$initrd.\+h$>$}\newline
+{\ttfamily \#include $<$types.\+h$>$}\newline
+{\ttfamily \#include $<$sd.\+h$>$}\newline
+{\ttfamily \#include $<$xmem.\+h$>$}\newline
+{\ttfamily \#include $<$logger.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include $<$avr/pgmspace.\+h$>$}\newline
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{initrd_8c_a262979df93bcd7f2da26605be29bb3d6}\label{initrd_8c_a262979df93bcd7f2da26605be29bb3d6}} 
+\#define {\bfseries SECTOR\+\_\+\+BOOT}~0
+\item 
+\mbox{\Hypertarget{initrd_8c_a628dc6df1dde01776eda16e61f257ebf}\label{initrd_8c_a628dc6df1dde01776eda16e61f257ebf}} 
+\#define {\bfseries SIZE\+\_\+\+BOOT}~1
+\item 
+\mbox{\Hypertarget{initrd_8c_acb0b8b7f7891e8bd57e5d71ce45309de}\label{initrd_8c_acb0b8b7f7891e8bd57e5d71ce45309de}} 
+\#define {\bfseries SECTOR\+\_\+\+STDLIB}~SIZE\+\_\+\+BOOT
+\item 
+\mbox{\Hypertarget{initrd_8c_a0bcafa6c38456f92abb9176f660a5d99}\label{initrd_8c_a0bcafa6c38456f92abb9176f660a5d99}} 
+\#define {\bfseries SIZE\+\_\+\+STDLIB}~128
+\item 
+\mbox{\Hypertarget{initrd_8c_a3ece92f0b20ff717a8729ea6cb4cf012}\label{initrd_8c_a3ece92f0b20ff717a8729ea6cb4cf012}} 
+\#define {\bfseries SECTOR\+\_\+\+INIT}~(SIZE\+\_\+\+BOOT + SIZE\+\_\+\+STDLIB)
+\item 
+\mbox{\Hypertarget{initrd_8c_a0ed0cdd613f9a43800d2ae8595904b08}\label{initrd_8c_a0ed0cdd613f9a43800d2ae8595904b08}} 
+\#define {\bfseries SIZE\+\_\+\+INIT}~128
+\item 
+\mbox{\Hypertarget{initrd_8c_a7d15a8a637597394ec349376d4bff556}\label{initrd_8c_a7d15a8a637597394ec349376d4bff556}} 
+\#define {\bfseries SECTOR\+\_\+\+ROOT}~(SIZE\+\_\+\+BOOT + SIZE\+\_\+\+STDLIB + SIZE\+\_\+\+INIT)
+\item 
+\mbox{\Hypertarget{initrd_8c_ad526597ab378f3faff87123d7742c79a}\label{initrd_8c_ad526597ab378f3faff87123d7742c79a}} 
+\#define {\bfseries REVISION}~0
+\item 
+\mbox{\Hypertarget{initrd_8c_a0d2901cf398ca7e59223684da79da151}\label{initrd_8c_a0d2901cf398ca7e59223684da79da151}} 
+\#define {\bfseries OFFSET\+\_\+\+SIGNATURE}~0
+\item 
+\mbox{\Hypertarget{initrd_8c_aaca7dfbf0330423a3aedc48644537e71}\label{initrd_8c_aaca7dfbf0330423a3aedc48644537e71}} 
+\#define {\bfseries OFFSET\+\_\+\+REVISION}~4
+\item 
+\mbox{\Hypertarget{initrd_8c_a4fc70174b2b568949520464bc2d65177}\label{initrd_8c_a4fc70174b2b568949520464bc2d65177}} 
+\#define {\bfseries OFFSET\+\_\+\+STDLIB\+\_\+\+SIZE}~8
+\item 
+\mbox{\Hypertarget{initrd_8c_a30ab95769fdba62e3ec1628b679da46b}\label{initrd_8c_a30ab95769fdba62e3ec1628b679da46b}} 
+\#define {\bfseries OFFSET\+\_\+\+INIT\+\_\+\+SIZE}~12
+\item 
+\mbox{\Hypertarget{initrd_8c_a854d66354e57fbc7b45c65e237df294b}\label{initrd_8c_a854d66354e57fbc7b45c65e237df294b}} 
+\#define {\bfseries RAM\+\_\+\+OFFSET\+\_\+\+STDLIB}~TODO
+\item 
+\mbox{\Hypertarget{initrd_8c_a72d6978f37680a47e2e79a4dab6e6259}\label{initrd_8c_a72d6978f37680a47e2e79a4dab6e6259}} 
+\#define {\bfseries RAM\+\_\+\+OFFSET\+\_\+\+INIT}~0
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{initrd_8c_afb664c3988d855629cd7b611cf610561}\label{initrd_8c_afb664c3988d855629cd7b611cf610561}} 
+void {\bfseries initrd\+\_\+load} (void)
+\begin{DoxyCompactList}\small\item\em Load the INIT program and Standard Shared Library from special area on disk. The full featured filesystem driver is in userspace. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyAuthor}{Author}
+Anton Tchekov 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+0.\+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+21.\+05.\+2023 
+\end{DoxyDate}

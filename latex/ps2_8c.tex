@@ -1,0 +1,36 @@
+\hypertarget{ps2_8c}{}\doxysection{platform/avr/ps2/ps2.c File Reference}
+\label{ps2_8c}\index{platform/avr/ps2/ps2.c@{platform/avr/ps2/ps2.c}}
+{\ttfamily \#include $<$ps2.\+h$>$}\newline
+{\ttfamily \#include $<$logger.\+h$>$}\newline
+{\ttfamily \#include $<$gpio.\+h$>$}\newline
+{\ttfamily \#include $<$avr/pgmspace.\+h$>$}\newline
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{ps2_8c_af0a83745146d1ce5fe4ef4372520e372}\label{ps2_8c_af0a83745146d1ce5fe4ef4372520e372}} 
+void {\bfseries ps2\+\_\+init} (void)
+\begin{DoxyCompactList}\small\item\em Initialize PS/2 keyboard driver and interrupt, Interrupts must be enabled afterwards using {\ttfamily sei()}. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{ps2_8c_afea150fcd685610cb9f7672fce361e53}{ISR}} (INT0\+\_\+vect)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyAuthor}{Author}
+Haron Nazari, Anton Tchekov 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+0.\+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+16.\+05.\+2023 
+\end{DoxyDate}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{ps2_8c_afea150fcd685610cb9f7672fce361e53}\label{ps2_8c_afea150fcd685610cb9f7672fce361e53}} 
+\index{ps2.c@{ps2.c}!ISR@{ISR}}
+\index{ISR@{ISR}!ps2.c@{ps2.c}}
+\doxysubsubsection{\texorpdfstring{ISR()}{ISR()}}
+{\footnotesize\ttfamily ISR (\begin{DoxyParamCaption}\item[{INT0\+\_\+vect}]{ }\end{DoxyParamCaption})}
+
+External interrupt 

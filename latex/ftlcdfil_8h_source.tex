@@ -1,0 +1,334 @@
+\hypertarget{ftlcdfil_8h_source}{}\doxysection{ftlcdfil.\+h}
+\label{ftlcdfil_8h_source}\index{tools/font-\/convert/freetype/ftlcdfil.h@{tools/font-\/convert/freetype/ftlcdfil.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/****************************************************************************}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *\ ftlcdfil.h}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *\ \ \ FreeType\ API\ for\ color\ filtering\ of\ subpixel\ bitmap\ glyphs}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *\ \ \ (specification).}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ *\ Copyright\ (C)\ 2006-\/2019\ by}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ *\ David\ Turner,\ Robert\ Wilhelm,\ and\ Werner\ Lemberg.}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ *\ This\ file\ is\ part\ of\ the\ FreeType\ project,\ and\ may\ only\ be\ used,}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ *\ modified,\ and\ distributed\ under\ the\ terms\ of\ the\ FreeType\ project}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ *\ license,\ LICENSE.TXT.\ \ By\ continuing\ to\ use,\ modify,\ or\ distribute}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ *\ this\ file\ you\ indicate\ that\ you\ have\ read\ the\ license\ and}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ *\ understand\ and\ accept\ it\ fully.}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#ifndef\ FTLCDFIL\_H\_}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#define\ FTLCDFIL\_H\_}}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#include\ <ft2build.h>}}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#include\ FT\_FREETYPE\_H}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#include\ FT\_PARAMETER\_TAGS\_H}}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#ifdef\ FREETYPE\_H}}
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#error\ "{}freetype.h\ of\ FreeType\ 1\ has\ been\ loaded!"{}}}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#error\ "{}Please\ fix\ the\ directory\ search\ order\ for\ header\ files"{}}}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#error\ "{}so\ that\ freetype.h\ of\ FreeType\ 2\ is\ found\ first."{}}}
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ FT\_BEGIN\_HEADER}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \textcolor{comment}{\ \ /**************************************************************************}}
+\DoxyCodeLine{00037\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00038\ \textcolor{comment}{\ \ \ *\ @section:}}
+\DoxyCodeLine{00039\ \textcolor{comment}{\ \ \ *\ \ \ lcd\_rendering}}
+\DoxyCodeLine{00040\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00041\ \textcolor{comment}{\ \ \ *\ @title:}}
+\DoxyCodeLine{00042\ \textcolor{comment}{\ \ \ *\ \ \ Subpixel\ Rendering}}
+\DoxyCodeLine{00043\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00044\ \textcolor{comment}{\ \ \ *\ @abstract:}}
+\DoxyCodeLine{00045\ \textcolor{comment}{\ \ \ *\ \ \ API\ to\ control\ subpixel\ rendering.}}
+\DoxyCodeLine{00046\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00047\ \textcolor{comment}{\ \ \ *\ @description:}}
+\DoxyCodeLine{00048\ \textcolor{comment}{\ \ \ *\ \ \ FreeType\ provides\ two\ alternative\ subpixel\ rendering\ technologies.\ }}
+\DoxyCodeLine{00049\ \textcolor{comment}{\ \ \ *\ \ \ Should\ you\ define\ `FT\_CONFIG\_OPTION\_SUBPIXEL\_RENDERING`\ in\ your}}
+\DoxyCodeLine{00050\ \textcolor{comment}{\ \ \ *\ \ \ `ftoption.h`\ file,\ this\ enables\ patented\ ClearType-\/style\ rendering.\ }}
+\DoxyCodeLine{00051\ \textcolor{comment}{\ \ \ *\ \ \ Otherwise,\ Harmony\ LCD\ rendering\ is\ enabled.\ \ These\ technologies\ are}}
+\DoxyCodeLine{00052\ \textcolor{comment}{\ \ \ *\ \ \ controlled\ differently\ and\ API\ described\ below,\ although\ always}}
+\DoxyCodeLine{00053\ \textcolor{comment}{\ \ \ *\ \ \ available,\ performs\ its\ function\ when\ appropriate\ method\ is\ enabled}}
+\DoxyCodeLine{00054\ \textcolor{comment}{\ \ \ *\ \ \ and\ does\ nothing\ otherwise.}}
+\DoxyCodeLine{00055\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00056\ \textcolor{comment}{\ \ \ *\ \ \ ClearType-\/style\ LCD\ rendering\ exploits\ the\ color-\/striped\ structure\ of}}
+\DoxyCodeLine{00057\ \textcolor{comment}{\ \ \ *\ \ \ LCD\ pixels,\ increasing\ the\ available\ resolution\ in\ the\ direction\ of}}
+\DoxyCodeLine{00058\ \textcolor{comment}{\ \ \ *\ \ \ the\ stripe\ (usually\ horizontal\ RGB)\ by\ a\ factor\ of\string~3.\ \ Using\ the}}
+\DoxyCodeLine{00059\ \textcolor{comment}{\ \ \ *\ \ \ subpixels\ coverages\ unfiltered\ can\ create\ severe\ color\ fringes}}
+\DoxyCodeLine{00060\ \textcolor{comment}{\ \ \ *\ \ \ especially\ when\ rendering\ thin\ features.\ \ Indeed,\ to\ produce}}
+\DoxyCodeLine{00061\ \textcolor{comment}{\ \ \ *\ \ \ black-\/on-\/white\ text,\ the\ nearby\ color\ subpixels\ must\ be\ dimmed}}
+\DoxyCodeLine{00062\ \textcolor{comment}{\ \ \ *\ \ \ equally.}}
+\DoxyCodeLine{00063\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00064\ \textcolor{comment}{\ \ \ *\ \ \ A\ good\ 5-\/tap\ FIR\ filter\ should\ be\ applied\ to\ subpixel\ coverages}}
+\DoxyCodeLine{00065\ \textcolor{comment}{\ \ \ *\ \ \ regardless\ of\ pixel\ boundaries\ and\ should\ have\ these\ properties:}}
+\DoxyCodeLine{00066\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00067\ \textcolor{comment}{\ \ \ *\ \ \ 1.\ It\ should\ be\ symmetrical,\ like\ \{\string~a,\ b,\ c,\ b,\ a\string~\},\ to\ avoid}}
+\DoxyCodeLine{00068\ \textcolor{comment}{\ \ \ *\ \ \ \ \ \ any\ shifts\ in\ appearance.}}
+\DoxyCodeLine{00069\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00070\ \textcolor{comment}{\ \ \ *\ \ \ 2.\ It\ should\ be\ color-\/balanced,\ meaning\ a\string~+\ b\string~=\string~c,\ to\ reduce\ color}}
+\DoxyCodeLine{00071\ \textcolor{comment}{\ \ \ *\ \ \ \ \ \ fringes\ by\ distributing\ the\ computed\ coverage\ for\ one\ subpixel\ to}}
+\DoxyCodeLine{00072\ \textcolor{comment}{\ \ \ *\ \ \ \ \ \ all\ subpixels\ equally.}}
+\DoxyCodeLine{00073\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00074\ \textcolor{comment}{\ \ \ *\ \ \ 3.\ It\ should\ be\ normalized,\ meaning\ 2a\string~+\ 2b\string~+\ c\string~=\string~1.0\ to\ maintain}}
+\DoxyCodeLine{00075\ \textcolor{comment}{\ \ \ *\ \ \ \ \ \ overall\ brightness.}}
+\DoxyCodeLine{00076\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00077\ \textcolor{comment}{\ \ \ *\ \ \ Boxy\ 3-\/tap\ filter\ \{0,\ 1/3,\ 1/3,\ 1/3,\ 0\}\ is\ sharper\ but\ is\ less}}
+\DoxyCodeLine{00078\ \textcolor{comment}{\ \ \ *\ \ \ forgiving\ of\ non-\/ideal\ gamma\ curves\ of\ a\ screen\ (and\ viewing\ angles),}}
+\DoxyCodeLine{00079\ \textcolor{comment}{\ \ \ *\ \ \ beveled\ filters\ are\ fuzzier\ but\ more\ tolerant.}}
+\DoxyCodeLine{00080\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00081\ \textcolor{comment}{\ \ \ *\ \ \ Use\ the\ @FT\_Library\_SetLcdFilter\ or\ @FT\_Library\_SetLcdFilterWeights}}
+\DoxyCodeLine{00082\ \textcolor{comment}{\ \ \ *\ \ \ API\ to\ specify\ a\ low-\/pass\ filter,\ which\ is\ then\ applied\ to}}
+\DoxyCodeLine{00083\ \textcolor{comment}{\ \ \ *\ \ \ subpixel-\/rendered\ bitmaps\ generated\ through\ @FT\_Render\_Glyph.}}
+\DoxyCodeLine{00084\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00085\ \textcolor{comment}{\ \ \ *\ \ \ Harmony\ LCD\ rendering\ is\ suitable\ to\ panels\ with\ any\ regular\ subpixel}}
+\DoxyCodeLine{00086\ \textcolor{comment}{\ \ \ *\ \ \ structure,\ not\ just\ monitors\ with\ 3\ color\ striped\ subpixels,\ as\ long}}
+\DoxyCodeLine{00087\ \textcolor{comment}{\ \ \ *\ \ \ as\ the\ color\ subpixels\ have\ fixed\ positions\ relative\ to\ the\ pixel}}
+\DoxyCodeLine{00088\ \textcolor{comment}{\ \ \ *\ \ \ center.\ \ In\ this\ case,\ each\ color\ channel\ is\ then\ rendered\ separately}}
+\DoxyCodeLine{00089\ \textcolor{comment}{\ \ \ *\ \ \ after\ shifting\ the\ outline\ opposite\ to\ the\ subpixel\ shift\ so\ that\ the}}
+\DoxyCodeLine{00090\ \textcolor{comment}{\ \ \ *\ \ \ coverage\ maps\ are\ aligned.\ \ This\ method\ is\ immune\ to\ color\ fringes}}
+\DoxyCodeLine{00091\ \textcolor{comment}{\ \ \ *\ \ \ because\ the\ shifts\ do\ not\ change\ integral\ coverage.}}
+\DoxyCodeLine{00092\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00093\ \textcolor{comment}{\ \ \ *\ \ \ The\ subpixel\ geometry\ must\ be\ specified\ by\ xy-\/coordinates\ for\ each}}
+\DoxyCodeLine{00094\ \textcolor{comment}{\ \ \ *\ \ \ subpixel.\ By\ convention\ they\ may\ come\ in\ the\ RGB\ order:\ \{\{-\/1/3,\ 0\},}}
+\DoxyCodeLine{00095\ \textcolor{comment}{\ \ \ *\ \ \ \{0,\ 0\},\ \{1/3,\ 0\}\}\ for\ standard\ RGB\ striped\ panel\ or\ \{\{-\/1/6,\ 1/4\},}}
+\DoxyCodeLine{00096\ \textcolor{comment}{\ \ \ *\ \ \ \{-\/1/6,\ -\/1/4\},\ \{1/3,\ 0\}\}\ for\ a\ certain\ PenTile\ panel.}}
+\DoxyCodeLine{00097\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00098\ \textcolor{comment}{\ \ \ *\ \ \ Use\ the\ @FT\_Library\_SetLcdGeometry\ API\ to\ specify\ subpixel\ positions.}}
+\DoxyCodeLine{00099\ \textcolor{comment}{\ \ \ *\ \ \ If\ one\ follows\ the\ RGB\ order\ convention,\ the\ same\ order\ applies\ to\ the}}
+\DoxyCodeLine{00100\ \textcolor{comment}{\ \ \ *\ \ \ resulting\ @FT\_PIXEL\_MODE\_LCD\ and\ @FT\_PIXEL\_MODE\_LCD\_V\ bitmaps.\ \ Note,}}
+\DoxyCodeLine{00101\ \textcolor{comment}{\ \ \ *\ \ \ however,\ that\ the\ coordinate\ frame\ for\ the\ latter\ must\ be\ rotated}}
+\DoxyCodeLine{00102\ \textcolor{comment}{\ \ \ *\ \ \ clockwise.\ \ Harmony\ with\ default\ LCD\ geometry\ is\ equivalent\ to}}
+\DoxyCodeLine{00103\ \textcolor{comment}{\ \ \ *\ \ \ ClearType\ with\ light\ filter.}}
+\DoxyCodeLine{00104\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00105\ \textcolor{comment}{\ \ \ *\ \ \ As\ a\ result\ of\ ClearType\ filtering\ or\ Harmony\ rendering,\ the}}
+\DoxyCodeLine{00106\ \textcolor{comment}{\ \ \ *\ \ \ dimensions\ of\ LCD\ bitmaps\ can\ be\ either\ wider\ or\ taller\ than\ the}}
+\DoxyCodeLine{00107\ \textcolor{comment}{\ \ \ *\ \ \ dimensions\ of\ the\ corresponding\ outline\ with\ regard\ to\ the\ pixel\ grid.}}
+\DoxyCodeLine{00108\ \textcolor{comment}{\ \ \ *\ \ \ For\ example,\ for\ @FT\_RENDER\_MODE\_LCD,\ the\ filter\ adds\ 2\string~subpixels\ to}}
+\DoxyCodeLine{00109\ \textcolor{comment}{\ \ \ *\ \ \ the\ left,\ and\ 2\string~subpixels\ to\ the\ right.\ \ The\ bitmap\ offset\ values\ are}}
+\DoxyCodeLine{00110\ \textcolor{comment}{\ \ \ *\ \ \ adjusted\ accordingly,\ so\ clients\ shouldn't\ need\ to\ modify\ their\ layout}}
+\DoxyCodeLine{00111\ \textcolor{comment}{\ \ \ *\ \ \ and\ glyph\ positioning\ code\ when\ enabling\ the\ filter.}}
+\DoxyCodeLine{00112\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00113\ \textcolor{comment}{\ \ \ *\ \ \ The\ ClearType\ and\ Harmony\ rendering\ is\ applicable\ to\ glyph\ bitmaps}}
+\DoxyCodeLine{00114\ \textcolor{comment}{\ \ \ *\ \ \ rendered\ through\ @FT\_Render\_Glyph,\ @FT\_Load\_Glyph,\ @FT\_Load\_Char,\ and}}
+\DoxyCodeLine{00115\ \textcolor{comment}{\ \ \ *\ \ \ @FT\_Glyph\_To\_Bitmap,\ when\ @FT\_RENDER\_MODE\_LCD\ or\ @FT\_RENDER\_MODE\_LCD\_V}}
+\DoxyCodeLine{00116\ \textcolor{comment}{\ \ \ *\ \ \ is\ specified.\ \ This\ API\ does\ not\ control\ @FT\_Outline\_Render\ and}}
+\DoxyCodeLine{00117\ \textcolor{comment}{\ \ \ *\ \ \ @FT\_Outline\_Get\_Bitmap.}}
+\DoxyCodeLine{00118\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00119\ \textcolor{comment}{\ \ \ *\ \ \ The\ described\ algorithms\ can\ completely\ remove\ color\ artefacts\ when}}
+\DoxyCodeLine{00120\ \textcolor{comment}{\ \ \ *\ \ \ combined\ with\ gamma-\/corrected\ alpha\ blending\ in\ linear\ space.\ \ Each\ of}}
+\DoxyCodeLine{00121\ \textcolor{comment}{\ \ \ *\ \ \ the\ 3\string~alpha\ values\ (subpixels)\ must\ by\ independently\ used\ to\ blend\ one}}
+\DoxyCodeLine{00122\ \textcolor{comment}{\ \ \ *\ \ \ color\ channel.\ \ That\ is,\ red\ alpha\ blends\ the\ red\ channel\ of\ the\ text}}
+\DoxyCodeLine{00123\ \textcolor{comment}{\ \ \ *\ \ \ color\ with\ the\ red\ channel\ of\ the\ background\ pixel.}}
+\DoxyCodeLine{00124\ \textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{00125\ }
+\DoxyCodeLine{00126\ }
+\DoxyCodeLine{00127\ \textcolor{comment}{\ \ /**************************************************************************}}
+\DoxyCodeLine{00128\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00129\ \textcolor{comment}{\ \ \ *\ @enum:}}
+\DoxyCodeLine{00130\ \textcolor{comment}{\ \ \ *\ \ \ FT\_LcdFilter}}
+\DoxyCodeLine{00131\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00132\ \textcolor{comment}{\ \ \ *\ @description:}}
+\DoxyCodeLine{00133\ \textcolor{comment}{\ \ \ *\ \ \ A\ list\ of\ values\ to\ identify\ various\ types\ of\ LCD\ filters.}}
+\DoxyCodeLine{00134\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00135\ \textcolor{comment}{\ \ \ *\ @values:}}
+\DoxyCodeLine{00136\ \textcolor{comment}{\ \ \ *\ \ \ FT\_LCD\_FILTER\_NONE\ ::}}
+\DoxyCodeLine{00137\ \textcolor{comment}{\ \ \ *\ \ \ \ \ Do\ not\ perform\ filtering.\ \ When\ used\ with\ subpixel\ rendering,\ this}}
+\DoxyCodeLine{00138\ \textcolor{comment}{\ \ \ *\ \ \ \ \ results\ in\ sometimes\ severe\ color\ fringes.}}
+\DoxyCodeLine{00139\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00140\ \textcolor{comment}{\ \ \ *\ \ \ FT\_LCD\_FILTER\_DEFAULT\ ::}}
+\DoxyCodeLine{00141\ \textcolor{comment}{\ \ \ *\ \ \ \ \ This\ is\ a\ beveled,\ normalized,\ and\ color-\/balanced\ five-\/tap\ filter}}
+\DoxyCodeLine{00142\ \textcolor{comment}{\ \ \ *\ \ \ \ \ with\ weights\ of\ [0x08\ 0x4D\ 0x56\ 0x4D\ 0x08]\ in\ 1/256th\ units.}}
+\DoxyCodeLine{00143\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00144\ \textcolor{comment}{\ \ \ *\ \ \ FT\_LCD\_FILTER\_LIGHT\ ::}}
+\DoxyCodeLine{00145\ \textcolor{comment}{\ \ \ *\ \ \ \ \ this\ is\ a\ boxy,\ normalized,\ and\ color-\/balanced\ three-\/tap\ filter\ with}}
+\DoxyCodeLine{00146\ \textcolor{comment}{\ \ \ *\ \ \ \ \ weights\ of\ [0x00\ 0x55\ 0x56\ 0x55\ 0x00]\ in\ 1/256th\ units.}}
+\DoxyCodeLine{00147\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00148\ \textcolor{comment}{\ \ \ *\ \ \ FT\_LCD\_FILTER\_LEGACY\ ::}}
+\DoxyCodeLine{00149\ \textcolor{comment}{\ \ \ *\ \ \ FT\_LCD\_FILTER\_LEGACY1\ ::}}
+\DoxyCodeLine{00150\ \textcolor{comment}{\ \ \ *\ \ \ \ \ This\ filter\ corresponds\ to\ the\ original\ libXft\ color\ filter.\ \ It}}
+\DoxyCodeLine{00151\ \textcolor{comment}{\ \ \ *\ \ \ \ \ provides\ high\ contrast\ output\ but\ can\ exhibit\ really\ bad\ color}}
+\DoxyCodeLine{00152\ \textcolor{comment}{\ \ \ *\ \ \ \ \ fringes\ if\ glyphs\ are\ not\ extremely\ well\ hinted\ to\ the\ pixel\ grid.}}
+\DoxyCodeLine{00153\ \textcolor{comment}{\ \ \ *\ \ \ \ \ This\ filter\ is\ only\ provided\ for\ comparison\ purposes,\ and\ might\ be}}
+\DoxyCodeLine{00154\ \textcolor{comment}{\ \ \ *\ \ \ \ \ disabled\ or\ stay\ unsupported\ in\ the\ future.\ The\ second\ value\ is}}
+\DoxyCodeLine{00155\ \textcolor{comment}{\ \ \ *\ \ \ \ \ provided\ for\ compatibility\ with\ FontConfig,\ which\ historically\ used}}
+\DoxyCodeLine{00156\ \textcolor{comment}{\ \ \ *\ \ \ \ \ different\ enumeration,\ sometimes\ incorrectly\ forwarded\ to\ FreeType.}}
+\DoxyCodeLine{00157\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00158\ \textcolor{comment}{\ \ \ *\ @since:}}
+\DoxyCodeLine{00159\ \textcolor{comment}{\ \ \ *\ \ \ 2.3.0\ (`FT\_LCD\_FILTER\_LEGACY1`\ since\ 2.6.2)}}
+\DoxyCodeLine{00160\ \textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{00161\ \ \ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \ FT\_LcdFilter\_}
+\DoxyCodeLine{00162\ \ \ \{}
+\DoxyCodeLine{00163\ \ \ \ \ FT\_LCD\_FILTER\_NONE\ \ \ \ =\ 0,}
+\DoxyCodeLine{00164\ \ \ \ \ FT\_LCD\_FILTER\_DEFAULT\ =\ 1,}
+\DoxyCodeLine{00165\ \ \ \ \ FT\_LCD\_FILTER\_LIGHT\ \ \ =\ 2,}
+\DoxyCodeLine{00166\ \ \ \ \ FT\_LCD\_FILTER\_LEGACY1\ =\ 3,}
+\DoxyCodeLine{00167\ \ \ \ \ FT\_LCD\_FILTER\_LEGACY\ \ =\ 16,}
+\DoxyCodeLine{00168\ }
+\DoxyCodeLine{00169\ \ \ \ \ FT\_LCD\_FILTER\_MAX\ \ \ \textcolor{comment}{/*\ do\ not\ remove\ */}}
+\DoxyCodeLine{00170\ }
+\DoxyCodeLine{00171\ \ \ \}\ FT\_LcdFilter;}
+\DoxyCodeLine{00172\ }
+\DoxyCodeLine{00173\ }
+\DoxyCodeLine{00174\ \textcolor{comment}{\ \ /**************************************************************************}}
+\DoxyCodeLine{00175\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00176\ \textcolor{comment}{\ \ \ *\ @function:}}
+\DoxyCodeLine{00177\ \textcolor{comment}{\ \ \ *\ \ \ FT\_Library\_SetLcdFilter}}
+\DoxyCodeLine{00178\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00179\ \textcolor{comment}{\ \ \ *\ @description:}}
+\DoxyCodeLine{00180\ \textcolor{comment}{\ \ \ *\ \ \ This\ function\ is\ used\ to\ apply\ color\ filtering\ to\ LCD\ decimated}}
+\DoxyCodeLine{00181\ \textcolor{comment}{\ \ \ *\ \ \ bitmaps,\ like\ the\ ones\ used\ when\ calling\ @FT\_Render\_Glyph\ with}}
+\DoxyCodeLine{00182\ \textcolor{comment}{\ \ \ *\ \ \ @FT\_RENDER\_MODE\_LCD\ or\ @FT\_RENDER\_MODE\_LCD\_V.}}
+\DoxyCodeLine{00183\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00184\ \textcolor{comment}{\ \ \ *\ @input:}}
+\DoxyCodeLine{00185\ \textcolor{comment}{\ \ \ *\ \ \ library\ ::}}
+\DoxyCodeLine{00186\ \textcolor{comment}{\ \ \ *\ \ \ \ \ A\ handle\ to\ the\ target\ library\ instance.}}
+\DoxyCodeLine{00187\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00188\ \textcolor{comment}{\ \ \ *\ \ \ filter\ ::}}
+\DoxyCodeLine{00189\ \textcolor{comment}{\ \ \ *\ \ \ \ \ The\ filter\ type.}}
+\DoxyCodeLine{00190\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00191\ \textcolor{comment}{\ \ \ *\ \ \ \ \ You\ can\ use\ @FT\_LCD\_FILTER\_NONE\ here\ to\ disable\ this\ feature,\ or}}
+\DoxyCodeLine{00192\ \textcolor{comment}{\ \ \ *\ \ \ \ \ @FT\_LCD\_FILTER\_DEFAULT\ to\ use\ a\ default\ filter\ that\ should\ work\ well}}
+\DoxyCodeLine{00193\ \textcolor{comment}{\ \ \ *\ \ \ \ \ on\ most\ LCD\ screens.}}
+\DoxyCodeLine{00194\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00195\ \textcolor{comment}{\ \ \ *\ @return:}}
+\DoxyCodeLine{00196\ \textcolor{comment}{\ \ \ *\ \ \ FreeType\ error\ code.\ \ 0\string~means\ success.}}
+\DoxyCodeLine{00197\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00198\ \textcolor{comment}{\ \ \ *\ @note:}}
+\DoxyCodeLine{00199\ \textcolor{comment}{\ \ \ *\ \ \ This\ feature\ is\ always\ disabled\ by\ default.\ \ Clients\ must\ make\ an}}
+\DoxyCodeLine{00200\ \textcolor{comment}{\ \ \ *\ \ \ explicit\ call\ to\ this\ function\ with\ a\ `filter`\ value\ other\ than}}
+\DoxyCodeLine{00201\ \textcolor{comment}{\ \ \ *\ \ \ @FT\_LCD\_FILTER\_NONE\ in\ order\ to\ enable\ it.}}
+\DoxyCodeLine{00202\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00203\ \textcolor{comment}{\ \ \ *\ \ \ Due\ to\ **PATENTS**\ covering\ subpixel\ rendering,\ this\ function\ doesn't}}
+\DoxyCodeLine{00204\ \textcolor{comment}{\ \ \ *\ \ \ do\ anything\ except\ returning\ `FT\_Err\_Unimplemented\_Feature`\ if\ the}}
+\DoxyCodeLine{00205\ \textcolor{comment}{\ \ \ *\ \ \ configuration\ macro\ `FT\_CONFIG\_OPTION\_SUBPIXEL\_RENDERING`\ is\ not}}
+\DoxyCodeLine{00206\ \textcolor{comment}{\ \ \ *\ \ \ defined\ in\ your\ build\ of\ the\ library,\ which\ should\ correspond\ to\ all}}
+\DoxyCodeLine{00207\ \textcolor{comment}{\ \ \ *\ \ \ default\ builds\ of\ FreeType.}}
+\DoxyCodeLine{00208\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00209\ \textcolor{comment}{\ \ \ *\ @since:}}
+\DoxyCodeLine{00210\ \textcolor{comment}{\ \ \ *\ \ \ 2.3.0}}
+\DoxyCodeLine{00211\ \textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{00212\ \ \ FT\_EXPORT(\ FT\_Error\ )}
+\DoxyCodeLine{00213\ \ \ FT\_Library\_SetLcdFilter(\ FT\_Library\ \ \ \ library,}
+\DoxyCodeLine{00214\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FT\_LcdFilter\ \ filter\ );}
+\DoxyCodeLine{00215\ }
+\DoxyCodeLine{00216\ }
+\DoxyCodeLine{00217\ \textcolor{comment}{\ \ /**************************************************************************}}
+\DoxyCodeLine{00218\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00219\ \textcolor{comment}{\ \ \ *\ @function:}}
+\DoxyCodeLine{00220\ \textcolor{comment}{\ \ \ *\ \ \ FT\_Library\_SetLcdFilterWeights}}
+\DoxyCodeLine{00221\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00222\ \textcolor{comment}{\ \ \ *\ @description:}}
+\DoxyCodeLine{00223\ \textcolor{comment}{\ \ \ *\ \ \ This\ function\ can\ be\ used\ to\ enable\ LCD\ filter\ with\ custom\ weights,}}
+\DoxyCodeLine{00224\ \textcolor{comment}{\ \ \ *\ \ \ instead\ of\ using\ presets\ in\ @FT\_Library\_SetLcdFilter.}}
+\DoxyCodeLine{00225\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00226\ \textcolor{comment}{\ \ \ *\ @input:}}
+\DoxyCodeLine{00227\ \textcolor{comment}{\ \ \ *\ \ \ library\ ::}}
+\DoxyCodeLine{00228\ \textcolor{comment}{\ \ \ *\ \ \ \ \ A\ handle\ to\ the\ target\ library\ instance.}}
+\DoxyCodeLine{00229\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00230\ \textcolor{comment}{\ \ \ *\ \ \ weights\ ::}}
+\DoxyCodeLine{00231\ \textcolor{comment}{\ \ \ *\ \ \ \ \ A\ pointer\ to\ an\ array;\ the\ function\ copies\ the\ first\ five\ bytes\ and}}
+\DoxyCodeLine{00232\ \textcolor{comment}{\ \ \ *\ \ \ \ \ uses\ them\ to\ specify\ the\ filter\ weights\ in\ 1/256th\ units.}}
+\DoxyCodeLine{00233\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00234\ \textcolor{comment}{\ \ \ *\ @return:}}
+\DoxyCodeLine{00235\ \textcolor{comment}{\ \ \ *\ \ \ FreeType\ error\ code.\ \ 0\string~means\ success.}}
+\DoxyCodeLine{00236\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00237\ \textcolor{comment}{\ \ \ *\ @note:}}
+\DoxyCodeLine{00238\ \textcolor{comment}{\ \ \ *\ \ \ Due\ to\ **PATENTS**\ covering\ subpixel\ rendering,\ this\ function\ doesn't}}
+\DoxyCodeLine{00239\ \textcolor{comment}{\ \ \ *\ \ \ do\ anything\ except\ returning\ `FT\_Err\_Unimplemented\_Feature`\ if\ the}}
+\DoxyCodeLine{00240\ \textcolor{comment}{\ \ \ *\ \ \ configuration\ macro\ `FT\_CONFIG\_OPTION\_SUBPIXEL\_RENDERING`\ is\ not}}
+\DoxyCodeLine{00241\ \textcolor{comment}{\ \ \ *\ \ \ defined\ in\ your\ build\ of\ the\ library,\ which\ should\ correspond\ to\ all}}
+\DoxyCodeLine{00242\ \textcolor{comment}{\ \ \ *\ \ \ default\ builds\ of\ FreeType.}}
+\DoxyCodeLine{00243\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00244\ \textcolor{comment}{\ \ \ *\ \ \ LCD\ filter\ weights\ can\ also\ be\ set\ per\ face\ using\ @FT\_Face\_Properties}}
+\DoxyCodeLine{00245\ \textcolor{comment}{\ \ \ *\ \ \ with\ @FT\_PARAM\_TAG\_LCD\_FILTER\_WEIGHTS.}}
+\DoxyCodeLine{00246\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00247\ \textcolor{comment}{\ \ \ *\ @since:}}
+\DoxyCodeLine{00248\ \textcolor{comment}{\ \ \ *\ \ \ 2.4.0}}
+\DoxyCodeLine{00249\ \textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{00250\ \ \ FT\_EXPORT(\ FT\_Error\ )}
+\DoxyCodeLine{00251\ \ \ FT\_Library\_SetLcdFilterWeights(\ FT\_Library\ \ \ \ \ \ library,}
+\DoxyCodeLine{00252\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ \ *weights\ );}
+\DoxyCodeLine{00253\ }
+\DoxyCodeLine{00254\ }
+\DoxyCodeLine{00255\ \textcolor{comment}{\ \ /**************************************************************************}}
+\DoxyCodeLine{00256\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00257\ \textcolor{comment}{\ \ \ *\ @type:}}
+\DoxyCodeLine{00258\ \textcolor{comment}{\ \ \ *\ \ \ FT\_LcdFiveTapFilter}}
+\DoxyCodeLine{00259\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00260\ \textcolor{comment}{\ \ \ *\ @description:}}
+\DoxyCodeLine{00261\ \textcolor{comment}{\ \ \ *\ \ \ A\ typedef\ for\ passing\ the\ five\ LCD\ filter\ weights\ to}}
+\DoxyCodeLine{00262\ \textcolor{comment}{\ \ \ *\ \ \ @FT\_Face\_Properties\ within\ an\ @FT\_Parameter\ structure.}}
+\DoxyCodeLine{00263\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00264\ \textcolor{comment}{\ \ \ *\ @since:}}
+\DoxyCodeLine{00265\ \textcolor{comment}{\ \ \ *\ \ \ 2.8}}
+\DoxyCodeLine{00266\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00267\ \textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{00268\ \textcolor{preprocessor}{\#define\ FT\_LCD\_FILTER\_FIVE\_TAPS\ \ 5}}
+\DoxyCodeLine{00269\ }
+\DoxyCodeLine{00270\ \ \ \textcolor{keyword}{typedef}\ FT\_Byte\ \ FT\_LcdFiveTapFilter[FT\_LCD\_FILTER\_FIVE\_TAPS];}
+\DoxyCodeLine{00271\ }
+\DoxyCodeLine{00272\ }
+\DoxyCodeLine{00273\ \textcolor{comment}{\ \ /**************************************************************************}}
+\DoxyCodeLine{00274\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00275\ \textcolor{comment}{\ \ \ *\ @function:}}
+\DoxyCodeLine{00276\ \textcolor{comment}{\ \ \ *\ \ \ FT\_Library\_SetLcdGeometry}}
+\DoxyCodeLine{00277\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00278\ \textcolor{comment}{\ \ \ *\ @description:}}
+\DoxyCodeLine{00279\ \textcolor{comment}{\ \ \ *\ \ \ This\ function\ can\ be\ used\ to\ modify\ default\ positions\ of\ color}}
+\DoxyCodeLine{00280\ \textcolor{comment}{\ \ \ *\ \ \ subpixels,\ which\ controls\ Harmony\ LCD\ rendering.}}
+\DoxyCodeLine{00281\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00282\ \textcolor{comment}{\ \ \ *\ @input:}}
+\DoxyCodeLine{00283\ \textcolor{comment}{\ \ \ *\ \ \ library\ ::}}
+\DoxyCodeLine{00284\ \textcolor{comment}{\ \ \ *\ \ \ \ \ A\ handle\ to\ the\ target\ library\ instance.}}
+\DoxyCodeLine{00285\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00286\ \textcolor{comment}{\ \ \ *\ \ \ sub\ ::}}
+\DoxyCodeLine{00287\ \textcolor{comment}{\ \ \ *\ \ \ \ \ A\ pointer\ to\ an\ array\ of\ 3\ vectors\ in\ 26.6\ fractional\ pixel\ format;}}
+\DoxyCodeLine{00288\ \textcolor{comment}{\ \ \ *\ \ \ \ \ the\ function\ modifies\ the\ default\ values,\ see\ the\ note\ below.}}
+\DoxyCodeLine{00289\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00290\ \textcolor{comment}{\ \ \ *\ @return:}}
+\DoxyCodeLine{00291\ \textcolor{comment}{\ \ \ *\ \ \ FreeType\ error\ code.\ \ 0\string~means\ success.}}
+\DoxyCodeLine{00292\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00293\ \textcolor{comment}{\ \ \ *\ @note:}}
+\DoxyCodeLine{00294\ \textcolor{comment}{\ \ \ *\ \ \ Subpixel\ geometry\ examples:}}
+\DoxyCodeLine{00295\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00296\ \textcolor{comment}{\ \ \ *\ \ \ -\/\ \{\{-\/21,\ 0\},\ \{0,\ 0\},\ \{21,\ 0\}\}\ is\ the\ default,\ corresponding\ to\ 3\ color}}
+\DoxyCodeLine{00297\ \textcolor{comment}{\ \ \ *\ \ \ stripes\ shifted\ by\ a\ third\ of\ a\ pixel.\ This\ could\ be\ an\ RGB\ panel.}}
+\DoxyCodeLine{00298\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00299\ \textcolor{comment}{\ \ \ *\ \ \ -\/\ \{\{21,\ 0\},\ \{0,\ 0\},\ \{-\/21,\ 0\}\}\ looks\ the\ same\ as\ the\ default\ but\ can}}
+\DoxyCodeLine{00300\ \textcolor{comment}{\ \ \ *\ \ \ specify\ a\ BGR\ panel\ instead,\ while\ keeping\ the\ bitmap\ in\ the\ same}}
+\DoxyCodeLine{00301\ \textcolor{comment}{\ \ \ *\ \ \ RGB888\ format.}}
+\DoxyCodeLine{00302\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00303\ \textcolor{comment}{\ \ \ *\ \ \ -\/\ \{\{0,\ 21\},\ \{0,\ 0\},\ \{0,\ -\/21\}\}\ is\ the\ vertical\ RGB,\ but\ the\ bitmap}}
+\DoxyCodeLine{00304\ \textcolor{comment}{\ \ \ *\ \ \ stays\ RGB888\ as\ a\ result.}}
+\DoxyCodeLine{00305\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00306\ \textcolor{comment}{\ \ \ *\ \ \ -\/\ \{\{-\/11,\ 16\},\ \{-\/11,\ -\/16\},\ \{22,\ 0\}\}\ is\ a\ certain\ PenTile\ arrangement.}}
+\DoxyCodeLine{00307\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00308\ \textcolor{comment}{\ \ \ *\ \ \ This\ function\ does\ nothing\ and\ returns\ `FT\_Err\_Unimplemented\_Feature`}}
+\DoxyCodeLine{00309\ \textcolor{comment}{\ \ \ *\ \ \ in\ the\ context\ of\ ClearType-\/style\ subpixel\ rendering\ when}}
+\DoxyCodeLine{00310\ \textcolor{comment}{\ \ \ *\ \ \ `FT\_CONFIG\_OPTION\_SUBPIXEL\_RENDERING`\ is\ defined\ in\ your\ build\ of\ the}}
+\DoxyCodeLine{00311\ \textcolor{comment}{\ \ \ *\ \ \ library.}}
+\DoxyCodeLine{00312\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00313\ \textcolor{comment}{\ \ \ *\ @since:}}
+\DoxyCodeLine{00314\ \textcolor{comment}{\ \ \ *\ \ \ 2.10.0}}
+\DoxyCodeLine{00315\ \textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{00316\ \ \ FT\_EXPORT(\ FT\_Error\ )}
+\DoxyCodeLine{00317\ \ \ FT\_Library\_SetLcdGeometry(\ FT\_Library\ \ library,}
+\DoxyCodeLine{00318\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structFT__Vector__}{FT\_Vector}}\ \ \ sub[3]\ );}
+\DoxyCodeLine{00319\ }
+\DoxyCodeLine{00320\ \ \ \textcolor{comment}{/*\ */}}
+\DoxyCodeLine{00321\ }
+\DoxyCodeLine{00322\ }
+\DoxyCodeLine{00323\ FT\_END\_HEADER}
+\DoxyCodeLine{00324\ }
+\DoxyCodeLine{00325\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ FTLCDFIL\_H\_\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00326\ }
+\DoxyCodeLine{00327\ }
+\DoxyCodeLine{00328\ \textcolor{comment}{/*\ END\ */}}
+
+\end{DoxyCode}

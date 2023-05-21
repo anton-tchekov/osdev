@@ -1,0 +1,302 @@
+\hypertarget{lcd_8h}{}\doxysection{platform/avr/lcd/lcd.h File Reference}
+\label{lcd_8h}\index{platform/avr/lcd/lcd.h@{platform/avr/lcd/lcd.h}}
+
+
+LCD Driver.  
+
+
+{\ttfamily \#include $<$types.\+h$>$}\newline
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{lcd_8h_ad86358bf19927183dd7b4ae215a29731}{COLOR\+\_\+\+RED}}~0x\+F800
+\item 
+\mbox{\Hypertarget{lcd_8h_a4534b577b74a58b0f4b7be027af664e0}\label{lcd_8h_a4534b577b74a58b0f4b7be027af664e0}} 
+\#define {\bfseries COLOR\+\_\+\+YELLOW}~0x\+FFE0
+\item 
+\mbox{\Hypertarget{lcd_8h_afc9149f5de51bd9ac4f5ebbfa153f018}\label{lcd_8h_afc9149f5de51bd9ac4f5ebbfa153f018}} 
+\#define {\bfseries COLOR\+\_\+\+GREEN}~0x07\+E0
+\item 
+\mbox{\Hypertarget{lcd_8h_a82573859711fce56f1aa0a76b18a9b18}\label{lcd_8h_a82573859711fce56f1aa0a76b18a9b18}} 
+\#define {\bfseries COLOR\+\_\+\+CYAN}~0x07\+FF
+\item 
+\mbox{\Hypertarget{lcd_8h_a23c70d699a5a775bc2e1ebeb8603f630}\label{lcd_8h_a23c70d699a5a775bc2e1ebeb8603f630}} 
+\#define {\bfseries COLOR\+\_\+\+BLUE}~0x001F
+\item 
+\mbox{\Hypertarget{lcd_8h_a8deb0beccea721b35bdb1b4f7264fe75}\label{lcd_8h_a8deb0beccea721b35bdb1b4f7264fe75}} 
+\#define {\bfseries COLOR\+\_\+\+MAGENTA}~0x\+F81F
+\item 
+\mbox{\Hypertarget{lcd_8h_a9b44987ffdc2af19b635206b94334b69}\label{lcd_8h_a9b44987ffdc2af19b635206b94334b69}} 
+\#define {\bfseries COLOR\+\_\+\+WHITE}~0x\+FFFF
+\item 
+\mbox{\Hypertarget{lcd_8h_aba2a7fe77a7501e5844370eec0185207}\label{lcd_8h_aba2a7fe77a7501e5844370eec0185207}} 
+\#define {\bfseries COLOR\+\_\+\+BLACK}~0x0000
+\item 
+\#define \mbox{\hyperlink{lcd_8h_a53a8b2a971de4b88047192655a48b651}{LCD\+\_\+\+HEIGHT}}~480
+\item 
+\mbox{\Hypertarget{lcd_8h_a19693eac3018d3e7800fde141921b812}\label{lcd_8h_a19693eac3018d3e7800fde141921b812}} 
+\#define {\bfseries LCD\+\_\+\+WIDTH}~320
+\end{DoxyCompactItemize}
+\doxysubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{lcd_8h_a9a75b3f378a8d443f893bd9eceb09642}\label{lcd_8h_a9a75b3f378a8d443f893bd9eceb09642}} 
+typedef \mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}} {\bfseries RGB565}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{lcd_8h_a62344feec2a2d180a59d563f758e241e}{lcd\+\_\+backlight}} (\mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}} value)
+\begin{DoxyCompactList}\small\item\em Set LCD backligh brightness. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{lcd_8h_a669f4dd510ba544f097e49d7c5b772c5}\label{lcd_8h_a669f4dd510ba544f097e49d7c5b772c5}} 
+bool {\bfseries lcd\+\_\+initialized} (void)
+\begin{DoxyCompactList}\small\item\em TODO. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{lcd_8h_a09748a4045dc2d014afdce2cc566e57d}{lcd\+\_\+init}} (\mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}} backlight, RGB565 bg)
+\begin{DoxyCompactList}\small\item\em Initialize LCD. \end{DoxyCompactList}\item 
+RGB565 \mbox{\hyperlink{lcd_8h_a9077e33ab871138bf5da6043bfe48266}{lcd\+\_\+color}} (\mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}} r, \mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}} g, \mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}} b)
+\begin{DoxyCompactList}\small\item\em Convert RGB888 to RGB565. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{lcd_8h_a010620f3d9dc0536cc9551d7aabd8d17}{lcd\+\_\+rect}} (\mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}} x, \mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}} y, \mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}} w, \mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}} h, RGB565 color)
+\begin{DoxyCompactList}\small\item\em Draw. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{lcd_8h_a035a2d89f146534ca1bd3793d7050a0e}{lcd\+\_\+window}} (\mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}} x, \mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}} y, \mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}} w, \mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}} h, RGB565($\ast$color\+\_\+callback)(\mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}}, \mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}}))
+\begin{DoxyCompactList}\small\item\em Draw an image with a callback. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{lcd_8h_a2b7400cbec8880666bed8cfc105a0f7a}{lcd\+\_\+logo\+\_\+P}} (\mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}} x, \mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}} y, \mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}} w, \mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}} h, const \mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}} $\ast$image)
+\begin{DoxyCompactList}\small\item\em TODO. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}} \mbox{\hyperlink{lcd_8h_a2d178ce2cd276e286fcdb38ba4763842}{lcd\+\_\+char}} (\mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}} x, \mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}} y, RGB565 fg, RGB565 bg, char c)
+\begin{DoxyCompactList}\small\item\em TODO. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}} \mbox{\hyperlink{lcd_8h_a0c04e71d484ae9e8df63ff9284f6f5eb}{lcd\+\_\+string}} (\mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}} x, \mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}} y, RGB565 fg, RGB565 bg, const char $\ast$s)
+\begin{DoxyCompactList}\small\item\em TODO. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}} \mbox{\hyperlink{lcd_8h_a3eaf9793a384ee2d2471d6e888ad99ed}{lcd\+\_\+string\+\_\+P}} (\mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}} x, \mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}} y, RGB565 fg, RGB565 bg, const char $\ast$s)
+\begin{DoxyCompactList}\small\item\em TODO. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+LCD Driver. 
+
+\begin{DoxyAuthor}{Author}
+Anton Tchekov 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+0.\+2 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+17.\+05.\+2023 
+\end{DoxyDate}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{lcd_8h_ad86358bf19927183dd7b4ae215a29731}\label{lcd_8h_ad86358bf19927183dd7b4ae215a29731}} 
+\index{lcd.h@{lcd.h}!COLOR\_RED@{COLOR\_RED}}
+\index{COLOR\_RED@{COLOR\_RED}!lcd.h@{lcd.h}}
+\doxysubsubsection{\texorpdfstring{COLOR\_RED}{COLOR\_RED}}
+{\footnotesize\ttfamily \#define COLOR\+\_\+\+RED~0x\+F800}
+
+Color definitions in RGB565 format \mbox{\Hypertarget{lcd_8h_a53a8b2a971de4b88047192655a48b651}\label{lcd_8h_a53a8b2a971de4b88047192655a48b651}} 
+\index{lcd.h@{lcd.h}!LCD\_HEIGHT@{LCD\_HEIGHT}}
+\index{LCD\_HEIGHT@{LCD\_HEIGHT}!lcd.h@{lcd.h}}
+\doxysubsubsection{\texorpdfstring{LCD\_HEIGHT}{LCD\_HEIGHT}}
+{\footnotesize\ttfamily \#define LCD\+\_\+\+HEIGHT~480}
+
+Width and height of the display 
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{lcd_8h_a62344feec2a2d180a59d563f758e241e}\label{lcd_8h_a62344feec2a2d180a59d563f758e241e}} 
+\index{lcd.h@{lcd.h}!lcd\_backlight@{lcd\_backlight}}
+\index{lcd\_backlight@{lcd\_backlight}!lcd.h@{lcd.h}}
+\doxysubsubsection{\texorpdfstring{lcd\_backlight()}{lcd\_backlight()}}
+{\footnotesize\ttfamily void lcd\+\_\+backlight (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}}}]{value }\end{DoxyParamCaption})}
+
+
+
+Set LCD backligh brightness. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em backlight} & Backlight brightness from 0-\/255 \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{lcd_8h_a2d178ce2cd276e286fcdb38ba4763842}\label{lcd_8h_a2d178ce2cd276e286fcdb38ba4763842}} 
+\index{lcd.h@{lcd.h}!lcd\_char@{lcd\_char}}
+\index{lcd\_char@{lcd\_char}!lcd.h@{lcd.h}}
+\doxysubsubsection{\texorpdfstring{lcd\_char()}{lcd\_char()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}} lcd\+\_\+char (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}}}]{x,  }\item[{\mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}}}]{y,  }\item[{RGB565}]{fg,  }\item[{RGB565}]{bg,  }\item[{char}]{c }\end{DoxyParamCaption})}
+
+
+
+TODO. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & \\
+\hline
+{\em y} & \\
+\hline
+{\em fg} & \\
+\hline
+{\em bg} & \\
+\hline
+{\em c} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+u16 
+\end{DoxyReturn}
+\mbox{\Hypertarget{lcd_8h_a9077e33ab871138bf5da6043bfe48266}\label{lcd_8h_a9077e33ab871138bf5da6043bfe48266}} 
+\index{lcd.h@{lcd.h}!lcd\_color@{lcd\_color}}
+\index{lcd\_color@{lcd\_color}!lcd.h@{lcd.h}}
+\doxysubsubsection{\texorpdfstring{lcd\_color()}{lcd\_color()}}
+{\footnotesize\ttfamily RGB565 lcd\+\_\+color (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}}}]{r,  }\item[{\mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}}}]{g,  }\item[{\mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}}}]{b }\end{DoxyParamCaption})}
+
+
+
+Convert RGB888 to RGB565. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em r} & Red channel 0-\/255 \\
+\hline
+{\em g} & Green channel 0-\/255 \\
+\hline
+{\em b} & Blue channel 0-\/255 \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+RGB565 color 
+\end{DoxyReturn}
+\mbox{\Hypertarget{lcd_8h_a09748a4045dc2d014afdce2cc566e57d}\label{lcd_8h_a09748a4045dc2d014afdce2cc566e57d}} 
+\index{lcd.h@{lcd.h}!lcd\_init@{lcd\_init}}
+\index{lcd\_init@{lcd\_init}!lcd.h@{lcd.h}}
+\doxysubsubsection{\texorpdfstring{lcd\_init()}{lcd\_init()}}
+{\footnotesize\ttfamily void lcd\+\_\+init (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}}}]{backlight,  }\item[{RGB565}]{bg }\end{DoxyParamCaption})}
+
+
+
+Initialize LCD. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em backlight} & Backlight brightness from 0-\/255 \\
+\hline
+{\em bg} & Init background color \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{lcd_8h_a2b7400cbec8880666bed8cfc105a0f7a}\label{lcd_8h_a2b7400cbec8880666bed8cfc105a0f7a}} 
+\index{lcd.h@{lcd.h}!lcd\_logo\_P@{lcd\_logo\_P}}
+\index{lcd\_logo\_P@{lcd\_logo\_P}!lcd.h@{lcd.h}}
+\doxysubsubsection{\texorpdfstring{lcd\_logo\_P()}{lcd\_logo\_P()}}
+{\footnotesize\ttfamily void lcd\+\_\+logo\+\_\+P (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}}}]{x,  }\item[{\mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}}}]{y,  }\item[{\mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}}}]{w,  }\item[{\mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}}}]{h,  }\item[{const \mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}} $\ast$}]{image }\end{DoxyParamCaption})}
+
+
+
+TODO. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & \\
+\hline
+{\em y} & \\
+\hline
+{\em w} & \\
+\hline
+{\em h} & \\
+\hline
+{\em image} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{lcd_8h_a010620f3d9dc0536cc9551d7aabd8d17}\label{lcd_8h_a010620f3d9dc0536cc9551d7aabd8d17}} 
+\index{lcd.h@{lcd.h}!lcd\_rect@{lcd\_rect}}
+\index{lcd\_rect@{lcd\_rect}!lcd.h@{lcd.h}}
+\doxysubsubsection{\texorpdfstring{lcd\_rect()}{lcd\_rect()}}
+{\footnotesize\ttfamily void lcd\+\_\+rect (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}}}]{x,  }\item[{\mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}}}]{y,  }\item[{\mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}}}]{w,  }\item[{\mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}}}]{h,  }\item[{RGB565}]{color }\end{DoxyParamCaption})}
+
+
+
+Draw. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & X-\/\+Coordinate \\
+\hline
+{\em y} & Y-\/\+Coordinate \\
+\hline
+{\em w} & Width \\
+\hline
+{\em h} & height \\
+\hline
+{\em color} & Fill color \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{lcd_8h_a0c04e71d484ae9e8df63ff9284f6f5eb}\label{lcd_8h_a0c04e71d484ae9e8df63ff9284f6f5eb}} 
+\index{lcd.h@{lcd.h}!lcd\_string@{lcd\_string}}
+\index{lcd\_string@{lcd\_string}!lcd.h@{lcd.h}}
+\doxysubsubsection{\texorpdfstring{lcd\_string()}{lcd\_string()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}} lcd\+\_\+string (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}}}]{x,  }\item[{\mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}}}]{y,  }\item[{RGB565}]{fg,  }\item[{RGB565}]{bg,  }\item[{const char $\ast$}]{s }\end{DoxyParamCaption})}
+
+
+
+TODO. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & \\
+\hline
+{\em y} & \\
+\hline
+{\em fg} & \\
+\hline
+{\em bg} & \\
+\hline
+{\em s} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\mbox{\Hypertarget{lcd_8h_a3eaf9793a384ee2d2471d6e888ad99ed}\label{lcd_8h_a3eaf9793a384ee2d2471d6e888ad99ed}} 
+\index{lcd.h@{lcd.h}!lcd\_string\_P@{lcd\_string\_P}}
+\index{lcd\_string\_P@{lcd\_string\_P}!lcd.h@{lcd.h}}
+\doxysubsubsection{\texorpdfstring{lcd\_string\_P()}{lcd\_string\_P()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}} lcd\+\_\+string\+\_\+P (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}}}]{x,  }\item[{\mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}}}]{y,  }\item[{RGB565}]{fg,  }\item[{RGB565}]{bg,  }\item[{const char $\ast$}]{s }\end{DoxyParamCaption})}
+
+
+
+TODO. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & \\
+\hline
+{\em y} & \\
+\hline
+{\em fg} & \\
+\hline
+{\em bg} & \\
+\hline
+{\em s} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+u16 
+\end{DoxyReturn}
+\mbox{\Hypertarget{lcd_8h_a035a2d89f146534ca1bd3793d7050a0e}\label{lcd_8h_a035a2d89f146534ca1bd3793d7050a0e}} 
+\index{lcd.h@{lcd.h}!lcd\_window@{lcd\_window}}
+\index{lcd\_window@{lcd\_window}!lcd.h@{lcd.h}}
+\doxysubsubsection{\texorpdfstring{lcd\_window()}{lcd\_window()}}
+{\footnotesize\ttfamily void lcd\+\_\+window (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}}}]{x,  }\item[{\mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}}}]{y,  }\item[{\mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}}}]{w,  }\item[{\mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}}}]{h,  }\item[{RGB565($\ast$)(\mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}}, \mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}})}]{color\+\_\+callback }\end{DoxyParamCaption})}
+
+
+
+Draw an image with a callback. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & X-\/\+Coordinate \\
+\hline
+{\em y} & Y-\/\+Coordinate \\
+\hline
+{\em w} & Width \\
+\hline
+{\em h} & Height \\
+\hline
+{\em color\+\_\+callback} & Callback function that receives x and y offsets from inside the rectangle and returns RGB565 color \\
+\hline
+\end{DoxyParams}

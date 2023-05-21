@@ -1,0 +1,92 @@
+\hypertarget{emulator_8h}{}\doxysection{emulator/emulator.h File Reference}
+\label{emulator_8h}\index{emulator/emulator.h@{emulator/emulator.h}}
+
+
+RISC-\/V \mbox{\hyperlink{structEmulator}{Emulator}}.  
+
+
+{\ttfamily \#include $<$types.\+h$>$}\newline
+{\ttfamily \#include $<$keyboard-\/shared.\+h$>$}\newline
+\doxysubsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structEmulator}{Emulator}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{emulator_8h_a0dbe43a64cbf994bf9189e7767f93342}\label{emulator_8h_a0dbe43a64cbf994bf9189e7767f93342}} 
+void {\bfseries kernel\+\_\+init} (void)
+\begin{DoxyCompactList}\small\item\em Initialize emulator kernel and load first process (NOT systemd) \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{emulator_8h_a70033c85f201c4a9624588af509a6acd}\label{emulator_8h_a70033c85f201c4a9624588af509a6acd}} 
+void {\bfseries process\+\_\+setup} (void)
+\begin{DoxyCompactList}\small\item\em TODO\+: This is ugly and needs to be replaced. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{emulator_8h_a1554b9b4463db6aa6131522c2ab400eb}\label{emulator_8h_a1554b9b4463db6aa6131522c2ab400eb}} 
+void {\bfseries os\+\_\+update} (void)
+\begin{DoxyCompactList}\small\item\em Call this function periodically in main loop. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{emulator_8h_acc842b78e848efee5e97116c723b9345}{keyboard\+\_\+event}} (Key key, \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} chr, Key\+State state)
+\begin{DoxyCompactList}\small\item\em Inform the emulator about a key press. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{emulator_8h_a1e4129b64f56474b83883744b5ad6957}{emulator\+\_\+call}} (\mbox{\hyperlink{structEmulator}{Emulator}} $\ast$emu, \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} addr, \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} $\ast$args, \mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}} num, \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} sp)
+\begin{DoxyCompactList}\small\item\em Call a function in the emulated process. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+RISC-\/V \mbox{\hyperlink{structEmulator}{Emulator}}. 
+
+\begin{DoxyAuthor}{Author}
+Anton Tchekov 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+0.\+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+17.\+05.\+2023 
+\end{DoxyDate}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{emulator_8h_a1e4129b64f56474b83883744b5ad6957}\label{emulator_8h_a1e4129b64f56474b83883744b5ad6957}} 
+\index{emulator.h@{emulator.h}!emulator\_call@{emulator\_call}}
+\index{emulator\_call@{emulator\_call}!emulator.h@{emulator.h}}
+\doxysubsubsection{\texorpdfstring{emulator\_call()}{emulator\_call()}}
+{\footnotesize\ttfamily void emulator\+\_\+call (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structEmulator}{Emulator}} $\ast$}]{emu,  }\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{addr,  }\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} $\ast$}]{args,  }\item[{\mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}}}]{num,  }\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{sp }\end{DoxyParamCaption})}
+
+
+
+Call a function in the emulated process. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em emu} & \\
+\hline
+{\em addr} & \\
+\hline
+{\em args} & \\
+\hline
+{\em num} & \\
+\hline
+{\em sp} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+i32 
+\end{DoxyReturn}
+\mbox{\Hypertarget{emulator_8h_acc842b78e848efee5e97116c723b9345}\label{emulator_8h_acc842b78e848efee5e97116c723b9345}} 
+\index{emulator.h@{emulator.h}!keyboard\_event@{keyboard\_event}}
+\index{keyboard\_event@{keyboard\_event}!emulator.h@{emulator.h}}
+\doxysubsubsection{\texorpdfstring{keyboard\_event()}{keyboard\_event()}}
+{\footnotesize\ttfamily void keyboard\+\_\+event (\begin{DoxyParamCaption}\item[{Key}]{key,  }\item[{\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}}]{chr,  }\item[{Key\+State}]{state }\end{DoxyParamCaption})}
+
+
+
+Inform the emulator about a key press. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em key} & The scancode \\
+\hline
+{\em chr} & The unicode codepoint of the scancode or 0 \\
+\hline
+{\em state} & The state of the key (pressed, repeat, released) \\
+\hline
+\end{DoxyParams}

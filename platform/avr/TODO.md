@@ -3,20 +3,18 @@
 DONE:
 - LCD Basic font [DONE]
 - Boot sequence on LCD [DONE]
+- XMEM Cross Addressing Test [DONE]
+- Load binary (App Launcher/Login Screen) from SD card [DONE]
+- Launch emulator [DONE]
 
 BORING:
 - All functions documented
 - Add doxygen
-
 - SD Driver complete and Test
-- XMEM Cross Addressing Test
-
-ANNOYING:
-- PS/2 Keyboard character conversion and Test
 
 INTERESTING:
-- Load binary (App Launcher/Login Screen) from SD card and launch emulator
 - Find solution for emulator image routine problem
+- PS/2 Keyboard character conversion and Test
 - Make STDLIB Shared
 
 ## DISK LAYOUT / FILE SYSTEM

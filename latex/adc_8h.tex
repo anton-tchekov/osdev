@@ -1,0 +1,65 @@
+\hypertarget{adc_8h}{}\doxysection{platform/avr/adc/adc.h File Reference}
+\label{adc_8h}\index{platform/avr/adc/adc.h@{platform/avr/adc/adc.h}}
+
+
+Read analog inputs.  
+
+
+{\ttfamily \#include $<$types.\+h$>$}\newline
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{adc_8h_aed300520eee3d51a7ab188d891caa78c}{ADC\+\_\+\+CHANNEL\+\_\+\+NOISE}}~5
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{adc_8h_a2b815e6730e8723a6d1d06d9ef8f31c0}\label{adc_8h_a2b815e6730e8723a6d1d06d9ef8f31c0}} 
+void {\bfseries adc\+\_\+init} (void)
+\begin{DoxyCompactList}\small\item\em Initialize the ADC module. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}} \mbox{\hyperlink{adc_8h_a11a32610a53fd3adf4c946a6262ceb99}{adc\+\_\+read}} (\mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}} channel)
+\begin{DoxyCompactList}\small\item\em Read the analog value of a channel. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Read analog inputs. 
+
+\begin{DoxyAuthor}{Author}
+Tim Gabrikowski, Anton Tchekov 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+0.\+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+16.\+05.\+2023 
+\end{DoxyDate}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{adc_8h_aed300520eee3d51a7ab188d891caa78c}\label{adc_8h_aed300520eee3d51a7ab188d891caa78c}} 
+\index{adc.h@{adc.h}!ADC\_CHANNEL\_NOISE@{ADC\_CHANNEL\_NOISE}}
+\index{ADC\_CHANNEL\_NOISE@{ADC\_CHANNEL\_NOISE}!adc.h@{adc.h}}
+\doxysubsubsection{\texorpdfstring{ADC\_CHANNEL\_NOISE}{ADC\_CHANNEL\_NOISE}}
+{\footnotesize\ttfamily \#define ADC\+\_\+\+CHANNEL\+\_\+\+NOISE~5}
+
+Channel with noise used for random number generator 
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{adc_8h_a11a32610a53fd3adf4c946a6262ceb99}\label{adc_8h_a11a32610a53fd3adf4c946a6262ceb99}} 
+\index{adc.h@{adc.h}!adc\_read@{adc\_read}}
+\index{adc\_read@{adc\_read}!adc.h@{adc.h}}
+\doxysubsubsection{\texorpdfstring{adc\_read()}{adc\_read()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}} adc\+\_\+read (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}}}]{channel }\end{DoxyParamCaption})}
+
+
+
+Read the analog value of a channel. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em channel} & The analog channel to read \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The 10-\/bit analog value (0-\/1023) 
+\end{DoxyReturn}

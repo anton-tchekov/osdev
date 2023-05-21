@@ -1,0 +1,119 @@
+\hypertarget{sd_8c}{}\doxysection{platform/avr/sd/sd.c File Reference}
+\label{sd_8c}\index{platform/avr/sd/sd.c@{platform/avr/sd/sd.c}}
+{\ttfamily \#include $<$sd.\+h$>$}\newline
+{\ttfamily \#include $<$spi.\+h$>$}\newline
+{\ttfamily \#include $<$logger.\+h$>$}\newline
+{\ttfamily \#include $<$gpio.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include $<$avr/io.\+h$>$}\newline
+{\ttfamily \#include $<$avr/pgmspace.\+h$>$}\newline
+{\ttfamily \#include $<$util/delay.\+h$>$}\newline
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{sd_8c_ae3dd15ec52cbd1ef2ce6e20e39fd6efb}\label{sd_8c_ae3dd15ec52cbd1ef2ce6e20e39fd6efb}} 
+\#define {\bfseries CMD\+\_\+\+GO\+\_\+\+IDLE\+\_\+\+STATE}~0x00
+\item 
+\mbox{\Hypertarget{sd_8c_ae059745768a7fde0832a1dea6a623ab0}\label{sd_8c_ae059745768a7fde0832a1dea6a623ab0}} 
+\#define {\bfseries CMD\+\_\+\+SEND\+\_\+\+OP\+\_\+\+COND}~0x01
+\item 
+\mbox{\Hypertarget{sd_8c_a773735b7bef10597c3db4f8a60e42ad3}\label{sd_8c_a773735b7bef10597c3db4f8a60e42ad3}} 
+\#define {\bfseries CMD\+\_\+\+SEND\+\_\+\+IF\+\_\+\+COND}~0x08
+\item 
+\mbox{\Hypertarget{sd_8c_a039c816f90fba6c89d09980c5c1cb888}\label{sd_8c_a039c816f90fba6c89d09980c5c1cb888}} 
+\#define {\bfseries CMD\+\_\+\+SEND\+\_\+\+CSD}~0x09
+\item 
+\mbox{\Hypertarget{sd_8c_a69e5cfa724af0af3e97d69005a2b588d}\label{sd_8c_a69e5cfa724af0af3e97d69005a2b588d}} 
+\#define {\bfseries CMD\+\_\+\+SEND\+\_\+\+CID}~0x0A
+\item 
+\mbox{\Hypertarget{sd_8c_acc98caadb00bb27cee9c6037193adb68}\label{sd_8c_acc98caadb00bb27cee9c6037193adb68}} 
+\#define {\bfseries CMD\+\_\+\+SET\+\_\+\+BLOCKLEN}~0x10
+\item 
+\mbox{\Hypertarget{sd_8c_a6b4ea5767b225fa6bb958718b97e07e6}\label{sd_8c_a6b4ea5767b225fa6bb958718b97e07e6}} 
+\#define {\bfseries CMD\+\_\+\+READ\+\_\+\+SINGLE\+\_\+\+BLOCK}~0x11
+\item 
+\mbox{\Hypertarget{sd_8c_abadbda3eadae68f4a9678fd9c8aa1f57}\label{sd_8c_abadbda3eadae68f4a9678fd9c8aa1f57}} 
+\#define {\bfseries CMD\+\_\+\+WRITE\+\_\+\+SINGLE\+\_\+\+BLOCK}~0x18
+\item 
+\mbox{\Hypertarget{sd_8c_a282a2096b479791ed712f393f8faa67c}\label{sd_8c_a282a2096b479791ed712f393f8faa67c}} 
+\#define {\bfseries CMD\+\_\+\+SD\+\_\+\+SEND\+\_\+\+OP\+\_\+\+COND}~0x29
+\item 
+\mbox{\Hypertarget{sd_8c_a0d173f3d259f3c28a25f4fd2b8085131}\label{sd_8c_a0d173f3d259f3c28a25f4fd2b8085131}} 
+\#define {\bfseries CMD\+\_\+\+APP}~0x37
+\item 
+\mbox{\Hypertarget{sd_8c_a5625571f0a42246f009e1695f5c0fd88}\label{sd_8c_a5625571f0a42246f009e1695f5c0fd88}} 
+\#define {\bfseries CMD\+\_\+\+READ\+\_\+\+OCR}~0x3A
+\item 
+\mbox{\Hypertarget{sd_8c_a1d66c9130165248f0563074180dd1432}\label{sd_8c_a1d66c9130165248f0563074180dd1432}} 
+\#define {\bfseries IDLE\+\_\+\+STATE}~(1 $<$$<$ 0)
+\item 
+\mbox{\Hypertarget{sd_8c_a8ae8b08655b2ec2facb46d6bbc83065c}\label{sd_8c_a8ae8b08655b2ec2facb46d6bbc83065c}} 
+\#define {\bfseries ILLEGAL\+\_\+\+CMD}~(1 $<$$<$ 2)
+\item 
+\mbox{\Hypertarget{sd_8c_a574e335142ba9044c1a53a571f7f21ee}\label{sd_8c_a574e335142ba9044c1a53a571f7f21ee}} 
+\#define {\bfseries SD\+\_\+1}~(1 $<$$<$ 0)
+\item 
+\mbox{\Hypertarget{sd_8c_aefd26333484d292772b95039e8415d0c}\label{sd_8c_aefd26333484d292772b95039e8415d0c}} 
+\#define {\bfseries SD\+\_\+2}~(1 $<$$<$ 1)
+\item 
+\mbox{\Hypertarget{sd_8c_a241f7db547832cffdbcd9b73f7eba991}\label{sd_8c_a241f7db547832cffdbcd9b73f7eba991}} 
+\#define {\bfseries SD\+\_\+\+HC}~(1 $<$$<$ 2)
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{sd_8c_a8d7ab30b86b39a27f6fffac7495c1830}\label{sd_8c_a8d7ab30b86b39a27f6fffac7495c1830}} 
+void {\bfseries sd\+\_\+init} (void)
+\begin{DoxyCompactList}\small\item\em Initialize SD driver and try to detect card. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} \mbox{\hyperlink{sd_8c_ae1c9b31374648aa65b35c2c344a8414d}{sd\+\_\+size}} (void)
+\begin{DoxyCompactList}\small\item\em Get SD card capacity. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{status_8h_a67a0db04d321a74b7e7fcfd3f1a3f70b}{Status}} \mbox{\hyperlink{sd_8c_a3f0c63e822010bb899b9e13d73a685dd}{sd\+\_\+read}} (\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} block, void $\ast$data)
+\begin{DoxyCompactList}\small\item\em Read a single 512-\/byte block from the SD card. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyAuthor}{Author}
+Anton Tchekov 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+0.\+2 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+20.\+05.\+2023 
+\end{DoxyDate}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{sd_8c_a3f0c63e822010bb899b9e13d73a685dd}\label{sd_8c_a3f0c63e822010bb899b9e13d73a685dd}} 
+\index{sd.c@{sd.c}!sd\_read@{sd\_read}}
+\index{sd\_read@{sd\_read}!sd.c@{sd.c}}
+\doxysubsubsection{\texorpdfstring{sd\_read()}{sd\_read()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{status_8h_a67a0db04d321a74b7e7fcfd3f1a3f70b}{Status}} sd\+\_\+read (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{block,  }\item[{void $\ast$}]{data }\end{DoxyParamCaption})}
+
+
+
+Read a single 512-\/byte block from the SD card. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em block} & SD card block id \\
+\hline
+{\em data} & Data output \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Read status 
+\end{DoxyReturn}
+\mbox{\Hypertarget{sd_8c_ae1c9b31374648aa65b35c2c344a8414d}\label{sd_8c_ae1c9b31374648aa65b35c2c344a8414d}} 
+\index{sd.c@{sd.c}!sd\_size@{sd\_size}}
+\index{sd\_size@{sd\_size}!sd.c@{sd.c}}
+\doxysubsubsection{\texorpdfstring{sd\_size()}{sd\_size()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} sd\+\_\+size (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Get SD card capacity. 
+
+\begin{DoxyReturn}{Returns}
+Capacity in 512-\/byte blocks 
+\end{DoxyReturn}

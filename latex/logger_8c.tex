@@ -1,0 +1,136 @@
+\hypertarget{logger_8c}{}\doxysection{platform/avr/logger/logger.c File Reference}
+\label{logger_8c}\index{platform/avr/logger/logger.c@{platform/avr/logger/logger.c}}
+{\ttfamily \#include $<$logger.\+h$>$}\newline
+{\ttfamily \#include $<$serial.\+h$>$}\newline
+{\ttfamily \#include $<$lcd.\+h$>$}\newline
+{\ttfamily \#include $<$avr/pgmspace.\+h$>$}\newline
+{\ttfamily \#include $<$avr/interrupt.\+h$>$}\newline
+{\ttfamily \#include $<$stdarg.\+h$>$}\newline
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$ctype.\+h$>$}\newline
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{logger_8c_acd50bfc1231a2b7d02b81bd3304eff6d}\label{logger_8c_acd50bfc1231a2b7d02b81bd3304eff6d}} 
+\#define {\bfseries MEMORY\+\_\+\+DUMP\+\_\+\+WIDTH}~16
+\item 
+\mbox{\Hypertarget{logger_8c_a1c2264aaa6ab403827c0b0ccf4e52c98}\label{logger_8c_a1c2264aaa6ab403827c0b0ccf4e52c98}} 
+\#define {\bfseries LOG\+\_\+\+Y\+\_\+\+OFFSET}~120
+\item 
+\mbox{\Hypertarget{logger_8c_aa2f3dc0dd5d312558d3c448c9ff76c4e}\label{logger_8c_aa2f3dc0dd5d312558d3c448c9ff76c4e}} 
+\#define {\bfseries LOG\+\_\+\+X\+\_\+\+OFFSET}~10
+\item 
+\mbox{\Hypertarget{logger_8c_a924a8786b2d00a7d13ccf96ba6e7bd41}\label{logger_8c_a924a8786b2d00a7d13ccf96ba6e7bd41}} 
+\#define {\bfseries LOG\+\_\+\+Y\+\_\+\+ADVANCE}~10
+\item 
+\mbox{\Hypertarget{logger_8c_aa18d885e222964b4545d9d36432ddef2}\label{logger_8c_aa18d885e222964b4545d9d36432ddef2}} 
+\#define {\bfseries LOG\+\_\+\+X\+\_\+\+TEXT\+\_\+\+OFFSET}~49
+\item 
+\mbox{\Hypertarget{logger_8c_a119ca7f71ff2656a654bce7e413cf9d7}\label{logger_8c_a119ca7f71ff2656a654bce7e413cf9d7}} 
+\#define {\bfseries LOG\+\_\+\+START\+\_\+\+WIDTH}~8
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{logger_8c_a60bd636ef160c97eb51cf31be5954ba2}{log\+\_\+boot\+\_\+P}} (Log\+Level level, const char $\ast$msg,...)
+\begin{DoxyCompactList}\small\item\em Log boot message. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{logger_8c_a19a313011d8f478ad9799e546199a9ac}{panic}} (const char $\ast$msg,...)
+\begin{DoxyCompactList}\small\item\em Trigger a kernel panic. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{logger_8c_a0108e0dd64eb1971222c219982138866}{memory\+\_\+dump}} (\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} addr, const void $\ast$data, \mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}} len)
+\begin{DoxyCompactList}\small\item\em Print a hexdump of a block memory. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+const RGB565 \+\_\+log\+\_\+color\mbox{[}$\,$\mbox{]} \mbox{\hyperlink{logger_8c_a149e41d3c69eb61cab9e3780d0390b39}{PROGMEM}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyAuthor}{Author}
+Tim Gabrikowski, Anton Tchekov 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+0.\+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+16.\+05.\+2023 
+\end{DoxyDate}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{logger_8c_a60bd636ef160c97eb51cf31be5954ba2}\label{logger_8c_a60bd636ef160c97eb51cf31be5954ba2}} 
+\index{logger.c@{logger.c}!log\_boot\_P@{log\_boot\_P}}
+\index{log\_boot\_P@{log\_boot\_P}!logger.c@{logger.c}}
+\doxysubsubsection{\texorpdfstring{log\_boot\_P()}{log\_boot\_P()}}
+{\footnotesize\ttfamily void log\+\_\+boot\+\_\+P (\begin{DoxyParamCaption}\item[{Log\+Level}]{level,  }\item[{const char $\ast$}]{msg,  }\item[{}]{... }\end{DoxyParamCaption})}
+
+
+
+Log boot message. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em level} & Log level (see enum above) \\
+\hline
+{\em msg} & Format string \\
+\hline
+{\em ...} & Variable arguments \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{logger_8c_a0108e0dd64eb1971222c219982138866}\label{logger_8c_a0108e0dd64eb1971222c219982138866}} 
+\index{logger.c@{logger.c}!memory\_dump@{memory\_dump}}
+\index{memory\_dump@{memory\_dump}!logger.c@{logger.c}}
+\doxysubsubsection{\texorpdfstring{memory\_dump()}{memory\_dump()}}
+{\footnotesize\ttfamily void memory\+\_\+dump (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{addr,  }\item[{const void $\ast$}]{data,  }\item[{\mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}}}]{len }\end{DoxyParamCaption})}
+
+
+
+Print a hexdump of a block memory. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em addr} & Start address only for printing \\
+\hline
+{\em data} & Data buffer \\
+\hline
+{\em len} & Buffer size in bytes \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{logger_8c_a19a313011d8f478ad9799e546199a9ac}\label{logger_8c_a19a313011d8f478ad9799e546199a9ac}} 
+\index{logger.c@{logger.c}!panic@{panic}}
+\index{panic@{panic}!logger.c@{logger.c}}
+\doxysubsubsection{\texorpdfstring{panic()}{panic()}}
+{\footnotesize\ttfamily void panic (\begin{DoxyParamCaption}\item[{const char $\ast$}]{msg,  }\item[{}]{... }\end{DoxyParamCaption})}
+
+
+
+Trigger a kernel panic. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em msg} & Format string \\
+\hline
+{\em ...} & Variable arguments \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{logger_8c_a149e41d3c69eb61cab9e3780d0390b39}\label{logger_8c_a149e41d3c69eb61cab9e3780d0390b39}} 
+\index{logger.c@{logger.c}!PROGMEM@{PROGMEM}}
+\index{PROGMEM@{PROGMEM}!logger.c@{logger.c}}
+\doxysubsubsection{\texorpdfstring{PROGMEM}{PROGMEM}}
+{\footnotesize\ttfamily const char$\ast$ const \+\_\+log\+\_\+msg \mbox{[}$\,$\mbox{]} PROGMEM}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ \ \ COLOR\_CYAN,}
+\DoxyCodeLine{\ \ \ \ COLOR\_GREEN,}
+\DoxyCodeLine{\ \ \ \ COLOR\_YELLOW,}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{lcd_8h_ad86358bf19927183dd7b4ae215a29731}{COLOR\_RED}},}
+\DoxyCodeLine{\ \ \ \ COLOR\_MAGENTA}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}

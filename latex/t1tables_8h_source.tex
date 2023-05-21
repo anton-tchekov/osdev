@@ -1,0 +1,780 @@
+\hypertarget{t1tables_8h_source}{}\doxysection{t1tables.\+h}
+\label{t1tables_8h_source}\index{tools/font-\/convert/freetype/t1tables.h@{tools/font-\/convert/freetype/t1tables.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/****************************************************************************}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *\ t1tables.h}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *\ \ \ Basic\ Type\ 1/Type\ 2\ tables\ definitions\ and\ interface\ (specification}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *\ \ \ only).}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ *\ Copyright\ (C)\ 1996-\/2019\ by}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ *\ David\ Turner,\ Robert\ Wilhelm,\ and\ Werner\ Lemberg.}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ *\ This\ file\ is\ part\ of\ the\ FreeType\ project,\ and\ may\ only\ be\ used,}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ *\ modified,\ and\ distributed\ under\ the\ terms\ of\ the\ FreeType\ project}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ *\ license,\ LICENSE.TXT.\ \ By\ continuing\ to\ use,\ modify,\ or\ distribute}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ *\ this\ file\ you\ indicate\ that\ you\ have\ read\ the\ license\ and}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ *\ understand\ and\ accept\ it\ fully.}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#ifndef\ T1TABLES\_H\_}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#define\ T1TABLES\_H\_}}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#include\ <ft2build.h>}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#include\ FT\_FREETYPE\_H}}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#ifdef\ FREETYPE\_H}}
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#error\ "{}freetype.h\ of\ FreeType\ 1\ has\ been\ loaded!"{}}}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#error\ "{}Please\ fix\ the\ directory\ search\ order\ for\ header\ files"{}}}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#error\ "{}so\ that\ freetype.h\ of\ FreeType\ 2\ is\ found\ first."{}}}
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ FT\_BEGIN\_HEADER}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \textcolor{comment}{\ \ /**************************************************************************}}
+\DoxyCodeLine{00038\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00039\ \textcolor{comment}{\ \ \ *\ @section:}}
+\DoxyCodeLine{00040\ \textcolor{comment}{\ \ \ *\ \ \ type1\_tables}}
+\DoxyCodeLine{00041\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00042\ \textcolor{comment}{\ \ \ *\ @title:}}
+\DoxyCodeLine{00043\ \textcolor{comment}{\ \ \ *\ \ \ Type\ 1\ Tables}}
+\DoxyCodeLine{00044\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00045\ \textcolor{comment}{\ \ \ *\ @abstract:}}
+\DoxyCodeLine{00046\ \textcolor{comment}{\ \ \ *\ \ \ Type\string~1-\/specific\ font\ tables.}}
+\DoxyCodeLine{00047\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00048\ \textcolor{comment}{\ \ \ *\ @description:}}
+\DoxyCodeLine{00049\ \textcolor{comment}{\ \ \ *\ \ \ This\ section\ contains\ the\ definition\ of\ Type\string~1-\/specific\ tables,}}
+\DoxyCodeLine{00050\ \textcolor{comment}{\ \ \ *\ \ \ including\ structures\ related\ to\ other\ PostScript\ font\ formats.}}
+\DoxyCodeLine{00051\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00052\ \textcolor{comment}{\ \ \ *\ @order:}}
+\DoxyCodeLine{00053\ \textcolor{comment}{\ \ \ *\ \ \ PS\_FontInfoRec}}
+\DoxyCodeLine{00054\ \textcolor{comment}{\ \ \ *\ \ \ PS\_FontInfo}}
+\DoxyCodeLine{00055\ \textcolor{comment}{\ \ \ *\ \ \ PS\_PrivateRec}}
+\DoxyCodeLine{00056\ \textcolor{comment}{\ \ \ *\ \ \ PS\_Private}}
+\DoxyCodeLine{00057\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00058\ \textcolor{comment}{\ \ \ *\ \ \ CID\_FaceDictRec}}
+\DoxyCodeLine{00059\ \textcolor{comment}{\ \ \ *\ \ \ CID\_FaceDict}}
+\DoxyCodeLine{00060\ \textcolor{comment}{\ \ \ *\ \ \ CID\_FaceInfoRec}}
+\DoxyCodeLine{00061\ \textcolor{comment}{\ \ \ *\ \ \ CID\_FaceInfo}}
+\DoxyCodeLine{00062\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00063\ \textcolor{comment}{\ \ \ *\ \ \ FT\_Has\_PS\_Glyph\_Names}}
+\DoxyCodeLine{00064\ \textcolor{comment}{\ \ \ *\ \ \ FT\_Get\_PS\_Font\_Info}}
+\DoxyCodeLine{00065\ \textcolor{comment}{\ \ \ *\ \ \ FT\_Get\_PS\_Font\_Private}}
+\DoxyCodeLine{00066\ \textcolor{comment}{\ \ \ *\ \ \ FT\_Get\_PS\_Font\_Value}}
+\DoxyCodeLine{00067\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00068\ \textcolor{comment}{\ \ \ *\ \ \ T1\_Blend\_Flags}}
+\DoxyCodeLine{00069\ \textcolor{comment}{\ \ \ *\ \ \ T1\_EncodingType}}
+\DoxyCodeLine{00070\ \textcolor{comment}{\ \ \ *\ \ \ PS\_Dict\_Keys}}
+\DoxyCodeLine{00071\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00072\ \textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \ \ \textcolor{comment}{/*\ Note\ that\ we\ separate\ font\ data\ in\ PS\_FontInfoRec\ and\ PS\_PrivateRec\ */}}
+\DoxyCodeLine{00076\ \ \ \textcolor{comment}{/*\ structures\ in\ order\ to\ support\ Multiple\ Master\ fonts.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ \textcolor{comment}{\ \ /**************************************************************************}}
+\DoxyCodeLine{00080\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00081\ \textcolor{comment}{\ \ \ *\ @struct:}}
+\DoxyCodeLine{00082\ \textcolor{comment}{\ \ \ *\ \ \ PS\_FontInfoRec}}
+\DoxyCodeLine{00083\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00084\ \textcolor{comment}{\ \ \ *\ @description:}}
+\DoxyCodeLine{00085\ \textcolor{comment}{\ \ \ *\ \ \ A\ structure\ used\ to\ model\ a\ Type\string~1\ or\ Type\string~2\ FontInfo\ dictionary.}}
+\DoxyCodeLine{00086\ \textcolor{comment}{\ \ \ *\ \ \ Note\ that\ for\ Multiple\ Master\ fonts,\ each\ instance\ has\ its\ own}}
+\DoxyCodeLine{00087\ \textcolor{comment}{\ \ \ *\ \ \ FontInfo\ dictionary.}}
+\DoxyCodeLine{00088\ \textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{00089\ \ \ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ \ }\mbox{\hyperlink{structPS__FontInfoRec__}{PS\_FontInfoRec\_}}}
+\DoxyCodeLine{00090\ \ \ \{}
+\DoxyCodeLine{00091\ \ \ \ \ FT\_String*\ \ version;}
+\DoxyCodeLine{00092\ \ \ \ \ FT\_String*\ \ notice;}
+\DoxyCodeLine{00093\ \ \ \ \ FT\_String*\ \ full\_name;}
+\DoxyCodeLine{00094\ \ \ \ \ FT\_String*\ \ family\_name;}
+\DoxyCodeLine{00095\ \ \ \ \ FT\_String*\ \ weight;}
+\DoxyCodeLine{00096\ \ \ \ \ FT\_Long\ \ \ \ \ italic\_angle;}
+\DoxyCodeLine{00097\ \ \ \ \ FT\_Bool\ \ \ \ \ is\_fixed\_pitch;}
+\DoxyCodeLine{00098\ \ \ \ \ FT\_Short\ \ \ \ underline\_position;}
+\DoxyCodeLine{00099\ \ \ \ \ FT\_UShort\ \ \ underline\_thickness;}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00101\ \ \ \}\ PS\_FontInfoRec;}
+\DoxyCodeLine{00102\ }
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00104\ \textcolor{comment}{\ \ /**************************************************************************}}
+\DoxyCodeLine{00105\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00106\ \textcolor{comment}{\ \ \ *\ @struct:}}
+\DoxyCodeLine{00107\ \textcolor{comment}{\ \ \ *\ \ \ PS\_FontInfo}}
+\DoxyCodeLine{00108\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00109\ \textcolor{comment}{\ \ \ *\ @description:}}
+\DoxyCodeLine{00110\ \textcolor{comment}{\ \ \ *\ \ \ A\ handle\ to\ a\ @PS\_FontInfoRec\ structure.}}
+\DoxyCodeLine{00111\ \textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{00112\ \ \ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structPS__FontInfoRec__}{PS\_FontInfoRec\_}}*\ \ \mbox{\hyperlink{structPS__FontInfoRec__}{PS\_FontInfo}};}
+\DoxyCodeLine{00113\ }
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00115\ \textcolor{comment}{\ \ /**************************************************************************}}
+\DoxyCodeLine{00116\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00117\ \textcolor{comment}{\ \ \ *\ @struct:}}
+\DoxyCodeLine{00118\ \textcolor{comment}{\ \ \ *\ \ \ T1\_FontInfo}}
+\DoxyCodeLine{00119\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00120\ \textcolor{comment}{\ \ \ *\ @description:}}
+\DoxyCodeLine{00121\ \textcolor{comment}{\ \ \ *\ \ \ This\ type\ is\ equivalent\ to\ @PS\_FontInfoRec.\ \ It\ is\ deprecated\ but\ kept}}
+\DoxyCodeLine{00122\ \textcolor{comment}{\ \ \ *\ \ \ to\ maintain\ source\ compatibility\ between\ various\ versions\ of\ FreeType.}}
+\DoxyCodeLine{00123\ \textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{00124\ \ \ \textcolor{keyword}{typedef}\ PS\_FontInfoRec\ \ T1\_FontInfo;}
+\DoxyCodeLine{00125\ }
+\DoxyCodeLine{00126\ }
+\DoxyCodeLine{00127\ \textcolor{comment}{\ \ /**************************************************************************}}
+\DoxyCodeLine{00128\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00129\ \textcolor{comment}{\ \ \ *\ @struct:}}
+\DoxyCodeLine{00130\ \textcolor{comment}{\ \ \ *\ \ \ PS\_PrivateRec}}
+\DoxyCodeLine{00131\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00132\ \textcolor{comment}{\ \ \ *\ @description:}}
+\DoxyCodeLine{00133\ \textcolor{comment}{\ \ \ *\ \ \ A\ structure\ used\ to\ model\ a\ Type\string~1\ or\ Type\string~2\ private\ dictionary.\ \ Note}}
+\DoxyCodeLine{00134\ \textcolor{comment}{\ \ \ *\ \ \ that\ for\ Multiple\ Master\ fonts,\ each\ instance\ has\ its\ own\ Private}}
+\DoxyCodeLine{00135\ \textcolor{comment}{\ \ \ *\ \ \ dictionary.}}
+\DoxyCodeLine{00136\ \textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{00137\ \ \ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ \ }\mbox{\hyperlink{structPS__PrivateRec__}{PS\_PrivateRec\_}}}
+\DoxyCodeLine{00138\ \ \ \{}
+\DoxyCodeLine{00139\ \ \ \ \ FT\_Int\ \ \ \ \ unique\_id;}
+\DoxyCodeLine{00140\ \ \ \ \ FT\_Int\ \ \ \ \ lenIV;}
+\DoxyCodeLine{00141\ }
+\DoxyCodeLine{00142\ \ \ \ \ FT\_Byte\ \ \ \ num\_blue\_values;}
+\DoxyCodeLine{00143\ \ \ \ \ FT\_Byte\ \ \ \ num\_other\_blues;}
+\DoxyCodeLine{00144\ \ \ \ \ FT\_Byte\ \ \ \ num\_family\_blues;}
+\DoxyCodeLine{00145\ \ \ \ \ FT\_Byte\ \ \ \ num\_family\_other\_blues;}
+\DoxyCodeLine{00146\ }
+\DoxyCodeLine{00147\ \ \ \ \ FT\_Short\ \ \ blue\_values[14];}
+\DoxyCodeLine{00148\ \ \ \ \ FT\_Short\ \ \ other\_blues[10];}
+\DoxyCodeLine{00149\ }
+\DoxyCodeLine{00150\ \ \ \ \ FT\_Short\ \ \ family\_blues\ \ \ \ \ \ [14];}
+\DoxyCodeLine{00151\ \ \ \ \ FT\_Short\ \ \ family\_other\_blues[10];}
+\DoxyCodeLine{00152\ }
+\DoxyCodeLine{00153\ \ \ \ \ FT\_Fixed\ \ \ blue\_scale;}
+\DoxyCodeLine{00154\ \ \ \ \ FT\_Int\ \ \ \ \ blue\_shift;}
+\DoxyCodeLine{00155\ \ \ \ \ FT\_Int\ \ \ \ \ blue\_fuzz;}
+\DoxyCodeLine{00156\ }
+\DoxyCodeLine{00157\ \ \ \ \ FT\_UShort\ \ standard\_width[1];}
+\DoxyCodeLine{00158\ \ \ \ \ FT\_UShort\ \ standard\_height[1];}
+\DoxyCodeLine{00159\ }
+\DoxyCodeLine{00160\ \ \ \ \ FT\_Byte\ \ \ \ num\_snap\_widths;}
+\DoxyCodeLine{00161\ \ \ \ \ FT\_Byte\ \ \ \ num\_snap\_heights;}
+\DoxyCodeLine{00162\ \ \ \ \ FT\_Bool\ \ \ \ force\_bold;}
+\DoxyCodeLine{00163\ \ \ \ \ FT\_Bool\ \ \ \ round\_stem\_up;}
+\DoxyCodeLine{00164\ }
+\DoxyCodeLine{00165\ \ \ \ \ FT\_Short\ \ \ snap\_widths\ [13];\ \ \textcolor{comment}{/*\ including\ std\ width\ \ */}}
+\DoxyCodeLine{00166\ \ \ \ \ FT\_Short\ \ \ snap\_heights[13];\ \ \textcolor{comment}{/*\ including\ std\ height\ */}}
+\DoxyCodeLine{00167\ }
+\DoxyCodeLine{00168\ \ \ \ \ FT\_Fixed\ \ \ expansion\_factor;}
+\DoxyCodeLine{00169\ }
+\DoxyCodeLine{00170\ \ \ \ \ FT\_Long\ \ \ \ language\_group;}
+\DoxyCodeLine{00171\ \ \ \ \ FT\_Long\ \ \ \ password;}
+\DoxyCodeLine{00172\ }
+\DoxyCodeLine{00173\ \ \ \ \ FT\_Short\ \ \ min\_feature[2];}
+\DoxyCodeLine{00174\ }
+\DoxyCodeLine{00175\ \ \ \}\ \mbox{\hyperlink{structPS__PrivateRec__}{PS\_PrivateRec}};}
+\DoxyCodeLine{00176\ }
+\DoxyCodeLine{00177\ }
+\DoxyCodeLine{00178\ \textcolor{comment}{\ \ /**************************************************************************}}
+\DoxyCodeLine{00179\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00180\ \textcolor{comment}{\ \ \ *\ @struct:}}
+\DoxyCodeLine{00181\ \textcolor{comment}{\ \ \ *\ \ \ PS\_Private}}
+\DoxyCodeLine{00182\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00183\ \textcolor{comment}{\ \ \ *\ @description:}}
+\DoxyCodeLine{00184\ \textcolor{comment}{\ \ \ *\ \ \ A\ handle\ to\ a\ @PS\_PrivateRec\ structure.}}
+\DoxyCodeLine{00185\ \textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{00186\ \ \ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structPS__PrivateRec__}{PS\_PrivateRec\_}}*\ \ \mbox{\hyperlink{structPS__PrivateRec__}{PS\_Private}};}
+\DoxyCodeLine{00187\ }
+\DoxyCodeLine{00188\ }
+\DoxyCodeLine{00189\ \textcolor{comment}{\ \ /**************************************************************************}}
+\DoxyCodeLine{00190\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00191\ \textcolor{comment}{\ \ \ *\ @struct:}}
+\DoxyCodeLine{00192\ \textcolor{comment}{\ \ \ *\ \ \ T1\_Private}}
+\DoxyCodeLine{00193\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00194\ \textcolor{comment}{\ \ \ *\ @description:}}
+\DoxyCodeLine{00195\ \textcolor{comment}{\ \ \ *\ \ This\ type\ is\ equivalent\ to\ @PS\_PrivateRec.\ \ It\ is\ deprecated\ but\ kept}}
+\DoxyCodeLine{00196\ \textcolor{comment}{\ \ \ *\ \ to\ maintain\ source\ compatibility\ between\ various\ versions\ of\ FreeType.}}
+\DoxyCodeLine{00197\ \textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{00198\ \ \ \textcolor{keyword}{typedef}\ \mbox{\hyperlink{structPS__PrivateRec__}{PS\_PrivateRec}}\ \ \mbox{\hyperlink{structPS__PrivateRec__}{T1\_Private}};}
+\DoxyCodeLine{00199\ }
+\DoxyCodeLine{00200\ }
+\DoxyCodeLine{00201\ \textcolor{comment}{\ \ /**************************************************************************}}
+\DoxyCodeLine{00202\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00203\ \textcolor{comment}{\ \ \ *\ @enum:}}
+\DoxyCodeLine{00204\ \textcolor{comment}{\ \ \ *\ \ \ T1\_Blend\_Flags}}
+\DoxyCodeLine{00205\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00206\ \textcolor{comment}{\ \ \ *\ @description:}}
+\DoxyCodeLine{00207\ \textcolor{comment}{\ \ \ *\ \ \ A\ set\ of\ flags\ used\ to\ indicate\ which\ fields\ are\ present\ in\ a\ given}}
+\DoxyCodeLine{00208\ \textcolor{comment}{\ \ \ *\ \ \ blend\ dictionary\ (font\ info\ or\ private).\ \ Used\ to\ support\ Multiple}}
+\DoxyCodeLine{00209\ \textcolor{comment}{\ \ \ *\ \ \ Masters\ fonts.}}
+\DoxyCodeLine{00210\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00211\ \textcolor{comment}{\ \ \ *\ @values:}}
+\DoxyCodeLine{00212\ \textcolor{comment}{\ \ \ *\ \ \ T1\_BLEND\_UNDERLINE\_POSITION\ ::}}
+\DoxyCodeLine{00213\ \textcolor{comment}{\ \ \ *\ \ \ T1\_BLEND\_UNDERLINE\_THICKNESS\ ::}}
+\DoxyCodeLine{00214\ \textcolor{comment}{\ \ \ *\ \ \ T1\_BLEND\_ITALIC\_ANGLE\ ::}}
+\DoxyCodeLine{00215\ \textcolor{comment}{\ \ \ *\ \ \ T1\_BLEND\_BLUE\_VALUES\ ::}}
+\DoxyCodeLine{00216\ \textcolor{comment}{\ \ \ *\ \ \ T1\_BLEND\_OTHER\_BLUES\ ::}}
+\DoxyCodeLine{00217\ \textcolor{comment}{\ \ \ *\ \ \ T1\_BLEND\_STANDARD\_WIDTH\ ::}}
+\DoxyCodeLine{00218\ \textcolor{comment}{\ \ \ *\ \ \ T1\_BLEND\_STANDARD\_HEIGHT\ ::}}
+\DoxyCodeLine{00219\ \textcolor{comment}{\ \ \ *\ \ \ T1\_BLEND\_STEM\_SNAP\_WIDTHS\ ::}}
+\DoxyCodeLine{00220\ \textcolor{comment}{\ \ \ *\ \ \ T1\_BLEND\_STEM\_SNAP\_HEIGHTS\ ::}}
+\DoxyCodeLine{00221\ \textcolor{comment}{\ \ \ *\ \ \ T1\_BLEND\_BLUE\_SCALE\ ::}}
+\DoxyCodeLine{00222\ \textcolor{comment}{\ \ \ *\ \ \ T1\_BLEND\_BLUE\_SHIFT\ ::}}
+\DoxyCodeLine{00223\ \textcolor{comment}{\ \ \ *\ \ \ T1\_BLEND\_FAMILY\_BLUES\ ::}}
+\DoxyCodeLine{00224\ \textcolor{comment}{\ \ \ *\ \ \ T1\_BLEND\_FAMILY\_OTHER\_BLUES\ ::}}
+\DoxyCodeLine{00225\ \textcolor{comment}{\ \ \ *\ \ \ T1\_BLEND\_FORCE\_BOLD\ ::}}
+\DoxyCodeLine{00226\ \textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{00227\ \ \ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \ T1\_Blend\_Flags\_}
+\DoxyCodeLine{00228\ \ \ \{}
+\DoxyCodeLine{00229\ \ \ \ \ \textcolor{comment}{/*\ required\ fields\ in\ a\ FontInfo\ blend\ dictionary\ */}}
+\DoxyCodeLine{00230\ \ \ \ \ T1\_BLEND\_UNDERLINE\_POSITION\ =\ 0,}
+\DoxyCodeLine{00231\ \ \ \ \ T1\_BLEND\_UNDERLINE\_THICKNESS,}
+\DoxyCodeLine{00232\ \ \ \ \ T1\_BLEND\_ITALIC\_ANGLE,}
+\DoxyCodeLine{00233\ }
+\DoxyCodeLine{00234\ \ \ \ \ \textcolor{comment}{/*\ required\ fields\ in\ a\ Private\ blend\ dictionary\ */}}
+\DoxyCodeLine{00235\ \ \ \ \ T1\_BLEND\_BLUE\_VALUES,}
+\DoxyCodeLine{00236\ \ \ \ \ T1\_BLEND\_OTHER\_BLUES,}
+\DoxyCodeLine{00237\ \ \ \ \ T1\_BLEND\_STANDARD\_WIDTH,}
+\DoxyCodeLine{00238\ \ \ \ \ T1\_BLEND\_STANDARD\_HEIGHT,}
+\DoxyCodeLine{00239\ \ \ \ \ T1\_BLEND\_STEM\_SNAP\_WIDTHS,}
+\DoxyCodeLine{00240\ \ \ \ \ T1\_BLEND\_STEM\_SNAP\_HEIGHTS,}
+\DoxyCodeLine{00241\ \ \ \ \ T1\_BLEND\_BLUE\_SCALE,}
+\DoxyCodeLine{00242\ \ \ \ \ T1\_BLEND\_BLUE\_SHIFT,}
+\DoxyCodeLine{00243\ \ \ \ \ T1\_BLEND\_FAMILY\_BLUES,}
+\DoxyCodeLine{00244\ \ \ \ \ T1\_BLEND\_FAMILY\_OTHER\_BLUES,}
+\DoxyCodeLine{00245\ \ \ \ \ T1\_BLEND\_FORCE\_BOLD,}
+\DoxyCodeLine{00246\ }
+\DoxyCodeLine{00247\ \ \ \ \ T1\_BLEND\_MAX\ \ \ \ \textcolor{comment}{/*\ do\ not\ remove\ */}}
+\DoxyCodeLine{00248\ }
+\DoxyCodeLine{00249\ \ \ \}\ T1\_Blend\_Flags;}
+\DoxyCodeLine{00250\ }
+\DoxyCodeLine{00251\ }
+\DoxyCodeLine{00252\ \ \ \textcolor{comment}{/*\ these\ constants\ are\ deprecated;\ use\ the\ corresponding\ */}}
+\DoxyCodeLine{00253\ \ \ \textcolor{comment}{/*\ `T1\_Blend\_Flags`\ values\ instead\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{00254\ \textcolor{preprocessor}{\#define\ t1\_blend\_underline\_position\ \ \ T1\_BLEND\_UNDERLINE\_POSITION}}
+\DoxyCodeLine{00255\ \textcolor{preprocessor}{\#define\ t1\_blend\_underline\_thickness\ \ T1\_BLEND\_UNDERLINE\_THICKNESS}}
+\DoxyCodeLine{00256\ \textcolor{preprocessor}{\#define\ t1\_blend\_italic\_angle\ \ \ \ \ \ \ \ \ T1\_BLEND\_ITALIC\_ANGLE}}
+\DoxyCodeLine{00257\ \textcolor{preprocessor}{\#define\ t1\_blend\_blue\_values\ \ \ \ \ \ \ \ \ \ T1\_BLEND\_BLUE\_VALUES}}
+\DoxyCodeLine{00258\ \textcolor{preprocessor}{\#define\ t1\_blend\_other\_blues\ \ \ \ \ \ \ \ \ \ T1\_BLEND\_OTHER\_BLUES}}
+\DoxyCodeLine{00259\ \textcolor{preprocessor}{\#define\ t1\_blend\_standard\_widths\ \ \ \ \ \ T1\_BLEND\_STANDARD\_WIDTH}}
+\DoxyCodeLine{00260\ \textcolor{preprocessor}{\#define\ t1\_blend\_standard\_height\ \ \ \ \ \ T1\_BLEND\_STANDARD\_HEIGHT}}
+\DoxyCodeLine{00261\ \textcolor{preprocessor}{\#define\ t1\_blend\_stem\_snap\_widths\ \ \ \ \ T1\_BLEND\_STEM\_SNAP\_WIDTHS}}
+\DoxyCodeLine{00262\ \textcolor{preprocessor}{\#define\ t1\_blend\_stem\_snap\_heights\ \ \ \ T1\_BLEND\_STEM\_SNAP\_HEIGHTS}}
+\DoxyCodeLine{00263\ \textcolor{preprocessor}{\#define\ t1\_blend\_blue\_scale\ \ \ \ \ \ \ \ \ \ \ T1\_BLEND\_BLUE\_SCALE}}
+\DoxyCodeLine{00264\ \textcolor{preprocessor}{\#define\ t1\_blend\_blue\_shift\ \ \ \ \ \ \ \ \ \ \ T1\_BLEND\_BLUE\_SHIFT}}
+\DoxyCodeLine{00265\ \textcolor{preprocessor}{\#define\ t1\_blend\_family\_blues\ \ \ \ \ \ \ \ \ T1\_BLEND\_FAMILY\_BLUES}}
+\DoxyCodeLine{00266\ \textcolor{preprocessor}{\#define\ t1\_blend\_family\_other\_blues\ \ \ T1\_BLEND\_FAMILY\_OTHER\_BLUES}}
+\DoxyCodeLine{00267\ \textcolor{preprocessor}{\#define\ t1\_blend\_force\_bold\ \ \ \ \ \ \ \ \ \ \ T1\_BLEND\_FORCE\_BOLD}}
+\DoxyCodeLine{00268\ \textcolor{preprocessor}{\#define\ t1\_blend\_max\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ T1\_BLEND\_MAX}}
+\DoxyCodeLine{00269\ }
+\DoxyCodeLine{00270\ \ \ \textcolor{comment}{/*\ */}}
+\DoxyCodeLine{00271\ }
+\DoxyCodeLine{00272\ }
+\DoxyCodeLine{00273\ \ \ \textcolor{comment}{/*\ maximum\ number\ of\ Multiple\ Masters\ designs,\ as\ defined\ in\ the\ spec\ */}}
+\DoxyCodeLine{00274\ \textcolor{preprocessor}{\#define\ T1\_MAX\_MM\_DESIGNS\ \ \ \ \ 16}}
+\DoxyCodeLine{00275\ }
+\DoxyCodeLine{00276\ \ \ \textcolor{comment}{/*\ maximum\ number\ of\ Multiple\ Masters\ axes,\ as\ defined\ in\ the\ spec\ */}}
+\DoxyCodeLine{00277\ \textcolor{preprocessor}{\#define\ T1\_MAX\_MM\_AXIS\ \ \ \ \ \ \ \ 4}}
+\DoxyCodeLine{00278\ }
+\DoxyCodeLine{00279\ \ \ \textcolor{comment}{/*\ maximum\ number\ of\ elements\ in\ a\ design\ map\ */}}
+\DoxyCodeLine{00280\ \textcolor{preprocessor}{\#define\ T1\_MAX\_MM\_MAP\_POINTS\ \ 20}}
+\DoxyCodeLine{00281\ }
+\DoxyCodeLine{00282\ }
+\DoxyCodeLine{00283\ \ \ \textcolor{comment}{/*\ this\ structure\ is\ used\ to\ store\ the\ BlendDesignMap\ entry\ for\ an\ axis\ */}}
+\DoxyCodeLine{00284\ \ \ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ \ }\mbox{\hyperlink{structPS__DesignMap__}{PS\_DesignMap\_}}}
+\DoxyCodeLine{00285\ \ \ \{}
+\DoxyCodeLine{00286\ \ \ \ \ FT\_Byte\ \ \ \ num\_points;}
+\DoxyCodeLine{00287\ \ \ \ \ FT\_Long*\ \ \ design\_points;}
+\DoxyCodeLine{00288\ \ \ \ \ FT\_Fixed*\ \ blend\_points;}
+\DoxyCodeLine{00289\ }
+\DoxyCodeLine{00290\ \ \ \}\ \mbox{\hyperlink{structPS__DesignMap__}{PS\_DesignMapRec}},\ *\mbox{\hyperlink{structPS__DesignMap__}{PS\_DesignMap}};}
+\DoxyCodeLine{00291\ }
+\DoxyCodeLine{00292\ \ \ \textcolor{comment}{/*\ backward\ compatible\ definition\ */}}
+\DoxyCodeLine{00293\ \ \ \textcolor{keyword}{typedef}\ \mbox{\hyperlink{structPS__DesignMap__}{PS\_DesignMapRec}}\ \ \mbox{\hyperlink{structPS__DesignMap__}{T1\_DesignMap}};}
+\DoxyCodeLine{00294\ }
+\DoxyCodeLine{00295\ }
+\DoxyCodeLine{00296\ \ \ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ \ }\mbox{\hyperlink{structPS__BlendRec__}{PS\_BlendRec\_}}}
+\DoxyCodeLine{00297\ \ \ \{}
+\DoxyCodeLine{00298\ \ \ \ \ FT\_UInt\ \ \ \ \ \ \ \ \ \ num\_designs;}
+\DoxyCodeLine{00299\ \ \ \ \ FT\_UInt\ \ \ \ \ \ \ \ \ \ num\_axis;}
+\DoxyCodeLine{00300\ }
+\DoxyCodeLine{00301\ \ \ \ \ FT\_String*\ \ \ \ \ \ \ axis\_names[T1\_MAX\_MM\_AXIS];}
+\DoxyCodeLine{00302\ \ \ \ \ FT\_Fixed*\ \ \ \ \ \ \ \ design\_pos[T1\_MAX\_MM\_DESIGNS];}
+\DoxyCodeLine{00303\ \ \ \ \ \mbox{\hyperlink{structPS__DesignMap__}{PS\_DesignMapRec}}\ \ design\_map[T1\_MAX\_MM\_AXIS];}
+\DoxyCodeLine{00304\ }
+\DoxyCodeLine{00305\ \ \ \ \ FT\_Fixed*\ \ \ \ \ \ \ \ weight\_vector;}
+\DoxyCodeLine{00306\ \ \ \ \ FT\_Fixed*\ \ \ \ \ \ \ \ default\_weight\_vector;}
+\DoxyCodeLine{00307\ }
+\DoxyCodeLine{00308\ \ \ \ \ \mbox{\hyperlink{structPS__FontInfoRec__}{PS\_FontInfo}}\ \ \ \ \ \ font\_infos[T1\_MAX\_MM\_DESIGNS\ +\ 1];}
+\DoxyCodeLine{00309\ \ \ \ \ \mbox{\hyperlink{structPS__PrivateRec__}{PS\_Private}}\ \ \ \ \ \ \ privates\ \ [T1\_MAX\_MM\_DESIGNS\ +\ 1];}
+\DoxyCodeLine{00310\ }
+\DoxyCodeLine{00311\ \ \ \ \ FT\_ULong\ \ \ \ \ \ \ \ \ blend\_bitflags;}
+\DoxyCodeLine{00312\ }
+\DoxyCodeLine{00313\ \ \ \ \ \mbox{\hyperlink{structFT__BBox__}{FT\_BBox}}*\ \ \ \ \ \ \ \ \ bboxes\ \ \ \ [T1\_MAX\_MM\_DESIGNS\ +\ 1];}
+\DoxyCodeLine{00314\ }
+\DoxyCodeLine{00315\ \ \ \ \ \textcolor{comment}{/*\ since\ 2.3.0\ */}}
+\DoxyCodeLine{00316\ }
+\DoxyCodeLine{00317\ \ \ \ \ \textcolor{comment}{/*\ undocumented,\ optional:\ the\ default\ design\ instance;\ \ \ */}}
+\DoxyCodeLine{00318\ \ \ \ \ \textcolor{comment}{/*\ corresponds\ to\ default\_weight\_vector\ -\/-\/\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{00319\ \ \ \ \ \textcolor{comment}{/*\ num\_default\_design\_vector\ ==\ 0\ means\ it\ is\ not\ present\ */}}
+\DoxyCodeLine{00320\ \ \ \ \ \textcolor{comment}{/*\ in\ the\ font\ and\ associated\ metrics\ files\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{00321\ \ \ \ \ FT\_UInt\ \ \ \ \ \ \ \ \ \ default\_design\_vector[T1\_MAX\_MM\_DESIGNS];}
+\DoxyCodeLine{00322\ \ \ \ \ FT\_UInt\ \ \ \ \ \ \ \ \ \ num\_default\_design\_vector;}
+\DoxyCodeLine{00323\ }
+\DoxyCodeLine{00324\ \ \ \}\ \mbox{\hyperlink{structPS__BlendRec__}{PS\_BlendRec}},\ *\mbox{\hyperlink{structPS__BlendRec__}{PS\_Blend}};}
+\DoxyCodeLine{00325\ }
+\DoxyCodeLine{00326\ }
+\DoxyCodeLine{00327\ \ \ \textcolor{comment}{/*\ backward\ compatible\ definition\ */}}
+\DoxyCodeLine{00328\ \ \ \textcolor{keyword}{typedef}\ \mbox{\hyperlink{structPS__BlendRec__}{PS\_BlendRec}}\ \ \mbox{\hyperlink{structPS__BlendRec__}{T1\_Blend}};}
+\DoxyCodeLine{00329\ }
+\DoxyCodeLine{00330\ }
+\DoxyCodeLine{00331\ \textcolor{comment}{\ \ /**************************************************************************}}
+\DoxyCodeLine{00332\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00333\ \textcolor{comment}{\ \ \ *\ @struct:}}
+\DoxyCodeLine{00334\ \textcolor{comment}{\ \ \ *\ \ \ CID\_FaceDictRec}}
+\DoxyCodeLine{00335\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00336\ \textcolor{comment}{\ \ \ *\ @description:}}
+\DoxyCodeLine{00337\ \textcolor{comment}{\ \ \ *\ \ \ A\ structure\ used\ to\ represent\ data\ in\ a\ CID\ top-\/level\ dictionary.\ \ In}}
+\DoxyCodeLine{00338\ \textcolor{comment}{\ \ \ *\ \ \ most\ cases,\ they\ are\ part\ of\ the\ font's\ '/FDArray'\ array.\ \ Within\ a}}
+\DoxyCodeLine{00339\ \textcolor{comment}{\ \ \ *\ \ \ CID\ font\ file,\ such\ (internal)\ subfont\ dictionaries\ are\ enclosed\ by}}
+\DoxyCodeLine{00340\ \textcolor{comment}{\ \ \ *\ \ \ '\%ADOBeginFontDict'\ and\ '\%ADOEndFontDict'\ comments.}}
+\DoxyCodeLine{00341\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00342\ \textcolor{comment}{\ \ \ *\ \ \ Note\ that\ `CID\_FaceDictRec`\ misses\ a\ field\ for\ the\ '/FontName'}}
+\DoxyCodeLine{00343\ \textcolor{comment}{\ \ \ *\ \ \ keyword,\ specifying\ the\ subfont's\ name\ (the\ top-\/level\ font\ name\ is}}
+\DoxyCodeLine{00344\ \textcolor{comment}{\ \ \ *\ \ \ given\ by\ the\ '/CIDFontName'\ keyword).\ \ This\ is\ an\ oversight,\ but\ it}}
+\DoxyCodeLine{00345\ \textcolor{comment}{\ \ \ *\ \ \ doesn't\ limit\ the\ 'cid'\ font\ module's\ functionality\ because\ FreeType}}
+\DoxyCodeLine{00346\ \textcolor{comment}{\ \ \ *\ \ \ neither\ needs\ this\ entry\ nor\ gives\ access\ to\ CID\ subfonts.}}
+\DoxyCodeLine{00347\ \textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{00348\ \ \ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ \ }\mbox{\hyperlink{structCID__FaceDictRec__}{CID\_FaceDictRec\_}}}
+\DoxyCodeLine{00349\ \ \ \{}
+\DoxyCodeLine{00350\ \ \ \ \ \mbox{\hyperlink{structPS__PrivateRec__}{PS\_PrivateRec}}\ \ private\_dict;}
+\DoxyCodeLine{00351\ }
+\DoxyCodeLine{00352\ \ \ \ \ FT\_UInt\ \ \ \ \ \ \ \ len\_buildchar;}
+\DoxyCodeLine{00353\ \ \ \ \ FT\_Fixed\ \ \ \ \ \ \ forcebold\_threshold;}
+\DoxyCodeLine{00354\ \ \ \ \ FT\_Pos\ \ \ \ \ \ \ \ \ stroke\_width;}
+\DoxyCodeLine{00355\ \ \ \ \ FT\_Fixed\ \ \ \ \ \ \ expansion\_factor;\ \ \ \textcolor{comment}{/*\ this\ is\ a\ duplicate\ of\ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{00356\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ `private\_dict-\/>expansion\_factor'\ */}}
+\DoxyCodeLine{00357\ \ \ \ \ FT\_Byte\ \ \ \ \ \ \ \ paint\_type;}
+\DoxyCodeLine{00358\ \ \ \ \ FT\_Byte\ \ \ \ \ \ \ \ font\_type;}
+\DoxyCodeLine{00359\ \ \ \ \ \mbox{\hyperlink{structFT__Matrix__}{FT\_Matrix}}\ \ \ \ \ \ font\_matrix;}
+\DoxyCodeLine{00360\ \ \ \ \ \mbox{\hyperlink{structFT__Vector__}{FT\_Vector}}\ \ \ \ \ \ font\_offset;}
+\DoxyCodeLine{00361\ }
+\DoxyCodeLine{00362\ \ \ \ \ FT\_UInt\ \ \ \ \ \ \ \ num\_subrs;}
+\DoxyCodeLine{00363\ \ \ \ \ FT\_ULong\ \ \ \ \ \ \ subrmap\_offset;}
+\DoxyCodeLine{00364\ \ \ \ \ FT\_Int\ \ \ \ \ \ \ \ \ sd\_bytes;}
+\DoxyCodeLine{00365\ }
+\DoxyCodeLine{00366\ \ \ \}\ \mbox{\hyperlink{structCID__FaceDictRec__}{CID\_FaceDictRec}};}
+\DoxyCodeLine{00367\ }
+\DoxyCodeLine{00368\ }
+\DoxyCodeLine{00369\ \textcolor{comment}{\ \ /**************************************************************************}}
+\DoxyCodeLine{00370\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00371\ \textcolor{comment}{\ \ \ *\ @struct:}}
+\DoxyCodeLine{00372\ \textcolor{comment}{\ \ \ *\ \ \ CID\_FaceDict}}
+\DoxyCodeLine{00373\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00374\ \textcolor{comment}{\ \ \ *\ @description:}}
+\DoxyCodeLine{00375\ \textcolor{comment}{\ \ \ *\ \ \ A\ handle\ to\ a\ @CID\_FaceDictRec\ structure.}}
+\DoxyCodeLine{00376\ \textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{00377\ \ \ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structCID__FaceDictRec__}{CID\_FaceDictRec\_}}*\ \ \mbox{\hyperlink{structCID__FaceDictRec__}{CID\_FaceDict}};}
+\DoxyCodeLine{00378\ }
+\DoxyCodeLine{00379\ }
+\DoxyCodeLine{00380\ \textcolor{comment}{\ \ /**************************************************************************}}
+\DoxyCodeLine{00381\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00382\ \textcolor{comment}{\ \ \ *\ @struct:}}
+\DoxyCodeLine{00383\ \textcolor{comment}{\ \ \ *\ \ \ CID\_FontDict}}
+\DoxyCodeLine{00384\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00385\ \textcolor{comment}{\ \ \ *\ @description:}}
+\DoxyCodeLine{00386\ \textcolor{comment}{\ \ \ *\ \ \ This\ type\ is\ equivalent\ to\ @CID\_FaceDictRec.\ \ It\ is\ deprecated\ but}}
+\DoxyCodeLine{00387\ \textcolor{comment}{\ \ \ *\ \ \ kept\ to\ maintain\ source\ compatibility\ between\ various\ versions\ of}}
+\DoxyCodeLine{00388\ \textcolor{comment}{\ \ \ *\ \ \ FreeType.}}
+\DoxyCodeLine{00389\ \textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{00390\ \ \ \textcolor{keyword}{typedef}\ \mbox{\hyperlink{structCID__FaceDictRec__}{CID\_FaceDictRec}}\ \ \mbox{\hyperlink{structCID__FaceDictRec__}{CID\_FontDict}};}
+\DoxyCodeLine{00391\ }
+\DoxyCodeLine{00392\ }
+\DoxyCodeLine{00393\ \textcolor{comment}{\ \ /**************************************************************************}}
+\DoxyCodeLine{00394\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00395\ \textcolor{comment}{\ \ \ *\ @struct:}}
+\DoxyCodeLine{00396\ \textcolor{comment}{\ \ \ *\ \ \ CID\_FaceInfoRec}}
+\DoxyCodeLine{00397\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00398\ \textcolor{comment}{\ \ \ *\ @description:}}
+\DoxyCodeLine{00399\ \textcolor{comment}{\ \ \ *\ \ \ A\ structure\ used\ to\ represent\ CID\ Face\ information.}}
+\DoxyCodeLine{00400\ \textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{00401\ \ \ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ \ }\mbox{\hyperlink{structCID__FaceInfoRec__}{CID\_FaceInfoRec\_}}}
+\DoxyCodeLine{00402\ \ \ \{}
+\DoxyCodeLine{00403\ \ \ \ \ FT\_String*\ \ \ \ \ \ cid\_font\_name;}
+\DoxyCodeLine{00404\ \ \ \ \ FT\_Fixed\ \ \ \ \ \ \ \ cid\_version;}
+\DoxyCodeLine{00405\ \ \ \ \ FT\_Int\ \ \ \ \ \ \ \ \ \ cid\_font\_type;}
+\DoxyCodeLine{00406\ }
+\DoxyCodeLine{00407\ \ \ \ \ FT\_String*\ \ \ \ \ \ registry;}
+\DoxyCodeLine{00408\ \ \ \ \ FT\_String*\ \ \ \ \ \ ordering;}
+\DoxyCodeLine{00409\ \ \ \ \ FT\_Int\ \ \ \ \ \ \ \ \ \ supplement;}
+\DoxyCodeLine{00410\ }
+\DoxyCodeLine{00411\ \ \ \ \ PS\_FontInfoRec\ \ font\_info;}
+\DoxyCodeLine{00412\ \ \ \ \ \mbox{\hyperlink{structFT__BBox__}{FT\_BBox}}\ \ \ \ \ \ \ \ \ font\_bbox;}
+\DoxyCodeLine{00413\ \ \ \ \ FT\_ULong\ \ \ \ \ \ \ \ uid\_base;}
+\DoxyCodeLine{00414\ }
+\DoxyCodeLine{00415\ \ \ \ \ FT\_Int\ \ \ \ \ \ \ \ \ \ num\_xuid;}
+\DoxyCodeLine{00416\ \ \ \ \ FT\_ULong\ \ \ \ \ \ \ \ xuid[16];}
+\DoxyCodeLine{00417\ }
+\DoxyCodeLine{00418\ \ \ \ \ FT\_ULong\ \ \ \ \ \ \ \ cidmap\_offset;}
+\DoxyCodeLine{00419\ \ \ \ \ FT\_Int\ \ \ \ \ \ \ \ \ \ fd\_bytes;}
+\DoxyCodeLine{00420\ \ \ \ \ FT\_Int\ \ \ \ \ \ \ \ \ \ gd\_bytes;}
+\DoxyCodeLine{00421\ \ \ \ \ FT\_ULong\ \ \ \ \ \ \ \ cid\_count;}
+\DoxyCodeLine{00422\ }
+\DoxyCodeLine{00423\ \ \ \ \ FT\_Int\ \ \ \ \ \ \ \ \ \ num\_dicts;}
+\DoxyCodeLine{00424\ \ \ \ \ \mbox{\hyperlink{structCID__FaceDictRec__}{CID\_FaceDict}}\ \ \ \ font\_dicts;}
+\DoxyCodeLine{00425\ }
+\DoxyCodeLine{00426\ \ \ \ \ FT\_ULong\ \ \ \ \ \ \ \ data\_offset;}
+\DoxyCodeLine{00427\ }
+\DoxyCodeLine{00428\ \ \ \}\ \mbox{\hyperlink{structCID__FaceInfoRec__}{CID\_FaceInfoRec}};}
+\DoxyCodeLine{00429\ }
+\DoxyCodeLine{00430\ }
+\DoxyCodeLine{00431\ \textcolor{comment}{\ \ /**************************************************************************}}
+\DoxyCodeLine{00432\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00433\ \textcolor{comment}{\ \ \ *\ @struct:}}
+\DoxyCodeLine{00434\ \textcolor{comment}{\ \ \ *\ \ \ CID\_FaceInfo}}
+\DoxyCodeLine{00435\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00436\ \textcolor{comment}{\ \ \ *\ @description:}}
+\DoxyCodeLine{00437\ \textcolor{comment}{\ \ \ *\ \ \ A\ handle\ to\ a\ @CID\_FaceInfoRec\ structure.}}
+\DoxyCodeLine{00438\ \textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{00439\ \ \ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structCID__FaceInfoRec__}{CID\_FaceInfoRec\_}}*\ \ \mbox{\hyperlink{structCID__FaceInfoRec__}{CID\_FaceInfo}};}
+\DoxyCodeLine{00440\ }
+\DoxyCodeLine{00441\ }
+\DoxyCodeLine{00442\ \textcolor{comment}{\ \ /**************************************************************************}}
+\DoxyCodeLine{00443\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00444\ \textcolor{comment}{\ \ \ *\ @struct:}}
+\DoxyCodeLine{00445\ \textcolor{comment}{\ \ \ *\ \ \ CID\_Info}}
+\DoxyCodeLine{00446\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00447\ \textcolor{comment}{\ \ \ *\ @description:}}
+\DoxyCodeLine{00448\ \textcolor{comment}{\ \ \ *\ \ This\ type\ is\ equivalent\ to\ @CID\_FaceInfoRec.\ \ It\ is\ deprecated\ but\ kept}}
+\DoxyCodeLine{00449\ \textcolor{comment}{\ \ \ *\ \ to\ maintain\ source\ compatibility\ between\ various\ versions\ of\ FreeType.}}
+\DoxyCodeLine{00450\ \textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{00451\ \ \ \textcolor{keyword}{typedef}\ \mbox{\hyperlink{structCID__FaceInfoRec__}{CID\_FaceInfoRec}}\ \ \mbox{\hyperlink{structCID__FaceInfoRec__}{CID\_Info}};}
+\DoxyCodeLine{00452\ }
+\DoxyCodeLine{00453\ }
+\DoxyCodeLine{00454\ \textcolor{comment}{\ \ /**************************************************************************}}
+\DoxyCodeLine{00455\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00456\ \textcolor{comment}{\ \ \ *\ @function:}}
+\DoxyCodeLine{00457\ \textcolor{comment}{\ \ \ *\ \ \ \ FT\_Has\_PS\_Glyph\_Names}}
+\DoxyCodeLine{00458\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00459\ \textcolor{comment}{\ \ \ *\ @description:}}
+\DoxyCodeLine{00460\ \textcolor{comment}{\ \ \ *\ \ \ \ Return\ true\ if\ a\ given\ face\ provides\ reliable\ PostScript\ glyph\ names.}}
+\DoxyCodeLine{00461\ \textcolor{comment}{\ \ \ *\ \ \ \ This\ is\ similar\ to\ using\ the\ @FT\_HAS\_GLYPH\_NAMES\ macro,\ except\ that}}
+\DoxyCodeLine{00462\ \textcolor{comment}{\ \ \ *\ \ \ \ certain\ fonts\ (mostly\ TrueType)\ contain\ incorrect\ glyph\ name\ tables.}}
+\DoxyCodeLine{00463\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00464\ \textcolor{comment}{\ \ \ *\ \ \ \ When\ this\ function\ returns\ true,\ the\ caller\ is\ sure\ that\ the\ glyph}}
+\DoxyCodeLine{00465\ \textcolor{comment}{\ \ \ *\ \ \ \ names\ returned\ by\ @FT\_Get\_Glyph\_Name\ are\ reliable.}}
+\DoxyCodeLine{00466\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00467\ \textcolor{comment}{\ \ \ *\ @input:}}
+\DoxyCodeLine{00468\ \textcolor{comment}{\ \ \ *\ \ \ \ face\ ::}}
+\DoxyCodeLine{00469\ \textcolor{comment}{\ \ \ *\ \ \ \ \ \ face\ handle}}
+\DoxyCodeLine{00470\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00471\ \textcolor{comment}{\ \ \ *\ @return:}}
+\DoxyCodeLine{00472\ \textcolor{comment}{\ \ \ *\ \ \ \ Boolean.\ \ True\ if\ glyph\ names\ are\ reliable.}}
+\DoxyCodeLine{00473\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00474\ \textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{00475\ \ \ FT\_EXPORT(\ FT\_Int\ )}
+\DoxyCodeLine{00476\ \ \ FT\_Has\_PS\_Glyph\_Names(\ \mbox{\hyperlink{structFT__FaceRec__}{FT\_Face}}\ \ face\ );}
+\DoxyCodeLine{00477\ }
+\DoxyCodeLine{00478\ }
+\DoxyCodeLine{00479\ \textcolor{comment}{\ \ /**************************************************************************}}
+\DoxyCodeLine{00480\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00481\ \textcolor{comment}{\ \ \ *\ @function:}}
+\DoxyCodeLine{00482\ \textcolor{comment}{\ \ \ *\ \ \ \ FT\_Get\_PS\_Font\_Info}}
+\DoxyCodeLine{00483\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00484\ \textcolor{comment}{\ \ \ *\ @description:}}
+\DoxyCodeLine{00485\ \textcolor{comment}{\ \ \ *\ \ \ \ Retrieve\ the\ @PS\_FontInfoRec\ structure\ corresponding\ to\ a\ given}}
+\DoxyCodeLine{00486\ \textcolor{comment}{\ \ \ *\ \ \ \ PostScript\ font.}}
+\DoxyCodeLine{00487\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00488\ \textcolor{comment}{\ \ \ *\ @input:}}
+\DoxyCodeLine{00489\ \textcolor{comment}{\ \ \ *\ \ \ \ face\ ::}}
+\DoxyCodeLine{00490\ \textcolor{comment}{\ \ \ *\ \ \ \ \ \ PostScript\ face\ handle.}}
+\DoxyCodeLine{00491\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00492\ \textcolor{comment}{\ \ \ *\ @output:}}
+\DoxyCodeLine{00493\ \textcolor{comment}{\ \ \ *\ \ \ \ afont\_info\ ::}}
+\DoxyCodeLine{00494\ \textcolor{comment}{\ \ \ *\ \ \ \ \ \ Output\ font\ info\ structure\ pointer.}}
+\DoxyCodeLine{00495\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00496\ \textcolor{comment}{\ \ \ *\ @return:}}
+\DoxyCodeLine{00497\ \textcolor{comment}{\ \ \ *\ \ \ \ FreeType\ error\ code.\ \ 0\string~means\ success.}}
+\DoxyCodeLine{00498\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00499\ \textcolor{comment}{\ \ \ *\ @note:}}
+\DoxyCodeLine{00500\ \textcolor{comment}{\ \ \ *\ \ \ \ String\ pointers\ within\ the\ @PS\_FontInfoRec\ structure\ are\ owned\ by\ the}}
+\DoxyCodeLine{00501\ \textcolor{comment}{\ \ \ *\ \ \ \ face\ and\ don't\ need\ to\ be\ freed\ by\ the\ caller.\ \ Missing\ entries\ in}}
+\DoxyCodeLine{00502\ \textcolor{comment}{\ \ \ *\ \ \ \ the\ font's\ FontInfo\ dictionary\ are\ represented\ by\ `NULL`\ pointers.}}
+\DoxyCodeLine{00503\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00504\ \textcolor{comment}{\ \ \ *\ \ \ \ If\ the\ font's\ format\ is\ not\ PostScript-\/based,\ this\ function\ will}}
+\DoxyCodeLine{00505\ \textcolor{comment}{\ \ \ *\ \ \ \ return\ the\ `FT\_Err\_Invalid\_Argument`\ error\ code.}}
+\DoxyCodeLine{00506\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00507\ \textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{00508\ \ \ FT\_EXPORT(\ FT\_Error\ )}
+\DoxyCodeLine{00509\ \ \ FT\_Get\_PS\_Font\_Info(\ \mbox{\hyperlink{structFT__FaceRec__}{FT\_Face}}\ \ \ \ \ \ face,}
+\DoxyCodeLine{00510\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structPS__FontInfoRec__}{PS\_FontInfo}}\ \ afont\_info\ );}
+\DoxyCodeLine{00511\ }
+\DoxyCodeLine{00512\ }
+\DoxyCodeLine{00513\ \textcolor{comment}{\ \ /**************************************************************************}}
+\DoxyCodeLine{00514\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00515\ \textcolor{comment}{\ \ \ *\ @function:}}
+\DoxyCodeLine{00516\ \textcolor{comment}{\ \ \ *\ \ \ \ FT\_Get\_PS\_Font\_Private}}
+\DoxyCodeLine{00517\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00518\ \textcolor{comment}{\ \ \ *\ @description:}}
+\DoxyCodeLine{00519\ \textcolor{comment}{\ \ \ *\ \ \ \ Retrieve\ the\ @PS\_PrivateRec\ structure\ corresponding\ to\ a\ given}}
+\DoxyCodeLine{00520\ \textcolor{comment}{\ \ \ *\ \ \ \ PostScript\ font.}}
+\DoxyCodeLine{00521\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00522\ \textcolor{comment}{\ \ \ *\ @input:}}
+\DoxyCodeLine{00523\ \textcolor{comment}{\ \ \ *\ \ \ \ face\ ::}}
+\DoxyCodeLine{00524\ \textcolor{comment}{\ \ \ *\ \ \ \ \ \ PostScript\ face\ handle.}}
+\DoxyCodeLine{00525\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00526\ \textcolor{comment}{\ \ \ *\ @output:}}
+\DoxyCodeLine{00527\ \textcolor{comment}{\ \ \ *\ \ \ \ afont\_private\ ::}}
+\DoxyCodeLine{00528\ \textcolor{comment}{\ \ \ *\ \ \ \ \ \ Output\ private\ dictionary\ structure\ pointer.}}
+\DoxyCodeLine{00529\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00530\ \textcolor{comment}{\ \ \ *\ @return:}}
+\DoxyCodeLine{00531\ \textcolor{comment}{\ \ \ *\ \ \ \ FreeType\ error\ code.\ \ 0\string~means\ success.}}
+\DoxyCodeLine{00532\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00533\ \textcolor{comment}{\ \ \ *\ @note:}}
+\DoxyCodeLine{00534\ \textcolor{comment}{\ \ \ *\ \ \ \ The\ string\ pointers\ within\ the\ @PS\_PrivateRec\ structure\ are\ owned\ by}}
+\DoxyCodeLine{00535\ \textcolor{comment}{\ \ \ *\ \ \ \ the\ face\ and\ don't\ need\ to\ be\ freed\ by\ the\ caller.}}
+\DoxyCodeLine{00536\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00537\ \textcolor{comment}{\ \ \ *\ \ \ \ If\ the\ font's\ format\ is\ not\ PostScript-\/based,\ this\ function\ returns}}
+\DoxyCodeLine{00538\ \textcolor{comment}{\ \ \ *\ \ \ \ the\ `FT\_Err\_Invalid\_Argument`\ error\ code.}}
+\DoxyCodeLine{00539\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00540\ \textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{00541\ \ \ FT\_EXPORT(\ FT\_Error\ )}
+\DoxyCodeLine{00542\ \ \ FT\_Get\_PS\_Font\_Private(\ \mbox{\hyperlink{structFT__FaceRec__}{FT\_Face}}\ \ \ \ \ face,}
+\DoxyCodeLine{00543\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structPS__PrivateRec__}{PS\_Private}}\ \ afont\_private\ );}
+\DoxyCodeLine{00544\ }
+\DoxyCodeLine{00545\ }
+\DoxyCodeLine{00546\ \textcolor{comment}{\ \ /**************************************************************************}}
+\DoxyCodeLine{00547\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00548\ \textcolor{comment}{\ \ \ *\ @enum:}}
+\DoxyCodeLine{00549\ \textcolor{comment}{\ \ \ *\ \ \ T1\_EncodingType}}
+\DoxyCodeLine{00550\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00551\ \textcolor{comment}{\ \ \ *\ @description:}}
+\DoxyCodeLine{00552\ \textcolor{comment}{\ \ \ *\ \ \ An\ enumeration\ describing\ the\ 'Encoding'\ entry\ in\ a\ Type\ 1\ dictionary.}}
+\DoxyCodeLine{00553\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00554\ \textcolor{comment}{\ \ \ *\ @values:}}
+\DoxyCodeLine{00555\ \textcolor{comment}{\ \ \ *\ \ \ T1\_ENCODING\_TYPE\_NONE\ ::}}
+\DoxyCodeLine{00556\ \textcolor{comment}{\ \ \ *\ \ \ T1\_ENCODING\_TYPE\_ARRAY\ ::}}
+\DoxyCodeLine{00557\ \textcolor{comment}{\ \ \ *\ \ \ T1\_ENCODING\_TYPE\_STANDARD\ ::}}
+\DoxyCodeLine{00558\ \textcolor{comment}{\ \ \ *\ \ \ T1\_ENCODING\_TYPE\_ISOLATIN1\ ::}}
+\DoxyCodeLine{00559\ \textcolor{comment}{\ \ \ *\ \ \ T1\_ENCODING\_TYPE\_EXPERT\ ::}}
+\DoxyCodeLine{00560\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00561\ \textcolor{comment}{\ \ \ *\ @since:}}
+\DoxyCodeLine{00562\ \textcolor{comment}{\ \ \ *\ \ \ 2.4.8}}
+\DoxyCodeLine{00563\ \textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{00564\ \ \ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \ T1\_EncodingType\_}
+\DoxyCodeLine{00565\ \ \ \{}
+\DoxyCodeLine{00566\ \ \ \ \ T1\_ENCODING\_TYPE\_NONE\ =\ 0,}
+\DoxyCodeLine{00567\ \ \ \ \ T1\_ENCODING\_TYPE\_ARRAY,}
+\DoxyCodeLine{00568\ \ \ \ \ T1\_ENCODING\_TYPE\_STANDARD,}
+\DoxyCodeLine{00569\ \ \ \ \ T1\_ENCODING\_TYPE\_ISOLATIN1,}
+\DoxyCodeLine{00570\ \ \ \ \ T1\_ENCODING\_TYPE\_EXPERT}
+\DoxyCodeLine{00571\ }
+\DoxyCodeLine{00572\ \ \ \}\ T1\_EncodingType;}
+\DoxyCodeLine{00573\ }
+\DoxyCodeLine{00574\ }
+\DoxyCodeLine{00575\ \textcolor{comment}{\ \ /**************************************************************************}}
+\DoxyCodeLine{00576\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00577\ \textcolor{comment}{\ \ \ *\ @enum:}}
+\DoxyCodeLine{00578\ \textcolor{comment}{\ \ \ *\ \ \ PS\_Dict\_Keys}}
+\DoxyCodeLine{00579\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00580\ \textcolor{comment}{\ \ \ *\ @description:}}
+\DoxyCodeLine{00581\ \textcolor{comment}{\ \ \ *\ \ \ An\ enumeration\ used\ in\ calls\ to\ @FT\_Get\_PS\_Font\_Value\ to\ identify\ the}}
+\DoxyCodeLine{00582\ \textcolor{comment}{\ \ \ *\ \ \ Type\string~1\ dictionary\ entry\ to\ retrieve.}}
+\DoxyCodeLine{00583\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00584\ \textcolor{comment}{\ \ \ *\ @values:}}
+\DoxyCodeLine{00585\ \textcolor{comment}{\ \ \ *\ \ \ PS\_DICT\_FONT\_TYPE\ ::}}
+\DoxyCodeLine{00586\ \textcolor{comment}{\ \ \ *\ \ \ PS\_DICT\_FONT\_MATRIX\ ::}}
+\DoxyCodeLine{00587\ \textcolor{comment}{\ \ \ *\ \ \ PS\_DICT\_FONT\_BBOX\ ::}}
+\DoxyCodeLine{00588\ \textcolor{comment}{\ \ \ *\ \ \ PS\_DICT\_PAINT\_TYPE\ ::}}
+\DoxyCodeLine{00589\ \textcolor{comment}{\ \ \ *\ \ \ PS\_DICT\_FONT\_NAME\ ::}}
+\DoxyCodeLine{00590\ \textcolor{comment}{\ \ \ *\ \ \ PS\_DICT\_UNIQUE\_ID\ ::}}
+\DoxyCodeLine{00591\ \textcolor{comment}{\ \ \ *\ \ \ PS\_DICT\_NUM\_CHAR\_STRINGS\ ::}}
+\DoxyCodeLine{00592\ \textcolor{comment}{\ \ \ *\ \ \ PS\_DICT\_CHAR\_STRING\_KEY\ ::}}
+\DoxyCodeLine{00593\ \textcolor{comment}{\ \ \ *\ \ \ PS\_DICT\_CHAR\_STRING\ ::}}
+\DoxyCodeLine{00594\ \textcolor{comment}{\ \ \ *\ \ \ PS\_DICT\_ENCODING\_TYPE\ ::}}
+\DoxyCodeLine{00595\ \textcolor{comment}{\ \ \ *\ \ \ PS\_DICT\_ENCODING\_ENTRY\ ::}}
+\DoxyCodeLine{00596\ \textcolor{comment}{\ \ \ *\ \ \ PS\_DICT\_NUM\_SUBRS\ ::}}
+\DoxyCodeLine{00597\ \textcolor{comment}{\ \ \ *\ \ \ PS\_DICT\_SUBR\ ::}}
+\DoxyCodeLine{00598\ \textcolor{comment}{\ \ \ *\ \ \ PS\_DICT\_STD\_HW\ ::}}
+\DoxyCodeLine{00599\ \textcolor{comment}{\ \ \ *\ \ \ PS\_DICT\_STD\_VW\ ::}}
+\DoxyCodeLine{00600\ \textcolor{comment}{\ \ \ *\ \ \ PS\_DICT\_NUM\_BLUE\_VALUES\ ::}}
+\DoxyCodeLine{00601\ \textcolor{comment}{\ \ \ *\ \ \ PS\_DICT\_BLUE\_VALUE\ ::}}
+\DoxyCodeLine{00602\ \textcolor{comment}{\ \ \ *\ \ \ PS\_DICT\_BLUE\_FUZZ\ ::}}
+\DoxyCodeLine{00603\ \textcolor{comment}{\ \ \ *\ \ \ PS\_DICT\_NUM\_OTHER\_BLUES\ ::}}
+\DoxyCodeLine{00604\ \textcolor{comment}{\ \ \ *\ \ \ PS\_DICT\_OTHER\_BLUE\ ::}}
+\DoxyCodeLine{00605\ \textcolor{comment}{\ \ \ *\ \ \ PS\_DICT\_NUM\_FAMILY\_BLUES\ ::}}
+\DoxyCodeLine{00606\ \textcolor{comment}{\ \ \ *\ \ \ PS\_DICT\_FAMILY\_BLUE\ ::}}
+\DoxyCodeLine{00607\ \textcolor{comment}{\ \ \ *\ \ \ PS\_DICT\_NUM\_FAMILY\_OTHER\_BLUES\ ::}}
+\DoxyCodeLine{00608\ \textcolor{comment}{\ \ \ *\ \ \ PS\_DICT\_FAMILY\_OTHER\_BLUE\ ::}}
+\DoxyCodeLine{00609\ \textcolor{comment}{\ \ \ *\ \ \ PS\_DICT\_BLUE\_SCALE\ ::}}
+\DoxyCodeLine{00610\ \textcolor{comment}{\ \ \ *\ \ \ PS\_DICT\_BLUE\_SHIFT\ ::}}
+\DoxyCodeLine{00611\ \textcolor{comment}{\ \ \ *\ \ \ PS\_DICT\_NUM\_STEM\_SNAP\_H\ ::}}
+\DoxyCodeLine{00612\ \textcolor{comment}{\ \ \ *\ \ \ PS\_DICT\_STEM\_SNAP\_H\ ::}}
+\DoxyCodeLine{00613\ \textcolor{comment}{\ \ \ *\ \ \ PS\_DICT\_NUM\_STEM\_SNAP\_V\ ::}}
+\DoxyCodeLine{00614\ \textcolor{comment}{\ \ \ *\ \ \ PS\_DICT\_STEM\_SNAP\_V\ ::}}
+\DoxyCodeLine{00615\ \textcolor{comment}{\ \ \ *\ \ \ PS\_DICT\_FORCE\_BOLD\ ::}}
+\DoxyCodeLine{00616\ \textcolor{comment}{\ \ \ *\ \ \ PS\_DICT\_RND\_STEM\_UP\ ::}}
+\DoxyCodeLine{00617\ \textcolor{comment}{\ \ \ *\ \ \ PS\_DICT\_MIN\_FEATURE\ ::}}
+\DoxyCodeLine{00618\ \textcolor{comment}{\ \ \ *\ \ \ PS\_DICT\_LEN\_IV\ ::}}
+\DoxyCodeLine{00619\ \textcolor{comment}{\ \ \ *\ \ \ PS\_DICT\_PASSWORD\ ::}}
+\DoxyCodeLine{00620\ \textcolor{comment}{\ \ \ *\ \ \ PS\_DICT\_LANGUAGE\_GROUP\ ::}}
+\DoxyCodeLine{00621\ \textcolor{comment}{\ \ \ *\ \ \ PS\_DICT\_VERSION\ ::}}
+\DoxyCodeLine{00622\ \textcolor{comment}{\ \ \ *\ \ \ PS\_DICT\_NOTICE\ ::}}
+\DoxyCodeLine{00623\ \textcolor{comment}{\ \ \ *\ \ \ PS\_DICT\_FULL\_NAME\ ::}}
+\DoxyCodeLine{00624\ \textcolor{comment}{\ \ \ *\ \ \ PS\_DICT\_FAMILY\_NAME\ ::}}
+\DoxyCodeLine{00625\ \textcolor{comment}{\ \ \ *\ \ \ PS\_DICT\_WEIGHT\ ::}}
+\DoxyCodeLine{00626\ \textcolor{comment}{\ \ \ *\ \ \ PS\_DICT\_IS\_FIXED\_PITCH\ ::}}
+\DoxyCodeLine{00627\ \textcolor{comment}{\ \ \ *\ \ \ PS\_DICT\_UNDERLINE\_POSITION\ ::}}
+\DoxyCodeLine{00628\ \textcolor{comment}{\ \ \ *\ \ \ PS\_DICT\_UNDERLINE\_THICKNESS\ ::}}
+\DoxyCodeLine{00629\ \textcolor{comment}{\ \ \ *\ \ \ PS\_DICT\_FS\_TYPE\ ::}}
+\DoxyCodeLine{00630\ \textcolor{comment}{\ \ \ *\ \ \ PS\_DICT\_ITALIC\_ANGLE\ ::}}
+\DoxyCodeLine{00631\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00632\ \textcolor{comment}{\ \ \ *\ @since:}}
+\DoxyCodeLine{00633\ \textcolor{comment}{\ \ \ *\ \ \ 2.4.8}}
+\DoxyCodeLine{00634\ \textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{00635\ \ \ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \ PS\_Dict\_Keys\_}
+\DoxyCodeLine{00636\ \ \ \{}
+\DoxyCodeLine{00637\ \ \ \ \ \textcolor{comment}{/*\ conventionally\ in\ the\ font\ dictionary\ */}}
+\DoxyCodeLine{00638\ \ \ \ \ PS\_DICT\_FONT\_TYPE,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ FT\_Byte\ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{00639\ \ \ \ \ PS\_DICT\_FONT\_MATRIX,\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ FT\_Fixed\ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{00640\ \ \ \ \ PS\_DICT\_FONT\_BBOX,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ FT\_Fixed\ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{00641\ \ \ \ \ PS\_DICT\_PAINT\_TYPE,\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ FT\_Byte\ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{00642\ \ \ \ \ PS\_DICT\_FONT\_NAME,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ FT\_String*\ \ \ \ \ \ */}}
+\DoxyCodeLine{00643\ \ \ \ \ PS\_DICT\_UNIQUE\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ FT\_Int\ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{00644\ \ \ \ \ PS\_DICT\_NUM\_CHAR\_STRINGS,\ \ \ \ \ \ \ \textcolor{comment}{/*\ FT\_Int\ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{00645\ \ \ \ \ PS\_DICT\_CHAR\_STRING\_KEY,\ \ \ \ \ \ \ \ \textcolor{comment}{/*\ FT\_String*\ \ \ \ \ \ */}}
+\DoxyCodeLine{00646\ \ \ \ \ PS\_DICT\_CHAR\_STRING,\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ FT\_String*\ \ \ \ \ \ */}}
+\DoxyCodeLine{00647\ \ \ \ \ PS\_DICT\_ENCODING\_TYPE,\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ T1\_EncodingType\ */}}
+\DoxyCodeLine{00648\ \ \ \ \ PS\_DICT\_ENCODING\_ENTRY,\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ FT\_String*\ \ \ \ \ \ */}}
+\DoxyCodeLine{00649\ }
+\DoxyCodeLine{00650\ \ \ \ \ \textcolor{comment}{/*\ conventionally\ in\ the\ font\ Private\ dictionary\ */}}
+\DoxyCodeLine{00651\ \ \ \ \ PS\_DICT\_NUM\_SUBRS,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ FT\_Int\ \ \ \ \ */}}
+\DoxyCodeLine{00652\ \ \ \ \ PS\_DICT\_SUBR,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ FT\_String*\ */}}
+\DoxyCodeLine{00653\ \ \ \ \ PS\_DICT\_STD\_HW,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ FT\_UShort\ \ */}}
+\DoxyCodeLine{00654\ \ \ \ \ PS\_DICT\_STD\_VW,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ FT\_UShort\ \ */}}
+\DoxyCodeLine{00655\ \ \ \ \ PS\_DICT\_NUM\_BLUE\_VALUES,\ \ \ \ \ \ \ \ \textcolor{comment}{/*\ FT\_Byte\ \ \ \ */}}
+\DoxyCodeLine{00656\ \ \ \ \ PS\_DICT\_BLUE\_VALUE,\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ FT\_Short\ \ \ */}}
+\DoxyCodeLine{00657\ \ \ \ \ PS\_DICT\_BLUE\_FUZZ,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ FT\_Int\ \ \ \ \ */}}
+\DoxyCodeLine{00658\ \ \ \ \ PS\_DICT\_NUM\_OTHER\_BLUES,\ \ \ \ \ \ \ \ \textcolor{comment}{/*\ FT\_Byte\ \ \ \ */}}
+\DoxyCodeLine{00659\ \ \ \ \ PS\_DICT\_OTHER\_BLUE,\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ FT\_Short\ \ \ */}}
+\DoxyCodeLine{00660\ \ \ \ \ PS\_DICT\_NUM\_FAMILY\_BLUES,\ \ \ \ \ \ \ \textcolor{comment}{/*\ FT\_Byte\ \ \ \ */}}
+\DoxyCodeLine{00661\ \ \ \ \ PS\_DICT\_FAMILY\_BLUE,\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ FT\_Short\ \ \ */}}
+\DoxyCodeLine{00662\ \ \ \ \ PS\_DICT\_NUM\_FAMILY\_OTHER\_BLUES,\ \textcolor{comment}{/*\ FT\_Byte\ \ \ \ */}}
+\DoxyCodeLine{00663\ \ \ \ \ PS\_DICT\_FAMILY\_OTHER\_BLUE,\ \ \ \ \ \ \textcolor{comment}{/*\ FT\_Short\ \ \ */}}
+\DoxyCodeLine{00664\ \ \ \ \ PS\_DICT\_BLUE\_SCALE,\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ FT\_Fixed\ \ \ */}}
+\DoxyCodeLine{00665\ \ \ \ \ PS\_DICT\_BLUE\_SHIFT,\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ FT\_Int\ \ \ \ \ */}}
+\DoxyCodeLine{00666\ \ \ \ \ PS\_DICT\_NUM\_STEM\_SNAP\_H,\ \ \ \ \ \ \ \ \textcolor{comment}{/*\ FT\_Byte\ \ \ \ */}}
+\DoxyCodeLine{00667\ \ \ \ \ PS\_DICT\_STEM\_SNAP\_H,\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ FT\_Short\ \ \ */}}
+\DoxyCodeLine{00668\ \ \ \ \ PS\_DICT\_NUM\_STEM\_SNAP\_V,\ \ \ \ \ \ \ \ \textcolor{comment}{/*\ FT\_Byte\ \ \ \ */}}
+\DoxyCodeLine{00669\ \ \ \ \ PS\_DICT\_STEM\_SNAP\_V,\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ FT\_Short\ \ \ */}}
+\DoxyCodeLine{00670\ \ \ \ \ PS\_DICT\_FORCE\_BOLD,\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ FT\_Bool\ \ \ \ */}}
+\DoxyCodeLine{00671\ \ \ \ \ PS\_DICT\_RND\_STEM\_UP,\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ FT\_Bool\ \ \ \ */}}
+\DoxyCodeLine{00672\ \ \ \ \ PS\_DICT\_MIN\_FEATURE,\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ FT\_Short\ \ \ */}}
+\DoxyCodeLine{00673\ \ \ \ \ PS\_DICT\_LEN\_IV,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ FT\_Int\ \ \ \ \ */}}
+\DoxyCodeLine{00674\ \ \ \ \ PS\_DICT\_PASSWORD,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ FT\_Long\ \ \ \ */}}
+\DoxyCodeLine{00675\ \ \ \ \ PS\_DICT\_LANGUAGE\_GROUP,\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ FT\_Long\ \ \ \ */}}
+\DoxyCodeLine{00676\ }
+\DoxyCodeLine{00677\ \ \ \ \ \textcolor{comment}{/*\ conventionally\ in\ the\ font\ FontInfo\ dictionary\ */}}
+\DoxyCodeLine{00678\ \ \ \ \ PS\_DICT\_VERSION,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ FT\_String*\ */}}
+\DoxyCodeLine{00679\ \ \ \ \ PS\_DICT\_NOTICE,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ FT\_String*\ */}}
+\DoxyCodeLine{00680\ \ \ \ \ PS\_DICT\_FULL\_NAME,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ FT\_String*\ */}}
+\DoxyCodeLine{00681\ \ \ \ \ PS\_DICT\_FAMILY\_NAME,\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ FT\_String*\ */}}
+\DoxyCodeLine{00682\ \ \ \ \ PS\_DICT\_WEIGHT,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ FT\_String*\ */}}
+\DoxyCodeLine{00683\ \ \ \ \ PS\_DICT\_IS\_FIXED\_PITCH,\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ FT\_Bool\ \ \ \ */}}
+\DoxyCodeLine{00684\ \ \ \ \ PS\_DICT\_UNDERLINE\_POSITION,\ \ \ \ \ \textcolor{comment}{/*\ FT\_Short\ \ \ */}}
+\DoxyCodeLine{00685\ \ \ \ \ PS\_DICT\_UNDERLINE\_THICKNESS,\ \ \ \ \textcolor{comment}{/*\ FT\_UShort\ \ */}}
+\DoxyCodeLine{00686\ \ \ \ \ PS\_DICT\_FS\_TYPE,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ FT\_UShort\ \ */}}
+\DoxyCodeLine{00687\ \ \ \ \ PS\_DICT\_ITALIC\_ANGLE,\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ FT\_Long\ \ \ \ */}}
+\DoxyCodeLine{00688\ }
+\DoxyCodeLine{00689\ \ \ \ \ PS\_DICT\_MAX\ =\ PS\_DICT\_ITALIC\_ANGLE}
+\DoxyCodeLine{00690\ }
+\DoxyCodeLine{00691\ \ \ \}\ PS\_Dict\_Keys;}
+\DoxyCodeLine{00692\ }
+\DoxyCodeLine{00693\ }
+\DoxyCodeLine{00694\ \textcolor{comment}{\ \ /**************************************************************************}}
+\DoxyCodeLine{00695\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00696\ \textcolor{comment}{\ \ \ *\ @function:}}
+\DoxyCodeLine{00697\ \textcolor{comment}{\ \ \ *\ \ \ \ FT\_Get\_PS\_Font\_Value}}
+\DoxyCodeLine{00698\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00699\ \textcolor{comment}{\ \ \ *\ @description:}}
+\DoxyCodeLine{00700\ \textcolor{comment}{\ \ \ *\ \ \ \ Retrieve\ the\ value\ for\ the\ supplied\ key\ from\ a\ PostScript\ font.}}
+\DoxyCodeLine{00701\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00702\ \textcolor{comment}{\ \ \ *\ @input:}}
+\DoxyCodeLine{00703\ \textcolor{comment}{\ \ \ *\ \ \ \ face\ ::}}
+\DoxyCodeLine{00704\ \textcolor{comment}{\ \ \ *\ \ \ \ \ \ PostScript\ face\ handle.}}
+\DoxyCodeLine{00705\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00706\ \textcolor{comment}{\ \ \ *\ \ \ \ key\ ::}}
+\DoxyCodeLine{00707\ \textcolor{comment}{\ \ \ *\ \ \ \ \ \ An\ enumeration\ value\ representing\ the\ dictionary\ key\ to\ retrieve.}}
+\DoxyCodeLine{00708\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00709\ \textcolor{comment}{\ \ \ *\ \ \ \ idx\ ::}}
+\DoxyCodeLine{00710\ \textcolor{comment}{\ \ \ *\ \ \ \ \ \ For\ array\ values,\ this\ specifies\ the\ index\ to\ be\ returned.}}
+\DoxyCodeLine{00711\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00712\ \textcolor{comment}{\ \ \ *\ \ \ \ value\ ::}}
+\DoxyCodeLine{00713\ \textcolor{comment}{\ \ \ *\ \ \ \ \ \ A\ pointer\ to\ memory\ into\ which\ to\ write\ the\ value.}}
+\DoxyCodeLine{00714\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00715\ \textcolor{comment}{\ \ \ *\ \ \ \ valen\_len\ ::}}
+\DoxyCodeLine{00716\ \textcolor{comment}{\ \ \ *\ \ \ \ \ \ The\ size,\ in\ bytes,\ of\ the\ memory\ supplied\ for\ the\ value.}}
+\DoxyCodeLine{00717\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00718\ \textcolor{comment}{\ \ \ *\ @output:}}
+\DoxyCodeLine{00719\ \textcolor{comment}{\ \ \ *\ \ \ \ value\ ::}}
+\DoxyCodeLine{00720\ \textcolor{comment}{\ \ \ *\ \ \ \ \ \ The\ value\ matching\ the\ above\ key,\ if\ it\ exists.}}
+\DoxyCodeLine{00721\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00722\ \textcolor{comment}{\ \ \ *\ @return:}}
+\DoxyCodeLine{00723\ \textcolor{comment}{\ \ \ *\ \ \ \ The\ amount\ of\ memory\ (in\ bytes)\ required\ to\ hold\ the\ requested\ value}}
+\DoxyCodeLine{00724\ \textcolor{comment}{\ \ \ *\ \ \ \ (if\ it\ exists,\ -\/1\ otherwise).}}
+\DoxyCodeLine{00725\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00726\ \textcolor{comment}{\ \ \ *\ @note:}}
+\DoxyCodeLine{00727\ \textcolor{comment}{\ \ \ *\ \ \ \ The\ values\ returned\ are\ not\ pointers\ into\ the\ internal\ structures\ of}}
+\DoxyCodeLine{00728\ \textcolor{comment}{\ \ \ *\ \ \ \ the\ face,\ but\ are\ 'fresh'\ copies,\ so\ that\ the\ memory\ containing\ them}}
+\DoxyCodeLine{00729\ \textcolor{comment}{\ \ \ *\ \ \ \ belongs\ to\ the\ calling\ application.\ \ This\ also\ enforces\ the}}
+\DoxyCodeLine{00730\ \textcolor{comment}{\ \ \ *\ \ \ \ 'read-\/only'\ nature\ of\ these\ values,\ i.e.,\ this\ function\ cannot\ be}}
+\DoxyCodeLine{00731\ \textcolor{comment}{\ \ \ *\ \ \ \ used\ to\ manipulate\ the\ face.}}
+\DoxyCodeLine{00732\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00733\ \textcolor{comment}{\ \ \ *\ \ \ \ `value`\ is\ a\ void\ pointer\ because\ the\ values\ returned\ can\ be\ of}}
+\DoxyCodeLine{00734\ \textcolor{comment}{\ \ \ *\ \ \ \ various\ types.}}
+\DoxyCodeLine{00735\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00736\ \textcolor{comment}{\ \ \ *\ \ \ \ If\ either\ `value`\ is\ `NULL`\ or\ `value\_len`\ is\ too\ small,\ just\ the}}
+\DoxyCodeLine{00737\ \textcolor{comment}{\ \ \ *\ \ \ \ required\ memory\ size\ for\ the\ requested\ entry\ is\ returned.}}
+\DoxyCodeLine{00738\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00739\ \textcolor{comment}{\ \ \ *\ \ \ \ The\ `idx`\ parameter\ is\ used,\ not\ only\ to\ retrieve\ elements\ of,\ for}}
+\DoxyCodeLine{00740\ \textcolor{comment}{\ \ \ *\ \ \ \ example,\ the\ FontMatrix\ or\ FontBBox,\ but\ also\ to\ retrieve\ name\ keys}}
+\DoxyCodeLine{00741\ \textcolor{comment}{\ \ \ *\ \ \ \ from\ the\ CharStrings\ dictionary,\ and\ the\ charstrings\ themselves.\ \ It}}
+\DoxyCodeLine{00742\ \textcolor{comment}{\ \ \ *\ \ \ \ is\ ignored\ for\ atomic\ values.}}
+\DoxyCodeLine{00743\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00744\ \textcolor{comment}{\ \ \ *\ \ \ \ `PS\_DICT\_BLUE\_SCALE`\ returns\ a\ value\ that\ is\ scaled\ up\ by\ 1000.\ \ To}}
+\DoxyCodeLine{00745\ \textcolor{comment}{\ \ \ *\ \ \ \ get\ the\ value\ as\ in\ the\ font\ stream,\ you\ need\ to\ divide\ by\ 65536000.0}}
+\DoxyCodeLine{00746\ \textcolor{comment}{\ \ \ *\ \ \ \ (to\ remove\ the\ FT\_Fixed\ scale,\ and\ the\ x1000\ scale).}}
+\DoxyCodeLine{00747\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00748\ \textcolor{comment}{\ \ \ *\ \ \ \ IMPORTANT:\ Only\ key/value\ pairs\ read\ by\ the\ FreeType\ interpreter\ can}}
+\DoxyCodeLine{00749\ \textcolor{comment}{\ \ \ *\ \ \ \ be\ retrieved.\ \ So,\ for\ example,\ PostScript\ procedures\ such\ as\ NP,\ ND,}}
+\DoxyCodeLine{00750\ \textcolor{comment}{\ \ \ *\ \ \ \ and\ RD\ are\ not\ available.\ \ Arbitrary\ keys\ are,\ obviously,\ not\ be}}
+\DoxyCodeLine{00751\ \textcolor{comment}{\ \ \ *\ \ \ \ available\ either.}}
+\DoxyCodeLine{00752\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00753\ \textcolor{comment}{\ \ \ *\ \ \ \ If\ the\ font's\ format\ is\ not\ PostScript-\/based,\ this\ function\ returns}}
+\DoxyCodeLine{00754\ \textcolor{comment}{\ \ \ *\ \ \ \ the\ `FT\_Err\_Invalid\_Argument`\ error\ code.}}
+\DoxyCodeLine{00755\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00756\ \textcolor{comment}{\ \ \ *\ @since:}}
+\DoxyCodeLine{00757\ \textcolor{comment}{\ \ \ *\ \ \ \ 2.4.8}}
+\DoxyCodeLine{00758\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00759\ \textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{00760\ \ \ FT\_EXPORT(\ FT\_Long\ )}
+\DoxyCodeLine{00761\ \ \ FT\_Get\_PS\_Font\_Value(\ \mbox{\hyperlink{structFT__FaceRec__}{FT\_Face}}\ \ \ \ \ \ \ face,}
+\DoxyCodeLine{00762\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ PS\_Dict\_Keys\ \ key,}
+\DoxyCodeLine{00763\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FT\_UInt\ \ \ \ \ \ \ idx,}
+\DoxyCodeLine{00764\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \ \ \ \ \ \ \ \ *value,}
+\DoxyCodeLine{00765\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FT\_Long\ \ \ \ \ \ \ value\_len\ );}
+\DoxyCodeLine{00766\ }
+\DoxyCodeLine{00767\ \ \ \textcolor{comment}{/*\ */}}
+\DoxyCodeLine{00768\ }
+\DoxyCodeLine{00769\ FT\_END\_HEADER}
+\DoxyCodeLine{00770\ }
+\DoxyCodeLine{00771\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ T1TABLES\_H\_\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00772\ }
+\DoxyCodeLine{00773\ }
+\DoxyCodeLine{00774\ \textcolor{comment}{/*\ END\ */}}
+
+\end{DoxyCode}

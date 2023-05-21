@@ -1,0 +1,105 @@
+\hypertarget{format_8h}{}\doxysection{stdlib/format/format.h File Reference}
+\label{format_8h}\index{stdlib/format/format.h@{stdlib/format/format.h}}
+
+
+String formatting.  
+
+
+{\ttfamily \#include $<$types.\+h$>$}\newline
+{\ttfamily \#include $<$stdarg.\+h$>$}\newline
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} \mbox{\hyperlink{format_8h_aaf0171ee5296d73d5dba3786e0937121}{sprintf}} (char $\ast$str, const char $\ast$format,...)
+\begin{DoxyCompactList}\small\item\em Formats and stores a series of characters and values in the provided character array buffer, according to the specified format string. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} \mbox{\hyperlink{format_8h_a8be7c8a106186419f86b1bf42b225275}{snprintf}} (char $\ast$str, \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} size, const char $\ast$format,...)
+\begin{DoxyCompactList}\small\item\em Formats and stores a series of characters and values in the provided character array buffer, according to the specified format string and a maximum buffer size. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} \mbox{\hyperlink{format_8h_a8f90f639c751fbc29a0d93eec09f9e20}{vsnprintf}} (char $\ast$str, \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} size, const char $\ast$format, va\+\_\+list arg)
+\begin{DoxyCompactList}\small\item\em Formats and stores a series of characters and values in the provided character array buffer, according to the specified format string and a maximum buffer size, taking a va\+\_\+list argument instead of variable arguments. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+String formatting. 
+
+\begin{DoxyAuthor}{Author}
+Tim Gabrikowski, Anton Tchekov 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+0.\+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+23.\+04.\+2023 
+\end{DoxyDate}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{format_8h_a8be7c8a106186419f86b1bf42b225275}\label{format_8h_a8be7c8a106186419f86b1bf42b225275}} 
+\index{format.h@{format.h}!snprintf@{snprintf}}
+\index{snprintf@{snprintf}!format.h@{format.h}}
+\doxysubsubsection{\texorpdfstring{snprintf()}{snprintf()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} snprintf (\begin{DoxyParamCaption}\item[{char $\ast$}]{str,  }\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{size,  }\item[{const char $\ast$}]{format,  }\item[{}]{... }\end{DoxyParamCaption})}
+
+
+
+Formats and stores a series of characters and values in the provided character array buffer, according to the specified format string and a maximum buffer size. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em str} & A pointer to the character array buffer where the resulting formatted string will be stored \\
+\hline
+{\em size} & The maximum number of characters to be written to the buffer, including the terminating null character \\
+\hline
+{\em format} & A string that specifies how subsequent arguments are converted for output \\
+\hline
+{\em ...} & A variable number of additional arguments to be formatted and inserted into the resulting string, according to the format string \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The total number of characters that would have been written to the buffer, if the output had not been truncated, not including the terminating null character. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{format_8h_aaf0171ee5296d73d5dba3786e0937121}\label{format_8h_aaf0171ee5296d73d5dba3786e0937121}} 
+\index{format.h@{format.h}!sprintf@{sprintf}}
+\index{sprintf@{sprintf}!format.h@{format.h}}
+\doxysubsubsection{\texorpdfstring{sprintf()}{sprintf()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} sprintf (\begin{DoxyParamCaption}\item[{char $\ast$}]{str,  }\item[{const char $\ast$}]{format,  }\item[{}]{... }\end{DoxyParamCaption})}
+
+
+
+Formats and stores a series of characters and values in the provided character array buffer, according to the specified format string. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em str} & A pointer to the character array buffer where the resulting formatted string will be stored. \\
+\hline
+{\em format} & A string that specifies how subsequent arguments are converted for output \\
+\hline
+{\em ...} & A variable number of additional arguments to be formatted and inserted into the resulting string, according to the format string \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The total number of characters written to the buffer, not including the terminating null character. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{format_8h_a8f90f639c751fbc29a0d93eec09f9e20}\label{format_8h_a8f90f639c751fbc29a0d93eec09f9e20}} 
+\index{format.h@{format.h}!vsnprintf@{vsnprintf}}
+\index{vsnprintf@{vsnprintf}!format.h@{format.h}}
+\doxysubsubsection{\texorpdfstring{vsnprintf()}{vsnprintf()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} vsnprintf (\begin{DoxyParamCaption}\item[{char $\ast$}]{str,  }\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{size,  }\item[{const char $\ast$}]{format,  }\item[{va\+\_\+list}]{arg }\end{DoxyParamCaption})}
+
+
+
+Formats and stores a series of characters and values in the provided character array buffer, according to the specified format string and a maximum buffer size, taking a va\+\_\+list argument instead of variable arguments. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em str} & A pointer to the character array buffer where the resulting formatted string will be stored. \\
+\hline
+{\em size} & The maximum number of characters to be written to the buffer, including the terminating null character. \\
+\hline
+{\em format} & A string that specifies how subsequent arguments are converted for output. \\
+\hline
+{\em arg} & A va\+\_\+list object containing the variable arguments to be formatted and inserted into the resulting string, according to the format string. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The total number of characters that would have been written to the buffer, if the output had not been truncated, not including the terminating null character. 
+\end{DoxyReturn}

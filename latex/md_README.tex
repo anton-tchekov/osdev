@@ -1,0 +1,80 @@
+\hypertarget{md_README_autotoc_md5}{}\doxysection{TODO\+:}\label{md_README_autotoc_md5}
+\hypertarget{md_README_autotoc_md6}{}\doxysubsection{stdlib}\label{md_README_autotoc_md6}
+
+\begin{DoxyItemize}
+\item GUI Library \mbox{[}PRIO\mbox{]}
+\begin{DoxyItemize}
+\item Init function refactoring \mbox{[}DONE\mbox{]}
+\item Replace current theme with Dark Mode \mbox{[}DONE\mbox{]}
+\begin{DoxyItemize}
+\item Make theme easily changable \mbox{[}DONE\mbox{]}
+\end{DoxyItemize}
+\item Add utility functions
+\begin{DoxyItemize}
+\item Hide / Show elements
+\end{DoxyItemize}
+\item Text field
+\begin{DoxyItemize}
+\item Password stars option
+\item Changable \mbox{\hyperlink{structFont}{Font(\+Size)}}
+\item Multiline(\+Select)
+\item Line Numbers
+\item Tab support
+\item Up/\+Down Arrow keys + Shift
+\item Left/\+Right/\+Center Align
+\item Syntax highlighting
+\item Copy paste
+\item Unicode support
+\item Search and Replace
+\item Goto Line
+\item Import / Export contents
+\end{DoxyItemize}
+\end{DoxyItemize}
+\item Memory allocator \mbox{[}DONE\mbox{]}
+\item Keyboard Character\texorpdfstring{$<$}{<}-\/\texorpdfstring{$>$}{>}ASCII Conversion \mbox{[}DONE\mbox{]}
+\item Unicode \mbox{[}\mbox{]}
+\begin{DoxyItemize}
+\item Text Field \mbox{[}\mbox{]}
+\item Keyboard \mbox{[}DONE\mbox{]}
+\end{DoxyItemize}
+\end{DoxyItemize}\hypertarget{md_README_autotoc_md7}{}\doxysubsection{Simulator}\label{md_README_autotoc_md7}
+
+\begin{DoxyItemize}
+\item Parameter checking to prevent Bugs and Crashes \mbox{[}TODO\mbox{]}
+\item Exit function and controlled error handler \mbox{[}DONE\mbox{]}
+\end{DoxyItemize}\hypertarget{md_README_autotoc_md8}{}\doxysubsection{Kernel}\label{md_README_autotoc_md8}
+
+\begin{DoxyItemize}
+\item Task Scheduler \mbox{[}PRIO\mbox{]}
+\item Paging \mbox{[}PRIO\mbox{]}
+\end{DoxyItemize}\hypertarget{md_README_autotoc_md9}{}\doxysection{Contributing}\label{md_README_autotoc_md9}
+
+\begin{DoxyItemize}
+\item 80 Characters per line
+\item Tabs for Indentation
+\item Spaces for alignment (defines, enums, comments etc.)
+\item All source files, structs, functions and global variables should be documented using doxygen comments
+\item Only multiline comments ({\ttfamily /$\ast$ comment $\ast$/})
+\end{DoxyItemize}\hypertarget{md_README_autotoc_md10}{}\doxysection{Overview}\label{md_README_autotoc_md10}
+
+\begin{DoxyItemize}
+\item Modules (source and header files) go in their own directory (example\+: gfx/)
+\item {\ttfamily stdlib/} is the standard library for userspace applications. We follow the C standard very loosely, but anything useful goes here.
+\item {\ttfamily platform/} contains drivers for various platforms
+\item DRIVERS MUST NOT BLOCK THE CPU (exception\+: during initialization)
+\item {\ttfamily emulator/} contains a RISC-\/V emulator
+\end{DoxyItemize}
+
+Emulates a RISCV32\+\_\+\+IM processor.
+
+Supports\+:
+\begin{DoxyItemize}
+\item Base Instructions
+\item Multiplication/\+Division Extension
+\end{DoxyItemize}
+
+Work in Progress\+:
+\begin{DoxyItemize}
+\item Single Precision Floating Point Extension
+\item {\ttfamily apps} built-\/in apps 
+\end{DoxyItemize}

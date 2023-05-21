@@ -1,0 +1,143 @@
+\hypertarget{syscall_8h_source}{}\doxysection{syscall.\+h}
+\label{syscall_8h_source}\index{stdlib/syscall/syscall.h@{stdlib/syscall/syscall.h}}
+\mbox{\hyperlink{syscall_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#ifndef\ \_\_SYSCALL\_H\_\_}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#define\ \_\_SYSCALL\_H\_\_}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{types_8h}{types.h}}>}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00015\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}}
+\DoxyCodeLine{00016\ \{}
+\DoxyCodeLine{00017\ \ \ \ \ SYSCALL\_EXIT,}
+\DoxyCodeLine{00018\ \ \ \ \ SYSCALL\_FINISH,}
+\DoxyCodeLine{00019\ \ \ \ \ SYSCALL\_EVENT\_REGISTER,}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \ \ \ \ SYSCALL\_GFX\_RECT,}
+\DoxyCodeLine{00022\ \ \ \ \ SYSCALL\_GFX\_IMAGE\_RGBA,}
+\DoxyCodeLine{00023\ \ \ \ \ SYSCALL\_GFX\_IMAGE\_RGB,}
+\DoxyCodeLine{00024\ \ \ \ \ SYSCALL\_GFX\_IMAGE\_RGB565,}
+\DoxyCodeLine{00025\ \ \ \ \ SYSCALL\_GFX\_IMAGE\_GRAYSCALE,}
+\DoxyCodeLine{00026\ \ \ \ \ SYSCALL\_GFX\_IMAGE\_1BIT,}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \ \ \ \ SYSCALL\_RAND,}
+\DoxyCodeLine{00029\ \ \ \ \ SYSCALL\_KEYBOARD\_IS\_KEY\_PRESSED,}
+\DoxyCodeLine{00030\ \ \ \ \ SYSCALL\_SERIAL\_WRITE,}
+\DoxyCodeLine{00031\ \ \ \ \ SYSCALL\_DATETIME\_NOW,}
+\DoxyCodeLine{00032\ \ \ \ \ SYSCALL\_MILLIS,}
+\DoxyCodeLine{00033\ \}\ \mbox{\hyperlink{syscall_8h_a66058383db95f52e2bd416be6a741d5c}{SyscallID}};}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00041\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ syscall0(\mbox{\hyperlink{syscall_8h_a66058383db95f52e2bd416be6a741d5c}{SyscallID}}\ \textcolor{keywordtype}{id})}
+\DoxyCodeLine{00042\ \{}
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keyword}{register}\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ ra0\ \textcolor{keyword}{asm}(\textcolor{stringliteral}{"{}a0"{}});}
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keyword}{register}\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ ra7\ \textcolor{keyword}{asm}(\textcolor{stringliteral}{"{}a7"{}})\ =\ \textcolor{keywordtype}{id};}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keyword}{asm}\ \textcolor{keyword}{volatile}(\textcolor{stringliteral}{"{}ecall"{}}}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ :\ \textcolor{stringliteral}{"{}=r"{}}(ra0)}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ :\ \textcolor{stringliteral}{"{}r"{}}(ra7));}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keywordflow}{return}\ ra0;}
+\DoxyCodeLine{00051\ \}}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00060\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ syscall1(\mbox{\hyperlink{syscall_8h_a66058383db95f52e2bd416be6a741d5c}{SyscallID}}\ \textcolor{keywordtype}{id},\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ a0)}
+\DoxyCodeLine{00061\ \{}
+\DoxyCodeLine{00062\ \ \ \ \ \textcolor{keyword}{register}\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ ra0\ \textcolor{keyword}{asm}(\textcolor{stringliteral}{"{}a0"{}})\ =\ a0;}
+\DoxyCodeLine{00063\ \ \ \ \ \textcolor{keyword}{register}\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ ra7\ \textcolor{keyword}{asm}(\textcolor{stringliteral}{"{}a7"{}})\ =\ \textcolor{keywordtype}{id};}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \ \ \ \ \textcolor{keyword}{asm}\ \textcolor{keyword}{volatile}(\textcolor{stringliteral}{"{}ecall"{}}}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ :\ \textcolor{stringliteral}{"{}+r"{}}(ra0)}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ :\ \textcolor{stringliteral}{"{}r"{}}(ra7));}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \ \ \ \ \textcolor{keywordflow}{return}\ ra0;}
+\DoxyCodeLine{00070\ \}}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00080\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ syscall2(\mbox{\hyperlink{syscall_8h_a66058383db95f52e2bd416be6a741d5c}{SyscallID}}\ \textcolor{keywordtype}{id},\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ a0,\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ a1)}
+\DoxyCodeLine{00081\ \{}
+\DoxyCodeLine{00082\ \ \ \ \ \textcolor{keyword}{register}\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ ra0\ \textcolor{keyword}{asm}(\textcolor{stringliteral}{"{}a0"{}})\ =\ a0;}
+\DoxyCodeLine{00083\ \ \ \ \ \textcolor{keyword}{register}\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ ra1\ \textcolor{keyword}{asm}(\textcolor{stringliteral}{"{}a1"{}})\ =\ a1;}
+\DoxyCodeLine{00084\ \ \ \ \ \textcolor{keyword}{register}\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ ra7\ \textcolor{keyword}{asm}(\textcolor{stringliteral}{"{}a7"{}})\ =\ \textcolor{keywordtype}{id};}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00086\ \ \ \ \ \textcolor{keyword}{asm}\ \textcolor{keyword}{volatile}(\textcolor{stringliteral}{"{}ecall"{}}}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ :\ \textcolor{stringliteral}{"{}+r"{}}(ra0)}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ :\ \textcolor{stringliteral}{"{}r"{}}(ra1),}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}r"{}}(ra7));}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00091\ \ \ \ \ \textcolor{keywordflow}{return}\ ra0;}
+\DoxyCodeLine{00092\ \}}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00103\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ syscall3(\mbox{\hyperlink{syscall_8h_a66058383db95f52e2bd416be6a741d5c}{SyscallID}}\ \textcolor{keywordtype}{id},\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ a0,\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ a1,\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ a2)}
+\DoxyCodeLine{00104\ \{}
+\DoxyCodeLine{00105\ \ \ \ \ \textcolor{keyword}{register}\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ ra0\ \textcolor{keyword}{asm}(\textcolor{stringliteral}{"{}a0"{}})\ =\ a0;}
+\DoxyCodeLine{00106\ \ \ \ \ \textcolor{keyword}{register}\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ ra1\ \textcolor{keyword}{asm}(\textcolor{stringliteral}{"{}a1"{}})\ =\ a1;}
+\DoxyCodeLine{00107\ \ \ \ \ \textcolor{keyword}{register}\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ ra2\ \textcolor{keyword}{asm}(\textcolor{stringliteral}{"{}a2"{}})\ =\ a2;}
+\DoxyCodeLine{00108\ \ \ \ \ \textcolor{keyword}{register}\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ ra7\ \textcolor{keyword}{asm}(\textcolor{stringliteral}{"{}a7"{}})\ =\ \textcolor{keywordtype}{id};}
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00110\ \ \ \ \ \textcolor{keyword}{asm}\ \textcolor{keyword}{volatile}(\textcolor{stringliteral}{"{}ecall"{}}}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ :\ \textcolor{stringliteral}{"{}+r"{}}(ra0)}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ :\ \textcolor{stringliteral}{"{}r"{}}(ra1),\ \textcolor{stringliteral}{"{}r"{}}(ra2),}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}r"{}}(ra7));}
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00115\ \ \ \ \ \textcolor{keywordflow}{return}\ ra0;}
+\DoxyCodeLine{00116\ \}}
+\DoxyCodeLine{00117\ }
+\DoxyCodeLine{00128\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ syscall4(\mbox{\hyperlink{syscall_8h_a66058383db95f52e2bd416be6a741d5c}{SyscallID}}\ \textcolor{keywordtype}{id},\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ a0,\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ a1,\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ a2,\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ a3)}
+\DoxyCodeLine{00129\ \{}
+\DoxyCodeLine{00130\ \ \ \ \ \textcolor{keyword}{register}\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ ra0\ \textcolor{keyword}{asm}(\textcolor{stringliteral}{"{}a0"{}})\ =\ a0;}
+\DoxyCodeLine{00131\ \ \ \ \ \textcolor{keyword}{register}\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ ra1\ \textcolor{keyword}{asm}(\textcolor{stringliteral}{"{}a1"{}})\ =\ a1;}
+\DoxyCodeLine{00132\ \ \ \ \ \textcolor{keyword}{register}\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ ra2\ \textcolor{keyword}{asm}(\textcolor{stringliteral}{"{}a2"{}})\ =\ a2;}
+\DoxyCodeLine{00133\ \ \ \ \ \textcolor{keyword}{register}\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ ra3\ \textcolor{keyword}{asm}(\textcolor{stringliteral}{"{}a3"{}})\ =\ a3;}
+\DoxyCodeLine{00134\ \ \ \ \ \textcolor{keyword}{register}\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ ra7\ \textcolor{keyword}{asm}(\textcolor{stringliteral}{"{}a7"{}})\ =\ \textcolor{keywordtype}{id};}
+\DoxyCodeLine{00135\ }
+\DoxyCodeLine{00136\ \ \ \ \ \textcolor{keyword}{asm}\ \textcolor{keyword}{volatile}(\textcolor{stringliteral}{"{}ecall"{}}}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ :\ \textcolor{stringliteral}{"{}+r"{}}(ra0)}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ :\ \textcolor{stringliteral}{"{}r"{}}(ra1),\ \textcolor{stringliteral}{"{}r"{}}(ra2),\ \textcolor{stringliteral}{"{}r"{}}(ra3),}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}r"{}}(ra7));}
+\DoxyCodeLine{00140\ }
+\DoxyCodeLine{00141\ \ \ \ \ \textcolor{keywordflow}{return}\ ra0;}
+\DoxyCodeLine{00142\ \}}
+\DoxyCodeLine{00143\ }
+\DoxyCodeLine{00155\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ syscall5(\mbox{\hyperlink{syscall_8h_a66058383db95f52e2bd416be6a741d5c}{SyscallID}}\ \textcolor{keywordtype}{id},\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ a0,\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ a1,\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ a2,\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ a3,\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ a4)}
+\DoxyCodeLine{00156\ \{}
+\DoxyCodeLine{00157\ \ \ \ \ \textcolor{keyword}{register}\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ ra0\ \textcolor{keyword}{asm}(\textcolor{stringliteral}{"{}a0"{}})\ =\ a0;}
+\DoxyCodeLine{00158\ \ \ \ \ \textcolor{keyword}{register}\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ ra1\ \textcolor{keyword}{asm}(\textcolor{stringliteral}{"{}a1"{}})\ =\ a1;}
+\DoxyCodeLine{00159\ \ \ \ \ \textcolor{keyword}{register}\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ ra2\ \textcolor{keyword}{asm}(\textcolor{stringliteral}{"{}a2"{}})\ =\ a2;}
+\DoxyCodeLine{00160\ \ \ \ \ \textcolor{keyword}{register}\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ ra3\ \textcolor{keyword}{asm}(\textcolor{stringliteral}{"{}a3"{}})\ =\ a3;}
+\DoxyCodeLine{00161\ \ \ \ \ \textcolor{keyword}{register}\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ ra4\ \textcolor{keyword}{asm}(\textcolor{stringliteral}{"{}a4"{}})\ =\ a4;}
+\DoxyCodeLine{00162\ \ \ \ \ \textcolor{keyword}{register}\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ ra7\ \textcolor{keyword}{asm}(\textcolor{stringliteral}{"{}a7"{}})\ =\ \textcolor{keywordtype}{id};}
+\DoxyCodeLine{00163\ }
+\DoxyCodeLine{00164\ \ \ \ \ \textcolor{keyword}{asm}\ \textcolor{keyword}{volatile}(\textcolor{stringliteral}{"{}ecall"{}}}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ :\ \textcolor{stringliteral}{"{}+r"{}}(ra0)}
+\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ :\ \textcolor{stringliteral}{"{}r"{}}(ra1),\ \textcolor{stringliteral}{"{}r"{}}(ra2),\ \textcolor{stringliteral}{"{}r"{}}(ra3),\ \textcolor{stringliteral}{"{}r"{}}(ra4),}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}r"{}}(ra7));}
+\DoxyCodeLine{00168\ }
+\DoxyCodeLine{00169\ \ \ \ \ \textcolor{keywordflow}{return}\ ra0;}
+\DoxyCodeLine{00170\ \}}
+\DoxyCodeLine{00171\ }
+\DoxyCodeLine{00184\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ syscall6(}
+\DoxyCodeLine{00185\ \ \ \ \ \mbox{\hyperlink{syscall_8h_a66058383db95f52e2bd416be6a741d5c}{SyscallID}}\ \textcolor{keywordtype}{id},\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ a0,\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ a1,\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ a2,\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ a3,\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ a4,\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ a5)}
+\DoxyCodeLine{00186\ \{}
+\DoxyCodeLine{00187\ \ \ \ \ \textcolor{keyword}{register}\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ ra0\ \textcolor{keyword}{asm}(\textcolor{stringliteral}{"{}a0"{}})\ =\ a0;}
+\DoxyCodeLine{00188\ \ \ \ \ \textcolor{keyword}{register}\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ ra1\ \textcolor{keyword}{asm}(\textcolor{stringliteral}{"{}a1"{}})\ =\ a1;}
+\DoxyCodeLine{00189\ \ \ \ \ \textcolor{keyword}{register}\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ ra2\ \textcolor{keyword}{asm}(\textcolor{stringliteral}{"{}a2"{}})\ =\ a2;}
+\DoxyCodeLine{00190\ \ \ \ \ \textcolor{keyword}{register}\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ ra3\ \textcolor{keyword}{asm}(\textcolor{stringliteral}{"{}a3"{}})\ =\ a3;}
+\DoxyCodeLine{00191\ \ \ \ \ \textcolor{keyword}{register}\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ ra4\ \textcolor{keyword}{asm}(\textcolor{stringliteral}{"{}a4"{}})\ =\ a4;}
+\DoxyCodeLine{00192\ \ \ \ \ \textcolor{keyword}{register}\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ ra5\ \textcolor{keyword}{asm}(\textcolor{stringliteral}{"{}a5"{}})\ =\ a5;}
+\DoxyCodeLine{00193\ \ \ \ \ \textcolor{keyword}{register}\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ ra7\ \textcolor{keyword}{asm}(\textcolor{stringliteral}{"{}a7"{}})\ =\ \textcolor{keywordtype}{id};}
+\DoxyCodeLine{00194\ }
+\DoxyCodeLine{00195\ \ \ \ \ \textcolor{keyword}{asm}\ \textcolor{keyword}{volatile}(\textcolor{stringliteral}{"{}ecall"{}}}
+\DoxyCodeLine{00196\ \ \ \ \ \ \ \ \ :\ \textcolor{stringliteral}{"{}+r"{}}(ra0)}
+\DoxyCodeLine{00197\ \ \ \ \ \ \ \ \ :\ \textcolor{stringliteral}{"{}r"{}}(ra1),\ \textcolor{stringliteral}{"{}r"{}}(ra2),\ \textcolor{stringliteral}{"{}r"{}}(ra3),\ \textcolor{stringliteral}{"{}r"{}}(ra4),\ \textcolor{stringliteral}{"{}r"{}}(ra5),}
+\DoxyCodeLine{00198\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}r"{}}(ra7));}
+\DoxyCodeLine{00199\ }
+\DoxyCodeLine{00200\ \ \ \ \ \textcolor{keywordflow}{return}\ ra0;}
+\DoxyCodeLine{00201\ \}}
+\DoxyCodeLine{00202\ }
+\DoxyCodeLine{00208\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ exit(\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ status)}
+\DoxyCodeLine{00209\ \{}
+\DoxyCodeLine{00210\ \ \ \ \ syscall1(SYSCALL\_EXIT,\ status);}
+\DoxyCodeLine{00211\ \}}
+\DoxyCodeLine{00212\ }
+\DoxyCodeLine{00213\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ \_\_SYSCALL\_H\_\_\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

@@ -1,0 +1,56 @@
+\hypertarget{algo_8h}{}\doxysection{stdlib/algo/algo.h File Reference}
+\label{algo_8h}\index{stdlib/algo/algo.h@{stdlib/algo/algo.h}}
+
+
+Library for common algorithms.  
+
+
+{\ttfamily \#include $<$types.\+h$>$}\newline
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void $\ast$ \mbox{\hyperlink{algo_8h_a69a33a907a9379c9b342d51a8d9af818}{bsearch}} (const void $\ast$key, const void $\ast$base, \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} nitems, \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} size, \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}($\ast$compare)(const void $\ast$, const void $\ast$))
+\begin{DoxyCompactList}\small\item\em Binary search. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Library for common algorithms. 
+
+\begin{DoxyAuthor}{Author}
+Tim Gabrikowski, Anton Tchekov 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+0.\+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+25.\+04.\+2023 
+\end{DoxyDate}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{algo_8h_a69a33a907a9379c9b342d51a8d9af818}\label{algo_8h_a69a33a907a9379c9b342d51a8d9af818}} 
+\index{algo.h@{algo.h}!bsearch@{bsearch}}
+\index{bsearch@{bsearch}!algo.h@{algo.h}}
+\doxysubsubsection{\texorpdfstring{bsearch()}{bsearch()}}
+{\footnotesize\ttfamily void $\ast$ bsearch (\begin{DoxyParamCaption}\item[{const void $\ast$}]{key,  }\item[{const void $\ast$}]{base,  }\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{nitems,  }\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{size,  }\item[{\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}($\ast$)(const void $\ast$, const void $\ast$)}]{compare }\end{DoxyParamCaption})}
+
+
+
+Binary search. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em key} & Key to be found \\
+\hline
+{\em base} & Pointer to a sorted array with {\ttfamily nitems} \\
+\hline
+{\em nitems} & Number of items \\
+\hline
+{\em size} & Size of each item in bytes \\
+\hline
+{\em compare} & Comparison function that receives {\ttfamily key} and current item \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Pointer to found item or NULL 
+\end{DoxyReturn}

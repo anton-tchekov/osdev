@@ -1,0 +1,44 @@
+\hypertarget{panic_8c}{}\doxysection{stdlib/panic/panic.c File Reference}
+\label{panic_8c}\index{stdlib/panic/panic.c@{stdlib/panic/panic.c}}
+{\ttfamily \#include $<$panic.\+h$>$}\newline
+{\ttfamily \#include $<$syscall.\+h$>$}\newline
+{\ttfamily \#include $<$serial.\+h$>$}\newline
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{panic_8c_a2e711bae47ea21470dd21f7a3485a4d3}{panic}} (const char $\ast$msg, const char $\ast$file, \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} line)
+\begin{DoxyCompactList}\small\item\em Panic function. Do not call this function directly. Use the PANIC and ASSERT macros below. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyAuthor}{Author}
+Tim Gabrikowski, Anton Tchekov 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+0.\+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+29.\+04.\+2023 
+\end{DoxyDate}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{panic_8c_a2e711bae47ea21470dd21f7a3485a4d3}\label{panic_8c_a2e711bae47ea21470dd21f7a3485a4d3}} 
+\index{panic.c@{panic.c}!panic@{panic}}
+\index{panic@{panic}!panic.c@{panic.c}}
+\doxysubsubsection{\texorpdfstring{panic()}{panic()}}
+{\footnotesize\ttfamily void panic (\begin{DoxyParamCaption}\item[{const char $\ast$}]{msg,  }\item[{const char $\ast$}]{file,  }\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{line }\end{DoxyParamCaption})}
+
+
+
+Panic function. Do not call this function directly. Use the PANIC and ASSERT macros below. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em msg} & Error message \\
+\hline
+{\em file} & \mbox{\hyperlink{structFile}{File}} in which the error occurred \\
+\hline
+{\em line} & Line in which the error occurred \\
+\hline
+\end{DoxyParams}

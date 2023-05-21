@@ -1,0 +1,48 @@
+\hypertarget{timer_8c}{}\doxysection{platform/avr/timer/timer.c File Reference}
+\label{timer_8c}\index{platform/avr/timer/timer.c@{platform/avr/timer/timer.c}}
+{\ttfamily \#include $<$timer.\+h$>$}\newline
+{\ttfamily \#include $<$serial.\+h$>$}\newline
+{\ttfamily \#include $<$logger.\+h$>$}\newline
+{\ttfamily \#include $<$avr/interrupt.\+h$>$}\newline
+{\ttfamily \#include $<$avr/pgmspace.\+h$>$}\newline
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{timer_8c_a7b8ab79df77b57475a5494f5f81c3bd9}\label{timer_8c_a7b8ab79df77b57475a5494f5f81c3bd9}} 
+void {\bfseries timer\+\_\+init} (void)
+\item 
+\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} \mbox{\hyperlink{timer_8c_aee701eeb891b748ed2e12da119816882}{millis}} (void)
+\begin{DoxyCompactList}\small\item\em Get the number of milliseconds since boot. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{timer_8c_aec43762dc86e029b395d4e5819192c2d}\label{timer_8c_aec43762dc86e029b395d4e5819192c2d}} 
+{\bfseries ISR} (TIMER0\+\_\+\+COMPA\+\_\+vect)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyAuthor}{Author}
+Tim Gabrikowski, Anton Tchekov 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+0.\+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+01.\+05.\+2023 
+\end{DoxyDate}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{timer_8c_aee701eeb891b748ed2e12da119816882}\label{timer_8c_aee701eeb891b748ed2e12da119816882}} 
+\index{timer.c@{timer.c}!millis@{millis}}
+\index{millis@{millis}!timer.c@{timer.c}}
+\doxysubsubsection{\texorpdfstring{millis()}{millis()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} millis (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Get the number of milliseconds since boot. 
+
+Gets the number of milliseconds since startup.
+
+\begin{DoxyReturn}{Returns}
+The number of milliseconds 
+\end{DoxyReturn}

@@ -1,0 +1,1244 @@
+\hypertarget{ftimage_8h_source}{}\doxysection{ftimage.\+h}
+\label{ftimage_8h_source}\index{tools/font-\/convert/freetype/ftimage.h@{tools/font-\/convert/freetype/ftimage.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/****************************************************************************}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *\ ftimage.h}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *\ \ \ FreeType\ glyph\ image\ formats\ and\ default\ raster\ interface}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *\ \ \ (specification).}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ *\ Copyright\ (C)\ 1996-\/2019\ by}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ *\ David\ Turner,\ Robert\ Wilhelm,\ and\ Werner\ Lemberg.}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ *\ This\ file\ is\ part\ of\ the\ FreeType\ project,\ and\ may\ only\ be\ used,}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ *\ modified,\ and\ distributed\ under\ the\ terms\ of\ the\ FreeType\ project}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ *\ license,\ LICENSE.TXT.\ \ By\ continuing\ to\ use,\ modify,\ or\ distribute}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ *\ this\ file\ you\ indicate\ that\ you\ have\ read\ the\ license\ and}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ *\ understand\ and\ accept\ it\ fully.}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{comment}{\ \ /**************************************************************************}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00021\ \textcolor{comment}{\ \ \ *\ Note:\ A\ 'raster'\ is\ simply\ a\ scan-\/line\ converter,\ used\ to\ render}}
+\DoxyCodeLine{00022\ \textcolor{comment}{\ \ \ *\ \ \ \ \ \ \ FT\_Outlines\ into\ FT\_Bitmaps.}}
+\DoxyCodeLine{00023\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00024\ \textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#ifndef\ FTIMAGE\_H\_}}
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#define\ FTIMAGE\_H\_}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \ \ \textcolor{comment}{/*\ STANDALONE\_\ is\ from\ ftgrays.c\ */}}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#ifndef\ STANDALONE\_}}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#include\ <ft2build.h>}}
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ FT\_BEGIN\_HEADER}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \textcolor{comment}{\ \ /**************************************************************************}}
+\DoxyCodeLine{00041\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00042\ \textcolor{comment}{\ \ \ *\ @section:}}
+\DoxyCodeLine{00043\ \textcolor{comment}{\ \ \ *\ \ \ basic\_types}}
+\DoxyCodeLine{00044\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00045\ \textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \textcolor{comment}{\ \ /**************************************************************************}}
+\DoxyCodeLine{00049\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00050\ \textcolor{comment}{\ \ \ *\ @type:}}
+\DoxyCodeLine{00051\ \textcolor{comment}{\ \ \ *\ \ \ FT\_Pos}}
+\DoxyCodeLine{00052\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00053\ \textcolor{comment}{\ \ \ *\ @description:}}
+\DoxyCodeLine{00054\ \textcolor{comment}{\ \ \ *\ \ \ The\ type\ FT\_Pos\ is\ used\ to\ store\ vectorial\ coordinates.\ \ Depending\ on}}
+\DoxyCodeLine{00055\ \textcolor{comment}{\ \ \ *\ \ \ the\ context,\ these\ can\ represent\ distances\ in\ integer\ font\ units,\ or}}
+\DoxyCodeLine{00056\ \textcolor{comment}{\ \ \ *\ \ \ 16.16,\ or\ 26.6\ fixed-\/point\ pixel\ coordinates.}}
+\DoxyCodeLine{00057\ \textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{00058\ \ \ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{signed}\ \textcolor{keywordtype}{long}\ \ FT\_Pos;}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \textcolor{comment}{\ \ /**************************************************************************}}
+\DoxyCodeLine{00062\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00063\ \textcolor{comment}{\ \ \ *\ @struct:}}
+\DoxyCodeLine{00064\ \textcolor{comment}{\ \ \ *\ \ \ FT\_Vector}}
+\DoxyCodeLine{00065\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00066\ \textcolor{comment}{\ \ \ *\ @description:}}
+\DoxyCodeLine{00067\ \textcolor{comment}{\ \ \ *\ \ \ A\ simple\ structure\ used\ to\ store\ a\ 2D\ vector;\ coordinates\ are\ of\ the}}
+\DoxyCodeLine{00068\ \textcolor{comment}{\ \ \ *\ \ \ FT\_Pos\ type.}}
+\DoxyCodeLine{00069\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00070\ \textcolor{comment}{\ \ \ *\ @fields:}}
+\DoxyCodeLine{00071\ \textcolor{comment}{\ \ \ *\ \ \ x\ ::}}
+\DoxyCodeLine{00072\ \textcolor{comment}{\ \ \ *\ \ \ \ \ The\ horizontal\ coordinate.}}
+\DoxyCodeLine{00073\ \textcolor{comment}{\ \ \ *\ \ \ y\ ::}}
+\DoxyCodeLine{00074\ \textcolor{comment}{\ \ \ *\ \ \ \ \ The\ vertical\ coordinate.}}
+\DoxyCodeLine{00075\ \textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{00076\ \ \ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ \ }\mbox{\hyperlink{structFT__Vector__}{FT\_Vector\_}}}
+\DoxyCodeLine{00077\ \ \ \{}
+\DoxyCodeLine{00078\ \ \ \ \ FT\_Pos\ \ x;}
+\DoxyCodeLine{00079\ \ \ \ \ FT\_Pos\ \ y;}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ \ \ \}\ \mbox{\hyperlink{structFT__Vector__}{FT\_Vector}};}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00084\ \textcolor{comment}{\ \ /**************************************************************************}}
+\DoxyCodeLine{00085\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00086\ \textcolor{comment}{\ \ \ *\ @struct:}}
+\DoxyCodeLine{00087\ \textcolor{comment}{\ \ \ *\ \ \ FT\_BBox}}
+\DoxyCodeLine{00088\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00089\ \textcolor{comment}{\ \ \ *\ @description:}}
+\DoxyCodeLine{00090\ \textcolor{comment}{\ \ \ *\ \ \ A\ structure\ used\ to\ hold\ an\ outline's\ bounding\ box,\ i.e.,\ the}}
+\DoxyCodeLine{00091\ \textcolor{comment}{\ \ \ *\ \ \ coordinates\ of\ its\ extrema\ in\ the\ horizontal\ and\ vertical\ directions.}}
+\DoxyCodeLine{00092\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00093\ \textcolor{comment}{\ \ \ *\ @fields:}}
+\DoxyCodeLine{00094\ \textcolor{comment}{\ \ \ *\ \ \ xMin\ ::}}
+\DoxyCodeLine{00095\ \textcolor{comment}{\ \ \ *\ \ \ \ \ The\ horizontal\ minimum\ (left-\/most).}}
+\DoxyCodeLine{00096\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00097\ \textcolor{comment}{\ \ \ *\ \ \ yMin\ ::}}
+\DoxyCodeLine{00098\ \textcolor{comment}{\ \ \ *\ \ \ \ \ The\ vertical\ minimum\ (bottom-\/most).}}
+\DoxyCodeLine{00099\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00100\ \textcolor{comment}{\ \ \ *\ \ \ xMax\ ::}}
+\DoxyCodeLine{00101\ \textcolor{comment}{\ \ \ *\ \ \ \ \ The\ horizontal\ maximum\ (right-\/most).}}
+\DoxyCodeLine{00102\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00103\ \textcolor{comment}{\ \ \ *\ \ \ yMax\ ::}}
+\DoxyCodeLine{00104\ \textcolor{comment}{\ \ \ *\ \ \ \ \ The\ vertical\ maximum\ (top-\/most).}}
+\DoxyCodeLine{00105\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00106\ \textcolor{comment}{\ \ \ *\ @note:}}
+\DoxyCodeLine{00107\ \textcolor{comment}{\ \ \ *\ \ \ The\ bounding\ box\ is\ specified\ with\ the\ coordinates\ of\ the\ lower\ left}}
+\DoxyCodeLine{00108\ \textcolor{comment}{\ \ \ *\ \ \ and\ the\ upper\ right\ corner.\ \ In\ PostScript,\ those\ values\ are\ often}}
+\DoxyCodeLine{00109\ \textcolor{comment}{\ \ \ *\ \ \ called\ (llx,lly)\ and\ (urx,ury),\ respectively.}}
+\DoxyCodeLine{00110\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00111\ \textcolor{comment}{\ \ \ *\ \ \ If\ `yMin`\ is\ negative,\ this\ value\ gives\ the\ glyph's\ descender.}}
+\DoxyCodeLine{00112\ \textcolor{comment}{\ \ \ *\ \ \ Otherwise,\ the\ glyph\ doesn't\ descend\ below\ the\ baseline.\ \ Similarly,}}
+\DoxyCodeLine{00113\ \textcolor{comment}{\ \ \ *\ \ \ if\ `ymax`\ is\ positive,\ this\ value\ gives\ the\ glyph's\ ascender.}}
+\DoxyCodeLine{00114\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00115\ \textcolor{comment}{\ \ \ *\ \ \ `xMin`\ gives\ the\ horizontal\ distance\ from\ the\ glyph's\ origin\ to\ the}}
+\DoxyCodeLine{00116\ \textcolor{comment}{\ \ \ *\ \ \ left\ edge\ of\ the\ glyph's\ bounding\ box.\ \ If\ `xMin`\ is\ negative,\ the}}
+\DoxyCodeLine{00117\ \textcolor{comment}{\ \ \ *\ \ \ glyph\ extends\ to\ the\ left\ of\ the\ origin.}}
+\DoxyCodeLine{00118\ \textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{00119\ \ \ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ \ }\mbox{\hyperlink{structFT__BBox__}{FT\_BBox\_}}}
+\DoxyCodeLine{00120\ \ \ \{}
+\DoxyCodeLine{00121\ \ \ \ \ FT\_Pos\ \ xMin,\ yMin;}
+\DoxyCodeLine{00122\ \ \ \ \ FT\_Pos\ \ xMax,\ yMax;}
+\DoxyCodeLine{00123\ }
+\DoxyCodeLine{00124\ \ \ \}\ \mbox{\hyperlink{structFT__BBox__}{FT\_BBox}};}
+\DoxyCodeLine{00125\ }
+\DoxyCodeLine{00126\ }
+\DoxyCodeLine{00127\ \textcolor{comment}{\ \ /**************************************************************************}}
+\DoxyCodeLine{00128\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00129\ \textcolor{comment}{\ \ \ *\ @enum:}}
+\DoxyCodeLine{00130\ \textcolor{comment}{\ \ \ *\ \ \ FT\_Pixel\_Mode}}
+\DoxyCodeLine{00131\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00132\ \textcolor{comment}{\ \ \ *\ @description:}}
+\DoxyCodeLine{00133\ \textcolor{comment}{\ \ \ *\ \ \ An\ enumeration\ type\ used\ to\ describe\ the\ format\ of\ pixels\ in\ a\ given}}
+\DoxyCodeLine{00134\ \textcolor{comment}{\ \ \ *\ \ \ bitmap.\ \ Note\ that\ additional\ formats\ may\ be\ added\ in\ the\ future.}}
+\DoxyCodeLine{00135\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00136\ \textcolor{comment}{\ \ \ *\ @values:}}
+\DoxyCodeLine{00137\ \textcolor{comment}{\ \ \ *\ \ \ FT\_PIXEL\_MODE\_NONE\ ::}}
+\DoxyCodeLine{00138\ \textcolor{comment}{\ \ \ *\ \ \ \ \ Value\string~0\ is\ reserved.}}
+\DoxyCodeLine{00139\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00140\ \textcolor{comment}{\ \ \ *\ \ \ FT\_PIXEL\_MODE\_MONO\ ::}}
+\DoxyCodeLine{00141\ \textcolor{comment}{\ \ \ *\ \ \ \ \ A\ monochrome\ bitmap,\ using\ 1\string~bit\ per\ pixel.\ \ Note\ that\ pixels\ are}}
+\DoxyCodeLine{00142\ \textcolor{comment}{\ \ \ *\ \ \ \ \ stored\ in\ most-\/significant\ order\ (MSB),\ which\ means\ that\ the}}
+\DoxyCodeLine{00143\ \textcolor{comment}{\ \ \ *\ \ \ \ \ left-\/most\ pixel\ in\ a\ byte\ has\ value\ 128.}}
+\DoxyCodeLine{00144\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00145\ \textcolor{comment}{\ \ \ *\ \ \ FT\_PIXEL\_MODE\_GRAY\ ::}}
+\DoxyCodeLine{00146\ \textcolor{comment}{\ \ \ *\ \ \ \ \ An\ 8-\/bit\ bitmap,\ generally\ used\ to\ represent\ anti-\/aliased\ glyph}}
+\DoxyCodeLine{00147\ \textcolor{comment}{\ \ \ *\ \ \ \ \ images.\ \ Each\ pixel\ is\ stored\ in\ one\ byte.\ \ Note\ that\ the\ number\ of}}
+\DoxyCodeLine{00148\ \textcolor{comment}{\ \ \ *\ \ \ \ \ 'gray'\ levels\ is\ stored\ in\ the\ `num\_grays`\ field\ of\ the\ @FT\_Bitmap}}
+\DoxyCodeLine{00149\ \textcolor{comment}{\ \ \ *\ \ \ \ \ structure\ (it\ generally\ is\ 256).}}
+\DoxyCodeLine{00150\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00151\ \textcolor{comment}{\ \ \ *\ \ \ FT\_PIXEL\_MODE\_GRAY2\ ::}}
+\DoxyCodeLine{00152\ \textcolor{comment}{\ \ \ *\ \ \ \ \ A\ 2-\/bit\ per\ pixel\ bitmap,\ used\ to\ represent\ embedded\ anti-\/aliased}}
+\DoxyCodeLine{00153\ \textcolor{comment}{\ \ \ *\ \ \ \ \ bitmaps\ in\ font\ files\ according\ to\ the\ OpenType\ specification.\ \ We}}
+\DoxyCodeLine{00154\ \textcolor{comment}{\ \ \ *\ \ \ \ \ haven't\ found\ a\ single\ font\ using\ this\ format,\ however.}}
+\DoxyCodeLine{00155\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00156\ \textcolor{comment}{\ \ \ *\ \ \ FT\_PIXEL\_MODE\_GRAY4\ ::}}
+\DoxyCodeLine{00157\ \textcolor{comment}{\ \ \ *\ \ \ \ \ A\ 4-\/bit\ per\ pixel\ bitmap,\ representing\ embedded\ anti-\/aliased\ bitmaps}}
+\DoxyCodeLine{00158\ \textcolor{comment}{\ \ \ *\ \ \ \ \ in\ font\ files\ according\ to\ the\ OpenType\ specification.\ \ We\ haven't}}
+\DoxyCodeLine{00159\ \textcolor{comment}{\ \ \ *\ \ \ \ \ found\ a\ single\ font\ using\ this\ format,\ however.}}
+\DoxyCodeLine{00160\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00161\ \textcolor{comment}{\ \ \ *\ \ \ FT\_PIXEL\_MODE\_LCD\ ::}}
+\DoxyCodeLine{00162\ \textcolor{comment}{\ \ \ *\ \ \ \ \ An\ 8-\/bit\ bitmap,\ representing\ RGB\ or\ BGR\ decimated\ glyph\ images\ used}}
+\DoxyCodeLine{00163\ \textcolor{comment}{\ \ \ *\ \ \ \ \ for\ display\ on\ LCD\ displays;\ the\ bitmap\ is\ three\ times\ wider\ than}}
+\DoxyCodeLine{00164\ \textcolor{comment}{\ \ \ *\ \ \ \ \ the\ original\ glyph\ image.\ \ See\ also\ @FT\_RENDER\_MODE\_LCD.}}
+\DoxyCodeLine{00165\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00166\ \textcolor{comment}{\ \ \ *\ \ \ FT\_PIXEL\_MODE\_LCD\_V\ ::}}
+\DoxyCodeLine{00167\ \textcolor{comment}{\ \ \ *\ \ \ \ \ An\ 8-\/bit\ bitmap,\ representing\ RGB\ or\ BGR\ decimated\ glyph\ images\ used}}
+\DoxyCodeLine{00168\ \textcolor{comment}{\ \ \ *\ \ \ \ \ for\ display\ on\ rotated\ LCD\ displays;\ the\ bitmap\ is\ three\ times}}
+\DoxyCodeLine{00169\ \textcolor{comment}{\ \ \ *\ \ \ \ \ taller\ than\ the\ original\ glyph\ image.\ \ See\ also}}
+\DoxyCodeLine{00170\ \textcolor{comment}{\ \ \ *\ \ \ \ \ @FT\_RENDER\_MODE\_LCD\_V.}}
+\DoxyCodeLine{00171\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00172\ \textcolor{comment}{\ \ \ *\ \ \ FT\_PIXEL\_MODE\_BGRA\ ::}}
+\DoxyCodeLine{00173\ \textcolor{comment}{\ \ \ *\ \ \ \ \ [Since\ 2.5]\ An\ image\ with\ four\ 8-\/bit\ channels\ per\ pixel,}}
+\DoxyCodeLine{00174\ \textcolor{comment}{\ \ \ *\ \ \ \ \ representing\ a\ color\ image\ (such\ as\ emoticons)\ with\ alpha\ channel.}}
+\DoxyCodeLine{00175\ \textcolor{comment}{\ \ \ *\ \ \ \ \ For\ each\ pixel,\ the\ format\ is\ BGRA,\ which\ means,\ the\ blue\ channel}}
+\DoxyCodeLine{00176\ \textcolor{comment}{\ \ \ *\ \ \ \ \ comes\ first\ in\ memory.\ \ The\ color\ channels\ are\ pre-\/multiplied\ and\ in}}
+\DoxyCodeLine{00177\ \textcolor{comment}{\ \ \ *\ \ \ \ \ the\ sRGB\ colorspace.\ \ For\ example,\ full\ red\ at\ half-\/translucent}}
+\DoxyCodeLine{00178\ \textcolor{comment}{\ \ \ *\ \ \ \ \ opacity\ will\ be\ represented\ as\ '00,00,80,80',\ not\ '00,00,FF,80'.}}
+\DoxyCodeLine{00179\ \textcolor{comment}{\ \ \ *\ \ \ \ \ See\ also\ @FT\_LOAD\_COLOR.}}
+\DoxyCodeLine{00180\ \textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{00181\ \ \ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \ FT\_Pixel\_Mode\_}
+\DoxyCodeLine{00182\ \ \ \{}
+\DoxyCodeLine{00183\ \ \ \ \ FT\_PIXEL\_MODE\_NONE\ =\ 0,}
+\DoxyCodeLine{00184\ \ \ \ \ FT\_PIXEL\_MODE\_MONO,}
+\DoxyCodeLine{00185\ \ \ \ \ FT\_PIXEL\_MODE\_GRAY,}
+\DoxyCodeLine{00186\ \ \ \ \ FT\_PIXEL\_MODE\_GRAY2,}
+\DoxyCodeLine{00187\ \ \ \ \ FT\_PIXEL\_MODE\_GRAY4,}
+\DoxyCodeLine{00188\ \ \ \ \ FT\_PIXEL\_MODE\_LCD,}
+\DoxyCodeLine{00189\ \ \ \ \ FT\_PIXEL\_MODE\_LCD\_V,}
+\DoxyCodeLine{00190\ \ \ \ \ FT\_PIXEL\_MODE\_BGRA,}
+\DoxyCodeLine{00191\ }
+\DoxyCodeLine{00192\ \ \ \ \ FT\_PIXEL\_MODE\_MAX\ \ \ \ \ \ \textcolor{comment}{/*\ do\ not\ remove\ */}}
+\DoxyCodeLine{00193\ }
+\DoxyCodeLine{00194\ \ \ \}\ FT\_Pixel\_Mode;}
+\DoxyCodeLine{00195\ }
+\DoxyCodeLine{00196\ }
+\DoxyCodeLine{00197\ \ \ \textcolor{comment}{/*\ these\ constants\ are\ deprecated;\ use\ the\ corresponding\ `FT\_Pixel\_Mode`\ */}}
+\DoxyCodeLine{00198\ \ \ \textcolor{comment}{/*\ values\ instead.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{00199\ \textcolor{preprocessor}{\#define\ ft\_pixel\_mode\_none\ \ \ FT\_PIXEL\_MODE\_NONE}}
+\DoxyCodeLine{00200\ \textcolor{preprocessor}{\#define\ ft\_pixel\_mode\_mono\ \ \ FT\_PIXEL\_MODE\_MONO}}
+\DoxyCodeLine{00201\ \textcolor{preprocessor}{\#define\ ft\_pixel\_mode\_grays\ \ FT\_PIXEL\_MODE\_GRAY}}
+\DoxyCodeLine{00202\ \textcolor{preprocessor}{\#define\ ft\_pixel\_mode\_pal2\ \ \ FT\_PIXEL\_MODE\_GRAY2}}
+\DoxyCodeLine{00203\ \textcolor{preprocessor}{\#define\ ft\_pixel\_mode\_pal4\ \ \ FT\_PIXEL\_MODE\_GRAY4}}
+\DoxyCodeLine{00204\ }
+\DoxyCodeLine{00205\ }
+\DoxyCodeLine{00206\ \textcolor{comment}{\ \ /**************************************************************************}}
+\DoxyCodeLine{00207\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00208\ \textcolor{comment}{\ \ \ *\ @struct:}}
+\DoxyCodeLine{00209\ \textcolor{comment}{\ \ \ *\ \ \ FT\_Bitmap}}
+\DoxyCodeLine{00210\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00211\ \textcolor{comment}{\ \ \ *\ @description:}}
+\DoxyCodeLine{00212\ \textcolor{comment}{\ \ \ *\ \ \ A\ structure\ used\ to\ describe\ a\ bitmap\ or\ pixmap\ to\ the\ raster.\ \ Note}}
+\DoxyCodeLine{00213\ \textcolor{comment}{\ \ \ *\ \ \ that\ we\ now\ manage\ pixmaps\ of\ various\ depths\ through\ the\ `pixel\_mode`}}
+\DoxyCodeLine{00214\ \textcolor{comment}{\ \ \ *\ \ \ field.}}
+\DoxyCodeLine{00215\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00216\ \textcolor{comment}{\ \ \ *\ @fields:}}
+\DoxyCodeLine{00217\ \textcolor{comment}{\ \ \ *\ \ \ rows\ ::}}
+\DoxyCodeLine{00218\ \textcolor{comment}{\ \ \ *\ \ \ \ \ The\ number\ of\ bitmap\ rows.}}
+\DoxyCodeLine{00219\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00220\ \textcolor{comment}{\ \ \ *\ \ \ width\ ::}}
+\DoxyCodeLine{00221\ \textcolor{comment}{\ \ \ *\ \ \ \ \ The\ number\ of\ pixels\ in\ bitmap\ row.}}
+\DoxyCodeLine{00222\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00223\ \textcolor{comment}{\ \ \ *\ \ \ pitch\ ::}}
+\DoxyCodeLine{00224\ \textcolor{comment}{\ \ \ *\ \ \ \ \ The\ pitch's\ absolute\ value\ is\ the\ number\ of\ bytes\ taken\ by\ one}}
+\DoxyCodeLine{00225\ \textcolor{comment}{\ \ \ *\ \ \ \ \ bitmap\ row,\ including\ padding.\ \ However,\ the\ pitch\ is\ positive\ when}}
+\DoxyCodeLine{00226\ \textcolor{comment}{\ \ \ *\ \ \ \ \ the\ bitmap\ has\ a\ 'down'\ flow,\ and\ negative\ when\ it\ has\ an\ 'up'\ flow.}}
+\DoxyCodeLine{00227\ \textcolor{comment}{\ \ \ *\ \ \ \ \ In\ all\ cases,\ the\ pitch\ is\ an\ offset\ to\ add\ to\ a\ bitmap\ pointer\ in}}
+\DoxyCodeLine{00228\ \textcolor{comment}{\ \ \ *\ \ \ \ \ order\ to\ go\ down\ one\ row.}}
+\DoxyCodeLine{00229\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00230\ \textcolor{comment}{\ \ \ *\ \ \ \ \ Note\ that\ 'padding'\ means\ the\ alignment\ of\ a\ bitmap\ to\ a\ byte}}
+\DoxyCodeLine{00231\ \textcolor{comment}{\ \ \ *\ \ \ \ \ border,\ and\ FreeType\ functions\ normally\ align\ to\ the\ smallest}}
+\DoxyCodeLine{00232\ \textcolor{comment}{\ \ \ *\ \ \ \ \ possible\ integer\ value.}}
+\DoxyCodeLine{00233\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00234\ \textcolor{comment}{\ \ \ *\ \ \ \ \ For\ the\ B/W\ rasterizer,\ `pitch`\ is\ always\ an\ even\ number.}}
+\DoxyCodeLine{00235\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00236\ \textcolor{comment}{\ \ \ *\ \ \ \ \ To\ change\ the\ pitch\ of\ a\ bitmap\ (say,\ to\ make\ it\ a\ multiple\ of\ 4),}}
+\DoxyCodeLine{00237\ \textcolor{comment}{\ \ \ *\ \ \ \ \ use\ @FT\_Bitmap\_Convert.\ \ Alternatively,\ you\ might\ use\ callback}}
+\DoxyCodeLine{00238\ \textcolor{comment}{\ \ \ *\ \ \ \ \ functions\ to\ directly\ render\ to\ the\ application's\ surface;\ see\ the}}
+\DoxyCodeLine{00239\ \textcolor{comment}{\ \ \ *\ \ \ \ \ file\ `example2.cpp`\ in\ the\ tutorial\ for\ a\ demonstration.}}
+\DoxyCodeLine{00240\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00241\ \textcolor{comment}{\ \ \ *\ \ \ buffer\ ::}}
+\DoxyCodeLine{00242\ \textcolor{comment}{\ \ \ *\ \ \ \ \ A\ typeless\ pointer\ to\ the\ bitmap\ buffer.\ \ This\ value\ should\ be}}
+\DoxyCodeLine{00243\ \textcolor{comment}{\ \ \ *\ \ \ \ \ aligned\ on\ 32-\/bit\ boundaries\ in\ most\ cases.}}
+\DoxyCodeLine{00244\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00245\ \textcolor{comment}{\ \ \ *\ \ \ num\_grays\ ::}}
+\DoxyCodeLine{00246\ \textcolor{comment}{\ \ \ *\ \ \ \ \ This\ field\ is\ only\ used\ with\ @FT\_PIXEL\_MODE\_GRAY;\ it\ gives\ the}}
+\DoxyCodeLine{00247\ \textcolor{comment}{\ \ \ *\ \ \ \ \ number\ of\ gray\ levels\ used\ in\ the\ bitmap.}}
+\DoxyCodeLine{00248\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00249\ \textcolor{comment}{\ \ \ *\ \ \ pixel\_mode\ ::}}
+\DoxyCodeLine{00250\ \textcolor{comment}{\ \ \ *\ \ \ \ \ The\ pixel\ mode,\ i.e.,\ how\ pixel\ bits\ are\ stored.\ \ See\ @FT\_Pixel\_Mode}}
+\DoxyCodeLine{00251\ \textcolor{comment}{\ \ \ *\ \ \ \ \ for\ possible\ values.}}
+\DoxyCodeLine{00252\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00253\ \textcolor{comment}{\ \ \ *\ \ \ palette\_mode\ ::}}
+\DoxyCodeLine{00254\ \textcolor{comment}{\ \ \ *\ \ \ \ \ This\ field\ is\ intended\ for\ paletted\ pixel\ modes;\ it\ indicates\ how}}
+\DoxyCodeLine{00255\ \textcolor{comment}{\ \ \ *\ \ \ \ \ the\ palette\ is\ stored.\ \ Not\ used\ currently.}}
+\DoxyCodeLine{00256\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00257\ \textcolor{comment}{\ \ \ *\ \ \ palette\ ::}}
+\DoxyCodeLine{00258\ \textcolor{comment}{\ \ \ *\ \ \ \ \ A\ typeless\ pointer\ to\ the\ bitmap\ palette;\ this\ field\ is\ intended\ for}}
+\DoxyCodeLine{00259\ \textcolor{comment}{\ \ \ *\ \ \ \ \ paletted\ pixel\ modes.\ \ Not\ used\ currently.}}
+\DoxyCodeLine{00260\ \textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{00261\ \ \ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ \ }\mbox{\hyperlink{structFT__Bitmap__}{FT\_Bitmap\_}}}
+\DoxyCodeLine{00262\ \ \ \{}
+\DoxyCodeLine{00263\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \ \ \ rows;}
+\DoxyCodeLine{00264\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \ \ \ width;}
+\DoxyCodeLine{00265\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ pitch;}
+\DoxyCodeLine{00266\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*\ \ buffer;}
+\DoxyCodeLine{00267\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ \ num\_grays;}
+\DoxyCodeLine{00268\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ \ \ pixel\_mode;}
+\DoxyCodeLine{00269\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ \ \ palette\_mode;}
+\DoxyCodeLine{00270\ \ \ \ \ \textcolor{keywordtype}{void}*\ \ \ \ \ \ \ \ \ \ \ palette;}
+\DoxyCodeLine{00271\ }
+\DoxyCodeLine{00272\ \ \ \}\ \mbox{\hyperlink{structFT__Bitmap__}{FT\_Bitmap}};}
+\DoxyCodeLine{00273\ }
+\DoxyCodeLine{00274\ }
+\DoxyCodeLine{00275\ \textcolor{comment}{\ \ /**************************************************************************}}
+\DoxyCodeLine{00276\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00277\ \textcolor{comment}{\ \ \ *\ @section:}}
+\DoxyCodeLine{00278\ \textcolor{comment}{\ \ \ *\ \ \ outline\_processing}}
+\DoxyCodeLine{00279\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00280\ \textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{00281\ }
+\DoxyCodeLine{00282\ }
+\DoxyCodeLine{00283\ \textcolor{comment}{\ \ /**************************************************************************}}
+\DoxyCodeLine{00284\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00285\ \textcolor{comment}{\ \ \ *\ @struct:}}
+\DoxyCodeLine{00286\ \textcolor{comment}{\ \ \ *\ \ \ FT\_Outline}}
+\DoxyCodeLine{00287\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00288\ \textcolor{comment}{\ \ \ *\ @description:}}
+\DoxyCodeLine{00289\ \textcolor{comment}{\ \ \ *\ \ \ This\ structure\ is\ used\ to\ describe\ an\ outline\ to\ the\ scan-\/line}}
+\DoxyCodeLine{00290\ \textcolor{comment}{\ \ \ *\ \ \ converter.}}
+\DoxyCodeLine{00291\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00292\ \textcolor{comment}{\ \ \ *\ @fields:}}
+\DoxyCodeLine{00293\ \textcolor{comment}{\ \ \ *\ \ \ n\_contours\ ::}}
+\DoxyCodeLine{00294\ \textcolor{comment}{\ \ \ *\ \ \ \ \ The\ number\ of\ contours\ in\ the\ outline.}}
+\DoxyCodeLine{00295\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00296\ \textcolor{comment}{\ \ \ *\ \ \ n\_points\ ::}}
+\DoxyCodeLine{00297\ \textcolor{comment}{\ \ \ *\ \ \ \ \ The\ number\ of\ points\ in\ the\ outline.}}
+\DoxyCodeLine{00298\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00299\ \textcolor{comment}{\ \ \ *\ \ \ points\ ::}}
+\DoxyCodeLine{00300\ \textcolor{comment}{\ \ \ *\ \ \ \ \ A\ pointer\ to\ an\ array\ of\ `n\_points`\ @FT\_Vector\ elements,\ giving\ the}}
+\DoxyCodeLine{00301\ \textcolor{comment}{\ \ \ *\ \ \ \ \ outline's\ point\ coordinates.}}
+\DoxyCodeLine{00302\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00303\ \textcolor{comment}{\ \ \ *\ \ \ tags\ ::}}
+\DoxyCodeLine{00304\ \textcolor{comment}{\ \ \ *\ \ \ \ \ A\ pointer\ to\ an\ array\ of\ `n\_points`\ chars,\ giving\ each\ outline}}
+\DoxyCodeLine{00305\ \textcolor{comment}{\ \ \ *\ \ \ \ \ point's\ type.}}
+\DoxyCodeLine{00306\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00307\ \textcolor{comment}{\ \ \ *\ \ \ \ \ If\ bit\string~0\ is\ unset,\ the\ point\ is\ 'off'\ the\ curve,\ i.e.,\ a\ Bezier}}
+\DoxyCodeLine{00308\ \textcolor{comment}{\ \ \ *\ \ \ \ \ control\ point,\ while\ it\ is\ 'on'\ if\ set.}}
+\DoxyCodeLine{00309\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00310\ \textcolor{comment}{\ \ \ *\ \ \ \ \ Bit\string~1\ is\ meaningful\ for\ 'off'\ points\ only.\ \ If\ set,\ it\ indicates\ a}}
+\DoxyCodeLine{00311\ \textcolor{comment}{\ \ \ *\ \ \ \ \ third-\/order\ Bezier\ arc\ control\ point;\ and\ a\ second-\/order\ control}}
+\DoxyCodeLine{00312\ \textcolor{comment}{\ \ \ *\ \ \ \ \ point\ if\ unset.}}
+\DoxyCodeLine{00313\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00314\ \textcolor{comment}{\ \ \ *\ \ \ \ \ If\ bit\string~2\ is\ set,\ bits\ 5-\/7\ contain\ the\ drop-\/out\ mode\ (as\ defined\ in}}
+\DoxyCodeLine{00315\ \textcolor{comment}{\ \ \ *\ \ \ \ \ the\ OpenType\ specification;\ the\ value\ is\ the\ same\ as\ the\ argument\ to}}
+\DoxyCodeLine{00316\ \textcolor{comment}{\ \ \ *\ \ \ \ \ the\ 'SCANMODE'\ instruction).}}
+\DoxyCodeLine{00317\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00318\ \textcolor{comment}{\ \ \ *\ \ \ \ \ Bits\ 3\ and\string~4\ are\ reserved\ for\ internal\ purposes.}}
+\DoxyCodeLine{00319\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00320\ \textcolor{comment}{\ \ \ *\ \ \ contours\ ::}}
+\DoxyCodeLine{00321\ \textcolor{comment}{\ \ \ *\ \ \ \ \ An\ array\ of\ `n\_contours`\ shorts,\ giving\ the\ end\ point\ of\ each}}
+\DoxyCodeLine{00322\ \textcolor{comment}{\ \ \ *\ \ \ \ \ contour\ within\ the\ outline.\ \ For\ example,\ the\ first\ contour\ is}}
+\DoxyCodeLine{00323\ \textcolor{comment}{\ \ \ *\ \ \ \ \ defined\ by\ the\ points\ '0'\ to\ `contours[0]`,\ the\ second\ one\ is}}
+\DoxyCodeLine{00324\ \textcolor{comment}{\ \ \ *\ \ \ \ \ defined\ by\ the\ points\ `contours[0]+1`\ to\ `contours[1]`,\ etc.}}
+\DoxyCodeLine{00325\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00326\ \textcolor{comment}{\ \ \ *\ \ \ flags\ ::}}
+\DoxyCodeLine{00327\ \textcolor{comment}{\ \ \ *\ \ \ \ \ A\ set\ of\ bit\ flags\ used\ to\ characterize\ the\ outline\ and\ give\ hints}}
+\DoxyCodeLine{00328\ \textcolor{comment}{\ \ \ *\ \ \ \ \ to\ the\ scan-\/converter\ and\ hinter\ on\ how\ to\ convert/grid-\/fit\ it.\ \ See}}
+\DoxyCodeLine{00329\ \textcolor{comment}{\ \ \ *\ \ \ \ \ @FT\_OUTLINE\_XXX.}}
+\DoxyCodeLine{00330\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00331\ \textcolor{comment}{\ \ \ *\ @note:}}
+\DoxyCodeLine{00332\ \textcolor{comment}{\ \ \ *\ \ \ The\ B/W\ rasterizer\ only\ checks\ bit\string~2\ in\ the\ `tags`\ array\ for\ the\ first}}
+\DoxyCodeLine{00333\ \textcolor{comment}{\ \ \ *\ \ \ point\ of\ each\ contour.\ \ The\ drop-\/out\ mode\ as\ given\ with}}
+\DoxyCodeLine{00334\ \textcolor{comment}{\ \ \ *\ \ \ @FT\_OUTLINE\_IGNORE\_DROPOUTS,\ @FT\_OUTLINE\_SMART\_DROPOUTS,\ and}}
+\DoxyCodeLine{00335\ \textcolor{comment}{\ \ \ *\ \ \ @FT\_OUTLINE\_INCLUDE\_STUBS\ in\ `flags`\ is\ then\ overridden.}}
+\DoxyCodeLine{00336\ \textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{00337\ \ \ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ \ }\mbox{\hyperlink{structFT__Outline__}{FT\_Outline\_}}}
+\DoxyCodeLine{00338\ \ \ \{}
+\DoxyCodeLine{00339\ \ \ \ \ \textcolor{keywordtype}{short}\ \ \ \ \ \ \ n\_contours;\ \ \ \ \ \ \textcolor{comment}{/*\ number\ of\ contours\ in\ glyph\ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{00340\ \ \ \ \ \textcolor{keywordtype}{short}\ \ \ \ \ \ \ n\_points;\ \ \ \ \ \ \ \ \textcolor{comment}{/*\ number\ of\ points\ in\ the\ glyph\ \ \ \ \ \ */}}
+\DoxyCodeLine{00341\ }
+\DoxyCodeLine{00342\ \ \ \ \ \mbox{\hyperlink{structFT__Vector__}{FT\_Vector}}*\ \ points;\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ the\ outline's\ points\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{00343\ \ \ \ \ \textcolor{keywordtype}{char}*\ \ \ \ \ \ \ tags;\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ the\ points\ flags\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{00344\ \ \ \ \ \textcolor{keywordtype}{short}*\ \ \ \ \ \ contours;\ \ \ \ \ \ \ \ \textcolor{comment}{/*\ the\ contour\ end\ points\ \ \ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{00345\ }
+\DoxyCodeLine{00346\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ flags;\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ outline\ masks\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{00347\ }
+\DoxyCodeLine{00348\ \ \ \}\ \mbox{\hyperlink{structFT__Outline__}{FT\_Outline}};}
+\DoxyCodeLine{00349\ }
+\DoxyCodeLine{00350\ \ \ \textcolor{comment}{/*\ */}}
+\DoxyCodeLine{00351\ }
+\DoxyCodeLine{00352\ \ \ \textcolor{comment}{/*\ Following\ limits\ must\ be\ consistent\ with\ */}}
+\DoxyCodeLine{00353\ \ \ \textcolor{comment}{/*\ FT\_Outline.\{n\_contours,n\_points\}\ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{00354\ \textcolor{preprocessor}{\#define\ FT\_OUTLINE\_CONTOURS\_MAX\ \ SHRT\_MAX}}
+\DoxyCodeLine{00355\ \textcolor{preprocessor}{\#define\ FT\_OUTLINE\_POINTS\_MAX\ \ \ \ SHRT\_MAX}}
+\DoxyCodeLine{00356\ }
+\DoxyCodeLine{00357\ }
+\DoxyCodeLine{00358\ \textcolor{comment}{\ \ /**************************************************************************}}
+\DoxyCodeLine{00359\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00360\ \textcolor{comment}{\ \ \ *\ @enum:}}
+\DoxyCodeLine{00361\ \textcolor{comment}{\ \ \ *\ \ \ FT\_OUTLINE\_XXX}}
+\DoxyCodeLine{00362\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00363\ \textcolor{comment}{\ \ \ *\ @description:}}
+\DoxyCodeLine{00364\ \textcolor{comment}{\ \ \ *\ \ \ A\ list\ of\ bit-\/field\ constants\ used\ for\ the\ flags\ in\ an\ outline's}}
+\DoxyCodeLine{00365\ \textcolor{comment}{\ \ \ *\ \ \ `flags`\ field.}}
+\DoxyCodeLine{00366\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00367\ \textcolor{comment}{\ \ \ *\ @values:}}
+\DoxyCodeLine{00368\ \textcolor{comment}{\ \ \ *\ \ \ FT\_OUTLINE\_NONE\ ::}}
+\DoxyCodeLine{00369\ \textcolor{comment}{\ \ \ *\ \ \ \ \ Value\string~0\ is\ reserved.}}
+\DoxyCodeLine{00370\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00371\ \textcolor{comment}{\ \ \ *\ \ \ FT\_OUTLINE\_OWNER\ ::}}
+\DoxyCodeLine{00372\ \textcolor{comment}{\ \ \ *\ \ \ \ \ If\ set,\ this\ flag\ indicates\ that\ the\ outline's\ field\ arrays\ (i.e.,}}
+\DoxyCodeLine{00373\ \textcolor{comment}{\ \ \ *\ \ \ \ \ `points`,\ `flags`,\ and\ `contours`)\ are\ 'owned'\ by\ the\ outline}}
+\DoxyCodeLine{00374\ \textcolor{comment}{\ \ \ *\ \ \ \ \ object,\ and\ should\ thus\ be\ freed\ when\ it\ is\ destroyed.}}
+\DoxyCodeLine{00375\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00376\ \textcolor{comment}{\ \ \ *\ \ \ FT\_OUTLINE\_EVEN\_ODD\_FILL\ ::}}
+\DoxyCodeLine{00377\ \textcolor{comment}{\ \ \ *\ \ \ \ \ By\ default,\ outlines\ are\ filled\ using\ the\ non-\/zero\ winding\ rule.\ \ If}}
+\DoxyCodeLine{00378\ \textcolor{comment}{\ \ \ *\ \ \ \ \ set\ to\ 1,\ the\ outline\ will\ be\ filled\ using\ the\ even-\/odd\ fill\ rule}}
+\DoxyCodeLine{00379\ \textcolor{comment}{\ \ \ *\ \ \ \ \ (only\ works\ with\ the\ smooth\ rasterizer).}}
+\DoxyCodeLine{00380\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00381\ \textcolor{comment}{\ \ \ *\ \ \ FT\_OUTLINE\_REVERSE\_FILL\ ::}}
+\DoxyCodeLine{00382\ \textcolor{comment}{\ \ \ *\ \ \ \ \ By\ default,\ outside\ contours\ of\ an\ outline\ are\ oriented\ in}}
+\DoxyCodeLine{00383\ \textcolor{comment}{\ \ \ *\ \ \ \ \ clock-\/wise\ direction,\ as\ defined\ in\ the\ TrueType\ specification.}}
+\DoxyCodeLine{00384\ \textcolor{comment}{\ \ \ *\ \ \ \ \ This\ flag\ is\ set\ if\ the\ outline\ uses\ the\ opposite\ direction}}
+\DoxyCodeLine{00385\ \textcolor{comment}{\ \ \ *\ \ \ \ \ (typically\ for\ Type\string~1\ fonts).\ \ This\ flag\ is\ ignored\ by\ the\ scan}}
+\DoxyCodeLine{00386\ \textcolor{comment}{\ \ \ *\ \ \ \ \ converter.}}
+\DoxyCodeLine{00387\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00388\ \textcolor{comment}{\ \ \ *\ \ \ FT\_OUTLINE\_IGNORE\_DROPOUTS\ ::}}
+\DoxyCodeLine{00389\ \textcolor{comment}{\ \ \ *\ \ \ \ \ By\ default,\ the\ scan\ converter\ will\ try\ to\ detect\ drop-\/outs\ in\ an}}
+\DoxyCodeLine{00390\ \textcolor{comment}{\ \ \ *\ \ \ \ \ outline\ and\ correct\ the\ glyph\ bitmap\ to\ ensure\ consistent\ shape}}
+\DoxyCodeLine{00391\ \textcolor{comment}{\ \ \ *\ \ \ \ \ continuity.\ \ If\ set,\ this\ flag\ hints\ the\ scan-\/line\ converter\ to}}
+\DoxyCodeLine{00392\ \textcolor{comment}{\ \ \ *\ \ \ \ \ ignore\ such\ cases.\ \ See\ below\ for\ more\ information.}}
+\DoxyCodeLine{00393\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00394\ \textcolor{comment}{\ \ \ *\ \ \ FT\_OUTLINE\_SMART\_DROPOUTS\ ::}}
+\DoxyCodeLine{00395\ \textcolor{comment}{\ \ \ *\ \ \ \ \ Select\ smart\ dropout\ control.\ \ If\ unset,\ use\ simple\ dropout\ control.}}
+\DoxyCodeLine{00396\ \textcolor{comment}{\ \ \ *\ \ \ \ \ Ignored\ if\ @FT\_OUTLINE\_IGNORE\_DROPOUTS\ is\ set.\ \ See\ below\ for\ more}}
+\DoxyCodeLine{00397\ \textcolor{comment}{\ \ \ *\ \ \ \ \ information.}}
+\DoxyCodeLine{00398\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00399\ \textcolor{comment}{\ \ \ *\ \ \ FT\_OUTLINE\_INCLUDE\_STUBS\ ::}}
+\DoxyCodeLine{00400\ \textcolor{comment}{\ \ \ *\ \ \ \ \ If\ set,\ turn\ pixels\ on\ for\ 'stubs',\ otherwise\ exclude\ them.\ \ Ignored}}
+\DoxyCodeLine{00401\ \textcolor{comment}{\ \ \ *\ \ \ \ \ if\ @FT\_OUTLINE\_IGNORE\_DROPOUTS\ is\ set.\ \ See\ below\ for\ more}}
+\DoxyCodeLine{00402\ \textcolor{comment}{\ \ \ *\ \ \ \ \ information.}}
+\DoxyCodeLine{00403\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00404\ \textcolor{comment}{\ \ \ *\ \ \ FT\_OUTLINE\_HIGH\_PRECISION\ ::}}
+\DoxyCodeLine{00405\ \textcolor{comment}{\ \ \ *\ \ \ \ \ This\ flag\ indicates\ that\ the\ scan-\/line\ converter\ should\ try\ to}}
+\DoxyCodeLine{00406\ \textcolor{comment}{\ \ \ *\ \ \ \ \ convert\ this\ outline\ to\ bitmaps\ with\ the\ highest\ possible\ quality.}}
+\DoxyCodeLine{00407\ \textcolor{comment}{\ \ \ *\ \ \ \ \ It\ is\ typically\ set\ for\ small\ character\ sizes.\ \ Note\ that\ this\ is}}
+\DoxyCodeLine{00408\ \textcolor{comment}{\ \ \ *\ \ \ \ \ only\ a\ hint\ that\ might\ be\ completely\ ignored\ by\ a\ given}}
+\DoxyCodeLine{00409\ \textcolor{comment}{\ \ \ *\ \ \ \ \ scan-\/converter.}}
+\DoxyCodeLine{00410\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00411\ \textcolor{comment}{\ \ \ *\ \ \ FT\_OUTLINE\_SINGLE\_PASS\ ::}}
+\DoxyCodeLine{00412\ \textcolor{comment}{\ \ \ *\ \ \ \ \ This\ flag\ is\ set\ to\ force\ a\ given\ scan-\/converter\ to\ only\ use\ a}}
+\DoxyCodeLine{00413\ \textcolor{comment}{\ \ \ *\ \ \ \ \ single\ pass\ over\ the\ outline\ to\ render\ a\ bitmap\ glyph\ image.}}
+\DoxyCodeLine{00414\ \textcolor{comment}{\ \ \ *\ \ \ \ \ Normally,\ it\ is\ set\ for\ very\ large\ character\ sizes.\ \ It\ is\ only\ a}}
+\DoxyCodeLine{00415\ \textcolor{comment}{\ \ \ *\ \ \ \ \ hint\ that\ might\ be\ completely\ ignored\ by\ a\ given\ scan-\/converter.}}
+\DoxyCodeLine{00416\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00417\ \textcolor{comment}{\ \ \ *\ @note:}}
+\DoxyCodeLine{00418\ \textcolor{comment}{\ \ \ *\ \ \ The\ flags\ @FT\_OUTLINE\_IGNORE\_DROPOUTS,\ @FT\_OUTLINE\_SMART\_DROPOUTS,\ and}}
+\DoxyCodeLine{00419\ \textcolor{comment}{\ \ \ *\ \ \ @FT\_OUTLINE\_INCLUDE\_STUBS\ are\ ignored\ by\ the\ smooth\ rasterizer.}}
+\DoxyCodeLine{00420\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00421\ \textcolor{comment}{\ \ \ *\ \ \ There\ exists\ a\ second\ mechanism\ to\ pass\ the\ drop-\/out\ mode\ to\ the\ B/W}}
+\DoxyCodeLine{00422\ \textcolor{comment}{\ \ \ *\ \ \ rasterizer;\ see\ the\ `tags`\ field\ in\ @FT\_Outline.}}
+\DoxyCodeLine{00423\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00424\ \textcolor{comment}{\ \ \ *\ \ \ Please\ refer\ to\ the\ description\ of\ the\ 'SCANTYPE'\ instruction\ in\ the}}
+\DoxyCodeLine{00425\ \textcolor{comment}{\ \ \ *\ \ \ OpenType\ specification\ (in\ file\ `ttinst1.doc`)\ how\ simple\ drop-\/outs,}}
+\DoxyCodeLine{00426\ \textcolor{comment}{\ \ \ *\ \ \ smart\ drop-\/outs,\ and\ stubs\ are\ defined.}}
+\DoxyCodeLine{00427\ \textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{00428\ \textcolor{preprocessor}{\#define\ FT\_OUTLINE\_NONE\ \ \ \ \ \ \ \ \ \ \ \ \ 0x0}}
+\DoxyCodeLine{00429\ \textcolor{preprocessor}{\#define\ FT\_OUTLINE\_OWNER\ \ \ \ \ \ \ \ \ \ \ \ 0x1}}
+\DoxyCodeLine{00430\ \textcolor{preprocessor}{\#define\ FT\_OUTLINE\_EVEN\_ODD\_FILL\ \ \ \ 0x2}}
+\DoxyCodeLine{00431\ \textcolor{preprocessor}{\#define\ FT\_OUTLINE\_REVERSE\_FILL\ \ \ \ \ 0x4}}
+\DoxyCodeLine{00432\ \textcolor{preprocessor}{\#define\ FT\_OUTLINE\_IGNORE\_DROPOUTS\ \ 0x8}}
+\DoxyCodeLine{00433\ \textcolor{preprocessor}{\#define\ FT\_OUTLINE\_SMART\_DROPOUTS\ \ \ 0x10}}
+\DoxyCodeLine{00434\ \textcolor{preprocessor}{\#define\ FT\_OUTLINE\_INCLUDE\_STUBS\ \ \ \ 0x20}}
+\DoxyCodeLine{00435\ }
+\DoxyCodeLine{00436\ \textcolor{preprocessor}{\#define\ FT\_OUTLINE\_HIGH\_PRECISION\ \ \ 0x100}}
+\DoxyCodeLine{00437\ \textcolor{preprocessor}{\#define\ FT\_OUTLINE\_SINGLE\_PASS\ \ \ \ \ \ 0x200}}
+\DoxyCodeLine{00438\ }
+\DoxyCodeLine{00439\ }
+\DoxyCodeLine{00440\ \ \ \textcolor{comment}{/*\ these\ constants\ are\ deprecated;\ use\ the\ corresponding\ */}}
+\DoxyCodeLine{00441\ \ \ \textcolor{comment}{/*\ `FT\_OUTLINE\_XXX`\ values\ instead\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{00442\ \textcolor{preprocessor}{\#define\ ft\_outline\_none\ \ \ \ \ \ \ \ \ \ \ \ \ FT\_OUTLINE\_NONE}}
+\DoxyCodeLine{00443\ \textcolor{preprocessor}{\#define\ ft\_outline\_owner\ \ \ \ \ \ \ \ \ \ \ \ FT\_OUTLINE\_OWNER}}
+\DoxyCodeLine{00444\ \textcolor{preprocessor}{\#define\ ft\_outline\_even\_odd\_fill\ \ \ \ FT\_OUTLINE\_EVEN\_ODD\_FILL}}
+\DoxyCodeLine{00445\ \textcolor{preprocessor}{\#define\ ft\_outline\_reverse\_fill\ \ \ \ \ FT\_OUTLINE\_REVERSE\_FILL}}
+\DoxyCodeLine{00446\ \textcolor{preprocessor}{\#define\ ft\_outline\_ignore\_dropouts\ \ FT\_OUTLINE\_IGNORE\_DROPOUTS}}
+\DoxyCodeLine{00447\ \textcolor{preprocessor}{\#define\ ft\_outline\_high\_precision\ \ \ FT\_OUTLINE\_HIGH\_PRECISION}}
+\DoxyCodeLine{00448\ \textcolor{preprocessor}{\#define\ ft\_outline\_single\_pass\ \ \ \ \ \ FT\_OUTLINE\_SINGLE\_PASS}}
+\DoxyCodeLine{00449\ }
+\DoxyCodeLine{00450\ \ \ \textcolor{comment}{/*\ */}}
+\DoxyCodeLine{00451\ }
+\DoxyCodeLine{00452\ \textcolor{preprocessor}{\#define\ FT\_CURVE\_TAG(\ flag\ )\ \ (\ flag\ \&\ 0x03\ )}}
+\DoxyCodeLine{00453\ }
+\DoxyCodeLine{00454\ \ \ \textcolor{comment}{/*\ see\ the\ `tags`\ field\ in\ `FT\_Outline`\ for\ a\ description\ of\ the\ values\ */}}
+\DoxyCodeLine{00455\ \textcolor{preprocessor}{\#define\ FT\_CURVE\_TAG\_ON\ \ \ \ \ \ \ \ \ \ \ \ 0x01}}
+\DoxyCodeLine{00456\ \textcolor{preprocessor}{\#define\ FT\_CURVE\_TAG\_CONIC\ \ \ \ \ \ \ \ \ 0x00}}
+\DoxyCodeLine{00457\ \textcolor{preprocessor}{\#define\ FT\_CURVE\_TAG\_CUBIC\ \ \ \ \ \ \ \ \ 0x02}}
+\DoxyCodeLine{00458\ }
+\DoxyCodeLine{00459\ \textcolor{preprocessor}{\#define\ FT\_CURVE\_TAG\_HAS\_SCANMODE\ \ 0x04}}
+\DoxyCodeLine{00460\ }
+\DoxyCodeLine{00461\ \textcolor{preprocessor}{\#define\ FT\_CURVE\_TAG\_TOUCH\_X\ \ \ \ \ \ \ 0x08\ \ }\textcolor{comment}{/*\ reserved\ for\ TrueType\ hinter\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00462\ \textcolor{preprocessor}{\#define\ FT\_CURVE\_TAG\_TOUCH\_Y\ \ \ \ \ \ \ 0x10\ \ }\textcolor{comment}{/*\ reserved\ for\ TrueType\ hinter\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00463\ }
+\DoxyCodeLine{00464\ \textcolor{preprocessor}{\#define\ FT\_CURVE\_TAG\_TOUCH\_BOTH\ \ \ \ (\ FT\_CURVE\_TAG\_TOUCH\_X\ |\ \(\backslash\)}}
+\DoxyCodeLine{00465\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FT\_CURVE\_TAG\_TOUCH\_Y\ )}}
+\DoxyCodeLine{00466\ \ \ \textcolor{comment}{/*\ values\ 0x20,\ 0x40,\ and\ 0x80\ are\ reserved\ */}}
+\DoxyCodeLine{00467\ }
+\DoxyCodeLine{00468\ }
+\DoxyCodeLine{00469\ \ \ \textcolor{comment}{/*\ these\ constants\ are\ deprecated;\ use\ the\ corresponding\ */}}
+\DoxyCodeLine{00470\ \ \ \textcolor{comment}{/*\ `FT\_CURVE\_TAG\_XXX`\ values\ instead\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{00471\ \textcolor{preprocessor}{\#define\ FT\_Curve\_Tag\_On\ \ \ \ \ \ \ FT\_CURVE\_TAG\_ON}}
+\DoxyCodeLine{00472\ \textcolor{preprocessor}{\#define\ FT\_Curve\_Tag\_Conic\ \ \ \ FT\_CURVE\_TAG\_CONIC}}
+\DoxyCodeLine{00473\ \textcolor{preprocessor}{\#define\ FT\_Curve\_Tag\_Cubic\ \ \ \ FT\_CURVE\_TAG\_CUBIC}}
+\DoxyCodeLine{00474\ \textcolor{preprocessor}{\#define\ FT\_Curve\_Tag\_Touch\_X\ \ FT\_CURVE\_TAG\_TOUCH\_X}}
+\DoxyCodeLine{00475\ \textcolor{preprocessor}{\#define\ FT\_Curve\_Tag\_Touch\_Y\ \ FT\_CURVE\_TAG\_TOUCH\_Y}}
+\DoxyCodeLine{00476\ }
+\DoxyCodeLine{00477\ }
+\DoxyCodeLine{00478\ \textcolor{comment}{\ \ /**************************************************************************}}
+\DoxyCodeLine{00479\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00480\ \textcolor{comment}{\ \ \ *\ @functype:}}
+\DoxyCodeLine{00481\ \textcolor{comment}{\ \ \ *\ \ \ FT\_Outline\_MoveToFunc}}
+\DoxyCodeLine{00482\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00483\ \textcolor{comment}{\ \ \ *\ @description:}}
+\DoxyCodeLine{00484\ \textcolor{comment}{\ \ \ *\ \ \ A\ function\ pointer\ type\ used\ to\ describe\ the\ signature\ of\ a\ 'move\ to'}}
+\DoxyCodeLine{00485\ \textcolor{comment}{\ \ \ *\ \ \ function\ during\ outline\ walking/decomposition.}}
+\DoxyCodeLine{00486\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00487\ \textcolor{comment}{\ \ \ *\ \ \ A\ 'move\ to'\ is\ emitted\ to\ start\ a\ new\ contour\ in\ an\ outline.}}
+\DoxyCodeLine{00488\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00489\ \textcolor{comment}{\ \ \ *\ @input:}}
+\DoxyCodeLine{00490\ \textcolor{comment}{\ \ \ *\ \ \ to\ ::}}
+\DoxyCodeLine{00491\ \textcolor{comment}{\ \ \ *\ \ \ \ \ A\ pointer\ to\ the\ target\ point\ of\ the\ 'move\ to'.}}
+\DoxyCodeLine{00492\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00493\ \textcolor{comment}{\ \ \ *\ \ \ user\ ::}}
+\DoxyCodeLine{00494\ \textcolor{comment}{\ \ \ *\ \ \ \ \ A\ typeless\ pointer,\ which\ is\ passed\ from\ the\ caller\ of\ the}}
+\DoxyCodeLine{00495\ \textcolor{comment}{\ \ \ *\ \ \ \ \ decomposition\ function.}}
+\DoxyCodeLine{00496\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00497\ \textcolor{comment}{\ \ \ *\ @return:}}
+\DoxyCodeLine{00498\ \textcolor{comment}{\ \ \ *\ \ \ Error\ code.\ \ 0\string~means\ success.}}
+\DoxyCodeLine{00499\ \textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{00500\ \ \ \textcolor{keyword}{typedef}\ int}
+\DoxyCodeLine{00501\ \ \ (*FT\_Outline\_MoveToFunc)(\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structFT__Vector__}{FT\_Vector}}*\ \ to,}
+\DoxyCodeLine{00502\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}*\ \ \ \ \ \ \ \ \ \ \ \ \ user\ );}
+\DoxyCodeLine{00503\ }
+\DoxyCodeLine{00504\ \textcolor{preprocessor}{\#define\ FT\_Outline\_MoveTo\_Func\ \ FT\_Outline\_MoveToFunc}}
+\DoxyCodeLine{00505\ }
+\DoxyCodeLine{00506\ }
+\DoxyCodeLine{00507\ \textcolor{comment}{\ \ /**************************************************************************}}
+\DoxyCodeLine{00508\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00509\ \textcolor{comment}{\ \ \ *\ @functype:}}
+\DoxyCodeLine{00510\ \textcolor{comment}{\ \ \ *\ \ \ FT\_Outline\_LineToFunc}}
+\DoxyCodeLine{00511\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00512\ \textcolor{comment}{\ \ \ *\ @description:}}
+\DoxyCodeLine{00513\ \textcolor{comment}{\ \ \ *\ \ \ A\ function\ pointer\ type\ used\ to\ describe\ the\ signature\ of\ a\ 'line\ to'}}
+\DoxyCodeLine{00514\ \textcolor{comment}{\ \ \ *\ \ \ function\ during\ outline\ walking/decomposition.}}
+\DoxyCodeLine{00515\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00516\ \textcolor{comment}{\ \ \ *\ \ \ A\ 'line\ to'\ is\ emitted\ to\ indicate\ a\ segment\ in\ the\ outline.}}
+\DoxyCodeLine{00517\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00518\ \textcolor{comment}{\ \ \ *\ @input:}}
+\DoxyCodeLine{00519\ \textcolor{comment}{\ \ \ *\ \ \ to\ ::}}
+\DoxyCodeLine{00520\ \textcolor{comment}{\ \ \ *\ \ \ \ \ A\ pointer\ to\ the\ target\ point\ of\ the\ 'line\ to'.}}
+\DoxyCodeLine{00521\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00522\ \textcolor{comment}{\ \ \ *\ \ \ user\ ::}}
+\DoxyCodeLine{00523\ \textcolor{comment}{\ \ \ *\ \ \ \ \ A\ typeless\ pointer,\ which\ is\ passed\ from\ the\ caller\ of\ the}}
+\DoxyCodeLine{00524\ \textcolor{comment}{\ \ \ *\ \ \ \ \ decomposition\ function.}}
+\DoxyCodeLine{00525\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00526\ \textcolor{comment}{\ \ \ *\ @return:}}
+\DoxyCodeLine{00527\ \textcolor{comment}{\ \ \ *\ \ \ Error\ code.\ \ 0\string~means\ success.}}
+\DoxyCodeLine{00528\ \textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{00529\ \ \ \textcolor{keyword}{typedef}\ int}
+\DoxyCodeLine{00530\ \ \ (*FT\_Outline\_LineToFunc)(\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structFT__Vector__}{FT\_Vector}}*\ \ to,}
+\DoxyCodeLine{00531\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}*\ \ \ \ \ \ \ \ \ \ \ \ \ user\ );}
+\DoxyCodeLine{00532\ }
+\DoxyCodeLine{00533\ \textcolor{preprocessor}{\#define\ FT\_Outline\_LineTo\_Func\ \ FT\_Outline\_LineToFunc}}
+\DoxyCodeLine{00534\ }
+\DoxyCodeLine{00535\ }
+\DoxyCodeLine{00536\ \textcolor{comment}{\ \ /**************************************************************************}}
+\DoxyCodeLine{00537\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00538\ \textcolor{comment}{\ \ \ *\ @functype:}}
+\DoxyCodeLine{00539\ \textcolor{comment}{\ \ \ *\ \ \ FT\_Outline\_ConicToFunc}}
+\DoxyCodeLine{00540\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00541\ \textcolor{comment}{\ \ \ *\ @description:}}
+\DoxyCodeLine{00542\ \textcolor{comment}{\ \ \ *\ \ \ A\ function\ pointer\ type\ used\ to\ describe\ the\ signature\ of\ a\ 'conic\ to'}}
+\DoxyCodeLine{00543\ \textcolor{comment}{\ \ \ *\ \ \ function\ during\ outline\ walking\ or\ decomposition.}}
+\DoxyCodeLine{00544\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00545\ \textcolor{comment}{\ \ \ *\ \ \ A\ 'conic\ to'\ is\ emitted\ to\ indicate\ a\ second-\/order\ Bezier\ arc\ in\ the}}
+\DoxyCodeLine{00546\ \textcolor{comment}{\ \ \ *\ \ \ outline.}}
+\DoxyCodeLine{00547\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00548\ \textcolor{comment}{\ \ \ *\ @input:}}
+\DoxyCodeLine{00549\ \textcolor{comment}{\ \ \ *\ \ \ control\ ::}}
+\DoxyCodeLine{00550\ \textcolor{comment}{\ \ \ *\ \ \ \ \ An\ intermediate\ control\ point\ between\ the\ last\ position\ and\ the\ new}}
+\DoxyCodeLine{00551\ \textcolor{comment}{\ \ \ *\ \ \ \ \ target\ in\ `to`.}}
+\DoxyCodeLine{00552\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00553\ \textcolor{comment}{\ \ \ *\ \ \ to\ ::}}
+\DoxyCodeLine{00554\ \textcolor{comment}{\ \ \ *\ \ \ \ \ A\ pointer\ to\ the\ target\ end\ point\ of\ the\ conic\ arc.}}
+\DoxyCodeLine{00555\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00556\ \textcolor{comment}{\ \ \ *\ \ \ user\ ::}}
+\DoxyCodeLine{00557\ \textcolor{comment}{\ \ \ *\ \ \ \ \ A\ typeless\ pointer,\ which\ is\ passed\ from\ the\ caller\ of\ the}}
+\DoxyCodeLine{00558\ \textcolor{comment}{\ \ \ *\ \ \ \ \ decomposition\ function.}}
+\DoxyCodeLine{00559\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00560\ \textcolor{comment}{\ \ \ *\ @return:}}
+\DoxyCodeLine{00561\ \textcolor{comment}{\ \ \ *\ \ \ Error\ code.\ \ 0\string~means\ success.}}
+\DoxyCodeLine{00562\ \textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{00563\ \ \ \textcolor{keyword}{typedef}\ int}
+\DoxyCodeLine{00564\ \ \ (*FT\_Outline\_ConicToFunc)(\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structFT__Vector__}{FT\_Vector}}*\ \ control,}
+\DoxyCodeLine{00565\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structFT__Vector__}{FT\_Vector}}*\ \ to,}
+\DoxyCodeLine{00566\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}*\ \ \ \ \ \ \ \ \ \ \ \ \ user\ );}
+\DoxyCodeLine{00567\ }
+\DoxyCodeLine{00568\ \textcolor{preprocessor}{\#define\ FT\_Outline\_ConicTo\_Func\ \ FT\_Outline\_ConicToFunc}}
+\DoxyCodeLine{00569\ }
+\DoxyCodeLine{00570\ }
+\DoxyCodeLine{00571\ \textcolor{comment}{\ \ /**************************************************************************}}
+\DoxyCodeLine{00572\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00573\ \textcolor{comment}{\ \ \ *\ @functype:}}
+\DoxyCodeLine{00574\ \textcolor{comment}{\ \ \ *\ \ \ FT\_Outline\_CubicToFunc}}
+\DoxyCodeLine{00575\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00576\ \textcolor{comment}{\ \ \ *\ @description:}}
+\DoxyCodeLine{00577\ \textcolor{comment}{\ \ \ *\ \ \ A\ function\ pointer\ type\ used\ to\ describe\ the\ signature\ of\ a\ 'cubic\ to'}}
+\DoxyCodeLine{00578\ \textcolor{comment}{\ \ \ *\ \ \ function\ during\ outline\ walking\ or\ decomposition.}}
+\DoxyCodeLine{00579\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00580\ \textcolor{comment}{\ \ \ *\ \ \ A\ 'cubic\ to'\ is\ emitted\ to\ indicate\ a\ third-\/order\ Bezier\ arc.}}
+\DoxyCodeLine{00581\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00582\ \textcolor{comment}{\ \ \ *\ @input:}}
+\DoxyCodeLine{00583\ \textcolor{comment}{\ \ \ *\ \ \ control1\ ::}}
+\DoxyCodeLine{00584\ \textcolor{comment}{\ \ \ *\ \ \ \ \ A\ pointer\ to\ the\ first\ Bezier\ control\ point.}}
+\DoxyCodeLine{00585\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00586\ \textcolor{comment}{\ \ \ *\ \ \ control2\ ::}}
+\DoxyCodeLine{00587\ \textcolor{comment}{\ \ \ *\ \ \ \ \ A\ pointer\ to\ the\ second\ Bezier\ control\ point.}}
+\DoxyCodeLine{00588\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00589\ \textcolor{comment}{\ \ \ *\ \ \ to\ ::}}
+\DoxyCodeLine{00590\ \textcolor{comment}{\ \ \ *\ \ \ \ \ A\ pointer\ to\ the\ target\ end\ point.}}
+\DoxyCodeLine{00591\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00592\ \textcolor{comment}{\ \ \ *\ \ \ user\ ::}}
+\DoxyCodeLine{00593\ \textcolor{comment}{\ \ \ *\ \ \ \ \ A\ typeless\ pointer,\ which\ is\ passed\ from\ the\ caller\ of\ the}}
+\DoxyCodeLine{00594\ \textcolor{comment}{\ \ \ *\ \ \ \ \ decomposition\ function.}}
+\DoxyCodeLine{00595\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00596\ \textcolor{comment}{\ \ \ *\ @return:}}
+\DoxyCodeLine{00597\ \textcolor{comment}{\ \ \ *\ \ \ Error\ code.\ \ 0\string~means\ success.}}
+\DoxyCodeLine{00598\ \textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{00599\ \ \ \textcolor{keyword}{typedef}\ int}
+\DoxyCodeLine{00600\ \ \ (*FT\_Outline\_CubicToFunc)(\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structFT__Vector__}{FT\_Vector}}*\ \ control1,}
+\DoxyCodeLine{00601\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structFT__Vector__}{FT\_Vector}}*\ \ control2,}
+\DoxyCodeLine{00602\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structFT__Vector__}{FT\_Vector}}*\ \ to,}
+\DoxyCodeLine{00603\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}*\ \ \ \ \ \ \ \ \ \ \ \ \ user\ );}
+\DoxyCodeLine{00604\ }
+\DoxyCodeLine{00605\ \textcolor{preprocessor}{\#define\ FT\_Outline\_CubicTo\_Func\ \ FT\_Outline\_CubicToFunc}}
+\DoxyCodeLine{00606\ }
+\DoxyCodeLine{00607\ }
+\DoxyCodeLine{00608\ \textcolor{comment}{\ \ /**************************************************************************}}
+\DoxyCodeLine{00609\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00610\ \textcolor{comment}{\ \ \ *\ @struct:}}
+\DoxyCodeLine{00611\ \textcolor{comment}{\ \ \ *\ \ \ FT\_Outline\_Funcs}}
+\DoxyCodeLine{00612\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00613\ \textcolor{comment}{\ \ \ *\ @description:}}
+\DoxyCodeLine{00614\ \textcolor{comment}{\ \ \ *\ \ \ A\ structure\ to\ hold\ various\ function\ pointers\ used\ during\ outline}}
+\DoxyCodeLine{00615\ \textcolor{comment}{\ \ \ *\ \ \ decomposition\ in\ order\ to\ emit\ segments,\ conic,\ and\ cubic\ Beziers.}}
+\DoxyCodeLine{00616\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00617\ \textcolor{comment}{\ \ \ *\ @fields:}}
+\DoxyCodeLine{00618\ \textcolor{comment}{\ \ \ *\ \ \ move\_to\ ::}}
+\DoxyCodeLine{00619\ \textcolor{comment}{\ \ \ *\ \ \ \ \ The\ 'move\ to'\ emitter.}}
+\DoxyCodeLine{00620\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00621\ \textcolor{comment}{\ \ \ *\ \ \ line\_to\ ::}}
+\DoxyCodeLine{00622\ \textcolor{comment}{\ \ \ *\ \ \ \ \ The\ segment\ emitter.}}
+\DoxyCodeLine{00623\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00624\ \textcolor{comment}{\ \ \ *\ \ \ conic\_to\ ::}}
+\DoxyCodeLine{00625\ \textcolor{comment}{\ \ \ *\ \ \ \ \ The\ second-\/order\ Bezier\ arc\ emitter.}}
+\DoxyCodeLine{00626\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00627\ \textcolor{comment}{\ \ \ *\ \ \ cubic\_to\ ::}}
+\DoxyCodeLine{00628\ \textcolor{comment}{\ \ \ *\ \ \ \ \ The\ third-\/order\ Bezier\ arc\ emitter.}}
+\DoxyCodeLine{00629\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00630\ \textcolor{comment}{\ \ \ *\ \ \ shift\ ::}}
+\DoxyCodeLine{00631\ \textcolor{comment}{\ \ \ *\ \ \ \ \ The\ shift\ that\ is\ applied\ to\ coordinates\ before\ they\ are\ sent\ to\ the}}
+\DoxyCodeLine{00632\ \textcolor{comment}{\ \ \ *\ \ \ \ \ emitter.}}
+\DoxyCodeLine{00633\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00634\ \textcolor{comment}{\ \ \ *\ \ \ delta\ ::}}
+\DoxyCodeLine{00635\ \textcolor{comment}{\ \ \ *\ \ \ \ \ The\ delta\ that\ is\ applied\ to\ coordinates\ before\ they\ are\ sent\ to\ the}}
+\DoxyCodeLine{00636\ \textcolor{comment}{\ \ \ *\ \ \ \ \ emitter,\ but\ after\ the\ shift.}}
+\DoxyCodeLine{00637\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00638\ \textcolor{comment}{\ \ \ *\ @note:}}
+\DoxyCodeLine{00639\ \textcolor{comment}{\ \ \ *\ \ \ The\ point\ coordinates\ sent\ to\ the\ emitters\ are\ the\ transformed\ version}}
+\DoxyCodeLine{00640\ \textcolor{comment}{\ \ \ *\ \ \ of\ the\ original\ coordinates\ (this\ is\ important\ for\ high\ accuracy}}
+\DoxyCodeLine{00641\ \textcolor{comment}{\ \ \ *\ \ \ during\ scan-\/conversion).\ \ The\ transformation\ is\ simple:}}
+\DoxyCodeLine{00642\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00643\ \textcolor{comment}{\ \ \ *\ \ \ ```}}
+\DoxyCodeLine{00644\ \textcolor{comment}{\ \ \ *\ \ \ \ \ x'\ =\ (x\ <<\ shift)\ -\/\ delta}}
+\DoxyCodeLine{00645\ \textcolor{comment}{\ \ \ *\ \ \ \ \ y'\ =\ (y\ <<\ shift)\ -\/\ delta}}
+\DoxyCodeLine{00646\ \textcolor{comment}{\ \ \ *\ \ \ ```}}
+\DoxyCodeLine{00647\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00648\ \textcolor{comment}{\ \ \ *\ \ \ Set\ the\ values\ of\ `shift`\ and\ `delta`\ to\string~0\ to\ get\ the\ original\ point}}
+\DoxyCodeLine{00649\ \textcolor{comment}{\ \ \ *\ \ \ coordinates.}}
+\DoxyCodeLine{00650\ \textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{00651\ \ \ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ \ }\mbox{\hyperlink{structFT__Outline__Funcs__}{FT\_Outline\_Funcs\_}}}
+\DoxyCodeLine{00652\ \ \ \{}
+\DoxyCodeLine{00653\ \ \ \ \ FT\_Outline\_MoveToFunc\ \ \ move\_to;}
+\DoxyCodeLine{00654\ \ \ \ \ FT\_Outline\_LineToFunc\ \ \ line\_to;}
+\DoxyCodeLine{00655\ \ \ \ \ FT\_Outline\_ConicToFunc\ \ conic\_to;}
+\DoxyCodeLine{00656\ \ \ \ \ FT\_Outline\_CubicToFunc\ \ cubic\_to;}
+\DoxyCodeLine{00657\ }
+\DoxyCodeLine{00658\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ shift;}
+\DoxyCodeLine{00659\ \ \ \ \ FT\_Pos\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ delta;}
+\DoxyCodeLine{00660\ }
+\DoxyCodeLine{00661\ \ \ \}\ \mbox{\hyperlink{structFT__Outline__Funcs__}{FT\_Outline\_Funcs}};}
+\DoxyCodeLine{00662\ }
+\DoxyCodeLine{00663\ }
+\DoxyCodeLine{00664\ \textcolor{comment}{\ \ /**************************************************************************}}
+\DoxyCodeLine{00665\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00666\ \textcolor{comment}{\ \ \ *\ @section:}}
+\DoxyCodeLine{00667\ \textcolor{comment}{\ \ \ *\ \ \ basic\_types}}
+\DoxyCodeLine{00668\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00669\ \textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{00670\ }
+\DoxyCodeLine{00671\ }
+\DoxyCodeLine{00672\ \textcolor{comment}{\ \ /**************************************************************************}}
+\DoxyCodeLine{00673\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00674\ \textcolor{comment}{\ \ \ *\ @macro:}}
+\DoxyCodeLine{00675\ \textcolor{comment}{\ \ \ *\ \ \ FT\_IMAGE\_TAG}}
+\DoxyCodeLine{00676\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00677\ \textcolor{comment}{\ \ \ *\ @description:}}
+\DoxyCodeLine{00678\ \textcolor{comment}{\ \ \ *\ \ \ This\ macro\ converts\ four-\/letter\ tags\ to\ an\ unsigned\ long\ type.}}
+\DoxyCodeLine{00679\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00680\ \textcolor{comment}{\ \ \ *\ @note:}}
+\DoxyCodeLine{00681\ \textcolor{comment}{\ \ \ *\ \ \ Since\ many\ 16-\/bit\ compilers\ don't\ like\ 32-\/bit\ enumerations,\ you\ should}}
+\DoxyCodeLine{00682\ \textcolor{comment}{\ \ \ *\ \ \ redefine\ this\ macro\ in\ case\ of\ problems\ to\ something\ like\ this:}}
+\DoxyCodeLine{00683\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00684\ \textcolor{comment}{\ \ \ *\ \ \ ```}}
+\DoxyCodeLine{00685\ \textcolor{comment}{\ \ \ *\ \ \ \ \ \#define\ FT\_IMAGE\_TAG(\ value,\ \_x1,\ \_x2,\ \_x3,\ \_x4\ )\ \ value}}
+\DoxyCodeLine{00686\ \textcolor{comment}{\ \ \ *\ \ \ ```}}
+\DoxyCodeLine{00687\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00688\ \textcolor{comment}{\ \ \ *\ \ \ to\ get\ a\ simple\ enumeration\ without\ assigning\ special\ numbers.}}
+\DoxyCodeLine{00689\ \textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{00690\ \textcolor{preprocessor}{\#ifndef\ FT\_IMAGE\_TAG}}
+\DoxyCodeLine{00691\ \textcolor{preprocessor}{\#define\ FT\_IMAGE\_TAG(\ value,\ \_x1,\ \_x2,\ \_x3,\ \_x4\ )\ \ \(\backslash\)}}
+\DoxyCodeLine{00692\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ value\ =\ (\ (\ (unsigned\ long)\_x1\ <<\ 24\ )\ |\ \(\backslash\)}}
+\DoxyCodeLine{00693\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (\ (unsigned\ long)\_x2\ <<\ 16\ )\ |\ \(\backslash\)}}
+\DoxyCodeLine{00694\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (\ (unsigned\ long)\_x3\ <<\ 8\ \ )\ |\ \(\backslash\)}}
+\DoxyCodeLine{00695\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (unsigned\ long)\_x4\ \ \ \ \ \ \ \ \ )}}
+\DoxyCodeLine{00696\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ FT\_IMAGE\_TAG\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00697\ }
+\DoxyCodeLine{00698\ }
+\DoxyCodeLine{00699\ \textcolor{comment}{\ \ /**************************************************************************}}
+\DoxyCodeLine{00700\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00701\ \textcolor{comment}{\ \ \ *\ @enum:}}
+\DoxyCodeLine{00702\ \textcolor{comment}{\ \ \ *\ \ \ FT\_Glyph\_Format}}
+\DoxyCodeLine{00703\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00704\ \textcolor{comment}{\ \ \ *\ @description:}}
+\DoxyCodeLine{00705\ \textcolor{comment}{\ \ \ *\ \ \ An\ enumeration\ type\ used\ to\ describe\ the\ format\ of\ a\ given\ glyph}}
+\DoxyCodeLine{00706\ \textcolor{comment}{\ \ \ *\ \ \ image.\ \ Note\ that\ this\ version\ of\ FreeType\ only\ supports\ two\ image}}
+\DoxyCodeLine{00707\ \textcolor{comment}{\ \ \ *\ \ \ formats,\ even\ though\ future\ font\ drivers\ will\ be\ able\ to\ register}}
+\DoxyCodeLine{00708\ \textcolor{comment}{\ \ \ *\ \ \ their\ own\ format.}}
+\DoxyCodeLine{00709\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00710\ \textcolor{comment}{\ \ \ *\ @values:}}
+\DoxyCodeLine{00711\ \textcolor{comment}{\ \ \ *\ \ \ FT\_GLYPH\_FORMAT\_NONE\ ::}}
+\DoxyCodeLine{00712\ \textcolor{comment}{\ \ \ *\ \ \ \ \ The\ value\string~0\ is\ reserved.}}
+\DoxyCodeLine{00713\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00714\ \textcolor{comment}{\ \ \ *\ \ \ FT\_GLYPH\_FORMAT\_COMPOSITE\ ::}}
+\DoxyCodeLine{00715\ \textcolor{comment}{\ \ \ *\ \ \ \ \ The\ glyph\ image\ is\ a\ composite\ of\ several\ other\ images.\ \ This\ format}}
+\DoxyCodeLine{00716\ \textcolor{comment}{\ \ \ *\ \ \ \ \ is\ \_only\_\ used\ with\ @FT\_LOAD\_NO\_RECURSE,\ and\ is\ used\ to\ report}}
+\DoxyCodeLine{00717\ \textcolor{comment}{\ \ \ *\ \ \ \ \ compound\ glyphs\ (like\ accented\ characters).}}
+\DoxyCodeLine{00718\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00719\ \textcolor{comment}{\ \ \ *\ \ \ FT\_GLYPH\_FORMAT\_BITMAP\ ::}}
+\DoxyCodeLine{00720\ \textcolor{comment}{\ \ \ *\ \ \ \ \ The\ glyph\ image\ is\ a\ bitmap,\ and\ can\ be\ described\ as\ an\ @FT\_Bitmap.}}
+\DoxyCodeLine{00721\ \textcolor{comment}{\ \ \ *\ \ \ \ \ You\ generally\ need\ to\ access\ the\ `bitmap`\ field\ of\ the}}
+\DoxyCodeLine{00722\ \textcolor{comment}{\ \ \ *\ \ \ \ \ @FT\_GlyphSlotRec\ structure\ to\ read\ it.}}
+\DoxyCodeLine{00723\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00724\ \textcolor{comment}{\ \ \ *\ \ \ FT\_GLYPH\_FORMAT\_OUTLINE\ ::}}
+\DoxyCodeLine{00725\ \textcolor{comment}{\ \ \ *\ \ \ \ \ The\ glyph\ image\ is\ a\ vectorial\ outline\ made\ of\ line\ segments\ and}}
+\DoxyCodeLine{00726\ \textcolor{comment}{\ \ \ *\ \ \ \ \ Bezier\ arcs;\ it\ can\ be\ described\ as\ an\ @FT\_Outline;\ you\ generally}}
+\DoxyCodeLine{00727\ \textcolor{comment}{\ \ \ *\ \ \ \ \ want\ to\ access\ the\ `outline`\ field\ of\ the\ @FT\_GlyphSlotRec\ structure}}
+\DoxyCodeLine{00728\ \textcolor{comment}{\ \ \ *\ \ \ \ \ to\ read\ it.}}
+\DoxyCodeLine{00729\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00730\ \textcolor{comment}{\ \ \ *\ \ \ FT\_GLYPH\_FORMAT\_PLOTTER\ ::}}
+\DoxyCodeLine{00731\ \textcolor{comment}{\ \ \ *\ \ \ \ \ The\ glyph\ image\ is\ a\ vectorial\ path\ with\ no\ inside\ and\ outside}}
+\DoxyCodeLine{00732\ \textcolor{comment}{\ \ \ *\ \ \ \ \ contours.\ \ Some\ Type\string~1\ fonts,\ like\ those\ in\ the\ Hershey\ family,}}
+\DoxyCodeLine{00733\ \textcolor{comment}{\ \ \ *\ \ \ \ \ contain\ glyphs\ in\ this\ format.\ \ These\ are\ described\ as\ @FT\_Outline,}}
+\DoxyCodeLine{00734\ \textcolor{comment}{\ \ \ *\ \ \ \ \ but\ FreeType\ isn't\ currently\ capable\ of\ rendering\ them\ correctly.}}
+\DoxyCodeLine{00735\ \textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{00736\ \ \ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \ FT\_Glyph\_Format\_}
+\DoxyCodeLine{00737\ \ \ \{}
+\DoxyCodeLine{00738\ \ \ \ \ FT\_IMAGE\_TAG(\ FT\_GLYPH\_FORMAT\_NONE,\ 0,\ 0,\ 0,\ 0\ ),}
+\DoxyCodeLine{00739\ }
+\DoxyCodeLine{00740\ \ \ \ \ FT\_IMAGE\_TAG(\ FT\_GLYPH\_FORMAT\_COMPOSITE,\ \textcolor{charliteral}{'c'},\ \textcolor{charliteral}{'o'},\ \textcolor{charliteral}{'m'},\ \textcolor{charliteral}{'p'}\ ),}
+\DoxyCodeLine{00741\ \ \ \ \ FT\_IMAGE\_TAG(\ FT\_GLYPH\_FORMAT\_BITMAP,\ \ \ \ \textcolor{charliteral}{'b'},\ \textcolor{charliteral}{'i'},\ \textcolor{charliteral}{'t'},\ \textcolor{charliteral}{'s'}\ ),}
+\DoxyCodeLine{00742\ \ \ \ \ FT\_IMAGE\_TAG(\ FT\_GLYPH\_FORMAT\_OUTLINE,\ \ \ \textcolor{charliteral}{'o'},\ \textcolor{charliteral}{'u'},\ \textcolor{charliteral}{'t'},\ \textcolor{charliteral}{'l'}\ ),}
+\DoxyCodeLine{00743\ \ \ \ \ FT\_IMAGE\_TAG(\ FT\_GLYPH\_FORMAT\_PLOTTER,\ \ \ \textcolor{charliteral}{'p'},\ \textcolor{charliteral}{'l'},\ \textcolor{charliteral}{'o'},\ \textcolor{charliteral}{'t'}\ )}
+\DoxyCodeLine{00744\ }
+\DoxyCodeLine{00745\ \ \ \}\ FT\_Glyph\_Format;}
+\DoxyCodeLine{00746\ }
+\DoxyCodeLine{00747\ }
+\DoxyCodeLine{00748\ \ \ \textcolor{comment}{/*\ these\ constants\ are\ deprecated;\ use\ the\ corresponding\ */}}
+\DoxyCodeLine{00749\ \ \ \textcolor{comment}{/*\ `FT\_Glyph\_Format`\ values\ instead.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{00750\ \textcolor{preprocessor}{\#define\ ft\_glyph\_format\_none\ \ \ \ \ \ \ FT\_GLYPH\_FORMAT\_NONE}}
+\DoxyCodeLine{00751\ \textcolor{preprocessor}{\#define\ ft\_glyph\_format\_composite\ \ FT\_GLYPH\_FORMAT\_COMPOSITE}}
+\DoxyCodeLine{00752\ \textcolor{preprocessor}{\#define\ ft\_glyph\_format\_bitmap\ \ \ \ \ FT\_GLYPH\_FORMAT\_BITMAP}}
+\DoxyCodeLine{00753\ \textcolor{preprocessor}{\#define\ ft\_glyph\_format\_outline\ \ \ \ FT\_GLYPH\_FORMAT\_OUTLINE}}
+\DoxyCodeLine{00754\ \textcolor{preprocessor}{\#define\ ft\_glyph\_format\_plotter\ \ \ \ FT\_GLYPH\_FORMAT\_PLOTTER}}
+\DoxyCodeLine{00755\ }
+\DoxyCodeLine{00756\ }
+\DoxyCodeLine{00757\ \textcolor{comment}{\ \ /*************************************************************************/}}
+\DoxyCodeLine{00758\ \textcolor{comment}{\ \ /*************************************************************************/}}
+\DoxyCodeLine{00759\ \textcolor{comment}{\ \ /*************************************************************************/}}
+\DoxyCodeLine{00760\ \textcolor{comment}{\ \ /*****\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *****/}}
+\DoxyCodeLine{00761\ \textcolor{comment}{\ \ /*****\ \ \ \ \ \ \ \ \ \ \ \ R\ A\ S\ T\ E\ R\ \ \ D\ E\ F\ I\ N\ I\ T\ I\ O\ N\ S\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *****/}}
+\DoxyCodeLine{00762\ \textcolor{comment}{\ \ /*****\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *****/}}
+\DoxyCodeLine{00763\ \textcolor{comment}{\ \ /*************************************************************************/}}
+\DoxyCodeLine{00764\ \textcolor{comment}{\ \ /*************************************************************************/}}
+\DoxyCodeLine{00765\ \textcolor{comment}{\ \ /*************************************************************************/}}
+\DoxyCodeLine{00766\ }
+\DoxyCodeLine{00767\ }
+\DoxyCodeLine{00768\ \textcolor{comment}{\ \ /**************************************************************************}}
+\DoxyCodeLine{00769\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00770\ \textcolor{comment}{\ \ \ *\ A\ raster\ is\ a\ scan\ converter,\ in\ charge\ of\ rendering\ an\ outline\ into\ a}}
+\DoxyCodeLine{00771\ \textcolor{comment}{\ \ \ *\ bitmap.\ \ This\ section\ contains\ the\ public\ API\ for\ rasters.}}
+\DoxyCodeLine{00772\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00773\ \textcolor{comment}{\ \ \ *\ Note\ that\ in\ FreeType\ 2,\ all\ rasters\ are\ now\ encapsulated\ within}}
+\DoxyCodeLine{00774\ \textcolor{comment}{\ \ \ *\ specific\ modules\ called\ 'renderers'.\ \ See\ `ftrender.h`\ for\ more\ details}}
+\DoxyCodeLine{00775\ \textcolor{comment}{\ \ \ *\ on\ renderers.}}
+\DoxyCodeLine{00776\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00777\ \textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{00778\ }
+\DoxyCodeLine{00779\ }
+\DoxyCodeLine{00780\ \textcolor{comment}{\ \ /**************************************************************************}}
+\DoxyCodeLine{00781\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00782\ \textcolor{comment}{\ \ \ *\ @section:}}
+\DoxyCodeLine{00783\ \textcolor{comment}{\ \ \ *\ \ \ raster}}
+\DoxyCodeLine{00784\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00785\ \textcolor{comment}{\ \ \ *\ @title:}}
+\DoxyCodeLine{00786\ \textcolor{comment}{\ \ \ *\ \ \ Scanline\ Converter}}
+\DoxyCodeLine{00787\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00788\ \textcolor{comment}{\ \ \ *\ @abstract:}}
+\DoxyCodeLine{00789\ \textcolor{comment}{\ \ \ *\ \ \ How\ vectorial\ outlines\ are\ converted\ into\ bitmaps\ and\ pixmaps.}}
+\DoxyCodeLine{00790\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00791\ \textcolor{comment}{\ \ \ *\ @description:}}
+\DoxyCodeLine{00792\ \textcolor{comment}{\ \ \ *\ \ \ This\ section\ contains\ technical\ definitions.}}
+\DoxyCodeLine{00793\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00794\ \textcolor{comment}{\ \ \ *\ @order:}}
+\DoxyCodeLine{00795\ \textcolor{comment}{\ \ \ *\ \ \ FT\_Raster}}
+\DoxyCodeLine{00796\ \textcolor{comment}{\ \ \ *\ \ \ FT\_Span}}
+\DoxyCodeLine{00797\ \textcolor{comment}{\ \ \ *\ \ \ FT\_SpanFunc}}
+\DoxyCodeLine{00798\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00799\ \textcolor{comment}{\ \ \ *\ \ \ FT\_Raster\_Params}}
+\DoxyCodeLine{00800\ \textcolor{comment}{\ \ \ *\ \ \ FT\_RASTER\_FLAG\_XXX}}
+\DoxyCodeLine{00801\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00802\ \textcolor{comment}{\ \ \ *\ \ \ FT\_Raster\_NewFunc}}
+\DoxyCodeLine{00803\ \textcolor{comment}{\ \ \ *\ \ \ FT\_Raster\_DoneFunc}}
+\DoxyCodeLine{00804\ \textcolor{comment}{\ \ \ *\ \ \ FT\_Raster\_ResetFunc}}
+\DoxyCodeLine{00805\ \textcolor{comment}{\ \ \ *\ \ \ FT\_Raster\_SetModeFunc}}
+\DoxyCodeLine{00806\ \textcolor{comment}{\ \ \ *\ \ \ FT\_Raster\_RenderFunc}}
+\DoxyCodeLine{00807\ \textcolor{comment}{\ \ \ *\ \ \ FT\_Raster\_Funcs}}
+\DoxyCodeLine{00808\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00809\ \textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{00810\ }
+\DoxyCodeLine{00811\ }
+\DoxyCodeLine{00812\ \textcolor{comment}{\ \ /**************************************************************************}}
+\DoxyCodeLine{00813\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00814\ \textcolor{comment}{\ \ \ *\ @type:}}
+\DoxyCodeLine{00815\ \textcolor{comment}{\ \ \ *\ \ \ FT\_Raster}}
+\DoxyCodeLine{00816\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00817\ \textcolor{comment}{\ \ \ *\ @description:}}
+\DoxyCodeLine{00818\ \textcolor{comment}{\ \ \ *\ \ \ An\ opaque\ handle\ (pointer)\ to\ a\ raster\ object.\ \ Each\ object\ can\ be}}
+\DoxyCodeLine{00819\ \textcolor{comment}{\ \ \ *\ \ \ used\ independently\ to\ convert\ an\ outline\ into\ a\ bitmap\ or\ pixmap.}}
+\DoxyCodeLine{00820\ \textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{00821\ \ \ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }FT\_RasterRec\_*\ \ FT\_Raster;}
+\DoxyCodeLine{00822\ }
+\DoxyCodeLine{00823\ }
+\DoxyCodeLine{00824\ \textcolor{comment}{\ \ /**************************************************************************}}
+\DoxyCodeLine{00825\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00826\ \textcolor{comment}{\ \ \ *\ @struct:}}
+\DoxyCodeLine{00827\ \textcolor{comment}{\ \ \ *\ \ \ FT\_Span}}
+\DoxyCodeLine{00828\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00829\ \textcolor{comment}{\ \ \ *\ @description:}}
+\DoxyCodeLine{00830\ \textcolor{comment}{\ \ \ *\ \ \ A\ structure\ used\ to\ model\ a\ single\ span\ of\ gray\ pixels\ when\ rendering}}
+\DoxyCodeLine{00831\ \textcolor{comment}{\ \ \ *\ \ \ an\ anti-\/aliased\ bitmap.}}
+\DoxyCodeLine{00832\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00833\ \textcolor{comment}{\ \ \ *\ @fields:}}
+\DoxyCodeLine{00834\ \textcolor{comment}{\ \ \ *\ \ \ x\ ::}}
+\DoxyCodeLine{00835\ \textcolor{comment}{\ \ \ *\ \ \ \ \ The\ span's\ horizontal\ start\ position.}}
+\DoxyCodeLine{00836\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00837\ \textcolor{comment}{\ \ \ *\ \ \ len\ ::}}
+\DoxyCodeLine{00838\ \textcolor{comment}{\ \ \ *\ \ \ \ \ The\ span's\ length\ in\ pixels.}}
+\DoxyCodeLine{00839\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00840\ \textcolor{comment}{\ \ \ *\ \ \ coverage\ ::}}
+\DoxyCodeLine{00841\ \textcolor{comment}{\ \ \ *\ \ \ \ \ The\ span\ color/coverage,\ ranging\ from\ 0\ (background)\ to\ 255}}
+\DoxyCodeLine{00842\ \textcolor{comment}{\ \ \ *\ \ \ \ \ (foreground).}}
+\DoxyCodeLine{00843\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00844\ \textcolor{comment}{\ \ \ *\ @note:}}
+\DoxyCodeLine{00845\ \textcolor{comment}{\ \ \ *\ \ \ This\ structure\ is\ used\ by\ the\ span\ drawing\ callback\ type\ named}}
+\DoxyCodeLine{00846\ \textcolor{comment}{\ \ \ *\ \ \ @FT\_SpanFunc\ that\ takes\ the\ y\string~coordinate\ of\ the\ span\ as\ a\ parameter.}}
+\DoxyCodeLine{00847\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00848\ \textcolor{comment}{\ \ \ *\ \ \ The\ coverage\ value\ is\ always\ between\ 0\ and\ 255.\ \ If\ you\ want\ less\ gray}}
+\DoxyCodeLine{00849\ \textcolor{comment}{\ \ \ *\ \ \ values,\ the\ callback\ function\ has\ to\ reduce\ them.}}
+\DoxyCodeLine{00850\ \textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{00851\ \ \ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ \ }\mbox{\hyperlink{structFT__Span__}{FT\_Span\_}}}
+\DoxyCodeLine{00852\ \ \ \{}
+\DoxyCodeLine{00853\ \ \ \ \ \textcolor{keywordtype}{short}\ \ \ \ \ \ \ \ \ \ \ x;}
+\DoxyCodeLine{00854\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ \ len;}
+\DoxyCodeLine{00855\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ \ \ coverage;}
+\DoxyCodeLine{00856\ }
+\DoxyCodeLine{00857\ \ \ \}\ \mbox{\hyperlink{structFT__Span__}{FT\_Span}};}
+\DoxyCodeLine{00858\ }
+\DoxyCodeLine{00859\ }
+\DoxyCodeLine{00860\ \textcolor{comment}{\ \ /**************************************************************************}}
+\DoxyCodeLine{00861\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00862\ \textcolor{comment}{\ \ \ *\ @functype:}}
+\DoxyCodeLine{00863\ \textcolor{comment}{\ \ \ *\ \ \ FT\_SpanFunc}}
+\DoxyCodeLine{00864\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00865\ \textcolor{comment}{\ \ \ *\ @description:}}
+\DoxyCodeLine{00866\ \textcolor{comment}{\ \ \ *\ \ \ A\ function\ used\ as\ a\ call-\/back\ by\ the\ anti-\/aliased\ renderer\ in\ order}}
+\DoxyCodeLine{00867\ \textcolor{comment}{\ \ \ *\ \ \ to\ let\ client\ applications\ draw\ themselves\ the\ gray\ pixel\ spans\ on}}
+\DoxyCodeLine{00868\ \textcolor{comment}{\ \ \ *\ \ \ each\ scan\ line.}}
+\DoxyCodeLine{00869\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00870\ \textcolor{comment}{\ \ \ *\ @input:}}
+\DoxyCodeLine{00871\ \textcolor{comment}{\ \ \ *\ \ \ y\ ::}}
+\DoxyCodeLine{00872\ \textcolor{comment}{\ \ \ *\ \ \ \ \ The\ scanline's\ upward\ y\string~coordinate.}}
+\DoxyCodeLine{00873\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00874\ \textcolor{comment}{\ \ \ *\ \ \ count\ ::}}
+\DoxyCodeLine{00875\ \textcolor{comment}{\ \ \ *\ \ \ \ \ The\ number\ of\ spans\ to\ draw\ on\ this\ scanline.}}
+\DoxyCodeLine{00876\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00877\ \textcolor{comment}{\ \ \ *\ \ \ spans\ ::}}
+\DoxyCodeLine{00878\ \textcolor{comment}{\ \ \ *\ \ \ \ \ A\ table\ of\ `count`\ spans\ to\ draw\ on\ the\ scanline.}}
+\DoxyCodeLine{00879\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00880\ \textcolor{comment}{\ \ \ *\ \ \ user\ ::}}
+\DoxyCodeLine{00881\ \textcolor{comment}{\ \ \ *\ \ \ \ \ User-\/supplied\ data\ that\ is\ passed\ to\ the\ callback.}}
+\DoxyCodeLine{00882\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00883\ \textcolor{comment}{\ \ \ *\ @note:}}
+\DoxyCodeLine{00884\ \textcolor{comment}{\ \ \ *\ \ \ This\ callback\ allows\ client\ applications\ to\ directly\ render\ the\ gray}}
+\DoxyCodeLine{00885\ \textcolor{comment}{\ \ \ *\ \ \ spans\ of\ the\ anti-\/aliased\ bitmap\ to\ any\ kind\ of\ surfaces.}}
+\DoxyCodeLine{00886\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00887\ \textcolor{comment}{\ \ \ *\ \ \ This\ can\ be\ used\ to\ write\ anti-\/aliased\ outlines\ directly\ to\ a\ given}}
+\DoxyCodeLine{00888\ \textcolor{comment}{\ \ \ *\ \ \ background\ bitmap,\ and\ even\ perform\ translucency.}}
+\DoxyCodeLine{00889\ \textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{00890\ \ \ \textcolor{keyword}{typedef}\ void}
+\DoxyCodeLine{00891\ \ \ (*FT\_SpanFunc)(\ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ y,}
+\DoxyCodeLine{00892\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ count,}
+\DoxyCodeLine{00893\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structFT__Span__}{FT\_Span}}*\ \ spans,}
+\DoxyCodeLine{00894\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}*\ \ \ \ \ \ \ \ \ \ \ user\ );}
+\DoxyCodeLine{00895\ }
+\DoxyCodeLine{00896\ \textcolor{preprocessor}{\#define\ FT\_Raster\_Span\_Func\ \ FT\_SpanFunc}}
+\DoxyCodeLine{00897\ }
+\DoxyCodeLine{00898\ }
+\DoxyCodeLine{00899\ \textcolor{comment}{\ \ /**************************************************************************}}
+\DoxyCodeLine{00900\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00901\ \textcolor{comment}{\ \ \ *\ @functype:}}
+\DoxyCodeLine{00902\ \textcolor{comment}{\ \ \ *\ \ \ FT\_Raster\_BitTest\_Func}}
+\DoxyCodeLine{00903\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00904\ \textcolor{comment}{\ \ \ *\ @description:}}
+\DoxyCodeLine{00905\ \textcolor{comment}{\ \ \ *\ \ \ Deprecated,\ unimplemented.}}
+\DoxyCodeLine{00906\ \textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{00907\ \ \ \textcolor{keyword}{typedef}\ int}
+\DoxyCodeLine{00908\ \ \ (*FT\_Raster\_BitTest\_Func)(\ \textcolor{keywordtype}{int}\ \ \ \ y,}
+\DoxyCodeLine{00909\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ x,}
+\DoxyCodeLine{00910\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}*\ \ user\ );}
+\DoxyCodeLine{00911\ }
+\DoxyCodeLine{00912\ }
+\DoxyCodeLine{00913\ \textcolor{comment}{\ \ /**************************************************************************}}
+\DoxyCodeLine{00914\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00915\ \textcolor{comment}{\ \ \ *\ @functype:}}
+\DoxyCodeLine{00916\ \textcolor{comment}{\ \ \ *\ \ \ FT\_Raster\_BitSet\_Func}}
+\DoxyCodeLine{00917\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00918\ \textcolor{comment}{\ \ \ *\ @description:}}
+\DoxyCodeLine{00919\ \textcolor{comment}{\ \ \ *\ \ \ Deprecated,\ unimplemented.}}
+\DoxyCodeLine{00920\ \textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{00921\ \ \ \textcolor{keyword}{typedef}\ void}
+\DoxyCodeLine{00922\ \ \ (*FT\_Raster\_BitSet\_Func)(\ \textcolor{keywordtype}{int}\ \ \ \ y,}
+\DoxyCodeLine{00923\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ x,}
+\DoxyCodeLine{00924\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}*\ \ user\ );}
+\DoxyCodeLine{00925\ }
+\DoxyCodeLine{00926\ }
+\DoxyCodeLine{00927\ \textcolor{comment}{\ \ /**************************************************************************}}
+\DoxyCodeLine{00928\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00929\ \textcolor{comment}{\ \ \ *\ @enum:}}
+\DoxyCodeLine{00930\ \textcolor{comment}{\ \ \ *\ \ \ FT\_RASTER\_FLAG\_XXX}}
+\DoxyCodeLine{00931\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00932\ \textcolor{comment}{\ \ \ *\ @description:}}
+\DoxyCodeLine{00933\ \textcolor{comment}{\ \ \ *\ \ \ A\ list\ of\ bit\ flag\ constants\ as\ used\ in\ the\ `flags`\ field\ of\ a}}
+\DoxyCodeLine{00934\ \textcolor{comment}{\ \ \ *\ \ \ @FT\_Raster\_Params\ structure.}}
+\DoxyCodeLine{00935\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00936\ \textcolor{comment}{\ \ \ *\ @values:}}
+\DoxyCodeLine{00937\ \textcolor{comment}{\ \ \ *\ \ \ FT\_RASTER\_FLAG\_DEFAULT\ ::}}
+\DoxyCodeLine{00938\ \textcolor{comment}{\ \ \ *\ \ \ \ \ This\ value\ is\ 0.}}
+\DoxyCodeLine{00939\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00940\ \textcolor{comment}{\ \ \ *\ \ \ FT\_RASTER\_FLAG\_AA\ ::}}
+\DoxyCodeLine{00941\ \textcolor{comment}{\ \ \ *\ \ \ \ \ This\ flag\ is\ set\ to\ indicate\ that\ an\ anti-\/aliased\ glyph\ image\ should}}
+\DoxyCodeLine{00942\ \textcolor{comment}{\ \ \ *\ \ \ \ \ be\ generated.\ \ Otherwise,\ it\ will\ be\ monochrome\ (1-\/bit).}}
+\DoxyCodeLine{00943\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00944\ \textcolor{comment}{\ \ \ *\ \ \ FT\_RASTER\_FLAG\_DIRECT\ ::}}
+\DoxyCodeLine{00945\ \textcolor{comment}{\ \ \ *\ \ \ \ \ This\ flag\ is\ set\ to\ indicate\ direct\ rendering.\ \ In\ this\ mode,\ client}}
+\DoxyCodeLine{00946\ \textcolor{comment}{\ \ \ *\ \ \ \ \ applications\ must\ provide\ their\ own\ span\ callback.\ \ This\ lets\ them}}
+\DoxyCodeLine{00947\ \textcolor{comment}{\ \ \ *\ \ \ \ \ directly\ draw\ or\ compose\ over\ an\ existing\ bitmap.\ \ If\ this\ bit\ is}}
+\DoxyCodeLine{00948\ \textcolor{comment}{\ \ \ *\ \ \ \ \ \_not\_\ set,\ the\ target\ pixmap's\ buffer\ \_must\_\ be\ zeroed\ before}}
+\DoxyCodeLine{00949\ \textcolor{comment}{\ \ \ *\ \ \ \ \ rendering\ and\ the\ output\ will\ be\ clipped\ to\ its\ size.}}
+\DoxyCodeLine{00950\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00951\ \textcolor{comment}{\ \ \ *\ \ \ \ \ Direct\ rendering\ is\ only\ possible\ with\ anti-\/aliased\ glyphs.}}
+\DoxyCodeLine{00952\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00953\ \textcolor{comment}{\ \ \ *\ \ \ FT\_RASTER\_FLAG\_CLIP\ ::}}
+\DoxyCodeLine{00954\ \textcolor{comment}{\ \ \ *\ \ \ \ \ This\ flag\ is\ only\ used\ in\ direct\ rendering\ mode.\ \ If\ set,\ the\ output}}
+\DoxyCodeLine{00955\ \textcolor{comment}{\ \ \ *\ \ \ \ \ will\ be\ clipped\ to\ a\ box\ specified\ in\ the\ `clip\_box`\ field\ of\ the}}
+\DoxyCodeLine{00956\ \textcolor{comment}{\ \ \ *\ \ \ \ \ @FT\_Raster\_Params\ structure.\ \ Otherwise,\ the\ `clip\_box`\ is}}
+\DoxyCodeLine{00957\ \textcolor{comment}{\ \ \ *\ \ \ \ \ effectively\ set\ to\ the\ bounding\ box\ and\ all\ spans\ are\ generated.}}
+\DoxyCodeLine{00958\ \textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{00959\ \textcolor{preprocessor}{\#define\ FT\_RASTER\_FLAG\_DEFAULT\ \ 0x0}}
+\DoxyCodeLine{00960\ \textcolor{preprocessor}{\#define\ FT\_RASTER\_FLAG\_AA\ \ \ \ \ \ \ 0x1}}
+\DoxyCodeLine{00961\ \textcolor{preprocessor}{\#define\ FT\_RASTER\_FLAG\_DIRECT\ \ \ 0x2}}
+\DoxyCodeLine{00962\ \textcolor{preprocessor}{\#define\ FT\_RASTER\_FLAG\_CLIP\ \ \ \ \ 0x4}}
+\DoxyCodeLine{00963\ }
+\DoxyCodeLine{00964\ \ \ \textcolor{comment}{/*\ these\ constants\ are\ deprecated;\ use\ the\ corresponding\ */}}
+\DoxyCodeLine{00965\ \ \ \textcolor{comment}{/*\ `FT\_RASTER\_FLAG\_XXX`\ values\ instead\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{00966\ \textcolor{preprocessor}{\#define\ ft\_raster\_flag\_default\ \ FT\_RASTER\_FLAG\_DEFAULT}}
+\DoxyCodeLine{00967\ \textcolor{preprocessor}{\#define\ ft\_raster\_flag\_aa\ \ \ \ \ \ \ FT\_RASTER\_FLAG\_AA}}
+\DoxyCodeLine{00968\ \textcolor{preprocessor}{\#define\ ft\_raster\_flag\_direct\ \ \ FT\_RASTER\_FLAG\_DIRECT}}
+\DoxyCodeLine{00969\ \textcolor{preprocessor}{\#define\ ft\_raster\_flag\_clip\ \ \ \ \ FT\_RASTER\_FLAG\_CLIP}}
+\DoxyCodeLine{00970\ }
+\DoxyCodeLine{00971\ }
+\DoxyCodeLine{00972\ \textcolor{comment}{\ \ /**************************************************************************}}
+\DoxyCodeLine{00973\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00974\ \textcolor{comment}{\ \ \ *\ @struct:}}
+\DoxyCodeLine{00975\ \textcolor{comment}{\ \ \ *\ \ \ FT\_Raster\_Params}}
+\DoxyCodeLine{00976\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00977\ \textcolor{comment}{\ \ \ *\ @description:}}
+\DoxyCodeLine{00978\ \textcolor{comment}{\ \ \ *\ \ \ A\ structure\ to\ hold\ the\ parameters\ used\ by\ a\ raster's\ render\ function,}}
+\DoxyCodeLine{00979\ \textcolor{comment}{\ \ \ *\ \ \ passed\ as\ an\ argument\ to\ @FT\_Outline\_Render.}}
+\DoxyCodeLine{00980\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00981\ \textcolor{comment}{\ \ \ *\ @fields:}}
+\DoxyCodeLine{00982\ \textcolor{comment}{\ \ \ *\ \ \ target\ ::}}
+\DoxyCodeLine{00983\ \textcolor{comment}{\ \ \ *\ \ \ \ \ The\ target\ bitmap.}}
+\DoxyCodeLine{00984\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00985\ \textcolor{comment}{\ \ \ *\ \ \ source\ ::}}
+\DoxyCodeLine{00986\ \textcolor{comment}{\ \ \ *\ \ \ \ \ A\ pointer\ to\ the\ source\ glyph\ image\ (e.g.,\ an\ @FT\_Outline).}}
+\DoxyCodeLine{00987\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00988\ \textcolor{comment}{\ \ \ *\ \ \ flags\ ::}}
+\DoxyCodeLine{00989\ \textcolor{comment}{\ \ \ *\ \ \ \ \ The\ rendering\ flags.}}
+\DoxyCodeLine{00990\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00991\ \textcolor{comment}{\ \ \ *\ \ \ gray\_spans\ ::}}
+\DoxyCodeLine{00992\ \textcolor{comment}{\ \ \ *\ \ \ \ \ The\ gray\ span\ drawing\ callback.}}
+\DoxyCodeLine{00993\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00994\ \textcolor{comment}{\ \ \ *\ \ \ black\_spans\ ::}}
+\DoxyCodeLine{00995\ \textcolor{comment}{\ \ \ *\ \ \ \ \ Unused.}}
+\DoxyCodeLine{00996\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00997\ \textcolor{comment}{\ \ \ *\ \ \ bit\_test\ ::}}
+\DoxyCodeLine{00998\ \textcolor{comment}{\ \ \ *\ \ \ \ \ Unused.}}
+\DoxyCodeLine{00999\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{01000\ \textcolor{comment}{\ \ \ *\ \ \ bit\_set\ ::}}
+\DoxyCodeLine{01001\ \textcolor{comment}{\ \ \ *\ \ \ \ \ Unused.}}
+\DoxyCodeLine{01002\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{01003\ \textcolor{comment}{\ \ \ *\ \ \ user\ ::}}
+\DoxyCodeLine{01004\ \textcolor{comment}{\ \ \ *\ \ \ \ \ User-\/supplied\ data\ that\ is\ passed\ to\ each\ drawing\ callback.}}
+\DoxyCodeLine{01005\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{01006\ \textcolor{comment}{\ \ \ *\ \ \ clip\_box\ ::}}
+\DoxyCodeLine{01007\ \textcolor{comment}{\ \ \ *\ \ \ \ \ An\ optional\ clipping\ box.\ \ It\ is\ only\ used\ in\ direct\ rendering\ mode.}}
+\DoxyCodeLine{01008\ \textcolor{comment}{\ \ \ *\ \ \ \ \ Note\ that\ coordinates\ here\ should\ be\ expressed\ in\ \_integer\_\ pixels}}
+\DoxyCodeLine{01009\ \textcolor{comment}{\ \ \ *\ \ \ \ \ (and\ not\ in\ 26.6\ fixed-\/point\ units).}}
+\DoxyCodeLine{01010\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{01011\ \textcolor{comment}{\ \ \ *\ @note:}}
+\DoxyCodeLine{01012\ \textcolor{comment}{\ \ \ *\ \ \ An\ anti-\/aliased\ glyph\ bitmap\ is\ drawn\ if\ the\ @FT\_RASTER\_FLAG\_AA\ bit}}
+\DoxyCodeLine{01013\ \textcolor{comment}{\ \ \ *\ \ \ flag\ is\ set\ in\ the\ `flags`\ field,\ otherwise\ a\ monochrome\ bitmap\ is}}
+\DoxyCodeLine{01014\ \textcolor{comment}{\ \ \ *\ \ \ generated.}}
+\DoxyCodeLine{01015\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{01016\ \textcolor{comment}{\ \ \ *\ \ \ If\ the\ @FT\_RASTER\_FLAG\_DIRECT\ bit\ flag\ is\ set\ in\ `flags`,\ the\ raster}}
+\DoxyCodeLine{01017\ \textcolor{comment}{\ \ \ *\ \ \ will\ call\ the\ `gray\_spans`\ callback\ to\ draw\ gray\ pixel\ spans.\ \ This}}
+\DoxyCodeLine{01018\ \textcolor{comment}{\ \ \ *\ \ \ allows\ direct\ composition\ over\ a\ pre-\/existing\ bitmap\ through}}
+\DoxyCodeLine{01019\ \textcolor{comment}{\ \ \ *\ \ \ user-\/provided\ callbacks\ to\ perform\ the\ span\ drawing\ and\ composition.}}
+\DoxyCodeLine{01020\ \textcolor{comment}{\ \ \ *\ \ \ Not\ supported\ by\ the\ monochrome\ rasterizer.}}
+\DoxyCodeLine{01021\ \textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{01022\ \ \ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ \ }\mbox{\hyperlink{structFT__Raster__Params__}{FT\_Raster\_Params\_}}}
+\DoxyCodeLine{01023\ \ \ \{}
+\DoxyCodeLine{01024\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structFT__Bitmap__}{FT\_Bitmap}}*\ \ \ \ \ \ \ \ target;}
+\DoxyCodeLine{01025\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}*\ \ \ \ \ \ \ \ \ \ \ \ \ source;}
+\DoxyCodeLine{01026\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ flags;}
+\DoxyCodeLine{01027\ \ \ \ \ FT\_SpanFunc\ \ \ \ \ \ \ \ \ \ \ \ \ gray\_spans;}
+\DoxyCodeLine{01028\ \ \ \ \ FT\_SpanFunc\ \ \ \ \ \ \ \ \ \ \ \ \ black\_spans;\ \ \textcolor{comment}{/*\ unused\ */}}
+\DoxyCodeLine{01029\ \ \ \ \ FT\_Raster\_BitTest\_Func\ \ bit\_test;\ \ \ \ \ \textcolor{comment}{/*\ unused\ */}}
+\DoxyCodeLine{01030\ \ \ \ \ FT\_Raster\_BitSet\_Func\ \ \ bit\_set;\ \ \ \ \ \ \textcolor{comment}{/*\ unused\ */}}
+\DoxyCodeLine{01031\ \ \ \ \ \textcolor{keywordtype}{void}*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ user;}
+\DoxyCodeLine{01032\ \ \ \ \ \mbox{\hyperlink{structFT__BBox__}{FT\_BBox}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ clip\_box;}
+\DoxyCodeLine{01033\ }
+\DoxyCodeLine{01034\ \ \ \}\ \mbox{\hyperlink{structFT__Raster__Params__}{FT\_Raster\_Params}};}
+\DoxyCodeLine{01035\ }
+\DoxyCodeLine{01036\ }
+\DoxyCodeLine{01037\ \textcolor{comment}{\ \ /**************************************************************************}}
+\DoxyCodeLine{01038\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{01039\ \textcolor{comment}{\ \ \ *\ @functype:}}
+\DoxyCodeLine{01040\ \textcolor{comment}{\ \ \ *\ \ \ FT\_Raster\_NewFunc}}
+\DoxyCodeLine{01041\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{01042\ \textcolor{comment}{\ \ \ *\ @description:}}
+\DoxyCodeLine{01043\ \textcolor{comment}{\ \ \ *\ \ \ A\ function\ used\ to\ create\ a\ new\ raster\ object.}}
+\DoxyCodeLine{01044\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{01045\ \textcolor{comment}{\ \ \ *\ @input:}}
+\DoxyCodeLine{01046\ \textcolor{comment}{\ \ \ *\ \ \ memory\ ::}}
+\DoxyCodeLine{01047\ \textcolor{comment}{\ \ \ *\ \ \ \ \ A\ handle\ to\ the\ memory\ allocator.}}
+\DoxyCodeLine{01048\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{01049\ \textcolor{comment}{\ \ \ *\ @output:}}
+\DoxyCodeLine{01050\ \textcolor{comment}{\ \ \ *\ \ \ raster\ ::}}
+\DoxyCodeLine{01051\ \textcolor{comment}{\ \ \ *\ \ \ \ \ A\ handle\ to\ the\ new\ raster\ object.}}
+\DoxyCodeLine{01052\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{01053\ \textcolor{comment}{\ \ \ *\ @return:}}
+\DoxyCodeLine{01054\ \textcolor{comment}{\ \ \ *\ \ \ Error\ code.\ \ 0\string~means\ success.}}
+\DoxyCodeLine{01055\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{01056\ \textcolor{comment}{\ \ \ *\ @note:}}
+\DoxyCodeLine{01057\ \textcolor{comment}{\ \ \ *\ \ \ The\ `memory`\ parameter\ is\ a\ typeless\ pointer\ in\ order\ to\ avoid}}
+\DoxyCodeLine{01058\ \textcolor{comment}{\ \ \ *\ \ \ un-\/wanted\ dependencies\ on\ the\ rest\ of\ the\ FreeType\ code.\ \ In\ practice,}}
+\DoxyCodeLine{01059\ \textcolor{comment}{\ \ \ *\ \ \ it\ is\ an\ @FT\_Memory\ object,\ i.e.,\ a\ handle\ to\ the\ standard\ FreeType}}
+\DoxyCodeLine{01060\ \textcolor{comment}{\ \ \ *\ \ \ memory\ allocator.\ \ However,\ this\ field\ can\ be\ completely\ ignored\ by\ a}}
+\DoxyCodeLine{01061\ \textcolor{comment}{\ \ \ *\ \ \ given\ raster\ implementation.}}
+\DoxyCodeLine{01062\ \textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{01063\ \ \ \textcolor{keyword}{typedef}\ int}
+\DoxyCodeLine{01064\ \ \ (*FT\_Raster\_NewFunc)(\ \textcolor{keywordtype}{void}*\ \ \ \ \ \ \ memory,}
+\DoxyCodeLine{01065\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FT\_Raster*\ \ raster\ );}
+\DoxyCodeLine{01066\ }
+\DoxyCodeLine{01067\ \textcolor{preprocessor}{\#define\ FT\_Raster\_New\_Func\ \ FT\_Raster\_NewFunc}}
+\DoxyCodeLine{01068\ }
+\DoxyCodeLine{01069\ }
+\DoxyCodeLine{01070\ \textcolor{comment}{\ \ /**************************************************************************}}
+\DoxyCodeLine{01071\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{01072\ \textcolor{comment}{\ \ \ *\ @functype:}}
+\DoxyCodeLine{01073\ \textcolor{comment}{\ \ \ *\ \ \ FT\_Raster\_DoneFunc}}
+\DoxyCodeLine{01074\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{01075\ \textcolor{comment}{\ \ \ *\ @description:}}
+\DoxyCodeLine{01076\ \textcolor{comment}{\ \ \ *\ \ \ A\ function\ used\ to\ destroy\ a\ given\ raster\ object.}}
+\DoxyCodeLine{01077\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{01078\ \textcolor{comment}{\ \ \ *\ @input:}}
+\DoxyCodeLine{01079\ \textcolor{comment}{\ \ \ *\ \ \ raster\ ::}}
+\DoxyCodeLine{01080\ \textcolor{comment}{\ \ \ *\ \ \ \ \ A\ handle\ to\ the\ raster\ object.}}
+\DoxyCodeLine{01081\ \textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{01082\ \ \ \textcolor{keyword}{typedef}\ void}
+\DoxyCodeLine{01083\ \ \ (*FT\_Raster\_DoneFunc)(\ FT\_Raster\ \ raster\ );}
+\DoxyCodeLine{01084\ }
+\DoxyCodeLine{01085\ \textcolor{preprocessor}{\#define\ FT\_Raster\_Done\_Func\ \ FT\_Raster\_DoneFunc}}
+\DoxyCodeLine{01086\ }
+\DoxyCodeLine{01087\ }
+\DoxyCodeLine{01088\ \textcolor{comment}{\ \ /**************************************************************************}}
+\DoxyCodeLine{01089\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{01090\ \textcolor{comment}{\ \ \ *\ @functype:}}
+\DoxyCodeLine{01091\ \textcolor{comment}{\ \ \ *\ \ \ FT\_Raster\_ResetFunc}}
+\DoxyCodeLine{01092\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{01093\ \textcolor{comment}{\ \ \ *\ @description:}}
+\DoxyCodeLine{01094\ \textcolor{comment}{\ \ \ *\ \ \ FreeType\ used\ to\ provide\ an\ area\ of\ memory\ called\ the\ 'render\ pool'}}
+\DoxyCodeLine{01095\ \textcolor{comment}{\ \ \ *\ \ \ available\ to\ all\ registered\ rasterizers.\ \ This\ was\ not\ thread\ safe,}}
+\DoxyCodeLine{01096\ \textcolor{comment}{\ \ \ *\ \ \ however,\ and\ now\ FreeType\ never\ allocates\ this\ pool.}}
+\DoxyCodeLine{01097\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{01098\ \textcolor{comment}{\ \ \ *\ \ \ This\ function\ is\ called\ after\ a\ new\ raster\ object\ is\ created.}}
+\DoxyCodeLine{01099\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{01100\ \textcolor{comment}{\ \ \ *\ @input:}}
+\DoxyCodeLine{01101\ \textcolor{comment}{\ \ \ *\ \ \ raster\ ::}}
+\DoxyCodeLine{01102\ \textcolor{comment}{\ \ \ *\ \ \ \ \ A\ handle\ to\ the\ new\ raster\ object.}}
+\DoxyCodeLine{01103\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{01104\ \textcolor{comment}{\ \ \ *\ \ \ pool\_base\ ::}}
+\DoxyCodeLine{01105\ \textcolor{comment}{\ \ \ *\ \ \ \ \ Previously,\ the\ address\ in\ memory\ of\ the\ render\ pool.\ \ Set\ this\ to}}
+\DoxyCodeLine{01106\ \textcolor{comment}{\ \ \ *\ \ \ \ \ `NULL`.}}
+\DoxyCodeLine{01107\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{01108\ \textcolor{comment}{\ \ \ *\ \ \ pool\_size\ ::}}
+\DoxyCodeLine{01109\ \textcolor{comment}{\ \ \ *\ \ \ \ \ Previously,\ the\ size\ in\ bytes\ of\ the\ render\ pool.\ \ Set\ this\ to\ 0.}}
+\DoxyCodeLine{01110\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{01111\ \textcolor{comment}{\ \ \ *\ @note:}}
+\DoxyCodeLine{01112\ \textcolor{comment}{\ \ \ *\ \ \ Rasterizers\ should\ rely\ on\ dynamic\ or\ stack\ allocation\ if\ they\ want\ to}}
+\DoxyCodeLine{01113\ \textcolor{comment}{\ \ \ *\ \ \ (a\ handle\ to\ the\ memory\ allocator\ is\ passed\ to\ the\ rasterizer}}
+\DoxyCodeLine{01114\ \textcolor{comment}{\ \ \ *\ \ \ constructor).}}
+\DoxyCodeLine{01115\ \textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{01116\ \ \ \textcolor{keyword}{typedef}\ void}
+\DoxyCodeLine{01117\ \ \ (*FT\_Raster\_ResetFunc)(\ FT\_Raster\ \ \ \ \ \ \ raster,}
+\DoxyCodeLine{01118\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*\ \ pool\_base,}
+\DoxyCodeLine{01119\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \ \ pool\_size\ );}
+\DoxyCodeLine{01120\ }
+\DoxyCodeLine{01121\ \textcolor{preprocessor}{\#define\ FT\_Raster\_Reset\_Func\ \ FT\_Raster\_ResetFunc}}
+\DoxyCodeLine{01122\ }
+\DoxyCodeLine{01123\ }
+\DoxyCodeLine{01124\ \textcolor{comment}{\ \ /**************************************************************************}}
+\DoxyCodeLine{01125\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{01126\ \textcolor{comment}{\ \ \ *\ @functype:}}
+\DoxyCodeLine{01127\ \textcolor{comment}{\ \ \ *\ \ \ FT\_Raster\_SetModeFunc}}
+\DoxyCodeLine{01128\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{01129\ \textcolor{comment}{\ \ \ *\ @description:}}
+\DoxyCodeLine{01130\ \textcolor{comment}{\ \ \ *\ \ \ This\ function\ is\ a\ generic\ facility\ to\ change\ modes\ or\ attributes\ in\ a}}
+\DoxyCodeLine{01131\ \textcolor{comment}{\ \ \ *\ \ \ given\ raster.\ \ This\ can\ be\ used\ for\ debugging\ purposes,\ or\ simply\ to}}
+\DoxyCodeLine{01132\ \textcolor{comment}{\ \ \ *\ \ \ allow\ implementation-\/specific\ 'features'\ in\ a\ given\ raster\ module.}}
+\DoxyCodeLine{01133\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{01134\ \textcolor{comment}{\ \ \ *\ @input:}}
+\DoxyCodeLine{01135\ \textcolor{comment}{\ \ \ *\ \ \ raster\ ::}}
+\DoxyCodeLine{01136\ \textcolor{comment}{\ \ \ *\ \ \ \ \ A\ handle\ to\ the\ new\ raster\ object.}}
+\DoxyCodeLine{01137\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{01138\ \textcolor{comment}{\ \ \ *\ \ \ mode\ ::}}
+\DoxyCodeLine{01139\ \textcolor{comment}{\ \ \ *\ \ \ \ \ A\ 4-\/byte\ tag\ used\ to\ name\ the\ mode\ or\ property.}}
+\DoxyCodeLine{01140\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{01141\ \textcolor{comment}{\ \ \ *\ \ \ args\ ::}}
+\DoxyCodeLine{01142\ \textcolor{comment}{\ \ \ *\ \ \ \ \ A\ pointer\ to\ the\ new\ mode/property\ to\ use.}}
+\DoxyCodeLine{01143\ \textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{01144\ \ \ \textcolor{keyword}{typedef}\ int}
+\DoxyCodeLine{01145\ \ \ (*FT\_Raster\_SetModeFunc)(\ FT\_Raster\ \ \ \ \ \ raster,}
+\DoxyCodeLine{01146\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \ mode,}
+\DoxyCodeLine{01147\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}*\ \ \ \ \ \ \ \ \ \ args\ );}
+\DoxyCodeLine{01148\ }
+\DoxyCodeLine{01149\ \textcolor{preprocessor}{\#define\ FT\_Raster\_Set\_Mode\_Func\ \ FT\_Raster\_SetModeFunc}}
+\DoxyCodeLine{01150\ }
+\DoxyCodeLine{01151\ }
+\DoxyCodeLine{01152\ \textcolor{comment}{\ \ /**************************************************************************}}
+\DoxyCodeLine{01153\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{01154\ \textcolor{comment}{\ \ \ *\ @functype:}}
+\DoxyCodeLine{01155\ \textcolor{comment}{\ \ \ *\ \ \ FT\_Raster\_RenderFunc}}
+\DoxyCodeLine{01156\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{01157\ \textcolor{comment}{\ \ \ *\ @description:}}
+\DoxyCodeLine{01158\ \textcolor{comment}{\ \ \ *\ \ \ Invoke\ a\ given\ raster\ to\ scan-\/convert\ a\ given\ glyph\ image\ into\ a}}
+\DoxyCodeLine{01159\ \textcolor{comment}{\ \ \ *\ \ \ target\ bitmap.}}
+\DoxyCodeLine{01160\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{01161\ \textcolor{comment}{\ \ \ *\ @input:}}
+\DoxyCodeLine{01162\ \textcolor{comment}{\ \ \ *\ \ \ raster\ ::}}
+\DoxyCodeLine{01163\ \textcolor{comment}{\ \ \ *\ \ \ \ \ A\ handle\ to\ the\ raster\ object.}}
+\DoxyCodeLine{01164\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{01165\ \textcolor{comment}{\ \ \ *\ \ \ params\ ::}}
+\DoxyCodeLine{01166\ \textcolor{comment}{\ \ \ *\ \ \ \ \ A\ pointer\ to\ an\ @FT\_Raster\_Params\ structure\ used\ to\ store\ the}}
+\DoxyCodeLine{01167\ \textcolor{comment}{\ \ \ *\ \ \ \ \ rendering\ parameters.}}
+\DoxyCodeLine{01168\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{01169\ \textcolor{comment}{\ \ \ *\ @return:}}
+\DoxyCodeLine{01170\ \textcolor{comment}{\ \ \ *\ \ \ Error\ code.\ \ 0\string~means\ success.}}
+\DoxyCodeLine{01171\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{01172\ \textcolor{comment}{\ \ \ *\ @note:}}
+\DoxyCodeLine{01173\ \textcolor{comment}{\ \ \ *\ \ \ The\ exact\ format\ of\ the\ source\ image\ depends\ on\ the\ raster's\ glyph}}
+\DoxyCodeLine{01174\ \textcolor{comment}{\ \ \ *\ \ \ format\ defined\ in\ its\ @FT\_Raster\_Funcs\ structure.\ \ It\ can\ be\ an}}
+\DoxyCodeLine{01175\ \textcolor{comment}{\ \ \ *\ \ \ @FT\_Outline\ or\ anything\ else\ in\ order\ to\ support\ a\ large\ array\ of}}
+\DoxyCodeLine{01176\ \textcolor{comment}{\ \ \ *\ \ \ glyph\ formats.}}
+\DoxyCodeLine{01177\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{01178\ \textcolor{comment}{\ \ \ *\ \ \ Note\ also\ that\ the\ render\ function\ can\ fail\ and\ return\ a}}
+\DoxyCodeLine{01179\ \textcolor{comment}{\ \ \ *\ \ \ `FT\_Err\_Unimplemented\_Feature`\ error\ code\ if\ the\ raster\ used\ does\ not}}
+\DoxyCodeLine{01180\ \textcolor{comment}{\ \ \ *\ \ \ support\ direct\ composition.}}
+\DoxyCodeLine{01181\ \textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{01182\ \ \ \textcolor{keyword}{typedef}\ int}
+\DoxyCodeLine{01183\ \ \ (*FT\_Raster\_RenderFunc)(\ FT\_Raster\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ raster,}
+\DoxyCodeLine{01184\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structFT__Raster__Params__}{FT\_Raster\_Params}}*\ \ params\ );}
+\DoxyCodeLine{01185\ }
+\DoxyCodeLine{01186\ \textcolor{preprocessor}{\#define\ FT\_Raster\_Render\_Func\ \ FT\_Raster\_RenderFunc}}
+\DoxyCodeLine{01187\ }
+\DoxyCodeLine{01188\ }
+\DoxyCodeLine{01189\ \textcolor{comment}{\ \ /**************************************************************************}}
+\DoxyCodeLine{01190\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{01191\ \textcolor{comment}{\ \ \ *\ @struct:}}
+\DoxyCodeLine{01192\ \textcolor{comment}{\ \ \ *\ \ \ FT\_Raster\_Funcs}}
+\DoxyCodeLine{01193\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{01194\ \textcolor{comment}{\ \ \ *\ @description:}}
+\DoxyCodeLine{01195\ \textcolor{comment}{\ \ \ *\ \ A\ structure\ used\ to\ describe\ a\ given\ raster\ class\ to\ the\ library.}}
+\DoxyCodeLine{01196\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{01197\ \textcolor{comment}{\ \ \ *\ @fields:}}
+\DoxyCodeLine{01198\ \textcolor{comment}{\ \ \ *\ \ \ glyph\_format\ ::}}
+\DoxyCodeLine{01199\ \textcolor{comment}{\ \ \ *\ \ \ \ \ The\ supported\ glyph\ format\ for\ this\ raster.}}
+\DoxyCodeLine{01200\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{01201\ \textcolor{comment}{\ \ \ *\ \ \ raster\_new\ ::}}
+\DoxyCodeLine{01202\ \textcolor{comment}{\ \ \ *\ \ \ \ \ The\ raster\ constructor.}}
+\DoxyCodeLine{01203\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{01204\ \textcolor{comment}{\ \ \ *\ \ \ raster\_reset\ ::}}
+\DoxyCodeLine{01205\ \textcolor{comment}{\ \ \ *\ \ \ \ \ Used\ to\ reset\ the\ render\ pool\ within\ the\ raster.}}
+\DoxyCodeLine{01206\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{01207\ \textcolor{comment}{\ \ \ *\ \ \ raster\_render\ ::}}
+\DoxyCodeLine{01208\ \textcolor{comment}{\ \ \ *\ \ \ \ \ A\ function\ to\ render\ a\ glyph\ into\ a\ given\ bitmap.}}
+\DoxyCodeLine{01209\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{01210\ \textcolor{comment}{\ \ \ *\ \ \ raster\_done\ ::}}
+\DoxyCodeLine{01211\ \textcolor{comment}{\ \ \ *\ \ \ \ \ The\ raster\ destructor.}}
+\DoxyCodeLine{01212\ \textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{01213\ \ \ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ \ }\mbox{\hyperlink{structFT__Raster__Funcs__}{FT\_Raster\_Funcs\_}}}
+\DoxyCodeLine{01214\ \ \ \{}
+\DoxyCodeLine{01215\ \ \ \ \ FT\_Glyph\_Format\ \ \ \ \ \ \ \ glyph\_format;}
+\DoxyCodeLine{01216\ }
+\DoxyCodeLine{01217\ \ \ \ \ FT\_Raster\_NewFunc\ \ \ \ \ \ raster\_new;}
+\DoxyCodeLine{01218\ \ \ \ \ FT\_Raster\_ResetFunc\ \ \ \ raster\_reset;}
+\DoxyCodeLine{01219\ \ \ \ \ FT\_Raster\_SetModeFunc\ \ raster\_set\_mode;}
+\DoxyCodeLine{01220\ \ \ \ \ FT\_Raster\_RenderFunc\ \ \ raster\_render;}
+\DoxyCodeLine{01221\ \ \ \ \ FT\_Raster\_DoneFunc\ \ \ \ \ raster\_done;}
+\DoxyCodeLine{01222\ }
+\DoxyCodeLine{01223\ \ \ \}\ \mbox{\hyperlink{structFT__Raster__Funcs__}{FT\_Raster\_Funcs}};}
+\DoxyCodeLine{01224\ }
+\DoxyCodeLine{01225\ \ \ \textcolor{comment}{/*\ */}}
+\DoxyCodeLine{01226\ }
+\DoxyCodeLine{01227\ }
+\DoxyCodeLine{01228\ FT\_END\_HEADER}
+\DoxyCodeLine{01229\ }
+\DoxyCodeLine{01230\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ FTIMAGE\_H\_\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{01231\ }
+\DoxyCodeLine{01232\ }
+\DoxyCodeLine{01233\ \textcolor{comment}{/*\ END\ */}}
+\DoxyCodeLine{01234\ }
+\DoxyCodeLine{01235\ }
+\DoxyCodeLine{01236\ \textcolor{comment}{/*\ Local\ Variables:\ */}}
+\DoxyCodeLine{01237\ \textcolor{comment}{/*\ coding:\ utf-\/8\ \ \ \ */}}
+\DoxyCodeLine{01238\ \textcolor{comment}{/*\ End:\ \ \ \ \ \ \ \ \ \ \ \ \ */}}
+
+\end{DoxyCode}

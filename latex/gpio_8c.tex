@@ -1,0 +1,34 @@
+\hypertarget{gpio_8c}{}\doxysection{platform/avr/gpio/gpio.c File Reference}
+\label{gpio_8c}\index{platform/avr/gpio/gpio.c@{platform/avr/gpio/gpio.c}}
+{\ttfamily \#include \char`\"{}gpio.\+h\char`\"{}}\newline
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{gpio_8c_a7159e787d0c4fb89346383b7987ab6d3}{gpio\+\_\+configure}} (void)
+\begin{DoxyCompactList}\small\item\em Configure all GPIO pins. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyAuthor}{Author}
+Anton Tchekov 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+0.\+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+20.\+05.\+2023 
+\end{DoxyDate}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{gpio_8c_a7159e787d0c4fb89346383b7987ab6d3}\label{gpio_8c_a7159e787d0c4fb89346383b7987ab6d3}} 
+\index{gpio.c@{gpio.c}!gpio\_configure@{gpio\_configure}}
+\index{gpio\_configure@{gpio\_configure}!gpio.c@{gpio.c}}
+\doxysubsubsection{\texorpdfstring{gpio\_configure()}{gpio\_configure()}}
+{\footnotesize\ttfamily void gpio\+\_\+configure (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Configure all GPIO pins. 
+
+This function is neccessary because multiple peripherals are connected to the SPI bus, so all CS lines need to be driven LOW before SPI initialization. 

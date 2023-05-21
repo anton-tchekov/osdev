@@ -1,0 +1,210 @@
+\hypertarget{ftparams_8h_source}{}\doxysection{ftparams.\+h}
+\label{ftparams_8h_source}\index{tools/font-\/convert/freetype/ftparams.h@{tools/font-\/convert/freetype/ftparams.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/****************************************************************************}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *\ ftparams.h}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *\ \ \ FreeType\ API\ for\ possible\ FT\_Parameter\ tags\ (specification\ only).}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *\ Copyright\ (C)\ 2017-\/2019\ by}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ *\ David\ Turner,\ Robert\ Wilhelm,\ and\ Werner\ Lemberg.}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ *\ This\ file\ is\ part\ of\ the\ FreeType\ project,\ and\ may\ only\ be\ used,}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ *\ modified,\ and\ distributed\ under\ the\ terms\ of\ the\ FreeType\ project}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ *\ license,\ LICENSE.TXT.\ \ By\ continuing\ to\ use,\ modify,\ or\ distribute}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ *\ this\ file\ you\ indicate\ that\ you\ have\ read\ the\ license\ and}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ *\ understand\ and\ accept\ it\ fully.}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#ifndef\ FTPARAMS\_H\_}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#define\ FTPARAMS\_H\_}}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#include\ <ft2build.h>}}
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#include\ FT\_FREETYPE\_H}}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#ifdef\ FREETYPE\_H}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#error\ "{}freetype.h\ of\ FreeType\ 1\ has\ been\ loaded!"{}}}
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#error\ "{}Please\ fix\ the\ directory\ search\ order\ for\ header\ files"{}}}
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#error\ "{}so\ that\ freetype.h\ of\ FreeType\ 2\ is\ found\ first."{}}}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ FT\_BEGIN\_HEADER}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \textcolor{comment}{\ \ /**************************************************************************}}
+\DoxyCodeLine{00036\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00037\ \textcolor{comment}{\ \ \ *\ @section:}}
+\DoxyCodeLine{00038\ \textcolor{comment}{\ \ \ *\ \ \ parameter\_tags}}
+\DoxyCodeLine{00039\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00040\ \textcolor{comment}{\ \ \ *\ @title:}}
+\DoxyCodeLine{00041\ \textcolor{comment}{\ \ \ *\ \ \ Parameter\ Tags}}
+\DoxyCodeLine{00042\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00043\ \textcolor{comment}{\ \ \ *\ @abstract:}}
+\DoxyCodeLine{00044\ \textcolor{comment}{\ \ \ *\ \ \ Macros\ for\ driver\ property\ and\ font\ loading\ parameter\ tags.}}
+\DoxyCodeLine{00045\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00046\ \textcolor{comment}{\ \ \ *\ @description:}}
+\DoxyCodeLine{00047\ \textcolor{comment}{\ \ \ *\ \ \ This\ section\ contains\ macros\ for\ the\ @FT\_Parameter\ structure\ that\ are}}
+\DoxyCodeLine{00048\ \textcolor{comment}{\ \ \ *\ \ \ used\ with\ various\ functions\ to\ activate\ some\ special\ functionality\ or}}
+\DoxyCodeLine{00049\ \textcolor{comment}{\ \ \ *\ \ \ different\ behaviour\ of\ various\ components\ of\ FreeType.}}
+\DoxyCodeLine{00050\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00051\ \textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \textcolor{comment}{\ \ /**************************************************************************}}
+\DoxyCodeLine{00055\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00056\ \textcolor{comment}{\ \ \ *\ @enum:}}
+\DoxyCodeLine{00057\ \textcolor{comment}{\ \ \ *\ \ \ FT\_PARAM\_TAG\_IGNORE\_TYPOGRAPHIC\_FAMILY}}
+\DoxyCodeLine{00058\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00059\ \textcolor{comment}{\ \ \ *\ @description:}}
+\DoxyCodeLine{00060\ \textcolor{comment}{\ \ \ *\ \ \ A\ tag\ for\ @FT\_Parameter\ to\ make\ @FT\_Open\_Face\ ignore\ typographic}}
+\DoxyCodeLine{00061\ \textcolor{comment}{\ \ \ *\ \ \ family\ names\ in\ the\ 'name'\ table\ (introduced\ in\ OpenType\ version\ 1.4).}}
+\DoxyCodeLine{00062\ \textcolor{comment}{\ \ \ *\ \ \ Use\ this\ for\ backward\ compatibility\ with\ legacy\ systems\ that\ have\ a}}
+\DoxyCodeLine{00063\ \textcolor{comment}{\ \ \ *\ \ \ four-\/faces-\/per-\/family\ restriction.}}
+\DoxyCodeLine{00064\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00065\ \textcolor{comment}{\ \ \ *\ @since:}}
+\DoxyCodeLine{00066\ \textcolor{comment}{\ \ \ *\ \ \ 2.8}}
+\DoxyCodeLine{00067\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00068\ \textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{00069\ \textcolor{preprocessor}{\#define\ FT\_PARAM\_TAG\_IGNORE\_TYPOGRAPHIC\_FAMILY\ \(\backslash\)}}
+\DoxyCodeLine{00070\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ FT\_MAKE\_TAG(\ 'i',\ 'g',\ 'p',\ 'f'\ )}}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ \ \ \textcolor{comment}{/*\ this\ constant\ is\ deprecated\ */}}
+\DoxyCodeLine{00074\ \textcolor{preprocessor}{\#define\ FT\_PARAM\_TAG\_IGNORE\_PREFERRED\_FAMILY\ \(\backslash\)}}
+\DoxyCodeLine{00075\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ FT\_PARAM\_TAG\_IGNORE\_TYPOGRAPHIC\_FAMILY}}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \textcolor{comment}{\ \ /**************************************************************************}}
+\DoxyCodeLine{00079\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00080\ \textcolor{comment}{\ \ \ *\ @enum:}}
+\DoxyCodeLine{00081\ \textcolor{comment}{\ \ \ *\ \ \ FT\_PARAM\_TAG\_IGNORE\_TYPOGRAPHIC\_SUBFAMILY}}
+\DoxyCodeLine{00082\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00083\ \textcolor{comment}{\ \ \ *\ @description:}}
+\DoxyCodeLine{00084\ \textcolor{comment}{\ \ \ *\ \ \ A\ tag\ for\ @FT\_Parameter\ to\ make\ @FT\_Open\_Face\ ignore\ typographic}}
+\DoxyCodeLine{00085\ \textcolor{comment}{\ \ \ *\ \ \ subfamily\ names\ in\ the\ 'name'\ table\ (introduced\ in\ OpenType\ version}}
+\DoxyCodeLine{00086\ \textcolor{comment}{\ \ \ *\ \ \ 1.4).\ \ Use\ this\ for\ backward\ compatibility\ with\ legacy\ systems\ that}}
+\DoxyCodeLine{00087\ \textcolor{comment}{\ \ \ *\ \ \ have\ a\ four-\/faces-\/per-\/family\ restriction.}}
+\DoxyCodeLine{00088\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00089\ \textcolor{comment}{\ \ \ *\ @since:}}
+\DoxyCodeLine{00090\ \textcolor{comment}{\ \ \ *\ \ \ 2.8}}
+\DoxyCodeLine{00091\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00092\ \textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{00093\ \textcolor{preprocessor}{\#define\ FT\_PARAM\_TAG\_IGNORE\_TYPOGRAPHIC\_SUBFAMILY\ \(\backslash\)}}
+\DoxyCodeLine{00094\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ FT\_MAKE\_TAG(\ 'i',\ 'g',\ 'p',\ 's'\ )}}
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00097\ \ \ \textcolor{comment}{/*\ this\ constant\ is\ deprecated\ */}}
+\DoxyCodeLine{00098\ \textcolor{preprocessor}{\#define\ FT\_PARAM\_TAG\_IGNORE\_PREFERRED\_SUBFAMILY\ \(\backslash\)}}
+\DoxyCodeLine{00099\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ FT\_PARAM\_TAG\_IGNORE\_TYPOGRAPHIC\_SUBFAMILY}}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00101\ }
+\DoxyCodeLine{00102\ \textcolor{comment}{\ \ /**************************************************************************}}
+\DoxyCodeLine{00103\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00104\ \textcolor{comment}{\ \ \ *\ @enum:}}
+\DoxyCodeLine{00105\ \textcolor{comment}{\ \ \ *\ \ \ FT\_PARAM\_TAG\_INCREMENTAL}}
+\DoxyCodeLine{00106\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00107\ \textcolor{comment}{\ \ \ *\ @description:}}
+\DoxyCodeLine{00108\ \textcolor{comment}{\ \ \ *\ \ \ An\ @FT\_Parameter\ tag\ to\ be\ used\ with\ @FT\_Open\_Face\ to\ indicate}}
+\DoxyCodeLine{00109\ \textcolor{comment}{\ \ \ *\ \ \ incremental\ glyph\ loading.}}
+\DoxyCodeLine{00110\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00111\ \textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{00112\ \textcolor{preprocessor}{\#define\ FT\_PARAM\_TAG\_INCREMENTAL\ \(\backslash\)}}
+\DoxyCodeLine{00113\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ FT\_MAKE\_TAG(\ 'i',\ 'n',\ 'c',\ 'r'\ )}}
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00115\ }
+\DoxyCodeLine{00116\ \textcolor{comment}{\ \ /**************************************************************************}}
+\DoxyCodeLine{00117\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00118\ \textcolor{comment}{\ \ \ *\ @enum:}}
+\DoxyCodeLine{00119\ \textcolor{comment}{\ \ \ *\ \ \ FT\_PARAM\_TAG\_LCD\_FILTER\_WEIGHTS}}
+\DoxyCodeLine{00120\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00121\ \textcolor{comment}{\ \ \ *\ @description:}}
+\DoxyCodeLine{00122\ \textcolor{comment}{\ \ \ *\ \ \ An\ @FT\_Parameter\ tag\ to\ be\ used\ with\ @FT\_Face\_Properties.\ \ The}}
+\DoxyCodeLine{00123\ \textcolor{comment}{\ \ \ *\ \ \ corresponding\ argument\ specifies\ the\ five\ LCD\ filter\ weights\ for\ a}}
+\DoxyCodeLine{00124\ \textcolor{comment}{\ \ \ *\ \ \ given\ face\ (if\ using\ @FT\_LOAD\_TARGET\_LCD,\ for\ example),\ overriding\ the}}
+\DoxyCodeLine{00125\ \textcolor{comment}{\ \ \ *\ \ \ global\ default\ values\ or\ the\ values\ set\ up\ with}}
+\DoxyCodeLine{00126\ \textcolor{comment}{\ \ \ *\ \ \ @FT\_Library\_SetLcdFilterWeights.}}
+\DoxyCodeLine{00127\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00128\ \textcolor{comment}{\ \ \ *\ @since:}}
+\DoxyCodeLine{00129\ \textcolor{comment}{\ \ \ *\ \ \ 2.8}}
+\DoxyCodeLine{00130\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00131\ \textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{00132\ \textcolor{preprocessor}{\#define\ FT\_PARAM\_TAG\_LCD\_FILTER\_WEIGHTS\ \(\backslash\)}}
+\DoxyCodeLine{00133\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ FT\_MAKE\_TAG(\ 'l',\ 'c',\ 'd',\ 'f'\ )}}
+\DoxyCodeLine{00134\ }
+\DoxyCodeLine{00135\ }
+\DoxyCodeLine{00136\ \textcolor{comment}{\ \ /**************************************************************************}}
+\DoxyCodeLine{00137\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00138\ \textcolor{comment}{\ \ \ *\ @enum:}}
+\DoxyCodeLine{00139\ \textcolor{comment}{\ \ \ *\ \ \ FT\_PARAM\_TAG\_RANDOM\_SEED}}
+\DoxyCodeLine{00140\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00141\ \textcolor{comment}{\ \ \ *\ @description:}}
+\DoxyCodeLine{00142\ \textcolor{comment}{\ \ \ *\ \ \ An\ @FT\_Parameter\ tag\ to\ be\ used\ with\ @FT\_Face\_Properties.\ \ The}}
+\DoxyCodeLine{00143\ \textcolor{comment}{\ \ \ *\ \ \ corresponding\ 32bit\ signed\ integer\ argument\ overrides\ the\ font}}
+\DoxyCodeLine{00144\ \textcolor{comment}{\ \ \ *\ \ \ driver's\ random\ seed\ value\ with\ a\ face-\/specific\ one;\ see\ @random-\/seed.}}
+\DoxyCodeLine{00145\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00146\ \textcolor{comment}{\ \ \ *\ @since:}}
+\DoxyCodeLine{00147\ \textcolor{comment}{\ \ \ *\ \ \ 2.8}}
+\DoxyCodeLine{00148\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00149\ \textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{00150\ \textcolor{preprocessor}{\#define\ FT\_PARAM\_TAG\_RANDOM\_SEED\ \(\backslash\)}}
+\DoxyCodeLine{00151\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ FT\_MAKE\_TAG(\ 's',\ 'e',\ 'e',\ 'd'\ )}}
+\DoxyCodeLine{00152\ }
+\DoxyCodeLine{00153\ }
+\DoxyCodeLine{00154\ \textcolor{comment}{\ \ /**************************************************************************}}
+\DoxyCodeLine{00155\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00156\ \textcolor{comment}{\ \ \ *\ @enum:}}
+\DoxyCodeLine{00157\ \textcolor{comment}{\ \ \ *\ \ \ FT\_PARAM\_TAG\_STEM\_DARKENING}}
+\DoxyCodeLine{00158\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00159\ \textcolor{comment}{\ \ \ *\ @description:}}
+\DoxyCodeLine{00160\ \textcolor{comment}{\ \ \ *\ \ \ An\ @FT\_Parameter\ tag\ to\ be\ used\ with\ @FT\_Face\_Properties.\ \ The}}
+\DoxyCodeLine{00161\ \textcolor{comment}{\ \ \ *\ \ \ corresponding\ Boolean\ argument\ specifies\ whether\ to\ apply\ stem}}
+\DoxyCodeLine{00162\ \textcolor{comment}{\ \ \ *\ \ \ darkening,\ overriding\ the\ global\ default\ values\ or\ the\ values\ set\ up}}
+\DoxyCodeLine{00163\ \textcolor{comment}{\ \ \ *\ \ \ with\ @FT\_Property\_Set\ (see\ @no-\/stem-\/darkening).}}
+\DoxyCodeLine{00164\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00165\ \textcolor{comment}{\ \ \ *\ \ \ This\ is\ a\ passive\ setting\ that\ only\ takes\ effect\ if\ the\ font\ driver\ or}}
+\DoxyCodeLine{00166\ \textcolor{comment}{\ \ \ *\ \ \ autohinter\ honors\ it,\ which\ the\ CFF,\ Type\string~1,\ and\ CID\ drivers\ always}}
+\DoxyCodeLine{00167\ \textcolor{comment}{\ \ \ *\ \ \ do,\ but\ the\ autohinter\ only\ in\ 'light'\ hinting\ mode\ (as\ of\ version}}
+\DoxyCodeLine{00168\ \textcolor{comment}{\ \ \ *\ \ \ 2.9).}}
+\DoxyCodeLine{00169\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00170\ \textcolor{comment}{\ \ \ *\ @since:}}
+\DoxyCodeLine{00171\ \textcolor{comment}{\ \ \ *\ \ \ 2.8}}
+\DoxyCodeLine{00172\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00173\ \textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{00174\ \textcolor{preprocessor}{\#define\ FT\_PARAM\_TAG\_STEM\_DARKENING\ \(\backslash\)}}
+\DoxyCodeLine{00175\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ FT\_MAKE\_TAG(\ 'd',\ 'a',\ 'r',\ 'k'\ )}}
+\DoxyCodeLine{00176\ }
+\DoxyCodeLine{00177\ }
+\DoxyCodeLine{00178\ \textcolor{comment}{\ \ /**************************************************************************}}
+\DoxyCodeLine{00179\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00180\ \textcolor{comment}{\ \ \ *\ @enum:}}
+\DoxyCodeLine{00181\ \textcolor{comment}{\ \ \ *\ \ \ FT\_PARAM\_TAG\_UNPATENTED\_HINTING}}
+\DoxyCodeLine{00182\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00183\ \textcolor{comment}{\ \ \ *\ @description:}}
+\DoxyCodeLine{00184\ \textcolor{comment}{\ \ \ *\ \ \ Deprecated,\ no\ effect.}}
+\DoxyCodeLine{00185\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00186\ \textcolor{comment}{\ \ \ *\ \ \ Previously:\ A\ constant\ used\ as\ the\ tag\ of\ an\ @FT\_Parameter\ structure}}
+\DoxyCodeLine{00187\ \textcolor{comment}{\ \ \ *\ \ \ to\ indicate\ that\ unpatented\ methods\ only\ should\ be\ used\ by\ the}}
+\DoxyCodeLine{00188\ \textcolor{comment}{\ \ \ *\ \ \ TrueType\ bytecode\ interpreter\ for\ a\ typeface\ opened\ by\ @FT\_Open\_Face.}}
+\DoxyCodeLine{00189\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00190\ \textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{00191\ \textcolor{preprocessor}{\#define\ FT\_PARAM\_TAG\_UNPATENTED\_HINTING\ \(\backslash\)}}
+\DoxyCodeLine{00192\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ FT\_MAKE\_TAG(\ 'u',\ 'n',\ 'p',\ 'a'\ )}}
+\DoxyCodeLine{00193\ }
+\DoxyCodeLine{00194\ }
+\DoxyCodeLine{00195\ \ \ \textcolor{comment}{/*\ */}}
+\DoxyCodeLine{00196\ }
+\DoxyCodeLine{00197\ }
+\DoxyCodeLine{00198\ FT\_END\_HEADER}
+\DoxyCodeLine{00199\ }
+\DoxyCodeLine{00200\ }
+\DoxyCodeLine{00201\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ FTPARAMS\_H\_\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00202\ }
+\DoxyCodeLine{00203\ }
+\DoxyCodeLine{00204\ \textcolor{comment}{/*\ END\ */}}
+
+\end{DoxyCode}

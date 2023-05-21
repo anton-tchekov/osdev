@@ -11,6 +11,7 @@
 #include <string.h>
 #include <types.h>
 
+/* Disk sector size */
 #define BLOCK_SIZE           512
 
 /* 512 bytes */

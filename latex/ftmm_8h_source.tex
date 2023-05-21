@@ -1,0 +1,759 @@
+\hypertarget{ftmm_8h_source}{}\doxysection{ftmm.\+h}
+\label{ftmm_8h_source}\index{tools/font-\/convert/freetype/ftmm.h@{tools/font-\/convert/freetype/ftmm.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/****************************************************************************}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *\ ftmm.h}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *\ \ \ FreeType\ Multiple\ Master\ font\ interface\ (specification).}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *\ Copyright\ (C)\ 1996-\/2019\ by}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ *\ David\ Turner,\ Robert\ Wilhelm,\ and\ Werner\ Lemberg.}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ *\ This\ file\ is\ part\ of\ the\ FreeType\ project,\ and\ may\ only\ be\ used,}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ *\ modified,\ and\ distributed\ under\ the\ terms\ of\ the\ FreeType\ project}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ *\ license,\ LICENSE.TXT.\ \ By\ continuing\ to\ use,\ modify,\ or\ distribute}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ *\ this\ file\ you\ indicate\ that\ you\ have\ read\ the\ license\ and}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ *\ understand\ and\ accept\ it\ fully.}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#ifndef\ FTMM\_H\_}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#define\ FTMM\_H\_}}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#include\ <ft2build.h>}}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#include\ FT\_TYPE1\_TABLES\_H}}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ FT\_BEGIN\_HEADER}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{comment}{\ \ /**************************************************************************}}
+\DoxyCodeLine{00031\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00032\ \textcolor{comment}{\ \ \ *\ @section:}}
+\DoxyCodeLine{00033\ \textcolor{comment}{\ \ \ *\ \ \ multiple\_masters}}
+\DoxyCodeLine{00034\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00035\ \textcolor{comment}{\ \ \ *\ @title:}}
+\DoxyCodeLine{00036\ \textcolor{comment}{\ \ \ *\ \ \ Multiple\ Masters}}
+\DoxyCodeLine{00037\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00038\ \textcolor{comment}{\ \ \ *\ @abstract:}}
+\DoxyCodeLine{00039\ \textcolor{comment}{\ \ \ *\ \ \ How\ to\ manage\ Multiple\ Masters\ fonts.}}
+\DoxyCodeLine{00040\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00041\ \textcolor{comment}{\ \ \ *\ @description:}}
+\DoxyCodeLine{00042\ \textcolor{comment}{\ \ \ *\ \ \ The\ following\ types\ and\ functions\ are\ used\ to\ manage\ Multiple\ Master}}
+\DoxyCodeLine{00043\ \textcolor{comment}{\ \ \ *\ \ \ fonts,\ i.e.,\ the\ selection\ of\ specific\ design\ instances\ by\ setting}}
+\DoxyCodeLine{00044\ \textcolor{comment}{\ \ \ *\ \ \ design\ axis\ coordinates.}}
+\DoxyCodeLine{00045\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00046\ \textcolor{comment}{\ \ \ *\ \ \ Besides\ Adobe\ MM\ fonts,\ the\ interface\ supports\ Apple's\ TrueType\ GX\ and}}
+\DoxyCodeLine{00047\ \textcolor{comment}{\ \ \ *\ \ \ OpenType\ variation\ fonts.\ \ Some\ of\ the\ routines\ only\ work\ with\ Adobe}}
+\DoxyCodeLine{00048\ \textcolor{comment}{\ \ \ *\ \ \ MM\ fonts,\ others\ will\ work\ with\ all\ three\ types.\ \ They\ are\ similar}}
+\DoxyCodeLine{00049\ \textcolor{comment}{\ \ \ *\ \ \ enough\ that\ a\ consistent\ interface\ makes\ sense.}}
+\DoxyCodeLine{00050\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00051\ \textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \textcolor{comment}{\ \ /**************************************************************************}}
+\DoxyCodeLine{00055\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00056\ \textcolor{comment}{\ \ \ *\ @struct:}}
+\DoxyCodeLine{00057\ \textcolor{comment}{\ \ \ *\ \ \ FT\_MM\_Axis}}
+\DoxyCodeLine{00058\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00059\ \textcolor{comment}{\ \ \ *\ @description:}}
+\DoxyCodeLine{00060\ \textcolor{comment}{\ \ \ *\ \ \ A\ structure\ to\ model\ a\ given\ axis\ in\ design\ space\ for\ Multiple\ Masters}}
+\DoxyCodeLine{00061\ \textcolor{comment}{\ \ \ *\ \ \ fonts.}}
+\DoxyCodeLine{00062\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00063\ \textcolor{comment}{\ \ \ *\ \ \ This\ structure\ can't\ be\ used\ for\ TrueType\ GX\ or\ OpenType\ variation}}
+\DoxyCodeLine{00064\ \textcolor{comment}{\ \ \ *\ \ \ fonts.}}
+\DoxyCodeLine{00065\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00066\ \textcolor{comment}{\ \ \ *\ @fields:}}
+\DoxyCodeLine{00067\ \textcolor{comment}{\ \ \ *\ \ \ name\ ::}}
+\DoxyCodeLine{00068\ \textcolor{comment}{\ \ \ *\ \ \ \ \ The\ axis's\ name.}}
+\DoxyCodeLine{00069\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00070\ \textcolor{comment}{\ \ \ *\ \ \ minimum\ ::}}
+\DoxyCodeLine{00071\ \textcolor{comment}{\ \ \ *\ \ \ \ \ The\ axis's\ minimum\ design\ coordinate.}}
+\DoxyCodeLine{00072\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00073\ \textcolor{comment}{\ \ \ *\ \ \ maximum\ ::}}
+\DoxyCodeLine{00074\ \textcolor{comment}{\ \ \ *\ \ \ \ \ The\ axis's\ maximum\ design\ coordinate.}}
+\DoxyCodeLine{00075\ \textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{00076\ \ \ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ \ }\mbox{\hyperlink{structFT__MM__Axis__}{FT\_MM\_Axis\_}}}
+\DoxyCodeLine{00077\ \ \ \{}
+\DoxyCodeLine{00078\ \ \ \ \ FT\_String*\ \ name;}
+\DoxyCodeLine{00079\ \ \ \ \ FT\_Long\ \ \ \ \ minimum;}
+\DoxyCodeLine{00080\ \ \ \ \ FT\_Long\ \ \ \ \ maximum;}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00082\ \ \ \}\ FT\_MM\_Axis;}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00085\ \textcolor{comment}{\ \ /**************************************************************************}}
+\DoxyCodeLine{00086\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00087\ \textcolor{comment}{\ \ \ *\ @struct:}}
+\DoxyCodeLine{00088\ \textcolor{comment}{\ \ \ *\ \ \ FT\_Multi\_Master}}
+\DoxyCodeLine{00089\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00090\ \textcolor{comment}{\ \ \ *\ @description:}}
+\DoxyCodeLine{00091\ \textcolor{comment}{\ \ \ *\ \ \ A\ structure\ to\ model\ the\ axes\ and\ space\ of\ a\ Multiple\ Masters\ font.}}
+\DoxyCodeLine{00092\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00093\ \textcolor{comment}{\ \ \ *\ \ \ This\ structure\ can't\ be\ used\ for\ TrueType\ GX\ or\ OpenType\ variation}}
+\DoxyCodeLine{00094\ \textcolor{comment}{\ \ \ *\ \ \ fonts.}}
+\DoxyCodeLine{00095\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00096\ \textcolor{comment}{\ \ \ *\ @fields:}}
+\DoxyCodeLine{00097\ \textcolor{comment}{\ \ \ *\ \ \ num\_axis\ ::}}
+\DoxyCodeLine{00098\ \textcolor{comment}{\ \ \ *\ \ \ \ \ Number\ of\ axes.\ \ Cannot\ exceed\string~4.}}
+\DoxyCodeLine{00099\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00100\ \textcolor{comment}{\ \ \ *\ \ \ num\_designs\ ::}}
+\DoxyCodeLine{00101\ \textcolor{comment}{\ \ \ *\ \ \ \ \ Number\ of\ designs;\ should\ be\ normally\ 2\string^num\_axis\ even\ though\ the}}
+\DoxyCodeLine{00102\ \textcolor{comment}{\ \ \ *\ \ \ \ \ Type\string~1\ specification\ strangely\ allows\ for\ intermediate\ designs\ to\ be}}
+\DoxyCodeLine{00103\ \textcolor{comment}{\ \ \ *\ \ \ \ \ present.\ \ This\ number\ cannot\ exceed\string~16.}}
+\DoxyCodeLine{00104\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00105\ \textcolor{comment}{\ \ \ *\ \ \ axis\ ::}}
+\DoxyCodeLine{00106\ \textcolor{comment}{\ \ \ *\ \ \ \ \ A\ table\ of\ axis\ descriptors.}}
+\DoxyCodeLine{00107\ \textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{00108\ \ \ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ \ }\mbox{\hyperlink{structFT__Multi__Master__}{FT\_Multi\_Master\_}}}
+\DoxyCodeLine{00109\ \ \ \{}
+\DoxyCodeLine{00110\ \ \ \ \ FT\_UInt\ \ \ \ \ num\_axis;}
+\DoxyCodeLine{00111\ \ \ \ \ FT\_UInt\ \ \ \ \ num\_designs;}
+\DoxyCodeLine{00112\ \ \ \ \ FT\_MM\_Axis\ \ axis[T1\_MAX\_MM\_AXIS];}
+\DoxyCodeLine{00113\ }
+\DoxyCodeLine{00114\ \ \ \}\ \mbox{\hyperlink{structFT__Multi__Master__}{FT\_Multi\_Master}};}
+\DoxyCodeLine{00115\ }
+\DoxyCodeLine{00116\ }
+\DoxyCodeLine{00117\ \textcolor{comment}{\ \ /**************************************************************************}}
+\DoxyCodeLine{00118\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00119\ \textcolor{comment}{\ \ \ *\ @struct:}}
+\DoxyCodeLine{00120\ \textcolor{comment}{\ \ \ *\ \ \ FT\_Var\_Axis}}
+\DoxyCodeLine{00121\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00122\ \textcolor{comment}{\ \ \ *\ @description:}}
+\DoxyCodeLine{00123\ \textcolor{comment}{\ \ \ *\ \ \ A\ structure\ to\ model\ a\ given\ axis\ in\ design\ space\ for\ Multiple}}
+\DoxyCodeLine{00124\ \textcolor{comment}{\ \ \ *\ \ \ Masters,\ TrueType\ GX,\ and\ OpenType\ variation\ fonts.}}
+\DoxyCodeLine{00125\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00126\ \textcolor{comment}{\ \ \ *\ @fields:}}
+\DoxyCodeLine{00127\ \textcolor{comment}{\ \ \ *\ \ \ name\ ::}}
+\DoxyCodeLine{00128\ \textcolor{comment}{\ \ \ *\ \ \ \ \ The\ axis's\ name.\ \ Not\ always\ meaningful\ for\ TrueType\ GX\ or\ OpenType}}
+\DoxyCodeLine{00129\ \textcolor{comment}{\ \ \ *\ \ \ \ \ variation\ fonts.}}
+\DoxyCodeLine{00130\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00131\ \textcolor{comment}{\ \ \ *\ \ \ minimum\ ::}}
+\DoxyCodeLine{00132\ \textcolor{comment}{\ \ \ *\ \ \ \ \ The\ axis's\ minimum\ design\ coordinate.}}
+\DoxyCodeLine{00133\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00134\ \textcolor{comment}{\ \ \ *\ \ \ def\ ::}}
+\DoxyCodeLine{00135\ \textcolor{comment}{\ \ \ *\ \ \ \ \ The\ axis's\ default\ design\ coordinate.\ \ FreeType\ computes\ meaningful}}
+\DoxyCodeLine{00136\ \textcolor{comment}{\ \ \ *\ \ \ \ \ default\ values\ for\ Adobe\ MM\ fonts.}}
+\DoxyCodeLine{00137\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00138\ \textcolor{comment}{\ \ \ *\ \ \ maximum\ ::}}
+\DoxyCodeLine{00139\ \textcolor{comment}{\ \ \ *\ \ \ \ \ The\ axis's\ maximum\ design\ coordinate.}}
+\DoxyCodeLine{00140\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00141\ \textcolor{comment}{\ \ \ *\ \ \ tag\ ::}}
+\DoxyCodeLine{00142\ \textcolor{comment}{\ \ \ *\ \ \ \ \ The\ axis's\ tag\ (the\ equivalent\ to\ 'name'\ for\ TrueType\ GX\ and}}
+\DoxyCodeLine{00143\ \textcolor{comment}{\ \ \ *\ \ \ \ \ OpenType\ variation\ fonts).\ \ FreeType\ provides\ default\ values\ for}}
+\DoxyCodeLine{00144\ \textcolor{comment}{\ \ \ *\ \ \ \ \ Adobe\ MM\ fonts\ if\ possible.}}
+\DoxyCodeLine{00145\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00146\ \textcolor{comment}{\ \ \ *\ \ \ strid\ ::}}
+\DoxyCodeLine{00147\ \textcolor{comment}{\ \ \ *\ \ \ \ \ The\ axis\ name\ entry\ in\ the\ font's\ 'name'\ table.\ \ This\ is\ another}}
+\DoxyCodeLine{00148\ \textcolor{comment}{\ \ \ *\ \ \ \ \ (and\ often\ better)\ version\ of\ the\ 'name'\ field\ for\ TrueType\ GX\ or}}
+\DoxyCodeLine{00149\ \textcolor{comment}{\ \ \ *\ \ \ \ \ OpenType\ variation\ fonts.\ \ Not\ meaningful\ for\ Adobe\ MM\ fonts.}}
+\DoxyCodeLine{00150\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00151\ \textcolor{comment}{\ \ \ *\ @note:}}
+\DoxyCodeLine{00152\ \textcolor{comment}{\ \ \ *\ \ \ The\ fields\ `minimum`,\ `def`,\ and\ `maximum`\ are\ 16.16\ fractional\ values}}
+\DoxyCodeLine{00153\ \textcolor{comment}{\ \ \ *\ \ \ for\ TrueType\ GX\ and\ OpenType\ variation\ fonts.\ \ For\ Adobe\ MM\ fonts,\ the}}
+\DoxyCodeLine{00154\ \textcolor{comment}{\ \ \ *\ \ \ values\ are\ integers.}}
+\DoxyCodeLine{00155\ \textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{00156\ \ \ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ \ }\mbox{\hyperlink{structFT__Var__Axis__}{FT\_Var\_Axis\_}}}
+\DoxyCodeLine{00157\ \ \ \{}
+\DoxyCodeLine{00158\ \ \ \ \ FT\_String*\ \ name;}
+\DoxyCodeLine{00159\ }
+\DoxyCodeLine{00160\ \ \ \ \ FT\_Fixed\ \ \ \ minimum;}
+\DoxyCodeLine{00161\ \ \ \ \ FT\_Fixed\ \ \ \ def;}
+\DoxyCodeLine{00162\ \ \ \ \ FT\_Fixed\ \ \ \ maximum;}
+\DoxyCodeLine{00163\ }
+\DoxyCodeLine{00164\ \ \ \ \ FT\_ULong\ \ \ \ tag;}
+\DoxyCodeLine{00165\ \ \ \ \ FT\_UInt\ \ \ \ \ strid;}
+\DoxyCodeLine{00166\ }
+\DoxyCodeLine{00167\ \ \ \}\ \mbox{\hyperlink{structFT__Var__Axis__}{FT\_Var\_Axis}};}
+\DoxyCodeLine{00168\ }
+\DoxyCodeLine{00169\ }
+\DoxyCodeLine{00170\ \textcolor{comment}{\ \ /**************************************************************************}}
+\DoxyCodeLine{00171\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00172\ \textcolor{comment}{\ \ \ *\ @struct:}}
+\DoxyCodeLine{00173\ \textcolor{comment}{\ \ \ *\ \ \ FT\_Var\_Named\_Style}}
+\DoxyCodeLine{00174\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00175\ \textcolor{comment}{\ \ \ *\ @description:}}
+\DoxyCodeLine{00176\ \textcolor{comment}{\ \ \ *\ \ \ A\ structure\ to\ model\ a\ named\ instance\ in\ a\ TrueType\ GX\ or\ OpenType}}
+\DoxyCodeLine{00177\ \textcolor{comment}{\ \ \ *\ \ \ variation\ font.}}
+\DoxyCodeLine{00178\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00179\ \textcolor{comment}{\ \ \ *\ \ \ This\ structure\ can't\ be\ used\ for\ Adobe\ MM\ fonts.}}
+\DoxyCodeLine{00180\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00181\ \textcolor{comment}{\ \ \ *\ @fields:}}
+\DoxyCodeLine{00182\ \textcolor{comment}{\ \ \ *\ \ \ coords\ ::}}
+\DoxyCodeLine{00183\ \textcolor{comment}{\ \ \ *\ \ \ \ \ The\ design\ coordinates\ for\ this\ instance.\ \ This\ is\ an\ array\ with\ one}}
+\DoxyCodeLine{00184\ \textcolor{comment}{\ \ \ *\ \ \ \ \ entry\ for\ each\ axis.}}
+\DoxyCodeLine{00185\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00186\ \textcolor{comment}{\ \ \ *\ \ \ strid\ ::}}
+\DoxyCodeLine{00187\ \textcolor{comment}{\ \ \ *\ \ \ \ \ The\ entry\ in\ 'name'\ table\ identifying\ this\ instance.}}
+\DoxyCodeLine{00188\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00189\ \textcolor{comment}{\ \ \ *\ \ \ psid\ ::}}
+\DoxyCodeLine{00190\ \textcolor{comment}{\ \ \ *\ \ \ \ \ The\ entry\ in\ 'name'\ table\ identifying\ a\ PostScript\ name\ for\ this}}
+\DoxyCodeLine{00191\ \textcolor{comment}{\ \ \ *\ \ \ \ \ instance.\ \ Value\ 0xFFFF\ indicates\ a\ missing\ entry.}}
+\DoxyCodeLine{00192\ \textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{00193\ \ \ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ \ }\mbox{\hyperlink{structFT__Var__Named__Style__}{FT\_Var\_Named\_Style\_}}}
+\DoxyCodeLine{00194\ \ \ \{}
+\DoxyCodeLine{00195\ \ \ \ \ FT\_Fixed*\ \ coords;}
+\DoxyCodeLine{00196\ \ \ \ \ FT\_UInt\ \ \ \ strid;}
+\DoxyCodeLine{00197\ \ \ \ \ FT\_UInt\ \ \ \ psid;\ \ \ \textcolor{comment}{/*\ since\ 2.7.1\ */}}
+\DoxyCodeLine{00198\ }
+\DoxyCodeLine{00199\ \ \ \}\ \mbox{\hyperlink{structFT__Var__Named__Style__}{FT\_Var\_Named\_Style}};}
+\DoxyCodeLine{00200\ }
+\DoxyCodeLine{00201\ }
+\DoxyCodeLine{00202\ \textcolor{comment}{\ \ /**************************************************************************}}
+\DoxyCodeLine{00203\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00204\ \textcolor{comment}{\ \ \ *\ @struct:}}
+\DoxyCodeLine{00205\ \textcolor{comment}{\ \ \ *\ \ \ FT\_MM\_Var}}
+\DoxyCodeLine{00206\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00207\ \textcolor{comment}{\ \ \ *\ @description:}}
+\DoxyCodeLine{00208\ \textcolor{comment}{\ \ \ *\ \ \ A\ structure\ to\ model\ the\ axes\ and\ space\ of\ an\ Adobe\ MM,\ TrueType\ GX,}}
+\DoxyCodeLine{00209\ \textcolor{comment}{\ \ \ *\ \ \ or\ OpenType\ variation\ font.}}
+\DoxyCodeLine{00210\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00211\ \textcolor{comment}{\ \ \ *\ \ \ Some\ fields\ are\ specific\ to\ one\ format\ and\ not\ to\ the\ others.}}
+\DoxyCodeLine{00212\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00213\ \textcolor{comment}{\ \ \ *\ @fields:}}
+\DoxyCodeLine{00214\ \textcolor{comment}{\ \ \ *\ \ \ num\_axis\ ::}}
+\DoxyCodeLine{00215\ \textcolor{comment}{\ \ \ *\ \ \ \ \ The\ number\ of\ axes.\ \ The\ maximum\ value\ is\string~4\ for\ Adobe\ MM\ fonts;\ no}}
+\DoxyCodeLine{00216\ \textcolor{comment}{\ \ \ *\ \ \ \ \ limit\ in\ TrueType\ GX\ or\ OpenType\ variation\ fonts.}}
+\DoxyCodeLine{00217\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00218\ \textcolor{comment}{\ \ \ *\ \ \ num\_designs\ ::}}
+\DoxyCodeLine{00219\ \textcolor{comment}{\ \ \ *\ \ \ \ \ The\ number\ of\ designs;\ should\ be\ normally\ 2\string^num\_axis\ for\ Adobe\ MM}}
+\DoxyCodeLine{00220\ \textcolor{comment}{\ \ \ *\ \ \ \ \ fonts.\ \ Not\ meaningful\ for\ TrueType\ GX\ or\ OpenType\ variation\ fonts}}
+\DoxyCodeLine{00221\ \textcolor{comment}{\ \ \ *\ \ \ \ \ (where\ every\ glyph\ could\ have\ a\ different\ number\ of\ designs).}}
+\DoxyCodeLine{00222\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00223\ \textcolor{comment}{\ \ \ *\ \ \ num\_namedstyles\ ::}}
+\DoxyCodeLine{00224\ \textcolor{comment}{\ \ \ *\ \ \ \ \ The\ number\ of\ named\ styles;\ a\ 'named\ style'\ is\ a\ tuple\ of\ design}}
+\DoxyCodeLine{00225\ \textcolor{comment}{\ \ \ *\ \ \ \ \ coordinates\ that\ has\ a\ string\ ID\ (in\ the\ 'name'\ table)\ associated}}
+\DoxyCodeLine{00226\ \textcolor{comment}{\ \ \ *\ \ \ \ \ with\ it.\ \ The\ font\ can\ tell\ the\ user\ that,\ for\ example,}}
+\DoxyCodeLine{00227\ \textcolor{comment}{\ \ \ *\ \ \ \ \ [Weight=1.5,Width=1.1]\ is\ 'Bold'.\ \ Another\ name\ for\ 'named\ style'\ is}}
+\DoxyCodeLine{00228\ \textcolor{comment}{\ \ \ *\ \ \ \ \ 'named\ instance'.}}
+\DoxyCodeLine{00229\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00230\ \textcolor{comment}{\ \ \ *\ \ \ \ \ For\ Adobe\ Multiple\ Masters\ fonts,\ this\ value\ is\ always\ zero\ because}}
+\DoxyCodeLine{00231\ \textcolor{comment}{\ \ \ *\ \ \ \ \ the\ format\ does\ not\ support\ named\ styles.}}
+\DoxyCodeLine{00232\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00233\ \textcolor{comment}{\ \ \ *\ \ \ axis\ ::}}
+\DoxyCodeLine{00234\ \textcolor{comment}{\ \ \ *\ \ \ \ \ An\ axis\ descriptor\ table.\ \ TrueType\ GX\ and\ OpenType\ variation\ fonts}}
+\DoxyCodeLine{00235\ \textcolor{comment}{\ \ \ *\ \ \ \ \ contain\ slightly\ more\ data\ than\ Adobe\ MM\ fonts.\ \ Memory\ management}}
+\DoxyCodeLine{00236\ \textcolor{comment}{\ \ \ *\ \ \ \ \ of\ this\ pointer\ is\ done\ internally\ by\ FreeType.}}
+\DoxyCodeLine{00237\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00238\ \textcolor{comment}{\ \ \ *\ \ \ namedstyle\ ::}}
+\DoxyCodeLine{00239\ \textcolor{comment}{\ \ \ *\ \ \ \ \ A\ named\ style\ (instance)\ table.\ \ Only\ meaningful\ for\ TrueType\ GX\ and}}
+\DoxyCodeLine{00240\ \textcolor{comment}{\ \ \ *\ \ \ \ \ OpenType\ variation\ fonts.\ \ Memory\ management\ of\ this\ pointer\ is\ done}}
+\DoxyCodeLine{00241\ \textcolor{comment}{\ \ \ *\ \ \ \ \ internally\ by\ FreeType.}}
+\DoxyCodeLine{00242\ \textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{00243\ \ \ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ \ }\mbox{\hyperlink{structFT__MM__Var__}{FT\_MM\_Var\_}}}
+\DoxyCodeLine{00244\ \ \ \{}
+\DoxyCodeLine{00245\ \ \ \ \ FT\_UInt\ \ \ \ \ \ \ \ \ \ \ \ \ \ num\_axis;}
+\DoxyCodeLine{00246\ \ \ \ \ FT\_UInt\ \ \ \ \ \ \ \ \ \ \ \ \ \ num\_designs;}
+\DoxyCodeLine{00247\ \ \ \ \ FT\_UInt\ \ \ \ \ \ \ \ \ \ \ \ \ \ num\_namedstyles;}
+\DoxyCodeLine{00248\ \ \ \ \ \mbox{\hyperlink{structFT__Var__Axis__}{FT\_Var\_Axis}}*\ \ \ \ \ \ \ \ \ axis;}
+\DoxyCodeLine{00249\ \ \ \ \ \mbox{\hyperlink{structFT__Var__Named__Style__}{FT\_Var\_Named\_Style}}*\ \ namedstyle;}
+\DoxyCodeLine{00250\ }
+\DoxyCodeLine{00251\ \ \ \}\ \mbox{\hyperlink{structFT__MM__Var__}{FT\_MM\_Var}};}
+\DoxyCodeLine{00252\ }
+\DoxyCodeLine{00253\ }
+\DoxyCodeLine{00254\ \textcolor{comment}{\ \ /**************************************************************************}}
+\DoxyCodeLine{00255\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00256\ \textcolor{comment}{\ \ \ *\ @function:}}
+\DoxyCodeLine{00257\ \textcolor{comment}{\ \ \ *\ \ \ FT\_Get\_Multi\_Master}}
+\DoxyCodeLine{00258\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00259\ \textcolor{comment}{\ \ \ *\ @description:}}
+\DoxyCodeLine{00260\ \textcolor{comment}{\ \ \ *\ \ \ Retrieve\ a\ variation\ descriptor\ of\ a\ given\ Adobe\ MM\ font.}}
+\DoxyCodeLine{00261\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00262\ \textcolor{comment}{\ \ \ *\ \ \ This\ function\ can't\ be\ used\ with\ TrueType\ GX\ or\ OpenType\ variation}}
+\DoxyCodeLine{00263\ \textcolor{comment}{\ \ \ *\ \ \ fonts.}}
+\DoxyCodeLine{00264\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00265\ \textcolor{comment}{\ \ \ *\ @input:}}
+\DoxyCodeLine{00266\ \textcolor{comment}{\ \ \ *\ \ \ face\ ::}}
+\DoxyCodeLine{00267\ \textcolor{comment}{\ \ \ *\ \ \ \ \ A\ handle\ to\ the\ source\ face.}}
+\DoxyCodeLine{00268\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00269\ \textcolor{comment}{\ \ \ *\ @output:}}
+\DoxyCodeLine{00270\ \textcolor{comment}{\ \ \ *\ \ \ amaster\ ::}}
+\DoxyCodeLine{00271\ \textcolor{comment}{\ \ \ *\ \ \ \ \ The\ Multiple\ Masters\ descriptor.}}
+\DoxyCodeLine{00272\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00273\ \textcolor{comment}{\ \ \ *\ @return:}}
+\DoxyCodeLine{00274\ \textcolor{comment}{\ \ \ *\ \ \ FreeType\ error\ code.\ \ 0\string~means\ success.}}
+\DoxyCodeLine{00275\ \textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{00276\ \ \ FT\_EXPORT(\ FT\_Error\ )}
+\DoxyCodeLine{00277\ \ \ FT\_Get\_Multi\_Master(\ \mbox{\hyperlink{structFT__FaceRec__}{FT\_Face}}\ \ \ \ \ \ \ \ \ \ \ face,}
+\DoxyCodeLine{00278\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structFT__Multi__Master__}{FT\_Multi\_Master}}\ \ *amaster\ );}
+\DoxyCodeLine{00279\ }
+\DoxyCodeLine{00280\ }
+\DoxyCodeLine{00281\ \textcolor{comment}{\ \ /**************************************************************************}}
+\DoxyCodeLine{00282\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00283\ \textcolor{comment}{\ \ \ *\ @function:}}
+\DoxyCodeLine{00284\ \textcolor{comment}{\ \ \ *\ \ \ FT\_Get\_MM\_Var}}
+\DoxyCodeLine{00285\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00286\ \textcolor{comment}{\ \ \ *\ @description:}}
+\DoxyCodeLine{00287\ \textcolor{comment}{\ \ \ *\ \ \ Retrieve\ a\ variation\ descriptor\ for\ a\ given\ font.}}
+\DoxyCodeLine{00288\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00289\ \textcolor{comment}{\ \ \ *\ \ \ This\ function\ works\ with\ all\ supported\ variation\ formats.}}
+\DoxyCodeLine{00290\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00291\ \textcolor{comment}{\ \ \ *\ @input:}}
+\DoxyCodeLine{00292\ \textcolor{comment}{\ \ \ *\ \ \ face\ ::}}
+\DoxyCodeLine{00293\ \textcolor{comment}{\ \ \ *\ \ \ \ \ A\ handle\ to\ the\ source\ face.}}
+\DoxyCodeLine{00294\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00295\ \textcolor{comment}{\ \ \ *\ @output:}}
+\DoxyCodeLine{00296\ \textcolor{comment}{\ \ \ *\ \ \ amaster\ ::}}
+\DoxyCodeLine{00297\ \textcolor{comment}{\ \ \ *\ \ \ \ \ The\ variation\ descriptor.\ \ Allocates\ a\ data\ structure,\ which\ the}}
+\DoxyCodeLine{00298\ \textcolor{comment}{\ \ \ *\ \ \ \ \ user\ must\ deallocate\ with\ a\ call\ to\ @FT\_Done\_MM\_Var\ after\ use.}}
+\DoxyCodeLine{00299\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00300\ \textcolor{comment}{\ \ \ *\ @return:}}
+\DoxyCodeLine{00301\ \textcolor{comment}{\ \ \ *\ \ \ FreeType\ error\ code.\ \ 0\string~means\ success.}}
+\DoxyCodeLine{00302\ \textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{00303\ \ \ FT\_EXPORT(\ FT\_Error\ )}
+\DoxyCodeLine{00304\ \ \ FT\_Get\_MM\_Var(\ \mbox{\hyperlink{structFT__FaceRec__}{FT\_Face}}\ \ \ \ \ \ face,}
+\DoxyCodeLine{00305\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structFT__MM__Var__}{FT\_MM\_Var}}*\ \ *amaster\ );}
+\DoxyCodeLine{00306\ }
+\DoxyCodeLine{00307\ }
+\DoxyCodeLine{00308\ \textcolor{comment}{\ \ /**************************************************************************}}
+\DoxyCodeLine{00309\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00310\ \textcolor{comment}{\ \ \ *\ @function:}}
+\DoxyCodeLine{00311\ \textcolor{comment}{\ \ \ *\ \ \ FT\_Done\_MM\_Var}}
+\DoxyCodeLine{00312\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00313\ \textcolor{comment}{\ \ \ *\ @description:}}
+\DoxyCodeLine{00314\ \textcolor{comment}{\ \ \ *\ \ \ Free\ the\ memory\ allocated\ by\ @FT\_Get\_MM\_Var.}}
+\DoxyCodeLine{00315\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00316\ \textcolor{comment}{\ \ \ *\ @input:}}
+\DoxyCodeLine{00317\ \textcolor{comment}{\ \ \ *\ \ \ library\ ::}}
+\DoxyCodeLine{00318\ \textcolor{comment}{\ \ \ *\ \ \ \ \ A\ handle\ of\ the\ face's\ parent\ library\ object\ that\ was\ used\ in\ the}}
+\DoxyCodeLine{00319\ \textcolor{comment}{\ \ \ *\ \ \ \ \ call\ to\ @FT\_Get\_MM\_Var\ to\ create\ `amaster`.}}
+\DoxyCodeLine{00320\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00321\ \textcolor{comment}{\ \ \ *\ @return:}}
+\DoxyCodeLine{00322\ \textcolor{comment}{\ \ \ *\ \ \ FreeType\ error\ code.\ \ 0\string~means\ success.}}
+\DoxyCodeLine{00323\ \textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{00324\ \ \ FT\_EXPORT(\ FT\_Error\ )}
+\DoxyCodeLine{00325\ \ \ FT\_Done\_MM\_Var(\ FT\_Library\ \ \ library,}
+\DoxyCodeLine{00326\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structFT__MM__Var__}{FT\_MM\_Var}}\ \ \ *amaster\ );}
+\DoxyCodeLine{00327\ }
+\DoxyCodeLine{00328\ }
+\DoxyCodeLine{00329\ \textcolor{comment}{\ \ /**************************************************************************}}
+\DoxyCodeLine{00330\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00331\ \textcolor{comment}{\ \ \ *\ @function:}}
+\DoxyCodeLine{00332\ \textcolor{comment}{\ \ \ *\ \ \ FT\_Set\_MM\_Design\_Coordinates}}
+\DoxyCodeLine{00333\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00334\ \textcolor{comment}{\ \ \ *\ @description:}}
+\DoxyCodeLine{00335\ \textcolor{comment}{\ \ \ *\ \ \ For\ Adobe\ MM\ fonts,\ choose\ an\ interpolated\ font\ design\ through\ design}}
+\DoxyCodeLine{00336\ \textcolor{comment}{\ \ \ *\ \ \ coordinates.}}
+\DoxyCodeLine{00337\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00338\ \textcolor{comment}{\ \ \ *\ \ \ This\ function\ can't\ be\ used\ with\ TrueType\ GX\ or\ OpenType\ variation}}
+\DoxyCodeLine{00339\ \textcolor{comment}{\ \ \ *\ \ \ fonts.}}
+\DoxyCodeLine{00340\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00341\ \textcolor{comment}{\ \ \ *\ @inout:}}
+\DoxyCodeLine{00342\ \textcolor{comment}{\ \ \ *\ \ \ face\ ::}}
+\DoxyCodeLine{00343\ \textcolor{comment}{\ \ \ *\ \ \ \ \ A\ handle\ to\ the\ source\ face.}}
+\DoxyCodeLine{00344\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00345\ \textcolor{comment}{\ \ \ *\ @input:}}
+\DoxyCodeLine{00346\ \textcolor{comment}{\ \ \ *\ \ \ num\_coords\ ::}}
+\DoxyCodeLine{00347\ \textcolor{comment}{\ \ \ *\ \ \ \ \ The\ number\ of\ available\ design\ coordinates.\ \ If\ it\ is\ larger\ than}}
+\DoxyCodeLine{00348\ \textcolor{comment}{\ \ \ *\ \ \ \ \ the\ number\ of\ axes,\ ignore\ the\ excess\ values.\ \ If\ it\ is\ smaller\ than}}
+\DoxyCodeLine{00349\ \textcolor{comment}{\ \ \ *\ \ \ \ \ the\ number\ of\ axes,\ use\ default\ values\ for\ the\ remaining\ axes.}}
+\DoxyCodeLine{00350\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00351\ \textcolor{comment}{\ \ \ *\ \ \ coords\ ::}}
+\DoxyCodeLine{00352\ \textcolor{comment}{\ \ \ *\ \ \ \ \ An\ array\ of\ design\ coordinates.}}
+\DoxyCodeLine{00353\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00354\ \textcolor{comment}{\ \ \ *\ @return:}}
+\DoxyCodeLine{00355\ \textcolor{comment}{\ \ \ *\ \ \ FreeType\ error\ code.\ \ 0\string~means\ success.}}
+\DoxyCodeLine{00356\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00357\ \textcolor{comment}{\ \ \ *\ @note:}}
+\DoxyCodeLine{00358\ \textcolor{comment}{\ \ \ *\ \ \ [Since\ 2.8.1]\ To\ reset\ all\ axes\ to\ the\ default\ values,\ call\ the}}
+\DoxyCodeLine{00359\ \textcolor{comment}{\ \ \ *\ \ \ function\ with\ `num\_coords`\ set\ to\ zero\ and\ `coords`\ set\ to\ `NULL`.}}
+\DoxyCodeLine{00360\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00361\ \textcolor{comment}{\ \ \ *\ \ \ [Since\ 2.9]\ If\ `num\_coords`\ is\ larger\ than\ zero,\ this\ function\ sets}}
+\DoxyCodeLine{00362\ \textcolor{comment}{\ \ \ *\ \ \ the\ @FT\_FACE\_FLAG\_VARIATION\ bit\ in\ @FT\_Face's\ `face\_flags`\ field}}
+\DoxyCodeLine{00363\ \textcolor{comment}{\ \ \ *\ \ \ (i.e.,\ @FT\_IS\_VARIATION\ will\ return\ true).\ \ If\ `num\_coords`\ is\ zero,}}
+\DoxyCodeLine{00364\ \textcolor{comment}{\ \ \ *\ \ \ this\ bit\ flag\ gets\ unset.}}
+\DoxyCodeLine{00365\ \textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{00366\ \ \ FT\_EXPORT(\ FT\_Error\ )}
+\DoxyCodeLine{00367\ \ \ FT\_Set\_MM\_Design\_Coordinates(\ \mbox{\hyperlink{structFT__FaceRec__}{FT\_Face}}\ \ \ face,}
+\DoxyCodeLine{00368\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FT\_UInt\ \ \ num\_coords,}
+\DoxyCodeLine{00369\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FT\_Long*\ \ coords\ );}
+\DoxyCodeLine{00370\ }
+\DoxyCodeLine{00371\ }
+\DoxyCodeLine{00372\ \textcolor{comment}{\ \ /**************************************************************************}}
+\DoxyCodeLine{00373\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00374\ \textcolor{comment}{\ \ \ *\ @function:}}
+\DoxyCodeLine{00375\ \textcolor{comment}{\ \ \ *\ \ \ FT\_Set\_Var\_Design\_Coordinates}}
+\DoxyCodeLine{00376\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00377\ \textcolor{comment}{\ \ \ *\ @description:}}
+\DoxyCodeLine{00378\ \textcolor{comment}{\ \ \ *\ \ \ Choose\ an\ interpolated\ font\ design\ through\ design\ coordinates.}}
+\DoxyCodeLine{00379\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00380\ \textcolor{comment}{\ \ \ *\ \ \ This\ function\ works\ with\ all\ supported\ variation\ formats.}}
+\DoxyCodeLine{00381\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00382\ \textcolor{comment}{\ \ \ *\ @inout:}}
+\DoxyCodeLine{00383\ \textcolor{comment}{\ \ \ *\ \ \ face\ ::}}
+\DoxyCodeLine{00384\ \textcolor{comment}{\ \ \ *\ \ \ \ \ A\ handle\ to\ the\ source\ face.}}
+\DoxyCodeLine{00385\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00386\ \textcolor{comment}{\ \ \ *\ @input:}}
+\DoxyCodeLine{00387\ \textcolor{comment}{\ \ \ *\ \ \ num\_coords\ ::}}
+\DoxyCodeLine{00388\ \textcolor{comment}{\ \ \ *\ \ \ \ \ The\ number\ of\ available\ design\ coordinates.\ \ If\ it\ is\ larger\ than}}
+\DoxyCodeLine{00389\ \textcolor{comment}{\ \ \ *\ \ \ \ \ the\ number\ of\ axes,\ ignore\ the\ excess\ values.\ \ If\ it\ is\ smaller\ than}}
+\DoxyCodeLine{00390\ \textcolor{comment}{\ \ \ *\ \ \ \ \ the\ number\ of\ axes,\ use\ default\ values\ for\ the\ remaining\ axes.}}
+\DoxyCodeLine{00391\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00392\ \textcolor{comment}{\ \ \ *\ \ \ coords\ ::}}
+\DoxyCodeLine{00393\ \textcolor{comment}{\ \ \ *\ \ \ \ \ An\ array\ of\ design\ coordinates.}}
+\DoxyCodeLine{00394\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00395\ \textcolor{comment}{\ \ \ *\ @return:}}
+\DoxyCodeLine{00396\ \textcolor{comment}{\ \ \ *\ \ \ FreeType\ error\ code.\ \ 0\string~means\ success.}}
+\DoxyCodeLine{00397\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00398\ \textcolor{comment}{\ \ \ *\ @note:}}
+\DoxyCodeLine{00399\ \textcolor{comment}{\ \ \ *\ \ \ [Since\ 2.8.1]\ To\ reset\ all\ axes\ to\ the\ default\ values,\ call\ the}}
+\DoxyCodeLine{00400\ \textcolor{comment}{\ \ \ *\ \ \ function\ with\ `num\_coords`\ set\ to\ zero\ and\ `coords`\ set\ to\ `NULL`.}}
+\DoxyCodeLine{00401\ \textcolor{comment}{\ \ \ *\ \ \ [Since\ 2.9]\ 'Default\ values'\ means\ the\ currently\ selected\ named}}
+\DoxyCodeLine{00402\ \textcolor{comment}{\ \ \ *\ \ \ instance\ (or\ the\ base\ font\ if\ no\ named\ instance\ is\ selected).}}
+\DoxyCodeLine{00403\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00404\ \textcolor{comment}{\ \ \ *\ \ \ [Since\ 2.9]\ If\ `num\_coords`\ is\ larger\ than\ zero,\ this\ function\ sets}}
+\DoxyCodeLine{00405\ \textcolor{comment}{\ \ \ *\ \ \ the\ @FT\_FACE\_FLAG\_VARIATION\ bit\ in\ @FT\_Face's\ `face\_flags`\ field}}
+\DoxyCodeLine{00406\ \textcolor{comment}{\ \ \ *\ \ \ (i.e.,\ @FT\_IS\_VARIATION\ will\ return\ true).\ \ If\ `num\_coords`\ is\ zero,}}
+\DoxyCodeLine{00407\ \textcolor{comment}{\ \ \ *\ \ \ this\ bit\ flag\ gets\ unset.}}
+\DoxyCodeLine{00408\ \textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{00409\ \ \ FT\_EXPORT(\ FT\_Error\ )}
+\DoxyCodeLine{00410\ \ \ FT\_Set\_Var\_Design\_Coordinates(\ \mbox{\hyperlink{structFT__FaceRec__}{FT\_Face}}\ \ \ \ face,}
+\DoxyCodeLine{00411\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FT\_UInt\ \ \ \ num\_coords,}
+\DoxyCodeLine{00412\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FT\_Fixed*\ \ coords\ );}
+\DoxyCodeLine{00413\ }
+\DoxyCodeLine{00414\ }
+\DoxyCodeLine{00415\ \textcolor{comment}{\ \ /**************************************************************************}}
+\DoxyCodeLine{00416\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00417\ \textcolor{comment}{\ \ \ *\ @function:}}
+\DoxyCodeLine{00418\ \textcolor{comment}{\ \ \ *\ \ \ FT\_Get\_Var\_Design\_Coordinates}}
+\DoxyCodeLine{00419\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00420\ \textcolor{comment}{\ \ \ *\ @description:}}
+\DoxyCodeLine{00421\ \textcolor{comment}{\ \ \ *\ \ \ Get\ the\ design\ coordinates\ of\ the\ currently\ selected\ interpolated}}
+\DoxyCodeLine{00422\ \textcolor{comment}{\ \ \ *\ \ \ font.}}
+\DoxyCodeLine{00423\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00424\ \textcolor{comment}{\ \ \ *\ \ \ This\ function\ works\ with\ all\ supported\ variation\ formats.}}
+\DoxyCodeLine{00425\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00426\ \textcolor{comment}{\ \ \ *\ @input:}}
+\DoxyCodeLine{00427\ \textcolor{comment}{\ \ \ *\ \ \ face\ ::}}
+\DoxyCodeLine{00428\ \textcolor{comment}{\ \ \ *\ \ \ \ \ A\ handle\ to\ the\ source\ face.}}
+\DoxyCodeLine{00429\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00430\ \textcolor{comment}{\ \ \ *\ \ \ num\_coords\ ::}}
+\DoxyCodeLine{00431\ \textcolor{comment}{\ \ \ *\ \ \ \ \ The\ number\ of\ design\ coordinates\ to\ retrieve.\ \ If\ it\ is\ larger\ than}}
+\DoxyCodeLine{00432\ \textcolor{comment}{\ \ \ *\ \ \ \ \ the\ number\ of\ axes,\ set\ the\ excess\ values\ to\string~0.}}
+\DoxyCodeLine{00433\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00434\ \textcolor{comment}{\ \ \ *\ @output:}}
+\DoxyCodeLine{00435\ \textcolor{comment}{\ \ \ *\ \ \ coords\ ::}}
+\DoxyCodeLine{00436\ \textcolor{comment}{\ \ \ *\ \ \ \ \ The\ design\ coordinates\ array.}}
+\DoxyCodeLine{00437\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00438\ \textcolor{comment}{\ \ \ *\ @return:}}
+\DoxyCodeLine{00439\ \textcolor{comment}{\ \ \ *\ \ \ FreeType\ error\ code.\ \ 0\string~means\ success.}}
+\DoxyCodeLine{00440\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00441\ \textcolor{comment}{\ \ \ *\ @since:}}
+\DoxyCodeLine{00442\ \textcolor{comment}{\ \ \ *\ \ \ 2.7.1}}
+\DoxyCodeLine{00443\ \textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{00444\ \ \ FT\_EXPORT(\ FT\_Error\ )}
+\DoxyCodeLine{00445\ \ \ FT\_Get\_Var\_Design\_Coordinates(\ \mbox{\hyperlink{structFT__FaceRec__}{FT\_Face}}\ \ \ \ face,}
+\DoxyCodeLine{00446\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FT\_UInt\ \ \ \ num\_coords,}
+\DoxyCodeLine{00447\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FT\_Fixed*\ \ coords\ );}
+\DoxyCodeLine{00448\ }
+\DoxyCodeLine{00449\ }
+\DoxyCodeLine{00450\ \textcolor{comment}{\ \ /**************************************************************************}}
+\DoxyCodeLine{00451\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00452\ \textcolor{comment}{\ \ \ *\ @function:}}
+\DoxyCodeLine{00453\ \textcolor{comment}{\ \ \ *\ \ \ FT\_Set\_MM\_Blend\_Coordinates}}
+\DoxyCodeLine{00454\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00455\ \textcolor{comment}{\ \ \ *\ @description:}}
+\DoxyCodeLine{00456\ \textcolor{comment}{\ \ \ *\ \ \ Choose\ an\ interpolated\ font\ design\ through\ normalized\ blend}}
+\DoxyCodeLine{00457\ \textcolor{comment}{\ \ \ *\ \ \ coordinates.}}
+\DoxyCodeLine{00458\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00459\ \textcolor{comment}{\ \ \ *\ \ \ This\ function\ works\ with\ all\ supported\ variation\ formats.}}
+\DoxyCodeLine{00460\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00461\ \textcolor{comment}{\ \ \ *\ @inout:}}
+\DoxyCodeLine{00462\ \textcolor{comment}{\ \ \ *\ \ \ face\ ::}}
+\DoxyCodeLine{00463\ \textcolor{comment}{\ \ \ *\ \ \ \ \ A\ handle\ to\ the\ source\ face.}}
+\DoxyCodeLine{00464\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00465\ \textcolor{comment}{\ \ \ *\ @input:}}
+\DoxyCodeLine{00466\ \textcolor{comment}{\ \ \ *\ \ \ num\_coords\ ::}}
+\DoxyCodeLine{00467\ \textcolor{comment}{\ \ \ *\ \ \ \ \ The\ number\ of\ available\ design\ coordinates.\ \ If\ it\ is\ larger\ than}}
+\DoxyCodeLine{00468\ \textcolor{comment}{\ \ \ *\ \ \ \ \ the\ number\ of\ axes,\ ignore\ the\ excess\ values.\ \ If\ it\ is\ smaller\ than}}
+\DoxyCodeLine{00469\ \textcolor{comment}{\ \ \ *\ \ \ \ \ the\ number\ of\ axes,\ use\ default\ values\ for\ the\ remaining\ axes.}}
+\DoxyCodeLine{00470\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00471\ \textcolor{comment}{\ \ \ *\ \ \ coords\ ::}}
+\DoxyCodeLine{00472\ \textcolor{comment}{\ \ \ *\ \ \ \ \ The\ design\ coordinates\ array\ (each\ element\ must\ be\ between\ 0\ and\ 1.0}}
+\DoxyCodeLine{00473\ \textcolor{comment}{\ \ \ *\ \ \ \ \ for\ Adobe\ MM\ fonts,\ and\ between\ -\/1.0\ and\ 1.0\ for\ TrueType\ GX\ and}}
+\DoxyCodeLine{00474\ \textcolor{comment}{\ \ \ *\ \ \ \ \ OpenType\ variation\ fonts).}}
+\DoxyCodeLine{00475\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00476\ \textcolor{comment}{\ \ \ *\ @return:}}
+\DoxyCodeLine{00477\ \textcolor{comment}{\ \ \ *\ \ \ FreeType\ error\ code.\ \ 0\string~means\ success.}}
+\DoxyCodeLine{00478\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00479\ \textcolor{comment}{\ \ \ *\ @note:}}
+\DoxyCodeLine{00480\ \textcolor{comment}{\ \ \ *\ \ \ [Since\ 2.8.1]\ To\ reset\ all\ axes\ to\ the\ default\ values,\ call\ the}}
+\DoxyCodeLine{00481\ \textcolor{comment}{\ \ \ *\ \ \ function\ with\ `num\_coords`\ set\ to\ zero\ and\ `coords`\ set\ to\ `NULL`.}}
+\DoxyCodeLine{00482\ \textcolor{comment}{\ \ \ *\ \ \ [Since\ 2.9]\ 'Default\ values'\ means\ the\ currently\ selected\ named}}
+\DoxyCodeLine{00483\ \textcolor{comment}{\ \ \ *\ \ \ instance\ (or\ the\ base\ font\ if\ no\ named\ instance\ is\ selected).}}
+\DoxyCodeLine{00484\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00485\ \textcolor{comment}{\ \ \ *\ \ \ [Since\ 2.9]\ If\ `num\_coords`\ is\ larger\ than\ zero,\ this\ function\ sets}}
+\DoxyCodeLine{00486\ \textcolor{comment}{\ \ \ *\ \ \ the\ @FT\_FACE\_FLAG\_VARIATION\ bit\ in\ @FT\_Face's\ `face\_flags`\ field}}
+\DoxyCodeLine{00487\ \textcolor{comment}{\ \ \ *\ \ \ (i.e.,\ @FT\_IS\_VARIATION\ will\ return\ true).\ \ If\ `num\_coords`\ is\ zero,}}
+\DoxyCodeLine{00488\ \textcolor{comment}{\ \ \ *\ \ \ this\ bit\ flag\ gets\ unset.}}
+\DoxyCodeLine{00489\ \textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{00490\ \ \ FT\_EXPORT(\ FT\_Error\ )}
+\DoxyCodeLine{00491\ \ \ FT\_Set\_MM\_Blend\_Coordinates(\ \mbox{\hyperlink{structFT__FaceRec__}{FT\_Face}}\ \ \ \ face,}
+\DoxyCodeLine{00492\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FT\_UInt\ \ \ \ num\_coords,}
+\DoxyCodeLine{00493\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FT\_Fixed*\ \ coords\ );}
+\DoxyCodeLine{00494\ }
+\DoxyCodeLine{00495\ }
+\DoxyCodeLine{00496\ \textcolor{comment}{\ \ /**************************************************************************}}
+\DoxyCodeLine{00497\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00498\ \textcolor{comment}{\ \ \ *\ @function:}}
+\DoxyCodeLine{00499\ \textcolor{comment}{\ \ \ *\ \ \ FT\_Get\_MM\_Blend\_Coordinates}}
+\DoxyCodeLine{00500\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00501\ \textcolor{comment}{\ \ \ *\ @description:}}
+\DoxyCodeLine{00502\ \textcolor{comment}{\ \ \ *\ \ \ Get\ the\ normalized\ blend\ coordinates\ of\ the\ currently\ selected}}
+\DoxyCodeLine{00503\ \textcolor{comment}{\ \ \ *\ \ \ interpolated\ font.}}
+\DoxyCodeLine{00504\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00505\ \textcolor{comment}{\ \ \ *\ \ \ This\ function\ works\ with\ all\ supported\ variation\ formats.}}
+\DoxyCodeLine{00506\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00507\ \textcolor{comment}{\ \ \ *\ @input:}}
+\DoxyCodeLine{00508\ \textcolor{comment}{\ \ \ *\ \ \ face\ ::}}
+\DoxyCodeLine{00509\ \textcolor{comment}{\ \ \ *\ \ \ \ \ A\ handle\ to\ the\ source\ face.}}
+\DoxyCodeLine{00510\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00511\ \textcolor{comment}{\ \ \ *\ \ \ num\_coords\ ::}}
+\DoxyCodeLine{00512\ \textcolor{comment}{\ \ \ *\ \ \ \ \ The\ number\ of\ normalized\ blend\ coordinates\ to\ retrieve.\ \ If\ it\ is}}
+\DoxyCodeLine{00513\ \textcolor{comment}{\ \ \ *\ \ \ \ \ larger\ than\ the\ number\ of\ axes,\ set\ the\ excess\ values\ to\string~0.5\ for}}
+\DoxyCodeLine{00514\ \textcolor{comment}{\ \ \ *\ \ \ \ \ Adobe\ MM\ fonts,\ and\ to\string~0\ for\ TrueType\ GX\ and\ OpenType\ variation}}
+\DoxyCodeLine{00515\ \textcolor{comment}{\ \ \ *\ \ \ \ \ fonts.}}
+\DoxyCodeLine{00516\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00517\ \textcolor{comment}{\ \ \ *\ @output:}}
+\DoxyCodeLine{00518\ \textcolor{comment}{\ \ \ *\ \ \ coords\ ::}}
+\DoxyCodeLine{00519\ \textcolor{comment}{\ \ \ *\ \ \ \ \ The\ normalized\ blend\ coordinates\ array.}}
+\DoxyCodeLine{00520\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00521\ \textcolor{comment}{\ \ \ *\ @return:}}
+\DoxyCodeLine{00522\ \textcolor{comment}{\ \ \ *\ \ \ FreeType\ error\ code.\ \ 0\string~means\ success.}}
+\DoxyCodeLine{00523\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00524\ \textcolor{comment}{\ \ \ *\ @since:}}
+\DoxyCodeLine{00525\ \textcolor{comment}{\ \ \ *\ \ \ 2.7.1}}
+\DoxyCodeLine{00526\ \textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{00527\ \ \ FT\_EXPORT(\ FT\_Error\ )}
+\DoxyCodeLine{00528\ \ \ FT\_Get\_MM\_Blend\_Coordinates(\ \mbox{\hyperlink{structFT__FaceRec__}{FT\_Face}}\ \ \ \ face,}
+\DoxyCodeLine{00529\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FT\_UInt\ \ \ \ num\_coords,}
+\DoxyCodeLine{00530\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FT\_Fixed*\ \ coords\ );}
+\DoxyCodeLine{00531\ }
+\DoxyCodeLine{00532\ }
+\DoxyCodeLine{00533\ \textcolor{comment}{\ \ /**************************************************************************}}
+\DoxyCodeLine{00534\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00535\ \textcolor{comment}{\ \ \ *\ @function:}}
+\DoxyCodeLine{00536\ \textcolor{comment}{\ \ \ *\ \ \ FT\_Set\_Var\_Blend\_Coordinates}}
+\DoxyCodeLine{00537\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00538\ \textcolor{comment}{\ \ \ *\ @description:}}
+\DoxyCodeLine{00539\ \textcolor{comment}{\ \ \ *\ \ \ This\ is\ another\ name\ of\ @FT\_Set\_MM\_Blend\_Coordinates.}}
+\DoxyCodeLine{00540\ \textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{00541\ \ \ FT\_EXPORT(\ FT\_Error\ )}
+\DoxyCodeLine{00542\ \ \ FT\_Set\_Var\_Blend\_Coordinates(\ \mbox{\hyperlink{structFT__FaceRec__}{FT\_Face}}\ \ \ \ face,}
+\DoxyCodeLine{00543\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FT\_UInt\ \ \ \ num\_coords,}
+\DoxyCodeLine{00544\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FT\_Fixed*\ \ coords\ );}
+\DoxyCodeLine{00545\ }
+\DoxyCodeLine{00546\ }
+\DoxyCodeLine{00547\ \textcolor{comment}{\ \ /**************************************************************************}}
+\DoxyCodeLine{00548\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00549\ \textcolor{comment}{\ \ \ *\ @function:}}
+\DoxyCodeLine{00550\ \textcolor{comment}{\ \ \ *\ \ \ FT\_Get\_Var\_Blend\_Coordinates}}
+\DoxyCodeLine{00551\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00552\ \textcolor{comment}{\ \ \ *\ @description:}}
+\DoxyCodeLine{00553\ \textcolor{comment}{\ \ \ *\ \ \ This\ is\ another\ name\ of\ @FT\_Get\_MM\_Blend\_Coordinates.}}
+\DoxyCodeLine{00554\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00555\ \textcolor{comment}{\ \ \ *\ @since:}}
+\DoxyCodeLine{00556\ \textcolor{comment}{\ \ \ *\ \ \ 2.7.1}}
+\DoxyCodeLine{00557\ \textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{00558\ \ \ FT\_EXPORT(\ FT\_Error\ )}
+\DoxyCodeLine{00559\ \ \ FT\_Get\_Var\_Blend\_Coordinates(\ \mbox{\hyperlink{structFT__FaceRec__}{FT\_Face}}\ \ \ \ face,}
+\DoxyCodeLine{00560\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FT\_UInt\ \ \ \ num\_coords,}
+\DoxyCodeLine{00561\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FT\_Fixed*\ \ coords\ );}
+\DoxyCodeLine{00562\ }
+\DoxyCodeLine{00563\ }
+\DoxyCodeLine{00564\ \textcolor{comment}{\ \ /**************************************************************************}}
+\DoxyCodeLine{00565\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00566\ \textcolor{comment}{\ \ \ *\ @function:}}
+\DoxyCodeLine{00567\ \textcolor{comment}{\ \ \ *\ \ \ FT\_Set\_MM\_WeightVector}}
+\DoxyCodeLine{00568\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00569\ \textcolor{comment}{\ \ \ *\ @description:}}
+\DoxyCodeLine{00570\ \textcolor{comment}{\ \ \ *\ \ \ For\ Adobe\ MM\ fonts,\ choose\ an\ interpolated\ font\ design\ by\ directly}}
+\DoxyCodeLine{00571\ \textcolor{comment}{\ \ \ *\ \ \ setting\ the\ weight\ vector.}}
+\DoxyCodeLine{00572\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00573\ \textcolor{comment}{\ \ \ *\ \ \ This\ function\ can't\ be\ used\ with\ TrueType\ GX\ or\ OpenType\ variation}}
+\DoxyCodeLine{00574\ \textcolor{comment}{\ \ \ *\ \ \ fonts.}}
+\DoxyCodeLine{00575\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00576\ \textcolor{comment}{\ \ \ *\ @inout:}}
+\DoxyCodeLine{00577\ \textcolor{comment}{\ \ \ *\ \ \ face\ ::}}
+\DoxyCodeLine{00578\ \textcolor{comment}{\ \ \ *\ \ \ \ \ A\ handle\ to\ the\ source\ face.}}
+\DoxyCodeLine{00579\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00580\ \textcolor{comment}{\ \ \ *\ @input:}}
+\DoxyCodeLine{00581\ \textcolor{comment}{\ \ \ *\ \ \ len\ ::}}
+\DoxyCodeLine{00582\ \textcolor{comment}{\ \ \ *\ \ \ \ \ The\ length\ of\ the\ weight\ vector\ array.\ \ If\ it\ is\ larger\ than\ the}}
+\DoxyCodeLine{00583\ \textcolor{comment}{\ \ \ *\ \ \ \ \ number\ of\ designs,\ the\ extra\ values\ are\ ignored.\ \ If\ it\ is\ less\ than}}
+\DoxyCodeLine{00584\ \textcolor{comment}{\ \ \ *\ \ \ \ \ the\ number\ of\ designs,\ the\ remaining\ values\ are\ set\ to\ zero.}}
+\DoxyCodeLine{00585\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00586\ \textcolor{comment}{\ \ \ *\ \ \ weightvector\ ::}}
+\DoxyCodeLine{00587\ \textcolor{comment}{\ \ \ *\ \ \ \ \ An\ array\ representing\ the\ weight\ vector.}}
+\DoxyCodeLine{00588\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00589\ \textcolor{comment}{\ \ \ *\ @return:}}
+\DoxyCodeLine{00590\ \textcolor{comment}{\ \ \ *\ \ \ FreeType\ error\ code.\ \ 0\string~means\ success.}}
+\DoxyCodeLine{00591\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00592\ \textcolor{comment}{\ \ \ *\ @note:}}
+\DoxyCodeLine{00593\ \textcolor{comment}{\ \ \ *\ \ \ Adobe\ Multiple\ Master\ fonts\ limit\ the\ number\ of\ designs,\ and\ thus\ the}}
+\DoxyCodeLine{00594\ \textcolor{comment}{\ \ \ *\ \ \ length\ of\ the\ weight\ vector\ to\string~16.}}
+\DoxyCodeLine{00595\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00596\ \textcolor{comment}{\ \ \ *\ \ \ If\ `len`\ is\ zero\ and\ `weightvector`\ is\ `NULL`,\ the\ weight\ vector\ array}}
+\DoxyCodeLine{00597\ \textcolor{comment}{\ \ \ *\ \ \ is\ reset\ to\ the\ default\ values.}}
+\DoxyCodeLine{00598\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00599\ \textcolor{comment}{\ \ \ *\ \ \ The\ Adobe\ documentation\ also\ states\ that\ the\ values\ in\ the}}
+\DoxyCodeLine{00600\ \textcolor{comment}{\ \ \ *\ \ \ WeightVector\ array\ must\ total\ 1.0\ +/-\/\string~0.001.\ \ In\ practice\ this\ does}}
+\DoxyCodeLine{00601\ \textcolor{comment}{\ \ \ *\ \ \ not\ seem\ to\ be\ enforced,\ so\ is\ not\ enforced\ here,\ either.}}
+\DoxyCodeLine{00602\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00603\ \textcolor{comment}{\ \ \ *\ @since:}}
+\DoxyCodeLine{00604\ \textcolor{comment}{\ \ \ *\ \ \ 2.10}}
+\DoxyCodeLine{00605\ \textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{00606\ \ \ FT\_EXPORT(\ FT\_Error\ )}
+\DoxyCodeLine{00607\ \ \ FT\_Set\_MM\_WeightVector(\ \mbox{\hyperlink{structFT__FaceRec__}{FT\_Face}}\ \ \ \ face,}
+\DoxyCodeLine{00608\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FT\_UInt\ \ \ \ len,}
+\DoxyCodeLine{00609\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FT\_Fixed*\ \ weightvector\ );}
+\DoxyCodeLine{00610\ }
+\DoxyCodeLine{00611\ }
+\DoxyCodeLine{00612\ \textcolor{comment}{\ \ /**************************************************************************}}
+\DoxyCodeLine{00613\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00614\ \textcolor{comment}{\ \ \ *\ @function:}}
+\DoxyCodeLine{00615\ \textcolor{comment}{\ \ \ *\ \ \ FT\_Get\_MM\_WeightVector}}
+\DoxyCodeLine{00616\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00617\ \textcolor{comment}{\ \ \ *\ @description:}}
+\DoxyCodeLine{00618\ \textcolor{comment}{\ \ \ *\ \ \ For\ Adobe\ MM\ fonts,\ retrieve\ the\ current\ weight\ vector\ of\ the\ font.}}
+\DoxyCodeLine{00619\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00620\ \textcolor{comment}{\ \ \ *\ \ \ This\ function\ can't\ be\ used\ with\ TrueType\ GX\ or\ OpenType\ variation}}
+\DoxyCodeLine{00621\ \textcolor{comment}{\ \ \ *\ \ \ fonts.}}
+\DoxyCodeLine{00622\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00623\ \textcolor{comment}{\ \ \ *\ @inout:}}
+\DoxyCodeLine{00624\ \textcolor{comment}{\ \ \ *\ \ \ face\ ::}}
+\DoxyCodeLine{00625\ \textcolor{comment}{\ \ \ *\ \ \ \ \ A\ handle\ to\ the\ source\ face.}}
+\DoxyCodeLine{00626\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00627\ \textcolor{comment}{\ \ \ *\ \ \ len\ ::}}
+\DoxyCodeLine{00628\ \textcolor{comment}{\ \ \ *\ \ \ \ \ A\ pointer\ to\ the\ size\ of\ the\ array\ to\ be\ filled.\ \ If\ the\ size\ of\ the}}
+\DoxyCodeLine{00629\ \textcolor{comment}{\ \ \ *\ \ \ \ \ array\ is\ less\ than\ the\ number\ of\ designs,\ `FT\_Err\_Invalid\_Argument`}}
+\DoxyCodeLine{00630\ \textcolor{comment}{\ \ \ *\ \ \ \ \ is\ returned,\ and\ `len`\ is\ set\ to\ the\ required\ size\ (the\ number\ of}}
+\DoxyCodeLine{00631\ \textcolor{comment}{\ \ \ *\ \ \ \ \ designs).\ \ If\ the\ size\ of\ the\ array\ is\ greater\ than\ the\ number\ of}}
+\DoxyCodeLine{00632\ \textcolor{comment}{\ \ \ *\ \ \ \ \ designs,\ the\ remaining\ entries\ are\ set\ to\string~0.\ \ On\ successful}}
+\DoxyCodeLine{00633\ \textcolor{comment}{\ \ \ *\ \ \ \ \ completion,\ `len`\ is\ set\ to\ the\ number\ of\ designs\ (i.e.,\ the\ number}}
+\DoxyCodeLine{00634\ \textcolor{comment}{\ \ \ *\ \ \ \ \ of\ values\ written\ to\ the\ array).}}
+\DoxyCodeLine{00635\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00636\ \textcolor{comment}{\ \ \ *\ @output:}}
+\DoxyCodeLine{00637\ \textcolor{comment}{\ \ \ *\ \ \ weightvector\ ::}}
+\DoxyCodeLine{00638\ \textcolor{comment}{\ \ \ *\ \ \ \ \ An\ array\ to\ be\ filled.}}
+\DoxyCodeLine{00639\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00640\ \textcolor{comment}{\ \ \ *\ @return:}}
+\DoxyCodeLine{00641\ \textcolor{comment}{\ \ \ *\ \ \ FreeType\ error\ code.\ \ 0\string~means\ success.}}
+\DoxyCodeLine{00642\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00643\ \textcolor{comment}{\ \ \ *\ @note:}}
+\DoxyCodeLine{00644\ \textcolor{comment}{\ \ \ *\ \ \ Adobe\ Multiple\ Master\ fonts\ limit\ the\ number\ of\ designs,\ and\ thus\ the}}
+\DoxyCodeLine{00645\ \textcolor{comment}{\ \ \ *\ \ \ length\ of\ the\ WeightVector\ to\string~16.}}
+\DoxyCodeLine{00646\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00647\ \textcolor{comment}{\ \ \ *\ @since:}}
+\DoxyCodeLine{00648\ \textcolor{comment}{\ \ \ *\ \ \ 2.10}}
+\DoxyCodeLine{00649\ \textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{00650\ \ \ FT\_EXPORT(\ FT\_Error\ )}
+\DoxyCodeLine{00651\ \ \ FT\_Get\_MM\_WeightVector(\ \mbox{\hyperlink{structFT__FaceRec__}{FT\_Face}}\ \ \ \ face,}
+\DoxyCodeLine{00652\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FT\_UInt*\ \ \ len,}
+\DoxyCodeLine{00653\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FT\_Fixed*\ \ weightvector\ );}
+\DoxyCodeLine{00654\ }
+\DoxyCodeLine{00655\ }
+\DoxyCodeLine{00656\ \textcolor{comment}{\ \ /**************************************************************************}}
+\DoxyCodeLine{00657\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00658\ \textcolor{comment}{\ \ \ *\ @enum:}}
+\DoxyCodeLine{00659\ \textcolor{comment}{\ \ \ *\ \ \ FT\_VAR\_AXIS\_FLAG\_XXX}}
+\DoxyCodeLine{00660\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00661\ \textcolor{comment}{\ \ \ *\ @description:}}
+\DoxyCodeLine{00662\ \textcolor{comment}{\ \ \ *\ \ \ A\ list\ of\ bit\ flags\ used\ in\ the\ return\ value\ of}}
+\DoxyCodeLine{00663\ \textcolor{comment}{\ \ \ *\ \ \ @FT\_Get\_Var\_Axis\_Flags.}}
+\DoxyCodeLine{00664\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00665\ \textcolor{comment}{\ \ \ *\ @values:}}
+\DoxyCodeLine{00666\ \textcolor{comment}{\ \ \ *\ \ \ FT\_VAR\_AXIS\_FLAG\_HIDDEN\ ::}}
+\DoxyCodeLine{00667\ \textcolor{comment}{\ \ \ *\ \ \ \ \ The\ variation\ axis\ should\ not\ be\ exposed\ to\ user\ interfaces.}}
+\DoxyCodeLine{00668\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00669\ \textcolor{comment}{\ \ \ *\ @since:}}
+\DoxyCodeLine{00670\ \textcolor{comment}{\ \ \ *\ \ \ 2.8.1}}
+\DoxyCodeLine{00671\ \textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{00672\ \textcolor{preprocessor}{\#define\ FT\_VAR\_AXIS\_FLAG\_HIDDEN\ \ 1}}
+\DoxyCodeLine{00673\ }
+\DoxyCodeLine{00674\ }
+\DoxyCodeLine{00675\ \textcolor{comment}{\ \ /**************************************************************************}}
+\DoxyCodeLine{00676\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00677\ \textcolor{comment}{\ \ \ *\ @function:}}
+\DoxyCodeLine{00678\ \textcolor{comment}{\ \ \ *\ \ \ FT\_Get\_Var\_Axis\_Flags}}
+\DoxyCodeLine{00679\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00680\ \textcolor{comment}{\ \ \ *\ @description:}}
+\DoxyCodeLine{00681\ \textcolor{comment}{\ \ \ *\ \ \ Get\ the\ 'flags'\ field\ of\ an\ OpenType\ Variation\ Axis\ Record.}}
+\DoxyCodeLine{00682\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00683\ \textcolor{comment}{\ \ \ *\ \ \ Not\ meaningful\ for\ Adobe\ MM\ fonts\ (`*flags`\ is\ always\ zero).}}
+\DoxyCodeLine{00684\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00685\ \textcolor{comment}{\ \ \ *\ @input:}}
+\DoxyCodeLine{00686\ \textcolor{comment}{\ \ \ *\ \ \ master\ ::}}
+\DoxyCodeLine{00687\ \textcolor{comment}{\ \ \ *\ \ \ \ \ The\ variation\ descriptor.}}
+\DoxyCodeLine{00688\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00689\ \textcolor{comment}{\ \ \ *\ \ \ axis\_index\ ::}}
+\DoxyCodeLine{00690\ \textcolor{comment}{\ \ \ *\ \ \ \ \ The\ index\ of\ the\ requested\ variation\ axis.}}
+\DoxyCodeLine{00691\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00692\ \textcolor{comment}{\ \ \ *\ @output:}}
+\DoxyCodeLine{00693\ \textcolor{comment}{\ \ \ *\ \ \ flags\ ::}}
+\DoxyCodeLine{00694\ \textcolor{comment}{\ \ \ *\ \ \ \ \ The\ 'flags'\ field.\ \ See\ @FT\_VAR\_AXIS\_FLAG\_XXX\ for\ possible\ values.}}
+\DoxyCodeLine{00695\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00696\ \textcolor{comment}{\ \ \ *\ @return:}}
+\DoxyCodeLine{00697\ \textcolor{comment}{\ \ \ *\ \ \ FreeType\ error\ code.\ \ 0\string~means\ success.}}
+\DoxyCodeLine{00698\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00699\ \textcolor{comment}{\ \ \ *\ @since:}}
+\DoxyCodeLine{00700\ \textcolor{comment}{\ \ \ *\ \ \ 2.8.1}}
+\DoxyCodeLine{00701\ \textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{00702\ \ \ FT\_EXPORT(\ FT\_Error\ )}
+\DoxyCodeLine{00703\ \ \ FT\_Get\_Var\_Axis\_Flags(\ \mbox{\hyperlink{structFT__MM__Var__}{FT\_MM\_Var}}*\ \ master,}
+\DoxyCodeLine{00704\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FT\_UInt\ \ \ \ \ axis\_index,}
+\DoxyCodeLine{00705\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FT\_UInt*\ \ \ \ flags\ );}
+\DoxyCodeLine{00706\ }
+\DoxyCodeLine{00707\ }
+\DoxyCodeLine{00708\ \textcolor{comment}{\ \ /**************************************************************************}}
+\DoxyCodeLine{00709\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00710\ \textcolor{comment}{\ \ \ *\ @function:}}
+\DoxyCodeLine{00711\ \textcolor{comment}{\ \ \ *\ \ \ FT\_Set\_Named\_Instance}}
+\DoxyCodeLine{00712\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00713\ \textcolor{comment}{\ \ \ *\ @description:}}
+\DoxyCodeLine{00714\ \textcolor{comment}{\ \ \ *\ \ \ Set\ or\ change\ the\ current\ named\ instance.}}
+\DoxyCodeLine{00715\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00716\ \textcolor{comment}{\ \ \ *\ @input:}}
+\DoxyCodeLine{00717\ \textcolor{comment}{\ \ \ *\ \ \ face\ ::}}
+\DoxyCodeLine{00718\ \textcolor{comment}{\ \ \ *\ \ \ \ \ A\ handle\ to\ the\ source\ face.}}
+\DoxyCodeLine{00719\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00720\ \textcolor{comment}{\ \ \ *\ \ \ instance\_index\ ::}}
+\DoxyCodeLine{00721\ \textcolor{comment}{\ \ \ *\ \ \ \ \ The\ index\ of\ the\ requested\ instance,\ starting\ with\ value\ 1.\ \ If\ set}}
+\DoxyCodeLine{00722\ \textcolor{comment}{\ \ \ *\ \ \ \ \ to\ value\ 0,\ FreeType\ switches\ to\ font\ access\ without\ a\ named}}
+\DoxyCodeLine{00723\ \textcolor{comment}{\ \ \ *\ \ \ \ \ instance.}}
+\DoxyCodeLine{00724\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00725\ \textcolor{comment}{\ \ \ *\ @return:}}
+\DoxyCodeLine{00726\ \textcolor{comment}{\ \ \ *\ \ \ FreeType\ error\ code.\ \ 0\string~means\ success.}}
+\DoxyCodeLine{00727\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00728\ \textcolor{comment}{\ \ \ *\ @note:}}
+\DoxyCodeLine{00729\ \textcolor{comment}{\ \ \ *\ \ \ The\ function\ uses\ the\ value\ of\ `instance\_index`\ to\ set\ bits\ 16-\/30\ of}}
+\DoxyCodeLine{00730\ \textcolor{comment}{\ \ \ *\ \ \ the\ face's\ `face\_index`\ field.\ \ It\ also\ resets\ any\ variation\ applied}}
+\DoxyCodeLine{00731\ \textcolor{comment}{\ \ \ *\ \ \ to\ the\ font,\ and\ the\ @FT\_FACE\_FLAG\_VARIATION\ bit\ of\ the\ face's}}
+\DoxyCodeLine{00732\ \textcolor{comment}{\ \ \ *\ \ \ `face\_flags`\ field\ gets\ reset\ to\ zero\ (i.e.,\ @FT\_IS\_VARIATION\ will}}
+\DoxyCodeLine{00733\ \textcolor{comment}{\ \ \ *\ \ \ return\ false).}}
+\DoxyCodeLine{00734\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00735\ \textcolor{comment}{\ \ \ *\ \ \ For\ Adobe\ MM\ fonts\ (which\ don't\ have\ named\ instances)\ this\ function}}
+\DoxyCodeLine{00736\ \textcolor{comment}{\ \ \ *\ \ \ simply\ resets\ the\ current\ face\ to\ the\ default\ instance.}}
+\DoxyCodeLine{00737\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00738\ \textcolor{comment}{\ \ \ *\ @since:}}
+\DoxyCodeLine{00739\ \textcolor{comment}{\ \ \ *\ \ \ 2.9}}
+\DoxyCodeLine{00740\ \textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{00741\ \ \ FT\_EXPORT(\ FT\_Error\ )}
+\DoxyCodeLine{00742\ \ \ FT\_Set\_Named\_Instance(\ \mbox{\hyperlink{structFT__FaceRec__}{FT\_Face}}\ \ face,}
+\DoxyCodeLine{00743\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FT\_UInt\ \ instance\_index\ );}
+\DoxyCodeLine{00744\ }
+\DoxyCodeLine{00745\ \ \ \textcolor{comment}{/*\ */}}
+\DoxyCodeLine{00746\ }
+\DoxyCodeLine{00747\ }
+\DoxyCodeLine{00748\ FT\_END\_HEADER}
+\DoxyCodeLine{00749\ }
+\DoxyCodeLine{00750\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ FTMM\_H\_\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00751\ }
+\DoxyCodeLine{00752\ }
+\DoxyCodeLine{00753\ \textcolor{comment}{/*\ END\ */}}
+
+\end{DoxyCode}

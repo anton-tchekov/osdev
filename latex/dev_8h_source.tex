@@ -1,0 +1,33 @@
+\hypertarget{dev_8h_source}{}\doxysection{dev.\+h}
+\label{dev_8h_source}\index{stdlib/fs/fs/dev.h@{stdlib/fs/fs/dev.h}}
+\mbox{\hyperlink{dev_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#ifndef\ \_\_DEV\_H\_\_}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#define\ \_\_DEV\_H\_\_}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{types_8h}{types.h}}>}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{status_8h}{status.h}}>}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00016\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}}
+\DoxyCodeLine{00017\ \{}
+\DoxyCodeLine{00018\ \ \ \ \ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ BlockSize,\ BlockCount;}
+\DoxyCodeLine{00019\ \ \ \ \ StatusCode\ (*Read)(\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ offset,\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ count,\ \mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}}\ *buffer);}
+\DoxyCodeLine{00020\ \ \ \ \ StatusCode\ (*Write)(\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ offset,\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ count,\ \mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}}\ *buffer);}
+\DoxyCodeLine{00021\ \}\ \mbox{\hyperlink{structBlockDevice}{BlockDevice}};}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00024\ \textcolor{keywordtype}{char}\ \mbox{\hyperlink{dev_8h_a2c9fe1852ef26b74332798b1328b71d8}{dev\_attach}}(\mbox{\hyperlink{structBlockDevice}{BlockDevice}}\ *dev);}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00027\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{dev_8h_ae4ae22c58dfebcb9381b410736096ef7}{dev\_detach}}(\textcolor{keywordtype}{char}\ letter);}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00030\ StatusCode\ \mbox{\hyperlink{dev_8h_ab6f710538b9fe8d2a7dc74121693d40f}{dev\_read}}(\textcolor{keywordtype}{char}\ dev,\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ offset,\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ count,\ \mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}}\ *buffer);}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00033\ StatusCode\ \mbox{\hyperlink{dev_8h_a6861ee3923828ee3bbc3446025d29b37}{dev\_write}}(\textcolor{keywordtype}{char}\ dev,\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ offset,\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ count,\ \mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}}\ *buffer);}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00036\ StatusCode\ \mbox{\hyperlink{dev_8h_a6e39ef93a3b7627d1c5cbc8295326eb2}{dev\_block\_size}}(\textcolor{keywordtype}{char}\ dev,\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ *size);}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00039\ StatusCode\ \mbox{\hyperlink{dev_8h_a449d2663362f000a8096e26ccdf30a35}{dev\_block\_count}}(\textcolor{keywordtype}{char}\ dev,\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ *count);}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ \_\_DEV\_H\_\_\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

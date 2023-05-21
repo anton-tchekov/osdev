@@ -1,0 +1,271 @@
+\hypertarget{gui_8c}{}\doxysection{stdlib/gui/gui.c File Reference}
+\label{gui_8c}\index{stdlib/gui/gui.c@{stdlib/gui/gui.c}}
+{\ttfamily \#include $<$gui.\+h$>$}\newline
+{\ttfamily \#include $<$gfx.\+h$>$}\newline
+{\ttfamily \#include $<$font.\+h$>$}\newline
+{\ttfamily \#include $<$colors.\+h$>$}\newline
+{\ttfamily \#include $<$font\+\_\+default.\+h$>$}\newline
+{\ttfamily \#include $<$ctype.\+h$>$}\newline
+{\ttfamily \#include $<$utf8.\+h$>$}\newline
+\doxysubsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structElement}{Element}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{gui_8c_af9338f9b2ff9d4935cd8ea1853f5ec33}{TITLE\+\_\+\+BAR\+\_\+\+HEIGHT}}~20
+\item 
+\mbox{\Hypertarget{gui_8c_a3b3168eb8fb2ed4ef6c3e4d7ffea94be}\label{gui_8c_a3b3168eb8fb2ed4ef6c3e4d7ffea94be}} 
+\#define {\bfseries TITLE\+\_\+\+OFFSET\+\_\+X}~4
+\item 
+\mbox{\Hypertarget{gui_8c_a42b1d9dbef934ab2c0f0492e5669b2bf}\label{gui_8c_a42b1d9dbef934ab2c0f0492e5669b2bf}} 
+\#define {\bfseries TITLE\+\_\+\+OFFSET\+\_\+Y}~4
+\item 
+\mbox{\Hypertarget{gui_8c_a83b9df0c7acc5653665d1efd14d1a65b}\label{gui_8c_a83b9df0c7acc5653665d1efd14d1a65b}} 
+\#define {\bfseries BORDER\+\_\+\+SIZE}~1
+\item 
+\mbox{\Hypertarget{gui_8c_a7be288bca980527b7afc855e41c90c2c}\label{gui_8c_a7be288bca980527b7afc855e41c90c2c}} 
+\#define {\bfseries BORDER\+\_\+\+SIZE\+\_\+\+SEL}~2
+\item 
+\#define \mbox{\hyperlink{gui_8c_aa3117e6d1b2a895d93755c858df7219c}{INPUT\+\_\+\+HEIGHT}}~24
+\item 
+\mbox{\Hypertarget{gui_8c_a863f5c8a292562df673aaf8a6e17faae}\label{gui_8c_a863f5c8a292562df673aaf8a6e17faae}} 
+\#define {\bfseries INPUT\+\_\+\+PADDING\+\_\+X}~6
+\item 
+\mbox{\Hypertarget{gui_8c_ad0be58a04004965af9a9b5ed6992bfe1}\label{gui_8c_ad0be58a04004965af9a9b5ed6992bfe1}} 
+\#define {\bfseries INPUT\+\_\+\+PADDING\+\_\+Y}~7
+\item 
+\mbox{\Hypertarget{gui_8c_a8a051b8695b4004fdadadd7ab10f7bef}\label{gui_8c_a8a051b8695b4004fdadadd7ab10f7bef}} 
+\#define {\bfseries CURSOR\+\_\+\+WIDTH}~1
+\item 
+\mbox{\Hypertarget{gui_8c_a7f913fcf73aaf5db0a9f07665b6f71b1}\label{gui_8c_a7f913fcf73aaf5db0a9f07665b6f71b1}} 
+\#define {\bfseries CURSOR\+\_\+\+HEIGHT}~14
+\item 
+\mbox{\Hypertarget{gui_8c_a24081c7437914971160952050e4d0b5c}\label{gui_8c_a24081c7437914971160952050e4d0b5c}} 
+\#define {\bfseries CURSOR\+\_\+\+OFFSET}~-\/1
+\item 
+\mbox{\Hypertarget{gui_8c_a32f379e6593cbd6109a319721b555bde}\label{gui_8c_a32f379e6593cbd6109a319721b555bde}} 
+\#define {\bfseries CURSOR\+\_\+\+OFFSET\+\_\+Y}~5
+\item 
+\mbox{\Hypertarget{gui_8c_adaa8f3d3e80dc5e57e14302e38a00799}\label{gui_8c_adaa8f3d3e80dc5e57e14302e38a00799}} 
+\#define {\bfseries INPUT\+\_\+\+CAPACITY}~16
+\item 
+\mbox{\Hypertarget{gui_8c_aa17edfc0aa7865fea5cb3f54b80089fe}\label{gui_8c_aa17edfc0aa7865fea5cb3f54b80089fe}} 
+\#define {\bfseries THEME\+\_\+\+BLACK}~0x0\+F0000\+FF
+\item 
+\mbox{\Hypertarget{gui_8c_a5113d29b0cd65712c13f0b2e0f98c22a}\label{gui_8c_a5113d29b0cd65712c13f0b2e0f98c22a}} 
+\#define {\bfseries THEME\+\_\+\+DARK}~0x2\+F0000\+FF
+\item 
+\mbox{\Hypertarget{gui_8c_a3b1d111868be1b4c75fa22dd723f4420}\label{gui_8c_a3b1d111868be1b4c75fa22dd723f4420}} 
+\#define {\bfseries THEME\+\_\+\+MIDDLE}~0x4\+F0000\+FF
+\item 
+\mbox{\Hypertarget{gui_8c_aab51543c4c9f9adf463de324eb7827de}\label{gui_8c_aab51543c4c9f9adf463de324eb7827de}} 
+\#define {\bfseries THEME\+\_\+\+LIGHT}~0x\+FF8000\+FF
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{gui_8c_aaa6006e84d4768cf4caa1936c5d240fe}{input\+\_\+clear}} (\mbox{\hyperlink{structInput}{Input}} $\ast$i)
+\begin{DoxyCompactList}\small\item\em Clear an input field. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{gui_8c_a09cbd26ea16563c14843cbfa65bc9271}{element\+\_\+render}} (void $\ast$e)
+\begin{DoxyCompactList}\small\item\em Render an element by taking its selection status from the current window. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{gui_8c_adf0715beb16a0945a1bae624873df977}{window\+\_\+open}} (\mbox{\hyperlink{structWindow}{Window}} $\ast$window)
+\begin{DoxyCompactList}\small\item\em Open and render a window. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{gui_8c_a7e2a9214dff60b9245fc4e1d089128b7}{window\+\_\+event\+\_\+key}} (Key key, \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} chr, Key\+State state)
+\begin{DoxyCompactList}\small\item\em Forward a key event to the currently open window. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{gui_8c_a51313c00040b7eec516823f7b31f8eed}{window\+\_\+init}} (\mbox{\hyperlink{structWindow}{Window}} $\ast$window, char $\ast$title, void $\ast$elems, \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} count, \mbox{\hyperlink{keyboard_8h_a31b5a1eb7bc24f6e8d7c85291f05dee5}{Key\+Event}} onkey)
+\begin{DoxyCompactList}\small\item\em Initialize a window. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{gui_8c_a947b16523eba3e9011e52a892a689295}{label\+\_\+init}} (\mbox{\hyperlink{structLabel}{Label}} $\ast$label, \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} x, \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} y, \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} flags, char $\ast$text)
+\begin{DoxyCompactList}\small\item\em Initialize a label. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{gui_8c_aa7c0f8b7c1ee364fa5b534f592e9ac08}{button\+\_\+init}} (\mbox{\hyperlink{structButton}{Button}} $\ast$button, \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} x, \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} y, \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} w, \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} h, char $\ast$text, void($\ast$onclick)(void))
+\begin{DoxyCompactList}\small\item\em Initialize a button. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{gui_8c_a8c62a34c4c090afd9c76cf213504a4f8}{input\+\_\+init}} (\mbox{\hyperlink{structInput}{Input}} $\ast$input, \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} x, \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} y, \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} w)
+\begin{DoxyCompactList}\small\item\em Initialize an input field. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyAuthor}{Author}
+Tim Gabrikowski, Anton Tchekov 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+0.\+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+23.\+04.\+2023 
+\end{DoxyDate}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{gui_8c_aa3117e6d1b2a895d93755c858df7219c}\label{gui_8c_aa3117e6d1b2a895d93755c858df7219c}} 
+\index{gui.c@{gui.c}!INPUT\_HEIGHT@{INPUT\_HEIGHT}}
+\index{INPUT\_HEIGHT@{INPUT\_HEIGHT}!gui.c@{gui.c}}
+\doxysubsubsection{\texorpdfstring{INPUT\_HEIGHT}{INPUT\_HEIGHT}}
+{\footnotesize\ttfamily \#define INPUT\+\_\+\+HEIGHT~24}
+
+\mbox{\hyperlink{structInput}{Input}} \mbox{\Hypertarget{gui_8c_af9338f9b2ff9d4935cd8ea1853f5ec33}\label{gui_8c_af9338f9b2ff9d4935cd8ea1853f5ec33}} 
+\index{gui.c@{gui.c}!TITLE\_BAR\_HEIGHT@{TITLE\_BAR\_HEIGHT}}
+\index{TITLE\_BAR\_HEIGHT@{TITLE\_BAR\_HEIGHT}!gui.c@{gui.c}}
+\doxysubsubsection{\texorpdfstring{TITLE\_BAR\_HEIGHT}{TITLE\_BAR\_HEIGHT}}
+{\footnotesize\ttfamily \#define TITLE\+\_\+\+BAR\+\_\+\+HEIGHT~20}
+
+Height of the title bar in pixels 
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{gui_8c_aa7c0f8b7c1ee364fa5b534f592e9ac08}\label{gui_8c_aa7c0f8b7c1ee364fa5b534f592e9ac08}} 
+\index{gui.c@{gui.c}!button\_init@{button\_init}}
+\index{button\_init@{button\_init}!gui.c@{gui.c}}
+\doxysubsubsection{\texorpdfstring{button\_init()}{button\_init()}}
+{\footnotesize\ttfamily void button\+\_\+init (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structButton}{Button}} $\ast$}]{button,  }\item[{\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}}]{x,  }\item[{\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}}]{y,  }\item[{\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}}]{w,  }\item[{\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}}]{h,  }\item[{char $\ast$}]{text,  }\item[{void($\ast$)(void)}]{onclick }\end{DoxyParamCaption})}
+
+
+
+Initialize a button. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em button} & The button \\
+\hline
+{\em x} & X-\/\+Coordinate \\
+\hline
+{\em y} & Y-\/\+Coordinate \\
+\hline
+{\em w} & Width \\
+\hline
+{\em h} & Height \\
+\hline
+{\em text} & \mbox{\hyperlink{structButton}{Button}} text \\
+\hline
+{\em onclick} & Click event \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{gui_8c_a09cbd26ea16563c14843cbfa65bc9271}\label{gui_8c_a09cbd26ea16563c14843cbfa65bc9271}} 
+\index{gui.c@{gui.c}!element\_render@{element\_render}}
+\index{element\_render@{element\_render}!gui.c@{gui.c}}
+\doxysubsubsection{\texorpdfstring{element\_render()}{element\_render()}}
+{\footnotesize\ttfamily void element\+\_\+render (\begin{DoxyParamCaption}\item[{void $\ast$}]{e }\end{DoxyParamCaption})}
+
+
+
+Render an element by taking its selection status from the current window. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em e} & Pointer to the \mbox{\hyperlink{structElement}{Element}} \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{gui_8c_aaa6006e84d4768cf4caa1936c5d240fe}\label{gui_8c_aaa6006e84d4768cf4caa1936c5d240fe}} 
+\index{gui.c@{gui.c}!input\_clear@{input\_clear}}
+\index{input\_clear@{input\_clear}!gui.c@{gui.c}}
+\doxysubsubsection{\texorpdfstring{input\_clear()}{input\_clear()}}
+{\footnotesize\ttfamily void input\+\_\+clear (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structInput}{Input}} $\ast$}]{i }\end{DoxyParamCaption})}
+
+
+
+Clear an input field. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em i} & The input field \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{gui_8c_a8c62a34c4c090afd9c76cf213504a4f8}\label{gui_8c_a8c62a34c4c090afd9c76cf213504a4f8}} 
+\index{gui.c@{gui.c}!input\_init@{input\_init}}
+\index{input\_init@{input\_init}!gui.c@{gui.c}}
+\doxysubsubsection{\texorpdfstring{input\_init()}{input\_init()}}
+{\footnotesize\ttfamily void input\+\_\+init (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structInput}{Input}} $\ast$}]{input,  }\item[{\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}}]{x,  }\item[{\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}}]{y,  }\item[{\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}}]{w }\end{DoxyParamCaption})}
+
+
+
+Initialize an input field. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em input} & The input field \\
+\hline
+{\em x} & X-\/\+Coordinate \\
+\hline
+{\em y} & Y-\/\+Coordinate \\
+\hline
+{\em w} & Width \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{gui_8c_a947b16523eba3e9011e52a892a689295}\label{gui_8c_a947b16523eba3e9011e52a892a689295}} 
+\index{gui.c@{gui.c}!label\_init@{label\_init}}
+\index{label\_init@{label\_init}!gui.c@{gui.c}}
+\doxysubsubsection{\texorpdfstring{label\_init()}{label\_init()}}
+{\footnotesize\ttfamily void label\+\_\+init (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structLabel}{Label}} $\ast$}]{label,  }\item[{\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}}]{x,  }\item[{\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}}]{y,  }\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{flags,  }\item[{char $\ast$}]{text }\end{DoxyParamCaption})}
+
+
+
+Initialize a label. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em label} & The label \\
+\hline
+{\em x} & X-\/\+Coordinate \\
+\hline
+{\em y} & Y-\/\+Coordinate \\
+\hline
+{\em flags} & \mbox{\hyperlink{structLabel}{Label}} flags \\
+\hline
+{\em text} & \mbox{\hyperlink{structLabel}{Label}} text \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{gui_8c_a7e2a9214dff60b9245fc4e1d089128b7}\label{gui_8c_a7e2a9214dff60b9245fc4e1d089128b7}} 
+\index{gui.c@{gui.c}!window\_event\_key@{window\_event\_key}}
+\index{window\_event\_key@{window\_event\_key}!gui.c@{gui.c}}
+\doxysubsubsection{\texorpdfstring{window\_event\_key()}{window\_event\_key()}}
+{\footnotesize\ttfamily void window\+\_\+event\+\_\+key (\begin{DoxyParamCaption}\item[{Key}]{key,  }\item[{\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}}]{chr,  }\item[{Key\+State}]{state }\end{DoxyParamCaption})}
+
+
+
+Forward a key event to the currently open window. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em key} & Key Code \\
+\hline
+{\em state} & Key State \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{gui_8c_a51313c00040b7eec516823f7b31f8eed}\label{gui_8c_a51313c00040b7eec516823f7b31f8eed}} 
+\index{gui.c@{gui.c}!window\_init@{window\_init}}
+\index{window\_init@{window\_init}!gui.c@{gui.c}}
+\doxysubsubsection{\texorpdfstring{window\_init()}{window\_init()}}
+{\footnotesize\ttfamily void window\+\_\+init (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structWindow}{Window}} $\ast$}]{window,  }\item[{char $\ast$}]{title,  }\item[{void $\ast$}]{elems,  }\item[{\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}}]{count,  }\item[{\mbox{\hyperlink{keyboard_8h_a31b5a1eb7bc24f6e8d7c85291f05dee5}{Key\+Event}}}]{onkey }\end{DoxyParamCaption})}
+
+
+
+Initialize a window. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em window} & The window \\
+\hline
+{\em title} & \mbox{\hyperlink{structWindow}{Window}} title \\
+\hline
+{\em elems} & Pointer to elements array \\
+\hline
+{\em count} & Number of elements \\
+\hline
+{\em onkey} & Key event \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{gui_8c_adf0715beb16a0945a1bae624873df977}\label{gui_8c_adf0715beb16a0945a1bae624873df977}} 
+\index{gui.c@{gui.c}!window\_open@{window\_open}}
+\index{window\_open@{window\_open}!gui.c@{gui.c}}
+\doxysubsubsection{\texorpdfstring{window\_open()}{window\_open()}}
+{\footnotesize\ttfamily void window\+\_\+open (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structWindow}{Window}} $\ast$}]{window }\end{DoxyParamCaption})}
+
+
+
+Open and render a window. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em window} & Pointer to \mbox{\hyperlink{structWindow}{Window}} structure \\
+\hline
+\end{DoxyParams}

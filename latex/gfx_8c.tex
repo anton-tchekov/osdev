@@ -1,0 +1,209 @@
+\hypertarget{gfx_8c}{}\doxysection{stdlib/gfx/gfx.c File Reference}
+\label{gfx_8c}\index{stdlib/gfx/gfx.c@{stdlib/gfx/gfx.c}}
+{\ttfamily \#include $<$gfx.\+h$>$}\newline
+{\ttfamily \#include $<$syscall.\+h$>$}\newline
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{gfx_8c_a61d70a4550bf181cd71bfc9a4f12a6d1}{gfx\+\_\+rect}} (\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} x, \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} y, \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} w, \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} h, \mbox{\hyperlink{gfx_8h_acbbccb6085c654282ef64cdcefc81be5}{Color}} color)
+\begin{DoxyCompactList}\small\item\em Draw rectangle. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{gfx_8c_a1d78d15a37b5c0cd2b797a1bcd89010f}{gfx\+\_\+rect\+\_\+border}} (\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} x, \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} y, \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} w, \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} h, \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} border, \mbox{\hyperlink{gfx_8h_acbbccb6085c654282ef64cdcefc81be5}{Color}} color)
+\begin{DoxyCompactList}\small\item\em Draws a rectangular frame. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{gfx_8c_a94d2d05890691d0e0cdb4a49313c1bba}{gfx\+\_\+image\+\_\+rgba}} (\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} x, \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} y, \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} w, \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} h, const \mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}} $\ast$data)
+\begin{DoxyCompactList}\small\item\em Draws an image in RGBA format. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{gfx_8c_a65973eb6c3df8a895f50d412bd7b1865}{gfx\+\_\+image\+\_\+rgb}} (\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} x, \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} y, \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} w, \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} h, const \mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}} $\ast$data)
+\begin{DoxyCompactList}\small\item\em Draws an image in RGB format. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{gfx_8c_ad9e410a1ec4cac3b6f02540834a1be8c}{gfx\+\_\+image\+\_\+rgb565}} (\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} x, \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} y, \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} w, \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} h, const \mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}} $\ast$data)
+\begin{DoxyCompactList}\small\item\em Draws an image in RGB565 format. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{gfx_8c_a7c97c6942cf5dfbdda1e124233d3eb08}{gfx\+\_\+image\+\_\+grayscale}} (\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} x, \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} y, \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} w, \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} h, const \mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}} $\ast$data, \mbox{\hyperlink{gfx_8h_acbbccb6085c654282ef64cdcefc81be5}{Color}} fg, \mbox{\hyperlink{gfx_8h_acbbccb6085c654282ef64cdcefc81be5}{Color}} bg)
+\begin{DoxyCompactList}\small\item\em Draws a grayscale image. The color of each pixel is a mix of the foreground and background colors where the ratio depends on the grayscale value. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{gfx_8c_a39a3e171a715c832137925bb2a21bb5f}{gfx\+\_\+image\+\_\+1bit}} (\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} x, \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} y, \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} w, \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} h, const \mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}} $\ast$data, \mbox{\hyperlink{gfx_8h_acbbccb6085c654282ef64cdcefc81be5}{Color}} fg, \mbox{\hyperlink{gfx_8h_acbbccb6085c654282ef64cdcefc81be5}{Color}} bg)
+\begin{DoxyCompactList}\small\item\em Draws a 1-\/bit-\/per-\/pixel image. Every image row starts at a new byte. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyAuthor}{Author}
+Tim Gabrikowski, Anton Tchekov 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+0.\+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+23.\+04.\+2023 
+\end{DoxyDate}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{gfx_8c_a39a3e171a715c832137925bb2a21bb5f}\label{gfx_8c_a39a3e171a715c832137925bb2a21bb5f}} 
+\index{gfx.c@{gfx.c}!gfx\_image\_1bit@{gfx\_image\_1bit}}
+\index{gfx\_image\_1bit@{gfx\_image\_1bit}!gfx.c@{gfx.c}}
+\doxysubsubsection{\texorpdfstring{gfx\_image\_1bit()}{gfx\_image\_1bit()}}
+{\footnotesize\ttfamily void gfx\+\_\+image\+\_\+1bit (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}}]{x,  }\item[{\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}}]{y,  }\item[{\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}}]{w,  }\item[{\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}}]{h,  }\item[{const \mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}} $\ast$}]{data,  }\item[{\mbox{\hyperlink{gfx_8h_acbbccb6085c654282ef64cdcefc81be5}{Color}}}]{fg,  }\item[{\mbox{\hyperlink{gfx_8h_acbbccb6085c654282ef64cdcefc81be5}{Color}}}]{bg }\end{DoxyParamCaption})}
+
+
+
+Draws a 1-\/bit-\/per-\/pixel image. Every image row starts at a new byte. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & X-\/\+Coordinate (Left) \\
+\hline
+{\em y} & Y-\/\+Coordinate (Top) \\
+\hline
+{\em w} & Width \\
+\hline
+{\em h} & Height \\
+\hline
+{\em data} & Pixel data (1 bit per pixel) \\
+\hline
+{\em fg} & Foreground color (bit 1) \\
+\hline
+{\em bg} & Background color (bit 0) \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{gfx_8c_a7c97c6942cf5dfbdda1e124233d3eb08}\label{gfx_8c_a7c97c6942cf5dfbdda1e124233d3eb08}} 
+\index{gfx.c@{gfx.c}!gfx\_image\_grayscale@{gfx\_image\_grayscale}}
+\index{gfx\_image\_grayscale@{gfx\_image\_grayscale}!gfx.c@{gfx.c}}
+\doxysubsubsection{\texorpdfstring{gfx\_image\_grayscale()}{gfx\_image\_grayscale()}}
+{\footnotesize\ttfamily void gfx\+\_\+image\+\_\+grayscale (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}}]{x,  }\item[{\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}}]{y,  }\item[{\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}}]{w,  }\item[{\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}}]{h,  }\item[{const \mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}} $\ast$}]{data,  }\item[{\mbox{\hyperlink{gfx_8h_acbbccb6085c654282ef64cdcefc81be5}{Color}}}]{fg,  }\item[{\mbox{\hyperlink{gfx_8h_acbbccb6085c654282ef64cdcefc81be5}{Color}}}]{bg }\end{DoxyParamCaption})}
+
+
+
+Draws a grayscale image. The color of each pixel is a mix of the foreground and background colors where the ratio depends on the grayscale value. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & X-\/\+Coordinate (Left) \\
+\hline
+{\em y} & Y-\/\+Coordinate (Top) \\
+\hline
+{\em w} & Width \\
+\hline
+{\em h} & Height \\
+\hline
+{\em data} & Pixel data (8 bit per pixel) \\
+\hline
+{\em fg} & Foreground color \\
+\hline
+{\em bg} & Background color \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{gfx_8c_a65973eb6c3df8a895f50d412bd7b1865}\label{gfx_8c_a65973eb6c3df8a895f50d412bd7b1865}} 
+\index{gfx.c@{gfx.c}!gfx\_image\_rgb@{gfx\_image\_rgb}}
+\index{gfx\_image\_rgb@{gfx\_image\_rgb}!gfx.c@{gfx.c}}
+\doxysubsubsection{\texorpdfstring{gfx\_image\_rgb()}{gfx\_image\_rgb()}}
+{\footnotesize\ttfamily void gfx\+\_\+image\+\_\+rgb (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}}]{x,  }\item[{\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}}]{y,  }\item[{\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}}]{w,  }\item[{\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}}]{h,  }\item[{const \mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}} $\ast$}]{data }\end{DoxyParamCaption})}
+
+
+
+Draws an image in RGB format. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & X-\/\+Coordinate (Left) \\
+\hline
+{\em y} & Y-\/\+Coordinate (Top) \\
+\hline
+{\em w} & Width \\
+\hline
+{\em h} & Height \\
+\hline
+{\em data} & Pixel data (24 bits per pixel) \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{gfx_8c_ad9e410a1ec4cac3b6f02540834a1be8c}\label{gfx_8c_ad9e410a1ec4cac3b6f02540834a1be8c}} 
+\index{gfx.c@{gfx.c}!gfx\_image\_rgb565@{gfx\_image\_rgb565}}
+\index{gfx\_image\_rgb565@{gfx\_image\_rgb565}!gfx.c@{gfx.c}}
+\doxysubsubsection{\texorpdfstring{gfx\_image\_rgb565()}{gfx\_image\_rgb565()}}
+{\footnotesize\ttfamily void gfx\+\_\+image\+\_\+rgb565 (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}}]{x,  }\item[{\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}}]{y,  }\item[{\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}}]{w,  }\item[{\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}}]{h,  }\item[{const \mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}} $\ast$}]{data }\end{DoxyParamCaption})}
+
+
+
+Draws an image in RGB565 format. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & X-\/\+Coordinate (Left) \\
+\hline
+{\em y} & Y-\/\+Coordinate (Top) \\
+\hline
+{\em w} & Width \\
+\hline
+{\em h} & Height \\
+\hline
+{\em data} & Pixel data (16 bit per pixel) \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{gfx_8c_a94d2d05890691d0e0cdb4a49313c1bba}\label{gfx_8c_a94d2d05890691d0e0cdb4a49313c1bba}} 
+\index{gfx.c@{gfx.c}!gfx\_image\_rgba@{gfx\_image\_rgba}}
+\index{gfx\_image\_rgba@{gfx\_image\_rgba}!gfx.c@{gfx.c}}
+\doxysubsubsection{\texorpdfstring{gfx\_image\_rgba()}{gfx\_image\_rgba()}}
+{\footnotesize\ttfamily void gfx\+\_\+image\+\_\+rgba (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}}]{x,  }\item[{\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}}]{y,  }\item[{\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}}]{w,  }\item[{\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}}]{h,  }\item[{const \mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}} $\ast$}]{data }\end{DoxyParamCaption})}
+
+
+
+Draws an image in RGBA format. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & X-\/\+Coordinate (Left) \\
+\hline
+{\em y} & Y-\/\+Coordinate (Top) \\
+\hline
+{\em w} & Width \\
+\hline
+{\em h} & Height \\
+\hline
+{\em data} & Pixel data (32 bits per pixel) \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{gfx_8c_a61d70a4550bf181cd71bfc9a4f12a6d1}\label{gfx_8c_a61d70a4550bf181cd71bfc9a4f12a6d1}} 
+\index{gfx.c@{gfx.c}!gfx\_rect@{gfx\_rect}}
+\index{gfx\_rect@{gfx\_rect}!gfx.c@{gfx.c}}
+\doxysubsubsection{\texorpdfstring{gfx\_rect()}{gfx\_rect()}}
+{\footnotesize\ttfamily void gfx\+\_\+rect (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}}]{x,  }\item[{\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}}]{y,  }\item[{\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}}]{w,  }\item[{\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}}]{h,  }\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{color }\end{DoxyParamCaption})}
+
+
+
+Draw rectangle. 
+
+Draws a rectangle from position (x$\vert$y), w pixels to left and h pixels down.
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & X-\/\+Coordinate \\
+\hline
+{\em y} & Y-\/\+Coordinate \\
+\hline
+{\em w} & Width \\
+\hline
+{\em h} & Height \\
+\hline
+{\em color} & Fill color \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{gfx_8c_a1d78d15a37b5c0cd2b797a1bcd89010f}\label{gfx_8c_a1d78d15a37b5c0cd2b797a1bcd89010f}} 
+\index{gfx.c@{gfx.c}!gfx\_rect\_border@{gfx\_rect\_border}}
+\index{gfx\_rect\_border@{gfx\_rect\_border}!gfx.c@{gfx.c}}
+\doxysubsubsection{\texorpdfstring{gfx\_rect\_border()}{gfx\_rect\_border()}}
+{\footnotesize\ttfamily void gfx\+\_\+rect\+\_\+border (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}}]{x,  }\item[{\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}}]{y,  }\item[{\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}}]{w,  }\item[{\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}}]{h,  }\item[{\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}}]{border,  }\item[{\mbox{\hyperlink{gfx_8h_acbbccb6085c654282ef64cdcefc81be5}{Color}}}]{color }\end{DoxyParamCaption})}
+
+
+
+Draws a rectangular frame. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & X-\/\+Coordinate (Left) \\
+\hline
+{\em y} & Y-\/\+Coordinate (Top) \\
+\hline
+{\em w} & Width \\
+\hline
+{\em h} & Height \\
+\hline
+{\em border} & Inset border width in pixels \\
+\hline
+{\em color} & Color of the border \\
+\hline
+\end{DoxyParams}

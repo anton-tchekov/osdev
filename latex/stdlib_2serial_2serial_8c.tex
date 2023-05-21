@@ -1,0 +1,63 @@
+\hypertarget{stdlib_2serial_2serial_8c}{}\doxysection{stdlib/serial/serial.c File Reference}
+\label{stdlib_2serial_2serial_8c}\index{stdlib/serial/serial.c@{stdlib/serial/serial.c}}
+{\ttfamily \#include $<$serial.\+h$>$}\newline
+{\ttfamily \#include $<$syscall.\+h$>$}\newline
+{\ttfamily \#include $<$stdarg.\+h$>$}\newline
+{\ttfamily \#include $<$format.\+h$>$}\newline
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{stdlib_2serial_2serial_8c_ae454cdf1e6c8d3be9256a937f11efa39}{debug\+\_\+print}} (const char $\ast$format,...)
+\begin{DoxyCompactList}\small\item\em Formatted debug output to serial interface. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} \mbox{\hyperlink{stdlib_2serial_2serial_8c_a1e573f079b66d70c6154d5ae4e61739d}{serial\+\_\+write}} (const void $\ast$buf, \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} n)
+\begin{DoxyCompactList}\small\item\em Send {\ttfamily n} bytes over the serial interface. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyAuthor}{Author}
+Tim Gabrikowski, Anton Tchekov 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+0.\+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+23.\+04.\+2023 
+\end{DoxyDate}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{stdlib_2serial_2serial_8c_ae454cdf1e6c8d3be9256a937f11efa39}\label{stdlib_2serial_2serial_8c_ae454cdf1e6c8d3be9256a937f11efa39}} 
+\index{serial.c@{serial.c}!debug\_print@{debug\_print}}
+\index{debug\_print@{debug\_print}!serial.c@{serial.c}}
+\doxysubsubsection{\texorpdfstring{debug\_print()}{debug\_print()}}
+{\footnotesize\ttfamily void debug\+\_\+print (\begin{DoxyParamCaption}\item[{const char $\ast$}]{format,  }\item[{}]{... }\end{DoxyParamCaption})}
+
+
+
+Formatted debug output to serial interface. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em format} & Format string \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{stdlib_2serial_2serial_8c_a1e573f079b66d70c6154d5ae4e61739d}\label{stdlib_2serial_2serial_8c_a1e573f079b66d70c6154d5ae4e61739d}} 
+\index{serial.c@{serial.c}!serial\_write@{serial\_write}}
+\index{serial\_write@{serial\_write}!serial.c@{serial.c}}
+\doxysubsubsection{\texorpdfstring{serial\_write()}{serial\_write()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} serial\+\_\+write (\begin{DoxyParamCaption}\item[{const void $\ast$}]{buf,  }\item[{\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}}]{n }\end{DoxyParamCaption})}
+
+
+
+Send {\ttfamily n} bytes over the serial interface. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em buf} & Pointer to data buffer \\
+\hline
+{\em n} & Number of bytes to write \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Number of bytes written 
+\end{DoxyReturn}

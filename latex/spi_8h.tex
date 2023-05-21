@@ -1,0 +1,118 @@
+\hypertarget{spi_8h}{}\doxysection{platform/avr/spi/spi.h File Reference}
+\label{spi_8h}\index{platform/avr/spi/spi.h@{platform/avr/spi/spi.h}}
+
+
+SPI interface driver.  
+
+
+{\ttfamily \#include $<$types.\+h$>$}\newline
+{\ttfamily \#include $<$status.\+h$>$}\newline
+{\ttfamily \#include $<$avr/io.\+h$>$}\newline
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{spi_8h_ae909944aa85ae98323073c628be541aa}\label{spi_8h_ae909944aa85ae98323073c628be541aa}} 
+void {\bfseries spi\+\_\+init} (void)
+\begin{DoxyCompactList}\small\item\em Initialize the SPI interface. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{spi_8h_ab3e16cf26638212c1e54a7aa4878e12a}\label{spi_8h_ab3e16cf26638212c1e54a7aa4878e12a}} 
+void {\bfseries spi\+\_\+fast} (void)
+\begin{DoxyCompactList}\small\item\em Enable fastest SPI mode. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}} \mbox{\hyperlink{spi_8h_aa100766918afcb71b6ba79413f33f9db}{spi\+\_\+xchg}} (\mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}} byte)
+\begin{DoxyCompactList}\small\item\em Send and receive one byte from the SPI interface Panics on timeout. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{status_8h_a67a0db04d321a74b7e7fcfd3f1a3f70b}{Status}} \mbox{\hyperlink{spi_8h_a2195bbe087062b5ee88ebcdac1e53643}{spi\+\_\+xchg\+\_\+try}} (\mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}} in, \mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}} $\ast$out)
+\begin{DoxyCompactList}\small\item\em Try to send and receive one byte from SPI. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{status_8h_a67a0db04d321a74b7e7fcfd3f1a3f70b}{Status}} \mbox{\hyperlink{spi_8h_a28af41e6c50d1f29c90a94e1041a8285}{spi\+\_\+tx\+\_\+try}} (\mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}} in)
+\begin{DoxyCompactList}\small\item\em Try to send one byte to the SPI interface. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{status_8h_a67a0db04d321a74b7e7fcfd3f1a3f70b}{Status}} \mbox{\hyperlink{spi_8h_a419efa4aed1b16b72a80d7a1356780d0}{spi\+\_\+rx\+\_\+try}} (\mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}} $\ast$out)
+\begin{DoxyCompactList}\small\item\em Try to receive one byte from the SPI interface. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+SPI interface driver. 
+
+\begin{DoxyAuthor}{Author}
+Anton Tchekov 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+0.\+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+16.\+05.\+2023 
+\end{DoxyDate}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{spi_8h_a419efa4aed1b16b72a80d7a1356780d0}\label{spi_8h_a419efa4aed1b16b72a80d7a1356780d0}} 
+\index{spi.h@{spi.h}!spi\_rx\_try@{spi\_rx\_try}}
+\index{spi\_rx\_try@{spi\_rx\_try}!spi.h@{spi.h}}
+\doxysubsubsection{\texorpdfstring{spi\_rx\_try()}{spi\_rx\_try()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{status_8h_a67a0db04d321a74b7e7fcfd3f1a3f70b}{Status}} spi\+\_\+rx\+\_\+try (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}} $\ast$}]{out }\end{DoxyParamCaption})}
+
+
+
+Try to receive one byte from the SPI interface. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em out} & Output byte \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Status 
+\end{DoxyReturn}
+\mbox{\Hypertarget{spi_8h_a28af41e6c50d1f29c90a94e1041a8285}\label{spi_8h_a28af41e6c50d1f29c90a94e1041a8285}} 
+\index{spi.h@{spi.h}!spi\_tx\_try@{spi\_tx\_try}}
+\index{spi\_tx\_try@{spi\_tx\_try}!spi.h@{spi.h}}
+\doxysubsubsection{\texorpdfstring{spi\_tx\_try()}{spi\_tx\_try()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{status_8h_a67a0db04d321a74b7e7fcfd3f1a3f70b}{Status}} spi\+\_\+tx\+\_\+try (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}}}]{in }\end{DoxyParamCaption})}
+
+
+
+Try to send one byte to the SPI interface. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em in} & The byte to send \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Status 
+\end{DoxyReturn}
+\mbox{\Hypertarget{spi_8h_aa100766918afcb71b6ba79413f33f9db}\label{spi_8h_aa100766918afcb71b6ba79413f33f9db}} 
+\index{spi.h@{spi.h}!spi\_xchg@{spi\_xchg}}
+\index{spi\_xchg@{spi\_xchg}!spi.h@{spi.h}}
+\doxysubsubsection{\texorpdfstring{spi\_xchg()}{spi\_xchg()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}} spi\+\_\+xchg (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}}}]{byte }\end{DoxyParamCaption})}
+
+
+
+Send and receive one byte from the SPI interface Panics on timeout. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em byte} & The byte to send \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The byte that was received 
+\end{DoxyReturn}
+\mbox{\Hypertarget{spi_8h_a2195bbe087062b5ee88ebcdac1e53643}\label{spi_8h_a2195bbe087062b5ee88ebcdac1e53643}} 
+\index{spi.h@{spi.h}!spi\_xchg\_try@{spi\_xchg\_try}}
+\index{spi\_xchg\_try@{spi\_xchg\_try}!spi.h@{spi.h}}
+\doxysubsubsection{\texorpdfstring{spi\_xchg\_try()}{spi\_xchg\_try()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{status_8h_a67a0db04d321a74b7e7fcfd3f1a3f70b}{Status}} spi\+\_\+xchg\+\_\+try (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}}}]{in,  }\item[{\mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}} $\ast$}]{out }\end{DoxyParamCaption})}
+
+
+
+Try to send and receive one byte from SPI. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em in} & \mbox{\hyperlink{structInput}{Input}} byte \\
+\hline
+{\em out} & Output byte \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Status 
+\end{DoxyReturn}

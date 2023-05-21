@@ -1,0 +1,43 @@
+\hypertarget{random_8c}{}\doxysection{platform/avr/random/random.c File Reference}
+\label{random_8c}\index{platform/avr/random/random.c@{platform/avr/random/random.c}}
+{\ttfamily \#include $<$random.\+h$>$}\newline
+{\ttfamily \#include $<$adc.\+h$>$}\newline
+{\ttfamily \#include $<$logger.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$avr/pgmspace.\+h$>$}\newline
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{random_8c_acc9caf986ad394f055fe6f511f7109f6}\label{random_8c_acc9caf986ad394f055fe6f511f7109f6}} 
+void {\bfseries random\+\_\+init} (void)
+\begin{DoxyCompactList}\small\item\em Seeds the random module with hardware noise from the ADC. {\ttfamily adc\+\_\+init} must be called before this function. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} \mbox{\hyperlink{random_8c_acd70dc015ebddf28c8650af3a91480f8}{random\+\_\+get}} (void)
+\begin{DoxyCompactList}\small\item\em Generate a pseudo-\/random number. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyAuthor}{Author}
+Tim Gabrikowski, Anton Tchekov 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+0.\+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+16.\+05.\+2023 
+\end{DoxyDate}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{random_8c_acd70dc015ebddf28c8650af3a91480f8}\label{random_8c_acd70dc015ebddf28c8650af3a91480f8}} 
+\index{random.c@{random.c}!random\_get@{random\_get}}
+\index{random\_get@{random\_get}!random.c@{random.c}}
+\doxysubsubsection{\texorpdfstring{random\_get()}{random\_get()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} random\+\_\+get (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Generate a pseudo-\/random number. 
+
+\begin{DoxyReturn}{Returns}
+The number 
+\end{DoxyReturn}

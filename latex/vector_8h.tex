@@ -1,0 +1,104 @@
+\hypertarget{vector_8h}{}\doxysection{stdlib/vector/vector.h File Reference}
+\label{vector_8h}\index{stdlib/vector/vector.h@{stdlib/vector/vector.h}}
+
+
+Generic resizable array.  
+
+
+{\ttfamily \#include \char`\"{}types.\+h\char`\"{}}\newline
+\doxysubsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structVector}{Vector}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{vector_8h_a9618b41b25efb749069cbfff9c3cadcf}{vector\+\_\+init}} (\mbox{\hyperlink{structVector}{Vector}} $\ast$vector, \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} element\+\_\+size, \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} initial\+\_\+capacity)
+\begin{DoxyCompactList}\small\item\em Initialize a vector with an element size and an initial capacity. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{vector_8h_a0c0be12f800dc5bc6777b4ff324f41ca}{vector\+\_\+destroy}} (\mbox{\hyperlink{structVector}{Vector}} $\ast$vector)
+\begin{DoxyCompactList}\small\item\em Frees the internal memory buffer of the vector. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{vector_8h_ab5e38bad2bc3f2cbf9f7b23f615545ee}{vector\+\_\+replace}} (\mbox{\hyperlink{structVector}{Vector}} $\ast$vector, \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} index, \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} count, const void $\ast$elems, \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} new\+\_\+count)
+\begin{DoxyCompactList}\small\item\em Replace a range of elements in the vector with new elements. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Generic resizable array. 
+
+\begin{DoxyAuthor}{Author}
+Tim Gabrikowski, Anton Tchekov 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+0.\+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+26.\+04.\+2023 
+\end{DoxyDate}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{vector_8h_a0c0be12f800dc5bc6777b4ff324f41ca}\label{vector_8h_a0c0be12f800dc5bc6777b4ff324f41ca}} 
+\index{vector.h@{vector.h}!vector\_destroy@{vector\_destroy}}
+\index{vector\_destroy@{vector\_destroy}!vector.h@{vector.h}}
+\doxysubsubsection{\texorpdfstring{vector\_destroy()}{vector\_destroy()}}
+{\footnotesize\ttfamily void vector\+\_\+destroy (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structVector}{Vector}} $\ast$}]{vector }\end{DoxyParamCaption})}
+
+
+
+Frees the internal memory buffer of the vector. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em vector} & The vector \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{vector_8h_a9618b41b25efb749069cbfff9c3cadcf}\label{vector_8h_a9618b41b25efb749069cbfff9c3cadcf}} 
+\index{vector.h@{vector.h}!vector\_init@{vector\_init}}
+\index{vector\_init@{vector\_init}!vector.h@{vector.h}}
+\doxysubsubsection{\texorpdfstring{vector\_init()}{vector\_init()}}
+{\footnotesize\ttfamily void vector\+\_\+init (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structVector}{Vector}} $\ast$}]{vector,  }\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{element\+\_\+size,  }\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{initial\+\_\+capacity }\end{DoxyParamCaption})}
+
+
+
+Initialize a vector with an element size and an initial capacity. 
+
+Example code for a vector of integers\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{structVector}{Vector}}\ vector;}
+\DoxyCodeLine{\mbox{\hyperlink{vector_8c_a9618b41b25efb749069cbfff9c3cadcf}{vector\_init}}(\&vector,\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}),\ 16);}
+
+\end{DoxyCode}
+
+
+
+\begin{DoxyParams}{Parameters}
+{\em vector} & The vector \\
+\hline
+{\em element\+\_\+size} & The size of each element in the vector \\
+\hline
+{\em initial\+\_\+capacity} & The vectors initial capacity \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{vector_8h_ab5e38bad2bc3f2cbf9f7b23f615545ee}\label{vector_8h_ab5e38bad2bc3f2cbf9f7b23f615545ee}} 
+\index{vector.h@{vector.h}!vector\_replace@{vector\_replace}}
+\index{vector\_replace@{vector\_replace}!vector.h@{vector.h}}
+\doxysubsubsection{\texorpdfstring{vector\_replace()}{vector\_replace()}}
+{\footnotesize\ttfamily void vector\+\_\+replace (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structVector}{Vector}} $\ast$}]{vector,  }\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{index,  }\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{count,  }\item[{const void $\ast$}]{elems,  }\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{new\+\_\+count }\end{DoxyParamCaption})}
+
+
+
+Replace a range of elements in the vector with new elements. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em vector} & The vector \\
+\hline
+{\em index} & The starting index of the range of elements to replace \\
+\hline
+{\em count} & The number of elements to replace \\
+\hline
+{\em elems} & Pointer to the new elements \\
+\hline
+{\em new\+\_\+count} & Number of new elements to be inserted \\
+\hline
+\end{DoxyParams}

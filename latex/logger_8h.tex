@@ -1,0 +1,105 @@
+\hypertarget{logger_8h}{}\doxysection{platform/avr/logger/logger.h File Reference}
+\label{logger_8h}\index{platform/avr/logger/logger.h@{platform/avr/logger/logger.h}}
+
+
+Boot message logger.  
+
+
+{\ttfamily \#include $<$types.\+h$>$}\newline
+\doxysubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{logger_8h_aca1fd1d8935433e6ba2e3918214e07f9}\label{logger_8h_aca1fd1d8935433e6ba2e3918214e07f9}} 
+enum {\bfseries Log\+Level} \{ \newline
+{\bfseries LOG\+\_\+\+INIT}
+, {\bfseries LOG\+\_\+\+DEBUG}
+, {\bfseries LOG\+\_\+\+WARN}
+, {\bfseries LOG\+\_\+\+ERROR}
+, \newline
+{\bfseries LOG\+\_\+\+PANIC}
+, {\bfseries LOG\+\_\+\+OFFSET}
+, {\bfseries LOG\+\_\+\+NONE}
+, {\bfseries LOG\+\_\+\+EXT}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{logger_8h_a60bd636ef160c97eb51cf31be5954ba2}{log\+\_\+boot\+\_\+P}} (Log\+Level level, const char $\ast$msg,...)
+\begin{DoxyCompactList}\small\item\em Log boot message. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{logger_8h_a19a313011d8f478ad9799e546199a9ac}{panic}} (const char $\ast$msg,...)
+\begin{DoxyCompactList}\small\item\em Trigger a kernel panic. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{logger_8h_a0108e0dd64eb1971222c219982138866}{memory\+\_\+dump}} (\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} addr, const void $\ast$data, \mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}} len)
+\begin{DoxyCompactList}\small\item\em Print a hexdump of a block memory. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Boot message logger. 
+
+\begin{DoxyAuthor}{Author}
+Tim Gabrikowski, Anton Tchekov 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+0.\+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+16.\+05.\+2023 
+\end{DoxyDate}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{logger_8h_a60bd636ef160c97eb51cf31be5954ba2}\label{logger_8h_a60bd636ef160c97eb51cf31be5954ba2}} 
+\index{logger.h@{logger.h}!log\_boot\_P@{log\_boot\_P}}
+\index{log\_boot\_P@{log\_boot\_P}!logger.h@{logger.h}}
+\doxysubsubsection{\texorpdfstring{log\_boot\_P()}{log\_boot\_P()}}
+{\footnotesize\ttfamily void log\+\_\+boot\+\_\+P (\begin{DoxyParamCaption}\item[{Log\+Level}]{level,  }\item[{const char $\ast$}]{msg,  }\item[{}]{... }\end{DoxyParamCaption})}
+
+
+
+Log boot message. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em level} & Log level (see enum above) \\
+\hline
+{\em msg} & Format string \\
+\hline
+{\em ...} & Variable arguments \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{logger_8h_a0108e0dd64eb1971222c219982138866}\label{logger_8h_a0108e0dd64eb1971222c219982138866}} 
+\index{logger.h@{logger.h}!memory\_dump@{memory\_dump}}
+\index{memory\_dump@{memory\_dump}!logger.h@{logger.h}}
+\doxysubsubsection{\texorpdfstring{memory\_dump()}{memory\_dump()}}
+{\footnotesize\ttfamily void memory\+\_\+dump (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{addr,  }\item[{const void $\ast$}]{data,  }\item[{\mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}}}]{len }\end{DoxyParamCaption})}
+
+
+
+Print a hexdump of a block memory. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em addr} & Start address only for printing \\
+\hline
+{\em data} & Data buffer \\
+\hline
+{\em len} & Buffer size in bytes \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{logger_8h_a19a313011d8f478ad9799e546199a9ac}\label{logger_8h_a19a313011d8f478ad9799e546199a9ac}} 
+\index{logger.h@{logger.h}!panic@{panic}}
+\index{panic@{panic}!logger.h@{logger.h}}
+\doxysubsubsection{\texorpdfstring{panic()}{panic()}}
+{\footnotesize\ttfamily void panic (\begin{DoxyParamCaption}\item[{const char $\ast$}]{msg,  }\item[{}]{... }\end{DoxyParamCaption})}
+
+
+
+Trigger a kernel panic. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em msg} & Format string \\
+\hline
+{\em ...} & Variable arguments \\
+\hline
+\end{DoxyParams}

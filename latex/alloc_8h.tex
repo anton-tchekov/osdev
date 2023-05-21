@@ -1,0 +1,104 @@
+\hypertarget{alloc_8h}{}\doxysection{stdlib/alloc/alloc.h File Reference}
+\label{alloc_8h}\index{stdlib/alloc/alloc.h@{stdlib/alloc/alloc.h}}
+
+
+Manual memory allocator.  
+
+
+{\ttfamily \#include $<$types.\+h$>$}\newline
+\doxysubsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structMemAllocInfo}{Mem\+Alloc\+Info}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{alloc_8h_acaf78a0d4793d5f26ce2dc651b2354e2}{memalloc\+\_\+init}} (\mbox{\hyperlink{types_8h_afc3fa6ac414247c0d4e1f77d5f1cb62d}{ptr}} heap\+\_\+start, \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} size)
+\begin{DoxyCompactList}\small\item\em Initialize the memory allocator. Do NOT call this function. \end{DoxyCompactList}\item 
+void $\ast$ \mbox{\hyperlink{alloc_8h_a4be51fa4dd80d0b7077779261722119a}{memalloc}} (\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} size)
+\begin{DoxyCompactList}\small\item\em Request a block of memory of {\ttfamily size} bytes This function will always return a valid pointer (never NULL). If the memory could not be allocated, the program will panic. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{alloc_8h_ab0b733d6d48d9eafd86d2196d16e2bc4}{memfree}} (void $\ast$p)
+\begin{DoxyCompactList}\small\item\em Frees memory previously allocated with {\ttfamily memalloc} \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structMemAllocInfo}{Mem\+Alloc\+Info}} $\ast$ \mbox{\hyperlink{alloc_8h_ae4203ee63344a99c8c27f3665da1c06b}{memalloc\+\_\+info}} (void)
+\begin{DoxyCompactList}\small\item\em Returns memory allocator information and status. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Manual memory allocator. 
+
+\begin{DoxyAuthor}{Author}
+Tim Gabrikowski, Anton Tchekov 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+0.\+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+15.\+05.\+2023 
+\end{DoxyDate}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{alloc_8h_a4be51fa4dd80d0b7077779261722119a}\label{alloc_8h_a4be51fa4dd80d0b7077779261722119a}} 
+\index{alloc.h@{alloc.h}!memalloc@{memalloc}}
+\index{memalloc@{memalloc}!alloc.h@{alloc.h}}
+\doxysubsubsection{\texorpdfstring{memalloc()}{memalloc()}}
+{\footnotesize\ttfamily void $\ast$ memalloc (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{size }\end{DoxyParamCaption})}
+
+
+
+Request a block of memory of {\ttfamily size} bytes This function will always return a valid pointer (never NULL). If the memory could not be allocated, the program will panic. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em size} & Number of bytes \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Pointer to allocated memory 
+\end{DoxyReturn}
+\mbox{\Hypertarget{alloc_8h_ae4203ee63344a99c8c27f3665da1c06b}\label{alloc_8h_ae4203ee63344a99c8c27f3665da1c06b}} 
+\index{alloc.h@{alloc.h}!memalloc\_info@{memalloc\_info}}
+\index{memalloc\_info@{memalloc\_info}!alloc.h@{alloc.h}}
+\doxysubsubsection{\texorpdfstring{memalloc\_info()}{memalloc\_info()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structMemAllocInfo}{Mem\+Alloc\+Info}} $\ast$ memalloc\+\_\+info (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Returns memory allocator information and status. 
+
+\begin{DoxyReturn}{Returns}
+Pointer to memalloc info struct 
+\end{DoxyReturn}
+\mbox{\Hypertarget{alloc_8h_acaf78a0d4793d5f26ce2dc651b2354e2}\label{alloc_8h_acaf78a0d4793d5f26ce2dc651b2354e2}} 
+\index{alloc.h@{alloc.h}!memalloc\_init@{memalloc\_init}}
+\index{memalloc\_init@{memalloc\_init}!alloc.h@{alloc.h}}
+\doxysubsubsection{\texorpdfstring{memalloc\_init()}{memalloc\_init()}}
+{\footnotesize\ttfamily void memalloc\+\_\+init (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{types_8h_afc3fa6ac414247c0d4e1f77d5f1cb62d}{ptr}}}]{heap\+\_\+start,  }\item[{\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}}]{size }\end{DoxyParamCaption})}
+
+
+
+Initialize the memory allocator. Do NOT call this function. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em heap\+\_\+start} & Heap start address \\
+\hline
+{\em size} & Maximum size of the heap \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{alloc_8h_ab0b733d6d48d9eafd86d2196d16e2bc4}\label{alloc_8h_ab0b733d6d48d9eafd86d2196d16e2bc4}} 
+\index{alloc.h@{alloc.h}!memfree@{memfree}}
+\index{memfree@{memfree}!alloc.h@{alloc.h}}
+\doxysubsubsection{\texorpdfstring{memfree()}{memfree()}}
+{\footnotesize\ttfamily void memfree (\begin{DoxyParamCaption}\item[{void $\ast$}]{p }\end{DoxyParamCaption})}
+
+
+
+Frees memory previously allocated with {\ttfamily memalloc} 
+
+
+\begin{DoxyParams}{Parameters}
+{\em p} & Pointer \\
+\hline
+\end{DoxyParams}

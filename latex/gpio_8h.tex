@@ -1,0 +1,228 @@
+\hypertarget{gpio_8h}{}\doxysection{platform/avr/gpio/gpio.h File Reference}
+\label{gpio_8h}\index{platform/avr/gpio/gpio.h@{platform/avr/gpio/gpio.h}}
+
+
+GPIO Config.  
+
+
+{\ttfamily \#include $<$avr/io.\+h$>$}\newline
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{gpio_8h_a21cc6faf5964b9af1b09e8b0ebc83497}\label{gpio_8h_a21cc6faf5964b9af1b09e8b0ebc83497}} 
+\#define {\bfseries SPI\+\_\+\+DIR}~DDRB
+\item 
+\mbox{\Hypertarget{gpio_8h_a7dbebab5f7dd57885adccf6711b13592}\label{gpio_8h_a7dbebab5f7dd57885adccf6711b13592}} 
+\#define {\bfseries SPI\+\_\+\+MOSI}~3
+\item 
+\mbox{\Hypertarget{gpio_8h_ab142cc77dfa97010c9d2b616d0992b64}\label{gpio_8h_ab142cc77dfa97010c9d2b616d0992b64}} 
+\#define {\bfseries SPI\+\_\+\+MISO}~4
+\item 
+\mbox{\Hypertarget{gpio_8h_a750ca7c9b92cfc9e57272ff3a49db48b}\label{gpio_8h_a750ca7c9b92cfc9e57272ff3a49db48b}} 
+\#define {\bfseries SPI\+\_\+\+SCK}~5
+\item 
+\mbox{\Hypertarget{gpio_8h_a3a9e59fe6cbc558f4fac9e3f6c0f56d7}\label{gpio_8h_a3a9e59fe6cbc558f4fac9e3f6c0f56d7}} 
+\#define {\bfseries LCD\+\_\+\+RST\+\_\+\+DIR}~DDRD
+\item 
+\mbox{\Hypertarget{gpio_8h_a5619a3df84fc771fa06db1a5055e0e8c}\label{gpio_8h_a5619a3df84fc771fa06db1a5055e0e8c}} 
+\#define {\bfseries LCD\+\_\+\+RST\+\_\+\+OUT}~PORTD
+\item 
+\mbox{\Hypertarget{gpio_8h_a9d11073f149e02e0a07937196d1e5a8e}\label{gpio_8h_a9d11073f149e02e0a07937196d1e5a8e}} 
+\#define {\bfseries LCD\+\_\+\+RST\+\_\+\+PIN}~7
+\item 
+\mbox{\Hypertarget{gpio_8h_aca5d562359b2eb193f4135011fb7f953}\label{gpio_8h_aca5d562359b2eb193f4135011fb7f953}} 
+\#define {\bfseries LCD\+\_\+\+CS\+\_\+\+DIR}~DDRC
+\item 
+\mbox{\Hypertarget{gpio_8h_a97c0a0cb1e59b14fdca53412298f9e15}\label{gpio_8h_a97c0a0cb1e59b14fdca53412298f9e15}} 
+\#define {\bfseries LCD\+\_\+\+CS\+\_\+\+OUT}~PORTC
+\item 
+\mbox{\Hypertarget{gpio_8h_a50d72083b1ed4dd0bc2eaabb4a0332c8}\label{gpio_8h_a50d72083b1ed4dd0bc2eaabb4a0332c8}} 
+\#define {\bfseries LCD\+\_\+\+CS\+\_\+\+PIN}~0
+\item 
+\mbox{\Hypertarget{gpio_8h_a2ed960e3ef4b16ed47679e01a6a94803}\label{gpio_8h_a2ed960e3ef4b16ed47679e01a6a94803}} 
+\#define {\bfseries LCD\+\_\+\+DC\+\_\+\+DIR}~DDRC
+\item 
+\mbox{\Hypertarget{gpio_8h_a5a8f9f8c97dbdfe50b90265dcde42f0d}\label{gpio_8h_a5a8f9f8c97dbdfe50b90265dcde42f0d}} 
+\#define {\bfseries LCD\+\_\+\+DC\+\_\+\+OUT}~PORTC
+\item 
+\mbox{\Hypertarget{gpio_8h_a402d8ccd0bb0a6cc377222e75b8e050e}\label{gpio_8h_a402d8ccd0bb0a6cc377222e75b8e050e}} 
+\#define {\bfseries LCD\+\_\+\+DC\+\_\+\+PIN}~1
+\item 
+\mbox{\Hypertarget{gpio_8h_a42d5451b792114145c0c17bfa3fa9765}\label{gpio_8h_a42d5451b792114145c0c17bfa3fa9765}} 
+\#define {\bfseries LCD\+\_\+\+CS\+\_\+0}~LCD\+\_\+\+CS\+\_\+\+OUT \&= $\sim$(1 $<$$<$ LCD\+\_\+\+CS\+\_\+\+PIN)
+\item 
+\mbox{\Hypertarget{gpio_8h_a00084d10788e0d2c037f5713451c08fc}\label{gpio_8h_a00084d10788e0d2c037f5713451c08fc}} 
+\#define {\bfseries LCD\+\_\+\+CS\+\_\+1}~LCD\+\_\+\+CS\+\_\+\+OUT $\vert$= (1 $<$$<$ LCD\+\_\+\+CS\+\_\+\+PIN)
+\item 
+\mbox{\Hypertarget{gpio_8h_a3507c3afacfdb3d37f540c2c03e3293c}\label{gpio_8h_a3507c3afacfdb3d37f540c2c03e3293c}} 
+\#define {\bfseries LCD\+\_\+\+DC\+\_\+0}~LCD\+\_\+\+DC\+\_\+\+OUT \&= $\sim$(1 $<$$<$ LCD\+\_\+\+DC\+\_\+\+PIN)
+\item 
+\mbox{\Hypertarget{gpio_8h_a84453a9c09cf346be8f716ebf9d239ac}\label{gpio_8h_a84453a9c09cf346be8f716ebf9d239ac}} 
+\#define {\bfseries LCD\+\_\+\+DC\+\_\+1}~LCD\+\_\+\+DC\+\_\+\+OUT $\vert$= (1 $<$$<$ LCD\+\_\+\+DC\+\_\+\+PIN)
+\item 
+\mbox{\Hypertarget{gpio_8h_a61f71aba8773def01aa1a3259d92877c}\label{gpio_8h_a61f71aba8773def01aa1a3259d92877c}} 
+\#define {\bfseries LCD\+\_\+\+RST\+\_\+0}~LCD\+\_\+\+RST\+\_\+\+OUT \&= $\sim$(1 $<$$<$ LCD\+\_\+\+RST\+\_\+\+PIN)
+\item 
+\mbox{\Hypertarget{gpio_8h_a365183fff6afc795a602fa1528f3b9ac}\label{gpio_8h_a365183fff6afc795a602fa1528f3b9ac}} 
+\#define {\bfseries LCD\+\_\+\+RST\+\_\+1}~LCD\+\_\+\+RST\+\_\+\+OUT $\vert$= (1 $<$$<$ LCD\+\_\+\+RST\+\_\+\+PIN)
+\item 
+\mbox{\Hypertarget{gpio_8h_a5667d96821033d950a439d18376bcc4c}\label{gpio_8h_a5667d96821033d950a439d18376bcc4c}} 
+\#define {\bfseries SD\+\_\+\+CS\+\_\+\+DIR}~DDRD
+\item 
+\mbox{\Hypertarget{gpio_8h_a280638e82114f6935a6b013ff0fb9fcb}\label{gpio_8h_a280638e82114f6935a6b013ff0fb9fcb}} 
+\#define {\bfseries SD\+\_\+\+CS\+\_\+\+OUT}~PORTD
+\item 
+\mbox{\Hypertarget{gpio_8h_a04d57a6c18b2d5e81f31093e58ed0c62}\label{gpio_8h_a04d57a6c18b2d5e81f31093e58ed0c62}} 
+\#define {\bfseries SD\+\_\+\+CS\+\_\+\+PIN}~4
+\item 
+\mbox{\Hypertarget{gpio_8h_ad104eec5bf5679ebe86fb494113175dd}\label{gpio_8h_ad104eec5bf5679ebe86fb494113175dd}} 
+\#define {\bfseries SD\+\_\+\+SELECT}~SD\+\_\+\+CS\+\_\+\+OUT \&= $\sim$(1 $<$$<$ SD\+\_\+\+CS\+\_\+\+PIN)
+\item 
+\mbox{\Hypertarget{gpio_8h_a714114dca347ee9354e449387728a12d}\label{gpio_8h_a714114dca347ee9354e449387728a12d}} 
+\#define {\bfseries SD\+\_\+\+DESELECT}~SD\+\_\+\+CS\+\_\+\+OUT $\vert$= (1 $<$$<$ SD\+\_\+\+CS\+\_\+\+PIN)
+\item 
+\mbox{\Hypertarget{gpio_8h_ac4835049c4ed1d7f3bd58fb89eaec8f1}\label{gpio_8h_ac4835049c4ed1d7f3bd58fb89eaec8f1}} 
+\#define {\bfseries XMEM\+\_\+\+CS\+\_\+\+DIR}~DDRB
+\item 
+\mbox{\Hypertarget{gpio_8h_af1e7d87d8a6115bad62ccc51754f35d9}\label{gpio_8h_af1e7d87d8a6115bad62ccc51754f35d9}} 
+\#define {\bfseries XMEM\+\_\+\+CS\+\_\+\+OUT}~PORTB
+\item 
+\mbox{\Hypertarget{gpio_8h_af85dd217ebf23b8c97bb01bba8ca7380}\label{gpio_8h_af85dd217ebf23b8c97bb01bba8ca7380}} 
+\#define {\bfseries XMEM\+\_\+\+CS\+\_\+0\+\_\+\+PIN}~0
+\item 
+\mbox{\Hypertarget{gpio_8h_a85a60b1c67ca7f06741174f011ad8499}\label{gpio_8h_a85a60b1c67ca7f06741174f011ad8499}} 
+\#define {\bfseries XMEM\+\_\+\+CS\+\_\+1\+\_\+\+PIN}~1
+\item 
+\mbox{\Hypertarget{gpio_8h_a1722dcdfc0ea1caa011469ed6bf0501d}\label{gpio_8h_a1722dcdfc0ea1caa011469ed6bf0501d}} 
+\#define {\bfseries XMEM\+\_\+\+CS\+\_\+2\+\_\+\+PIN}~2
+\item 
+\mbox{\Hypertarget{gpio_8h_a43c615a50c44cc38e470b7648df5d609}\label{gpio_8h_a43c615a50c44cc38e470b7648df5d609}} 
+\#define {\bfseries XMEM\+\_\+\+SELECT}(BANK)~XMEM\+\_\+\+CS\+\_\+\+OUT \&= $\sim$(1 $<$$<$ bank)
+\item 
+\mbox{\Hypertarget{gpio_8h_a89171c2905e37752be2059880ed9f720}\label{gpio_8h_a89171c2905e37752be2059880ed9f720}} 
+\#define {\bfseries XMEM\+\_\+\+DESELECT}(BANK)~XMEM\+\_\+\+CS\+\_\+\+OUT $\vert$= (1 $<$$<$ bank)
+\item 
+\#define \mbox{\hyperlink{gpio_8h_a03d80aa764897ca72e89c1359db06387}{XMEM\+\_\+\+DESELECT\+\_\+\+ALL}}
+\item 
+\#define \mbox{\hyperlink{gpio_8h_a68c79028e41dd1dc62aeb13c18c66425}{PS2\+\_\+\+CLOCK\+\_\+\+PORT\+\_\+\+DIR}}~DDRB
+\item 
+\#define \mbox{\hyperlink{gpio_8h_a8cf10dc8c06cc13c0172803614739d7b}{PS2\+\_\+\+CLOCK\+\_\+\+PORT\+\_\+\+IN}}~PINB
+\item 
+\#define \mbox{\hyperlink{gpio_8h_a753bb5bbad08738ae6e1547aa24d6a12}{PS2\+\_\+\+CLOCK\+\_\+\+PORT\+\_\+\+OUT}}~PORTB
+\item 
+\#define \mbox{\hyperlink{gpio_8h_aca51e1a5333b2e42e6a68eef69feb95c}{PS2\+\_\+\+CLOCK\+\_\+\+PIN}}~2
+\item 
+\#define \mbox{\hyperlink{gpio_8h_a34ea49db58f76f1619e460765995f599}{PS2\+\_\+\+EXT\+\_\+\+INTERRUPT}}~INT0
+\item 
+\#define \mbox{\hyperlink{gpio_8h_a20abb64c66d3ee3910424ee29e95fb92}{PS2\+\_\+\+DATA\+\_\+\+PORT\+\_\+\+DIR}}~DDRB
+\item 
+\#define \mbox{\hyperlink{gpio_8h_a85a6dfc067aff42f3ff68450bc72e728}{PS2\+\_\+\+DATA\+\_\+\+PORT\+\_\+\+IN}}~PINB
+\item 
+\#define \mbox{\hyperlink{gpio_8h_a58425b9692faae43a9fc6f40b85d3f01}{PS2\+\_\+\+DATA\+\_\+\+PORT\+\_\+\+OUT}}~PORTB
+\item 
+\#define \mbox{\hyperlink{gpio_8h_a9de0e05d896f00ad46cc166cd0d0146b}{PS2\+\_\+\+DATA\+\_\+\+PIN}}~3
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{gpio_8h_a7159e787d0c4fb89346383b7987ab6d3}{gpio\+\_\+configure}} (void)
+\begin{DoxyCompactList}\small\item\em Configure all GPIO pins. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+GPIO Config. 
+
+\begin{DoxyAuthor}{Author}
+Anton Tchekov 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+0.\+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+20.\+05.\+2023 
+\end{DoxyDate}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{gpio_8h_aca51e1a5333b2e42e6a68eef69feb95c}\label{gpio_8h_aca51e1a5333b2e42e6a68eef69feb95c}} 
+\index{gpio.h@{gpio.h}!PS2\_CLOCK\_PIN@{PS2\_CLOCK\_PIN}}
+\index{PS2\_CLOCK\_PIN@{PS2\_CLOCK\_PIN}!gpio.h@{gpio.h}}
+\doxysubsubsection{\texorpdfstring{PS2\_CLOCK\_PIN}{PS2\_CLOCK\_PIN}}
+{\footnotesize\ttfamily \#define PS2\+\_\+\+CLOCK\+\_\+\+PIN~2}
+
+Clock pin \mbox{\Hypertarget{gpio_8h_a68c79028e41dd1dc62aeb13c18c66425}\label{gpio_8h_a68c79028e41dd1dc62aeb13c18c66425}} 
+\index{gpio.h@{gpio.h}!PS2\_CLOCK\_PORT\_DIR@{PS2\_CLOCK\_PORT\_DIR}}
+\index{PS2\_CLOCK\_PORT\_DIR@{PS2\_CLOCK\_PORT\_DIR}!gpio.h@{gpio.h}}
+\doxysubsubsection{\texorpdfstring{PS2\_CLOCK\_PORT\_DIR}{PS2\_CLOCK\_PORT\_DIR}}
+{\footnotesize\ttfamily \#define PS2\+\_\+\+CLOCK\+\_\+\+PORT\+\_\+\+DIR~DDRB}
+
+Clock pin -\/ Data direction register \mbox{\Hypertarget{gpio_8h_a8cf10dc8c06cc13c0172803614739d7b}\label{gpio_8h_a8cf10dc8c06cc13c0172803614739d7b}} 
+\index{gpio.h@{gpio.h}!PS2\_CLOCK\_PORT\_IN@{PS2\_CLOCK\_PORT\_IN}}
+\index{PS2\_CLOCK\_PORT\_IN@{PS2\_CLOCK\_PORT\_IN}!gpio.h@{gpio.h}}
+\doxysubsubsection{\texorpdfstring{PS2\_CLOCK\_PORT\_IN}{PS2\_CLOCK\_PORT\_IN}}
+{\footnotesize\ttfamily \#define PS2\+\_\+\+CLOCK\+\_\+\+PORT\+\_\+\+IN~PINB}
+
+Clock pin -\/ \mbox{\hyperlink{structInput}{Input}} register \mbox{\Hypertarget{gpio_8h_a753bb5bbad08738ae6e1547aa24d6a12}\label{gpio_8h_a753bb5bbad08738ae6e1547aa24d6a12}} 
+\index{gpio.h@{gpio.h}!PS2\_CLOCK\_PORT\_OUT@{PS2\_CLOCK\_PORT\_OUT}}
+\index{PS2\_CLOCK\_PORT\_OUT@{PS2\_CLOCK\_PORT\_OUT}!gpio.h@{gpio.h}}
+\doxysubsubsection{\texorpdfstring{PS2\_CLOCK\_PORT\_OUT}{PS2\_CLOCK\_PORT\_OUT}}
+{\footnotesize\ttfamily \#define PS2\+\_\+\+CLOCK\+\_\+\+PORT\+\_\+\+OUT~PORTB}
+
+Clock pin -\/ Output register \mbox{\Hypertarget{gpio_8h_a9de0e05d896f00ad46cc166cd0d0146b}\label{gpio_8h_a9de0e05d896f00ad46cc166cd0d0146b}} 
+\index{gpio.h@{gpio.h}!PS2\_DATA\_PIN@{PS2\_DATA\_PIN}}
+\index{PS2\_DATA\_PIN@{PS2\_DATA\_PIN}!gpio.h@{gpio.h}}
+\doxysubsubsection{\texorpdfstring{PS2\_DATA\_PIN}{PS2\_DATA\_PIN}}
+{\footnotesize\ttfamily \#define PS2\+\_\+\+DATA\+\_\+\+PIN~3}
+
+Data pin \mbox{\Hypertarget{gpio_8h_a20abb64c66d3ee3910424ee29e95fb92}\label{gpio_8h_a20abb64c66d3ee3910424ee29e95fb92}} 
+\index{gpio.h@{gpio.h}!PS2\_DATA\_PORT\_DIR@{PS2\_DATA\_PORT\_DIR}}
+\index{PS2\_DATA\_PORT\_DIR@{PS2\_DATA\_PORT\_DIR}!gpio.h@{gpio.h}}
+\doxysubsubsection{\texorpdfstring{PS2\_DATA\_PORT\_DIR}{PS2\_DATA\_PORT\_DIR}}
+{\footnotesize\ttfamily \#define PS2\+\_\+\+DATA\+\_\+\+PORT\+\_\+\+DIR~DDRB}
+
+Data pin -\/ Data direction register \mbox{\Hypertarget{gpio_8h_a85a6dfc067aff42f3ff68450bc72e728}\label{gpio_8h_a85a6dfc067aff42f3ff68450bc72e728}} 
+\index{gpio.h@{gpio.h}!PS2\_DATA\_PORT\_IN@{PS2\_DATA\_PORT\_IN}}
+\index{PS2\_DATA\_PORT\_IN@{PS2\_DATA\_PORT\_IN}!gpio.h@{gpio.h}}
+\doxysubsubsection{\texorpdfstring{PS2\_DATA\_PORT\_IN}{PS2\_DATA\_PORT\_IN}}
+{\footnotesize\ttfamily \#define PS2\+\_\+\+DATA\+\_\+\+PORT\+\_\+\+IN~PINB}
+
+Data pin -\/ \mbox{\hyperlink{structInput}{Input}} register \mbox{\Hypertarget{gpio_8h_a58425b9692faae43a9fc6f40b85d3f01}\label{gpio_8h_a58425b9692faae43a9fc6f40b85d3f01}} 
+\index{gpio.h@{gpio.h}!PS2\_DATA\_PORT\_OUT@{PS2\_DATA\_PORT\_OUT}}
+\index{PS2\_DATA\_PORT\_OUT@{PS2\_DATA\_PORT\_OUT}!gpio.h@{gpio.h}}
+\doxysubsubsection{\texorpdfstring{PS2\_DATA\_PORT\_OUT}{PS2\_DATA\_PORT\_OUT}}
+{\footnotesize\ttfamily \#define PS2\+\_\+\+DATA\+\_\+\+PORT\+\_\+\+OUT~PORTB}
+
+Data pin -\/ Output register \mbox{\Hypertarget{gpio_8h_a34ea49db58f76f1619e460765995f599}\label{gpio_8h_a34ea49db58f76f1619e460765995f599}} 
+\index{gpio.h@{gpio.h}!PS2\_EXT\_INTERRUPT@{PS2\_EXT\_INTERRUPT}}
+\index{PS2\_EXT\_INTERRUPT@{PS2\_EXT\_INTERRUPT}!gpio.h@{gpio.h}}
+\doxysubsubsection{\texorpdfstring{PS2\_EXT\_INTERRUPT}{PS2\_EXT\_INTERRUPT}}
+{\footnotesize\ttfamily \#define PS2\+\_\+\+EXT\+\_\+\+INTERRUPT~INT0}
+
+Clock pin -\/ External interrupt \mbox{\Hypertarget{gpio_8h_a03d80aa764897ca72e89c1359db06387}\label{gpio_8h_a03d80aa764897ca72e89c1359db06387}} 
+\index{gpio.h@{gpio.h}!XMEM\_DESELECT\_ALL@{XMEM\_DESELECT\_ALL}}
+\index{XMEM\_DESELECT\_ALL@{XMEM\_DESELECT\_ALL}!gpio.h@{gpio.h}}
+\doxysubsubsection{\texorpdfstring{XMEM\_DESELECT\_ALL}{XMEM\_DESELECT\_ALL}}
+{\footnotesize\ttfamily \#define XMEM\+\_\+\+DESELECT\+\_\+\+ALL}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \ \ XMEM\_CS\_OUT\ |=\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ (1\ <<\ XMEM\_CS\_0\_PIN)\ |\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ (1\ <<\ XMEM\_CS\_1\_PIN)\ |\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ (1\ <<\ XMEM\_CS\_2\_PIN)}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{gpio_8h_a7159e787d0c4fb89346383b7987ab6d3}\label{gpio_8h_a7159e787d0c4fb89346383b7987ab6d3}} 
+\index{gpio.h@{gpio.h}!gpio\_configure@{gpio\_configure}}
+\index{gpio\_configure@{gpio\_configure}!gpio.h@{gpio.h}}
+\doxysubsubsection{\texorpdfstring{gpio\_configure()}{gpio\_configure()}}
+{\footnotesize\ttfamily void gpio\+\_\+configure (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Configure all GPIO pins. 
+
+This function is neccessary because multiple peripherals are connected to the SPI bus, so all CS lines need to be driven LOW before SPI initialization. 

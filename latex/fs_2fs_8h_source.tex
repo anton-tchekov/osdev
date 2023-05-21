@@ -1,0 +1,51 @@
+\hypertarget{fs_2fs_8h_source}{}\doxysection{fs.\+h}
+\label{fs_2fs_8h_source}\index{stdlib/fs/fs/fs.h@{stdlib/fs/fs/fs.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ \_\_FS\_H\_\_}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ \_\_FS\_H\_\_}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}}
+\DoxyCodeLine{00005\ \{}
+\DoxyCodeLine{00006\ \ \ \ \ FILETYPE\_DIR\ =\ \textcolor{stringliteral}{"{}DIR"{}},}
+\DoxyCodeLine{00007\ \ \ \ \ FILETYPE\_TEXT\ =\ \textcolor{stringliteral}{"{}TXT"{}}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \}\ FileType;}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}}
+\DoxyCodeLine{00012\ \{}
+\DoxyCodeLine{00013\ \ \ \ \ \textcolor{keywordtype}{char}\ Device;}
+\DoxyCodeLine{00014\ \ \ \ \ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ StartBlock,\ SizeBlocks;}
+\DoxyCodeLine{00015\ \}\ \mbox{\hyperlink{fs_8h_a3d8cbaa4e32fca2d0d2dd6528348ef30}{File}};}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}}
+\DoxyCodeLine{00018\ \{}
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keywordtype}{char}\ Device;}
+\DoxyCodeLine{00020\ \ \ \ \ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ NumFiles;}
+\DoxyCodeLine{00021\ \ \ \ \ \mbox{\hyperlink{structFile}{File}}\ InternalFile;}
+\DoxyCodeLine{00022\ \}\ \mbox{\hyperlink{structDir}{Dir}};}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}}
+\DoxyCodeLine{00025\ \{}
+\DoxyCodeLine{00026\ \ \ \ \ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ Size,\ Type;}
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keywordtype}{char}\ Name[64],\ Type;}
+\DoxyCodeLine{00028\ \}\ \mbox{\hyperlink{structDirEntry}{DirEntry}};}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00035\ StatusCode\ fs\_format(\textcolor{keywordtype}{char}\ dev);}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00043\ StatusCode\ fs\_fcreate(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *path,\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ size);}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ StatusCode\ fs\_fdelete(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *path);}
+\DoxyCodeLine{00046\ StatusCode\ fs\_fopen(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *path,\ \mbox{\hyperlink{structFile}{File}}\ *file);}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ StatusCode\ fs\_dopen(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *path,\ \mbox{\hyperlink{structDir}{Dir}}\ *dir);}
+\DoxyCodeLine{00049\ StatusCode\ fs\_dread(\mbox{\hyperlink{structDir}{Dir}}\ *dir,\ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ index,\ \mbox{\hyperlink{structDirEntry}{DirEntry}}\ *entry);}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ StatusCode\ fs\_fresize(\mbox{\hyperlink{structFile}{File}}\ *file,\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ new\_size);}
+\DoxyCodeLine{00052\ StatusCode\ fs\_fread(\mbox{\hyperlink{structFile}{File}}\ *file,\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ offset,\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ size,\ \textcolor{keywordtype}{void}\ *buffer);}
+\DoxyCodeLine{00053\ StatusCode\ fs\_fwrite(\mbox{\hyperlink{structFile}{File}}\ *file,\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ offset,\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ size,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *buffer);}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ \_\_FS\_H\_\_\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

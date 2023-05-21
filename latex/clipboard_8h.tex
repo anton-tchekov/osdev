@@ -1,0 +1,47 @@
+\hypertarget{clipboard_8h}{}\doxysection{stdlib/clipboard/clipboard.h File Reference}
+\label{clipboard_8h}\index{stdlib/clipboard/clipboard.h@{stdlib/clipboard/clipboard.h}}
+
+
+Implement a OS-\/wide Clipboard.  
+
+
+{\ttfamily \#include $<$types.\+h$>$}\newline
+\doxysubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{clipboard_8h_a9676c44d0c2a676fe59a136a6e71b161}\label{clipboard_8h_a9676c44d0c2a676fe59a136a6e71b161}} 
+enum {\bfseries Clipboard\+Type} \{ {\bfseries CLIPBOARD\+\_\+\+TYPE\+\_\+\+TEXT}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{clipboard_8h_ae3d307c73686967f4a378d35f2703d89}\label{clipboard_8h_ae3d307c73686967f4a378d35f2703d89}} 
+void {\bfseries clipboard\+\_\+save\+\_\+text} (const char $\ast$text)
+\begin{DoxyCompactList}\small\item\em Save Text to clipboard. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{clipboard_8h_a4e817e7107bb4736ca15bc189455b293}\label{clipboard_8h_a4e817e7107bb4736ca15bc189455b293}} 
+void {\bfseries clipboard\+\_\+save\+\_\+text\+\_\+len} (const char $\ast$text, \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} len)
+\begin{DoxyCompactList}\small\item\em Save Text to the clipboard when the length is known. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{clipboard_8h_a7d96057e801d089a8b0c394ab042a4e1}\label{clipboard_8h_a7d96057e801d089a8b0c394ab042a4e1}} 
+const void $\ast$ {\bfseries clipboard\+\_\+get} (void)
+\begin{DoxyCompactList}\small\item\em Get Data from Clipboard. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{clipboard_8h_ad441ab5936f033348efc13148ba2a0d5}\label{clipboard_8h_ad441ab5936f033348efc13148ba2a0d5}} 
+\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} {\bfseries clipboard\+\_\+len} (void)
+\begin{DoxyCompactList}\small\item\em Get the length of the Data in Clipboard. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{clipboard_8h_a425fb0faba6b4e699a6313a3d0a51510}\label{clipboard_8h_a425fb0faba6b4e699a6313a3d0a51510}} 
+Clipboard\+Type {\bfseries clipboard\+\_\+type} (void)
+\begin{DoxyCompactList}\small\item\em Get the stored Datatype from the clipboard. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Implement a OS-\/wide Clipboard. 
+
+\begin{DoxyAuthor}{Author}
+Tim Gabrikowski, Anton Tchekov 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+0.\+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+14.\+05.\+2023 
+\end{DoxyDate}
