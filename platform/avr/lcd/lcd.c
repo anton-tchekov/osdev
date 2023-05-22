@@ -34,6 +34,7 @@ enum
 /** Default font height in pixels */
 #define FONT_HEIGHT   7
 
+/** Default 5x7 monospace font */
 static const u8 _font5x7[] PROGMEM =
 {
 	0x00, 0x00, 0x00, 0x00, 0x00, /*   */
@@ -139,6 +140,7 @@ static const u8 _font5x7[] PROGMEM =
 	0x10, 0x08, 0x08, 0x10, 0x08  /* ~ */
 };
 
+/** Reverse gamma correction table */
 static const u8 PROGMEM _gamma[] =
 {
 	  0,  21,  28,  34,  39,  43,  46,  50,  53,  56,  59,  61,  64,  66,  68,  70,
@@ -160,11 +162,21 @@ static const u8 PROGMEM _gamma[] =
 };
 
 /* --- PRIVATE --- */
+
+/**
+ * @brief Perform gamma correction on a color channel
+ *
+ * @param value Input color channel value
+ * @return Gamma corrected output value
+ */
 static inline u8 _gamma_correction(u8 value)
 {
 	return pgm_read_byte(_gamma + value);
 }
 
+/**
+ * @brief Reset the LCD
+ */
 static void _lcd_reset(void)
 {
 	LCD_RST_1;
@@ -175,6 +187,11 @@ static void _lcd_reset(void)
 	_delay_ms(500);
 }
 
+/**
+ * @brief Write an LCD register
+ *
+ * @param reg Register value
+ */
 static void _lcd_write_reg(u8 reg)
 {
 	LCD_DC_0;
@@ -183,6 +200,11 @@ static void _lcd_write_reg(u8 reg)
 	LCD_CS_1;
 }
 
+/**
+ * @brief Send data to the LCD
+ *
+ * @param data Data value
+ */
 static void _lcd_write_data(u8 data)
 {
 	LCD_DC_1;
@@ -192,6 +214,14 @@ static void _lcd_write_data(u8 data)
 	LCD_CS_1;
 }
 
+/**
+ * @brief Start an LCD drawing rectangle
+ *
+ * @param x X-Coordinate
+ * @param y Y-Coordinate
+ * @param w Width
+ * @param h Height
+ */
 static void _lcd_window_start(u16 x, u16 y, u16 w, u16 h)
 {
 	u16 x_end, y_end;
@@ -216,17 +246,28 @@ static void _lcd_window_start(u16 x, u16 y, u16 w, u16 h)
 	LCD_CS_0;
 }
 
-static void _lcd_pixel(u16 data)
+/**
+ * @brief Send the color of one pixel to the LCD
+ *
+ * @param data RGB565 color
+ */
+static inline void _lcd_pixel(RGB565 data)
 {
 	spi_xchg(data >> 8);
 	spi_xchg(data);
 }
 
-static void _lcd_window_end(void)
+/**
+ * @brief End LCD drawing rectangle
+ */
+static inline void _lcd_window_end(void)
 {
 	LCD_CS_1;
 }
 
+/**
+ * @brief Send LCD initialization commands
+ */
 static void _lcd_init_reg(void)
 {
 	_lcd_write_reg(0xF9);
@@ -318,6 +359,11 @@ static void _lcd_init_reg(void)
 	_lcd_write_data(0x55);
 }
 
+/**
+ * @brief Set LCD orientation
+ *
+ * @param scan_dir LCD orientation (see enum above)
+ */
 static void _lcd_set_gram_scan_dir(u8 scan_dir)
 {
 	u16 a, b;

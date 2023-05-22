@@ -387,11 +387,11 @@ Variables</h2></td></tr>
 <p>Load a 32-bit little endian value from a buffer. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">buf</td><td><a class="el" href="structInput.html">Input</a> </td></tr>
+    <tr><td class="paramname">buf</td><td>Buffer to read little endian value from </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Result </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>32-bit rtsult </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="atfs_8h_source.html#l00081">81</a> of file <a class="el" href="atfs_8h_source.html">atfs.h</a>.</p>
 <div class="fragment"><div class="line"><span class="lineno">   82</span>{</div>
@@ -402,7 +402,7 @@ Variables</h2></td></tr>
 <div class="line"><span class="lineno">   87</span>}</div>
 <div class="ttc" id="atypes_8h_html_afaa62991928fb9fb18ff0db62a040aba"><div class="ttname"><a href="types_8h.html#afaa62991928fb9fb18ff0db62a040aba">u32</a></div><div class="ttdeci">uint32_t u32</div><div class="ttdef"><b>Definition:</b> <a href="types_8h_source.html#l00032">types.h:32</a></div></div>
 </div><!-- fragment -->
-<p class="reference">Referenced by <a class="el" href="initrd_8c_source.html#l00027">initrd_load()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="initrd_8c_source.html#l00025">initrd_load()</a>.</p>
 
 </div>
 </div>
@@ -443,11 +443,11 @@ Variables</h2></td></tr>
 <p>Write a 32-bit little endian value to a buffer. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">buf</td><td><a class="el" href="structInput.html">Input</a> </td></tr>
+    <tr><td class="paramname">buf</td><td>Buffer to write to </td></tr>
+    <tr><td class="paramname">val</td><td>32-bit value to write as little endian </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Result </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="atfs_8h_source.html#l00067">67</a> of file <a class="el" href="atfs_8h_source.html">atfs.h</a>.</p>
 <div class="fragment"><div class="line"><span class="lineno">   68</span>{</div>
@@ -479,8 +479,11 @@ Variables</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>FS Signature (bytes 0-4) </p>
 
 <p class="definition">Definition at line <a class="el" href="atfs_8h_source.html#l00059">59</a> of file <a class="el" href="atfs_8h_source.html">atfs.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="initrd_8c_source.html#l00025">initrd_load()</a>, and <a class="el" href="mkinitrd_2main_8c_source.html#l00022">main()</a>.</p>
 
 </div>
 </div>

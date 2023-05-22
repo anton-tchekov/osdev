@@ -86,6 +86,12 @@ static bool _lcd_initialized;
 /** Current log y position */
 static u16 _log_y = LOG_Y_OFFSET;
 
+/**
+ * @brief Print a log message on both serial and LCD
+ *
+ * @param level Log level depending on severity and desired appearance
+ * @param msg Message to print
+ */
 static void _lcd_log(LogLevel level, const char *msg)
 {
 	if(level != LOG_EXT)

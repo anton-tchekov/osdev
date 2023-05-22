@@ -129,15 +129,16 @@ Functions</h2></td></tr>
 
 <p>Initialize external memory and run memory test. </p>
 
-<p class="definition">Definition at line <a class="el" href="xmem_8c_source.html#l00225">225</a> of file <a class="el" href="xmem_8c_source.html">xmem.c</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  226</span>{</div>
-<div class="line"><span class="lineno">  227</span>    <span class="comment">/* Initialize XMEM */</span></div>
-<div class="line"><span class="lineno">  228</span>    <a class="code hl_function" href="logger_8c.html#a60bd636ef160c97eb51cf31be5954ba2">log_boot_P</a>(LOG_INIT, PSTR(<span class="stringliteral">&quot;External memory driver initialized&quot;</span>));</div>
-<div class="line"><span class="lineno">  229</span>    _memtest();</div>
-<div class="line"><span class="lineno">  230</span>}</div>
-<div class="ttc" id="alogger_8c_html_a60bd636ef160c97eb51cf31be5954ba2"><div class="ttname"><a href="logger_8c.html#a60bd636ef160c97eb51cf31be5954ba2">log_boot_P</a></div><div class="ttdeci">void log_boot_P(LogLevel level, const char *msg,...)</div><div class="ttdoc">Log boot message.</div><div class="ttdef"><b>Definition:</b> <a href="logger_8c_source.html#l00164">logger.c:164</a></div></div>
+<p class="definition">Definition at line <a class="el" href="xmem_8c_source.html#l00279">279</a> of file <a class="el" href="xmem_8c_source.html">xmem.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  280</span>{</div>
+<div class="line"><span class="lineno">  281</span>    <span class="comment">/* Initialize XMEM */</span></div>
+<div class="line"><span class="lineno">  282</span>    <a class="code hl_function" href="logger_8c.html#a60bd636ef160c97eb51cf31be5954ba2">log_boot_P</a>(LOG_INIT, PSTR(<span class="stringliteral">&quot;External memory driver initialized&quot;</span>));</div>
+<div class="line"><span class="lineno">  283</span>    <a class="code hl_function" href="xmem_8c.html#a06aceb6712fb500abaa5b4a361ef5c42">_memtest</a>();</div>
+<div class="line"><span class="lineno">  284</span>}</div>
+<div class="ttc" id="alogger_8c_html_a60bd636ef160c97eb51cf31be5954ba2"><div class="ttname"><a href="logger_8c.html#a60bd636ef160c97eb51cf31be5954ba2">log_boot_P</a></div><div class="ttdeci">void log_boot_P(LogLevel level, const char *msg,...)</div><div class="ttdoc">Log boot message.</div><div class="ttdef"><b>Definition:</b> <a href="logger_8c_source.html#l00170">logger.c:170</a></div></div>
+<div class="ttc" id="axmem_8c_html_a06aceb6712fb500abaa5b4a361ef5c42"><div class="ttname"><a href="xmem_8c.html#a06aceb6712fb500abaa5b4a361ef5c42">_memtest</a></div><div class="ttdeci">static void _memtest(void)</div><div class="ttdoc">Perform a memory test on the external memoryy.</div><div class="ttdef"><b>Definition:</b> <a href="xmem_8c_source.html#l00065">xmem.c:65</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="logger_8c_source.html#l00164">log_boot_P()</a>.</p>
+<p class="reference">References <a class="el" href="xmem_8c_source.html#l00065">_memtest()</a>, and <a class="el" href="logger_8c_source.html#l00170">log_boot_P()</a>.</p>
 
 </div>
 </div>
@@ -183,27 +184,29 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="xmem_8c_source.html#l00232">232</a> of file <a class="el" href="xmem_8c_source.html">xmem.c</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  233</span>{</div>
-<div class="line"><span class="lineno">  234</span>    <a class="code hl_struct" href="structAddrHelper.html">AddrHelper</a> h;</div>
-<div class="line"><span class="lineno">  235</span>    _xmem_overlap(addr, size, &amp;h);</div>
-<div class="line"><span class="lineno">  236</span>    _xmem_read(h.<a class="code hl_variable" href="structAddrHelper.html#a7597aa93dc6a712b7ac697879ef3768d">BankFirst</a>, h.<a class="code hl_variable" href="structAddrHelper.html#a48959a2ce13a5e81e9b83f62e5501a24">AddrFirst</a>, data, h.<a class="code hl_variable" href="structAddrHelper.html#af38568f8537f8a534bf45ee365d918ac">SizeFirst</a>);</div>
-<div class="line"><span class="lineno">  237</span>    <span class="keywordflow">if</span>(h.<a class="code hl_variable" href="structAddrHelper.html#a55785530f6ea3f15b72cfc755f843a54">BankSecond</a> != h.<a class="code hl_variable" href="structAddrHelper.html#a7597aa93dc6a712b7ac697879ef3768d">BankFirst</a>)</div>
-<div class="line"><span class="lineno">  238</span>    {</div>
-<div class="line"><span class="lineno">  239</span>        _xmem_read(h.<a class="code hl_variable" href="structAddrHelper.html#a55785530f6ea3f15b72cfc755f843a54">BankSecond</a>, 0, (<a class="code hl_typedef" href="types_8h.html#a92c50087ca0e64fa93fc59402c55f8ca">u8</a> *)data + h.<a class="code hl_variable" href="structAddrHelper.html#af38568f8537f8a534bf45ee365d918ac">SizeFirst</a>, h.<a class="code hl_variable" href="structAddrHelper.html#ad4ce4c26acb9bd7878abb60416288fe5">SizeSecond</a>);</div>
-<div class="line"><span class="lineno">  240</span>    }</div>
-<div class="line"><span class="lineno">  241</span>}</div>
-<div class="ttc" id="astructAddrHelper_html"><div class="ttname"><a href="structAddrHelper.html">AddrHelper</a></div><div class="ttdef"><b>Definition:</b> <a href="xmem_8c_source.html#l00186">xmem.c:187</a></div></div>
-<div class="ttc" id="astructAddrHelper_html_a48959a2ce13a5e81e9b83f62e5501a24"><div class="ttname"><a href="structAddrHelper.html#a48959a2ce13a5e81e9b83f62e5501a24">AddrHelper::AddrFirst</a></div><div class="ttdeci">u16 AddrFirst</div><div class="ttdef"><b>Definition:</b> <a href="xmem_8c_source.html#l00195">xmem.c:195</a></div></div>
-<div class="ttc" id="astructAddrHelper_html_a55785530f6ea3f15b72cfc755f843a54"><div class="ttname"><a href="structAddrHelper.html#a55785530f6ea3f15b72cfc755f843a54">AddrHelper::BankSecond</a></div><div class="ttdeci">u8 BankSecond</div><div class="ttdef"><b>Definition:</b> <a href="xmem_8c_source.html#l00192">xmem.c:192</a></div></div>
-<div class="ttc" id="astructAddrHelper_html_a7597aa93dc6a712b7ac697879ef3768d"><div class="ttname"><a href="structAddrHelper.html#a7597aa93dc6a712b7ac697879ef3768d">AddrHelper::BankFirst</a></div><div class="ttdeci">u8 BankFirst</div><div class="ttdef"><b>Definition:</b> <a href="xmem_8c_source.html#l00189">xmem.c:189</a></div></div>
-<div class="ttc" id="astructAddrHelper_html_ad4ce4c26acb9bd7878abb60416288fe5"><div class="ttname"><a href="structAddrHelper.html#ad4ce4c26acb9bd7878abb60416288fe5">AddrHelper::SizeSecond</a></div><div class="ttdeci">u16 SizeSecond</div><div class="ttdef"><b>Definition:</b> <a href="xmem_8c_source.html#l00201">xmem.c:201</a></div></div>
-<div class="ttc" id="astructAddrHelper_html_af38568f8537f8a534bf45ee365d918ac"><div class="ttname"><a href="structAddrHelper.html#af38568f8537f8a534bf45ee365d918ac">AddrHelper::SizeFirst</a></div><div class="ttdeci">u16 SizeFirst</div><div class="ttdef"><b>Definition:</b> <a href="xmem_8c_source.html#l00198">xmem.c:198</a></div></div>
+<p class="definition">Definition at line <a class="el" href="xmem_8c_source.html#l00286">286</a> of file <a class="el" href="xmem_8c_source.html">xmem.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  287</span>{</div>
+<div class="line"><span class="lineno">  288</span>    <a class="code hl_struct" href="structAddrHelper.html">AddrHelper</a> h;</div>
+<div class="line"><span class="lineno">  289</span>    <a class="code hl_function" href="xmem_8c.html#ad5f6a204f590508c9d13d89813541f17">_xmem_overlap</a>(addr, size, &amp;h);</div>
+<div class="line"><span class="lineno">  290</span>    <a class="code hl_function" href="xmem_8c.html#a9aedb23adf01d0e4ce419cbf91499265">_xmem_read</a>(h.<a class="code hl_variable" href="structAddrHelper.html#a7597aa93dc6a712b7ac697879ef3768d">BankFirst</a>, h.<a class="code hl_variable" href="structAddrHelper.html#a48959a2ce13a5e81e9b83f62e5501a24">AddrFirst</a>, data, h.<a class="code hl_variable" href="structAddrHelper.html#af38568f8537f8a534bf45ee365d918ac">SizeFirst</a>);</div>
+<div class="line"><span class="lineno">  291</span>    <span class="keywordflow">if</span>(h.<a class="code hl_variable" href="structAddrHelper.html#a55785530f6ea3f15b72cfc755f843a54">BankSecond</a> != h.<a class="code hl_variable" href="structAddrHelper.html#a7597aa93dc6a712b7ac697879ef3768d">BankFirst</a>)</div>
+<div class="line"><span class="lineno">  292</span>    {</div>
+<div class="line"><span class="lineno">  293</span>        <a class="code hl_function" href="xmem_8c.html#a9aedb23adf01d0e4ce419cbf91499265">_xmem_read</a>(h.<a class="code hl_variable" href="structAddrHelper.html#a55785530f6ea3f15b72cfc755f843a54">BankSecond</a>, 0, (<a class="code hl_typedef" href="types_8h.html#a92c50087ca0e64fa93fc59402c55f8ca">u8</a> *)data + h.<a class="code hl_variable" href="structAddrHelper.html#af38568f8537f8a534bf45ee365d918ac">SizeFirst</a>, h.<a class="code hl_variable" href="structAddrHelper.html#ad4ce4c26acb9bd7878abb60416288fe5">SizeSecond</a>);</div>
+<div class="line"><span class="lineno">  294</span>    }</div>
+<div class="line"><span class="lineno">  295</span>}</div>
+<div class="ttc" id="astructAddrHelper_html"><div class="ttname"><a href="structAddrHelper.html">AddrHelper</a></div><div class="ttdef"><b>Definition:</b> <a href="xmem_8c_source.html#l00233">xmem.c:234</a></div></div>
+<div class="ttc" id="astructAddrHelper_html_a48959a2ce13a5e81e9b83f62e5501a24"><div class="ttname"><a href="structAddrHelper.html#a48959a2ce13a5e81e9b83f62e5501a24">AddrHelper::AddrFirst</a></div><div class="ttdeci">u16 AddrFirst</div><div class="ttdef"><b>Definition:</b> <a href="xmem_8c_source.html#l00242">xmem.c:242</a></div></div>
+<div class="ttc" id="astructAddrHelper_html_a55785530f6ea3f15b72cfc755f843a54"><div class="ttname"><a href="structAddrHelper.html#a55785530f6ea3f15b72cfc755f843a54">AddrHelper::BankSecond</a></div><div class="ttdeci">u8 BankSecond</div><div class="ttdef"><b>Definition:</b> <a href="xmem_8c_source.html#l00239">xmem.c:239</a></div></div>
+<div class="ttc" id="astructAddrHelper_html_a7597aa93dc6a712b7ac697879ef3768d"><div class="ttname"><a href="structAddrHelper.html#a7597aa93dc6a712b7ac697879ef3768d">AddrHelper::BankFirst</a></div><div class="ttdeci">u8 BankFirst</div><div class="ttdef"><b>Definition:</b> <a href="xmem_8c_source.html#l00236">xmem.c:236</a></div></div>
+<div class="ttc" id="astructAddrHelper_html_ad4ce4c26acb9bd7878abb60416288fe5"><div class="ttname"><a href="structAddrHelper.html#ad4ce4c26acb9bd7878abb60416288fe5">AddrHelper::SizeSecond</a></div><div class="ttdeci">u16 SizeSecond</div><div class="ttdef"><b>Definition:</b> <a href="xmem_8c_source.html#l00248">xmem.c:248</a></div></div>
+<div class="ttc" id="astructAddrHelper_html_af38568f8537f8a534bf45ee365d918ac"><div class="ttname"><a href="structAddrHelper.html#af38568f8537f8a534bf45ee365d918ac">AddrHelper::SizeFirst</a></div><div class="ttdeci">u16 SizeFirst</div><div class="ttdef"><b>Definition:</b> <a href="xmem_8c_source.html#l00245">xmem.c:245</a></div></div>
 <div class="ttc" id="atypes_8h_html_a92c50087ca0e64fa93fc59402c55f8ca"><div class="ttname"><a href="types_8h.html#a92c50087ca0e64fa93fc59402c55f8ca">u8</a></div><div class="ttdeci">uint8_t u8</div><div class="ttdef"><b>Definition:</b> <a href="types_8h_source.html#l00038">types.h:38</a></div></div>
+<div class="ttc" id="axmem_8c_html_a9aedb23adf01d0e4ce419cbf91499265"><div class="ttname"><a href="xmem_8c.html#a9aedb23adf01d0e4ce419cbf91499265">_xmem_read</a></div><div class="ttdeci">static void _xmem_read(u8 bank, u16 addr, void *data, u16 size)</div><div class="ttdoc">Read data from a memory bank.</div><div class="ttdef"><b>Definition:</b> <a href="xmem_8c_source.html#l00156">xmem.c:156</a></div></div>
+<div class="ttc" id="axmem_8c_html_ad5f6a204f590508c9d13d89813541f17"><div class="ttname"><a href="xmem_8c.html#ad5f6a204f590508c9d13d89813541f17">_xmem_overlap</a></div><div class="ttdeci">static void _xmem_overlap(u32 addr, u16 size, AddrHelper *h)</div><div class="ttdoc">Calculate which bank will be affected by a memory operation.</div><div class="ttdef"><b>Definition:</b> <a href="xmem_8c_source.html#l00258">xmem.c:258</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="xmem_8c_source.html#l00195">AddrHelper::AddrFirst</a>, <a class="el" href="xmem_8c_source.html#l00189">AddrHelper::BankFirst</a>, <a class="el" href="xmem_8c_source.html#l00192">AddrHelper::BankSecond</a>, <a class="el" href="xmem_8c_source.html#l00198">AddrHelper::SizeFirst</a>, and <a class="el" href="xmem_8c_source.html#l00201">AddrHelper::SizeSecond</a>.</p>
+<p class="reference">References <a class="el" href="xmem_8c_source.html#l00258">_xmem_overlap()</a>, <a class="el" href="xmem_8c_source.html#l00156">_xmem_read()</a>, <a class="el" href="xmem_8c_source.html#l00242">AddrHelper::AddrFirst</a>, <a class="el" href="xmem_8c_source.html#l00236">AddrHelper::BankFirst</a>, <a class="el" href="xmem_8c_source.html#l00239">AddrHelper::BankSecond</a>, <a class="el" href="xmem_8c_source.html#l00245">AddrHelper::SizeFirst</a>, and <a class="el" href="xmem_8c_source.html#l00248">AddrHelper::SizeSecond</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="avr_2platform_8c_source.html#l00024">env_memory_read()</a>, and <a class="el" href="lcd_8c_source.html#l00506">lcd_image_1bit()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="avr_2platform_8c_source.html#l00024">env_memory_read()</a>, and <a class="el" href="lcd_8c_source.html#l00552">lcd_image_1bit()</a>.</p>
 
 </div>
 </div>
@@ -249,18 +252,19 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="xmem_8c_source.html#l00255">255</a> of file <a class="el" href="xmem_8c_source.html">xmem.c</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  256</span>{</div>
-<div class="line"><span class="lineno">  257</span>    <a class="code hl_struct" href="structAddrHelper.html">AddrHelper</a> h;</div>
-<div class="line"><span class="lineno">  258</span>    _xmem_overlap(addr, size, &amp;h);</div>
-<div class="line"><span class="lineno">  259</span>    _xmem_set(h.<a class="code hl_variable" href="structAddrHelper.html#a7597aa93dc6a712b7ac697879ef3768d">BankFirst</a>, h.<a class="code hl_variable" href="structAddrHelper.html#a48959a2ce13a5e81e9b83f62e5501a24">AddrFirst</a>, value, h.<a class="code hl_variable" href="structAddrHelper.html#af38568f8537f8a534bf45ee365d918ac">SizeFirst</a>);</div>
-<div class="line"><span class="lineno">  260</span>    <span class="keywordflow">if</span>(h.<a class="code hl_variable" href="structAddrHelper.html#a55785530f6ea3f15b72cfc755f843a54">BankSecond</a> != h.<a class="code hl_variable" href="structAddrHelper.html#a7597aa93dc6a712b7ac697879ef3768d">BankFirst</a>)</div>
-<div class="line"><span class="lineno">  261</span>    {</div>
-<div class="line"><span class="lineno">  262</span>        _xmem_set(h.<a class="code hl_variable" href="structAddrHelper.html#a55785530f6ea3f15b72cfc755f843a54">BankSecond</a>, 0, value, h.<a class="code hl_variable" href="structAddrHelper.html#ad4ce4c26acb9bd7878abb60416288fe5">SizeSecond</a>);</div>
-<div class="line"><span class="lineno">  263</span>    }</div>
-<div class="line"><span class="lineno">  264</span>}</div>
+<p class="definition">Definition at line <a class="el" href="xmem_8c_source.html#l00309">309</a> of file <a class="el" href="xmem_8c_source.html">xmem.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  310</span>{</div>
+<div class="line"><span class="lineno">  311</span>    <a class="code hl_struct" href="structAddrHelper.html">AddrHelper</a> h;</div>
+<div class="line"><span class="lineno">  312</span>    <a class="code hl_function" href="xmem_8c.html#ad5f6a204f590508c9d13d89813541f17">_xmem_overlap</a>(addr, size, &amp;h);</div>
+<div class="line"><span class="lineno">  313</span>    <a class="code hl_function" href="xmem_8c.html#a2382a8751ee6d4d5119bbf8f22e013e1">_xmem_set</a>(h.<a class="code hl_variable" href="structAddrHelper.html#a7597aa93dc6a712b7ac697879ef3768d">BankFirst</a>, h.<a class="code hl_variable" href="structAddrHelper.html#a48959a2ce13a5e81e9b83f62e5501a24">AddrFirst</a>, value, h.<a class="code hl_variable" href="structAddrHelper.html#af38568f8537f8a534bf45ee365d918ac">SizeFirst</a>);</div>
+<div class="line"><span class="lineno">  314</span>    <span class="keywordflow">if</span>(h.<a class="code hl_variable" href="structAddrHelper.html#a55785530f6ea3f15b72cfc755f843a54">BankSecond</a> != h.<a class="code hl_variable" href="structAddrHelper.html#a7597aa93dc6a712b7ac697879ef3768d">BankFirst</a>)</div>
+<div class="line"><span class="lineno">  315</span>    {</div>
+<div class="line"><span class="lineno">  316</span>        <a class="code hl_function" href="xmem_8c.html#a2382a8751ee6d4d5119bbf8f22e013e1">_xmem_set</a>(h.<a class="code hl_variable" href="structAddrHelper.html#a55785530f6ea3f15b72cfc755f843a54">BankSecond</a>, 0, value, h.<a class="code hl_variable" href="structAddrHelper.html#ad4ce4c26acb9bd7878abb60416288fe5">SizeSecond</a>);</div>
+<div class="line"><span class="lineno">  317</span>    }</div>
+<div class="line"><span class="lineno">  318</span>}</div>
+<div class="ttc" id="axmem_8c_html_a2382a8751ee6d4d5119bbf8f22e013e1"><div class="ttname"><a href="xmem_8c.html#a2382a8751ee6d4d5119bbf8f22e013e1">_xmem_set</a></div><div class="ttdeci">static void _xmem_set(u8 bank, u16 addr, u8 value, u16 size)</div><div class="ttdoc">Set an area within a memory bank to 0.</div><div class="ttdef"><b>Definition:</b> <a href="xmem_8c_source.html#l00198">xmem.c:198</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="xmem_8c_source.html#l00195">AddrHelper::AddrFirst</a>, <a class="el" href="xmem_8c_source.html#l00189">AddrHelper::BankFirst</a>, <a class="el" href="xmem_8c_source.html#l00192">AddrHelper::BankSecond</a>, <a class="el" href="xmem_8c_source.html#l00198">AddrHelper::SizeFirst</a>, and <a class="el" href="xmem_8c_source.html#l00201">AddrHelper::SizeSecond</a>.</p>
+<p class="reference">References <a class="el" href="xmem_8c_source.html#l00258">_xmem_overlap()</a>, <a class="el" href="xmem_8c_source.html#l00198">_xmem_set()</a>, <a class="el" href="xmem_8c_source.html#l00242">AddrHelper::AddrFirst</a>, <a class="el" href="xmem_8c_source.html#l00236">AddrHelper::BankFirst</a>, <a class="el" href="xmem_8c_source.html#l00239">AddrHelper::BankSecond</a>, <a class="el" href="xmem_8c_source.html#l00245">AddrHelper::SizeFirst</a>, and <a class="el" href="xmem_8c_source.html#l00248">AddrHelper::SizeSecond</a>.</p>
 
 </div>
 </div>
@@ -283,10 +287,10 @@ Functions</h2></td></tr>
 <p>Get external memory size. </p>
 <dl class="section return"><dt>Returns</dt><dd>Size of the external memory in bytes </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="xmem_8c_source.html#l00266">266</a> of file <a class="el" href="xmem_8c_source.html">xmem.c</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  267</span>{</div>
-<div class="line"><span class="lineno">  268</span>    <span class="keywordflow">return</span> <a class="code hl_define" href="xmem_8c.html#a41e71a45e1fd04415bc24952cbf50c9b">BANK_COUNT</a> * <a class="code hl_define" href="xmem_8c.html#acb7dc5a33a5b4a8d2b71e744832f9523">BANK_SIZE</a>;</div>
-<div class="line"><span class="lineno">  269</span>}</div>
+<p class="definition">Definition at line <a class="el" href="xmem_8c_source.html#l00320">320</a> of file <a class="el" href="xmem_8c_source.html">xmem.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  321</span>{</div>
+<div class="line"><span class="lineno">  322</span>    <span class="keywordflow">return</span> <a class="code hl_define" href="xmem_8c.html#a41e71a45e1fd04415bc24952cbf50c9b">BANK_COUNT</a> * <a class="code hl_define" href="xmem_8c.html#acb7dc5a33a5b4a8d2b71e744832f9523">BANK_SIZE</a>;</div>
+<div class="line"><span class="lineno">  323</span>}</div>
 <div class="ttc" id="axmem_8c_html_a41e71a45e1fd04415bc24952cbf50c9b"><div class="ttname"><a href="xmem_8c.html#a41e71a45e1fd04415bc24952cbf50c9b">BANK_COUNT</a></div><div class="ttdeci">#define BANK_COUNT</div><div class="ttdef"><b>Definition:</b> <a href="xmem_8c_source.html#l00021">xmem.c:21</a></div></div>
 <div class="ttc" id="axmem_8c_html_acb7dc5a33a5b4a8d2b71e744832f9523"><div class="ttname"><a href="xmem_8c.html#acb7dc5a33a5b4a8d2b71e744832f9523">BANK_SIZE</a></div><div class="ttdeci">#define BANK_SIZE</div><div class="ttdef"><b>Definition:</b> <a href="xmem_8c_source.html#l00027">xmem.c:27</a></div></div>
 </div><!-- fragment -->
@@ -338,21 +342,22 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="xmem_8c_source.html#l00243">243</a> of file <a class="el" href="xmem_8c_source.html">xmem.c</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  244</span>{</div>
-<div class="line"><span class="lineno">  245</span>    <a class="code hl_struct" href="structAddrHelper.html">AddrHelper</a> h;</div>
-<div class="line"><span class="lineno">  246</span>    _xmem_overlap(addr, size, &amp;h);</div>
-<div class="line"><span class="lineno">  247</span>    _xmem_write(h.<a class="code hl_variable" href="structAddrHelper.html#a7597aa93dc6a712b7ac697879ef3768d">BankFirst</a>, h.<a class="code hl_variable" href="structAddrHelper.html#a48959a2ce13a5e81e9b83f62e5501a24">AddrFirst</a>, data, h.<a class="code hl_variable" href="structAddrHelper.html#af38568f8537f8a534bf45ee365d918ac">SizeFirst</a>);</div>
-<div class="line"><span class="lineno">  248</span>    <span class="keywordflow">if</span>(h.<a class="code hl_variable" href="structAddrHelper.html#a55785530f6ea3f15b72cfc755f843a54">BankSecond</a> != h.<a class="code hl_variable" href="structAddrHelper.html#a7597aa93dc6a712b7ac697879ef3768d">BankFirst</a>)</div>
-<div class="line"><span class="lineno">  249</span>    {</div>
-<div class="line"><span class="lineno">  250</span>        _xmem_write(h.<a class="code hl_variable" href="structAddrHelper.html#a55785530f6ea3f15b72cfc755f843a54">BankSecond</a>, 0, (<span class="keyword">const</span> <a class="code hl_typedef" href="types_8h.html#a92c50087ca0e64fa93fc59402c55f8ca">u8</a> *)data + h.<a class="code hl_variable" href="structAddrHelper.html#af38568f8537f8a534bf45ee365d918ac">SizeFirst</a>,</div>
-<div class="line"><span class="lineno">  251</span>            h.<a class="code hl_variable" href="structAddrHelper.html#ad4ce4c26acb9bd7878abb60416288fe5">SizeSecond</a>);</div>
-<div class="line"><span class="lineno">  252</span>    }</div>
-<div class="line"><span class="lineno">  253</span>}</div>
+<p class="definition">Definition at line <a class="el" href="xmem_8c_source.html#l00297">297</a> of file <a class="el" href="xmem_8c_source.html">xmem.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  298</span>{</div>
+<div class="line"><span class="lineno">  299</span>    <a class="code hl_struct" href="structAddrHelper.html">AddrHelper</a> h;</div>
+<div class="line"><span class="lineno">  300</span>    <a class="code hl_function" href="xmem_8c.html#ad5f6a204f590508c9d13d89813541f17">_xmem_overlap</a>(addr, size, &amp;h);</div>
+<div class="line"><span class="lineno">  301</span>    <a class="code hl_function" href="xmem_8c.html#af4355841d4c788c04e7facab16df13f6">_xmem_write</a>(h.<a class="code hl_variable" href="structAddrHelper.html#a7597aa93dc6a712b7ac697879ef3768d">BankFirst</a>, h.<a class="code hl_variable" href="structAddrHelper.html#a48959a2ce13a5e81e9b83f62e5501a24">AddrFirst</a>, data, h.<a class="code hl_variable" href="structAddrHelper.html#af38568f8537f8a534bf45ee365d918ac">SizeFirst</a>);</div>
+<div class="line"><span class="lineno">  302</span>    <span class="keywordflow">if</span>(h.<a class="code hl_variable" href="structAddrHelper.html#a55785530f6ea3f15b72cfc755f843a54">BankSecond</a> != h.<a class="code hl_variable" href="structAddrHelper.html#a7597aa93dc6a712b7ac697879ef3768d">BankFirst</a>)</div>
+<div class="line"><span class="lineno">  303</span>    {</div>
+<div class="line"><span class="lineno">  304</span>        <a class="code hl_function" href="xmem_8c.html#af4355841d4c788c04e7facab16df13f6">_xmem_write</a>(h.<a class="code hl_variable" href="structAddrHelper.html#a55785530f6ea3f15b72cfc755f843a54">BankSecond</a>, 0, (<span class="keyword">const</span> <a class="code hl_typedef" href="types_8h.html#a92c50087ca0e64fa93fc59402c55f8ca">u8</a> *)data + h.<a class="code hl_variable" href="structAddrHelper.html#af38568f8537f8a534bf45ee365d918ac">SizeFirst</a>,</div>
+<div class="line"><span class="lineno">  305</span>            h.<a class="code hl_variable" href="structAddrHelper.html#ad4ce4c26acb9bd7878abb60416288fe5">SizeSecond</a>);</div>
+<div class="line"><span class="lineno">  306</span>    }</div>
+<div class="line"><span class="lineno">  307</span>}</div>
+<div class="ttc" id="axmem_8c_html_af4355841d4c788c04e7facab16df13f6"><div class="ttname"><a href="xmem_8c.html#af4355841d4c788c04e7facab16df13f6">_xmem_write</a></div><div class="ttdeci">static void _xmem_write(u8 bank, u16 addr, const void *data, u16 size)</div><div class="ttdoc">Write data to a memory bank.</div><div class="ttdef"><b>Definition:</b> <a href="xmem_8c_source.html#l00177">xmem.c:177</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="xmem_8c_source.html#l00195">AddrHelper::AddrFirst</a>, <a class="el" href="xmem_8c_source.html#l00189">AddrHelper::BankFirst</a>, <a class="el" href="xmem_8c_source.html#l00192">AddrHelper::BankSecond</a>, <a class="el" href="xmem_8c_source.html#l00198">AddrHelper::SizeFirst</a>, and <a class="el" href="xmem_8c_source.html#l00201">AddrHelper::SizeSecond</a>.</p>
+<p class="reference">References <a class="el" href="xmem_8c_source.html#l00258">_xmem_overlap()</a>, <a class="el" href="xmem_8c_source.html#l00177">_xmem_write()</a>, <a class="el" href="xmem_8c_source.html#l00242">AddrHelper::AddrFirst</a>, <a class="el" href="xmem_8c_source.html#l00236">AddrHelper::BankFirst</a>, <a class="el" href="xmem_8c_source.html#l00239">AddrHelper::BankSecond</a>, <a class="el" href="xmem_8c_source.html#l00245">AddrHelper::SizeFirst</a>, and <a class="el" href="xmem_8c_source.html#l00248">AddrHelper::SizeSecond</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="avr_2platform_8c_source.html#l00029">env_memory_write()</a>, and <a class="el" href="initrd_8c_source.html#l00027">initrd_load()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="avr_2platform_8c_source.html#l00029">env_memory_write()</a>, and <a class="el" href="initrd_8c_source.html#l00025">initrd_load()</a>.</p>
 
 </div>
 </div>

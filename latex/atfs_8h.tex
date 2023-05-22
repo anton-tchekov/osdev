@@ -213,11 +213,11 @@ Load a 32-\/bit little endian value from a buffer.
 
 
 \begin{DoxyParams}{Parameters}
-{\em buf} & \mbox{\hyperlink{structInput}{Input}} \\
+{\em buf} & Buffer to read little endian value from \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-Result 
+32-\/bit rtsult 
 \end{DoxyReturn}
 
 
@@ -235,7 +235,7 @@ Definition at line \mbox{\hyperlink{atfs_8h_source_l00081}{81}} of file \mbox{\h
 \end{DoxyCode}
 
 
-Referenced by \mbox{\hyperlink{initrd_8c_source_l00027}{initrd\+\_\+load()}}.
+Referenced by \mbox{\hyperlink{initrd_8c_source_l00025}{initrd\+\_\+load()}}.
 
 \mbox{\Hypertarget{atfs_8h_a62a1835558e5a5dfeade49e10d2682b8}\label{atfs_8h_a62a1835558e5a5dfeade49e10d2682b8}} 
 \index{atfs.h@{atfs.h}!write\_le\_32@{write\_le\_32}}
@@ -249,12 +249,11 @@ Write a 32-\/bit little endian value to a buffer.
 
 
 \begin{DoxyParams}{Parameters}
-{\em buf} & \mbox{\hyperlink{structInput}{Input}} \\
+{\em buf} & Buffer to write to \\
+\hline
+{\em val} & 32-\/bit value to write as little endian \\
 \hline
 \end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-Result 
-\end{DoxyReturn}
 
 
 Definition at line \mbox{\hyperlink{atfs_8h_source_l00067}{67}} of file \mbox{\hyperlink{atfs_8h_source}{atfs.\+h}}.
@@ -278,7 +277,11 @@ Definition at line \mbox{\hyperlink{atfs_8h_source_l00067}{67}} of file \mbox{\h
 \doxysubsubsection{\texorpdfstring{\_atfs\_signature}{\_atfs\_signature}}
 {\footnotesize\ttfamily const \mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}} \+\_\+atfs\+\_\+signature\mbox{[}$\,$\mbox{]} = \{ \textquotesingle{}A\textquotesingle{}, \textquotesingle{}T\textquotesingle{}, \textquotesingle{}F\textquotesingle{}, \textquotesingle{}S\textquotesingle{} \}\hspace{0.3cm}{\ttfamily [static]}}
 
-
+FS Signature (bytes 0-\/4) 
 
 Definition at line \mbox{\hyperlink{atfs_8h_source_l00059}{59}} of file \mbox{\hyperlink{atfs_8h_source}{atfs.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{initrd_8c_source_l00025}{initrd\+\_\+load()}}, and \mbox{\hyperlink{mkinitrd_2main_8c_source_l00022}{main()}}.
 

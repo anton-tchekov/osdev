@@ -85,6 +85,7 @@ $(function() {
 <code>#include &lt;stdlib.h&gt;</code><br />
 <code>#include &lt;<a class="el" href="string_8h_source.html">string.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="types_8h_source.html">types.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="atfs_8h_source.html">atfs.h</a>&gt;</code><br />
 </div>
 <p><a href="mkinitrd_2main_8c_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -138,76 +139,77 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Exit code </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="mkinitrd_2main_8c_source.html#l00021">21</a> of file <a class="el" href="mkinitrd_2main_8c_source.html">main.c</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   22</span>{</div>
-<div class="line"><span class="lineno">   23</span>    <a class="code hl_typedef" href="types_8h.html#afaa62991928fb9fb18ff0db62a040aba">u32</a> i, size;</div>
-<div class="line"><span class="lineno">   24</span>    <a class="code hl_typedef" href="types_8h.html#a92c50087ca0e64fa93fc59402c55f8ca">u8</a> buf[<a class="code hl_define" href="sd_8h.html#ad51ded0bbd705f02f73fc60c0b721ced">BLOCK_SIZE</a>];</div>
-<div class="line"><span class="lineno">   25</span>    FILE *in, *out;</div>
-<div class="line"><span class="lineno">   26</span>    <span class="keywordtype">char</span> *in_filename, *out_filename;</div>
-<div class="line"><span class="lineno">   27</span> </div>
-<div class="line"><span class="lineno">   28</span>    <span class="keywordflow">if</span>(argc != 3)</div>
-<div class="line"><span class="lineno">   29</span>    {</div>
-<div class="line"><span class="lineno">   30</span>        fprintf(stderr, <span class="stringliteral">&quot;Usage: ./mkinitrd input-binary output-disk-image\n&quot;</span>);</div>
-<div class="line"><span class="lineno">   31</span>        <span class="keywordflow">return</span> 1;</div>
-<div class="line"><span class="lineno">   32</span>    }</div>
-<div class="line"><span class="lineno">   33</span> </div>
-<div class="line"><span class="lineno">   34</span>    in_filename = argv[1];</div>
-<div class="line"><span class="lineno">   35</span>    out_filename = argv[2];</div>
-<div class="line"><span class="lineno">   36</span> </div>
-<div class="line"><span class="lineno">   37</span>    <span class="keywordflow">if</span>(!(in = fopen(in_filename, <span class="stringliteral">&quot;rb&quot;</span>)))</div>
-<div class="line"><span class="lineno">   38</span>    {</div>
-<div class="line"><span class="lineno">   39</span>        fprintf(stderr, <span class="stringliteral">&quot;Failed to open input file \&quot;%s\&quot;\n&quot;</span>, in_filename);</div>
-<div class="line"><span class="lineno">   40</span>        <span class="keywordflow">return</span> 1;</div>
-<div class="line"><span class="lineno">   41</span>    }</div>
-<div class="line"><span class="lineno">   42</span> </div>
-<div class="line"><span class="lineno">   43</span>    <span class="keywordflow">if</span>(!(out = fopen(out_filename, <span class="stringliteral">&quot;wb&quot;</span>)))</div>
-<div class="line"><span class="lineno">   44</span>    {</div>
-<div class="line"><span class="lineno">   45</span>        fprintf(stderr, <span class="stringliteral">&quot;Failed to open output file \&quot;%s\&quot;\n&quot;</span>, out_filename);</div>
-<div class="line"><span class="lineno">   46</span>        <span class="keywordflow">return</span> 1;</div>
-<div class="line"><span class="lineno">   47</span>    }</div>
-<div class="line"><span class="lineno">   48</span> </div>
-<div class="line"><span class="lineno">   49</span>    fseek(in, 0, SEEK_END);</div>
-<div class="line"><span class="lineno">   50</span>    size = ftell(in);</div>
-<div class="line"><span class="lineno">   51</span>    fseek(in, 0, SEEK_SET);</div>
-<div class="line"><span class="lineno">   52</span> </div>
-<div class="line"><span class="lineno">   53</span>    <a class="code hl_function" href="string_8c.html#ab5fb910d7238069eb23f4b06809aa68e">memset</a>(buf, 0, <a class="code hl_define" href="sd_8h.html#ad51ded0bbd705f02f73fc60c0b721ced">BLOCK_SIZE</a>);</div>
-<div class="line"><span class="lineno">   54</span> </div>
-<div class="line"><span class="lineno">   55</span>    <a class="code hl_function" href="string_8c.html#a6ea826c42748b85ae7c74f1e2ccf7c27">memcpy</a>(buf + OFFSET_SIGNATURE, _signature, <span class="keyword">sizeof</span>(_signature));</div>
-<div class="line"><span class="lineno">   56</span>    _write_le_32(buf + OFFSET_REVISION, REVISION);</div>
-<div class="line"><span class="lineno">   57</span>    _write_le_32(buf + OFFSET_STDLIB_SIZE, 0);</div>
-<div class="line"><span class="lineno">   58</span>    _write_le_32(buf + OFFSET_INIT_SIZE, size);</div>
-<div class="line"><span class="lineno">   59</span> </div>
-<div class="line"><span class="lineno">   60</span>    fwrite(buf, 1, <a class="code hl_define" href="sd_8h.html#ad51ded0bbd705f02f73fc60c0b721ced">BLOCK_SIZE</a>, out);</div>
-<div class="line"><span class="lineno">   61</span> </div>
-<div class="line"><span class="lineno">   62</span>    <span class="comment">/* Write 64 empty sectors */</span></div>
-<div class="line"><span class="lineno">   63</span>    <a class="code hl_function" href="string_8c.html#ab5fb910d7238069eb23f4b06809aa68e">memset</a>(buf, 0, <a class="code hl_define" href="sd_8h.html#ad51ded0bbd705f02f73fc60c0b721ced">BLOCK_SIZE</a>);</div>
-<div class="line"><span class="lineno">   64</span>    <span class="keywordflow">for</span>(i = 0; i &lt; SIZE_STDLIB; ++i)</div>
-<div class="line"><span class="lineno">   65</span>    {</div>
-<div class="line"><span class="lineno">   66</span>        fwrite(buf, 1, <a class="code hl_define" href="sd_8h.html#ad51ded0bbd705f02f73fc60c0b721ced">BLOCK_SIZE</a>, out);</div>
-<div class="line"><span class="lineno">   67</span>    }</div>
-<div class="line"><span class="lineno">   68</span> </div>
-<div class="line"><span class="lineno">   69</span>    <span class="comment">/* Write init program */</span></div>
-<div class="line"><span class="lineno">   70</span>    <span class="keywordflow">for</span>(i = 0; i &lt; SIZE_INIT; ++i)</div>
-<div class="line"><span class="lineno">   71</span>    {</div>
-<div class="line"><span class="lineno">   72</span>        <a class="code hl_function" href="string_8c.html#ab5fb910d7238069eb23f4b06809aa68e">memset</a>(buf, 0, <a class="code hl_define" href="sd_8h.html#ad51ded0bbd705f02f73fc60c0b721ced">BLOCK_SIZE</a>);</div>
-<div class="line"><span class="lineno">   73</span>        fread(buf, 1, <a class="code hl_define" href="sd_8h.html#ad51ded0bbd705f02f73fc60c0b721ced">BLOCK_SIZE</a>, in);</div>
-<div class="line"><span class="lineno">   74</span>        fwrite(buf, 1, <a class="code hl_define" href="sd_8h.html#ad51ded0bbd705f02f73fc60c0b721ced">BLOCK_SIZE</a>, out);</div>
-<div class="line"><span class="lineno">   75</span>    }</div>
-<div class="line"><span class="lineno">   76</span> </div>
-<div class="line"><span class="lineno">   77</span>    <span class="comment">/* TEMPORARY: End marker 0xFF root dir sector */</span></div>
-<div class="line"><span class="lineno">   78</span>    <a class="code hl_function" href="string_8c.html#ab5fb910d7238069eb23f4b06809aa68e">memset</a>(buf, 0xFF, <a class="code hl_define" href="sd_8h.html#ad51ded0bbd705f02f73fc60c0b721ced">BLOCK_SIZE</a>);</div>
-<div class="line"><span class="lineno">   79</span>    fwrite(buf, 1, <a class="code hl_define" href="sd_8h.html#ad51ded0bbd705f02f73fc60c0b721ced">BLOCK_SIZE</a>, out);</div>
-<div class="line"><span class="lineno">   80</span>    <span class="keywordflow">return</span> 0;</div>
-<div class="line"><span class="lineno">   81</span>}</div>
+<p class="definition">Definition at line <a class="el" href="mkinitrd_2main_8c_source.html#l00022">22</a> of file <a class="el" href="mkinitrd_2main_8c_source.html">main.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   23</span>{</div>
+<div class="line"><span class="lineno">   24</span>    <a class="code hl_typedef" href="types_8h.html#afaa62991928fb9fb18ff0db62a040aba">u32</a> i, size;</div>
+<div class="line"><span class="lineno">   25</span>    <a class="code hl_typedef" href="types_8h.html#a92c50087ca0e64fa93fc59402c55f8ca">u8</a> buf[<a class="code hl_define" href="sd_8h.html#ad51ded0bbd705f02f73fc60c0b721ced">BLOCK_SIZE</a>];</div>
+<div class="line"><span class="lineno">   26</span>    FILE *in, *out;</div>
+<div class="line"><span class="lineno">   27</span>    <span class="keywordtype">char</span> *in_filename, *out_filename;</div>
+<div class="line"><span class="lineno">   28</span> </div>
+<div class="line"><span class="lineno">   29</span>    <span class="keywordflow">if</span>(argc != 3)</div>
+<div class="line"><span class="lineno">   30</span>    {</div>
+<div class="line"><span class="lineno">   31</span>        fprintf(stderr, <span class="stringliteral">&quot;Usage: ./mkinitrd input-binary output-disk-image\n&quot;</span>);</div>
+<div class="line"><span class="lineno">   32</span>        <span class="keywordflow">return</span> 1;</div>
+<div class="line"><span class="lineno">   33</span>    }</div>
+<div class="line"><span class="lineno">   34</span> </div>
+<div class="line"><span class="lineno">   35</span>    in_filename = argv[1];</div>
+<div class="line"><span class="lineno">   36</span>    out_filename = argv[2];</div>
+<div class="line"><span class="lineno">   37</span> </div>
+<div class="line"><span class="lineno">   38</span>    <span class="keywordflow">if</span>(!(in = fopen(in_filename, <span class="stringliteral">&quot;rb&quot;</span>)))</div>
+<div class="line"><span class="lineno">   39</span>    {</div>
+<div class="line"><span class="lineno">   40</span>        fprintf(stderr, <span class="stringliteral">&quot;Failed to open input file \&quot;%s\&quot;\n&quot;</span>, in_filename);</div>
+<div class="line"><span class="lineno">   41</span>        <span class="keywordflow">return</span> 1;</div>
+<div class="line"><span class="lineno">   42</span>    }</div>
+<div class="line"><span class="lineno">   43</span> </div>
+<div class="line"><span class="lineno">   44</span>    <span class="keywordflow">if</span>(!(out = fopen(out_filename, <span class="stringliteral">&quot;wb&quot;</span>)))</div>
+<div class="line"><span class="lineno">   45</span>    {</div>
+<div class="line"><span class="lineno">   46</span>        fprintf(stderr, <span class="stringliteral">&quot;Failed to open output file \&quot;%s\&quot;\n&quot;</span>, out_filename);</div>
+<div class="line"><span class="lineno">   47</span>        <span class="keywordflow">return</span> 1;</div>
+<div class="line"><span class="lineno">   48</span>    }</div>
+<div class="line"><span class="lineno">   49</span> </div>
+<div class="line"><span class="lineno">   50</span>    fseek(in, 0, SEEK_END);</div>
+<div class="line"><span class="lineno">   51</span>    size = ftell(in);</div>
+<div class="line"><span class="lineno">   52</span>    fseek(in, 0, SEEK_SET);</div>
+<div class="line"><span class="lineno">   53</span> </div>
+<div class="line"><span class="lineno">   54</span>    <a class="code hl_function" href="string_8c.html#ab5fb910d7238069eb23f4b06809aa68e">memset</a>(buf, 0, <a class="code hl_define" href="sd_8h.html#ad51ded0bbd705f02f73fc60c0b721ced">BLOCK_SIZE</a>);</div>
+<div class="line"><span class="lineno">   55</span> </div>
+<div class="line"><span class="lineno">   56</span>    <a class="code hl_function" href="string_8c.html#a6ea826c42748b85ae7c74f1e2ccf7c27">memcpy</a>(buf + OFFSET_SIGNATURE, <a class="code hl_variable" href="atfs_8h.html#adf3e5683d8b4681edf588f58e4a02494">_atfs_signature</a>, <span class="keyword">sizeof</span>(<a class="code hl_variable" href="atfs_8h.html#adf3e5683d8b4681edf588f58e4a02494">_atfs_signature</a>));</div>
+<div class="line"><span class="lineno">   57</span>    _write_le_32(buf + OFFSET_REVISION, REVISION);</div>
+<div class="line"><span class="lineno">   58</span>    _write_le_32(buf + OFFSET_STDLIB_SIZE, 0);</div>
+<div class="line"><span class="lineno">   59</span>    _write_le_32(buf + OFFSET_INIT_SIZE, size);</div>
+<div class="line"><span class="lineno">   60</span> </div>
+<div class="line"><span class="lineno">   61</span>    fwrite(buf, 1, <a class="code hl_define" href="sd_8h.html#ad51ded0bbd705f02f73fc60c0b721ced">BLOCK_SIZE</a>, out);</div>
+<div class="line"><span class="lineno">   62</span> </div>
+<div class="line"><span class="lineno">   63</span>    <span class="comment">/* Write 64 empty sectors */</span></div>
+<div class="line"><span class="lineno">   64</span>    <a class="code hl_function" href="string_8c.html#ab5fb910d7238069eb23f4b06809aa68e">memset</a>(buf, 0, <a class="code hl_define" href="sd_8h.html#ad51ded0bbd705f02f73fc60c0b721ced">BLOCK_SIZE</a>);</div>
+<div class="line"><span class="lineno">   65</span>    <span class="keywordflow">for</span>(i = 0; i &lt; SIZE_STDLIB; ++i)</div>
+<div class="line"><span class="lineno">   66</span>    {</div>
+<div class="line"><span class="lineno">   67</span>        fwrite(buf, 1, <a class="code hl_define" href="sd_8h.html#ad51ded0bbd705f02f73fc60c0b721ced">BLOCK_SIZE</a>, out);</div>
+<div class="line"><span class="lineno">   68</span>    }</div>
+<div class="line"><span class="lineno">   69</span> </div>
+<div class="line"><span class="lineno">   70</span>    <span class="comment">/* Write init program */</span></div>
+<div class="line"><span class="lineno">   71</span>    <span class="keywordflow">for</span>(i = 0; i &lt; SIZE_INIT; ++i)</div>
+<div class="line"><span class="lineno">   72</span>    {</div>
+<div class="line"><span class="lineno">   73</span>        <a class="code hl_function" href="string_8c.html#ab5fb910d7238069eb23f4b06809aa68e">memset</a>(buf, 0, <a class="code hl_define" href="sd_8h.html#ad51ded0bbd705f02f73fc60c0b721ced">BLOCK_SIZE</a>);</div>
+<div class="line"><span class="lineno">   74</span>        fread(buf, 1, <a class="code hl_define" href="sd_8h.html#ad51ded0bbd705f02f73fc60c0b721ced">BLOCK_SIZE</a>, in);</div>
+<div class="line"><span class="lineno">   75</span>        fwrite(buf, 1, <a class="code hl_define" href="sd_8h.html#ad51ded0bbd705f02f73fc60c0b721ced">BLOCK_SIZE</a>, out);</div>
+<div class="line"><span class="lineno">   76</span>    }</div>
+<div class="line"><span class="lineno">   77</span> </div>
+<div class="line"><span class="lineno">   78</span>    <span class="comment">/* TEMPORARY: End marker 0xFF root dir sector */</span></div>
+<div class="line"><span class="lineno">   79</span>    <a class="code hl_function" href="string_8c.html#ab5fb910d7238069eb23f4b06809aa68e">memset</a>(buf, 0xFF, <a class="code hl_define" href="sd_8h.html#ad51ded0bbd705f02f73fc60c0b721ced">BLOCK_SIZE</a>);</div>
+<div class="line"><span class="lineno">   80</span>    fwrite(buf, 1, <a class="code hl_define" href="sd_8h.html#ad51ded0bbd705f02f73fc60c0b721ced">BLOCK_SIZE</a>, out);</div>
+<div class="line"><span class="lineno">   81</span>    <span class="keywordflow">return</span> 0;</div>
+<div class="line"><span class="lineno">   82</span>}</div>
+<div class="ttc" id="aatfs_8h_html_adf3e5683d8b4681edf588f58e4a02494"><div class="ttname"><a href="atfs_8h.html#adf3e5683d8b4681edf588f58e4a02494">_atfs_signature</a></div><div class="ttdeci">static const u8 _atfs_signature[]</div><div class="ttdef"><b>Definition:</b> <a href="atfs_8h_source.html#l00059">atfs.h:59</a></div></div>
 <div class="ttc" id="asd_8h_html_ad51ded0bbd705f02f73fc60c0b721ced"><div class="ttname"><a href="sd_8h.html#ad51ded0bbd705f02f73fc60c0b721ced">BLOCK_SIZE</a></div><div class="ttdeci">#define BLOCK_SIZE</div><div class="ttdef"><b>Definition:</b> <a href="sd_8h_source.html#l00016">sd.h:16</a></div></div>
 <div class="ttc" id="astring_8c_html_a6ea826c42748b85ae7c74f1e2ccf7c27"><div class="ttname"><a href="string_8c.html#a6ea826c42748b85ae7c74f1e2ccf7c27">memcpy</a></div><div class="ttdeci">void * memcpy(void *dest, const void *src, u32 count)</div><div class="ttdoc">Copies count bytes from src to dest Source and destination blocks must NOT overlap.</div><div class="ttdef"><b>Definition:</b> <a href="string_8c_source.html#l00094">string.c:94</a></div></div>
 <div class="ttc" id="astring_8c_html_ab5fb910d7238069eb23f4b06809aa68e"><div class="ttname"><a href="string_8c.html#ab5fb910d7238069eb23f4b06809aa68e">memset</a></div><div class="ttdeci">void * memset(void *ptr, i32 value, u32 count)</div><div class="ttdoc">Sets all bytes in a block of memory to value</div><div class="ttdef"><b>Definition:</b> <a href="string_8c_source.html#l00176">string.c:176</a></div></div>
 <div class="ttc" id="atypes_8h_html_a92c50087ca0e64fa93fc59402c55f8ca"><div class="ttname"><a href="types_8h.html#a92c50087ca0e64fa93fc59402c55f8ca">u8</a></div><div class="ttdeci">uint8_t u8</div><div class="ttdef"><b>Definition:</b> <a href="types_8h_source.html#l00038">types.h:38</a></div></div>
 <div class="ttc" id="atypes_8h_html_afaa62991928fb9fb18ff0db62a040aba"><div class="ttname"><a href="types_8h.html#afaa62991928fb9fb18ff0db62a040aba">u32</a></div><div class="ttdeci">uint32_t u32</div><div class="ttdef"><b>Definition:</b> <a href="types_8h_source.html#l00032">types.h:32</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="sd_8h_source.html#l00016">BLOCK_SIZE</a>, <a class="el" href="mkinitrd_2main_8c_source.html#l00021">main()</a>, <a class="el" href="string_8c_source.html#l00094">memcpy()</a>, and <a class="el" href="string_8c_source.html#l00176">memset()</a>.</p>
+<p class="reference">References <a class="el" href="atfs_8h_source.html#l00059">_atfs_signature</a>, <a class="el" href="sd_8h_source.html#l00016">BLOCK_SIZE</a>, <a class="el" href="mkinitrd_2main_8c_source.html#l00022">main()</a>, <a class="el" href="string_8c_source.html#l00094">memcpy()</a>, and <a class="el" href="string_8c_source.html#l00176">memset()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="mkinitrd_2main_8c_source.html#l00021">main()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="mkinitrd_2main_8c_source.html#l00022">main()</a>.</p>
 
 </div>
 </div>

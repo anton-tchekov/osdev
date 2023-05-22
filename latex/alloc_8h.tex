@@ -63,69 +63,69 @@ Pointer to allocated memory
 \end{DoxyReturn}
 
 
-Definition at line \mbox{\hyperlink{alloc_8c_source_l00079}{79}} of file \mbox{\hyperlink{alloc_8c_source}{alloc.\+c}}.
+Definition at line \mbox{\hyperlink{alloc_8c_source_l00104}{104}} of file \mbox{\hyperlink{alloc_8c_source}{alloc.\+c}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00080\ \{}
-\DoxyCodeLine{00081\ \ \ \ \ \mbox{\hyperlink{structCHUNK__HEADER}{ChunkHeader}}\ *cur,\ *prev;}
-\DoxyCodeLine{00082\ \ \ \ \ \textcolor{keywordflow}{if}\ (size\ ==\ 0)}
-\DoxyCodeLine{00083\ \ \ \ \ \{}
-\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ NULL;}
-\DoxyCodeLine{00085\ \ \ \ \ \}}
-\DoxyCodeLine{00086\ }
-\DoxyCodeLine{00087\ \ \ \ \ \textcolor{comment}{/*\ Minimum\ allocation\ size\ */}}
-\DoxyCodeLine{00088\ \ \ \ \ \textcolor{keywordflow}{if}\ (size\ <\ \mbox{\hyperlink{alloc_8c_ad733e804fe76c864d1c86c11cdaf7ff9}{MIN\_ALLOC}})}
-\DoxyCodeLine{00089\ \ \ \ \ \{}
-\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ size\ =\ \mbox{\hyperlink{alloc_8c_ad733e804fe76c864d1c86c11cdaf7ff9}{MIN\_ALLOC}};}
-\DoxyCodeLine{00091\ \ \ \ \ \}}
-\DoxyCodeLine{00092\ }
-\DoxyCodeLine{00093\ \ \ \ \ \textcolor{comment}{/*\ Ensure\ alignment\ */}}
-\DoxyCodeLine{00094\ \ \ \ \ size\ =\ ((size\ +\ \mbox{\hyperlink{alloc_8c_ae4ff5a07c6ff43ed11a3887ef7d524f2}{ALIGN}}\ -\/\ 1)\ /\ \mbox{\hyperlink{alloc_8c_ae4ff5a07c6ff43ed11a3887ef7d524f2}{ALIGN}})\ *\ \mbox{\hyperlink{alloc_8c_ae4ff5a07c6ff43ed11a3887ef7d524f2}{ALIGN}};}
-\DoxyCodeLine{00095\ }
-\DoxyCodeLine{00096\ \ \ \ \ \mbox{\hyperlink{alloc_8c_af66b645d93e448be1649fb1b3d69dd0c}{\_info}}.\mbox{\hyperlink{structMemAllocInfo_aab97bed91f80f190ace0ad2e8485d9bc}{Used}}\ +=\ size;}
-\DoxyCodeLine{00097\ \ \ \ \ \mbox{\hyperlink{alloc_8c_af66b645d93e448be1649fb1b3d69dd0c}{\_info}}.\mbox{\hyperlink{structMemAllocInfo_a3820726d98082b51a52eb62eaca413a4}{Total}}\ +=\ size\ +\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{alloc_8c_ab655d0ea4f411ecc8fbe523f00cf2979}{ChunkHeader}});}
-\DoxyCodeLine{00098\ }
-\DoxyCodeLine{00099\ \ \ \ \ \textcolor{comment}{/*\ Find\ free\ chunk\ */}}
-\DoxyCodeLine{00100\ \ \ \ \ \textcolor{keywordflow}{for}\ (prev\ =\ \&\mbox{\hyperlink{alloc_8c_aa0cd2724eb02678543d19c3a7b942429}{\_first}},\ cur\ =\ \_get\_next(prev-\/>\mbox{\hyperlink{structCHUNK__HEADER_aa75bad5671817ffae160a7e809290f3d}{Next}});}
-\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \ cur;\ prev\ =\ cur,\ cur\ =\ \_get\_next(cur-\/>Next))}
-\DoxyCodeLine{00102\ \ \ \ \ \{}
-\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (size\ +\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{structCHUNK__HEADER}{ChunkHeader}})\ ==\ cur-\/>Size)}
-\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ -\/-\/-\/\ Perfect\ fit\ -\/-\/-\/\ */}}
-\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Remove\ chunk\ from\ free\ list\ */}}
-\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \ \ \ \ prev-\/>\mbox{\hyperlink{structCHUNK__HEADER_aa75bad5671817ffae160a7e809290f3d}{Next}}\ =\ cur-\/>Next;}
-\DoxyCodeLine{00108\ }
-\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Return\ pointer\ to\ data\ area\ */}}
-\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \_chunk\_data(cur);}
-\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (size\ +\ 2\ *\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{structCHUNK__HEADER}{ChunkHeader}})\ <\ cur-\/>Size)}
-\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ -\/-\/-\/\ First\ fit\ -\/-\/-\/\ */}}
-\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Split\ chunk\ in\ two\ */}}
-\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structCHUNK__HEADER}{ChunkHeader}}\ *second\ =}
-\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (\mbox{\hyperlink{structCHUNK__HEADER}{ChunkHeader}}\ *)((\mbox{\hyperlink{types_8h_afc3fa6ac414247c0d4e1f77d5f1cb62d}{ptr}})cur\ +\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{alloc_8c_ab655d0ea4f411ecc8fbe523f00cf2979}{ChunkHeader}})\ +\ size);}
-\DoxyCodeLine{00118\ }
-\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \ \ \ \ second-\/>\mbox{\hyperlink{structCHUNK__HEADER_a8046cf4a4e5a7af49eeb4717e4bcec51}{Size}}\ =\ cur-\/>Size\ -\/\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{alloc_8c_ab655d0ea4f411ecc8fbe523f00cf2979}{ChunkHeader}})\ -\/\ size;}
-\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \ \ \ \ second-\/>\mbox{\hyperlink{structCHUNK__HEADER_aa75bad5671817ffae160a7e809290f3d}{Next}}\ =\ cur-\/>Next;}
-\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \ \ \ \ prev-\/>\mbox{\hyperlink{structCHUNK__HEADER_aa75bad5671817ffae160a7e809290f3d}{Next}}\ =\ \_get\_offset(second);}
-\DoxyCodeLine{00122\ }
-\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Reduce\ the\ size\ of\ first\ part\ by\ the\ size\ of\ the\ second\ part\ */}}
-\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \ \ \ \ cur-\/>Size\ =\ size\ +\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{alloc_8c_ab655d0ea4f411ecc8fbe523f00cf2979}{ChunkHeader}});}
-\DoxyCodeLine{00125\ }
-\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Return\ pointer\ to\ data\ area\ of\ second\ part\ */}}
-\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \_chunk\_data(cur);}
-\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00129\ \ \ \ \ \}}
-\DoxyCodeLine{00130\ }
-\DoxyCodeLine{00131\ \ \ \ \ \textcolor{comment}{/*\ Very\ unlikely\ */}}
-\DoxyCodeLine{00132\ \ \ \ \ \textcolor{keywordflow}{return}\ NULL;}
-\DoxyCodeLine{00133\ \}}
+\DoxyCodeLine{00105\ \{}
+\DoxyCodeLine{00106\ \ \ \ \ \mbox{\hyperlink{structCHUNK__HEADER}{ChunkHeader}}\ *cur,\ *prev;}
+\DoxyCodeLine{00107\ \ \ \ \ \textcolor{keywordflow}{if}\ (size\ ==\ 0)}
+\DoxyCodeLine{00108\ \ \ \ \ \{}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ NULL;}
+\DoxyCodeLine{00110\ \ \ \ \ \}}
+\DoxyCodeLine{00111\ }
+\DoxyCodeLine{00112\ \ \ \ \ \textcolor{comment}{/*\ Minimum\ allocation\ size\ */}}
+\DoxyCodeLine{00113\ \ \ \ \ \textcolor{keywordflow}{if}\ (size\ <\ \mbox{\hyperlink{alloc_8c_ad733e804fe76c864d1c86c11cdaf7ff9}{MIN\_ALLOC}})}
+\DoxyCodeLine{00114\ \ \ \ \ \{}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ size\ =\ \mbox{\hyperlink{alloc_8c_ad733e804fe76c864d1c86c11cdaf7ff9}{MIN\_ALLOC}};}
+\DoxyCodeLine{00116\ \ \ \ \ \}}
+\DoxyCodeLine{00117\ }
+\DoxyCodeLine{00118\ \ \ \ \ \textcolor{comment}{/*\ Ensure\ alignment\ */}}
+\DoxyCodeLine{00119\ \ \ \ \ size\ =\ ((size\ +\ \mbox{\hyperlink{alloc_8c_ae4ff5a07c6ff43ed11a3887ef7d524f2}{ALIGN}}\ -\/\ 1)\ /\ \mbox{\hyperlink{alloc_8c_ae4ff5a07c6ff43ed11a3887ef7d524f2}{ALIGN}})\ *\ \mbox{\hyperlink{alloc_8c_ae4ff5a07c6ff43ed11a3887ef7d524f2}{ALIGN}};}
+\DoxyCodeLine{00120\ }
+\DoxyCodeLine{00121\ \ \ \ \ \mbox{\hyperlink{alloc_8c_af66b645d93e448be1649fb1b3d69dd0c}{\_info}}.\mbox{\hyperlink{structMemAllocInfo_aab97bed91f80f190ace0ad2e8485d9bc}{Used}}\ +=\ size;}
+\DoxyCodeLine{00122\ \ \ \ \ \mbox{\hyperlink{alloc_8c_af66b645d93e448be1649fb1b3d69dd0c}{\_info}}.\mbox{\hyperlink{structMemAllocInfo_a3820726d98082b51a52eb62eaca413a4}{Total}}\ +=\ size\ +\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{alloc_8c_ab655d0ea4f411ecc8fbe523f00cf2979}{ChunkHeader}});}
+\DoxyCodeLine{00123\ }
+\DoxyCodeLine{00124\ \ \ \ \ \textcolor{comment}{/*\ Find\ free\ chunk\ */}}
+\DoxyCodeLine{00125\ \ \ \ \ \textcolor{keywordflow}{for}\ (prev\ =\ \&\mbox{\hyperlink{alloc_8c_aa0cd2724eb02678543d19c3a7b942429}{\_first}},\ cur\ =\ \mbox{\hyperlink{alloc_8c_aef029a46dc97295d972d446150a11d49}{\_get\_next}}(prev-\/>\mbox{\hyperlink{structCHUNK__HEADER_aa75bad5671817ffae160a7e809290f3d}{Next}});}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \ cur;\ prev\ =\ cur,\ cur\ =\ \mbox{\hyperlink{alloc_8c_aef029a46dc97295d972d446150a11d49}{\_get\_next}}(cur-\/>Next))}
+\DoxyCodeLine{00127\ \ \ \ \ \{}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (size\ +\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{structCHUNK__HEADER}{ChunkHeader}})\ ==\ cur-\/>Size)}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ -\/-\/-\/\ Perfect\ fit\ -\/-\/-\/\ */}}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Remove\ chunk\ from\ free\ list\ */}}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \ \ \ \ prev-\/>\mbox{\hyperlink{structCHUNK__HEADER_aa75bad5671817ffae160a7e809290f3d}{Next}}\ =\ cur-\/>Next;}
+\DoxyCodeLine{00133\ }
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Return\ pointer\ to\ data\ area\ */}}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{alloc_8c_a3141c8bb5a8b45a336f01a7ed0ecbff6}{\_chunk\_data}}(cur);}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (size\ +\ 2\ *\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{structCHUNK__HEADER}{ChunkHeader}})\ <\ cur-\/>Size)}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ -\/-\/-\/\ First\ fit\ -\/-\/-\/\ */}}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Split\ chunk\ in\ two\ */}}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structCHUNK__HEADER}{ChunkHeader}}\ *second\ =}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (\mbox{\hyperlink{structCHUNK__HEADER}{ChunkHeader}}\ *)((\mbox{\hyperlink{types_8h_afc3fa6ac414247c0d4e1f77d5f1cb62d}{ptr}})cur\ +\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{alloc_8c_ab655d0ea4f411ecc8fbe523f00cf2979}{ChunkHeader}})\ +\ size);}
+\DoxyCodeLine{00143\ }
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ \ \ \ \ second-\/>\mbox{\hyperlink{structCHUNK__HEADER_a8046cf4a4e5a7af49eeb4717e4bcec51}{Size}}\ =\ cur-\/>Size\ -\/\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{alloc_8c_ab655d0ea4f411ecc8fbe523f00cf2979}{ChunkHeader}})\ -\/\ size;}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \ \ \ \ second-\/>\mbox{\hyperlink{structCHUNK__HEADER_aa75bad5671817ffae160a7e809290f3d}{Next}}\ =\ cur-\/>Next;}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \ \ \ \ prev-\/>\mbox{\hyperlink{structCHUNK__HEADER_aa75bad5671817ffae160a7e809290f3d}{Next}}\ =\ \mbox{\hyperlink{alloc_8c_a6bb232b66ebc968107d38aa99fe522bb}{\_get\_offset}}(second);}
+\DoxyCodeLine{00147\ }
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Reduce\ the\ size\ of\ first\ part\ by\ the\ size\ of\ the\ second\ part\ */}}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ \ \ \ \ cur-\/>Size\ =\ size\ +\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{alloc_8c_ab655d0ea4f411ecc8fbe523f00cf2979}{ChunkHeader}});}
+\DoxyCodeLine{00150\ }
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Return\ pointer\ to\ data\ area\ of\ second\ part\ */}}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{alloc_8c_a3141c8bb5a8b45a336f01a7ed0ecbff6}{\_chunk\_data}}(cur);}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00154\ \ \ \ \ \}}
+\DoxyCodeLine{00155\ }
+\DoxyCodeLine{00156\ \ \ \ \ \textcolor{comment}{/*\ Very\ unlikely\ */}}
+\DoxyCodeLine{00157\ \ \ \ \ \textcolor{keywordflow}{return}\ NULL;}
+\DoxyCodeLine{00158\ \}}
 
 \end{DoxyCode}
 
 
-References \mbox{\hyperlink{alloc_8c_source_l00033}{\+\_\+first}}, \mbox{\hyperlink{alloc_8c_source_l00036}{\+\_\+info}}, \mbox{\hyperlink{alloc_8c_source_l00011}{ALIGN}}, \mbox{\hyperlink{alloc_8c_source_l00014}{MIN\+\_\+\+ALLOC}}, \mbox{\hyperlink{alloc_8c_source_l00026}{CHUNK\+\_\+\+HEADER\+::\+Next}}, \mbox{\hyperlink{alloc_8c_source_l00023}{CHUNK\+\_\+\+HEADER\+::\+Size}}, \mbox{\hyperlink{alloc_8h_source_l00021}{Mem\+Alloc\+Info\+::\+Total}}, and \mbox{\hyperlink{alloc_8h_source_l00018}{Mem\+Alloc\+Info\+::\+Used}}.
+References \mbox{\hyperlink{alloc_8c_source_l00046}{\+\_\+chunk\+\_\+data()}}, \mbox{\hyperlink{alloc_8c_source_l00033}{\+\_\+first}}, \mbox{\hyperlink{alloc_8c_source_l00068}{\+\_\+get\+\_\+next()}}, \mbox{\hyperlink{alloc_8c_source_l00084}{\+\_\+get\+\_\+offset()}}, \mbox{\hyperlink{alloc_8c_source_l00036}{\+\_\+info}}, \mbox{\hyperlink{alloc_8c_source_l00011}{ALIGN}}, \mbox{\hyperlink{alloc_8c_source_l00014}{MIN\+\_\+\+ALLOC}}, \mbox{\hyperlink{alloc_8c_source_l00026}{CHUNK\+\_\+\+HEADER\+::\+Next}}, \mbox{\hyperlink{alloc_8c_source_l00023}{CHUNK\+\_\+\+HEADER\+::\+Size}}, \mbox{\hyperlink{alloc_8h_source_l00021}{Mem\+Alloc\+Info\+::\+Total}}, and \mbox{\hyperlink{alloc_8h_source_l00018}{Mem\+Alloc\+Info\+::\+Used}}.
 
 
 
@@ -163,27 +163,27 @@ Initialize the memory allocator. Do NOT call this function.
 \end{DoxyParams}
 
 
-Definition at line \mbox{\hyperlink{alloc_8c_source_l00065}{65}} of file \mbox{\hyperlink{alloc_8c_source}{alloc.\+c}}.
+Definition at line \mbox{\hyperlink{alloc_8c_source_l00090}{90}} of file \mbox{\hyperlink{alloc_8c_source}{alloc.\+c}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00066\ \{}
-\DoxyCodeLine{00067\ \ \ \ \ \mbox{\hyperlink{structCHUNK__HEADER}{ChunkHeader}}\ *next;}
-\DoxyCodeLine{00068\ }
-\DoxyCodeLine{00069\ \ \ \ \ \mbox{\hyperlink{alloc_8c_a600a7bc8bbf44f81ec09a97fdc9e48c6}{\_heap\_start}}\ =\ heap\_start;}
-\DoxyCodeLine{00070\ \ \ \ \ \mbox{\hyperlink{alloc_8c_af66b645d93e448be1649fb1b3d69dd0c}{\_info}}.\mbox{\hyperlink{structMemAllocInfo_a2cb704497e06fa30f9cca539d0feeca1}{Size}}\ =\ size;}
-\DoxyCodeLine{00071\ }
-\DoxyCodeLine{00072\ \ \ \ \ \mbox{\hyperlink{alloc_8c_aa0cd2724eb02678543d19c3a7b942429}{\_first}}.\mbox{\hyperlink{structCHUNK__HEADER_aa75bad5671817ffae160a7e809290f3d}{Next}}\ =\ 0;}
-\DoxyCodeLine{00073\ }
-\DoxyCodeLine{00074\ \ \ \ \ next\ =\ \_get\_next(\mbox{\hyperlink{alloc_8c_aa0cd2724eb02678543d19c3a7b942429}{\_first}}.\mbox{\hyperlink{structCHUNK__HEADER_aa75bad5671817ffae160a7e809290f3d}{Next}});}
-\DoxyCodeLine{00075\ \ \ \ \ next-\/>\mbox{\hyperlink{structCHUNK__HEADER_a8046cf4a4e5a7af49eeb4717e4bcec51}{Size}}\ =\ size;}
-\DoxyCodeLine{00076\ \ \ \ \ next-\/>\mbox{\hyperlink{structCHUNK__HEADER_aa75bad5671817ffae160a7e809290f3d}{Next}}\ =\ \mbox{\hyperlink{alloc_8c_a29fd18bed01c4d836c7ebfe73a125c3f}{END}};}
-\DoxyCodeLine{00077\ \}}
+\DoxyCodeLine{00091\ \{}
+\DoxyCodeLine{00092\ \ \ \ \ \mbox{\hyperlink{structCHUNK__HEADER}{ChunkHeader}}\ *next;}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00094\ \ \ \ \ \mbox{\hyperlink{alloc_8c_a600a7bc8bbf44f81ec09a97fdc9e48c6}{\_heap\_start}}\ =\ heap\_start;}
+\DoxyCodeLine{00095\ \ \ \ \ \mbox{\hyperlink{alloc_8c_af66b645d93e448be1649fb1b3d69dd0c}{\_info}}.\mbox{\hyperlink{structMemAllocInfo_a2cb704497e06fa30f9cca539d0feeca1}{Size}}\ =\ size;}
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00097\ \ \ \ \ \mbox{\hyperlink{alloc_8c_aa0cd2724eb02678543d19c3a7b942429}{\_first}}.\mbox{\hyperlink{structCHUNK__HEADER_aa75bad5671817ffae160a7e809290f3d}{Next}}\ =\ 0;}
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00099\ \ \ \ \ next\ =\ \mbox{\hyperlink{alloc_8c_aef029a46dc97295d972d446150a11d49}{\_get\_next}}(\mbox{\hyperlink{alloc_8c_aa0cd2724eb02678543d19c3a7b942429}{\_first}}.\mbox{\hyperlink{structCHUNK__HEADER_aa75bad5671817ffae160a7e809290f3d}{Next}});}
+\DoxyCodeLine{00100\ \ \ \ \ next-\/>\mbox{\hyperlink{structCHUNK__HEADER_a8046cf4a4e5a7af49eeb4717e4bcec51}{Size}}\ =\ size;}
+\DoxyCodeLine{00101\ \ \ \ \ next-\/>\mbox{\hyperlink{structCHUNK__HEADER_aa75bad5671817ffae160a7e809290f3d}{Next}}\ =\ \mbox{\hyperlink{alloc_8c_a29fd18bed01c4d836c7ebfe73a125c3f}{END}};}
+\DoxyCodeLine{00102\ \}}
 
 \end{DoxyCode}
 
 
-References \mbox{\hyperlink{alloc_8c_source_l00033}{\+\_\+first}}, \mbox{\hyperlink{alloc_8c_source_l00030}{\+\_\+heap\+\_\+start}}, \mbox{\hyperlink{alloc_8c_source_l00036}{\+\_\+info}}, \mbox{\hyperlink{alloc_8c_source_l00017}{END}}, \mbox{\hyperlink{alloc_8c_source_l00026}{CHUNK\+\_\+\+HEADER\+::\+Next}}, \mbox{\hyperlink{alloc_8c_source_l00023}{CHUNK\+\_\+\+HEADER\+::\+Size}}, and \mbox{\hyperlink{alloc_8h_source_l00024}{Mem\+Alloc\+Info\+::\+Size}}.
+References \mbox{\hyperlink{alloc_8c_source_l00033}{\+\_\+first}}, \mbox{\hyperlink{alloc_8c_source_l00068}{\+\_\+get\+\_\+next()}}, \mbox{\hyperlink{alloc_8c_source_l00030}{\+\_\+heap\+\_\+start}}, \mbox{\hyperlink{alloc_8c_source_l00036}{\+\_\+info}}, \mbox{\hyperlink{alloc_8c_source_l00017}{END}}, \mbox{\hyperlink{alloc_8c_source_l00026}{CHUNK\+\_\+\+HEADER\+::\+Next}}, \mbox{\hyperlink{alloc_8c_source_l00023}{CHUNK\+\_\+\+HEADER\+::\+Size}}, and \mbox{\hyperlink{alloc_8h_source_l00024}{Mem\+Alloc\+Info\+::\+Size}}.
 
 \mbox{\Hypertarget{alloc_8h_ab0b733d6d48d9eafd86d2196d16e2bc4}\label{alloc_8h_ab0b733d6d48d9eafd86d2196d16e2bc4}} 
 \index{alloc.h@{alloc.h}!memfree@{memfree}}
@@ -202,60 +202,60 @@ Frees memory previously allocated with {\ttfamily memalloc}
 \end{DoxyParams}
 
 
-Definition at line \mbox{\hyperlink{alloc_8c_source_l00135}{135}} of file \mbox{\hyperlink{alloc_8c_source}{alloc.\+c}}.
+Definition at line \mbox{\hyperlink{alloc_8c_source_l00160}{160}} of file \mbox{\hyperlink{alloc_8c_source}{alloc.\+c}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00136\ \{}
-\DoxyCodeLine{00137\ \ \ \ \ \mbox{\hyperlink{structCHUNK__HEADER}{ChunkHeader}}\ *next,\ *prev,\ *header;}
-\DoxyCodeLine{00138\ }
-\DoxyCodeLine{00139\ \ \ \ \ header\ =\ \_chunk\_header(p);}
-\DoxyCodeLine{00140\ }
-\DoxyCodeLine{00141\ \ \ \ \ \mbox{\hyperlink{alloc_8c_af66b645d93e448be1649fb1b3d69dd0c}{\_info}}.\mbox{\hyperlink{structMemAllocInfo_aab97bed91f80f190ace0ad2e8485d9bc}{Used}}\ -\/=\ header-\/>\mbox{\hyperlink{structCHUNK__HEADER_a8046cf4a4e5a7af49eeb4717e4bcec51}{Size}}\ -\/\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{alloc_8c_ab655d0ea4f411ecc8fbe523f00cf2979}{ChunkHeader}});}
-\DoxyCodeLine{00142\ \ \ \ \ \mbox{\hyperlink{alloc_8c_af66b645d93e448be1649fb1b3d69dd0c}{\_info}}.\mbox{\hyperlink{structMemAllocInfo_a3820726d98082b51a52eb62eaca413a4}{Total}}\ -\/=\ header-\/>\mbox{\hyperlink{structCHUNK__HEADER_a8046cf4a4e5a7af49eeb4717e4bcec51}{Size}};}
-\DoxyCodeLine{00143\ }
-\DoxyCodeLine{00144\ \ \ \ \ \textcolor{keywordflow}{for}\ (prev\ =\ \&\mbox{\hyperlink{alloc_8c_aa0cd2724eb02678543d19c3a7b942429}{\_first}},\ next\ =\ \_get\_next(prev-\/>\mbox{\hyperlink{structCHUNK__HEADER_aa75bad5671817ffae160a7e809290f3d}{Next}});}
-\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \ next;\ prev\ =\ next,\ next\ =\ \_get\_next(next-\/>Next))}
-\DoxyCodeLine{00146\ \ \ \ \ \{}
-\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (next\ >\ header)}
-\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Merge\ chunks\ if\ possible\ */}}
-\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ mergePrev\ =\ ((\mbox{\hyperlink{types_8h_afc3fa6ac414247c0d4e1f77d5f1cb62d}{ptr}})prev\ +\ prev-\/>\mbox{\hyperlink{structCHUNK__HEADER_a8046cf4a4e5a7af49eeb4717e4bcec51}{Size}}\ ==\ (\mbox{\hyperlink{types_8h_afc3fa6ac414247c0d4e1f77d5f1cb62d}{ptr}})header);}
-\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ mergeNext\ =\ ((\mbox{\hyperlink{types_8h_afc3fa6ac414247c0d4e1f77d5f1cb62d}{ptr}})header\ +\ header-\/>\mbox{\hyperlink{structCHUNK__HEADER_a8046cf4a4e5a7af49eeb4717e4bcec51}{Size}}\ ==\ (\mbox{\hyperlink{types_8h_afc3fa6ac414247c0d4e1f77d5f1cb62d}{ptr}})next);}
-\DoxyCodeLine{00152\ }
-\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (mergeNext\ \&\&\ mergePrev)}
-\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Both\ Prev\ and\ Next\ are\ free\ */}}
-\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ prev-\/>\mbox{\hyperlink{structCHUNK__HEADER_aa75bad5671817ffae160a7e809290f3d}{Next}}\ =\ next-\/>Next;}
-\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ prev-\/>\mbox{\hyperlink{structCHUNK__HEADER_a8046cf4a4e5a7af49eeb4717e4bcec51}{Size}}\ +=\ header-\/>\mbox{\hyperlink{structCHUNK__HEADER_a8046cf4a4e5a7af49eeb4717e4bcec51}{Size}}\ +\ next-\/>Size;}
-\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (mergePrev)}
-\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Prev\ is\ free\ */}}
-\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ prev-\/>\mbox{\hyperlink{structCHUNK__HEADER_a8046cf4a4e5a7af49eeb4717e4bcec51}{Size}}\ +=\ header-\/>\mbox{\hyperlink{structCHUNK__HEADER_a8046cf4a4e5a7af49eeb4717e4bcec51}{Size}};}
-\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (mergeNext)}
-\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Next\ is\ free\ */}}
-\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ header-\/>\mbox{\hyperlink{structCHUNK__HEADER_a8046cf4a4e5a7af49eeb4717e4bcec51}{Size}}\ +=\ next-\/>Size;}
-\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ header-\/>\mbox{\hyperlink{structCHUNK__HEADER_aa75bad5671817ffae160a7e809290f3d}{Next}}\ =\ next-\/>Next;}
-\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ prev-\/>\mbox{\hyperlink{structCHUNK__HEADER_aa75bad5671817ffae160a7e809290f3d}{Next}}\ =\ \_get\_offset(header);}
-\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
-\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Both\ sides\ are\ used\ */}}
-\DoxyCodeLine{00174\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ header-\/>\mbox{\hyperlink{structCHUNK__HEADER_aa75bad5671817ffae160a7e809290f3d}{Next}}\ =\ prev-\/>\mbox{\hyperlink{structCHUNK__HEADER_aa75bad5671817ffae160a7e809290f3d}{Next}};}
-\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ prev-\/>\mbox{\hyperlink{structCHUNK__HEADER_aa75bad5671817ffae160a7e809290f3d}{Next}}\ =\ \_get\_offset(header);}
-\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00177\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
-\DoxyCodeLine{00178\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00179\ \ \ \ \ \}}
-\DoxyCodeLine{00180\ \}}
+\DoxyCodeLine{00161\ \{}
+\DoxyCodeLine{00162\ \ \ \ \ \mbox{\hyperlink{structCHUNK__HEADER}{ChunkHeader}}\ *next,\ *prev,\ *header;}
+\DoxyCodeLine{00163\ }
+\DoxyCodeLine{00164\ \ \ \ \ header\ =\ \mbox{\hyperlink{alloc_8c_aa131d120e6e80f4b3a1b40e3f0a4c7cc}{\_chunk\_header}}(p);}
+\DoxyCodeLine{00165\ }
+\DoxyCodeLine{00166\ \ \ \ \ \mbox{\hyperlink{alloc_8c_af66b645d93e448be1649fb1b3d69dd0c}{\_info}}.\mbox{\hyperlink{structMemAllocInfo_aab97bed91f80f190ace0ad2e8485d9bc}{Used}}\ -\/=\ header-\/>\mbox{\hyperlink{structCHUNK__HEADER_a8046cf4a4e5a7af49eeb4717e4bcec51}{Size}}\ -\/\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{alloc_8c_ab655d0ea4f411ecc8fbe523f00cf2979}{ChunkHeader}});}
+\DoxyCodeLine{00167\ \ \ \ \ \mbox{\hyperlink{alloc_8c_af66b645d93e448be1649fb1b3d69dd0c}{\_info}}.\mbox{\hyperlink{structMemAllocInfo_a3820726d98082b51a52eb62eaca413a4}{Total}}\ -\/=\ header-\/>\mbox{\hyperlink{structCHUNK__HEADER_a8046cf4a4e5a7af49eeb4717e4bcec51}{Size}};}
+\DoxyCodeLine{00168\ }
+\DoxyCodeLine{00169\ \ \ \ \ \textcolor{keywordflow}{for}\ (prev\ =\ \&\mbox{\hyperlink{alloc_8c_aa0cd2724eb02678543d19c3a7b942429}{\_first}},\ next\ =\ \mbox{\hyperlink{alloc_8c_aef029a46dc97295d972d446150a11d49}{\_get\_next}}(prev-\/>\mbox{\hyperlink{structCHUNK__HEADER_aa75bad5671817ffae160a7e809290f3d}{Next}});}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ \ next;\ prev\ =\ next,\ next\ =\ \mbox{\hyperlink{alloc_8c_aef029a46dc97295d972d446150a11d49}{\_get\_next}}(next-\/>Next))}
+\DoxyCodeLine{00171\ \ \ \ \ \{}
+\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (next\ >\ header)}
+\DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00174\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Merge\ chunks\ if\ possible\ */}}
+\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ mergePrev\ =\ ((\mbox{\hyperlink{types_8h_afc3fa6ac414247c0d4e1f77d5f1cb62d}{ptr}})prev\ +\ prev-\/>\mbox{\hyperlink{structCHUNK__HEADER_a8046cf4a4e5a7af49eeb4717e4bcec51}{Size}}\ ==\ (\mbox{\hyperlink{types_8h_afc3fa6ac414247c0d4e1f77d5f1cb62d}{ptr}})header);}
+\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ mergeNext\ =\ ((\mbox{\hyperlink{types_8h_afc3fa6ac414247c0d4e1f77d5f1cb62d}{ptr}})header\ +\ header-\/>\mbox{\hyperlink{structCHUNK__HEADER_a8046cf4a4e5a7af49eeb4717e4bcec51}{Size}}\ ==\ (\mbox{\hyperlink{types_8h_afc3fa6ac414247c0d4e1f77d5f1cb62d}{ptr}})next);}
+\DoxyCodeLine{00177\ }
+\DoxyCodeLine{00178\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (mergeNext\ \&\&\ mergePrev)}
+\DoxyCodeLine{00179\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00180\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Both\ Prev\ and\ Next\ are\ free\ */}}
+\DoxyCodeLine{00181\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ prev-\/>\mbox{\hyperlink{structCHUNK__HEADER_aa75bad5671817ffae160a7e809290f3d}{Next}}\ =\ next-\/>Next;}
+\DoxyCodeLine{00182\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ prev-\/>\mbox{\hyperlink{structCHUNK__HEADER_a8046cf4a4e5a7af49eeb4717e4bcec51}{Size}}\ +=\ header-\/>\mbox{\hyperlink{structCHUNK__HEADER_a8046cf4a4e5a7af49eeb4717e4bcec51}{Size}}\ +\ next-\/>Size;}
+\DoxyCodeLine{00183\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00184\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (mergePrev)}
+\DoxyCodeLine{00185\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00186\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Prev\ is\ free\ */}}
+\DoxyCodeLine{00187\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ prev-\/>\mbox{\hyperlink{structCHUNK__HEADER_a8046cf4a4e5a7af49eeb4717e4bcec51}{Size}}\ +=\ header-\/>\mbox{\hyperlink{structCHUNK__HEADER_a8046cf4a4e5a7af49eeb4717e4bcec51}{Size}};}
+\DoxyCodeLine{00188\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00189\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (mergeNext)}
+\DoxyCodeLine{00190\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00191\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Next\ is\ free\ */}}
+\DoxyCodeLine{00192\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ header-\/>\mbox{\hyperlink{structCHUNK__HEADER_a8046cf4a4e5a7af49eeb4717e4bcec51}{Size}}\ +=\ next-\/>Size;}
+\DoxyCodeLine{00193\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ header-\/>\mbox{\hyperlink{structCHUNK__HEADER_aa75bad5671817ffae160a7e809290f3d}{Next}}\ =\ next-\/>Next;}
+\DoxyCodeLine{00194\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ prev-\/>\mbox{\hyperlink{structCHUNK__HEADER_aa75bad5671817ffae160a7e809290f3d}{Next}}\ =\ \mbox{\hyperlink{alloc_8c_a6bb232b66ebc968107d38aa99fe522bb}{\_get\_offset}}(header);}
+\DoxyCodeLine{00195\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00196\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00197\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00198\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Both\ sides\ are\ used\ */}}
+\DoxyCodeLine{00199\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ header-\/>\mbox{\hyperlink{structCHUNK__HEADER_aa75bad5671817ffae160a7e809290f3d}{Next}}\ =\ prev-\/>\mbox{\hyperlink{structCHUNK__HEADER_aa75bad5671817ffae160a7e809290f3d}{Next}};}
+\DoxyCodeLine{00200\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ prev-\/>\mbox{\hyperlink{structCHUNK__HEADER_aa75bad5671817ffae160a7e809290f3d}{Next}}\ =\ \mbox{\hyperlink{alloc_8c_a6bb232b66ebc968107d38aa99fe522bb}{\_get\_offset}}(header);}
+\DoxyCodeLine{00201\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00202\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00203\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00204\ \ \ \ \ \}}
+\DoxyCodeLine{00205\ \}}
 
 \end{DoxyCode}
 
 
-References \mbox{\hyperlink{alloc_8c_source_l00033}{\+\_\+first}}, \mbox{\hyperlink{alloc_8c_source_l00036}{\+\_\+info}}, \mbox{\hyperlink{alloc_8c_source_l00026}{CHUNK\+\_\+\+HEADER\+::\+Next}}, \mbox{\hyperlink{alloc_8c_source_l00023}{CHUNK\+\_\+\+HEADER\+::\+Size}}, \mbox{\hyperlink{alloc_8h_source_l00021}{Mem\+Alloc\+Info\+::\+Total}}, and \mbox{\hyperlink{alloc_8h_source_l00018}{Mem\+Alloc\+Info\+::\+Used}}.
+References \mbox{\hyperlink{alloc_8c_source_l00057}{\+\_\+chunk\+\_\+header()}}, \mbox{\hyperlink{alloc_8c_source_l00033}{\+\_\+first}}, \mbox{\hyperlink{alloc_8c_source_l00068}{\+\_\+get\+\_\+next()}}, \mbox{\hyperlink{alloc_8c_source_l00084}{\+\_\+get\+\_\+offset()}}, \mbox{\hyperlink{alloc_8c_source_l00036}{\+\_\+info}}, \mbox{\hyperlink{alloc_8c_source_l00026}{CHUNK\+\_\+\+HEADER\+::\+Next}}, \mbox{\hyperlink{alloc_8c_source_l00023}{CHUNK\+\_\+\+HEADER\+::\+Size}}, \mbox{\hyperlink{alloc_8h_source_l00021}{Mem\+Alloc\+Info\+::\+Total}}, and \mbox{\hyperlink{alloc_8h_source_l00018}{Mem\+Alloc\+Info\+::\+Used}}.
 
 
 

@@ -15,8 +15,6 @@ static void \mbox{\hyperlink{keyboard_8c_adea086b263b2b9fafeafe1481b19709d}{\+\_
 \item 
 void \mbox{\hyperlink{keyboard_8c_a5aae8263abc1dec4671638e7ed4af681}{keyboard\+\_\+init}} (void)
 \begin{DoxyCompactList}\small\item\em Initialize keyboard, do NOT call this function. \end{DoxyCompactList}\item 
-bool \mbox{\hyperlink{keyboard_8c_aac67d2fb7461c81c3a43a7c4aa38b424}{keyboard\+\_\+is\+\_\+key\+\_\+pressed}} (Key key)
-\begin{DoxyCompactList}\small\item\em Check if a key is pressed. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{keyboard_8c_a3676e1550d4471bddab4c84dd0c844dc}{keyboard\+\_\+register\+\_\+event}} (\mbox{\hyperlink{keyboard_8h_a31b5a1eb7bc24f6e8d7c85291f05dee5}{Key\+Event}} event)
 \begin{DoxyCompactList}\small\item\em Register an On\+Keyboard\+Input event. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Variables}
@@ -109,39 +107,6 @@ Definition at line \mbox{\hyperlink{keyboard_8c_source_l00026}{26}} of file \mbo
 
 References \mbox{\hyperlink{keyboard_8c_source_l00016}{\+\_\+event\+\_\+key\+\_\+handler()}}, \mbox{\hyperlink{event-types_8h_source_l00020}{EVENT\+\_\+\+KEY}}, and \mbox{\hyperlink{event_8c_source_l00040}{event\+\_\+register()}}.
 
-\mbox{\Hypertarget{keyboard_8c_aac67d2fb7461c81c3a43a7c4aa38b424}\label{keyboard_8c_aac67d2fb7461c81c3a43a7c4aa38b424}} 
-\index{keyboard.c@{keyboard.c}!keyboard\_is\_key\_pressed@{keyboard\_is\_key\_pressed}}
-\index{keyboard\_is\_key\_pressed@{keyboard\_is\_key\_pressed}!keyboard.c@{keyboard.c}}
-\doxysubsubsection{\texorpdfstring{keyboard\_is\_key\_pressed()}{keyboard\_is\_key\_pressed()}}
-{\footnotesize\ttfamily bool keyboard\+\_\+is\+\_\+key\+\_\+pressed (\begin{DoxyParamCaption}\item[{Key}]{key }\end{DoxyParamCaption})}
-
-
-
-Check if a key is pressed. 
-
-
-\begin{DoxyParams}{Parameters}
-{\em key} & The key to check for (see {\ttfamily \mbox{\hyperlink{keys_8h}{keys.\+h}}}) \\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-Boolean 
-\end{DoxyReturn}
-
-
-Definition at line \mbox{\hyperlink{keyboard_8c_source_l00031}{31}} of file \mbox{\hyperlink{keyboard_8c_source}{keyboard.\+c}}.
-
-
-\begin{DoxyCode}{0}
-\DoxyCodeLine{00032\ \{}
-\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{syscall_8h_a9126e51a6d76fe9ee5d47a61d1622fcc}{syscall1}}(SYSCALL\_KEYBOARD\_IS\_KEY\_PRESSED,\ key);}
-\DoxyCodeLine{00034\ \}}
-
-\end{DoxyCode}
-
-
-References \mbox{\hyperlink{syscall_8h_source_l00058}{syscall1()}}.
-
 \mbox{\Hypertarget{keyboard_8c_a3676e1550d4471bddab4c84dd0c844dc}\label{keyboard_8c_a3676e1550d4471bddab4c84dd0c844dc}} 
 \index{keyboard.c@{keyboard.c}!keyboard\_register\_event@{keyboard\_register\_event}}
 \index{keyboard\_register\_event@{keyboard\_register\_event}!keyboard.c@{keyboard.c}}
@@ -159,13 +124,13 @@ Register an On\+Keyboard\+Input event.
 \end{DoxyParams}
 
 
-Definition at line \mbox{\hyperlink{keyboard_8c_source_l00036}{36}} of file \mbox{\hyperlink{keyboard_8c_source}{keyboard.\+c}}.
+Definition at line \mbox{\hyperlink{keyboard_8c_source_l00031}{31}} of file \mbox{\hyperlink{keyboard_8c_source}{keyboard.\+c}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00037\ \{}
-\DoxyCodeLine{00038\ \ \ \ \ \mbox{\hyperlink{keyboard_8c_a018eabb131a3333616efbd1529fadced}{\_event\_key}}\ =\ event;}
-\DoxyCodeLine{00039\ \}}
+\DoxyCodeLine{00032\ \{}
+\DoxyCodeLine{00033\ \ \ \ \ \mbox{\hyperlink{keyboard_8c_a018eabb131a3333616efbd1529fadced}{\_event\_key}}\ =\ event;}
+\DoxyCodeLine{00034\ \}}
 
 \end{DoxyCode}
 
@@ -187,5 +152,5 @@ Definition at line \mbox{\hyperlink{keyboard_8c_source_l00013}{13}} of file \mbo
 
 
 
-Referenced by \mbox{\hyperlink{keyboard_8c_source_l00016}{\+\_\+event\+\_\+key\+\_\+handler()}}, and \mbox{\hyperlink{keyboard_8c_source_l00036}{keyboard\+\_\+register\+\_\+event()}}.
+Referenced by \mbox{\hyperlink{keyboard_8c_source_l00016}{\+\_\+event\+\_\+key\+\_\+handler()}}, and \mbox{\hyperlink{keyboard_8c_source_l00031}{keyboard\+\_\+register\+\_\+event()}}.
 

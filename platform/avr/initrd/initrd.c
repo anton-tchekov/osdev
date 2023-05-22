@@ -22,8 +22,6 @@
 /** RAM Offset of INIT Program */
 #define RAM_OFFSET_INIT        0
 
-static const u8 _signature[] = { 'A', 'T', 'F', 'S' };
-
 void initrd_load(void)
 {
 	u8 buf[BLOCK_SIZE];
@@ -34,7 +32,7 @@ void initrd_load(void)
 	sd_read(ATFS_SECTOR_BOOT, buf);
 
 	/* Check signature */
-	if(memcmp(buf + ATFS_OFFSET_SIGNATURE, _signature, sizeof(_signature)))
+	if(memcmp(buf + ATFS_OFFSET_SIGNATURE, _atfs_signature, sizeof(_atfs_signature)))
 	{
 		panic(PSTR("Wrong FS signature"));
 	}

@@ -1,7 +1,7 @@
 var searchData=
 [
   ['capacity_0',['Capacity',['../structVector.html#af9abb7483a64efea81def7fbf714ba60',1,'Vector']]],
-  ['characters_1',['Characters',['../structFONT.html#aad0e1d8d8ada3071d22b9a4578f8a099',1,'FONT']]],
+  ['characters_1',['Characters',['../structFont.html#a19c0ba61cf7e8d3ff3f2b73c8bccdc64',1,'Font::Characters()'],['../structFONT.html#aad0e1d8d8ada3071d22b9a4578f8a099',1,'FONT::Characters()']]],
   ['chunk_5fheader_2',['CHUNK_HEADER',['../structCHUNK__HEADER.html',1,'']]],
   ['chunkheader_3',['ChunkHeader',['../alloc_8c.html#ab655d0ea4f411ecc8fbe523f00cf2979',1,'alloc.c']]],
   ['click_4',['Click',['../structButton.html#a5e606ec3ff0434d8e36fa6274200e603',1,'Button']]],
@@ -11,7 +11,7 @@ var searchData=
   ['clipboard_5flen_8',['clipboard_len',['../clipboard_8h.html#ad441ab5936f033348efc13148ba2a0d5',1,'clipboard_len(void):&#160;clipboard.c'],['../clipboard_8c.html#ad441ab5936f033348efc13148ba2a0d5',1,'clipboard_len(void):&#160;clipboard.c']]],
   ['clipboard_5fsave_5ftext_9',['clipboard_save_text',['../clipboard_8h.html#ae3d307c73686967f4a378d35f2703d89',1,'clipboard_save_text(const char *text):&#160;clipboard.c'],['../clipboard_8c.html#ae3d307c73686967f4a378d35f2703d89',1,'clipboard_save_text(const char *text):&#160;clipboard.c']]],
   ['clipboard_5fsave_5ftext_5flen_10',['clipboard_save_text_len',['../clipboard_8h.html#a4e817e7107bb4736ca15bc189455b293',1,'clipboard_save_text_len(const char *text, i32 len):&#160;clipboard.c'],['../clipboard_8c.html#a4e817e7107bb4736ca15bc189455b293',1,'clipboard_save_text_len(const char *text, i32 len):&#160;clipboard.c']]],
-  ['clipboard_5ftype_11',['clipboard_type',['../clipboard_8c.html#a425fb0faba6b4e699a6313a3d0a51510',1,'clipboard_type(void):&#160;clipboard.c'],['../clipboard_8h.html#a425fb0faba6b4e699a6313a3d0a51510',1,'clipboard_type(void):&#160;clipboard.c']]],
+  ['clipboard_5ftype_11',['clipboard_type',['../clipboard_8h.html#a425fb0faba6b4e699a6313a3d0a51510',1,'clipboard_type(void):&#160;clipboard.c'],['../clipboard_8c.html#a425fb0faba6b4e699a6313a3d0a51510',1,'clipboard_type(void):&#160;clipboard.c']]],
   ['clipboard_5ftype_5ftext_12',['CLIPBOARD_TYPE_TEXT',['../clipboard_8h.html#a9676c44d0c2a676fe59a136a6e71b161a51b4f4170f9b312f9294caac850eaf4d',1,'clipboard.h']]],
   ['clipboardtype_13',['ClipboardType',['../clipboard_8h.html#a9676c44d0c2a676fe59a136a6e71b161',1,'clipboard.h']]],
   ['cmd_5fapp_14',['CMD_APP',['../sd_8c.html#a0d173f3d259f3c28a25f4fd2b8085131',1,'sd.c']]],

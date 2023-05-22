@@ -9,8 +9,6 @@
 
 - `platform/` contains drivers for various platforms
 
-- DRIVERS MUST NOT BLOCK THE CPU (exception: during initialization)
-
 - `emulator/` contains an emulator for a RISCV32_IM processor that supports:
 	- Base Instructions
 	- Multiplication/Division Extension
@@ -29,17 +27,13 @@
 # Global TODO List
 
 ## Documentation [TODAY]
-- All functions documented
 
-## STDLIB [TODAY]
-- Make theme easily changable
-- GUI Hide/Show elements
-- GUI Enable/Disable elements
+## STDLIB [CUR]
+- Make theme easily changable (`theme_set` function)
+- GUI Hide/Show elements (`element_show(&element, true)`)
+- GUI Enable/Disable elements (`element_enable(&element, true)`)
 - Text field copy/cut/paste
-- Fix GUI Bugs
-
-## MISC [TODAY]
-- Test everything still works
+- Fix GUI Bugs (text width calculation)
 
 ## Text/Code Editor [CUR]
 - Line Numbers
@@ -69,7 +63,16 @@
 
 - Emulator Single Precision Floating Point Extension + Math Lib [LATER]
 
+## Init Program
+- Login screen
+- App list with icons (load apps from folder)
+
+## File Manager
+- Planning in progress, no concrete plan on how it should look
+
 ## DONE
+- Build everything script
+- All functions documented
 - Dark Mode Theme
 - Add doxygen
 - Memory allocator

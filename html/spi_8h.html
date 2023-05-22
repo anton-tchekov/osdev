@@ -140,7 +140,7 @@ Functions</h2></td></tr>
 <div class="line"><span class="lineno">   21</span>    SPSR |= (1 &lt;&lt; SPI2X);</div>
 <div class="line"><span class="lineno">   22</span>}</div>
 </div><!-- fragment -->
-<p class="reference">Referenced by <a class="el" href="lcd_8c_source.html#l00381">lcd_init()</a>, and <a class="el" href="sd_8c_source.html#l00255">sd_init()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="lcd_8c_source.html#l00225">_lcd_window_start()</a>, <a class="el" href="xmem_8c_source.html#l00065">_memtest()</a>, <a class="el" href="lcd_8c_source.html#l00427">lcd_init()</a>, and <a class="el" href="sd_8c_source.html#l00278">sd_init()</a>.</p>
 
 </div>
 </div>
@@ -167,9 +167,9 @@ Functions</h2></td></tr>
 <div class="line"><span class="lineno">   14</span>    SPCR = (1 &lt;&lt; SPE) | (1 &lt;&lt; MSTR);</div>
 <div class="line"><span class="lineno">   15</span>    <a class="code hl_function" href="logger_8c.html#a60bd636ef160c97eb51cf31be5954ba2">log_boot_P</a>(LOG_INIT, PSTR(<span class="stringliteral">&quot;SPI initialized&quot;</span>));</div>
 <div class="line"><span class="lineno">   16</span>}</div>
-<div class="ttc" id="alogger_8c_html_a60bd636ef160c97eb51cf31be5954ba2"><div class="ttname"><a href="logger_8c.html#a60bd636ef160c97eb51cf31be5954ba2">log_boot_P</a></div><div class="ttdeci">void log_boot_P(LogLevel level, const char *msg,...)</div><div class="ttdoc">Log boot message.</div><div class="ttdef"><b>Definition:</b> <a href="logger_8c_source.html#l00164">logger.c:164</a></div></div>
+<div class="ttc" id="alogger_8c_html_a60bd636ef160c97eb51cf31be5954ba2"><div class="ttname"><a href="logger_8c.html#a60bd636ef160c97eb51cf31be5954ba2">log_boot_P</a></div><div class="ttdeci">void log_boot_P(LogLevel level, const char *msg,...)</div><div class="ttdoc">Log boot message.</div><div class="ttdef"><b>Definition:</b> <a href="logger_8c_source.html#l00170">logger.c:170</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="logger_8c_source.html#l00164">log_boot_P()</a>.</p>
+<p class="reference">References <a class="el" href="logger_8c_source.html#l00170">log_boot_P()</a>.</p>
 
 </div>
 </div>
@@ -206,7 +206,7 @@ Functions</h2></td></tr>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="spi_8c_source.html#l00039">spi_xchg_try()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="sd_8c_source.html#l00155">_sd_command_try()</a>, and <a class="el" href="sd_8c_source.html#l00537">sd_read()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="sd_8c_source.html#l00178">_sd_command_try()</a>, and <a class="el" href="sd_8c_source.html#l00560">sd_read()</a>.</p>
 
 </div>
 </div>
@@ -244,7 +244,7 @@ Functions</h2></td></tr>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="spi_8c_source.html#l00039">spi_xchg_try()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="sd_8c_source.html#l00155">_sd_command_try()</a>, and <a class="el" href="sd_8c_source.html#l00537">sd_read()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="sd_8c_source.html#l00178">_sd_command_try()</a>, and <a class="el" href="sd_8c_source.html#l00560">sd_read()</a>.</p>
 
 </div>
 </div>
@@ -287,12 +287,12 @@ Functions</h2></td></tr>
 <div class="line"><span class="lineno">   35</span> </div>
 <div class="line"><span class="lineno">   36</span>    <span class="keywordflow">return</span> SPDR;</div>
 <div class="line"><span class="lineno">   37</span>}</div>
-<div class="ttc" id="alogger_8c_html_a19a313011d8f478ad9799e546199a9ac"><div class="ttname"><a href="logger_8c.html#a19a313011d8f478ad9799e546199a9ac">panic</a></div><div class="ttdeci">void panic(const char *msg,...)</div><div class="ttdoc">Trigger a kernel panic.</div><div class="ttdef"><b>Definition:</b> <a href="logger_8c_source.html#l00177">logger.c:177</a></div></div>
+<div class="ttc" id="alogger_8c_html_a19a313011d8f478ad9799e546199a9ac"><div class="ttname"><a href="logger_8c.html#a19a313011d8f478ad9799e546199a9ac">panic</a></div><div class="ttdeci">void panic(const char *msg,...)</div><div class="ttdoc">Trigger a kernel panic.</div><div class="ttdef"><b>Definition:</b> <a href="logger_8c_source.html#l00183">logger.c:183</a></div></div>
 <div class="ttc" id="atypes_8h_html_ace9d960e74685e2cd84b36132dbbf8aa"><div class="ttname"><a href="types_8h.html#ace9d960e74685e2cd84b36132dbbf8aa">u16</a></div><div class="ttdeci">uint16_t u16</div><div class="ttdef"><b>Definition:</b> <a href="types_8h_source.html#l00035">types.h:35</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="logger_8c_source.html#l00177">panic()</a>.</p>
+<p class="reference">References <a class="el" href="logger_8c_source.html#l00183">panic()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="sd_8c_source.html#l00119">_sd_command()</a>, and <a class="el" href="sd_8c_source.html#l00255">sd_init()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="lcd_8c_source.html#l00254">_lcd_pixel()</a>, <a class="el" href="lcd_8c_source.html#l00208">_lcd_write_data()</a>, <a class="el" href="lcd_8c_source.html#l00195">_lcd_write_reg()</a>, <a class="el" href="xmem_8c_source.html#l00065">_memtest()</a>, <a class="el" href="sd_8c_source.html#l00142">_sd_command()</a>, <a class="el" href="xmem_8c_source.html#l00156">_xmem_read()</a>, <a class="el" href="xmem_8c_source.html#l00198">_xmem_set()</a>, <a class="el" href="xmem_8c_source.html#l00053">_xmem_start()</a>, <a class="el" href="xmem_8c_source.html#l00177">_xmem_write()</a>, and <a class="el" href="sd_8c_source.html#l00278">sd_init()</a>.</p>
 
 </div>
 </div>
@@ -348,7 +348,7 @@ Functions</h2></td></tr>
 <div class="line"><span class="lineno">   52</span>    <span class="keywordflow">return</span> STATUS_OK;</div>
 <div class="line"><span class="lineno">   53</span>}</div>
 </div><!-- fragment -->
-<p class="reference">Referenced by <a class="el" href="sd_8c_source.html#l00537">sd_read()</a>, <a class="el" href="spi_8c_source.html#l00061">spi_rx_try()</a>, and <a class="el" href="spi_8c_source.html#l00055">spi_tx_try()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="sd_8c_source.html#l00560">sd_read()</a>, <a class="el" href="spi_8c_source.html#l00061">spi_rx_try()</a>, and <a class="el" href="spi_8c_source.html#l00055">spi_tx_try()</a>.</p>
 
 </div>
 </div>

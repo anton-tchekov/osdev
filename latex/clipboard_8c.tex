@@ -5,8 +5,8 @@
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-static char $\ast$ \mbox{\hyperlink{clipboard_8c_af0393b47dae2f54ed51d2f291ce06cfd}{get\+\_\+memory}} (\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} space)
-\item 
+static char $\ast$ \mbox{\hyperlink{clipboard_8c_a372675812d1335841dab1a89a7c96767}{\+\_\+get\+\_\+memory}} (\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} space)
+\begin{DoxyCompactList}\small\item\em Get memory to place clipboard contents into. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{clipboard_8c_ae3d307c73686967f4a378d35f2703d89}{clipboard\+\_\+save\+\_\+text}} (const char $\ast$text)
 \begin{DoxyCompactList}\small\item\em Save Text to clipboard. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{clipboard_8c_a4e817e7107bb4736ca15bc189455b293}{clipboard\+\_\+save\+\_\+text\+\_\+len}} (const char $\ast$text, \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} len)
@@ -43,6 +43,49 @@ Definition in file \mbox{\hyperlink{clipboard_8c_source}{clipboard.\+c}}.
 
 
 \doxysubsection{Function Documentation}
+\mbox{\Hypertarget{clipboard_8c_a372675812d1335841dab1a89a7c96767}\label{clipboard_8c_a372675812d1335841dab1a89a7c96767}} 
+\index{clipboard.c@{clipboard.c}!\_get\_memory@{\_get\_memory}}
+\index{\_get\_memory@{\_get\_memory}!clipboard.c@{clipboard.c}}
+\doxysubsubsection{\texorpdfstring{\_get\_memory()}{\_get\_memory()}}
+{\footnotesize\ttfamily static char $\ast$ \+\_\+get\+\_\+memory (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}}]{space }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Get memory to place clipboard contents into. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em space} & Number of bytes needed, -\/1 to get previous clipboard content \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Pointer to buffer 
+\end{DoxyReturn}
+TODO\+: Clipboard should be shared across processes. The following is a hack and just temporary, not to mention a potential overflow risk.
+
+Definition at line \mbox{\hyperlink{clipboard_8c_source_l00023}{23}} of file \mbox{\hyperlink{clipboard_8c_source}{clipboard.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00024\ \{}
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{char}\ arr[1024];}
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keywordflow}{if}(space\ >=\ 0)}
+\DoxyCodeLine{00033\ \ \ \ \ \{}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{clipboard_8c_aae4b6bf1c28cb474465c040951718816}{\_clipboard\_len}}\ =\ space;}
+\DoxyCodeLine{00035\ \ \ \ \ \}}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keywordflow}{return}\ arr;}
+\DoxyCodeLine{00038\ \}}
+
+\end{DoxyCode}
+
+
+References \mbox{\hyperlink{clipboard_8c_source_l00012}{\+\_\+clipboard\+\_\+len}}.
+
+
+
+Referenced by \mbox{\hyperlink{clipboard_8c_source_l00054}{clipboard\+\_\+get()}}, \mbox{\hyperlink{clipboard_8c_source_l00040}{clipboard\+\_\+save\+\_\+text()}}, and \mbox{\hyperlink{clipboard_8c_source_l00047}{clipboard\+\_\+save\+\_\+text\+\_\+len()}}.
+
 \mbox{\Hypertarget{clipboard_8c_a7d96057e801d089a8b0c394ab042a4e1}\label{clipboard_8c_a7d96057e801d089a8b0c394ab042a4e1}} 
 \index{clipboard.c@{clipboard.c}!clipboard\_get@{clipboard\_get}}
 \index{clipboard\_get@{clipboard\_get}!clipboard.c@{clipboard.c}}
@@ -58,15 +101,19 @@ Pointer to raw clipboard data
 \end{DoxyReturn}
 
 
-Definition at line \mbox{\hyperlink{clipboard_8c_source_l00042}{42}} of file \mbox{\hyperlink{clipboard_8c_source}{clipboard.\+c}}.
+Definition at line \mbox{\hyperlink{clipboard_8c_source_l00054}{54}} of file \mbox{\hyperlink{clipboard_8c_source}{clipboard.\+c}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00043\ \{}
-\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keywordflow}{return}\ get\_memory(-\/1);}
-\DoxyCodeLine{00045\ \}}
+\DoxyCodeLine{00055\ \{}
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{clipboard_8c_a372675812d1335841dab1a89a7c96767}{\_get\_memory}}(-\/1);}
+\DoxyCodeLine{00057\ \}}
 
 \end{DoxyCode}
+
+
+References \mbox{\hyperlink{clipboard_8c_source_l00023}{\+\_\+get\+\_\+memory()}}.
+
 \mbox{\Hypertarget{clipboard_8c_ad441ab5936f033348efc13148ba2a0d5}\label{clipboard_8c_ad441ab5936f033348efc13148ba2a0d5}} 
 \index{clipboard.c@{clipboard.c}!clipboard\_len@{clipboard\_len}}
 \index{clipboard\_len@{clipboard\_len}!clipboard.c@{clipboard.c}}
@@ -82,13 +129,13 @@ Clipboard size in bytes
 \end{DoxyReturn}
 
 
-Definition at line \mbox{\hyperlink{clipboard_8c_source_l00047}{47}} of file \mbox{\hyperlink{clipboard_8c_source}{clipboard.\+c}}.
+Definition at line \mbox{\hyperlink{clipboard_8c_source_l00059}{59}} of file \mbox{\hyperlink{clipboard_8c_source}{clipboard.\+c}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00048\ \{}
-\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{clipboard_8c_aae4b6bf1c28cb474465c040951718816}{\_clipboard\_len}};}
-\DoxyCodeLine{00050\ \}}
+\DoxyCodeLine{00060\ \{}
+\DoxyCodeLine{00061\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{clipboard_8c_aae4b6bf1c28cb474465c040951718816}{\_clipboard\_len}};}
+\DoxyCodeLine{00062\ \}}
 
 \end{DoxyCode}
 
@@ -112,20 +159,20 @@ Save Text to clipboard.
 \end{DoxyParams}
 
 
-Definition at line \mbox{\hyperlink{clipboard_8c_source_l00028}{28}} of file \mbox{\hyperlink{clipboard_8c_source}{clipboard.\+c}}.
+Definition at line \mbox{\hyperlink{clipboard_8c_source_l00040}{40}} of file \mbox{\hyperlink{clipboard_8c_source}{clipboard.\+c}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00029\ \{}
-\DoxyCodeLine{00030\ \ \ \ \ \mbox{\hyperlink{clipboard_8c_a2c801879486872f1fa086fb0f506578e}{\_clipboard\_type}}\ =\ \mbox{\hyperlink{clipboard_8h_a9676c44d0c2a676fe59a136a6e71b161a51b4f4170f9b312f9294caac850eaf4d}{CLIPBOARD\_TYPE\_TEXT}};}
-\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keywordtype}{char}\ *clipboard\ =\ get\_memory(\mbox{\hyperlink{string_8c_adbbf4d6ec8d6b708c64bd6a4a18065dd}{strlen}}(text));}
-\DoxyCodeLine{00032\ \ \ \ \ \mbox{\hyperlink{string_8c_ac5082c8ce4f0cddd88bf4d0d2e738308}{strcpy}}(clipboard,\ text);}
-\DoxyCodeLine{00033\ \}}
+\DoxyCodeLine{00041\ \{}
+\DoxyCodeLine{00042\ \ \ \ \ \mbox{\hyperlink{clipboard_8c_a2c801879486872f1fa086fb0f506578e}{\_clipboard\_type}}\ =\ \mbox{\hyperlink{clipboard_8h_a9676c44d0c2a676fe59a136a6e71b161a51b4f4170f9b312f9294caac850eaf4d}{CLIPBOARD\_TYPE\_TEXT}};}
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keywordtype}{char}\ *clipboard\ =\ \mbox{\hyperlink{clipboard_8c_a372675812d1335841dab1a89a7c96767}{\_get\_memory}}(\mbox{\hyperlink{string_8c_adbbf4d6ec8d6b708c64bd6a4a18065dd}{strlen}}(text));}
+\DoxyCodeLine{00044\ \ \ \ \ \mbox{\hyperlink{string_8c_ac5082c8ce4f0cddd88bf4d0d2e738308}{strcpy}}(clipboard,\ text);}
+\DoxyCodeLine{00045\ \}}
 
 \end{DoxyCode}
 
 
-References \mbox{\hyperlink{clipboard_8c_source_l00015}{\+\_\+clipboard\+\_\+type}}, \mbox{\hyperlink{clipboard_8h_source_l00018}{CLIPBOARD\+\_\+\+TYPE\+\_\+\+TEXT}}, \mbox{\hyperlink{string_8c_source_l00011}{strcpy()}}, and \mbox{\hyperlink{string_8c_source_l00029}{strlen()}}.
+References \mbox{\hyperlink{clipboard_8c_source_l00015}{\+\_\+clipboard\+\_\+type}}, \mbox{\hyperlink{clipboard_8c_source_l00023}{\+\_\+get\+\_\+memory()}}, \mbox{\hyperlink{clipboard_8h_source_l00018}{CLIPBOARD\+\_\+\+TYPE\+\_\+\+TEXT}}, \mbox{\hyperlink{string_8c_source_l00011}{strcpy()}}, and \mbox{\hyperlink{string_8c_source_l00029}{strlen()}}.
 
 \mbox{\Hypertarget{clipboard_8c_a4e817e7107bb4736ca15bc189455b293}\label{clipboard_8c_a4e817e7107bb4736ca15bc189455b293}} 
 \index{clipboard.c@{clipboard.c}!clipboard\_save\_text\_len@{clipboard\_save\_text\_len}}
@@ -146,20 +193,20 @@ Save Text to the clipboard when the length is known.
 \end{DoxyParams}
 
 
-Definition at line \mbox{\hyperlink{clipboard_8c_source_l00035}{35}} of file \mbox{\hyperlink{clipboard_8c_source}{clipboard.\+c}}.
+Definition at line \mbox{\hyperlink{clipboard_8c_source_l00047}{47}} of file \mbox{\hyperlink{clipboard_8c_source}{clipboard.\+c}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00036\ \{}
-\DoxyCodeLine{00037\ \ \ \ \ \mbox{\hyperlink{clipboard_8c_a2c801879486872f1fa086fb0f506578e}{\_clipboard\_type}}\ =\ \mbox{\hyperlink{clipboard_8h_a9676c44d0c2a676fe59a136a6e71b161a51b4f4170f9b312f9294caac850eaf4d}{CLIPBOARD\_TYPE\_TEXT}};}
-\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keywordtype}{char}\ *clipboard\ =\ get\_memory(len);}
-\DoxyCodeLine{00039\ \ \ \ \ \mbox{\hyperlink{string_8c_a86fd1dc99081364b5155d9669e32ed03}{strncpy}}(clipboard,\ text,\ len);}
-\DoxyCodeLine{00040\ \}}
+\DoxyCodeLine{00048\ \{}
+\DoxyCodeLine{00049\ \ \ \ \ \mbox{\hyperlink{clipboard_8c_a2c801879486872f1fa086fb0f506578e}{\_clipboard\_type}}\ =\ \mbox{\hyperlink{clipboard_8h_a9676c44d0c2a676fe59a136a6e71b161a51b4f4170f9b312f9294caac850eaf4d}{CLIPBOARD\_TYPE\_TEXT}};}
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keywordtype}{char}\ *clipboard\ =\ \mbox{\hyperlink{clipboard_8c_a372675812d1335841dab1a89a7c96767}{\_get\_memory}}(len);}
+\DoxyCodeLine{00051\ \ \ \ \ \mbox{\hyperlink{string_8c_a86fd1dc99081364b5155d9669e32ed03}{strncpy}}(clipboard,\ text,\ len);}
+\DoxyCodeLine{00052\ \}}
 
 \end{DoxyCode}
 
 
-References \mbox{\hyperlink{clipboard_8c_source_l00015}{\+\_\+clipboard\+\_\+type}}, \mbox{\hyperlink{clipboard_8h_source_l00018}{CLIPBOARD\+\_\+\+TYPE\+\_\+\+TEXT}}, and \mbox{\hyperlink{string_8c_source_l00018}{strncpy()}}.
+References \mbox{\hyperlink{clipboard_8c_source_l00015}{\+\_\+clipboard\+\_\+type}}, \mbox{\hyperlink{clipboard_8c_source_l00023}{\+\_\+get\+\_\+memory()}}, \mbox{\hyperlink{clipboard_8h_source_l00018}{CLIPBOARD\+\_\+\+TYPE\+\_\+\+TEXT}}, and \mbox{\hyperlink{string_8c_source_l00018}{strncpy()}}.
 
 \mbox{\Hypertarget{clipboard_8c_a425fb0faba6b4e699a6313a3d0a51510}\label{clipboard_8c_a425fb0faba6b4e699a6313a3d0a51510}} 
 \index{clipboard.c@{clipboard.c}!clipboard\_type@{clipboard\_type}}
@@ -173,42 +220,19 @@ Get the stored Datatype from the clipboard.
 
 
 
-Definition at line \mbox{\hyperlink{clipboard_8c_source_l00052}{52}} of file \mbox{\hyperlink{clipboard_8c_source}{clipboard.\+c}}.
+Definition at line \mbox{\hyperlink{clipboard_8c_source_l00064}{64}} of file \mbox{\hyperlink{clipboard_8c_source}{clipboard.\+c}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00053\ \{}
-\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{clipboard_8c_a2c801879486872f1fa086fb0f506578e}{\_clipboard\_type}};}
-\DoxyCodeLine{00055\ \}}
+\DoxyCodeLine{00065\ \{}
+\DoxyCodeLine{00066\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{clipboard_8c_a2c801879486872f1fa086fb0f506578e}{\_clipboard\_type}};}
+\DoxyCodeLine{00067\ \}}
 
 \end{DoxyCode}
 
 
 References \mbox{\hyperlink{clipboard_8c_source_l00015}{\+\_\+clipboard\+\_\+type}}.
 
-\mbox{\Hypertarget{clipboard_8c_af0393b47dae2f54ed51d2f291ce06cfd}\label{clipboard_8c_af0393b47dae2f54ed51d2f291ce06cfd}} 
-\index{clipboard.c@{clipboard.c}!get\_memory@{get\_memory}}
-\index{get\_memory@{get\_memory}!clipboard.c@{clipboard.c}}
-\doxysubsubsection{\texorpdfstring{get\_memory()}{get\_memory()}}
-{\footnotesize\ttfamily static char $\ast$ get\+\_\+memory (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}}]{space }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
-
-
-
-Definition at line \mbox{\hyperlink{clipboard_8c_source_l00017}{17}} of file \mbox{\hyperlink{clipboard_8c_source}{clipboard.\+c}}.
-
-
-\begin{DoxyCode}{0}
-\DoxyCodeLine{00018\ \{}
-\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keywordflow}{if}(space\ >=\ 0)}
-\DoxyCodeLine{00020\ \ \ \ \ \{}
-\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{clipboard_8c_aae4b6bf1c28cb474465c040951718816}{\_clipboard\_len}}\ =\ space;}
-\DoxyCodeLine{00022\ \ \ \ \ \}}
-\DoxyCodeLine{00023\ }
-\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{char}\ arr[1024];}
-\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keywordflow}{return}\ arr;}
-\DoxyCodeLine{00026\ \}}
-
-\end{DoxyCode}
 
 
 \doxysubsection{Variable Documentation}
@@ -224,7 +248,7 @@ Definition at line \mbox{\hyperlink{clipboard_8c_source_l00012}{12}} of file \mb
 
 
 
-Referenced by \mbox{\hyperlink{clipboard_8c_source_l00047}{clipboard\+\_\+len()}}.
+Referenced by \mbox{\hyperlink{clipboard_8c_source_l00023}{\+\_\+get\+\_\+memory()}}, and \mbox{\hyperlink{clipboard_8c_source_l00059}{clipboard\+\_\+len()}}.
 
 \mbox{\Hypertarget{clipboard_8c_a2c801879486872f1fa086fb0f506578e}\label{clipboard_8c_a2c801879486872f1fa086fb0f506578e}} 
 \index{clipboard.c@{clipboard.c}!\_clipboard\_type@{\_clipboard\_type}}
@@ -238,5 +262,5 @@ Definition at line \mbox{\hyperlink{clipboard_8c_source_l00015}{15}} of file \mb
 
 
 
-Referenced by \mbox{\hyperlink{clipboard_8c_source_l00028}{clipboard\+\_\+save\+\_\+text()}}, \mbox{\hyperlink{clipboard_8c_source_l00035}{clipboard\+\_\+save\+\_\+text\+\_\+len()}}, and \mbox{\hyperlink{clipboard_8c_source_l00052}{clipboard\+\_\+type()}}.
+Referenced by \mbox{\hyperlink{clipboard_8c_source_l00040}{clipboard\+\_\+save\+\_\+text()}}, \mbox{\hyperlink{clipboard_8c_source_l00047}{clipboard\+\_\+save\+\_\+text\+\_\+len()}}, and \mbox{\hyperlink{clipboard_8c_source_l00064}{clipboard\+\_\+type()}}.
 

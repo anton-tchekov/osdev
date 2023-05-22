@@ -182,7 +182,7 @@ static void button_render(Button *b, bool sel)
 /* INPUT */
 
 /**
- * @brief Renders an input field on the screen.
+ * @brief Renders an input field on the screen
  *
  * @param i Pointer to the input structure
  * @param sel A boolean value indicating if the input field is selected or not
@@ -285,7 +285,7 @@ void input_clear(Input *i)
 
 /**
  * @brief Inserts a string into an input field's buffer at the current
- *        cursor position, replacing the current selection.
+ *        cursor position, replacing the current selection
  *
  * @param i Pointer to the Input structure
  * @param str The string to insert into the input buffer
@@ -314,7 +314,7 @@ static void input_selection_replace(Input *i, const char *str, i32 len)
 
 
 /**
- * @brief Move input cursor one position to the left and render input.
+ * @brief Move input cursor one position to the left and render input
  *
  * @param i Pointer to the input structure
  */
@@ -333,6 +333,11 @@ static void input_left(Input *i)
 	}
 }
 
+/**
+ * @brief Move the cursor one position to the left and select
+ *
+ * @param i Pointer to the input structure
+ */
 static void input_select_left(Input *i)
 {
 	if(i->Position > 0)
@@ -343,7 +348,7 @@ static void input_select_left(Input *i)
 }
 
 /**
- * @brief Move input cursor one position to the right and render input.
+ * @brief Move input cursor one position to the right and render input
  *
  * @param i Pointer to the input structure
  */
@@ -362,6 +367,11 @@ static void input_right(Input *i)
 	}
 }
 
+/**
+ * @brief Move the cursor one position to the right and select
+ *
+ * @param i Pointer to the input structure
+ */
 static void input_select_right(Input *i)
 {
 	if(i->Position < (i32)vector_len(&i->Text))
@@ -371,6 +381,11 @@ static void input_select_right(Input *i)
 	}
 }
 
+/**
+ * @brief Delete the character before the cursor
+ *
+ * @param i Pointer to the input structure
+ */
 static void input_backspace(Input *i)
 {
 	if(i->Selection != i->Position)
@@ -386,6 +401,11 @@ static void input_backspace(Input *i)
 	}
 }
 
+/**
+ * @brief Delete the character after the cursor
+ *
+ * @param i Pointer to the input structure
+ */
 static void input_delete(Input *i)
 {
 	if(i->Selection != i->Position)
@@ -399,6 +419,11 @@ static void input_delete(Input *i)
 	}
 }
 
+/**
+ * @brief Move the cursor to the beginning of the input field
+ *
+ * @param i Pointer to the input structure
+ */
 static void input_home(Input *i)
 {
 	i->Selection = 0;
@@ -406,12 +431,23 @@ static void input_home(Input *i)
 	input_render(i, true);
 }
 
+/**
+ * @brief Select the characters from the current cursor position
+ *        to the beginning
+ *
+ * @param i Pointer to the input structure
+ */
 static void input_select_home(Input *i)
 {
 	i->Position = 0;
 	input_render(i, true);
 }
 
+/**
+ * @brief Move the cursor to the end of the input field
+ *
+ * @param i Pointer to the input structure
+ */
 static void input_end(Input *i)
 {
 	i->Position = vector_len(&i->Text);
@@ -419,20 +455,34 @@ static void input_end(Input *i)
 	input_render(i, true);
 }
 
+/**
+ * @brief Select the characters from the current cursor position to the end
+ *
+ * @param i Pointer to the input structure
+ */
 static void input_select_end(Input *i)
 {
 	i->Position = vector_len(&i->Text);
 	input_render(i, true);
 }
 
+/**
+ * @brief Insert a character at the cursor position
+ *
+ * @param i Pointer to the input structure
+ * @param chr
+ */
 static void input_char(Input *i, i32 chr)
 {
-	i32 cnt;
-	char ins[4];
-	cnt = codepoint_utf8(chr, ins);
-	input_selection_replace(i, ins, cnt);
+	char ins = chr;
+	input_selection_replace(i, &ins, 1);
 }
 
+/**
+ * @brief Do a CTRL+A select all operation on an input field
+ *
+ * @param i Pointer to the input structure
+ */
 static void input_select_all(Input *i)
 {
 	i->Selection = 0;
@@ -440,16 +490,31 @@ static void input_select_all(Input *i)
 	input_render(i, true);
 }
 
+/**
+ * @brief Do a CTRL+C copy operation on an input field
+ *
+ * @param i Pointer to the input structure
+ */
 static void input_copy(Input *i)
 {
 	(void)i;
 }
 
+/**
+ * @brief Do a CTRL+X cut operation on an input field
+ *
+ * @param i Pointer to the input structure
+ */
 static void input_cut(Input *i)
 {
 	(void)i;
 }
 
+/**
+ * @brief Do a CTRL+V paste operation on an input field
+ *
+ * @param i Pointer to the input structure
+ */
 static void input_paste(Input *i)
 {
 	(void)i;
@@ -459,7 +524,8 @@ static void input_paste(Input *i)
  * @brief Forward a key event to an input field
  *
  * @param i The input
- * @param c The character
+ * @param key The key that was pressed
+ * @param chr The character that corresponds to the key
  */
 static void input_event_key(Input *i, Key key, i32 chr)
 {
@@ -528,7 +594,7 @@ static void input_event_key(Input *i, Key key, i32 chr)
 /* ELEMENT */
 
 /**
- * @brief Render an element based on its type and selection status.
+ * @brief Render an element based on its type and selection status
  *
  * @param e Pointer to the Element
  * @param sel Selection status of the element.

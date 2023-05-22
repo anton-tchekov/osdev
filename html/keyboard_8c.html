@@ -95,9 +95,6 @@ Functions</h2></td></tr>
 <tr class="memitem:a5aae8263abc1dec4671638e7ed4af681"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="keyboard_8c.html#a5aae8263abc1dec4671638e7ed4af681">keyboard_init</a> (void)</td></tr>
 <tr class="memdesc:a5aae8263abc1dec4671638e7ed4af681"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize keyboard, do NOT call this function.  <br /></td></tr>
 <tr class="separator:a5aae8263abc1dec4671638e7ed4af681"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aac67d2fb7461c81c3a43a7c4aa38b424"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="keyboard_8c.html#aac67d2fb7461c81c3a43a7c4aa38b424">keyboard_is_key_pressed</a> (Key key)</td></tr>
-<tr class="memdesc:aac67d2fb7461c81c3a43a7c4aa38b424"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if a key is pressed.  <br /></td></tr>
-<tr class="separator:aac67d2fb7461c81c3a43a7c4aa38b424"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3676e1550d4471bddab4c84dd0c844dc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="keyboard_8c.html#a3676e1550d4471bddab4c84dd0c844dc">keyboard_register_event</a> (<a class="el" href="keyboard_8h.html#a31b5a1eb7bc24f6e8d7c85291f05dee5">KeyEvent</a> event)</td></tr>
 <tr class="memdesc:a3676e1550d4471bddab4c84dd0c844dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Register an OnKeyboardInput event.  <br /></td></tr>
 <tr class="separator:a3676e1550d4471bddab4c84dd0c844dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -208,41 +205,6 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="aac67d2fb7461c81c3a43a7c4aa38b424" name="aac67d2fb7461c81c3a43a7c4aa38b424"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aac67d2fb7461c81c3a43a7c4aa38b424">&#9670;&#160;</a></span>keyboard_is_key_pressed()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool keyboard_is_key_pressed </td>
-          <td>(</td>
-          <td class="paramtype">Key&#160;</td>
-          <td class="paramname"><em>key</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Check if a key is pressed. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">key</td><td>The key to check for (see <code><a class="el" href="keys_8h.html" title="Keycode and modifier definitions.">keys.h</a></code>) </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>Boolean </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="keyboard_8c_source.html#l00031">31</a> of file <a class="el" href="keyboard_8c_source.html">keyboard.c</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   32</span>{</div>
-<div class="line"><span class="lineno">   33</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="syscall_8h.html#a9126e51a6d76fe9ee5d47a61d1622fcc">syscall1</a>(SYSCALL_KEYBOARD_IS_KEY_PRESSED, key);</div>
-<div class="line"><span class="lineno">   34</span>}</div>
-<div class="ttc" id="asyscall_8h_html_a9126e51a6d76fe9ee5d47a61d1622fcc"><div class="ttname"><a href="syscall_8h.html#a9126e51a6d76fe9ee5d47a61d1622fcc">syscall1</a></div><div class="ttdeci">static u32 syscall1(SyscallID id, u32 a0)</div><div class="ttdoc">System call with one parameter.</div><div class="ttdef"><b>Definition:</b> <a href="syscall_8h_source.html#l00058">syscall.h:58</a></div></div>
-</div><!-- fragment -->
-<p class="reference">References <a class="el" href="syscall_8h_source.html#l00058">syscall1()</a>.</p>
-
-</div>
-</div>
 <a id="a3676e1550d4471bddab4c84dd0c844dc" name="a3676e1550d4471bddab4c84dd0c844dc"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a3676e1550d4471bddab4c84dd0c844dc">&#9670;&#160;</a></span>keyboard_register_event()</h2>
 
@@ -267,10 +229,10 @@ Variables</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="keyboard_8c_source.html#l00036">36</a> of file <a class="el" href="keyboard_8c_source.html">keyboard.c</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   37</span>{</div>
-<div class="line"><span class="lineno">   38</span>    <a class="code hl_variable" href="keyboard_8c.html#a018eabb131a3333616efbd1529fadced">_event_key</a> = event;</div>
-<div class="line"><span class="lineno">   39</span>}</div>
+<p class="definition">Definition at line <a class="el" href="keyboard_8c_source.html#l00031">31</a> of file <a class="el" href="keyboard_8c_source.html">keyboard.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   32</span>{</div>
+<div class="line"><span class="lineno">   33</span>    <a class="code hl_variable" href="keyboard_8c.html#a018eabb131a3333616efbd1529fadced">_event_key</a> = event;</div>
+<div class="line"><span class="lineno">   34</span>}</div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="keyboard_8c_source.html#l00013">_event_key</a>.</p>
 
@@ -300,7 +262,7 @@ Variables</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="keyboard_8c_source.html#l00013">13</a> of file <a class="el" href="keyboard_8c_source.html">keyboard.c</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="keyboard_8c_source.html#l00016">_event_key_handler()</a>, and <a class="el" href="keyboard_8c_source.html#l00036">keyboard_register_event()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="keyboard_8c_source.html#l00016">_event_key_handler()</a>, and <a class="el" href="keyboard_8c_source.html#l00031">keyboard_register_event()</a>.</p>
 
 </div>
 </div>

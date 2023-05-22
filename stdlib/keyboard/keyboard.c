@@ -28,11 +28,6 @@ void keyboard_init(void)
 	event_register(EVENT_KEY, (u32)_event_key_handler);
 }
 
-bool keyboard_is_key_pressed(Key key)
-{
-	return syscall1(SYSCALL_KEYBOARD_IS_KEY_PRESSED, key);
-}
-
 void keyboard_register_event(KeyEvent event)
 {
 	_event_key = event;

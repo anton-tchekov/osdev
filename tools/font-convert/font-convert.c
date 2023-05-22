@@ -8,15 +8,39 @@
 /** Font character data struct */
 typedef struct
 {
-	i32 Codepoint, Advance, Size[2], Bearing[2], Offset;
+	/** Unicode codepoint */
+	i32 Codepoint;
+
+	/** Number of pixels to advance in x direction after this character */
+	i32 Advance;
+
+	/** Size of the character */
+	i32 Size[2];
+
+	/** Offset of the character inside size box */
+	i32 Bearing[2];
+
+	/** Offset of the character in bytes */
+	i32 Offset;
+
+	/** Grayscale character bitmap */
 	u8 *Bitmap;
 } FontChar;
 
 /** Font data struct */
 typedef struct
 {
+	/** Characters contained in this font */
 	FontChar *Characters;
-	u32 NumCharacters, Size, Flags;
+
+	/** Number of characters */
+	u32 NumCharacters;
+
+	/** Size of the font */
+	u32 Size;
+
+	/** Grayscale / 1 BPP flag */
+	u32 Flags;
 } Font;
 
 static void *_malloc(u32 size)

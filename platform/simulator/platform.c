@@ -232,7 +232,7 @@ void env_gfx_image_rgb565(i32 x, i32 y, i32 w, i32 h, u32 addr)
 }
 
 void env_gfx_image_grayscale(
-	i32 x, i32 y, i32 w, i32 h, u32 fg, u32 bg, u32 addr)
+	i32 x, i32 y, i32 w, i32 h, u32 addr, u32 fg, u32 bg)
 {
 	i32 x0, y0;
 	u8 *image;

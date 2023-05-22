@@ -43,62 +43,62 @@ Load the INIT program and Standard Shared Library from special area on disk. The
 
 
 
-Definition at line \mbox{\hyperlink{initrd_8c_source_l00027}{27}} of file \mbox{\hyperlink{initrd_8c_source}{initrd.\+c}}.
+Definition at line \mbox{\hyperlink{initrd_8c_source_l00025}{25}} of file \mbox{\hyperlink{initrd_8c_source}{initrd.\+c}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00028\ \{}
-\DoxyCodeLine{00029\ \ \ \ \ \mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}}\ buf[\mbox{\hyperlink{sd_8h_ad51ded0bbd705f02f73fc60c0b721ced}{BLOCK\_SIZE}}];}
-\DoxyCodeLine{00030\ \ \ \ \ \mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}}\ block,\ num\_sectors;}
-\DoxyCodeLine{00031\ \ \ \ \ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ addr,\ revision,\ size\_stdlib,\ size\_init;}
-\DoxyCodeLine{00032\ }
-\DoxyCodeLine{00033\ \ \ \ \ \mbox{\hyperlink{logger_8c_a60bd636ef160c97eb51cf31be5954ba2}{log\_boot\_P}}(LOG\_INIT,\ PSTR(\textcolor{stringliteral}{"{}Loading\ Init\ Binary"{}}));}
-\DoxyCodeLine{00034\ \ \ \ \ \mbox{\hyperlink{sd_8c_a3f0c63e822010bb899b9e13d73a685dd}{sd\_read}}(\mbox{\hyperlink{atfs_8h_abef1527b5f0917d3ca73ac7a60435ae3}{ATFS\_SECTOR\_BOOT}},\ buf);}
-\DoxyCodeLine{00035\ }
-\DoxyCodeLine{00036\ \ \ \ \ \textcolor{comment}{/*\ Check\ signature\ */}}
-\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{string_8c_a8abe583def8cefd53678bec4126eeefe}{memcmp}}(buf\ +\ \mbox{\hyperlink{atfs_8h_a2ea0d3fde1f46a1b5b3d1ab55b7e3d5b}{ATFS\_OFFSET\_SIGNATURE}},\ \_signature,\ \textcolor{keyword}{sizeof}(\_signature)))}
-\DoxyCodeLine{00038\ \ \ \ \ \{}
-\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{logger_8c_a19a313011d8f478ad9799e546199a9ac}{panic}}(PSTR(\textcolor{stringliteral}{"{}Wrong\ FS\ signature"{}}));}
-\DoxyCodeLine{00040\ \ \ \ \ \}}
-\DoxyCodeLine{00041\ }
-\DoxyCodeLine{00042\ \ \ \ \ \textcolor{comment}{/*\ Check\ revision\ */}}
-\DoxyCodeLine{00043\ \ \ \ \ revision\ =\ \mbox{\hyperlink{atfs_8h_a58dff0b38327e2389ba33ca793d2b633}{load\_le\_32}}(buf\ +\ \mbox{\hyperlink{atfs_8h_afa4c7c978e0253bb3c3e2b6828b49afd}{ATFS\_OFFSET\_REVISION}});}
-\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keywordflow}{if}(revision\ !=\ \mbox{\hyperlink{atfs_8h_a57c1cdf2546cad6e7458aa3f4b19f527}{ATFS\_REVISION}})}
-\DoxyCodeLine{00045\ \ \ \ \ \{}
-\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{logger_8c_a19a313011d8f478ad9799e546199a9ac}{panic}}(PSTR(\textcolor{stringliteral}{"{}Unsupported\ ATFS\ revision"{}}));}
-\DoxyCodeLine{00047\ \ \ \ \ \}}
-\DoxyCodeLine{00048\ }
-\DoxyCodeLine{00049\ \ \ \ \ \textcolor{comment}{/*\ Get\ STDLIB\ Size\ */}}
-\DoxyCodeLine{00050\ \ \ \ \ size\_stdlib\ =\ \mbox{\hyperlink{atfs_8h_a58dff0b38327e2389ba33ca793d2b633}{load\_le\_32}}(buf\ +\ \mbox{\hyperlink{atfs_8h_aa51051aec9ee36f50493079fc1e2ec7d}{ATFS\_OFFSET\_STDLIB\_SIZE}});}
-\DoxyCodeLine{00051\ }
-\DoxyCodeLine{00052\ \ \ \ \ \textcolor{comment}{/*\ Get\ INIT\ Size\ */}}
-\DoxyCodeLine{00053\ \ \ \ \ size\_init\ =\ \mbox{\hyperlink{atfs_8h_a58dff0b38327e2389ba33ca793d2b633}{load\_le\_32}}(buf\ +\ \mbox{\hyperlink{atfs_8h_ac61a5c871bbbb33f1f12c644bb7b105a}{ATFS\_OFFSET\_INIT\_SIZE}});}
-\DoxyCodeLine{00054\ }
-\DoxyCodeLine{00055\ \ \ \ \ \textcolor{comment}{/*\ Load\ STDLIB\ */}}
-\DoxyCodeLine{00056\ \ \ \ \ \textcolor{comment}{/*\ \_load\_xmem(RAM\_OFFSET\_STDLIB,\ SECTOR\_STDLIB,\ size\_stdlib\ >>\ BLOCK\_SIZE\_POT);\ */}}
-\DoxyCodeLine{00057\ }
-\DoxyCodeLine{00058\ \ \ \ \ \mbox{\hyperlink{logger_8c_a60bd636ef160c97eb51cf31be5954ba2}{log\_boot\_P}}(LOG\_EXT,\ PSTR(\textcolor{stringliteral}{"{}INIT\ Size:\ \%"{}}PRIu32),\ size\_init);}
-\DoxyCodeLine{00059\ \ \ \ \ \mbox{\hyperlink{logger_8c_a60bd636ef160c97eb51cf31be5954ba2}{log\_boot\_P}}(LOG\_EXT,\ PSTR(\textcolor{stringliteral}{"{}STDLIB\ Size:\ \%"{}}PRIu32),\ size\_stdlib);}
-\DoxyCodeLine{00060\ }
-\DoxyCodeLine{00061\ \ \ \ \ num\_sectors\ =\ (size\_init\ +\ \mbox{\hyperlink{sd_8h_ad51ded0bbd705f02f73fc60c0b721ced}{BLOCK\_SIZE}}\ -\/\ 1)\ >>\ \mbox{\hyperlink{sd_8h_a456e1098b18ecd0666395e17ef9b6ca8}{BLOCK\_SIZE\_POT}};}
-\DoxyCodeLine{00062\ \ \ \ \ \mbox{\hyperlink{logger_8c_a60bd636ef160c97eb51cf31be5954ba2}{log\_boot\_P}}(LOG\_EXT,\ PSTR(\textcolor{stringliteral}{"{}INIT\ Sectors:\ \%d"{}}),\ num\_sectors);}
-\DoxyCodeLine{00063\ }
-\DoxyCodeLine{00064\ \ \ \ \ \textcolor{comment}{/*\ Load\ INIT\ */}}
-\DoxyCodeLine{00065\ \ \ \ \ \textcolor{keywordflow}{for}(addr\ =\ 0,\ block\ =\ \mbox{\hyperlink{atfs_8h_a34195cda27663494d697f1d5a14f0213}{ATFS\_SECTOR\_INIT}};}
-\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ block\ <\ \mbox{\hyperlink{atfs_8h_a34195cda27663494d697f1d5a14f0213}{ATFS\_SECTOR\_INIT}}\ +\ num\_sectors;}
-\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ ++block,\ addr\ +=\ \mbox{\hyperlink{sd_8h_ad51ded0bbd705f02f73fc60c0b721ced}{BLOCK\_SIZE}})}
-\DoxyCodeLine{00068\ \ \ \ \ \{}
-\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{sd_8c_a3f0c63e822010bb899b9e13d73a685dd}{sd\_read}}(block,\ buf))}
-\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{logger_8c_a19a313011d8f478ad9799e546199a9ac}{panic}}(PSTR(\textcolor{stringliteral}{"{}Loading\ InitRD\ failed"{}}));}
-\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00073\ }
-\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{xmem_8c_afef9c92490450d98f177f53f2b174f20}{xmem\_write}}(addr,\ buf,\ \mbox{\hyperlink{sd_8h_ad51ded0bbd705f02f73fc60c0b721ced}{BLOCK\_SIZE}});}
-\DoxyCodeLine{00075\ \ \ \ \ \}}
-\DoxyCodeLine{00076\ \}}
+\DoxyCodeLine{00026\ \{}
+\DoxyCodeLine{00027\ \ \ \ \ \mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}}\ buf[\mbox{\hyperlink{sd_8h_ad51ded0bbd705f02f73fc60c0b721ced}{BLOCK\_SIZE}}];}
+\DoxyCodeLine{00028\ \ \ \ \ \mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}}\ block,\ num\_sectors;}
+\DoxyCodeLine{00029\ \ \ \ \ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ addr,\ revision,\ size\_stdlib,\ size\_init;}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \ \ \ \ \mbox{\hyperlink{logger_8c_a60bd636ef160c97eb51cf31be5954ba2}{log\_boot\_P}}(LOG\_INIT,\ PSTR(\textcolor{stringliteral}{"{}Loading\ Init\ Binary"{}}));}
+\DoxyCodeLine{00032\ \ \ \ \ \mbox{\hyperlink{sd_8c_a3f0c63e822010bb899b9e13d73a685dd}{sd\_read}}(\mbox{\hyperlink{atfs_8h_abef1527b5f0917d3ca73ac7a60435ae3}{ATFS\_SECTOR\_BOOT}},\ buf);}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{comment}{/*\ Check\ signature\ */}}
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{string_8c_a8abe583def8cefd53678bec4126eeefe}{memcmp}}(buf\ +\ \mbox{\hyperlink{atfs_8h_a2ea0d3fde1f46a1b5b3d1ab55b7e3d5b}{ATFS\_OFFSET\_SIGNATURE}},\ \mbox{\hyperlink{atfs_8h_adf3e5683d8b4681edf588f58e4a02494}{\_atfs\_signature}},\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{atfs_8h_adf3e5683d8b4681edf588f58e4a02494}{\_atfs\_signature}})))}
+\DoxyCodeLine{00036\ \ \ \ \ \{}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{logger_8c_a19a313011d8f478ad9799e546199a9ac}{panic}}(PSTR(\textcolor{stringliteral}{"{}Wrong\ FS\ signature"{}}));}
+\DoxyCodeLine{00038\ \ \ \ \ \}}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{comment}{/*\ Check\ revision\ */}}
+\DoxyCodeLine{00041\ \ \ \ \ revision\ =\ \mbox{\hyperlink{atfs_8h_a58dff0b38327e2389ba33ca793d2b633}{load\_le\_32}}(buf\ +\ \mbox{\hyperlink{atfs_8h_afa4c7c978e0253bb3c3e2b6828b49afd}{ATFS\_OFFSET\_REVISION}});}
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keywordflow}{if}(revision\ !=\ \mbox{\hyperlink{atfs_8h_a57c1cdf2546cad6e7458aa3f4b19f527}{ATFS\_REVISION}})}
+\DoxyCodeLine{00043\ \ \ \ \ \{}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{logger_8c_a19a313011d8f478ad9799e546199a9ac}{panic}}(PSTR(\textcolor{stringliteral}{"{}Unsupported\ ATFS\ revision"{}}));}
+\DoxyCodeLine{00045\ \ \ \ \ \}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \ \ \ \ \textcolor{comment}{/*\ Get\ STDLIB\ Size\ */}}
+\DoxyCodeLine{00048\ \ \ \ \ size\_stdlib\ =\ \mbox{\hyperlink{atfs_8h_a58dff0b38327e2389ba33ca793d2b633}{load\_le\_32}}(buf\ +\ \mbox{\hyperlink{atfs_8h_aa51051aec9ee36f50493079fc1e2ec7d}{ATFS\_OFFSET\_STDLIB\_SIZE}});}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{comment}{/*\ Get\ INIT\ Size\ */}}
+\DoxyCodeLine{00051\ \ \ \ \ size\_init\ =\ \mbox{\hyperlink{atfs_8h_a58dff0b38327e2389ba33ca793d2b633}{load\_le\_32}}(buf\ +\ \mbox{\hyperlink{atfs_8h_ac61a5c871bbbb33f1f12c644bb7b105a}{ATFS\_OFFSET\_INIT\_SIZE}});}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{comment}{/*\ Load\ STDLIB\ */}}
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{comment}{/*\ \_load\_xmem(RAM\_OFFSET\_STDLIB,\ SECTOR\_STDLIB,\ size\_stdlib\ >>\ BLOCK\_SIZE\_POT);\ */}}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \ \ \ \ \mbox{\hyperlink{logger_8c_a60bd636ef160c97eb51cf31be5954ba2}{log\_boot\_P}}(LOG\_EXT,\ PSTR(\textcolor{stringliteral}{"{}INIT\ Size:\ \%"{}}PRIu32),\ size\_init);}
+\DoxyCodeLine{00057\ \ \ \ \ \mbox{\hyperlink{logger_8c_a60bd636ef160c97eb51cf31be5954ba2}{log\_boot\_P}}(LOG\_EXT,\ PSTR(\textcolor{stringliteral}{"{}STDLIB\ Size:\ \%"{}}PRIu32),\ size\_stdlib);}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \ \ \ \ num\_sectors\ =\ (size\_init\ +\ \mbox{\hyperlink{sd_8h_ad51ded0bbd705f02f73fc60c0b721ced}{BLOCK\_SIZE}}\ -\/\ 1)\ >>\ \mbox{\hyperlink{sd_8h_a456e1098b18ecd0666395e17ef9b6ca8}{BLOCK\_SIZE\_POT}};}
+\DoxyCodeLine{00060\ \ \ \ \ \mbox{\hyperlink{logger_8c_a60bd636ef160c97eb51cf31be5954ba2}{log\_boot\_P}}(LOG\_EXT,\ PSTR(\textcolor{stringliteral}{"{}INIT\ Sectors:\ \%d"{}}),\ num\_sectors);}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \ \ \ \ \textcolor{comment}{/*\ Load\ INIT\ */}}
+\DoxyCodeLine{00063\ \ \ \ \ \textcolor{keywordflow}{for}(addr\ =\ 0,\ block\ =\ \mbox{\hyperlink{atfs_8h_a34195cda27663494d697f1d5a14f0213}{ATFS\_SECTOR\_INIT}};}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ block\ <\ \mbox{\hyperlink{atfs_8h_a34195cda27663494d697f1d5a14f0213}{ATFS\_SECTOR\_INIT}}\ +\ num\_sectors;}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ ++block,\ addr\ +=\ \mbox{\hyperlink{sd_8h_ad51ded0bbd705f02f73fc60c0b721ced}{BLOCK\_SIZE}})}
+\DoxyCodeLine{00066\ \ \ \ \ \{}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{sd_8c_a3f0c63e822010bb899b9e13d73a685dd}{sd\_read}}(block,\ buf))}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{logger_8c_a19a313011d8f478ad9799e546199a9ac}{panic}}(PSTR(\textcolor{stringliteral}{"{}Loading\ InitRD\ failed"{}}));}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{xmem_8c_afef9c92490450d98f177f53f2b174f20}{xmem\_write}}(addr,\ buf,\ \mbox{\hyperlink{sd_8h_ad51ded0bbd705f02f73fc60c0b721ced}{BLOCK\_SIZE}});}
+\DoxyCodeLine{00073\ \ \ \ \ \}}
+\DoxyCodeLine{00074\ \}}
 
 \end{DoxyCode}
 
 
-References \mbox{\hyperlink{atfs_8h_source_l00056}{ATFS\+\_\+\+OFFSET\+\_\+\+INIT\+\_\+\+SIZE}}, \mbox{\hyperlink{atfs_8h_source_l00050}{ATFS\+\_\+\+OFFSET\+\_\+\+REVISION}}, \mbox{\hyperlink{atfs_8h_source_l00047}{ATFS\+\_\+\+OFFSET\+\_\+\+SIGNATURE}}, \mbox{\hyperlink{atfs_8h_source_l00053}{ATFS\+\_\+\+OFFSET\+\_\+\+STDLIB\+\_\+\+SIZE}}, \mbox{\hyperlink{atfs_8h_source_l00042}{ATFS\+\_\+\+REVISION}}, \mbox{\hyperlink{atfs_8h_source_l00021}{ATFS\+\_\+\+SECTOR\+\_\+\+BOOT}}, \mbox{\hyperlink{atfs_8h_source_l00033}{ATFS\+\_\+\+SECTOR\+\_\+\+INIT}}, \mbox{\hyperlink{sd_8h_source_l00016}{BLOCK\+\_\+\+SIZE}}, \mbox{\hyperlink{sd_8h_source_l00019}{BLOCK\+\_\+\+SIZE\+\_\+\+POT}}, \mbox{\hyperlink{atfs_8h_source_l00081}{load\+\_\+le\+\_\+32()}}, \mbox{\hyperlink{logger_8c_source_l00164}{log\+\_\+boot\+\_\+\+P()}}, \mbox{\hyperlink{string_8c_source_l00141}{memcmp()}}, \mbox{\hyperlink{logger_8c_source_l00177}{panic()}}, \mbox{\hyperlink{sd_8c_source_l00537}{sd\+\_\+read()}}, and \mbox{\hyperlink{xmem_8c_source_l00243}{xmem\+\_\+write()}}.
+References \mbox{\hyperlink{atfs_8h_source_l00059}{\+\_\+atfs\+\_\+signature}}, \mbox{\hyperlink{atfs_8h_source_l00056}{ATFS\+\_\+\+OFFSET\+\_\+\+INIT\+\_\+\+SIZE}}, \mbox{\hyperlink{atfs_8h_source_l00050}{ATFS\+\_\+\+OFFSET\+\_\+\+REVISION}}, \mbox{\hyperlink{atfs_8h_source_l00047}{ATFS\+\_\+\+OFFSET\+\_\+\+SIGNATURE}}, \mbox{\hyperlink{atfs_8h_source_l00053}{ATFS\+\_\+\+OFFSET\+\_\+\+STDLIB\+\_\+\+SIZE}}, \mbox{\hyperlink{atfs_8h_source_l00042}{ATFS\+\_\+\+REVISION}}, \mbox{\hyperlink{atfs_8h_source_l00021}{ATFS\+\_\+\+SECTOR\+\_\+\+BOOT}}, \mbox{\hyperlink{atfs_8h_source_l00033}{ATFS\+\_\+\+SECTOR\+\_\+\+INIT}}, \mbox{\hyperlink{sd_8h_source_l00016}{BLOCK\+\_\+\+SIZE}}, \mbox{\hyperlink{sd_8h_source_l00019}{BLOCK\+\_\+\+SIZE\+\_\+\+POT}}, \mbox{\hyperlink{atfs_8h_source_l00081}{load\+\_\+le\+\_\+32()}}, \mbox{\hyperlink{logger_8c_source_l00170}{log\+\_\+boot\+\_\+\+P()}}, \mbox{\hyperlink{string_8c_source_l00141}{memcmp()}}, \mbox{\hyperlink{logger_8c_source_l00183}{panic()}}, \mbox{\hyperlink{sd_8c_source_l00560}{sd\+\_\+read()}}, and \mbox{\hyperlink{xmem_8c_source_l00297}{xmem\+\_\+write()}}.
 

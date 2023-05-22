@@ -164,11 +164,14 @@ Functions</h2></td></tr>
 <p>Get data from clipboard. </p>
 <dl class="section return"><dt>Returns</dt><dd>Pointer to raw clipboard data </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="clipboard_8c_source.html#l00042">42</a> of file <a class="el" href="clipboard_8c_source.html">clipboard.c</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   43</span>{</div>
-<div class="line"><span class="lineno">   44</span>    <span class="keywordflow">return</span> get_memory(-1);</div>
-<div class="line"><span class="lineno">   45</span>}</div>
+<p class="definition">Definition at line <a class="el" href="clipboard_8c_source.html#l00054">54</a> of file <a class="el" href="clipboard_8c_source.html">clipboard.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   55</span>{</div>
+<div class="line"><span class="lineno">   56</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="clipboard_8c.html#a372675812d1335841dab1a89a7c96767">_get_memory</a>(-1);</div>
+<div class="line"><span class="lineno">   57</span>}</div>
+<div class="ttc" id="aclipboard_8c_html_a372675812d1335841dab1a89a7c96767"><div class="ttname"><a href="clipboard_8c.html#a372675812d1335841dab1a89a7c96767">_get_memory</a></div><div class="ttdeci">static char * _get_memory(i32 space)</div><div class="ttdoc">Get memory to place clipboard contents into.</div><div class="ttdef"><b>Definition:</b> <a href="clipboard_8c_source.html#l00023">clipboard.c:23</a></div></div>
 </div><!-- fragment -->
+<p class="reference">References <a class="el" href="clipboard_8c_source.html#l00023">_get_memory()</a>.</p>
+
 </div>
 </div>
 <a id="ad441ab5936f033348efc13148ba2a0d5" name="ad441ab5936f033348efc13148ba2a0d5"></a>
@@ -190,10 +193,10 @@ Functions</h2></td></tr>
 <p>Get the length of the data in the clipboard. </p>
 <dl class="section return"><dt>Returns</dt><dd>Clipboard size in bytes </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="clipboard_8c_source.html#l00047">47</a> of file <a class="el" href="clipboard_8c_source.html">clipboard.c</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   48</span>{</div>
-<div class="line"><span class="lineno">   49</span>    <span class="keywordflow">return</span> <a class="code hl_variable" href="clipboard_8c.html#aae4b6bf1c28cb474465c040951718816">_clipboard_len</a>;</div>
-<div class="line"><span class="lineno">   50</span>}</div>
+<p class="definition">Definition at line <a class="el" href="clipboard_8c_source.html#l00059">59</a> of file <a class="el" href="clipboard_8c_source.html">clipboard.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   60</span>{</div>
+<div class="line"><span class="lineno">   61</span>    <span class="keywordflow">return</span> <a class="code hl_variable" href="clipboard_8c.html#aae4b6bf1c28cb474465c040951718816">_clipboard_len</a>;</div>
+<div class="line"><span class="lineno">   62</span>}</div>
 <div class="ttc" id="aclipboard_8c_html_aae4b6bf1c28cb474465c040951718816"><div class="ttname"><a href="clipboard_8c.html#aae4b6bf1c28cb474465c040951718816">_clipboard_len</a></div><div class="ttdeci">static i32 _clipboard_len</div><div class="ttdef"><b>Definition:</b> <a href="clipboard_8c_source.html#l00012">clipboard.c:12</a></div></div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="clipboard_8c_source.html#l00012">_clipboard_len</a>.</p>
@@ -224,17 +227,17 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="clipboard_8c_source.html#l00028">28</a> of file <a class="el" href="clipboard_8c_source.html">clipboard.c</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   29</span>{</div>
-<div class="line"><span class="lineno">   30</span>    <a class="code hl_variable" href="clipboard_8c.html#a2c801879486872f1fa086fb0f506578e">_clipboard_type</a> = <a class="code hl_enumvalue" href="clipboard_8h.html#a9676c44d0c2a676fe59a136a6e71b161a51b4f4170f9b312f9294caac850eaf4d">CLIPBOARD_TYPE_TEXT</a>;</div>
-<div class="line"><span class="lineno">   31</span>    <span class="keywordtype">char</span> *clipboard = get_memory(<a class="code hl_function" href="string_8c.html#adbbf4d6ec8d6b708c64bd6a4a18065dd">strlen</a>(text));</div>
-<div class="line"><span class="lineno">   32</span>    <a class="code hl_function" href="string_8c.html#ac5082c8ce4f0cddd88bf4d0d2e738308">strcpy</a>(clipboard, text);</div>
-<div class="line"><span class="lineno">   33</span>}</div>
+<p class="definition">Definition at line <a class="el" href="clipboard_8c_source.html#l00040">40</a> of file <a class="el" href="clipboard_8c_source.html">clipboard.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   41</span>{</div>
+<div class="line"><span class="lineno">   42</span>    <a class="code hl_variable" href="clipboard_8c.html#a2c801879486872f1fa086fb0f506578e">_clipboard_type</a> = <a class="code hl_enumvalue" href="clipboard_8h.html#a9676c44d0c2a676fe59a136a6e71b161a51b4f4170f9b312f9294caac850eaf4d">CLIPBOARD_TYPE_TEXT</a>;</div>
+<div class="line"><span class="lineno">   43</span>    <span class="keywordtype">char</span> *clipboard = <a class="code hl_function" href="clipboard_8c.html#a372675812d1335841dab1a89a7c96767">_get_memory</a>(<a class="code hl_function" href="string_8c.html#adbbf4d6ec8d6b708c64bd6a4a18065dd">strlen</a>(text));</div>
+<div class="line"><span class="lineno">   44</span>    <a class="code hl_function" href="string_8c.html#ac5082c8ce4f0cddd88bf4d0d2e738308">strcpy</a>(clipboard, text);</div>
+<div class="line"><span class="lineno">   45</span>}</div>
 <div class="ttc" id="aclipboard_8c_html_a2c801879486872f1fa086fb0f506578e"><div class="ttname"><a href="clipboard_8c.html#a2c801879486872f1fa086fb0f506578e">_clipboard_type</a></div><div class="ttdeci">static ClipboardType _clipboard_type</div><div class="ttdef"><b>Definition:</b> <a href="clipboard_8c_source.html#l00015">clipboard.c:15</a></div></div>
 <div class="ttc" id="astring_8c_html_ac5082c8ce4f0cddd88bf4d0d2e738308"><div class="ttname"><a href="string_8c.html#ac5082c8ce4f0cddd88bf4d0d2e738308">strcpy</a></div><div class="ttdeci">char * strcpy(char *dest, const char *src)</div><div class="ttdoc">Copy a string from source to destination.</div><div class="ttdef"><b>Definition:</b> <a href="string_8c_source.html#l00011">string.c:11</a></div></div>
 <div class="ttc" id="astring_8c_html_adbbf4d6ec8d6b708c64bd6a4a18065dd"><div class="ttname"><a href="string_8c.html#adbbf4d6ec8d6b708c64bd6a4a18065dd">strlen</a></div><div class="ttdeci">u32 strlen(const char *str)</div><div class="ttdoc">Get the length of a string.</div><div class="ttdef"><b>Definition:</b> <a href="string_8c_source.html#l00029">string.c:29</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="clipboard_8c_source.html#l00015">_clipboard_type</a>, <a class="el" href="clipboard_8h_source.html#l00018">CLIPBOARD_TYPE_TEXT</a>, <a class="el" href="string_8c_source.html#l00011">strcpy()</a>, and <a class="el" href="string_8c_source.html#l00029">strlen()</a>.</p>
+<p class="reference">References <a class="el" href="clipboard_8c_source.html#l00015">_clipboard_type</a>, <a class="el" href="clipboard_8c_source.html#l00023">_get_memory()</a>, <a class="el" href="clipboard_8h_source.html#l00018">CLIPBOARD_TYPE_TEXT</a>, <a class="el" href="string_8c_source.html#l00011">strcpy()</a>, and <a class="el" href="string_8c_source.html#l00029">strlen()</a>.</p>
 
 </div>
 </div>
@@ -273,15 +276,15 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="clipboard_8c_source.html#l00035">35</a> of file <a class="el" href="clipboard_8c_source.html">clipboard.c</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   36</span>{</div>
-<div class="line"><span class="lineno">   37</span>    <a class="code hl_variable" href="clipboard_8c.html#a2c801879486872f1fa086fb0f506578e">_clipboard_type</a> = <a class="code hl_enumvalue" href="clipboard_8h.html#a9676c44d0c2a676fe59a136a6e71b161a51b4f4170f9b312f9294caac850eaf4d">CLIPBOARD_TYPE_TEXT</a>;</div>
-<div class="line"><span class="lineno">   38</span>    <span class="keywordtype">char</span> *clipboard = get_memory(len);</div>
-<div class="line"><span class="lineno">   39</span>    <a class="code hl_function" href="string_8c.html#a86fd1dc99081364b5155d9669e32ed03">strncpy</a>(clipboard, text, len);</div>
-<div class="line"><span class="lineno">   40</span>}</div>
+<p class="definition">Definition at line <a class="el" href="clipboard_8c_source.html#l00047">47</a> of file <a class="el" href="clipboard_8c_source.html">clipboard.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   48</span>{</div>
+<div class="line"><span class="lineno">   49</span>    <a class="code hl_variable" href="clipboard_8c.html#a2c801879486872f1fa086fb0f506578e">_clipboard_type</a> = <a class="code hl_enumvalue" href="clipboard_8h.html#a9676c44d0c2a676fe59a136a6e71b161a51b4f4170f9b312f9294caac850eaf4d">CLIPBOARD_TYPE_TEXT</a>;</div>
+<div class="line"><span class="lineno">   50</span>    <span class="keywordtype">char</span> *clipboard = <a class="code hl_function" href="clipboard_8c.html#a372675812d1335841dab1a89a7c96767">_get_memory</a>(len);</div>
+<div class="line"><span class="lineno">   51</span>    <a class="code hl_function" href="string_8c.html#a86fd1dc99081364b5155d9669e32ed03">strncpy</a>(clipboard, text, len);</div>
+<div class="line"><span class="lineno">   52</span>}</div>
 <div class="ttc" id="astring_8c_html_a86fd1dc99081364b5155d9669e32ed03"><div class="ttname"><a href="string_8c.html#a86fd1dc99081364b5155d9669e32ed03">strncpy</a></div><div class="ttdeci">char * strncpy(char *dest, const char *src, u32 count)</div><div class="ttdoc">Copy a limited number of characters from one string to another.</div><div class="ttdef"><b>Definition:</b> <a href="string_8c_source.html#l00018">string.c:18</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="clipboard_8c_source.html#l00015">_clipboard_type</a>, <a class="el" href="clipboard_8h_source.html#l00018">CLIPBOARD_TYPE_TEXT</a>, and <a class="el" href="string_8c_source.html#l00018">strncpy()</a>.</p>
+<p class="reference">References <a class="el" href="clipboard_8c_source.html#l00015">_clipboard_type</a>, <a class="el" href="clipboard_8c_source.html#l00023">_get_memory()</a>, <a class="el" href="clipboard_8h_source.html#l00018">CLIPBOARD_TYPE_TEXT</a>, and <a class="el" href="string_8c_source.html#l00018">strncpy()</a>.</p>
 
 </div>
 </div>
@@ -303,10 +306,10 @@ Functions</h2></td></tr>
 
 <p>Get the stored Datatype from the clipboard. </p>
 
-<p class="definition">Definition at line <a class="el" href="clipboard_8c_source.html#l00052">52</a> of file <a class="el" href="clipboard_8c_source.html">clipboard.c</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   53</span>{</div>
-<div class="line"><span class="lineno">   54</span>    <span class="keywordflow">return</span> <a class="code hl_variable" href="clipboard_8c.html#a2c801879486872f1fa086fb0f506578e">_clipboard_type</a>;</div>
-<div class="line"><span class="lineno">   55</span>}</div>
+<p class="definition">Definition at line <a class="el" href="clipboard_8c_source.html#l00064">64</a> of file <a class="el" href="clipboard_8c_source.html">clipboard.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   65</span>{</div>
+<div class="line"><span class="lineno">   66</span>    <span class="keywordflow">return</span> <a class="code hl_variable" href="clipboard_8c.html#a2c801879486872f1fa086fb0f506578e">_clipboard_type</a>;</div>
+<div class="line"><span class="lineno">   67</span>}</div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="clipboard_8c_source.html#l00015">_clipboard_type</a>.</p>
 

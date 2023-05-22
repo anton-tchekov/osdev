@@ -170,301 +170,314 @@ Functions</h2></td></tr>
 
 <p>Initialize SD driver and try to detect card. </p>
 
-<p class="definition">Definition at line <a class="el" href="sd_8c_source.html#l00255">255</a> of file <a class="el" href="sd_8c_source.html">sd.c</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  256</span>{</div>
-<div class="line"><span class="lineno">  257</span>    <a class="code hl_function" href="logger_8c.html#a60bd636ef160c97eb51cf31be5954ba2">log_boot_P</a>(LOG_INIT, PSTR(<span class="stringliteral">&quot;SD driver starting&quot;</span>));</div>
-<div class="line"><span class="lineno">  258</span> </div>
-<div class="line"><span class="lineno">  259</span>    {</div>
-<div class="line"><span class="lineno">  260</span>        <a class="code hl_typedef" href="types_8h.html#a92c50087ca0e64fa93fc59402c55f8ca">u8</a> response;</div>
-<div class="line"><span class="lineno">  261</span>        <a class="code hl_typedef" href="types_8h.html#ace9d960e74685e2cd84b36132dbbf8aa">u16</a> i;</div>
-<div class="line"><span class="lineno">  262</span>        <a class="code hl_typedef" href="types_8h.html#afaa62991928fb9fb18ff0db62a040aba">u32</a> arg;</div>
-<div class="line"><span class="lineno">  263</span> </div>
-<div class="line"><span class="lineno">  264</span>        <a class="code hl_define" href="gpio_8h.html#a714114dca347ee9354e449387728a12d">SD_DESELECT</a>;</div>
-<div class="line"><span class="lineno">  265</span>        <a class="code hl_function" href="sd_8c.html#a7bf3670f9b10107272a0bc84bd449d46">_spi_configure_slow</a>();</div>
-<div class="line"><span class="lineno">  266</span>        _card_type = 0;</div>
-<div class="line"><span class="lineno">  267</span>        <span class="keywordflow">for</span>(i = 0; i &lt; 10; ++i)</div>
-<div class="line"><span class="lineno">  268</span>        {</div>
-<div class="line"><span class="lineno">  269</span>            <a class="code hl_function" href="spi_8c.html#aa100766918afcb71b6ba79413f33f9db">spi_xchg</a>(0xFF);</div>
-<div class="line"><span class="lineno">  270</span>        }</div>
-<div class="line"><span class="lineno">  271</span> </div>
-<div class="line"><span class="lineno">  272</span>        <a class="code hl_define" href="gpio_8h.html#ad104eec5bf5679ebe86fb494113175dd">SD_SELECT</a>;</div>
-<div class="line"><span class="lineno">  273</span>        <span class="keywordflow">for</span>(i = 0; ; ++i)</div>
-<div class="line"><span class="lineno">  274</span>        {</div>
-<div class="line"><span class="lineno">  275</span>            <span class="keywordflow">if</span>(<a class="code hl_function" href="sd_8c.html#a4b42f4613401e4f986f7ecefca14e6cf">_sd_command</a>(<a class="code hl_define" href="sd_8c.html#ae3dd15ec52cbd1ef2ce6e20e39fd6efb">CMD_GO_IDLE_STATE</a>, 0) == <a class="code hl_define" href="sd_8c.html#a1d66c9130165248f0563074180dd1432">IDLE_STATE</a>)</div>
-<div class="line"><span class="lineno">  276</span>            {</div>
-<div class="line"><span class="lineno">  277</span>                <span class="keywordflow">break</span>;</div>
-<div class="line"><span class="lineno">  278</span>            }</div>
-<div class="line"><span class="lineno">  279</span> </div>
-<div class="line"><span class="lineno">  280</span>            <span class="keywordflow">if</span>(i == 0x1FF)</div>
-<div class="line"><span class="lineno">  281</span>            {</div>
-<div class="line"><span class="lineno">  282</span>                <a class="code hl_function" href="sd_8c.html#aa347e415bf1de52f199a0bb0f07d6e2a">_sd_timeout</a>();</div>
-<div class="line"><span class="lineno">  283</span>            }</div>
-<div class="line"><span class="lineno">  284</span>        }</div>
-<div class="line"><span class="lineno">  285</span> </div>
-<div class="line"><span class="lineno">  286</span>        <span class="keywordflow">if</span>((<a class="code hl_function" href="sd_8c.html#a4b42f4613401e4f986f7ecefca14e6cf">_sd_command</a>(<a class="code hl_define" href="sd_8c.html#a773735b7bef10597c3db4f8a60e42ad3">CMD_SEND_IF_COND</a>, 0x1AA) &amp; <a class="code hl_define" href="sd_8c.html#a8ae8b08655b2ec2facb46d6bbc83065c">ILLEGAL_CMD</a>) == 0)</div>
-<div class="line"><span class="lineno">  287</span>        {</div>
-<div class="line"><span class="lineno">  288</span>            <a class="code hl_function" href="spi_8c.html#aa100766918afcb71b6ba79413f33f9db">spi_xchg</a>(0xFF);</div>
-<div class="line"><span class="lineno">  289</span>            <a class="code hl_function" href="spi_8c.html#aa100766918afcb71b6ba79413f33f9db">spi_xchg</a>(0xFF);</div>
-<div class="line"><span class="lineno">  290</span>            <span class="keywordflow">if</span>(((<a class="code hl_function" href="spi_8c.html#aa100766918afcb71b6ba79413f33f9db">spi_xchg</a>(0xFF) &amp; 0x01) == 0) ||</div>
-<div class="line"><span class="lineno">  291</span>                (<a class="code hl_function" href="spi_8c.html#aa100766918afcb71b6ba79413f33f9db">spi_xchg</a>(0xFF) != 0xAA))</div>
-<div class="line"><span class="lineno">  292</span>            {</div>
-<div class="line"><span class="lineno">  293</span>                <a class="code hl_function" href="sd_8c.html#a5afa7a4f2574ec052d6326cb62d0bc25">_sd_error</a>();</div>
-<div class="line"><span class="lineno">  294</span>            }</div>
-<div class="line"><span class="lineno">  295</span> </div>
-<div class="line"><span class="lineno">  296</span>            _card_type |= <a class="code hl_define" href="sd_8c.html#aefd26333484d292772b95039e8415d0c">SD_2</a>;</div>
-<div class="line"><span class="lineno">  297</span>        }</div>
-<div class="line"><span class="lineno">  298</span>        <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno">  299</span>        {</div>
-<div class="line"><span class="lineno">  300</span>            <a class="code hl_function" href="sd_8c.html#a4b42f4613401e4f986f7ecefca14e6cf">_sd_command</a>(<a class="code hl_define" href="sd_8c.html#a0d173f3d259f3c28a25f4fd2b8085131">CMD_APP</a>, 0);</div>
-<div class="line"><span class="lineno">  301</span>            <span class="keywordflow">if</span>((<a class="code hl_function" href="sd_8c.html#a4b42f4613401e4f986f7ecefca14e6cf">_sd_command</a>(<a class="code hl_define" href="sd_8c.html#a282a2096b479791ed712f393f8faa67c">CMD_SD_SEND_OP_COND</a>, 0) &amp; <a class="code hl_define" href="sd_8c.html#a8ae8b08655b2ec2facb46d6bbc83065c">ILLEGAL_CMD</a>) == 0)</div>
-<div class="line"><span class="lineno">  302</span>            {</div>
-<div class="line"><span class="lineno">  303</span>                _card_type |= <a class="code hl_define" href="sd_8c.html#a574e335142ba9044c1a53a571f7f21ee">SD_1</a>;</div>
-<div class="line"><span class="lineno">  304</span>            }</div>
-<div class="line"><span class="lineno">  305</span>        }</div>
-<div class="line"><span class="lineno">  306</span> </div>
-<div class="line"><span class="lineno">  307</span>        <span class="keywordflow">for</span>(i = 0; ; ++i)</div>
-<div class="line"><span class="lineno">  308</span>        {</div>
-<div class="line"><span class="lineno">  309</span>            <span class="keywordflow">if</span>(_card_type &amp; (<a class="code hl_define" href="sd_8c.html#a574e335142ba9044c1a53a571f7f21ee">SD_1</a> | <a class="code hl_define" href="sd_8c.html#aefd26333484d292772b95039e8415d0c">SD_2</a>))</div>
-<div class="line"><span class="lineno">  310</span>            {</div>
-<div class="line"><span class="lineno">  311</span>                arg = 0;</div>
-<div class="line"><span class="lineno">  312</span>                <span class="keywordflow">if</span>(_card_type &amp; <a class="code hl_define" href="sd_8c.html#aefd26333484d292772b95039e8415d0c">SD_2</a>)</div>
-<div class="line"><span class="lineno">  313</span>                {</div>
-<div class="line"><span class="lineno">  314</span>                    arg = 0x40000000;</div>
-<div class="line"><span class="lineno">  315</span>                }</div>
-<div class="line"><span class="lineno">  316</span> </div>
-<div class="line"><span class="lineno">  317</span>                <a class="code hl_function" href="sd_8c.html#a4b42f4613401e4f986f7ecefca14e6cf">_sd_command</a>(<a class="code hl_define" href="sd_8c.html#a0d173f3d259f3c28a25f4fd2b8085131">CMD_APP</a>, 0);</div>
-<div class="line"><span class="lineno">  318</span>                response = <a class="code hl_function" href="sd_8c.html#a4b42f4613401e4f986f7ecefca14e6cf">_sd_command</a>(<a class="code hl_define" href="sd_8c.html#a282a2096b479791ed712f393f8faa67c">CMD_SD_SEND_OP_COND</a>, arg);</div>
-<div class="line"><span class="lineno">  319</span>            }</div>
-<div class="line"><span class="lineno">  320</span>            <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno">  321</span>            {</div>
-<div class="line"><span class="lineno">  322</span>                response = <a class="code hl_function" href="sd_8c.html#a4b42f4613401e4f986f7ecefca14e6cf">_sd_command</a>(<a class="code hl_define" href="sd_8c.html#ae059745768a7fde0832a1dea6a623ab0">CMD_SEND_OP_COND</a>, 0);</div>
-<div class="line"><span class="lineno">  323</span>            }</div>
-<div class="line"><span class="lineno">  324</span> </div>
-<div class="line"><span class="lineno">  325</span>            <span class="keywordflow">if</span>((response &amp; <a class="code hl_define" href="sd_8c.html#a1d66c9130165248f0563074180dd1432">IDLE_STATE</a>) == 0)</div>
-<div class="line"><span class="lineno">  326</span>            {</div>
-<div class="line"><span class="lineno">  327</span>                <span class="keywordflow">break</span>;</div>
-<div class="line"><span class="lineno">  328</span>            }</div>
+<p class="definition">Definition at line <a class="el" href="sd_8c_source.html#l00278">278</a> of file <a class="el" href="sd_8c_source.html">sd.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  279</span>{</div>
+<div class="line"><span class="lineno">  280</span>    <a class="code hl_function" href="logger_8c.html#a60bd636ef160c97eb51cf31be5954ba2">log_boot_P</a>(LOG_INIT, PSTR(<span class="stringliteral">&quot;SD driver starting&quot;</span>));</div>
+<div class="line"><span class="lineno">  281</span> </div>
+<div class="line"><span class="lineno">  282</span>    {</div>
+<div class="line"><span class="lineno">  283</span>        <a class="code hl_typedef" href="types_8h.html#a92c50087ca0e64fa93fc59402c55f8ca">u8</a> response;</div>
+<div class="line"><span class="lineno">  284</span>        <a class="code hl_typedef" href="types_8h.html#ace9d960e74685e2cd84b36132dbbf8aa">u16</a> i;</div>
+<div class="line"><span class="lineno">  285</span>        <a class="code hl_typedef" href="types_8h.html#afaa62991928fb9fb18ff0db62a040aba">u32</a> arg;</div>
+<div class="line"><span class="lineno">  286</span> </div>
+<div class="line"><span class="lineno">  287</span>        <a class="code hl_define" href="gpio_8h.html#a714114dca347ee9354e449387728a12d">SD_DESELECT</a>;</div>
+<div class="line"><span class="lineno">  288</span>        <a class="code hl_function" href="sd_8c.html#a7bf3670f9b10107272a0bc84bd449d46">_spi_configure_slow</a>();</div>
+<div class="line"><span class="lineno">  289</span>        <a class="code hl_variable" href="sd_8c.html#a8d37d6a747a43ba1d451eb65ae1426da">_card_type</a> = 0;</div>
+<div class="line"><span class="lineno">  290</span>        <span class="keywordflow">for</span>(i = 0; i &lt; 10; ++i)</div>
+<div class="line"><span class="lineno">  291</span>        {</div>
+<div class="line"><span class="lineno">  292</span>            <a class="code hl_function" href="spi_8c.html#aa100766918afcb71b6ba79413f33f9db">spi_xchg</a>(0xFF);</div>
+<div class="line"><span class="lineno">  293</span>        }</div>
+<div class="line"><span class="lineno">  294</span> </div>
+<div class="line"><span class="lineno">  295</span>        <a class="code hl_define" href="gpio_8h.html#ad104eec5bf5679ebe86fb494113175dd">SD_SELECT</a>;</div>
+<div class="line"><span class="lineno">  296</span>        <span class="keywordflow">for</span>(i = 0; ; ++i)</div>
+<div class="line"><span class="lineno">  297</span>        {</div>
+<div class="line"><span class="lineno">  298</span>            <span class="keywordflow">if</span>(<a class="code hl_function" href="sd_8c.html#a4b42f4613401e4f986f7ecefca14e6cf">_sd_command</a>(<a class="code hl_define" href="sd_8c.html#ae3dd15ec52cbd1ef2ce6e20e39fd6efb">CMD_GO_IDLE_STATE</a>, 0) == <a class="code hl_define" href="sd_8c.html#a1d66c9130165248f0563074180dd1432">IDLE_STATE</a>)</div>
+<div class="line"><span class="lineno">  299</span>            {</div>
+<div class="line"><span class="lineno">  300</span>                <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">  301</span>            }</div>
+<div class="line"><span class="lineno">  302</span> </div>
+<div class="line"><span class="lineno">  303</span>            <span class="keywordflow">if</span>(i == 0x1FF)</div>
+<div class="line"><span class="lineno">  304</span>            {</div>
+<div class="line"><span class="lineno">  305</span>                <a class="code hl_function" href="sd_8c.html#aa347e415bf1de52f199a0bb0f07d6e2a">_sd_timeout</a>();</div>
+<div class="line"><span class="lineno">  306</span>            }</div>
+<div class="line"><span class="lineno">  307</span>        }</div>
+<div class="line"><span class="lineno">  308</span> </div>
+<div class="line"><span class="lineno">  309</span>        <span class="keywordflow">if</span>((<a class="code hl_function" href="sd_8c.html#a4b42f4613401e4f986f7ecefca14e6cf">_sd_command</a>(<a class="code hl_define" href="sd_8c.html#a773735b7bef10597c3db4f8a60e42ad3">CMD_SEND_IF_COND</a>, 0x1AA) &amp; <a class="code hl_define" href="sd_8c.html#a8ae8b08655b2ec2facb46d6bbc83065c">ILLEGAL_CMD</a>) == 0)</div>
+<div class="line"><span class="lineno">  310</span>        {</div>
+<div class="line"><span class="lineno">  311</span>            <a class="code hl_function" href="spi_8c.html#aa100766918afcb71b6ba79413f33f9db">spi_xchg</a>(0xFF);</div>
+<div class="line"><span class="lineno">  312</span>            <a class="code hl_function" href="spi_8c.html#aa100766918afcb71b6ba79413f33f9db">spi_xchg</a>(0xFF);</div>
+<div class="line"><span class="lineno">  313</span>            <span class="keywordflow">if</span>(((<a class="code hl_function" href="spi_8c.html#aa100766918afcb71b6ba79413f33f9db">spi_xchg</a>(0xFF) &amp; 0x01) == 0) ||</div>
+<div class="line"><span class="lineno">  314</span>                (<a class="code hl_function" href="spi_8c.html#aa100766918afcb71b6ba79413f33f9db">spi_xchg</a>(0xFF) != 0xAA))</div>
+<div class="line"><span class="lineno">  315</span>            {</div>
+<div class="line"><span class="lineno">  316</span>                <a class="code hl_function" href="sd_8c.html#a5afa7a4f2574ec052d6326cb62d0bc25">_sd_error</a>();</div>
+<div class="line"><span class="lineno">  317</span>            }</div>
+<div class="line"><span class="lineno">  318</span> </div>
+<div class="line"><span class="lineno">  319</span>            <a class="code hl_variable" href="sd_8c.html#a8d37d6a747a43ba1d451eb65ae1426da">_card_type</a> |= <a class="code hl_define" href="sd_8c.html#aefd26333484d292772b95039e8415d0c">SD_2</a>;</div>
+<div class="line"><span class="lineno">  320</span>        }</div>
+<div class="line"><span class="lineno">  321</span>        <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno">  322</span>        {</div>
+<div class="line"><span class="lineno">  323</span>            <a class="code hl_function" href="sd_8c.html#a4b42f4613401e4f986f7ecefca14e6cf">_sd_command</a>(<a class="code hl_define" href="sd_8c.html#a0d173f3d259f3c28a25f4fd2b8085131">CMD_APP</a>, 0);</div>
+<div class="line"><span class="lineno">  324</span>            <span class="keywordflow">if</span>((<a class="code hl_function" href="sd_8c.html#a4b42f4613401e4f986f7ecefca14e6cf">_sd_command</a>(<a class="code hl_define" href="sd_8c.html#a282a2096b479791ed712f393f8faa67c">CMD_SD_SEND_OP_COND</a>, 0) &amp; <a class="code hl_define" href="sd_8c.html#a8ae8b08655b2ec2facb46d6bbc83065c">ILLEGAL_CMD</a>) == 0)</div>
+<div class="line"><span class="lineno">  325</span>            {</div>
+<div class="line"><span class="lineno">  326</span>                <a class="code hl_variable" href="sd_8c.html#a8d37d6a747a43ba1d451eb65ae1426da">_card_type</a> |= <a class="code hl_define" href="sd_8c.html#a574e335142ba9044c1a53a571f7f21ee">SD_1</a>;</div>
+<div class="line"><span class="lineno">  327</span>            }</div>
+<div class="line"><span class="lineno">  328</span>        }</div>
 <div class="line"><span class="lineno">  329</span> </div>
-<div class="line"><span class="lineno">  330</span>            <span class="keywordflow">if</span>(i == 0x7FFF)</div>
-<div class="line"><span class="lineno">  331</span>            {</div>
-<div class="line"><span class="lineno">  332</span>                <a class="code hl_function" href="sd_8c.html#aa347e415bf1de52f199a0bb0f07d6e2a">_sd_timeout</a>();</div>
-<div class="line"><span class="lineno">  333</span>            }</div>
-<div class="line"><span class="lineno">  334</span>        }</div>
-<div class="line"><span class="lineno">  335</span> </div>
-<div class="line"><span class="lineno">  336</span>        <span class="keywordflow">if</span>(_card_type &amp; <a class="code hl_define" href="sd_8c.html#aefd26333484d292772b95039e8415d0c">SD_2</a>)</div>
-<div class="line"><span class="lineno">  337</span>        {</div>
-<div class="line"><span class="lineno">  338</span>            <span class="keywordflow">if</span>(<a class="code hl_function" href="sd_8c.html#a4b42f4613401e4f986f7ecefca14e6cf">_sd_command</a>(<a class="code hl_define" href="sd_8c.html#a5625571f0a42246f009e1695f5c0fd88">CMD_READ_OCR</a>, 0))</div>
-<div class="line"><span class="lineno">  339</span>            {</div>
-<div class="line"><span class="lineno">  340</span>                <a class="code hl_function" href="sd_8c.html#a5afa7a4f2574ec052d6326cb62d0bc25">_sd_error</a>();</div>
-<div class="line"><span class="lineno">  341</span>            }</div>
-<div class="line"><span class="lineno">  342</span> </div>
-<div class="line"><span class="lineno">  343</span>            <span class="keywordflow">if</span>(<a class="code hl_function" href="spi_8c.html#aa100766918afcb71b6ba79413f33f9db">spi_xchg</a>(0xFF) &amp; 0x40)</div>
+<div class="line"><span class="lineno">  330</span>        <span class="keywordflow">for</span>(i = 0; ; ++i)</div>
+<div class="line"><span class="lineno">  331</span>        {</div>
+<div class="line"><span class="lineno">  332</span>            <span class="keywordflow">if</span>(<a class="code hl_variable" href="sd_8c.html#a8d37d6a747a43ba1d451eb65ae1426da">_card_type</a> &amp; (<a class="code hl_define" href="sd_8c.html#a574e335142ba9044c1a53a571f7f21ee">SD_1</a> | <a class="code hl_define" href="sd_8c.html#aefd26333484d292772b95039e8415d0c">SD_2</a>))</div>
+<div class="line"><span class="lineno">  333</span>            {</div>
+<div class="line"><span class="lineno">  334</span>                arg = 0;</div>
+<div class="line"><span class="lineno">  335</span>                <span class="keywordflow">if</span>(<a class="code hl_variable" href="sd_8c.html#a8d37d6a747a43ba1d451eb65ae1426da">_card_type</a> &amp; <a class="code hl_define" href="sd_8c.html#aefd26333484d292772b95039e8415d0c">SD_2</a>)</div>
+<div class="line"><span class="lineno">  336</span>                {</div>
+<div class="line"><span class="lineno">  337</span>                    arg = 0x40000000;</div>
+<div class="line"><span class="lineno">  338</span>                }</div>
+<div class="line"><span class="lineno">  339</span> </div>
+<div class="line"><span class="lineno">  340</span>                <a class="code hl_function" href="sd_8c.html#a4b42f4613401e4f986f7ecefca14e6cf">_sd_command</a>(<a class="code hl_define" href="sd_8c.html#a0d173f3d259f3c28a25f4fd2b8085131">CMD_APP</a>, 0);</div>
+<div class="line"><span class="lineno">  341</span>                response = <a class="code hl_function" href="sd_8c.html#a4b42f4613401e4f986f7ecefca14e6cf">_sd_command</a>(<a class="code hl_define" href="sd_8c.html#a282a2096b479791ed712f393f8faa67c">CMD_SD_SEND_OP_COND</a>, arg);</div>
+<div class="line"><span class="lineno">  342</span>            }</div>
+<div class="line"><span class="lineno">  343</span>            <span class="keywordflow">else</span></div>
 <div class="line"><span class="lineno">  344</span>            {</div>
-<div class="line"><span class="lineno">  345</span>                _card_type |= <a class="code hl_define" href="sd_8c.html#a241f7db547832cffdbcd9b73f7eba991">SD_HC</a>;</div>
+<div class="line"><span class="lineno">  345</span>                response = <a class="code hl_function" href="sd_8c.html#a4b42f4613401e4f986f7ecefca14e6cf">_sd_command</a>(<a class="code hl_define" href="sd_8c.html#ae059745768a7fde0832a1dea6a623ab0">CMD_SEND_OP_COND</a>, 0);</div>
 <div class="line"><span class="lineno">  346</span>            }</div>
 <div class="line"><span class="lineno">  347</span> </div>
-<div class="line"><span class="lineno">  348</span>            <a class="code hl_function" href="spi_8c.html#aa100766918afcb71b6ba79413f33f9db">spi_xchg</a>(0xFF);</div>
-<div class="line"><span class="lineno">  349</span>            <a class="code hl_function" href="spi_8c.html#aa100766918afcb71b6ba79413f33f9db">spi_xchg</a>(0xFF);</div>
-<div class="line"><span class="lineno">  350</span>            <a class="code hl_function" href="spi_8c.html#aa100766918afcb71b6ba79413f33f9db">spi_xchg</a>(0xFF);</div>
-<div class="line"><span class="lineno">  351</span>        }</div>
+<div class="line"><span class="lineno">  348</span>            <span class="keywordflow">if</span>((response &amp; <a class="code hl_define" href="sd_8c.html#a1d66c9130165248f0563074180dd1432">IDLE_STATE</a>) == 0)</div>
+<div class="line"><span class="lineno">  349</span>            {</div>
+<div class="line"><span class="lineno">  350</span>                <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">  351</span>            }</div>
 <div class="line"><span class="lineno">  352</span> </div>
-<div class="line"><span class="lineno">  353</span>        <span class="keywordflow">if</span>(<a class="code hl_function" href="sd_8c.html#a4b42f4613401e4f986f7ecefca14e6cf">_sd_command</a>(<a class="code hl_define" href="sd_8c.html#acc98caadb00bb27cee9c6037193adb68">CMD_SET_BLOCKLEN</a>, 512))</div>
-<div class="line"><span class="lineno">  354</span>        {</div>
-<div class="line"><span class="lineno">  355</span>            <a class="code hl_function" href="sd_8c.html#a5afa7a4f2574ec052d6326cb62d0bc25">_sd_error</a>();</div>
-<div class="line"><span class="lineno">  356</span>        }</div>
-<div class="line"><span class="lineno">  357</span> </div>
-<div class="line"><span class="lineno">  358</span>        <a class="code hl_define" href="gpio_8h.html#a714114dca347ee9354e449387728a12d">SD_DESELECT</a>;</div>
-<div class="line"><span class="lineno">  359</span>        <a class="code hl_function" href="spi_8c.html#ab3e16cf26638212c1e54a7aa4878e12a">spi_fast</a>();</div>
-<div class="line"><span class="lineno">  360</span>        _delay_ms(20);</div>
-<div class="line"><span class="lineno">  361</span>    }</div>
-<div class="line"><span class="lineno">  362</span> </div>
-<div class="line"><span class="lineno">  363</span>    <a class="code hl_function" href="logger_8c.html#a60bd636ef160c97eb51cf31be5954ba2">log_boot_P</a>(LOG_INIT, PSTR(<span class="stringliteral">&quot;SD card initialized&quot;</span>));</div>
-<div class="line"><span class="lineno">  364</span>    <a class="code hl_function" href="logger_8c.html#a60bd636ef160c97eb51cf31be5954ba2">log_boot_P</a>(LOG_INIT, PSTR(<span class="stringliteral">&quot;Reading SD card parameters&quot;</span>));</div>
+<div class="line"><span class="lineno">  353</span>            <span class="keywordflow">if</span>(i == 0x7FFF)</div>
+<div class="line"><span class="lineno">  354</span>            {</div>
+<div class="line"><span class="lineno">  355</span>                <a class="code hl_function" href="sd_8c.html#aa347e415bf1de52f199a0bb0f07d6e2a">_sd_timeout</a>();</div>
+<div class="line"><span class="lineno">  356</span>            }</div>
+<div class="line"><span class="lineno">  357</span>        }</div>
+<div class="line"><span class="lineno">  358</span> </div>
+<div class="line"><span class="lineno">  359</span>        <span class="keywordflow">if</span>(<a class="code hl_variable" href="sd_8c.html#a8d37d6a747a43ba1d451eb65ae1426da">_card_type</a> &amp; <a class="code hl_define" href="sd_8c.html#aefd26333484d292772b95039e8415d0c">SD_2</a>)</div>
+<div class="line"><span class="lineno">  360</span>        {</div>
+<div class="line"><span class="lineno">  361</span>            <span class="keywordflow">if</span>(<a class="code hl_function" href="sd_8c.html#a4b42f4613401e4f986f7ecefca14e6cf">_sd_command</a>(<a class="code hl_define" href="sd_8c.html#a5625571f0a42246f009e1695f5c0fd88">CMD_READ_OCR</a>, 0))</div>
+<div class="line"><span class="lineno">  362</span>            {</div>
+<div class="line"><span class="lineno">  363</span>                <a class="code hl_function" href="sd_8c.html#a5afa7a4f2574ec052d6326cb62d0bc25">_sd_error</a>();</div>
+<div class="line"><span class="lineno">  364</span>            }</div>
 <div class="line"><span class="lineno">  365</span> </div>
-<div class="line"><span class="lineno">  366</span>    {</div>
-<div class="line"><span class="lineno">  367</span>        <a class="code hl_typedef" href="types_8h.html#a92c50087ca0e64fa93fc59402c55f8ca">u8</a> i, b, csd_read_bl_len, csd_c_size_mult, csd_structure;</div>
-<div class="line"><span class="lineno">  368</span>        <a class="code hl_typedef" href="types_8h.html#ace9d960e74685e2cd84b36132dbbf8aa">u16</a> j, csd_c_size;</div>
-<div class="line"><span class="lineno">  369</span> </div>
-<div class="line"><span class="lineno">  370</span>        <a class="code hl_function" href="spi_8c.html#ab3e16cf26638212c1e54a7aa4878e12a">spi_fast</a>();</div>
-<div class="line"><span class="lineno">  371</span>        <a class="code hl_define" href="gpio_8h.html#ad104eec5bf5679ebe86fb494113175dd">SD_SELECT</a>;</div>
-<div class="line"><span class="lineno">  372</span> </div>
-<div class="line"><span class="lineno">  373</span>        <span class="comment">/* Read CID register */</span></div>
-<div class="line"><span class="lineno">  374</span>        <a class="code hl_function" href="sd_8c.html#a4b42f4613401e4f986f7ecefca14e6cf">_sd_command</a>(<a class="code hl_define" href="sd_8c.html#a69e5cfa724af0af3e97d69005a2b588d">CMD_SEND_CID</a>, 0);</div>
-<div class="line"><span class="lineno">  375</span>        j = 0;</div>
-<div class="line"><span class="lineno">  376</span>        <span class="keywordflow">while</span>(<a class="code hl_function" href="spi_8c.html#aa100766918afcb71b6ba79413f33f9db">spi_xchg</a>(0xFF) != 0xFE)</div>
+<div class="line"><span class="lineno">  366</span>            <span class="keywordflow">if</span>(<a class="code hl_function" href="spi_8c.html#aa100766918afcb71b6ba79413f33f9db">spi_xchg</a>(0xFF) &amp; 0x40)</div>
+<div class="line"><span class="lineno">  367</span>            {</div>
+<div class="line"><span class="lineno">  368</span>                <a class="code hl_variable" href="sd_8c.html#a8d37d6a747a43ba1d451eb65ae1426da">_card_type</a> |= <a class="code hl_define" href="sd_8c.html#a241f7db547832cffdbcd9b73f7eba991">SD_HC</a>;</div>
+<div class="line"><span class="lineno">  369</span>            }</div>
+<div class="line"><span class="lineno">  370</span> </div>
+<div class="line"><span class="lineno">  371</span>            <a class="code hl_function" href="spi_8c.html#aa100766918afcb71b6ba79413f33f9db">spi_xchg</a>(0xFF);</div>
+<div class="line"><span class="lineno">  372</span>            <a class="code hl_function" href="spi_8c.html#aa100766918afcb71b6ba79413f33f9db">spi_xchg</a>(0xFF);</div>
+<div class="line"><span class="lineno">  373</span>            <a class="code hl_function" href="spi_8c.html#aa100766918afcb71b6ba79413f33f9db">spi_xchg</a>(0xFF);</div>
+<div class="line"><span class="lineno">  374</span>        }</div>
+<div class="line"><span class="lineno">  375</span> </div>
+<div class="line"><span class="lineno">  376</span>        <span class="keywordflow">if</span>(<a class="code hl_function" href="sd_8c.html#a4b42f4613401e4f986f7ecefca14e6cf">_sd_command</a>(<a class="code hl_define" href="sd_8c.html#acc98caadb00bb27cee9c6037193adb68">CMD_SET_BLOCKLEN</a>, 512))</div>
 <div class="line"><span class="lineno">  377</span>        {</div>
-<div class="line"><span class="lineno">  378</span>            <span class="keywordflow">if</span>(++j &gt; 0x7FFF)</div>
-<div class="line"><span class="lineno">  379</span>            {</div>
-<div class="line"><span class="lineno">  380</span>                <a class="code hl_function" href="sd_8c.html#aa347e415bf1de52f199a0bb0f07d6e2a">_sd_timeout</a>();</div>
-<div class="line"><span class="lineno">  381</span>            }</div>
-<div class="line"><span class="lineno">  382</span>        }</div>
-<div class="line"><span class="lineno">  383</span> </div>
-<div class="line"><span class="lineno">  384</span>        <span class="keywordflow">for</span>(i = 0; i &lt; 18; ++i)</div>
-<div class="line"><span class="lineno">  385</span>        {</div>
-<div class="line"><span class="lineno">  386</span>            b = <a class="code hl_function" href="spi_8c.html#aa100766918afcb71b6ba79413f33f9db">spi_xchg</a>(0xFF);</div>
-<div class="line"><span class="lineno">  387</span>            <span class="keywordflow">switch</span>(i)</div>
-<div class="line"><span class="lineno">  388</span>            {</div>
-<div class="line"><span class="lineno">  389</span>                <span class="keywordflow">case</span> 0:</div>
-<div class="line"><span class="lineno">  390</span>                    _manufacturer = b;</div>
-<div class="line"><span class="lineno">  391</span>                    <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">  378</span>            <a class="code hl_function" href="sd_8c.html#a5afa7a4f2574ec052d6326cb62d0bc25">_sd_error</a>();</div>
+<div class="line"><span class="lineno">  379</span>        }</div>
+<div class="line"><span class="lineno">  380</span> </div>
+<div class="line"><span class="lineno">  381</span>        <a class="code hl_define" href="gpio_8h.html#a714114dca347ee9354e449387728a12d">SD_DESELECT</a>;</div>
+<div class="line"><span class="lineno">  382</span>        <a class="code hl_function" href="spi_8c.html#ab3e16cf26638212c1e54a7aa4878e12a">spi_fast</a>();</div>
+<div class="line"><span class="lineno">  383</span>        _delay_ms(20);</div>
+<div class="line"><span class="lineno">  384</span>    }</div>
+<div class="line"><span class="lineno">  385</span> </div>
+<div class="line"><span class="lineno">  386</span>    <a class="code hl_function" href="logger_8c.html#a60bd636ef160c97eb51cf31be5954ba2">log_boot_P</a>(LOG_INIT, PSTR(<span class="stringliteral">&quot;SD card initialized&quot;</span>));</div>
+<div class="line"><span class="lineno">  387</span>    <a class="code hl_function" href="logger_8c.html#a60bd636ef160c97eb51cf31be5954ba2">log_boot_P</a>(LOG_INIT, PSTR(<span class="stringliteral">&quot;Reading SD card parameters&quot;</span>));</div>
+<div class="line"><span class="lineno">  388</span> </div>
+<div class="line"><span class="lineno">  389</span>    {</div>
+<div class="line"><span class="lineno">  390</span>        <a class="code hl_typedef" href="types_8h.html#a92c50087ca0e64fa93fc59402c55f8ca">u8</a> i, b, csd_read_bl_len, csd_c_size_mult, csd_structure;</div>
+<div class="line"><span class="lineno">  391</span>        <a class="code hl_typedef" href="types_8h.html#ace9d960e74685e2cd84b36132dbbf8aa">u16</a> j, csd_c_size;</div>
 <div class="line"><span class="lineno">  392</span> </div>
-<div class="line"><span class="lineno">  393</span>                <span class="keywordflow">case</span> 1:</div>
-<div class="line"><span class="lineno">  394</span>                <span class="keywordflow">case</span> 2:</div>
-<div class="line"><span class="lineno">  395</span>                    _oem[i - 1] = b;</div>
-<div class="line"><span class="lineno">  396</span>                    <span class="keywordflow">break</span>;</div>
-<div class="line"><span class="lineno">  397</span> </div>
-<div class="line"><span class="lineno">  398</span>                <span class="keywordflow">case</span> 3:</div>
-<div class="line"><span class="lineno">  399</span>                <span class="keywordflow">case</span> 4:</div>
-<div class="line"><span class="lineno">  400</span>                <span class="keywordflow">case</span> 5:</div>
-<div class="line"><span class="lineno">  401</span>                <span class="keywordflow">case</span> 6:</div>
-<div class="line"><span class="lineno">  402</span>                <span class="keywordflow">case</span> 7:</div>
-<div class="line"><span class="lineno">  403</span>                    _product[i - 3] = b;</div>
-<div class="line"><span class="lineno">  404</span>                    <span class="keywordflow">break</span>;</div>
-<div class="line"><span class="lineno">  405</span> </div>
-<div class="line"><span class="lineno">  406</span>                <span class="keywordflow">case</span> 8:</div>
-<div class="line"><span class="lineno">  407</span>                    _revision = b;</div>
-<div class="line"><span class="lineno">  408</span>                    <span class="keywordflow">break</span>;</div>
-<div class="line"><span class="lineno">  409</span> </div>
-<div class="line"><span class="lineno">  410</span>                <span class="keywordflow">case</span> 9:</div>
-<div class="line"><span class="lineno">  411</span>                <span class="keywordflow">case</span> 10:</div>
-<div class="line"><span class="lineno">  412</span>                <span class="keywordflow">case</span> 11:</div>
-<div class="line"><span class="lineno">  413</span>                <span class="keywordflow">case</span> 12:</div>
-<div class="line"><span class="lineno">  414</span>                    _serial |= (<a class="code hl_typedef" href="types_8h.html#afaa62991928fb9fb18ff0db62a040aba">u32</a>)b &lt;&lt; ((12 - i) * 8);</div>
-<div class="line"><span class="lineno">  415</span>                    <span class="keywordflow">break</span>;</div>
-<div class="line"><span class="lineno">  416</span> </div>
-<div class="line"><span class="lineno">  417</span>                <span class="keywordflow">case</span> 13:</div>
-<div class="line"><span class="lineno">  418</span>                    _manufacturing_year = b &lt;&lt; 4;</div>
+<div class="line"><span class="lineno">  393</span>        <a class="code hl_function" href="spi_8c.html#ab3e16cf26638212c1e54a7aa4878e12a">spi_fast</a>();</div>
+<div class="line"><span class="lineno">  394</span>        <a class="code hl_define" href="gpio_8h.html#ad104eec5bf5679ebe86fb494113175dd">SD_SELECT</a>;</div>
+<div class="line"><span class="lineno">  395</span> </div>
+<div class="line"><span class="lineno">  396</span>        <span class="comment">/* Read CID register */</span></div>
+<div class="line"><span class="lineno">  397</span>        <a class="code hl_function" href="sd_8c.html#a4b42f4613401e4f986f7ecefca14e6cf">_sd_command</a>(<a class="code hl_define" href="sd_8c.html#a69e5cfa724af0af3e97d69005a2b588d">CMD_SEND_CID</a>, 0);</div>
+<div class="line"><span class="lineno">  398</span>        j = 0;</div>
+<div class="line"><span class="lineno">  399</span>        <span class="keywordflow">while</span>(<a class="code hl_function" href="spi_8c.html#aa100766918afcb71b6ba79413f33f9db">spi_xchg</a>(0xFF) != 0xFE)</div>
+<div class="line"><span class="lineno">  400</span>        {</div>
+<div class="line"><span class="lineno">  401</span>            <span class="keywordflow">if</span>(++j &gt; 0x7FFF)</div>
+<div class="line"><span class="lineno">  402</span>            {</div>
+<div class="line"><span class="lineno">  403</span>                <a class="code hl_function" href="sd_8c.html#aa347e415bf1de52f199a0bb0f07d6e2a">_sd_timeout</a>();</div>
+<div class="line"><span class="lineno">  404</span>            }</div>
+<div class="line"><span class="lineno">  405</span>        }</div>
+<div class="line"><span class="lineno">  406</span> </div>
+<div class="line"><span class="lineno">  407</span>        <span class="keywordflow">for</span>(i = 0; i &lt; 18; ++i)</div>
+<div class="line"><span class="lineno">  408</span>        {</div>
+<div class="line"><span class="lineno">  409</span>            b = <a class="code hl_function" href="spi_8c.html#aa100766918afcb71b6ba79413f33f9db">spi_xchg</a>(0xFF);</div>
+<div class="line"><span class="lineno">  410</span>            <span class="keywordflow">switch</span>(i)</div>
+<div class="line"><span class="lineno">  411</span>            {</div>
+<div class="line"><span class="lineno">  412</span>                <span class="keywordflow">case</span> 0:</div>
+<div class="line"><span class="lineno">  413</span>                    <a class="code hl_variable" href="sd_8c.html#a2cf10fd5e6c5eb5ca1e266a56bcbf366">_manufacturer</a> = b;</div>
+<div class="line"><span class="lineno">  414</span>                    <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">  415</span> </div>
+<div class="line"><span class="lineno">  416</span>                <span class="keywordflow">case</span> 1:</div>
+<div class="line"><span class="lineno">  417</span>                <span class="keywordflow">case</span> 2:</div>
+<div class="line"><span class="lineno">  418</span>                    <a class="code hl_variable" href="sd_8c.html#abbb9849e2abd4572cd3adaeed8a3fb0d">_oem</a>[i - 1] = b;</div>
 <div class="line"><span class="lineno">  419</span>                    <span class="keywordflow">break</span>;</div>
 <div class="line"><span class="lineno">  420</span> </div>
-<div class="line"><span class="lineno">  421</span>                <span class="keywordflow">case</span> 14:</div>
-<div class="line"><span class="lineno">  422</span>                    _manufacturing_year |= b &gt;&gt; 4;</div>
-<div class="line"><span class="lineno">  423</span>                    _manufacturing_month = b &amp; 0x0f;</div>
-<div class="line"><span class="lineno">  424</span>                    <span class="keywordflow">break</span>;</div>
-<div class="line"><span class="lineno">  425</span>            }</div>
-<div class="line"><span class="lineno">  426</span>        }</div>
-<div class="line"><span class="lineno">  427</span> </div>
-<div class="line"><span class="lineno">  428</span>        <span class="comment">/* Read CSD register */</span></div>
-<div class="line"><span class="lineno">  429</span>        csd_read_bl_len = 0;</div>
-<div class="line"><span class="lineno">  430</span>        csd_c_size_mult = 0;</div>
-<div class="line"><span class="lineno">  431</span>        csd_structure = 0;</div>
-<div class="line"><span class="lineno">  432</span>        csd_c_size = 0;</div>
-<div class="line"><span class="lineno">  433</span> </div>
-<div class="line"><span class="lineno">  434</span>        <a class="code hl_function" href="sd_8c.html#a4b42f4613401e4f986f7ecefca14e6cf">_sd_command</a>(<a class="code hl_define" href="sd_8c.html#a039c816f90fba6c89d09980c5c1cb888">CMD_SEND_CSD</a>, 0);</div>
-<div class="line"><span class="lineno">  435</span>        j = 0;</div>
-<div class="line"><span class="lineno">  436</span>        <span class="keywordflow">while</span>(<a class="code hl_function" href="spi_8c.html#aa100766918afcb71b6ba79413f33f9db">spi_xchg</a>(0xFF) != 0xFE)</div>
-<div class="line"><span class="lineno">  437</span>        {</div>
-<div class="line"><span class="lineno">  438</span>            <span class="keywordflow">if</span>(++j &gt; 0x7FFF)</div>
-<div class="line"><span class="lineno">  439</span>            {</div>
-<div class="line"><span class="lineno">  440</span>                <a class="code hl_function" href="sd_8c.html#aa347e415bf1de52f199a0bb0f07d6e2a">_sd_timeout</a>();</div>
-<div class="line"><span class="lineno">  441</span>            }</div>
-<div class="line"><span class="lineno">  442</span>        }</div>
+<div class="line"><span class="lineno">  421</span>                <span class="keywordflow">case</span> 3:</div>
+<div class="line"><span class="lineno">  422</span>                <span class="keywordflow">case</span> 4:</div>
+<div class="line"><span class="lineno">  423</span>                <span class="keywordflow">case</span> 5:</div>
+<div class="line"><span class="lineno">  424</span>                <span class="keywordflow">case</span> 6:</div>
+<div class="line"><span class="lineno">  425</span>                <span class="keywordflow">case</span> 7:</div>
+<div class="line"><span class="lineno">  426</span>                    <a class="code hl_variable" href="sd_8c.html#acc046f807b113c25472d832e370dbce3">_product</a>[i - 3] = b;</div>
+<div class="line"><span class="lineno">  427</span>                    <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">  428</span> </div>
+<div class="line"><span class="lineno">  429</span>                <span class="keywordflow">case</span> 8:</div>
+<div class="line"><span class="lineno">  430</span>                    <a class="code hl_variable" href="sd_8c.html#a04d10f02dffd155f45a6f1edeef578a7">_revision</a> = b;</div>
+<div class="line"><span class="lineno">  431</span>                    <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">  432</span> </div>
+<div class="line"><span class="lineno">  433</span>                <span class="keywordflow">case</span> 9:</div>
+<div class="line"><span class="lineno">  434</span>                <span class="keywordflow">case</span> 10:</div>
+<div class="line"><span class="lineno">  435</span>                <span class="keywordflow">case</span> 11:</div>
+<div class="line"><span class="lineno">  436</span>                <span class="keywordflow">case</span> 12:</div>
+<div class="line"><span class="lineno">  437</span>                    <a class="code hl_variable" href="sd_8c.html#a9d42b6e8aa088a7a30937286f1018646">_serial</a> |= (<a class="code hl_typedef" href="types_8h.html#afaa62991928fb9fb18ff0db62a040aba">u32</a>)b &lt;&lt; ((12 - i) * 8);</div>
+<div class="line"><span class="lineno">  438</span>                    <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">  439</span> </div>
+<div class="line"><span class="lineno">  440</span>                <span class="keywordflow">case</span> 13:</div>
+<div class="line"><span class="lineno">  441</span>                    <a class="code hl_variable" href="sd_8c.html#a631d9b4a17a835e65c53341441909327">_manufacturing_year</a> = b &lt;&lt; 4;</div>
+<div class="line"><span class="lineno">  442</span>                    <span class="keywordflow">break</span>;</div>
 <div class="line"><span class="lineno">  443</span> </div>
-<div class="line"><span class="lineno">  444</span>        <span class="keywordflow">for</span>(i = 0; i &lt; 18; ++i)</div>
-<div class="line"><span class="lineno">  445</span>        {</div>
-<div class="line"><span class="lineno">  446</span>            b = <a class="code hl_function" href="spi_8c.html#aa100766918afcb71b6ba79413f33f9db">spi_xchg</a>(0xFF);</div>
-<div class="line"><span class="lineno">  447</span>            <span class="keywordflow">if</span>(i == 0)</div>
-<div class="line"><span class="lineno">  448</span>            {</div>
-<div class="line"><span class="lineno">  449</span>                csd_structure = b &gt;&gt; 6;</div>
-<div class="line"><span class="lineno">  450</span>            }</div>
-<div class="line"><span class="lineno">  451</span>            <span class="keywordflow">else</span> <span class="keywordflow">if</span>(i == 14)</div>
-<div class="line"><span class="lineno">  452</span>            {</div>
-<div class="line"><span class="lineno">  453</span>                <span class="keywordflow">if</span>(b &amp; 0x40)</div>
-<div class="line"><span class="lineno">  454</span>                {</div>
-<div class="line"><span class="lineno">  455</span>                    _flag_copy = 1;</div>
-<div class="line"><span class="lineno">  456</span>                }</div>
-<div class="line"><span class="lineno">  457</span> </div>
-<div class="line"><span class="lineno">  458</span>                <span class="keywordflow">if</span>(b &amp; 0x20)</div>
-<div class="line"><span class="lineno">  459</span>                {</div>
-<div class="line"><span class="lineno">  460</span>                    _flag_write_protect = 1;</div>
-<div class="line"><span class="lineno">  461</span>                }</div>
-<div class="line"><span class="lineno">  462</span> </div>
-<div class="line"><span class="lineno">  463</span>                <span class="keywordflow">if</span>(b &amp; 0x10)</div>
-<div class="line"><span class="lineno">  464</span>                {</div>
-<div class="line"><span class="lineno">  465</span>                    _flag_write_protect_temp = 1;</div>
-<div class="line"><span class="lineno">  466</span>                }</div>
-<div class="line"><span class="lineno">  467</span> </div>
-<div class="line"><span class="lineno">  468</span>                _format = (b &amp; 0x0C) &gt;&gt; 2;</div>
-<div class="line"><span class="lineno">  469</span>            }</div>
-<div class="line"><span class="lineno">  470</span>            <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno">  444</span>                <span class="keywordflow">case</span> 14:</div>
+<div class="line"><span class="lineno">  445</span>                    <a class="code hl_variable" href="sd_8c.html#a631d9b4a17a835e65c53341441909327">_manufacturing_year</a> |= b &gt;&gt; 4;</div>
+<div class="line"><span class="lineno">  446</span>                    <a class="code hl_variable" href="sd_8c.html#a9e7231d7bbac2b52565f8013c1438f95">_manufacturing_month</a> = b &amp; 0x0f;</div>
+<div class="line"><span class="lineno">  447</span>                    <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">  448</span>            }</div>
+<div class="line"><span class="lineno">  449</span>        }</div>
+<div class="line"><span class="lineno">  450</span> </div>
+<div class="line"><span class="lineno">  451</span>        <span class="comment">/* Read CSD register */</span></div>
+<div class="line"><span class="lineno">  452</span>        csd_read_bl_len = 0;</div>
+<div class="line"><span class="lineno">  453</span>        csd_c_size_mult = 0;</div>
+<div class="line"><span class="lineno">  454</span>        csd_structure = 0;</div>
+<div class="line"><span class="lineno">  455</span>        csd_c_size = 0;</div>
+<div class="line"><span class="lineno">  456</span> </div>
+<div class="line"><span class="lineno">  457</span>        <a class="code hl_function" href="sd_8c.html#a4b42f4613401e4f986f7ecefca14e6cf">_sd_command</a>(<a class="code hl_define" href="sd_8c.html#a039c816f90fba6c89d09980c5c1cb888">CMD_SEND_CSD</a>, 0);</div>
+<div class="line"><span class="lineno">  458</span>        j = 0;</div>
+<div class="line"><span class="lineno">  459</span>        <span class="keywordflow">while</span>(<a class="code hl_function" href="spi_8c.html#aa100766918afcb71b6ba79413f33f9db">spi_xchg</a>(0xFF) != 0xFE)</div>
+<div class="line"><span class="lineno">  460</span>        {</div>
+<div class="line"><span class="lineno">  461</span>            <span class="keywordflow">if</span>(++j &gt; 0x7FFF)</div>
+<div class="line"><span class="lineno">  462</span>            {</div>
+<div class="line"><span class="lineno">  463</span>                <a class="code hl_function" href="sd_8c.html#aa347e415bf1de52f199a0bb0f07d6e2a">_sd_timeout</a>();</div>
+<div class="line"><span class="lineno">  464</span>            }</div>
+<div class="line"><span class="lineno">  465</span>        }</div>
+<div class="line"><span class="lineno">  466</span> </div>
+<div class="line"><span class="lineno">  467</span>        <span class="keywordflow">for</span>(i = 0; i &lt; 18; ++i)</div>
+<div class="line"><span class="lineno">  468</span>        {</div>
+<div class="line"><span class="lineno">  469</span>            b = <a class="code hl_function" href="spi_8c.html#aa100766918afcb71b6ba79413f33f9db">spi_xchg</a>(0xFF);</div>
+<div class="line"><span class="lineno">  470</span>            <span class="keywordflow">if</span>(i == 0)</div>
 <div class="line"><span class="lineno">  471</span>            {</div>
-<div class="line"><span class="lineno">  472</span>                <span class="keywordflow">if</span>(csd_structure == 0x01)</div>
-<div class="line"><span class="lineno">  473</span>                {</div>
-<div class="line"><span class="lineno">  474</span>                    <span class="keywordflow">switch</span>(i)</div>
-<div class="line"><span class="lineno">  475</span>                    {</div>
-<div class="line"><span class="lineno">  476</span>                        <span class="keywordflow">case</span> 7:</div>
-<div class="line"><span class="lineno">  477</span>                            b &amp;= 0x3f;</div>
-<div class="line"><span class="lineno">  478</span> </div>
-<div class="line"><span class="lineno">  479</span>                        <span class="keywordflow">case</span> 8:</div>
-<div class="line"><span class="lineno">  480</span>                        <span class="keywordflow">case</span> 9:</div>
-<div class="line"><span class="lineno">  481</span>                            csd_c_size &lt;&lt;= 8;</div>
-<div class="line"><span class="lineno">  482</span>                            csd_c_size |= b;</div>
-<div class="line"><span class="lineno">  483</span>                            ++csd_c_size;</div>
-<div class="line"><span class="lineno">  484</span>                            _capacity = (<a class="code hl_typedef" href="types_8h.html#afaa62991928fb9fb18ff0db62a040aba">u32</a>)csd_c_size &lt;&lt; 10;</div>
-<div class="line"><span class="lineno">  485</span>                    }</div>
-<div class="line"><span class="lineno">  486</span>                }</div>
-<div class="line"><span class="lineno">  487</span>                <span class="keywordflow">else</span> <span class="keywordflow">if</span>(csd_structure == 0x00)</div>
-<div class="line"><span class="lineno">  488</span>                {</div>
-<div class="line"><span class="lineno">  489</span>                    <span class="keywordflow">switch</span>(i)</div>
-<div class="line"><span class="lineno">  490</span>                    {</div>
-<div class="line"><span class="lineno">  491</span>                        <span class="keywordflow">case</span> 5:</div>
-<div class="line"><span class="lineno">  492</span>                            csd_read_bl_len = b &amp; 0x0F;</div>
-<div class="line"><span class="lineno">  493</span>                            <span class="keywordflow">break</span>;</div>
-<div class="line"><span class="lineno">  494</span> </div>
-<div class="line"><span class="lineno">  495</span>                        <span class="keywordflow">case</span> 6:</div>
-<div class="line"><span class="lineno">  496</span>                            csd_c_size = b &amp; 0x03;</div>
-<div class="line"><span class="lineno">  497</span>                            csd_c_size &lt;&lt;= 8;</div>
-<div class="line"><span class="lineno">  498</span>                            <span class="keywordflow">break</span>;</div>
-<div class="line"><span class="lineno">  499</span> </div>
-<div class="line"><span class="lineno">  500</span>                        <span class="keywordflow">case</span> 7:</div>
-<div class="line"><span class="lineno">  501</span>                            csd_c_size |= b;</div>
-<div class="line"><span class="lineno">  502</span>                            csd_c_size &lt;&lt;= 2;</div>
-<div class="line"><span class="lineno">  503</span>                            <span class="keywordflow">break</span>;</div>
-<div class="line"><span class="lineno">  504</span> </div>
-<div class="line"><span class="lineno">  505</span>                        <span class="keywordflow">case</span> 8:</div>
-<div class="line"><span class="lineno">  506</span>                            csd_c_size |= b &gt;&gt; 6;</div>
-<div class="line"><span class="lineno">  507</span>                            ++csd_c_size;</div>
-<div class="line"><span class="lineno">  508</span>                            <span class="keywordflow">break</span>;</div>
-<div class="line"><span class="lineno">  509</span> </div>
-<div class="line"><span class="lineno">  510</span>                        <span class="keywordflow">case</span> 9:</div>
-<div class="line"><span class="lineno">  511</span>                            csd_c_size_mult = b &amp; 0x03;</div>
-<div class="line"><span class="lineno">  512</span>                            csd_c_size_mult &lt;&lt;= 1;</div>
-<div class="line"><span class="lineno">  513</span>                            <span class="keywordflow">break</span>;</div>
-<div class="line"><span class="lineno">  514</span> </div>
-<div class="line"><span class="lineno">  515</span>                        <span class="keywordflow">case</span> 10:</div>
-<div class="line"><span class="lineno">  516</span>                            csd_c_size_mult |= b &gt;&gt; 7;</div>
-<div class="line"><span class="lineno">  517</span>                            _capacity = ((<a class="code hl_typedef" href="types_8h.html#afaa62991928fb9fb18ff0db62a040aba">u32</a>)csd_c_size &lt;&lt;</div>
-<div class="line"><span class="lineno">  518</span>                                (csd_c_size_mult + csd_read_bl_len + 2)) &gt;&gt; 9;</div>
-<div class="line"><span class="lineno">  519</span>                            <span class="keywordflow">break</span>;</div>
-<div class="line"><span class="lineno">  520</span>                    }</div>
-<div class="line"><span class="lineno">  521</span>                }</div>
-<div class="line"><span class="lineno">  522</span>            }</div>
-<div class="line"><span class="lineno">  523</span>        }</div>
-<div class="line"><span class="lineno">  524</span> </div>
-<div class="line"><span class="lineno">  525</span>        <a class="code hl_define" href="gpio_8h.html#a714114dca347ee9354e449387728a12d">SD_DESELECT</a>;</div>
-<div class="line"><span class="lineno">  526</span>    }</div>
+<div class="line"><span class="lineno">  472</span>                csd_structure = b &gt;&gt; 6;</div>
+<div class="line"><span class="lineno">  473</span>            }</div>
+<div class="line"><span class="lineno">  474</span>            <span class="keywordflow">else</span> <span class="keywordflow">if</span>(i == 14)</div>
+<div class="line"><span class="lineno">  475</span>            {</div>
+<div class="line"><span class="lineno">  476</span>                <span class="keywordflow">if</span>(b &amp; 0x40)</div>
+<div class="line"><span class="lineno">  477</span>                {</div>
+<div class="line"><span class="lineno">  478</span>                    <a class="code hl_variable" href="sd_8c.html#a2998fdf4c7eb0b26a2b54d00b758491e">_flag_copy</a> = 1;</div>
+<div class="line"><span class="lineno">  479</span>                }</div>
+<div class="line"><span class="lineno">  480</span> </div>
+<div class="line"><span class="lineno">  481</span>                <span class="keywordflow">if</span>(b &amp; 0x20)</div>
+<div class="line"><span class="lineno">  482</span>                {</div>
+<div class="line"><span class="lineno">  483</span>                    <a class="code hl_variable" href="sd_8c.html#a3fdc31aba359f341228d803372422756">_flag_write_protect</a> = 1;</div>
+<div class="line"><span class="lineno">  484</span>                }</div>
+<div class="line"><span class="lineno">  485</span> </div>
+<div class="line"><span class="lineno">  486</span>                <span class="keywordflow">if</span>(b &amp; 0x10)</div>
+<div class="line"><span class="lineno">  487</span>                {</div>
+<div class="line"><span class="lineno">  488</span>                    <a class="code hl_variable" href="sd_8c.html#ada821f7b53ae5197acf8428b43b439a2">_flag_write_protect_temp</a> = 1;</div>
+<div class="line"><span class="lineno">  489</span>                }</div>
+<div class="line"><span class="lineno">  490</span> </div>
+<div class="line"><span class="lineno">  491</span>                <a class="code hl_variable" href="sd_8c.html#ac95274980aa92d9e823f7fe40e9c71c6">_format</a> = (b &amp; 0x0C) &gt;&gt; 2;</div>
+<div class="line"><span class="lineno">  492</span>            }</div>
+<div class="line"><span class="lineno">  493</span>            <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno">  494</span>            {</div>
+<div class="line"><span class="lineno">  495</span>                <span class="keywordflow">if</span>(csd_structure == 0x01)</div>
+<div class="line"><span class="lineno">  496</span>                {</div>
+<div class="line"><span class="lineno">  497</span>                    <span class="keywordflow">switch</span>(i)</div>
+<div class="line"><span class="lineno">  498</span>                    {</div>
+<div class="line"><span class="lineno">  499</span>                        <span class="keywordflow">case</span> 7:</div>
+<div class="line"><span class="lineno">  500</span>                            b &amp;= 0x3f;</div>
+<div class="line"><span class="lineno">  501</span> </div>
+<div class="line"><span class="lineno">  502</span>                        <span class="keywordflow">case</span> 8:</div>
+<div class="line"><span class="lineno">  503</span>                        <span class="keywordflow">case</span> 9:</div>
+<div class="line"><span class="lineno">  504</span>                            csd_c_size &lt;&lt;= 8;</div>
+<div class="line"><span class="lineno">  505</span>                            csd_c_size |= b;</div>
+<div class="line"><span class="lineno">  506</span>                            ++csd_c_size;</div>
+<div class="line"><span class="lineno">  507</span>                            <a class="code hl_variable" href="sd_8c.html#a7bd8d3e0e1c2cf5b038b34cae188e103">_capacity</a> = (<a class="code hl_typedef" href="types_8h.html#afaa62991928fb9fb18ff0db62a040aba">u32</a>)csd_c_size &lt;&lt; 10;</div>
+<div class="line"><span class="lineno">  508</span>                    }</div>
+<div class="line"><span class="lineno">  509</span>                }</div>
+<div class="line"><span class="lineno">  510</span>                <span class="keywordflow">else</span> <span class="keywordflow">if</span>(csd_structure == 0x00)</div>
+<div class="line"><span class="lineno">  511</span>                {</div>
+<div class="line"><span class="lineno">  512</span>                    <span class="keywordflow">switch</span>(i)</div>
+<div class="line"><span class="lineno">  513</span>                    {</div>
+<div class="line"><span class="lineno">  514</span>                        <span class="keywordflow">case</span> 5:</div>
+<div class="line"><span class="lineno">  515</span>                            csd_read_bl_len = b &amp; 0x0F;</div>
+<div class="line"><span class="lineno">  516</span>                            <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">  517</span> </div>
+<div class="line"><span class="lineno">  518</span>                        <span class="keywordflow">case</span> 6:</div>
+<div class="line"><span class="lineno">  519</span>                            csd_c_size = b &amp; 0x03;</div>
+<div class="line"><span class="lineno">  520</span>                            csd_c_size &lt;&lt;= 8;</div>
+<div class="line"><span class="lineno">  521</span>                            <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">  522</span> </div>
+<div class="line"><span class="lineno">  523</span>                        <span class="keywordflow">case</span> 7:</div>
+<div class="line"><span class="lineno">  524</span>                            csd_c_size |= b;</div>
+<div class="line"><span class="lineno">  525</span>                            csd_c_size &lt;&lt;= 2;</div>
+<div class="line"><span class="lineno">  526</span>                            <span class="keywordflow">break</span>;</div>
 <div class="line"><span class="lineno">  527</span> </div>
-<div class="line"><span class="lineno">  528</span>    <span class="comment">/* Print disk info */</span></div>
-<div class="line"><span class="lineno">  529</span>    <a class="code hl_function" href="sd_8c.html#a791232512be2ae4eb1cddf0bcfa2c894">_sd_info_print</a>();</div>
-<div class="line"><span class="lineno">  530</span>}</div>
+<div class="line"><span class="lineno">  528</span>                        <span class="keywordflow">case</span> 8:</div>
+<div class="line"><span class="lineno">  529</span>                            csd_c_size |= b &gt;&gt; 6;</div>
+<div class="line"><span class="lineno">  530</span>                            ++csd_c_size;</div>
+<div class="line"><span class="lineno">  531</span>                            <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">  532</span> </div>
+<div class="line"><span class="lineno">  533</span>                        <span class="keywordflow">case</span> 9:</div>
+<div class="line"><span class="lineno">  534</span>                            csd_c_size_mult = b &amp; 0x03;</div>
+<div class="line"><span class="lineno">  535</span>                            csd_c_size_mult &lt;&lt;= 1;</div>
+<div class="line"><span class="lineno">  536</span>                            <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">  537</span> </div>
+<div class="line"><span class="lineno">  538</span>                        <span class="keywordflow">case</span> 10:</div>
+<div class="line"><span class="lineno">  539</span>                            csd_c_size_mult |= b &gt;&gt; 7;</div>
+<div class="line"><span class="lineno">  540</span>                            <a class="code hl_variable" href="sd_8c.html#a7bd8d3e0e1c2cf5b038b34cae188e103">_capacity</a> = ((<a class="code hl_typedef" href="types_8h.html#afaa62991928fb9fb18ff0db62a040aba">u32</a>)csd_c_size &lt;&lt;</div>
+<div class="line"><span class="lineno">  541</span>                                (csd_c_size_mult + csd_read_bl_len + 2)) &gt;&gt; 9;</div>
+<div class="line"><span class="lineno">  542</span>                            <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">  543</span>                    }</div>
+<div class="line"><span class="lineno">  544</span>                }</div>
+<div class="line"><span class="lineno">  545</span>            }</div>
+<div class="line"><span class="lineno">  546</span>        }</div>
+<div class="line"><span class="lineno">  547</span> </div>
+<div class="line"><span class="lineno">  548</span>        <a class="code hl_define" href="gpio_8h.html#a714114dca347ee9354e449387728a12d">SD_DESELECT</a>;</div>
+<div class="line"><span class="lineno">  549</span>    }</div>
+<div class="line"><span class="lineno">  550</span> </div>
+<div class="line"><span class="lineno">  551</span>    <span class="comment">/* Print disk info */</span></div>
+<div class="line"><span class="lineno">  552</span>    <a class="code hl_function" href="sd_8c.html#a791232512be2ae4eb1cddf0bcfa2c894">_sd_info_print</a>();</div>
+<div class="line"><span class="lineno">  553</span>}</div>
 <div class="ttc" id="agpio_8h_html_a714114dca347ee9354e449387728a12d"><div class="ttname"><a href="gpio_8h.html#a714114dca347ee9354e449387728a12d">SD_DESELECT</a></div><div class="ttdeci">#define SD_DESELECT</div><div class="ttdef"><b>Definition:</b> <a href="gpio_8h_source.html#l00084">gpio.h:84</a></div></div>
 <div class="ttc" id="agpio_8h_html_ad104eec5bf5679ebe86fb494113175dd"><div class="ttname"><a href="gpio_8h.html#ad104eec5bf5679ebe86fb494113175dd">SD_SELECT</a></div><div class="ttdeci">#define SD_SELECT</div><div class="ttdef"><b>Definition:</b> <a href="gpio_8h_source.html#l00081">gpio.h:81</a></div></div>
-<div class="ttc" id="alogger_8c_html_a60bd636ef160c97eb51cf31be5954ba2"><div class="ttname"><a href="logger_8c.html#a60bd636ef160c97eb51cf31be5954ba2">log_boot_P</a></div><div class="ttdeci">void log_boot_P(LogLevel level, const char *msg,...)</div><div class="ttdoc">Log boot message.</div><div class="ttdef"><b>Definition:</b> <a href="logger_8c_source.html#l00164">logger.c:164</a></div></div>
+<div class="ttc" id="alogger_8c_html_a60bd636ef160c97eb51cf31be5954ba2"><div class="ttname"><a href="logger_8c.html#a60bd636ef160c97eb51cf31be5954ba2">log_boot_P</a></div><div class="ttdeci">void log_boot_P(LogLevel level, const char *msg,...)</div><div class="ttdoc">Log boot message.</div><div class="ttdef"><b>Definition:</b> <a href="logger_8c_source.html#l00170">logger.c:170</a></div></div>
 <div class="ttc" id="asd_8c_html_a039c816f90fba6c89d09980c5c1cb888"><div class="ttname"><a href="sd_8c.html#a039c816f90fba6c89d09980c5c1cb888">CMD_SEND_CSD</a></div><div class="ttdeci">#define CMD_SEND_CSD</div><div class="ttdef"><b>Definition:</b> <a href="sd_8c_source.html#l00024">sd.c:24</a></div></div>
+<div class="ttc" id="asd_8c_html_a04d10f02dffd155f45a6f1edeef578a7"><div class="ttname"><a href="sd_8c.html#a04d10f02dffd155f45a6f1edeef578a7">_revision</a></div><div class="ttdeci">static u8 _revision</div><div class="ttdef"><b>Definition:</b> <a href="sd_8c_source.html#l00086">sd.c:86</a></div></div>
 <div class="ttc" id="asd_8c_html_a0d173f3d259f3c28a25f4fd2b8085131"><div class="ttname"><a href="sd_8c.html#a0d173f3d259f3c28a25f4fd2b8085131">CMD_APP</a></div><div class="ttdeci">#define CMD_APP</div><div class="ttdef"><b>Definition:</b> <a href="sd_8c_source.html#l00045">sd.c:45</a></div></div>
 <div class="ttc" id="asd_8c_html_a1d66c9130165248f0563074180dd1432"><div class="ttname"><a href="sd_8c.html#a1d66c9130165248f0563074180dd1432">IDLE_STATE</a></div><div class="ttdeci">#define IDLE_STATE</div><div class="ttdef"><b>Definition:</b> <a href="sd_8c_source.html#l00051">sd.c:51</a></div></div>
 <div class="ttc" id="asd_8c_html_a241f7db547832cffdbcd9b73f7eba991"><div class="ttname"><a href="sd_8c.html#a241f7db547832cffdbcd9b73f7eba991">SD_HC</a></div><div class="ttdeci">#define SD_HC</div><div class="ttdef"><b>Definition:</b> <a href="sd_8c_source.html#l00063">sd.c:63</a></div></div>
 <div class="ttc" id="asd_8c_html_a282a2096b479791ed712f393f8faa67c"><div class="ttname"><a href="sd_8c.html#a282a2096b479791ed712f393f8faa67c">CMD_SD_SEND_OP_COND</a></div><div class="ttdeci">#define CMD_SD_SEND_OP_COND</div><div class="ttdef"><b>Definition:</b> <a href="sd_8c_source.html#l00042">sd.c:42</a></div></div>
-<div class="ttc" id="asd_8c_html_a4b42f4613401e4f986f7ecefca14e6cf"><div class="ttname"><a href="sd_8c.html#a4b42f4613401e4f986f7ecefca14e6cf">_sd_command</a></div><div class="ttdeci">static u8 _sd_command(u8 cmd, u32 arg)</div><div class="ttdoc">Execute an SD command (panic if failed)</div><div class="ttdef"><b>Definition:</b> <a href="sd_8c_source.html#l00119">sd.c:119</a></div></div>
+<div class="ttc" id="asd_8c_html_a2998fdf4c7eb0b26a2b54d00b758491e"><div class="ttname"><a href="sd_8c.html#a2998fdf4c7eb0b26a2b54d00b758491e">_flag_copy</a></div><div class="ttdeci">static u8 _flag_copy</div><div class="ttdef"><b>Definition:</b> <a href="sd_8c_source.html#l00095">sd.c:95</a></div></div>
+<div class="ttc" id="asd_8c_html_a2cf10fd5e6c5eb5ca1e266a56bcbf366"><div class="ttname"><a href="sd_8c.html#a2cf10fd5e6c5eb5ca1e266a56bcbf366">_manufacturer</a></div><div class="ttdeci">static u8 _manufacturer</div><div class="ttdef"><b>Definition:</b> <a href="sd_8c_source.html#l00083">sd.c:83</a></div></div>
+<div class="ttc" id="asd_8c_html_a3fdc31aba359f341228d803372422756"><div class="ttname"><a href="sd_8c.html#a3fdc31aba359f341228d803372422756">_flag_write_protect</a></div><div class="ttdeci">static u8 _flag_write_protect</div><div class="ttdef"><b>Definition:</b> <a href="sd_8c_source.html#l00098">sd.c:98</a></div></div>
+<div class="ttc" id="asd_8c_html_a4b42f4613401e4f986f7ecefca14e6cf"><div class="ttname"><a href="sd_8c.html#a4b42f4613401e4f986f7ecefca14e6cf">_sd_command</a></div><div class="ttdeci">static u8 _sd_command(u8 cmd, u32 arg)</div><div class="ttdoc">Execute an SD command (panic if failed)</div><div class="ttdef"><b>Definition:</b> <a href="sd_8c_source.html#l00142">sd.c:142</a></div></div>
 <div class="ttc" id="asd_8c_html_a5625571f0a42246f009e1695f5c0fd88"><div class="ttname"><a href="sd_8c.html#a5625571f0a42246f009e1695f5c0fd88">CMD_READ_OCR</a></div><div class="ttdeci">#define CMD_READ_OCR</div><div class="ttdef"><b>Definition:</b> <a href="sd_8c_source.html#l00048">sd.c:48</a></div></div>
 <div class="ttc" id="asd_8c_html_a574e335142ba9044c1a53a571f7f21ee"><div class="ttname"><a href="sd_8c.html#a574e335142ba9044c1a53a571f7f21ee">SD_1</a></div><div class="ttdeci">#define SD_1</div><div class="ttdef"><b>Definition:</b> <a href="sd_8c_source.html#l00057">sd.c:57</a></div></div>
-<div class="ttc" id="asd_8c_html_a5afa7a4f2574ec052d6326cb62d0bc25"><div class="ttname"><a href="sd_8c.html#a5afa7a4f2574ec052d6326cb62d0bc25">_sd_error</a></div><div class="ttdeci">static void _sd_error(void)</div><div class="ttdoc">Trigger an SD error panic.</div><div class="ttdef"><b>Definition:</b> <a href="sd_8c_source.html#l00106">sd.c:106</a></div></div>
+<div class="ttc" id="asd_8c_html_a5afa7a4f2574ec052d6326cb62d0bc25"><div class="ttname"><a href="sd_8c.html#a5afa7a4f2574ec052d6326cb62d0bc25">_sd_error</a></div><div class="ttdeci">static void _sd_error(void)</div><div class="ttdoc">Trigger an SD error panic.</div><div class="ttdef"><b>Definition:</b> <a href="sd_8c_source.html#l00129">sd.c:129</a></div></div>
+<div class="ttc" id="asd_8c_html_a631d9b4a17a835e65c53341441909327"><div class="ttname"><a href="sd_8c.html#a631d9b4a17a835e65c53341441909327">_manufacturing_year</a></div><div class="ttdeci">static u8 _manufacturing_year</div><div class="ttdef"><b>Definition:</b> <a href="sd_8c_source.html#l00089">sd.c:89</a></div></div>
 <div class="ttc" id="asd_8c_html_a69e5cfa724af0af3e97d69005a2b588d"><div class="ttname"><a href="sd_8c.html#a69e5cfa724af0af3e97d69005a2b588d">CMD_SEND_CID</a></div><div class="ttdeci">#define CMD_SEND_CID</div><div class="ttdef"><b>Definition:</b> <a href="sd_8c_source.html#l00027">sd.c:27</a></div></div>
 <div class="ttc" id="asd_8c_html_a773735b7bef10597c3db4f8a60e42ad3"><div class="ttname"><a href="sd_8c.html#a773735b7bef10597c3db4f8a60e42ad3">CMD_SEND_IF_COND</a></div><div class="ttdeci">#define CMD_SEND_IF_COND</div><div class="ttdef"><b>Definition:</b> <a href="sd_8c_source.html#l00021">sd.c:21</a></div></div>
-<div class="ttc" id="asd_8c_html_a791232512be2ae4eb1cddf0bcfa2c894"><div class="ttname"><a href="sd_8c.html#a791232512be2ae4eb1cddf0bcfa2c894">_sd_info_print</a></div><div class="ttdeci">static void _sd_info_print(void)</div><div class="ttdoc">Print SD card info to serial port.</div><div class="ttdef"><b>Definition:</b> <a href="sd_8c_source.html#l00212">sd.c:212</a></div></div>
-<div class="ttc" id="asd_8c_html_a7bf3670f9b10107272a0bc84bd449d46"><div class="ttname"><a href="sd_8c.html#a7bf3670f9b10107272a0bc84bd449d46">_spi_configure_slow</a></div><div class="ttdeci">static void _spi_configure_slow(void)</div><div class="ttdoc">Put SPI into slow mode for initialization.</div><div class="ttdef"><b>Definition:</b> <a href="sd_8c_source.html#l00088">sd.c:88</a></div></div>
+<div class="ttc" id="asd_8c_html_a791232512be2ae4eb1cddf0bcfa2c894"><div class="ttname"><a href="sd_8c.html#a791232512be2ae4eb1cddf0bcfa2c894">_sd_info_print</a></div><div class="ttdeci">static void _sd_info_print(void)</div><div class="ttdoc">Print SD card info to serial port.</div><div class="ttdef"><b>Definition:</b> <a href="sd_8c_source.html#l00235">sd.c:235</a></div></div>
+<div class="ttc" id="asd_8c_html_a7bd8d3e0e1c2cf5b038b34cae188e103"><div class="ttname"><a href="sd_8c.html#a7bd8d3e0e1c2cf5b038b34cae188e103">_capacity</a></div><div class="ttdeci">static u32 _capacity</div><div class="ttdef"><b>Definition:</b> <a href="sd_8c_source.html#l00071">sd.c:71</a></div></div>
+<div class="ttc" id="asd_8c_html_a7bf3670f9b10107272a0bc84bd449d46"><div class="ttname"><a href="sd_8c.html#a7bf3670f9b10107272a0bc84bd449d46">_spi_configure_slow</a></div><div class="ttdeci">static void _spi_configure_slow(void)</div><div class="ttdoc">Put SPI into slow mode for initialization.</div><div class="ttdef"><b>Definition:</b> <a href="sd_8c_source.html#l00111">sd.c:111</a></div></div>
 <div class="ttc" id="asd_8c_html_a8ae8b08655b2ec2facb46d6bbc83065c"><div class="ttname"><a href="sd_8c.html#a8ae8b08655b2ec2facb46d6bbc83065c">ILLEGAL_CMD</a></div><div class="ttdeci">#define ILLEGAL_CMD</div><div class="ttdef"><b>Definition:</b> <a href="sd_8c_source.html#l00054">sd.c:54</a></div></div>
-<div class="ttc" id="asd_8c_html_aa347e415bf1de52f199a0bb0f07d6e2a"><div class="ttname"><a href="sd_8c.html#aa347e415bf1de52f199a0bb0f07d6e2a">_sd_timeout</a></div><div class="ttdeci">static void _sd_timeout(void)</div><div class="ttdoc">Trigger an SD timeout panic.</div><div class="ttdef"><b>Definition:</b> <a href="sd_8c_source.html#l00097">sd.c:97</a></div></div>
+<div class="ttc" id="asd_8c_html_a8d37d6a747a43ba1d451eb65ae1426da"><div class="ttname"><a href="sd_8c.html#a8d37d6a747a43ba1d451eb65ae1426da">_card_type</a></div><div class="ttdeci">static u8 _card_type</div><div class="ttdef"><b>Definition:</b> <a href="sd_8c_source.html#l00080">sd.c:80</a></div></div>
+<div class="ttc" id="asd_8c_html_a9d42b6e8aa088a7a30937286f1018646"><div class="ttname"><a href="sd_8c.html#a9d42b6e8aa088a7a30937286f1018646">_serial</a></div><div class="ttdeci">static u32 _serial</div><div class="ttdef"><b>Definition:</b> <a href="sd_8c_source.html#l00068">sd.c:68</a></div></div>
+<div class="ttc" id="asd_8c_html_a9e7231d7bbac2b52565f8013c1438f95"><div class="ttname"><a href="sd_8c.html#a9e7231d7bbac2b52565f8013c1438f95">_manufacturing_month</a></div><div class="ttdeci">static u8 _manufacturing_month</div><div class="ttdef"><b>Definition:</b> <a href="sd_8c_source.html#l00092">sd.c:92</a></div></div>
+<div class="ttc" id="asd_8c_html_aa347e415bf1de52f199a0bb0f07d6e2a"><div class="ttname"><a href="sd_8c.html#aa347e415bf1de52f199a0bb0f07d6e2a">_sd_timeout</a></div><div class="ttdeci">static void _sd_timeout(void)</div><div class="ttdoc">Trigger an SD timeout panic.</div><div class="ttdef"><b>Definition:</b> <a href="sd_8c_source.html#l00120">sd.c:120</a></div></div>
+<div class="ttc" id="asd_8c_html_abbb9849e2abd4572cd3adaeed8a3fb0d"><div class="ttname"><a href="sd_8c.html#abbb9849e2abd4572cd3adaeed8a3fb0d">_oem</a></div><div class="ttdeci">static u8 _oem[3]</div><div class="ttdef"><b>Definition:</b> <a href="sd_8c_source.html#l00074">sd.c:74</a></div></div>
+<div class="ttc" id="asd_8c_html_ac95274980aa92d9e823f7fe40e9c71c6"><div class="ttname"><a href="sd_8c.html#ac95274980aa92d9e823f7fe40e9c71c6">_format</a></div><div class="ttdeci">static u8 _format</div><div class="ttdef"><b>Definition:</b> <a href="sd_8c_source.html#l00104">sd.c:104</a></div></div>
+<div class="ttc" id="asd_8c_html_acc046f807b113c25472d832e370dbce3"><div class="ttname"><a href="sd_8c.html#acc046f807b113c25472d832e370dbce3">_product</a></div><div class="ttdeci">static u8 _product[6]</div><div class="ttdef"><b>Definition:</b> <a href="sd_8c_source.html#l00077">sd.c:77</a></div></div>
 <div class="ttc" id="asd_8c_html_acc98caadb00bb27cee9c6037193adb68"><div class="ttname"><a href="sd_8c.html#acc98caadb00bb27cee9c6037193adb68">CMD_SET_BLOCKLEN</a></div><div class="ttdeci">#define CMD_SET_BLOCKLEN</div><div class="ttdef"><b>Definition:</b> <a href="sd_8c_source.html#l00030">sd.c:30</a></div></div>
+<div class="ttc" id="asd_8c_html_ada821f7b53ae5197acf8428b43b439a2"><div class="ttname"><a href="sd_8c.html#ada821f7b53ae5197acf8428b43b439a2">_flag_write_protect_temp</a></div><div class="ttdeci">static u8 _flag_write_protect_temp</div><div class="ttdef"><b>Definition:</b> <a href="sd_8c_source.html#l00101">sd.c:101</a></div></div>
 <div class="ttc" id="asd_8c_html_ae059745768a7fde0832a1dea6a623ab0"><div class="ttname"><a href="sd_8c.html#ae059745768a7fde0832a1dea6a623ab0">CMD_SEND_OP_COND</a></div><div class="ttdeci">#define CMD_SEND_OP_COND</div><div class="ttdef"><b>Definition:</b> <a href="sd_8c_source.html#l00039">sd.c:39</a></div></div>
 <div class="ttc" id="asd_8c_html_ae3dd15ec52cbd1ef2ce6e20e39fd6efb"><div class="ttname"><a href="sd_8c.html#ae3dd15ec52cbd1ef2ce6e20e39fd6efb">CMD_GO_IDLE_STATE</a></div><div class="ttdeci">#define CMD_GO_IDLE_STATE</div><div class="ttdef"><b>Definition:</b> <a href="sd_8c_source.html#l00018">sd.c:18</a></div></div>
 <div class="ttc" id="asd_8c_html_aefd26333484d292772b95039e8415d0c"><div class="ttname"><a href="sd_8c.html#aefd26333484d292772b95039e8415d0c">SD_2</a></div><div class="ttdeci">#define SD_2</div><div class="ttdef"><b>Definition:</b> <a href="sd_8c_source.html#l00060">sd.c:60</a></div></div>
@@ -474,7 +487,7 @@ Functions</h2></td></tr>
 <div class="ttc" id="atypes_8h_html_ace9d960e74685e2cd84b36132dbbf8aa"><div class="ttname"><a href="types_8h.html#ace9d960e74685e2cd84b36132dbbf8aa">u16</a></div><div class="ttdeci">uint16_t u16</div><div class="ttdef"><b>Definition:</b> <a href="types_8h_source.html#l00035">types.h:35</a></div></div>
 <div class="ttc" id="atypes_8h_html_afaa62991928fb9fb18ff0db62a040aba"><div class="ttname"><a href="types_8h.html#afaa62991928fb9fb18ff0db62a040aba">u32</a></div><div class="ttdeci">uint32_t u32</div><div class="ttdef"><b>Definition:</b> <a href="types_8h_source.html#l00032">types.h:32</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="sd_8c_source.html#l00119">_sd_command()</a>, <a class="el" href="sd_8c_source.html#l00106">_sd_error()</a>, <a class="el" href="sd_8c_source.html#l00212">_sd_info_print()</a>, <a class="el" href="sd_8c_source.html#l00097">_sd_timeout()</a>, <a class="el" href="sd_8c_source.html#l00088">_spi_configure_slow()</a>, <a class="el" href="sd_8c_source.html#l00045">CMD_APP</a>, <a class="el" href="sd_8c_source.html#l00018">CMD_GO_IDLE_STATE</a>, <a class="el" href="sd_8c_source.html#l00048">CMD_READ_OCR</a>, <a class="el" href="sd_8c_source.html#l00042">CMD_SD_SEND_OP_COND</a>, <a class="el" href="sd_8c_source.html#l00027">CMD_SEND_CID</a>, <a class="el" href="sd_8c_source.html#l00024">CMD_SEND_CSD</a>, <a class="el" href="sd_8c_source.html#l00021">CMD_SEND_IF_COND</a>, <a class="el" href="sd_8c_source.html#l00039">CMD_SEND_OP_COND</a>, <a class="el" href="sd_8c_source.html#l00030">CMD_SET_BLOCKLEN</a>, <a class="el" href="sd_8c_source.html#l00051">IDLE_STATE</a>, <a class="el" href="sd_8c_source.html#l00054">ILLEGAL_CMD</a>, <a class="el" href="logger_8c_source.html#l00164">log_boot_P()</a>, <a class="el" href="sd_8c_source.html#l00057">SD_1</a>, <a class="el" href="sd_8c_source.html#l00060">SD_2</a>, <a class="el" href="gpio_8h_source.html#l00084">SD_DESELECT</a>, <a class="el" href="sd_8c_source.html#l00063">SD_HC</a>, <a class="el" href="gpio_8h_source.html#l00081">SD_SELECT</a>, <a class="el" href="spi_8c_source.html#l00018">spi_fast()</a>, and <a class="el" href="spi_8c_source.html#l00024">spi_xchg()</a>.</p>
+<p class="reference">References <a class="el" href="sd_8c_source.html#l00071">_capacity</a>, <a class="el" href="sd_8c_source.html#l00080">_card_type</a>, <a class="el" href="sd_8c_source.html#l00095">_flag_copy</a>, <a class="el" href="sd_8c_source.html#l00098">_flag_write_protect</a>, <a class="el" href="sd_8c_source.html#l00101">_flag_write_protect_temp</a>, <a class="el" href="sd_8c_source.html#l00104">_format</a>, <a class="el" href="sd_8c_source.html#l00083">_manufacturer</a>, <a class="el" href="sd_8c_source.html#l00092">_manufacturing_month</a>, <a class="el" href="sd_8c_source.html#l00089">_manufacturing_year</a>, <a class="el" href="sd_8c_source.html#l00074">_oem</a>, <a class="el" href="sd_8c_source.html#l00077">_product</a>, <a class="el" href="sd_8c_source.html#l00086">_revision</a>, <a class="el" href="sd_8c_source.html#l00142">_sd_command()</a>, <a class="el" href="sd_8c_source.html#l00129">_sd_error()</a>, <a class="el" href="sd_8c_source.html#l00235">_sd_info_print()</a>, <a class="el" href="sd_8c_source.html#l00120">_sd_timeout()</a>, <a class="el" href="sd_8c_source.html#l00068">_serial</a>, <a class="el" href="sd_8c_source.html#l00111">_spi_configure_slow()</a>, <a class="el" href="sd_8c_source.html#l00045">CMD_APP</a>, <a class="el" href="sd_8c_source.html#l00018">CMD_GO_IDLE_STATE</a>, <a class="el" href="sd_8c_source.html#l00048">CMD_READ_OCR</a>, <a class="el" href="sd_8c_source.html#l00042">CMD_SD_SEND_OP_COND</a>, <a class="el" href="sd_8c_source.html#l00027">CMD_SEND_CID</a>, <a class="el" href="sd_8c_source.html#l00024">CMD_SEND_CSD</a>, <a class="el" href="sd_8c_source.html#l00021">CMD_SEND_IF_COND</a>, <a class="el" href="sd_8c_source.html#l00039">CMD_SEND_OP_COND</a>, <a class="el" href="sd_8c_source.html#l00030">CMD_SET_BLOCKLEN</a>, <a class="el" href="sd_8c_source.html#l00051">IDLE_STATE</a>, <a class="el" href="sd_8c_source.html#l00054">ILLEGAL_CMD</a>, <a class="el" href="logger_8c_source.html#l00170">log_boot_P()</a>, <a class="el" href="sd_8c_source.html#l00057">SD_1</a>, <a class="el" href="sd_8c_source.html#l00060">SD_2</a>, <a class="el" href="gpio_8h_source.html#l00084">SD_DESELECT</a>, <a class="el" href="sd_8c_source.html#l00063">SD_HC</a>, <a class="el" href="gpio_8h_source.html#l00081">SD_SELECT</a>, <a class="el" href="spi_8c_source.html#l00018">spi_fast()</a>, and <a class="el" href="spi_8c_source.html#l00024">spi_xchg()</a>.</p>
 
 </div>
 </div>
@@ -514,67 +527,67 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Read status </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="sd_8c_source.html#l00537">537</a> of file <a class="el" href="sd_8c_source.html">sd.c</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  538</span>{</div>
-<div class="line"><span class="lineno">  539</span>    <a class="code hl_typedef" href="types_8h.html#ace9d960e74685e2cd84b36132dbbf8aa">u16</a> i;</div>
-<div class="line"><span class="lineno">  540</span>    <a class="code hl_typedef" href="types_8h.html#a92c50087ca0e64fa93fc59402c55f8ca">u8</a> *data8, response;</div>
-<div class="line"><span class="lineno">  541</span> </div>
-<div class="line"><span class="lineno">  542</span>    data8 = data;</div>
-<div class="line"><span class="lineno">  543</span> </div>
-<div class="line"><span class="lineno">  544</span>    <a class="code hl_define" href="gpio_8h.html#ad104eec5bf5679ebe86fb494113175dd">SD_SELECT</a>;</div>
-<div class="line"><span class="lineno">  545</span> </div>
-<div class="line"><span class="lineno">  546</span>    <span class="comment">/* Start read */</span></div>
-<div class="line"><span class="lineno">  547</span>    <a class="code hl_define" href="status_8h.html#a99cfc2ffa79fcbac77f8df8bea625959">RETURN_IF</a>(<a class="code hl_function" href="sd_8c.html#a0d5cf7e4b125c949867acca515f5c1ec">_sd_command_try</a>(<a class="code hl_define" href="sd_8c.html#a6b4ea5767b225fa6bb958718b97e07e6">CMD_READ_SINGLE_BLOCK</a>,</div>
-<div class="line"><span class="lineno">  548</span>        <a class="code hl_function" href="sd_8c.html#abfa39415eadaeeb34dafde212e7401f4">_sd_block_addr</a>(block), &amp;response));</div>
-<div class="line"><span class="lineno">  549</span>    <span class="keywordflow">if</span>(response)</div>
-<div class="line"><span class="lineno">  550</span>    {</div>
-<div class="line"><span class="lineno">  551</span>        <a class="code hl_define" href="gpio_8h.html#a714114dca347ee9354e449387728a12d">SD_DESELECT</a>;</div>
-<div class="line"><span class="lineno">  552</span>        <span class="keywordflow">return</span> STATUS_FAIL;</div>
-<div class="line"><span class="lineno">  553</span>    }</div>
-<div class="line"><span class="lineno">  554</span> </div>
-<div class="line"><span class="lineno">  555</span>    <span class="comment">/* Wait for ready */</span></div>
-<div class="line"><span class="lineno">  556</span>    <span class="keywordflow">for</span>(i = 0; ; ++i)</div>
-<div class="line"><span class="lineno">  557</span>    {</div>
-<div class="line"><span class="lineno">  558</span>        <a class="code hl_define" href="status_8h.html#a99cfc2ffa79fcbac77f8df8bea625959">RETURN_IF</a>(<a class="code hl_function" href="spi_8c.html#a2195bbe087062b5ee88ebcdac1e53643">spi_xchg_try</a>(0xFF, &amp;response));</div>
-<div class="line"><span class="lineno">  559</span>        <span class="keywordflow">if</span>(response == 0xFE)</div>
-<div class="line"><span class="lineno">  560</span>        {</div>
-<div class="line"><span class="lineno">  561</span>            <span class="keywordflow">break</span>;</div>
-<div class="line"><span class="lineno">  562</span>        }</div>
-<div class="line"><span class="lineno">  563</span> </div>
-<div class="line"><span class="lineno">  564</span>        <span class="keywordflow">if</span>(i == 0xFFFF)</div>
-<div class="line"><span class="lineno">  565</span>        {</div>
-<div class="line"><span class="lineno">  566</span>            <a class="code hl_define" href="gpio_8h.html#a714114dca347ee9354e449387728a12d">SD_DESELECT</a>;</div>
-<div class="line"><span class="lineno">  567</span>            <span class="keywordflow">return</span> STATUS_TIMEOUT;</div>
-<div class="line"><span class="lineno">  568</span>        }</div>
-<div class="line"><span class="lineno">  569</span>    }</div>
-<div class="line"><span class="lineno">  570</span> </div>
-<div class="line"><span class="lineno">  571</span>    <span class="comment">/* Read data */</span></div>
-<div class="line"><span class="lineno">  572</span>    <span class="keywordflow">for</span>(i = 0; i &lt; <a class="code hl_define" href="sd_8h.html#ad51ded0bbd705f02f73fc60c0b721ced">BLOCK_SIZE</a>; ++i)</div>
+<p class="definition">Definition at line <a class="el" href="sd_8c_source.html#l00560">560</a> of file <a class="el" href="sd_8c_source.html">sd.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  561</span>{</div>
+<div class="line"><span class="lineno">  562</span>    <a class="code hl_typedef" href="types_8h.html#ace9d960e74685e2cd84b36132dbbf8aa">u16</a> i;</div>
+<div class="line"><span class="lineno">  563</span>    <a class="code hl_typedef" href="types_8h.html#a92c50087ca0e64fa93fc59402c55f8ca">u8</a> *data8, response;</div>
+<div class="line"><span class="lineno">  564</span> </div>
+<div class="line"><span class="lineno">  565</span>    data8 = data;</div>
+<div class="line"><span class="lineno">  566</span> </div>
+<div class="line"><span class="lineno">  567</span>    <a class="code hl_define" href="gpio_8h.html#ad104eec5bf5679ebe86fb494113175dd">SD_SELECT</a>;</div>
+<div class="line"><span class="lineno">  568</span> </div>
+<div class="line"><span class="lineno">  569</span>    <span class="comment">/* Start read */</span></div>
+<div class="line"><span class="lineno">  570</span>    <a class="code hl_define" href="status_8h.html#a99cfc2ffa79fcbac77f8df8bea625959">RETURN_IF</a>(<a class="code hl_function" href="sd_8c.html#a0d5cf7e4b125c949867acca515f5c1ec">_sd_command_try</a>(<a class="code hl_define" href="sd_8c.html#a6b4ea5767b225fa6bb958718b97e07e6">CMD_READ_SINGLE_BLOCK</a>,</div>
+<div class="line"><span class="lineno">  571</span>        <a class="code hl_function" href="sd_8c.html#abfa39415eadaeeb34dafde212e7401f4">_sd_block_addr</a>(block), &amp;response));</div>
+<div class="line"><span class="lineno">  572</span>    <span class="keywordflow">if</span>(response)</div>
 <div class="line"><span class="lineno">  573</span>    {</div>
-<div class="line"><span class="lineno">  574</span>        <span class="keywordflow">if</span>(<a class="code hl_function" href="spi_8c.html#a419efa4aed1b16b72a80d7a1356780d0">spi_rx_try</a>(&amp;data8[i]))</div>
-<div class="line"><span class="lineno">  575</span>        {</div>
-<div class="line"><span class="lineno">  576</span>            <span class="keywordflow">return</span> STATUS_TIMEOUT;</div>
-<div class="line"><span class="lineno">  577</span>        }</div>
-<div class="line"><span class="lineno">  578</span>    }</div>
-<div class="line"><span class="lineno">  579</span> </div>
-<div class="line"><span class="lineno">  580</span>    <a class="code hl_define" href="status_8h.html#a99cfc2ffa79fcbac77f8df8bea625959">RETURN_IF</a>(<a class="code hl_function" href="spi_8c.html#a28af41e6c50d1f29c90a94e1041a8285">spi_tx_try</a>(0xFF));</div>
-<div class="line"><span class="lineno">  581</span>    <a class="code hl_define" href="status_8h.html#a99cfc2ffa79fcbac77f8df8bea625959">RETURN_IF</a>(<a class="code hl_function" href="spi_8c.html#a28af41e6c50d1f29c90a94e1041a8285">spi_tx_try</a>(0xFF));</div>
-<div class="line"><span class="lineno">  582</span>    <a class="code hl_define" href="status_8h.html#a99cfc2ffa79fcbac77f8df8bea625959">RETURN_IF</a>(<a class="code hl_function" href="spi_8c.html#a28af41e6c50d1f29c90a94e1041a8285">spi_tx_try</a>(0xFF));</div>
-<div class="line"><span class="lineno">  583</span>    <a class="code hl_define" href="gpio_8h.html#a714114dca347ee9354e449387728a12d">SD_DESELECT</a>;</div>
-<div class="line"><span class="lineno">  584</span>    <span class="keywordflow">return</span> STATUS_OK;</div>
-<div class="line"><span class="lineno">  585</span>}</div>
-<div class="ttc" id="asd_8c_html_a0d5cf7e4b125c949867acca515f5c1ec"><div class="ttname"><a href="sd_8c.html#a0d5cf7e4b125c949867acca515f5c1ec">_sd_command_try</a></div><div class="ttdeci">static Status _sd_command_try(u8 cmd, u32 arg, u8 *out)</div><div class="ttdoc">Try to execute an SD command.</div><div class="ttdef"><b>Definition:</b> <a href="sd_8c_source.html#l00155">sd.c:155</a></div></div>
+<div class="line"><span class="lineno">  574</span>        <a class="code hl_define" href="gpio_8h.html#a714114dca347ee9354e449387728a12d">SD_DESELECT</a>;</div>
+<div class="line"><span class="lineno">  575</span>        <span class="keywordflow">return</span> STATUS_FAIL;</div>
+<div class="line"><span class="lineno">  576</span>    }</div>
+<div class="line"><span class="lineno">  577</span> </div>
+<div class="line"><span class="lineno">  578</span>    <span class="comment">/* Wait for ready */</span></div>
+<div class="line"><span class="lineno">  579</span>    <span class="keywordflow">for</span>(i = 0; ; ++i)</div>
+<div class="line"><span class="lineno">  580</span>    {</div>
+<div class="line"><span class="lineno">  581</span>        <a class="code hl_define" href="status_8h.html#a99cfc2ffa79fcbac77f8df8bea625959">RETURN_IF</a>(<a class="code hl_function" href="spi_8c.html#a2195bbe087062b5ee88ebcdac1e53643">spi_xchg_try</a>(0xFF, &amp;response));</div>
+<div class="line"><span class="lineno">  582</span>        <span class="keywordflow">if</span>(response == 0xFE)</div>
+<div class="line"><span class="lineno">  583</span>        {</div>
+<div class="line"><span class="lineno">  584</span>            <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">  585</span>        }</div>
+<div class="line"><span class="lineno">  586</span> </div>
+<div class="line"><span class="lineno">  587</span>        <span class="keywordflow">if</span>(i == 0xFFFF)</div>
+<div class="line"><span class="lineno">  588</span>        {</div>
+<div class="line"><span class="lineno">  589</span>            <a class="code hl_define" href="gpio_8h.html#a714114dca347ee9354e449387728a12d">SD_DESELECT</a>;</div>
+<div class="line"><span class="lineno">  590</span>            <span class="keywordflow">return</span> STATUS_TIMEOUT;</div>
+<div class="line"><span class="lineno">  591</span>        }</div>
+<div class="line"><span class="lineno">  592</span>    }</div>
+<div class="line"><span class="lineno">  593</span> </div>
+<div class="line"><span class="lineno">  594</span>    <span class="comment">/* Read data */</span></div>
+<div class="line"><span class="lineno">  595</span>    <span class="keywordflow">for</span>(i = 0; i &lt; <a class="code hl_define" href="sd_8h.html#ad51ded0bbd705f02f73fc60c0b721ced">BLOCK_SIZE</a>; ++i)</div>
+<div class="line"><span class="lineno">  596</span>    {</div>
+<div class="line"><span class="lineno">  597</span>        <span class="keywordflow">if</span>(<a class="code hl_function" href="spi_8c.html#a419efa4aed1b16b72a80d7a1356780d0">spi_rx_try</a>(&amp;data8[i]))</div>
+<div class="line"><span class="lineno">  598</span>        {</div>
+<div class="line"><span class="lineno">  599</span>            <span class="keywordflow">return</span> STATUS_TIMEOUT;</div>
+<div class="line"><span class="lineno">  600</span>        }</div>
+<div class="line"><span class="lineno">  601</span>    }</div>
+<div class="line"><span class="lineno">  602</span> </div>
+<div class="line"><span class="lineno">  603</span>    <a class="code hl_define" href="status_8h.html#a99cfc2ffa79fcbac77f8df8bea625959">RETURN_IF</a>(<a class="code hl_function" href="spi_8c.html#a28af41e6c50d1f29c90a94e1041a8285">spi_tx_try</a>(0xFF));</div>
+<div class="line"><span class="lineno">  604</span>    <a class="code hl_define" href="status_8h.html#a99cfc2ffa79fcbac77f8df8bea625959">RETURN_IF</a>(<a class="code hl_function" href="spi_8c.html#a28af41e6c50d1f29c90a94e1041a8285">spi_tx_try</a>(0xFF));</div>
+<div class="line"><span class="lineno">  605</span>    <a class="code hl_define" href="status_8h.html#a99cfc2ffa79fcbac77f8df8bea625959">RETURN_IF</a>(<a class="code hl_function" href="spi_8c.html#a28af41e6c50d1f29c90a94e1041a8285">spi_tx_try</a>(0xFF));</div>
+<div class="line"><span class="lineno">  606</span>    <a class="code hl_define" href="gpio_8h.html#a714114dca347ee9354e449387728a12d">SD_DESELECT</a>;</div>
+<div class="line"><span class="lineno">  607</span>    <span class="keywordflow">return</span> STATUS_OK;</div>
+<div class="line"><span class="lineno">  608</span>}</div>
+<div class="ttc" id="asd_8c_html_a0d5cf7e4b125c949867acca515f5c1ec"><div class="ttname"><a href="sd_8c.html#a0d5cf7e4b125c949867acca515f5c1ec">_sd_command_try</a></div><div class="ttdeci">static Status _sd_command_try(u8 cmd, u32 arg, u8 *out)</div><div class="ttdoc">Try to execute an SD command.</div><div class="ttdef"><b>Definition:</b> <a href="sd_8c_source.html#l00178">sd.c:178</a></div></div>
 <div class="ttc" id="asd_8c_html_a6b4ea5767b225fa6bb958718b97e07e6"><div class="ttname"><a href="sd_8c.html#a6b4ea5767b225fa6bb958718b97e07e6">CMD_READ_SINGLE_BLOCK</a></div><div class="ttdeci">#define CMD_READ_SINGLE_BLOCK</div><div class="ttdef"><b>Definition:</b> <a href="sd_8c_source.html#l00033">sd.c:33</a></div></div>
-<div class="ttc" id="asd_8c_html_abfa39415eadaeeb34dafde212e7401f4"><div class="ttname"><a href="sd_8c.html#abfa39415eadaeeb34dafde212e7401f4">_sd_block_addr</a></div><div class="ttdeci">static u32 _sd_block_addr(u32 block)</div><div class="ttdoc">Convert block number to internal SD address since SD uses byte address but SDHC uses block number.</div><div class="ttdef"><b>Definition:</b> <a href="sd_8c_source.html#l00204">sd.c:204</a></div></div>
+<div class="ttc" id="asd_8c_html_abfa39415eadaeeb34dafde212e7401f4"><div class="ttname"><a href="sd_8c.html#abfa39415eadaeeb34dafde212e7401f4">_sd_block_addr</a></div><div class="ttdeci">static u32 _sd_block_addr(u32 block)</div><div class="ttdoc">Convert block number to internal SD address since SD uses byte address but SDHC uses block number.</div><div class="ttdef"><b>Definition:</b> <a href="sd_8c_source.html#l00227">sd.c:227</a></div></div>
 <div class="ttc" id="asd_8h_html_ad51ded0bbd705f02f73fc60c0b721ced"><div class="ttname"><a href="sd_8h.html#ad51ded0bbd705f02f73fc60c0b721ced">BLOCK_SIZE</a></div><div class="ttdeci">#define BLOCK_SIZE</div><div class="ttdef"><b>Definition:</b> <a href="sd_8h_source.html#l00016">sd.h:16</a></div></div>
 <div class="ttc" id="aspi_8c_html_a2195bbe087062b5ee88ebcdac1e53643"><div class="ttname"><a href="spi_8c.html#a2195bbe087062b5ee88ebcdac1e53643">spi_xchg_try</a></div><div class="ttdeci">Status spi_xchg_try(u8 in, u8 *out)</div><div class="ttdoc">Try to send and receive one byte from SPI.</div><div class="ttdef"><b>Definition:</b> <a href="spi_8c_source.html#l00039">spi.c:39</a></div></div>
 <div class="ttc" id="aspi_8c_html_a28af41e6c50d1f29c90a94e1041a8285"><div class="ttname"><a href="spi_8c.html#a28af41e6c50d1f29c90a94e1041a8285">spi_tx_try</a></div><div class="ttdeci">Status spi_tx_try(u8 in)</div><div class="ttdoc">Try to send one byte to the SPI interface.</div><div class="ttdef"><b>Definition:</b> <a href="spi_8c_source.html#l00055">spi.c:55</a></div></div>
 <div class="ttc" id="aspi_8c_html_a419efa4aed1b16b72a80d7a1356780d0"><div class="ttname"><a href="spi_8c.html#a419efa4aed1b16b72a80d7a1356780d0">spi_rx_try</a></div><div class="ttdeci">Status spi_rx_try(u8 *out)</div><div class="ttdoc">Try to receive one byte from the SPI interface.</div><div class="ttdef"><b>Definition:</b> <a href="spi_8c_source.html#l00061">spi.c:61</a></div></div>
 <div class="ttc" id="astatus_8h_html_a99cfc2ffa79fcbac77f8df8bea625959"><div class="ttname"><a href="status_8h.html#a99cfc2ffa79fcbac77f8df8bea625959">RETURN_IF</a></div><div class="ttdeci">#define RETURN_IF(STATUS)</div><div class="ttdoc">Propagate error codes to caller.</div><div class="ttdef"><b>Definition:</b> <a href="status_8h_source.html#l00025">status.h:25</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="sd_8c_source.html#l00204">_sd_block_addr()</a>, <a class="el" href="sd_8c_source.html#l00155">_sd_command_try()</a>, <a class="el" href="sd_8h_source.html#l00016">BLOCK_SIZE</a>, <a class="el" href="sd_8c_source.html#l00033">CMD_READ_SINGLE_BLOCK</a>, <a class="el" href="status_8h_source.html#l00025">RETURN_IF</a>, <a class="el" href="gpio_8h_source.html#l00084">SD_DESELECT</a>, <a class="el" href="gpio_8h_source.html#l00081">SD_SELECT</a>, <a class="el" href="spi_8c_source.html#l00061">spi_rx_try()</a>, <a class="el" href="spi_8c_source.html#l00055">spi_tx_try()</a>, and <a class="el" href="spi_8c_source.html#l00039">spi_xchg_try()</a>.</p>
+<p class="reference">References <a class="el" href="sd_8c_source.html#l00227">_sd_block_addr()</a>, <a class="el" href="sd_8c_source.html#l00178">_sd_command_try()</a>, <a class="el" href="sd_8h_source.html#l00016">BLOCK_SIZE</a>, <a class="el" href="sd_8c_source.html#l00033">CMD_READ_SINGLE_BLOCK</a>, <a class="el" href="status_8h_source.html#l00025">RETURN_IF</a>, <a class="el" href="gpio_8h_source.html#l00084">SD_DESELECT</a>, <a class="el" href="gpio_8h_source.html#l00081">SD_SELECT</a>, <a class="el" href="spi_8c_source.html#l00061">spi_rx_try()</a>, <a class="el" href="spi_8c_source.html#l00055">spi_tx_try()</a>, and <a class="el" href="spi_8c_source.html#l00039">spi_xchg_try()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="initrd_8c_source.html#l00027">initrd_load()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="initrd_8c_source.html#l00025">initrd_load()</a>.</p>
 
 </div>
 </div>
@@ -597,11 +610,13 @@ Functions</h2></td></tr>
 <p>Get SD card capacity. </p>
 <dl class="section return"><dt>Returns</dt><dd>Capacity in 512-byte blocks </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="sd_8c_source.html#l00532">532</a> of file <a class="el" href="sd_8c_source.html">sd.c</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  533</span>{</div>
-<div class="line"><span class="lineno">  534</span>    <span class="keywordflow">return</span> _capacity;</div>
-<div class="line"><span class="lineno">  535</span>}</div>
+<p class="definition">Definition at line <a class="el" href="sd_8c_source.html#l00555">555</a> of file <a class="el" href="sd_8c_source.html">sd.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  556</span>{</div>
+<div class="line"><span class="lineno">  557</span>    <span class="keywordflow">return</span> <a class="code hl_variable" href="sd_8c.html#a7bd8d3e0e1c2cf5b038b34cae188e103">_capacity</a>;</div>
+<div class="line"><span class="lineno">  558</span>}</div>
 </div><!-- fragment -->
+<p class="reference">References <a class="el" href="sd_8c_source.html#l00071">_capacity</a>.</p>
+
 </div>
 </div>
 <a id="a332d58564a7105ef394f7abd246cde44" name="a332d58564a7105ef394f7abd246cde44"></a>

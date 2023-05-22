@@ -378,13 +378,13 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="lcd_8c_source.html#l00375">375</a> of file <a class="el" href="lcd_8c_source.html">lcd.c</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  376</span>{</div>
-<div class="line"><span class="lineno">  377</span>    <span class="comment">/* TODO: Write PWM Value */</span></div>
-<div class="line"><span class="lineno">  378</span>    (void)value;</div>
-<div class="line"><span class="lineno">  379</span>}</div>
+<p class="definition">Definition at line <a class="el" href="lcd_8c_source.html#l00421">421</a> of file <a class="el" href="lcd_8c_source.html">lcd.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  422</span>{</div>
+<div class="line"><span class="lineno">  423</span>    <span class="comment">/* TODO: Write PWM Value */</span></div>
+<div class="line"><span class="lineno">  424</span>    (void)value;</div>
+<div class="line"><span class="lineno">  425</span>}</div>
 </div><!-- fragment -->
-<p class="reference">Referenced by <a class="el" href="lcd_8c_source.html#l00381">lcd_init()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="lcd_8c_source.html#l00427">lcd_init()</a>.</p>
 
 </div>
 </div>
@@ -445,32 +445,35 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Width of the character that was drawn </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="lcd_8c_source.html#l00437">437</a> of file <a class="el" href="lcd_8c_source.html">lcd.c</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  438</span>{</div>
-<div class="line"><span class="lineno">  439</span>    <a class="code hl_typedef" href="types_8h.html#a92c50087ca0e64fa93fc59402c55f8ca">u8</a> w0, h0;</div>
-<div class="line"><span class="lineno">  440</span>    <span class="keyword">const</span> <a class="code hl_typedef" href="types_8h.html#a92c50087ca0e64fa93fc59402c55f8ca">u8</a> *start;</div>
-<div class="line"><span class="lineno">  441</span> </div>
-<div class="line"><span class="lineno">  442</span>    start = _font5x7 + (c - 32) * <a class="code hl_define" href="lcd_8c.html#a7b2e9cc063e140c50b67a4f224988a45">FONT_WIDTH</a>;</div>
-<div class="line"><span class="lineno">  443</span> </div>
-<div class="line"><span class="lineno">  444</span>    _lcd_window_start(x, y, <a class="code hl_define" href="lcd_8c.html#a7b2e9cc063e140c50b67a4f224988a45">FONT_WIDTH</a>, <a class="code hl_define" href="lcd_8c.html#a33f4fac49f2a5e27e2857eb27f054510">FONT_HEIGHT</a>);</div>
-<div class="line"><span class="lineno">  445</span>    <span class="keywordflow">for</span>(h0 = 0; h0 &lt; <a class="code hl_define" href="lcd_8c.html#a33f4fac49f2a5e27e2857eb27f054510">FONT_HEIGHT</a>; ++h0)</div>
-<div class="line"><span class="lineno">  446</span>    {</div>
-<div class="line"><span class="lineno">  447</span>        <span class="keywordflow">for</span>(w0 = 0; w0 &lt; <a class="code hl_define" href="lcd_8c.html#a7b2e9cc063e140c50b67a4f224988a45">FONT_WIDTH</a>; ++w0)</div>
-<div class="line"><span class="lineno">  448</span>        {</div>
-<div class="line"><span class="lineno">  449</span>            _lcd_pixel(((pgm_read_byte(start + w0) &gt;&gt; h0) &amp; 1) ? fg : bg);</div>
-<div class="line"><span class="lineno">  450</span>        }</div>
-<div class="line"><span class="lineno">  451</span>    }</div>
-<div class="line"><span class="lineno">  452</span> </div>
-<div class="line"><span class="lineno">  453</span>    _lcd_window_end();</div>
-<div class="line"><span class="lineno">  454</span>    <span class="keywordflow">return</span> <a class="code hl_define" href="lcd_8c.html#a7b2e9cc063e140c50b67a4f224988a45">FONT_WIDTH</a> + 1;</div>
-<div class="line"><span class="lineno">  455</span>}</div>
+<p class="definition">Definition at line <a class="el" href="lcd_8c_source.html#l00483">483</a> of file <a class="el" href="lcd_8c_source.html">lcd.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  484</span>{</div>
+<div class="line"><span class="lineno">  485</span>    <a class="code hl_typedef" href="types_8h.html#a92c50087ca0e64fa93fc59402c55f8ca">u8</a> w0, h0;</div>
+<div class="line"><span class="lineno">  486</span>    <span class="keyword">const</span> <a class="code hl_typedef" href="types_8h.html#a92c50087ca0e64fa93fc59402c55f8ca">u8</a> *start;</div>
+<div class="line"><span class="lineno">  487</span> </div>
+<div class="line"><span class="lineno">  488</span>    start = _font5x7 + (c - 32) * <a class="code hl_define" href="lcd_8c.html#a7b2e9cc063e140c50b67a4f224988a45">FONT_WIDTH</a>;</div>
+<div class="line"><span class="lineno">  489</span> </div>
+<div class="line"><span class="lineno">  490</span>    <a class="code hl_function" href="lcd_8c.html#a15ba99037a25ba778e2d460bdb07861b">_lcd_window_start</a>(x, y, <a class="code hl_define" href="lcd_8c.html#a7b2e9cc063e140c50b67a4f224988a45">FONT_WIDTH</a>, <a class="code hl_define" href="lcd_8c.html#a33f4fac49f2a5e27e2857eb27f054510">FONT_HEIGHT</a>);</div>
+<div class="line"><span class="lineno">  491</span>    <span class="keywordflow">for</span>(h0 = 0; h0 &lt; <a class="code hl_define" href="lcd_8c.html#a33f4fac49f2a5e27e2857eb27f054510">FONT_HEIGHT</a>; ++h0)</div>
+<div class="line"><span class="lineno">  492</span>    {</div>
+<div class="line"><span class="lineno">  493</span>        <span class="keywordflow">for</span>(w0 = 0; w0 &lt; <a class="code hl_define" href="lcd_8c.html#a7b2e9cc063e140c50b67a4f224988a45">FONT_WIDTH</a>; ++w0)</div>
+<div class="line"><span class="lineno">  494</span>        {</div>
+<div class="line"><span class="lineno">  495</span>            <a class="code hl_function" href="lcd_8c.html#a8e2d811ac64e1039a7bddcab755d1768">_lcd_pixel</a>(((pgm_read_byte(start + w0) &gt;&gt; h0) &amp; 1) ? fg : bg);</div>
+<div class="line"><span class="lineno">  496</span>        }</div>
+<div class="line"><span class="lineno">  497</span>    }</div>
+<div class="line"><span class="lineno">  498</span> </div>
+<div class="line"><span class="lineno">  499</span>    <a class="code hl_function" href="lcd_8c.html#aa0bf731811bfe104bb897545527d7862">_lcd_window_end</a>();</div>
+<div class="line"><span class="lineno">  500</span>    <span class="keywordflow">return</span> <a class="code hl_define" href="lcd_8c.html#a7b2e9cc063e140c50b67a4f224988a45">FONT_WIDTH</a> + 1;</div>
+<div class="line"><span class="lineno">  501</span>}</div>
+<div class="ttc" id="alcd_8c_html_a15ba99037a25ba778e2d460bdb07861b"><div class="ttname"><a href="lcd_8c.html#a15ba99037a25ba778e2d460bdb07861b">_lcd_window_start</a></div><div class="ttdeci">static void _lcd_window_start(u16 x, u16 y, u16 w, u16 h)</div><div class="ttdoc">Start an LCD drawing rectangle.</div><div class="ttdef"><b>Definition:</b> <a href="lcd_8c_source.html#l00225">lcd.c:225</a></div></div>
 <div class="ttc" id="alcd_8c_html_a33f4fac49f2a5e27e2857eb27f054510"><div class="ttname"><a href="lcd_8c.html#a33f4fac49f2a5e27e2857eb27f054510">FONT_HEIGHT</a></div><div class="ttdeci">#define FONT_HEIGHT</div><div class="ttdef"><b>Definition:</b> <a href="lcd_8c_source.html#l00035">lcd.c:35</a></div></div>
 <div class="ttc" id="alcd_8c_html_a7b2e9cc063e140c50b67a4f224988a45"><div class="ttname"><a href="lcd_8c.html#a7b2e9cc063e140c50b67a4f224988a45">FONT_WIDTH</a></div><div class="ttdeci">#define FONT_WIDTH</div><div class="ttdef"><b>Definition:</b> <a href="lcd_8c_source.html#l00032">lcd.c:32</a></div></div>
+<div class="ttc" id="alcd_8c_html_a8e2d811ac64e1039a7bddcab755d1768"><div class="ttname"><a href="lcd_8c.html#a8e2d811ac64e1039a7bddcab755d1768">_lcd_pixel</a></div><div class="ttdeci">static void _lcd_pixel(RGB565 data)</div><div class="ttdoc">Send the color of one pixel to the LCD.</div><div class="ttdef"><b>Definition:</b> <a href="lcd_8c_source.html#l00254">lcd.c:254</a></div></div>
+<div class="ttc" id="alcd_8c_html_aa0bf731811bfe104bb897545527d7862"><div class="ttname"><a href="lcd_8c.html#aa0bf731811bfe104bb897545527d7862">_lcd_window_end</a></div><div class="ttdeci">static void _lcd_window_end(void)</div><div class="ttdoc">End LCD drawing rectangle.</div><div class="ttdef"><b>Definition:</b> <a href="lcd_8c_source.html#l00263">lcd.c:263</a></div></div>
 <div class="ttc" id="atypes_8h_html_a92c50087ca0e64fa93fc59402c55f8ca"><div class="ttname"><a href="types_8h.html#a92c50087ca0e64fa93fc59402c55f8ca">u8</a></div><div class="ttdeci">uint8_t u8</div><div class="ttdef"><b>Definition:</b> <a href="types_8h_source.html#l00038">types.h:38</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="lcd_8c_source.html#l00035">FONT_HEIGHT</a>, and <a class="el" href="lcd_8c_source.html#l00032">FONT_WIDTH</a>.</p>
+<p class="reference">References <a class="el" href="lcd_8c_source.html#l00254">_lcd_pixel()</a>, <a class="el" href="lcd_8c_source.html#l00263">_lcd_window_end()</a>, <a class="el" href="lcd_8c_source.html#l00225">_lcd_window_start()</a>, <a class="el" href="lcd_8c_source.html#l00035">FONT_HEIGHT</a>, and <a class="el" href="lcd_8c_source.html#l00032">FONT_WIDTH</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="lcd_8c_source.html#l00457">lcd_string()</a>, and <a class="el" href="lcd_8c_source.html#l00471">lcd_string_P()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="logger_8c_source.html#l00095">_lcd_log()</a>, <a class="el" href="lcd_8c_source.html#l00503">lcd_string()</a>, and <a class="el" href="lcd_8c_source.html#l00517">lcd_string_P()</a>.</p>
 
 </div>
 </div>
@@ -517,12 +520,12 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>RGB565 color </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="lcd_8c_source.html#l00416">416</a> of file <a class="el" href="lcd_8c_source.html">lcd.c</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  417</span>{</div>
-<div class="line"><span class="lineno">  418</span>    <span class="keywordflow">return</span> ((r &amp; 0xF8) &lt;&lt; 8) | ((g &amp; 0xFC) &lt;&lt; 3) | (b &gt;&gt; 3);</div>
-<div class="line"><span class="lineno">  419</span>}</div>
+<p class="definition">Definition at line <a class="el" href="lcd_8c_source.html#l00462">462</a> of file <a class="el" href="lcd_8c_source.html">lcd.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  463</span>{</div>
+<div class="line"><span class="lineno">  464</span>    <span class="keywordflow">return</span> ((r &amp; 0xF8) &lt;&lt; 8) | ((g &amp; 0xFC) &lt;&lt; 3) | (b &gt;&gt; 3);</div>
+<div class="line"><span class="lineno">  465</span>}</div>
 </div><!-- fragment -->
-<p class="reference">Referenced by <a class="el" href="avr_2platform_8c_source.html#l00046">_abgr_to_rgb565()</a>, and <a class="el" href="lcd_8c_source.html#l00421">lcd_logo_P()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="avr_2platform_8c_source.html#l00046">_abgr_to_rgb565()</a>, and <a class="el" href="lcd_8c_source.html#l00467">lcd_logo_P()</a>.</p>
 
 </div>
 </div>
@@ -596,39 +599,39 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="lcd_8c_source.html#l00506">506</a> of file <a class="el" href="lcd_8c_source.html">lcd.c</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  508</span>{</div>
-<div class="line"><span class="lineno">  509</span>    <a class="code hl_typedef" href="types_8h.html#a92c50087ca0e64fa93fc59402c55f8ca">u8</a> byte, stride, bit_mask;</div>
-<div class="line"><span class="lineno">  510</span>    <a class="code hl_typedef" href="types_8h.html#ace9d960e74685e2cd84b36132dbbf8aa">u16</a> x0, y0, byte_offset;</div>
-<div class="line"><span class="lineno">  511</span>    <a class="code hl_typedef" href="types_8h.html#a92c50087ca0e64fa93fc59402c55f8ca">u8</a> image[64];</div>
-<div class="line"><span class="lineno">  512</span> </div>
-<div class="line"><span class="lineno">  513</span>    stride = (w + 7) / 8;</div>
-<div class="line"><span class="lineno">  514</span>    <span class="keywordflow">for</span>(y0 = y; y0 &lt; y + h; ++y0)</div>
-<div class="line"><span class="lineno">  515</span>    {</div>
-<div class="line"><span class="lineno">  516</span>        <a class="code hl_function" href="xmem_8c.html#ac439854f5a1e0bd1b2f52c1028fc900a">xmem_read</a>(addr, image, stride);</div>
-<div class="line"><span class="lineno">  517</span>        _lcd_window_start(x, y0, w, 1);</div>
-<div class="line"><span class="lineno">  518</span>        bit_mask = 0x80;</div>
-<div class="line"><span class="lineno">  519</span>        byte_offset = 0;</div>
-<div class="line"><span class="lineno">  520</span>        <span class="keywordflow">for</span>(x0 = x; x0 &lt; x + w; ++x0)</div>
-<div class="line"><span class="lineno">  521</span>        {</div>
-<div class="line"><span class="lineno">  522</span>            <span class="keywordflow">if</span>(bit_mask == 0x80)</div>
-<div class="line"><span class="lineno">  523</span>            {</div>
-<div class="line"><span class="lineno">  524</span>                <span class="keywordtype">byte</span> = image[byte_offset++];</div>
-<div class="line"><span class="lineno">  525</span>                bit_mask = 1;</div>
-<div class="line"><span class="lineno">  526</span>            }</div>
-<div class="line"><span class="lineno">  527</span> </div>
-<div class="line"><span class="lineno">  528</span>            _lcd_pixel((<span class="keywordtype">byte</span> &amp; bit_mask) ? fg : bg);</div>
-<div class="line"><span class="lineno">  529</span>            bit_mask &lt;&lt;= 1;</div>
-<div class="line"><span class="lineno">  530</span>        }</div>
-<div class="line"><span class="lineno">  531</span> </div>
-<div class="line"><span class="lineno">  532</span>        _lcd_window_end();</div>
-<div class="line"><span class="lineno">  533</span>        addr += stride;</div>
-<div class="line"><span class="lineno">  534</span>    }</div>
-<div class="line"><span class="lineno">  535</span>}</div>
+<p class="definition">Definition at line <a class="el" href="lcd_8c_source.html#l00552">552</a> of file <a class="el" href="lcd_8c_source.html">lcd.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  554</span>{</div>
+<div class="line"><span class="lineno">  555</span>    <a class="code hl_typedef" href="types_8h.html#a92c50087ca0e64fa93fc59402c55f8ca">u8</a> byte, stride, bit_mask;</div>
+<div class="line"><span class="lineno">  556</span>    <a class="code hl_typedef" href="types_8h.html#ace9d960e74685e2cd84b36132dbbf8aa">u16</a> x0, y0, byte_offset;</div>
+<div class="line"><span class="lineno">  557</span>    <a class="code hl_typedef" href="types_8h.html#a92c50087ca0e64fa93fc59402c55f8ca">u8</a> image[64];</div>
+<div class="line"><span class="lineno">  558</span> </div>
+<div class="line"><span class="lineno">  559</span>    stride = (w + 7) / 8;</div>
+<div class="line"><span class="lineno">  560</span>    <span class="keywordflow">for</span>(y0 = y; y0 &lt; y + h; ++y0)</div>
+<div class="line"><span class="lineno">  561</span>    {</div>
+<div class="line"><span class="lineno">  562</span>        <a class="code hl_function" href="xmem_8c.html#ac439854f5a1e0bd1b2f52c1028fc900a">xmem_read</a>(addr, image, stride);</div>
+<div class="line"><span class="lineno">  563</span>        <a class="code hl_function" href="lcd_8c.html#a15ba99037a25ba778e2d460bdb07861b">_lcd_window_start</a>(x, y0, w, 1);</div>
+<div class="line"><span class="lineno">  564</span>        bit_mask = 0x80;</div>
+<div class="line"><span class="lineno">  565</span>        byte_offset = 0;</div>
+<div class="line"><span class="lineno">  566</span>        <span class="keywordflow">for</span>(x0 = x; x0 &lt; x + w; ++x0)</div>
+<div class="line"><span class="lineno">  567</span>        {</div>
+<div class="line"><span class="lineno">  568</span>            <span class="keywordflow">if</span>(bit_mask == 0x80)</div>
+<div class="line"><span class="lineno">  569</span>            {</div>
+<div class="line"><span class="lineno">  570</span>                <span class="keywordtype">byte</span> = image[byte_offset++];</div>
+<div class="line"><span class="lineno">  571</span>                bit_mask = 1;</div>
+<div class="line"><span class="lineno">  572</span>            }</div>
+<div class="line"><span class="lineno">  573</span> </div>
+<div class="line"><span class="lineno">  574</span>            <a class="code hl_function" href="lcd_8c.html#a8e2d811ac64e1039a7bddcab755d1768">_lcd_pixel</a>((<span class="keywordtype">byte</span> &amp; bit_mask) ? fg : bg);</div>
+<div class="line"><span class="lineno">  575</span>            bit_mask &lt;&lt;= 1;</div>
+<div class="line"><span class="lineno">  576</span>        }</div>
+<div class="line"><span class="lineno">  577</span> </div>
+<div class="line"><span class="lineno">  578</span>        <a class="code hl_function" href="lcd_8c.html#aa0bf731811bfe104bb897545527d7862">_lcd_window_end</a>();</div>
+<div class="line"><span class="lineno">  579</span>        addr += stride;</div>
+<div class="line"><span class="lineno">  580</span>    }</div>
+<div class="line"><span class="lineno">  581</span>}</div>
 <div class="ttc" id="atypes_8h_html_ace9d960e74685e2cd84b36132dbbf8aa"><div class="ttname"><a href="types_8h.html#ace9d960e74685e2cd84b36132dbbf8aa">u16</a></div><div class="ttdeci">uint16_t u16</div><div class="ttdef"><b>Definition:</b> <a href="types_8h_source.html#l00035">types.h:35</a></div></div>
-<div class="ttc" id="axmem_8c_html_ac439854f5a1e0bd1b2f52c1028fc900a"><div class="ttname"><a href="xmem_8c.html#ac439854f5a1e0bd1b2f52c1028fc900a">xmem_read</a></div><div class="ttdeci">void xmem_read(u32 addr, void *data, u16 size)</div><div class="ttdoc">Read the specified number of bytes from the external memory.</div><div class="ttdef"><b>Definition:</b> <a href="xmem_8c_source.html#l00232">xmem.c:232</a></div></div>
+<div class="ttc" id="axmem_8c_html_ac439854f5a1e0bd1b2f52c1028fc900a"><div class="ttname"><a href="xmem_8c.html#ac439854f5a1e0bd1b2f52c1028fc900a">xmem_read</a></div><div class="ttdeci">void xmem_read(u32 addr, void *data, u16 size)</div><div class="ttdoc">Read the specified number of bytes from the external memory.</div><div class="ttdef"><b>Definition:</b> <a href="xmem_8c_source.html#l00286">xmem.c:286</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="xmem_8c_source.html#l00232">xmem_read()</a>.</p>
+<p class="reference">References <a class="el" href="lcd_8c_source.html#l00254">_lcd_pixel()</a>, <a class="el" href="lcd_8c_source.html#l00263">_lcd_window_end()</a>, <a class="el" href="lcd_8c_source.html#l00225">_lcd_window_start()</a>, and <a class="el" href="xmem_8c_source.html#l00286">xmem_read()</a>.</p>
 
 </div>
 </div>
@@ -702,10 +705,10 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="lcd_8c_source.html#l00500">500</a> of file <a class="el" href="lcd_8c_source.html">lcd.c</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  502</span>{</div>
-<div class="line"><span class="lineno">  503</span> </div>
-<div class="line"><span class="lineno">  504</span>}</div>
+<p class="definition">Definition at line <a class="el" href="lcd_8c_source.html#l00546">546</a> of file <a class="el" href="lcd_8c_source.html">lcd.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  548</span>{</div>
+<div class="line"><span class="lineno">  549</span> </div>
+<div class="line"><span class="lineno">  550</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -765,10 +768,10 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="lcd_8c_source.html#l00490">490</a> of file <a class="el" href="lcd_8c_source.html">lcd.c</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  491</span>{</div>
-<div class="line"><span class="lineno">  492</span> </div>
-<div class="line"><span class="lineno">  493</span>}</div>
+<p class="definition">Definition at line <a class="el" href="lcd_8c_source.html#l00536">536</a> of file <a class="el" href="lcd_8c_source.html">lcd.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  537</span>{</div>
+<div class="line"><span class="lineno">  538</span> </div>
+<div class="line"><span class="lineno">  539</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -828,10 +831,10 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="lcd_8c_source.html#l00495">495</a> of file <a class="el" href="lcd_8c_source.html">lcd.c</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  496</span>{</div>
-<div class="line"><span class="lineno">  497</span> </div>
-<div class="line"><span class="lineno">  498</span>}</div>
+<p class="definition">Definition at line <a class="el" href="lcd_8c_source.html#l00541">541</a> of file <a class="el" href="lcd_8c_source.html">lcd.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  542</span>{</div>
+<div class="line"><span class="lineno">  543</span> </div>
+<div class="line"><span class="lineno">  544</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -891,10 +894,10 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="lcd_8c_source.html#l00485">485</a> of file <a class="el" href="lcd_8c_source.html">lcd.c</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  486</span>{</div>
-<div class="line"><span class="lineno">  487</span> </div>
-<div class="line"><span class="lineno">  488</span>}</div>
+<p class="definition">Definition at line <a class="el" href="lcd_8c_source.html#l00531">531</a> of file <a class="el" href="lcd_8c_source.html">lcd.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  532</span>{</div>
+<div class="line"><span class="lineno">  533</span> </div>
+<div class="line"><span class="lineno">  534</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -933,33 +936,37 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="lcd_8c_source.html#l00381">381</a> of file <a class="el" href="lcd_8c_source.html">lcd.c</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  382</span>{</div>
-<div class="line"><span class="lineno">  383</span>    <span class="comment">/* Initialize LCD */</span></div>
-<div class="line"><span class="lineno">  384</span>    <a class="code hl_function" href="logger_8c.html#a60bd636ef160c97eb51cf31be5954ba2">log_boot_P</a>(LOG_INIT, PSTR(<span class="stringliteral">&quot;LCD driver starting&quot;</span>));</div>
-<div class="line"><span class="lineno">  385</span>    <a class="code hl_function" href="spi_8c.html#ab3e16cf26638212c1e54a7aa4878e12a">spi_fast</a>();</div>
-<div class="line"><span class="lineno">  386</span>    _lcd_reset();</div>
-<div class="line"><span class="lineno">  387</span>    <a class="code hl_function" href="lcd_8c.html#a62344feec2a2d180a59d563f758e241e">lcd_backlight</a>(backlight);</div>
-<div class="line"><span class="lineno">  388</span>    _lcd_init_reg();</div>
-<div class="line"><span class="lineno">  389</span>    _lcd_set_gram_scan_dir(<a class="code hl_define" href="lcd_8c.html#a49bc2232fc9e2652eebb31d9738144cb">SCAN_DIR</a>);</div>
-<div class="line"><span class="lineno">  390</span>    _delay_ms(200);</div>
-<div class="line"><span class="lineno">  391</span>    _lcd_write_reg(0x11);</div>
-<div class="line"><span class="lineno">  392</span>    _delay_ms(120);</div>
-<div class="line"><span class="lineno">  393</span>    _lcd_write_reg(0x29);</div>
-<div class="line"><span class="lineno">  394</span> </div>
-<div class="line"><span class="lineno">  395</span>    <a class="code hl_function" href="lcd_8c.html#a010620f3d9dc0536cc9551d7aabd8d17">lcd_rect</a>(0, 0, <a class="code hl_define" href="lcd_8h.html#a19693eac3018d3e7800fde141921b812">LCD_WIDTH</a>, <a class="code hl_define" href="lcd_8h.html#a53a8b2a971de4b88047192655a48b651">LCD_HEIGHT</a>, bg);</div>
-<div class="line"><span class="lineno">  396</span> </div>
-<div class="line"><span class="lineno">  397</span>    <a class="code hl_function" href="logger_8c.html#a60bd636ef160c97eb51cf31be5954ba2">log_boot_P</a>(LOG_INIT, PSTR(<span class="stringliteral">&quot;LCD driver initialized&quot;</span>));</div>
-<div class="line"><span class="lineno">  398</span>}</div>
-<div class="ttc" id="alcd_8c_html_a010620f3d9dc0536cc9551d7aabd8d17"><div class="ttname"><a href="lcd_8c.html#a010620f3d9dc0536cc9551d7aabd8d17">lcd_rect</a></div><div class="ttdeci">void lcd_rect(u16 x, u16 y, u16 w, u16 h, RGB565 color)</div><div class="ttdoc">Draw rectangle.</div><div class="ttdef"><b>Definition:</b> <a href="lcd_8c_source.html#l00400">lcd.c:400</a></div></div>
+<p class="definition">Definition at line <a class="el" href="lcd_8c_source.html#l00427">427</a> of file <a class="el" href="lcd_8c_source.html">lcd.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  428</span>{</div>
+<div class="line"><span class="lineno">  429</span>    <span class="comment">/* Initialize LCD */</span></div>
+<div class="line"><span class="lineno">  430</span>    <a class="code hl_function" href="logger_8c.html#a60bd636ef160c97eb51cf31be5954ba2">log_boot_P</a>(LOG_INIT, PSTR(<span class="stringliteral">&quot;LCD driver starting&quot;</span>));</div>
+<div class="line"><span class="lineno">  431</span>    <a class="code hl_function" href="spi_8c.html#ab3e16cf26638212c1e54a7aa4878e12a">spi_fast</a>();</div>
+<div class="line"><span class="lineno">  432</span>    <a class="code hl_function" href="lcd_8c.html#ab15e38d06037e79353a7d85f61a98bc7">_lcd_reset</a>();</div>
+<div class="line"><span class="lineno">  433</span>    <a class="code hl_function" href="lcd_8c.html#a62344feec2a2d180a59d563f758e241e">lcd_backlight</a>(backlight);</div>
+<div class="line"><span class="lineno">  434</span>    <a class="code hl_function" href="lcd_8c.html#ae978dce6d2652a1f6930eb2ce32038c3">_lcd_init_reg</a>();</div>
+<div class="line"><span class="lineno">  435</span>    <a class="code hl_function" href="lcd_8c.html#ad9e552df263cdba5eef0eb4fffc3a60b">_lcd_set_gram_scan_dir</a>(<a class="code hl_define" href="lcd_8c.html#a49bc2232fc9e2652eebb31d9738144cb">SCAN_DIR</a>);</div>
+<div class="line"><span class="lineno">  436</span>    _delay_ms(200);</div>
+<div class="line"><span class="lineno">  437</span>    <a class="code hl_function" href="lcd_8c.html#a87dcc013e6b4f09dc452a3d97db5a362">_lcd_write_reg</a>(0x11);</div>
+<div class="line"><span class="lineno">  438</span>    _delay_ms(120);</div>
+<div class="line"><span class="lineno">  439</span>    <a class="code hl_function" href="lcd_8c.html#a87dcc013e6b4f09dc452a3d97db5a362">_lcd_write_reg</a>(0x29);</div>
+<div class="line"><span class="lineno">  440</span> </div>
+<div class="line"><span class="lineno">  441</span>    <a class="code hl_function" href="lcd_8c.html#a010620f3d9dc0536cc9551d7aabd8d17">lcd_rect</a>(0, 0, <a class="code hl_define" href="lcd_8h.html#a19693eac3018d3e7800fde141921b812">LCD_WIDTH</a>, <a class="code hl_define" href="lcd_8h.html#a53a8b2a971de4b88047192655a48b651">LCD_HEIGHT</a>, bg);</div>
+<div class="line"><span class="lineno">  442</span> </div>
+<div class="line"><span class="lineno">  443</span>    <a class="code hl_function" href="logger_8c.html#a60bd636ef160c97eb51cf31be5954ba2">log_boot_P</a>(LOG_INIT, PSTR(<span class="stringliteral">&quot;LCD driver initialized&quot;</span>));</div>
+<div class="line"><span class="lineno">  444</span>}</div>
+<div class="ttc" id="alcd_8c_html_a010620f3d9dc0536cc9551d7aabd8d17"><div class="ttname"><a href="lcd_8c.html#a010620f3d9dc0536cc9551d7aabd8d17">lcd_rect</a></div><div class="ttdeci">void lcd_rect(u16 x, u16 y, u16 w, u16 h, RGB565 color)</div><div class="ttdoc">Draw rectangle.</div><div class="ttdef"><b>Definition:</b> <a href="lcd_8c_source.html#l00446">lcd.c:446</a></div></div>
 <div class="ttc" id="alcd_8c_html_a49bc2232fc9e2652eebb31d9738144cb"><div class="ttname"><a href="lcd_8c.html#a49bc2232fc9e2652eebb31d9738144cb">SCAN_DIR</a></div><div class="ttdeci">#define SCAN_DIR</div><div class="ttdef"><b>Definition:</b> <a href="lcd_8c_source.html#l00029">lcd.c:29</a></div></div>
-<div class="ttc" id="alcd_8c_html_a62344feec2a2d180a59d563f758e241e"><div class="ttname"><a href="lcd_8c.html#a62344feec2a2d180a59d563f758e241e">lcd_backlight</a></div><div class="ttdeci">void lcd_backlight(u8 value)</div><div class="ttdoc">Set LCD backlight brightness.</div><div class="ttdef"><b>Definition:</b> <a href="lcd_8c_source.html#l00375">lcd.c:375</a></div></div>
+<div class="ttc" id="alcd_8c_html_a62344feec2a2d180a59d563f758e241e"><div class="ttname"><a href="lcd_8c.html#a62344feec2a2d180a59d563f758e241e">lcd_backlight</a></div><div class="ttdeci">void lcd_backlight(u8 value)</div><div class="ttdoc">Set LCD backlight brightness.</div><div class="ttdef"><b>Definition:</b> <a href="lcd_8c_source.html#l00421">lcd.c:421</a></div></div>
+<div class="ttc" id="alcd_8c_html_a87dcc013e6b4f09dc452a3d97db5a362"><div class="ttname"><a href="lcd_8c.html#a87dcc013e6b4f09dc452a3d97db5a362">_lcd_write_reg</a></div><div class="ttdeci">static void _lcd_write_reg(u8 reg)</div><div class="ttdoc">Write an LCD register.</div><div class="ttdef"><b>Definition:</b> <a href="lcd_8c_source.html#l00195">lcd.c:195</a></div></div>
+<div class="ttc" id="alcd_8c_html_ab15e38d06037e79353a7d85f61a98bc7"><div class="ttname"><a href="lcd_8c.html#ab15e38d06037e79353a7d85f61a98bc7">_lcd_reset</a></div><div class="ttdeci">static void _lcd_reset(void)</div><div class="ttdoc">Reset the LCD.</div><div class="ttdef"><b>Definition:</b> <a href="lcd_8c_source.html#l00180">lcd.c:180</a></div></div>
+<div class="ttc" id="alcd_8c_html_ad9e552df263cdba5eef0eb4fffc3a60b"><div class="ttname"><a href="lcd_8c.html#ad9e552df263cdba5eef0eb4fffc3a60b">_lcd_set_gram_scan_dir</a></div><div class="ttdeci">static void _lcd_set_gram_scan_dir(u8 scan_dir)</div><div class="ttdoc">Set LCD orientation.</div><div class="ttdef"><b>Definition:</b> <a href="lcd_8c_source.html#l00367">lcd.c:367</a></div></div>
+<div class="ttc" id="alcd_8c_html_ae978dce6d2652a1f6930eb2ce32038c3"><div class="ttname"><a href="lcd_8c.html#ae978dce6d2652a1f6930eb2ce32038c3">_lcd_init_reg</a></div><div class="ttdeci">static void _lcd_init_reg(void)</div><div class="ttdoc">Send LCD initialization commands.</div><div class="ttdef"><b>Definition:</b> <a href="lcd_8c_source.html#l00271">lcd.c:271</a></div></div>
 <div class="ttc" id="alcd_8h_html_a19693eac3018d3e7800fde141921b812"><div class="ttname"><a href="lcd_8h.html#a19693eac3018d3e7800fde141921b812">LCD_WIDTH</a></div><div class="ttdeci">#define LCD_WIDTH</div><div class="ttdef"><b>Definition:</b> <a href="lcd_8h_source.html#l00044">lcd.h:44</a></div></div>
 <div class="ttc" id="alcd_8h_html_a53a8b2a971de4b88047192655a48b651"><div class="ttname"><a href="lcd_8h.html#a53a8b2a971de4b88047192655a48b651">LCD_HEIGHT</a></div><div class="ttdeci">#define LCD_HEIGHT</div><div class="ttdef"><b>Definition:</b> <a href="lcd_8h_source.html#l00041">lcd.h:41</a></div></div>
-<div class="ttc" id="alogger_8c_html_a60bd636ef160c97eb51cf31be5954ba2"><div class="ttname"><a href="logger_8c.html#a60bd636ef160c97eb51cf31be5954ba2">log_boot_P</a></div><div class="ttdeci">void log_boot_P(LogLevel level, const char *msg,...)</div><div class="ttdoc">Log boot message.</div><div class="ttdef"><b>Definition:</b> <a href="logger_8c_source.html#l00164">logger.c:164</a></div></div>
+<div class="ttc" id="alogger_8c_html_a60bd636ef160c97eb51cf31be5954ba2"><div class="ttname"><a href="logger_8c.html#a60bd636ef160c97eb51cf31be5954ba2">log_boot_P</a></div><div class="ttdeci">void log_boot_P(LogLevel level, const char *msg,...)</div><div class="ttdoc">Log boot message.</div><div class="ttdef"><b>Definition:</b> <a href="logger_8c_source.html#l00170">logger.c:170</a></div></div>
 <div class="ttc" id="aspi_8c_html_ab3e16cf26638212c1e54a7aa4878e12a"><div class="ttname"><a href="spi_8c.html#ab3e16cf26638212c1e54a7aa4878e12a">spi_fast</a></div><div class="ttdeci">void spi_fast(void)</div><div class="ttdoc">Enable fastest SPI mode.</div><div class="ttdef"><b>Definition:</b> <a href="spi_8c_source.html#l00018">spi.c:18</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="lcd_8c_source.html#l00375">lcd_backlight()</a>, <a class="el" href="lcd_8h_source.html#l00041">LCD_HEIGHT</a>, <a class="el" href="lcd_8c_source.html#l00400">lcd_rect()</a>, <a class="el" href="lcd_8h_source.html#l00044">LCD_WIDTH</a>, <a class="el" href="logger_8c_source.html#l00164">log_boot_P()</a>, <a class="el" href="lcd_8c_source.html#l00029">SCAN_DIR</a>, and <a class="el" href="spi_8c_source.html#l00018">spi_fast()</a>.</p>
+<p class="reference">References <a class="el" href="lcd_8c_source.html#l00271">_lcd_init_reg()</a>, <a class="el" href="lcd_8c_source.html#l00180">_lcd_reset()</a>, <a class="el" href="lcd_8c_source.html#l00367">_lcd_set_gram_scan_dir()</a>, <a class="el" href="lcd_8c_source.html#l00195">_lcd_write_reg()</a>, <a class="el" href="lcd_8c_source.html#l00421">lcd_backlight()</a>, <a class="el" href="lcd_8h_source.html#l00041">LCD_HEIGHT</a>, <a class="el" href="lcd_8c_source.html#l00446">lcd_rect()</a>, <a class="el" href="lcd_8h_source.html#l00044">LCD_WIDTH</a>, <a class="el" href="logger_8c_source.html#l00170">log_boot_P()</a>, <a class="el" href="lcd_8c_source.html#l00029">SCAN_DIR</a>, and <a class="el" href="spi_8c_source.html#l00018">spi_fast()</a>.</p>
 
 </div>
 </div>
@@ -1019,26 +1026,26 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="lcd_8c_source.html#l00421">421</a> of file <a class="el" href="lcd_8c_source.html">lcd.c</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  422</span>{</div>
-<div class="line"><span class="lineno">  423</span>    <a class="code hl_typedef" href="types_8h.html#ace9d960e74685e2cd84b36132dbbf8aa">u16</a> w0, h0;</div>
-<div class="line"><span class="lineno">  424</span> </div>
-<div class="line"><span class="lineno">  425</span>    _lcd_window_start(x, y, w, h);</div>
-<div class="line"><span class="lineno">  426</span>    <span class="keywordflow">for</span>(h0 = 0; h0 &lt; h; ++h0)</div>
-<div class="line"><span class="lineno">  427</span>    {</div>
-<div class="line"><span class="lineno">  428</span>        <span class="keywordflow">for</span>(w0 = 0; w0 &lt; w; ++w0)</div>
-<div class="line"><span class="lineno">  429</span>        {</div>
-<div class="line"><span class="lineno">  430</span>            _lcd_pixel(<a class="code hl_function" href="lcd_8c.html#a9077e33ab871138bf5da6043bfe48266">lcd_color</a>(pgm_read_byte(&amp;image[h0 * w + w0]), 0, 0));</div>
-<div class="line"><span class="lineno">  431</span>        }</div>
-<div class="line"><span class="lineno">  432</span>    }</div>
-<div class="line"><span class="lineno">  433</span> </div>
-<div class="line"><span class="lineno">  434</span>    _lcd_window_end();</div>
-<div class="line"><span class="lineno">  435</span>}</div>
-<div class="ttc" id="alcd_8c_html_a9077e33ab871138bf5da6043bfe48266"><div class="ttname"><a href="lcd_8c.html#a9077e33ab871138bf5da6043bfe48266">lcd_color</a></div><div class="ttdeci">RGB565 lcd_color(u8 r, u8 g, u8 b)</div><div class="ttdoc">Convert RGB888 to RGB565.</div><div class="ttdef"><b>Definition:</b> <a href="lcd_8c_source.html#l00416">lcd.c:416</a></div></div>
+<p class="definition">Definition at line <a class="el" href="lcd_8c_source.html#l00467">467</a> of file <a class="el" href="lcd_8c_source.html">lcd.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  468</span>{</div>
+<div class="line"><span class="lineno">  469</span>    <a class="code hl_typedef" href="types_8h.html#ace9d960e74685e2cd84b36132dbbf8aa">u16</a> w0, h0;</div>
+<div class="line"><span class="lineno">  470</span> </div>
+<div class="line"><span class="lineno">  471</span>    <a class="code hl_function" href="lcd_8c.html#a15ba99037a25ba778e2d460bdb07861b">_lcd_window_start</a>(x, y, w, h);</div>
+<div class="line"><span class="lineno">  472</span>    <span class="keywordflow">for</span>(h0 = 0; h0 &lt; h; ++h0)</div>
+<div class="line"><span class="lineno">  473</span>    {</div>
+<div class="line"><span class="lineno">  474</span>        <span class="keywordflow">for</span>(w0 = 0; w0 &lt; w; ++w0)</div>
+<div class="line"><span class="lineno">  475</span>        {</div>
+<div class="line"><span class="lineno">  476</span>            <a class="code hl_function" href="lcd_8c.html#a8e2d811ac64e1039a7bddcab755d1768">_lcd_pixel</a>(<a class="code hl_function" href="lcd_8c.html#a9077e33ab871138bf5da6043bfe48266">lcd_color</a>(pgm_read_byte(&amp;image[h0 * w + w0]), 0, 0));</div>
+<div class="line"><span class="lineno">  477</span>        }</div>
+<div class="line"><span class="lineno">  478</span>    }</div>
+<div class="line"><span class="lineno">  479</span> </div>
+<div class="line"><span class="lineno">  480</span>    <a class="code hl_function" href="lcd_8c.html#aa0bf731811bfe104bb897545527d7862">_lcd_window_end</a>();</div>
+<div class="line"><span class="lineno">  481</span>}</div>
+<div class="ttc" id="alcd_8c_html_a9077e33ab871138bf5da6043bfe48266"><div class="ttname"><a href="lcd_8c.html#a9077e33ab871138bf5da6043bfe48266">lcd_color</a></div><div class="ttdeci">RGB565 lcd_color(u8 r, u8 g, u8 b)</div><div class="ttdoc">Convert RGB888 to RGB565.</div><div class="ttdef"><b>Definition:</b> <a href="lcd_8c_source.html#l00462">lcd.c:462</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="lcd_8c_source.html#l00416">lcd_color()</a>.</p>
+<p class="reference">References <a class="el" href="lcd_8c_source.html#l00254">_lcd_pixel()</a>, <a class="el" href="lcd_8c_source.html#l00263">_lcd_window_end()</a>, <a class="el" href="lcd_8c_source.html#l00225">_lcd_window_start()</a>, and <a class="el" href="lcd_8c_source.html#l00462">lcd_color()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="logger_8c_source.html#l00231">logger_lcd_init()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="logger_8c_source.html#l00237">logger_lcd_init()</a>.</p>
 
 </div>
 </div>
@@ -1098,23 +1105,25 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="lcd_8c_source.html#l00400">400</a> of file <a class="el" href="lcd_8c_source.html">lcd.c</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  401</span>{</div>
-<div class="line"><span class="lineno">  402</span>    <a class="code hl_typedef" href="types_8h.html#ace9d960e74685e2cd84b36132dbbf8aa">u16</a> w0, h0;</div>
-<div class="line"><span class="lineno">  403</span> </div>
-<div class="line"><span class="lineno">  404</span>    _lcd_window_start(x, y, w, h);</div>
-<div class="line"><span class="lineno">  405</span>    <span class="keywordflow">for</span>(h0 = 0; h0 &lt; h; ++h0)</div>
-<div class="line"><span class="lineno">  406</span>    {</div>
-<div class="line"><span class="lineno">  407</span>        <span class="keywordflow">for</span>(w0 = 0; w0 &lt; w; ++w0)</div>
-<div class="line"><span class="lineno">  408</span>        {</div>
-<div class="line"><span class="lineno">  409</span>            _lcd_pixel(color);</div>
-<div class="line"><span class="lineno">  410</span>        }</div>
-<div class="line"><span class="lineno">  411</span>    }</div>
-<div class="line"><span class="lineno">  412</span> </div>
-<div class="line"><span class="lineno">  413</span>    _lcd_window_end();</div>
-<div class="line"><span class="lineno">  414</span>}</div>
+<p class="definition">Definition at line <a class="el" href="lcd_8c_source.html#l00446">446</a> of file <a class="el" href="lcd_8c_source.html">lcd.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  447</span>{</div>
+<div class="line"><span class="lineno">  448</span>    <a class="code hl_typedef" href="types_8h.html#ace9d960e74685e2cd84b36132dbbf8aa">u16</a> w0, h0;</div>
+<div class="line"><span class="lineno">  449</span> </div>
+<div class="line"><span class="lineno">  450</span>    <a class="code hl_function" href="lcd_8c.html#a15ba99037a25ba778e2d460bdb07861b">_lcd_window_start</a>(x, y, w, h);</div>
+<div class="line"><span class="lineno">  451</span>    <span class="keywordflow">for</span>(h0 = 0; h0 &lt; h; ++h0)</div>
+<div class="line"><span class="lineno">  452</span>    {</div>
+<div class="line"><span class="lineno">  453</span>        <span class="keywordflow">for</span>(w0 = 0; w0 &lt; w; ++w0)</div>
+<div class="line"><span class="lineno">  454</span>        {</div>
+<div class="line"><span class="lineno">  455</span>            <a class="code hl_function" href="lcd_8c.html#a8e2d811ac64e1039a7bddcab755d1768">_lcd_pixel</a>(color);</div>
+<div class="line"><span class="lineno">  456</span>        }</div>
+<div class="line"><span class="lineno">  457</span>    }</div>
+<div class="line"><span class="lineno">  458</span> </div>
+<div class="line"><span class="lineno">  459</span>    <a class="code hl_function" href="lcd_8c.html#aa0bf731811bfe104bb897545527d7862">_lcd_window_end</a>();</div>
+<div class="line"><span class="lineno">  460</span>}</div>
 </div><!-- fragment -->
-<p class="reference">Referenced by <a class="el" href="avr_2platform_8c_source.html#l00054">env_gfx_rect()</a>, and <a class="el" href="lcd_8c_source.html#l00381">lcd_init()</a>.</p>
+<p class="reference">References <a class="el" href="lcd_8c_source.html#l00254">_lcd_pixel()</a>, <a class="el" href="lcd_8c_source.html#l00263">_lcd_window_end()</a>, and <a class="el" href="lcd_8c_source.html#l00225">_lcd_window_start()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="avr_2platform_8c_source.html#l00054">env_gfx_rect()</a>, and <a class="el" href="lcd_8c_source.html#l00427">lcd_init()</a>.</p>
 
 </div>
 </div>
@@ -1175,22 +1184,22 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Width of the string that was drawn </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="lcd_8c_source.html#l00457">457</a> of file <a class="el" href="lcd_8c_source.html">lcd.c</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  458</span>{</div>
-<div class="line"><span class="lineno">  459</span>    <a class="code hl_typedef" href="types_8h.html#ace9d960e74685e2cd84b36132dbbf8aa">u16</a> i;</div>
-<div class="line"><span class="lineno">  460</span>    <span class="keywordtype">char</span> c;</div>
-<div class="line"><span class="lineno">  461</span> </div>
-<div class="line"><span class="lineno">  462</span>    i = 0;</div>
-<div class="line"><span class="lineno">  463</span>    <span class="keywordflow">while</span>((c = *s++))</div>
-<div class="line"><span class="lineno">  464</span>    {</div>
-<div class="line"><span class="lineno">  465</span>        i += <a class="code hl_function" href="lcd_8c.html#a2d178ce2cd276e286fcdb38ba4763842">lcd_char</a>(x + i, y, fg, bg, c);</div>
-<div class="line"><span class="lineno">  466</span>    }</div>
-<div class="line"><span class="lineno">  467</span> </div>
-<div class="line"><span class="lineno">  468</span>    <span class="keywordflow">return</span> i;</div>
-<div class="line"><span class="lineno">  469</span>}</div>
-<div class="ttc" id="alcd_8c_html_a2d178ce2cd276e286fcdb38ba4763842"><div class="ttname"><a href="lcd_8c.html#a2d178ce2cd276e286fcdb38ba4763842">lcd_char</a></div><div class="ttdeci">u8 lcd_char(u16 x, u16 y, RGB565 fg, RGB565 bg, char c)</div><div class="ttdoc">Draw a character in the standard font.</div><div class="ttdef"><b>Definition:</b> <a href="lcd_8c_source.html#l00437">lcd.c:437</a></div></div>
+<p class="definition">Definition at line <a class="el" href="lcd_8c_source.html#l00503">503</a> of file <a class="el" href="lcd_8c_source.html">lcd.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  504</span>{</div>
+<div class="line"><span class="lineno">  505</span>    <a class="code hl_typedef" href="types_8h.html#ace9d960e74685e2cd84b36132dbbf8aa">u16</a> i;</div>
+<div class="line"><span class="lineno">  506</span>    <span class="keywordtype">char</span> c;</div>
+<div class="line"><span class="lineno">  507</span> </div>
+<div class="line"><span class="lineno">  508</span>    i = 0;</div>
+<div class="line"><span class="lineno">  509</span>    <span class="keywordflow">while</span>((c = *s++))</div>
+<div class="line"><span class="lineno">  510</span>    {</div>
+<div class="line"><span class="lineno">  511</span>        i += <a class="code hl_function" href="lcd_8c.html#a2d178ce2cd276e286fcdb38ba4763842">lcd_char</a>(x + i, y, fg, bg, c);</div>
+<div class="line"><span class="lineno">  512</span>    }</div>
+<div class="line"><span class="lineno">  513</span> </div>
+<div class="line"><span class="lineno">  514</span>    <span class="keywordflow">return</span> i;</div>
+<div class="line"><span class="lineno">  515</span>}</div>
+<div class="ttc" id="alcd_8c_html_a2d178ce2cd276e286fcdb38ba4763842"><div class="ttname"><a href="lcd_8c.html#a2d178ce2cd276e286fcdb38ba4763842">lcd_char</a></div><div class="ttdeci">u8 lcd_char(u16 x, u16 y, RGB565 fg, RGB565 bg, char c)</div><div class="ttdoc">Draw a character in the standard font.</div><div class="ttdef"><b>Definition:</b> <a href="lcd_8c_source.html#l00483">lcd.c:483</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="lcd_8c_source.html#l00437">lcd_char()</a>.</p>
+<p class="reference">References <a class="el" href="lcd_8c_source.html#l00483">lcd_char()</a>.</p>
 
 </div>
 </div>
@@ -1251,21 +1260,23 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Width of the string that was drawn </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="lcd_8c_source.html#l00471">471</a> of file <a class="el" href="lcd_8c_source.html">lcd.c</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  472</span>{</div>
-<div class="line"><span class="lineno">  473</span>    <a class="code hl_typedef" href="types_8h.html#ace9d960e74685e2cd84b36132dbbf8aa">u16</a> i;</div>
-<div class="line"><span class="lineno">  474</span>    <span class="keywordtype">char</span> c;</div>
-<div class="line"><span class="lineno">  475</span> </div>
-<div class="line"><span class="lineno">  476</span>    i = 0;</div>
-<div class="line"><span class="lineno">  477</span>    <span class="keywordflow">while</span>((c = pgm_read_byte(s++)))</div>
-<div class="line"><span class="lineno">  478</span>    {</div>
-<div class="line"><span class="lineno">  479</span>        i += <a class="code hl_function" href="lcd_8c.html#a2d178ce2cd276e286fcdb38ba4763842">lcd_char</a>(x + i, y, fg, bg, c);</div>
-<div class="line"><span class="lineno">  480</span>    }</div>
-<div class="line"><span class="lineno">  481</span> </div>
-<div class="line"><span class="lineno">  482</span>    <span class="keywordflow">return</span> i;</div>
-<div class="line"><span class="lineno">  483</span>}</div>
+<p class="definition">Definition at line <a class="el" href="lcd_8c_source.html#l00517">517</a> of file <a class="el" href="lcd_8c_source.html">lcd.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  518</span>{</div>
+<div class="line"><span class="lineno">  519</span>    <a class="code hl_typedef" href="types_8h.html#ace9d960e74685e2cd84b36132dbbf8aa">u16</a> i;</div>
+<div class="line"><span class="lineno">  520</span>    <span class="keywordtype">char</span> c;</div>
+<div class="line"><span class="lineno">  521</span> </div>
+<div class="line"><span class="lineno">  522</span>    i = 0;</div>
+<div class="line"><span class="lineno">  523</span>    <span class="keywordflow">while</span>((c = pgm_read_byte(s++)))</div>
+<div class="line"><span class="lineno">  524</span>    {</div>
+<div class="line"><span class="lineno">  525</span>        i += <a class="code hl_function" href="lcd_8c.html#a2d178ce2cd276e286fcdb38ba4763842">lcd_char</a>(x + i, y, fg, bg, c);</div>
+<div class="line"><span class="lineno">  526</span>    }</div>
+<div class="line"><span class="lineno">  527</span> </div>
+<div class="line"><span class="lineno">  528</span>    <span class="keywordflow">return</span> i;</div>
+<div class="line"><span class="lineno">  529</span>}</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="lcd_8c_source.html#l00437">lcd_char()</a>.</p>
+<p class="reference">References <a class="el" href="lcd_8c_source.html#l00483">lcd_char()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="logger_8c_source.html#l00095">_lcd_log()</a>.</p>
 
 </div>
 </div>

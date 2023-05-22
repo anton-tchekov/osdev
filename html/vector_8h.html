@@ -258,9 +258,9 @@ Functions</h2></td></tr>
 <div class="fragment"><div class="line"><span class="lineno">   39</span>{</div>
 <div class="line"><span class="lineno">   40</span>    <a class="code hl_function" href="alloc_8c.html#ab0b733d6d48d9eafd86d2196d16e2bc4">memfree</a>(vector-&gt;<a class="code hl_variable" href="structVector.html#a3c3c5b59d45fcf97bd75f79657df4b25">Data</a>);</div>
 <div class="line"><span class="lineno">   41</span>}</div>
-<div class="ttc" id="aalloc_8c_html_ab0b733d6d48d9eafd86d2196d16e2bc4"><div class="ttname"><a href="alloc_8c.html#ab0b733d6d48d9eafd86d2196d16e2bc4">memfree</a></div><div class="ttdeci">void memfree(void *p)</div><div class="ttdoc">Frees memory previously allocated with memalloc</div><div class="ttdef"><b>Definition:</b> <a href="alloc_8c_source.html#l00135">alloc.c:135</a></div></div>
+<div class="ttc" id="aalloc_8c_html_ab0b733d6d48d9eafd86d2196d16e2bc4"><div class="ttname"><a href="alloc_8c.html#ab0b733d6d48d9eafd86d2196d16e2bc4">memfree</a></div><div class="ttdeci">void memfree(void *p)</div><div class="ttdoc">Frees memory previously allocated with memalloc</div><div class="ttdef"><b>Definition:</b> <a href="alloc_8c_source.html#l00160">alloc.c:160</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="vector_8h_source.html#l00027">Vector::Data</a>, and <a class="el" href="alloc_8c_source.html#l00135">memfree()</a>.</p>
+<p class="reference">References <a class="el" href="vector_8h_source.html#l00027">Vector::Data</a>, and <a class="el" href="alloc_8c_source.html#l00160">memfree()</a>.</p>
 
 </div>
 </div>
@@ -373,12 +373,12 @@ Functions</h2></td></tr>
 <div class="line"><span class="lineno">   34</span>    vector-&gt;<a class="code hl_variable" href="structVector.html#ac6aa25a7a7bc6353a0fada595c85ea2e">Length</a> = 0;</div>
 <div class="line"><span class="lineno">   35</span>    vector-&gt;<a class="code hl_variable" href="structVector.html#a3c3c5b59d45fcf97bd75f79657df4b25">Data</a> = <a class="code hl_function" href="alloc_8c.html#a4be51fa4dd80d0b7077779261722119a">memalloc</a>(element_size * initial_capacity);</div>
 <div class="line"><span class="lineno">   36</span>}</div>
-<div class="ttc" id="aalloc_8c_html_a4be51fa4dd80d0b7077779261722119a"><div class="ttname"><a href="alloc_8c.html#a4be51fa4dd80d0b7077779261722119a">memalloc</a></div><div class="ttdeci">void * memalloc(u32 size)</div><div class="ttdoc">Request a block of memory of size bytes This function will always return a valid pointer (never NULL)...</div><div class="ttdef"><b>Definition:</b> <a href="alloc_8c_source.html#l00079">alloc.c:79</a></div></div>
+<div class="ttc" id="aalloc_8c_html_a4be51fa4dd80d0b7077779261722119a"><div class="ttname"><a href="alloc_8c.html#a4be51fa4dd80d0b7077779261722119a">memalloc</a></div><div class="ttdeci">void * memalloc(u32 size)</div><div class="ttdoc">Request a block of memory of size bytes This function will always return a valid pointer (never NULL)...</div><div class="ttdef"><b>Definition:</b> <a href="alloc_8c_source.html#l00104">alloc.c:104</a></div></div>
 <div class="ttc" id="astructVector_html_af9abb7483a64efea81def7fbf714ba60"><div class="ttname"><a href="structVector.html#af9abb7483a64efea81def7fbf714ba60">Vector::Capacity</a></div><div class="ttdeci">u32 Capacity</div><div class="ttdef"><b>Definition:</b> <a href="vector_8h_source.html#l00024">vector.h:24</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="vector_8h_source.html#l00024">Vector::Capacity</a>, <a class="el" href="vector_8h_source.html#l00027">Vector::Data</a>, <a class="el" href="vector_8h_source.html#l00018">Vector::ElementSize</a>, <a class="el" href="vector_8h_source.html#l00021">Vector::Length</a>, and <a class="el" href="alloc_8c_source.html#l00079">memalloc()</a>.</p>
+<p class="reference">References <a class="el" href="vector_8h_source.html#l00024">Vector::Capacity</a>, <a class="el" href="vector_8h_source.html#l00027">Vector::Data</a>, <a class="el" href="vector_8h_source.html#l00018">Vector::ElementSize</a>, <a class="el" href="vector_8h_source.html#l00021">Vector::Length</a>, and <a class="el" href="alloc_8c_source.html#l00104">memalloc()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="gui_8c_source.html#l00782">input_init()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="gui_8c_source.html#l00848">input_init()</a>.</p>
 
 </div>
 </div>
@@ -553,7 +553,7 @@ Functions</h2></td></tr>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="vector_8h_source.html#l00021">Vector::Length</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="gui_8c_source.html#l00190">input_render()</a>, <a class="el" href="gui_8c_source.html#l00350">input_right()</a>, and <a class="el" href="gui_8c_source.html#l00294">input_selection_replace()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="gui_8c_source.html#l00409">input_delete()</a>, <a class="el" href="gui_8c_source.html#l00451">input_end()</a>, <a class="el" href="gui_8c_source.html#l00190">input_render()</a>, <a class="el" href="gui_8c_source.html#l00355">input_right()</a>, <a class="el" href="gui_8c_source.html#l00486">input_select_all()</a>, <a class="el" href="gui_8c_source.html#l00463">input_select_end()</a>, <a class="el" href="gui_8c_source.html#l00375">input_select_right()</a>, and <a class="el" href="gui_8c_source.html#l00294">input_selection_replace()</a>.</p>
 
 </div>
 </div>
@@ -719,6 +719,8 @@ Functions</h2></td></tr>
 <div class="ttc" id="avector_8h_html_a67ee10133f0cf3c7d71d364754fb648f"><div class="ttname"><a href="vector_8h.html#a67ee10133f0cf3c7d71d364754fb648f">vector_remove_range</a></div><div class="ttdeci">static void vector_remove_range(Vector *vector, u32 index, u32 count)</div><div class="ttdoc">Remove a range of elements.</div><div class="ttdef"><b>Definition:</b> <a href="vector_8h_source.html#l00143">vector.h:143</a></div></div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="vector_8h_source.html#l00143">vector_remove_range()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="gui_8c_source.html#l00389">input_backspace()</a>, and <a class="el" href="gui_8c_source.html#l00409">input_delete()</a>.</p>
 
 </div>
 </div>
@@ -907,7 +909,7 @@ Functions</h2></td></tr>
 <div class="ttc" id="atypes_8h_html_afaa62991928fb9fb18ff0db62a040aba"><div class="ttname"><a href="types_8h.html#afaa62991928fb9fb18ff0db62a040aba">u32</a></div><div class="ttdeci">uint32_t u32</div><div class="ttdef"><b>Definition:</b> <a href="types_8h_source.html#l00032">types.h:32</a></div></div>
 <div class="ttc" id="avector_8c_html_ae2ff8fa33ac906e41f31fd19a1f51acc"><div class="ttname"><a href="vector_8c.html#ae2ff8fa33ac906e41f31fd19a1f51acc">_next_pot</a></div><div class="ttdeci">static u32 _next_pot(u32 n)</div><div class="ttdoc">Next power of two.</div><div class="ttdef"><b>Definition:</b> <a href="vector_8c_source.html#l00019">vector.c:19</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="vector_8c_source.html#l00019">_next_pot()</a>, <a class="el" href="panic_8h_source.html#l00040">ASSERT</a>, <a class="el" href="vector_8h_source.html#l00024">Vector::Capacity</a>, <a class="el" href="vector_8h_source.html#l00027">Vector::Data</a>, <a class="el" href="vector_8h_source.html#l00018">Vector::ElementSize</a>, <a class="el" href="vector_8h_source.html#l00021">Vector::Length</a>, <a class="el" href="alloc_8c_source.html#l00079">memalloc()</a>, <a class="el" href="string_8c_source.html#l00094">memcpy()</a>, <a class="el" href="alloc_8c_source.html#l00135">memfree()</a>, and <a class="el" href="string_8c_source.html#l00113">memmove()</a>.</p>
+<p class="reference">References <a class="el" href="vector_8c_source.html#l00019">_next_pot()</a>, <a class="el" href="panic_8h_source.html#l00040">ASSERT</a>, <a class="el" href="vector_8h_source.html#l00024">Vector::Capacity</a>, <a class="el" href="vector_8h_source.html#l00027">Vector::Data</a>, <a class="el" href="vector_8h_source.html#l00018">Vector::ElementSize</a>, <a class="el" href="vector_8h_source.html#l00021">Vector::Length</a>, <a class="el" href="alloc_8c_source.html#l00104">memalloc()</a>, <a class="el" href="string_8c_source.html#l00094">memcpy()</a>, <a class="el" href="alloc_8c_source.html#l00160">memfree()</a>, and <a class="el" href="string_8c_source.html#l00113">memmove()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="gui_8c_source.html#l00294">input_selection_replace()</a>, <a class="el" href="vector_8h_source.html#l00118">vector_insert_range()</a>, and <a class="el" href="vector_8h_source.html#l00143">vector_remove_range()</a>.</p>
 

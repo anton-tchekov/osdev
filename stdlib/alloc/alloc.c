@@ -36,16 +36,35 @@ static ChunkHeader _first;
 static MemAllocInfo _info;
 
 /* --- PRIVATE --- */
+
+/**
+ * @brief Get a pointer to the data region of a memory chunk
+ *
+ * @param header Chunk header
+ * @return Pointer to data area
+ */
 static inline void *_chunk_data(ChunkHeader *header)
 {
 	return (void *)((ptr)header + sizeof(ChunkHeader));
 }
 
+/**
+ * @brief Get the chunk header for a pointer that is about to be freed
+ *
+ * @param p Pointer
+ * @return The corresponding header
+ */
 static inline ChunkHeader *_chunk_header(void *p)
 {
 	return (ChunkHeader *)((ptr)p - sizeof(ChunkHeader));
 }
 
+/**
+ * @brief Get the next chunk header in the linked list
+ *
+ * @param next Chunk offset
+ * @return Pointer to next chunk header or NULL if it is the last one
+ */
 static inline ChunkHeader *_get_next(u32 next)
 {
 	if(next == END)
@@ -56,6 +75,12 @@ static inline ChunkHeader *_get_next(u32 next)
 	return (ChunkHeader *)(_heap_start + next);
 }
 
+/**
+ * @brief Get to offset of a chunk header on the heap
+ *
+ * @param header Pointer to chunk header
+ * @return Offset in bytes after the start of the heap
+ */
 static inline u32 _get_offset(ChunkHeader *header)
 {
 	return (ptr)header - _heap_start;

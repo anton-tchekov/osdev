@@ -55,14 +55,14 @@
 /** Offset of init program size in ATFS bootsector */
 #define ATFS_OFFSET_INIT_SIZE      12
 
-/* FS Signature (bytes 0-4) */
+/** FS Signature (bytes 0-4) */
 static const u8 _atfs_signature[] = { 'A', 'T', 'F', 'S' };
 
 /**
  * @brief Write a 32-bit little endian value to a buffer
  *
- * @param buf Input
- * @return Result
+ * @param buf Buffer to write to
+ * @param val 32-bit value to write as little endian
  */
 static void write_le_32(u8 *buf, u32 val)
 {
@@ -75,8 +75,8 @@ static void write_le_32(u8 *buf, u32 val)
 /**
  * @brief Load a 32-bit little endian value from a buffer
  *
- * @param buf Input
- * @return Result
+ * @param buf Buffer to read little endian value from
+ * @return 32-bit rtsult
  */
 static u32 load_le_32(u8 *buf)
 {

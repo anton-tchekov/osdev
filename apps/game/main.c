@@ -1,31 +1,49 @@
 #include <std.h>
 #include <ubuntu_bold.h>
 
-Window window =
-	{
-		.Title = "Test",
-		.OnKey = NULL};
+#define H_CENTER      (GFX_WIDTH / 2)
+#define X_MOVE        (H_CENTER - 5)
 
-Rectangle colliderGoal =
-	{
-		.X = 0,
-		.Y = 0,
-		.W = 20,
-		.H = 20};
+#define V_CENTER      (GFX_HEIGHT / 2)
+#define Y_MOVE        (V_CENTER - 5)
 
-Rectangle colliderKill =
-	{
-		.X = 20,
-		.Y = 0,
-		.W = 1,
-		.H = 100};
+#define DELAY      100
 
-Rectangle colliderPlayer =
-	{
-		.X = 0,
-		.Y = 0,
-		.W = 10,
-		.H = 10};
+static Window window =
+{
+	.Title = "Game",
+	.OnKey = NULL
+};
+
+static Rectangle colliderGoal =
+{
+	.X = 0,
+	.Y = 0,
+	.W = 20,
+	.H = 20
+};
+
+static Rectangle colliderKill =
+{
+	.X = 20,
+	.Y = 0,
+	.W = 1,
+	.H = 100
+};
+
+static Rectangle colliderPlayer =
+{
+	.X = 0,
+	.Y = 0,
+	.W = 10,
+	.H = 10
+};
+
+static i32 player_x = X_MOVE;
+static i32 player_y = Y_MOVE;
+static i32 begin;
+static bool won = false;
+static bool _keys[4];
 
 /*
 Rectangle *colliders[] =
@@ -65,36 +83,48 @@ bool overlap(Rectangle *c1, Rectangle *c2)
 	i32 c2y2 = c2->Y + c2->H;
 
 	bool noOverlap = c1->X > c2x2 ||
-					 c2->X > c1x2 ||
-					 c1->Y > c2y2 ||
-					 c2->Y > c1y2;
+					c2->X > c1x2 ||
+					c1->Y > c2y2 ||
+					c2->Y > c1y2;
 
 	return !noOverlap;
 }
 
-#define H_CENTER (GFX_WIDTH / 2)
-#define X_MOVE (H_CENTER - 5)
+void event_key(Key key, i32 chr, KeyState state)
+{
+	bool press = state != KEYSTATE_RELEASED;
+	switch(key)
+	{
+		case KEY_W:
+			_keys[0] = press;
+			break;
 
-#define V_CENTER (GFX_HEIGHT / 2)
-#define Y_MOVE (V_CENTER - 5)
+		case KEY_S:
+			_keys[1] = press;
+			break;
 
-#define DELAY 100
+		case KEY_A:
+			_keys[2] = press;
+			break;
 
-i32 player_x = X_MOVE;
-i32 player_y = Y_MOVE;
-i32 begin;
+		case KEY_D:
+			_keys[3] = press;
+			break;
+	}
 
-bool won = false;
+	(void)chr;
+}
 
 void setup(void)
 {
+	keyboard_register_event(event_key);
 	window_open(&window);
 	clear();
 }
 
 void loop(void)
 {
-	if (millis() - begin < DELAY)
+	if(millis() - begin < DELAY)
 	{
 		return;
 	}
@@ -104,28 +134,28 @@ void loop(void)
 	colliderPlayer.X = player_x;
 	colliderPlayer.Y = player_y;
 
-	if (overlap(&colliderKill, &colliderPlayer))
+	if(overlap(&colliderKill, &colliderPlayer))
 	{
 		font_string(50, 100, "YOU DEAD", ubuntu_bold, COLOR_RED, COLOR_BLACK);
 	}
 	else
 	{
-		if (keyboard_is_key_pressed(KEY_W))
+		if(_keys[0])
 		{
 			player_y -= 10;
 		}
 
-		if (keyboard_is_key_pressed(KEY_S))
+		if(_keys[1])
 		{
 			player_y += 10;
 		}
 
-		if (keyboard_is_key_pressed(KEY_A))
+		if(_keys[2])
 		{
 			player_x -= 10;
 		}
 
-		if (keyboard_is_key_pressed(KEY_D))
+		if(_keys[3])
 		{
 			player_x += 10;
 		}
@@ -134,7 +164,7 @@ void loop(void)
 		renderCollider(&colliderGoal, COLOR_GREEN);
 		renderCollider(&colliderKill, COLOR_RED);
 
-		if (overlap(&colliderGoal, &colliderPlayer) || won)
+		if(overlap(&colliderGoal, &colliderPlayer) || won)
 		{
 			renderPlayer(player_x, player_y, COLOR_BLUE);
 			won = true;

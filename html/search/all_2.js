@@ -6,7 +6,7 @@ var searchData=
   ['bankfirst_3',['BankFirst',['../structAddrHelper.html#a7597aa93dc6a712b7ac697879ef3768d',1,'AddrHelper']]],
   ['banksecond_4',['BankSecond',['../structAddrHelper.html#a55785530f6ea3f15b72cfc755f843a54',1,'AddrHelper']]],
   ['bearing_5',['Bearing',['../structFontChar.html#a3e5c63fd62768392e06a054dd5176b24',1,'FontChar']]],
-  ['bitmap_6',['Bitmap',['../structFONT.html#a345daf79d46b416fd65c5f2bbf4e4238',1,'FONT']]],
+  ['bitmap_6',['Bitmap',['../structFONT.html#a345daf79d46b416fd65c5f2bbf4e4238',1,'FONT::Bitmap()'],['../structFontChar.html#a35640770df28f05fcb48d6df778216c1',1,'FontChar::Bitmap()']]],
   ['block_5fsize_7',['BLOCK_SIZE',['../sd_8h.html#ad51ded0bbd705f02f73fc60c0b721ced',1,'sd.h']]],
   ['block_5fsize_5fpot_8',['BLOCK_SIZE_POT',['../sd_8h.html#a456e1098b18ecd0666395e17ef9b6ca8',1,'sd.h']]],
   ['border_5fsize_9',['BORDER_SIZE',['../gui_8c.html#a83b9df0c7acc5653665d1efd14d1a65b',1,'gui.c']]],

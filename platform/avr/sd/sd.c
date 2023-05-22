@@ -63,22 +63,45 @@
 #define SD_HC                  (1 << 2)
 
 /* SD card properties */
-static u32
-	_serial,
-	_capacity;
 
-static u8
-	_oem[3],
-	_product[6],
-	_card_type,
-	_manufacturer,
-	_revision,
-	_manufacturing_year,
-	_manufacturing_month,
-	_flag_copy,
-	_flag_write_protect,
-	_flag_write_protect_temp,
-	_format;
+/** SD card serial number */
+static u32 _serial;
+
+/** SD card capacity in 512-byte blocks */
+static u32 _capacity;
+
+/** SD card OEM name: 2 characters + null-terminator */
+static u8 _oem[3];
+
+/** SD card product name: 5 characters + null-terminator */
+static u8 _product[6];
+
+/** SD card type: SD1 / SD2 / SDHC */
+static u8 _card_type;
+
+/** SD manufacturer ID */
+static u8 _manufacturer;
+
+/** SD card revision number as packed BCD */
+static u8 _revision;
+
+/** SD card manufacturing year after 2000 */
+static u8 _manufacturing_year;
+
+/** SD card manufacturing month number */
+static u8 _manufacturing_month;
+
+/** SD card copy/original flag */
+static u8 _flag_copy;
+
+/** SD card write protected flag */
+static u8 _flag_write_protect;
+
+/** SD card temporarily write protected flag */
+static u8 _flag_write_protect_temp;
+
+/** SD card format ID */
+static u8 _format;
 
 /* --- PRIVATE --- */
 

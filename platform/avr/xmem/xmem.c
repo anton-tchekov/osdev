@@ -42,6 +42,14 @@
 #define SRAM_COMMAND_READ     3
 
 /* --- PRIVATE --- */
+
+/**
+ * @brief Start a transmission to the external memory
+ *
+ * @param bank Memory bank number
+ * @param command Read/Write command
+ * @param addr Start address
+ */
 static void _xmem_start(u8 bank, u8 command, u32 addr)
 {
 	XMEM_SELECT(bank);
@@ -51,6 +59,9 @@ static void _xmem_start(u8 bank, u8 command, u32 addr)
 	spi_xchg(addr);
 }
 
+/**
+ * @brief Perform a memory test on the external memoryy
+ */
 static void _memtest(void)
 {
 	u8 bank, w, v;
@@ -134,6 +145,14 @@ static void _memtest(void)
 	}
 }
 
+/**
+ * @brief Read data from a memory bank
+ *
+ * @param bank Bank number
+ * @param addr Start address
+ * @param data Buffer for the read data
+ * @param size Number of bytes to read
+ */
 static void _xmem_read(u8 bank, u16 addr, void *data, u16 size)
 {
 	u16 i;
@@ -147,6 +166,14 @@ static void _xmem_read(u8 bank, u16 addr, void *data, u16 size)
 	XMEM_DESELECT(bank);
 }
 
+/**
+ * @brief Write data to a memory bank
+ *
+ * @param bank Bank number
+ * @param addr Start address
+ * @param data Buffer with the data to write
+ * @param size Number of bytes to write
+ */
 static void _xmem_write(u8 bank, u16 addr, const void *data, u16 size)
 {
 	u16 i;
@@ -160,6 +187,14 @@ static void _xmem_write(u8 bank, u16 addr, const void *data, u16 size)
 	XMEM_DESELECT(bank);
 }
 
+/**
+ * @brief Set an area within a memory bank to 0
+ *
+ * @param bank Bank number
+ * @param addr Start address
+ * @param value Byte to write
+ * @param size Number of bytes to write
+ */
 static void _xmem_set(u8 bank, u16 addr, u8 value, u16 size)
 {
 	u16 i;
@@ -172,12 +207,24 @@ static void _xmem_set(u8 bank, u16 addr, u8 value, u16 size)
 	XMEM_DESELECT(bank);
 }
 
+/**
+ * @brief Calculate which bank an address falls onto
+ *
+ * @param addr Full memory address
+ * @return Bank number
+ */
 static u8 _addr_to_bank(u32 addr)
 {
 	return addr >> BANK_SIZE_POT;
 }
 
-static u32 _addr_bank_offset(u32 addr)
+/**
+ * @brief Calculate the offset from the start of a memory bank for an address
+ *
+ * @param addr Full memory address
+ * @return Bank address
+ */
+static u16 _addr_bank_offset(u32 addr)
 {
 	return addr & (BANK_SIZE - 1);
 }
@@ -201,6 +248,13 @@ typedef struct
 	u16 SizeSecond;
 } AddrHelper;
 
+/**
+ * @brief Calculate which bank will be affected by a memory operation
+ *
+ * @param addr Start address
+ * @param size Number of bytes affected
+ * @param h Output information
+ */
 static void _xmem_overlap(u32 addr, u16 size, AddrHelper *h)
 {
 	u32 addr_end;

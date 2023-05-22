@@ -10,6 +10,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <types.h>
+#include <atfs.h>
 
 /**
  * @brief MkInitRD Main
@@ -21,7 +22,7 @@
 int main(int argc, char **argv)
 {
 	u32 i, size;
-	u8 buf[BLOCK_SIZE];
+	u8 buf[ATFS_BLOCK_SIZE];
 	FILE *in, *out;
 	char *in_filename, *out_filename;
 
@@ -50,32 +51,32 @@ int main(int argc, char **argv)
 	size = ftell(in);
 	fseek(in, 0, SEEK_SET);
 
-	memset(buf, 0, BLOCK_SIZE);
+	memset(buf, 0, ATFS_BLOCK_SIZE);
 
-	memcpy(buf + OFFSET_SIGNATURE, _signature, sizeof(_signature));
-	_write_le_32(buf + OFFSET_REVISION, REVISION);
-	_write_le_32(buf + OFFSET_STDLIB_SIZE, 0);
-	_write_le_32(buf + OFFSET_INIT_SIZE, size);
+	memcpy(buf + ATFS_OFFSET_SIGNATURE, _atfs_signature, sizeof(_atfs_signature));
+	write_le_32(buf + ATFS_OFFSET_REVISION, ATFS_REVISION);
+	write_le_32(buf + ATFS_OFFSET_STDLIB_SIZE, 0);
+	write_le_32(buf + ATFS_OFFSET_INIT_SIZE, size);
 
-	fwrite(buf, 1, BLOCK_SIZE, out);
+	fwrite(buf, 1, ATFS_BLOCK_SIZE, out);
 
 	/* Write 64 empty sectors */
-	memset(buf, 0, BLOCK_SIZE);
-	for(i = 0; i < SIZE_STDLIB; ++i)
+	memset(buf, 0, ATFS_BLOCK_SIZE);
+	for(i = 0; i < ATFS_SIZE_STDLIB; ++i)
 	{
-		fwrite(buf, 1, BLOCK_SIZE, out);
+		fwrite(buf, 1, ATFS_BLOCK_SIZE, out);
 	}
 
 	/* Write init program */
-	for(i = 0; i < SIZE_INIT; ++i)
+	for(i = 0; i < ATFS_SIZE_INIT; ++i)
 	{
-		memset(buf, 0, BLOCK_SIZE);
-		fread(buf, 1, BLOCK_SIZE, in);
-		fwrite(buf, 1, BLOCK_SIZE, out);
+		memset(buf, 0, ATFS_BLOCK_SIZE);
+		fread(buf, 1, ATFS_BLOCK_SIZE, in);
+		fwrite(buf, 1, ATFS_BLOCK_SIZE, out);
 	}
 
 	/* TEMPORARY: End marker 0xFF root dir sector */
-	memset(buf, 0xFF, BLOCK_SIZE);
-	fwrite(buf, 1, BLOCK_SIZE, out);
+	memset(buf, 0xFF, ATFS_BLOCK_SIZE);
+	fwrite(buf, 1, ATFS_BLOCK_SIZE, out);
 	return 0;
 }
