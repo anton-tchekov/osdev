@@ -8,6 +8,8 @@ CFLAGS=\
 	-I emulator/ \
 	-I status/ \
 	-I keyboard/ \
+	-I event-types/ \
+	-I gfx-types/ \
 	-Wall -Wextra \
 	-Werror=uninitialized \
 	-Werror=return-type \

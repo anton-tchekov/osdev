@@ -8,6 +8,7 @@ TARGET = main
 
 SRCS = \
 	main.c \
+	platform.c \
 	gpio/gpio.c \
 	adc/adc.c \
 	random/random.c \
@@ -15,7 +16,6 @@ SRCS = \
 	serial/serial.c \
 	timer/timer.c \
 	spi/spi.c \
-	rtc/rtc.c \
 	logger/logger.c \
 	xmem/xmem.c \
 	lcd/lcd.c \
@@ -30,7 +30,6 @@ CFLAGS += \
 	-I adc \
 	-I ps2 \
 	-I random \
-	-I rtc \
 	-I sd \
 	-I serial \
 	-I spi \
@@ -44,9 +43,13 @@ CFLAGS += \
 	-I ../../platform \
 	-I ../../util \
 	-I ../../keyboard \
+	-I ../../atfs \
+	-I ../../event-types \
+	-I ../../gfx-types \
 
 CFLAGS += \
-	-Wno-array-bounds
+	-Wno-array-bounds \
+	-flto
 
 
 FEATURE_SET_TIME ?= YES

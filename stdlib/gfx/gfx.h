@@ -11,6 +11,7 @@
 
 #include <types.h>
 #include <colors.h>
+#include <gfx-types.h>
 
 /** RGBA Color Type */
 typedef u32 Color;

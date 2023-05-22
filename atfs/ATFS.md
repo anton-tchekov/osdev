@@ -1,37 +1,20 @@
-# AVR Platform Tasks
-
-DONE:
-- LCD Basic font [DONE]
-- Boot sequence on LCD [DONE]
-- XMEM Cross Addressing Test [DONE]
-- Load binary (App Launcher/Login Screen) from SD card [DONE]
-- Launch emulator [DONE]
-
-BORING:
-- All functions documented
-- Add doxygen
-- SD Driver complete and Test
-
-INTERESTING:
-- Find solution for emulator image routine problem
-- PS/2 Keyboard character conversion and Test
-- Make STDLIB Shared
-
-## DISK LAYOUT / FILE SYSTEM
+# ATFS File System
 
 ATFS = Amazing Technology File System
 
+## Disk Layout
+
 ### Versioning file system
-Files cannot be deleted / edited after creation,
-each time a file is written, a copy with a incremented version
-number is created.
-Space allocation is super simple, just increment a pointer.
+Files cannot be deleted or edited after creation, and each time a file is
+written, a copy with a incremented version number is created. Space allocation
+is super simple, just increment a pointer.
 
 ### Directories are just files containing lists of files
 
 1 block is 512 bytes
 
 START = Start block
+
 SIZE = Size in blocks
 
 START | SIZE | DESCRIPTION
@@ -41,11 +24,12 @@ START | SIZE | DESCRIPTION
   129 |  128 | Init Program Binary (MAX. 256 KiB)
   257 |    1 | FS Root Directory (Rev. 00)
 
-FS Info Struct
+### FS Info Struct
 
 All Integers are little endian
 
 START = Start byte
+
 SIZE = Size in bytes
 
 START | SIZE | DESCRIPTION
@@ -59,14 +43,13 @@ START | SIZE | DESCRIPTION
 
 All files are contiguous
 
-DIR Info struct
+### DIR Info struct
 
-Filename separator is dot '.', not slash '/'
-Filenames may only contain lowercase letters (a-z), numbers (0-9) and
-underscore ('_') and may not start with a number
-(basically function identifiers)
+Filename separator is a dot '.', not slash '/'.
 
-File extensions are not supported
+Filenames may only contain lowercase letters ('a' to 'z'), numbers ('0' to '9')
+and underscore ('_') and may not start with a number. File extensions are not
+supported.
 
 Example path: "root.images.vacation.me_on_the_beach"
 
@@ -74,7 +57,7 @@ START | SIZE | DESCRIPTION
 ------+------+-----------------------------
     0 |    4 | Number of files
 
-File Info struct
+### File Info struct
 
 START | SIZE | DESCRIPTION
 ------+------+-----------------------------

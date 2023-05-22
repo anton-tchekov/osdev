@@ -32,6 +32,15 @@
 /** Serial Log prefix width */
 #define LOG_START_WIDTH        8
 
+/** Image Logo X offset */
+#define LOGO_X_OFFSET         30
+
+/** Image Logo Y Offset */
+#define LOGO_Y_OFFSET         50
+
+/** Text Logo X Offset */
+#define LOGO_TEXT_X_OFFSET    56
+
 /** Highlight colors of the various log levels */
 const RGB565 _log_color[] PROGMEM =
 {
@@ -66,6 +75,7 @@ const char *const _log_msg[] PROGMEM =
 	_panic
 };
 
+static bool _lcd_initialized;
 static u16 _log_y = LOG_Y_OFFSET;
 
 static void _lcd_log(LogLevel level, const char *msg)
@@ -91,7 +101,7 @@ static void _lcd_log(LogLevel level, const char *msg)
 				++len;
 			}
 
-			if(lcd_initialized())
+			if(_lcd_initialized)
 			{
 				RGB565 fg;
 
@@ -110,7 +120,7 @@ static void _lcd_log(LogLevel level, const char *msg)
 			}
 		}
 
-		if(lcd_initialized())
+		if(_lcd_initialized)
 		{
 			const char *s;
 			char c;
@@ -208,4 +218,23 @@ void memory_dump(u32 addr, const void *data, u16 len)
 	}
 
 	serial_tx('\n');
+}
+
+void logger_lcd_init(void)
+{
+	_lcd_initialized = true;
+
+	lcd_logo_P(
+		LOGO_X_OFFSET,
+		LOGO_Y_OFFSET,
+		LOGO_TINY_WIDTH,
+		LOGO_TINY_HEIGHT,
+		logo_tiny);
+
+	lcd_logo_P(
+		LOGO_X_OFFSET + LOGO_TEXT_X_OFFSET,
+		LOGO_Y_OFFSET + LOGO_TINY_HEIGHT / 2 - LOGO_TEXT_HEIGHT / 2,
+		LOGO_TEXT_WIDTH,
+		LOGO_TEXT_HEIGHT,
+		logo_text);
 }

@@ -22,6 +22,8 @@ INCLUDE=\
 	-I $(PREFIX)/../utf8/ \
 	-I $(PREFIX)/../util/ \
 	-I $(PREFIX)/../keyboard/ \
+	-I $(PREFIX)/../gfx-types/ \
+	-I $(PREFIX)/../event-types/ \
 
 SRC=\
 	$(PREFIX)/algo/algo.c \

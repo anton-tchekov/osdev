@@ -105,13 +105,6 @@ typedef struct
 	/** Width */
 	i32 W;
 
-	/** Number of visible Lines (1 for single line input) */
-	i32 NumLines;
-
-	/** Number of spaces per tab (0 to disable tab). When Tab is enabled,
-		Ctrl+Tab must be used to go to the next element */
-	i32 TabSize;
-
 	/** Cursor position */
 	i32 Position;
 
@@ -122,9 +115,7 @@ typedef struct
 	Vector Text;
 } Input;
 
-/* TODO: MOVE THEME/STYLE TO NEW STRUCT */
-
-/** Window structure */
+/** Theme struct for GUI appearance */
 typedef struct
 {
 	/** Foreground (text) color */
@@ -156,7 +147,11 @@ typedef struct
 
 	/** Background color of the title bar */
 	Color ColorTitleBar;
+} Theme;
 
+/** Window structure */
+typedef struct
+{
 	/** Window title (displayed in top bar) */
 	char *Title;
 

@@ -11,8 +11,6 @@
 #include <stdlib.h>
 #include <avr/pgmspace.h>
 
-/* TODO: Replace srand and rand with own random generator */
-
 void random_init(void)
 {
 	srand(adc_read(ADC_CHANNEL_NOISE));

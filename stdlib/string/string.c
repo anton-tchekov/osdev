@@ -8,8 +8,6 @@
 #include <string.h>
 #include <syscall.h>
 
-/* TODO: There might be some kind of strange bug here. Whoever finds it gets to fix it */
-
 char *strcpy(char *dest, const char *src)
 {
 	char *d = dest;
@@ -185,22 +183,3 @@ void *memset(void *ptr, i32 value, u32 count)
 
 	return ptr;
 }
-
-/* TODO: Clean this up */
-#define TEST
-
-#ifdef TEST
-
-void string_test(void)
-{
-	char buf[64];
-	char *a = "Hello World";
-
-	memcpy(buf, a, 12);
-	debug_print("strcpy: %s\n", buf);
-
-	debug_print("strlen(\"%s\") = %d\n", "hello", strlen("hello"));
-	debug_print("strlen(\"%s\") = %d\n", "", strlen(""));
-}
-
-#endif

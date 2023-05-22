@@ -10,6 +10,7 @@
 #define __EVENT_H__
 
 #include <types.h>
+#include <event-types.h>
 
 /**
  * @brief Finish an event handler. Do NOT call this function.

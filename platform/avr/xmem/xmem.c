@@ -13,7 +13,9 @@
 #include <avr/pgmspace.h>
 #include <stdlib.h>
 
-/* TODO: MEMORY TEST TYPE DEFINE */
+/** Do a simple checkerboard memory test. Comment this out to do a more
+    thorough memory test using random numbers */
+#define MEMTEST_SIMPLE
 
 /** How many memory banks there are */
 #define BANK_COUNT            3
@@ -65,11 +67,18 @@ static void _memtest(void)
 		/* Write */
 		log_boot_P(LOG_INIT, PSTR("Writing pattern"));
 		_xmem_start(bank, SRAM_COMMAND_WRITE, 0);
-		/* srand(SEED); */
+#ifdef MEMTEST_SIMPLE
 		v = 0xAA;
+#else
+		srand(SEED);
+#endif
 		for(i = 0; ; ++i)
 		{
-			v = ~v; /* rand(); */
+#ifdef MEMTEST_SIMPLE
+			v = ~v;
+#else
+			v = rand();
+#endif
 			if(i % OUTPUT_INTERVAL == 0)
 			{
 				log_boot_P(LOG_EXT, PSTR("0x%06lX"), i);
@@ -88,11 +97,18 @@ static void _memtest(void)
 		/* Read */
 		log_boot_P(LOG_INIT, PSTR("Verifying pattern"));
 		_xmem_start(bank, SRAM_COMMAND_READ, 0);
-		/* srand(SEED); */
+#ifdef MEMTEST_SIMPLE
 		v = 0xAA;
+#else
+		srand(SEED);
+#endif
 		for(i = 0; ; ++i)
 		{
-			v = ~v; /* rand(); */
+#ifdef MEMTEST_SIMPLE
+			v = ~v;
+#else
+			v = rand();
+#endif
 			if(i % OUTPUT_INTERVAL == 0)
 			{
 				log_boot_P(LOG_EXT, PSTR("0x%06lX"), i);
@@ -245,4 +261,9 @@ void xmem_set(u32 addr, u8 value, u16 size)
 	{
 		_xmem_set(h.BankSecond, 0, value, h.SizeSecond);
 	}
+}
+
+u32 xmem_size(void)
+{
+	return BANK_COUNT * BANK_SIZE;
 }

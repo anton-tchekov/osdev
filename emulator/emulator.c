@@ -1,6 +1,7 @@
 #include <types.h>
 #include <platform.h>
 #include <emulator.h>
+#include <gfx-types.h>
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -69,12 +70,11 @@ static inline u32 sext(u8 bits, u32 value)
 
 static bool _finished;
 static Emulator _cur, *_emu = &_cur;
-static bool _keys[KEY_COUNT];
 static u32 _memory_size;
 
 void kernel_init(void)
 {
-	_memory_size = memory_size();
+	_memory_size = env_memory_size();
 	emulator_call(_emu, 0, NULL, 0, _memory_size);
 }
 
@@ -95,67 +95,59 @@ void keyboard_event(Key key, i32 chr, KeyState down)
 		u32 args[] = { key, chr, down };
 		emulator_call(_emu, addr, args, ARRLEN(args), _memory_size);
 	}
-
-	key = key_mod_remove(key);
-	if(key >= KEY_COUNT)
-	{
-		return;
-	}
-
-	_keys[key] = down;
 }
 
 /* Store */
 static void memory_sb(u32 addr, u32 value)
 {
 	i8 value8 = (i8)value;
-	memory_write(addr, &value8, 1);
+	env_memory_write(addr, &value8, 1);
 }
 
 static void memory_sh(u32 addr, u32 value)
 {
 	i16 value16 = (i16)value;
-	memory_write(addr, &value16, 2);
+	env_memory_write(addr, &value16, 2);
 }
 
 static void memory_sw(u32 addr, u32 value)
 {
-	memory_write(addr, &value, 4);
+	env_memory_write(addr, &value, 4);
 }
 
 /* Load */
 static u32 memory_lb(u32 addr)
 {
 	i8 value8;
-	memory_read(addr, &value8, 1);
+	env_memory_read(addr, &value8, 1);
 	return (i32)value8;
 }
 
 static u32 memory_lh(u32 addr)
 {
 	i16 value16;
-	memory_read(addr, &value16, 2);
+	env_memory_read(addr, &value16, 2);
 	return (i32)value16;
 }
 
 static u32 memory_lw(u32 addr)
 {
 	u32 value;
-	memory_read(addr, &value, 4);
+	env_memory_read(addr, &value, 4);
 	return value;
 }
 
 static u32 memory_lbu(u32 addr)
 {
 	u8 value8;
-	memory_read(addr, &value8, 1);
+	env_memory_read(addr, &value8, 1);
 	return value8;
 }
 
 static u32 memory_lhu(u32 addr)
 {
 	u16 value16;
-	memory_read(addr, &value16, 2);
+	env_memory_read(addr, &value16, 2);
 	return value16;
 }
 
@@ -184,7 +176,7 @@ static u32 syscall_event_register(u32 *args)
 	u32 addr = args[1];
 	if(type < EVENT_COUNT)
 	{
-		EMU_LOG(PSTR("Registered Event %"PRIu32" %"PRIu32), type, addr);
+		EMU_LOG(PSTR("Registered Event: %"PRIu32" %"PRIu32), type, addr);
 		_emu->Events[type] = addr;
 	}
 
@@ -193,33 +185,14 @@ static u32 syscall_event_register(u32 *args)
 
 static u32 syscall_millis(u32 *args)
 {
-	return millis();
+	return env_millis();
 	(void)args;
-}
-
-static u32 syscall_datetime_now(u32 *args)
-{
-	DateTime dt;
-	datetime_now(&dt);
-	memory_write(args[0], &dt, sizeof(dt));
-	return 0;
 }
 
 static u32 syscall_rand(u32 *args)
 {
-	return random_get();
+	return env_random_get();
 	(void)args;
-}
-
-static u32 syscall_keyboard_is_key_pressed(u32 *args)
-{
-	u32 key = args[0];
-	if(key >= KEY_COUNT)
-	{
-		return false;
-	}
-
-	return _keys[key];
 }
 
 static u32 syscall_serial_write(u32 *args)
@@ -232,8 +205,8 @@ static u32 syscall_serial_write(u32 *args)
 	while(len)
 	{
 		cur = len > sizeof(buf) ? sizeof(buf) : len;
-		memory_read(ptr, buf, cur);
-		serial_write(buf, cur);
+		env_memory_read(ptr, buf, cur);
+		env_serial_write(buf, cur);
 		len -= cur;
 		ptr += cur;
 	}
@@ -243,7 +216,41 @@ static u32 syscall_serial_write(u32 *args)
 
 static u32 syscall_gfx_rect(u32 *args)
 {
-	gfx_rect(args[0], args[1], args[2], args[3], args[4]);
+	env_gfx_rect(args[0], args[1], args[2], args[3], args[4]);
+	return 0;
+}
+
+static u32 syscall_gfx_image_rgba(u32 *args)
+{
+	env_gfx_image_rgba(args[0], args[1], args[2], args[3], args[4]);
+	return 0;
+}
+
+static u32 syscall_gfx_image_rgb(u32 *args)
+{
+	env_gfx_image_rgb(args[0], args[1], args[2], args[3], args[4]);
+	return 0;
+}
+
+static u32 syscall_gfx_image_rgb565(u32 *args)
+{
+	env_gfx_image_rgb565(args[0], args[1], args[2], args[3], args[4]);
+	return 0;
+}
+
+static u32 syscall_gfx_image_grayscale(u32 *args)
+{
+	Rectangle r;
+	env_memory_read(args[0], &r, sizeof(r));
+	env_gfx_image_grayscale(r.X, r.Y, r.W, r.H, args[1], args[2], args[3]);
+	return 0;
+}
+
+static u32 syscall_gfx_image_1bit(u32 *args)
+{
+	Rectangle r;
+	env_memory_read(args[0], &r, sizeof(r));
+	env_gfx_image_1bit(r.X, r.Y, r.W, r.H, args[1], args[2], args[3]);
 	return 0;
 }
 
@@ -261,9 +268,7 @@ static u32 (*syscalls[])(u32 *) =
 	syscall_gfx_image_1bit,
 
 	syscall_rand,
-	syscall_keyboard_is_key_pressed,
 	syscall_serial_write,
-	syscall_datetime_now,
 	syscall_millis,
 };
 

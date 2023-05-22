@@ -11,33 +11,37 @@
 #include <status.h>
 #include <keyboard-shared.h>
 #include <layout.h>
+#include <gfx-types.h>
 
+/* --- CONSTANTS --- */
 #define WINDOW_TITLE             "OS Simulator"
 #define WINDOW_WIDTH          320
 #define WINDOW_HEIGHT         480
 
 #define READ_SIZE            1024
 
-static u8 _memory[1024 * 1024];
+/* --- VARIABLES --- */
 
+static u8 _memory[3 * 128 * 1024];
 static u32 _pixels[WINDOW_HEIGHT * WINDOW_WIDTH];
+static u32 _sec_start, _usec_start;
 static SDL_Texture *_framebuffer;
 static SDL_Window *_window;
 static SDL_Renderer *_renderer;
 
-static u32 _sec_start, _usec_start;
+/* --- MEMORY --- */
 
-u32 memory_size(void)
+u32 env_memory_size(void)
 {
 	return sizeof(_memory);
 }
 
-void memory_read(u32 addr, void *data, u32 size)
+void env_memory_read(u32 addr, void *data, u32 size)
 {
 	memcpy(data, _memory + addr, size);
 }
 
-void memory_write(u32 addr, const void *data, u32 size)
+void env_memory_write(u32 addr, const void *data, u32 size)
 {
 	memcpy(_memory + addr, data, size);
 }
@@ -68,6 +72,8 @@ void memory_dump(u32 address, u32 length)
 	printf("\n");
 }
 
+/* --- GRAPHICS --- */
+
 static void gfx_init(void)
 {
 	/* Init SDL */
@@ -75,7 +81,7 @@ static void gfx_init(void)
 	{
 		printf("Error initializing SDL; SDL_Init: %s\n",
 			SDL_GetError());
-		goto ERROR_INIT_SDL;
+		exit(1);
 	}
 
 	/* Create SDL_Window */
@@ -85,7 +91,8 @@ static void gfx_init(void)
 	{
 		printf("Error creating SDL_Window: %s\n",
 			SDL_GetError());
-		goto ERROR_CREATE_WINDOW;
+		SDL_Quit();
+		exit(1);
 	}
 
 	/* Create SDL_Renderer */
@@ -94,7 +101,9 @@ static void gfx_init(void)
 	{
 		printf("Error creating SDL_Renderer: %s\n",
 			SDL_GetError());
-		goto ERROR_CREATE_RENDERER;
+		SDL_DestroyWindow(_window);
+		SDL_Quit();
+		exit(1);
 	}
 
 	SDL_SetRenderDrawColor(_renderer, 255, 255, 255, 255);
@@ -103,17 +112,6 @@ static void gfx_init(void)
 		SDL_PIXELFORMAT_ARGB8888,
 		SDL_TEXTUREACCESS_STREAMING,
 		WINDOW_WIDTH, WINDOW_HEIGHT);
-
-	return;
-
-ERROR_CREATE_RENDERER:
-	SDL_DestroyWindow(_window);
-
-ERROR_CREATE_WINDOW:
-	SDL_Quit();
-
-ERROR_INIT_SDL:
-	exit(1);
 }
 
 static void gfx_destroy(void)
@@ -143,19 +141,36 @@ static u32 _abgr_to_argb(u32 color)
 		_abgr_b(color));
 }
 
-static i32 _gfx_check_dimensions(i32 x, i32 y, i32 w, i32 h)
+static u32 _color_merge(u32 color1, u32 color2, u32 ratio)
 {
-	return x >= 0 && y >= 0 &&
-		x + w <= WINDOW_WIDTH && y + h <= WINDOW_HEIGHT;
+	u8 r1, g1, b1, r2, g2, b2;
+
+	r1 = _abgr_r(color1);
+	g1 = _abgr_g(color1);
+	b1 = _abgr_b(color1);
+
+	r2 = _abgr_r(color2);
+	g2 = _abgr_g(color2);
+	b2 = _abgr_b(color2);
+
+	return gfx_color(
+		(r1 * ratio + r2 * (255 - ratio)) / 255,
+		(g1 * ratio + g2 * (255 - ratio)) / 255,
+		(b1 * ratio + b2 * (255 - ratio)) / 255);
 }
 
-void gfx_rect(i32 x, i32 y, i32 w, i32 h, u32 color)
+static u32 _rgb565_to_bgra(u16 color)
+{
+	u32 r, g, b;
+	r = (((((u32)color >> 11) & 0x1F) * 527) + 23) >> 6;
+	g = (((((u32)color >> 5) & 0x3F) * 259) + 33) >> 6;
+	b = ((((u32)color & 0x1F) * 527) + 23) >> 6;
+	return gfx_color(r, g, b);
+}
+
+void env_gfx_rect(i32 x, i32 y, i32 w, i32 h, u32 color)
 {
 	i32 x0, y0;
-	if(!_gfx_check_dimensions(x, y, w, h))
-	{
-		return;
-	}
 
 	color = _abgr_to_argb(color);
 	for(y0 = y; y0 < y + h; ++y0)
@@ -167,17 +182,80 @@ void gfx_rect(i32 x, i32 y, i32 w, i32 h, u32 color)
 	}
 }
 
-void gfx_image_1bit(
-	i32 x, i32 y, i32 w, i32 h, u8 *image, u32 fg, u32 bg)
+void env_gfx_image_rgba(i32 x, i32 y, i32 w, i32 h, u32 addr)
+{
+	i32 x0, y0;
+	u32 *image;
+
+	image = (u32 *)(_memory + addr);
+	for(y0 = y; y0 < y + h; ++y0)
+	{
+		for(x0 = x; x0 < x + w; ++x0)
+		{
+			_pixels[y0 * WINDOW_WIDTH + x0] = _abgr_to_argb(*image++);
+		}
+	}
+}
+
+void env_gfx_image_rgb(i32 x, i32 y, i32 w, i32 h, u32 addr)
+{
+	u8 r, g, b;
+	i32 x0, y0;
+	u8 *image;
+
+	image = (u8 *)(_memory + addr);
+	for(y0 = y; y0 < y + h; ++y0)
+	{
+		for(x0 = x; x0 < x + w; ++x0)
+		{
+			r = *image++;
+			g = *image++;
+			b = *image++;
+			_pixels[y0 * WINDOW_WIDTH + x0] = gfx_color(r, g, b);
+		}
+	}
+}
+
+void env_gfx_image_rgb565(i32 x, i32 y, i32 w, i32 h, u32 addr)
+{
+	i32 x0, y0;
+	u16 *image;
+
+	image = (u16 *)(_memory + addr);
+	for(y0 = y; y0 < y + h; ++y0)
+	{
+		for(x0 = x; x0 < x + w; ++x0)
+		{
+			_pixels[y0 * WINDOW_WIDTH + x0] = _rgb565_to_bgra(*image++);
+		}
+	}
+}
+
+void env_gfx_image_grayscale(
+	i32 x, i32 y, i32 w, i32 h, u32 fg, u32 bg, u32 addr)
+{
+	i32 x0, y0;
+	u8 *image;
+
+	image = (u8 *)(_memory + addr);
+	for(y0 = y; y0 < y + h; ++y0)
+	{
+		for(x0 = x; x0 < x + w; ++x0)
+		{
+			_pixels[y0 * WINDOW_WIDTH + x0] =
+				_color_merge(fg, bg, *image++);
+		}
+	}
+}
+
+void env_gfx_image_1bit(
+	i32 x, i32 y, i32 w, i32 h, u32 addr, u32 fg, u32 bg)
 {
 	u8 byte, stride;
 	i32 x0, y0, byte_offset, bit_mask;
+	u8 *image;
 
-	if(!_gfx_check_dimensions(x, y, w, h))
-	{
-		return;
-	}
-
+	image = (u8 *)(_memory + addr);
 	fg = _abgr_to_argb(fg);
 	bg = _abgr_to_argb(bg);
 	stride = (w + 7) / 8;
@@ -201,110 +279,42 @@ void gfx_image_1bit(
 	}
 }
 
-static u32 _color_merge(u32 color1, u32 color2, u32 ratio)
+/* --- SERIAL --- */
+
+void env_serial_write(const void *data, u32 len)
 {
-	u8 r1, g1, b1, r2, g2, b2;
-
-	r1 = _abgr_r(color1);
-	g1 = _abgr_g(color1);
-	b1 = _abgr_b(color1);
-
-	r2 = _abgr_r(color2);
-	g2 = _abgr_g(color2);
-	b2 = _abgr_b(color2);
-
-	return gfx_color(
-		(r1 * ratio + r2 * (255 - ratio)) / 255,
-		(g1 * ratio + g2 * (255 - ratio)) / 255,
-		(b1 * ratio + b2 * (255 - ratio)) / 255);
+	/* Debug print */
+	printf("%.*s", len, (char *)data);
 }
 
-void gfx_image_grayscale(
-	i32 x, i32 y, i32 w, i32 h, u8 *image, u32 fg, u32 bg)
+/* --- RANDOM --- */
+
+u32 env_random_get(void)
 {
-	i32 x0, y0;
-
-	if(!_gfx_check_dimensions(x, y, w, h))
-	{
-		return;
-	}
-
-	for(y0 = y; y0 < y + h; ++y0)
-	{
-		for(x0 = x; x0 < x + w; ++x0)
-		{
-			_pixels[y0 * WINDOW_WIDTH + x0] =
-				_color_merge(fg, bg, *image++);
-		}
-	}
+	return rand();
 }
 
-static u32 _rgb565_to_bgra(u16 color)
+/* --- TIMER --- */
+
+static void timer_init(void)
 {
-	u32 r, g, b;
-	r = (((((u32)color >> 11) & 0x1F) * 527) + 23) >> 6;
-	g = (((((u32)color >> 5) & 0x3F) * 259) + 33) >> 6;
-	b = ((((u32)color & 0x1F) * 527) + 23) >> 6;
-	return gfx_color(r, g, b);
+	struct timeval ts;
+	gettimeofday(&ts, NULL);
+	_sec_start = ts.tv_sec;
+	_usec_start = ts.tv_usec;
+
+	srand(time(NULL));
 }
 
-static void gfx_image_rgb565(i32 x, i32 y, i32 w, i32 h, u16 *image)
+u32 env_millis(void)
 {
-	i32 x0, y0;
-
-	if(!_gfx_check_dimensions(x, y, w, h))
-	{
-		return;
-	}
-
-	for(y0 = y; y0 < y + h; ++y0)
-	{
-		for(x0 = x; x0 < x + w; ++x0)
-		{
-			_pixels[y0 * WINDOW_WIDTH + x0] = _rgb565_to_bgra(*image++);
-		}
-	}
+	struct timeval ts;
+	gettimeofday(&ts, NULL);
+	return (ts.tv_sec - _sec_start) * 1000 +
+		(ts.tv_usec - _usec_start) / 1000;
 }
 
-void gfx_image_rgb(i32 x, i32 y, i32 w, i32 h, u8 *image)
-{
-	u8 r, g, b;
-	i32 x0, y0;
-
-	if(!_gfx_check_dimensions(x, y, w, h))
-	{
-		return;
-	}
-
-	for(y0 = y; y0 < y + h; ++y0)
-	{
-		for(x0 = x; x0 < x + w; ++x0)
-		{
-			r = *image++;
-			g = *image++;
-			b = *image++;
-			_pixels[y0 * WINDOW_WIDTH + x0] = gfx_color(r, g, b);
-		}
-	}
-}
-
-void gfx_image_rgba(i32 x, i32 y, i32 w, i32 h, u32 *image)
-{
-	i32 x0, y0;
-
-	if(!_gfx_check_dimensions(x, y, w, h))
-	{
-		return;
-	}
-
-	for(y0 = y; y0 < y + h; ++y0)
-	{
-		for(x0 = x; x0 < x + w; ++x0)
-		{
-			_pixels[y0 * WINDOW_WIDTH + x0] = _abgr_to_argb(*image++);
-		}
-	}
-}
+/* --- KEYBOARD --- */
 
 static Key _convert_key(i32 scancode, i32 mod)
 {
@@ -338,87 +348,7 @@ static Key _convert_key(i32 scancode, i32 mod)
 	return key;
 }
 
-DateTime *datetime_now(DateTime *now)
-{
-	time_t t = time(NULL);
-	struct tm lt = *localtime(&t);
-
-	now->Year = lt.tm_year + 1900;
-	now->Month = lt.tm_mon + 1;
-	now->Day = lt.tm_mday;
-
-	now->Hour = lt.tm_hour;
-	now->Minute = lt.tm_min;
-	now->Second = lt.tm_sec;
-
-	return now;
-}
-
-u32 millis(void)
-{
-	struct timeval ts;
-	gettimeofday(&ts, NULL);
-	return (ts.tv_sec - _sec_start) * 1000 +
-		(ts.tv_usec - _usec_start) / 1000;
-}
-
-u32 random_get(void)
-{
-	return rand();
-}
-
-u32 syscall_gfx_image_rgba(u32 *args)
-{
-	gfx_image_rgba(args[0], args[1], args[2], args[3],
-		(u32 *)(_memory + args[4]));
-	return 0;
-}
-
-u32 syscall_gfx_image_rgb(u32 *args)
-{
-	gfx_image_rgb(args[0], args[1], args[2], args[3],
-		(u8 *)(_memory + args[4]));
-	return 0;
-}
-
-u32 syscall_gfx_image_rgb565(u32 *args)
-{
-	gfx_image_rgb565(args[0], args[1], args[2], args[3],
-		(u16 *)(_memory + args[4]));
-	return 0;
-}
-
-u32 syscall_gfx_image_grayscale(u32 *args)
-{
-	Rectangle *r = (Rectangle *)(_memory + args[0]);
-	gfx_image_grayscale(r->X, r->Y, r->W, r->H,
-		(u8 *)(_memory + args[1]), args[2], args[3]);
-	return 0;
-}
-
-u32 syscall_gfx_image_1bit(u32 *args)
-{
-	Rectangle *r = (Rectangle *)(_memory + args[0]);
-	gfx_image_1bit(r->X, r->Y, r->W, r->H,
-		(u8 *)(_memory + args[1]), args[2], args[3]);
-	return 0;
-}
-
-void serial_write(const void *data, u32 len)
-{
-	/* Debug print */
-	printf("%.*s", len, (char *)data);
-}
-
-static void timer_init(void)
-{
-	struct timeval ts;
-	gettimeofday(&ts, NULL);
-	_sec_start = ts.tv_sec;
-	_usec_start = ts.tv_usec;
-
-	srand(time(NULL));
-}
+/* --- MAIN --- */
 
 int main(int argc, char **argv)
 {

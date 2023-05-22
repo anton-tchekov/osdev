@@ -11,51 +11,6 @@
 #include <string.h>
 #include <types.h>
 
-/** Disk sector size */
-#define BLOCK_SIZE           512
-
-/* 512 bytes */
-
-/** Boot sector offset in blocks */
-#define SECTOR_BOOT            0
-#define SIZE_BOOT              1
-
-/* 64 KiB */
-#define SECTOR_STDLIB           SIZE_BOOT
-#define SIZE_STDLIB          128
-
-/* 64 KiB */
-#define SECTOR_INIT             (SIZE_BOOT + SIZE_STDLIB)
-#define SIZE_INIT            128
-
-/* Root Dir */
-#define SECTOR_ROOT             (SIZE_BOOT + SIZE_STDLIB + SIZE_INIT)
-
-/* Current FS Revision */
-#define REVISION               0
-
-/* Boot sector offsets */
-#define OFFSET_SIGNATURE       0
-#define OFFSET_REVISION        4
-#define OFFSET_STDLIB_SIZE     8
-#define OFFSET_INIT_SIZE      12
-
-/* FS Signature (bytes 0-4) */
-static const u8 _signature[] = { 'A', 'T', 'F', 'S' };
-
-/**
- * @brief Write a 32-bit little endian value to a buffer
- *
- * @param buf Input
- * @return Result
- */
-static void _write_le_32(u8 *buf, u32 val)
-{
-	buf[0] = val & 0xFF;
-	buf[1] = (val >> 8) & 0xFF;
-	buf[2] = (val >> 16) & 0xFF;
-	buf[3] = (val >> 24) & 0xFF;
-}
 
 int main(int argc, char **argv)
 {

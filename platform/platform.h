@@ -20,7 +20,7 @@
  *
  * @return The size of the memory in bytes
  */
-u32 memory_size(void);
+u32 env_memory_size(void);
 
 /**
  * @brief Read data from physical memory
@@ -29,7 +29,7 @@ u32 memory_size(void);
  * @param data Data buffer
  * @param size Size in bytes
  */
-void memory_read(u32 addr, void *data, u32 size);
+void env_memory_read(u32 addr, void *data, u32 size);
 
 /**
  * @brief Write data to physical memory
@@ -38,7 +38,7 @@ void memory_read(u32 addr, void *data, u32 size);
  * @param data Data buffer
  * @param size Size in bytes
  */
-void memory_write(u32 addr, const void *data, u32 size);
+void env_memory_write(u32 addr, const void *data, u32 size);
 
 /* --- GRAPHICS --- */
 
@@ -51,13 +51,68 @@ void memory_write(u32 addr, const void *data, u32 size);
  * @param h Height
  * @param color Fill color
  */
-void gfx_rect(i32 x, i32 y, i32 w, i32 h, u32 color);
+void env_gfx_rect(i32 x, i32 y, i32 w, i32 h, u32 color);
 
-u32 syscall_gfx_image_rgba(u32 *args);
-u32 syscall_gfx_image_rgb(u32 *args);
-u32 syscall_gfx_image_rgb565(u32 *args);
-u32 syscall_gfx_image_grayscale(u32 *args);
-u32 syscall_gfx_image_1bit(u32 *args);
+/**
+ * @brief Draw an RGBA image
+ *
+ * @param x X-Coordinate
+ * @param y Y-Coordinate
+ * @param w Width
+ * @param h Height
+ * @param addr Image memory address
+ */
+void env_gfx_image_rgba(i32 x, i32 y, i32 w, i32 h, u32 addr);
+
+/**
+ * @brief Draw an RGB image
+ *
+ * @param x X-Coordinate
+ * @param y Y-Coordinate
+ * @param w Width
+ * @param h Height
+ * @param addr Image memory address
+ */
+void env_gfx_image_rgb(i32 x, i32 y, i32 w, i32 h, u32 addr);
+
+/**
+ * @brief Draw an RGB565 image
+ *
+ * @param x X-Coordinate
+ * @param y Y-Coordinate
+ * @param w Width
+ * @param h Height
+ * @param addr Image memory address
+ */
+void env_gfx_image_rgb565(i32 x, i32 y, i32 w, i32 h, u32 addr);
+
+/**
+ * @brief Draw a colored grayscale image
+ *
+ * @param x X-Coordinate
+ * @param y Y-Coordinate
+ * @param w Width
+ * @param h Height
+ * @param addr Image memory address
+ * @param fg ABGR foreground color
+ * @param bg ABGR background color
+ */
+void env_gfx_image_grayscale(
+	i32 x, i32 y, i32 w, i32 h, u32 addr, u32 fg, u32 bg);
+
+/**
+ * @brief Draw a colored 1-bit image
+ *
+ * @param x X-Coordinate
+ * @param y Y-Coordinate
+ * @param w Width
+ * @param h Height
+ * @param addr Image memory address
+ * @param fg ABGR foreground color
+ * @param bg ABGR background color
+ */
+void env_gfx_image_1bit(
+	i32 x, i32 y, i32 w, i32 h, u32 addr, u32 fg, u32 bg);
 
 /* --- SERIAL --- */
 
@@ -67,7 +122,7 @@ u32 syscall_gfx_image_1bit(u32 *args);
  * @param data The data to send
  * @param len The number of bytes
  */
-void serial_write(const void *data, u32 len);
+void env_serial_write(const void *data, u32 len);
 
 /* --- RANDOM --- */
 
@@ -76,16 +131,7 @@ void serial_write(const void *data, u32 len);
  *
  * @return The number
  */
-u32 random_get(void);
-
-/* --- RTC --- */
-
-/**
- * @brief Get the current date and time
- *
- * @param now Output parameter
- */
-DateTime *datetime_now(DateTime *now);
+u32 env_random_get(void);
 
 /* --- TIMER --- */
 
@@ -94,6 +140,6 @@ DateTime *datetime_now(DateTime *now);
  *
  * @return The number of milliseconds
  */
-u32 millis(void);
+u32 env_millis(void);
 
 #endif /* __PLATFORM_H__ */

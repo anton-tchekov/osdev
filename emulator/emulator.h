@@ -10,7 +10,9 @@
 #define __EMULATOR_H__
 
 #include <types.h>
+#include <event-types.h>
 #include <keyboard-shared.h>
+#include <inttypes.h>
 
 /** Emulated process */
 typedef struct
@@ -25,26 +27,10 @@ typedef struct
 	u32 Registers[32];
 } Emulator;
 
-#ifdef DEBUG
-
-/**
- * @brief Print the emulators current register content for debugging purposes
- *
- * @param emu The emulator
- */
-void emulator_dump_registers(Emulator *emu);
-
-#endif /* DEBUG */
-
 /**
  * @brief Initialize emulator kernel and load first process (NOT systemd)
  */
 void kernel_init(void);
-
-/**
- * @brief TODO: This is ugly and needs to be replaced
- */
-void process_setup(void);
 
 /**
  * @brief Call this function periodically in main loop
@@ -61,14 +47,13 @@ void os_update(void);
 void keyboard_event(Key key, i32 chr, KeyState state);
 
 /**
- * @brief Call a function in the emulated process
+ * @brief Call an emulated RISC-V function
  *
- * @param emu
- * @param addr
- * @param args
- * @param num
- * @param sp
- * @return i32
+ * @param emu Pointer to emulator struct
+ * @param addr Function start address
+ * @param args Function arguments
+ * @param num Number of arguments
+ * @param sp Stack pointer start
  */
 void emulator_call(Emulator *emu, u32 addr, u32 *args, u8 num, u32 sp);
 

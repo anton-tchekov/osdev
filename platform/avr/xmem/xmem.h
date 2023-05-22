@@ -43,4 +43,11 @@ void xmem_write(u32 addr, const void *data, u16 size);
  */
 void xmem_set(u32 addr, u8 value, u16 size);
 
+/**
+ * @brief Get external memory size
+ *
+ * @return Size of the external memory in bytes
+ */
+u32 xmem_size(void);
+
 #endif /* __XMEM_H__ */

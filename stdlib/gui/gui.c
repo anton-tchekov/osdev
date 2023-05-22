@@ -71,12 +71,33 @@
 /** Pointer to the currently open window */
 static Window *_current_window;
 
+/** Default Theme */
+static Theme _default_theme =
+{
+	.ColorFG = THEME_LIGHT,
+	.ColorBG = THEME_BLACK,
+	.ColorTextSelBG = THEME_LIGHT,
+	.ColorTextSelFG = THEME_DARK,
+	.ColorBorder = THEME_MIDDLE,
+	.ColorBorderSel = THEME_LIGHT,
+	.ElementBG = THEME_DARK,
+	.ElementSelBG = THEME_MIDDLE,
+	.ColorCursor = THEME_LIGHT,
+	.ColorTitleBar = THEME_DARK,
+};
+
+/** Pointer to the currently used theme */
+static Theme *_current_theme = &_default_theme;
+
 /** Generic element (header of every element) */
 typedef struct
 {
 	/** Element type */
 	ElementType Type;
 } Element;
+
+/** Password stars */
+static const char _password_stars[] = "***********************************";
 
 /* LABEL */
 
@@ -95,8 +116,8 @@ static void label_render(Label *l)
 			TITLE_BAR_HEIGHT + l->Y,
 			l->Text,
 			font_default,
-			_current_window->ColorFG,
-			_current_window->ColorBG);
+			_current_theme->ColorFG,
+			_current_theme->ColorBG);
 	}
 	else if(align == FLAG_ALIGN_RIGHT)
 	{
@@ -105,8 +126,8 @@ static void label_render(Label *l)
 			TITLE_BAR_HEIGHT + l->Y,
 			l->Text,
 			font_default,
-			_current_window->ColorFG,
-			_current_window->ColorBG);
+			_current_theme->ColorFG,
+			_current_theme->ColorBG);
 	}
 	else if(align == FLAG_ALIGN_LEFT)
 	{
@@ -115,8 +136,8 @@ static void label_render(Label *l)
 			TITLE_BAR_HEIGHT + l->Y,
 			l->Text,
 			font_default,
-			_current_window->ColorFG,
-			_current_window->ColorBG);
+			_current_theme->ColorFG,
+			_current_theme->ColorBG);
 	}
 }
 
@@ -135,26 +156,26 @@ static void button_render(Button *b, bool sel)
 
 	y = TITLE_BAR_HEIGHT + b->Y;
 
-	inner_color = sel ? _current_window->ElementSelBG :
-		_current_window->ElementBG;
+	inner_color = sel ? _current_theme->ElementSelBG :
+		_current_theme->ElementBG;
 
 	gfx_rect(b->X, y, b->W, b->H, inner_color);
 
 	if(sel)
 	{
 		gfx_rect_border(b->X, y, b->W, b->H, BORDER_SIZE_SEL,
-			_current_window->ColorBorderSel);
+			_current_theme->ColorBorderSel);
 	}
 	else
 	{
 		gfx_rect_border(b->X, y, b->W, b->H, BORDER_SIZE,
-			_current_window->ColorBorder);
+			_current_theme->ColorBorder);
 	}
 
 	x = b->X + b->W / 2 - font_string_width(b->Text, font_default) / 2;
 	font_string(x, y + b->H / 2 - 5,
 		b->Text, font_default,
-		_current_window->ColorFG,
+		_current_theme->ColorFG,
 		inner_color);
 }
 
@@ -171,9 +192,13 @@ static void input_render(Input *i, bool sel)
 	Color inner_color;
 	i32 y = TITLE_BAR_HEIGHT + i->Y;
 
-	const char *text = i->Flags & FLAG_PASSWORD ? "**************************" : vector_data(&i->Text);
+	const char *text = i->Flags & FLAG_PASSWORD ?
+		_password_stars : vector_data(&i->Text);
 
-	inner_color = sel ? _current_window->ElementSelBG : _current_window->ElementBG;
+	inner_color = sel ?
+		_current_theme->ElementSelBG :
+		_current_theme->ElementBG;
+
 	gfx_rect(i->X + BORDER_SIZE,
 		TITLE_BAR_HEIGHT + i->Y + BORDER_SIZE,
 		i->W - 2 * BORDER_SIZE,
@@ -184,12 +209,12 @@ static void input_render(Input *i, bool sel)
 	{
 		gfx_rect_border(i->X, TITLE_BAR_HEIGHT + i->Y,
 			i->W, INPUT_HEIGHT, BORDER_SIZE_SEL,
-			_current_window->ColorBorderSel);
+			_current_theme->ColorBorderSel);
 	}
 	else
 	{
 		gfx_rect_border(i->X, y, i->W, INPUT_HEIGHT, BORDER_SIZE,
-			_current_window->ColorBorder);
+			_current_theme->ColorBorder);
 	}
 
 	if(i->Selection == i->Position)
@@ -197,7 +222,7 @@ static void input_render(Input *i, bool sel)
 		font_string_len(i->X + INPUT_PADDING_X, y + INPUT_PADDING_Y,
 			text, vector_len(&i->Text),
 			font_default,
-			_current_window->ColorFG,
+			_current_theme->ColorFG,
 			inner_color);
 	}
 	else
@@ -212,7 +237,7 @@ static void input_render(Input *i, bool sel)
 			y + INPUT_PADDING_Y,
 			text, sel_start,
 			font_default,
-			_current_window->ColorFG,
+			_current_theme->ColorFG,
 			inner_color);
 
 		/* Selection */
@@ -221,13 +246,13 @@ static void input_render(Input *i, bool sel)
 		gfx_rect(i->X + INPUT_PADDING_X + sel_x, y + CURSOR_OFFSET_Y,
 			font_string_width_len(text + sel_start, sel_len, font_default),
 			CURSOR_HEIGHT,
-			_current_window->ColorFG);
+			_current_theme->ColorFG);
 
 		font_string_len(i->X + INPUT_PADDING_X + sel_x, y + INPUT_PADDING_Y,
 			text + sel_start, sel_len,
 			font_default,
-			_current_window->ColorTextSelFG,
-			_current_window->ColorTextSelBG);
+			_current_theme->ColorTextSelFG,
+			_current_theme->ColorTextSelBG);
 
 		/* After selection */
 		font_string_len(i->X + INPUT_PADDING_X +
@@ -236,7 +261,7 @@ static void input_render(Input *i, bool sel)
 			text + sel_start + sel_len,
 			vector_len(&i->Text) - sel_start - sel_len,
 			font_default,
-			_current_window->ColorFG,
+			_current_theme->ColorFG,
 			inner_color);
 	}
 
@@ -248,7 +273,7 @@ static void input_render(Input *i, bool sel)
 			CURSOR_OFFSET, TITLE_BAR_HEIGHT + i->Y + CURSOR_OFFSET_Y,
 			CURSOR_WIDTH,
 			CURSOR_HEIGHT,
-			_current_window->ColorCursor);
+			_current_theme->ColorCursor);
 	}
 }
 
@@ -417,14 +442,17 @@ static void input_select_all(Input *i)
 
 static void input_copy(Input *i)
 {
+	(void)i;
 }
 
 static void input_cut(Input *i)
 {
+	(void)i;
 }
 
 static void input_paste(Input *i)
 {
+	(void)i;
 }
 
 /**
@@ -636,19 +664,19 @@ static void window_render(Window *window)
 
 	/* Title Bar */
 	gfx_rect(0, 0, GFX_WIDTH, TITLE_BAR_HEIGHT - 1,
-		_current_window->ColorTitleBar);
+		_current_theme->ColorTitleBar);
 
 	gfx_rect(0, TITLE_BAR_HEIGHT - 1, GFX_WIDTH, 1,
-		_current_window->ColorFG);
+		_current_theme->ColorFG);
 
 	/* Background */
 	gfx_rect(0, TITLE_BAR_HEIGHT, GFX_WIDTH, GFX_HEIGHT - TITLE_BAR_HEIGHT,
-		_current_window->ColorBG);
+		_current_theme->ColorBG);
 
 	/* Title */
 	font_string(TITLE_OFFSET_X, TITLE_OFFSET_Y, window->Title,
-		font_default, _current_window->ColorFG,
-		_current_window->ColorTitleBar);
+		font_default, _current_theme->ColorFG,
+		_current_theme->ColorTitleBar);
 
 	for(i = 0; i < window->Count; ++i)
 	{
@@ -723,17 +751,6 @@ void window_event_key(Key key, i32 chr, KeyState state)
 void window_init(Window *window, char *title, void *elems, i32 count,
 	KeyEvent onkey)
 {
-	window->ColorFG = THEME_LIGHT;
-	window->ColorBG = THEME_BLACK;
-	window->ColorTextSelBG = THEME_LIGHT;
-	window->ColorTextSelFG = THEME_DARK;
-	window->ColorBorder = THEME_MIDDLE;
-	window->ColorBorderSel = THEME_LIGHT;
-	window->ElementBG = THEME_DARK;
-	window->ElementSelBG = THEME_MIDDLE;
-	window->ColorCursor = THEME_LIGHT;
-	window->ColorTitleBar = THEME_DARK;
-
 	window->Selected = -1;
 	window->Title = title;
 	window->Elements = elems;
@@ -772,454 +789,3 @@ void input_init(Input *input, i32 x, i32 y, i32 w)
 	input->Selection = 0;
 	vector_init(&input->Text, sizeof(char), INPUT_CAPACITY);
 }
-
-#ifdef EDITOR
-
-#include <types.h>
-#include <vector.h>
-
-typedef struct
-{
-	char *Screen;
-	Vector Lines;
-
-	i32 CursorX, CursorY;
-	i32 PageW, PageH, PageX, PageY;
-	i32 SelectionX, SelectionY;
-	i32 LineNumberDigits;
-	i32 TabSize;
-} Editor;
-
-typedef struct
-{
-	char *Screen;
-	Vector Text;
-	i32 Cursor, Selection;
-	i32 LineNumberDigits, TabSize;
-	i32 PageW, PageH;
-} Editor;
-
-void editor_init(Editor *ed);
-void editor_render(Editor *ed);
-
-void editor_char(Editor *ed, char c);
-void editor_backspace(Editor *ed);
-void editor_delete(Editor *ed);
-void editor_new_line(Editor *ed);
-void editor_home(Editor *ed);
-void editor_end(Editor *ed);
-void editor_page_up(Editor *ed);
-void editor_page_down(Editor *ed);
-void editor_left(Editor *ed);
-void editor_right(Editor *ed);
-void editor_up(Editor *ed);
-void editor_down(Editor *ed);
-
-#include "editor.h"
-#include <std.h>
-
-void editor_init(Editor *ed)
-{
-	ed->TabSize = 4;
-	ed->LineNumberDigits = 4;
-	ed->Cursor = 0;
-
-	vector_init(&ed->Text, sizeof(char), 128);
-
-	ed->Screen = memalloc((ed->PageW + 1 + ed->LineNumberDigits) * ed->PageH);
-}
-
-void editor_render(Editor *ed)
-{
-	i32 x, y;
-	i32 line;
-	char c;
-	const char *s, *text;
-
-	line = 1;
-	x = 0;
-	y = 0;
-
-	text = vector_data(&ed->Text);
-
-	for(s = text; (c = *s); ++s)
-	{
-		if(c == '\n')
-		{
-			++line;
-			++y;
-			x = 0;
-
-			/* Print line number */
-			debug_print("\n%4d | ", line);
-		}
-		else
-		{
-			debug_print("%c", c);
-		}
-	}
-}
-
-
-void editor_char(Editor *ed, char c)
-{
-
-}
-
-void editor_backspace(Editor *ed)
-{
-
-}
-
-void editor_delete(Editor *ed)
-{
-
-}
-
-void editor_new_line(Editor *ed)
-{
-
-}
-
-void editor_home(Editor *ed)
-{
-
-}
-
-void editor_end(Editor *ed)
-{
-
-}
-
-void editor_page_up(Editor *ed)
-{
-
-}
-
-void editor_page_down(Editor *ed)
-{
-
-}
-
-void editor_left(Editor *ed)
-{
-
-}
-
-void editor_right(Editor *ed)
-{
-
-}
-
-void editor_up(Editor *ed)
-{
-
-}
-
-void editor_down(Editor *ed)
-{
-
-}
-
-/* --- PUBLIC --- */
-void editor_init(Editor *ed)
-{
-	ed->TabSize = 4;
-	ed->LineNumberDigits = 4;
-
-	vector_init(&ed->Lines, sizeof(Vector), 128);
-	vector_push(&ed->Lines, ector_get(&ed->Lines, 0), sizeof(char), 8);
-
-	ed->CursorX = 0;
-	ed->CursorY = 0;
-
-	ed->PageW = 30;
-	ed->PageH = 50;
-	ed->PageY = 0;
-	ed->PageX = 0;
-
-	ed->Screen = memalloc((ed->PageW + 1 + ed->LineNumberDigits) * ed->PageH);
-}
-
-
-void editor_render(Editor *ed)
-{
-	/* keywords blue, strings/chars red, comments green, brackets yellow,
-	numbers light green */
-	i32 x, y, w, h;
-	w = ed->PageW;
-	h = ed->PageH;
-	for(y = 0; y < h; ++y)
-	{
-		for(x = 0; x < w; ++x)
-		{
-			/* only update the parts that have changed */
-
-			editor_render_char(x, y, bg_color, fg_color);
-		}
-	}
-
-	/* draw cursor */
-	editor_render_cursor();
-}
-
-/* --- EDITING --- */
-void editor_char(Editor *ed, char c)
-{
-	vector_insert(vector_get(&ed->Lines, ed->CursorY), ed->CursorX, &c);
-}
-
-void editor_backspace(Editor *ed)
-{
-	Vector *line = vector_get(&ed->Lines, ed->CursorY);
-	if(ed->CursorX == 0)
-	{
-		if(ed->CursorY > 0)
-		{
-			/* merge with previous line */
-			Vector *prev = vector_get(&ed->Lines, --ed->CursorY);
-			ed->CursorX = vector_len(prev);
-			vector_push_range(prev, vector_len(line), line->Data);
-			vector_destroy(line);
-			vector_remove(&ed->Lines, ed->CursorY + 1);
-		}
-	}
-	else
-	{
-		/* delete prev char */
-		vector_remove(line, --ed->CursorX);
-	}
-}
-
-void editor_delete(Editor *ed)
-{
-	Vector *line = vector_get(&ed->Lines, ed->CursorY);
-	i32 line_len = (i32)vector_len(line);
-	if(ed->CursorX >= line_len)
-	{
-		i32 num_lines = (i32)vector_len(&ed->Lines);
-		if(ed->CursorY < num_lines)
-		{
-			i32 next_idx = ed->CursorY + 1;
-			Vector *next = vector_get(&ed->Lines, next_idx);
-
-			/* merge with next line */
-			vector_push_range(line, vector_len(next), next->Data);
-			vector_destroy(next);
-			vector_remove(&ed->Lines, next_idx);
-		}
-	}
-	else
-	{
-		/* delete next char */
-		vector_remove(line, ed->CursorX);
-	}
-}
-
-void editor_new_line(Editor *ed)
-{
-	Vector *cur = vector_get(&ed->Lines, ed->CursorY);
-	char *str = (char *)cur->Data + ed->CursorX;
-	i32 len = vector_len(cur) - ed->CursorX;
-	Vector new;
-
-	/* Copy characters after cursor on current line to new line */
-	vector_init(&new, sizeof(char), len);
-	vector_push_range(&new, len, str);
-
-	/* Insert new line */
-	vector_insert(&ed->Lines, ed->CursorY + 1, &new);
-
-	/* Remove characters after cursor on current line */
-	vector_remove_range(cur, ed->CursorX, len);
-
-	++ed->CursorY;
-	ed->CursorX = 0;
-}
-
-/* --- CURSOR MOVEMENT --- */
-void editor_home(Editor *ed)
-{
-	i32 i = 0;
-	if(ed->CursorX == 0)
-	{
-		Vector *line = vector_get(&ed->Lines, ed->CursorY);
-		char *buf = line->Data;
-		while(isspace(buf[i]))
-		{
-			++i;
-		}
-	}
-
-	ed->CursorX = i;
-}
-
-void editor_end(Editor *ed)
-{
-	ed->CursorX = vector_len(vector_get(&ed->Lines, ed->CursorY));
-}
-
-void editor_page_up(Editor *ed)
-{
-	ed->CursorY -= ed->PageH;
-	if(ed->CursorY < 0)
-	{
-		ed->CursorY = 0;
-		ed->CursorX = 0;
-	}
-}
-
-void editor_page_down(Editor *ed)
-{
-	i32 num_lines = (i32)vector_len(&ed->Lines);
-	ed->CursorY += ed->PageY;
-	if(ed->CursorY >= num_lines)
-	{
-		ed->CursorY = num_lines - 1;
-		ed->CursorX = vector_len(vector_get(&ed->Lines, ed->CursorY));
-	}
-}
-
-void editor_left(Editor *ed)
-{
-	if(ed->CursorX == 0)
-	{
-		ed->CursorX = vector_len(vector_get(&ed->Lines, --ed->CursorY));
-	}
-	else
-	{
-		--ed->CursorX;
-	}
-}
-
-void editor_right(Editor *ed)
-{
-	if(ed->CursorX == (i32)vector_len(vector_get(&ed->Lines, ed->CursorY)))
-	{
-		++ed->CursorY;
-		ed->CursorX = 0;
-	}
-	else
-	{
-		++ed->CursorX;
-	}
-}
-
-void editor_up(Editor *ed)
-{
-	if(ed->CursorY == 0)
-	{
-		ed->CursorX = 0;
-	}
-	else
-	{
-		--ed->CursorY;
-		if(ed->CursorY < ed->PageY)
-		{
-			ed->PageY = ed->CursorY;
-		}
-	}
-}
-
-void editor_down(Editor *ed)
-{
-	i32 max = (i32)vector_len(&ed->Lines) - 1;
-	if(ed->CursorY >= max)
-	{
-		ed->CursorX = (i32)vector_len(vector_get(&ed->Lines, max));
-	}
-	else
-	{
-		++ed->CursorY;
-		if(ed->CursorY >= ed->PageY + ed->PageH)
-		{
-			ed->PageY = ed->CursorY - ed->PageH;
-		}
-	}
-}
-
-static void _render_char(i32 x, i32 y, char c, Color fg, Color bg)
-{
-
-}
-
-static void _render_line(Line *line, i32 line_number)
-{
-	/* syntax highlighting */
-	static const char *_keywords[] =
-	{
-		"var",
-		"return",
-		"continue",
-		"break",
-		"if",
-		"elif",
-		"else",
-		"for",
-		"to",
-		"loop",
-		"do",
-		"while",
-		"switch",
-		"case",
-		"default"
-	};
-
-	char *p;
-	i32 i, len;
-
-	p = line->Buffer;
-	len = line->Length;
-	for(i = 0; i < len; ++i)
-	{
-		c = p[i];
-		if(c == '/')
-		{
-			if(i + i < len && p[i + 1] == '/')
-			{
-				for(; i < len; ++i)
-				{
-					c = p[i];
-					_render_char(x, y, c, COLOR_GREEN, COLOR_BLACK);
-				}
-			}
-		}
-		else if(c == '\"')
-		{
-			/* string start */
-			while(c != '\"')
-			{
-				/* skip escape sequence */
-				if(c == '\\')
-				{
-					++i;
-				}
-
-				_render_char(x, y, c, COLOR_RED, COLOR_BLACK);
-			}
-		}
-		else if(c == '{' || c == '}' ||
-			c == '[' || c == ']' ||
-			c == '(' || c == ')')
-		{
-			_render_char(x, y, c, COLOR_YELLOW, COLOR_BLACK);
-		}
-		else if(is_identifer_start_char(c))
-		{
-			i32 id_start;
-
-			id_start = i;
-			while(is_identifer_char(c))
-			{
-			}
-
-			if(is_identifier())
-			{
-
-			}
-		}
-	}
-}
-
-
-#endif /* EDITOR */

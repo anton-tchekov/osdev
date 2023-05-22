@@ -10,6 +10,9 @@
 #define __LOGGER_H__
 
 #include <types.h>
+#include <avr/pgmspace.h>
+#include <logo/logo_tiny.c>
+#include <logo/logo_text.c>
 
 /** Log Level enum */
 typedef enum
@@ -49,5 +52,10 @@ void panic(const char *msg, ...);
  * @param len Buffer size in bytes
  */
 void memory_dump(u32 addr, const void *data, u16 len);
+
+/**
+ * @brief Initialize LCD Logger
+ */
+void logger_lcd_init(void);
 
 #endif /* __LOGGER__ */
