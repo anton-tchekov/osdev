@@ -59,6 +59,8 @@ void setup(void)
 		INPUT_PASSWORD_Y,
 		INPUT_WIDTH);
 
+	input_password.Flags |= FLAG_PASSWORD;
+
 	button_init(&button_login,
 		GFX_WIDTH / 2 - BUTTON_WIDTH / 2,
 		BUTTON_LOGIN_Y,

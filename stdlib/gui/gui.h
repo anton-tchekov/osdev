@@ -122,6 +122,8 @@ typedef struct
 	Vector Text;
 } Input;
 
+/* TODO: MOVE THEME/STYLE TO NEW STRUCT */
+
 /** Window structure */
 typedef struct
 {

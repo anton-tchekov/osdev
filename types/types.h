@@ -12,7 +12,10 @@
 #include <stddef.h>
 #include <stdint.h>
 #include <stdbool.h>
+
+#ifndef STDLIB
 #include <inttypes.h>
+#endif
 
 /** Signed 64-bit integer */
 typedef int64_t i64;

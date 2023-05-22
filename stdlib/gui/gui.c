@@ -171,7 +171,7 @@ static void input_render(Input *i, bool sel)
 	Color inner_color;
 	i32 y = TITLE_BAR_HEIGHT + i->Y;
 
-	const char *text = vector_data(&i->Text);
+	const char *text = i->Flags & FLAG_PASSWORD ? "**************************" : vector_data(&i->Text);
 
 	inner_color = sel ? _current_window->ElementSelBG : _current_window->ElementBG;
 	gfx_rect(i->X + BORDER_SIZE,
@@ -227,7 +227,7 @@ static void input_render(Input *i, bool sel)
 			text + sel_start, sel_len,
 			font_default,
 			_current_window->ColorTextSelFG,
-			inner_color);
+			_current_window->ColorTextSelBG);
 
 		/* After selection */
 		font_string_len(i->X + INPUT_PADDING_X +
@@ -354,7 +354,9 @@ static void input_backspace(Input *i)
 	}
 	else if(i->Position > 0)
 	{
-		vector_remove(&i->Text, --i->Position);
+		--i->Position;
+		i->Selection = i->Position;
+		vector_remove(&i->Text, i->Position);
 		input_render(i, true);
 	}
 }
@@ -657,7 +659,7 @@ static void window_render(Window *window)
 void window_open(Window *window)
 {
 	_current_window = window;
-	if(_current_window->Selected < 0)
+	if(window->Selected < 0)
 	{
 		element_first();
 	}
@@ -732,6 +734,7 @@ void window_init(Window *window, char *title, void *elems, i32 count,
 	window->ColorCursor = THEME_LIGHT;
 	window->ColorTitleBar = THEME_DARK;
 
+	window->Selected = -1;
 	window->Title = title;
 	window->Elements = elems;
 	window->Count = count;
