@@ -1,7 +1,9 @@
 var searchData=
 [
-  ['input_5fcapacity_0',['INPUT_CAPACITY',['../gui_8c.html#adaa8f3d3e80dc5e57e14302e38a00799',1,'gui.c']]],
-  ['input_5fheight_1',['INPUT_HEIGHT',['../gui_8c.html#aa3117e6d1b2a895d93755c858df7219c',1,'gui.c']]],
-  ['input_5fpadding_5fx_2',['INPUT_PADDING_X',['../gui_8c.html#a863f5c8a292562df673aaf8a6e17faae',1,'gui.c']]],
-  ['input_5fpadding_5fy_3',['INPUT_PADDING_Y',['../gui_8c.html#ad0be58a04004965af9a9b5ed6992bfe1',1,'gui.c']]]
+  ['idle_5fstate_0',['IDLE_STATE',['../sd_8c.html#a1d66c9130165248f0563074180dd1432',1,'sd.c']]],
+  ['illegal_5fcmd_1',['ILLEGAL_CMD',['../sd_8c.html#a8ae8b08655b2ec2facb46d6bbc83065c',1,'sd.c']]],
+  ['input_5fcapacity_2',['INPUT_CAPACITY',['../gui_8c.html#adaa8f3d3e80dc5e57e14302e38a00799',1,'gui.c']]],
+  ['input_5fheight_3',['INPUT_HEIGHT',['../gui_8c.html#aa3117e6d1b2a895d93755c858df7219c',1,'gui.c']]],
+  ['input_5fpadding_5fx_4',['INPUT_PADDING_X',['../gui_8c.html#a863f5c8a292562df673aaf8a6e17faae',1,'gui.c']]],
+  ['input_5fpadding_5fy_5',['INPUT_PADDING_Y',['../gui_8c.html#ad0be58a04004965af9a9b5ed6992bfe1',1,'gui.c']]]
 ];

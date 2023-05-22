@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">OS Dev
+   <div id="projectname">OS Dev<span id="projectnumber">&#160;0.1</span>
    </div>
   </td>
  </tr>
@@ -82,7 +82,9 @@ $(function() {
 <code>#include &lt;<a class="el" href="syscall_8h_source.html">syscall.h</a>&gt;</code><br />
 <code>#include &lt;stdarg.h&gt;</code><br />
 <code>#include &lt;<a class="el" href="format_8h_source.html">format.h</a>&gt;</code><br />
-</div><table class="memberdecls">
+</div>
+<p><a href="stdlib_2serial_2serial_8c_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:ae454cdf1e6c8d3be9256a937f11efa39"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stdlib_2serial_2serial_8c.html#ae454cdf1e6c8d3be9256a937f11efa39">debug_print</a> (const char *format,...)</td></tr>
@@ -96,6 +98,8 @@ Functions</h2></td></tr>
 <div class="textblock"><dl class="section author"><dt>Author</dt><dd>Tim Gabrikowski, Anton Tchekov </dd></dl>
 <dl class="section version"><dt>Version</dt><dd>0.1 </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>23.04.2023 </dd></dl>
+
+<p class="definition">Definition in file <a class="el" href="stdlib_2serial_2serial_8c_source.html">serial.c</a>.</p>
 </div><h2 class="groupheader">Function Documentation</h2>
 <a id="ae454cdf1e6c8d3be9256a937f11efa39" name="ae454cdf1e6c8d3be9256a937f11efa39"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae454cdf1e6c8d3be9256a937f11efa39">&#9670;&#160;</a></span>debug_print()</h2>
@@ -130,6 +134,22 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
+
+<p class="definition">Definition at line <a class="el" href="stdlib_2serial_2serial_8c_source.html#l00013">13</a> of file <a class="el" href="stdlib_2serial_2serial_8c_source.html">serial.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   14</span>{</div>
+<div class="line"><span class="lineno">   15</span>    <span class="keywordtype">char</span> str[128];</div>
+<div class="line"><span class="lineno">   16</span>    <span class="keywordtype">int</span> r;</div>
+<div class="line"><span class="lineno">   17</span>    va_list args;</div>
+<div class="line"><span class="lineno">   18</span>    va_start(args, format);</div>
+<div class="line"><span class="lineno">   19</span>    r = <a class="code hl_function" href="format_8h.html#a8f90f639c751fbc29a0d93eec09f9e20">vsnprintf</a>(str, UINT32_MAX, format, args);</div>
+<div class="line"><span class="lineno">   20</span>    va_end(args);</div>
+<div class="line"><span class="lineno">   21</span> </div>
+<div class="line"><span class="lineno">   22</span>    <a class="code hl_function" href="stdlib_2serial_2serial_8c.html#a1e573f079b66d70c6154d5ae4e61739d">serial_write</a>(str, r);</div>
+<div class="line"><span class="lineno">   23</span>}</div>
+<div class="ttc" id="aformat_8h_html_a8f90f639c751fbc29a0d93eec09f9e20"><div class="ttname"><a href="format_8h.html#a8f90f639c751fbc29a0d93eec09f9e20">vsnprintf</a></div><div class="ttdeci">i32 vsnprintf(char *str, u32 size, const char *format, va_list arg)</div><div class="ttdoc">Formats and stores a series of characters and values in the provided character array buffer,...</div></div>
+<div class="ttc" id="astdlib_2serial_2serial_8c_html_a1e573f079b66d70c6154d5ae4e61739d"><div class="ttname"><a href="stdlib_2serial_2serial_8c.html#a1e573f079b66d70c6154d5ae4e61739d">serial_write</a></div><div class="ttdeci">i32 serial_write(const void *buf, i32 n)</div><div class="ttdoc">Send n bytes over the serial interface.</div><div class="ttdef"><b>Definition:</b> <a href="stdlib_2serial_2serial_8c_source.html#l00025">serial.c:25</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="stdlib_2serial_2serial_8c_source.html#l00025">serial_write()</a>, and <a class="el" href="format_8h.html#a8f90f639c751fbc29a0d93eec09f9e20">vsnprintf()</a>.</p>
 
 </div>
 </div>
@@ -168,6 +188,17 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Number of bytes written </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="stdlib_2serial_2serial_8c_source.html#l00025">25</a> of file <a class="el" href="stdlib_2serial_2serial_8c_source.html">serial.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   26</span>{</div>
+<div class="line"><span class="lineno">   27</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="syscall_8h.html#a180e92e50e5ffdb1bf2449b1c214bde9">syscall2</a>(SYSCALL_SERIAL_WRITE, (<a class="code hl_typedef" href="types_8h.html#afaa62991928fb9fb18ff0db62a040aba">u32</a>)buf, n);</div>
+<div class="line"><span class="lineno">   28</span>}</div>
+<div class="ttc" id="asyscall_8h_html_a180e92e50e5ffdb1bf2449b1c214bde9"><div class="ttname"><a href="syscall_8h.html#a180e92e50e5ffdb1bf2449b1c214bde9">syscall2</a></div><div class="ttdeci">static u32 syscall2(SyscallID id, u32 a0, u32 a1)</div><div class="ttdoc">System call with two parameters.</div><div class="ttdef"><b>Definition:</b> <a href="syscall_8h_source.html#l00078">syscall.h:78</a></div></div>
+<div class="ttc" id="atypes_8h_html_afaa62991928fb9fb18ff0db62a040aba"><div class="ttname"><a href="types_8h.html#afaa62991928fb9fb18ff0db62a040aba">u32</a></div><div class="ttdeci">uint32_t u32</div><div class="ttdef"><b>Definition:</b> <a href="types_8h_source.html#l00032">types.h:32</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="syscall_8h_source.html#l00078">syscall2()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="stdlib_2serial_2serial_8c_source.html#l00013">debug_print()</a>.</p>
 
 </div>
 </div>

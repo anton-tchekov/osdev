@@ -21,5 +21,8 @@ var searchData=
   ['log_5fx_5foffset_18',['LOG_X_OFFSET',['../logger_8c.html#aa2f3dc0dd5d312558d3c448c9ff76c4e',1,'logger.c']]],
   ['log_5fx_5ftext_5foffset_19',['LOG_X_TEXT_OFFSET',['../logger_8c.html#aa18d885e222964b4545d9d36432ddef2',1,'logger.c']]],
   ['log_5fy_5fadvance_20',['LOG_Y_ADVANCE',['../logger_8c.html#a924a8786b2d00a7d13ccf96ba6e7bd41',1,'logger.c']]],
-  ['log_5fy_5foffset_21',['LOG_Y_OFFSET',['../logger_8c.html#a1c2264aaa6ab403827c0b0ccf4e52c98',1,'logger.c']]]
+  ['log_5fy_5foffset_21',['LOG_Y_OFFSET',['../logger_8c.html#a1c2264aaa6ab403827c0b0ccf4e52c98',1,'logger.c']]],
+  ['logo_5ftext_5fx_5foffset_22',['LOGO_TEXT_X_OFFSET',['../logger_8c.html#a4bcc8822ee0337ce0c7d0f7086244b6d',1,'logger.c']]],
+  ['logo_5fx_5foffset_23',['LOGO_X_OFFSET',['../logger_8c.html#a88e76882c6f9a1a90f5b714c39be7b37',1,'logger.c']]],
+  ['logo_5fy_5foffset_24',['LOGO_Y_OFFSET',['../logger_8c.html#a70b1470428ebbc008fc85cfb458820b1',1,'logger.c']]]
 ];

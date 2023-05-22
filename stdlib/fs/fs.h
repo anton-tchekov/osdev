@@ -9,6 +9,8 @@
 #ifndef __FS_H__
 #define __FS_H__
 
+//! @cond Doxygen_Suppress
+
 #include <status.h>
 #include <types.h>
 #include <syscall.h>
@@ -103,5 +105,7 @@ StatusCode fs_dread(Dir *dir, i32 index, DirEntry *entry);
 StatusCode fs_fresize(File *file, u32 new_size);
 StatusCode fs_fread(File *file, u32 offset, u32 size, void *buffer);
 StatusCode fs_fwrite(File *file, u32 offset, u32 size, const void *buffer);
+
+//! @endcond
 
 #endif /* __FS_H__ */

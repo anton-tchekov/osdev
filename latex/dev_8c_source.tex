@@ -1,0 +1,84 @@
+\hypertarget{dev_8c_source}{}\doxysection{dev.\+c}
+\label{dev_8c_source}\index{stdlib/fs/dev.c@{stdlib/fs/dev.c}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{dev_8c_source_l00001}00001\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{dev_8h}{dev.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{dev_8c_source_l00002}00002\ }
+\DoxyCodeLine{\Hypertarget{dev_8c_source_l00004}00004\ }
+\DoxyCodeLine{\Hypertarget{dev_8c_source_l00005}00005\ \textcolor{preprocessor}{\#define\ MAX\_DEVICES\ 26}}
+\DoxyCodeLine{\Hypertarget{dev_8c_source_l00006}00006\ }
+\DoxyCodeLine{\Hypertarget{dev_8c_source_l00007}00007\ \textcolor{keyword}{static}\ BlockDevice\ *\_devices[MAX\_DEVICES];}
+\DoxyCodeLine{\Hypertarget{dev_8c_source_l00008}00008\ }
+\DoxyCodeLine{\Hypertarget{dev_8c_source_l00009}00009\ \textcolor{keywordtype}{char}\ dev\_attach(BlockDevice\ *dev)}
+\DoxyCodeLine{\Hypertarget{dev_8c_source_l00010}00010\ \{}
+\DoxyCodeLine{\Hypertarget{dev_8c_source_l00011}00011\ \ \ \ \ \mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}}\ i;}
+\DoxyCodeLine{\Hypertarget{dev_8c_source_l00012}00012\ \ \ \ \ \textcolor{keywordflow}{for}(i\ =\ 0;\ i\ <\ MAX\_DEVICES;\ ++i)}
+\DoxyCodeLine{\Hypertarget{dev_8c_source_l00013}00013\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{dev_8c_source_l00014}00014\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(!\_devices[i])}
+\DoxyCodeLine{\Hypertarget{dev_8c_source_l00015}00015\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{dev_8c_source_l00016}00016\ \ \ \ \ \ \ \ \ \ \ \ \ \_devices[i]\ =\ dev;}
+\DoxyCodeLine{\Hypertarget{dev_8c_source_l00017}00017\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ i\ +\ \textcolor{charliteral}{'A'};}
+\DoxyCodeLine{\Hypertarget{dev_8c_source_l00018}00018\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{dev_8c_source_l00019}00019\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{dev_8c_source_l00020}00020\ }
+\DoxyCodeLine{\Hypertarget{dev_8c_source_l00021}00021\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{\Hypertarget{dev_8c_source_l00022}00022\ \}}
+\DoxyCodeLine{\Hypertarget{dev_8c_source_l00023}00023\ }
+\DoxyCodeLine{\Hypertarget{dev_8c_source_l00024}00024\ \textcolor{keywordtype}{void}\ dev\_detach(\textcolor{keywordtype}{char}\ letter)}
+\DoxyCodeLine{\Hypertarget{dev_8c_source_l00025}00025\ \{}
+\DoxyCodeLine{\Hypertarget{dev_8c_source_l00026}00026\ \ \ \ \ \_devices[letter\ -\/\ \textcolor{charliteral}{'A'}]\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{dev_8c_source_l00027}00027\ \}}
+\DoxyCodeLine{\Hypertarget{dev_8c_source_l00028}00028\ }
+\DoxyCodeLine{\Hypertarget{dev_8c_source_l00029}00029\ StatusCode\ dev\_read(\textcolor{keywordtype}{char}\ dev,\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ offset,\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ count,\ \mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}}\ *buffer)}
+\DoxyCodeLine{\Hypertarget{dev_8c_source_l00030}00030\ \{}
+\DoxyCodeLine{\Hypertarget{dev_8c_source_l00031}00031\ \ \ \ \ \mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}}\ i\ =\ dev\ -\/\ \textcolor{charliteral}{'A'};}
+\DoxyCodeLine{\Hypertarget{dev_8c_source_l00032}00032\ \ \ \ \ BlockDevice\ *dev\ =\ \_devices[i];}
+\DoxyCodeLine{\Hypertarget{dev_8c_source_l00033}00033\ \ \ \ \ \textcolor{keywordflow}{if}(!dev)}
+\DoxyCodeLine{\Hypertarget{dev_8c_source_l00034}00034\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{dev_8c_source_l00035}00035\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ERROR\_NO\_DEVICE;}
+\DoxyCodeLine{\Hypertarget{dev_8c_source_l00036}00036\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{dev_8c_source_l00037}00037\ }
+\DoxyCodeLine{\Hypertarget{dev_8c_source_l00038}00038\ \ \ \ \ \textcolor{keywordflow}{return}\ dev-\/>Read(offset,\ count,\ buffer);}
+\DoxyCodeLine{\Hypertarget{dev_8c_source_l00039}00039\ \}}
+\DoxyCodeLine{\Hypertarget{dev_8c_source_l00040}00040\ }
+\DoxyCodeLine{\Hypertarget{dev_8c_source_l00041}00041\ StatusCode\ dev\_write(\textcolor{keywordtype}{char}\ dev,\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ offset,\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ count,\ \mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}}\ *buffer)}
+\DoxyCodeLine{\Hypertarget{dev_8c_source_l00042}00042\ \{}
+\DoxyCodeLine{\Hypertarget{dev_8c_source_l00043}00043\ \ \ \ \ \mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}}\ i\ =\ dev\ -\/\ \textcolor{charliteral}{'A'};}
+\DoxyCodeLine{\Hypertarget{dev_8c_source_l00044}00044\ \ \ \ \ BlockDevice\ *dev\ =\ \_devices[i];}
+\DoxyCodeLine{\Hypertarget{dev_8c_source_l00045}00045\ \ \ \ \ \textcolor{keywordflow}{if}(!dev)}
+\DoxyCodeLine{\Hypertarget{dev_8c_source_l00046}00046\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{dev_8c_source_l00047}00047\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ERROR\_NO\_DEVICE;}
+\DoxyCodeLine{\Hypertarget{dev_8c_source_l00048}00048\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{dev_8c_source_l00049}00049\ }
+\DoxyCodeLine{\Hypertarget{dev_8c_source_l00050}00050\ \ \ \ \ \textcolor{keywordflow}{return}\ dev-\/>Write(offset,\ count,\ buffer);}
+\DoxyCodeLine{\Hypertarget{dev_8c_source_l00051}00051\ \}}
+\DoxyCodeLine{\Hypertarget{dev_8c_source_l00052}00052\ }
+\DoxyCodeLine{\Hypertarget{dev_8c_source_l00053}00053\ StatusCode\ dev\_block\_size(\textcolor{keywordtype}{char}\ dev,\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ *size)}
+\DoxyCodeLine{\Hypertarget{dev_8c_source_l00054}00054\ \{}
+\DoxyCodeLine{\Hypertarget{dev_8c_source_l00055}00055\ \ \ \ \ \mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}}\ i\ =\ dev\ -\/\ \textcolor{charliteral}{'A'};}
+\DoxyCodeLine{\Hypertarget{dev_8c_source_l00056}00056\ \ \ \ \ BlockDevice\ *dev\ =\ \_devices[i];}
+\DoxyCodeLine{\Hypertarget{dev_8c_source_l00057}00057\ \ \ \ \ \textcolor{keywordflow}{if}(!dev)}
+\DoxyCodeLine{\Hypertarget{dev_8c_source_l00058}00058\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{dev_8c_source_l00059}00059\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ERROR\_NO\_DEVICE;}
+\DoxyCodeLine{\Hypertarget{dev_8c_source_l00060}00060\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{dev_8c_source_l00061}00061\ }
+\DoxyCodeLine{\Hypertarget{dev_8c_source_l00062}00062\ \ \ \ \ *size\ =\ dev-\/>BlockSize;}
+\DoxyCodeLine{\Hypertarget{dev_8c_source_l00063}00063\ \ \ \ \ \textcolor{keywordflow}{return}\ STATUS\_SUCCESS;}
+\DoxyCodeLine{\Hypertarget{dev_8c_source_l00064}00064\ \}}
+\DoxyCodeLine{\Hypertarget{dev_8c_source_l00065}00065\ }
+\DoxyCodeLine{\Hypertarget{dev_8c_source_l00066}00066\ StatusCode\ dev\_block\_count(\textcolor{keywordtype}{char}\ dev,\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ *count)}
+\DoxyCodeLine{\Hypertarget{dev_8c_source_l00067}00067\ \{}
+\DoxyCodeLine{\Hypertarget{dev_8c_source_l00068}00068\ \ \ \ \ \mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}}\ i\ =\ dev\ -\/\ \textcolor{charliteral}{'A'};}
+\DoxyCodeLine{\Hypertarget{dev_8c_source_l00069}00069\ \ \ \ \ BlockDevice\ *dev\ =\ \_devices[i];}
+\DoxyCodeLine{\Hypertarget{dev_8c_source_l00070}00070\ \ \ \ \ \textcolor{keywordflow}{if}(!dev)}
+\DoxyCodeLine{\Hypertarget{dev_8c_source_l00071}00071\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{dev_8c_source_l00072}00072\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ERROR\_NO\_DEVICE;}
+\DoxyCodeLine{\Hypertarget{dev_8c_source_l00073}00073\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{dev_8c_source_l00074}00074\ }
+\DoxyCodeLine{\Hypertarget{dev_8c_source_l00075}00075\ \ \ \ \ *count\ =\ dev-\/>BlockCount;}
+\DoxyCodeLine{\Hypertarget{dev_8c_source_l00076}00076\ \ \ \ \ \textcolor{keywordflow}{return}\ STATUS\_SUCCESS;}
+\DoxyCodeLine{\Hypertarget{dev_8c_source_l00077}00077\ \}}
+\DoxyCodeLine{\Hypertarget{dev_8c_source_l00078}00078\ }
+\DoxyCodeLine{\Hypertarget{dev_8c_source_l00080}00080\ }
+
+\end{DoxyCode}

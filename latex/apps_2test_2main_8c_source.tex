@@ -1,0 +1,83 @@
+\hypertarget{apps_2test_2main_8c_source}{}\doxysection{main.\+c}
+\label{apps_2test_2main_8c_source}\index{apps/test/main.c@{apps/test/main.c}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{apps_2test_2main_8c_source_l00001}00001\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{std_8h}{std.h}}>}}
+\DoxyCodeLine{\Hypertarget{apps_2test_2main_8c_source_l00002}00002\ }
+\DoxyCodeLine{\Hypertarget{apps_2test_2main_8c_source_l00003}00003\ \textcolor{keyword}{static}\ \mbox{\hyperlink{structWindow}{Window}}\ window;}
+\DoxyCodeLine{\Hypertarget{apps_2test_2main_8c_source_l00004}00004\ \textcolor{keyword}{static}\ \mbox{\hyperlink{structButton}{Button}}\ button\_login;}
+\DoxyCodeLine{\Hypertarget{apps_2test_2main_8c_source_l00005}00005\ \textcolor{keyword}{static}\ \mbox{\hyperlink{structLabel}{Label}}\ label\_username,\ label\_password;}
+\DoxyCodeLine{\Hypertarget{apps_2test_2main_8c_source_l00006}00006\ \textcolor{keyword}{static}\ \mbox{\hyperlink{structInput}{Input}}\ input\_username,\ input\_password;}
+\DoxyCodeLine{\Hypertarget{apps_2test_2main_8c_source_l00007}00007\ }
+\DoxyCodeLine{\Hypertarget{apps_2test_2main_8c_source_l00008}00008\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ *elements[]\ =}
+\DoxyCodeLine{\Hypertarget{apps_2test_2main_8c_source_l00009}00009\ \{}
+\DoxyCodeLine{\Hypertarget{apps_2test_2main_8c_source_l00010}00010\ \ \ \ \ \&label\_username,}
+\DoxyCodeLine{\Hypertarget{apps_2test_2main_8c_source_l00011}00011\ \ \ \ \ \&input\_username,}
+\DoxyCodeLine{\Hypertarget{apps_2test_2main_8c_source_l00012}00012\ \ \ \ \ \&label\_password,}
+\DoxyCodeLine{\Hypertarget{apps_2test_2main_8c_source_l00013}00013\ \ \ \ \ \&input\_password,}
+\DoxyCodeLine{\Hypertarget{apps_2test_2main_8c_source_l00014}00014\ \ \ \ \ \&button\_login,}
+\DoxyCodeLine{\Hypertarget{apps_2test_2main_8c_source_l00015}00015\ \};}
+\DoxyCodeLine{\Hypertarget{apps_2test_2main_8c_source_l00016}00016\ }
+\DoxyCodeLine{\Hypertarget{apps_2test_2main_8c_source_l00017}00017\ \textcolor{keywordtype}{void}\ button\_login\_onclick(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{apps_2test_2main_8c_source_l00018}00018\ \{}
+\DoxyCodeLine{\Hypertarget{apps_2test_2main_8c_source_l00019}00019\ \ \ \ \ debug\_print(\textcolor{stringliteral}{"{}Login\ button\ pressed\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{apps_2test_2main_8c_source_l00020}00020\ \}}
+\DoxyCodeLine{\Hypertarget{apps_2test_2main_8c_source_l00021}00021\ }
+\DoxyCodeLine{\Hypertarget{apps_2test_2main_8c_source_l00022}00022\ \textcolor{keywordtype}{void}\ event\_key(Key\ key,\ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ chr,\ KeyState\ state)}
+\DoxyCodeLine{\Hypertarget{apps_2test_2main_8c_source_l00023}00023\ \{}
+\DoxyCodeLine{\Hypertarget{apps_2test_2main_8c_source_l00024}00024\ \ \ \ \ \mbox{\hyperlink{gui_8c_a7e2a9214dff60b9245fc4e1d089128b7}{window\_event\_key}}(key,\ chr,\ state);}
+\DoxyCodeLine{\Hypertarget{apps_2test_2main_8c_source_l00025}00025\ \}}
+\DoxyCodeLine{\Hypertarget{apps_2test_2main_8c_source_l00026}00026\ }
+\DoxyCodeLine{\Hypertarget{apps_2test_2main_8c_source_l00027}00027\ \textcolor{preprocessor}{\#define\ INPUT\_WIDTH\ \ \ \ \ \ \ \ 220}}
+\DoxyCodeLine{\Hypertarget{apps_2test_2main_8c_source_l00028}00028\ \textcolor{preprocessor}{\#define\ BUTTON\_WIDTH\ \ \ \ \ \ \ 140}}
+\DoxyCodeLine{\Hypertarget{apps_2test_2main_8c_source_l00029}00029\ \textcolor{preprocessor}{\#define\ BUTTON\_HEIGHT\ \ \ \ \ \ \ 28}}
+\DoxyCodeLine{\Hypertarget{apps_2test_2main_8c_source_l00030}00030\ \textcolor{preprocessor}{\#define\ INPUT\_USERNAME\_Y\ \ \ 110}}
+\DoxyCodeLine{\Hypertarget{apps_2test_2main_8c_source_l00031}00031\ \textcolor{preprocessor}{\#define\ INPUT\_PASSWORD\_Y\ \ \ 160}}
+\DoxyCodeLine{\Hypertarget{apps_2test_2main_8c_source_l00032}00032\ \textcolor{preprocessor}{\#define\ BUTTON\_LOGIN\_Y\ \ \ \ \ 204}}
+\DoxyCodeLine{\Hypertarget{apps_2test_2main_8c_source_l00033}00033\ \textcolor{preprocessor}{\#define\ INPUT\_LABEL\_OFFSET\ \ 16}}
+\DoxyCodeLine{\Hypertarget{apps_2test_2main_8c_source_l00034}00034\ }
+\DoxyCodeLine{\Hypertarget{apps_2test_2main_8c_source_l00035}00035\ \textcolor{keywordtype}{void}\ setup(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{apps_2test_2main_8c_source_l00036}00036\ \{}
+\DoxyCodeLine{\Hypertarget{apps_2test_2main_8c_source_l00037}00037\ \ \ \ \ \mbox{\hyperlink{keyboard_8c_a3676e1550d4471bddab4c84dd0c844dc}{keyboard\_register\_event}}(event\_key);}
+\DoxyCodeLine{\Hypertarget{apps_2test_2main_8c_source_l00038}00038\ }
+\DoxyCodeLine{\Hypertarget{apps_2test_2main_8c_source_l00039}00039\ \ \ \ \ \mbox{\hyperlink{gui_8c_a947b16523eba3e9011e52a892a689295}{label\_init}}(\&label\_username,}
+\DoxyCodeLine{\Hypertarget{apps_2test_2main_8c_source_l00040}00040\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gfx_8h_aae91ae7a3ca585293a2c1031652a49f9}{GFX\_WIDTH}}\ /\ 2\ -\/\ INPUT\_WIDTH\ /\ 2,}
+\DoxyCodeLine{\Hypertarget{apps_2test_2main_8c_source_l00041}00041\ \ \ \ \ \ \ \ \ INPUT\_USERNAME\_Y\ -\/\ INPUT\_LABEL\_OFFSET,}
+\DoxyCodeLine{\Hypertarget{apps_2test_2main_8c_source_l00042}00042\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8h_a33c2d4ef645a60b81d281d55d98b9334}{FLAG\_ALIGN\_LEFT}},}
+\DoxyCodeLine{\Hypertarget{apps_2test_2main_8c_source_l00043}00043\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Username:"{}});}
+\DoxyCodeLine{\Hypertarget{apps_2test_2main_8c_source_l00044}00044\ }
+\DoxyCodeLine{\Hypertarget{apps_2test_2main_8c_source_l00045}00045\ \ \ \ \ \mbox{\hyperlink{gui_8c_a8c62a34c4c090afd9c76cf213504a4f8}{input\_init}}(\&input\_username,}
+\DoxyCodeLine{\Hypertarget{apps_2test_2main_8c_source_l00046}00046\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gfx_8h_aae91ae7a3ca585293a2c1031652a49f9}{GFX\_WIDTH}}\ /\ 2\ -\/\ INPUT\_WIDTH\ /\ 2,}
+\DoxyCodeLine{\Hypertarget{apps_2test_2main_8c_source_l00047}00047\ \ \ \ \ \ \ \ \ INPUT\_USERNAME\_Y,}
+\DoxyCodeLine{\Hypertarget{apps_2test_2main_8c_source_l00048}00048\ \ \ \ \ \ \ \ \ INPUT\_WIDTH);}
+\DoxyCodeLine{\Hypertarget{apps_2test_2main_8c_source_l00049}00049\ }
+\DoxyCodeLine{\Hypertarget{apps_2test_2main_8c_source_l00050}00050\ \ \ \ \ \mbox{\hyperlink{gui_8c_a947b16523eba3e9011e52a892a689295}{label\_init}}(\&label\_password,}
+\DoxyCodeLine{\Hypertarget{apps_2test_2main_8c_source_l00051}00051\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gfx_8h_aae91ae7a3ca585293a2c1031652a49f9}{GFX\_WIDTH}}\ /\ 2\ -\/\ INPUT\_WIDTH\ /\ 2,}
+\DoxyCodeLine{\Hypertarget{apps_2test_2main_8c_source_l00052}00052\ \ \ \ \ \ \ \ \ INPUT\_PASSWORD\_Y\ -\/\ INPUT\_LABEL\_OFFSET,}
+\DoxyCodeLine{\Hypertarget{apps_2test_2main_8c_source_l00053}00053\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8h_a33c2d4ef645a60b81d281d55d98b9334}{FLAG\_ALIGN\_LEFT}},}
+\DoxyCodeLine{\Hypertarget{apps_2test_2main_8c_source_l00054}00054\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Password:"{}});}
+\DoxyCodeLine{\Hypertarget{apps_2test_2main_8c_source_l00055}00055\ }
+\DoxyCodeLine{\Hypertarget{apps_2test_2main_8c_source_l00056}00056\ \ \ \ \ \mbox{\hyperlink{gui_8c_a8c62a34c4c090afd9c76cf213504a4f8}{input\_init}}(\&input\_password,}
+\DoxyCodeLine{\Hypertarget{apps_2test_2main_8c_source_l00057}00057\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gfx_8h_aae91ae7a3ca585293a2c1031652a49f9}{GFX\_WIDTH}}\ /\ 2\ -\/\ INPUT\_WIDTH\ /\ 2,}
+\DoxyCodeLine{\Hypertarget{apps_2test_2main_8c_source_l00058}00058\ \ \ \ \ \ \ \ \ INPUT\_PASSWORD\_Y,}
+\DoxyCodeLine{\Hypertarget{apps_2test_2main_8c_source_l00059}00059\ \ \ \ \ \ \ \ \ INPUT\_WIDTH);}
+\DoxyCodeLine{\Hypertarget{apps_2test_2main_8c_source_l00060}00060\ }
+\DoxyCodeLine{\Hypertarget{apps_2test_2main_8c_source_l00061}00061\ \ \ \ \ input\_password.\mbox{\hyperlink{structInput_a1b6207e636a1da2db7ae913717de508c}{Flags}}\ |=\ \mbox{\hyperlink{gui_8h_aecd12d3a24c8b08e6e8c2196387dde7f}{FLAG\_PASSWORD}};}
+\DoxyCodeLine{\Hypertarget{apps_2test_2main_8c_source_l00062}00062\ }
+\DoxyCodeLine{\Hypertarget{apps_2test_2main_8c_source_l00063}00063\ \ \ \ \ \mbox{\hyperlink{gui_8c_aa7c0f8b7c1ee364fa5b534f592e9ac08}{button\_init}}(\&button\_login,}
+\DoxyCodeLine{\Hypertarget{apps_2test_2main_8c_source_l00064}00064\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gfx_8h_aae91ae7a3ca585293a2c1031652a49f9}{GFX\_WIDTH}}\ /\ 2\ -\/\ BUTTON\_WIDTH\ /\ 2,}
+\DoxyCodeLine{\Hypertarget{apps_2test_2main_8c_source_l00065}00065\ \ \ \ \ \ \ \ \ BUTTON\_LOGIN\_Y,}
+\DoxyCodeLine{\Hypertarget{apps_2test_2main_8c_source_l00066}00066\ \ \ \ \ \ \ \ \ BUTTON\_WIDTH,}
+\DoxyCodeLine{\Hypertarget{apps_2test_2main_8c_source_l00067}00067\ \ \ \ \ \ \ \ \ BUTTON\_HEIGHT,}
+\DoxyCodeLine{\Hypertarget{apps_2test_2main_8c_source_l00068}00068\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}[\ Login\ ]"{}},}
+\DoxyCodeLine{\Hypertarget{apps_2test_2main_8c_source_l00069}00069\ \ \ \ \ \ \ \ \ button\_login\_onclick);}
+\DoxyCodeLine{\Hypertarget{apps_2test_2main_8c_source_l00070}00070\ }
+\DoxyCodeLine{\Hypertarget{apps_2test_2main_8c_source_l00071}00071\ \ \ \ \ \mbox{\hyperlink{gui_8c_a51313c00040b7eec516823f7b31f8eed}{window\_init}}(\&window,\ \textcolor{stringliteral}{"{}Login"{}},\ elements,\ \mbox{\hyperlink{util_8h_a5a34c337b71a34ab9a0ecff2d5715d24}{ARRLEN}}(elements),\ NULL);}
+\DoxyCodeLine{\Hypertarget{apps_2test_2main_8c_source_l00072}00072\ \ \ \ \ \mbox{\hyperlink{gui_8c_adf0715beb16a0945a1bae624873df977}{window\_open}}(\&window);}
+\DoxyCodeLine{\Hypertarget{apps_2test_2main_8c_source_l00073}00073\ \}}
+\DoxyCodeLine{\Hypertarget{apps_2test_2main_8c_source_l00074}00074\ }
+\DoxyCodeLine{\Hypertarget{apps_2test_2main_8c_source_l00075}00075\ \textcolor{keywordtype}{void}\ loop(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{apps_2test_2main_8c_source_l00076}00076\ \{}
+\DoxyCodeLine{\Hypertarget{apps_2test_2main_8c_source_l00077}00077\ \}}
+
+\end{DoxyCode}

@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">OS Dev
+   <div id="projectname">OS Dev<span id="projectnumber">&#160;0.1</span>
    </div>
   </td>
  </tr>
@@ -75,7 +75,8 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#define-members">Macros</a> &#124;
-<a href="#func-members">Functions</a>  </div>
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle"><div class="title">sd.c File Reference</div></div>
 </div><!--header-->
 <div class="contents">
@@ -87,63 +88,69 @@ $(function() {
 <code>#include &lt;avr/io.h&gt;</code><br />
 <code>#include &lt;avr/pgmspace.h&gt;</code><br />
 <code>#include &lt;util/delay.h&gt;</code><br />
-</div><table class="memberdecls">
+</div>
+<p><a href="sd_8c_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:ae3dd15ec52cbd1ef2ce6e20e39fd6efb"><td class="memItemLeft" align="right" valign="top"><a id="ae3dd15ec52cbd1ef2ce6e20e39fd6efb" name="ae3dd15ec52cbd1ef2ce6e20e39fd6efb"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>CMD_GO_IDLE_STATE</b>&#160;&#160;&#160;0x00</td></tr>
+<tr class="memitem:ae3dd15ec52cbd1ef2ce6e20e39fd6efb"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sd_8c.html#ae3dd15ec52cbd1ef2ce6e20e39fd6efb">CMD_GO_IDLE_STATE</a>&#160;&#160;&#160;0x00</td></tr>
 <tr class="separator:ae3dd15ec52cbd1ef2ce6e20e39fd6efb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae059745768a7fde0832a1dea6a623ab0"><td class="memItemLeft" align="right" valign="top"><a id="ae059745768a7fde0832a1dea6a623ab0" name="ae059745768a7fde0832a1dea6a623ab0"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>CMD_SEND_OP_COND</b>&#160;&#160;&#160;0x01</td></tr>
-<tr class="separator:ae059745768a7fde0832a1dea6a623ab0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a773735b7bef10597c3db4f8a60e42ad3"><td class="memItemLeft" align="right" valign="top"><a id="a773735b7bef10597c3db4f8a60e42ad3" name="a773735b7bef10597c3db4f8a60e42ad3"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>CMD_SEND_IF_COND</b>&#160;&#160;&#160;0x08</td></tr>
+<tr class="memitem:a773735b7bef10597c3db4f8a60e42ad3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sd_8c.html#a773735b7bef10597c3db4f8a60e42ad3">CMD_SEND_IF_COND</a>&#160;&#160;&#160;0x08</td></tr>
 <tr class="separator:a773735b7bef10597c3db4f8a60e42ad3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a039c816f90fba6c89d09980c5c1cb888"><td class="memItemLeft" align="right" valign="top"><a id="a039c816f90fba6c89d09980c5c1cb888" name="a039c816f90fba6c89d09980c5c1cb888"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>CMD_SEND_CSD</b>&#160;&#160;&#160;0x09</td></tr>
+<tr class="memitem:a039c816f90fba6c89d09980c5c1cb888"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sd_8c.html#a039c816f90fba6c89d09980c5c1cb888">CMD_SEND_CSD</a>&#160;&#160;&#160;0x09</td></tr>
 <tr class="separator:a039c816f90fba6c89d09980c5c1cb888"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a69e5cfa724af0af3e97d69005a2b588d"><td class="memItemLeft" align="right" valign="top"><a id="a69e5cfa724af0af3e97d69005a2b588d" name="a69e5cfa724af0af3e97d69005a2b588d"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>CMD_SEND_CID</b>&#160;&#160;&#160;0x0A</td></tr>
+<tr class="memitem:a69e5cfa724af0af3e97d69005a2b588d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sd_8c.html#a69e5cfa724af0af3e97d69005a2b588d">CMD_SEND_CID</a>&#160;&#160;&#160;0x0A</td></tr>
 <tr class="separator:a69e5cfa724af0af3e97d69005a2b588d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acc98caadb00bb27cee9c6037193adb68"><td class="memItemLeft" align="right" valign="top"><a id="acc98caadb00bb27cee9c6037193adb68" name="acc98caadb00bb27cee9c6037193adb68"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>CMD_SET_BLOCKLEN</b>&#160;&#160;&#160;0x10</td></tr>
+<tr class="memitem:acc98caadb00bb27cee9c6037193adb68"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sd_8c.html#acc98caadb00bb27cee9c6037193adb68">CMD_SET_BLOCKLEN</a>&#160;&#160;&#160;0x10</td></tr>
 <tr class="separator:acc98caadb00bb27cee9c6037193adb68"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6b4ea5767b225fa6bb958718b97e07e6"><td class="memItemLeft" align="right" valign="top"><a id="a6b4ea5767b225fa6bb958718b97e07e6" name="a6b4ea5767b225fa6bb958718b97e07e6"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>CMD_READ_SINGLE_BLOCK</b>&#160;&#160;&#160;0x11</td></tr>
+<tr class="memitem:a6b4ea5767b225fa6bb958718b97e07e6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sd_8c.html#a6b4ea5767b225fa6bb958718b97e07e6">CMD_READ_SINGLE_BLOCK</a>&#160;&#160;&#160;0x11</td></tr>
 <tr class="separator:a6b4ea5767b225fa6bb958718b97e07e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abadbda3eadae68f4a9678fd9c8aa1f57"><td class="memItemLeft" align="right" valign="top"><a id="abadbda3eadae68f4a9678fd9c8aa1f57" name="abadbda3eadae68f4a9678fd9c8aa1f57"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>CMD_WRITE_SINGLE_BLOCK</b>&#160;&#160;&#160;0x18</td></tr>
+<tr class="memitem:abadbda3eadae68f4a9678fd9c8aa1f57"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sd_8c.html#abadbda3eadae68f4a9678fd9c8aa1f57">CMD_WRITE_SINGLE_BLOCK</a>&#160;&#160;&#160;0x18</td></tr>
 <tr class="separator:abadbda3eadae68f4a9678fd9c8aa1f57"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a282a2096b479791ed712f393f8faa67c"><td class="memItemLeft" align="right" valign="top"><a id="a282a2096b479791ed712f393f8faa67c" name="a282a2096b479791ed712f393f8faa67c"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>CMD_SD_SEND_OP_COND</b>&#160;&#160;&#160;0x29</td></tr>
+<tr class="memitem:ae059745768a7fde0832a1dea6a623ab0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sd_8c.html#ae059745768a7fde0832a1dea6a623ab0">CMD_SEND_OP_COND</a>&#160;&#160;&#160;0x01</td></tr>
+<tr class="separator:ae059745768a7fde0832a1dea6a623ab0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a282a2096b479791ed712f393f8faa67c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sd_8c.html#a282a2096b479791ed712f393f8faa67c">CMD_SD_SEND_OP_COND</a>&#160;&#160;&#160;0x29</td></tr>
 <tr class="separator:a282a2096b479791ed712f393f8faa67c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0d173f3d259f3c28a25f4fd2b8085131"><td class="memItemLeft" align="right" valign="top"><a id="a0d173f3d259f3c28a25f4fd2b8085131" name="a0d173f3d259f3c28a25f4fd2b8085131"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>CMD_APP</b>&#160;&#160;&#160;0x37</td></tr>
+<tr class="memitem:a0d173f3d259f3c28a25f4fd2b8085131"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sd_8c.html#a0d173f3d259f3c28a25f4fd2b8085131">CMD_APP</a>&#160;&#160;&#160;0x37</td></tr>
 <tr class="separator:a0d173f3d259f3c28a25f4fd2b8085131"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5625571f0a42246f009e1695f5c0fd88"><td class="memItemLeft" align="right" valign="top"><a id="a5625571f0a42246f009e1695f5c0fd88" name="a5625571f0a42246f009e1695f5c0fd88"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>CMD_READ_OCR</b>&#160;&#160;&#160;0x3A</td></tr>
+<tr class="memitem:a5625571f0a42246f009e1695f5c0fd88"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sd_8c.html#a5625571f0a42246f009e1695f5c0fd88">CMD_READ_OCR</a>&#160;&#160;&#160;0x3A</td></tr>
 <tr class="separator:a5625571f0a42246f009e1695f5c0fd88"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1d66c9130165248f0563074180dd1432"><td class="memItemLeft" align="right" valign="top"><a id="a1d66c9130165248f0563074180dd1432" name="a1d66c9130165248f0563074180dd1432"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>IDLE_STATE</b>&#160;&#160;&#160;(1 &lt;&lt; 0)</td></tr>
+<tr class="memitem:a1d66c9130165248f0563074180dd1432"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sd_8c.html#a1d66c9130165248f0563074180dd1432">IDLE_STATE</a>&#160;&#160;&#160;(1 &lt;&lt; 0)</td></tr>
 <tr class="separator:a1d66c9130165248f0563074180dd1432"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8ae8b08655b2ec2facb46d6bbc83065c"><td class="memItemLeft" align="right" valign="top"><a id="a8ae8b08655b2ec2facb46d6bbc83065c" name="a8ae8b08655b2ec2facb46d6bbc83065c"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>ILLEGAL_CMD</b>&#160;&#160;&#160;(1 &lt;&lt; 2)</td></tr>
+<tr class="memitem:a8ae8b08655b2ec2facb46d6bbc83065c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sd_8c.html#a8ae8b08655b2ec2facb46d6bbc83065c">ILLEGAL_CMD</a>&#160;&#160;&#160;(1 &lt;&lt; 2)</td></tr>
 <tr class="separator:a8ae8b08655b2ec2facb46d6bbc83065c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a574e335142ba9044c1a53a571f7f21ee"><td class="memItemLeft" align="right" valign="top"><a id="a574e335142ba9044c1a53a571f7f21ee" name="a574e335142ba9044c1a53a571f7f21ee"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>SD_1</b>&#160;&#160;&#160;(1 &lt;&lt; 0)</td></tr>
+<tr class="memitem:a574e335142ba9044c1a53a571f7f21ee"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sd_8c.html#a574e335142ba9044c1a53a571f7f21ee">SD_1</a>&#160;&#160;&#160;(1 &lt;&lt; 0)</td></tr>
 <tr class="separator:a574e335142ba9044c1a53a571f7f21ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aefd26333484d292772b95039e8415d0c"><td class="memItemLeft" align="right" valign="top"><a id="aefd26333484d292772b95039e8415d0c" name="aefd26333484d292772b95039e8415d0c"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>SD_2</b>&#160;&#160;&#160;(1 &lt;&lt; 1)</td></tr>
+<tr class="memitem:aefd26333484d292772b95039e8415d0c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sd_8c.html#aefd26333484d292772b95039e8415d0c">SD_2</a>&#160;&#160;&#160;(1 &lt;&lt; 1)</td></tr>
 <tr class="separator:aefd26333484d292772b95039e8415d0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a241f7db547832cffdbcd9b73f7eba991"><td class="memItemLeft" align="right" valign="top"><a id="a241f7db547832cffdbcd9b73f7eba991" name="a241f7db547832cffdbcd9b73f7eba991"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>SD_HC</b>&#160;&#160;&#160;(1 &lt;&lt; 2)</td></tr>
+<tr class="memitem:a241f7db547832cffdbcd9b73f7eba991"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sd_8c.html#a241f7db547832cffdbcd9b73f7eba991">SD_HC</a>&#160;&#160;&#160;(1 &lt;&lt; 2)</td></tr>
 <tr class="separator:a241f7db547832cffdbcd9b73f7eba991"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a8d7ab30b86b39a27f6fffac7495c1830"><td class="memItemLeft" align="right" valign="top"><a id="a8d7ab30b86b39a27f6fffac7495c1830" name="a8d7ab30b86b39a27f6fffac7495c1830"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>sd_init</b> (void)</td></tr>
-<tr class="memdesc:a8d7ab30b86b39a27f6fffac7495c1830"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize SD driver and try to detect card. <br /></td></tr>
+<tr class="memitem:a7bf3670f9b10107272a0bc84bd449d46"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sd_8c.html#a7bf3670f9b10107272a0bc84bd449d46">_spi_configure_slow</a> (void)</td></tr>
+<tr class="memdesc:a7bf3670f9b10107272a0bc84bd449d46"><td class="mdescLeft">&#160;</td><td class="mdescRight">Put SPI into slow mode for initialization.  <br /></td></tr>
+<tr class="separator:a7bf3670f9b10107272a0bc84bd449d46"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa347e415bf1de52f199a0bb0f07d6e2a"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sd_8c.html#aa347e415bf1de52f199a0bb0f07d6e2a">_sd_timeout</a> (void)</td></tr>
+<tr class="memdesc:aa347e415bf1de52f199a0bb0f07d6e2a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Trigger an SD timeout panic.  <br /></td></tr>
+<tr class="separator:aa347e415bf1de52f199a0bb0f07d6e2a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5afa7a4f2574ec052d6326cb62d0bc25"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sd_8c.html#a5afa7a4f2574ec052d6326cb62d0bc25">_sd_error</a> (void)</td></tr>
+<tr class="memdesc:a5afa7a4f2574ec052d6326cb62d0bc25"><td class="mdescLeft">&#160;</td><td class="mdescRight">Trigger an SD error panic.  <br /></td></tr>
+<tr class="separator:a5afa7a4f2574ec052d6326cb62d0bc25"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4b42f4613401e4f986f7ecefca14e6cf"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="types_8h.html#a92c50087ca0e64fa93fc59402c55f8ca">u8</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sd_8c.html#a4b42f4613401e4f986f7ecefca14e6cf">_sd_command</a> (<a class="el" href="types_8h.html#a92c50087ca0e64fa93fc59402c55f8ca">u8</a> cmd, <a class="el" href="types_8h.html#afaa62991928fb9fb18ff0db62a040aba">u32</a> arg)</td></tr>
+<tr class="memdesc:a4b42f4613401e4f986f7ecefca14e6cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Execute an SD command (panic if failed)  <br /></td></tr>
+<tr class="separator:a4b42f4613401e4f986f7ecefca14e6cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0d5cf7e4b125c949867acca515f5c1ec"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="status_8h.html#a67a0db04d321a74b7e7fcfd3f1a3f70b">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sd_8c.html#a0d5cf7e4b125c949867acca515f5c1ec">_sd_command_try</a> (<a class="el" href="types_8h.html#a92c50087ca0e64fa93fc59402c55f8ca">u8</a> cmd, <a class="el" href="types_8h.html#afaa62991928fb9fb18ff0db62a040aba">u32</a> arg, <a class="el" href="types_8h.html#a92c50087ca0e64fa93fc59402c55f8ca">u8</a> *out)</td></tr>
+<tr class="memdesc:a0d5cf7e4b125c949867acca515f5c1ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Try to execute an SD command.  <br /></td></tr>
+<tr class="separator:a0d5cf7e4b125c949867acca515f5c1ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abfa39415eadaeeb34dafde212e7401f4"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="types_8h.html#afaa62991928fb9fb18ff0db62a040aba">u32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sd_8c.html#abfa39415eadaeeb34dafde212e7401f4">_sd_block_addr</a> (<a class="el" href="types_8h.html#afaa62991928fb9fb18ff0db62a040aba">u32</a> block)</td></tr>
+<tr class="memdesc:abfa39415eadaeeb34dafde212e7401f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert block number to internal SD address since SD uses byte address but SDHC uses block number.  <br /></td></tr>
+<tr class="separator:abfa39415eadaeeb34dafde212e7401f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a791232512be2ae4eb1cddf0bcfa2c894"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sd_8c.html#a791232512be2ae4eb1cddf0bcfa2c894">_sd_info_print</a> (void)</td></tr>
+<tr class="memdesc:a791232512be2ae4eb1cddf0bcfa2c894"><td class="mdescLeft">&#160;</td><td class="mdescRight">Print SD card info to serial port.  <br /></td></tr>
+<tr class="separator:a791232512be2ae4eb1cddf0bcfa2c894"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8d7ab30b86b39a27f6fffac7495c1830"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sd_8c.html#a8d7ab30b86b39a27f6fffac7495c1830">sd_init</a> (void)</td></tr>
+<tr class="memdesc:a8d7ab30b86b39a27f6fffac7495c1830"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize SD driver and try to detect card.  <br /></td></tr>
 <tr class="separator:a8d7ab30b86b39a27f6fffac7495c1830"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae1c9b31374648aa65b35c2c344a8414d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="types_8h.html#afaa62991928fb9fb18ff0db62a040aba">u32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sd_8c.html#ae1c9b31374648aa65b35c2c344a8414d">sd_size</a> (void)</td></tr>
 <tr class="memdesc:ae1c9b31374648aa65b35c2c344a8414d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get SD card capacity.  <br /></td></tr>
@@ -151,12 +158,1055 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>sd_init</b> (void)</t
 <tr class="memitem:a3f0c63e822010bb899b9e13d73a685dd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="status_8h.html#a67a0db04d321a74b7e7fcfd3f1a3f70b">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sd_8c.html#a3f0c63e822010bb899b9e13d73a685dd">sd_read</a> (<a class="el" href="types_8h.html#afaa62991928fb9fb18ff0db62a040aba">u32</a> block, void *data)</td></tr>
 <tr class="memdesc:a3f0c63e822010bb899b9e13d73a685dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read a single 512-byte block from the SD card.  <br /></td></tr>
 <tr class="separator:a3f0c63e822010bb899b9e13d73a685dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a9d42b6e8aa088a7a30937286f1018646"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="types_8h.html#afaa62991928fb9fb18ff0db62a040aba">u32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sd_8c.html#a9d42b6e8aa088a7a30937286f1018646">_serial</a></td></tr>
+<tr class="separator:a9d42b6e8aa088a7a30937286f1018646"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7bd8d3e0e1c2cf5b038b34cae188e103"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="types_8h.html#afaa62991928fb9fb18ff0db62a040aba">u32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sd_8c.html#a7bd8d3e0e1c2cf5b038b34cae188e103">_capacity</a></td></tr>
+<tr class="separator:a7bd8d3e0e1c2cf5b038b34cae188e103"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abbb9849e2abd4572cd3adaeed8a3fb0d"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="types_8h.html#a92c50087ca0e64fa93fc59402c55f8ca">u8</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sd_8c.html#abbb9849e2abd4572cd3adaeed8a3fb0d">_oem</a> [3]</td></tr>
+<tr class="separator:abbb9849e2abd4572cd3adaeed8a3fb0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acc046f807b113c25472d832e370dbce3"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="types_8h.html#a92c50087ca0e64fa93fc59402c55f8ca">u8</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sd_8c.html#acc046f807b113c25472d832e370dbce3">_product</a> [6]</td></tr>
+<tr class="separator:acc046f807b113c25472d832e370dbce3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8d37d6a747a43ba1d451eb65ae1426da"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="types_8h.html#a92c50087ca0e64fa93fc59402c55f8ca">u8</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sd_8c.html#a8d37d6a747a43ba1d451eb65ae1426da">_card_type</a></td></tr>
+<tr class="separator:a8d37d6a747a43ba1d451eb65ae1426da"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2cf10fd5e6c5eb5ca1e266a56bcbf366"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="types_8h.html#a92c50087ca0e64fa93fc59402c55f8ca">u8</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sd_8c.html#a2cf10fd5e6c5eb5ca1e266a56bcbf366">_manufacturer</a></td></tr>
+<tr class="separator:a2cf10fd5e6c5eb5ca1e266a56bcbf366"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a04d10f02dffd155f45a6f1edeef578a7"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="types_8h.html#a92c50087ca0e64fa93fc59402c55f8ca">u8</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sd_8c.html#a04d10f02dffd155f45a6f1edeef578a7">_revision</a></td></tr>
+<tr class="separator:a04d10f02dffd155f45a6f1edeef578a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a631d9b4a17a835e65c53341441909327"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="types_8h.html#a92c50087ca0e64fa93fc59402c55f8ca">u8</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sd_8c.html#a631d9b4a17a835e65c53341441909327">_manufacturing_year</a></td></tr>
+<tr class="separator:a631d9b4a17a835e65c53341441909327"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9e7231d7bbac2b52565f8013c1438f95"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="types_8h.html#a92c50087ca0e64fa93fc59402c55f8ca">u8</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sd_8c.html#a9e7231d7bbac2b52565f8013c1438f95">_manufacturing_month</a></td></tr>
+<tr class="separator:a9e7231d7bbac2b52565f8013c1438f95"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2998fdf4c7eb0b26a2b54d00b758491e"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="types_8h.html#a92c50087ca0e64fa93fc59402c55f8ca">u8</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sd_8c.html#a2998fdf4c7eb0b26a2b54d00b758491e">_flag_copy</a></td></tr>
+<tr class="separator:a2998fdf4c7eb0b26a2b54d00b758491e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3fdc31aba359f341228d803372422756"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="types_8h.html#a92c50087ca0e64fa93fc59402c55f8ca">u8</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sd_8c.html#a3fdc31aba359f341228d803372422756">_flag_write_protect</a></td></tr>
+<tr class="separator:a3fdc31aba359f341228d803372422756"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ada821f7b53ae5197acf8428b43b439a2"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="types_8h.html#a92c50087ca0e64fa93fc59402c55f8ca">u8</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sd_8c.html#ada821f7b53ae5197acf8428b43b439a2">_flag_write_protect_temp</a></td></tr>
+<tr class="separator:ada821f7b53ae5197acf8428b43b439a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac95274980aa92d9e823f7fe40e9c71c6"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="types_8h.html#a92c50087ca0e64fa93fc59402c55f8ca">u8</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sd_8c.html#ac95274980aa92d9e823f7fe40e9c71c6">_format</a></td></tr>
+<tr class="separator:ac95274980aa92d9e823f7fe40e9c71c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><dl class="section author"><dt>Author</dt><dd>Anton Tchekov </dd></dl>
 <dl class="section version"><dt>Version</dt><dd>0.2 </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>20.05.2023 </dd></dl>
-</div><h2 class="groupheader">Function Documentation</h2>
+
+<p class="definition">Definition in file <a class="el" href="sd_8c_source.html">sd.c</a>.</p>
+</div><h2 class="groupheader">Macro Definition Documentation</h2>
+<a id="a0d173f3d259f3c28a25f4fd2b8085131" name="a0d173f3d259f3c28a25f4fd2b8085131"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0d173f3d259f3c28a25f4fd2b8085131">&#9670;&#160;</a></span>CMD_APP</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CMD_APP&#160;&#160;&#160;0x37</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>SD send app command </p>
+
+<p class="definition">Definition at line <a class="el" href="sd_8c_source.html#l00045">45</a> of file <a class="el" href="sd_8c_source.html">sd.c</a>.</p>
+
+</div>
+</div>
+<a id="ae3dd15ec52cbd1ef2ce6e20e39fd6efb" name="ae3dd15ec52cbd1ef2ce6e20e39fd6efb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae3dd15ec52cbd1ef2ce6e20e39fd6efb">&#9670;&#160;</a></span>CMD_GO_IDLE_STATE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CMD_GO_IDLE_STATE&#160;&#160;&#160;0x00</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>SD go to idle state command </p>
+
+<p class="definition">Definition at line <a class="el" href="sd_8c_source.html#l00018">18</a> of file <a class="el" href="sd_8c_source.html">sd.c</a>.</p>
+
+</div>
+</div>
+<a id="a5625571f0a42246f009e1695f5c0fd88" name="a5625571f0a42246f009e1695f5c0fd88"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5625571f0a42246f009e1695f5c0fd88">&#9670;&#160;</a></span>CMD_READ_OCR</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CMD_READ_OCR&#160;&#160;&#160;0x3A</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>SD read operation conditions register </p>
+
+<p class="definition">Definition at line <a class="el" href="sd_8c_source.html#l00048">48</a> of file <a class="el" href="sd_8c_source.html">sd.c</a>.</p>
+
+</div>
+</div>
+<a id="a6b4ea5767b225fa6bb958718b97e07e6" name="a6b4ea5767b225fa6bb958718b97e07e6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6b4ea5767b225fa6bb958718b97e07e6">&#9670;&#160;</a></span>CMD_READ_SINGLE_BLOCK</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CMD_READ_SINGLE_BLOCK&#160;&#160;&#160;0x11</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>SD read single block command </p>
+
+<p class="definition">Definition at line <a class="el" href="sd_8c_source.html#l00033">33</a> of file <a class="el" href="sd_8c_source.html">sd.c</a>.</p>
+
+</div>
+</div>
+<a id="a282a2096b479791ed712f393f8faa67c" name="a282a2096b479791ed712f393f8faa67c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a282a2096b479791ed712f393f8faa67c">&#9670;&#160;</a></span>CMD_SD_SEND_OP_COND</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CMD_SD_SEND_OP_COND&#160;&#160;&#160;0x29</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>SD set OP cond </p>
+
+<p class="definition">Definition at line <a class="el" href="sd_8c_source.html#l00042">42</a> of file <a class="el" href="sd_8c_source.html">sd.c</a>.</p>
+
+</div>
+</div>
+<a id="a69e5cfa724af0af3e97d69005a2b588d" name="a69e5cfa724af0af3e97d69005a2b588d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a69e5cfa724af0af3e97d69005a2b588d">&#9670;&#160;</a></span>CMD_SEND_CID</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CMD_SEND_CID&#160;&#160;&#160;0x0A</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>SD read card identification number </p>
+
+<p class="definition">Definition at line <a class="el" href="sd_8c_source.html#l00027">27</a> of file <a class="el" href="sd_8c_source.html">sd.c</a>.</p>
+
+</div>
+</div>
+<a id="a039c816f90fba6c89d09980c5c1cb888" name="a039c816f90fba6c89d09980c5c1cb888"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a039c816f90fba6c89d09980c5c1cb888">&#9670;&#160;</a></span>CMD_SEND_CSD</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CMD_SEND_CSD&#160;&#160;&#160;0x09</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>SD read card-specific data register </p>
+
+<p class="definition">Definition at line <a class="el" href="sd_8c_source.html#l00024">24</a> of file <a class="el" href="sd_8c_source.html">sd.c</a>.</p>
+
+</div>
+</div>
+<a id="a773735b7bef10597c3db4f8a60e42ad3" name="a773735b7bef10597c3db4f8a60e42ad3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a773735b7bef10597c3db4f8a60e42ad3">&#9670;&#160;</a></span>CMD_SEND_IF_COND</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CMD_SEND_IF_COND&#160;&#160;&#160;0x08</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>SD send IF cond </p>
+
+<p class="definition">Definition at line <a class="el" href="sd_8c_source.html#l00021">21</a> of file <a class="el" href="sd_8c_source.html">sd.c</a>.</p>
+
+</div>
+</div>
+<a id="ae059745768a7fde0832a1dea6a623ab0" name="ae059745768a7fde0832a1dea6a623ab0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae059745768a7fde0832a1dea6a623ab0">&#9670;&#160;</a></span>CMD_SEND_OP_COND</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CMD_SEND_OP_COND&#160;&#160;&#160;0x01</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>SDHC set OP cond </p>
+
+<p class="definition">Definition at line <a class="el" href="sd_8c_source.html#l00039">39</a> of file <a class="el" href="sd_8c_source.html">sd.c</a>.</p>
+
+</div>
+</div>
+<a id="acc98caadb00bb27cee9c6037193adb68" name="acc98caadb00bb27cee9c6037193adb68"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acc98caadb00bb27cee9c6037193adb68">&#9670;&#160;</a></span>CMD_SET_BLOCKLEN</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CMD_SET_BLOCKLEN&#160;&#160;&#160;0x10</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>SD set block length command </p>
+
+<p class="definition">Definition at line <a class="el" href="sd_8c_source.html#l00030">30</a> of file <a class="el" href="sd_8c_source.html">sd.c</a>.</p>
+
+</div>
+</div>
+<a id="abadbda3eadae68f4a9678fd9c8aa1f57" name="abadbda3eadae68f4a9678fd9c8aa1f57"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abadbda3eadae68f4a9678fd9c8aa1f57">&#9670;&#160;</a></span>CMD_WRITE_SINGLE_BLOCK</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CMD_WRITE_SINGLE_BLOCK&#160;&#160;&#160;0x18</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>SD write single block command </p>
+
+<p class="definition">Definition at line <a class="el" href="sd_8c_source.html#l00036">36</a> of file <a class="el" href="sd_8c_source.html">sd.c</a>.</p>
+
+</div>
+</div>
+<a id="a1d66c9130165248f0563074180dd1432" name="a1d66c9130165248f0563074180dd1432"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1d66c9130165248f0563074180dd1432">&#9670;&#160;</a></span>IDLE_STATE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define IDLE_STATE&#160;&#160;&#160;(1 &lt;&lt; 0)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>SD idle </p>
+
+<p class="definition">Definition at line <a class="el" href="sd_8c_source.html#l00051">51</a> of file <a class="el" href="sd_8c_source.html">sd.c</a>.</p>
+
+</div>
+</div>
+<a id="a8ae8b08655b2ec2facb46d6bbc83065c" name="a8ae8b08655b2ec2facb46d6bbc83065c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8ae8b08655b2ec2facb46d6bbc83065c">&#9670;&#160;</a></span>ILLEGAL_CMD</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ILLEGAL_CMD&#160;&#160;&#160;(1 &lt;&lt; 2)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>SD illegal command </p>
+
+<p class="definition">Definition at line <a class="el" href="sd_8c_source.html#l00054">54</a> of file <a class="el" href="sd_8c_source.html">sd.c</a>.</p>
+
+</div>
+</div>
+<a id="a574e335142ba9044c1a53a571f7f21ee" name="a574e335142ba9044c1a53a571f7f21ee"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a574e335142ba9044c1a53a571f7f21ee">&#9670;&#160;</a></span>SD_1</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define SD_1&#160;&#160;&#160;(1 &lt;&lt; 0)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>SD card type 1 </p>
+
+<p class="definition">Definition at line <a class="el" href="sd_8c_source.html#l00057">57</a> of file <a class="el" href="sd_8c_source.html">sd.c</a>.</p>
+
+</div>
+</div>
+<a id="aefd26333484d292772b95039e8415d0c" name="aefd26333484d292772b95039e8415d0c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aefd26333484d292772b95039e8415d0c">&#9670;&#160;</a></span>SD_2</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define SD_2&#160;&#160;&#160;(1 &lt;&lt; 1)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>SD card type 2 </p>
+
+<p class="definition">Definition at line <a class="el" href="sd_8c_source.html#l00060">60</a> of file <a class="el" href="sd_8c_source.html">sd.c</a>.</p>
+
+</div>
+</div>
+<a id="a241f7db547832cffdbcd9b73f7eba991" name="a241f7db547832cffdbcd9b73f7eba991"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a241f7db547832cffdbcd9b73f7eba991">&#9670;&#160;</a></span>SD_HC</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define SD_HC&#160;&#160;&#160;(1 &lt;&lt; 2)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>SDHC card type </p>
+
+<p class="definition">Definition at line <a class="el" href="sd_8c_source.html#l00063">63</a> of file <a class="el" href="sd_8c_source.html">sd.c</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Function Documentation</h2>
+<a id="abfa39415eadaeeb34dafde212e7401f4" name="abfa39415eadaeeb34dafde212e7401f4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abfa39415eadaeeb34dafde212e7401f4">&#9670;&#160;</a></span>_sd_block_addr()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static <a class="el" href="types_8h.html#afaa62991928fb9fb18ff0db62a040aba">u32</a> _sd_block_addr </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="types_8h.html#afaa62991928fb9fb18ff0db62a040aba">u32</a>&#160;</td>
+          <td class="paramname"><em>block</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Convert block number to internal SD address since SD uses byte address but SDHC uses block number. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">block</td><td>Block number </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Internal Address </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="sd_8c_source.html#l00204">204</a> of file <a class="el" href="sd_8c_source.html">sd.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  205</span>{</div>
+<div class="line"><span class="lineno">  206</span>    <span class="keywordflow">return</span> _card_type &amp; <a class="code hl_define" href="sd_8c.html#a241f7db547832cffdbcd9b73f7eba991">SD_HC</a> ? block : (block &lt;&lt; <a class="code hl_define" href="sd_8h.html#a456e1098b18ecd0666395e17ef9b6ca8">BLOCK_SIZE_POT</a>);</div>
+<div class="line"><span class="lineno">  207</span>}</div>
+<div class="ttc" id="asd_8c_html_a241f7db547832cffdbcd9b73f7eba991"><div class="ttname"><a href="sd_8c.html#a241f7db547832cffdbcd9b73f7eba991">SD_HC</a></div><div class="ttdeci">#define SD_HC</div><div class="ttdef"><b>Definition:</b> <a href="sd_8c_source.html#l00063">sd.c:63</a></div></div>
+<div class="ttc" id="asd_8h_html_a456e1098b18ecd0666395e17ef9b6ca8"><div class="ttname"><a href="sd_8h.html#a456e1098b18ecd0666395e17ef9b6ca8">BLOCK_SIZE_POT</a></div><div class="ttdeci">#define BLOCK_SIZE_POT</div><div class="ttdef"><b>Definition:</b> <a href="sd_8h_source.html#l00019">sd.h:19</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="sd_8h_source.html#l00019">BLOCK_SIZE_POT</a>, and <a class="el" href="sd_8c_source.html#l00063">SD_HC</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="sd_8c_source.html#l00537">sd_read()</a>.</p>
+
+</div>
+</div>
+<a id="a4b42f4613401e4f986f7ecefca14e6cf" name="a4b42f4613401e4f986f7ecefca14e6cf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4b42f4613401e4f986f7ecefca14e6cf">&#9670;&#160;</a></span>_sd_command()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static <a class="el" href="types_8h.html#a92c50087ca0e64fa93fc59402c55f8ca">u8</a> _sd_command </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="types_8h.html#a92c50087ca0e64fa93fc59402c55f8ca">u8</a>&#160;</td>
+          <td class="paramname"><em>cmd</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="types_8h.html#afaa62991928fb9fb18ff0db62a040aba">u32</a>&#160;</td>
+          <td class="paramname"><em>arg</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Execute an SD command (panic if failed) </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">cmd</td><td>Command number </td></tr>
+    <tr><td class="paramname">arg</td><td>Address parameter </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Output byte </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="sd_8c_source.html#l00119">119</a> of file <a class="el" href="sd_8c_source.html">sd.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  120</span>{</div>
+<div class="line"><span class="lineno">  121</span>    <a class="code hl_typedef" href="types_8h.html#a92c50087ca0e64fa93fc59402c55f8ca">u8</a> i, response;</div>
+<div class="line"><span class="lineno">  122</span>    <a class="code hl_function" href="spi_8c.html#aa100766918afcb71b6ba79413f33f9db">spi_xchg</a>(0xFF);</div>
+<div class="line"><span class="lineno">  123</span>    <a class="code hl_function" href="spi_8c.html#aa100766918afcb71b6ba79413f33f9db">spi_xchg</a>(0x40 | cmd);</div>
+<div class="line"><span class="lineno">  124</span>    <a class="code hl_function" href="spi_8c.html#aa100766918afcb71b6ba79413f33f9db">spi_xchg</a>((arg &gt;&gt; 24) &amp; 0xFF);</div>
+<div class="line"><span class="lineno">  125</span>    <a class="code hl_function" href="spi_8c.html#aa100766918afcb71b6ba79413f33f9db">spi_xchg</a>((arg &gt;&gt; 16) &amp; 0xFF);</div>
+<div class="line"><span class="lineno">  126</span>    <a class="code hl_function" href="spi_8c.html#aa100766918afcb71b6ba79413f33f9db">spi_xchg</a>((arg &gt;&gt; 8) &amp; 0xFF);</div>
+<div class="line"><span class="lineno">  127</span>    <a class="code hl_function" href="spi_8c.html#aa100766918afcb71b6ba79413f33f9db">spi_xchg</a>((arg &gt;&gt; 0) &amp; 0xFF);</div>
+<div class="line"><span class="lineno">  128</span>    <span class="keywordflow">switch</span>(cmd)</div>
+<div class="line"><span class="lineno">  129</span>    {</div>
+<div class="line"><span class="lineno">  130</span>    <span class="keywordflow">case</span> <a class="code hl_define" href="sd_8c.html#ae3dd15ec52cbd1ef2ce6e20e39fd6efb">CMD_GO_IDLE_STATE</a>:</div>
+<div class="line"><span class="lineno">  131</span>        <a class="code hl_function" href="spi_8c.html#aa100766918afcb71b6ba79413f33f9db">spi_xchg</a>(0x95);</div>
+<div class="line"><span class="lineno">  132</span>        <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">  133</span> </div>
+<div class="line"><span class="lineno">  134</span>    <span class="keywordflow">case</span> <a class="code hl_define" href="sd_8c.html#a773735b7bef10597c3db4f8a60e42ad3">CMD_SEND_IF_COND</a>:</div>
+<div class="line"><span class="lineno">  135</span>        <a class="code hl_function" href="spi_8c.html#aa100766918afcb71b6ba79413f33f9db">spi_xchg</a>(0x87);</div>
+<div class="line"><span class="lineno">  136</span>        <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">  137</span> </div>
+<div class="line"><span class="lineno">  138</span>    <span class="keywordflow">default</span>:</div>
+<div class="line"><span class="lineno">  139</span>        <a class="code hl_function" href="spi_8c.html#aa100766918afcb71b6ba79413f33f9db">spi_xchg</a>(0xFF);</div>
+<div class="line"><span class="lineno">  140</span>        <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">  141</span>    }</div>
+<div class="line"><span class="lineno">  142</span> </div>
+<div class="line"><span class="lineno">  143</span>    <span class="keywordflow">for</span>(i = 0; i &lt; 10 &amp;&amp; ((response = <a class="code hl_function" href="spi_8c.html#aa100766918afcb71b6ba79413f33f9db">spi_xchg</a>(0xFF)) == 0xFF); ++i) ;</div>
+<div class="line"><span class="lineno">  144</span>    <span class="keywordflow">return</span> response;</div>
+<div class="line"><span class="lineno">  145</span>}</div>
+<div class="ttc" id="asd_8c_html_a773735b7bef10597c3db4f8a60e42ad3"><div class="ttname"><a href="sd_8c.html#a773735b7bef10597c3db4f8a60e42ad3">CMD_SEND_IF_COND</a></div><div class="ttdeci">#define CMD_SEND_IF_COND</div><div class="ttdef"><b>Definition:</b> <a href="sd_8c_source.html#l00021">sd.c:21</a></div></div>
+<div class="ttc" id="asd_8c_html_ae3dd15ec52cbd1ef2ce6e20e39fd6efb"><div class="ttname"><a href="sd_8c.html#ae3dd15ec52cbd1ef2ce6e20e39fd6efb">CMD_GO_IDLE_STATE</a></div><div class="ttdeci">#define CMD_GO_IDLE_STATE</div><div class="ttdef"><b>Definition:</b> <a href="sd_8c_source.html#l00018">sd.c:18</a></div></div>
+<div class="ttc" id="aspi_8c_html_aa100766918afcb71b6ba79413f33f9db"><div class="ttname"><a href="spi_8c.html#aa100766918afcb71b6ba79413f33f9db">spi_xchg</a></div><div class="ttdeci">u8 spi_xchg(u8 byte)</div><div class="ttdoc">Send and receive one byte from the SPI interface Panics on timeout.</div><div class="ttdef"><b>Definition:</b> <a href="spi_8c_source.html#l00024">spi.c:24</a></div></div>
+<div class="ttc" id="atypes_8h_html_a92c50087ca0e64fa93fc59402c55f8ca"><div class="ttname"><a href="types_8h.html#a92c50087ca0e64fa93fc59402c55f8ca">u8</a></div><div class="ttdeci">uint8_t u8</div><div class="ttdef"><b>Definition:</b> <a href="types_8h_source.html#l00038">types.h:38</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="sd_8c_source.html#l00018">CMD_GO_IDLE_STATE</a>, <a class="el" href="sd_8c_source.html#l00021">CMD_SEND_IF_COND</a>, and <a class="el" href="spi_8c_source.html#l00024">spi_xchg()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="sd_8c_source.html#l00255">sd_init()</a>.</p>
+
+</div>
+</div>
+<a id="a0d5cf7e4b125c949867acca515f5c1ec" name="a0d5cf7e4b125c949867acca515f5c1ec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0d5cf7e4b125c949867acca515f5c1ec">&#9670;&#160;</a></span>_sd_command_try()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static <a class="el" href="status_8h.html#a67a0db04d321a74b7e7fcfd3f1a3f70b">Status</a> _sd_command_try </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="types_8h.html#a92c50087ca0e64fa93fc59402c55f8ca">u8</a>&#160;</td>
+          <td class="paramname"><em>cmd</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="types_8h.html#afaa62991928fb9fb18ff0db62a040aba">u32</a>&#160;</td>
+          <td class="paramname"><em>arg</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="types_8h.html#a92c50087ca0e64fa93fc59402c55f8ca">u8</a> *&#160;</td>
+          <td class="paramname"><em>out</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Try to execute an SD command. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">cmd</td><td>Command number </td></tr>
+    <tr><td class="paramname">arg</td><td>Address parameter </td></tr>
+    <tr><td class="paramname">out</td><td>Output byte </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Status response </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="sd_8c_source.html#l00155">155</a> of file <a class="el" href="sd_8c_source.html">sd.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  156</span>{</div>
+<div class="line"><span class="lineno">  157</span>    <a class="code hl_typedef" href="types_8h.html#a92c50087ca0e64fa93fc59402c55f8ca">u8</a> i, response;</div>
+<div class="line"><span class="lineno">  158</span>    <a class="code hl_define" href="status_8h.html#a99cfc2ffa79fcbac77f8df8bea625959">RETURN_IF</a>(<a class="code hl_function" href="spi_8c.html#a28af41e6c50d1f29c90a94e1041a8285">spi_tx_try</a>(0xFF));</div>
+<div class="line"><span class="lineno">  159</span>    <a class="code hl_define" href="status_8h.html#a99cfc2ffa79fcbac77f8df8bea625959">RETURN_IF</a>(<a class="code hl_function" href="spi_8c.html#a28af41e6c50d1f29c90a94e1041a8285">spi_tx_try</a>(0x40 | cmd));</div>
+<div class="line"><span class="lineno">  160</span>    <a class="code hl_define" href="status_8h.html#a99cfc2ffa79fcbac77f8df8bea625959">RETURN_IF</a>(<a class="code hl_function" href="spi_8c.html#a28af41e6c50d1f29c90a94e1041a8285">spi_tx_try</a>(arg &gt;&gt; 24));</div>
+<div class="line"><span class="lineno">  161</span>    <a class="code hl_define" href="status_8h.html#a99cfc2ffa79fcbac77f8df8bea625959">RETURN_IF</a>(<a class="code hl_function" href="spi_8c.html#a28af41e6c50d1f29c90a94e1041a8285">spi_tx_try</a>(arg &gt;&gt; 16));</div>
+<div class="line"><span class="lineno">  162</span>    <a class="code hl_define" href="status_8h.html#a99cfc2ffa79fcbac77f8df8bea625959">RETURN_IF</a>(<a class="code hl_function" href="spi_8c.html#a28af41e6c50d1f29c90a94e1041a8285">spi_tx_try</a>(arg &gt;&gt; 8));</div>
+<div class="line"><span class="lineno">  163</span>    <a class="code hl_define" href="status_8h.html#a99cfc2ffa79fcbac77f8df8bea625959">RETURN_IF</a>(<a class="code hl_function" href="spi_8c.html#a28af41e6c50d1f29c90a94e1041a8285">spi_tx_try</a>(arg));</div>
+<div class="line"><span class="lineno">  164</span>    <span class="keywordflow">switch</span>(cmd)</div>
+<div class="line"><span class="lineno">  165</span>    {</div>
+<div class="line"><span class="lineno">  166</span>    <span class="keywordflow">case</span> <a class="code hl_define" href="sd_8c.html#ae3dd15ec52cbd1ef2ce6e20e39fd6efb">CMD_GO_IDLE_STATE</a>:</div>
+<div class="line"><span class="lineno">  167</span>        <a class="code hl_define" href="status_8h.html#a99cfc2ffa79fcbac77f8df8bea625959">RETURN_IF</a>(<a class="code hl_function" href="spi_8c.html#a28af41e6c50d1f29c90a94e1041a8285">spi_tx_try</a>(0x95));</div>
+<div class="line"><span class="lineno">  168</span>        <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">  169</span> </div>
+<div class="line"><span class="lineno">  170</span>    <span class="keywordflow">case</span> <a class="code hl_define" href="sd_8c.html#a773735b7bef10597c3db4f8a60e42ad3">CMD_SEND_IF_COND</a>:</div>
+<div class="line"><span class="lineno">  171</span>        <a class="code hl_define" href="status_8h.html#a99cfc2ffa79fcbac77f8df8bea625959">RETURN_IF</a>(<a class="code hl_function" href="spi_8c.html#a28af41e6c50d1f29c90a94e1041a8285">spi_tx_try</a>(0x87));</div>
+<div class="line"><span class="lineno">  172</span>        <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">  173</span> </div>
+<div class="line"><span class="lineno">  174</span>    <span class="keywordflow">default</span>:</div>
+<div class="line"><span class="lineno">  175</span>        <a class="code hl_define" href="status_8h.html#a99cfc2ffa79fcbac77f8df8bea625959">RETURN_IF</a>(<a class="code hl_function" href="spi_8c.html#a28af41e6c50d1f29c90a94e1041a8285">spi_tx_try</a>(0xFF));</div>
+<div class="line"><span class="lineno">  176</span>        <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">  177</span>    }</div>
+<div class="line"><span class="lineno">  178</span> </div>
+<div class="line"><span class="lineno">  179</span>    <span class="keywordflow">for</span>(i = 0; ; ++i)</div>
+<div class="line"><span class="lineno">  180</span>    {</div>
+<div class="line"><span class="lineno">  181</span>        <a class="code hl_define" href="status_8h.html#a99cfc2ffa79fcbac77f8df8bea625959">RETURN_IF</a>(<a class="code hl_function" href="spi_8c.html#a419efa4aed1b16b72a80d7a1356780d0">spi_rx_try</a>(&amp;response));</div>
+<div class="line"><span class="lineno">  182</span>        <span class="keywordflow">if</span>(response != 0xFF)</div>
+<div class="line"><span class="lineno">  183</span>        {</div>
+<div class="line"><span class="lineno">  184</span>            <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">  185</span>        }</div>
+<div class="line"><span class="lineno">  186</span> </div>
+<div class="line"><span class="lineno">  187</span>        <span class="keywordflow">if</span>(i &gt;= 10)</div>
+<div class="line"><span class="lineno">  188</span>        {</div>
+<div class="line"><span class="lineno">  189</span>            <span class="keywordflow">return</span> STATUS_TIMEOUT;</div>
+<div class="line"><span class="lineno">  190</span>        }</div>
+<div class="line"><span class="lineno">  191</span>    }</div>
+<div class="line"><span class="lineno">  192</span> </div>
+<div class="line"><span class="lineno">  193</span>    *out = response;</div>
+<div class="line"><span class="lineno">  194</span>    <span class="keywordflow">return</span> STATUS_OK;</div>
+<div class="line"><span class="lineno">  195</span>}</div>
+<div class="ttc" id="aspi_8c_html_a28af41e6c50d1f29c90a94e1041a8285"><div class="ttname"><a href="spi_8c.html#a28af41e6c50d1f29c90a94e1041a8285">spi_tx_try</a></div><div class="ttdeci">Status spi_tx_try(u8 in)</div><div class="ttdoc">Try to send one byte to the SPI interface.</div><div class="ttdef"><b>Definition:</b> <a href="spi_8c_source.html#l00055">spi.c:55</a></div></div>
+<div class="ttc" id="aspi_8c_html_a419efa4aed1b16b72a80d7a1356780d0"><div class="ttname"><a href="spi_8c.html#a419efa4aed1b16b72a80d7a1356780d0">spi_rx_try</a></div><div class="ttdeci">Status spi_rx_try(u8 *out)</div><div class="ttdoc">Try to receive one byte from the SPI interface.</div><div class="ttdef"><b>Definition:</b> <a href="spi_8c_source.html#l00061">spi.c:61</a></div></div>
+<div class="ttc" id="astatus_8h_html_a99cfc2ffa79fcbac77f8df8bea625959"><div class="ttname"><a href="status_8h.html#a99cfc2ffa79fcbac77f8df8bea625959">RETURN_IF</a></div><div class="ttdeci">#define RETURN_IF(STATUS)</div><div class="ttdoc">Propagate error codes to caller.</div><div class="ttdef"><b>Definition:</b> <a href="status_8h_source.html#l00025">status.h:25</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="sd_8c_source.html#l00018">CMD_GO_IDLE_STATE</a>, <a class="el" href="sd_8c_source.html#l00021">CMD_SEND_IF_COND</a>, <a class="el" href="status_8h_source.html#l00025">RETURN_IF</a>, <a class="el" href="spi_8c_source.html#l00061">spi_rx_try()</a>, and <a class="el" href="spi_8c_source.html#l00055">spi_tx_try()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="sd_8c_source.html#l00537">sd_read()</a>.</p>
+
+</div>
+</div>
+<a id="a5afa7a4f2574ec052d6326cb62d0bc25" name="a5afa7a4f2574ec052d6326cb62d0bc25"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5afa7a4f2574ec052d6326cb62d0bc25">&#9670;&#160;</a></span>_sd_error()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void _sd_error </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Trigger an SD error panic. </p>
+
+<p class="definition">Definition at line <a class="el" href="sd_8c_source.html#l00106">106</a> of file <a class="el" href="sd_8c_source.html">sd.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  107</span>{</div>
+<div class="line"><span class="lineno">  108</span>    <a class="code hl_define" href="gpio_8h.html#a714114dca347ee9354e449387728a12d">SD_DESELECT</a>;</div>
+<div class="line"><span class="lineno">  109</span>    <a class="code hl_function" href="logger_8c.html#a19a313011d8f478ad9799e546199a9ac">panic</a>(PSTR(<span class="stringliteral">&quot;SD error&quot;</span>));</div>
+<div class="line"><span class="lineno">  110</span>}</div>
+<div class="ttc" id="agpio_8h_html_a714114dca347ee9354e449387728a12d"><div class="ttname"><a href="gpio_8h.html#a714114dca347ee9354e449387728a12d">SD_DESELECT</a></div><div class="ttdeci">#define SD_DESELECT</div><div class="ttdef"><b>Definition:</b> <a href="gpio_8h_source.html#l00084">gpio.h:84</a></div></div>
+<div class="ttc" id="alogger_8c_html_a19a313011d8f478ad9799e546199a9ac"><div class="ttname"><a href="logger_8c.html#a19a313011d8f478ad9799e546199a9ac">panic</a></div><div class="ttdeci">void panic(const char *msg,...)</div><div class="ttdoc">Trigger a kernel panic.</div><div class="ttdef"><b>Definition:</b> <a href="logger_8c_source.html#l00177">logger.c:177</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="logger_8c_source.html#l00177">panic()</a>, and <a class="el" href="gpio_8h_source.html#l00084">SD_DESELECT</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="sd_8c_source.html#l00255">sd_init()</a>.</p>
+
+</div>
+</div>
+<a id="a791232512be2ae4eb1cddf0bcfa2c894" name="a791232512be2ae4eb1cddf0bcfa2c894"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a791232512be2ae4eb1cddf0bcfa2c894">&#9670;&#160;</a></span>_sd_info_print()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void _sd_info_print </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Print SD card info to serial port. </p>
+
+<p class="definition">Definition at line <a class="el" href="sd_8c_source.html#l00212">212</a> of file <a class="el" href="sd_8c_source.html">sd.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  213</span>{</div>
+<div class="line"><span class="lineno">  214</span>    <a class="code hl_function" href="logger_8c.html#a60bd636ef160c97eb51cf31be5954ba2">log_boot_P</a>(LOG_DEBUG, PSTR(<span class="stringliteral">&quot;Card Type        : %S&quot;</span>),</div>
+<div class="line"><span class="lineno">  215</span>        _card_type &amp; <a class="code hl_define" href="sd_8c.html#a241f7db547832cffdbcd9b73f7eba991">SD_HC</a> ? PSTR(<span class="stringliteral">&quot;SDHC&quot;</span>) : PSTR(<span class="stringliteral">&quot;SD&quot;</span>));</div>
+<div class="line"><span class="lineno">  216</span> </div>
+<div class="line"><span class="lineno">  217</span>    <a class="code hl_function" href="logger_8c.html#a60bd636ef160c97eb51cf31be5954ba2">log_boot_P</a>(LOG_DEBUG, PSTR(<span class="stringliteral">&quot;Block Size       : %d&quot;</span>),</div>
+<div class="line"><span class="lineno">  218</span>        <a class="code hl_define" href="sd_8h.html#ad51ded0bbd705f02f73fc60c0b721ced">BLOCK_SIZE</a>);</div>
+<div class="line"><span class="lineno">  219</span> </div>
+<div class="line"><span class="lineno">  220</span>    <a class="code hl_function" href="logger_8c.html#a60bd636ef160c97eb51cf31be5954ba2">log_boot_P</a>(LOG_DEBUG, PSTR(<span class="stringliteral">&quot;Manufacturer ID  : %02X&quot;</span>),</div>
+<div class="line"><span class="lineno">  221</span>        _manufacturer);</div>
+<div class="line"><span class="lineno">  222</span> </div>
+<div class="line"><span class="lineno">  223</span>    <a class="code hl_function" href="logger_8c.html#a60bd636ef160c97eb51cf31be5954ba2">log_boot_P</a>(LOG_DEBUG, PSTR(<span class="stringliteral">&quot;OEM              : %s&quot;</span>),</div>
+<div class="line"><span class="lineno">  224</span>        _oem);</div>
+<div class="line"><span class="lineno">  225</span> </div>
+<div class="line"><span class="lineno">  226</span>    <a class="code hl_function" href="logger_8c.html#a60bd636ef160c97eb51cf31be5954ba2">log_boot_P</a>(LOG_DEBUG, PSTR(<span class="stringliteral">&quot;Product Name     : %s&quot;</span>),</div>
+<div class="line"><span class="lineno">  227</span>        _product);</div>
+<div class="line"><span class="lineno">  228</span> </div>
+<div class="line"><span class="lineno">  229</span>    <a class="code hl_function" href="logger_8c.html#a60bd636ef160c97eb51cf31be5954ba2">log_boot_P</a>(LOG_DEBUG, PSTR(<span class="stringliteral">&quot;Revision         : %c.%c&quot;</span>),</div>
+<div class="line"><span class="lineno">  230</span>        (_revision &gt;&gt; 4) + <span class="charliteral">&#39;0&#39;</span>, (_revision &amp; 0x0F) + <span class="charliteral">&#39;0&#39;</span>);</div>
+<div class="line"><span class="lineno">  231</span> </div>
+<div class="line"><span class="lineno">  232</span>    <a class="code hl_function" href="logger_8c.html#a60bd636ef160c97eb51cf31be5954ba2">log_boot_P</a>(LOG_DEBUG, PSTR(<span class="stringliteral">&quot;Serial Number    : 0x%08&quot;</span>PRIx32),</div>
+<div class="line"><span class="lineno">  233</span>        _serial);</div>
+<div class="line"><span class="lineno">  234</span> </div>
+<div class="line"><span class="lineno">  235</span>    <a class="code hl_function" href="logger_8c.html#a60bd636ef160c97eb51cf31be5954ba2">log_boot_P</a>(LOG_DEBUG, PSTR(<span class="stringliteral">&quot;Manufacture Date : %02d-%d&quot;</span>),</div>
+<div class="line"><span class="lineno">  236</span>        _manufacturing_month, 2000 + _manufacturing_year);</div>
+<div class="line"><span class="lineno">  237</span> </div>
+<div class="line"><span class="lineno">  238</span>    <a class="code hl_function" href="logger_8c.html#a60bd636ef160c97eb51cf31be5954ba2">log_boot_P</a>(LOG_DEBUG, PSTR(<span class="stringliteral">&quot;Capacity         : %&quot;</span>PRIu32<span class="stringliteral">&quot; blocks&quot;</span>),</div>
+<div class="line"><span class="lineno">  239</span>        _capacity);</div>
+<div class="line"><span class="lineno">  240</span> </div>
+<div class="line"><span class="lineno">  241</span>    <a class="code hl_function" href="logger_8c.html#a60bd636ef160c97eb51cf31be5954ba2">log_boot_P</a>(LOG_OFFSET, PSTR(<span class="stringliteral">&quot;                   (%&quot;</span>PRIu32<span class="stringliteral">&quot; bytes)&quot;</span>),</div>
+<div class="line"><span class="lineno">  242</span>        _capacity * <a class="code hl_define" href="sd_8h.html#ad51ded0bbd705f02f73fc60c0b721ced">BLOCK_SIZE</a>);</div>
+<div class="line"><span class="lineno">  243</span> </div>
+<div class="line"><span class="lineno">  244</span>    <a class="code hl_function" href="logger_8c.html#a60bd636ef160c97eb51cf31be5954ba2">log_boot_P</a>(LOG_DEBUG, PSTR(<span class="stringliteral">&quot;Format           : 0x%02X&quot;</span>),</div>
+<div class="line"><span class="lineno">  245</span>        _format);</div>
+<div class="line"><span class="lineno">  246</span> </div>
+<div class="line"><span class="lineno">  247</span>    <a class="code hl_function" href="logger_8c.html#a60bd636ef160c97eb51cf31be5954ba2">log_boot_P</a>(LOG_DEBUG, PSTR(<span class="stringliteral">&quot;Flags            : %S%S&quot;</span>),</div>
+<div class="line"><span class="lineno">  248</span>        _flag_copy ? PSTR(<span class="stringliteral">&quot;Copy, &quot;</span>) : PSTR(<span class="stringliteral">&quot;Original, &quot;</span>),</div>
+<div class="line"><span class="lineno">  249</span>        _flag_write_protect_temp ? PSTR(<span class="stringliteral">&quot;Temporarily Write Protected&quot;</span>) :</div>
+<div class="line"><span class="lineno">  250</span>            (_flag_write_protect ? PSTR(<span class="stringliteral">&quot;Write Protected&quot;</span>) :</div>
+<div class="line"><span class="lineno">  251</span>            PSTR(<span class="stringliteral">&quot;Rewritable&quot;</span>)));</div>
+<div class="line"><span class="lineno">  252</span>}</div>
+<div class="ttc" id="alogger_8c_html_a60bd636ef160c97eb51cf31be5954ba2"><div class="ttname"><a href="logger_8c.html#a60bd636ef160c97eb51cf31be5954ba2">log_boot_P</a></div><div class="ttdeci">void log_boot_P(LogLevel level, const char *msg,...)</div><div class="ttdoc">Log boot message.</div><div class="ttdef"><b>Definition:</b> <a href="logger_8c_source.html#l00164">logger.c:164</a></div></div>
+<div class="ttc" id="asd_8h_html_ad51ded0bbd705f02f73fc60c0b721ced"><div class="ttname"><a href="sd_8h.html#ad51ded0bbd705f02f73fc60c0b721ced">BLOCK_SIZE</a></div><div class="ttdeci">#define BLOCK_SIZE</div><div class="ttdef"><b>Definition:</b> <a href="sd_8h_source.html#l00016">sd.h:16</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="sd_8h_source.html#l00016">BLOCK_SIZE</a>, <a class="el" href="logger_8c_source.html#l00164">log_boot_P()</a>, and <a class="el" href="sd_8c_source.html#l00063">SD_HC</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="sd_8c_source.html#l00255">sd_init()</a>.</p>
+
+</div>
+</div>
+<a id="aa347e415bf1de52f199a0bb0f07d6e2a" name="aa347e415bf1de52f199a0bb0f07d6e2a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa347e415bf1de52f199a0bb0f07d6e2a">&#9670;&#160;</a></span>_sd_timeout()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void _sd_timeout </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Trigger an SD timeout panic. </p>
+
+<p class="definition">Definition at line <a class="el" href="sd_8c_source.html#l00097">97</a> of file <a class="el" href="sd_8c_source.html">sd.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   98</span>{</div>
+<div class="line"><span class="lineno">   99</span>    <a class="code hl_define" href="gpio_8h.html#a714114dca347ee9354e449387728a12d">SD_DESELECT</a>;</div>
+<div class="line"><span class="lineno">  100</span>    <a class="code hl_function" href="logger_8c.html#a19a313011d8f478ad9799e546199a9ac">panic</a>(PSTR(<span class="stringliteral">&quot;SD timeout&quot;</span>));</div>
+<div class="line"><span class="lineno">  101</span>}</div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="logger_8c_source.html#l00177">panic()</a>, and <a class="el" href="gpio_8h_source.html#l00084">SD_DESELECT</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="sd_8c_source.html#l00255">sd_init()</a>.</p>
+
+</div>
+</div>
+<a id="a7bf3670f9b10107272a0bc84bd449d46" name="a7bf3670f9b10107272a0bc84bd449d46"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7bf3670f9b10107272a0bc84bd449d46">&#9670;&#160;</a></span>_spi_configure_slow()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void _spi_configure_slow </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Put SPI into slow mode for initialization. </p>
+
+<p class="definition">Definition at line <a class="el" href="sd_8c_source.html#l00088">88</a> of file <a class="el" href="sd_8c_source.html">sd.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   89</span>{</div>
+<div class="line"><span class="lineno">   90</span>    SPCR |= (1 &lt;&lt; SPR1) | (1 &lt;&lt; SPR0);</div>
+<div class="line"><span class="lineno">   91</span>    SPSR &amp;= ~(1 &lt;&lt; SPI2X);</div>
+<div class="line"><span class="lineno">   92</span>}</div>
+</div><!-- fragment -->
+<p class="reference">Referenced by <a class="el" href="sd_8c_source.html#l00255">sd_init()</a>.</p>
+
+</div>
+</div>
+<a id="a8d7ab30b86b39a27f6fffac7495c1830" name="a8d7ab30b86b39a27f6fffac7495c1830"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8d7ab30b86b39a27f6fffac7495c1830">&#9670;&#160;</a></span>sd_init()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void sd_init </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Initialize SD driver and try to detect card. </p>
+
+<p class="definition">Definition at line <a class="el" href="sd_8c_source.html#l00255">255</a> of file <a class="el" href="sd_8c_source.html">sd.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  256</span>{</div>
+<div class="line"><span class="lineno">  257</span>    <a class="code hl_function" href="logger_8c.html#a60bd636ef160c97eb51cf31be5954ba2">log_boot_P</a>(LOG_INIT, PSTR(<span class="stringliteral">&quot;SD driver starting&quot;</span>));</div>
+<div class="line"><span class="lineno">  258</span> </div>
+<div class="line"><span class="lineno">  259</span>    {</div>
+<div class="line"><span class="lineno">  260</span>        <a class="code hl_typedef" href="types_8h.html#a92c50087ca0e64fa93fc59402c55f8ca">u8</a> response;</div>
+<div class="line"><span class="lineno">  261</span>        <a class="code hl_typedef" href="types_8h.html#ace9d960e74685e2cd84b36132dbbf8aa">u16</a> i;</div>
+<div class="line"><span class="lineno">  262</span>        <a class="code hl_typedef" href="types_8h.html#afaa62991928fb9fb18ff0db62a040aba">u32</a> arg;</div>
+<div class="line"><span class="lineno">  263</span> </div>
+<div class="line"><span class="lineno">  264</span>        <a class="code hl_define" href="gpio_8h.html#a714114dca347ee9354e449387728a12d">SD_DESELECT</a>;</div>
+<div class="line"><span class="lineno">  265</span>        <a class="code hl_function" href="sd_8c.html#a7bf3670f9b10107272a0bc84bd449d46">_spi_configure_slow</a>();</div>
+<div class="line"><span class="lineno">  266</span>        _card_type = 0;</div>
+<div class="line"><span class="lineno">  267</span>        <span class="keywordflow">for</span>(i = 0; i &lt; 10; ++i)</div>
+<div class="line"><span class="lineno">  268</span>        {</div>
+<div class="line"><span class="lineno">  269</span>            <a class="code hl_function" href="spi_8c.html#aa100766918afcb71b6ba79413f33f9db">spi_xchg</a>(0xFF);</div>
+<div class="line"><span class="lineno">  270</span>        }</div>
+<div class="line"><span class="lineno">  271</span> </div>
+<div class="line"><span class="lineno">  272</span>        <a class="code hl_define" href="gpio_8h.html#ad104eec5bf5679ebe86fb494113175dd">SD_SELECT</a>;</div>
+<div class="line"><span class="lineno">  273</span>        <span class="keywordflow">for</span>(i = 0; ; ++i)</div>
+<div class="line"><span class="lineno">  274</span>        {</div>
+<div class="line"><span class="lineno">  275</span>            <span class="keywordflow">if</span>(<a class="code hl_function" href="sd_8c.html#a4b42f4613401e4f986f7ecefca14e6cf">_sd_command</a>(<a class="code hl_define" href="sd_8c.html#ae3dd15ec52cbd1ef2ce6e20e39fd6efb">CMD_GO_IDLE_STATE</a>, 0) == <a class="code hl_define" href="sd_8c.html#a1d66c9130165248f0563074180dd1432">IDLE_STATE</a>)</div>
+<div class="line"><span class="lineno">  276</span>            {</div>
+<div class="line"><span class="lineno">  277</span>                <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">  278</span>            }</div>
+<div class="line"><span class="lineno">  279</span> </div>
+<div class="line"><span class="lineno">  280</span>            <span class="keywordflow">if</span>(i == 0x1FF)</div>
+<div class="line"><span class="lineno">  281</span>            {</div>
+<div class="line"><span class="lineno">  282</span>                <a class="code hl_function" href="sd_8c.html#aa347e415bf1de52f199a0bb0f07d6e2a">_sd_timeout</a>();</div>
+<div class="line"><span class="lineno">  283</span>            }</div>
+<div class="line"><span class="lineno">  284</span>        }</div>
+<div class="line"><span class="lineno">  285</span> </div>
+<div class="line"><span class="lineno">  286</span>        <span class="keywordflow">if</span>((<a class="code hl_function" href="sd_8c.html#a4b42f4613401e4f986f7ecefca14e6cf">_sd_command</a>(<a class="code hl_define" href="sd_8c.html#a773735b7bef10597c3db4f8a60e42ad3">CMD_SEND_IF_COND</a>, 0x1AA) &amp; <a class="code hl_define" href="sd_8c.html#a8ae8b08655b2ec2facb46d6bbc83065c">ILLEGAL_CMD</a>) == 0)</div>
+<div class="line"><span class="lineno">  287</span>        {</div>
+<div class="line"><span class="lineno">  288</span>            <a class="code hl_function" href="spi_8c.html#aa100766918afcb71b6ba79413f33f9db">spi_xchg</a>(0xFF);</div>
+<div class="line"><span class="lineno">  289</span>            <a class="code hl_function" href="spi_8c.html#aa100766918afcb71b6ba79413f33f9db">spi_xchg</a>(0xFF);</div>
+<div class="line"><span class="lineno">  290</span>            <span class="keywordflow">if</span>(((<a class="code hl_function" href="spi_8c.html#aa100766918afcb71b6ba79413f33f9db">spi_xchg</a>(0xFF) &amp; 0x01) == 0) ||</div>
+<div class="line"><span class="lineno">  291</span>                (<a class="code hl_function" href="spi_8c.html#aa100766918afcb71b6ba79413f33f9db">spi_xchg</a>(0xFF) != 0xAA))</div>
+<div class="line"><span class="lineno">  292</span>            {</div>
+<div class="line"><span class="lineno">  293</span>                <a class="code hl_function" href="sd_8c.html#a5afa7a4f2574ec052d6326cb62d0bc25">_sd_error</a>();</div>
+<div class="line"><span class="lineno">  294</span>            }</div>
+<div class="line"><span class="lineno">  295</span> </div>
+<div class="line"><span class="lineno">  296</span>            _card_type |= <a class="code hl_define" href="sd_8c.html#aefd26333484d292772b95039e8415d0c">SD_2</a>;</div>
+<div class="line"><span class="lineno">  297</span>        }</div>
+<div class="line"><span class="lineno">  298</span>        <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno">  299</span>        {</div>
+<div class="line"><span class="lineno">  300</span>            <a class="code hl_function" href="sd_8c.html#a4b42f4613401e4f986f7ecefca14e6cf">_sd_command</a>(<a class="code hl_define" href="sd_8c.html#a0d173f3d259f3c28a25f4fd2b8085131">CMD_APP</a>, 0);</div>
+<div class="line"><span class="lineno">  301</span>            <span class="keywordflow">if</span>((<a class="code hl_function" href="sd_8c.html#a4b42f4613401e4f986f7ecefca14e6cf">_sd_command</a>(<a class="code hl_define" href="sd_8c.html#a282a2096b479791ed712f393f8faa67c">CMD_SD_SEND_OP_COND</a>, 0) &amp; <a class="code hl_define" href="sd_8c.html#a8ae8b08655b2ec2facb46d6bbc83065c">ILLEGAL_CMD</a>) == 0)</div>
+<div class="line"><span class="lineno">  302</span>            {</div>
+<div class="line"><span class="lineno">  303</span>                _card_type |= <a class="code hl_define" href="sd_8c.html#a574e335142ba9044c1a53a571f7f21ee">SD_1</a>;</div>
+<div class="line"><span class="lineno">  304</span>            }</div>
+<div class="line"><span class="lineno">  305</span>        }</div>
+<div class="line"><span class="lineno">  306</span> </div>
+<div class="line"><span class="lineno">  307</span>        <span class="keywordflow">for</span>(i = 0; ; ++i)</div>
+<div class="line"><span class="lineno">  308</span>        {</div>
+<div class="line"><span class="lineno">  309</span>            <span class="keywordflow">if</span>(_card_type &amp; (<a class="code hl_define" href="sd_8c.html#a574e335142ba9044c1a53a571f7f21ee">SD_1</a> | <a class="code hl_define" href="sd_8c.html#aefd26333484d292772b95039e8415d0c">SD_2</a>))</div>
+<div class="line"><span class="lineno">  310</span>            {</div>
+<div class="line"><span class="lineno">  311</span>                arg = 0;</div>
+<div class="line"><span class="lineno">  312</span>                <span class="keywordflow">if</span>(_card_type &amp; <a class="code hl_define" href="sd_8c.html#aefd26333484d292772b95039e8415d0c">SD_2</a>)</div>
+<div class="line"><span class="lineno">  313</span>                {</div>
+<div class="line"><span class="lineno">  314</span>                    arg = 0x40000000;</div>
+<div class="line"><span class="lineno">  315</span>                }</div>
+<div class="line"><span class="lineno">  316</span> </div>
+<div class="line"><span class="lineno">  317</span>                <a class="code hl_function" href="sd_8c.html#a4b42f4613401e4f986f7ecefca14e6cf">_sd_command</a>(<a class="code hl_define" href="sd_8c.html#a0d173f3d259f3c28a25f4fd2b8085131">CMD_APP</a>, 0);</div>
+<div class="line"><span class="lineno">  318</span>                response = <a class="code hl_function" href="sd_8c.html#a4b42f4613401e4f986f7ecefca14e6cf">_sd_command</a>(<a class="code hl_define" href="sd_8c.html#a282a2096b479791ed712f393f8faa67c">CMD_SD_SEND_OP_COND</a>, arg);</div>
+<div class="line"><span class="lineno">  319</span>            }</div>
+<div class="line"><span class="lineno">  320</span>            <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno">  321</span>            {</div>
+<div class="line"><span class="lineno">  322</span>                response = <a class="code hl_function" href="sd_8c.html#a4b42f4613401e4f986f7ecefca14e6cf">_sd_command</a>(<a class="code hl_define" href="sd_8c.html#ae059745768a7fde0832a1dea6a623ab0">CMD_SEND_OP_COND</a>, 0);</div>
+<div class="line"><span class="lineno">  323</span>            }</div>
+<div class="line"><span class="lineno">  324</span> </div>
+<div class="line"><span class="lineno">  325</span>            <span class="keywordflow">if</span>((response &amp; <a class="code hl_define" href="sd_8c.html#a1d66c9130165248f0563074180dd1432">IDLE_STATE</a>) == 0)</div>
+<div class="line"><span class="lineno">  326</span>            {</div>
+<div class="line"><span class="lineno">  327</span>                <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">  328</span>            }</div>
+<div class="line"><span class="lineno">  329</span> </div>
+<div class="line"><span class="lineno">  330</span>            <span class="keywordflow">if</span>(i == 0x7FFF)</div>
+<div class="line"><span class="lineno">  331</span>            {</div>
+<div class="line"><span class="lineno">  332</span>                <a class="code hl_function" href="sd_8c.html#aa347e415bf1de52f199a0bb0f07d6e2a">_sd_timeout</a>();</div>
+<div class="line"><span class="lineno">  333</span>            }</div>
+<div class="line"><span class="lineno">  334</span>        }</div>
+<div class="line"><span class="lineno">  335</span> </div>
+<div class="line"><span class="lineno">  336</span>        <span class="keywordflow">if</span>(_card_type &amp; <a class="code hl_define" href="sd_8c.html#aefd26333484d292772b95039e8415d0c">SD_2</a>)</div>
+<div class="line"><span class="lineno">  337</span>        {</div>
+<div class="line"><span class="lineno">  338</span>            <span class="keywordflow">if</span>(<a class="code hl_function" href="sd_8c.html#a4b42f4613401e4f986f7ecefca14e6cf">_sd_command</a>(<a class="code hl_define" href="sd_8c.html#a5625571f0a42246f009e1695f5c0fd88">CMD_READ_OCR</a>, 0))</div>
+<div class="line"><span class="lineno">  339</span>            {</div>
+<div class="line"><span class="lineno">  340</span>                <a class="code hl_function" href="sd_8c.html#a5afa7a4f2574ec052d6326cb62d0bc25">_sd_error</a>();</div>
+<div class="line"><span class="lineno">  341</span>            }</div>
+<div class="line"><span class="lineno">  342</span> </div>
+<div class="line"><span class="lineno">  343</span>            <span class="keywordflow">if</span>(<a class="code hl_function" href="spi_8c.html#aa100766918afcb71b6ba79413f33f9db">spi_xchg</a>(0xFF) &amp; 0x40)</div>
+<div class="line"><span class="lineno">  344</span>            {</div>
+<div class="line"><span class="lineno">  345</span>                _card_type |= <a class="code hl_define" href="sd_8c.html#a241f7db547832cffdbcd9b73f7eba991">SD_HC</a>;</div>
+<div class="line"><span class="lineno">  346</span>            }</div>
+<div class="line"><span class="lineno">  347</span> </div>
+<div class="line"><span class="lineno">  348</span>            <a class="code hl_function" href="spi_8c.html#aa100766918afcb71b6ba79413f33f9db">spi_xchg</a>(0xFF);</div>
+<div class="line"><span class="lineno">  349</span>            <a class="code hl_function" href="spi_8c.html#aa100766918afcb71b6ba79413f33f9db">spi_xchg</a>(0xFF);</div>
+<div class="line"><span class="lineno">  350</span>            <a class="code hl_function" href="spi_8c.html#aa100766918afcb71b6ba79413f33f9db">spi_xchg</a>(0xFF);</div>
+<div class="line"><span class="lineno">  351</span>        }</div>
+<div class="line"><span class="lineno">  352</span> </div>
+<div class="line"><span class="lineno">  353</span>        <span class="keywordflow">if</span>(<a class="code hl_function" href="sd_8c.html#a4b42f4613401e4f986f7ecefca14e6cf">_sd_command</a>(<a class="code hl_define" href="sd_8c.html#acc98caadb00bb27cee9c6037193adb68">CMD_SET_BLOCKLEN</a>, 512))</div>
+<div class="line"><span class="lineno">  354</span>        {</div>
+<div class="line"><span class="lineno">  355</span>            <a class="code hl_function" href="sd_8c.html#a5afa7a4f2574ec052d6326cb62d0bc25">_sd_error</a>();</div>
+<div class="line"><span class="lineno">  356</span>        }</div>
+<div class="line"><span class="lineno">  357</span> </div>
+<div class="line"><span class="lineno">  358</span>        <a class="code hl_define" href="gpio_8h.html#a714114dca347ee9354e449387728a12d">SD_DESELECT</a>;</div>
+<div class="line"><span class="lineno">  359</span>        <a class="code hl_function" href="spi_8c.html#ab3e16cf26638212c1e54a7aa4878e12a">spi_fast</a>();</div>
+<div class="line"><span class="lineno">  360</span>        _delay_ms(20);</div>
+<div class="line"><span class="lineno">  361</span>    }</div>
+<div class="line"><span class="lineno">  362</span> </div>
+<div class="line"><span class="lineno">  363</span>    <a class="code hl_function" href="logger_8c.html#a60bd636ef160c97eb51cf31be5954ba2">log_boot_P</a>(LOG_INIT, PSTR(<span class="stringliteral">&quot;SD card initialized&quot;</span>));</div>
+<div class="line"><span class="lineno">  364</span>    <a class="code hl_function" href="logger_8c.html#a60bd636ef160c97eb51cf31be5954ba2">log_boot_P</a>(LOG_INIT, PSTR(<span class="stringliteral">&quot;Reading SD card parameters&quot;</span>));</div>
+<div class="line"><span class="lineno">  365</span> </div>
+<div class="line"><span class="lineno">  366</span>    {</div>
+<div class="line"><span class="lineno">  367</span>        <a class="code hl_typedef" href="types_8h.html#a92c50087ca0e64fa93fc59402c55f8ca">u8</a> i, b, csd_read_bl_len, csd_c_size_mult, csd_structure;</div>
+<div class="line"><span class="lineno">  368</span>        <a class="code hl_typedef" href="types_8h.html#ace9d960e74685e2cd84b36132dbbf8aa">u16</a> j, csd_c_size;</div>
+<div class="line"><span class="lineno">  369</span> </div>
+<div class="line"><span class="lineno">  370</span>        <a class="code hl_function" href="spi_8c.html#ab3e16cf26638212c1e54a7aa4878e12a">spi_fast</a>();</div>
+<div class="line"><span class="lineno">  371</span>        <a class="code hl_define" href="gpio_8h.html#ad104eec5bf5679ebe86fb494113175dd">SD_SELECT</a>;</div>
+<div class="line"><span class="lineno">  372</span> </div>
+<div class="line"><span class="lineno">  373</span>        <span class="comment">/* Read CID register */</span></div>
+<div class="line"><span class="lineno">  374</span>        <a class="code hl_function" href="sd_8c.html#a4b42f4613401e4f986f7ecefca14e6cf">_sd_command</a>(<a class="code hl_define" href="sd_8c.html#a69e5cfa724af0af3e97d69005a2b588d">CMD_SEND_CID</a>, 0);</div>
+<div class="line"><span class="lineno">  375</span>        j = 0;</div>
+<div class="line"><span class="lineno">  376</span>        <span class="keywordflow">while</span>(<a class="code hl_function" href="spi_8c.html#aa100766918afcb71b6ba79413f33f9db">spi_xchg</a>(0xFF) != 0xFE)</div>
+<div class="line"><span class="lineno">  377</span>        {</div>
+<div class="line"><span class="lineno">  378</span>            <span class="keywordflow">if</span>(++j &gt; 0x7FFF)</div>
+<div class="line"><span class="lineno">  379</span>            {</div>
+<div class="line"><span class="lineno">  380</span>                <a class="code hl_function" href="sd_8c.html#aa347e415bf1de52f199a0bb0f07d6e2a">_sd_timeout</a>();</div>
+<div class="line"><span class="lineno">  381</span>            }</div>
+<div class="line"><span class="lineno">  382</span>        }</div>
+<div class="line"><span class="lineno">  383</span> </div>
+<div class="line"><span class="lineno">  384</span>        <span class="keywordflow">for</span>(i = 0; i &lt; 18; ++i)</div>
+<div class="line"><span class="lineno">  385</span>        {</div>
+<div class="line"><span class="lineno">  386</span>            b = <a class="code hl_function" href="spi_8c.html#aa100766918afcb71b6ba79413f33f9db">spi_xchg</a>(0xFF);</div>
+<div class="line"><span class="lineno">  387</span>            <span class="keywordflow">switch</span>(i)</div>
+<div class="line"><span class="lineno">  388</span>            {</div>
+<div class="line"><span class="lineno">  389</span>                <span class="keywordflow">case</span> 0:</div>
+<div class="line"><span class="lineno">  390</span>                    _manufacturer = b;</div>
+<div class="line"><span class="lineno">  391</span>                    <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">  392</span> </div>
+<div class="line"><span class="lineno">  393</span>                <span class="keywordflow">case</span> 1:</div>
+<div class="line"><span class="lineno">  394</span>                <span class="keywordflow">case</span> 2:</div>
+<div class="line"><span class="lineno">  395</span>                    _oem[i - 1] = b;</div>
+<div class="line"><span class="lineno">  396</span>                    <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">  397</span> </div>
+<div class="line"><span class="lineno">  398</span>                <span class="keywordflow">case</span> 3:</div>
+<div class="line"><span class="lineno">  399</span>                <span class="keywordflow">case</span> 4:</div>
+<div class="line"><span class="lineno">  400</span>                <span class="keywordflow">case</span> 5:</div>
+<div class="line"><span class="lineno">  401</span>                <span class="keywordflow">case</span> 6:</div>
+<div class="line"><span class="lineno">  402</span>                <span class="keywordflow">case</span> 7:</div>
+<div class="line"><span class="lineno">  403</span>                    _product[i - 3] = b;</div>
+<div class="line"><span class="lineno">  404</span>                    <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">  405</span> </div>
+<div class="line"><span class="lineno">  406</span>                <span class="keywordflow">case</span> 8:</div>
+<div class="line"><span class="lineno">  407</span>                    _revision = b;</div>
+<div class="line"><span class="lineno">  408</span>                    <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">  409</span> </div>
+<div class="line"><span class="lineno">  410</span>                <span class="keywordflow">case</span> 9:</div>
+<div class="line"><span class="lineno">  411</span>                <span class="keywordflow">case</span> 10:</div>
+<div class="line"><span class="lineno">  412</span>                <span class="keywordflow">case</span> 11:</div>
+<div class="line"><span class="lineno">  413</span>                <span class="keywordflow">case</span> 12:</div>
+<div class="line"><span class="lineno">  414</span>                    _serial |= (<a class="code hl_typedef" href="types_8h.html#afaa62991928fb9fb18ff0db62a040aba">u32</a>)b &lt;&lt; ((12 - i) * 8);</div>
+<div class="line"><span class="lineno">  415</span>                    <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">  416</span> </div>
+<div class="line"><span class="lineno">  417</span>                <span class="keywordflow">case</span> 13:</div>
+<div class="line"><span class="lineno">  418</span>                    _manufacturing_year = b &lt;&lt; 4;</div>
+<div class="line"><span class="lineno">  419</span>                    <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">  420</span> </div>
+<div class="line"><span class="lineno">  421</span>                <span class="keywordflow">case</span> 14:</div>
+<div class="line"><span class="lineno">  422</span>                    _manufacturing_year |= b &gt;&gt; 4;</div>
+<div class="line"><span class="lineno">  423</span>                    _manufacturing_month = b &amp; 0x0f;</div>
+<div class="line"><span class="lineno">  424</span>                    <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">  425</span>            }</div>
+<div class="line"><span class="lineno">  426</span>        }</div>
+<div class="line"><span class="lineno">  427</span> </div>
+<div class="line"><span class="lineno">  428</span>        <span class="comment">/* Read CSD register */</span></div>
+<div class="line"><span class="lineno">  429</span>        csd_read_bl_len = 0;</div>
+<div class="line"><span class="lineno">  430</span>        csd_c_size_mult = 0;</div>
+<div class="line"><span class="lineno">  431</span>        csd_structure = 0;</div>
+<div class="line"><span class="lineno">  432</span>        csd_c_size = 0;</div>
+<div class="line"><span class="lineno">  433</span> </div>
+<div class="line"><span class="lineno">  434</span>        <a class="code hl_function" href="sd_8c.html#a4b42f4613401e4f986f7ecefca14e6cf">_sd_command</a>(<a class="code hl_define" href="sd_8c.html#a039c816f90fba6c89d09980c5c1cb888">CMD_SEND_CSD</a>, 0);</div>
+<div class="line"><span class="lineno">  435</span>        j = 0;</div>
+<div class="line"><span class="lineno">  436</span>        <span class="keywordflow">while</span>(<a class="code hl_function" href="spi_8c.html#aa100766918afcb71b6ba79413f33f9db">spi_xchg</a>(0xFF) != 0xFE)</div>
+<div class="line"><span class="lineno">  437</span>        {</div>
+<div class="line"><span class="lineno">  438</span>            <span class="keywordflow">if</span>(++j &gt; 0x7FFF)</div>
+<div class="line"><span class="lineno">  439</span>            {</div>
+<div class="line"><span class="lineno">  440</span>                <a class="code hl_function" href="sd_8c.html#aa347e415bf1de52f199a0bb0f07d6e2a">_sd_timeout</a>();</div>
+<div class="line"><span class="lineno">  441</span>            }</div>
+<div class="line"><span class="lineno">  442</span>        }</div>
+<div class="line"><span class="lineno">  443</span> </div>
+<div class="line"><span class="lineno">  444</span>        <span class="keywordflow">for</span>(i = 0; i &lt; 18; ++i)</div>
+<div class="line"><span class="lineno">  445</span>        {</div>
+<div class="line"><span class="lineno">  446</span>            b = <a class="code hl_function" href="spi_8c.html#aa100766918afcb71b6ba79413f33f9db">spi_xchg</a>(0xFF);</div>
+<div class="line"><span class="lineno">  447</span>            <span class="keywordflow">if</span>(i == 0)</div>
+<div class="line"><span class="lineno">  448</span>            {</div>
+<div class="line"><span class="lineno">  449</span>                csd_structure = b &gt;&gt; 6;</div>
+<div class="line"><span class="lineno">  450</span>            }</div>
+<div class="line"><span class="lineno">  451</span>            <span class="keywordflow">else</span> <span class="keywordflow">if</span>(i == 14)</div>
+<div class="line"><span class="lineno">  452</span>            {</div>
+<div class="line"><span class="lineno">  453</span>                <span class="keywordflow">if</span>(b &amp; 0x40)</div>
+<div class="line"><span class="lineno">  454</span>                {</div>
+<div class="line"><span class="lineno">  455</span>                    _flag_copy = 1;</div>
+<div class="line"><span class="lineno">  456</span>                }</div>
+<div class="line"><span class="lineno">  457</span> </div>
+<div class="line"><span class="lineno">  458</span>                <span class="keywordflow">if</span>(b &amp; 0x20)</div>
+<div class="line"><span class="lineno">  459</span>                {</div>
+<div class="line"><span class="lineno">  460</span>                    _flag_write_protect = 1;</div>
+<div class="line"><span class="lineno">  461</span>                }</div>
+<div class="line"><span class="lineno">  462</span> </div>
+<div class="line"><span class="lineno">  463</span>                <span class="keywordflow">if</span>(b &amp; 0x10)</div>
+<div class="line"><span class="lineno">  464</span>                {</div>
+<div class="line"><span class="lineno">  465</span>                    _flag_write_protect_temp = 1;</div>
+<div class="line"><span class="lineno">  466</span>                }</div>
+<div class="line"><span class="lineno">  467</span> </div>
+<div class="line"><span class="lineno">  468</span>                _format = (b &amp; 0x0C) &gt;&gt; 2;</div>
+<div class="line"><span class="lineno">  469</span>            }</div>
+<div class="line"><span class="lineno">  470</span>            <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno">  471</span>            {</div>
+<div class="line"><span class="lineno">  472</span>                <span class="keywordflow">if</span>(csd_structure == 0x01)</div>
+<div class="line"><span class="lineno">  473</span>                {</div>
+<div class="line"><span class="lineno">  474</span>                    <span class="keywordflow">switch</span>(i)</div>
+<div class="line"><span class="lineno">  475</span>                    {</div>
+<div class="line"><span class="lineno">  476</span>                        <span class="keywordflow">case</span> 7:</div>
+<div class="line"><span class="lineno">  477</span>                            b &amp;= 0x3f;</div>
+<div class="line"><span class="lineno">  478</span> </div>
+<div class="line"><span class="lineno">  479</span>                        <span class="keywordflow">case</span> 8:</div>
+<div class="line"><span class="lineno">  480</span>                        <span class="keywordflow">case</span> 9:</div>
+<div class="line"><span class="lineno">  481</span>                            csd_c_size &lt;&lt;= 8;</div>
+<div class="line"><span class="lineno">  482</span>                            csd_c_size |= b;</div>
+<div class="line"><span class="lineno">  483</span>                            ++csd_c_size;</div>
+<div class="line"><span class="lineno">  484</span>                            _capacity = (<a class="code hl_typedef" href="types_8h.html#afaa62991928fb9fb18ff0db62a040aba">u32</a>)csd_c_size &lt;&lt; 10;</div>
+<div class="line"><span class="lineno">  485</span>                    }</div>
+<div class="line"><span class="lineno">  486</span>                }</div>
+<div class="line"><span class="lineno">  487</span>                <span class="keywordflow">else</span> <span class="keywordflow">if</span>(csd_structure == 0x00)</div>
+<div class="line"><span class="lineno">  488</span>                {</div>
+<div class="line"><span class="lineno">  489</span>                    <span class="keywordflow">switch</span>(i)</div>
+<div class="line"><span class="lineno">  490</span>                    {</div>
+<div class="line"><span class="lineno">  491</span>                        <span class="keywordflow">case</span> 5:</div>
+<div class="line"><span class="lineno">  492</span>                            csd_read_bl_len = b &amp; 0x0F;</div>
+<div class="line"><span class="lineno">  493</span>                            <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">  494</span> </div>
+<div class="line"><span class="lineno">  495</span>                        <span class="keywordflow">case</span> 6:</div>
+<div class="line"><span class="lineno">  496</span>                            csd_c_size = b &amp; 0x03;</div>
+<div class="line"><span class="lineno">  497</span>                            csd_c_size &lt;&lt;= 8;</div>
+<div class="line"><span class="lineno">  498</span>                            <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">  499</span> </div>
+<div class="line"><span class="lineno">  500</span>                        <span class="keywordflow">case</span> 7:</div>
+<div class="line"><span class="lineno">  501</span>                            csd_c_size |= b;</div>
+<div class="line"><span class="lineno">  502</span>                            csd_c_size &lt;&lt;= 2;</div>
+<div class="line"><span class="lineno">  503</span>                            <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">  504</span> </div>
+<div class="line"><span class="lineno">  505</span>                        <span class="keywordflow">case</span> 8:</div>
+<div class="line"><span class="lineno">  506</span>                            csd_c_size |= b &gt;&gt; 6;</div>
+<div class="line"><span class="lineno">  507</span>                            ++csd_c_size;</div>
+<div class="line"><span class="lineno">  508</span>                            <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">  509</span> </div>
+<div class="line"><span class="lineno">  510</span>                        <span class="keywordflow">case</span> 9:</div>
+<div class="line"><span class="lineno">  511</span>                            csd_c_size_mult = b &amp; 0x03;</div>
+<div class="line"><span class="lineno">  512</span>                            csd_c_size_mult &lt;&lt;= 1;</div>
+<div class="line"><span class="lineno">  513</span>                            <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">  514</span> </div>
+<div class="line"><span class="lineno">  515</span>                        <span class="keywordflow">case</span> 10:</div>
+<div class="line"><span class="lineno">  516</span>                            csd_c_size_mult |= b &gt;&gt; 7;</div>
+<div class="line"><span class="lineno">  517</span>                            _capacity = ((<a class="code hl_typedef" href="types_8h.html#afaa62991928fb9fb18ff0db62a040aba">u32</a>)csd_c_size &lt;&lt;</div>
+<div class="line"><span class="lineno">  518</span>                                (csd_c_size_mult + csd_read_bl_len + 2)) &gt;&gt; 9;</div>
+<div class="line"><span class="lineno">  519</span>                            <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">  520</span>                    }</div>
+<div class="line"><span class="lineno">  521</span>                }</div>
+<div class="line"><span class="lineno">  522</span>            }</div>
+<div class="line"><span class="lineno">  523</span>        }</div>
+<div class="line"><span class="lineno">  524</span> </div>
+<div class="line"><span class="lineno">  525</span>        <a class="code hl_define" href="gpio_8h.html#a714114dca347ee9354e449387728a12d">SD_DESELECT</a>;</div>
+<div class="line"><span class="lineno">  526</span>    }</div>
+<div class="line"><span class="lineno">  527</span> </div>
+<div class="line"><span class="lineno">  528</span>    <span class="comment">/* Print disk info */</span></div>
+<div class="line"><span class="lineno">  529</span>    <a class="code hl_function" href="sd_8c.html#a791232512be2ae4eb1cddf0bcfa2c894">_sd_info_print</a>();</div>
+<div class="line"><span class="lineno">  530</span>}</div>
+<div class="ttc" id="agpio_8h_html_ad104eec5bf5679ebe86fb494113175dd"><div class="ttname"><a href="gpio_8h.html#ad104eec5bf5679ebe86fb494113175dd">SD_SELECT</a></div><div class="ttdeci">#define SD_SELECT</div><div class="ttdef"><b>Definition:</b> <a href="gpio_8h_source.html#l00081">gpio.h:81</a></div></div>
+<div class="ttc" id="asd_8c_html_a039c816f90fba6c89d09980c5c1cb888"><div class="ttname"><a href="sd_8c.html#a039c816f90fba6c89d09980c5c1cb888">CMD_SEND_CSD</a></div><div class="ttdeci">#define CMD_SEND_CSD</div><div class="ttdef"><b>Definition:</b> <a href="sd_8c_source.html#l00024">sd.c:24</a></div></div>
+<div class="ttc" id="asd_8c_html_a0d173f3d259f3c28a25f4fd2b8085131"><div class="ttname"><a href="sd_8c.html#a0d173f3d259f3c28a25f4fd2b8085131">CMD_APP</a></div><div class="ttdeci">#define CMD_APP</div><div class="ttdef"><b>Definition:</b> <a href="sd_8c_source.html#l00045">sd.c:45</a></div></div>
+<div class="ttc" id="asd_8c_html_a1d66c9130165248f0563074180dd1432"><div class="ttname"><a href="sd_8c.html#a1d66c9130165248f0563074180dd1432">IDLE_STATE</a></div><div class="ttdeci">#define IDLE_STATE</div><div class="ttdef"><b>Definition:</b> <a href="sd_8c_source.html#l00051">sd.c:51</a></div></div>
+<div class="ttc" id="asd_8c_html_a282a2096b479791ed712f393f8faa67c"><div class="ttname"><a href="sd_8c.html#a282a2096b479791ed712f393f8faa67c">CMD_SD_SEND_OP_COND</a></div><div class="ttdeci">#define CMD_SD_SEND_OP_COND</div><div class="ttdef"><b>Definition:</b> <a href="sd_8c_source.html#l00042">sd.c:42</a></div></div>
+<div class="ttc" id="asd_8c_html_a4b42f4613401e4f986f7ecefca14e6cf"><div class="ttname"><a href="sd_8c.html#a4b42f4613401e4f986f7ecefca14e6cf">_sd_command</a></div><div class="ttdeci">static u8 _sd_command(u8 cmd, u32 arg)</div><div class="ttdoc">Execute an SD command (panic if failed)</div><div class="ttdef"><b>Definition:</b> <a href="sd_8c_source.html#l00119">sd.c:119</a></div></div>
+<div class="ttc" id="asd_8c_html_a5625571f0a42246f009e1695f5c0fd88"><div class="ttname"><a href="sd_8c.html#a5625571f0a42246f009e1695f5c0fd88">CMD_READ_OCR</a></div><div class="ttdeci">#define CMD_READ_OCR</div><div class="ttdef"><b>Definition:</b> <a href="sd_8c_source.html#l00048">sd.c:48</a></div></div>
+<div class="ttc" id="asd_8c_html_a574e335142ba9044c1a53a571f7f21ee"><div class="ttname"><a href="sd_8c.html#a574e335142ba9044c1a53a571f7f21ee">SD_1</a></div><div class="ttdeci">#define SD_1</div><div class="ttdef"><b>Definition:</b> <a href="sd_8c_source.html#l00057">sd.c:57</a></div></div>
+<div class="ttc" id="asd_8c_html_a5afa7a4f2574ec052d6326cb62d0bc25"><div class="ttname"><a href="sd_8c.html#a5afa7a4f2574ec052d6326cb62d0bc25">_sd_error</a></div><div class="ttdeci">static void _sd_error(void)</div><div class="ttdoc">Trigger an SD error panic.</div><div class="ttdef"><b>Definition:</b> <a href="sd_8c_source.html#l00106">sd.c:106</a></div></div>
+<div class="ttc" id="asd_8c_html_a69e5cfa724af0af3e97d69005a2b588d"><div class="ttname"><a href="sd_8c.html#a69e5cfa724af0af3e97d69005a2b588d">CMD_SEND_CID</a></div><div class="ttdeci">#define CMD_SEND_CID</div><div class="ttdef"><b>Definition:</b> <a href="sd_8c_source.html#l00027">sd.c:27</a></div></div>
+<div class="ttc" id="asd_8c_html_a791232512be2ae4eb1cddf0bcfa2c894"><div class="ttname"><a href="sd_8c.html#a791232512be2ae4eb1cddf0bcfa2c894">_sd_info_print</a></div><div class="ttdeci">static void _sd_info_print(void)</div><div class="ttdoc">Print SD card info to serial port.</div><div class="ttdef"><b>Definition:</b> <a href="sd_8c_source.html#l00212">sd.c:212</a></div></div>
+<div class="ttc" id="asd_8c_html_a7bf3670f9b10107272a0bc84bd449d46"><div class="ttname"><a href="sd_8c.html#a7bf3670f9b10107272a0bc84bd449d46">_spi_configure_slow</a></div><div class="ttdeci">static void _spi_configure_slow(void)</div><div class="ttdoc">Put SPI into slow mode for initialization.</div><div class="ttdef"><b>Definition:</b> <a href="sd_8c_source.html#l00088">sd.c:88</a></div></div>
+<div class="ttc" id="asd_8c_html_a8ae8b08655b2ec2facb46d6bbc83065c"><div class="ttname"><a href="sd_8c.html#a8ae8b08655b2ec2facb46d6bbc83065c">ILLEGAL_CMD</a></div><div class="ttdeci">#define ILLEGAL_CMD</div><div class="ttdef"><b>Definition:</b> <a href="sd_8c_source.html#l00054">sd.c:54</a></div></div>
+<div class="ttc" id="asd_8c_html_aa347e415bf1de52f199a0bb0f07d6e2a"><div class="ttname"><a href="sd_8c.html#aa347e415bf1de52f199a0bb0f07d6e2a">_sd_timeout</a></div><div class="ttdeci">static void _sd_timeout(void)</div><div class="ttdoc">Trigger an SD timeout panic.</div><div class="ttdef"><b>Definition:</b> <a href="sd_8c_source.html#l00097">sd.c:97</a></div></div>
+<div class="ttc" id="asd_8c_html_acc98caadb00bb27cee9c6037193adb68"><div class="ttname"><a href="sd_8c.html#acc98caadb00bb27cee9c6037193adb68">CMD_SET_BLOCKLEN</a></div><div class="ttdeci">#define CMD_SET_BLOCKLEN</div><div class="ttdef"><b>Definition:</b> <a href="sd_8c_source.html#l00030">sd.c:30</a></div></div>
+<div class="ttc" id="asd_8c_html_ae059745768a7fde0832a1dea6a623ab0"><div class="ttname"><a href="sd_8c.html#ae059745768a7fde0832a1dea6a623ab0">CMD_SEND_OP_COND</a></div><div class="ttdeci">#define CMD_SEND_OP_COND</div><div class="ttdef"><b>Definition:</b> <a href="sd_8c_source.html#l00039">sd.c:39</a></div></div>
+<div class="ttc" id="asd_8c_html_aefd26333484d292772b95039e8415d0c"><div class="ttname"><a href="sd_8c.html#aefd26333484d292772b95039e8415d0c">SD_2</a></div><div class="ttdeci">#define SD_2</div><div class="ttdef"><b>Definition:</b> <a href="sd_8c_source.html#l00060">sd.c:60</a></div></div>
+<div class="ttc" id="aspi_8c_html_ab3e16cf26638212c1e54a7aa4878e12a"><div class="ttname"><a href="spi_8c.html#ab3e16cf26638212c1e54a7aa4878e12a">spi_fast</a></div><div class="ttdeci">void spi_fast(void)</div><div class="ttdoc">Enable fastest SPI mode.</div><div class="ttdef"><b>Definition:</b> <a href="spi_8c_source.html#l00018">spi.c:18</a></div></div>
+<div class="ttc" id="atypes_8h_html_ace9d960e74685e2cd84b36132dbbf8aa"><div class="ttname"><a href="types_8h.html#ace9d960e74685e2cd84b36132dbbf8aa">u16</a></div><div class="ttdeci">uint16_t u16</div><div class="ttdef"><b>Definition:</b> <a href="types_8h_source.html#l00035">types.h:35</a></div></div>
+<div class="ttc" id="atypes_8h_html_afaa62991928fb9fb18ff0db62a040aba"><div class="ttname"><a href="types_8h.html#afaa62991928fb9fb18ff0db62a040aba">u32</a></div><div class="ttdeci">uint32_t u32</div><div class="ttdef"><b>Definition:</b> <a href="types_8h_source.html#l00032">types.h:32</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="sd_8c_source.html#l00119">_sd_command()</a>, <a class="el" href="sd_8c_source.html#l00106">_sd_error()</a>, <a class="el" href="sd_8c_source.html#l00212">_sd_info_print()</a>, <a class="el" href="sd_8c_source.html#l00097">_sd_timeout()</a>, <a class="el" href="sd_8c_source.html#l00088">_spi_configure_slow()</a>, <a class="el" href="sd_8c_source.html#l00045">CMD_APP</a>, <a class="el" href="sd_8c_source.html#l00018">CMD_GO_IDLE_STATE</a>, <a class="el" href="sd_8c_source.html#l00048">CMD_READ_OCR</a>, <a class="el" href="sd_8c_source.html#l00042">CMD_SD_SEND_OP_COND</a>, <a class="el" href="sd_8c_source.html#l00027">CMD_SEND_CID</a>, <a class="el" href="sd_8c_source.html#l00024">CMD_SEND_CSD</a>, <a class="el" href="sd_8c_source.html#l00021">CMD_SEND_IF_COND</a>, <a class="el" href="sd_8c_source.html#l00039">CMD_SEND_OP_COND</a>, <a class="el" href="sd_8c_source.html#l00030">CMD_SET_BLOCKLEN</a>, <a class="el" href="sd_8c_source.html#l00051">IDLE_STATE</a>, <a class="el" href="sd_8c_source.html#l00054">ILLEGAL_CMD</a>, <a class="el" href="logger_8c_source.html#l00164">log_boot_P()</a>, <a class="el" href="sd_8c_source.html#l00057">SD_1</a>, <a class="el" href="sd_8c_source.html#l00060">SD_2</a>, <a class="el" href="gpio_8h_source.html#l00084">SD_DESELECT</a>, <a class="el" href="sd_8c_source.html#l00063">SD_HC</a>, <a class="el" href="gpio_8h_source.html#l00081">SD_SELECT</a>, <a class="el" href="spi_8c_source.html#l00018">spi_fast()</a>, and <a class="el" href="spi_8c_source.html#l00024">spi_xchg()</a>.</p>
+
+</div>
+</div>
 <a id="a3f0c63e822010bb899b9e13d73a685dd" name="a3f0c63e822010bb899b9e13d73a685dd"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a3f0c63e822010bb899b9e13d73a685dd">&#9670;&#160;</a></span>sd_read()</h2>
 
@@ -193,6 +1243,64 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>sd_init</b> (void)</t
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Read status </dd></dl>
 
+<p class="definition">Definition at line <a class="el" href="sd_8c_source.html#l00537">537</a> of file <a class="el" href="sd_8c_source.html">sd.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  538</span>{</div>
+<div class="line"><span class="lineno">  539</span>    <a class="code hl_typedef" href="types_8h.html#ace9d960e74685e2cd84b36132dbbf8aa">u16</a> i;</div>
+<div class="line"><span class="lineno">  540</span>    <a class="code hl_typedef" href="types_8h.html#a92c50087ca0e64fa93fc59402c55f8ca">u8</a> *data8, response;</div>
+<div class="line"><span class="lineno">  541</span> </div>
+<div class="line"><span class="lineno">  542</span>    data8 = data;</div>
+<div class="line"><span class="lineno">  543</span> </div>
+<div class="line"><span class="lineno">  544</span>    <a class="code hl_define" href="gpio_8h.html#ad104eec5bf5679ebe86fb494113175dd">SD_SELECT</a>;</div>
+<div class="line"><span class="lineno">  545</span> </div>
+<div class="line"><span class="lineno">  546</span>    <span class="comment">/* Start read */</span></div>
+<div class="line"><span class="lineno">  547</span>    <a class="code hl_define" href="status_8h.html#a99cfc2ffa79fcbac77f8df8bea625959">RETURN_IF</a>(<a class="code hl_function" href="sd_8c.html#a0d5cf7e4b125c949867acca515f5c1ec">_sd_command_try</a>(<a class="code hl_define" href="sd_8c.html#a6b4ea5767b225fa6bb958718b97e07e6">CMD_READ_SINGLE_BLOCK</a>,</div>
+<div class="line"><span class="lineno">  548</span>        <a class="code hl_function" href="sd_8c.html#abfa39415eadaeeb34dafde212e7401f4">_sd_block_addr</a>(block), &amp;response));</div>
+<div class="line"><span class="lineno">  549</span>    <span class="keywordflow">if</span>(response)</div>
+<div class="line"><span class="lineno">  550</span>    {</div>
+<div class="line"><span class="lineno">  551</span>        <a class="code hl_define" href="gpio_8h.html#a714114dca347ee9354e449387728a12d">SD_DESELECT</a>;</div>
+<div class="line"><span class="lineno">  552</span>        <span class="keywordflow">return</span> STATUS_FAIL;</div>
+<div class="line"><span class="lineno">  553</span>    }</div>
+<div class="line"><span class="lineno">  554</span> </div>
+<div class="line"><span class="lineno">  555</span>    <span class="comment">/* Wait for ready */</span></div>
+<div class="line"><span class="lineno">  556</span>    <span class="keywordflow">for</span>(i = 0; ; ++i)</div>
+<div class="line"><span class="lineno">  557</span>    {</div>
+<div class="line"><span class="lineno">  558</span>        <a class="code hl_define" href="status_8h.html#a99cfc2ffa79fcbac77f8df8bea625959">RETURN_IF</a>(<a class="code hl_function" href="spi_8c.html#a2195bbe087062b5ee88ebcdac1e53643">spi_xchg_try</a>(0xFF, &amp;response));</div>
+<div class="line"><span class="lineno">  559</span>        <span class="keywordflow">if</span>(response == 0xFE)</div>
+<div class="line"><span class="lineno">  560</span>        {</div>
+<div class="line"><span class="lineno">  561</span>            <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">  562</span>        }</div>
+<div class="line"><span class="lineno">  563</span> </div>
+<div class="line"><span class="lineno">  564</span>        <span class="keywordflow">if</span>(i == 0xFFFF)</div>
+<div class="line"><span class="lineno">  565</span>        {</div>
+<div class="line"><span class="lineno">  566</span>            <a class="code hl_define" href="gpio_8h.html#a714114dca347ee9354e449387728a12d">SD_DESELECT</a>;</div>
+<div class="line"><span class="lineno">  567</span>            <span class="keywordflow">return</span> STATUS_TIMEOUT;</div>
+<div class="line"><span class="lineno">  568</span>        }</div>
+<div class="line"><span class="lineno">  569</span>    }</div>
+<div class="line"><span class="lineno">  570</span> </div>
+<div class="line"><span class="lineno">  571</span>    <span class="comment">/* Read data */</span></div>
+<div class="line"><span class="lineno">  572</span>    <span class="keywordflow">for</span>(i = 0; i &lt; <a class="code hl_define" href="sd_8h.html#ad51ded0bbd705f02f73fc60c0b721ced">BLOCK_SIZE</a>; ++i)</div>
+<div class="line"><span class="lineno">  573</span>    {</div>
+<div class="line"><span class="lineno">  574</span>        <span class="keywordflow">if</span>(<a class="code hl_function" href="spi_8c.html#a419efa4aed1b16b72a80d7a1356780d0">spi_rx_try</a>(&amp;data8[i]))</div>
+<div class="line"><span class="lineno">  575</span>        {</div>
+<div class="line"><span class="lineno">  576</span>            <span class="keywordflow">return</span> STATUS_TIMEOUT;</div>
+<div class="line"><span class="lineno">  577</span>        }</div>
+<div class="line"><span class="lineno">  578</span>    }</div>
+<div class="line"><span class="lineno">  579</span> </div>
+<div class="line"><span class="lineno">  580</span>    <a class="code hl_define" href="status_8h.html#a99cfc2ffa79fcbac77f8df8bea625959">RETURN_IF</a>(<a class="code hl_function" href="spi_8c.html#a28af41e6c50d1f29c90a94e1041a8285">spi_tx_try</a>(0xFF));</div>
+<div class="line"><span class="lineno">  581</span>    <a class="code hl_define" href="status_8h.html#a99cfc2ffa79fcbac77f8df8bea625959">RETURN_IF</a>(<a class="code hl_function" href="spi_8c.html#a28af41e6c50d1f29c90a94e1041a8285">spi_tx_try</a>(0xFF));</div>
+<div class="line"><span class="lineno">  582</span>    <a class="code hl_define" href="status_8h.html#a99cfc2ffa79fcbac77f8df8bea625959">RETURN_IF</a>(<a class="code hl_function" href="spi_8c.html#a28af41e6c50d1f29c90a94e1041a8285">spi_tx_try</a>(0xFF));</div>
+<div class="line"><span class="lineno">  583</span>    <a class="code hl_define" href="gpio_8h.html#a714114dca347ee9354e449387728a12d">SD_DESELECT</a>;</div>
+<div class="line"><span class="lineno">  584</span>    <span class="keywordflow">return</span> STATUS_OK;</div>
+<div class="line"><span class="lineno">  585</span>}</div>
+<div class="ttc" id="asd_8c_html_a0d5cf7e4b125c949867acca515f5c1ec"><div class="ttname"><a href="sd_8c.html#a0d5cf7e4b125c949867acca515f5c1ec">_sd_command_try</a></div><div class="ttdeci">static Status _sd_command_try(u8 cmd, u32 arg, u8 *out)</div><div class="ttdoc">Try to execute an SD command.</div><div class="ttdef"><b>Definition:</b> <a href="sd_8c_source.html#l00155">sd.c:155</a></div></div>
+<div class="ttc" id="asd_8c_html_a6b4ea5767b225fa6bb958718b97e07e6"><div class="ttname"><a href="sd_8c.html#a6b4ea5767b225fa6bb958718b97e07e6">CMD_READ_SINGLE_BLOCK</a></div><div class="ttdeci">#define CMD_READ_SINGLE_BLOCK</div><div class="ttdef"><b>Definition:</b> <a href="sd_8c_source.html#l00033">sd.c:33</a></div></div>
+<div class="ttc" id="asd_8c_html_abfa39415eadaeeb34dafde212e7401f4"><div class="ttname"><a href="sd_8c.html#abfa39415eadaeeb34dafde212e7401f4">_sd_block_addr</a></div><div class="ttdeci">static u32 _sd_block_addr(u32 block)</div><div class="ttdoc">Convert block number to internal SD address since SD uses byte address but SDHC uses block number.</div><div class="ttdef"><b>Definition:</b> <a href="sd_8c_source.html#l00204">sd.c:204</a></div></div>
+<div class="ttc" id="aspi_8c_html_a2195bbe087062b5ee88ebcdac1e53643"><div class="ttname"><a href="spi_8c.html#a2195bbe087062b5ee88ebcdac1e53643">spi_xchg_try</a></div><div class="ttdeci">Status spi_xchg_try(u8 in, u8 *out)</div><div class="ttdoc">Try to send and receive one byte from SPI.</div><div class="ttdef"><b>Definition:</b> <a href="spi_8c_source.html#l00039">spi.c:39</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="sd_8c_source.html#l00204">_sd_block_addr()</a>, <a class="el" href="sd_8c_source.html#l00155">_sd_command_try()</a>, <a class="el" href="sd_8h_source.html#l00016">BLOCK_SIZE</a>, <a class="el" href="sd_8c_source.html#l00033">CMD_READ_SINGLE_BLOCK</a>, <a class="el" href="status_8h_source.html#l00025">RETURN_IF</a>, <a class="el" href="gpio_8h_source.html#l00084">SD_DESELECT</a>, <a class="el" href="gpio_8h_source.html#l00081">SD_SELECT</a>, <a class="el" href="spi_8c_source.html#l00061">spi_rx_try()</a>, <a class="el" href="spi_8c_source.html#l00055">spi_tx_try()</a>, and <a class="el" href="spi_8c_source.html#l00039">spi_xchg_try()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="initrd_8c_source.html#l00027">initrd_load()</a>.</p>
+
 </div>
 </div>
 <a id="ae1c9b31374648aa65b35c2c344a8414d" name="ae1c9b31374648aa65b35c2c344a8414d"></a>
@@ -213,6 +1321,324 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>sd_init</b> (void)</t
 
 <p>Get SD card capacity. </p>
 <dl class="section return"><dt>Returns</dt><dd>Capacity in 512-byte blocks </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="sd_8c_source.html#l00532">532</a> of file <a class="el" href="sd_8c_source.html">sd.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  533</span>{</div>
+<div class="line"><span class="lineno">  534</span>    <span class="keywordflow">return</span> _capacity;</div>
+<div class="line"><span class="lineno">  535</span>}</div>
+</div><!-- fragment -->
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a id="a7bd8d3e0e1c2cf5b038b34cae188e103" name="a7bd8d3e0e1c2cf5b038b34cae188e103"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7bd8d3e0e1c2cf5b038b34cae188e103">&#9670;&#160;</a></span>_capacity</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="types_8h.html#afaa62991928fb9fb18ff0db62a040aba">u32</a> _capacity</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="sd_8c_source.html#l00068">68</a> of file <a class="el" href="sd_8c_source.html">sd.c</a>.</p>
+
+</div>
+</div>
+<a id="a8d37d6a747a43ba1d451eb65ae1426da" name="a8d37d6a747a43ba1d451eb65ae1426da"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8d37d6a747a43ba1d451eb65ae1426da">&#9670;&#160;</a></span>_card_type</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="types_8h.html#a92c50087ca0e64fa93fc59402c55f8ca">u8</a> _card_type</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="sd_8c_source.html#l00073">73</a> of file <a class="el" href="sd_8c_source.html">sd.c</a>.</p>
+
+</div>
+</div>
+<a id="a2998fdf4c7eb0b26a2b54d00b758491e" name="a2998fdf4c7eb0b26a2b54d00b758491e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2998fdf4c7eb0b26a2b54d00b758491e">&#9670;&#160;</a></span>_flag_copy</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="types_8h.html#a92c50087ca0e64fa93fc59402c55f8ca">u8</a> _flag_copy</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="sd_8c_source.html#l00078">78</a> of file <a class="el" href="sd_8c_source.html">sd.c</a>.</p>
+
+</div>
+</div>
+<a id="a3fdc31aba359f341228d803372422756" name="a3fdc31aba359f341228d803372422756"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3fdc31aba359f341228d803372422756">&#9670;&#160;</a></span>_flag_write_protect</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="types_8h.html#a92c50087ca0e64fa93fc59402c55f8ca">u8</a> _flag_write_protect</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="sd_8c_source.html#l00079">79</a> of file <a class="el" href="sd_8c_source.html">sd.c</a>.</p>
+
+</div>
+</div>
+<a id="ada821f7b53ae5197acf8428b43b439a2" name="ada821f7b53ae5197acf8428b43b439a2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ada821f7b53ae5197acf8428b43b439a2">&#9670;&#160;</a></span>_flag_write_protect_temp</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="types_8h.html#a92c50087ca0e64fa93fc59402c55f8ca">u8</a> _flag_write_protect_temp</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="sd_8c_source.html#l00080">80</a> of file <a class="el" href="sd_8c_source.html">sd.c</a>.</p>
+
+</div>
+</div>
+<a id="ac95274980aa92d9e823f7fe40e9c71c6" name="ac95274980aa92d9e823f7fe40e9c71c6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac95274980aa92d9e823f7fe40e9c71c6">&#9670;&#160;</a></span>_format</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="types_8h.html#a92c50087ca0e64fa93fc59402c55f8ca">u8</a> _format</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="sd_8c_source.html#l00081">81</a> of file <a class="el" href="sd_8c_source.html">sd.c</a>.</p>
+
+</div>
+</div>
+<a id="a2cf10fd5e6c5eb5ca1e266a56bcbf366" name="a2cf10fd5e6c5eb5ca1e266a56bcbf366"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2cf10fd5e6c5eb5ca1e266a56bcbf366">&#9670;&#160;</a></span>_manufacturer</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="types_8h.html#a92c50087ca0e64fa93fc59402c55f8ca">u8</a> _manufacturer</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="sd_8c_source.html#l00074">74</a> of file <a class="el" href="sd_8c_source.html">sd.c</a>.</p>
+
+</div>
+</div>
+<a id="a9e7231d7bbac2b52565f8013c1438f95" name="a9e7231d7bbac2b52565f8013c1438f95"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9e7231d7bbac2b52565f8013c1438f95">&#9670;&#160;</a></span>_manufacturing_month</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="types_8h.html#a92c50087ca0e64fa93fc59402c55f8ca">u8</a> _manufacturing_month</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="sd_8c_source.html#l00077">77</a> of file <a class="el" href="sd_8c_source.html">sd.c</a>.</p>
+
+</div>
+</div>
+<a id="a631d9b4a17a835e65c53341441909327" name="a631d9b4a17a835e65c53341441909327"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a631d9b4a17a835e65c53341441909327">&#9670;&#160;</a></span>_manufacturing_year</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="types_8h.html#a92c50087ca0e64fa93fc59402c55f8ca">u8</a> _manufacturing_year</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="sd_8c_source.html#l00076">76</a> of file <a class="el" href="sd_8c_source.html">sd.c</a>.</p>
+
+</div>
+</div>
+<a id="abbb9849e2abd4572cd3adaeed8a3fb0d" name="abbb9849e2abd4572cd3adaeed8a3fb0d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abbb9849e2abd4572cd3adaeed8a3fb0d">&#9670;&#160;</a></span>_oem</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="types_8h.html#a92c50087ca0e64fa93fc59402c55f8ca">u8</a> _oem[3]</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="sd_8c_source.html#l00071">71</a> of file <a class="el" href="sd_8c_source.html">sd.c</a>.</p>
+
+</div>
+</div>
+<a id="acc046f807b113c25472d832e370dbce3" name="acc046f807b113c25472d832e370dbce3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acc046f807b113c25472d832e370dbce3">&#9670;&#160;</a></span>_product</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="types_8h.html#a92c50087ca0e64fa93fc59402c55f8ca">u8</a> _product[6]</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="sd_8c_source.html#l00072">72</a> of file <a class="el" href="sd_8c_source.html">sd.c</a>.</p>
+
+</div>
+</div>
+<a id="a04d10f02dffd155f45a6f1edeef578a7" name="a04d10f02dffd155f45a6f1edeef578a7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a04d10f02dffd155f45a6f1edeef578a7">&#9670;&#160;</a></span>_revision</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="types_8h.html#a92c50087ca0e64fa93fc59402c55f8ca">u8</a> _revision</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="sd_8c_source.html#l00075">75</a> of file <a class="el" href="sd_8c_source.html">sd.c</a>.</p>
+
+</div>
+</div>
+<a id="a9d42b6e8aa088a7a30937286f1018646" name="a9d42b6e8aa088a7a30937286f1018646"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9d42b6e8aa088a7a30937286f1018646">&#9670;&#160;</a></span>_serial</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="types_8h.html#afaa62991928fb9fb18ff0db62a040aba">u32</a> _serial</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="sd_8c_source.html#l00067">67</a> of file <a class="el" href="sd_8c_source.html">sd.c</a>.</p>
 
 </div>
 </div>

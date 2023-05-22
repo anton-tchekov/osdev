@@ -1,0 +1,29 @@
+ATFS = Amazing Technology File System\hypertarget{md_atfs_ATFS_autotoc_md1}{}\doxysection{Disk Layout}\label{md_atfs_ATFS_autotoc_md1}
+\hypertarget{md_atfs_ATFS_autotoc_md2}{}\doxysubsection{Versioning file system}\label{md_atfs_ATFS_autotoc_md2}
+Files cannot be deleted or edited after creation, and each time a file is written, a copy with a incremented version number is created. Space allocation is super simple, just increment a pointer.\hypertarget{md_atfs_ATFS_autotoc_md3}{}\doxysubsection{Directories are just files containing lists of files}\label{md_atfs_ATFS_autotoc_md3}
+1 block is 512 bytes
+
+START = Start block
+
+SIZE = Size in blocks
+
+START $\vert$ SIZE $\vert$ DESCRIPTION -\/-\/-\/---+-\/-\/-\/---+-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/--- 0 $\vert$ 1 $\vert$ FS Info (Boot sector) 1 $\vert$ 128 $\vert$ Standard Libary (Shared Libary) (MAX. 64 KiB) 129 $\vert$ 128 $\vert$ Init Program Binary (MAX. 256 KiB) 257 $\vert$ 1 $\vert$ FS Root Directory (Rev. 00)\hypertarget{md_atfs_ATFS_autotoc_md4}{}\doxysubsection{FS Info Struct}\label{md_atfs_ATFS_autotoc_md4}
+All Integers are little endian
+
+START = Start byte
+
+SIZE = Size in bytes
+
+START $\vert$ SIZE $\vert$ DESCRIPTION -\/-\/-\/---+-\/-\/-\/---+-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/--- 0 $\vert$ 4 $\vert$ FS Signature \{ \textquotesingle{}A\textquotesingle{}, \textquotesingle{}T\textquotesingle{}, \textquotesingle{}F\textquotesingle{}, \textquotesingle{}S\textquotesingle{} \} 4 $\vert$ 4 $\vert$ FS Revision (0) 8 $\vert$ 4 $\vert$ STDLIB Size in bytes 12 $\vert$ 4 $\vert$ INIT Program Size in bytes 16 $\vert$ 4 $\vert$ Write Pointer Location 20 $\vert$ 492 $\vert$ Reserved
+
+All files are contiguous\hypertarget{md_atfs_ATFS_autotoc_md5}{}\doxysubsection{DIR Info struct}\label{md_atfs_ATFS_autotoc_md5}
+Filename separator is a dot \textquotesingle{}.\textquotesingle{}, not slash \textquotesingle{}/\textquotesingle{}.
+
+Filenames may only contain lowercase letters (\textquotesingle{}a\textquotesingle{} to \textquotesingle{}z\textquotesingle{}), numbers (\textquotesingle{}0\textquotesingle{} to \textquotesingle{}9\textquotesingle{}) and underscore (\textquotesingle{}\+\_\+\textquotesingle{}) and may not start with a number. File extensions are not supported.
+
+Example path\+: \char`\"{}root.\+images.\+vacation.\+me\+\_\+on\+\_\+the\+\_\+beach\char`\"{}
+
+START $\vert$ SIZE $\vert$ DESCRIPTION -\/-\/-\/---+-\/-\/-\/---+-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/--- 0 $\vert$ 4 $\vert$ Number of files\hypertarget{md_atfs_ATFS_autotoc_md6}{}\doxysubsection{File Info struct}\label{md_atfs_ATFS_autotoc_md6}
+START $\vert$ SIZE $\vert$ DESCRIPTION -\/-\/-\/---+-\/-\/-\/---+-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/--- 0 $\vert$ 4 $\vert$ File Location (start block) 4 $\vert$ 8 $\vert$ File Size (in bytes) 8 $\vert$ N $\vert$ File Name + null terminator (padding to align at 4 bytes)
+
+Files are sequentially listed with padding to ensure 4 byte align 

@@ -14,7 +14,14 @@
 /** Memory allocator information struct */
 typedef struct
 {
-	i32 Used, Total, Size;
+	/** Sum of the size of all allocations */
+	i32 Used;
+
+	/** Used memory total including allocator overhead */
+	i32 Total;
+
+	/** Heap size */
+	i32 Size;
 } MemAllocInfo;
 
 /**

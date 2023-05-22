@@ -1,5 +1,12 @@
 #include <std.h>
 
+//! @cond Doxygen_Suppress
+
+typedef struct
+{
+	u32 ColorComment, ColorNumber, ColorString, ColorKeyword;
+} SyntaxHighlighter;
+
 void event_key(Key key, i32 chr, KeyState state)
 {
 }
@@ -462,6 +469,6 @@ static void _render_line(Line *line, i32 line_number)
 	}
 }
 
-
 #endif /* EDITOR */
 
+//! @endcond

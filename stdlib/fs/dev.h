@@ -9,6 +9,8 @@
 #ifndef __DEV_H__
 #define __DEV_H__
 
+//! @cond Doxygen_Suppress
+
 #include <types.h>
 #include <status.h>
 
@@ -37,5 +39,7 @@ StatusCode dev_block_size(char dev, u32 *size);
 
 /** TODO */
 StatusCode dev_block_count(char dev, u32 *count);
+
+//! @endcond
 
 #endif /* __DEV_H__ */

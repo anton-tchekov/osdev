@@ -1,25 +1,68 @@
 \hypertarget{fs_8h_source}{}\doxysection{fs.\+h}
-\label{fs_8h_source}\index{atfs/fs/fs.h@{atfs/fs/fs.h}}
+\label{fs_8h_source}\index{stdlib/fs/fs.h@{stdlib/fs/fs.h}}
 \mbox{\hyperlink{fs_8h}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00001\ }
-\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#ifndef\ \_\_FS\_H\_\_}}
-\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#define\ \_\_FS\_H\_\_}}
-\DoxyCodeLine{00011\ }
-\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{status_8h}{status.h}}>}}
-\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{types_8h}{types.h}}>}}
-\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{syscall_8h}{syscall.h}}>}}
-\DoxyCodeLine{00015\ }
-\DoxyCodeLine{00017\ \textcolor{keyword}{typedef}\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ \mbox{\hyperlink{fs_8h_a3d8cbaa4e32fca2d0d2dd6528348ef30}{File}};}
-\DoxyCodeLine{00018\ }
-\DoxyCodeLine{00026\ \mbox{\hyperlink{status_8h_a67a0db04d321a74b7e7fcfd3f1a3f70b}{Status}}\ \mbox{\hyperlink{fs_8h_a82571035dc9bb531419ccc3a3493bd85}{file\_open}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *name,\ \mbox{\hyperlink{structFile}{File}}\ *file);}
-\DoxyCodeLine{00027\ }
-\DoxyCodeLine{00037\ \mbox{\hyperlink{status_8h_a67a0db04d321a74b7e7fcfd3f1a3f70b}{Status}}\ \mbox{\hyperlink{fs_8h_a5aa32f19ddd3d659cbd6868bcc6da596}{file\_write}}(\mbox{\hyperlink{structFile}{File}}\ file,\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ start,\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ len,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *buf);}
-\DoxyCodeLine{00038\ }
-\DoxyCodeLine{00045\ \mbox{\hyperlink{status_8h_a67a0db04d321a74b7e7fcfd3f1a3f70b}{Status}}\ \mbox{\hyperlink{fs_8h_a6d1f304bad498893aad5936e2531d1ac}{file\_close}}(\mbox{\hyperlink{structFile}{File}}\ file);}
-\DoxyCodeLine{00046\ }
-\DoxyCodeLine{00054\ \mbox{\hyperlink{status_8h_a67a0db04d321a74b7e7fcfd3f1a3f70b}{Status}}\ \mbox{\hyperlink{fs_8h_a8ad956250fdd6ebb0a64e8b972abf4be}{file\_size}}(\mbox{\hyperlink{structFile}{File}}\ file,\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}*\ size);}
-\DoxyCodeLine{00055\ }
-\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ \_\_FS\_H\_\_\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{fs_8h_source_l00001}00001\ }
+\DoxyCodeLine{\Hypertarget{fs_8h_source_l00009}00009\ \textcolor{preprocessor}{\#ifndef\ \_\_FS\_H\_\_}}
+\DoxyCodeLine{\Hypertarget{fs_8h_source_l00010}00010\ \textcolor{preprocessor}{\#define\ \_\_FS\_H\_\_}}
+\DoxyCodeLine{\Hypertarget{fs_8h_source_l00011}00011\ }
+\DoxyCodeLine{\Hypertarget{fs_8h_source_l00013}00013\ }
+\DoxyCodeLine{\Hypertarget{fs_8h_source_l00014}00014\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{status_8h}{status.h}}>}}
+\DoxyCodeLine{\Hypertarget{fs_8h_source_l00015}00015\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{types_8h}{types.h}}>}}
+\DoxyCodeLine{\Hypertarget{fs_8h_source_l00016}00016\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{syscall_8h}{syscall.h}}>}}
+\DoxyCodeLine{\Hypertarget{fs_8h_source_l00017}00017\ }
+\DoxyCodeLine{\Hypertarget{fs_8h_source_l00018}00018\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}}
+\DoxyCodeLine{\Hypertarget{fs_8h_source_l00019}00019\ \{}
+\DoxyCodeLine{\Hypertarget{fs_8h_source_l00020}00020\ \ \ \ \ FILETYPE\_DIR\ =\ \textcolor{stringliteral}{"{}DIR"{}},}
+\DoxyCodeLine{\Hypertarget{fs_8h_source_l00021}00021\ \ \ \ \ FILETYPE\_TEXT\ =\ \textcolor{stringliteral}{"{}TXT"{}}}
+\DoxyCodeLine{\Hypertarget{fs_8h_source_l00022}00022\ }
+\DoxyCodeLine{\Hypertarget{fs_8h_source_l00023}00023\ \}\ FileType;}
+\DoxyCodeLine{\Hypertarget{fs_8h_source_l00024}00024\ }
+\DoxyCodeLine{\Hypertarget{fs_8h_source_l00025}00025\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}}
+\DoxyCodeLine{\Hypertarget{fs_8h_source_l00026}00026\ \{}
+\DoxyCodeLine{\Hypertarget{fs_8h_source_l00027}00027\ \ \ \ \ \textcolor{keywordtype}{char}\ Device;}
+\DoxyCodeLine{\Hypertarget{fs_8h_source_l00028}00028\ \ \ \ \ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ StartBlock,\ SizeBlocks;}
+\DoxyCodeLine{\Hypertarget{fs_8h_source_l00029}00029\ \}\ File;}
+\DoxyCodeLine{\Hypertarget{fs_8h_source_l00030}00030\ }
+\DoxyCodeLine{\Hypertarget{fs_8h_source_l00031}00031\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}}
+\DoxyCodeLine{\Hypertarget{fs_8h_source_l00032}00032\ \{}
+\DoxyCodeLine{\Hypertarget{fs_8h_source_l00033}00033\ \ \ \ \ \textcolor{keywordtype}{char}\ Device;}
+\DoxyCodeLine{\Hypertarget{fs_8h_source_l00034}00034\ \ \ \ \ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ NumFiles;}
+\DoxyCodeLine{\Hypertarget{fs_8h_source_l00035}00035\ \ \ \ \ File\ InternalFile;}
+\DoxyCodeLine{\Hypertarget{fs_8h_source_l00036}00036\ \}\ Dir;}
+\DoxyCodeLine{\Hypertarget{fs_8h_source_l00037}00037\ }
+\DoxyCodeLine{\Hypertarget{fs_8h_source_l00038}00038\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}}
+\DoxyCodeLine{\Hypertarget{fs_8h_source_l00039}00039\ \{}
+\DoxyCodeLine{\Hypertarget{fs_8h_source_l00040}00040\ \ \ \ \ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ Size,\ Type;}
+\DoxyCodeLine{\Hypertarget{fs_8h_source_l00041}00041\ \ \ \ \ \textcolor{keywordtype}{char}\ Name[64],\ Type;}
+\DoxyCodeLine{\Hypertarget{fs_8h_source_l00042}00042\ \}\ DirEntry;}
+\DoxyCodeLine{\Hypertarget{fs_8h_source_l00043}00043\ }
+\DoxyCodeLine{\Hypertarget{fs_8h_source_l00044}00044\ }
+\DoxyCodeLine{\Hypertarget{fs_8h_source_l00046}00046\ \textcolor{keyword}{typedef}\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ File;}
+\DoxyCodeLine{\Hypertarget{fs_8h_source_l00047}00047\ }
+\DoxyCodeLine{\Hypertarget{fs_8h_source_l00055}00055\ \mbox{\hyperlink{status_8h_a67a0db04d321a74b7e7fcfd3f1a3f70b}{Status}}\ file\_open(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *name,\ File\ *file);}
+\DoxyCodeLine{\Hypertarget{fs_8h_source_l00056}00056\ }
+\DoxyCodeLine{\Hypertarget{fs_8h_source_l00066}00066\ \mbox{\hyperlink{status_8h_a67a0db04d321a74b7e7fcfd3f1a3f70b}{Status}}\ file\_write(File\ file,\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ start,\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ len,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *buf);}
+\DoxyCodeLine{\Hypertarget{fs_8h_source_l00067}00067\ }
+\DoxyCodeLine{\Hypertarget{fs_8h_source_l00074}00074\ \mbox{\hyperlink{status_8h_a67a0db04d321a74b7e7fcfd3f1a3f70b}{Status}}\ file\_close(File\ file);}
+\DoxyCodeLine{\Hypertarget{fs_8h_source_l00075}00075\ }
+\DoxyCodeLine{\Hypertarget{fs_8h_source_l00083}00083\ \mbox{\hyperlink{status_8h_a67a0db04d321a74b7e7fcfd3f1a3f70b}{Status}}\ file\_size(File\ file,\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}*\ size);}
+\DoxyCodeLine{\Hypertarget{fs_8h_source_l00084}00084\ }
+\DoxyCodeLine{\Hypertarget{fs_8h_source_l00090}00090\ StatusCode\ fs\_format(\textcolor{keywordtype}{char}\ dev);}
+\DoxyCodeLine{\Hypertarget{fs_8h_source_l00091}00091\ }
+\DoxyCodeLine{\Hypertarget{fs_8h_source_l00097}00097\ StatusCode\ fs\_fcreate(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *path,\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ size);}
+\DoxyCodeLine{\Hypertarget{fs_8h_source_l00098}00098\ }
+\DoxyCodeLine{\Hypertarget{fs_8h_source_l00099}00099\ StatusCode\ fs\_fdelete(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *path);}
+\DoxyCodeLine{\Hypertarget{fs_8h_source_l00100}00100\ StatusCode\ fs\_fopen(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *path,\ File\ *file);}
+\DoxyCodeLine{\Hypertarget{fs_8h_source_l00101}00101\ }
+\DoxyCodeLine{\Hypertarget{fs_8h_source_l00102}00102\ StatusCode\ fs\_dopen(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *path,\ Dir\ *dir);}
+\DoxyCodeLine{\Hypertarget{fs_8h_source_l00103}00103\ StatusCode\ fs\_dread(Dir\ *dir,\ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ index,\ DirEntry\ *entry);}
+\DoxyCodeLine{\Hypertarget{fs_8h_source_l00104}00104\ }
+\DoxyCodeLine{\Hypertarget{fs_8h_source_l00105}00105\ StatusCode\ fs\_fresize(File\ *file,\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ new\_size);}
+\DoxyCodeLine{\Hypertarget{fs_8h_source_l00106}00106\ StatusCode\ fs\_fread(File\ *file,\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ offset,\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ size,\ \textcolor{keywordtype}{void}\ *buffer);}
+\DoxyCodeLine{\Hypertarget{fs_8h_source_l00107}00107\ StatusCode\ fs\_fwrite(File\ *file,\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ offset,\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ size,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *buffer);}
+\DoxyCodeLine{\Hypertarget{fs_8h_source_l00108}00108\ }
+\DoxyCodeLine{\Hypertarget{fs_8h_source_l00110}00110\ }
+\DoxyCodeLine{\Hypertarget{fs_8h_source_l00111}00111\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ \_\_FS\_H\_\_\ */}\textcolor{preprocessor}{}}
 
 \end{DoxyCode}

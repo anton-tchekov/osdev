@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.6"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>OS Dev: atfs/fs/fs/dev.h Source File</title>
+<title>OS Dev: stdlib/fs/dev.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">OS Dev
+   <div id="projectname">OS Dev<span id="projectnumber">&#160;0.1</span>
    </div>
   </td>
  </tr>
@@ -69,7 +69,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_fe419c85d195a628aa004d1470a95836.html">atfs</a></li><li class="navelem"><a class="el" href="dir_1741534054478734b6b98e49dd290a15.html">fs</a></li><li class="navelem"><a class="el" href="dir_e3bd3abd4e8d73545423e7a78317a8bc.html">fs</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_a0da0faf188e2446764a7b7e8d6753bc.html">stdlib</a></li><li class="navelem"><a class="el" href="dir_2ef6718bba7f54a482eb51c9d7b72018.html">fs</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -80,41 +80,36 @@ $(function() {
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#ifndef __DEV_H__</span></div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#define __DEV_H__</span></div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &lt;<a class="code" href="types_8h.html">types.h</a>&gt;</span></div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &lt;<a class="code" href="status_8h.html">status.h</a>&gt;</span></div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno"><a class="line" href="structBlockDevice.html">   16</a></span><span class="keyword">typedef</span> <span class="keyword">struct</span></div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>{</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    <a class="code hl_typedef" href="types_8h.html#a48d6cd8e4135fb2ff7e7f2dac84089ec">i32</a> BlockSize, BlockCount;</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    StatusCode (*Read)(<a class="code hl_typedef" href="types_8h.html#afaa62991928fb9fb18ff0db62a040aba">u32</a> offset, <a class="code hl_typedef" href="types_8h.html#afaa62991928fb9fb18ff0db62a040aba">u32</a> count, <a class="code hl_typedef" href="types_8h.html#a92c50087ca0e64fa93fc59402c55f8ca">u8</a> *buffer);</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    StatusCode (*Write)(<a class="code hl_typedef" href="types_8h.html#afaa62991928fb9fb18ff0db62a040aba">u32</a> offset, <a class="code hl_typedef" href="types_8h.html#afaa62991928fb9fb18ff0db62a040aba">u32</a> count, <a class="code hl_typedef" href="types_8h.html#a92c50087ca0e64fa93fc59402c55f8ca">u8</a> *buffer);</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>} <a class="code hl_struct" href="structBlockDevice.html">BlockDevice</a>;</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="keywordtype">char</span> <a class="code hl_function" href="dev_8h.html#a2c9fe1852ef26b74332798b1328b71d8">dev_attach</a>(<a class="code hl_struct" href="structBlockDevice.html">BlockDevice</a> *dev);</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="keywordtype">void</span> <a class="code hl_function" href="dev_8h.html#ae4ae22c58dfebcb9381b410736096ef7">dev_detach</a>(<span class="keywordtype">char</span> letter);</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>StatusCode <a class="code hl_function" href="dev_8h.html#ab6f710538b9fe8d2a7dc74121693d40f">dev_read</a>(<span class="keywordtype">char</span> dev, <a class="code hl_typedef" href="types_8h.html#afaa62991928fb9fb18ff0db62a040aba">u32</a> offset, <a class="code hl_typedef" href="types_8h.html#afaa62991928fb9fb18ff0db62a040aba">u32</a> count, <a class="code hl_typedef" href="types_8h.html#a92c50087ca0e64fa93fc59402c55f8ca">u8</a> *buffer);</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>StatusCode <a class="code hl_function" href="dev_8h.html#a6861ee3923828ee3bbc3446025d29b37">dev_write</a>(<span class="keywordtype">char</span> dev, <a class="code hl_typedef" href="types_8h.html#afaa62991928fb9fb18ff0db62a040aba">u32</a> offset, <a class="code hl_typedef" href="types_8h.html#afaa62991928fb9fb18ff0db62a040aba">u32</a> count, <a class="code hl_typedef" href="types_8h.html#a92c50087ca0e64fa93fc59402c55f8ca">u8</a> *buffer);</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>StatusCode <a class="code hl_function" href="dev_8h.html#a6e39ef93a3b7627d1c5cbc8295326eb2">dev_block_size</a>(<span class="keywordtype">char</span> dev, <a class="code hl_typedef" href="types_8h.html#afaa62991928fb9fb18ff0db62a040aba">u32</a> *size);</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>StatusCode <a class="code hl_function" href="dev_8h.html#a449d2663362f000a8096e26ccdf30a35">dev_block_count</a>(<span class="keywordtype">char</span> dev, <a class="code hl_typedef" href="types_8h.html#afaa62991928fb9fb18ff0db62a040aba">u32</a> *count);</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="preprocessor">#endif </span><span class="comment">/* __DEV_H__ */</span><span class="preprocessor"></span></div>
-<div class="ttc" id="adev_8h_html_a2c9fe1852ef26b74332798b1328b71d8"><div class="ttname"><a href="dev_8h.html#a2c9fe1852ef26b74332798b1328b71d8">dev_attach</a></div><div class="ttdeci">char dev_attach(BlockDevice *dev)</div><div class="ttdef"><b>Definition:</b> dev.c:7</div></div>
-<div class="ttc" id="adev_8h_html_a449d2663362f000a8096e26ccdf30a35"><div class="ttname"><a href="dev_8h.html#a449d2663362f000a8096e26ccdf30a35">dev_block_count</a></div><div class="ttdeci">StatusCode dev_block_count(char dev, u32 *count)</div><div class="ttdef"><b>Definition:</b> dev.c:64</div></div>
-<div class="ttc" id="adev_8h_html_a6861ee3923828ee3bbc3446025d29b37"><div class="ttname"><a href="dev_8h.html#a6861ee3923828ee3bbc3446025d29b37">dev_write</a></div><div class="ttdeci">StatusCode dev_write(char dev, u32 offset, u32 count, u8 *buffer)</div><div class="ttdef"><b>Definition:</b> dev.c:39</div></div>
-<div class="ttc" id="adev_8h_html_a6e39ef93a3b7627d1c5cbc8295326eb2"><div class="ttname"><a href="dev_8h.html#a6e39ef93a3b7627d1c5cbc8295326eb2">dev_block_size</a></div><div class="ttdeci">StatusCode dev_block_size(char dev, u32 *size)</div><div class="ttdef"><b>Definition:</b> dev.c:51</div></div>
-<div class="ttc" id="adev_8h_html_ab6f710538b9fe8d2a7dc74121693d40f"><div class="ttname"><a href="dev_8h.html#ab6f710538b9fe8d2a7dc74121693d40f">dev_read</a></div><div class="ttdeci">StatusCode dev_read(char dev, u32 offset, u32 count, u8 *buffer)</div><div class="ttdef"><b>Definition:</b> dev.c:27</div></div>
-<div class="ttc" id="adev_8h_html_ae4ae22c58dfebcb9381b410736096ef7"><div class="ttname"><a href="dev_8h.html#ae4ae22c58dfebcb9381b410736096ef7">dev_detach</a></div><div class="ttdeci">void dev_detach(char letter)</div><div class="ttdef"><b>Definition:</b> dev.c:22</div></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &lt;<a class="code" href="types_8h.html">types.h</a>&gt;</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &lt;<a class="code" href="status_8h.html">status.h</a>&gt;</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="keyword">typedef</span> <span class="keyword">struct</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>{</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    <a class="code hl_typedef" href="types_8h.html#a48d6cd8e4135fb2ff7e7f2dac84089ec">i32</a> BlockSize, BlockCount;</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    StatusCode (*Read)(<a class="code hl_typedef" href="types_8h.html#afaa62991928fb9fb18ff0db62a040aba">u32</a> offset, <a class="code hl_typedef" href="types_8h.html#afaa62991928fb9fb18ff0db62a040aba">u32</a> count, <a class="code hl_typedef" href="types_8h.html#a92c50087ca0e64fa93fc59402c55f8ca">u8</a> *buffer);</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    StatusCode (*Write)(<a class="code hl_typedef" href="types_8h.html#afaa62991928fb9fb18ff0db62a040aba">u32</a> offset, <a class="code hl_typedef" href="types_8h.html#afaa62991928fb9fb18ff0db62a040aba">u32</a> count, <a class="code hl_typedef" href="types_8h.html#a92c50087ca0e64fa93fc59402c55f8ca">u8</a> *buffer);</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>} BlockDevice;</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="keywordtype">char</span> dev_attach(BlockDevice *dev);</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="keywordtype">void</span> dev_detach(<span class="keywordtype">char</span> letter);</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>StatusCode dev_read(<span class="keywordtype">char</span> dev, <a class="code hl_typedef" href="types_8h.html#afaa62991928fb9fb18ff0db62a040aba">u32</a> offset, <a class="code hl_typedef" href="types_8h.html#afaa62991928fb9fb18ff0db62a040aba">u32</a> count, <a class="code hl_typedef" href="types_8h.html#a92c50087ca0e64fa93fc59402c55f8ca">u8</a> *buffer);</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>StatusCode dev_write(<span class="keywordtype">char</span> dev, <a class="code hl_typedef" href="types_8h.html#afaa62991928fb9fb18ff0db62a040aba">u32</a> offset, <a class="code hl_typedef" href="types_8h.html#afaa62991928fb9fb18ff0db62a040aba">u32</a> count, <a class="code hl_typedef" href="types_8h.html#a92c50087ca0e64fa93fc59402c55f8ca">u8</a> *buffer);</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>StatusCode dev_block_size(<span class="keywordtype">char</span> dev, <a class="code hl_typedef" href="types_8h.html#afaa62991928fb9fb18ff0db62a040aba">u32</a> *size);</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>StatusCode dev_block_count(<span class="keywordtype">char</span> dev, <a class="code hl_typedef" href="types_8h.html#afaa62991928fb9fb18ff0db62a040aba">u32</a> *count);</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="preprocessor">#endif </span><span class="comment">/* __DEV_H__ */</span><span class="preprocessor"></span></div>
 <div class="ttc" id="astatus_8h_html"><div class="ttname"><a href="status_8h.html">status.h</a></div><div class="ttdoc">Status code definitions and error handling.</div></div>
-<div class="ttc" id="astructBlockDevice_html"><div class="ttname"><a href="structBlockDevice.html">BlockDevice</a></div><div class="ttdef"><b>Definition:</b> dev.h:17</div></div>
 <div class="ttc" id="atypes_8h_html"><div class="ttname"><a href="types_8h.html">types.h</a></div><div class="ttdoc">Shorthand type definitions inspired by Rust.</div></div>
-<div class="ttc" id="atypes_8h_html_a48d6cd8e4135fb2ff7e7f2dac84089ec"><div class="ttname"><a href="types_8h.html#a48d6cd8e4135fb2ff7e7f2dac84089ec">i32</a></div><div class="ttdeci">int32_t i32</div><div class="ttdef"><b>Definition:</b> types.h:21</div></div>
-<div class="ttc" id="atypes_8h_html_a92c50087ca0e64fa93fc59402c55f8ca"><div class="ttname"><a href="types_8h.html#a92c50087ca0e64fa93fc59402c55f8ca">u8</a></div><div class="ttdeci">uint8_t u8</div><div class="ttdef"><b>Definition:</b> types.h:39</div></div>
-<div class="ttc" id="atypes_8h_html_afaa62991928fb9fb18ff0db62a040aba"><div class="ttname"><a href="types_8h.html#afaa62991928fb9fb18ff0db62a040aba">u32</a></div><div class="ttdeci">uint32_t u32</div><div class="ttdef"><b>Definition:</b> types.h:33</div></div>
+<div class="ttc" id="atypes_8h_html_a48d6cd8e4135fb2ff7e7f2dac84089ec"><div class="ttname"><a href="types_8h.html#a48d6cd8e4135fb2ff7e7f2dac84089ec">i32</a></div><div class="ttdeci">int32_t i32</div><div class="ttdef"><b>Definition:</b> <a href="types_8h_source.html#l00020">types.h:20</a></div></div>
+<div class="ttc" id="atypes_8h_html_a92c50087ca0e64fa93fc59402c55f8ca"><div class="ttname"><a href="types_8h.html#a92c50087ca0e64fa93fc59402c55f8ca">u8</a></div><div class="ttdeci">uint8_t u8</div><div class="ttdef"><b>Definition:</b> <a href="types_8h_source.html#l00038">types.h:38</a></div></div>
+<div class="ttc" id="atypes_8h_html_afaa62991928fb9fb18ff0db62a040aba"><div class="ttname"><a href="types_8h.html#afaa62991928fb9fb18ff0db62a040aba">u32</a></div><div class="ttdeci">uint32_t u32</div><div class="ttdef"><b>Definition:</b> <a href="types_8h_source.html#l00032">types.h:32</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

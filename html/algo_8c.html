@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">OS Dev
+   <div id="projectname">OS Dev<span id="projectnumber">&#160;0.1</span>
    </div>
   </td>
  </tr>
@@ -79,7 +79,9 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &lt;<a class="el" href="algo_8h_source.html">algo.h</a>&gt;</code><br />
-</div><table class="memberdecls">
+</div>
+<p><a href="algo_8c_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a69a33a907a9379c9b342d51a8d9af818"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="algo_8c.html#a69a33a907a9379c9b342d51a8d9af818">bsearch</a> (const void *key, const void *base, <a class="el" href="types_8h.html#afaa62991928fb9fb18ff0db62a040aba">u32</a> nitems, <a class="el" href="types_8h.html#afaa62991928fb9fb18ff0db62a040aba">u32</a> size, <a class="el" href="types_8h.html#a48d6cd8e4135fb2ff7e7f2dac84089ec">i32</a>(*compare)(const void *, const void *))</td></tr>
@@ -90,6 +92,8 @@ Functions</h2></td></tr>
 <div class="textblock"><dl class="section author"><dt>Author</dt><dd>Tim Gabrikowski, Anton Tchekov </dd></dl>
 <dl class="section version"><dt>Version</dt><dd>0.1 </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>25.04.2023 </dd></dl>
+
+<p class="definition">Definition in file <a class="el" href="algo_8c_source.html">algo.c</a>.</p>
 </div><h2 class="groupheader">Function Documentation</h2>
 <a id="a69a33a907a9379c9b342d51a8d9af818" name="a69a33a907a9379c9b342d51a8d9af818"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a69a33a907a9379c9b342d51a8d9af818">&#9670;&#160;</a></span>bsearch()</h2>
@@ -147,6 +151,33 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Pointer to found item or NULL </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="algo_8c_source.html#l00010">10</a> of file <a class="el" href="algo_8c_source.html">algo.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   12</span>{</div>
+<div class="line"><span class="lineno">   13</span>    <span class="keyword">const</span> <span class="keywordtype">char</span> *base0 = (<span class="keyword">const</span> <span class="keywordtype">char</span> *)base;</div>
+<div class="line"><span class="lineno">   14</span>    <span class="keyword">const</span> <span class="keywordtype">void</span> *p;</div>
+<div class="line"><span class="lineno">   15</span>    <a class="code hl_typedef" href="types_8h.html#a48d6cd8e4135fb2ff7e7f2dac84089ec">i32</a> lim, cmp;</div>
+<div class="line"><span class="lineno">   16</span> </div>
+<div class="line"><span class="lineno">   17</span>    <span class="keywordflow">for</span>(lim = nitems; lim; lim &gt;&gt;= 1)</div>
+<div class="line"><span class="lineno">   18</span>    {</div>
+<div class="line"><span class="lineno">   19</span>        p = base0 + (lim &gt;&gt; 1) * size;</div>
+<div class="line"><span class="lineno">   20</span>        cmp = (*compare)(key, p);</div>
+<div class="line"><span class="lineno">   21</span>        <span class="keywordflow">if</span>(!cmp)</div>
+<div class="line"><span class="lineno">   22</span>        {</div>
+<div class="line"><span class="lineno">   23</span>            <span class="keywordflow">return</span> (<span class="keywordtype">void</span> *)p;</div>
+<div class="line"><span class="lineno">   24</span>        }</div>
+<div class="line"><span class="lineno">   25</span>        <span class="keywordflow">else</span> <span class="keywordflow">if</span>(cmp &gt; 0)</div>
+<div class="line"><span class="lineno">   26</span>        {</div>
+<div class="line"><span class="lineno">   27</span>            base0 = (<span class="keyword">const</span> <span class="keywordtype">char</span> *)p + size;</div>
+<div class="line"><span class="lineno">   28</span>            --lim;</div>
+<div class="line"><span class="lineno">   29</span>        }</div>
+<div class="line"><span class="lineno">   30</span>    }</div>
+<div class="line"><span class="lineno">   31</span> </div>
+<div class="line"><span class="lineno">   32</span>    <span class="keywordflow">return</span> NULL;</div>
+<div class="line"><span class="lineno">   33</span>}</div>
+<div class="ttc" id="atypes_8h_html_a48d6cd8e4135fb2ff7e7f2dac84089ec"><div class="ttname"><a href="types_8h.html#a48d6cd8e4135fb2ff7e7f2dac84089ec">i32</a></div><div class="ttdeci">int32_t i32</div><div class="ttdef"><b>Definition:</b> <a href="types_8h_source.html#l00020">types.h:20</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Referenced by <a class="el" href="font_8c_source.html#l00031">_font_char()</a>.</p>
 
 </div>
 </div>

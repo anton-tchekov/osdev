@@ -1,32 +1,10 @@
-\hypertarget{dev_8h}{}\doxysection{atfs/fs/fs/dev.h File Reference}
-\label{dev_8h}\index{atfs/fs/fs/dev.h@{atfs/fs/fs/dev.h}}
+\hypertarget{dev_8h}{}\doxysection{stdlib/fs/dev.h File Reference}
+\label{dev_8h}\index{stdlib/fs/dev.h@{stdlib/fs/dev.h}}
 
 
 Block device interface.  
 
 
-{\ttfamily \#include $<$types.\+h$>$}\newline
-{\ttfamily \#include $<$status.\+h$>$}\newline
-\doxysubsection*{Data Structures}
-\begin{DoxyCompactItemize}
-\item 
-struct \mbox{\hyperlink{structBlockDevice}{Block\+Device}}
-\end{DoxyCompactItemize}
-\doxysubsection*{Functions}
-\begin{DoxyCompactItemize}
-\item 
-char \mbox{\hyperlink{dev_8h_a2c9fe1852ef26b74332798b1328b71d8}{dev\+\_\+attach}} (\mbox{\hyperlink{structBlockDevice}{Block\+Device}} $\ast$dev)
-\item 
-void \mbox{\hyperlink{dev_8h_ae4ae22c58dfebcb9381b410736096ef7}{dev\+\_\+detach}} (char letter)
-\item 
-Status\+Code \mbox{\hyperlink{dev_8h_ab6f710538b9fe8d2a7dc74121693d40f}{dev\+\_\+read}} (char dev, \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} offset, \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} count, \mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}} $\ast$buffer)
-\item 
-Status\+Code \mbox{\hyperlink{dev_8h_a6861ee3923828ee3bbc3446025d29b37}{dev\+\_\+write}} (char dev, \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} offset, \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} count, \mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}} $\ast$buffer)
-\item 
-Status\+Code \mbox{\hyperlink{dev_8h_a6e39ef93a3b7627d1c5cbc8295326eb2}{dev\+\_\+block\+\_\+size}} (char dev, \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} $\ast$size)
-\item 
-Status\+Code \mbox{\hyperlink{dev_8h_a449d2663362f000a8096e26ccdf30a35}{dev\+\_\+block\+\_\+count}} (char dev, \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} $\ast$count)
-\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
@@ -43,41 +21,5 @@ Tim Gabrikowski, Anton Tchekov
 \end{DoxyDate}
 
 
-\doxysubsection{Function Documentation}
-\mbox{\Hypertarget{dev_8h_a2c9fe1852ef26b74332798b1328b71d8}\label{dev_8h_a2c9fe1852ef26b74332798b1328b71d8}} 
-\index{dev.h@{dev.h}!dev\_attach@{dev\_attach}}
-\index{dev\_attach@{dev\_attach}!dev.h@{dev.h}}
-\doxysubsubsection{\texorpdfstring{dev\_attach()}{dev\_attach()}}
-{\footnotesize\ttfamily char dev\+\_\+attach (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structBlockDevice}{Block\+Device}} $\ast$}]{dev }\end{DoxyParamCaption})}
+Definition in file \mbox{\hyperlink{dev_8h_source}{dev.\+h}}.
 
-TODO \mbox{\Hypertarget{dev_8h_a449d2663362f000a8096e26ccdf30a35}\label{dev_8h_a449d2663362f000a8096e26ccdf30a35}} 
-\index{dev.h@{dev.h}!dev\_block\_count@{dev\_block\_count}}
-\index{dev\_block\_count@{dev\_block\_count}!dev.h@{dev.h}}
-\doxysubsubsection{\texorpdfstring{dev\_block\_count()}{dev\_block\_count()}}
-{\footnotesize\ttfamily Status\+Code dev\+\_\+block\+\_\+count (\begin{DoxyParamCaption}\item[{char}]{dev,  }\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} $\ast$}]{count }\end{DoxyParamCaption})}
-
-TODO \mbox{\Hypertarget{dev_8h_a6e39ef93a3b7627d1c5cbc8295326eb2}\label{dev_8h_a6e39ef93a3b7627d1c5cbc8295326eb2}} 
-\index{dev.h@{dev.h}!dev\_block\_size@{dev\_block\_size}}
-\index{dev\_block\_size@{dev\_block\_size}!dev.h@{dev.h}}
-\doxysubsubsection{\texorpdfstring{dev\_block\_size()}{dev\_block\_size()}}
-{\footnotesize\ttfamily Status\+Code dev\+\_\+block\+\_\+size (\begin{DoxyParamCaption}\item[{char}]{dev,  }\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} $\ast$}]{size }\end{DoxyParamCaption})}
-
-TODO \mbox{\Hypertarget{dev_8h_ae4ae22c58dfebcb9381b410736096ef7}\label{dev_8h_ae4ae22c58dfebcb9381b410736096ef7}} 
-\index{dev.h@{dev.h}!dev\_detach@{dev\_detach}}
-\index{dev\_detach@{dev\_detach}!dev.h@{dev.h}}
-\doxysubsubsection{\texorpdfstring{dev\_detach()}{dev\_detach()}}
-{\footnotesize\ttfamily void dev\+\_\+detach (\begin{DoxyParamCaption}\item[{char}]{letter }\end{DoxyParamCaption})}
-
-TODO \mbox{\Hypertarget{dev_8h_ab6f710538b9fe8d2a7dc74121693d40f}\label{dev_8h_ab6f710538b9fe8d2a7dc74121693d40f}} 
-\index{dev.h@{dev.h}!dev\_read@{dev\_read}}
-\index{dev\_read@{dev\_read}!dev.h@{dev.h}}
-\doxysubsubsection{\texorpdfstring{dev\_read()}{dev\_read()}}
-{\footnotesize\ttfamily Status\+Code dev\+\_\+read (\begin{DoxyParamCaption}\item[{char}]{dev,  }\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{offset,  }\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{count,  }\item[{\mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}} $\ast$}]{buffer }\end{DoxyParamCaption})}
-
-TODO \mbox{\Hypertarget{dev_8h_a6861ee3923828ee3bbc3446025d29b37}\label{dev_8h_a6861ee3923828ee3bbc3446025d29b37}} 
-\index{dev.h@{dev.h}!dev\_write@{dev\_write}}
-\index{dev\_write@{dev\_write}!dev.h@{dev.h}}
-\doxysubsubsection{\texorpdfstring{dev\_write()}{dev\_write()}}
-{\footnotesize\ttfamily Status\+Code dev\+\_\+write (\begin{DoxyParamCaption}\item[{char}]{dev,  }\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{offset,  }\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{count,  }\item[{\mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}} $\ast$}]{buffer }\end{DoxyParamCaption})}
-
-TODO 

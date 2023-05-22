@@ -23,7 +23,7 @@ typedef enum
 } ElementType;
 
 /** Align bitmask */
-#define ALIGN_MASK      0x03
+#define ALIGN_MASK            0x03
 
 /** Left align (default) */
 #define FLAG_ALIGN_LEFT       0x00
@@ -168,11 +168,6 @@ typedef struct
 	KeyEvent OnKey;
 } Window;
 
-typedef struct
-{
-	u32 ColorComment, ColorNumber, ColorString, ColorKeyword;
-} SyntaxHighlighter;
-
 /**
  * @brief Open and render a window
  *
@@ -183,7 +178,8 @@ void window_open(Window *window);
 /**
  * @brief Forward a key event to the currently open window
  *
- * @param key Key Code
+ * @param key Key code
+ * @param chr Character for key code
  * @param state Key State
  */
 void window_event_key(Key key, i32 chr, KeyState state);

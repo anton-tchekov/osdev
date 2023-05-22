@@ -68,7 +68,7 @@
 /** Set LCD RST HIGH */
 #define LCD_RST_1           LCD_RST_OUT |= (1 << LCD_RST_PIN)
 
-/* SD card direction port */
+/** SD card CS direction port */
 #define SD_CS_DIR           DDRD
 
 /** SD card CS output port */

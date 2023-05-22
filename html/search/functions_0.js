@@ -1,4 +1,24 @@
 var searchData=
 [
-  ['_5f_5fsetup_0',['__setup',['../event_8c.html#a280b8f41a30899c210b248f3aa74bf71',1,'event.c']]]
+  ['_5f_5fsetup_0',['__setup',['../event_8c.html#a280b8f41a30899c210b248f3aa74bf71',1,'event.c']]],
+  ['_5fabgr_5fb_1',['_abgr_b',['../avr_2platform_8c.html#aa2b02d48400d091151747b4a2ee85b7f',1,'platform.c']]],
+  ['_5fabgr_5fg_2',['_abgr_g',['../avr_2platform_8c.html#a276cadc53afdd89636035fe4ad8e8084',1,'platform.c']]],
+  ['_5fabgr_5fr_3',['_abgr_r',['../avr_2platform_8c.html#ad2f53b0384a6be55e7d9bda545a7c29d',1,'platform.c']]],
+  ['_5fabgr_5fto_5frgb565_4',['_abgr_to_rgb565',['../avr_2platform_8c.html#a5f91a233a54a301e040fe44f33561ef8',1,'platform.c']]],
+  ['_5fevent_5fkey_5fhandler_5',['_event_key_handler',['../keyboard_8c.html#adea086b263b2b9fafeafe1481b19709d',1,'keyboard.c']]],
+  ['_5fevent_5floop_5fhandler_6',['_event_loop_handler',['../event_8c.html#a153956aec509bb27203fb91fcad587ac',1,'event.c']]],
+  ['_5ffind_5fchar_7',['_find_char',['../font_8c.html#a5f17cd4d228375feaca3b7ab722f9f40',1,'font.c']]],
+  ['_5ffont_5fchar_8',['_font_char',['../font_8c.html#a73c032db51ce47d05a3f51b4f4aec3ee',1,'font.c']]],
+  ['_5fnext_5fpot_9',['_next_pot',['../vector_8c.html#ae2ff8fa33ac906e41f31fd19a1f51acc',1,'vector.c']]],
+  ['_5fps2_5fclock_5ffalling_5fedge_10',['_ps2_clock_falling_edge',['../ps2_8c.html#a34ac3f4ba7a6a188c75b585f69bdded6',1,'ps2.c']]],
+  ['_5fps2_5fdata_5fread_11',['_ps2_data_read',['../ps2_8c.html#ad3a3737fe89541c8d9a4d1e2720352e6',1,'ps2.c']]],
+  ['_5fsd_5fblock_5faddr_12',['_sd_block_addr',['../sd_8c.html#abfa39415eadaeeb34dafde212e7401f4',1,'sd.c']]],
+  ['_5fsd_5fcommand_13',['_sd_command',['../sd_8c.html#a4b42f4613401e4f986f7ecefca14e6cf',1,'sd.c']]],
+  ['_5fsd_5fcommand_5ftry_14',['_sd_command_try',['../sd_8c.html#a0d5cf7e4b125c949867acca515f5c1ec',1,'sd.c']]],
+  ['_5fsd_5ferror_15',['_sd_error',['../sd_8c.html#a5afa7a4f2574ec052d6326cb62d0bc25',1,'sd.c']]],
+  ['_5fsd_5finfo_5fprint_16',['_sd_info_print',['../sd_8c.html#a791232512be2ae4eb1cddf0bcfa2c894',1,'sd.c']]],
+  ['_5fsd_5ftimeout_17',['_sd_timeout',['../sd_8c.html#aa347e415bf1de52f199a0bb0f07d6e2a',1,'sd.c']]],
+  ['_5fselect_18',['_select',['../gui_8c.html#afd90e75d4fb73b88bfbd6d5bb20feb6d',1,'gui.c']]],
+  ['_5fselectable_19',['_selectable',['../gui_8c.html#a14a841af4c54ab5cab3d8ac8e36fdb5e',1,'gui.c']]],
+  ['_5fspi_5fconfigure_5fslow_20',['_spi_configure_slow',['../sd_8c.html#a7bf3670f9b10107272a0bc84bd449d46',1,'sd.c']]]
 ];

@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">OS Dev
+   <div id="projectname">OS Dev<span id="projectnumber">&#160;0.1</span>
    </div>
   </td>
  </tr>
@@ -80,49 +80,22 @@ $(function() {
 <div class="contents">
 <div class="textblock"><code>#include &lt;<a class="el" href="time_8h_source.html">time.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="syscall_8h_source.html">syscall.h</a>&gt;</code><br />
-</div><table class="memberdecls">
+</div>
+<p><a href="time_8c_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:aa4a8538d6be16de2cefecc9858fda3da"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="time_8c.html#aa4a8538d6be16de2cefecc9858fda3da">datetime_now</a> (<a class="el" href="structDateTime.html">DateTime</a> *now)</td></tr>
-<tr class="memdesc:aa4a8538d6be16de2cefecc9858fda3da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the current date and time from the real time clock.  <br /></td></tr>
-<tr class="separator:aa4a8538d6be16de2cefecc9858fda3da"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aee701eeb891b748ed2e12da119816882"><td class="memItemLeft" align="right" valign="top"><a class="el" href="types_8h.html#afaa62991928fb9fb18ff0db62a040aba">u32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="time_8c.html#aee701eeb891b748ed2e12da119816882">millis</a> (void)</td></tr>
 <tr class="memdesc:aee701eeb891b748ed2e12da119816882"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get milliseconds since startup.  <br /></td></tr>
 <tr class="separator:aee701eeb891b748ed2e12da119816882"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><dl class="section author"><dt>Author</dt><dd>Tim Gabrikowski, Anton YTchekov </dd></dl>
+<div class="textblock"><dl class="section author"><dt>Author</dt><dd>Tim Gabrikowski, Anton Tchekov </dd></dl>
 <dl class="section version"><dt>Version</dt><dd>0.1 </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>26.04.2023 </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>22.05.2023 </dd></dl>
+
+<p class="definition">Definition in file <a class="el" href="time_8c_source.html">time.c</a>.</p>
 </div><h2 class="groupheader">Function Documentation</h2>
-<a id="aa4a8538d6be16de2cefecc9858fda3da" name="aa4a8538d6be16de2cefecc9858fda3da"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa4a8538d6be16de2cefecc9858fda3da">&#9670;&#160;</a></span>datetime_now()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void datetime_now </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="structDateTime.html">DateTime</a> *&#160;</td>
-          <td class="paramname"><em>now</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Get the current date and time from the real time clock. </p>
-<p>Gets the current date and time.</p>
-<p>Get the current date and time.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">now</td><td>Output parameter </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
 <a id="aee701eeb891b748ed2e12da119816882" name="aee701eeb891b748ed2e12da119816882"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aee701eeb891b748ed2e12da119816882">&#9670;&#160;</a></span>millis()</h2>
 
@@ -141,8 +114,15 @@ Functions</h2></td></tr>
 
 <p>Get milliseconds since startup. </p>
 <p>Gets the number of milliseconds since startup.</p>
-<p>Get the number of milliseconds since boot.</p>
 <dl class="section return"><dt>Returns</dt><dd>Number of milliseconds </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="time_8c_source.html#l00011">11</a> of file <a class="el" href="time_8c_source.html">time.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   12</span>{</div>
+<div class="line"><span class="lineno">   13</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="syscall_8h.html#a9db3656205f1ad8237f0126197ff7c94">syscall0</a>(SYSCALL_MILLIS);</div>
+<div class="line"><span class="lineno">   14</span>}</div>
+<div class="ttc" id="asyscall_8h_html_a9db3656205f1ad8237f0126197ff7c94"><div class="ttname"><a href="syscall_8h.html#a9db3656205f1ad8237f0126197ff7c94">syscall0</a></div><div class="ttdeci">static u32 syscall0(SyscallID id)</div><div class="ttdoc">System call with zero parameters.</div><div class="ttdef"><b>Definition:</b> <a href="syscall_8h_source.html#l00039">syscall.h:39</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="syscall_8h_source.html#l00039">syscall0()</a>.</p>
 
 </div>
 </div>

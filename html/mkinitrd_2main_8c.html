@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">OS Dev
+   <div id="projectname">OS Dev<span id="projectnumber">&#160;0.1</span>
    </div>
   </td>
  </tr>
@@ -74,7 +74,6 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#define-members">Macros</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle"><div class="title">main.c File Reference</div></div>
 </div><!--header-->
@@ -86,51 +85,13 @@ $(function() {
 <code>#include &lt;stdlib.h&gt;</code><br />
 <code>#include &lt;<a class="el" href="string_8h_source.html">string.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="types_8h_source.html">types.h</a>&gt;</code><br />
-</div><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
-Macros</h2></td></tr>
-<tr class="memitem:ad51ded0bbd705f02f73fc60c0b721ced"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mkinitrd_2main_8c.html#ad51ded0bbd705f02f73fc60c0b721ced">BLOCK_SIZE</a>&#160;&#160;&#160;512</td></tr>
-<tr class="separator:ad51ded0bbd705f02f73fc60c0b721ced"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a262979df93bcd7f2da26605be29bb3d6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mkinitrd_2main_8c.html#a262979df93bcd7f2da26605be29bb3d6">SECTOR_BOOT</a>&#160;&#160;&#160;0</td></tr>
-<tr class="separator:a262979df93bcd7f2da26605be29bb3d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a628dc6df1dde01776eda16e61f257ebf"><td class="memItemLeft" align="right" valign="top"><a id="a628dc6df1dde01776eda16e61f257ebf" name="a628dc6df1dde01776eda16e61f257ebf"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>SIZE_BOOT</b>&#160;&#160;&#160;1</td></tr>
-<tr class="separator:a628dc6df1dde01776eda16e61f257ebf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acb0b8b7f7891e8bd57e5d71ce45309de"><td class="memItemLeft" align="right" valign="top"><a id="acb0b8b7f7891e8bd57e5d71ce45309de" name="acb0b8b7f7891e8bd57e5d71ce45309de"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>SECTOR_STDLIB</b>&#160;&#160;&#160;SIZE_BOOT</td></tr>
-<tr class="separator:acb0b8b7f7891e8bd57e5d71ce45309de"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0bcafa6c38456f92abb9176f660a5d99"><td class="memItemLeft" align="right" valign="top"><a id="a0bcafa6c38456f92abb9176f660a5d99" name="a0bcafa6c38456f92abb9176f660a5d99"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>SIZE_STDLIB</b>&#160;&#160;&#160;128</td></tr>
-<tr class="separator:a0bcafa6c38456f92abb9176f660a5d99"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3ece92f0b20ff717a8729ea6cb4cf012"><td class="memItemLeft" align="right" valign="top"><a id="a3ece92f0b20ff717a8729ea6cb4cf012" name="a3ece92f0b20ff717a8729ea6cb4cf012"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>SECTOR_INIT</b>&#160;&#160;&#160;(SIZE_BOOT + SIZE_STDLIB)</td></tr>
-<tr class="separator:a3ece92f0b20ff717a8729ea6cb4cf012"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0ed0cdd613f9a43800d2ae8595904b08"><td class="memItemLeft" align="right" valign="top"><a id="a0ed0cdd613f9a43800d2ae8595904b08" name="a0ed0cdd613f9a43800d2ae8595904b08"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>SIZE_INIT</b>&#160;&#160;&#160;128</td></tr>
-<tr class="separator:a0ed0cdd613f9a43800d2ae8595904b08"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7d15a8a637597394ec349376d4bff556"><td class="memItemLeft" align="right" valign="top"><a id="a7d15a8a637597394ec349376d4bff556" name="a7d15a8a637597394ec349376d4bff556"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>SECTOR_ROOT</b>&#160;&#160;&#160;(SIZE_BOOT + SIZE_STDLIB + SIZE_INIT)</td></tr>
-<tr class="separator:a7d15a8a637597394ec349376d4bff556"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad526597ab378f3faff87123d7742c79a"><td class="memItemLeft" align="right" valign="top"><a id="ad526597ab378f3faff87123d7742c79a" name="ad526597ab378f3faff87123d7742c79a"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>REVISION</b>&#160;&#160;&#160;0</td></tr>
-<tr class="separator:ad526597ab378f3faff87123d7742c79a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0d2901cf398ca7e59223684da79da151"><td class="memItemLeft" align="right" valign="top"><a id="a0d2901cf398ca7e59223684da79da151" name="a0d2901cf398ca7e59223684da79da151"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>OFFSET_SIGNATURE</b>&#160;&#160;&#160;0</td></tr>
-<tr class="separator:a0d2901cf398ca7e59223684da79da151"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaca7dfbf0330423a3aedc48644537e71"><td class="memItemLeft" align="right" valign="top"><a id="aaca7dfbf0330423a3aedc48644537e71" name="aaca7dfbf0330423a3aedc48644537e71"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>OFFSET_REVISION</b>&#160;&#160;&#160;4</td></tr>
-<tr class="separator:aaca7dfbf0330423a3aedc48644537e71"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4fc70174b2b568949520464bc2d65177"><td class="memItemLeft" align="right" valign="top"><a id="a4fc70174b2b568949520464bc2d65177" name="a4fc70174b2b568949520464bc2d65177"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>OFFSET_STDLIB_SIZE</b>&#160;&#160;&#160;8</td></tr>
-<tr class="separator:a4fc70174b2b568949520464bc2d65177"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a30ab95769fdba62e3ec1628b679da46b"><td class="memItemLeft" align="right" valign="top"><a id="a30ab95769fdba62e3ec1628b679da46b" name="a30ab95769fdba62e3ec1628b679da46b"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>OFFSET_INIT_SIZE</b>&#160;&#160;&#160;12</td></tr>
-<tr class="separator:a30ab95769fdba62e3ec1628b679da46b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
+</div>
+<p><a href="mkinitrd_2main_8c_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a3c04138a5bfe5d72780bb7e82a18e627"><td class="memItemLeft" align="right" valign="top"><a id="a3c04138a5bfe5d72780bb7e82a18e627" name="a3c04138a5bfe5d72780bb7e82a18e627"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>main</b> (int argc, char **argv)</td></tr>
+<tr class="memitem:a3c04138a5bfe5d72780bb7e82a18e627"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mkinitrd_2main_8c.html#a3c04138a5bfe5d72780bb7e82a18e627">main</a> (int argc, char **argv)</td></tr>
+<tr class="memdesc:a3c04138a5bfe5d72780bb7e82a18e627"><td class="mdescLeft">&#160;</td><td class="mdescRight">MkInitRD Main.  <br /></td></tr>
 <tr class="separator:a3c04138a5bfe5d72780bb7e82a18e627"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -138,34 +99,115 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>main</b> (int argc, ch
 <dl class="section author"><dt>Author</dt><dd>Anton Tchekov </dd></dl>
 <dl class="section version"><dt>Version</dt><dd>0.1 </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>21.05.2023 </dd></dl>
-</div><h2 class="groupheader">Macro Definition Documentation</h2>
-<a id="ad51ded0bbd705f02f73fc60c0b721ced" name="ad51ded0bbd705f02f73fc60c0b721ced"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad51ded0bbd705f02f73fc60c0b721ced">&#9670;&#160;</a></span>BLOCK_SIZE</h2>
+
+<p class="definition">Definition in file <a class="el" href="mkinitrd_2main_8c_source.html">main.c</a>.</p>
+</div><h2 class="groupheader">Function Documentation</h2>
+<a id="a3c04138a5bfe5d72780bb7e82a18e627" name="a3c04138a5bfe5d72780bb7e82a18e627"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3c04138a5bfe5d72780bb7e82a18e627">&#9670;&#160;</a></span>main()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define BLOCK_SIZE&#160;&#160;&#160;512</td>
+          <td class="memname">int main </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>argc</em>, </td>
         </tr>
-      </table>
-</div><div class="memdoc">
-<p>Disk sector size </p>
-
-</div>
-</div>
-<a id="a262979df93bcd7f2da26605be29bb3d6" name="a262979df93bcd7f2da26605be29bb3d6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a262979df93bcd7f2da26605be29bb3d6">&#9670;&#160;</a></span>SECTOR_BOOT</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
         <tr>
-          <td class="memname">#define SECTOR_BOOT&#160;&#160;&#160;0</td>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char **&#160;</td>
+          <td class="paramname"><em>argv</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Boot sector offset in blocks </p>
+
+<p>MkInitRD Main. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">argc</td><td>Number of command line parameters </td></tr>
+    <tr><td class="paramname">argv</td><td>Array of command line parameters </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Exit code </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="mkinitrd_2main_8c_source.html#l00021">21</a> of file <a class="el" href="mkinitrd_2main_8c_source.html">main.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   22</span>{</div>
+<div class="line"><span class="lineno">   23</span>    <a class="code hl_typedef" href="types_8h.html#afaa62991928fb9fb18ff0db62a040aba">u32</a> i, size;</div>
+<div class="line"><span class="lineno">   24</span>    <a class="code hl_typedef" href="types_8h.html#a92c50087ca0e64fa93fc59402c55f8ca">u8</a> buf[<a class="code hl_define" href="sd_8h.html#ad51ded0bbd705f02f73fc60c0b721ced">BLOCK_SIZE</a>];</div>
+<div class="line"><span class="lineno">   25</span>    FILE *in, *out;</div>
+<div class="line"><span class="lineno">   26</span>    <span class="keywordtype">char</span> *in_filename, *out_filename;</div>
+<div class="line"><span class="lineno">   27</span> </div>
+<div class="line"><span class="lineno">   28</span>    <span class="keywordflow">if</span>(argc != 3)</div>
+<div class="line"><span class="lineno">   29</span>    {</div>
+<div class="line"><span class="lineno">   30</span>        fprintf(stderr, <span class="stringliteral">&quot;Usage: ./mkinitrd input-binary output-disk-image\n&quot;</span>);</div>
+<div class="line"><span class="lineno">   31</span>        <span class="keywordflow">return</span> 1;</div>
+<div class="line"><span class="lineno">   32</span>    }</div>
+<div class="line"><span class="lineno">   33</span> </div>
+<div class="line"><span class="lineno">   34</span>    in_filename = argv[1];</div>
+<div class="line"><span class="lineno">   35</span>    out_filename = argv[2];</div>
+<div class="line"><span class="lineno">   36</span> </div>
+<div class="line"><span class="lineno">   37</span>    <span class="keywordflow">if</span>(!(in = fopen(in_filename, <span class="stringliteral">&quot;rb&quot;</span>)))</div>
+<div class="line"><span class="lineno">   38</span>    {</div>
+<div class="line"><span class="lineno">   39</span>        fprintf(stderr, <span class="stringliteral">&quot;Failed to open input file \&quot;%s\&quot;\n&quot;</span>, in_filename);</div>
+<div class="line"><span class="lineno">   40</span>        <span class="keywordflow">return</span> 1;</div>
+<div class="line"><span class="lineno">   41</span>    }</div>
+<div class="line"><span class="lineno">   42</span> </div>
+<div class="line"><span class="lineno">   43</span>    <span class="keywordflow">if</span>(!(out = fopen(out_filename, <span class="stringliteral">&quot;wb&quot;</span>)))</div>
+<div class="line"><span class="lineno">   44</span>    {</div>
+<div class="line"><span class="lineno">   45</span>        fprintf(stderr, <span class="stringliteral">&quot;Failed to open output file \&quot;%s\&quot;\n&quot;</span>, out_filename);</div>
+<div class="line"><span class="lineno">   46</span>        <span class="keywordflow">return</span> 1;</div>
+<div class="line"><span class="lineno">   47</span>    }</div>
+<div class="line"><span class="lineno">   48</span> </div>
+<div class="line"><span class="lineno">   49</span>    fseek(in, 0, SEEK_END);</div>
+<div class="line"><span class="lineno">   50</span>    size = ftell(in);</div>
+<div class="line"><span class="lineno">   51</span>    fseek(in, 0, SEEK_SET);</div>
+<div class="line"><span class="lineno">   52</span> </div>
+<div class="line"><span class="lineno">   53</span>    <a class="code hl_function" href="string_8c.html#ab5fb910d7238069eb23f4b06809aa68e">memset</a>(buf, 0, <a class="code hl_define" href="sd_8h.html#ad51ded0bbd705f02f73fc60c0b721ced">BLOCK_SIZE</a>);</div>
+<div class="line"><span class="lineno">   54</span> </div>
+<div class="line"><span class="lineno">   55</span>    <a class="code hl_function" href="string_8c.html#a6ea826c42748b85ae7c74f1e2ccf7c27">memcpy</a>(buf + OFFSET_SIGNATURE, _signature, <span class="keyword">sizeof</span>(_signature));</div>
+<div class="line"><span class="lineno">   56</span>    _write_le_32(buf + OFFSET_REVISION, REVISION);</div>
+<div class="line"><span class="lineno">   57</span>    _write_le_32(buf + OFFSET_STDLIB_SIZE, 0);</div>
+<div class="line"><span class="lineno">   58</span>    _write_le_32(buf + OFFSET_INIT_SIZE, size);</div>
+<div class="line"><span class="lineno">   59</span> </div>
+<div class="line"><span class="lineno">   60</span>    fwrite(buf, 1, <a class="code hl_define" href="sd_8h.html#ad51ded0bbd705f02f73fc60c0b721ced">BLOCK_SIZE</a>, out);</div>
+<div class="line"><span class="lineno">   61</span> </div>
+<div class="line"><span class="lineno">   62</span>    <span class="comment">/* Write 64 empty sectors */</span></div>
+<div class="line"><span class="lineno">   63</span>    <a class="code hl_function" href="string_8c.html#ab5fb910d7238069eb23f4b06809aa68e">memset</a>(buf, 0, <a class="code hl_define" href="sd_8h.html#ad51ded0bbd705f02f73fc60c0b721ced">BLOCK_SIZE</a>);</div>
+<div class="line"><span class="lineno">   64</span>    <span class="keywordflow">for</span>(i = 0; i &lt; SIZE_STDLIB; ++i)</div>
+<div class="line"><span class="lineno">   65</span>    {</div>
+<div class="line"><span class="lineno">   66</span>        fwrite(buf, 1, <a class="code hl_define" href="sd_8h.html#ad51ded0bbd705f02f73fc60c0b721ced">BLOCK_SIZE</a>, out);</div>
+<div class="line"><span class="lineno">   67</span>    }</div>
+<div class="line"><span class="lineno">   68</span> </div>
+<div class="line"><span class="lineno">   69</span>    <span class="comment">/* Write init program */</span></div>
+<div class="line"><span class="lineno">   70</span>    <span class="keywordflow">for</span>(i = 0; i &lt; SIZE_INIT; ++i)</div>
+<div class="line"><span class="lineno">   71</span>    {</div>
+<div class="line"><span class="lineno">   72</span>        <a class="code hl_function" href="string_8c.html#ab5fb910d7238069eb23f4b06809aa68e">memset</a>(buf, 0, <a class="code hl_define" href="sd_8h.html#ad51ded0bbd705f02f73fc60c0b721ced">BLOCK_SIZE</a>);</div>
+<div class="line"><span class="lineno">   73</span>        fread(buf, 1, <a class="code hl_define" href="sd_8h.html#ad51ded0bbd705f02f73fc60c0b721ced">BLOCK_SIZE</a>, in);</div>
+<div class="line"><span class="lineno">   74</span>        fwrite(buf, 1, <a class="code hl_define" href="sd_8h.html#ad51ded0bbd705f02f73fc60c0b721ced">BLOCK_SIZE</a>, out);</div>
+<div class="line"><span class="lineno">   75</span>    }</div>
+<div class="line"><span class="lineno">   76</span> </div>
+<div class="line"><span class="lineno">   77</span>    <span class="comment">/* TEMPORARY: End marker 0xFF root dir sector */</span></div>
+<div class="line"><span class="lineno">   78</span>    <a class="code hl_function" href="string_8c.html#ab5fb910d7238069eb23f4b06809aa68e">memset</a>(buf, 0xFF, <a class="code hl_define" href="sd_8h.html#ad51ded0bbd705f02f73fc60c0b721ced">BLOCK_SIZE</a>);</div>
+<div class="line"><span class="lineno">   79</span>    fwrite(buf, 1, <a class="code hl_define" href="sd_8h.html#ad51ded0bbd705f02f73fc60c0b721ced">BLOCK_SIZE</a>, out);</div>
+<div class="line"><span class="lineno">   80</span>    <span class="keywordflow">return</span> 0;</div>
+<div class="line"><span class="lineno">   81</span>}</div>
+<div class="ttc" id="asd_8h_html_ad51ded0bbd705f02f73fc60c0b721ced"><div class="ttname"><a href="sd_8h.html#ad51ded0bbd705f02f73fc60c0b721ced">BLOCK_SIZE</a></div><div class="ttdeci">#define BLOCK_SIZE</div><div class="ttdef"><b>Definition:</b> <a href="sd_8h_source.html#l00016">sd.h:16</a></div></div>
+<div class="ttc" id="astring_8c_html_a6ea826c42748b85ae7c74f1e2ccf7c27"><div class="ttname"><a href="string_8c.html#a6ea826c42748b85ae7c74f1e2ccf7c27">memcpy</a></div><div class="ttdeci">void * memcpy(void *dest, const void *src, u32 count)</div><div class="ttdoc">Copies count bytes from src to dest Source and destination blocks must NOT overlap.</div><div class="ttdef"><b>Definition:</b> <a href="string_8c_source.html#l00094">string.c:94</a></div></div>
+<div class="ttc" id="astring_8c_html_ab5fb910d7238069eb23f4b06809aa68e"><div class="ttname"><a href="string_8c.html#ab5fb910d7238069eb23f4b06809aa68e">memset</a></div><div class="ttdeci">void * memset(void *ptr, i32 value, u32 count)</div><div class="ttdoc">Sets all bytes in a block of memory to value</div><div class="ttdef"><b>Definition:</b> <a href="string_8c_source.html#l00176">string.c:176</a></div></div>
+<div class="ttc" id="atypes_8h_html_a92c50087ca0e64fa93fc59402c55f8ca"><div class="ttname"><a href="types_8h.html#a92c50087ca0e64fa93fc59402c55f8ca">u8</a></div><div class="ttdeci">uint8_t u8</div><div class="ttdef"><b>Definition:</b> <a href="types_8h_source.html#l00038">types.h:38</a></div></div>
+<div class="ttc" id="atypes_8h_html_afaa62991928fb9fb18ff0db62a040aba"><div class="ttname"><a href="types_8h.html#afaa62991928fb9fb18ff0db62a040aba">u32</a></div><div class="ttdeci">uint32_t u32</div><div class="ttdef"><b>Definition:</b> <a href="types_8h_source.html#l00032">types.h:32</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="sd_8h_source.html#l00016">BLOCK_SIZE</a>, <a class="el" href="mkinitrd_2main_8c_source.html#l00021">main()</a>, <a class="el" href="string_8c_source.html#l00094">memcpy()</a>, and <a class="el" href="string_8c_source.html#l00176">memset()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="mkinitrd_2main_8c_source.html#l00021">main()</a>.</p>
 
 </div>
 </div>

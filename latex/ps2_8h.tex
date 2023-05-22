@@ -11,8 +11,7 @@ PS/2 Keyboard Driver with Interrupts.
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{ps2_8h_af0a83745146d1ce5fe4ef4372520e372}\label{ps2_8h_af0a83745146d1ce5fe4ef4372520e372}} 
-void {\bfseries ps2\+\_\+init} (void)
+void \mbox{\hyperlink{ps2_8h_af0a83745146d1ce5fe4ef4372520e372}{ps2\+\_\+init}} (void)
 \begin{DoxyCompactList}\small\item\em Initialize PS/2 keyboard driver and interrupt, Interrupts must be enabled afterwards using {\ttfamily sei()}. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{ps2_8h_af7f4bc35d95b7572e19fff58cbf089f6}{ps2\+\_\+event}} (\mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}} byte)
 \begin{DoxyCompactList}\small\item\em This function must be implemented by the user and is called by the driver when a byte is received. \end{DoxyCompactList}\end{DoxyCompactItemize}
@@ -32,6 +31,10 @@ Haron Nazari, Anton Tchekov
 \end{DoxyDate}
 
 
+Definition in file \mbox{\hyperlink{ps2_8h_source}{ps2.\+h}}.
+
+
+
 \doxysubsection{Function Documentation}
 \mbox{\Hypertarget{ps2_8h_af7f4bc35d95b7572e19fff58cbf089f6}\label{ps2_8h_af7f4bc35d95b7572e19fff58cbf089f6}} 
 \index{ps2.h@{ps2.h}!ps2\_event@{ps2\_event}}
@@ -48,3 +51,49 @@ This function must be implemented by the user and is called by the driver when a
 {\em byte} & The byte that was received from the PS/2 keyboard \\
 \hline
 \end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{platform_2avr_2main_8c_source_l00089}{89}} of file \mbox{\hyperlink{platform_2avr_2main_8c_source}{main.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00090\ \{}
+\DoxyCodeLine{00091\ \ \ \ \ \textcolor{comment}{/*\ Called\ when\ a\ byte\ is\ received\ from\ the\ keyboard\ */}}
+\DoxyCodeLine{00092\ \ \ \ \ \textcolor{comment}{/*\ serial\_tx('0');\ */}}
+\DoxyCodeLine{00093\ \ \ \ \ \textcolor{comment}{/*\ serial\_tx('x');\ */}}
+\DoxyCodeLine{00094\ \ \ \ \ \textcolor{comment}{/*\ serial\_tx(byte\_to\_hex((byte\ >>\ 4)\ \&\ 0x0F));\ */}}
+\DoxyCodeLine{00095\ \ \ \ \ \textcolor{comment}{/*\ serial\_tx(byte\_to\_hex(byte\ \&\ 0x0F));\ */}}
+\DoxyCodeLine{00096\ \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{ps2_8h_af0a83745146d1ce5fe4ef4372520e372}\label{ps2_8h_af0a83745146d1ce5fe4ef4372520e372}} 
+\index{ps2.h@{ps2.h}!ps2\_init@{ps2\_init}}
+\index{ps2\_init@{ps2\_init}!ps2.h@{ps2.h}}
+\doxysubsubsection{\texorpdfstring{ps2\_init()}{ps2\_init()}}
+{\footnotesize\ttfamily void ps2\+\_\+init (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Initialize PS/2 keyboard driver and interrupt, Interrupts must be enabled afterwards using {\ttfamily sei()}. 
+
+
+
+Definition at line \mbox{\hyperlink{ps2_8c_source_l00026}{26}} of file \mbox{\hyperlink{ps2_8c_source}{ps2.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00027\ \{}
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{comment}{/*\ Enable\ external\ interrupt\ 0\ (PORTB2)\ */}}
+\DoxyCodeLine{00029\ \ \ \ \ EIMSK\ |=\ (1\ <<\ \mbox{\hyperlink{gpio_8h_a34ea49db58f76f1619e460765995f599}{PS2\_EXT\_INTERRUPT}});}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{comment}{/*\ Trigger\ interrupt\ on\ falling\ edge\ */}}
+\DoxyCodeLine{00032\ \ \ \ \ EICRA\ |=\ (1\ <<\ ISC01);}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \ \ \ \ \mbox{\hyperlink{logger_8c_a60bd636ef160c97eb51cf31be5954ba2}{log\_boot\_P}}(LOG\_INIT,\ PSTR(\textcolor{stringliteral}{"{}PS/2\ keyboard\ initialized"{}}));}
+\DoxyCodeLine{00035\ \}}
+
+\end{DoxyCode}
+
+
+References \mbox{\hyperlink{logger_8c_source_l00164}{log\+\_\+boot\+\_\+\+P()}}, and \mbox{\hyperlink{gpio_8h_source_l00129}{PS2\+\_\+\+EXT\+\_\+\+INTERRUPT}}.
+

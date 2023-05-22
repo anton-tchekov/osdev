@@ -1,5 +1,7 @@
 #include "dev.h"
 
+//! @cond Doxygen_Suppress
+
 #define MAX_DEVICES 26
 
 static BlockDevice *_devices[MAX_DEVICES];
@@ -73,3 +75,6 @@ StatusCode dev_block_count(char dev, u32 *count)
 	*count = dev->BlockCount;
 	return STATUS_SUCCESS;
 }
+
+//! @endcond
+

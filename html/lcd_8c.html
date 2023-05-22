@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">OS Dev
+   <div id="projectname">OS Dev<span id="projectnumber">&#160;0.1</span>
    </div>
   </td>
  </tr>
@@ -76,7 +76,8 @@ $(function() {
   <div class="summary">
 <a href="#define-members">Macros</a> &#124;
 <a href="#enum-members">Enumerations</a> &#124;
-<a href="#func-members">Functions</a>  </div>
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle"><div class="title">lcd.c File Reference</div></div>
 </div><!--header-->
 <div class="contents">
@@ -84,24 +85,24 @@ $(function() {
 <code>#include &lt;<a class="el" href="logger_8h_source.html">logger.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="spi_8h_source.html">spi.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="gpio_8h_source.html">gpio.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="xmem_8h_source.html">xmem.h</a>&gt;</code><br />
 <code>#include &lt;avr/pgmspace.h&gt;</code><br />
 <code>#include &lt;util/delay.h&gt;</code><br />
-</div><table class="memberdecls">
+</div>
+<p><a href="lcd_8c_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:a49bc2232fc9e2652eebb31d9738144cb"><td class="memItemLeft" align="right" valign="top"><a id="a49bc2232fc9e2652eebb31d9738144cb" name="a49bc2232fc9e2652eebb31d9738144cb"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>SCAN_DIR</b>&#160;&#160;&#160;L2R_U2D</td></tr>
+<tr class="memitem:a49bc2232fc9e2652eebb31d9738144cb"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lcd_8c.html#a49bc2232fc9e2652eebb31d9738144cb">SCAN_DIR</a>&#160;&#160;&#160;L2R_U2D</td></tr>
 <tr class="separator:a49bc2232fc9e2652eebb31d9738144cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7b2e9cc063e140c50b67a4f224988a45"><td class="memItemLeft" align="right" valign="top"><a id="a7b2e9cc063e140c50b67a4f224988a45" name="a7b2e9cc063e140c50b67a4f224988a45"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>FONT_WIDTH</b>&#160;&#160;&#160;5</td></tr>
+<tr class="memitem:a7b2e9cc063e140c50b67a4f224988a45"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lcd_8c.html#a7b2e9cc063e140c50b67a4f224988a45">FONT_WIDTH</a>&#160;&#160;&#160;5</td></tr>
 <tr class="separator:a7b2e9cc063e140c50b67a4f224988a45"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a33f4fac49f2a5e27e2857eb27f054510"><td class="memItemLeft" align="right" valign="top"><a id="a33f4fac49f2a5e27e2857eb27f054510" name="a33f4fac49f2a5e27e2857eb27f054510"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>FONT_HEIGHT</b>&#160;&#160;&#160;7</td></tr>
+<tr class="memitem:a33f4fac49f2a5e27e2857eb27f054510"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lcd_8c.html#a33f4fac49f2a5e27e2857eb27f054510">FONT_HEIGHT</a>&#160;&#160;&#160;7</td></tr>
 <tr class="separator:a33f4fac49f2a5e27e2857eb27f054510"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="enum-members" name="enum-members"></a>
 Enumerations</h2></td></tr>
-<tr class="memitem:a99fb83031ce9923c84392b4e92f956b5"><td class="memItemLeft" align="right" valign="top"><a id="a99fb83031ce9923c84392b4e92f956b5" name="a99fb83031ce9923c84392b4e92f956b5"></a>enum &#160;</td><td class="memItemRight" valign="bottom">{ <br />
+<tr class="memitem:a99fb83031ce9923c84392b4e92f956b5"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom">{ <br />
 &#160;&#160;<b>L2R_U2D</b>
 , <b>L2R_D2U</b>
 , <b>R2L_U2D</b>
@@ -117,39 +118,633 @@ Enumerations</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:a58d8addb06c7a67de0f8bf068284a778"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="types_8h.html#a92c50087ca0e64fa93fc59402c55f8ca">u8</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lcd_8c.html#a58d8addb06c7a67de0f8bf068284a778">_gamma_correction</a> (<a class="el" href="types_8h.html#a92c50087ca0e64fa93fc59402c55f8ca">u8</a> value)</td></tr>
+<tr class="separator:a58d8addb06c7a67de0f8bf068284a778"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab15e38d06037e79353a7d85f61a98bc7"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lcd_8c.html#ab15e38d06037e79353a7d85f61a98bc7">_lcd_reset</a> (void)</td></tr>
+<tr class="separator:ab15e38d06037e79353a7d85f61a98bc7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a87dcc013e6b4f09dc452a3d97db5a362"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lcd_8c.html#a87dcc013e6b4f09dc452a3d97db5a362">_lcd_write_reg</a> (<a class="el" href="types_8h.html#a92c50087ca0e64fa93fc59402c55f8ca">u8</a> reg)</td></tr>
+<tr class="separator:a87dcc013e6b4f09dc452a3d97db5a362"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a125e8d51bdaa7c84426d77edfe4e81fd"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lcd_8c.html#a125e8d51bdaa7c84426d77edfe4e81fd">_lcd_write_data</a> (<a class="el" href="types_8h.html#a92c50087ca0e64fa93fc59402c55f8ca">u8</a> data)</td></tr>
+<tr class="separator:a125e8d51bdaa7c84426d77edfe4e81fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a15ba99037a25ba778e2d460bdb07861b"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lcd_8c.html#a15ba99037a25ba778e2d460bdb07861b">_lcd_window_start</a> (<a class="el" href="types_8h.html#ace9d960e74685e2cd84b36132dbbf8aa">u16</a> x, <a class="el" href="types_8h.html#ace9d960e74685e2cd84b36132dbbf8aa">u16</a> y, <a class="el" href="types_8h.html#ace9d960e74685e2cd84b36132dbbf8aa">u16</a> w, <a class="el" href="types_8h.html#ace9d960e74685e2cd84b36132dbbf8aa">u16</a> h)</td></tr>
+<tr class="separator:a15ba99037a25ba778e2d460bdb07861b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1178d2dbdd1f930df64fff9be9a8fe63"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lcd_8c.html#a1178d2dbdd1f930df64fff9be9a8fe63">_lcd_pixel</a> (<a class="el" href="types_8h.html#ace9d960e74685e2cd84b36132dbbf8aa">u16</a> data)</td></tr>
+<tr class="separator:a1178d2dbdd1f930df64fff9be9a8fe63"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa0bf731811bfe104bb897545527d7862"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lcd_8c.html#aa0bf731811bfe104bb897545527d7862">_lcd_window_end</a> (void)</td></tr>
+<tr class="separator:aa0bf731811bfe104bb897545527d7862"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae978dce6d2652a1f6930eb2ce32038c3"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lcd_8c.html#ae978dce6d2652a1f6930eb2ce32038c3">_lcd_init_reg</a> (void)</td></tr>
+<tr class="separator:ae978dce6d2652a1f6930eb2ce32038c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad9e552df263cdba5eef0eb4fffc3a60b"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lcd_8c.html#ad9e552df263cdba5eef0eb4fffc3a60b">_lcd_set_gram_scan_dir</a> (<a class="el" href="types_8h.html#a92c50087ca0e64fa93fc59402c55f8ca">u8</a> scan_dir)</td></tr>
+<tr class="separator:ad9e552df263cdba5eef0eb4fffc3a60b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a62344feec2a2d180a59d563f758e241e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lcd_8c.html#a62344feec2a2d180a59d563f758e241e">lcd_backlight</a> (<a class="el" href="types_8h.html#a92c50087ca0e64fa93fc59402c55f8ca">u8</a> value)</td></tr>
 <tr class="memdesc:a62344feec2a2d180a59d563f758e241e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set LCD backlight brightness.  <br /></td></tr>
 <tr class="separator:a62344feec2a2d180a59d563f758e241e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a669f4dd510ba544f097e49d7c5b772c5"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lcd_8c.html#a669f4dd510ba544f097e49d7c5b772c5">lcd_initialized</a> (void)</td></tr>
-<tr class="memdesc:a669f4dd510ba544f097e49d7c5b772c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether or not the LCD driver is initialized.  <br /></td></tr>
-<tr class="separator:a669f4dd510ba544f097e49d7c5b772c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a09748a4045dc2d014afdce2cc566e57d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lcd_8c.html#a09748a4045dc2d014afdce2cc566e57d">lcd_init</a> (<a class="el" href="types_8h.html#a92c50087ca0e64fa93fc59402c55f8ca">u8</a> backlight, <a class="el" href="lcd_8h.html#a9a75b3f378a8d443f893bd9eceb09642">RGB565</a> bg)</td></tr>
 <tr class="memdesc:a09748a4045dc2d014afdce2cc566e57d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize LCD.  <br /></td></tr>
 <tr class="separator:a09748a4045dc2d014afdce2cc566e57d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a010620f3d9dc0536cc9551d7aabd8d17"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lcd_8c.html#a010620f3d9dc0536cc9551d7aabd8d17">lcd_rect</a> (<a class="el" href="types_8h.html#ace9d960e74685e2cd84b36132dbbf8aa">u16</a> x, <a class="el" href="types_8h.html#ace9d960e74685e2cd84b36132dbbf8aa">u16</a> y, <a class="el" href="types_8h.html#ace9d960e74685e2cd84b36132dbbf8aa">u16</a> w, <a class="el" href="types_8h.html#ace9d960e74685e2cd84b36132dbbf8aa">u16</a> h, <a class="el" href="lcd_8h.html#a9a75b3f378a8d443f893bd9eceb09642">RGB565</a> color)</td></tr>
-<tr class="memdesc:a010620f3d9dc0536cc9551d7aabd8d17"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draw.  <br /></td></tr>
+<tr class="memdesc:a010620f3d9dc0536cc9551d7aabd8d17"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draw rectangle.  <br /></td></tr>
 <tr class="separator:a010620f3d9dc0536cc9551d7aabd8d17"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9077e33ab871138bf5da6043bfe48266"><td class="memItemLeft" align="right" valign="top"><a class="el" href="lcd_8h.html#a9a75b3f378a8d443f893bd9eceb09642">RGB565</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lcd_8c.html#a9077e33ab871138bf5da6043bfe48266">lcd_color</a> (<a class="el" href="types_8h.html#a92c50087ca0e64fa93fc59402c55f8ca">u8</a> r, <a class="el" href="types_8h.html#a92c50087ca0e64fa93fc59402c55f8ca">u8</a> g, <a class="el" href="types_8h.html#a92c50087ca0e64fa93fc59402c55f8ca">u8</a> b)</td></tr>
 <tr class="memdesc:a9077e33ab871138bf5da6043bfe48266"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert RGB888 to RGB565.  <br /></td></tr>
 <tr class="separator:a9077e33ab871138bf5da6043bfe48266"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2b7400cbec8880666bed8cfc105a0f7a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lcd_8c.html#a2b7400cbec8880666bed8cfc105a0f7a">lcd_logo_P</a> (<a class="el" href="types_8h.html#ace9d960e74685e2cd84b36132dbbf8aa">u16</a> x, <a class="el" href="types_8h.html#ace9d960e74685e2cd84b36132dbbf8aa">u16</a> y, <a class="el" href="types_8h.html#ace9d960e74685e2cd84b36132dbbf8aa">u16</a> w, <a class="el" href="types_8h.html#ace9d960e74685e2cd84b36132dbbf8aa">u16</a> h, const <a class="el" href="types_8h.html#a92c50087ca0e64fa93fc59402c55f8ca">u8</a> *image)</td></tr>
-<tr class="memdesc:a2b7400cbec8880666bed8cfc105a0f7a"><td class="mdescLeft">&#160;</td><td class="mdescRight">TODO.  <br /></td></tr>
+<tr class="memdesc:a2b7400cbec8880666bed8cfc105a0f7a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draw boot logo(s)  <br /></td></tr>
 <tr class="separator:a2b7400cbec8880666bed8cfc105a0f7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2d178ce2cd276e286fcdb38ba4763842"><td class="memItemLeft" align="right" valign="top"><a class="el" href="types_8h.html#a92c50087ca0e64fa93fc59402c55f8ca">u8</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lcd_8c.html#a2d178ce2cd276e286fcdb38ba4763842">lcd_char</a> (<a class="el" href="types_8h.html#ace9d960e74685e2cd84b36132dbbf8aa">u16</a> x, <a class="el" href="types_8h.html#ace9d960e74685e2cd84b36132dbbf8aa">u16</a> y, <a class="el" href="lcd_8h.html#a9a75b3f378a8d443f893bd9eceb09642">RGB565</a> fg, <a class="el" href="lcd_8h.html#a9a75b3f378a8d443f893bd9eceb09642">RGB565</a> bg, char c)</td></tr>
-<tr class="memdesc:a2d178ce2cd276e286fcdb38ba4763842"><td class="mdescLeft">&#160;</td><td class="mdescRight">TODO.  <br /></td></tr>
+<tr class="memdesc:a2d178ce2cd276e286fcdb38ba4763842"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draw a character in the standard font.  <br /></td></tr>
 <tr class="separator:a2d178ce2cd276e286fcdb38ba4763842"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0c04e71d484ae9e8df63ff9284f6f5eb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="types_8h.html#ace9d960e74685e2cd84b36132dbbf8aa">u16</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lcd_8c.html#a0c04e71d484ae9e8df63ff9284f6f5eb">lcd_string</a> (<a class="el" href="types_8h.html#ace9d960e74685e2cd84b36132dbbf8aa">u16</a> x, <a class="el" href="types_8h.html#ace9d960e74685e2cd84b36132dbbf8aa">u16</a> y, <a class="el" href="lcd_8h.html#a9a75b3f378a8d443f893bd9eceb09642">RGB565</a> fg, <a class="el" href="lcd_8h.html#a9a75b3f378a8d443f893bd9eceb09642">RGB565</a> bg, const char *s)</td></tr>
-<tr class="memdesc:a0c04e71d484ae9e8df63ff9284f6f5eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">TODO.  <br /></td></tr>
+<tr class="memdesc:a0c04e71d484ae9e8df63ff9284f6f5eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draw a string in the default font.  <br /></td></tr>
 <tr class="separator:a0c04e71d484ae9e8df63ff9284f6f5eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3eaf9793a384ee2d2471d6e888ad99ed"><td class="memItemLeft" align="right" valign="top"><a class="el" href="types_8h.html#ace9d960e74685e2cd84b36132dbbf8aa">u16</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lcd_8c.html#a3eaf9793a384ee2d2471d6e888ad99ed">lcd_string_P</a> (<a class="el" href="types_8h.html#ace9d960e74685e2cd84b36132dbbf8aa">u16</a> x, <a class="el" href="types_8h.html#ace9d960e74685e2cd84b36132dbbf8aa">u16</a> y, <a class="el" href="lcd_8h.html#a9a75b3f378a8d443f893bd9eceb09642">RGB565</a> fg, <a class="el" href="lcd_8h.html#a9a75b3f378a8d443f893bd9eceb09642">RGB565</a> bg, const char *s)</td></tr>
-<tr class="memdesc:a3eaf9793a384ee2d2471d6e888ad99ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">TODO.  <br /></td></tr>
+<tr class="memdesc:a3eaf9793a384ee2d2471d6e888ad99ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draw a string from program memory in the default font.  <br /></td></tr>
 <tr class="separator:a3eaf9793a384ee2d2471d6e888ad99ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aef833fe63a75378ad9734d112143b6c6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lcd_8c.html#aef833fe63a75378ad9734d112143b6c6">lcd_image_rgba</a> (<a class="el" href="types_8h.html#ace9d960e74685e2cd84b36132dbbf8aa">u16</a> x, <a class="el" href="types_8h.html#ace9d960e74685e2cd84b36132dbbf8aa">u16</a> y, <a class="el" href="types_8h.html#ace9d960e74685e2cd84b36132dbbf8aa">u16</a> w, <a class="el" href="types_8h.html#ace9d960e74685e2cd84b36132dbbf8aa">u16</a> h, <a class="el" href="types_8h.html#afaa62991928fb9fb18ff0db62a040aba">u32</a> addr)</td></tr>
+<tr class="memdesc:aef833fe63a75378ad9734d112143b6c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draw an RGBA image from XMEM.  <br /></td></tr>
+<tr class="separator:aef833fe63a75378ad9734d112143b6c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a62645fc7e83c7c93921c0106440ed18b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lcd_8c.html#a62645fc7e83c7c93921c0106440ed18b">lcd_image_rgb</a> (<a class="el" href="types_8h.html#ace9d960e74685e2cd84b36132dbbf8aa">u16</a> x, <a class="el" href="types_8h.html#ace9d960e74685e2cd84b36132dbbf8aa">u16</a> y, <a class="el" href="types_8h.html#ace9d960e74685e2cd84b36132dbbf8aa">u16</a> w, <a class="el" href="types_8h.html#ace9d960e74685e2cd84b36132dbbf8aa">u16</a> h, <a class="el" href="types_8h.html#afaa62991928fb9fb18ff0db62a040aba">u32</a> addr)</td></tr>
+<tr class="memdesc:a62645fc7e83c7c93921c0106440ed18b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draw an RGB image from XMEM.  <br /></td></tr>
+<tr class="separator:a62645fc7e83c7c93921c0106440ed18b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa974eda613ffac18ecf6b119a8a5329b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lcd_8c.html#aa974eda613ffac18ecf6b119a8a5329b">lcd_image_rgb565</a> (<a class="el" href="types_8h.html#ace9d960e74685e2cd84b36132dbbf8aa">u16</a> x, <a class="el" href="types_8h.html#ace9d960e74685e2cd84b36132dbbf8aa">u16</a> y, <a class="el" href="types_8h.html#ace9d960e74685e2cd84b36132dbbf8aa">u16</a> w, <a class="el" href="types_8h.html#ace9d960e74685e2cd84b36132dbbf8aa">u16</a> h, <a class="el" href="types_8h.html#afaa62991928fb9fb18ff0db62a040aba">u32</a> addr)</td></tr>
+<tr class="memdesc:aa974eda613ffac18ecf6b119a8a5329b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draw an RGB565 image from XMEM.  <br /></td></tr>
+<tr class="separator:aa974eda613ffac18ecf6b119a8a5329b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2b566f1862ab95f8caa5e1350eafd151"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lcd_8c.html#a2b566f1862ab95f8caa5e1350eafd151">lcd_image_grayscale</a> (<a class="el" href="types_8h.html#ace9d960e74685e2cd84b36132dbbf8aa">u16</a> x, <a class="el" href="types_8h.html#ace9d960e74685e2cd84b36132dbbf8aa">u16</a> y, <a class="el" href="types_8h.html#ace9d960e74685e2cd84b36132dbbf8aa">u16</a> w, <a class="el" href="types_8h.html#ace9d960e74685e2cd84b36132dbbf8aa">u16</a> h, <a class="el" href="lcd_8h.html#a9a75b3f378a8d443f893bd9eceb09642">RGB565</a> fg, <a class="el" href="lcd_8h.html#a9a75b3f378a8d443f893bd9eceb09642">RGB565</a> bg, <a class="el" href="types_8h.html#afaa62991928fb9fb18ff0db62a040aba">u32</a> addr)</td></tr>
+<tr class="memdesc:a2b566f1862ab95f8caa5e1350eafd151"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draw a colored Grayscale image from XMEM.  <br /></td></tr>
+<tr class="separator:a2b566f1862ab95f8caa5e1350eafd151"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8f906c0afbbea669f39e24f697b79d87"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lcd_8c.html#a8f906c0afbbea669f39e24f697b79d87">lcd_image_1bit</a> (<a class="el" href="types_8h.html#ace9d960e74685e2cd84b36132dbbf8aa">u16</a> x, <a class="el" href="types_8h.html#ace9d960e74685e2cd84b36132dbbf8aa">u16</a> y, <a class="el" href="types_8h.html#ace9d960e74685e2cd84b36132dbbf8aa">u16</a> w, <a class="el" href="types_8h.html#ace9d960e74685e2cd84b36132dbbf8aa">u16</a> h, <a class="el" href="lcd_8h.html#a9a75b3f378a8d443f893bd9eceb09642">RGB565</a> fg, <a class="el" href="lcd_8h.html#a9a75b3f378a8d443f893bd9eceb09642">RGB565</a> bg, <a class="el" href="types_8h.html#afaa62991928fb9fb18ff0db62a040aba">u32</a> addr)</td></tr>
+<tr class="memdesc:a8f906c0afbbea669f39e24f697b79d87"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draw a colored 1-bit image from XMEM.  <br /></td></tr>
+<tr class="separator:a8f906c0afbbea669f39e24f697b79d87"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:aaf0f89df98cf3f63e9d4e50859f9c706"><td class="memItemLeft" align="right" valign="top">static const <a class="el" href="types_8h.html#a92c50087ca0e64fa93fc59402c55f8ca">u8</a> _font5x7[]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lcd_8c.html#aaf0f89df98cf3f63e9d4e50859f9c706">PROGMEM</a></td></tr>
+<tr class="separator:aaf0f89df98cf3f63e9d4e50859f9c706"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af3dcc12854dfb6fe2ab12a1ef3d10a2b"><td class="memItemLeft" align="right" valign="top">static const <a class="el" href="types_8h.html#a92c50087ca0e64fa93fc59402c55f8ca">u8</a> PROGMEM&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lcd_8c.html#af3dcc12854dfb6fe2ab12a1ef3d10a2b">_gamma</a> []</td></tr>
+<tr class="separator:af3dcc12854dfb6fe2ab12a1ef3d10a2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><dl class="section author"><dt>Author</dt><dd>Anton Tchekov </dd></dl>
 <dl class="section version"><dt>Version</dt><dd>0.2 </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>17.05.2023 </dd></dl>
-</div><h2 class="groupheader">Function Documentation</h2>
+
+<p class="definition">Definition in file <a class="el" href="lcd_8c_source.html">lcd.c</a>.</p>
+</div><h2 class="groupheader">Macro Definition Documentation</h2>
+<a id="a33f4fac49f2a5e27e2857eb27f054510" name="a33f4fac49f2a5e27e2857eb27f054510"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a33f4fac49f2a5e27e2857eb27f054510">&#9670;&#160;</a></span>FONT_HEIGHT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define FONT_HEIGHT&#160;&#160;&#160;7</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Default font height in pixels </p>
+
+<p class="definition">Definition at line <a class="el" href="lcd_8c_source.html#l00035">35</a> of file <a class="el" href="lcd_8c_source.html">lcd.c</a>.</p>
+
+</div>
+</div>
+<a id="a7b2e9cc063e140c50b67a4f224988a45" name="a7b2e9cc063e140c50b67a4f224988a45"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7b2e9cc063e140c50b67a4f224988a45">&#9670;&#160;</a></span>FONT_WIDTH</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define FONT_WIDTH&#160;&#160;&#160;5</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Default font width in pixels </p>
+
+<p class="definition">Definition at line <a class="el" href="lcd_8c_source.html#l00032">32</a> of file <a class="el" href="lcd_8c_source.html">lcd.c</a>.</p>
+
+</div>
+</div>
+<a id="a49bc2232fc9e2652eebb31d9738144cb" name="a49bc2232fc9e2652eebb31d9738144cb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a49bc2232fc9e2652eebb31d9738144cb">&#9670;&#160;</a></span>SCAN_DIR</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define SCAN_DIR&#160;&#160;&#160;L2R_U2D</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>LCD orientation </p>
+
+<p class="definition">Definition at line <a class="el" href="lcd_8c_source.html#l00029">29</a> of file <a class="el" href="lcd_8c_source.html">lcd.c</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Enumeration Type Documentation</h2>
+<a id="a99fb83031ce9923c84392b4e92f956b5" name="a99fb83031ce9923c84392b4e92f956b5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a99fb83031ce9923c84392b4e92f956b5">&#9670;&#160;</a></span>anonymous enum</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">anonymous enum</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="lcd_8c_source.html#l00016">16</a> of file <a class="el" href="lcd_8c_source.html">lcd.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   17</span>{</div>
+<div class="line"><span class="lineno">   18</span>    L2R_U2D,</div>
+<div class="line"><span class="lineno">   19</span>    L2R_D2U,</div>
+<div class="line"><span class="lineno">   20</span>    R2L_U2D,</div>
+<div class="line"><span class="lineno">   21</span>    R2L_D2U,</div>
+<div class="line"><span class="lineno">   22</span>    U2D_L2R,</div>
+<div class="line"><span class="lineno">   23</span>    U2D_R2L,</div>
+<div class="line"><span class="lineno">   24</span>    D2U_L2R,</div>
+<div class="line"><span class="lineno">   25</span>    D2U_R2L</div>
+<div class="line"><span class="lineno">   26</span>};</div>
+</div><!-- fragment -->
+</div>
+</div>
+<h2 class="groupheader">Function Documentation</h2>
+<a id="a58d8addb06c7a67de0f8bf068284a778" name="a58d8addb06c7a67de0f8bf068284a778"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a58d8addb06c7a67de0f8bf068284a778">&#9670;&#160;</a></span>_gamma_correction()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static <a class="el" href="types_8h.html#a92c50087ca0e64fa93fc59402c55f8ca">u8</a> _gamma_correction </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="types_8h.html#a92c50087ca0e64fa93fc59402c55f8ca">u8</a>&#160;</td>
+          <td class="paramname"><em>value</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="lcd_8c_source.html#l00163">163</a> of file <a class="el" href="lcd_8c_source.html">lcd.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  164</span>{</div>
+<div class="line"><span class="lineno">  165</span>    <span class="keywordflow">return</span> pgm_read_byte(_gamma + value);</div>
+<div class="line"><span class="lineno">  166</span>}</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="ae978dce6d2652a1f6930eb2ce32038c3" name="ae978dce6d2652a1f6930eb2ce32038c3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae978dce6d2652a1f6930eb2ce32038c3">&#9670;&#160;</a></span>_lcd_init_reg()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void _lcd_init_reg </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="lcd_8c_source.html#l00230">230</a> of file <a class="el" href="lcd_8c_source.html">lcd.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  231</span>{</div>
+<div class="line"><span class="lineno">  232</span>    _lcd_write_reg(0xF9);</div>
+<div class="line"><span class="lineno">  233</span>    _lcd_write_data(0x00);</div>
+<div class="line"><span class="lineno">  234</span>    _lcd_write_data(0x08);</div>
+<div class="line"><span class="lineno">  235</span>    _lcd_write_reg(0xC0);</div>
+<div class="line"><span class="lineno">  236</span>    _lcd_write_data(0x19);</div>
+<div class="line"><span class="lineno">  237</span>    _lcd_write_data(0x1a);</div>
+<div class="line"><span class="lineno">  238</span>    _lcd_write_reg(0xC1);</div>
+<div class="line"><span class="lineno">  239</span>    _lcd_write_data(0x45);</div>
+<div class="line"><span class="lineno">  240</span>    _lcd_write_data(0x00);</div>
+<div class="line"><span class="lineno">  241</span>    _lcd_write_reg(0xC2);</div>
+<div class="line"><span class="lineno">  242</span>    _lcd_write_data(0x33);</div>
+<div class="line"><span class="lineno">  243</span>    _lcd_write_reg(0xC5);</div>
+<div class="line"><span class="lineno">  244</span>    _lcd_write_data(0x00);</div>
+<div class="line"><span class="lineno">  245</span>    _lcd_write_data(0x28);</div>
+<div class="line"><span class="lineno">  246</span>    _lcd_write_reg(0xB1);</div>
+<div class="line"><span class="lineno">  247</span>    _lcd_write_data(0xA0);</div>
+<div class="line"><span class="lineno">  248</span>    _lcd_write_data(0x11);</div>
+<div class="line"><span class="lineno">  249</span>    _lcd_write_reg(0xB4);</div>
+<div class="line"><span class="lineno">  250</span>    _lcd_write_data(0x02);</div>
+<div class="line"><span class="lineno">  251</span>    _lcd_write_reg(0xB6);</div>
+<div class="line"><span class="lineno">  252</span>    _lcd_write_data(0x00);</div>
+<div class="line"><span class="lineno">  253</span>    _lcd_write_data(0x42);</div>
+<div class="line"><span class="lineno">  254</span>    _lcd_write_data(0x3B);</div>
+<div class="line"><span class="lineno">  255</span>    _lcd_write_reg(0xB7);</div>
+<div class="line"><span class="lineno">  256</span>    _lcd_write_data(0x07);</div>
+<div class="line"><span class="lineno">  257</span>    _lcd_write_reg(0xE0);</div>
+<div class="line"><span class="lineno">  258</span>    _lcd_write_data(0x1F);</div>
+<div class="line"><span class="lineno">  259</span>    _lcd_write_data(0x25);</div>
+<div class="line"><span class="lineno">  260</span>    _lcd_write_data(0x22);</div>
+<div class="line"><span class="lineno">  261</span>    _lcd_write_data(0x0B);</div>
+<div class="line"><span class="lineno">  262</span>    _lcd_write_data(0x06);</div>
+<div class="line"><span class="lineno">  263</span>    _lcd_write_data(0x0A);</div>
+<div class="line"><span class="lineno">  264</span>    _lcd_write_data(0x4E);</div>
+<div class="line"><span class="lineno">  265</span>    _lcd_write_data(0xC6);</div>
+<div class="line"><span class="lineno">  266</span>    _lcd_write_data(0x39);</div>
+<div class="line"><span class="lineno">  267</span>    _lcd_write_data(0x00);</div>
+<div class="line"><span class="lineno">  268</span>    _lcd_write_data(0x00);</div>
+<div class="line"><span class="lineno">  269</span>    _lcd_write_data(0x00);</div>
+<div class="line"><span class="lineno">  270</span>    _lcd_write_data(0x00);</div>
+<div class="line"><span class="lineno">  271</span>    _lcd_write_data(0x00);</div>
+<div class="line"><span class="lineno">  272</span>    _lcd_write_data(0x00);</div>
+<div class="line"><span class="lineno">  273</span>    _lcd_write_reg(0xE1);</div>
+<div class="line"><span class="lineno">  274</span>    _lcd_write_data(0x1F);</div>
+<div class="line"><span class="lineno">  275</span>    _lcd_write_data(0x3F);</div>
+<div class="line"><span class="lineno">  276</span>    _lcd_write_data(0x3F);</div>
+<div class="line"><span class="lineno">  277</span>    _lcd_write_data(0x0F);</div>
+<div class="line"><span class="lineno">  278</span>    _lcd_write_data(0x1F);</div>
+<div class="line"><span class="lineno">  279</span>    _lcd_write_data(0x0F);</div>
+<div class="line"><span class="lineno">  280</span>    _lcd_write_data(0x46);</div>
+<div class="line"><span class="lineno">  281</span>    _lcd_write_data(0x49);</div>
+<div class="line"><span class="lineno">  282</span>    _lcd_write_data(0x31);</div>
+<div class="line"><span class="lineno">  283</span>    _lcd_write_data(0x05);</div>
+<div class="line"><span class="lineno">  284</span>    _lcd_write_data(0x09);</div>
+<div class="line"><span class="lineno">  285</span>    _lcd_write_data(0x03);</div>
+<div class="line"><span class="lineno">  286</span>    _lcd_write_data(0x1C);</div>
+<div class="line"><span class="lineno">  287</span>    _lcd_write_data(0x1A);</div>
+<div class="line"><span class="lineno">  288</span>    _lcd_write_data(0x00);</div>
+<div class="line"><span class="lineno">  289</span>    _lcd_write_reg(0xF1);</div>
+<div class="line"><span class="lineno">  290</span>    _lcd_write_data(0x36);</div>
+<div class="line"><span class="lineno">  291</span>    _lcd_write_data(0x04);</div>
+<div class="line"><span class="lineno">  292</span>    _lcd_write_data(0x00);</div>
+<div class="line"><span class="lineno">  293</span>    _lcd_write_data(0x3C);</div>
+<div class="line"><span class="lineno">  294</span>    _lcd_write_data(0x0F);</div>
+<div class="line"><span class="lineno">  295</span>    _lcd_write_data(0x0F);</div>
+<div class="line"><span class="lineno">  296</span>    _lcd_write_data(0xA4);</div>
+<div class="line"><span class="lineno">  297</span>    _lcd_write_data(0x02);</div>
+<div class="line"><span class="lineno">  298</span>    _lcd_write_reg(0xF2);</div>
+<div class="line"><span class="lineno">  299</span>    _lcd_write_data(0x18);</div>
+<div class="line"><span class="lineno">  300</span>    _lcd_write_data(0xA3);</div>
+<div class="line"><span class="lineno">  301</span>    _lcd_write_data(0x12);</div>
+<div class="line"><span class="lineno">  302</span>    _lcd_write_data(0x02);</div>
+<div class="line"><span class="lineno">  303</span>    _lcd_write_data(0x32);</div>
+<div class="line"><span class="lineno">  304</span>    _lcd_write_data(0x12);</div>
+<div class="line"><span class="lineno">  305</span>    _lcd_write_data(0xFF);</div>
+<div class="line"><span class="lineno">  306</span>    _lcd_write_data(0x32);</div>
+<div class="line"><span class="lineno">  307</span>    _lcd_write_data(0x00);</div>
+<div class="line"><span class="lineno">  308</span>    _lcd_write_reg(0xF4);</div>
+<div class="line"><span class="lineno">  309</span>    _lcd_write_data(0x40);</div>
+<div class="line"><span class="lineno">  310</span>    _lcd_write_data(0x00);</div>
+<div class="line"><span class="lineno">  311</span>    _lcd_write_data(0x08);</div>
+<div class="line"><span class="lineno">  312</span>    _lcd_write_data(0x91);</div>
+<div class="line"><span class="lineno">  313</span>    _lcd_write_data(0x04);</div>
+<div class="line"><span class="lineno">  314</span>    _lcd_write_reg(0xF8);</div>
+<div class="line"><span class="lineno">  315</span>    _lcd_write_data(0x21);</div>
+<div class="line"><span class="lineno">  316</span>    _lcd_write_data(0x04);</div>
+<div class="line"><span class="lineno">  317</span>    _lcd_write_reg(0x3A);</div>
+<div class="line"><span class="lineno">  318</span>    _lcd_write_data(0x55);</div>
+<div class="line"><span class="lineno">  319</span>}</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a1178d2dbdd1f930df64fff9be9a8fe63" name="a1178d2dbdd1f930df64fff9be9a8fe63"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1178d2dbdd1f930df64fff9be9a8fe63">&#9670;&#160;</a></span>_lcd_pixel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void _lcd_pixel </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="types_8h.html#ace9d960e74685e2cd84b36132dbbf8aa">u16</a>&#160;</td>
+          <td class="paramname"><em>data</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="lcd_8c_source.html#l00219">219</a> of file <a class="el" href="lcd_8c_source.html">lcd.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  220</span>{</div>
+<div class="line"><span class="lineno">  221</span>    <a class="code hl_function" href="spi_8c.html#aa100766918afcb71b6ba79413f33f9db">spi_xchg</a>(data &gt;&gt; 8);</div>
+<div class="line"><span class="lineno">  222</span>    <a class="code hl_function" href="spi_8c.html#aa100766918afcb71b6ba79413f33f9db">spi_xchg</a>(data);</div>
+<div class="line"><span class="lineno">  223</span>}</div>
+<div class="ttc" id="aspi_8c_html_aa100766918afcb71b6ba79413f33f9db"><div class="ttname"><a href="spi_8c.html#aa100766918afcb71b6ba79413f33f9db">spi_xchg</a></div><div class="ttdeci">u8 spi_xchg(u8 byte)</div><div class="ttdoc">Send and receive one byte from the SPI interface Panics on timeout.</div><div class="ttdef"><b>Definition:</b> <a href="spi_8c_source.html#l00024">spi.c:24</a></div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="ab15e38d06037e79353a7d85f61a98bc7" name="ab15e38d06037e79353a7d85f61a98bc7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab15e38d06037e79353a7d85f61a98bc7">&#9670;&#160;</a></span>_lcd_reset()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void _lcd_reset </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="lcd_8c_source.html#l00168">168</a> of file <a class="el" href="lcd_8c_source.html">lcd.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  169</span>{</div>
+<div class="line"><span class="lineno">  170</span>    <a class="code hl_define" href="gpio_8h.html#a365183fff6afc795a602fa1528f3b9ac">LCD_RST_1</a>;</div>
+<div class="line"><span class="lineno">  171</span>    _delay_ms(500);</div>
+<div class="line"><span class="lineno">  172</span>    <a class="code hl_define" href="gpio_8h.html#a61f71aba8773def01aa1a3259d92877c">LCD_RST_0</a>;</div>
+<div class="line"><span class="lineno">  173</span>    _delay_ms(500);</div>
+<div class="line"><span class="lineno">  174</span>    <a class="code hl_define" href="gpio_8h.html#a365183fff6afc795a602fa1528f3b9ac">LCD_RST_1</a>;</div>
+<div class="line"><span class="lineno">  175</span>    _delay_ms(500);</div>
+<div class="line"><span class="lineno">  176</span>}</div>
+<div class="ttc" id="agpio_8h_html_a365183fff6afc795a602fa1528f3b9ac"><div class="ttname"><a href="gpio_8h.html#a365183fff6afc795a602fa1528f3b9ac">LCD_RST_1</a></div><div class="ttdeci">#define LCD_RST_1</div><div class="ttdef"><b>Definition:</b> <a href="gpio_8h_source.html#l00069">gpio.h:69</a></div></div>
+<div class="ttc" id="agpio_8h_html_a61f71aba8773def01aa1a3259d92877c"><div class="ttname"><a href="gpio_8h.html#a61f71aba8773def01aa1a3259d92877c">LCD_RST_0</a></div><div class="ttdeci">#define LCD_RST_0</div><div class="ttdef"><b>Definition:</b> <a href="gpio_8h_source.html#l00066">gpio.h:66</a></div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="ad9e552df263cdba5eef0eb4fffc3a60b" name="ad9e552df263cdba5eef0eb4fffc3a60b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad9e552df263cdba5eef0eb4fffc3a60b">&#9670;&#160;</a></span>_lcd_set_gram_scan_dir()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void _lcd_set_gram_scan_dir </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="types_8h.html#a92c50087ca0e64fa93fc59402c55f8ca">u8</a>&#160;</td>
+          <td class="paramname"><em>scan_dir</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="lcd_8c_source.html#l00321">321</a> of file <a class="el" href="lcd_8c_source.html">lcd.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  322</span>{</div>
+<div class="line"><span class="lineno">  323</span>    <a class="code hl_typedef" href="types_8h.html#ace9d960e74685e2cd84b36132dbbf8aa">u16</a> a, b;</div>
+<div class="line"><span class="lineno">  324</span>    <span class="keywordflow">switch</span>(scan_dir)</div>
+<div class="line"><span class="lineno">  325</span>    {</div>
+<div class="line"><span class="lineno">  326</span>    <span class="keywordflow">case</span> L2R_U2D:</div>
+<div class="line"><span class="lineno">  327</span>        a = 0x08;</div>
+<div class="line"><span class="lineno">  328</span>        b = 0x22;</div>
+<div class="line"><span class="lineno">  329</span>        <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">  330</span> </div>
+<div class="line"><span class="lineno">  331</span>    <span class="keywordflow">case</span> L2R_D2U:</div>
+<div class="line"><span class="lineno">  332</span>        a = 0x08;</div>
+<div class="line"><span class="lineno">  333</span>        b = 0x62;</div>
+<div class="line"><span class="lineno">  334</span>        <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">  335</span> </div>
+<div class="line"><span class="lineno">  336</span>    <span class="keywordflow">case</span> R2L_U2D:</div>
+<div class="line"><span class="lineno">  337</span>        a = 0x08;</div>
+<div class="line"><span class="lineno">  338</span>        b = 0x02;</div>
+<div class="line"><span class="lineno">  339</span>        <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">  340</span> </div>
+<div class="line"><span class="lineno">  341</span>    <span class="keywordflow">case</span> R2L_D2U:</div>
+<div class="line"><span class="lineno">  342</span>        a = 0x08;</div>
+<div class="line"><span class="lineno">  343</span>        b = 0x42;</div>
+<div class="line"><span class="lineno">  344</span>        <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">  345</span> </div>
+<div class="line"><span class="lineno">  346</span>    <span class="keywordflow">case</span> U2D_L2R:</div>
+<div class="line"><span class="lineno">  347</span>        a = 0x28;</div>
+<div class="line"><span class="lineno">  348</span>        b = 0x22;</div>
+<div class="line"><span class="lineno">  349</span>        <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">  350</span> </div>
+<div class="line"><span class="lineno">  351</span>    <span class="keywordflow">case</span> U2D_R2L:</div>
+<div class="line"><span class="lineno">  352</span>        a = 0x28;</div>
+<div class="line"><span class="lineno">  353</span>        b = 0x02;</div>
+<div class="line"><span class="lineno">  354</span>        <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">  355</span> </div>
+<div class="line"><span class="lineno">  356</span>    <span class="keywordflow">case</span> D2U_L2R:</div>
+<div class="line"><span class="lineno">  357</span>        a = 0x28;</div>
+<div class="line"><span class="lineno">  358</span>        b = 0x62;</div>
+<div class="line"><span class="lineno">  359</span>        <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">  360</span> </div>
+<div class="line"><span class="lineno">  361</span>    <span class="keywordflow">case</span> D2U_R2L:</div>
+<div class="line"><span class="lineno">  362</span>        a = 0x28;</div>
+<div class="line"><span class="lineno">  363</span>        b = 0x42;</div>
+<div class="line"><span class="lineno">  364</span>        <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">  365</span>    }</div>
+<div class="line"><span class="lineno">  366</span> </div>
+<div class="line"><span class="lineno">  367</span>    _lcd_write_reg(0xB6);</div>
+<div class="line"><span class="lineno">  368</span>    _lcd_write_data(0x00);</div>
+<div class="line"><span class="lineno">  369</span>    _lcd_write_data(b);</div>
+<div class="line"><span class="lineno">  370</span>    _lcd_write_reg(0x36);</div>
+<div class="line"><span class="lineno">  371</span>    _lcd_write_data(a);</div>
+<div class="line"><span class="lineno">  372</span>}</div>
+<div class="ttc" id="atypes_8h_html_ace9d960e74685e2cd84b36132dbbf8aa"><div class="ttname"><a href="types_8h.html#ace9d960e74685e2cd84b36132dbbf8aa">u16</a></div><div class="ttdeci">uint16_t u16</div><div class="ttdef"><b>Definition:</b> <a href="types_8h_source.html#l00035">types.h:35</a></div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="aa0bf731811bfe104bb897545527d7862" name="aa0bf731811bfe104bb897545527d7862"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa0bf731811bfe104bb897545527d7862">&#9670;&#160;</a></span>_lcd_window_end()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void _lcd_window_end </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="lcd_8c_source.html#l00225">225</a> of file <a class="el" href="lcd_8c_source.html">lcd.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  226</span>{</div>
+<div class="line"><span class="lineno">  227</span>    <a class="code hl_define" href="gpio_8h.html#a00084d10788e0d2c037f5713451c08fc">LCD_CS_1</a>;</div>
+<div class="line"><span class="lineno">  228</span>}</div>
+<div class="ttc" id="agpio_8h_html_a00084d10788e0d2c037f5713451c08fc"><div class="ttname"><a href="gpio_8h.html#a00084d10788e0d2c037f5713451c08fc">LCD_CS_1</a></div><div class="ttdeci">#define LCD_CS_1</div><div class="ttdef"><b>Definition:</b> <a href="gpio_8h_source.html#l00057">gpio.h:57</a></div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a15ba99037a25ba778e2d460bdb07861b" name="a15ba99037a25ba778e2d460bdb07861b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a15ba99037a25ba778e2d460bdb07861b">&#9670;&#160;</a></span>_lcd_window_start()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void _lcd_window_start </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="types_8h.html#ace9d960e74685e2cd84b36132dbbf8aa">u16</a>&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="types_8h.html#ace9d960e74685e2cd84b36132dbbf8aa">u16</a>&#160;</td>
+          <td class="paramname"><em>y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="types_8h.html#ace9d960e74685e2cd84b36132dbbf8aa">u16</a>&#160;</td>
+          <td class="paramname"><em>w</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="types_8h.html#ace9d960e74685e2cd84b36132dbbf8aa">u16</a>&#160;</td>
+          <td class="paramname"><em>h</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="lcd_8c_source.html#l00195">195</a> of file <a class="el" href="lcd_8c_source.html">lcd.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  196</span>{</div>
+<div class="line"><span class="lineno">  197</span>    <a class="code hl_typedef" href="types_8h.html#ace9d960e74685e2cd84b36132dbbf8aa">u16</a> x_end, y_end;</div>
+<div class="line"><span class="lineno">  198</span> </div>
+<div class="line"><span class="lineno">  199</span>    x_end = x + w - 1;</div>
+<div class="line"><span class="lineno">  200</span>    y_end = y + h - 1;</div>
+<div class="line"><span class="lineno">  201</span> </div>
+<div class="line"><span class="lineno">  202</span>    <a class="code hl_function" href="spi_8c.html#ab3e16cf26638212c1e54a7aa4878e12a">spi_fast</a>();</div>
+<div class="line"><span class="lineno">  203</span> </div>
+<div class="line"><span class="lineno">  204</span>    _lcd_write_reg(0x2A);</div>
+<div class="line"><span class="lineno">  205</span>    _lcd_write_data(x &gt;&gt; 8);</div>
+<div class="line"><span class="lineno">  206</span>    _lcd_write_data(x);</div>
+<div class="line"><span class="lineno">  207</span>    _lcd_write_data(x_end &gt;&gt; 8);</div>
+<div class="line"><span class="lineno">  208</span>    _lcd_write_data(x_end);</div>
+<div class="line"><span class="lineno">  209</span>    _lcd_write_reg(0x2B);</div>
+<div class="line"><span class="lineno">  210</span>    _lcd_write_data(y &gt;&gt; 8);</div>
+<div class="line"><span class="lineno">  211</span>    _lcd_write_data(y);</div>
+<div class="line"><span class="lineno">  212</span>    _lcd_write_data(y_end &gt;&gt; 8);</div>
+<div class="line"><span class="lineno">  213</span>    _lcd_write_data(y_end);</div>
+<div class="line"><span class="lineno">  214</span>    _lcd_write_reg(0x2C);</div>
+<div class="line"><span class="lineno">  215</span>    <a class="code hl_define" href="gpio_8h.html#a84453a9c09cf346be8f716ebf9d239ac">LCD_DC_1</a>;</div>
+<div class="line"><span class="lineno">  216</span>    <a class="code hl_define" href="gpio_8h.html#a42d5451b792114145c0c17bfa3fa9765">LCD_CS_0</a>;</div>
+<div class="line"><span class="lineno">  217</span>}</div>
+<div class="ttc" id="agpio_8h_html_a42d5451b792114145c0c17bfa3fa9765"><div class="ttname"><a href="gpio_8h.html#a42d5451b792114145c0c17bfa3fa9765">LCD_CS_0</a></div><div class="ttdeci">#define LCD_CS_0</div><div class="ttdef"><b>Definition:</b> <a href="gpio_8h_source.html#l00054">gpio.h:54</a></div></div>
+<div class="ttc" id="agpio_8h_html_a84453a9c09cf346be8f716ebf9d239ac"><div class="ttname"><a href="gpio_8h.html#a84453a9c09cf346be8f716ebf9d239ac">LCD_DC_1</a></div><div class="ttdeci">#define LCD_DC_1</div><div class="ttdef"><b>Definition:</b> <a href="gpio_8h_source.html#l00063">gpio.h:63</a></div></div>
+<div class="ttc" id="aspi_8c_html_ab3e16cf26638212c1e54a7aa4878e12a"><div class="ttname"><a href="spi_8c.html#ab3e16cf26638212c1e54a7aa4878e12a">spi_fast</a></div><div class="ttdeci">void spi_fast(void)</div><div class="ttdoc">Enable fastest SPI mode.</div><div class="ttdef"><b>Definition:</b> <a href="spi_8c_source.html#l00018">spi.c:18</a></div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a125e8d51bdaa7c84426d77edfe4e81fd" name="a125e8d51bdaa7c84426d77edfe4e81fd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a125e8d51bdaa7c84426d77edfe4e81fd">&#9670;&#160;</a></span>_lcd_write_data()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void _lcd_write_data </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="types_8h.html#a92c50087ca0e64fa93fc59402c55f8ca">u8</a>&#160;</td>
+          <td class="paramname"><em>data</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="lcd_8c_source.html#l00186">186</a> of file <a class="el" href="lcd_8c_source.html">lcd.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  187</span>{</div>
+<div class="line"><span class="lineno">  188</span>    <a class="code hl_define" href="gpio_8h.html#a84453a9c09cf346be8f716ebf9d239ac">LCD_DC_1</a>;</div>
+<div class="line"><span class="lineno">  189</span>    <a class="code hl_define" href="gpio_8h.html#a42d5451b792114145c0c17bfa3fa9765">LCD_CS_0</a>;</div>
+<div class="line"><span class="lineno">  190</span>    <a class="code hl_function" href="spi_8c.html#aa100766918afcb71b6ba79413f33f9db">spi_xchg</a>(0);</div>
+<div class="line"><span class="lineno">  191</span>    <a class="code hl_function" href="spi_8c.html#aa100766918afcb71b6ba79413f33f9db">spi_xchg</a>(data);</div>
+<div class="line"><span class="lineno">  192</span>    <a class="code hl_define" href="gpio_8h.html#a00084d10788e0d2c037f5713451c08fc">LCD_CS_1</a>;</div>
+<div class="line"><span class="lineno">  193</span>}</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a87dcc013e6b4f09dc452a3d97db5a362" name="a87dcc013e6b4f09dc452a3d97db5a362"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a87dcc013e6b4f09dc452a3d97db5a362">&#9670;&#160;</a></span>_lcd_write_reg()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void _lcd_write_reg </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="types_8h.html#a92c50087ca0e64fa93fc59402c55f8ca">u8</a>&#160;</td>
+          <td class="paramname"><em>reg</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="lcd_8c_source.html#l00178">178</a> of file <a class="el" href="lcd_8c_source.html">lcd.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  179</span>{</div>
+<div class="line"><span class="lineno">  180</span>    <a class="code hl_define" href="gpio_8h.html#a3507c3afacfdb3d37f540c2c03e3293c">LCD_DC_0</a>;</div>
+<div class="line"><span class="lineno">  181</span>    <a class="code hl_define" href="gpio_8h.html#a42d5451b792114145c0c17bfa3fa9765">LCD_CS_0</a>;</div>
+<div class="line"><span class="lineno">  182</span>    <a class="code hl_function" href="spi_8c.html#aa100766918afcb71b6ba79413f33f9db">spi_xchg</a>(reg);</div>
+<div class="line"><span class="lineno">  183</span>    <a class="code hl_define" href="gpio_8h.html#a00084d10788e0d2c037f5713451c08fc">LCD_CS_1</a>;</div>
+<div class="line"><span class="lineno">  184</span>}</div>
+<div class="ttc" id="agpio_8h_html_a3507c3afacfdb3d37f540c2c03e3293c"><div class="ttname"><a href="gpio_8h.html#a3507c3afacfdb3d37f540c2c03e3293c">LCD_DC_0</a></div><div class="ttdeci">#define LCD_DC_0</div><div class="ttdef"><b>Definition:</b> <a href="gpio_8h_source.html#l00060">gpio.h:60</a></div></div>
+</div><!-- fragment -->
+</div>
+</div>
 <a id="a62344feec2a2d180a59d563f758e241e" name="a62344feec2a2d180a59d563f758e241e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a62344feec2a2d180a59d563f758e241e">&#9670;&#160;</a></span>lcd_backlight()</h2>
 
@@ -173,6 +768,14 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
+
+<p class="definition">Definition at line <a class="el" href="lcd_8c_source.html#l00375">375</a> of file <a class="el" href="lcd_8c_source.html">lcd.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  376</span>{</div>
+<div class="line"><span class="lineno">  377</span>    <span class="comment">/* TODO: Write PWM Value */</span></div>
+<div class="line"><span class="lineno">  378</span>    (void)value;</div>
+<div class="line"><span class="lineno">  379</span>}</div>
+</div><!-- fragment -->
+<p class="reference">Referenced by <a class="el" href="lcd_8c_source.html#l00381">lcd_init()</a>.</p>
 
 </div>
 </div>
@@ -220,18 +823,45 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>TODO. </p>
+<p>Draw a character in the standard font. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">x</td><td></td></tr>
-    <tr><td class="paramname">y</td><td></td></tr>
-    <tr><td class="paramname">fg</td><td></td></tr>
-    <tr><td class="paramname">bg</td><td></td></tr>
-    <tr><td class="paramname">c</td><td></td></tr>
+    <tr><td class="paramname">x</td><td>X-Coordinate </td></tr>
+    <tr><td class="paramname">y</td><td>Y-Coordinate </td></tr>
+    <tr><td class="paramname">fg</td><td>Foreground text color </td></tr>
+    <tr><td class="paramname">bg</td><td>Background color </td></tr>
+    <tr><td class="paramname">c</td><td>ASCII character </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>u16 </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Width of the character that was drawn </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="lcd_8c_source.html#l00437">437</a> of file <a class="el" href="lcd_8c_source.html">lcd.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  438</span>{</div>
+<div class="line"><span class="lineno">  439</span>    <a class="code hl_typedef" href="types_8h.html#a92c50087ca0e64fa93fc59402c55f8ca">u8</a> w0, h0;</div>
+<div class="line"><span class="lineno">  440</span>    <span class="keyword">const</span> <a class="code hl_typedef" href="types_8h.html#a92c50087ca0e64fa93fc59402c55f8ca">u8</a> *start;</div>
+<div class="line"><span class="lineno">  441</span> </div>
+<div class="line"><span class="lineno">  442</span>    start = _font5x7 + (c - 32) * <a class="code hl_define" href="lcd_8c.html#a7b2e9cc063e140c50b67a4f224988a45">FONT_WIDTH</a>;</div>
+<div class="line"><span class="lineno">  443</span> </div>
+<div class="line"><span class="lineno">  444</span>    _lcd_window_start(x, y, <a class="code hl_define" href="lcd_8c.html#a7b2e9cc063e140c50b67a4f224988a45">FONT_WIDTH</a>, <a class="code hl_define" href="lcd_8c.html#a33f4fac49f2a5e27e2857eb27f054510">FONT_HEIGHT</a>);</div>
+<div class="line"><span class="lineno">  445</span>    <span class="keywordflow">for</span>(h0 = 0; h0 &lt; <a class="code hl_define" href="lcd_8c.html#a33f4fac49f2a5e27e2857eb27f054510">FONT_HEIGHT</a>; ++h0)</div>
+<div class="line"><span class="lineno">  446</span>    {</div>
+<div class="line"><span class="lineno">  447</span>        <span class="keywordflow">for</span>(w0 = 0; w0 &lt; <a class="code hl_define" href="lcd_8c.html#a7b2e9cc063e140c50b67a4f224988a45">FONT_WIDTH</a>; ++w0)</div>
+<div class="line"><span class="lineno">  448</span>        {</div>
+<div class="line"><span class="lineno">  449</span>            _lcd_pixel(((pgm_read_byte(start + w0) &gt;&gt; h0) &amp; 1) ? fg : bg);</div>
+<div class="line"><span class="lineno">  450</span>        }</div>
+<div class="line"><span class="lineno">  451</span>    }</div>
+<div class="line"><span class="lineno">  452</span> </div>
+<div class="line"><span class="lineno">  453</span>    _lcd_window_end();</div>
+<div class="line"><span class="lineno">  454</span>    <span class="keywordflow">return</span> <a class="code hl_define" href="lcd_8c.html#a7b2e9cc063e140c50b67a4f224988a45">FONT_WIDTH</a> + 1;</div>
+<div class="line"><span class="lineno">  455</span>}</div>
+<div class="ttc" id="alcd_8c_html_a33f4fac49f2a5e27e2857eb27f054510"><div class="ttname"><a href="lcd_8c.html#a33f4fac49f2a5e27e2857eb27f054510">FONT_HEIGHT</a></div><div class="ttdeci">#define FONT_HEIGHT</div><div class="ttdef"><b>Definition:</b> <a href="lcd_8c_source.html#l00035">lcd.c:35</a></div></div>
+<div class="ttc" id="alcd_8c_html_a7b2e9cc063e140c50b67a4f224988a45"><div class="ttname"><a href="lcd_8c.html#a7b2e9cc063e140c50b67a4f224988a45">FONT_WIDTH</a></div><div class="ttdeci">#define FONT_WIDTH</div><div class="ttdef"><b>Definition:</b> <a href="lcd_8c_source.html#l00032">lcd.c:32</a></div></div>
+<div class="ttc" id="atypes_8h_html_a92c50087ca0e64fa93fc59402c55f8ca"><div class="ttname"><a href="types_8h.html#a92c50087ca0e64fa93fc59402c55f8ca">u8</a></div><div class="ttdeci">uint8_t u8</div><div class="ttdef"><b>Definition:</b> <a href="types_8h_source.html#l00038">types.h:38</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="lcd_8c_source.html#l00035">FONT_HEIGHT</a>, and <a class="el" href="lcd_8c_source.html#l00032">FONT_WIDTH</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="lcd_8c_source.html#l00457">lcd_string()</a>, and <a class="el" href="lcd_8c_source.html#l00471">lcd_string_P()</a>.</p>
 
 </div>
 </div>
@@ -278,6 +908,384 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>RGB565 color </dd></dl>
 
+<p class="definition">Definition at line <a class="el" href="lcd_8c_source.html#l00416">416</a> of file <a class="el" href="lcd_8c_source.html">lcd.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  417</span>{</div>
+<div class="line"><span class="lineno">  418</span>    <span class="keywordflow">return</span> ((r &amp; 0xF8) &lt;&lt; 8) | ((g &amp; 0xFC) &lt;&lt; 3) | (b &gt;&gt; 3);</div>
+<div class="line"><span class="lineno">  419</span>}</div>
+</div><!-- fragment -->
+<p class="reference">Referenced by <a class="el" href="avr_2platform_8c_source.html#l00046">_abgr_to_rgb565()</a>, and <a class="el" href="lcd_8c_source.html#l00421">lcd_logo_P()</a>.</p>
+
+</div>
+</div>
+<a id="a8f906c0afbbea669f39e24f697b79d87" name="a8f906c0afbbea669f39e24f697b79d87"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8f906c0afbbea669f39e24f697b79d87">&#9670;&#160;</a></span>lcd_image_1bit()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void lcd_image_1bit </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="types_8h.html#ace9d960e74685e2cd84b36132dbbf8aa">u16</a>&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="types_8h.html#ace9d960e74685e2cd84b36132dbbf8aa">u16</a>&#160;</td>
+          <td class="paramname"><em>y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="types_8h.html#ace9d960e74685e2cd84b36132dbbf8aa">u16</a>&#160;</td>
+          <td class="paramname"><em>w</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="types_8h.html#ace9d960e74685e2cd84b36132dbbf8aa">u16</a>&#160;</td>
+          <td class="paramname"><em>h</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="lcd_8h.html#a9a75b3f378a8d443f893bd9eceb09642">RGB565</a>&#160;</td>
+          <td class="paramname"><em>fg</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="lcd_8h.html#a9a75b3f378a8d443f893bd9eceb09642">RGB565</a>&#160;</td>
+          <td class="paramname"><em>bg</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="types_8h.html#afaa62991928fb9fb18ff0db62a040aba">u32</a>&#160;</td>
+          <td class="paramname"><em>addr</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Draw a colored 1-bit image from XMEM. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x</td><td>X-Coordinate </td></tr>
+    <tr><td class="paramname">y</td><td>Y-Coordinate </td></tr>
+    <tr><td class="paramname">w</td><td>Width </td></tr>
+    <tr><td class="paramname">h</td><td>Height </td></tr>
+    <tr><td class="paramname">fg</td><td>Foreground color </td></tr>
+    <tr><td class="paramname">bg</td><td>Background color </td></tr>
+    <tr><td class="paramname">addr</td><td>XMEM-Address </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="lcd_8c_source.html#l00506">506</a> of file <a class="el" href="lcd_8c_source.html">lcd.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  508</span>{</div>
+<div class="line"><span class="lineno">  509</span>    <a class="code hl_typedef" href="types_8h.html#a92c50087ca0e64fa93fc59402c55f8ca">u8</a> byte, stride, bit_mask;</div>
+<div class="line"><span class="lineno">  510</span>    <a class="code hl_typedef" href="types_8h.html#ace9d960e74685e2cd84b36132dbbf8aa">u16</a> x0, y0, byte_offset;</div>
+<div class="line"><span class="lineno">  511</span>    <a class="code hl_typedef" href="types_8h.html#a92c50087ca0e64fa93fc59402c55f8ca">u8</a> image[64];</div>
+<div class="line"><span class="lineno">  512</span> </div>
+<div class="line"><span class="lineno">  513</span>    stride = (w + 7) / 8;</div>
+<div class="line"><span class="lineno">  514</span>    <span class="keywordflow">for</span>(y0 = y; y0 &lt; y + h; ++y0)</div>
+<div class="line"><span class="lineno">  515</span>    {</div>
+<div class="line"><span class="lineno">  516</span>        <a class="code hl_function" href="xmem_8c.html#ac439854f5a1e0bd1b2f52c1028fc900a">xmem_read</a>(addr, image, stride);</div>
+<div class="line"><span class="lineno">  517</span>        _lcd_window_start(x, y0, w, 1);</div>
+<div class="line"><span class="lineno">  518</span>        bit_mask = 0x80;</div>
+<div class="line"><span class="lineno">  519</span>        byte_offset = 0;</div>
+<div class="line"><span class="lineno">  520</span>        <span class="keywordflow">for</span>(x0 = x; x0 &lt; x + w; ++x0)</div>
+<div class="line"><span class="lineno">  521</span>        {</div>
+<div class="line"><span class="lineno">  522</span>            <span class="keywordflow">if</span>(bit_mask == 0x80)</div>
+<div class="line"><span class="lineno">  523</span>            {</div>
+<div class="line"><span class="lineno">  524</span>                <span class="keywordtype">byte</span> = image[byte_offset++];</div>
+<div class="line"><span class="lineno">  525</span>                bit_mask = 1;</div>
+<div class="line"><span class="lineno">  526</span>            }</div>
+<div class="line"><span class="lineno">  527</span> </div>
+<div class="line"><span class="lineno">  528</span>            _lcd_pixel((<span class="keywordtype">byte</span> &amp; bit_mask) ? fg : bg);</div>
+<div class="line"><span class="lineno">  529</span>            bit_mask &lt;&lt;= 1;</div>
+<div class="line"><span class="lineno">  530</span>        }</div>
+<div class="line"><span class="lineno">  531</span> </div>
+<div class="line"><span class="lineno">  532</span>        _lcd_window_end();</div>
+<div class="line"><span class="lineno">  533</span>        addr += stride;</div>
+<div class="line"><span class="lineno">  534</span>    }</div>
+<div class="line"><span class="lineno">  535</span>}</div>
+<div class="ttc" id="axmem_8c_html_ac439854f5a1e0bd1b2f52c1028fc900a"><div class="ttname"><a href="xmem_8c.html#ac439854f5a1e0bd1b2f52c1028fc900a">xmem_read</a></div><div class="ttdeci">void xmem_read(u32 addr, void *data, u16 size)</div><div class="ttdoc">Read the specified number of bytes from the external memory.</div><div class="ttdef"><b>Definition:</b> <a href="xmem_8c_source.html#l00232">xmem.c:232</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="xmem_8c_source.html#l00232">xmem_read()</a>.</p>
+
+</div>
+</div>
+<a id="a2b566f1862ab95f8caa5e1350eafd151" name="a2b566f1862ab95f8caa5e1350eafd151"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2b566f1862ab95f8caa5e1350eafd151">&#9670;&#160;</a></span>lcd_image_grayscale()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void lcd_image_grayscale </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="types_8h.html#ace9d960e74685e2cd84b36132dbbf8aa">u16</a>&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="types_8h.html#ace9d960e74685e2cd84b36132dbbf8aa">u16</a>&#160;</td>
+          <td class="paramname"><em>y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="types_8h.html#ace9d960e74685e2cd84b36132dbbf8aa">u16</a>&#160;</td>
+          <td class="paramname"><em>w</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="types_8h.html#ace9d960e74685e2cd84b36132dbbf8aa">u16</a>&#160;</td>
+          <td class="paramname"><em>h</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="lcd_8h.html#a9a75b3f378a8d443f893bd9eceb09642">RGB565</a>&#160;</td>
+          <td class="paramname"><em>fg</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="lcd_8h.html#a9a75b3f378a8d443f893bd9eceb09642">RGB565</a>&#160;</td>
+          <td class="paramname"><em>bg</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="types_8h.html#afaa62991928fb9fb18ff0db62a040aba">u32</a>&#160;</td>
+          <td class="paramname"><em>addr</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Draw a colored Grayscale image from XMEM. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x</td><td>X-Coordinate </td></tr>
+    <tr><td class="paramname">y</td><td>Y-Coordinate </td></tr>
+    <tr><td class="paramname">w</td><td>Width </td></tr>
+    <tr><td class="paramname">h</td><td>Height </td></tr>
+    <tr><td class="paramname">fg</td><td>Foreground color </td></tr>
+    <tr><td class="paramname">bg</td><td>Background color </td></tr>
+    <tr><td class="paramname">addr</td><td>XMEM-Address </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="lcd_8c_source.html#l00500">500</a> of file <a class="el" href="lcd_8c_source.html">lcd.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  502</span>{</div>
+<div class="line"><span class="lineno">  503</span> </div>
+<div class="line"><span class="lineno">  504</span>}</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a62645fc7e83c7c93921c0106440ed18b" name="a62645fc7e83c7c93921c0106440ed18b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a62645fc7e83c7c93921c0106440ed18b">&#9670;&#160;</a></span>lcd_image_rgb()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void lcd_image_rgb </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="types_8h.html#ace9d960e74685e2cd84b36132dbbf8aa">u16</a>&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="types_8h.html#ace9d960e74685e2cd84b36132dbbf8aa">u16</a>&#160;</td>
+          <td class="paramname"><em>y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="types_8h.html#ace9d960e74685e2cd84b36132dbbf8aa">u16</a>&#160;</td>
+          <td class="paramname"><em>w</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="types_8h.html#ace9d960e74685e2cd84b36132dbbf8aa">u16</a>&#160;</td>
+          <td class="paramname"><em>h</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="types_8h.html#afaa62991928fb9fb18ff0db62a040aba">u32</a>&#160;</td>
+          <td class="paramname"><em>addr</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Draw an RGB image from XMEM. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x</td><td>X-Coordinate </td></tr>
+    <tr><td class="paramname">y</td><td>Y-Coordinate </td></tr>
+    <tr><td class="paramname">w</td><td>Width </td></tr>
+    <tr><td class="paramname">h</td><td>Height </td></tr>
+    <tr><td class="paramname">addr</td><td>XMEM-Address </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="lcd_8c_source.html#l00490">490</a> of file <a class="el" href="lcd_8c_source.html">lcd.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  491</span>{</div>
+<div class="line"><span class="lineno">  492</span> </div>
+<div class="line"><span class="lineno">  493</span>}</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="aa974eda613ffac18ecf6b119a8a5329b" name="aa974eda613ffac18ecf6b119a8a5329b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa974eda613ffac18ecf6b119a8a5329b">&#9670;&#160;</a></span>lcd_image_rgb565()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void lcd_image_rgb565 </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="types_8h.html#ace9d960e74685e2cd84b36132dbbf8aa">u16</a>&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="types_8h.html#ace9d960e74685e2cd84b36132dbbf8aa">u16</a>&#160;</td>
+          <td class="paramname"><em>y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="types_8h.html#ace9d960e74685e2cd84b36132dbbf8aa">u16</a>&#160;</td>
+          <td class="paramname"><em>w</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="types_8h.html#ace9d960e74685e2cd84b36132dbbf8aa">u16</a>&#160;</td>
+          <td class="paramname"><em>h</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="types_8h.html#afaa62991928fb9fb18ff0db62a040aba">u32</a>&#160;</td>
+          <td class="paramname"><em>addr</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Draw an RGB565 image from XMEM. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x</td><td>X-Coordinate </td></tr>
+    <tr><td class="paramname">y</td><td>Y-Coordinate </td></tr>
+    <tr><td class="paramname">w</td><td>Width </td></tr>
+    <tr><td class="paramname">h</td><td>Height </td></tr>
+    <tr><td class="paramname">addr</td><td>XMEM-Address </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="lcd_8c_source.html#l00495">495</a> of file <a class="el" href="lcd_8c_source.html">lcd.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  496</span>{</div>
+<div class="line"><span class="lineno">  497</span> </div>
+<div class="line"><span class="lineno">  498</span>}</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="aef833fe63a75378ad9734d112143b6c6" name="aef833fe63a75378ad9734d112143b6c6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aef833fe63a75378ad9734d112143b6c6">&#9670;&#160;</a></span>lcd_image_rgba()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void lcd_image_rgba </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="types_8h.html#ace9d960e74685e2cd84b36132dbbf8aa">u16</a>&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="types_8h.html#ace9d960e74685e2cd84b36132dbbf8aa">u16</a>&#160;</td>
+          <td class="paramname"><em>y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="types_8h.html#ace9d960e74685e2cd84b36132dbbf8aa">u16</a>&#160;</td>
+          <td class="paramname"><em>w</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="types_8h.html#ace9d960e74685e2cd84b36132dbbf8aa">u16</a>&#160;</td>
+          <td class="paramname"><em>h</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="types_8h.html#afaa62991928fb9fb18ff0db62a040aba">u32</a>&#160;</td>
+          <td class="paramname"><em>addr</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Draw an RGBA image from XMEM. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x</td><td>X-Coordinate </td></tr>
+    <tr><td class="paramname">y</td><td>Y-Coordinate </td></tr>
+    <tr><td class="paramname">w</td><td>Width </td></tr>
+    <tr><td class="paramname">h</td><td>Height </td></tr>
+    <tr><td class="paramname">addr</td><td>XMEM-Address </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="lcd_8c_source.html#l00485">485</a> of file <a class="el" href="lcd_8c_source.html">lcd.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  486</span>{</div>
+<div class="line"><span class="lineno">  487</span> </div>
+<div class="line"><span class="lineno">  488</span>}</div>
+</div><!-- fragment -->
 </div>
 </div>
 <a id="a09748a4045dc2d014afdce2cc566e57d" name="a09748a4045dc2d014afdce2cc566e57d"></a>
@@ -315,26 +1323,32 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 
-</div>
-</div>
-<a id="a669f4dd510ba544f097e49d7c5b772c5" name="a669f4dd510ba544f097e49d7c5b772c5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a669f4dd510ba544f097e49d7c5b772c5">&#9670;&#160;</a></span>lcd_initialized()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool lcd_initialized </td>
-          <td>(</td>
-          <td class="paramtype">void&#160;</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns whether or not the LCD driver is initialized. </p>
-<dl class="section return"><dt>Returns</dt><dd>true if the LCD is initialized </dd></dl>
+<p class="definition">Definition at line <a class="el" href="lcd_8c_source.html#l00381">381</a> of file <a class="el" href="lcd_8c_source.html">lcd.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  382</span>{</div>
+<div class="line"><span class="lineno">  383</span>    <span class="comment">/* Initialize LCD */</span></div>
+<div class="line"><span class="lineno">  384</span>    <a class="code hl_function" href="logger_8c.html#a60bd636ef160c97eb51cf31be5954ba2">log_boot_P</a>(LOG_INIT, PSTR(<span class="stringliteral">&quot;LCD driver starting&quot;</span>));</div>
+<div class="line"><span class="lineno">  385</span>    <a class="code hl_function" href="spi_8c.html#ab3e16cf26638212c1e54a7aa4878e12a">spi_fast</a>();</div>
+<div class="line"><span class="lineno">  386</span>    _lcd_reset();</div>
+<div class="line"><span class="lineno">  387</span>    <a class="code hl_function" href="lcd_8c.html#a62344feec2a2d180a59d563f758e241e">lcd_backlight</a>(backlight);</div>
+<div class="line"><span class="lineno">  388</span>    _lcd_init_reg();</div>
+<div class="line"><span class="lineno">  389</span>    _lcd_set_gram_scan_dir(<a class="code hl_define" href="lcd_8c.html#a49bc2232fc9e2652eebb31d9738144cb">SCAN_DIR</a>);</div>
+<div class="line"><span class="lineno">  390</span>    _delay_ms(200);</div>
+<div class="line"><span class="lineno">  391</span>    _lcd_write_reg(0x11);</div>
+<div class="line"><span class="lineno">  392</span>    _delay_ms(120);</div>
+<div class="line"><span class="lineno">  393</span>    _lcd_write_reg(0x29);</div>
+<div class="line"><span class="lineno">  394</span> </div>
+<div class="line"><span class="lineno">  395</span>    <a class="code hl_function" href="lcd_8c.html#a010620f3d9dc0536cc9551d7aabd8d17">lcd_rect</a>(0, 0, <a class="code hl_define" href="lcd_8h.html#a19693eac3018d3e7800fde141921b812">LCD_WIDTH</a>, <a class="code hl_define" href="lcd_8h.html#a53a8b2a971de4b88047192655a48b651">LCD_HEIGHT</a>, bg);</div>
+<div class="line"><span class="lineno">  396</span> </div>
+<div class="line"><span class="lineno">  397</span>    <a class="code hl_function" href="logger_8c.html#a60bd636ef160c97eb51cf31be5954ba2">log_boot_P</a>(LOG_INIT, PSTR(<span class="stringliteral">&quot;LCD driver initialized&quot;</span>));</div>
+<div class="line"><span class="lineno">  398</span>}</div>
+<div class="ttc" id="alcd_8c_html_a010620f3d9dc0536cc9551d7aabd8d17"><div class="ttname"><a href="lcd_8c.html#a010620f3d9dc0536cc9551d7aabd8d17">lcd_rect</a></div><div class="ttdeci">void lcd_rect(u16 x, u16 y, u16 w, u16 h, RGB565 color)</div><div class="ttdoc">Draw rectangle.</div><div class="ttdef"><b>Definition:</b> <a href="lcd_8c_source.html#l00400">lcd.c:400</a></div></div>
+<div class="ttc" id="alcd_8c_html_a49bc2232fc9e2652eebb31d9738144cb"><div class="ttname"><a href="lcd_8c.html#a49bc2232fc9e2652eebb31d9738144cb">SCAN_DIR</a></div><div class="ttdeci">#define SCAN_DIR</div><div class="ttdef"><b>Definition:</b> <a href="lcd_8c_source.html#l00029">lcd.c:29</a></div></div>
+<div class="ttc" id="alcd_8c_html_a62344feec2a2d180a59d563f758e241e"><div class="ttname"><a href="lcd_8c.html#a62344feec2a2d180a59d563f758e241e">lcd_backlight</a></div><div class="ttdeci">void lcd_backlight(u8 value)</div><div class="ttdoc">Set LCD backlight brightness.</div><div class="ttdef"><b>Definition:</b> <a href="lcd_8c_source.html#l00375">lcd.c:375</a></div></div>
+<div class="ttc" id="alcd_8h_html_a19693eac3018d3e7800fde141921b812"><div class="ttname"><a href="lcd_8h.html#a19693eac3018d3e7800fde141921b812">LCD_WIDTH</a></div><div class="ttdeci">#define LCD_WIDTH</div><div class="ttdef"><b>Definition:</b> <a href="lcd_8h_source.html#l00044">lcd.h:44</a></div></div>
+<div class="ttc" id="alcd_8h_html_a53a8b2a971de4b88047192655a48b651"><div class="ttname"><a href="lcd_8h.html#a53a8b2a971de4b88047192655a48b651">LCD_HEIGHT</a></div><div class="ttdeci">#define LCD_HEIGHT</div><div class="ttdef"><b>Definition:</b> <a href="lcd_8h_source.html#l00041">lcd.h:41</a></div></div>
+<div class="ttc" id="alogger_8c_html_a60bd636ef160c97eb51cf31be5954ba2"><div class="ttname"><a href="logger_8c.html#a60bd636ef160c97eb51cf31be5954ba2">log_boot_P</a></div><div class="ttdeci">void log_boot_P(LogLevel level, const char *msg,...)</div><div class="ttdoc">Log boot message.</div><div class="ttdef"><b>Definition:</b> <a href="logger_8c_source.html#l00164">logger.c:164</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="lcd_8c_source.html#l00375">lcd_backlight()</a>, <a class="el" href="lcd_8h_source.html#l00041">LCD_HEIGHT</a>, <a class="el" href="lcd_8c_source.html#l00400">lcd_rect()</a>, <a class="el" href="lcd_8h_source.html#l00044">LCD_WIDTH</a>, <a class="el" href="logger_8c_source.html#l00164">log_boot_P()</a>, <a class="el" href="lcd_8c_source.html#l00029">SCAN_DIR</a>, and <a class="el" href="spi_8c_source.html#l00018">spi_fast()</a>.</p>
 
 </div>
 </div>
@@ -382,17 +1396,38 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>TODO. </p>
+<p>Draw boot logo(s) </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">x</td><td></td></tr>
-    <tr><td class="paramname">y</td><td></td></tr>
-    <tr><td class="paramname">w</td><td></td></tr>
-    <tr><td class="paramname">h</td><td></td></tr>
-    <tr><td class="paramname">image</td><td></td></tr>
+    <tr><td class="paramname">x</td><td>X-Coordinate </td></tr>
+    <tr><td class="paramname">y</td><td>Y-Coordinate </td></tr>
+    <tr><td class="paramname">w</td><td>Width </td></tr>
+    <tr><td class="paramname">h</td><td>Height </td></tr>
+    <tr><td class="paramname">image</td><td>Image data (grayscale, red channel) </td></tr>
   </table>
   </dd>
 </dl>
+
+<p class="definition">Definition at line <a class="el" href="lcd_8c_source.html#l00421">421</a> of file <a class="el" href="lcd_8c_source.html">lcd.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  422</span>{</div>
+<div class="line"><span class="lineno">  423</span>    <a class="code hl_typedef" href="types_8h.html#ace9d960e74685e2cd84b36132dbbf8aa">u16</a> w0, h0;</div>
+<div class="line"><span class="lineno">  424</span> </div>
+<div class="line"><span class="lineno">  425</span>    _lcd_window_start(x, y, w, h);</div>
+<div class="line"><span class="lineno">  426</span>    <span class="keywordflow">for</span>(h0 = 0; h0 &lt; h; ++h0)</div>
+<div class="line"><span class="lineno">  427</span>    {</div>
+<div class="line"><span class="lineno">  428</span>        <span class="keywordflow">for</span>(w0 = 0; w0 &lt; w; ++w0)</div>
+<div class="line"><span class="lineno">  429</span>        {</div>
+<div class="line"><span class="lineno">  430</span>            _lcd_pixel(<a class="code hl_function" href="lcd_8c.html#a9077e33ab871138bf5da6043bfe48266">lcd_color</a>(pgm_read_byte(&amp;image[h0 * w + w0]), 0, 0));</div>
+<div class="line"><span class="lineno">  431</span>        }</div>
+<div class="line"><span class="lineno">  432</span>    }</div>
+<div class="line"><span class="lineno">  433</span> </div>
+<div class="line"><span class="lineno">  434</span>    _lcd_window_end();</div>
+<div class="line"><span class="lineno">  435</span>}</div>
+<div class="ttc" id="alcd_8c_html_a9077e33ab871138bf5da6043bfe48266"><div class="ttname"><a href="lcd_8c.html#a9077e33ab871138bf5da6043bfe48266">lcd_color</a></div><div class="ttdeci">RGB565 lcd_color(u8 r, u8 g, u8 b)</div><div class="ttdoc">Convert RGB888 to RGB565.</div><div class="ttdef"><b>Definition:</b> <a href="lcd_8c_source.html#l00416">lcd.c:416</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="lcd_8c_source.html#l00416">lcd_color()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="logger_8c_source.html#l00231">logger_lcd_init()</a>.</p>
 
 </div>
 </div>
@@ -440,7 +1475,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Draw. </p>
+<p>Draw rectangle. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">x</td><td>X-Coordinate </td></tr>
@@ -451,6 +1486,24 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
+
+<p class="definition">Definition at line <a class="el" href="lcd_8c_source.html#l00400">400</a> of file <a class="el" href="lcd_8c_source.html">lcd.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  401</span>{</div>
+<div class="line"><span class="lineno">  402</span>    <a class="code hl_typedef" href="types_8h.html#ace9d960e74685e2cd84b36132dbbf8aa">u16</a> w0, h0;</div>
+<div class="line"><span class="lineno">  403</span> </div>
+<div class="line"><span class="lineno">  404</span>    _lcd_window_start(x, y, w, h);</div>
+<div class="line"><span class="lineno">  405</span>    <span class="keywordflow">for</span>(h0 = 0; h0 &lt; h; ++h0)</div>
+<div class="line"><span class="lineno">  406</span>    {</div>
+<div class="line"><span class="lineno">  407</span>        <span class="keywordflow">for</span>(w0 = 0; w0 &lt; w; ++w0)</div>
+<div class="line"><span class="lineno">  408</span>        {</div>
+<div class="line"><span class="lineno">  409</span>            _lcd_pixel(color);</div>
+<div class="line"><span class="lineno">  410</span>        }</div>
+<div class="line"><span class="lineno">  411</span>    }</div>
+<div class="line"><span class="lineno">  412</span> </div>
+<div class="line"><span class="lineno">  413</span>    _lcd_window_end();</div>
+<div class="line"><span class="lineno">  414</span>}</div>
+</div><!-- fragment -->
+<p class="reference">Referenced by <a class="el" href="avr_2platform_8c_source.html#l00054">env_gfx_rect()</a>, and <a class="el" href="lcd_8c_source.html#l00381">lcd_init()</a>.</p>
 
 </div>
 </div>
@@ -498,18 +1551,35 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>TODO. </p>
+<p>Draw a string in the default font. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">x</td><td></td></tr>
-    <tr><td class="paramname">y</td><td></td></tr>
-    <tr><td class="paramname">fg</td><td></td></tr>
-    <tr><td class="paramname">bg</td><td></td></tr>
-    <tr><td class="paramname">s</td><td></td></tr>
+    <tr><td class="paramname">x</td><td>X-Coordinate </td></tr>
+    <tr><td class="paramname">y</td><td>Y-Coordinate </td></tr>
+    <tr><td class="paramname">fg</td><td>Foreground text color </td></tr>
+    <tr><td class="paramname">bg</td><td>Background color </td></tr>
+    <tr><td class="paramname">s</td><td>ASCII string </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd></dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Width of the string that was drawn </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="lcd_8c_source.html#l00457">457</a> of file <a class="el" href="lcd_8c_source.html">lcd.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  458</span>{</div>
+<div class="line"><span class="lineno">  459</span>    <a class="code hl_typedef" href="types_8h.html#ace9d960e74685e2cd84b36132dbbf8aa">u16</a> i;</div>
+<div class="line"><span class="lineno">  460</span>    <span class="keywordtype">char</span> c;</div>
+<div class="line"><span class="lineno">  461</span> </div>
+<div class="line"><span class="lineno">  462</span>    i = 0;</div>
+<div class="line"><span class="lineno">  463</span>    <span class="keywordflow">while</span>((c = *s++))</div>
+<div class="line"><span class="lineno">  464</span>    {</div>
+<div class="line"><span class="lineno">  465</span>        i += <a class="code hl_function" href="lcd_8c.html#a2d178ce2cd276e286fcdb38ba4763842">lcd_char</a>(x + i, y, fg, bg, c);</div>
+<div class="line"><span class="lineno">  466</span>    }</div>
+<div class="line"><span class="lineno">  467</span> </div>
+<div class="line"><span class="lineno">  468</span>    <span class="keywordflow">return</span> i;</div>
+<div class="line"><span class="lineno">  469</span>}</div>
+<div class="ttc" id="alcd_8c_html_a2d178ce2cd276e286fcdb38ba4763842"><div class="ttname"><a href="lcd_8c.html#a2d178ce2cd276e286fcdb38ba4763842">lcd_char</a></div><div class="ttdeci">u8 lcd_char(u16 x, u16 y, RGB565 fg, RGB565 bg, char c)</div><div class="ttdoc">Draw a character in the standard font.</div><div class="ttdef"><b>Definition:</b> <a href="lcd_8c_source.html#l00437">lcd.c:437</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="lcd_8c_source.html#l00437">lcd_char()</a>.</p>
 
 </div>
 </div>
@@ -557,18 +1627,102 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>TODO. </p>
+<p>Draw a string from program memory in the default font. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">x</td><td></td></tr>
-    <tr><td class="paramname">y</td><td></td></tr>
-    <tr><td class="paramname">fg</td><td></td></tr>
-    <tr><td class="paramname">bg</td><td></td></tr>
-    <tr><td class="paramname">s</td><td></td></tr>
+    <tr><td class="paramname">x</td><td>X-Coordinate </td></tr>
+    <tr><td class="paramname">y</td><td>Y-Coordinate </td></tr>
+    <tr><td class="paramname">fg</td><td>Foreground text color </td></tr>
+    <tr><td class="paramname">bg</td><td>Background color </td></tr>
+    <tr><td class="paramname">s</td><td>ASCII string in PROGMEM </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>u16 </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Width of the string that was drawn </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="lcd_8c_source.html#l00471">471</a> of file <a class="el" href="lcd_8c_source.html">lcd.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  472</span>{</div>
+<div class="line"><span class="lineno">  473</span>    <a class="code hl_typedef" href="types_8h.html#ace9d960e74685e2cd84b36132dbbf8aa">u16</a> i;</div>
+<div class="line"><span class="lineno">  474</span>    <span class="keywordtype">char</span> c;</div>
+<div class="line"><span class="lineno">  475</span> </div>
+<div class="line"><span class="lineno">  476</span>    i = 0;</div>
+<div class="line"><span class="lineno">  477</span>    <span class="keywordflow">while</span>((c = pgm_read_byte(s++)))</div>
+<div class="line"><span class="lineno">  478</span>    {</div>
+<div class="line"><span class="lineno">  479</span>        i += <a class="code hl_function" href="lcd_8c.html#a2d178ce2cd276e286fcdb38ba4763842">lcd_char</a>(x + i, y, fg, bg, c);</div>
+<div class="line"><span class="lineno">  480</span>    }</div>
+<div class="line"><span class="lineno">  481</span> </div>
+<div class="line"><span class="lineno">  482</span>    <span class="keywordflow">return</span> i;</div>
+<div class="line"><span class="lineno">  483</span>}</div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="lcd_8c_source.html#l00437">lcd_char()</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a id="af3dcc12854dfb6fe2ab12a1ef3d10a2b" name="af3dcc12854dfb6fe2ab12a1ef3d10a2b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af3dcc12854dfb6fe2ab12a1ef3d10a2b">&#9670;&#160;</a></span>_gamma</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="types_8h.html#a92c50087ca0e64fa93fc59402c55f8ca">u8</a> PROGMEM _gamma[]</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">=</div>
+<div class="line">{</div>
+<div class="line">      0,  21,  28,  34,  39,  43,  46,  50,  53,  56,  59,  61,  64,  66,  68,  70,</div>
+<div class="line">     72,  74,  76,  78,  80,  82,  84,  85,  87,  89,  90,  92,  93,  95,  96,  98,</div>
+<div class="line">     99, 101, 102, 103, 105, 106, 107, 109, 110, 111, 112, 114, 115, 116, 117, 118,</div>
+<div class="line">    119, 120, 122, 123, 124, 125, 126, 127, 128, 129, 130, 131, 132, 133, 134, 135,</div>
+<div class="line">    136, 137, 138, 139, 140, 141, 142, 143, 144, 144, 145, 146, 147, 148, 149, 150,</div>
+<div class="line">    151, 151, 152, 153, 154, 155, 156, 156, 157, 158, 159, 160, 160, 161, 162, 163,</div>
+<div class="line">    164, 164, 165, 166, 167, 167, 168, 169, 170, 170, 171, 172, 173, 173, 174, 175,</div>
+<div class="line">    175, 176, 177, 178, 178, 179, 180, 180, 181, 182, 182, 183, 184, 184, 185, 186,</div>
+<div class="line">    186, 187, 188, 188, 189, 190, 190, 191, 192, 192, 193, 194, 194, 195, 195, 196,</div>
+<div class="line">    197, 197, 198, 199, 199, 200, 200, 201, 202, 202, 203, 203, 204, 205, 205, 206,</div>
+<div class="line">    206, 207, 207, 208, 209, 209, 210, 210, 211, 212, 212, 213, 213, 214, 214, 215,</div>
+<div class="line">    215, 216, 217, 217, 218, 218, 219, 219, 220, 220, 221, 221, 222, 223, 223, 224,</div>
+<div class="line">    224, 225, 225, 226, 226, 227, 227, 228, 228, 229, 229, 230, 230, 231, 231, 232,</div>
+<div class="line">    232, 233, 233, 234, 234, 235, 235, 236, 236, 237, 237, 238, 238, 239, 239, 240,</div>
+<div class="line">    240, 241, 241, 242, 242, 243, 243, 244, 244, 245, 245, 246, 246, 247, 247, 248,</div>
+<div class="line">    248, 249, 249, 249, 250, 250, 251, 251, 252, 252, 253, 253, 254, 254, 255, 255</div>
+<div class="line">}</div>
+</div><!-- fragment -->
+<p class="definition">Definition at line <a class="el" href="lcd_8c_source.html#l00142">142</a> of file <a class="el" href="lcd_8c_source.html">lcd.c</a>.</p>
+
+</div>
+</div>
+<a id="aaf0f89df98cf3f63e9d4e50859f9c706" name="aaf0f89df98cf3f63e9d4e50859f9c706"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaf0f89df98cf3f63e9d4e50859f9c706">&#9670;&#160;</a></span>PROGMEM</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="types_8h.html#a92c50087ca0e64fa93fc59402c55f8ca">u8</a> _font5x7 [] PROGMEM</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="lcd_8c_source.html#l00037">37</a> of file <a class="el" href="lcd_8c_source.html">lcd.c</a>.</p>
 
 </div>
 </div>

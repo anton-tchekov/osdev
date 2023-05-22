@@ -8,15 +8,19 @@
 #include <clipboard.h>
 #include <string.h>
 
+/** Length of the clipboard in bytes */
 static i32 _clipboard_len;
+
+/** Type of the current data in the clipboad */
 static ClipboardType _clipboard_type;
 
 static char *get_memory(i32 space)
 {
-	if (space >= 0)
+	if(space >= 0)
 	{
 		_clipboard_len = space;
 	}
+
 	static char arr[1024];
 	return arr;
 }

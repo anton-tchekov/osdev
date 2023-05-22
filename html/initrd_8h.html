@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">OS Dev
+   <div id="projectname">OS Dev<span id="projectnumber">&#160;0.1</span>
    </div>
   </td>
  </tr>
@@ -86,9 +86,8 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:afb664c3988d855629cd7b611cf610561"><td class="memItemLeft" align="right" valign="top"><a id="afb664c3988d855629cd7b611cf610561" name="afb664c3988d855629cd7b611cf610561"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>initrd_load</b> (void)</td></tr>
-<tr class="memdesc:afb664c3988d855629cd7b611cf610561"><td class="mdescLeft">&#160;</td><td class="mdescRight">Load the INIT program and Standard Shared Library from special area on disk. The full featured filesystem driver is in userspace. <br /></td></tr>
+<tr class="memitem:afb664c3988d855629cd7b611cf610561"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="initrd_8h.html#afb664c3988d855629cd7b611cf610561">initrd_load</a> (void)</td></tr>
+<tr class="memdesc:afb664c3988d855629cd7b611cf610561"><td class="mdescLeft">&#160;</td><td class="mdescRight">Load the INIT program and Standard Shared Library from special area on disk. The full featured filesystem driver is in userspace.  <br /></td></tr>
 <tr class="separator:afb664c3988d855629cd7b611cf610561"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -96,7 +95,101 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>initrd_load</b> (void
 <dl class="section author"><dt>Author</dt><dd>Anton Tchekov </dd></dl>
 <dl class="section version"><dt>Version</dt><dd>0.1 </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>21.05.2023 </dd></dl>
-</div></div><!-- contents -->
+
+<p class="definition">Definition in file <a class="el" href="initrd_8h_source.html">initrd.h</a>.</p>
+</div><h2 class="groupheader">Function Documentation</h2>
+<a id="afb664c3988d855629cd7b611cf610561" name="afb664c3988d855629cd7b611cf610561"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afb664c3988d855629cd7b611cf610561">&#9670;&#160;</a></span>initrd_load()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void initrd_load </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Load the INIT program and Standard Shared Library from special area on disk. The full featured filesystem driver is in userspace. </p>
+
+<p class="definition">Definition at line <a class="el" href="initrd_8c_source.html#l00027">27</a> of file <a class="el" href="initrd_8c_source.html">initrd.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   28</span>{</div>
+<div class="line"><span class="lineno">   29</span>    <a class="code hl_typedef" href="types_8h.html#a92c50087ca0e64fa93fc59402c55f8ca">u8</a> buf[<a class="code hl_define" href="sd_8h.html#ad51ded0bbd705f02f73fc60c0b721ced">BLOCK_SIZE</a>];</div>
+<div class="line"><span class="lineno">   30</span>    <a class="code hl_typedef" href="types_8h.html#ace9d960e74685e2cd84b36132dbbf8aa">u16</a> block, num_sectors;</div>
+<div class="line"><span class="lineno">   31</span>    <a class="code hl_typedef" href="types_8h.html#afaa62991928fb9fb18ff0db62a040aba">u32</a> addr, revision, size_stdlib, size_init;</div>
+<div class="line"><span class="lineno">   32</span> </div>
+<div class="line"><span class="lineno">   33</span>    <a class="code hl_function" href="logger_8c.html#a60bd636ef160c97eb51cf31be5954ba2">log_boot_P</a>(LOG_INIT, PSTR(<span class="stringliteral">&quot;Loading Init Binary&quot;</span>));</div>
+<div class="line"><span class="lineno">   34</span>    <a class="code hl_function" href="sd_8c.html#a3f0c63e822010bb899b9e13d73a685dd">sd_read</a>(<a class="code hl_define" href="atfs_8h.html#abef1527b5f0917d3ca73ac7a60435ae3">ATFS_SECTOR_BOOT</a>, buf);</div>
+<div class="line"><span class="lineno">   35</span> </div>
+<div class="line"><span class="lineno">   36</span>    <span class="comment">/* Check signature */</span></div>
+<div class="line"><span class="lineno">   37</span>    <span class="keywordflow">if</span>(<a class="code hl_function" href="string_8c.html#a8abe583def8cefd53678bec4126eeefe">memcmp</a>(buf + <a class="code hl_define" href="atfs_8h.html#a2ea0d3fde1f46a1b5b3d1ab55b7e3d5b">ATFS_OFFSET_SIGNATURE</a>, _signature, <span class="keyword">sizeof</span>(_signature)))</div>
+<div class="line"><span class="lineno">   38</span>    {</div>
+<div class="line"><span class="lineno">   39</span>        <a class="code hl_function" href="logger_8c.html#a19a313011d8f478ad9799e546199a9ac">panic</a>(PSTR(<span class="stringliteral">&quot;Wrong FS signature&quot;</span>));</div>
+<div class="line"><span class="lineno">   40</span>    }</div>
+<div class="line"><span class="lineno">   41</span> </div>
+<div class="line"><span class="lineno">   42</span>    <span class="comment">/* Check revision */</span></div>
+<div class="line"><span class="lineno">   43</span>    revision = <a class="code hl_function" href="atfs_8h.html#a58dff0b38327e2389ba33ca793d2b633">load_le_32</a>(buf + <a class="code hl_define" href="atfs_8h.html#afa4c7c978e0253bb3c3e2b6828b49afd">ATFS_OFFSET_REVISION</a>);</div>
+<div class="line"><span class="lineno">   44</span>    <span class="keywordflow">if</span>(revision != <a class="code hl_define" href="atfs_8h.html#a57c1cdf2546cad6e7458aa3f4b19f527">ATFS_REVISION</a>)</div>
+<div class="line"><span class="lineno">   45</span>    {</div>
+<div class="line"><span class="lineno">   46</span>        <a class="code hl_function" href="logger_8c.html#a19a313011d8f478ad9799e546199a9ac">panic</a>(PSTR(<span class="stringliteral">&quot;Unsupported ATFS revision&quot;</span>));</div>
+<div class="line"><span class="lineno">   47</span>    }</div>
+<div class="line"><span class="lineno">   48</span> </div>
+<div class="line"><span class="lineno">   49</span>    <span class="comment">/* Get STDLIB Size */</span></div>
+<div class="line"><span class="lineno">   50</span>    size_stdlib = <a class="code hl_function" href="atfs_8h.html#a58dff0b38327e2389ba33ca793d2b633">load_le_32</a>(buf + <a class="code hl_define" href="atfs_8h.html#aa51051aec9ee36f50493079fc1e2ec7d">ATFS_OFFSET_STDLIB_SIZE</a>);</div>
+<div class="line"><span class="lineno">   51</span> </div>
+<div class="line"><span class="lineno">   52</span>    <span class="comment">/* Get INIT Size */</span></div>
+<div class="line"><span class="lineno">   53</span>    size_init = <a class="code hl_function" href="atfs_8h.html#a58dff0b38327e2389ba33ca793d2b633">load_le_32</a>(buf + <a class="code hl_define" href="atfs_8h.html#ac61a5c871bbbb33f1f12c644bb7b105a">ATFS_OFFSET_INIT_SIZE</a>);</div>
+<div class="line"><span class="lineno">   54</span> </div>
+<div class="line"><span class="lineno">   55</span>    <span class="comment">/* Load STDLIB */</span></div>
+<div class="line"><span class="lineno">   56</span>    <span class="comment">/* _load_xmem(RAM_OFFSET_STDLIB, SECTOR_STDLIB, size_stdlib &gt;&gt; BLOCK_SIZE_POT); */</span></div>
+<div class="line"><span class="lineno">   57</span> </div>
+<div class="line"><span class="lineno">   58</span>    <a class="code hl_function" href="logger_8c.html#a60bd636ef160c97eb51cf31be5954ba2">log_boot_P</a>(LOG_EXT, PSTR(<span class="stringliteral">&quot;INIT Size: %&quot;</span>PRIu32), size_init);</div>
+<div class="line"><span class="lineno">   59</span>    <a class="code hl_function" href="logger_8c.html#a60bd636ef160c97eb51cf31be5954ba2">log_boot_P</a>(LOG_EXT, PSTR(<span class="stringliteral">&quot;STDLIB Size: %&quot;</span>PRIu32), size_stdlib);</div>
+<div class="line"><span class="lineno">   60</span> </div>
+<div class="line"><span class="lineno">   61</span>    num_sectors = (size_init + <a class="code hl_define" href="sd_8h.html#ad51ded0bbd705f02f73fc60c0b721ced">BLOCK_SIZE</a> - 1) &gt;&gt; <a class="code hl_define" href="sd_8h.html#a456e1098b18ecd0666395e17ef9b6ca8">BLOCK_SIZE_POT</a>;</div>
+<div class="line"><span class="lineno">   62</span>    <a class="code hl_function" href="logger_8c.html#a60bd636ef160c97eb51cf31be5954ba2">log_boot_P</a>(LOG_EXT, PSTR(<span class="stringliteral">&quot;INIT Sectors: %d&quot;</span>), num_sectors);</div>
+<div class="line"><span class="lineno">   63</span> </div>
+<div class="line"><span class="lineno">   64</span>    <span class="comment">/* Load INIT */</span></div>
+<div class="line"><span class="lineno">   65</span>    <span class="keywordflow">for</span>(addr = 0, block = <a class="code hl_define" href="atfs_8h.html#a34195cda27663494d697f1d5a14f0213">ATFS_SECTOR_INIT</a>;</div>
+<div class="line"><span class="lineno">   66</span>        block &lt; <a class="code hl_define" href="atfs_8h.html#a34195cda27663494d697f1d5a14f0213">ATFS_SECTOR_INIT</a> + num_sectors;</div>
+<div class="line"><span class="lineno">   67</span>        ++block, addr += <a class="code hl_define" href="sd_8h.html#ad51ded0bbd705f02f73fc60c0b721ced">BLOCK_SIZE</a>)</div>
+<div class="line"><span class="lineno">   68</span>    {</div>
+<div class="line"><span class="lineno">   69</span>        <span class="keywordflow">if</span>(<a class="code hl_function" href="sd_8c.html#a3f0c63e822010bb899b9e13d73a685dd">sd_read</a>(block, buf))</div>
+<div class="line"><span class="lineno">   70</span>        {</div>
+<div class="line"><span class="lineno">   71</span>            <a class="code hl_function" href="logger_8c.html#a19a313011d8f478ad9799e546199a9ac">panic</a>(PSTR(<span class="stringliteral">&quot;Loading InitRD failed&quot;</span>));</div>
+<div class="line"><span class="lineno">   72</span>        }</div>
+<div class="line"><span class="lineno">   73</span> </div>
+<div class="line"><span class="lineno">   74</span>        <a class="code hl_function" href="xmem_8c.html#afef9c92490450d98f177f53f2b174f20">xmem_write</a>(addr, buf, <a class="code hl_define" href="sd_8h.html#ad51ded0bbd705f02f73fc60c0b721ced">BLOCK_SIZE</a>);</div>
+<div class="line"><span class="lineno">   75</span>    }</div>
+<div class="line"><span class="lineno">   76</span>}</div>
+<div class="ttc" id="aatfs_8h_html_a2ea0d3fde1f46a1b5b3d1ab55b7e3d5b"><div class="ttname"><a href="atfs_8h.html#a2ea0d3fde1f46a1b5b3d1ab55b7e3d5b">ATFS_OFFSET_SIGNATURE</a></div><div class="ttdeci">#define ATFS_OFFSET_SIGNATURE</div><div class="ttdef"><b>Definition:</b> <a href="atfs_8h_source.html#l00047">atfs.h:47</a></div></div>
+<div class="ttc" id="aatfs_8h_html_a34195cda27663494d697f1d5a14f0213"><div class="ttname"><a href="atfs_8h.html#a34195cda27663494d697f1d5a14f0213">ATFS_SECTOR_INIT</a></div><div class="ttdeci">#define ATFS_SECTOR_INIT</div><div class="ttdef"><b>Definition:</b> <a href="atfs_8h_source.html#l00033">atfs.h:33</a></div></div>
+<div class="ttc" id="aatfs_8h_html_a57c1cdf2546cad6e7458aa3f4b19f527"><div class="ttname"><a href="atfs_8h.html#a57c1cdf2546cad6e7458aa3f4b19f527">ATFS_REVISION</a></div><div class="ttdeci">#define ATFS_REVISION</div><div class="ttdef"><b>Definition:</b> <a href="atfs_8h_source.html#l00042">atfs.h:42</a></div></div>
+<div class="ttc" id="aatfs_8h_html_a58dff0b38327e2389ba33ca793d2b633"><div class="ttname"><a href="atfs_8h.html#a58dff0b38327e2389ba33ca793d2b633">load_le_32</a></div><div class="ttdeci">static u32 load_le_32(u8 *buf)</div><div class="ttdoc">Load a 32-bit little endian value from a buffer.</div><div class="ttdef"><b>Definition:</b> <a href="atfs_8h_source.html#l00081">atfs.h:81</a></div></div>
+<div class="ttc" id="aatfs_8h_html_aa51051aec9ee36f50493079fc1e2ec7d"><div class="ttname"><a href="atfs_8h.html#aa51051aec9ee36f50493079fc1e2ec7d">ATFS_OFFSET_STDLIB_SIZE</a></div><div class="ttdeci">#define ATFS_OFFSET_STDLIB_SIZE</div><div class="ttdef"><b>Definition:</b> <a href="atfs_8h_source.html#l00053">atfs.h:53</a></div></div>
+<div class="ttc" id="aatfs_8h_html_abef1527b5f0917d3ca73ac7a60435ae3"><div class="ttname"><a href="atfs_8h.html#abef1527b5f0917d3ca73ac7a60435ae3">ATFS_SECTOR_BOOT</a></div><div class="ttdeci">#define ATFS_SECTOR_BOOT</div><div class="ttdef"><b>Definition:</b> <a href="atfs_8h_source.html#l00021">atfs.h:21</a></div></div>
+<div class="ttc" id="aatfs_8h_html_ac61a5c871bbbb33f1f12c644bb7b105a"><div class="ttname"><a href="atfs_8h.html#ac61a5c871bbbb33f1f12c644bb7b105a">ATFS_OFFSET_INIT_SIZE</a></div><div class="ttdeci">#define ATFS_OFFSET_INIT_SIZE</div><div class="ttdef"><b>Definition:</b> <a href="atfs_8h_source.html#l00056">atfs.h:56</a></div></div>
+<div class="ttc" id="aatfs_8h_html_afa4c7c978e0253bb3c3e2b6828b49afd"><div class="ttname"><a href="atfs_8h.html#afa4c7c978e0253bb3c3e2b6828b49afd">ATFS_OFFSET_REVISION</a></div><div class="ttdeci">#define ATFS_OFFSET_REVISION</div><div class="ttdef"><b>Definition:</b> <a href="atfs_8h_source.html#l00050">atfs.h:50</a></div></div>
+<div class="ttc" id="alogger_8c_html_a19a313011d8f478ad9799e546199a9ac"><div class="ttname"><a href="logger_8c.html#a19a313011d8f478ad9799e546199a9ac">panic</a></div><div class="ttdeci">void panic(const char *msg,...)</div><div class="ttdoc">Trigger a kernel panic.</div><div class="ttdef"><b>Definition:</b> <a href="logger_8c_source.html#l00177">logger.c:177</a></div></div>
+<div class="ttc" id="alogger_8c_html_a60bd636ef160c97eb51cf31be5954ba2"><div class="ttname"><a href="logger_8c.html#a60bd636ef160c97eb51cf31be5954ba2">log_boot_P</a></div><div class="ttdeci">void log_boot_P(LogLevel level, const char *msg,...)</div><div class="ttdoc">Log boot message.</div><div class="ttdef"><b>Definition:</b> <a href="logger_8c_source.html#l00164">logger.c:164</a></div></div>
+<div class="ttc" id="asd_8c_html_a3f0c63e822010bb899b9e13d73a685dd"><div class="ttname"><a href="sd_8c.html#a3f0c63e822010bb899b9e13d73a685dd">sd_read</a></div><div class="ttdeci">Status sd_read(u32 block, void *data)</div><div class="ttdoc">Read a single 512-byte block from the SD card.</div><div class="ttdef"><b>Definition:</b> <a href="sd_8c_source.html#l00537">sd.c:537</a></div></div>
+<div class="ttc" id="asd_8h_html_a456e1098b18ecd0666395e17ef9b6ca8"><div class="ttname"><a href="sd_8h.html#a456e1098b18ecd0666395e17ef9b6ca8">BLOCK_SIZE_POT</a></div><div class="ttdeci">#define BLOCK_SIZE_POT</div><div class="ttdef"><b>Definition:</b> <a href="sd_8h_source.html#l00019">sd.h:19</a></div></div>
+<div class="ttc" id="asd_8h_html_ad51ded0bbd705f02f73fc60c0b721ced"><div class="ttname"><a href="sd_8h.html#ad51ded0bbd705f02f73fc60c0b721ced">BLOCK_SIZE</a></div><div class="ttdeci">#define BLOCK_SIZE</div><div class="ttdef"><b>Definition:</b> <a href="sd_8h_source.html#l00016">sd.h:16</a></div></div>
+<div class="ttc" id="astring_8c_html_a8abe583def8cefd53678bec4126eeefe"><div class="ttname"><a href="string_8c.html#a8abe583def8cefd53678bec4126eeefe">memcmp</a></div><div class="ttdeci">i32 memcmp(const void *ptr1, const void *ptr2, u32 count)</div><div class="ttdoc">Compares the first n bytes of two memory blocks pointed to by the provided pointers.</div><div class="ttdef"><b>Definition:</b> <a href="string_8c_source.html#l00141">string.c:141</a></div></div>
+<div class="ttc" id="atypes_8h_html_a92c50087ca0e64fa93fc59402c55f8ca"><div class="ttname"><a href="types_8h.html#a92c50087ca0e64fa93fc59402c55f8ca">u8</a></div><div class="ttdeci">uint8_t u8</div><div class="ttdef"><b>Definition:</b> <a href="types_8h_source.html#l00038">types.h:38</a></div></div>
+<div class="ttc" id="atypes_8h_html_ace9d960e74685e2cd84b36132dbbf8aa"><div class="ttname"><a href="types_8h.html#ace9d960e74685e2cd84b36132dbbf8aa">u16</a></div><div class="ttdeci">uint16_t u16</div><div class="ttdef"><b>Definition:</b> <a href="types_8h_source.html#l00035">types.h:35</a></div></div>
+<div class="ttc" id="atypes_8h_html_afaa62991928fb9fb18ff0db62a040aba"><div class="ttname"><a href="types_8h.html#afaa62991928fb9fb18ff0db62a040aba">u32</a></div><div class="ttdeci">uint32_t u32</div><div class="ttdef"><b>Definition:</b> <a href="types_8h_source.html#l00032">types.h:32</a></div></div>
+<div class="ttc" id="axmem_8c_html_afef9c92490450d98f177f53f2b174f20"><div class="ttname"><a href="xmem_8c.html#afef9c92490450d98f177f53f2b174f20">xmem_write</a></div><div class="ttdeci">void xmem_write(u32 addr, const void *data, u16 size)</div><div class="ttdoc">Write the specified number of bytes to the external memory.</div><div class="ttdef"><b>Definition:</b> <a href="xmem_8c_source.html#l00243">xmem.c:243</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="atfs_8h_source.html#l00056">ATFS_OFFSET_INIT_SIZE</a>, <a class="el" href="atfs_8h_source.html#l00050">ATFS_OFFSET_REVISION</a>, <a class="el" href="atfs_8h_source.html#l00047">ATFS_OFFSET_SIGNATURE</a>, <a class="el" href="atfs_8h_source.html#l00053">ATFS_OFFSET_STDLIB_SIZE</a>, <a class="el" href="atfs_8h_source.html#l00042">ATFS_REVISION</a>, <a class="el" href="atfs_8h_source.html#l00021">ATFS_SECTOR_BOOT</a>, <a class="el" href="atfs_8h_source.html#l00033">ATFS_SECTOR_INIT</a>, <a class="el" href="sd_8h_source.html#l00016">BLOCK_SIZE</a>, <a class="el" href="sd_8h_source.html#l00019">BLOCK_SIZE_POT</a>, <a class="el" href="atfs_8h_source.html#l00081">load_le_32()</a>, <a class="el" href="logger_8c_source.html#l00164">log_boot_P()</a>, <a class="el" href="string_8c_source.html#l00141">memcmp()</a>, <a class="el" href="logger_8c_source.html#l00177">panic()</a>, <a class="el" href="sd_8c_source.html#l00537">sd_read()</a>, and <a class="el" href="xmem_8c_source.html#l00243">xmem_write()</a>.</p>
+
+</div>
+</div>
+</div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.6

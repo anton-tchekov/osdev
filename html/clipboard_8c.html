@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">OS Dev
+   <div id="projectname">OS Dev<span id="projectnumber">&#160;0.1</span>
    </div>
   </td>
  </tr>
@@ -74,41 +74,311 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#func-members">Functions</a>  </div>
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle"><div class="title">clipboard.c File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &lt;<a class="el" href="clipboard_8h_source.html">clipboard.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="string_8h_source.html">string.h</a>&gt;</code><br />
-</div><table class="memberdecls">
+</div>
+<p><a href="clipboard_8c_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ae3d307c73686967f4a378d35f2703d89"><td class="memItemLeft" align="right" valign="top"><a id="ae3d307c73686967f4a378d35f2703d89" name="ae3d307c73686967f4a378d35f2703d89"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>clipboard_save_text</b> (const char *text)</td></tr>
-<tr class="memdesc:ae3d307c73686967f4a378d35f2703d89"><td class="mdescLeft">&#160;</td><td class="mdescRight">Save Text to clipboard. <br /></td></tr>
+<tr class="memitem:af0393b47dae2f54ed51d2f291ce06cfd"><td class="memItemLeft" align="right" valign="top">static char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clipboard_8c.html#af0393b47dae2f54ed51d2f291ce06cfd">get_memory</a> (<a class="el" href="types_8h.html#a48d6cd8e4135fb2ff7e7f2dac84089ec">i32</a> space)</td></tr>
+<tr class="separator:af0393b47dae2f54ed51d2f291ce06cfd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae3d307c73686967f4a378d35f2703d89"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clipboard_8c.html#ae3d307c73686967f4a378d35f2703d89">clipboard_save_text</a> (const char *text)</td></tr>
+<tr class="memdesc:ae3d307c73686967f4a378d35f2703d89"><td class="mdescLeft">&#160;</td><td class="mdescRight">Save Text to clipboard.  <br /></td></tr>
 <tr class="separator:ae3d307c73686967f4a378d35f2703d89"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4e817e7107bb4736ca15bc189455b293"><td class="memItemLeft" align="right" valign="top"><a id="a4e817e7107bb4736ca15bc189455b293" name="a4e817e7107bb4736ca15bc189455b293"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>clipboard_save_text_len</b> (const char *text, <a class="el" href="types_8h.html#a48d6cd8e4135fb2ff7e7f2dac84089ec">i32</a> len)</td></tr>
-<tr class="memdesc:a4e817e7107bb4736ca15bc189455b293"><td class="mdescLeft">&#160;</td><td class="mdescRight">Save Text to the clipboard when the length is known. <br /></td></tr>
+<tr class="memitem:a4e817e7107bb4736ca15bc189455b293"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clipboard_8c.html#a4e817e7107bb4736ca15bc189455b293">clipboard_save_text_len</a> (const char *text, <a class="el" href="types_8h.html#a48d6cd8e4135fb2ff7e7f2dac84089ec">i32</a> len)</td></tr>
+<tr class="memdesc:a4e817e7107bb4736ca15bc189455b293"><td class="mdescLeft">&#160;</td><td class="mdescRight">Save Text to the clipboard when the length is known.  <br /></td></tr>
 <tr class="separator:a4e817e7107bb4736ca15bc189455b293"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7d96057e801d089a8b0c394ab042a4e1"><td class="memItemLeft" align="right" valign="top"><a id="a7d96057e801d089a8b0c394ab042a4e1" name="a7d96057e801d089a8b0c394ab042a4e1"></a>
-const void *&#160;</td><td class="memItemRight" valign="bottom"><b>clipboard_get</b> (void)</td></tr>
-<tr class="memdesc:a7d96057e801d089a8b0c394ab042a4e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get Data from Clipboard. <br /></td></tr>
+<tr class="memitem:a7d96057e801d089a8b0c394ab042a4e1"><td class="memItemLeft" align="right" valign="top">const void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clipboard_8c.html#a7d96057e801d089a8b0c394ab042a4e1">clipboard_get</a> (void)</td></tr>
+<tr class="memdesc:a7d96057e801d089a8b0c394ab042a4e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get data from clipboard.  <br /></td></tr>
 <tr class="separator:a7d96057e801d089a8b0c394ab042a4e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad441ab5936f033348efc13148ba2a0d5"><td class="memItemLeft" align="right" valign="top"><a id="ad441ab5936f033348efc13148ba2a0d5" name="ad441ab5936f033348efc13148ba2a0d5"></a>
-<a class="el" href="types_8h.html#a48d6cd8e4135fb2ff7e7f2dac84089ec">i32</a>&#160;</td><td class="memItemRight" valign="bottom"><b>clipboard_len</b> (void)</td></tr>
-<tr class="memdesc:ad441ab5936f033348efc13148ba2a0d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the length of the Data in Clipboard. <br /></td></tr>
+<tr class="memitem:ad441ab5936f033348efc13148ba2a0d5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="types_8h.html#a48d6cd8e4135fb2ff7e7f2dac84089ec">i32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clipboard_8c.html#ad441ab5936f033348efc13148ba2a0d5">clipboard_len</a> (void)</td></tr>
+<tr class="memdesc:ad441ab5936f033348efc13148ba2a0d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the length of the data in the clipboard.  <br /></td></tr>
 <tr class="separator:ad441ab5936f033348efc13148ba2a0d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a425fb0faba6b4e699a6313a3d0a51510"><td class="memItemLeft" align="right" valign="top"><a id="a425fb0faba6b4e699a6313a3d0a51510" name="a425fb0faba6b4e699a6313a3d0a51510"></a>
-ClipboardType&#160;</td><td class="memItemRight" valign="bottom"><b>clipboard_type</b> (void)</td></tr>
-<tr class="memdesc:a425fb0faba6b4e699a6313a3d0a51510"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the stored Datatype from the clipboard. <br /></td></tr>
+<tr class="memitem:a425fb0faba6b4e699a6313a3d0a51510"><td class="memItemLeft" align="right" valign="top"><a class="el" href="clipboard_8h.html#a9676c44d0c2a676fe59a136a6e71b161">ClipboardType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clipboard_8c.html#a425fb0faba6b4e699a6313a3d0a51510">clipboard_type</a> (void)</td></tr>
+<tr class="memdesc:a425fb0faba6b4e699a6313a3d0a51510"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the stored Datatype from the clipboard.  <br /></td></tr>
 <tr class="separator:a425fb0faba6b4e699a6313a3d0a51510"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:aae4b6bf1c28cb474465c040951718816"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="types_8h.html#a48d6cd8e4135fb2ff7e7f2dac84089ec">i32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clipboard_8c.html#aae4b6bf1c28cb474465c040951718816">_clipboard_len</a></td></tr>
+<tr class="separator:aae4b6bf1c28cb474465c040951718816"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2c801879486872f1fa086fb0f506578e"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="clipboard_8h.html#a9676c44d0c2a676fe59a136a6e71b161">ClipboardType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clipboard_8c.html#a2c801879486872f1fa086fb0f506578e">_clipboard_type</a></td></tr>
+<tr class="separator:a2c801879486872f1fa086fb0f506578e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><dl class="section author"><dt>Author</dt><dd>Tim Gabrikowski, Anton Tchekov </dd></dl>
 <dl class="section version"><dt>Version</dt><dd>0.1 </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>14.05.2023 </dd></dl>
-</div></div><!-- contents -->
+
+<p class="definition">Definition in file <a class="el" href="clipboard_8c_source.html">clipboard.c</a>.</p>
+</div><h2 class="groupheader">Function Documentation</h2>
+<a id="a7d96057e801d089a8b0c394ab042a4e1" name="a7d96057e801d089a8b0c394ab042a4e1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7d96057e801d089a8b0c394ab042a4e1">&#9670;&#160;</a></span>clipboard_get()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const void * clipboard_get </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get data from clipboard. </p>
+<dl class="section return"><dt>Returns</dt><dd>Pointer to raw clipboard data </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="clipboard_8c_source.html#l00042">42</a> of file <a class="el" href="clipboard_8c_source.html">clipboard.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   43</span>{</div>
+<div class="line"><span class="lineno">   44</span>    <span class="keywordflow">return</span> get_memory(-1);</div>
+<div class="line"><span class="lineno">   45</span>}</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="ad441ab5936f033348efc13148ba2a0d5" name="ad441ab5936f033348efc13148ba2a0d5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad441ab5936f033348efc13148ba2a0d5">&#9670;&#160;</a></span>clipboard_len()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="types_8h.html#a48d6cd8e4135fb2ff7e7f2dac84089ec">i32</a> clipboard_len </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the length of the data in the clipboard. </p>
+<dl class="section return"><dt>Returns</dt><dd>Clipboard size in bytes </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="clipboard_8c_source.html#l00047">47</a> of file <a class="el" href="clipboard_8c_source.html">clipboard.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   48</span>{</div>
+<div class="line"><span class="lineno">   49</span>    <span class="keywordflow">return</span> <a class="code hl_variable" href="clipboard_8c.html#aae4b6bf1c28cb474465c040951718816">_clipboard_len</a>;</div>
+<div class="line"><span class="lineno">   50</span>}</div>
+<div class="ttc" id="aclipboard_8c_html_aae4b6bf1c28cb474465c040951718816"><div class="ttname"><a href="clipboard_8c.html#aae4b6bf1c28cb474465c040951718816">_clipboard_len</a></div><div class="ttdeci">static i32 _clipboard_len</div><div class="ttdef"><b>Definition:</b> <a href="clipboard_8c_source.html#l00012">clipboard.c:12</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="clipboard_8c_source.html#l00012">_clipboard_len</a>.</p>
+
+</div>
+</div>
+<a id="ae3d307c73686967f4a378d35f2703d89" name="ae3d307c73686967f4a378d35f2703d89"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae3d307c73686967f4a378d35f2703d89">&#9670;&#160;</a></span>clipboard_save_text()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void clipboard_save_text </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>text</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Save Text to clipboard. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">text</td><td>The text to copy </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="clipboard_8c_source.html#l00028">28</a> of file <a class="el" href="clipboard_8c_source.html">clipboard.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   29</span>{</div>
+<div class="line"><span class="lineno">   30</span>    <a class="code hl_variable" href="clipboard_8c.html#a2c801879486872f1fa086fb0f506578e">_clipboard_type</a> = <a class="code hl_enumvalue" href="clipboard_8h.html#a9676c44d0c2a676fe59a136a6e71b161a51b4f4170f9b312f9294caac850eaf4d">CLIPBOARD_TYPE_TEXT</a>;</div>
+<div class="line"><span class="lineno">   31</span>    <span class="keywordtype">char</span> *clipboard = get_memory(<a class="code hl_function" href="string_8c.html#adbbf4d6ec8d6b708c64bd6a4a18065dd">strlen</a>(text));</div>
+<div class="line"><span class="lineno">   32</span>    <a class="code hl_function" href="string_8c.html#ac5082c8ce4f0cddd88bf4d0d2e738308">strcpy</a>(clipboard, text);</div>
+<div class="line"><span class="lineno">   33</span>}</div>
+<div class="ttc" id="aclipboard_8c_html_a2c801879486872f1fa086fb0f506578e"><div class="ttname"><a href="clipboard_8c.html#a2c801879486872f1fa086fb0f506578e">_clipboard_type</a></div><div class="ttdeci">static ClipboardType _clipboard_type</div><div class="ttdef"><b>Definition:</b> <a href="clipboard_8c_source.html#l00015">clipboard.c:15</a></div></div>
+<div class="ttc" id="aclipboard_8h_html_a9676c44d0c2a676fe59a136a6e71b161a51b4f4170f9b312f9294caac850eaf4d"><div class="ttname"><a href="clipboard_8h.html#a9676c44d0c2a676fe59a136a6e71b161a51b4f4170f9b312f9294caac850eaf4d">CLIPBOARD_TYPE_TEXT</a></div><div class="ttdeci">@ CLIPBOARD_TYPE_TEXT</div><div class="ttdef"><b>Definition:</b> <a href="clipboard_8h_source.html#l00019">clipboard.h:18</a></div></div>
+<div class="ttc" id="astring_8c_html_ac5082c8ce4f0cddd88bf4d0d2e738308"><div class="ttname"><a href="string_8c.html#ac5082c8ce4f0cddd88bf4d0d2e738308">strcpy</a></div><div class="ttdeci">char * strcpy(char *dest, const char *src)</div><div class="ttdoc">Copy a string from source to destination.</div><div class="ttdef"><b>Definition:</b> <a href="string_8c_source.html#l00011">string.c:11</a></div></div>
+<div class="ttc" id="astring_8c_html_adbbf4d6ec8d6b708c64bd6a4a18065dd"><div class="ttname"><a href="string_8c.html#adbbf4d6ec8d6b708c64bd6a4a18065dd">strlen</a></div><div class="ttdeci">u32 strlen(const char *str)</div><div class="ttdoc">Get the length of a string.</div><div class="ttdef"><b>Definition:</b> <a href="string_8c_source.html#l00029">string.c:29</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="clipboard_8c_source.html#l00015">_clipboard_type</a>, <a class="el" href="clipboard_8h_source.html#l00018">CLIPBOARD_TYPE_TEXT</a>, <a class="el" href="string_8c_source.html#l00011">strcpy()</a>, and <a class="el" href="string_8c_source.html#l00029">strlen()</a>.</p>
+
+</div>
+</div>
+<a id="a4e817e7107bb4736ca15bc189455b293" name="a4e817e7107bb4736ca15bc189455b293"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4e817e7107bb4736ca15bc189455b293">&#9670;&#160;</a></span>clipboard_save_text_len()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void clipboard_save_text_len </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>text</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="types_8h.html#a48d6cd8e4135fb2ff7e7f2dac84089ec">i32</a>&#160;</td>
+          <td class="paramname"><em>len</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Save Text to the clipboard when the length is known. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">text</td><td>The text to copy </td></tr>
+    <tr><td class="paramname">len</td><td>The length of the text </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="clipboard_8c_source.html#l00035">35</a> of file <a class="el" href="clipboard_8c_source.html">clipboard.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   36</span>{</div>
+<div class="line"><span class="lineno">   37</span>    <a class="code hl_variable" href="clipboard_8c.html#a2c801879486872f1fa086fb0f506578e">_clipboard_type</a> = <a class="code hl_enumvalue" href="clipboard_8h.html#a9676c44d0c2a676fe59a136a6e71b161a51b4f4170f9b312f9294caac850eaf4d">CLIPBOARD_TYPE_TEXT</a>;</div>
+<div class="line"><span class="lineno">   38</span>    <span class="keywordtype">char</span> *clipboard = get_memory(len);</div>
+<div class="line"><span class="lineno">   39</span>    <a class="code hl_function" href="string_8c.html#a86fd1dc99081364b5155d9669e32ed03">strncpy</a>(clipboard, text, len);</div>
+<div class="line"><span class="lineno">   40</span>}</div>
+<div class="ttc" id="astring_8c_html_a86fd1dc99081364b5155d9669e32ed03"><div class="ttname"><a href="string_8c.html#a86fd1dc99081364b5155d9669e32ed03">strncpy</a></div><div class="ttdeci">char * strncpy(char *dest, const char *src, u32 count)</div><div class="ttdoc">Copy a limited number of characters from one string to another.</div><div class="ttdef"><b>Definition:</b> <a href="string_8c_source.html#l00018">string.c:18</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="clipboard_8c_source.html#l00015">_clipboard_type</a>, <a class="el" href="clipboard_8h_source.html#l00018">CLIPBOARD_TYPE_TEXT</a>, and <a class="el" href="string_8c_source.html#l00018">strncpy()</a>.</p>
+
+</div>
+</div>
+<a id="a425fb0faba6b4e699a6313a3d0a51510" name="a425fb0faba6b4e699a6313a3d0a51510"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a425fb0faba6b4e699a6313a3d0a51510">&#9670;&#160;</a></span>clipboard_type()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="clipboard_8h.html#a9676c44d0c2a676fe59a136a6e71b161">ClipboardType</a> clipboard_type </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the stored Datatype from the clipboard. </p>
+
+<p class="definition">Definition at line <a class="el" href="clipboard_8c_source.html#l00052">52</a> of file <a class="el" href="clipboard_8c_source.html">clipboard.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   53</span>{</div>
+<div class="line"><span class="lineno">   54</span>    <span class="keywordflow">return</span> <a class="code hl_variable" href="clipboard_8c.html#a2c801879486872f1fa086fb0f506578e">_clipboard_type</a>;</div>
+<div class="line"><span class="lineno">   55</span>}</div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="clipboard_8c_source.html#l00015">_clipboard_type</a>.</p>
+
+</div>
+</div>
+<a id="af0393b47dae2f54ed51d2f291ce06cfd" name="af0393b47dae2f54ed51d2f291ce06cfd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af0393b47dae2f54ed51d2f291ce06cfd">&#9670;&#160;</a></span>get_memory()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static char * get_memory </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="types_8h.html#a48d6cd8e4135fb2ff7e7f2dac84089ec">i32</a>&#160;</td>
+          <td class="paramname"><em>space</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="clipboard_8c_source.html#l00017">17</a> of file <a class="el" href="clipboard_8c_source.html">clipboard.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   18</span>{</div>
+<div class="line"><span class="lineno">   19</span>    <span class="keywordflow">if</span>(space &gt;= 0)</div>
+<div class="line"><span class="lineno">   20</span>    {</div>
+<div class="line"><span class="lineno">   21</span>        <a class="code hl_variable" href="clipboard_8c.html#aae4b6bf1c28cb474465c040951718816">_clipboard_len</a> = space;</div>
+<div class="line"><span class="lineno">   22</span>    }</div>
+<div class="line"><span class="lineno">   23</span> </div>
+<div class="line"><span class="lineno">   24</span>    <span class="keyword">static</span> <span class="keywordtype">char</span> arr[1024];</div>
+<div class="line"><span class="lineno">   25</span>    <span class="keywordflow">return</span> arr;</div>
+<div class="line"><span class="lineno">   26</span>}</div>
+</div><!-- fragment -->
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a id="aae4b6bf1c28cb474465c040951718816" name="aae4b6bf1c28cb474465c040951718816"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aae4b6bf1c28cb474465c040951718816">&#9670;&#160;</a></span>_clipboard_len</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="types_8h.html#a48d6cd8e4135fb2ff7e7f2dac84089ec">i32</a> _clipboard_len</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Length of the clipboard in bytes </p>
+
+<p class="definition">Definition at line <a class="el" href="clipboard_8c_source.html#l00012">12</a> of file <a class="el" href="clipboard_8c_source.html">clipboard.c</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="clipboard_8c_source.html#l00047">clipboard_len()</a>.</p>
+
+</div>
+</div>
+<a id="a2c801879486872f1fa086fb0f506578e" name="a2c801879486872f1fa086fb0f506578e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2c801879486872f1fa086fb0f506578e">&#9670;&#160;</a></span>_clipboard_type</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="clipboard_8h.html#a9676c44d0c2a676fe59a136a6e71b161">ClipboardType</a> _clipboard_type</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Type of the current data in the clipboad </p>
+
+<p class="definition">Definition at line <a class="el" href="clipboard_8c_source.html#l00015">15</a> of file <a class="el" href="clipboard_8c_source.html">clipboard.c</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="clipboard_8c_source.html#l00028">clipboard_save_text()</a>, <a class="el" href="clipboard_8c_source.html#l00035">clipboard_save_text_len()</a>, and <a class="el" href="clipboard_8c_source.html#l00052">clipboard_type()</a>.</p>
+
+</div>
+</div>
+</div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.6

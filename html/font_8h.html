@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">OS Dev
+   <div id="projectname">OS Dev<span id="projectnumber">&#160;0.1</span>
    </div>
   </td>
  </tr>
@@ -114,12 +114,20 @@ Functions</h2></td></tr>
 <tr class="memitem:aa965d55e47b225d39bcf70c39ece24c4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="types_8h.html#a48d6cd8e4135fb2ff7e7f2dac84089ec">i32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="font_8h.html#aa965d55e47b225d39bcf70c39ece24c4">font_string_width_len</a> (const char *s, <a class="el" href="types_8h.html#afaa62991928fb9fb18ff0db62a040aba">u32</a> len, <a class="el" href="structFont.html">Font</a> *font)</td></tr>
 <tr class="memdesc:aa965d55e47b225d39bcf70c39ece24c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate the width of a string in pixels.  <br /></td></tr>
 <tr class="separator:aa965d55e47b225d39bcf70c39ece24c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1dc9a04991c7d42402c21ab6a4b933e2"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="types_8h.html#a48d6cd8e4135fb2ff7e7f2dac84089ec">i32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="font_8h.html#a1dc9a04991c7d42402c21ab6a4b933e2">font_string</a> (<a class="el" href="types_8h.html#a48d6cd8e4135fb2ff7e7f2dac84089ec">i32</a> x, <a class="el" href="types_8h.html#a48d6cd8e4135fb2ff7e7f2dac84089ec">i32</a> y, const char *s, <a class="el" href="structFont.html">Font</a> *font, <a class="el" href="gfx_8h.html#acbbccb6085c654282ef64cdcefc81be5">Color</a> fg, <a class="el" href="gfx_8h.html#acbbccb6085c654282ef64cdcefc81be5">Color</a> bg)</td></tr>
+<tr class="memdesc:a1dc9a04991c7d42402c21ab6a4b933e2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draw an NUL-terminated UTF-8 string <code>s</code>  <br /></td></tr>
+<tr class="separator:a1dc9a04991c7d42402c21ab6a4b933e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af05628a74a6fb4755ad6eb075ce5f87d"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="types_8h.html#a48d6cd8e4135fb2ff7e7f2dac84089ec">i32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="font_8h.html#af05628a74a6fb4755ad6eb075ce5f87d">font_string_width</a> (const char *s, <a class="el" href="structFont.html">Font</a> *font)</td></tr>
+<tr class="memdesc:af05628a74a6fb4755ad6eb075ce5f87d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate the width of a string in pixels.  <br /></td></tr>
+<tr class="separator:af05628a74a6fb4755ad6eb075ce5f87d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p><a class="el" href="structFont.html">Font</a> rendering with UTF-8 support. </p>
 <dl class="section author"><dt>Author</dt><dd>Tim Gabrikowski, Anton Tchekov </dd></dl>
 <dl class="section version"><dt>Version</dt><dd>0.1 </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>23.04.2023 </dd></dl>
+
+<p class="definition">Definition in file <a class="el" href="font_8h_source.html">font.h</a>.</p>
 </div><h2 class="groupheader">Macro Definition Documentation</h2>
 <a id="ad8a8e3f8f8a65b163bc055c14d67e1b5" name="ad8a8e3f8f8a65b163bc055c14d67e1b5"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad8a8e3f8f8a65b163bc055c14d67e1b5">&#9670;&#160;</a></span>FONT_FLAG_GRAYSCALE</h2>
@@ -133,6 +141,8 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p><a class="el" href="structFont.html">Font</a> flags bit mask: 1: grayscale, 0: 1 bit per pixel </p>
+
+<p class="definition">Definition at line <a class="el" href="font_8h_source.html#l00016">16</a> of file <a class="el" href="font_8h_source.html">font.h</a>.</p>
 
 </div>
 </div>
@@ -153,6 +163,89 @@ Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
+<a id="a1dc9a04991c7d42402c21ab6a4b933e2" name="a1dc9a04991c7d42402c21ab6a4b933e2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1dc9a04991c7d42402c21ab6a4b933e2">&#9670;&#160;</a></span>font_string()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static <a class="el" href="types_8h.html#a48d6cd8e4135fb2ff7e7f2dac84089ec">i32</a> font_string </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="types_8h.html#a48d6cd8e4135fb2ff7e7f2dac84089ec">i32</a>&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="types_8h.html#a48d6cd8e4135fb2ff7e7f2dac84089ec">i32</a>&#160;</td>
+          <td class="paramname"><em>y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>s</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structFont.html">Font</a> *&#160;</td>
+          <td class="paramname"><em>font</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="gfx_8h.html#acbbccb6085c654282ef64cdcefc81be5">Color</a>&#160;</td>
+          <td class="paramname"><em>fg</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="gfx_8h.html#acbbccb6085c654282ef64cdcefc81be5">Color</a>&#160;</td>
+          <td class="paramname"><em>bg</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Draw an NUL-terminated UTF-8 string <code>s</code> </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x</td><td>X-Coordinate (Top) </td></tr>
+    <tr><td class="paramname">y</td><td>Y-Coordinate (Left) </td></tr>
+    <tr><td class="paramname">s</td><td>Character array </td></tr>
+    <tr><td class="paramname">font</td><td>The font to use </td></tr>
+    <tr><td class="paramname">fg</td><td>Foreground color </td></tr>
+    <tr><td class="paramname">bg</td><td>Background color </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="font_8h_source.html#l00090">90</a> of file <a class="el" href="font_8h_source.html">font.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   92</span>{</div>
+<div class="line"><span class="lineno">   93</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="font_8h.html#a0fb43ab4a095679d631a2c0652ee3f08">font_string_len</a>(x, y, s, UINT32_MAX, font, fg, bg);</div>
+<div class="line"><span class="lineno">   94</span>}</div>
+<div class="ttc" id="afont_8h_html_a0fb43ab4a095679d631a2c0652ee3f08"><div class="ttname"><a href="font_8h.html#a0fb43ab4a095679d631a2c0652ee3f08">font_string_len</a></div><div class="ttdeci">i32 font_string_len(i32 x, i32 y, const char *s, u32 len, Font *font, Color fg, Color bg)</div><div class="ttdoc">Draw an UTF-8 string s with a maximum number of chars. This function will also stop at a '\0' charact...</div><div class="ttdef"><b>Definition:</b> <a href="font_8c_source.html#l00037">font.c:37</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="font_8c_source.html#l00037">font_string_len()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="gui_8c_source.html#l00152">button_render()</a>, <a class="el" href="gui_8c_source.html#l00109">label_render()</a>, and <a class="el" href="gui_8c_source.html#l00661">window_render()</a>.</p>
+
+</div>
+</div>
 <a id="a0fb43ab4a095679d631a2c0652ee3f08" name="a0fb43ab4a095679d631a2c0652ee3f08"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0fb43ab4a095679d631a2c0652ee3f08">&#9670;&#160;</a></span>font_string_len()</h2>
 
@@ -223,6 +316,118 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 
+<p class="definition">Definition at line <a class="el" href="font_8c_source.html#l00037">37</a> of file <a class="el" href="font_8c_source.html">font.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   39</span>{</div>
+<div class="line"><span class="lineno">   40</span>    <a class="code hl_typedef" href="types_8h.html#afaa62991928fb9fb18ff0db62a040aba">u32</a> i;</div>
+<div class="line"><span class="lineno">   41</span>    <a class="code hl_typedef" href="types_8h.html#a48d6cd8e4135fb2ff7e7f2dac84089ec">i32</a> c;</div>
+<div class="line"><span class="lineno">   42</span>    <a class="code hl_struct" href="structFontChar.html">FontChar</a> *fc;</div>
+<div class="line"><span class="lineno">   43</span>    void (*render_char)(<a class="code hl_typedef" href="types_8h.html#a48d6cd8e4135fb2ff7e7f2dac84089ec">i32</a>, <a class="code hl_typedef" href="types_8h.html#a48d6cd8e4135fb2ff7e7f2dac84089ec">i32</a>, <a class="code hl_typedef" href="types_8h.html#a48d6cd8e4135fb2ff7e7f2dac84089ec">i32</a>, <a class="code hl_typedef" href="types_8h.html#a48d6cd8e4135fb2ff7e7f2dac84089ec">i32</a>, <span class="keyword">const</span> <a class="code hl_typedef" href="types_8h.html#a92c50087ca0e64fa93fc59402c55f8ca">u8</a> *, <a class="code hl_typedef" href="gfx_8h.html#acbbccb6085c654282ef64cdcefc81be5">Color</a>, <a class="code hl_typedef" href="gfx_8h.html#acbbccb6085c654282ef64cdcefc81be5">Color</a>) =</div>
+<div class="line"><span class="lineno">   44</span>        font-&gt;Flags &amp; <a class="code hl_define" href="font_8h.html#ad8a8e3f8f8a65b163bc055c14d67e1b5">FONT_FLAG_GRAYSCALE</a> ?</div>
+<div class="line"><span class="lineno">   45</span>        <a class="code hl_function" href="gfx_8c.html#a7c97c6942cf5dfbdda1e124233d3eb08">gfx_image_grayscale</a> : <a class="code hl_function" href="gfx_8c.html#a39a3e171a715c832137925bb2a21bb5f">gfx_image_1bit</a>;</div>
+<div class="line"><span class="lineno">   46</span> </div>
+<div class="line"><span class="lineno">   47</span>    <span class="keywordflow">for</span>(i = 0; i &lt; len; ++i)</div>
+<div class="line"><span class="lineno">   48</span>    {</div>
+<div class="line"><span class="lineno">   49</span>        s = <a class="code hl_function" href="utf8_8c.html#ade1388575c222237b5a428e29f45ac18">utf8_codepoint</a>(s, &amp;c);</div>
+<div class="line"><span class="lineno">   50</span>        <span class="keywordflow">if</span>(!c)</div>
+<div class="line"><span class="lineno">   51</span>        {</div>
+<div class="line"><span class="lineno">   52</span>            <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">   53</span>        }</div>
+<div class="line"><span class="lineno">   54</span> </div>
+<div class="line"><span class="lineno">   55</span>        <span class="keywordflow">if</span>(!(fc = <a class="code hl_function" href="font_8c.html#a73c032db51ce47d05a3f51b4f4aec3ee">_font_char</a>(c, font)))</div>
+<div class="line"><span class="lineno">   56</span>        {</div>
+<div class="line"><span class="lineno">   57</span>            <span class="keywordflow">continue</span>;</div>
+<div class="line"><span class="lineno">   58</span>        }</div>
+<div class="line"><span class="lineno">   59</span> </div>
+<div class="line"><span class="lineno">   60</span>        <span class="keywordflow">if</span>(fc-&gt;<a class="code hl_variable" href="structFontChar.html#aca2e2549e621a651f977a05aaef4644a">Size</a>[0] &amp;&amp; fc-&gt;<a class="code hl_variable" href="structFontChar.html#aca2e2549e621a651f977a05aaef4644a">Size</a>[1])</div>
+<div class="line"><span class="lineno">   61</span>        {</div>
+<div class="line"><span class="lineno">   62</span>            render_char(</div>
+<div class="line"><span class="lineno">   63</span>                x + fc-&gt;<a class="code hl_variable" href="structFontChar.html#a3e5c63fd62768392e06a054dd5176b24">Bearing</a>[0],</div>
+<div class="line"><span class="lineno">   64</span>                y + (font-&gt;Size - fc-&gt;<a class="code hl_variable" href="structFontChar.html#a3e5c63fd62768392e06a054dd5176b24">Bearing</a>[1]),</div>
+<div class="line"><span class="lineno">   65</span>                fc-&gt;<a class="code hl_variable" href="structFontChar.html#aca2e2549e621a651f977a05aaef4644a">Size</a>[0],</div>
+<div class="line"><span class="lineno">   66</span>                fc-&gt;<a class="code hl_variable" href="structFontChar.html#aca2e2549e621a651f977a05aaef4644a">Size</a>[1],</div>
+<div class="line"><span class="lineno">   67</span>                font-&gt;Bitmap + fc-&gt;<a class="code hl_variable" href="structFontChar.html#a3e1936251c8bcdfc1a127178dc86a3b0">Offset</a>,</div>
+<div class="line"><span class="lineno">   68</span>                fg, bg);</div>
+<div class="line"><span class="lineno">   69</span>        }</div>
+<div class="line"><span class="lineno">   70</span> </div>
+<div class="line"><span class="lineno">   71</span>        x += fc-&gt;<a class="code hl_variable" href="structFontChar.html#aeb206783f1ed8fe844699d302674f3ae">Advance</a>;</div>
+<div class="line"><span class="lineno">   72</span>    }</div>
+<div class="line"><span class="lineno">   73</span> </div>
+<div class="line"><span class="lineno">   74</span>    <span class="keywordflow">return</span> x;</div>
+<div class="line"><span class="lineno">   75</span>}</div>
+<div class="ttc" id="afont_8c_html_a73c032db51ce47d05a3f51b4f4aec3ee"><div class="ttname"><a href="font_8c.html#a73c032db51ce47d05a3f51b4f4aec3ee">_font_char</a></div><div class="ttdeci">static FontChar * _font_char(i32 c, Font *font)</div><div class="ttdoc">Finds the FontChar from a Font for a unicode codepoint.</div><div class="ttdef"><b>Definition:</b> <a href="font_8c_source.html#l00031">font.c:31</a></div></div>
+<div class="ttc" id="afont_8h_html_ad8a8e3f8f8a65b163bc055c14d67e1b5"><div class="ttname"><a href="font_8h.html#ad8a8e3f8f8a65b163bc055c14d67e1b5">FONT_FLAG_GRAYSCALE</a></div><div class="ttdeci">#define FONT_FLAG_GRAYSCALE</div><div class="ttdef"><b>Definition:</b> <a href="font_8h_source.html#l00016">font.h:16</a></div></div>
+<div class="ttc" id="agfx_8c_html_a39a3e171a715c832137925bb2a21bb5f"><div class="ttname"><a href="gfx_8c.html#a39a3e171a715c832137925bb2a21bb5f">gfx_image_1bit</a></div><div class="ttdeci">void gfx_image_1bit(i32 x, i32 y, i32 w, i32 h, const u8 *data, Color fg, Color bg)</div><div class="ttdoc">Draws a 1-bit-per-pixel image. Every image row starts at a new byte.</div><div class="ttdef"><b>Definition:</b> <a href="gfx_8c_source.html#l00047">gfx.c:47</a></div></div>
+<div class="ttc" id="agfx_8c_html_a7c97c6942cf5dfbdda1e124233d3eb08"><div class="ttname"><a href="gfx_8c.html#a7c97c6942cf5dfbdda1e124233d3eb08">gfx_image_grayscale</a></div><div class="ttdeci">void gfx_image_grayscale(i32 x, i32 y, i32 w, i32 h, const u8 *data, Color fg, Color bg)</div><div class="ttdoc">Draws a grayscale image. The color of each pixel is a mix of the foreground and background colors whe...</div><div class="ttdef"><b>Definition:</b> <a href="gfx_8c_source.html#l00040">gfx.c:40</a></div></div>
+<div class="ttc" id="agfx_8h_html_acbbccb6085c654282ef64cdcefc81be5"><div class="ttname"><a href="gfx_8h.html#acbbccb6085c654282ef64cdcefc81be5">Color</a></div><div class="ttdeci">u32 Color</div><div class="ttdef"><b>Definition:</b> <a href="gfx_8h_source.html#l00017">gfx.h:17</a></div></div>
+<div class="ttc" id="astructFontChar_html"><div class="ttname"><a href="structFontChar.html">FontChar</a></div><div class="ttdef"><b>Definition:</b> <a href="font_8h_source.html#l00019">font.h:20</a></div></div>
+<div class="ttc" id="astructFontChar_html_a3e1936251c8bcdfc1a127178dc86a3b0"><div class="ttname"><a href="structFontChar.html#a3e1936251c8bcdfc1a127178dc86a3b0">FontChar::Offset</a></div><div class="ttdeci">i32 Offset</div><div class="ttdef"><b>Definition:</b> <a href="font_8h_source.html#l00034">font.h:34</a></div></div>
+<div class="ttc" id="astructFontChar_html_a3e5c63fd62768392e06a054dd5176b24"><div class="ttname"><a href="structFontChar.html#a3e5c63fd62768392e06a054dd5176b24">FontChar::Bearing</a></div><div class="ttdeci">i32 Bearing[2]</div><div class="ttdef"><b>Definition:</b> <a href="font_8h_source.html#l00031">font.h:31</a></div></div>
+<div class="ttc" id="astructFontChar_html_aca2e2549e621a651f977a05aaef4644a"><div class="ttname"><a href="structFontChar.html#aca2e2549e621a651f977a05aaef4644a">FontChar::Size</a></div><div class="ttdeci">i32 Size[2]</div><div class="ttdef"><b>Definition:</b> <a href="font_8h_source.html#l00028">font.h:28</a></div></div>
+<div class="ttc" id="astructFontChar_html_aeb206783f1ed8fe844699d302674f3ae"><div class="ttname"><a href="structFontChar.html#aeb206783f1ed8fe844699d302674f3ae">FontChar::Advance</a></div><div class="ttdeci">i32 Advance</div><div class="ttdef"><b>Definition:</b> <a href="font_8h_source.html#l00025">font.h:25</a></div></div>
+<div class="ttc" id="atypes_8h_html_a48d6cd8e4135fb2ff7e7f2dac84089ec"><div class="ttname"><a href="types_8h.html#a48d6cd8e4135fb2ff7e7f2dac84089ec">i32</a></div><div class="ttdeci">int32_t i32</div><div class="ttdef"><b>Definition:</b> <a href="types_8h_source.html#l00020">types.h:20</a></div></div>
+<div class="ttc" id="atypes_8h_html_a92c50087ca0e64fa93fc59402c55f8ca"><div class="ttname"><a href="types_8h.html#a92c50087ca0e64fa93fc59402c55f8ca">u8</a></div><div class="ttdeci">uint8_t u8</div><div class="ttdef"><b>Definition:</b> <a href="types_8h_source.html#l00038">types.h:38</a></div></div>
+<div class="ttc" id="atypes_8h_html_afaa62991928fb9fb18ff0db62a040aba"><div class="ttname"><a href="types_8h.html#afaa62991928fb9fb18ff0db62a040aba">u32</a></div><div class="ttdeci">uint32_t u32</div><div class="ttdef"><b>Definition:</b> <a href="types_8h_source.html#l00032">types.h:32</a></div></div>
+<div class="ttc" id="autf8_8c_html_ade1388575c222237b5a428e29f45ac18"><div class="ttname"><a href="utf8_8c.html#ade1388575c222237b5a428e29f45ac18">utf8_codepoint</a></div><div class="ttdeci">const char * utf8_codepoint(const char *s, i32 *out)</div><div class="ttdoc">Gets the unicode codepoint of the first character in a UTF-8 string.</div><div class="ttdef"><b>Definition:</b> <a href="utf8_8c_source.html#l00049">utf8.c:49</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="font_8c_source.html#l00031">_font_char()</a>, <a class="el" href="font_8h_source.html#l00025">FontChar::Advance</a>, <a class="el" href="font_8h_source.html#l00031">FontChar::Bearing</a>, <a class="el" href="font_8h_source.html#l00016">FONT_FLAG_GRAYSCALE</a>, <a class="el" href="gfx_8c_source.html#l00047">gfx_image_1bit()</a>, <a class="el" href="gfx_8c_source.html#l00040">gfx_image_grayscale()</a>, <a class="el" href="font_8h_source.html#l00034">FontChar::Offset</a>, <a class="el" href="font_8h_source.html#l00028">FontChar::Size</a>, and <a class="el" href="utf8_8c_source.html#l00049">utf8_codepoint()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="font_8h_source.html#l00090">font_string()</a>, and <a class="el" href="gui_8c_source.html#l00190">input_render()</a>.</p>
+
+</div>
+</div>
+<a id="af05628a74a6fb4755ad6eb075ce5f87d" name="af05628a74a6fb4755ad6eb075ce5f87d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af05628a74a6fb4755ad6eb075ce5f87d">&#9670;&#160;</a></span>font_string_width()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static <a class="el" href="types_8h.html#a48d6cd8e4135fb2ff7e7f2dac84089ec">i32</a> font_string_width </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>s</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structFont.html">Font</a> *&#160;</td>
+          <td class="paramname"><em>font</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Calculate the width of a string in pixels. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">s</td><td>The string </td></tr>
+    <tr><td class="paramname">font</td><td>The font </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="font_8h_source.html#l00102">102</a> of file <a class="el" href="font_8h_source.html">font.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  103</span>{</div>
+<div class="line"><span class="lineno">  104</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="font_8h.html#aa965d55e47b225d39bcf70c39ece24c4">font_string_width_len</a>(s, UINT32_MAX, font);</div>
+<div class="line"><span class="lineno">  105</span>}</div>
+<div class="ttc" id="afont_8h_html_aa965d55e47b225d39bcf70c39ece24c4"><div class="ttname"><a href="font_8h.html#aa965d55e47b225d39bcf70c39ece24c4">font_string_width_len</a></div><div class="ttdeci">i32 font_string_width_len(const char *s, u32 len, Font *font)</div><div class="ttdoc">Calculate the width of a string in pixels.</div><div class="ttdef"><b>Definition:</b> <a href="font_8c_source.html#l00077">font.c:77</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="font_8c_source.html#l00077">font_string_width_len()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="gui_8c_source.html#l00152">button_render()</a>, and <a class="el" href="gui_8c_source.html#l00109">label_render()</a>.</p>
+
 </div>
 </div>
 <a id="aa965d55e47b225d39bcf70c39ece24c4" name="aa965d55e47b225d39bcf70c39ece24c4"></a>
@@ -266,6 +471,34 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
+
+<p class="definition">Definition at line <a class="el" href="font_8c_source.html#l00077">77</a> of file <a class="el" href="font_8c_source.html">font.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   78</span>{</div>
+<div class="line"><span class="lineno">   79</span>    <a class="code hl_typedef" href="types_8h.html#a48d6cd8e4135fb2ff7e7f2dac84089ec">i32</a> c, width;</div>
+<div class="line"><span class="lineno">   80</span>    <a class="code hl_typedef" href="types_8h.html#afaa62991928fb9fb18ff0db62a040aba">u32</a> i;</div>
+<div class="line"><span class="lineno">   81</span>    <a class="code hl_struct" href="structFontChar.html">FontChar</a> *fc;</div>
+<div class="line"><span class="lineno">   82</span> </div>
+<div class="line"><span class="lineno">   83</span>    width = 0;</div>
+<div class="line"><span class="lineno">   84</span>    <span class="keywordflow">for</span>(i = 0; i &lt; len; ++i)</div>
+<div class="line"><span class="lineno">   85</span>    {</div>
+<div class="line"><span class="lineno">   86</span>        s = <a class="code hl_function" href="utf8_8c.html#ade1388575c222237b5a428e29f45ac18">utf8_codepoint</a>(s, &amp;c);</div>
+<div class="line"><span class="lineno">   87</span>        <span class="keywordflow">if</span>(!c)</div>
+<div class="line"><span class="lineno">   88</span>        {</div>
+<div class="line"><span class="lineno">   89</span>            <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">   90</span>        }</div>
+<div class="line"><span class="lineno">   91</span> </div>
+<div class="line"><span class="lineno">   92</span>        <span class="keywordflow">if</span>((fc = <a class="code hl_function" href="font_8c.html#a73c032db51ce47d05a3f51b4f4aec3ee">_font_char</a>(c, font)))</div>
+<div class="line"><span class="lineno">   93</span>        {</div>
+<div class="line"><span class="lineno">   94</span>            width += fc-&gt;<a class="code hl_variable" href="structFontChar.html#aeb206783f1ed8fe844699d302674f3ae">Advance</a>;</div>
+<div class="line"><span class="lineno">   95</span>        }</div>
+<div class="line"><span class="lineno">   96</span>    }</div>
+<div class="line"><span class="lineno">   97</span> </div>
+<div class="line"><span class="lineno">   98</span>    <span class="keywordflow">return</span> width;</div>
+<div class="line"><span class="lineno">   99</span>}</div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="font_8c_source.html#l00031">_font_char()</a>, <a class="el" href="font_8h_source.html#l00025">FontChar::Advance</a>, and <a class="el" href="utf8_8c_source.html#l00049">utf8_codepoint()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="font_8h_source.html#l00102">font_string_width()</a>, <a class="el" href="gui_8c_source.html#l00190">input_render()</a>, and <a class="el" href="gui_8c_source.html#l00294">input_selection_replace()</a>.</p>
 
 </div>
 </div>

@@ -14,23 +14,52 @@
 #include <avr/pgmspace.h>
 #include <util/delay.h>
 
+/** SD go to idle state command */
 #define CMD_GO_IDLE_STATE      0x00
-#define CMD_SEND_OP_COND       0x01
+
+/** SD send IF cond */
 #define CMD_SEND_IF_COND       0x08
+
+/** SD read card-specific data register */
 #define CMD_SEND_CSD           0x09
+
+/** SD read card identification number */
 #define CMD_SEND_CID           0x0A
+
+/** SD set block length command */
 #define CMD_SET_BLOCKLEN       0x10
+
+/** SD read single block command */
 #define CMD_READ_SINGLE_BLOCK  0x11
+
+/** SD write single block command */
 #define CMD_WRITE_SINGLE_BLOCK 0x18
+
+/** SDHC set OP cond */
+#define CMD_SEND_OP_COND       0x01
+
+/** SD set OP cond */
 #define CMD_SD_SEND_OP_COND    0x29
+
+/** SD send app command */
 #define CMD_APP                0x37
+
+/** SD read operation conditions register */
 #define CMD_READ_OCR           0x3A
 
+/** SD idle */
 #define IDLE_STATE             (1 << 0)
+
+/** SD illegal command */
 #define ILLEGAL_CMD            (1 << 2)
 
+/** SD card type 1 */
 #define SD_1                   (1 << 0)
+
+/** SD card type 2 */
 #define SD_2                   (1 << 1)
+
+/** SDHC card type */
 #define SD_HC                  (1 << 2)
 
 /* SD card properties */

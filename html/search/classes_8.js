@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['memallocinfo_0',['MemAllocInfo',['../structMemAllocInfo.html',1,'']]]
+  ['rectangle_0',['Rectangle',['../structRectangle.html',1,'']]]
 ];

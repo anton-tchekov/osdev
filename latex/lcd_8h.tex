@@ -39,22 +39,30 @@ typedef \mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}} \mbox
 \item 
 void \mbox{\hyperlink{lcd_8h_a62344feec2a2d180a59d563f758e241e}{lcd\+\_\+backlight}} (\mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}} value)
 \begin{DoxyCompactList}\small\item\em Set LCD backlight brightness. \end{DoxyCompactList}\item 
-bool \mbox{\hyperlink{lcd_8h_a669f4dd510ba544f097e49d7c5b772c5}{lcd\+\_\+initialized}} (void)
-\begin{DoxyCompactList}\small\item\em Returns whether or not the LCD driver is initialized. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{lcd_8h_a09748a4045dc2d014afdce2cc566e57d}{lcd\+\_\+init}} (\mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}} backlight, \mbox{\hyperlink{lcd_8h_a9a75b3f378a8d443f893bd9eceb09642}{RGB565}} bg)
 \begin{DoxyCompactList}\small\item\em Initialize LCD. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{lcd_8h_a9a75b3f378a8d443f893bd9eceb09642}{RGB565}} \mbox{\hyperlink{lcd_8h_a9077e33ab871138bf5da6043bfe48266}{lcd\+\_\+color}} (\mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}} r, \mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}} g, \mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}} b)
 \begin{DoxyCompactList}\small\item\em Convert RGB888 to RGB565. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{lcd_8h_a010620f3d9dc0536cc9551d7aabd8d17}{lcd\+\_\+rect}} (\mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}} x, \mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}} y, \mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}} w, \mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}} h, \mbox{\hyperlink{lcd_8h_a9a75b3f378a8d443f893bd9eceb09642}{RGB565}} color)
-\begin{DoxyCompactList}\small\item\em Draw. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Draw rectangle. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{lcd_8h_a2b7400cbec8880666bed8cfc105a0f7a}{lcd\+\_\+logo\+\_\+P}} (\mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}} x, \mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}} y, \mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}} w, \mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}} h, const \mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}} $\ast$image)
-\begin{DoxyCompactList}\small\item\em TODO. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Draw boot logo(s) \end{DoxyCompactList}\item 
 \mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}} \mbox{\hyperlink{lcd_8h_a2d178ce2cd276e286fcdb38ba4763842}{lcd\+\_\+char}} (\mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}} x, \mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}} y, \mbox{\hyperlink{lcd_8h_a9a75b3f378a8d443f893bd9eceb09642}{RGB565}} fg, \mbox{\hyperlink{lcd_8h_a9a75b3f378a8d443f893bd9eceb09642}{RGB565}} bg, char c)
-\begin{DoxyCompactList}\small\item\em TODO. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Draw a character in the standard font. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}} \mbox{\hyperlink{lcd_8h_a0c04e71d484ae9e8df63ff9284f6f5eb}{lcd\+\_\+string}} (\mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}} x, \mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}} y, \mbox{\hyperlink{lcd_8h_a9a75b3f378a8d443f893bd9eceb09642}{RGB565}} fg, \mbox{\hyperlink{lcd_8h_a9a75b3f378a8d443f893bd9eceb09642}{RGB565}} bg, const char $\ast$s)
-\begin{DoxyCompactList}\small\item\em TODO. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Draw a string in the default font. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}} \mbox{\hyperlink{lcd_8h_a3eaf9793a384ee2d2471d6e888ad99ed}{lcd\+\_\+string\+\_\+P}} (\mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}} x, \mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}} y, \mbox{\hyperlink{lcd_8h_a9a75b3f378a8d443f893bd9eceb09642}{RGB565}} fg, \mbox{\hyperlink{lcd_8h_a9a75b3f378a8d443f893bd9eceb09642}{RGB565}} bg, const char $\ast$s)
-\begin{DoxyCompactList}\small\item\em TODO. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Draw a string from program memory in the default font. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{lcd_8h_aef833fe63a75378ad9734d112143b6c6}{lcd\+\_\+image\+\_\+rgba}} (\mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}} x, \mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}} y, \mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}} w, \mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}} h, \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} addr)
+\begin{DoxyCompactList}\small\item\em Draw an RGBA image from XMEM. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{lcd_8h_a62645fc7e83c7c93921c0106440ed18b}{lcd\+\_\+image\+\_\+rgb}} (\mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}} x, \mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}} y, \mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}} w, \mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}} h, \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} addr)
+\begin{DoxyCompactList}\small\item\em Draw an RGB image from XMEM. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{lcd_8h_aa974eda613ffac18ecf6b119a8a5329b}{lcd\+\_\+image\+\_\+rgb565}} (\mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}} x, \mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}} y, \mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}} w, \mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}} h, \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} addr)
+\begin{DoxyCompactList}\small\item\em Draw an RGB565 image from XMEM. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{lcd_8h_a2b566f1862ab95f8caa5e1350eafd151}{lcd\+\_\+image\+\_\+grayscale}} (\mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}} x, \mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}} y, \mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}} w, \mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}} h, \mbox{\hyperlink{lcd_8h_a9a75b3f378a8d443f893bd9eceb09642}{RGB565}} fg, \mbox{\hyperlink{lcd_8h_a9a75b3f378a8d443f893bd9eceb09642}{RGB565}} bg, \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} addr)
+\begin{DoxyCompactList}\small\item\em Draw a colored Grayscale image from XMEM. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{lcd_8h_a8f906c0afbbea669f39e24f697b79d87}{lcd\+\_\+image\+\_\+1bit}} (\mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}} x, \mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}} y, \mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}} w, \mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}} h, \mbox{\hyperlink{lcd_8h_a9a75b3f378a8d443f893bd9eceb09642}{RGB565}} fg, \mbox{\hyperlink{lcd_8h_a9a75b3f378a8d443f893bd9eceb09642}{RGB565}} bg, \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} addr)
+\begin{DoxyCompactList}\small\item\em Draw a colored 1-\/bit image from XMEM. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
@@ -71,6 +79,10 @@ Anton Tchekov
 \end{DoxyDate}
 
 
+Definition in file \mbox{\hyperlink{lcd_8h_source}{lcd.\+h}}.
+
+
+
 \doxysubsection{Macro Definition Documentation}
 \mbox{\Hypertarget{lcd_8h_aba2a7fe77a7501e5844370eec0185207}\label{lcd_8h_aba2a7fe77a7501e5844370eec0185207}} 
 \index{lcd.h@{lcd.h}!COLOR\_BLACK@{COLOR\_BLACK}}
@@ -78,61 +90,101 @@ Anton Tchekov
 \doxysubsubsection{\texorpdfstring{COLOR\_BLACK}{COLOR\_BLACK}}
 {\footnotesize\ttfamily \#define COLOR\+\_\+\+BLACK~0x0000}
 
-Black Color as RGB565 \mbox{\Hypertarget{lcd_8h_a23c70d699a5a775bc2e1ebeb8603f630}\label{lcd_8h_a23c70d699a5a775bc2e1ebeb8603f630}} 
+Black Color as RGB565 
+
+Definition at line \mbox{\hyperlink{lcd_8h_source_l00038}{38}} of file \mbox{\hyperlink{lcd_8h_source}{lcd.\+h}}.
+
+\mbox{\Hypertarget{lcd_8h_a23c70d699a5a775bc2e1ebeb8603f630}\label{lcd_8h_a23c70d699a5a775bc2e1ebeb8603f630}} 
 \index{lcd.h@{lcd.h}!COLOR\_BLUE@{COLOR\_BLUE}}
 \index{COLOR\_BLUE@{COLOR\_BLUE}!lcd.h@{lcd.h}}
 \doxysubsubsection{\texorpdfstring{COLOR\_BLUE}{COLOR\_BLUE}}
 {\footnotesize\ttfamily \#define COLOR\+\_\+\+BLUE~0x001F}
 
-Blue Color as RGB565 \mbox{\Hypertarget{lcd_8h_a82573859711fce56f1aa0a76b18a9b18}\label{lcd_8h_a82573859711fce56f1aa0a76b18a9b18}} 
+Blue Color as RGB565 
+
+Definition at line \mbox{\hyperlink{lcd_8h_source_l00029}{29}} of file \mbox{\hyperlink{lcd_8h_source}{lcd.\+h}}.
+
+\mbox{\Hypertarget{lcd_8h_a82573859711fce56f1aa0a76b18a9b18}\label{lcd_8h_a82573859711fce56f1aa0a76b18a9b18}} 
 \index{lcd.h@{lcd.h}!COLOR\_CYAN@{COLOR\_CYAN}}
 \index{COLOR\_CYAN@{COLOR\_CYAN}!lcd.h@{lcd.h}}
 \doxysubsubsection{\texorpdfstring{COLOR\_CYAN}{COLOR\_CYAN}}
 {\footnotesize\ttfamily \#define COLOR\+\_\+\+CYAN~0x07\+FF}
 
-Cyan Color as RGB565 \mbox{\Hypertarget{lcd_8h_afc9149f5de51bd9ac4f5ebbfa153f018}\label{lcd_8h_afc9149f5de51bd9ac4f5ebbfa153f018}} 
+Cyan Color as RGB565 
+
+Definition at line \mbox{\hyperlink{lcd_8h_source_l00026}{26}} of file \mbox{\hyperlink{lcd_8h_source}{lcd.\+h}}.
+
+\mbox{\Hypertarget{lcd_8h_afc9149f5de51bd9ac4f5ebbfa153f018}\label{lcd_8h_afc9149f5de51bd9ac4f5ebbfa153f018}} 
 \index{lcd.h@{lcd.h}!COLOR\_GREEN@{COLOR\_GREEN}}
 \index{COLOR\_GREEN@{COLOR\_GREEN}!lcd.h@{lcd.h}}
 \doxysubsubsection{\texorpdfstring{COLOR\_GREEN}{COLOR\_GREEN}}
 {\footnotesize\ttfamily \#define COLOR\+\_\+\+GREEN~0x07\+E0}
 
-Green Color as RGB565 \mbox{\Hypertarget{lcd_8h_a8deb0beccea721b35bdb1b4f7264fe75}\label{lcd_8h_a8deb0beccea721b35bdb1b4f7264fe75}} 
+Green Color as RGB565 
+
+Definition at line \mbox{\hyperlink{lcd_8h_source_l00023}{23}} of file \mbox{\hyperlink{lcd_8h_source}{lcd.\+h}}.
+
+\mbox{\Hypertarget{lcd_8h_a8deb0beccea721b35bdb1b4f7264fe75}\label{lcd_8h_a8deb0beccea721b35bdb1b4f7264fe75}} 
 \index{lcd.h@{lcd.h}!COLOR\_MAGENTA@{COLOR\_MAGENTA}}
 \index{COLOR\_MAGENTA@{COLOR\_MAGENTA}!lcd.h@{lcd.h}}
 \doxysubsubsection{\texorpdfstring{COLOR\_MAGENTA}{COLOR\_MAGENTA}}
 {\footnotesize\ttfamily \#define COLOR\+\_\+\+MAGENTA~0x\+F81F}
 
-Magenta Color as RGB565 \mbox{\Hypertarget{lcd_8h_ad86358bf19927183dd7b4ae215a29731}\label{lcd_8h_ad86358bf19927183dd7b4ae215a29731}} 
+Magenta Color as RGB565 
+
+Definition at line \mbox{\hyperlink{lcd_8h_source_l00032}{32}} of file \mbox{\hyperlink{lcd_8h_source}{lcd.\+h}}.
+
+\mbox{\Hypertarget{lcd_8h_ad86358bf19927183dd7b4ae215a29731}\label{lcd_8h_ad86358bf19927183dd7b4ae215a29731}} 
 \index{lcd.h@{lcd.h}!COLOR\_RED@{COLOR\_RED}}
 \index{COLOR\_RED@{COLOR\_RED}!lcd.h@{lcd.h}}
 \doxysubsubsection{\texorpdfstring{COLOR\_RED}{COLOR\_RED}}
 {\footnotesize\ttfamily \#define COLOR\+\_\+\+RED~0x\+F800}
 
-Red Color as RGB565 \mbox{\Hypertarget{lcd_8h_a9b44987ffdc2af19b635206b94334b69}\label{lcd_8h_a9b44987ffdc2af19b635206b94334b69}} 
+Red Color as RGB565 
+
+Definition at line \mbox{\hyperlink{lcd_8h_source_l00017}{17}} of file \mbox{\hyperlink{lcd_8h_source}{lcd.\+h}}.
+
+\mbox{\Hypertarget{lcd_8h_a9b44987ffdc2af19b635206b94334b69}\label{lcd_8h_a9b44987ffdc2af19b635206b94334b69}} 
 \index{lcd.h@{lcd.h}!COLOR\_WHITE@{COLOR\_WHITE}}
 \index{COLOR\_WHITE@{COLOR\_WHITE}!lcd.h@{lcd.h}}
 \doxysubsubsection{\texorpdfstring{COLOR\_WHITE}{COLOR\_WHITE}}
 {\footnotesize\ttfamily \#define COLOR\+\_\+\+WHITE~0x\+FFFF}
 
-White Color as RGB565 \mbox{\Hypertarget{lcd_8h_a4534b577b74a58b0f4b7be027af664e0}\label{lcd_8h_a4534b577b74a58b0f4b7be027af664e0}} 
+White Color as RGB565 
+
+Definition at line \mbox{\hyperlink{lcd_8h_source_l00035}{35}} of file \mbox{\hyperlink{lcd_8h_source}{lcd.\+h}}.
+
+\mbox{\Hypertarget{lcd_8h_a4534b577b74a58b0f4b7be027af664e0}\label{lcd_8h_a4534b577b74a58b0f4b7be027af664e0}} 
 \index{lcd.h@{lcd.h}!COLOR\_YELLOW@{COLOR\_YELLOW}}
 \index{COLOR\_YELLOW@{COLOR\_YELLOW}!lcd.h@{lcd.h}}
 \doxysubsubsection{\texorpdfstring{COLOR\_YELLOW}{COLOR\_YELLOW}}
 {\footnotesize\ttfamily \#define COLOR\+\_\+\+YELLOW~0x\+FFE0}
 
-Yellow Color as RGB565 \mbox{\Hypertarget{lcd_8h_a53a8b2a971de4b88047192655a48b651}\label{lcd_8h_a53a8b2a971de4b88047192655a48b651}} 
+Yellow Color as RGB565 
+
+Definition at line \mbox{\hyperlink{lcd_8h_source_l00020}{20}} of file \mbox{\hyperlink{lcd_8h_source}{lcd.\+h}}.
+
+\mbox{\Hypertarget{lcd_8h_a53a8b2a971de4b88047192655a48b651}\label{lcd_8h_a53a8b2a971de4b88047192655a48b651}} 
 \index{lcd.h@{lcd.h}!LCD\_HEIGHT@{LCD\_HEIGHT}}
 \index{LCD\_HEIGHT@{LCD\_HEIGHT}!lcd.h@{lcd.h}}
 \doxysubsubsection{\texorpdfstring{LCD\_HEIGHT}{LCD\_HEIGHT}}
 {\footnotesize\ttfamily \#define LCD\+\_\+\+HEIGHT~480}
 
-Height of the display \mbox{\Hypertarget{lcd_8h_a19693eac3018d3e7800fde141921b812}\label{lcd_8h_a19693eac3018d3e7800fde141921b812}} 
+Height of the display 
+
+Definition at line \mbox{\hyperlink{lcd_8h_source_l00041}{41}} of file \mbox{\hyperlink{lcd_8h_source}{lcd.\+h}}.
+
+\mbox{\Hypertarget{lcd_8h_a19693eac3018d3e7800fde141921b812}\label{lcd_8h_a19693eac3018d3e7800fde141921b812}} 
 \index{lcd.h@{lcd.h}!LCD\_WIDTH@{LCD\_WIDTH}}
 \index{LCD\_WIDTH@{LCD\_WIDTH}!lcd.h@{lcd.h}}
 \doxysubsubsection{\texorpdfstring{LCD\_WIDTH}{LCD\_WIDTH}}
 {\footnotesize\ttfamily \#define LCD\+\_\+\+WIDTH~320}
 
 Width of the display 
+
+Definition at line \mbox{\hyperlink{lcd_8h_source_l00044}{44}} of file \mbox{\hyperlink{lcd_8h_source}{lcd.\+h}}.
+
+
 
 \doxysubsection{Typedef Documentation}
 \mbox{\Hypertarget{lcd_8h_a9a75b3f378a8d443f893bd9eceb09642}\label{lcd_8h_a9a75b3f378a8d443f893bd9eceb09642}} 
@@ -142,6 +194,10 @@ Width of the display
 {\footnotesize\ttfamily typedef \mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}} \mbox{\hyperlink{lcd_8h_a9a75b3f378a8d443f893bd9eceb09642}{RGB565}}}
 
 RGB565 data type 
+
+Definition at line \mbox{\hyperlink{lcd_8h_source_l00047}{47}} of file \mbox{\hyperlink{lcd_8h_source}{lcd.\+h}}.
+
+
 
 \doxysubsection{Function Documentation}
 \mbox{\Hypertarget{lcd_8h_a62344feec2a2d180a59d563f758e241e}\label{lcd_8h_a62344feec2a2d180a59d563f758e241e}} 
@@ -159,6 +215,22 @@ Set LCD backlight brightness.
 {\em value} & Backlight brightness from 0-\/255 \\
 \hline
 \end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{lcd_8c_source_l00375}{375}} of file \mbox{\hyperlink{lcd_8c_source}{lcd.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00376\ \{}
+\DoxyCodeLine{00377\ \ \ \ \ \textcolor{comment}{/*\ TODO:\ Write\ PWM\ Value\ */}}
+\DoxyCodeLine{00378\ \ \ \ \ (void)value;}
+\DoxyCodeLine{00379\ \}}
+
+\end{DoxyCode}
+
+
+Referenced by \mbox{\hyperlink{lcd_8c_source_l00381}{lcd\+\_\+init()}}.
+
 \mbox{\Hypertarget{lcd_8h_a2d178ce2cd276e286fcdb38ba4763842}\label{lcd_8h_a2d178ce2cd276e286fcdb38ba4763842}} 
 \index{lcd.h@{lcd.h}!lcd\_char@{lcd\_char}}
 \index{lcd\_char@{lcd\_char}!lcd.h@{lcd.h}}
@@ -167,24 +239,58 @@ Set LCD backlight brightness.
 
 
 
-TODO. 
+Draw a character in the standard font. 
 
 
 \begin{DoxyParams}{Parameters}
-{\em x} & \\
+{\em x} & X-\/\+Coordinate \\
 \hline
-{\em y} & \\
+{\em y} & Y-\/\+Coordinate \\
 \hline
-{\em fg} & \\
+{\em fg} & Foreground text color \\
 \hline
-{\em bg} & \\
+{\em bg} & Background color \\
 \hline
-{\em c} & \\
+{\em c} & ASCII character \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-u16 
+Width of the character that was drawn 
 \end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{lcd_8c_source_l00437}{437}} of file \mbox{\hyperlink{lcd_8c_source}{lcd.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00438\ \{}
+\DoxyCodeLine{00439\ \ \ \ \ \mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}}\ w0,\ h0;}
+\DoxyCodeLine{00440\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}}\ *start;}
+\DoxyCodeLine{00441\ }
+\DoxyCodeLine{00442\ \ \ \ \ start\ =\ \_font5x7\ +\ (c\ -\/\ 32)\ *\ \mbox{\hyperlink{lcd_8c_a7b2e9cc063e140c50b67a4f224988a45}{FONT\_WIDTH}};}
+\DoxyCodeLine{00443\ }
+\DoxyCodeLine{00444\ \ \ \ \ \_lcd\_window\_start(x,\ y,\ \mbox{\hyperlink{lcd_8c_a7b2e9cc063e140c50b67a4f224988a45}{FONT\_WIDTH}},\ \mbox{\hyperlink{lcd_8c_a33f4fac49f2a5e27e2857eb27f054510}{FONT\_HEIGHT}});}
+\DoxyCodeLine{00445\ \ \ \ \ \textcolor{keywordflow}{for}(h0\ =\ 0;\ h0\ <\ \mbox{\hyperlink{lcd_8c_a33f4fac49f2a5e27e2857eb27f054510}{FONT\_HEIGHT}};\ ++h0)}
+\DoxyCodeLine{00446\ \ \ \ \ \{}
+\DoxyCodeLine{00447\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(w0\ =\ 0;\ w0\ <\ \mbox{\hyperlink{lcd_8c_a7b2e9cc063e140c50b67a4f224988a45}{FONT\_WIDTH}};\ ++w0)}
+\DoxyCodeLine{00448\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00449\ \ \ \ \ \ \ \ \ \ \ \ \ \_lcd\_pixel(((pgm\_read\_byte(start\ +\ w0)\ >>\ h0)\ \&\ 1)\ ?\ fg\ :\ bg);}
+\DoxyCodeLine{00450\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00451\ \ \ \ \ \}}
+\DoxyCodeLine{00452\ }
+\DoxyCodeLine{00453\ \ \ \ \ \_lcd\_window\_end();}
+\DoxyCodeLine{00454\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{lcd_8c_a7b2e9cc063e140c50b67a4f224988a45}{FONT\_WIDTH}}\ +\ 1;}
+\DoxyCodeLine{00455\ \}}
+
+\end{DoxyCode}
+
+
+References \mbox{\hyperlink{lcd_8c_source_l00035}{FONT\+\_\+\+HEIGHT}}, and \mbox{\hyperlink{lcd_8c_source_l00032}{FONT\+\_\+\+WIDTH}}.
+
+
+
+Referenced by \mbox{\hyperlink{lcd_8c_source_l00457}{lcd\+\_\+string()}}, and \mbox{\hyperlink{lcd_8c_source_l00471}{lcd\+\_\+string\+\_\+\+P()}}.
+
 \mbox{\Hypertarget{lcd_8h_a9077e33ab871138bf5da6043bfe48266}\label{lcd_8h_a9077e33ab871138bf5da6043bfe48266}} 
 \index{lcd.h@{lcd.h}!lcd\_color@{lcd\_color}}
 \index{lcd\_color@{lcd\_color}!lcd.h@{lcd.h}}
@@ -207,6 +313,228 @@ Convert RGB888 to RGB565.
 \begin{DoxyReturn}{Returns}
 RGB565 color 
 \end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{lcd_8c_source_l00416}{416}} of file \mbox{\hyperlink{lcd_8c_source}{lcd.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00417\ \{}
+\DoxyCodeLine{00418\ \ \ \ \ \textcolor{keywordflow}{return}\ ((r\ \&\ 0xF8)\ <<\ 8)\ |\ ((g\ \&\ 0xFC)\ <<\ 3)\ |\ (b\ >>\ 3);}
+\DoxyCodeLine{00419\ \}}
+
+\end{DoxyCode}
+
+
+Referenced by \mbox{\hyperlink{avr_2platform_8c_source_l00046}{\+\_\+abgr\+\_\+to\+\_\+rgb565()}}, and \mbox{\hyperlink{lcd_8c_source_l00421}{lcd\+\_\+logo\+\_\+\+P()}}.
+
+\mbox{\Hypertarget{lcd_8h_a8f906c0afbbea669f39e24f697b79d87}\label{lcd_8h_a8f906c0afbbea669f39e24f697b79d87}} 
+\index{lcd.h@{lcd.h}!lcd\_image\_1bit@{lcd\_image\_1bit}}
+\index{lcd\_image\_1bit@{lcd\_image\_1bit}!lcd.h@{lcd.h}}
+\doxysubsubsection{\texorpdfstring{lcd\_image\_1bit()}{lcd\_image\_1bit()}}
+{\footnotesize\ttfamily void lcd\+\_\+image\+\_\+1bit (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}}}]{x,  }\item[{\mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}}}]{y,  }\item[{\mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}}}]{w,  }\item[{\mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}}}]{h,  }\item[{\mbox{\hyperlink{lcd_8h_a9a75b3f378a8d443f893bd9eceb09642}{RGB565}}}]{fg,  }\item[{\mbox{\hyperlink{lcd_8h_a9a75b3f378a8d443f893bd9eceb09642}{RGB565}}}]{bg,  }\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{addr }\end{DoxyParamCaption})}
+
+
+
+Draw a colored 1-\/bit image from XMEM. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & X-\/\+Coordinate \\
+\hline
+{\em y} & Y-\/\+Coordinate \\
+\hline
+{\em w} & Width \\
+\hline
+{\em h} & Height \\
+\hline
+{\em fg} & Foreground color \\
+\hline
+{\em bg} & Background color \\
+\hline
+{\em addr} & XMEM-\/\+Address \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{lcd_8c_source_l00506}{506}} of file \mbox{\hyperlink{lcd_8c_source}{lcd.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00508\ \{}
+\DoxyCodeLine{00509\ \ \ \ \ \mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}}\ byte,\ stride,\ bit\_mask;}
+\DoxyCodeLine{00510\ \ \ \ \ \mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}}\ x0,\ y0,\ byte\_offset;}
+\DoxyCodeLine{00511\ \ \ \ \ \mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}}\ image[64];}
+\DoxyCodeLine{00512\ }
+\DoxyCodeLine{00513\ \ \ \ \ stride\ =\ (w\ +\ 7)\ /\ 8;}
+\DoxyCodeLine{00514\ \ \ \ \ \textcolor{keywordflow}{for}(y0\ =\ y;\ y0\ <\ y\ +\ h;\ ++y0)}
+\DoxyCodeLine{00515\ \ \ \ \ \{}
+\DoxyCodeLine{00516\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{xmem_8c_ac439854f5a1e0bd1b2f52c1028fc900a}{xmem\_read}}(addr,\ image,\ stride);}
+\DoxyCodeLine{00517\ \ \ \ \ \ \ \ \ \_lcd\_window\_start(x,\ y0,\ w,\ 1);}
+\DoxyCodeLine{00518\ \ \ \ \ \ \ \ \ bit\_mask\ =\ 0x80;}
+\DoxyCodeLine{00519\ \ \ \ \ \ \ \ \ byte\_offset\ =\ 0;}
+\DoxyCodeLine{00520\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(x0\ =\ x;\ x0\ <\ x\ +\ w;\ ++x0)}
+\DoxyCodeLine{00521\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00522\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(bit\_mask\ ==\ 0x80)}
+\DoxyCodeLine{00523\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00524\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{byte}\ =\ image[byte\_offset++];}
+\DoxyCodeLine{00525\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ bit\_mask\ =\ 1;}
+\DoxyCodeLine{00526\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00527\ }
+\DoxyCodeLine{00528\ \ \ \ \ \ \ \ \ \ \ \ \ \_lcd\_pixel((\textcolor{keywordtype}{byte}\ \&\ bit\_mask)\ ?\ fg\ :\ bg);}
+\DoxyCodeLine{00529\ \ \ \ \ \ \ \ \ \ \ \ \ bit\_mask\ <<=\ 1;}
+\DoxyCodeLine{00530\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00531\ }
+\DoxyCodeLine{00532\ \ \ \ \ \ \ \ \ \_lcd\_window\_end();}
+\DoxyCodeLine{00533\ \ \ \ \ \ \ \ \ addr\ +=\ stride;}
+\DoxyCodeLine{00534\ \ \ \ \ \}}
+\DoxyCodeLine{00535\ \}}
+
+\end{DoxyCode}
+
+
+References \mbox{\hyperlink{xmem_8c_source_l00232}{xmem\+\_\+read()}}.
+
+\mbox{\Hypertarget{lcd_8h_a2b566f1862ab95f8caa5e1350eafd151}\label{lcd_8h_a2b566f1862ab95f8caa5e1350eafd151}} 
+\index{lcd.h@{lcd.h}!lcd\_image\_grayscale@{lcd\_image\_grayscale}}
+\index{lcd\_image\_grayscale@{lcd\_image\_grayscale}!lcd.h@{lcd.h}}
+\doxysubsubsection{\texorpdfstring{lcd\_image\_grayscale()}{lcd\_image\_grayscale()}}
+{\footnotesize\ttfamily void lcd\+\_\+image\+\_\+grayscale (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}}}]{x,  }\item[{\mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}}}]{y,  }\item[{\mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}}}]{w,  }\item[{\mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}}}]{h,  }\item[{\mbox{\hyperlink{lcd_8h_a9a75b3f378a8d443f893bd9eceb09642}{RGB565}}}]{fg,  }\item[{\mbox{\hyperlink{lcd_8h_a9a75b3f378a8d443f893bd9eceb09642}{RGB565}}}]{bg,  }\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{addr }\end{DoxyParamCaption})}
+
+
+
+Draw a colored Grayscale image from XMEM. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & X-\/\+Coordinate \\
+\hline
+{\em y} & Y-\/\+Coordinate \\
+\hline
+{\em w} & Width \\
+\hline
+{\em h} & Height \\
+\hline
+{\em fg} & Foreground color \\
+\hline
+{\em bg} & Background color \\
+\hline
+{\em addr} & XMEM-\/\+Address \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{lcd_8c_source_l00500}{500}} of file \mbox{\hyperlink{lcd_8c_source}{lcd.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00502\ \{}
+\DoxyCodeLine{00503\ }
+\DoxyCodeLine{00504\ \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{lcd_8h_a62645fc7e83c7c93921c0106440ed18b}\label{lcd_8h_a62645fc7e83c7c93921c0106440ed18b}} 
+\index{lcd.h@{lcd.h}!lcd\_image\_rgb@{lcd\_image\_rgb}}
+\index{lcd\_image\_rgb@{lcd\_image\_rgb}!lcd.h@{lcd.h}}
+\doxysubsubsection{\texorpdfstring{lcd\_image\_rgb()}{lcd\_image\_rgb()}}
+{\footnotesize\ttfamily void lcd\+\_\+image\+\_\+rgb (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}}}]{x,  }\item[{\mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}}}]{y,  }\item[{\mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}}}]{w,  }\item[{\mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}}}]{h,  }\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{addr }\end{DoxyParamCaption})}
+
+
+
+Draw an RGB image from XMEM. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & X-\/\+Coordinate \\
+\hline
+{\em y} & Y-\/\+Coordinate \\
+\hline
+{\em w} & Width \\
+\hline
+{\em h} & Height \\
+\hline
+{\em addr} & XMEM-\/\+Address \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{lcd_8c_source_l00490}{490}} of file \mbox{\hyperlink{lcd_8c_source}{lcd.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00491\ \{}
+\DoxyCodeLine{00492\ }
+\DoxyCodeLine{00493\ \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{lcd_8h_aa974eda613ffac18ecf6b119a8a5329b}\label{lcd_8h_aa974eda613ffac18ecf6b119a8a5329b}} 
+\index{lcd.h@{lcd.h}!lcd\_image\_rgb565@{lcd\_image\_rgb565}}
+\index{lcd\_image\_rgb565@{lcd\_image\_rgb565}!lcd.h@{lcd.h}}
+\doxysubsubsection{\texorpdfstring{lcd\_image\_rgb565()}{lcd\_image\_rgb565()}}
+{\footnotesize\ttfamily void lcd\+\_\+image\+\_\+rgb565 (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}}}]{x,  }\item[{\mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}}}]{y,  }\item[{\mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}}}]{w,  }\item[{\mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}}}]{h,  }\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{addr }\end{DoxyParamCaption})}
+
+
+
+Draw an RGB565 image from XMEM. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & X-\/\+Coordinate \\
+\hline
+{\em y} & Y-\/\+Coordinate \\
+\hline
+{\em w} & Width \\
+\hline
+{\em h} & Height \\
+\hline
+{\em addr} & XMEM-\/\+Address \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{lcd_8c_source_l00495}{495}} of file \mbox{\hyperlink{lcd_8c_source}{lcd.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00496\ \{}
+\DoxyCodeLine{00497\ }
+\DoxyCodeLine{00498\ \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{lcd_8h_aef833fe63a75378ad9734d112143b6c6}\label{lcd_8h_aef833fe63a75378ad9734d112143b6c6}} 
+\index{lcd.h@{lcd.h}!lcd\_image\_rgba@{lcd\_image\_rgba}}
+\index{lcd\_image\_rgba@{lcd\_image\_rgba}!lcd.h@{lcd.h}}
+\doxysubsubsection{\texorpdfstring{lcd\_image\_rgba()}{lcd\_image\_rgba()}}
+{\footnotesize\ttfamily void lcd\+\_\+image\+\_\+rgba (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}}}]{x,  }\item[{\mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}}}]{y,  }\item[{\mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}}}]{w,  }\item[{\mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}}}]{h,  }\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{addr }\end{DoxyParamCaption})}
+
+
+
+Draw an RGBA image from XMEM. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & X-\/\+Coordinate \\
+\hline
+{\em y} & Y-\/\+Coordinate \\
+\hline
+{\em w} & Width \\
+\hline
+{\em h} & Height \\
+\hline
+{\em addr} & XMEM-\/\+Address \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{lcd_8c_source_l00485}{485}} of file \mbox{\hyperlink{lcd_8c_source}{lcd.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00486\ \{}
+\DoxyCodeLine{00487\ }
+\DoxyCodeLine{00488\ \}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{lcd_8h_a09748a4045dc2d014afdce2cc566e57d}\label{lcd_8h_a09748a4045dc2d014afdce2cc566e57d}} 
 \index{lcd.h@{lcd.h}!lcd\_init@{lcd\_init}}
 \index{lcd\_init@{lcd\_init}!lcd.h@{lcd.h}}
@@ -224,19 +552,35 @@ Initialize LCD.
 {\em bg} & Init background color \\
 \hline
 \end{DoxyParams}
-\mbox{\Hypertarget{lcd_8h_a669f4dd510ba544f097e49d7c5b772c5}\label{lcd_8h_a669f4dd510ba544f097e49d7c5b772c5}} 
-\index{lcd.h@{lcd.h}!lcd\_initialized@{lcd\_initialized}}
-\index{lcd\_initialized@{lcd\_initialized}!lcd.h@{lcd.h}}
-\doxysubsubsection{\texorpdfstring{lcd\_initialized()}{lcd\_initialized()}}
-{\footnotesize\ttfamily bool lcd\+\_\+initialized (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
 
 
+Definition at line \mbox{\hyperlink{lcd_8c_source_l00381}{381}} of file \mbox{\hyperlink{lcd_8c_source}{lcd.\+c}}.
 
-Returns whether or not the LCD driver is initialized. 
 
-\begin{DoxyReturn}{Returns}
-true if the LCD is initialized 
-\end{DoxyReturn}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00382\ \{}
+\DoxyCodeLine{00383\ \ \ \ \ \textcolor{comment}{/*\ Initialize\ LCD\ */}}
+\DoxyCodeLine{00384\ \ \ \ \ \mbox{\hyperlink{logger_8c_a60bd636ef160c97eb51cf31be5954ba2}{log\_boot\_P}}(LOG\_INIT,\ PSTR(\textcolor{stringliteral}{"{}LCD\ driver\ starting"{}}));}
+\DoxyCodeLine{00385\ \ \ \ \ \mbox{\hyperlink{spi_8c_ab3e16cf26638212c1e54a7aa4878e12a}{spi\_fast}}();}
+\DoxyCodeLine{00386\ \ \ \ \ \_lcd\_reset();}
+\DoxyCodeLine{00387\ \ \ \ \ \mbox{\hyperlink{lcd_8c_a62344feec2a2d180a59d563f758e241e}{lcd\_backlight}}(backlight);}
+\DoxyCodeLine{00388\ \ \ \ \ \_lcd\_init\_reg();}
+\DoxyCodeLine{00389\ \ \ \ \ \_lcd\_set\_gram\_scan\_dir(\mbox{\hyperlink{lcd_8c_a49bc2232fc9e2652eebb31d9738144cb}{SCAN\_DIR}});}
+\DoxyCodeLine{00390\ \ \ \ \ \_delay\_ms(200);}
+\DoxyCodeLine{00391\ \ \ \ \ \_lcd\_write\_reg(0x11);}
+\DoxyCodeLine{00392\ \ \ \ \ \_delay\_ms(120);}
+\DoxyCodeLine{00393\ \ \ \ \ \_lcd\_write\_reg(0x29);}
+\DoxyCodeLine{00394\ }
+\DoxyCodeLine{00395\ \ \ \ \ \mbox{\hyperlink{lcd_8c_a010620f3d9dc0536cc9551d7aabd8d17}{lcd\_rect}}(0,\ 0,\ \mbox{\hyperlink{lcd_8h_a19693eac3018d3e7800fde141921b812}{LCD\_WIDTH}},\ \mbox{\hyperlink{lcd_8h_a53a8b2a971de4b88047192655a48b651}{LCD\_HEIGHT}},\ bg);}
+\DoxyCodeLine{00396\ }
+\DoxyCodeLine{00397\ \ \ \ \ \mbox{\hyperlink{logger_8c_a60bd636ef160c97eb51cf31be5954ba2}{log\_boot\_P}}(LOG\_INIT,\ PSTR(\textcolor{stringliteral}{"{}LCD\ driver\ initialized"{}}));}
+\DoxyCodeLine{00398\ \}}
+
+\end{DoxyCode}
+
+
+References \mbox{\hyperlink{lcd_8c_source_l00375}{lcd\+\_\+backlight()}}, \mbox{\hyperlink{lcd_8h_source_l00041}{LCD\+\_\+\+HEIGHT}}, \mbox{\hyperlink{lcd_8c_source_l00400}{lcd\+\_\+rect()}}, \mbox{\hyperlink{lcd_8h_source_l00044}{LCD\+\_\+\+WIDTH}}, \mbox{\hyperlink{logger_8c_source_l00164}{log\+\_\+boot\+\_\+\+P()}}, \mbox{\hyperlink{lcd_8c_source_l00029}{SCAN\+\_\+\+DIR}}, and \mbox{\hyperlink{spi_8c_source_l00018}{spi\+\_\+fast()}}.
+
 \mbox{\Hypertarget{lcd_8h_a2b7400cbec8880666bed8cfc105a0f7a}\label{lcd_8h_a2b7400cbec8880666bed8cfc105a0f7a}} 
 \index{lcd.h@{lcd.h}!lcd\_logo\_P@{lcd\_logo\_P}}
 \index{lcd\_logo\_P@{lcd\_logo\_P}!lcd.h@{lcd.h}}
@@ -245,21 +589,51 @@ true if the LCD is initialized
 
 
 
-TODO. 
+Draw boot logo(s) 
 
 
 \begin{DoxyParams}{Parameters}
-{\em x} & \\
+{\em x} & X-\/\+Coordinate \\
 \hline
-{\em y} & \\
+{\em y} & Y-\/\+Coordinate \\
 \hline
-{\em w} & \\
+{\em w} & Width \\
 \hline
-{\em h} & \\
+{\em h} & Height \\
 \hline
-{\em image} & \\
+{\em image} & Image data (grayscale, red channel) \\
 \hline
 \end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{lcd_8c_source_l00421}{421}} of file \mbox{\hyperlink{lcd_8c_source}{lcd.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00422\ \{}
+\DoxyCodeLine{00423\ \ \ \ \ \mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}}\ w0,\ h0;}
+\DoxyCodeLine{00424\ }
+\DoxyCodeLine{00425\ \ \ \ \ \_lcd\_window\_start(x,\ y,\ w,\ h);}
+\DoxyCodeLine{00426\ \ \ \ \ \textcolor{keywordflow}{for}(h0\ =\ 0;\ h0\ <\ h;\ ++h0)}
+\DoxyCodeLine{00427\ \ \ \ \ \{}
+\DoxyCodeLine{00428\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(w0\ =\ 0;\ w0\ <\ w;\ ++w0)}
+\DoxyCodeLine{00429\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00430\ \ \ \ \ \ \ \ \ \ \ \ \ \_lcd\_pixel(\mbox{\hyperlink{lcd_8c_a9077e33ab871138bf5da6043bfe48266}{lcd\_color}}(pgm\_read\_byte(\&image[h0\ *\ w\ +\ w0]),\ 0,\ 0));}
+\DoxyCodeLine{00431\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00432\ \ \ \ \ \}}
+\DoxyCodeLine{00433\ }
+\DoxyCodeLine{00434\ \ \ \ \ \_lcd\_window\_end();}
+\DoxyCodeLine{00435\ \}}
+
+\end{DoxyCode}
+
+
+References \mbox{\hyperlink{lcd_8c_source_l00416}{lcd\+\_\+color()}}.
+
+
+
+Referenced by \mbox{\hyperlink{logger_8c_source_l00231}{logger\+\_\+lcd\+\_\+init()}}.
+
 \mbox{\Hypertarget{lcd_8h_a010620f3d9dc0536cc9551d7aabd8d17}\label{lcd_8h_a010620f3d9dc0536cc9551d7aabd8d17}} 
 \index{lcd.h@{lcd.h}!lcd\_rect@{lcd\_rect}}
 \index{lcd\_rect@{lcd\_rect}!lcd.h@{lcd.h}}
@@ -268,7 +642,7 @@ TODO.
 
 
 
-Draw. 
+Draw rectangle. 
 
 
 \begin{DoxyParams}{Parameters}
@@ -283,6 +657,32 @@ Draw.
 {\em color} & Fill color \\
 \hline
 \end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{lcd_8c_source_l00400}{400}} of file \mbox{\hyperlink{lcd_8c_source}{lcd.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00401\ \{}
+\DoxyCodeLine{00402\ \ \ \ \ \mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}}\ w0,\ h0;}
+\DoxyCodeLine{00403\ }
+\DoxyCodeLine{00404\ \ \ \ \ \_lcd\_window\_start(x,\ y,\ w,\ h);}
+\DoxyCodeLine{00405\ \ \ \ \ \textcolor{keywordflow}{for}(h0\ =\ 0;\ h0\ <\ h;\ ++h0)}
+\DoxyCodeLine{00406\ \ \ \ \ \{}
+\DoxyCodeLine{00407\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(w0\ =\ 0;\ w0\ <\ w;\ ++w0)}
+\DoxyCodeLine{00408\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00409\ \ \ \ \ \ \ \ \ \ \ \ \ \_lcd\_pixel(color);}
+\DoxyCodeLine{00410\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00411\ \ \ \ \ \}}
+\DoxyCodeLine{00412\ }
+\DoxyCodeLine{00413\ \ \ \ \ \_lcd\_window\_end();}
+\DoxyCodeLine{00414\ \}}
+
+\end{DoxyCode}
+
+
+Referenced by \mbox{\hyperlink{avr_2platform_8c_source_l00054}{env\+\_\+gfx\+\_\+rect()}}, and \mbox{\hyperlink{lcd_8c_source_l00381}{lcd\+\_\+init()}}.
+
 \mbox{\Hypertarget{lcd_8h_a0c04e71d484ae9e8df63ff9284f6f5eb}\label{lcd_8h_a0c04e71d484ae9e8df63ff9284f6f5eb}} 
 \index{lcd.h@{lcd.h}!lcd\_string@{lcd\_string}}
 \index{lcd\_string@{lcd\_string}!lcd.h@{lcd.h}}
@@ -291,24 +691,48 @@ Draw.
 
 
 
-TODO. 
+Draw a string in the default font. 
 
 
 \begin{DoxyParams}{Parameters}
-{\em x} & \\
+{\em x} & X-\/\+Coordinate \\
 \hline
-{\em y} & \\
+{\em y} & Y-\/\+Coordinate \\
 \hline
-{\em fg} & \\
+{\em fg} & Foreground text color \\
 \hline
-{\em bg} & \\
+{\em bg} & Background color \\
 \hline
-{\em s} & \\
+{\em s} & ASCII string \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-
+Width of the string that was drawn 
 \end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{lcd_8c_source_l00457}{457}} of file \mbox{\hyperlink{lcd_8c_source}{lcd.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00458\ \{}
+\DoxyCodeLine{00459\ \ \ \ \ \mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}}\ i;}
+\DoxyCodeLine{00460\ \ \ \ \ \textcolor{keywordtype}{char}\ c;}
+\DoxyCodeLine{00461\ }
+\DoxyCodeLine{00462\ \ \ \ \ i\ =\ 0;}
+\DoxyCodeLine{00463\ \ \ \ \ \textcolor{keywordflow}{while}((c\ =\ *s++))}
+\DoxyCodeLine{00464\ \ \ \ \ \{}
+\DoxyCodeLine{00465\ \ \ \ \ \ \ \ \ i\ +=\ \mbox{\hyperlink{lcd_8c_a2d178ce2cd276e286fcdb38ba4763842}{lcd\_char}}(x\ +\ i,\ y,\ fg,\ bg,\ c);}
+\DoxyCodeLine{00466\ \ \ \ \ \}}
+\DoxyCodeLine{00467\ }
+\DoxyCodeLine{00468\ \ \ \ \ \textcolor{keywordflow}{return}\ i;}
+\DoxyCodeLine{00469\ \}}
+
+\end{DoxyCode}
+
+
+References \mbox{\hyperlink{lcd_8c_source_l00437}{lcd\+\_\+char()}}.
+
 \mbox{\Hypertarget{lcd_8h_a3eaf9793a384ee2d2471d6e888ad99ed}\label{lcd_8h_a3eaf9793a384ee2d2471d6e888ad99ed}} 
 \index{lcd.h@{lcd.h}!lcd\_string\_P@{lcd\_string\_P}}
 \index{lcd\_string\_P@{lcd\_string\_P}!lcd.h@{lcd.h}}
@@ -317,21 +741,45 @@ TODO.
 
 
 
-TODO. 
+Draw a string from program memory in the default font. 
 
 
 \begin{DoxyParams}{Parameters}
-{\em x} & \\
+{\em x} & X-\/\+Coordinate \\
 \hline
-{\em y} & \\
+{\em y} & Y-\/\+Coordinate \\
 \hline
-{\em fg} & \\
+{\em fg} & Foreground text color \\
 \hline
-{\em bg} & \\
+{\em bg} & Background color \\
 \hline
-{\em s} & \\
+{\em s} & ASCII string in PROGMEM \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-u16 
+Width of the string that was drawn 
 \end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{lcd_8c_source_l00471}{471}} of file \mbox{\hyperlink{lcd_8c_source}{lcd.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00472\ \{}
+\DoxyCodeLine{00473\ \ \ \ \ \mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}}\ i;}
+\DoxyCodeLine{00474\ \ \ \ \ \textcolor{keywordtype}{char}\ c;}
+\DoxyCodeLine{00475\ }
+\DoxyCodeLine{00476\ \ \ \ \ i\ =\ 0;}
+\DoxyCodeLine{00477\ \ \ \ \ \textcolor{keywordflow}{while}((c\ =\ pgm\_read\_byte(s++)))}
+\DoxyCodeLine{00478\ \ \ \ \ \{}
+\DoxyCodeLine{00479\ \ \ \ \ \ \ \ \ i\ +=\ \mbox{\hyperlink{lcd_8c_a2d178ce2cd276e286fcdb38ba4763842}{lcd\_char}}(x\ +\ i,\ y,\ fg,\ bg,\ c);}
+\DoxyCodeLine{00480\ \ \ \ \ \}}
+\DoxyCodeLine{00481\ }
+\DoxyCodeLine{00482\ \ \ \ \ \textcolor{keywordflow}{return}\ i;}
+\DoxyCodeLine{00483\ \}}
+
+\end{DoxyCode}
+
+
+References \mbox{\hyperlink{lcd_8c_source_l00437}{lcd\+\_\+char()}}.
+

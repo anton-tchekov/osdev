@@ -11,7 +11,13 @@
 #include <string.h>
 #include <types.h>
 
-
+/**
+ * @brief MkInitRD Main
+ *
+ * @param argc Number of command line parameters
+ * @param argv Array of command line parameters
+ * @return Exit code
+ */
 int main(int argc, char **argv)
 {
 	u32 i, size;
@@ -73,4 +79,3 @@ int main(int argc, char **argv)
 	fwrite(buf, 1, BLOCK_SIZE, out);
 	return 0;
 }
-

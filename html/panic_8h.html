@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">OS Dev
+   <div id="projectname">OS Dev<span id="projectnumber">&#160;0.1</span>
    </div>
   </td>
  </tr>
@@ -106,6 +106,8 @@ Functions</h2></td></tr>
 <dl class="section author"><dt>Author</dt><dd>Tim Gabrikowski, Anton Tchekov </dd></dl>
 <dl class="section version"><dt>Version</dt><dd>0.1 </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>23.04.2023 </dd></dl>
+
+<p class="definition">Definition in file <a class="el" href="panic_8h_source.html">panic.h</a>.</p>
 </div><h2 class="groupheader">Macro Definition Documentation</h2>
 <a id="ac6c818ab7aca2e521c97eee817f99f91" name="ac6c818ab7aca2e521c97eee817f99f91"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac6c818ab7aca2e521c97eee817f99f91">&#9670;&#160;</a></span>ASSERT</h2>
@@ -142,6 +144,8 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 
+<p class="definition">Definition at line <a class="el" href="panic_8h_source.html#l00040">40</a> of file <a class="el" href="panic_8h_source.html">panic.h</a>.</p>
+
 </div>
 </div>
 <a id="ae3c0c6fb5e69bb687e787ec5c487afa1" name="ae3c0c6fb5e69bb687e787ec5c487afa1"></a>
@@ -167,6 +171,8 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
+
+<p class="definition">Definition at line <a class="el" href="panic_8h_source.html#l00032">32</a> of file <a class="el" href="panic_8h_source.html">panic.h</a>.</p>
 
 </div>
 </div>
@@ -207,11 +213,20 @@ Functions</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">msg</td><td>Error message </td></tr>
-    <tr><td class="paramname">file</td><td><a class="el" href="structFile.html">File</a> in which the error occurred </td></tr>
+    <tr><td class="paramname">file</td><td>File in which the error occurred </td></tr>
     <tr><td class="paramname">line</td><td>Line in which the error occurred </td></tr>
   </table>
   </dd>
 </dl>
+
+<p class="definition">Definition at line <a class="el" href="panic_8c_source.html#l00012">12</a> of file <a class="el" href="panic_8c_source.html">panic.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   13</span>{</div>
+<div class="line"><span class="lineno">   14</span>    debug_print(<span class="stringliteral">&quot;%s:%d: %s\n&quot;</span>, file, line, msg);</div>
+<div class="line"><span class="lineno">   15</span>    <a class="code hl_function" href="syscall_8h.html#ad114e0a686a8eb795642407b0abe1ca9">exit</a>(1);</div>
+<div class="line"><span class="lineno">   16</span>}</div>
+<div class="ttc" id="asyscall_8h_html_ad114e0a686a8eb795642407b0abe1ca9"><div class="ttname"><a href="syscall_8h.html#ad114e0a686a8eb795642407b0abe1ca9">exit</a></div><div class="ttdeci">static void exit(i32 status)</div><div class="ttdoc">End program.</div><div class="ttdef"><b>Definition:</b> <a href="syscall_8h_source.html#l00206">syscall.h:206</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="syscall_8h_source.html#l00206">exit()</a>.</p>
 
 </div>
 </div>

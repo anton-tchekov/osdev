@@ -4,7 +4,7 @@
  * @version 0.1
  * @date    22.05.2023
  *
- * @brief ATFS File System
+ * @brief   ATFS File System
  */
 
 #ifndef __ATFS_H__
@@ -19,26 +19,40 @@
 
 /** Boot sector offset in blocks */
 #define ATFS_SECTOR_BOOT            0
+
+/** Boot sector size */
 #define ATFS_SIZE_BOOT              1
 
-/* 64 KiB */
+/** Start sector of stdlib area */
 #define ATFS_SECTOR_STDLIB           ATFS_SIZE_BOOT
+
+/** Size of stdlib area (64 KiB) */
 #define ATFS_SIZE_STDLIB          128
 
-/* 64 KiB */
+/** Start sector of init area */
 #define ATFS_SECTOR_INIT             (ATFS_SIZE_BOOT + ATFS_SIZE_STDLIB)
+
+/** Size of init area (64 KiB) */
 #define ATFS_SIZE_INIT            128
 
-/* Root Dir */
+/** Sector offset of root directory */
 #define ATFS_SECTOR_ROOT             (ATFS_SIZE_BOOT + ATFS_SIZE_STDLIB + ATFS_SIZE_INIT)
 
-/* Current FS Revision */
+/** Current FS Revision */
 #define ATFS_REVISION               0
 
 /* Boot sector offsets */
+
+/** Offset of signature in ATFS bootsector */
 #define ATFS_OFFSET_SIGNATURE       0
+
+/** Offset of revision in ATFS bootsector */
 #define ATFS_OFFSET_REVISION        4
+
+/** Offset of stdlib size in ATFS bootsector */
 #define ATFS_OFFSET_STDLIB_SIZE     8
+
+/** Offset of init program size in ATFS bootsector */
 #define ATFS_OFFSET_INIT_SIZE      12
 
 /* FS Signature (bytes 0-4) */

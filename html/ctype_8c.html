@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">OS Dev
+   <div id="projectname">OS Dev<span id="projectnumber">&#160;0.1</span>
    </div>
   </td>
  </tr>
@@ -80,7 +80,9 @@ $(function() {
 <div class="contents">
 <div class="textblock"><code>#include &lt;<a class="el" href="ctype_8h_source.html">ctype.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="string_8h_source.html">string.h</a>&gt;</code><br />
-</div><table class="memberdecls">
+</div>
+<p><a href="ctype_8c_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a805b16fc0ca40602842200155766a240"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ctype_8c.html#a805b16fc0ca40602842200155766a240">isalnum</a> (<a class="el" href="types_8h.html#a48d6cd8e4135fb2ff7e7f2dac84089ec">i32</a> c)</td></tr>
@@ -127,6 +129,8 @@ Functions</h2></td></tr>
 <div class="textblock"><dl class="section author"><dt>Author</dt><dd>Tim Gabrikowski, Anton Tchekov </dd></dl>
 <dl class="section version"><dt>Version</dt><dd>0.1 </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>23.04.2023 </dd></dl>
+
+<p class="definition">Definition in file <a class="el" href="ctype_8c_source.html">ctype.c</a>.</p>
 </div><h2 class="groupheader">Function Documentation</h2>
 <a id="a805b16fc0ca40602842200155766a240" name="a805b16fc0ca40602842200155766a240"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a805b16fc0ca40602842200155766a240">&#9670;&#160;</a></span>isalnum()</h2>
@@ -152,6 +156,15 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Boolean </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="ctype_8c_source.html#l00011">11</a> of file <a class="el" href="ctype_8c_source.html">ctype.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   12</span>{</div>
+<div class="line"><span class="lineno">   13</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="ctype_8c.html#aee17ff1e0c326626e2343664f34c5085">isalpha</a>(c) || <a class="code hl_function" href="ctype_8c.html#aac8cacb5cd9b960305b7d00c909a8ecd">isdigit</a>(c);</div>
+<div class="line"><span class="lineno">   14</span>}</div>
+<div class="ttc" id="actype_8c_html_aac8cacb5cd9b960305b7d00c909a8ecd"><div class="ttname"><a href="ctype_8c.html#aac8cacb5cd9b960305b7d00c909a8ecd">isdigit</a></div><div class="ttdeci">bool isdigit(i32 c)</div><div class="ttdoc">This function checks whether the passed character is decimal digit.</div><div class="ttdef"><b>Definition:</b> <a href="ctype_8c_source.html#l00026">ctype.c:26</a></div></div>
+<div class="ttc" id="actype_8c_html_aee17ff1e0c326626e2343664f34c5085"><div class="ttname"><a href="ctype_8c.html#aee17ff1e0c326626e2343664f34c5085">isalpha</a></div><div class="ttdeci">bool isalpha(i32 c)</div><div class="ttdoc">This function checks whether the passed character is alphabetic.</div><div class="ttdef"><b>Definition:</b> <a href="ctype_8c_source.html#l00016">ctype.c:16</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="ctype_8c_source.html#l00016">isalpha()</a>, and <a class="el" href="ctype_8c_source.html#l00026">isdigit()</a>.</p>
 
 </div>
 </div>
@@ -180,6 +193,17 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Boolean </dd></dl>
 
+<p class="definition">Definition at line <a class="el" href="ctype_8c_source.html#l00016">16</a> of file <a class="el" href="ctype_8c_source.html">ctype.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   17</span>{</div>
+<div class="line"><span class="lineno">   18</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="ctype_8c.html#a6cb0b03ec6677fb97b80c588d29d7421">islower</a>(c) || <a class="code hl_function" href="ctype_8c.html#af81b0c575e234225a54710a8f8f7df28">isupper</a>(c);</div>
+<div class="line"><span class="lineno">   19</span>}</div>
+<div class="ttc" id="actype_8c_html_a6cb0b03ec6677fb97b80c588d29d7421"><div class="ttname"><a href="ctype_8c.html#a6cb0b03ec6677fb97b80c588d29d7421">islower</a></div><div class="ttdeci">bool islower(i32 c)</div><div class="ttdoc">This function checks whether the passed character is lowercase letter.</div><div class="ttdef"><b>Definition:</b> <a href="ctype_8c_source.html#l00036">ctype.c:36</a></div></div>
+<div class="ttc" id="actype_8c_html_af81b0c575e234225a54710a8f8f7df28"><div class="ttname"><a href="ctype_8c.html#af81b0c575e234225a54710a8f8f7df28">isupper</a></div><div class="ttdeci">bool isupper(i32 c)</div><div class="ttdoc">This function checks whether the passed character is an uppercase letter.</div><div class="ttdef"><b>Definition:</b> <a href="ctype_8c_source.html#l00056">ctype.c:56</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="ctype_8c_source.html#l00036">islower()</a>, and <a class="el" href="ctype_8c_source.html#l00056">isupper()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="ctype_8c_source.html#l00011">isalnum()</a>.</p>
+
 </div>
 </div>
 <a id="aaddc3159a2ac8a68ae0a63d6b5b79ae3" name="aaddc3159a2ac8a68ae0a63d6b5b79ae3"></a>
@@ -206,6 +230,14 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Boolean </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="ctype_8c_source.html#l00021">21</a> of file <a class="el" href="ctype_8c_source.html">ctype.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   22</span>{</div>
+<div class="line"><span class="lineno">   23</span>    <span class="keywordflow">return</span> !<a class="code hl_function" href="ctype_8c.html#a86defca79be1f892ba604d42dbd5524e">isprint</a>(c);</div>
+<div class="line"><span class="lineno">   24</span>}</div>
+<div class="ttc" id="actype_8c_html_a86defca79be1f892ba604d42dbd5524e"><div class="ttname"><a href="ctype_8c.html#a86defca79be1f892ba604d42dbd5524e">isprint</a></div><div class="ttdeci">bool isprint(i32 c)</div><div class="ttdoc">This function checks whether the passed character is printable.</div><div class="ttdef"><b>Definition:</b> <a href="ctype_8c_source.html#l00041">ctype.c:41</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="ctype_8c_source.html#l00041">isprint()</a>.</p>
 
 </div>
 </div>
@@ -234,6 +266,13 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Boolean </dd></dl>
 
+<p class="definition">Definition at line <a class="el" href="ctype_8c_source.html#l00026">26</a> of file <a class="el" href="ctype_8c_source.html">ctype.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   27</span>{</div>
+<div class="line"><span class="lineno">   28</span>    <span class="keywordflow">return</span> c &lt;= <span class="charliteral">&#39;0&#39;</span> &amp;&amp; c &lt;= <span class="charliteral">&#39;9&#39;</span>;</div>
+<div class="line"><span class="lineno">   29</span>}</div>
+</div><!-- fragment -->
+<p class="reference">Referenced by <a class="el" href="ctype_8c_source.html#l00011">isalnum()</a>, and <a class="el" href="ctype_8c_source.html#l00061">isxdigit()</a>.</p>
+
 </div>
 </div>
 <a id="a3dde1f1732b149333cf0106d1a59ca17" name="a3dde1f1732b149333cf0106d1a59ca17"></a>
@@ -261,6 +300,11 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Boolean </dd></dl>
 
+<p class="definition">Definition at line <a class="el" href="ctype_8c_source.html#l00031">31</a> of file <a class="el" href="ctype_8c_source.html">ctype.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   32</span>{</div>
+<div class="line"><span class="lineno">   33</span>    <span class="keywordflow">return</span> c &gt;= 33 &amp;&amp; c &lt;= 126;</div>
+<div class="line"><span class="lineno">   34</span>}</div>
+</div><!-- fragment -->
 </div>
 </div>
 <a id="a6cb0b03ec6677fb97b80c588d29d7421" name="a6cb0b03ec6677fb97b80c588d29d7421"></a>
@@ -287,6 +331,13 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Boolean </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="ctype_8c_source.html#l00036">36</a> of file <a class="el" href="ctype_8c_source.html">ctype.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   37</span>{</div>
+<div class="line"><span class="lineno">   38</span>    <span class="keywordflow">return</span> c &gt;= <span class="charliteral">&#39;a&#39;</span> &amp;&amp; c &lt;= <span class="charliteral">&#39;z&#39;</span>;</div>
+<div class="line"><span class="lineno">   39</span>}</div>
+</div><!-- fragment -->
+<p class="reference">Referenced by <a class="el" href="ctype_8c_source.html#l00016">isalpha()</a>, and <a class="el" href="ctype_8c_source.html#l00073">toupper()</a>.</p>
 
 </div>
 </div>
@@ -315,6 +366,13 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Boolean </dd></dl>
 
+<p class="definition">Definition at line <a class="el" href="ctype_8c_source.html#l00041">41</a> of file <a class="el" href="ctype_8c_source.html">ctype.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   42</span>{</div>
+<div class="line"><span class="lineno">   43</span>    <span class="keywordflow">return</span> c &gt;= 32 &amp;&amp; c &lt;= 126;</div>
+<div class="line"><span class="lineno">   44</span>}</div>
+</div><!-- fragment -->
+<p class="reference">Referenced by <a class="el" href="ctype_8c_source.html#l00021">iscntrl()</a>, and <a class="el" href="logger_8c_source.html#l00200">memory_dump()</a>.</p>
+
 </div>
 </div>
 <a id="a07a4bc598f4c2435565a15f074b74de1" name="a07a4bc598f4c2435565a15f074b74de1"></a>
@@ -341,6 +399,14 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Boolean </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="ctype_8c_source.html#l00046">46</a> of file <a class="el" href="ctype_8c_source.html">ctype.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   47</span>{</div>
+<div class="line"><span class="lineno">   48</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="string_8c.html#ab6410c1d13fe73e5350746b8f825f752">strchr</a>(<span class="stringliteral">&quot;!\&quot;#$%&amp;\&#39;()*+,-./:;&lt;=&gt;?@[\\]^_`{|}~&quot;</span>, c) != NULL;</div>
+<div class="line"><span class="lineno">   49</span>}</div>
+<div class="ttc" id="astring_8c_html_ab6410c1d13fe73e5350746b8f825f752"><div class="ttname"><a href="string_8c.html#ab6410c1d13fe73e5350746b8f825f752">strchr</a></div><div class="ttdeci">const char * strchr(const char *str, i32 c)</div><div class="ttdoc">Locate the first occurrence of a character in a string.</div><div class="ttdef"><b>Definition:</b> <a href="string_8c_source.html#l00078">string.c:78</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="string_8c_source.html#l00078">strchr()</a>.</p>
 
 </div>
 </div>
@@ -369,6 +435,13 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Boolean </dd></dl>
 
+<p class="definition">Definition at line <a class="el" href="ctype_8c_source.html#l00051">51</a> of file <a class="el" href="ctype_8c_source.html">ctype.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   52</span>{</div>
+<div class="line"><span class="lineno">   53</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="string_8c.html#ab6410c1d13fe73e5350746b8f825f752">strchr</a>(<span class="stringliteral">&quot; \n\t\v\f\r&quot;</span>, c) != NULL;</div>
+<div class="line"><span class="lineno">   54</span>}</div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="string_8c_source.html#l00078">strchr()</a>.</p>
+
 </div>
 </div>
 <a id="af81b0c575e234225a54710a8f8f7df28" name="af81b0c575e234225a54710a8f8f7df28"></a>
@@ -395,6 +468,13 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Boolean </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="ctype_8c_source.html#l00056">56</a> of file <a class="el" href="ctype_8c_source.html">ctype.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   57</span>{</div>
+<div class="line"><span class="lineno">   58</span>    <span class="keywordflow">return</span> c &gt;= <span class="charliteral">&#39;A&#39;</span> &amp;&amp; c &lt;= <span class="charliteral">&#39;Z&#39;</span>;</div>
+<div class="line"><span class="lineno">   59</span>}</div>
+</div><!-- fragment -->
+<p class="reference">Referenced by <a class="el" href="ctype_8c_source.html#l00016">isalpha()</a>, and <a class="el" href="ctype_8c_source.html#l00068">tolower()</a>.</p>
 
 </div>
 </div>
@@ -423,6 +503,15 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Boolean </dd></dl>
 
+<p class="definition">Definition at line <a class="el" href="ctype_8c_source.html#l00061">61</a> of file <a class="el" href="ctype_8c_source.html">ctype.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   62</span>{</div>
+<div class="line"><span class="lineno">   63</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="ctype_8c.html#aac8cacb5cd9b960305b7d00c909a8ecd">isdigit</a>(c) ||</div>
+<div class="line"><span class="lineno">   64</span>        (c &gt;= <span class="charliteral">&#39;A&#39;</span> &amp;&amp; c &lt;= <span class="charliteral">&#39;F&#39;</span>) ||</div>
+<div class="line"><span class="lineno">   65</span>        (c &gt;= <span class="charliteral">&#39;a&#39;</span> &amp;&amp; c &lt;= <span class="charliteral">&#39;f&#39;</span>);</div>
+<div class="line"><span class="lineno">   66</span>}</div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="ctype_8c_source.html#l00026">isdigit()</a>.</p>
+
 </div>
 </div>
 <a id="abe3bb9b3e36b2f1968405b16d654dbf0" name="abe3bb9b3e36b2f1968405b16d654dbf0"></a>
@@ -450,6 +539,13 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The character converted to lowercase. If the input was not uppercase, returns the same character </dd></dl>
 
+<p class="definition">Definition at line <a class="el" href="ctype_8c_source.html#l00068">68</a> of file <a class="el" href="ctype_8c_source.html">ctype.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   69</span>{</div>
+<div class="line"><span class="lineno">   70</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="ctype_8c.html#af81b0c575e234225a54710a8f8f7df28">isupper</a>(c) ? c - <span class="charliteral">&#39;A&#39;</span> + <span class="charliteral">&#39;a&#39;</span> : c;</div>
+<div class="line"><span class="lineno">   71</span>}</div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="ctype_8c_source.html#l00056">isupper()</a>.</p>
+
 </div>
 </div>
 <a id="a036df521e275a27449ed74e41ec66931" name="a036df521e275a27449ed74e41ec66931"></a>
@@ -476,6 +572,15 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The character converted to uppercase. If the input was not lowercase, returns the same character </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="ctype_8c_source.html#l00073">73</a> of file <a class="el" href="ctype_8c_source.html">ctype.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   74</span>{</div>
+<div class="line"><span class="lineno">   75</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="ctype_8c.html#a6cb0b03ec6677fb97b80c588d29d7421">islower</a>(c) ? c - <span class="charliteral">&#39;a&#39;</span> + <span class="charliteral">&#39;A&#39;</span> : c;</div>
+<div class="line"><span class="lineno">   76</span>}</div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="ctype_8c_source.html#l00036">islower()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="german_8c_source.html#l00049">key_to_codepoint()</a>.</p>
 
 </div>
 </div>

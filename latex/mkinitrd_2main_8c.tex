@@ -9,52 +9,11 @@ Boot image creator.
 {\ttfamily \#include $<$stdlib.\+h$>$}\newline
 {\ttfamily \#include $<$string.\+h$>$}\newline
 {\ttfamily \#include $<$types.\+h$>$}\newline
-\doxysubsection*{Macros}
-\begin{DoxyCompactItemize}
-\item 
-\#define \mbox{\hyperlink{mkinitrd_2main_8c_ad51ded0bbd705f02f73fc60c0b721ced}{BLOCK\+\_\+\+SIZE}}~512
-\item 
-\#define \mbox{\hyperlink{mkinitrd_2main_8c_a262979df93bcd7f2da26605be29bb3d6}{SECTOR\+\_\+\+BOOT}}~0
-\item 
-\mbox{\Hypertarget{mkinitrd_2main_8c_a628dc6df1dde01776eda16e61f257ebf}\label{mkinitrd_2main_8c_a628dc6df1dde01776eda16e61f257ebf}} 
-\#define {\bfseries SIZE\+\_\+\+BOOT}~1
-\item 
-\mbox{\Hypertarget{mkinitrd_2main_8c_acb0b8b7f7891e8bd57e5d71ce45309de}\label{mkinitrd_2main_8c_acb0b8b7f7891e8bd57e5d71ce45309de}} 
-\#define {\bfseries SECTOR\+\_\+\+STDLIB}~SIZE\+\_\+\+BOOT
-\item 
-\mbox{\Hypertarget{mkinitrd_2main_8c_a0bcafa6c38456f92abb9176f660a5d99}\label{mkinitrd_2main_8c_a0bcafa6c38456f92abb9176f660a5d99}} 
-\#define {\bfseries SIZE\+\_\+\+STDLIB}~128
-\item 
-\mbox{\Hypertarget{mkinitrd_2main_8c_a3ece92f0b20ff717a8729ea6cb4cf012}\label{mkinitrd_2main_8c_a3ece92f0b20ff717a8729ea6cb4cf012}} 
-\#define {\bfseries SECTOR\+\_\+\+INIT}~(SIZE\+\_\+\+BOOT + SIZE\+\_\+\+STDLIB)
-\item 
-\mbox{\Hypertarget{mkinitrd_2main_8c_a0ed0cdd613f9a43800d2ae8595904b08}\label{mkinitrd_2main_8c_a0ed0cdd613f9a43800d2ae8595904b08}} 
-\#define {\bfseries SIZE\+\_\+\+INIT}~128
-\item 
-\mbox{\Hypertarget{mkinitrd_2main_8c_a7d15a8a637597394ec349376d4bff556}\label{mkinitrd_2main_8c_a7d15a8a637597394ec349376d4bff556}} 
-\#define {\bfseries SECTOR\+\_\+\+ROOT}~(SIZE\+\_\+\+BOOT + SIZE\+\_\+\+STDLIB + SIZE\+\_\+\+INIT)
-\item 
-\mbox{\Hypertarget{mkinitrd_2main_8c_ad526597ab378f3faff87123d7742c79a}\label{mkinitrd_2main_8c_ad526597ab378f3faff87123d7742c79a}} 
-\#define {\bfseries REVISION}~0
-\item 
-\mbox{\Hypertarget{mkinitrd_2main_8c_a0d2901cf398ca7e59223684da79da151}\label{mkinitrd_2main_8c_a0d2901cf398ca7e59223684da79da151}} 
-\#define {\bfseries OFFSET\+\_\+\+SIGNATURE}~0
-\item 
-\mbox{\Hypertarget{mkinitrd_2main_8c_aaca7dfbf0330423a3aedc48644537e71}\label{mkinitrd_2main_8c_aaca7dfbf0330423a3aedc48644537e71}} 
-\#define {\bfseries OFFSET\+\_\+\+REVISION}~4
-\item 
-\mbox{\Hypertarget{mkinitrd_2main_8c_a4fc70174b2b568949520464bc2d65177}\label{mkinitrd_2main_8c_a4fc70174b2b568949520464bc2d65177}} 
-\#define {\bfseries OFFSET\+\_\+\+STDLIB\+\_\+\+SIZE}~8
-\item 
-\mbox{\Hypertarget{mkinitrd_2main_8c_a30ab95769fdba62e3ec1628b679da46b}\label{mkinitrd_2main_8c_a30ab95769fdba62e3ec1628b679da46b}} 
-\#define {\bfseries OFFSET\+\_\+\+INIT\+\_\+\+SIZE}~12
-\end{DoxyCompactItemize}
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{mkinitrd_2main_8c_a3c04138a5bfe5d72780bb7e82a18e627}\label{mkinitrd_2main_8c_a3c04138a5bfe5d72780bb7e82a18e627}} 
-int {\bfseries main} (int argc, char $\ast$$\ast$argv)
-\end{DoxyCompactItemize}
+int \mbox{\hyperlink{mkinitrd_2main_8c_a3c04138a5bfe5d72780bb7e82a18e627}{main}} (int argc, char $\ast$$\ast$argv)
+\begin{DoxyCompactList}\small\item\em Mk\+Init\+RD Main. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
@@ -71,17 +30,104 @@ Anton Tchekov
 \end{DoxyDate}
 
 
-\doxysubsection{Macro Definition Documentation}
-\mbox{\Hypertarget{mkinitrd_2main_8c_ad51ded0bbd705f02f73fc60c0b721ced}\label{mkinitrd_2main_8c_ad51ded0bbd705f02f73fc60c0b721ced}} 
-\index{main.c@{main.c}!BLOCK\_SIZE@{BLOCK\_SIZE}}
-\index{BLOCK\_SIZE@{BLOCK\_SIZE}!main.c@{main.c}}
-\doxysubsubsection{\texorpdfstring{BLOCK\_SIZE}{BLOCK\_SIZE}}
-{\footnotesize\ttfamily \#define BLOCK\+\_\+\+SIZE~512}
+Definition in file \mbox{\hyperlink{mkinitrd_2main_8c_source}{main.\+c}}.
 
-Disk sector size \mbox{\Hypertarget{mkinitrd_2main_8c_a262979df93bcd7f2da26605be29bb3d6}\label{mkinitrd_2main_8c_a262979df93bcd7f2da26605be29bb3d6}} 
-\index{main.c@{main.c}!SECTOR\_BOOT@{SECTOR\_BOOT}}
-\index{SECTOR\_BOOT@{SECTOR\_BOOT}!main.c@{main.c}}
-\doxysubsubsection{\texorpdfstring{SECTOR\_BOOT}{SECTOR\_BOOT}}
-{\footnotesize\ttfamily \#define SECTOR\+\_\+\+BOOT~0}
 
-Boot sector offset in blocks 
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{mkinitrd_2main_8c_a3c04138a5bfe5d72780bb7e82a18e627}\label{mkinitrd_2main_8c_a3c04138a5bfe5d72780bb7e82a18e627}} 
+\index{main.c@{main.c}!main@{main}}
+\index{main@{main}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily int main (\begin{DoxyParamCaption}\item[{int}]{argc,  }\item[{char $\ast$$\ast$}]{argv }\end{DoxyParamCaption})}
+
+
+
+Mk\+Init\+RD Main. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em argc} & Number of command line parameters \\
+\hline
+{\em argv} & Array of command line parameters \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Exit code 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{mkinitrd_2main_8c_source_l00021}{21}} of file \mbox{\hyperlink{mkinitrd_2main_8c_source}{main.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00022\ \{}
+\DoxyCodeLine{00023\ \ \ \ \ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ i,\ size;}
+\DoxyCodeLine{00024\ \ \ \ \ \mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}}\ buf[\mbox{\hyperlink{sd_8h_ad51ded0bbd705f02f73fc60c0b721ced}{BLOCK\_SIZE}}];}
+\DoxyCodeLine{00025\ \ \ \ \ FILE\ *in,\ *out;}
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keywordtype}{char}\ *in\_filename,\ *out\_filename;}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keywordflow}{if}(argc\ !=\ 3)}
+\DoxyCodeLine{00029\ \ \ \ \ \{}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ fprintf(stderr,\ \textcolor{stringliteral}{"{}Usage:\ ./mkinitrd\ input-\/binary\ output-\/disk-\/image\(\backslash\)n"{}});}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 1;}
+\DoxyCodeLine{00032\ \ \ \ \ \}}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \ \ \ \ in\_filename\ =\ argv[1];}
+\DoxyCodeLine{00035\ \ \ \ \ out\_filename\ =\ argv[2];}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keywordflow}{if}(!(in\ =\ fopen(in\_filename,\ \textcolor{stringliteral}{"{}rb"{}})))}
+\DoxyCodeLine{00038\ \ \ \ \ \{}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ fprintf(stderr,\ \textcolor{stringliteral}{"{}Failed\ to\ open\ input\ file\ \(\backslash\)"{}\%s\(\backslash\)"{}\(\backslash\)n"{}},\ in\_filename);}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 1;}
+\DoxyCodeLine{00041\ \ \ \ \ \}}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keywordflow}{if}(!(out\ =\ fopen(out\_filename,\ \textcolor{stringliteral}{"{}wb"{}})))}
+\DoxyCodeLine{00044\ \ \ \ \ \{}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ fprintf(stderr,\ \textcolor{stringliteral}{"{}Failed\ to\ open\ output\ file\ \(\backslash\)"{}\%s\(\backslash\)"{}\(\backslash\)n"{}},\ out\_filename);}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 1;}
+\DoxyCodeLine{00047\ \ \ \ \ \}}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \ \ \ \ fseek(in,\ 0,\ SEEK\_END);}
+\DoxyCodeLine{00050\ \ \ \ \ size\ =\ ftell(in);}
+\DoxyCodeLine{00051\ \ \ \ \ fseek(in,\ 0,\ SEEK\_SET);}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \ \ \ \ \mbox{\hyperlink{string_8c_ab5fb910d7238069eb23f4b06809aa68e}{memset}}(buf,\ 0,\ \mbox{\hyperlink{sd_8h_ad51ded0bbd705f02f73fc60c0b721ced}{BLOCK\_SIZE}});}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \ \ \ \ \mbox{\hyperlink{string_8c_a6ea826c42748b85ae7c74f1e2ccf7c27}{memcpy}}(buf\ +\ OFFSET\_SIGNATURE,\ \_signature,\ \textcolor{keyword}{sizeof}(\_signature));}
+\DoxyCodeLine{00056\ \ \ \ \ \_write\_le\_32(buf\ +\ OFFSET\_REVISION,\ REVISION);}
+\DoxyCodeLine{00057\ \ \ \ \ \_write\_le\_32(buf\ +\ OFFSET\_STDLIB\_SIZE,\ 0);}
+\DoxyCodeLine{00058\ \ \ \ \ \_write\_le\_32(buf\ +\ OFFSET\_INIT\_SIZE,\ size);}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \ \ \ \ fwrite(buf,\ 1,\ \mbox{\hyperlink{sd_8h_ad51ded0bbd705f02f73fc60c0b721ced}{BLOCK\_SIZE}},\ out);}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \ \ \ \ \textcolor{comment}{/*\ Write\ 64\ empty\ sectors\ */}}
+\DoxyCodeLine{00063\ \ \ \ \ \mbox{\hyperlink{string_8c_ab5fb910d7238069eb23f4b06809aa68e}{memset}}(buf,\ 0,\ \mbox{\hyperlink{sd_8h_ad51ded0bbd705f02f73fc60c0b721ced}{BLOCK\_SIZE}});}
+\DoxyCodeLine{00064\ \ \ \ \ \textcolor{keywordflow}{for}(i\ =\ 0;\ i\ <\ SIZE\_STDLIB;\ ++i)}
+\DoxyCodeLine{00065\ \ \ \ \ \{}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ fwrite(buf,\ 1,\ \mbox{\hyperlink{sd_8h_ad51ded0bbd705f02f73fc60c0b721ced}{BLOCK\_SIZE}},\ out);}
+\DoxyCodeLine{00067\ \ \ \ \ \}}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \ \ \ \ \textcolor{comment}{/*\ Write\ init\ program\ */}}
+\DoxyCodeLine{00070\ \ \ \ \ \textcolor{keywordflow}{for}(i\ =\ 0;\ i\ <\ SIZE\_INIT;\ ++i)}
+\DoxyCodeLine{00071\ \ \ \ \ \{}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{string_8c_ab5fb910d7238069eb23f4b06809aa68e}{memset}}(buf,\ 0,\ \mbox{\hyperlink{sd_8h_ad51ded0bbd705f02f73fc60c0b721ced}{BLOCK\_SIZE}});}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ fread(buf,\ 1,\ \mbox{\hyperlink{sd_8h_ad51ded0bbd705f02f73fc60c0b721ced}{BLOCK\_SIZE}},\ in);}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ fwrite(buf,\ 1,\ \mbox{\hyperlink{sd_8h_ad51ded0bbd705f02f73fc60c0b721ced}{BLOCK\_SIZE}},\ out);}
+\DoxyCodeLine{00075\ \ \ \ \ \}}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \ \ \ \ \textcolor{comment}{/*\ TEMPORARY:\ End\ marker\ 0xFF\ root\ dir\ sector\ */}}
+\DoxyCodeLine{00078\ \ \ \ \ \mbox{\hyperlink{string_8c_ab5fb910d7238069eb23f4b06809aa68e}{memset}}(buf,\ 0xFF,\ \mbox{\hyperlink{sd_8h_ad51ded0bbd705f02f73fc60c0b721ced}{BLOCK\_SIZE}});}
+\DoxyCodeLine{00079\ \ \ \ \ fwrite(buf,\ 1,\ \mbox{\hyperlink{sd_8h_ad51ded0bbd705f02f73fc60c0b721ced}{BLOCK\_SIZE}},\ out);}
+\DoxyCodeLine{00080\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00081\ \}}
+
+\end{DoxyCode}
+
+
+References \mbox{\hyperlink{sd_8h_source_l00016}{BLOCK\+\_\+\+SIZE}}, \mbox{\hyperlink{mkinitrd_2main_8c_source_l00021}{main()}}, \mbox{\hyperlink{string_8c_source_l00094}{memcpy()}}, and \mbox{\hyperlink{string_8c_source_l00176}{memset()}}.
+
+
+
+Referenced by \mbox{\hyperlink{mkinitrd_2main_8c_source_l00021}{main()}}.
+

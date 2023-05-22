@@ -27,6 +27,10 @@ Tim Gabrikowski, Anton Tchekov
 \end{DoxyDate}
 
 
+Definition in file \mbox{\hyperlink{algo_8h_source}{algo.\+h}}.
+
+
+
 \doxysubsection{Function Documentation}
 \mbox{\Hypertarget{algo_8h_a69a33a907a9379c9b342d51a8d9af818}\label{algo_8h_a69a33a907a9379c9b342d51a8d9af818}} 
 \index{algo.h@{algo.h}!bsearch@{bsearch}}
@@ -54,3 +58,37 @@ Binary search.
 \begin{DoxyReturn}{Returns}
 Pointer to found item or NULL 
 \end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{algo_8c_source_l00010}{10}} of file \mbox{\hyperlink{algo_8c_source}{algo.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00012\ \{}
+\DoxyCodeLine{00013\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *base0\ =\ (\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *)base;}
+\DoxyCodeLine{00014\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *p;}
+\DoxyCodeLine{00015\ \ \ \ \ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ lim,\ cmp;}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{keywordflow}{for}(lim\ =\ nitems;\ lim;\ lim\ >>=\ 1)}
+\DoxyCodeLine{00018\ \ \ \ \ \{}
+\DoxyCodeLine{00019\ \ \ \ \ \ \ \ \ p\ =\ base0\ +\ (lim\ >>\ 1)\ *\ size;}
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ cmp\ =\ (*compare)(key,\ p);}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(!cmp)}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (\textcolor{keywordtype}{void}\ *)p;}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(cmp\ >\ 0)}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ \ \ \ \ base0\ =\ (\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *)p\ +\ size;}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \ \ \ \ -\/-\/lim;}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00030\ \ \ \ \ \}}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keywordflow}{return}\ NULL;}
+\DoxyCodeLine{00033\ \}}
+
+\end{DoxyCode}
+
+
+Referenced by \mbox{\hyperlink{font_8c_source_l00031}{\+\_\+font\+\_\+char()}}.
+

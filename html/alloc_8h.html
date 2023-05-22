@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">OS Dev
+   <div id="projectname">OS Dev<span id="projectnumber">&#160;0.1</span>
    </div>
   </td>
  </tr>
@@ -111,6 +111,8 @@ Functions</h2></td></tr>
 <dl class="section author"><dt>Author</dt><dd>Tim Gabrikowski, Anton Tchekov </dd></dl>
 <dl class="section version"><dt>Version</dt><dd>0.1 </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>15.05.2023 </dd></dl>
+
+<p class="definition">Definition in file <a class="el" href="alloc_8h_source.html">alloc.h</a>.</p>
 </div><h2 class="groupheader">Function Documentation</h2>
 <a id="a4be51fa4dd80d0b7077779261722119a" name="a4be51fa4dd80d0b7077779261722119a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a4be51fa4dd80d0b7077779261722119a">&#9670;&#160;</a></span>memalloc()</h2>
@@ -136,6 +138,77 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Pointer to allocated memory </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="alloc_8c_source.html#l00079">79</a> of file <a class="el" href="alloc_8c_source.html">alloc.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   80</span>{</div>
+<div class="line"><span class="lineno">   81</span>    <a class="code hl_struct" href="structCHUNK__HEADER.html">ChunkHeader</a> *cur, *prev;</div>
+<div class="line"><span class="lineno">   82</span>    <span class="keywordflow">if</span> (size == 0)</div>
+<div class="line"><span class="lineno">   83</span>    {</div>
+<div class="line"><span class="lineno">   84</span>        <span class="keywordflow">return</span> NULL;</div>
+<div class="line"><span class="lineno">   85</span>    }</div>
+<div class="line"><span class="lineno">   86</span> </div>
+<div class="line"><span class="lineno">   87</span>    <span class="comment">/* Minimum allocation size */</span></div>
+<div class="line"><span class="lineno">   88</span>    <span class="keywordflow">if</span> (size &lt; <a class="code hl_define" href="alloc_8c.html#ad733e804fe76c864d1c86c11cdaf7ff9">MIN_ALLOC</a>)</div>
+<div class="line"><span class="lineno">   89</span>    {</div>
+<div class="line"><span class="lineno">   90</span>        size = <a class="code hl_define" href="alloc_8c.html#ad733e804fe76c864d1c86c11cdaf7ff9">MIN_ALLOC</a>;</div>
+<div class="line"><span class="lineno">   91</span>    }</div>
+<div class="line"><span class="lineno">   92</span> </div>
+<div class="line"><span class="lineno">   93</span>    <span class="comment">/* Ensure alignment */</span></div>
+<div class="line"><span class="lineno">   94</span>    size = ((size + <a class="code hl_define" href="alloc_8c.html#ae4ff5a07c6ff43ed11a3887ef7d524f2">ALIGN</a> - 1) / <a class="code hl_define" href="alloc_8c.html#ae4ff5a07c6ff43ed11a3887ef7d524f2">ALIGN</a>) * <a class="code hl_define" href="alloc_8c.html#ae4ff5a07c6ff43ed11a3887ef7d524f2">ALIGN</a>;</div>
+<div class="line"><span class="lineno">   95</span> </div>
+<div class="line"><span class="lineno">   96</span>    <a class="code hl_variable" href="alloc_8c.html#af66b645d93e448be1649fb1b3d69dd0c">_info</a>.<a class="code hl_variable" href="structMemAllocInfo.html#aab97bed91f80f190ace0ad2e8485d9bc">Used</a> += size;</div>
+<div class="line"><span class="lineno">   97</span>    <a class="code hl_variable" href="alloc_8c.html#af66b645d93e448be1649fb1b3d69dd0c">_info</a>.<a class="code hl_variable" href="structMemAllocInfo.html#a3820726d98082b51a52eb62eaca413a4">Total</a> += size + <span class="keyword">sizeof</span>(<a class="code hl_typedef" href="alloc_8c.html#ab655d0ea4f411ecc8fbe523f00cf2979">ChunkHeader</a>);</div>
+<div class="line"><span class="lineno">   98</span> </div>
+<div class="line"><span class="lineno">   99</span>    <span class="comment">/* Find free chunk */</span></div>
+<div class="line"><span class="lineno">  100</span>    <span class="keywordflow">for</span> (prev = &amp;<a class="code hl_variable" href="alloc_8c.html#aa0cd2724eb02678543d19c3a7b942429">_first</a>, cur = _get_next(prev-&gt;<a class="code hl_variable" href="structCHUNK__HEADER.html#aa75bad5671817ffae160a7e809290f3d">Next</a>);</div>
+<div class="line"><span class="lineno">  101</span>         cur; prev = cur, cur = _get_next(cur-&gt;Next))</div>
+<div class="line"><span class="lineno">  102</span>    {</div>
+<div class="line"><span class="lineno">  103</span>        <span class="keywordflow">if</span> (size + <span class="keyword">sizeof</span>(<a class="code hl_struct" href="structCHUNK__HEADER.html">ChunkHeader</a>) == cur-&gt;Size)</div>
+<div class="line"><span class="lineno">  104</span>        {</div>
+<div class="line"><span class="lineno">  105</span>            <span class="comment">/* --- Perfect fit --- */</span></div>
+<div class="line"><span class="lineno">  106</span>            <span class="comment">/* Remove chunk from free list */</span></div>
+<div class="line"><span class="lineno">  107</span>            prev-&gt;<a class="code hl_variable" href="structCHUNK__HEADER.html#aa75bad5671817ffae160a7e809290f3d">Next</a> = cur-&gt;Next;</div>
+<div class="line"><span class="lineno">  108</span> </div>
+<div class="line"><span class="lineno">  109</span>            <span class="comment">/* Return pointer to data area */</span></div>
+<div class="line"><span class="lineno">  110</span>            <span class="keywordflow">return</span> _chunk_data(cur);</div>
+<div class="line"><span class="lineno">  111</span>        }</div>
+<div class="line"><span class="lineno">  112</span>        <span class="keywordflow">else</span> <span class="keywordflow">if</span> (size + 2 * <span class="keyword">sizeof</span>(<a class="code hl_struct" href="structCHUNK__HEADER.html">ChunkHeader</a>) &lt; cur-&gt;Size)</div>
+<div class="line"><span class="lineno">  113</span>        {</div>
+<div class="line"><span class="lineno">  114</span>            <span class="comment">/* --- First fit --- */</span></div>
+<div class="line"><span class="lineno">  115</span>            <span class="comment">/* Split chunk in two */</span></div>
+<div class="line"><span class="lineno">  116</span>            <a class="code hl_struct" href="structCHUNK__HEADER.html">ChunkHeader</a> *second =</div>
+<div class="line"><span class="lineno">  117</span>                (<a class="code hl_struct" href="structCHUNK__HEADER.html">ChunkHeader</a> *)((<a class="code hl_typedef" href="types_8h.html#afc3fa6ac414247c0d4e1f77d5f1cb62d">ptr</a>)cur + <span class="keyword">sizeof</span>(<a class="code hl_typedef" href="alloc_8c.html#ab655d0ea4f411ecc8fbe523f00cf2979">ChunkHeader</a>) + size);</div>
+<div class="line"><span class="lineno">  118</span> </div>
+<div class="line"><span class="lineno">  119</span>            second-&gt;<a class="code hl_variable" href="structCHUNK__HEADER.html#a8046cf4a4e5a7af49eeb4717e4bcec51">Size</a> = cur-&gt;Size - <span class="keyword">sizeof</span>(<a class="code hl_typedef" href="alloc_8c.html#ab655d0ea4f411ecc8fbe523f00cf2979">ChunkHeader</a>) - size;</div>
+<div class="line"><span class="lineno">  120</span>            second-&gt;<a class="code hl_variable" href="structCHUNK__HEADER.html#aa75bad5671817ffae160a7e809290f3d">Next</a> = cur-&gt;Next;</div>
+<div class="line"><span class="lineno">  121</span>            prev-&gt;<a class="code hl_variable" href="structCHUNK__HEADER.html#aa75bad5671817ffae160a7e809290f3d">Next</a> = _get_offset(second);</div>
+<div class="line"><span class="lineno">  122</span> </div>
+<div class="line"><span class="lineno">  123</span>            <span class="comment">/* Reduce the size of first part by the size of the second part */</span></div>
+<div class="line"><span class="lineno">  124</span>            cur-&gt;Size = size + <span class="keyword">sizeof</span>(<a class="code hl_typedef" href="alloc_8c.html#ab655d0ea4f411ecc8fbe523f00cf2979">ChunkHeader</a>);</div>
+<div class="line"><span class="lineno">  125</span> </div>
+<div class="line"><span class="lineno">  126</span>            <span class="comment">/* Return pointer to data area of second part */</span></div>
+<div class="line"><span class="lineno">  127</span>            <span class="keywordflow">return</span> _chunk_data(cur);</div>
+<div class="line"><span class="lineno">  128</span>        }</div>
+<div class="line"><span class="lineno">  129</span>    }</div>
+<div class="line"><span class="lineno">  130</span> </div>
+<div class="line"><span class="lineno">  131</span>    <span class="comment">/* Very unlikely */</span></div>
+<div class="line"><span class="lineno">  132</span>    <span class="keywordflow">return</span> NULL;</div>
+<div class="line"><span class="lineno">  133</span>}</div>
+<div class="ttc" id="aalloc_8c_html_aa0cd2724eb02678543d19c3a7b942429"><div class="ttname"><a href="alloc_8c.html#aa0cd2724eb02678543d19c3a7b942429">_first</a></div><div class="ttdeci">static ChunkHeader _first</div><div class="ttdef"><b>Definition:</b> <a href="alloc_8c_source.html#l00033">alloc.c:33</a></div></div>
+<div class="ttc" id="aalloc_8c_html_ab655d0ea4f411ecc8fbe523f00cf2979"><div class="ttname"><a href="alloc_8c.html#ab655d0ea4f411ecc8fbe523f00cf2979">ChunkHeader</a></div><div class="ttdeci">struct CHUNK_HEADER ChunkHeader</div></div>
+<div class="ttc" id="aalloc_8c_html_ad733e804fe76c864d1c86c11cdaf7ff9"><div class="ttname"><a href="alloc_8c.html#ad733e804fe76c864d1c86c11cdaf7ff9">MIN_ALLOC</a></div><div class="ttdeci">#define MIN_ALLOC</div><div class="ttdef"><b>Definition:</b> <a href="alloc_8c_source.html#l00014">alloc.c:14</a></div></div>
+<div class="ttc" id="aalloc_8c_html_ae4ff5a07c6ff43ed11a3887ef7d524f2"><div class="ttname"><a href="alloc_8c.html#ae4ff5a07c6ff43ed11a3887ef7d524f2">ALIGN</a></div><div class="ttdeci">#define ALIGN</div><div class="ttdef"><b>Definition:</b> <a href="alloc_8c_source.html#l00011">alloc.c:11</a></div></div>
+<div class="ttc" id="aalloc_8c_html_af66b645d93e448be1649fb1b3d69dd0c"><div class="ttname"><a href="alloc_8c.html#af66b645d93e448be1649fb1b3d69dd0c">_info</a></div><div class="ttdeci">static MemAllocInfo _info</div><div class="ttdef"><b>Definition:</b> <a href="alloc_8c_source.html#l00036">alloc.c:36</a></div></div>
+<div class="ttc" id="astructCHUNK__HEADER_html"><div class="ttname"><a href="structCHUNK__HEADER.html">CHUNK_HEADER</a></div><div class="ttdef"><b>Definition:</b> <a href="alloc_8c_source.html#l00020">alloc.c:21</a></div></div>
+<div class="ttc" id="astructCHUNK__HEADER_html_a8046cf4a4e5a7af49eeb4717e4bcec51"><div class="ttname"><a href="structCHUNK__HEADER.html#a8046cf4a4e5a7af49eeb4717e4bcec51">CHUNK_HEADER::Size</a></div><div class="ttdeci">u32 Size</div><div class="ttdef"><b>Definition:</b> <a href="alloc_8c_source.html#l00023">alloc.c:23</a></div></div>
+<div class="ttc" id="astructCHUNK__HEADER_html_aa75bad5671817ffae160a7e809290f3d"><div class="ttname"><a href="structCHUNK__HEADER.html#aa75bad5671817ffae160a7e809290f3d">CHUNK_HEADER::Next</a></div><div class="ttdeci">u32 Next</div><div class="ttdef"><b>Definition:</b> <a href="alloc_8c_source.html#l00026">alloc.c:26</a></div></div>
+<div class="ttc" id="astructMemAllocInfo_html_a3820726d98082b51a52eb62eaca413a4"><div class="ttname"><a href="structMemAllocInfo.html#a3820726d98082b51a52eb62eaca413a4">MemAllocInfo::Total</a></div><div class="ttdeci">i32 Total</div><div class="ttdef"><b>Definition:</b> <a href="alloc_8h_source.html#l00021">alloc.h:21</a></div></div>
+<div class="ttc" id="astructMemAllocInfo_html_aab97bed91f80f190ace0ad2e8485d9bc"><div class="ttname"><a href="structMemAllocInfo.html#aab97bed91f80f190ace0ad2e8485d9bc">MemAllocInfo::Used</a></div><div class="ttdeci">i32 Used</div><div class="ttdef"><b>Definition:</b> <a href="alloc_8h_source.html#l00018">alloc.h:18</a></div></div>
+<div class="ttc" id="atypes_8h_html_afc3fa6ac414247c0d4e1f77d5f1cb62d"><div class="ttname"><a href="types_8h.html#afc3fa6ac414247c0d4e1f77d5f1cb62d">ptr</a></div><div class="ttdeci">uintptr_t ptr</div><div class="ttdef"><b>Definition:</b> <a href="types_8h_source.html#l00047">types.h:47</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="alloc_8c_source.html#l00033">_first</a>, <a class="el" href="alloc_8c_source.html#l00036">_info</a>, <a class="el" href="alloc_8c_source.html#l00011">ALIGN</a>, <a class="el" href="alloc_8c_source.html#l00014">MIN_ALLOC</a>, <a class="el" href="alloc_8c_source.html#l00026">CHUNK_HEADER::Next</a>, <a class="el" href="alloc_8c_source.html#l00023">CHUNK_HEADER::Size</a>, <a class="el" href="alloc_8h_source.html#l00021">MemAllocInfo::Total</a>, and <a class="el" href="alloc_8h_source.html#l00018">MemAllocInfo::Used</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="vector_8c_source.html#l00030">vector_init()</a>, and <a class="el" href="vector_8c_source.html#l00043">vector_replace()</a>.</p>
 
 </div>
 </div>
@@ -195,6 +268,25 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 
+<p class="definition">Definition at line <a class="el" href="alloc_8c_source.html#l00065">65</a> of file <a class="el" href="alloc_8c_source.html">alloc.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   66</span>{</div>
+<div class="line"><span class="lineno">   67</span>    <a class="code hl_struct" href="structCHUNK__HEADER.html">ChunkHeader</a> *next;</div>
+<div class="line"><span class="lineno">   68</span> </div>
+<div class="line"><span class="lineno">   69</span>    <a class="code hl_variable" href="alloc_8c.html#a600a7bc8bbf44f81ec09a97fdc9e48c6">_heap_start</a> = heap_start;</div>
+<div class="line"><span class="lineno">   70</span>    <a class="code hl_variable" href="alloc_8c.html#af66b645d93e448be1649fb1b3d69dd0c">_info</a>.<a class="code hl_variable" href="structMemAllocInfo.html#a2cb704497e06fa30f9cca539d0feeca1">Size</a> = size;</div>
+<div class="line"><span class="lineno">   71</span> </div>
+<div class="line"><span class="lineno">   72</span>    <a class="code hl_variable" href="alloc_8c.html#aa0cd2724eb02678543d19c3a7b942429">_first</a>.<a class="code hl_variable" href="structCHUNK__HEADER.html#aa75bad5671817ffae160a7e809290f3d">Next</a> = 0;</div>
+<div class="line"><span class="lineno">   73</span> </div>
+<div class="line"><span class="lineno">   74</span>    next = _get_next(<a class="code hl_variable" href="alloc_8c.html#aa0cd2724eb02678543d19c3a7b942429">_first</a>.<a class="code hl_variable" href="structCHUNK__HEADER.html#aa75bad5671817ffae160a7e809290f3d">Next</a>);</div>
+<div class="line"><span class="lineno">   75</span>    next-&gt;<a class="code hl_variable" href="structCHUNK__HEADER.html#a8046cf4a4e5a7af49eeb4717e4bcec51">Size</a> = size;</div>
+<div class="line"><span class="lineno">   76</span>    next-&gt;<a class="code hl_variable" href="structCHUNK__HEADER.html#aa75bad5671817ffae160a7e809290f3d">Next</a> = <a class="code hl_define" href="alloc_8c.html#a29fd18bed01c4d836c7ebfe73a125c3f">END</a>;</div>
+<div class="line"><span class="lineno">   77</span>}</div>
+<div class="ttc" id="aalloc_8c_html_a29fd18bed01c4d836c7ebfe73a125c3f"><div class="ttname"><a href="alloc_8c.html#a29fd18bed01c4d836c7ebfe73a125c3f">END</a></div><div class="ttdeci">#define END</div><div class="ttdef"><b>Definition:</b> <a href="alloc_8c_source.html#l00017">alloc.c:17</a></div></div>
+<div class="ttc" id="aalloc_8c_html_a600a7bc8bbf44f81ec09a97fdc9e48c6"><div class="ttname"><a href="alloc_8c.html#a600a7bc8bbf44f81ec09a97fdc9e48c6">_heap_start</a></div><div class="ttdeci">static ptr _heap_start</div><div class="ttdef"><b>Definition:</b> <a href="alloc_8c_source.html#l00030">alloc.c:30</a></div></div>
+<div class="ttc" id="astructMemAllocInfo_html_a2cb704497e06fa30f9cca539d0feeca1"><div class="ttname"><a href="structMemAllocInfo.html#a2cb704497e06fa30f9cca539d0feeca1">MemAllocInfo::Size</a></div><div class="ttdeci">i32 Size</div><div class="ttdef"><b>Definition:</b> <a href="alloc_8h_source.html#l00024">alloc.h:24</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="alloc_8c_source.html#l00033">_first</a>, <a class="el" href="alloc_8c_source.html#l00030">_heap_start</a>, <a class="el" href="alloc_8c_source.html#l00036">_info</a>, <a class="el" href="alloc_8c_source.html#l00017">END</a>, <a class="el" href="alloc_8c_source.html#l00026">CHUNK_HEADER::Next</a>, <a class="el" href="alloc_8c_source.html#l00023">CHUNK_HEADER::Size</a>, and <a class="el" href="alloc_8h_source.html#l00024">MemAllocInfo::Size</a>.</p>
+
 </div>
 </div>
 <a id="ab0b733d6d48d9eafd86d2196d16e2bc4" name="ab0b733d6d48d9eafd86d2196d16e2bc4"></a>
@@ -220,6 +312,57 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
+
+<p class="definition">Definition at line <a class="el" href="alloc_8c_source.html#l00135">135</a> of file <a class="el" href="alloc_8c_source.html">alloc.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  136</span>{</div>
+<div class="line"><span class="lineno">  137</span>    <a class="code hl_struct" href="structCHUNK__HEADER.html">ChunkHeader</a> *next, *prev, *header;</div>
+<div class="line"><span class="lineno">  138</span> </div>
+<div class="line"><span class="lineno">  139</span>    header = _chunk_header(p);</div>
+<div class="line"><span class="lineno">  140</span> </div>
+<div class="line"><span class="lineno">  141</span>    <a class="code hl_variable" href="alloc_8c.html#af66b645d93e448be1649fb1b3d69dd0c">_info</a>.<a class="code hl_variable" href="structMemAllocInfo.html#aab97bed91f80f190ace0ad2e8485d9bc">Used</a> -= header-&gt;<a class="code hl_variable" href="structCHUNK__HEADER.html#a8046cf4a4e5a7af49eeb4717e4bcec51">Size</a> - <span class="keyword">sizeof</span>(<a class="code hl_typedef" href="alloc_8c.html#ab655d0ea4f411ecc8fbe523f00cf2979">ChunkHeader</a>);</div>
+<div class="line"><span class="lineno">  142</span>    <a class="code hl_variable" href="alloc_8c.html#af66b645d93e448be1649fb1b3d69dd0c">_info</a>.<a class="code hl_variable" href="structMemAllocInfo.html#a3820726d98082b51a52eb62eaca413a4">Total</a> -= header-&gt;<a class="code hl_variable" href="structCHUNK__HEADER.html#a8046cf4a4e5a7af49eeb4717e4bcec51">Size</a>;</div>
+<div class="line"><span class="lineno">  143</span> </div>
+<div class="line"><span class="lineno">  144</span>    <span class="keywordflow">for</span> (prev = &amp;<a class="code hl_variable" href="alloc_8c.html#aa0cd2724eb02678543d19c3a7b942429">_first</a>, next = _get_next(prev-&gt;<a class="code hl_variable" href="structCHUNK__HEADER.html#aa75bad5671817ffae160a7e809290f3d">Next</a>);</div>
+<div class="line"><span class="lineno">  145</span>         next; prev = next, next = _get_next(next-&gt;Next))</div>
+<div class="line"><span class="lineno">  146</span>    {</div>
+<div class="line"><span class="lineno">  147</span>        <span class="keywordflow">if</span> (next &gt; header)</div>
+<div class="line"><span class="lineno">  148</span>        {</div>
+<div class="line"><span class="lineno">  149</span>            <span class="comment">/* Merge chunks if possible */</span></div>
+<div class="line"><span class="lineno">  150</span>            <span class="keywordtype">bool</span> mergePrev = ((<a class="code hl_typedef" href="types_8h.html#afc3fa6ac414247c0d4e1f77d5f1cb62d">ptr</a>)prev + prev-&gt;<a class="code hl_variable" href="structCHUNK__HEADER.html#a8046cf4a4e5a7af49eeb4717e4bcec51">Size</a> == (<a class="code hl_typedef" href="types_8h.html#afc3fa6ac414247c0d4e1f77d5f1cb62d">ptr</a>)header);</div>
+<div class="line"><span class="lineno">  151</span>            <span class="keywordtype">bool</span> mergeNext = ((<a class="code hl_typedef" href="types_8h.html#afc3fa6ac414247c0d4e1f77d5f1cb62d">ptr</a>)header + header-&gt;<a class="code hl_variable" href="structCHUNK__HEADER.html#a8046cf4a4e5a7af49eeb4717e4bcec51">Size</a> == (<a class="code hl_typedef" href="types_8h.html#afc3fa6ac414247c0d4e1f77d5f1cb62d">ptr</a>)next);</div>
+<div class="line"><span class="lineno">  152</span> </div>
+<div class="line"><span class="lineno">  153</span>            <span class="keywordflow">if</span> (mergeNext &amp;&amp; mergePrev)</div>
+<div class="line"><span class="lineno">  154</span>            {</div>
+<div class="line"><span class="lineno">  155</span>                <span class="comment">/* Both Prev and Next are free */</span></div>
+<div class="line"><span class="lineno">  156</span>                prev-&gt;<a class="code hl_variable" href="structCHUNK__HEADER.html#aa75bad5671817ffae160a7e809290f3d">Next</a> = next-&gt;Next;</div>
+<div class="line"><span class="lineno">  157</span>                prev-&gt;<a class="code hl_variable" href="structCHUNK__HEADER.html#a8046cf4a4e5a7af49eeb4717e4bcec51">Size</a> += header-&gt;<a class="code hl_variable" href="structCHUNK__HEADER.html#a8046cf4a4e5a7af49eeb4717e4bcec51">Size</a> + next-&gt;Size;</div>
+<div class="line"><span class="lineno">  158</span>            }</div>
+<div class="line"><span class="lineno">  159</span>            <span class="keywordflow">else</span> <span class="keywordflow">if</span> (mergePrev)</div>
+<div class="line"><span class="lineno">  160</span>            {</div>
+<div class="line"><span class="lineno">  161</span>                <span class="comment">/* Prev is free */</span></div>
+<div class="line"><span class="lineno">  162</span>                prev-&gt;<a class="code hl_variable" href="structCHUNK__HEADER.html#a8046cf4a4e5a7af49eeb4717e4bcec51">Size</a> += header-&gt;<a class="code hl_variable" href="structCHUNK__HEADER.html#a8046cf4a4e5a7af49eeb4717e4bcec51">Size</a>;</div>
+<div class="line"><span class="lineno">  163</span>            }</div>
+<div class="line"><span class="lineno">  164</span>            <span class="keywordflow">else</span> <span class="keywordflow">if</span> (mergeNext)</div>
+<div class="line"><span class="lineno">  165</span>            {</div>
+<div class="line"><span class="lineno">  166</span>                <span class="comment">/* Next is free */</span></div>
+<div class="line"><span class="lineno">  167</span>                header-&gt;<a class="code hl_variable" href="structCHUNK__HEADER.html#a8046cf4a4e5a7af49eeb4717e4bcec51">Size</a> += next-&gt;Size;</div>
+<div class="line"><span class="lineno">  168</span>                header-&gt;<a class="code hl_variable" href="structCHUNK__HEADER.html#aa75bad5671817ffae160a7e809290f3d">Next</a> = next-&gt;Next;</div>
+<div class="line"><span class="lineno">  169</span>                prev-&gt;<a class="code hl_variable" href="structCHUNK__HEADER.html#aa75bad5671817ffae160a7e809290f3d">Next</a> = _get_offset(header);</div>
+<div class="line"><span class="lineno">  170</span>            }</div>
+<div class="line"><span class="lineno">  171</span>            <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno">  172</span>            {</div>
+<div class="line"><span class="lineno">  173</span>                <span class="comment">/* Both sides are used */</span></div>
+<div class="line"><span class="lineno">  174</span>                header-&gt;<a class="code hl_variable" href="structCHUNK__HEADER.html#aa75bad5671817ffae160a7e809290f3d">Next</a> = prev-&gt;<a class="code hl_variable" href="structCHUNK__HEADER.html#aa75bad5671817ffae160a7e809290f3d">Next</a>;</div>
+<div class="line"><span class="lineno">  175</span>                prev-&gt;<a class="code hl_variable" href="structCHUNK__HEADER.html#aa75bad5671817ffae160a7e809290f3d">Next</a> = _get_offset(header);</div>
+<div class="line"><span class="lineno">  176</span>            }</div>
+<div class="line"><span class="lineno">  177</span>            <span class="keywordflow">return</span>;</div>
+<div class="line"><span class="lineno">  178</span>        }</div>
+<div class="line"><span class="lineno">  179</span>    }</div>
+<div class="line"><span class="lineno">  180</span>}</div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="alloc_8c_source.html#l00033">_first</a>, <a class="el" href="alloc_8c_source.html#l00036">_info</a>, <a class="el" href="alloc_8c_source.html#l00026">CHUNK_HEADER::Next</a>, <a class="el" href="alloc_8c_source.html#l00023">CHUNK_HEADER::Size</a>, <a class="el" href="alloc_8h_source.html#l00021">MemAllocInfo::Total</a>, and <a class="el" href="alloc_8h_source.html#l00018">MemAllocInfo::Used</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="vector_8c_source.html#l00038">vector_destroy()</a>, and <a class="el" href="vector_8c_source.html#l00043">vector_replace()</a>.</p>
 
 </div>
 </div>

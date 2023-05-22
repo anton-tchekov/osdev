@@ -9,27 +9,21 @@ Implement a OS-\/wide Clipboard.
 \doxysubsection*{Enumerations}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{clipboard_8h_a9676c44d0c2a676fe59a136a6e71b161}\label{clipboard_8h_a9676c44d0c2a676fe59a136a6e71b161}} 
-enum {\bfseries Clipboard\+Type} \{ {\bfseries CLIPBOARD\+\_\+\+TYPE\+\_\+\+TEXT}
+enum \mbox{\hyperlink{clipboard_8h_a9676c44d0c2a676fe59a136a6e71b161}{Clipboard\+Type}} \{ \mbox{\hyperlink{clipboard_8h_a9676c44d0c2a676fe59a136a6e71b161a51b4f4170f9b312f9294caac850eaf4d}{CLIPBOARD\+\_\+\+TYPE\+\_\+\+TEXT}}
  \}
 \end{DoxyCompactItemize}
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{clipboard_8h_ae3d307c73686967f4a378d35f2703d89}\label{clipboard_8h_ae3d307c73686967f4a378d35f2703d89}} 
-void {\bfseries clipboard\+\_\+save\+\_\+text} (const char $\ast$text)
+void \mbox{\hyperlink{clipboard_8h_ae3d307c73686967f4a378d35f2703d89}{clipboard\+\_\+save\+\_\+text}} (const char $\ast$text)
 \begin{DoxyCompactList}\small\item\em Save Text to clipboard. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{clipboard_8h_a4e817e7107bb4736ca15bc189455b293}\label{clipboard_8h_a4e817e7107bb4736ca15bc189455b293}} 
-void {\bfseries clipboard\+\_\+save\+\_\+text\+\_\+len} (const char $\ast$text, \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} len)
+void \mbox{\hyperlink{clipboard_8h_a4e817e7107bb4736ca15bc189455b293}{clipboard\+\_\+save\+\_\+text\+\_\+len}} (const char $\ast$text, \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} len)
 \begin{DoxyCompactList}\small\item\em Save Text to the clipboard when the length is known. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{clipboard_8h_a7d96057e801d089a8b0c394ab042a4e1}\label{clipboard_8h_a7d96057e801d089a8b0c394ab042a4e1}} 
-const void $\ast$ {\bfseries clipboard\+\_\+get} (void)
-\begin{DoxyCompactList}\small\item\em Get Data from Clipboard. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{clipboard_8h_ad441ab5936f033348efc13148ba2a0d5}\label{clipboard_8h_ad441ab5936f033348efc13148ba2a0d5}} 
-\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} {\bfseries clipboard\+\_\+len} (void)
-\begin{DoxyCompactList}\small\item\em Get the length of the Data in Clipboard. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{clipboard_8h_a425fb0faba6b4e699a6313a3d0a51510}\label{clipboard_8h_a425fb0faba6b4e699a6313a3d0a51510}} 
-Clipboard\+Type {\bfseries clipboard\+\_\+type} (void)
+const void $\ast$ \mbox{\hyperlink{clipboard_8h_a7d96057e801d089a8b0c394ab042a4e1}{clipboard\+\_\+get}} (void)
+\begin{DoxyCompactList}\small\item\em Get data from clipboard. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} \mbox{\hyperlink{clipboard_8h_ad441ab5936f033348efc13148ba2a0d5}{clipboard\+\_\+len}} (void)
+\begin{DoxyCompactList}\small\item\em Get the length of the data in the clipboard. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{clipboard_8h_a9676c44d0c2a676fe59a136a6e71b161}{Clipboard\+Type}} \mbox{\hyperlink{clipboard_8h_a425fb0faba6b4e699a6313a3d0a51510}{clipboard\+\_\+type}} (void)
 \begin{DoxyCompactList}\small\item\em Get the stored Datatype from the clipboard. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
@@ -45,3 +39,179 @@ Tim Gabrikowski, Anton Tchekov
 \begin{DoxyDate}{Date}
 14.\+05.\+2023 
 \end{DoxyDate}
+
+
+Definition in file \mbox{\hyperlink{clipboard_8h_source}{clipboard.\+h}}.
+
+
+
+\doxysubsection{Enumeration Type Documentation}
+\mbox{\Hypertarget{clipboard_8h_a9676c44d0c2a676fe59a136a6e71b161}\label{clipboard_8h_a9676c44d0c2a676fe59a136a6e71b161}} 
+\index{clipboard.h@{clipboard.h}!ClipboardType@{ClipboardType}}
+\index{ClipboardType@{ClipboardType}!clipboard.h@{clipboard.h}}
+\doxysubsubsection{\texorpdfstring{ClipboardType}{ClipboardType}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{clipboard_8h_a9676c44d0c2a676fe59a136a6e71b161}{Clipboard\+Type}}}
+
+Clipboard content type \begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CLIPBOARD\_TYPE\_TEXT@{CLIPBOARD\_TYPE\_TEXT}!clipboard.h@{clipboard.h}}\index{clipboard.h@{clipboard.h}!CLIPBOARD\_TYPE\_TEXT@{CLIPBOARD\_TYPE\_TEXT}}}\mbox{\Hypertarget{clipboard_8h_a9676c44d0c2a676fe59a136a6e71b161a51b4f4170f9b312f9294caac850eaf4d}\label{clipboard_8h_a9676c44d0c2a676fe59a136a6e71b161a51b4f4170f9b312f9294caac850eaf4d}} 
+CLIPBOARD\+\_\+\+TYPE\+\_\+\+TEXT&Textual data \\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line \mbox{\hyperlink{clipboard_8h_source_l00015}{15}} of file \mbox{\hyperlink{clipboard_8h_source}{clipboard.\+h}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00016\ \{}
+\DoxyCodeLine{00018\ \ \ \ \ \mbox{\hyperlink{clipboard_8h_a9676c44d0c2a676fe59a136a6e71b161a51b4f4170f9b312f9294caac850eaf4d}{CLIPBOARD\_TYPE\_TEXT}}}
+\DoxyCodeLine{00019\ \}\ \mbox{\hyperlink{clipboard_8h_a9676c44d0c2a676fe59a136a6e71b161}{ClipboardType}};}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{clipboard_8h_a7d96057e801d089a8b0c394ab042a4e1}\label{clipboard_8h_a7d96057e801d089a8b0c394ab042a4e1}} 
+\index{clipboard.h@{clipboard.h}!clipboard\_get@{clipboard\_get}}
+\index{clipboard\_get@{clipboard\_get}!clipboard.h@{clipboard.h}}
+\doxysubsubsection{\texorpdfstring{clipboard\_get()}{clipboard\_get()}}
+{\footnotesize\ttfamily const void $\ast$ clipboard\+\_\+get (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Get data from clipboard. 
+
+\begin{DoxyReturn}{Returns}
+Pointer to raw clipboard data 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{clipboard_8c_source_l00042}{42}} of file \mbox{\hyperlink{clipboard_8c_source}{clipboard.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00043\ \{}
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keywordflow}{return}\ get\_memory(-\/1);}
+\DoxyCodeLine{00045\ \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{clipboard_8h_ad441ab5936f033348efc13148ba2a0d5}\label{clipboard_8h_ad441ab5936f033348efc13148ba2a0d5}} 
+\index{clipboard.h@{clipboard.h}!clipboard\_len@{clipboard\_len}}
+\index{clipboard\_len@{clipboard\_len}!clipboard.h@{clipboard.h}}
+\doxysubsubsection{\texorpdfstring{clipboard\_len()}{clipboard\_len()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} clipboard\+\_\+len (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Get the length of the data in the clipboard. 
+
+\begin{DoxyReturn}{Returns}
+Clipboard size in bytes 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{clipboard_8c_source_l00047}{47}} of file \mbox{\hyperlink{clipboard_8c_source}{clipboard.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00048\ \{}
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{clipboard_8c_aae4b6bf1c28cb474465c040951718816}{\_clipboard\_len}};}
+\DoxyCodeLine{00050\ \}}
+
+\end{DoxyCode}
+
+
+References \mbox{\hyperlink{clipboard_8c_source_l00012}{\+\_\+clipboard\+\_\+len}}.
+
+\mbox{\Hypertarget{clipboard_8h_ae3d307c73686967f4a378d35f2703d89}\label{clipboard_8h_ae3d307c73686967f4a378d35f2703d89}} 
+\index{clipboard.h@{clipboard.h}!clipboard\_save\_text@{clipboard\_save\_text}}
+\index{clipboard\_save\_text@{clipboard\_save\_text}!clipboard.h@{clipboard.h}}
+\doxysubsubsection{\texorpdfstring{clipboard\_save\_text()}{clipboard\_save\_text()}}
+{\footnotesize\ttfamily void clipboard\+\_\+save\+\_\+text (\begin{DoxyParamCaption}\item[{const char $\ast$}]{text }\end{DoxyParamCaption})}
+
+
+
+Save Text to clipboard. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em text} & The text to copy \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{clipboard_8c_source_l00028}{28}} of file \mbox{\hyperlink{clipboard_8c_source}{clipboard.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00029\ \{}
+\DoxyCodeLine{00030\ \ \ \ \ \mbox{\hyperlink{clipboard_8c_a2c801879486872f1fa086fb0f506578e}{\_clipboard\_type}}\ =\ \mbox{\hyperlink{clipboard_8h_a9676c44d0c2a676fe59a136a6e71b161a51b4f4170f9b312f9294caac850eaf4d}{CLIPBOARD\_TYPE\_TEXT}};}
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keywordtype}{char}\ *clipboard\ =\ get\_memory(\mbox{\hyperlink{string_8c_adbbf4d6ec8d6b708c64bd6a4a18065dd}{strlen}}(text));}
+\DoxyCodeLine{00032\ \ \ \ \ \mbox{\hyperlink{string_8c_ac5082c8ce4f0cddd88bf4d0d2e738308}{strcpy}}(clipboard,\ text);}
+\DoxyCodeLine{00033\ \}}
+
+\end{DoxyCode}
+
+
+References \mbox{\hyperlink{clipboard_8c_source_l00015}{\+\_\+clipboard\+\_\+type}}, \mbox{\hyperlink{clipboard_8h_source_l00018}{CLIPBOARD\+\_\+\+TYPE\+\_\+\+TEXT}}, \mbox{\hyperlink{string_8c_source_l00011}{strcpy()}}, and \mbox{\hyperlink{string_8c_source_l00029}{strlen()}}.
+
+\mbox{\Hypertarget{clipboard_8h_a4e817e7107bb4736ca15bc189455b293}\label{clipboard_8h_a4e817e7107bb4736ca15bc189455b293}} 
+\index{clipboard.h@{clipboard.h}!clipboard\_save\_text\_len@{clipboard\_save\_text\_len}}
+\index{clipboard\_save\_text\_len@{clipboard\_save\_text\_len}!clipboard.h@{clipboard.h}}
+\doxysubsubsection{\texorpdfstring{clipboard\_save\_text\_len()}{clipboard\_save\_text\_len()}}
+{\footnotesize\ttfamily void clipboard\+\_\+save\+\_\+text\+\_\+len (\begin{DoxyParamCaption}\item[{const char $\ast$}]{text,  }\item[{\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}}]{len }\end{DoxyParamCaption})}
+
+
+
+Save Text to the clipboard when the length is known. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em text} & The text to copy \\
+\hline
+{\em len} & The length of the text \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{clipboard_8c_source_l00035}{35}} of file \mbox{\hyperlink{clipboard_8c_source}{clipboard.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00036\ \{}
+\DoxyCodeLine{00037\ \ \ \ \ \mbox{\hyperlink{clipboard_8c_a2c801879486872f1fa086fb0f506578e}{\_clipboard\_type}}\ =\ \mbox{\hyperlink{clipboard_8h_a9676c44d0c2a676fe59a136a6e71b161a51b4f4170f9b312f9294caac850eaf4d}{CLIPBOARD\_TYPE\_TEXT}};}
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keywordtype}{char}\ *clipboard\ =\ get\_memory(len);}
+\DoxyCodeLine{00039\ \ \ \ \ \mbox{\hyperlink{string_8c_a86fd1dc99081364b5155d9669e32ed03}{strncpy}}(clipboard,\ text,\ len);}
+\DoxyCodeLine{00040\ \}}
+
+\end{DoxyCode}
+
+
+References \mbox{\hyperlink{clipboard_8c_source_l00015}{\+\_\+clipboard\+\_\+type}}, \mbox{\hyperlink{clipboard_8h_source_l00018}{CLIPBOARD\+\_\+\+TYPE\+\_\+\+TEXT}}, and \mbox{\hyperlink{string_8c_source_l00018}{strncpy()}}.
+
+\mbox{\Hypertarget{clipboard_8h_a425fb0faba6b4e699a6313a3d0a51510}\label{clipboard_8h_a425fb0faba6b4e699a6313a3d0a51510}} 
+\index{clipboard.h@{clipboard.h}!clipboard\_type@{clipboard\_type}}
+\index{clipboard\_type@{clipboard\_type}!clipboard.h@{clipboard.h}}
+\doxysubsubsection{\texorpdfstring{clipboard\_type()}{clipboard\_type()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{clipboard_8h_a9676c44d0c2a676fe59a136a6e71b161}{Clipboard\+Type}} clipboard\+\_\+type (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Get the stored Datatype from the clipboard. 
+
+
+
+Definition at line \mbox{\hyperlink{clipboard_8c_source_l00052}{52}} of file \mbox{\hyperlink{clipboard_8c_source}{clipboard.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00053\ \{}
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{clipboard_8c_a2c801879486872f1fa086fb0f506578e}{\_clipboard\_type}};}
+\DoxyCodeLine{00055\ \}}
+
+\end{DoxyCode}
+
+
+References \mbox{\hyperlink{clipboard_8c_source_l00015}{\+\_\+clipboard\+\_\+type}}.
+

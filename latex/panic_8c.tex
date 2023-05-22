@@ -22,6 +22,10 @@ Tim Gabrikowski, Anton Tchekov
 \end{DoxyDate}
 
 
+Definition in file \mbox{\hyperlink{panic_8c_source}{panic.\+c}}.
+
+
+
 \doxysubsection{Function Documentation}
 \mbox{\Hypertarget{panic_8c_a2e711bae47ea21470dd21f7a3485a4d3}\label{panic_8c_a2e711bae47ea21470dd21f7a3485a4d3}} 
 \index{panic.c@{panic.c}!panic@{panic}}
@@ -37,8 +41,24 @@ Panic function. Do not call this function directly. Use the PANIC and ASSERT mac
 \begin{DoxyParams}{Parameters}
 {\em msg} & Error message \\
 \hline
-{\em file} & \mbox{\hyperlink{structFile}{File}} in which the error occurred \\
+{\em file} & File in which the error occurred \\
 \hline
 {\em line} & Line in which the error occurred \\
 \hline
 \end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{panic_8c_source_l00012}{12}} of file \mbox{\hyperlink{panic_8c_source}{panic.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00013\ \{}
+\DoxyCodeLine{00014\ \ \ \ \ debug\_print(\textcolor{stringliteral}{"{}\%s:\%d:\ \%s\(\backslash\)n"{}},\ file,\ line,\ msg);}
+\DoxyCodeLine{00015\ \ \ \ \ \mbox{\hyperlink{syscall_8h_ad114e0a686a8eb795642407b0abe1ca9}{exit}}(1);}
+\DoxyCodeLine{00016\ \}}
+
+\end{DoxyCode}
+
+
+References \mbox{\hyperlink{syscall_8h_source_l00206}{exit()}}.
+

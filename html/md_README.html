@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">OS Dev
+   <div id="projectname">OS Dev<span id="projectnumber">&#160;0.1</span>
    </div>
   </td>
  </tr>
@@ -72,85 +72,98 @@ $(function() {
   <div class="headertitle"><div class="title">osdev </div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><h1><a class="anchor" id="autotoc_md5"></a>
-TODO:</h1>
-<h2><a class="anchor" id="autotoc_md6"></a>
-stdlib</h2>
-<ul>
-<li>GUI Library [PRIO]<ul>
-<li>Init function refactoring [DONE]</li>
-<li>Replace current theme with Dark Mode [DONE]<ul>
-<li>Make theme easily changable [DONE]</li>
-</ul>
-</li>
-<li>Add utility functions<ul>
-<li>Hide / Show elements</li>
-</ul>
-</li>
-<li>Text field<ul>
-<li>Password stars option</li>
-<li>Changable <a class="el" href="structFont.html">Font(Size)</a></li>
-<li>Multiline(Select)</li>
-<li>Line Numbers</li>
-<li>Tab support</li>
-<li>Up/Down Arrow keys + Shift</li>
-<li>Left/Right/Center Align</li>
-<li>Syntax highlighting</li>
-<li>Copy paste</li>
-<li>Unicode support</li>
-<li>Search and Replace</li>
-<li>Goto Line</li>
-<li>Import / Export contents</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>Memory allocator [DONE]</li>
-<li>Keyboard Character&lt;-&gt;ASCII Conversion [DONE]</li>
-<li>Unicode []<ul>
-<li>Text Field []</li>
-<li>Keyboard [DONE]</li>
-</ul>
-</li>
-</ul>
-<h2><a class="anchor" id="autotoc_md7"></a>
-Simulator</h2>
-<ul>
-<li>Parameter checking to prevent Bugs and Crashes [TODO]</li>
-<li>Exit function and controlled error handler [DONE]</li>
-</ul>
-<h2><a class="anchor" id="autotoc_md8"></a>
-Kernel</h2>
-<ul>
-<li>Task Scheduler [PRIO]</li>
-<li>Paging [PRIO]</li>
-</ul>
-<h1><a class="anchor" id="autotoc_md9"></a>
-Contributing</h1>
-<ul>
-<li>80 Characters per line</li>
-<li>Tabs for Indentation</li>
-<li>Spaces for alignment (defines, enums, comments etc.)</li>
-<li>All source files, structs, functions and global variables should be documented using doxygen comments</li>
-<li>Only multiline comments (<code>/* comment */</code>)</li>
-</ul>
-<h1><a class="anchor" id="autotoc_md10"></a>
+<div class="textblock"><h1><a class="anchor" id="autotoc_md8"></a>
 Overview</h1>
 <ul>
 <li>Modules (source and header files) go in their own directory (example: gfx/)</li>
 <li><code>stdlib/</code> is the standard library for userspace applications. We follow the C standard very loosely, but anything useful goes here.</li>
 <li><code>platform/</code> contains drivers for various platforms</li>
 <li>DRIVERS MUST NOT BLOCK THE CPU (exception: during initialization)</li>
-<li><code>emulator/</code> contains a RISC-V emulator</li>
-</ul>
-<p>Emulates a RISCV32_IM processor.</p>
-<p>Supports:</p><ul>
+<li><code>emulator/</code> contains an emulator for a RISCV32_IM processor that supports:<ul>
 <li>Base Instructions</li>
 <li>Multiplication/Division Extension</li>
 </ul>
-<p>Work in Progress:</p><ul>
-<li>Single Precision Floating Point Extension</li>
-<li><code>apps</code> built-in apps </li>
+</li>
+<li><code>apps</code> built-in apps</li>
+</ul>
+<h1><a class="anchor" id="autotoc_md9"></a>
+Contributing</h1>
+<ul>
+<li>Most Important: Simplicity and Responsiveness (eg. No Bloat)</li>
+<li>80 Characters per line</li>
+<li>Tabs for Indentation</li>
+<li>Spaces for alignment (defines, enums, comments etc.)</li>
+<li>Only multiline comments (<code>/* comment */</code>)</li>
+<li>All source files, structs, functions (including static) and global variables should be documented using doxygen comments</li>
+</ul>
+<h1><a class="anchor" id="autotoc_md10"></a>
+Global TODO List</h1>
+<h2><a class="anchor" id="autotoc_md11"></a>
+Documentation [TODAY]</h2>
+<ul>
+<li>All functions documented</li>
+</ul>
+<h2><a class="anchor" id="autotoc_md12"></a>
+STDLIB [TODAY]</h2>
+<ul>
+<li>Make theme easily changable</li>
+<li>GUI Hide/Show elements</li>
+<li>GUI Enable/Disable elements</li>
+<li>Text field copy/cut/paste</li>
+<li>Fix GUI Bugs</li>
+</ul>
+<h2><a class="anchor" id="autotoc_md13"></a>
+MISC [TODAY]</h2>
+<ul>
+<li>Test everything still works</li>
+</ul>
+<h2><a class="anchor" id="autotoc_md14"></a>
+Text/Code Editor [CUR]</h2>
+<ul>
+<li>Line Numbers</li>
+<li>Tab support</li>
+<li>Up/Down Arrow keys + Select</li>
+<li>Syntax highlighting</li>
+<li>Search and Replace</li>
+<li>Goto Line</li>
+<li>Import / Export contents</li>
+</ul>
+<h2><a class="anchor" id="autotoc_md15"></a>
+Games</h2>
+<ul>
+<li>Port Tetris [CUR]</li>
+<li>Port Snake [CUR]</li>
+</ul>
+<h2><a class="anchor" id="autotoc_md16"></a>
+AVR Platform</h2>
+<ul>
+<li>SD Driver write block function [CUR]</li>
+<li>AVR XMEM image routines [CUR]</li>
+<li>PS/2 Keyboard character conversion and Test [CUR]</li>
+<li>Make STDLIB Shared [LATER]</li>
+<li>Async Drivers [LATER]</li>
+</ul>
+<h2><a class="anchor" id="autotoc_md17"></a>
+Kernel</h2>
+<ul>
+<li>Task Scheduler and Memory Protection and Background Tasks [CUR]</li>
+<li>Better SysCall Parameter checking [CUR]</li>
+<li>Exit function [CUR]</li>
+<li><a class="el" href="structEmulator.html">Emulator</a> Single Precision Floating Point Extension + Math Lib [LATER]</li>
+</ul>
+<h2><a class="anchor" id="autotoc_md18"></a>
+DONE</h2>
+<ul>
+<li>Dark Mode <a class="el" href="structTheme.html">Theme</a></li>
+<li>Add doxygen</li>
+<li>Memory allocator</li>
+<li><a class="el" href="structEmulator.html">Emulator</a> German Keyboard Layout&lt;-&gt;ASCII Conversion</li>
+<li>AVR LCD Basic <a class="el" href="structFont.html">Font</a></li>
+<li>Boot Sequence on LCD</li>
+<li>XMEM Cross-Bank Addressing Test</li>
+<li>Load first binary from SD card and launch emulator</li>
+<li>GUI <a class="el" href="structElement.html">Element</a> Init function refactoring</li>
+<li>Password field stars option </li>
 </ul>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->

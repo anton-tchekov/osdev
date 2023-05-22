@@ -51,6 +51,10 @@ Tim Gabrikowski, Anton Tchekov
 \end{DoxyDate}
 
 
+Definition in file \mbox{\hyperlink{ctype_8h_source}{ctype.\+h}}.
+
+
+
 \doxysubsection{Function Documentation}
 \mbox{\Hypertarget{ctype_8h_a805b16fc0ca40602842200155766a240}\label{ctype_8h_a805b16fc0ca40602842200155766a240}} 
 \index{ctype.h@{ctype.h}!isalnum@{isalnum}}
@@ -70,6 +74,21 @@ This function checks whether the passed character is alphanumeric.
 \begin{DoxyReturn}{Returns}
 Boolean 
 \end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{ctype_8c_source_l00011}{11}} of file \mbox{\hyperlink{ctype_8c_source}{ctype.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00012\ \{}
+\DoxyCodeLine{00013\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{ctype_8c_aee17ff1e0c326626e2343664f34c5085}{isalpha}}(c)\ ||\ \mbox{\hyperlink{ctype_8c_aac8cacb5cd9b960305b7d00c909a8ecd}{isdigit}}(c);}
+\DoxyCodeLine{00014\ \}}
+
+\end{DoxyCode}
+
+
+References \mbox{\hyperlink{ctype_8c_source_l00016}{isalpha()}}, and \mbox{\hyperlink{ctype_8c_source_l00026}{isdigit()}}.
+
 \mbox{\Hypertarget{ctype_8h_aee17ff1e0c326626e2343664f34c5085}\label{ctype_8h_aee17ff1e0c326626e2343664f34c5085}} 
 \index{ctype.h@{ctype.h}!isalpha@{isalpha}}
 \index{isalpha@{isalpha}!ctype.h@{ctype.h}}
@@ -88,6 +107,25 @@ This function checks whether the passed character is alphabetic.
 \begin{DoxyReturn}{Returns}
 Boolean 
 \end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{ctype_8c_source_l00016}{16}} of file \mbox{\hyperlink{ctype_8c_source}{ctype.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00017\ \{}
+\DoxyCodeLine{00018\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{ctype_8c_a6cb0b03ec6677fb97b80c588d29d7421}{islower}}(c)\ ||\ \mbox{\hyperlink{ctype_8c_af81b0c575e234225a54710a8f8f7df28}{isupper}}(c);}
+\DoxyCodeLine{00019\ \}}
+
+\end{DoxyCode}
+
+
+References \mbox{\hyperlink{ctype_8c_source_l00036}{islower()}}, and \mbox{\hyperlink{ctype_8c_source_l00056}{isupper()}}.
+
+
+
+Referenced by \mbox{\hyperlink{ctype_8c_source_l00011}{isalnum()}}.
+
 \mbox{\Hypertarget{ctype_8h_aaddc3159a2ac8a68ae0a63d6b5b79ae3}\label{ctype_8h_aaddc3159a2ac8a68ae0a63d6b5b79ae3}} 
 \index{ctype.h@{ctype.h}!iscntrl@{iscntrl}}
 \index{iscntrl@{iscntrl}!ctype.h@{ctype.h}}
@@ -106,6 +144,21 @@ This function checks whether the passed character is a control character.
 \begin{DoxyReturn}{Returns}
 Boolean 
 \end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{ctype_8c_source_l00021}{21}} of file \mbox{\hyperlink{ctype_8c_source}{ctype.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00022\ \{}
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keywordflow}{return}\ !\mbox{\hyperlink{ctype_8c_a86defca79be1f892ba604d42dbd5524e}{isprint}}(c);}
+\DoxyCodeLine{00024\ \}}
+
+\end{DoxyCode}
+
+
+References \mbox{\hyperlink{ctype_8c_source_l00041}{isprint()}}.
+
 \mbox{\Hypertarget{ctype_8h_aac8cacb5cd9b960305b7d00c909a8ecd}\label{ctype_8h_aac8cacb5cd9b960305b7d00c909a8ecd}} 
 \index{ctype.h@{ctype.h}!isdigit@{isdigit}}
 \index{isdigit@{isdigit}!ctype.h@{ctype.h}}
@@ -124,6 +177,21 @@ This function checks whether the passed character is decimal digit.
 \begin{DoxyReturn}{Returns}
 Boolean 
 \end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{ctype_8c_source_l00026}{26}} of file \mbox{\hyperlink{ctype_8c_source}{ctype.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00027\ \{}
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keywordflow}{return}\ c\ <=\ \textcolor{charliteral}{'0'}\ \&\&\ c\ <=\ \textcolor{charliteral}{'9'};}
+\DoxyCodeLine{00029\ \}}
+
+\end{DoxyCode}
+
+
+Referenced by \mbox{\hyperlink{ctype_8c_source_l00011}{isalnum()}}, and \mbox{\hyperlink{ctype_8c_source_l00061}{isxdigit()}}.
+
 \mbox{\Hypertarget{ctype_8h_a3dde1f1732b149333cf0106d1a59ca17}\label{ctype_8h_a3dde1f1732b149333cf0106d1a59ca17}} 
 \index{ctype.h@{ctype.h}!isgraph@{isgraph}}
 \index{isgraph@{isgraph}!ctype.h@{ctype.h}}
@@ -142,6 +210,17 @@ This function checks whether the passed character has a graphical representation
 \begin{DoxyReturn}{Returns}
 Boolean 
 \end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{ctype_8c_source_l00031}{31}} of file \mbox{\hyperlink{ctype_8c_source}{ctype.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00032\ \{}
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keywordflow}{return}\ c\ >=\ 33\ \&\&\ c\ <=\ 126;}
+\DoxyCodeLine{00034\ \}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{ctype_8h_a6cb0b03ec6677fb97b80c588d29d7421}\label{ctype_8h_a6cb0b03ec6677fb97b80c588d29d7421}} 
 \index{ctype.h@{ctype.h}!islower@{islower}}
 \index{islower@{islower}!ctype.h@{ctype.h}}
@@ -160,6 +239,21 @@ This function checks whether the passed character is lowercase letter.
 \begin{DoxyReturn}{Returns}
 Boolean 
 \end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{ctype_8c_source_l00036}{36}} of file \mbox{\hyperlink{ctype_8c_source}{ctype.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00037\ \{}
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keywordflow}{return}\ c\ >=\ \textcolor{charliteral}{'a'}\ \&\&\ c\ <=\ \textcolor{charliteral}{'z'};}
+\DoxyCodeLine{00039\ \}}
+
+\end{DoxyCode}
+
+
+Referenced by \mbox{\hyperlink{ctype_8c_source_l00016}{isalpha()}}, and \mbox{\hyperlink{ctype_8c_source_l00073}{toupper()}}.
+
 \mbox{\Hypertarget{ctype_8h_a86defca79be1f892ba604d42dbd5524e}\label{ctype_8h_a86defca79be1f892ba604d42dbd5524e}} 
 \index{ctype.h@{ctype.h}!isprint@{isprint}}
 \index{isprint@{isprint}!ctype.h@{ctype.h}}
@@ -178,6 +272,21 @@ This function checks whether the passed character is printable.
 \begin{DoxyReturn}{Returns}
 Boolean 
 \end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{ctype_8c_source_l00041}{41}} of file \mbox{\hyperlink{ctype_8c_source}{ctype.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00042\ \{}
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keywordflow}{return}\ c\ >=\ 32\ \&\&\ c\ <=\ 126;}
+\DoxyCodeLine{00044\ \}}
+
+\end{DoxyCode}
+
+
+Referenced by \mbox{\hyperlink{ctype_8c_source_l00021}{iscntrl()}}, and \mbox{\hyperlink{logger_8c_source_l00200}{memory\+\_\+dump()}}.
+
 \mbox{\Hypertarget{ctype_8h_a07a4bc598f4c2435565a15f074b74de1}\label{ctype_8h_a07a4bc598f4c2435565a15f074b74de1}} 
 \index{ctype.h@{ctype.h}!ispunct@{ispunct}}
 \index{ispunct@{ispunct}!ctype.h@{ctype.h}}
@@ -196,6 +305,21 @@ This function checks whether the passed character is a punctuation character.
 \begin{DoxyReturn}{Returns}
 Boolean 
 \end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{ctype_8c_source_l00046}{46}} of file \mbox{\hyperlink{ctype_8c_source}{ctype.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00047\ \{}
+\DoxyCodeLine{00048\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{string_8c_ab6410c1d13fe73e5350746b8f825f752}{strchr}}(\textcolor{stringliteral}{"{}!\(\backslash\)"{}\#\$\%\&\(\backslash\)'()*+,-\/./:;<=>?@[\(\backslash\)\(\backslash\)]\string^\_`\{|\}\string~"{}},\ c)\ !=\ NULL;}
+\DoxyCodeLine{00049\ \}}
+
+\end{DoxyCode}
+
+
+References \mbox{\hyperlink{string_8c_source_l00078}{strchr()}}.
+
 \mbox{\Hypertarget{ctype_8h_af9a0f61cd0c71dc7ba3af49a1ccb766e}\label{ctype_8h_af9a0f61cd0c71dc7ba3af49a1ccb766e}} 
 \index{ctype.h@{ctype.h}!isspace@{isspace}}
 \index{isspace@{isspace}!ctype.h@{ctype.h}}
@@ -214,6 +338,21 @@ This function checks whether the passed character is white-\/space.
 \begin{DoxyReturn}{Returns}
 Boolean 
 \end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{ctype_8c_source_l00051}{51}} of file \mbox{\hyperlink{ctype_8c_source}{ctype.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00052\ \{}
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{string_8c_ab6410c1d13fe73e5350746b8f825f752}{strchr}}(\textcolor{stringliteral}{"{}\ \(\backslash\)n\(\backslash\)t\(\backslash\)v\(\backslash\)f\(\backslash\)r"{}},\ c)\ !=\ NULL;}
+\DoxyCodeLine{00054\ \}}
+
+\end{DoxyCode}
+
+
+References \mbox{\hyperlink{string_8c_source_l00078}{strchr()}}.
+
 \mbox{\Hypertarget{ctype_8h_af81b0c575e234225a54710a8f8f7df28}\label{ctype_8h_af81b0c575e234225a54710a8f8f7df28}} 
 \index{ctype.h@{ctype.h}!isupper@{isupper}}
 \index{isupper@{isupper}!ctype.h@{ctype.h}}
@@ -232,6 +371,21 @@ This function checks whether the passed character is an uppercase letter.
 \begin{DoxyReturn}{Returns}
 Boolean 
 \end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{ctype_8c_source_l00056}{56}} of file \mbox{\hyperlink{ctype_8c_source}{ctype.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00057\ \{}
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keywordflow}{return}\ c\ >=\ \textcolor{charliteral}{'A'}\ \&\&\ c\ <=\ \textcolor{charliteral}{'Z'};}
+\DoxyCodeLine{00059\ \}}
+
+\end{DoxyCode}
+
+
+Referenced by \mbox{\hyperlink{ctype_8c_source_l00016}{isalpha()}}, and \mbox{\hyperlink{ctype_8c_source_l00068}{tolower()}}.
+
 \mbox{\Hypertarget{ctype_8h_a14865b1127413aa5ba38f47790029b70}\label{ctype_8h_a14865b1127413aa5ba38f47790029b70}} 
 \index{ctype.h@{ctype.h}!isxdigit@{isxdigit}}
 \index{isxdigit@{isxdigit}!ctype.h@{ctype.h}}
@@ -250,6 +404,23 @@ This function checks whether the passed character is a hexadecimal digit.
 \begin{DoxyReturn}{Returns}
 Boolean 
 \end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{ctype_8c_source_l00061}{61}} of file \mbox{\hyperlink{ctype_8c_source}{ctype.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00062\ \{}
+\DoxyCodeLine{00063\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{ctype_8c_aac8cacb5cd9b960305b7d00c909a8ecd}{isdigit}}(c)\ ||}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ (c\ >=\ \textcolor{charliteral}{'A'}\ \&\&\ c\ <=\ \textcolor{charliteral}{'F'})\ ||}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ (c\ >=\ \textcolor{charliteral}{'a'}\ \&\&\ c\ <=\ \textcolor{charliteral}{'f'});}
+\DoxyCodeLine{00066\ \}}
+
+\end{DoxyCode}
+
+
+References \mbox{\hyperlink{ctype_8c_source_l00026}{isdigit()}}.
+
 \mbox{\Hypertarget{ctype_8h_abe3bb9b3e36b2f1968405b16d654dbf0}\label{ctype_8h_abe3bb9b3e36b2f1968405b16d654dbf0}} 
 \index{ctype.h@{ctype.h}!tolower@{tolower}}
 \index{tolower@{tolower}!ctype.h@{ctype.h}}
@@ -268,6 +439,21 @@ This function converts uppercase letters to lowercase.
 \begin{DoxyReturn}{Returns}
 The character converted to lowercase. If the input was not uppercase, returns the same character 
 \end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{ctype_8c_source_l00068}{68}} of file \mbox{\hyperlink{ctype_8c_source}{ctype.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00069\ \{}
+\DoxyCodeLine{00070\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{ctype_8c_af81b0c575e234225a54710a8f8f7df28}{isupper}}(c)\ ?\ c\ -\/\ \textcolor{charliteral}{'A'}\ +\ \textcolor{charliteral}{'a'}\ :\ c;}
+\DoxyCodeLine{00071\ \}}
+
+\end{DoxyCode}
+
+
+References \mbox{\hyperlink{ctype_8c_source_l00056}{isupper()}}.
+
 \mbox{\Hypertarget{ctype_8h_a036df521e275a27449ed74e41ec66931}\label{ctype_8h_a036df521e275a27449ed74e41ec66931}} 
 \index{ctype.h@{ctype.h}!toupper@{toupper}}
 \index{toupper@{toupper}!ctype.h@{ctype.h}}
@@ -286,3 +472,22 @@ This function converts lowercase letters to uppercase.
 \begin{DoxyReturn}{Returns}
 The character converted to uppercase. If the input was not lowercase, returns the same character 
 \end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{ctype_8c_source_l00073}{73}} of file \mbox{\hyperlink{ctype_8c_source}{ctype.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00074\ \{}
+\DoxyCodeLine{00075\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{ctype_8c_a6cb0b03ec6677fb97b80c588d29d7421}{islower}}(c)\ ?\ c\ -\/\ \textcolor{charliteral}{'a'}\ +\ \textcolor{charliteral}{'A'}\ :\ c;}
+\DoxyCodeLine{00076\ \}}
+
+\end{DoxyCode}
+
+
+References \mbox{\hyperlink{ctype_8c_source_l00036}{islower()}}.
+
+
+
+Referenced by \mbox{\hyperlink{german_8c_source_l00049}{key\+\_\+to\+\_\+codepoint()}}.
+

@@ -41,6 +41,8 @@
 /** Text Logo X Offset */
 #define LOGO_TEXT_X_OFFSET    56
 
+//! @cond Doxygen_Suppress
+
 /** Highlight colors of the various log levels */
 const RGB565 _log_color[] PROGMEM =
 {
@@ -66,6 +68,7 @@ const char _error[] PROGMEM = "ERROR";
 /** Log level [PANIC] string */
 const char _panic[] PROGMEM = "PANIC";
 
+/** Array of log level strings */
 const char *const _log_msg[] PROGMEM =
 {
 	_init,
@@ -75,7 +78,12 @@ const char *const _log_msg[] PROGMEM =
 	_panic
 };
 
+//! @endcond
+
+/** Flag that indicates if the LCD has been initialized */
 static bool _lcd_initialized;
+
+/** Current log y position */
 static u16 _log_y = LOG_Y_OFFSET;
 
 static void _lcd_log(LogLevel level, const char *msg)

@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">OS Dev
+   <div id="projectname">OS Dev<span id="projectnumber">&#160;0.1</span>
    </div>
   </td>
  </tr>
@@ -73,7 +73,8 @@ $(function() {
 
 <h3><a id="index_l" name="index_l"></a>- l -</h3><ul>
 <li>label_init()&#160;:&#160;<a class="el" href="gui_8h.html#a947b16523eba3e9011e52a892a689295">gui.h</a>, <a class="el" href="gui_8c.html#a947b16523eba3e9011e52a892a689295">gui.c</a></li>
-<li>lcd_backlight()&#160;:&#160;<a class="el" href="lcd_8h.html#a62344feec2a2d180a59d563f758e241e">lcd.h</a>, <a class="el" href="lcd_8c.html#a62344feec2a2d180a59d563f758e241e">lcd.c</a></li>
+<li>label_render()&#160;:&#160;<a class="el" href="gui_8c.html#aa286ad38202d335362136de06f3641d3">gui.c</a></li>
+<li>lcd_backlight()&#160;:&#160;<a class="el" href="lcd_8c.html#a62344feec2a2d180a59d563f758e241e">lcd.c</a>, <a class="el" href="lcd_8h.html#a62344feec2a2d180a59d563f758e241e">lcd.h</a></li>
 <li>lcd_char()&#160;:&#160;<a class="el" href="lcd_8c.html#a2d178ce2cd276e286fcdb38ba4763842">lcd.c</a>, <a class="el" href="lcd_8h.html#a2d178ce2cd276e286fcdb38ba4763842">lcd.h</a></li>
 <li>lcd_color()&#160;:&#160;<a class="el" href="lcd_8c.html#a9077e33ab871138bf5da6043bfe48266">lcd.c</a>, <a class="el" href="lcd_8h.html#a9077e33ab871138bf5da6043bfe48266">lcd.h</a></li>
 <li>LCD_CS_0&#160;:&#160;<a class="el" href="gpio_8h.html#a42d5451b792114145c0c17bfa3fa9765">gpio.h</a></li>
@@ -87,8 +88,12 @@ $(function() {
 <li>LCD_DC_OUT&#160;:&#160;<a class="el" href="gpio_8h.html#a5a8f9f8c97dbdfe50b90265dcde42f0d">gpio.h</a></li>
 <li>LCD_DC_PIN&#160;:&#160;<a class="el" href="gpio_8h.html#a402d8ccd0bb0a6cc377222e75b8e050e">gpio.h</a></li>
 <li>LCD_HEIGHT&#160;:&#160;<a class="el" href="lcd_8h.html#a53a8b2a971de4b88047192655a48b651">lcd.h</a></li>
+<li>lcd_image_1bit()&#160;:&#160;<a class="el" href="lcd_8c.html#a8f906c0afbbea669f39e24f697b79d87">lcd.c</a>, <a class="el" href="lcd_8h.html#a8f906c0afbbea669f39e24f697b79d87">lcd.h</a></li>
+<li>lcd_image_grayscale()&#160;:&#160;<a class="el" href="lcd_8c.html#a2b566f1862ab95f8caa5e1350eafd151">lcd.c</a>, <a class="el" href="lcd_8h.html#a2b566f1862ab95f8caa5e1350eafd151">lcd.h</a></li>
+<li>lcd_image_rgb()&#160;:&#160;<a class="el" href="lcd_8c.html#a62645fc7e83c7c93921c0106440ed18b">lcd.c</a>, <a class="el" href="lcd_8h.html#a62645fc7e83c7c93921c0106440ed18b">lcd.h</a></li>
+<li>lcd_image_rgb565()&#160;:&#160;<a class="el" href="lcd_8c.html#aa974eda613ffac18ecf6b119a8a5329b">lcd.c</a>, <a class="el" href="lcd_8h.html#aa974eda613ffac18ecf6b119a8a5329b">lcd.h</a></li>
+<li>lcd_image_rgba()&#160;:&#160;<a class="el" href="lcd_8c.html#aef833fe63a75378ad9734d112143b6c6">lcd.c</a>, <a class="el" href="lcd_8h.html#aef833fe63a75378ad9734d112143b6c6">lcd.h</a></li>
 <li>lcd_init()&#160;:&#160;<a class="el" href="lcd_8c.html#a09748a4045dc2d014afdce2cc566e57d">lcd.c</a>, <a class="el" href="lcd_8h.html#a09748a4045dc2d014afdce2cc566e57d">lcd.h</a></li>
-<li>lcd_initialized()&#160;:&#160;<a class="el" href="lcd_8c.html#a669f4dd510ba544f097e49d7c5b772c5">lcd.c</a>, <a class="el" href="lcd_8h.html#a669f4dd510ba544f097e49d7c5b772c5">lcd.h</a></li>
 <li>lcd_logo_P()&#160;:&#160;<a class="el" href="lcd_8c.html#a2b7400cbec8880666bed8cfc105a0f7a">lcd.c</a>, <a class="el" href="lcd_8h.html#a2b7400cbec8880666bed8cfc105a0f7a">lcd.h</a></li>
 <li>lcd_rect()&#160;:&#160;<a class="el" href="lcd_8c.html#a010620f3d9dc0536cc9551d7aabd8d17">lcd.c</a>, <a class="el" href="lcd_8h.html#a010620f3d9dc0536cc9551d7aabd8d17">lcd.h</a></li>
 <li>LCD_RST_0&#160;:&#160;<a class="el" href="gpio_8h.html#a61f71aba8773def01aa1a3259d92877c">gpio.h</a></li>
@@ -97,15 +102,20 @@ $(function() {
 <li>LCD_RST_OUT&#160;:&#160;<a class="el" href="gpio_8h.html#a5619a3df84fc771fa06db1a5055e0e8c">gpio.h</a></li>
 <li>LCD_RST_PIN&#160;:&#160;<a class="el" href="gpio_8h.html#a9d11073f149e02e0a07937196d1e5a8e">gpio.h</a></li>
 <li>lcd_string()&#160;:&#160;<a class="el" href="lcd_8c.html#a0c04e71d484ae9e8df63ff9284f6f5eb">lcd.c</a>, <a class="el" href="lcd_8h.html#a0c04e71d484ae9e8df63ff9284f6f5eb">lcd.h</a></li>
-<li>lcd_string_P()&#160;:&#160;<a class="el" href="lcd_8h.html#a3eaf9793a384ee2d2471d6e888ad99ed">lcd.h</a>, <a class="el" href="lcd_8c.html#a3eaf9793a384ee2d2471d6e888ad99ed">lcd.c</a></li>
+<li>lcd_string_P()&#160;:&#160;<a class="el" href="lcd_8c.html#a3eaf9793a384ee2d2471d6e888ad99ed">lcd.c</a>, <a class="el" href="lcd_8h.html#a3eaf9793a384ee2d2471d6e888ad99ed">lcd.h</a></li>
 <li>LCD_WIDTH&#160;:&#160;<a class="el" href="lcd_8h.html#a19693eac3018d3e7800fde141921b812">lcd.h</a></li>
+<li>load_le_32()&#160;:&#160;<a class="el" href="atfs_8h.html#a58dff0b38327e2389ba33ca793d2b633">atfs.h</a></li>
 <li>log_boot_P()&#160;:&#160;<a class="el" href="logger_8c.html#a60bd636ef160c97eb51cf31be5954ba2">logger.c</a>, <a class="el" href="logger_8h.html#a60bd636ef160c97eb51cf31be5954ba2">logger.h</a></li>
 <li>LOG_START_WIDTH&#160;:&#160;<a class="el" href="logger_8c.html#a119ca7f71ff2656a654bce7e413cf9d7">logger.c</a></li>
 <li>LOG_X_OFFSET&#160;:&#160;<a class="el" href="logger_8c.html#aa2f3dc0dd5d312558d3c448c9ff76c4e">logger.c</a></li>
 <li>LOG_X_TEXT_OFFSET&#160;:&#160;<a class="el" href="logger_8c.html#aa18d885e222964b4545d9d36432ddef2">logger.c</a></li>
 <li>LOG_Y_ADVANCE&#160;:&#160;<a class="el" href="logger_8c.html#a924a8786b2d00a7d13ccf96ba6e7bd41">logger.c</a></li>
 <li>LOG_Y_OFFSET&#160;:&#160;<a class="el" href="logger_8c.html#a1c2264aaa6ab403827c0b0ccf4e52c98">logger.c</a></li>
+<li>logger_lcd_init()&#160;:&#160;<a class="el" href="logger_8c.html#aa60037dffd3fce2b3b698663eb11b5dc">logger.c</a>, <a class="el" href="logger_8h.html#aa60037dffd3fce2b3b698663eb11b5dc">logger.h</a></li>
 <li>LogLevel&#160;:&#160;<a class="el" href="logger_8h.html#aca1fd1d8935433e6ba2e3918214e07f9">logger.h</a></li>
+<li>LOGO_TEXT_X_OFFSET&#160;:&#160;<a class="el" href="logger_8c.html#a4bcc8822ee0337ce0c7d0f7086244b6d">logger.c</a></li>
+<li>LOGO_X_OFFSET&#160;:&#160;<a class="el" href="logger_8c.html#a88e76882c6f9a1a90f5b714c39be7b37">logger.c</a></li>
+<li>LOGO_Y_OFFSET&#160;:&#160;<a class="el" href="logger_8c.html#a70b1470428ebbc008fc85cfb458820b1">logger.c</a></li>
 <li>loop()&#160;:&#160;<a class="el" href="event_8h.html#a0b33edabd7f1c4e4a0bf32c67269be2f">event.h</a></li>
 </ul>
 </div><!-- contents -->

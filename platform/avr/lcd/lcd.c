@@ -25,8 +25,13 @@ enum
 	D2U_R2L
 };
 
+/** LCD orientation*/
 #define SCAN_DIR       L2R_U2D
+
+/** Default font width in pixels */
 #define FONT_WIDTH    5
+
+/** Default font height in pixels */
 #define FONT_HEIGHT   7
 
 static const u8 _font5x7[] PROGMEM =

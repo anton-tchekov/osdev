@@ -1,0 +1,73 @@
+\hypertarget{mkinitrd_2main_8c_source}{}\doxysection{main.\+c}
+\label{mkinitrd_2main_8c_source}\index{mkinitrd/main.c@{mkinitrd/main.c}}
+\mbox{\hyperlink{mkinitrd_2main_8c}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{mkinitrd_2main_8c_source_l00001}00001\ }
+\DoxyCodeLine{\Hypertarget{mkinitrd_2main_8c_source_l00009}00009\ \textcolor{preprocessor}{\#include\ <stdio.h>}}
+\DoxyCodeLine{\Hypertarget{mkinitrd_2main_8c_source_l00010}00010\ \textcolor{preprocessor}{\#include\ <stdlib.h>}}
+\DoxyCodeLine{\Hypertarget{mkinitrd_2main_8c_source_l00011}00011\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{string_8h}{string.h}}>}}
+\DoxyCodeLine{\Hypertarget{mkinitrd_2main_8c_source_l00012}00012\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{types_8h}{types.h}}>}}
+\DoxyCodeLine{\Hypertarget{mkinitrd_2main_8c_source_l00013}00013\ }
+\DoxyCodeLine{\Hypertarget{mkinitrd_2main_8c_source_l00021}\mbox{\hyperlink{mkinitrd_2main_8c_a3c04138a5bfe5d72780bb7e82a18e627}{00021}}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{mkinitrd_2main_8c_a3c04138a5bfe5d72780bb7e82a18e627}{main}}(\textcolor{keywordtype}{int}\ argc,\ \textcolor{keywordtype}{char}\ **argv)}
+\DoxyCodeLine{\Hypertarget{mkinitrd_2main_8c_source_l00022}00022\ \{}
+\DoxyCodeLine{\Hypertarget{mkinitrd_2main_8c_source_l00023}00023\ \ \ \ \ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ i,\ size;}
+\DoxyCodeLine{\Hypertarget{mkinitrd_2main_8c_source_l00024}00024\ \ \ \ \ \mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}}\ buf[\mbox{\hyperlink{sd_8h_ad51ded0bbd705f02f73fc60c0b721ced}{BLOCK\_SIZE}}];}
+\DoxyCodeLine{\Hypertarget{mkinitrd_2main_8c_source_l00025}00025\ \ \ \ \ FILE\ *in,\ *out;}
+\DoxyCodeLine{\Hypertarget{mkinitrd_2main_8c_source_l00026}00026\ \ \ \ \ \textcolor{keywordtype}{char}\ *in\_filename,\ *out\_filename;}
+\DoxyCodeLine{\Hypertarget{mkinitrd_2main_8c_source_l00027}00027\ }
+\DoxyCodeLine{\Hypertarget{mkinitrd_2main_8c_source_l00028}00028\ \ \ \ \ \textcolor{keywordflow}{if}(argc\ !=\ 3)}
+\DoxyCodeLine{\Hypertarget{mkinitrd_2main_8c_source_l00029}00029\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{mkinitrd_2main_8c_source_l00030}00030\ \ \ \ \ \ \ \ \ fprintf(stderr,\ \textcolor{stringliteral}{"{}Usage:\ ./mkinitrd\ input-\/binary\ output-\/disk-\/image\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{mkinitrd_2main_8c_source_l00031}00031\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 1;}
+\DoxyCodeLine{\Hypertarget{mkinitrd_2main_8c_source_l00032}00032\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{mkinitrd_2main_8c_source_l00033}00033\ }
+\DoxyCodeLine{\Hypertarget{mkinitrd_2main_8c_source_l00034}00034\ \ \ \ \ in\_filename\ =\ argv[1];}
+\DoxyCodeLine{\Hypertarget{mkinitrd_2main_8c_source_l00035}00035\ \ \ \ \ out\_filename\ =\ argv[2];}
+\DoxyCodeLine{\Hypertarget{mkinitrd_2main_8c_source_l00036}00036\ }
+\DoxyCodeLine{\Hypertarget{mkinitrd_2main_8c_source_l00037}00037\ \ \ \ \ \textcolor{keywordflow}{if}(!(in\ =\ fopen(in\_filename,\ \textcolor{stringliteral}{"{}rb"{}})))}
+\DoxyCodeLine{\Hypertarget{mkinitrd_2main_8c_source_l00038}00038\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{mkinitrd_2main_8c_source_l00039}00039\ \ \ \ \ \ \ \ \ fprintf(stderr,\ \textcolor{stringliteral}{"{}Failed\ to\ open\ input\ file\ \(\backslash\)"{}\%s\(\backslash\)"{}\(\backslash\)n"{}},\ in\_filename);}
+\DoxyCodeLine{\Hypertarget{mkinitrd_2main_8c_source_l00040}00040\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 1;}
+\DoxyCodeLine{\Hypertarget{mkinitrd_2main_8c_source_l00041}00041\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{mkinitrd_2main_8c_source_l00042}00042\ }
+\DoxyCodeLine{\Hypertarget{mkinitrd_2main_8c_source_l00043}00043\ \ \ \ \ \textcolor{keywordflow}{if}(!(out\ =\ fopen(out\_filename,\ \textcolor{stringliteral}{"{}wb"{}})))}
+\DoxyCodeLine{\Hypertarget{mkinitrd_2main_8c_source_l00044}00044\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{mkinitrd_2main_8c_source_l00045}00045\ \ \ \ \ \ \ \ \ fprintf(stderr,\ \textcolor{stringliteral}{"{}Failed\ to\ open\ output\ file\ \(\backslash\)"{}\%s\(\backslash\)"{}\(\backslash\)n"{}},\ out\_filename);}
+\DoxyCodeLine{\Hypertarget{mkinitrd_2main_8c_source_l00046}00046\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 1;}
+\DoxyCodeLine{\Hypertarget{mkinitrd_2main_8c_source_l00047}00047\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{mkinitrd_2main_8c_source_l00048}00048\ }
+\DoxyCodeLine{\Hypertarget{mkinitrd_2main_8c_source_l00049}00049\ \ \ \ \ fseek(in,\ 0,\ SEEK\_END);}
+\DoxyCodeLine{\Hypertarget{mkinitrd_2main_8c_source_l00050}00050\ \ \ \ \ size\ =\ ftell(in);}
+\DoxyCodeLine{\Hypertarget{mkinitrd_2main_8c_source_l00051}00051\ \ \ \ \ fseek(in,\ 0,\ SEEK\_SET);}
+\DoxyCodeLine{\Hypertarget{mkinitrd_2main_8c_source_l00052}00052\ }
+\DoxyCodeLine{\Hypertarget{mkinitrd_2main_8c_source_l00053}00053\ \ \ \ \ \mbox{\hyperlink{string_8c_ab5fb910d7238069eb23f4b06809aa68e}{memset}}(buf,\ 0,\ \mbox{\hyperlink{sd_8h_ad51ded0bbd705f02f73fc60c0b721ced}{BLOCK\_SIZE}});}
+\DoxyCodeLine{\Hypertarget{mkinitrd_2main_8c_source_l00054}00054\ }
+\DoxyCodeLine{\Hypertarget{mkinitrd_2main_8c_source_l00055}00055\ \ \ \ \ \mbox{\hyperlink{string_8c_a6ea826c42748b85ae7c74f1e2ccf7c27}{memcpy}}(buf\ +\ OFFSET\_SIGNATURE,\ \_signature,\ \textcolor{keyword}{sizeof}(\_signature));}
+\DoxyCodeLine{\Hypertarget{mkinitrd_2main_8c_source_l00056}00056\ \ \ \ \ \_write\_le\_32(buf\ +\ OFFSET\_REVISION,\ REVISION);}
+\DoxyCodeLine{\Hypertarget{mkinitrd_2main_8c_source_l00057}00057\ \ \ \ \ \_write\_le\_32(buf\ +\ OFFSET\_STDLIB\_SIZE,\ 0);}
+\DoxyCodeLine{\Hypertarget{mkinitrd_2main_8c_source_l00058}00058\ \ \ \ \ \_write\_le\_32(buf\ +\ OFFSET\_INIT\_SIZE,\ size);}
+\DoxyCodeLine{\Hypertarget{mkinitrd_2main_8c_source_l00059}00059\ }
+\DoxyCodeLine{\Hypertarget{mkinitrd_2main_8c_source_l00060}00060\ \ \ \ \ fwrite(buf,\ 1,\ \mbox{\hyperlink{sd_8h_ad51ded0bbd705f02f73fc60c0b721ced}{BLOCK\_SIZE}},\ out);}
+\DoxyCodeLine{\Hypertarget{mkinitrd_2main_8c_source_l00061}00061\ }
+\DoxyCodeLine{\Hypertarget{mkinitrd_2main_8c_source_l00062}00062\ \ \ \ \ \textcolor{comment}{/*\ Write\ 64\ empty\ sectors\ */}}
+\DoxyCodeLine{\Hypertarget{mkinitrd_2main_8c_source_l00063}00063\ \ \ \ \ \mbox{\hyperlink{string_8c_ab5fb910d7238069eb23f4b06809aa68e}{memset}}(buf,\ 0,\ \mbox{\hyperlink{sd_8h_ad51ded0bbd705f02f73fc60c0b721ced}{BLOCK\_SIZE}});}
+\DoxyCodeLine{\Hypertarget{mkinitrd_2main_8c_source_l00064}00064\ \ \ \ \ \textcolor{keywordflow}{for}(i\ =\ 0;\ i\ <\ SIZE\_STDLIB;\ ++i)}
+\DoxyCodeLine{\Hypertarget{mkinitrd_2main_8c_source_l00065}00065\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{mkinitrd_2main_8c_source_l00066}00066\ \ \ \ \ \ \ \ \ fwrite(buf,\ 1,\ \mbox{\hyperlink{sd_8h_ad51ded0bbd705f02f73fc60c0b721ced}{BLOCK\_SIZE}},\ out);}
+\DoxyCodeLine{\Hypertarget{mkinitrd_2main_8c_source_l00067}00067\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{mkinitrd_2main_8c_source_l00068}00068\ }
+\DoxyCodeLine{\Hypertarget{mkinitrd_2main_8c_source_l00069}00069\ \ \ \ \ \textcolor{comment}{/*\ Write\ init\ program\ */}}
+\DoxyCodeLine{\Hypertarget{mkinitrd_2main_8c_source_l00070}00070\ \ \ \ \ \textcolor{keywordflow}{for}(i\ =\ 0;\ i\ <\ SIZE\_INIT;\ ++i)}
+\DoxyCodeLine{\Hypertarget{mkinitrd_2main_8c_source_l00071}00071\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{mkinitrd_2main_8c_source_l00072}00072\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{string_8c_ab5fb910d7238069eb23f4b06809aa68e}{memset}}(buf,\ 0,\ \mbox{\hyperlink{sd_8h_ad51ded0bbd705f02f73fc60c0b721ced}{BLOCK\_SIZE}});}
+\DoxyCodeLine{\Hypertarget{mkinitrd_2main_8c_source_l00073}00073\ \ \ \ \ \ \ \ \ fread(buf,\ 1,\ \mbox{\hyperlink{sd_8h_ad51ded0bbd705f02f73fc60c0b721ced}{BLOCK\_SIZE}},\ in);}
+\DoxyCodeLine{\Hypertarget{mkinitrd_2main_8c_source_l00074}00074\ \ \ \ \ \ \ \ \ fwrite(buf,\ 1,\ \mbox{\hyperlink{sd_8h_ad51ded0bbd705f02f73fc60c0b721ced}{BLOCK\_SIZE}},\ out);}
+\DoxyCodeLine{\Hypertarget{mkinitrd_2main_8c_source_l00075}00075\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{mkinitrd_2main_8c_source_l00076}00076\ }
+\DoxyCodeLine{\Hypertarget{mkinitrd_2main_8c_source_l00077}00077\ \ \ \ \ \textcolor{comment}{/*\ TEMPORARY:\ End\ marker\ 0xFF\ root\ dir\ sector\ */}}
+\DoxyCodeLine{\Hypertarget{mkinitrd_2main_8c_source_l00078}00078\ \ \ \ \ \mbox{\hyperlink{string_8c_ab5fb910d7238069eb23f4b06809aa68e}{memset}}(buf,\ 0xFF,\ \mbox{\hyperlink{sd_8h_ad51ded0bbd705f02f73fc60c0b721ced}{BLOCK\_SIZE}});}
+\DoxyCodeLine{\Hypertarget{mkinitrd_2main_8c_source_l00079}00079\ \ \ \ \ fwrite(buf,\ 1,\ \mbox{\hyperlink{sd_8h_ad51ded0bbd705f02f73fc60c0b721ced}{BLOCK\_SIZE}},\ out);}
+\DoxyCodeLine{\Hypertarget{mkinitrd_2main_8c_source_l00080}00080\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{\Hypertarget{mkinitrd_2main_8c_source_l00081}00081\ \}}
+
+\end{DoxyCode}

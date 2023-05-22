@@ -1,0 +1,284 @@
+\hypertarget{atfs_8h}{}\doxysection{atfs/atfs.h File Reference}
+\label{atfs_8h}\index{atfs/atfs.h@{atfs/atfs.h}}
+
+
+ATFS File System.  
+
+
+{\ttfamily \#include $<$types.\+h$>$}\newline
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{atfs_8h_a92b9c24f31f47693e78b3f27be5905ed}{ATFS\+\_\+\+BLOCK\+\_\+\+SIZE}}~512
+\item 
+\#define \mbox{\hyperlink{atfs_8h_abef1527b5f0917d3ca73ac7a60435ae3}{ATFS\+\_\+\+SECTOR\+\_\+\+BOOT}}~0
+\item 
+\#define \mbox{\hyperlink{atfs_8h_a67b9aeb5e631302051d8d928509fd379}{ATFS\+\_\+\+SIZE\+\_\+\+BOOT}}~1
+\item 
+\#define \mbox{\hyperlink{atfs_8h_a8bcc06ced4fe151c50cf1e8ac7f673f7}{ATFS\+\_\+\+SECTOR\+\_\+\+STDLIB}}~\mbox{\hyperlink{atfs_8h_a67b9aeb5e631302051d8d928509fd379}{ATFS\+\_\+\+SIZE\+\_\+\+BOOT}}
+\item 
+\#define \mbox{\hyperlink{atfs_8h_a446996ba6ac4c3c8cf4c71a990613bdd}{ATFS\+\_\+\+SIZE\+\_\+\+STDLIB}}~128
+\item 
+\#define \mbox{\hyperlink{atfs_8h_a34195cda27663494d697f1d5a14f0213}{ATFS\+\_\+\+SECTOR\+\_\+\+INIT}}~(\mbox{\hyperlink{atfs_8h_a67b9aeb5e631302051d8d928509fd379}{ATFS\+\_\+\+SIZE\+\_\+\+BOOT}} + \mbox{\hyperlink{atfs_8h_a446996ba6ac4c3c8cf4c71a990613bdd}{ATFS\+\_\+\+SIZE\+\_\+\+STDLIB}})
+\item 
+\#define \mbox{\hyperlink{atfs_8h_a78498f71fb3288aaab91ea8852abcb5f}{ATFS\+\_\+\+SIZE\+\_\+\+INIT}}~128
+\item 
+\#define \mbox{\hyperlink{atfs_8h_a11cba67d1d542be44223f9a4e9250e5e}{ATFS\+\_\+\+SECTOR\+\_\+\+ROOT}}~(\mbox{\hyperlink{atfs_8h_a67b9aeb5e631302051d8d928509fd379}{ATFS\+\_\+\+SIZE\+\_\+\+BOOT}} + \mbox{\hyperlink{atfs_8h_a446996ba6ac4c3c8cf4c71a990613bdd}{ATFS\+\_\+\+SIZE\+\_\+\+STDLIB}} + \mbox{\hyperlink{atfs_8h_a78498f71fb3288aaab91ea8852abcb5f}{ATFS\+\_\+\+SIZE\+\_\+\+INIT}})
+\item 
+\#define \mbox{\hyperlink{atfs_8h_a57c1cdf2546cad6e7458aa3f4b19f527}{ATFS\+\_\+\+REVISION}}~0
+\item 
+\#define \mbox{\hyperlink{atfs_8h_a2ea0d3fde1f46a1b5b3d1ab55b7e3d5b}{ATFS\+\_\+\+OFFSET\+\_\+\+SIGNATURE}}~0
+\item 
+\#define \mbox{\hyperlink{atfs_8h_afa4c7c978e0253bb3c3e2b6828b49afd}{ATFS\+\_\+\+OFFSET\+\_\+\+REVISION}}~4
+\item 
+\#define \mbox{\hyperlink{atfs_8h_aa51051aec9ee36f50493079fc1e2ec7d}{ATFS\+\_\+\+OFFSET\+\_\+\+STDLIB\+\_\+\+SIZE}}~8
+\item 
+\#define \mbox{\hyperlink{atfs_8h_ac61a5c871bbbb33f1f12c644bb7b105a}{ATFS\+\_\+\+OFFSET\+\_\+\+INIT\+\_\+\+SIZE}}~12
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \mbox{\hyperlink{atfs_8h_a62a1835558e5a5dfeade49e10d2682b8}{write\+\_\+le\+\_\+32}} (\mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}} $\ast$buf, \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} val)
+\begin{DoxyCompactList}\small\item\em Write a 32-\/bit little endian value to a buffer. \end{DoxyCompactList}\item 
+static \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} \mbox{\hyperlink{atfs_8h_a58dff0b38327e2389ba33ca793d2b633}{load\+\_\+le\+\_\+32}} (\mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}} $\ast$buf)
+\begin{DoxyCompactList}\small\item\em Load a 32-\/bit little endian value from a buffer. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+static const \mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}} \mbox{\hyperlink{atfs_8h_adf3e5683d8b4681edf588f58e4a02494}{\+\_\+atfs\+\_\+signature}} \mbox{[}$\,$\mbox{]} = \{ \textquotesingle{}A\textquotesingle{}, \textquotesingle{}T\textquotesingle{}, \textquotesingle{}F\textquotesingle{}, \textquotesingle{}S\textquotesingle{} \}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+ATFS File System. 
+
+\begin{DoxyAuthor}{Author}
+Anton Tchekov 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+0.\+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+22.\+05.\+2023 
+\end{DoxyDate}
+
+
+Definition in file \mbox{\hyperlink{atfs_8h_source}{atfs.\+h}}.
+
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{atfs_8h_a92b9c24f31f47693e78b3f27be5905ed}\label{atfs_8h_a92b9c24f31f47693e78b3f27be5905ed}} 
+\index{atfs.h@{atfs.h}!ATFS\_BLOCK\_SIZE@{ATFS\_BLOCK\_SIZE}}
+\index{ATFS\_BLOCK\_SIZE@{ATFS\_BLOCK\_SIZE}!atfs.h@{atfs.h}}
+\doxysubsubsection{\texorpdfstring{ATFS\_BLOCK\_SIZE}{ATFS\_BLOCK\_SIZE}}
+{\footnotesize\ttfamily \#define ATFS\+\_\+\+BLOCK\+\_\+\+SIZE~512}
+
+Disk sector size 
+
+Definition at line \mbox{\hyperlink{atfs_8h_source_l00016}{16}} of file \mbox{\hyperlink{atfs_8h_source}{atfs.\+h}}.
+
+\mbox{\Hypertarget{atfs_8h_ac61a5c871bbbb33f1f12c644bb7b105a}\label{atfs_8h_ac61a5c871bbbb33f1f12c644bb7b105a}} 
+\index{atfs.h@{atfs.h}!ATFS\_OFFSET\_INIT\_SIZE@{ATFS\_OFFSET\_INIT\_SIZE}}
+\index{ATFS\_OFFSET\_INIT\_SIZE@{ATFS\_OFFSET\_INIT\_SIZE}!atfs.h@{atfs.h}}
+\doxysubsubsection{\texorpdfstring{ATFS\_OFFSET\_INIT\_SIZE}{ATFS\_OFFSET\_INIT\_SIZE}}
+{\footnotesize\ttfamily \#define ATFS\+\_\+\+OFFSET\+\_\+\+INIT\+\_\+\+SIZE~12}
+
+Offset of init program size in ATFS bootsector 
+
+Definition at line \mbox{\hyperlink{atfs_8h_source_l00056}{56}} of file \mbox{\hyperlink{atfs_8h_source}{atfs.\+h}}.
+
+\mbox{\Hypertarget{atfs_8h_afa4c7c978e0253bb3c3e2b6828b49afd}\label{atfs_8h_afa4c7c978e0253bb3c3e2b6828b49afd}} 
+\index{atfs.h@{atfs.h}!ATFS\_OFFSET\_REVISION@{ATFS\_OFFSET\_REVISION}}
+\index{ATFS\_OFFSET\_REVISION@{ATFS\_OFFSET\_REVISION}!atfs.h@{atfs.h}}
+\doxysubsubsection{\texorpdfstring{ATFS\_OFFSET\_REVISION}{ATFS\_OFFSET\_REVISION}}
+{\footnotesize\ttfamily \#define ATFS\+\_\+\+OFFSET\+\_\+\+REVISION~4}
+
+Offset of revision in ATFS bootsector 
+
+Definition at line \mbox{\hyperlink{atfs_8h_source_l00050}{50}} of file \mbox{\hyperlink{atfs_8h_source}{atfs.\+h}}.
+
+\mbox{\Hypertarget{atfs_8h_a2ea0d3fde1f46a1b5b3d1ab55b7e3d5b}\label{atfs_8h_a2ea0d3fde1f46a1b5b3d1ab55b7e3d5b}} 
+\index{atfs.h@{atfs.h}!ATFS\_OFFSET\_SIGNATURE@{ATFS\_OFFSET\_SIGNATURE}}
+\index{ATFS\_OFFSET\_SIGNATURE@{ATFS\_OFFSET\_SIGNATURE}!atfs.h@{atfs.h}}
+\doxysubsubsection{\texorpdfstring{ATFS\_OFFSET\_SIGNATURE}{ATFS\_OFFSET\_SIGNATURE}}
+{\footnotesize\ttfamily \#define ATFS\+\_\+\+OFFSET\+\_\+\+SIGNATURE~0}
+
+Offset of signature in ATFS bootsector 
+
+Definition at line \mbox{\hyperlink{atfs_8h_source_l00047}{47}} of file \mbox{\hyperlink{atfs_8h_source}{atfs.\+h}}.
+
+\mbox{\Hypertarget{atfs_8h_aa51051aec9ee36f50493079fc1e2ec7d}\label{atfs_8h_aa51051aec9ee36f50493079fc1e2ec7d}} 
+\index{atfs.h@{atfs.h}!ATFS\_OFFSET\_STDLIB\_SIZE@{ATFS\_OFFSET\_STDLIB\_SIZE}}
+\index{ATFS\_OFFSET\_STDLIB\_SIZE@{ATFS\_OFFSET\_STDLIB\_SIZE}!atfs.h@{atfs.h}}
+\doxysubsubsection{\texorpdfstring{ATFS\_OFFSET\_STDLIB\_SIZE}{ATFS\_OFFSET\_STDLIB\_SIZE}}
+{\footnotesize\ttfamily \#define ATFS\+\_\+\+OFFSET\+\_\+\+STDLIB\+\_\+\+SIZE~8}
+
+Offset of stdlib size in ATFS bootsector 
+
+Definition at line \mbox{\hyperlink{atfs_8h_source_l00053}{53}} of file \mbox{\hyperlink{atfs_8h_source}{atfs.\+h}}.
+
+\mbox{\Hypertarget{atfs_8h_a57c1cdf2546cad6e7458aa3f4b19f527}\label{atfs_8h_a57c1cdf2546cad6e7458aa3f4b19f527}} 
+\index{atfs.h@{atfs.h}!ATFS\_REVISION@{ATFS\_REVISION}}
+\index{ATFS\_REVISION@{ATFS\_REVISION}!atfs.h@{atfs.h}}
+\doxysubsubsection{\texorpdfstring{ATFS\_REVISION}{ATFS\_REVISION}}
+{\footnotesize\ttfamily \#define ATFS\+\_\+\+REVISION~0}
+
+Current FS Revision 
+
+Definition at line \mbox{\hyperlink{atfs_8h_source_l00042}{42}} of file \mbox{\hyperlink{atfs_8h_source}{atfs.\+h}}.
+
+\mbox{\Hypertarget{atfs_8h_abef1527b5f0917d3ca73ac7a60435ae3}\label{atfs_8h_abef1527b5f0917d3ca73ac7a60435ae3}} 
+\index{atfs.h@{atfs.h}!ATFS\_SECTOR\_BOOT@{ATFS\_SECTOR\_BOOT}}
+\index{ATFS\_SECTOR\_BOOT@{ATFS\_SECTOR\_BOOT}!atfs.h@{atfs.h}}
+\doxysubsubsection{\texorpdfstring{ATFS\_SECTOR\_BOOT}{ATFS\_SECTOR\_BOOT}}
+{\footnotesize\ttfamily \#define ATFS\+\_\+\+SECTOR\+\_\+\+BOOT~0}
+
+Boot sector offset in blocks 
+
+Definition at line \mbox{\hyperlink{atfs_8h_source_l00021}{21}} of file \mbox{\hyperlink{atfs_8h_source}{atfs.\+h}}.
+
+\mbox{\Hypertarget{atfs_8h_a34195cda27663494d697f1d5a14f0213}\label{atfs_8h_a34195cda27663494d697f1d5a14f0213}} 
+\index{atfs.h@{atfs.h}!ATFS\_SECTOR\_INIT@{ATFS\_SECTOR\_INIT}}
+\index{ATFS\_SECTOR\_INIT@{ATFS\_SECTOR\_INIT}!atfs.h@{atfs.h}}
+\doxysubsubsection{\texorpdfstring{ATFS\_SECTOR\_INIT}{ATFS\_SECTOR\_INIT}}
+{\footnotesize\ttfamily \#define ATFS\+\_\+\+SECTOR\+\_\+\+INIT~(\mbox{\hyperlink{atfs_8h_a67b9aeb5e631302051d8d928509fd379}{ATFS\+\_\+\+SIZE\+\_\+\+BOOT}} + \mbox{\hyperlink{atfs_8h_a446996ba6ac4c3c8cf4c71a990613bdd}{ATFS\+\_\+\+SIZE\+\_\+\+STDLIB}})}
+
+Start sector of init area 
+
+Definition at line \mbox{\hyperlink{atfs_8h_source_l00033}{33}} of file \mbox{\hyperlink{atfs_8h_source}{atfs.\+h}}.
+
+\mbox{\Hypertarget{atfs_8h_a11cba67d1d542be44223f9a4e9250e5e}\label{atfs_8h_a11cba67d1d542be44223f9a4e9250e5e}} 
+\index{atfs.h@{atfs.h}!ATFS\_SECTOR\_ROOT@{ATFS\_SECTOR\_ROOT}}
+\index{ATFS\_SECTOR\_ROOT@{ATFS\_SECTOR\_ROOT}!atfs.h@{atfs.h}}
+\doxysubsubsection{\texorpdfstring{ATFS\_SECTOR\_ROOT}{ATFS\_SECTOR\_ROOT}}
+{\footnotesize\ttfamily \#define ATFS\+\_\+\+SECTOR\+\_\+\+ROOT~(\mbox{\hyperlink{atfs_8h_a67b9aeb5e631302051d8d928509fd379}{ATFS\+\_\+\+SIZE\+\_\+\+BOOT}} + \mbox{\hyperlink{atfs_8h_a446996ba6ac4c3c8cf4c71a990613bdd}{ATFS\+\_\+\+SIZE\+\_\+\+STDLIB}} + \mbox{\hyperlink{atfs_8h_a78498f71fb3288aaab91ea8852abcb5f}{ATFS\+\_\+\+SIZE\+\_\+\+INIT}})}
+
+Sector offset of root directory 
+
+Definition at line \mbox{\hyperlink{atfs_8h_source_l00039}{39}} of file \mbox{\hyperlink{atfs_8h_source}{atfs.\+h}}.
+
+\mbox{\Hypertarget{atfs_8h_a8bcc06ced4fe151c50cf1e8ac7f673f7}\label{atfs_8h_a8bcc06ced4fe151c50cf1e8ac7f673f7}} 
+\index{atfs.h@{atfs.h}!ATFS\_SECTOR\_STDLIB@{ATFS\_SECTOR\_STDLIB}}
+\index{ATFS\_SECTOR\_STDLIB@{ATFS\_SECTOR\_STDLIB}!atfs.h@{atfs.h}}
+\doxysubsubsection{\texorpdfstring{ATFS\_SECTOR\_STDLIB}{ATFS\_SECTOR\_STDLIB}}
+{\footnotesize\ttfamily \#define ATFS\+\_\+\+SECTOR\+\_\+\+STDLIB~\mbox{\hyperlink{atfs_8h_a67b9aeb5e631302051d8d928509fd379}{ATFS\+\_\+\+SIZE\+\_\+\+BOOT}}}
+
+Start sector of stdlib area 
+
+Definition at line \mbox{\hyperlink{atfs_8h_source_l00027}{27}} of file \mbox{\hyperlink{atfs_8h_source}{atfs.\+h}}.
+
+\mbox{\Hypertarget{atfs_8h_a67b9aeb5e631302051d8d928509fd379}\label{atfs_8h_a67b9aeb5e631302051d8d928509fd379}} 
+\index{atfs.h@{atfs.h}!ATFS\_SIZE\_BOOT@{ATFS\_SIZE\_BOOT}}
+\index{ATFS\_SIZE\_BOOT@{ATFS\_SIZE\_BOOT}!atfs.h@{atfs.h}}
+\doxysubsubsection{\texorpdfstring{ATFS\_SIZE\_BOOT}{ATFS\_SIZE\_BOOT}}
+{\footnotesize\ttfamily \#define ATFS\+\_\+\+SIZE\+\_\+\+BOOT~1}
+
+Boot sector size 
+
+Definition at line \mbox{\hyperlink{atfs_8h_source_l00024}{24}} of file \mbox{\hyperlink{atfs_8h_source}{atfs.\+h}}.
+
+\mbox{\Hypertarget{atfs_8h_a78498f71fb3288aaab91ea8852abcb5f}\label{atfs_8h_a78498f71fb3288aaab91ea8852abcb5f}} 
+\index{atfs.h@{atfs.h}!ATFS\_SIZE\_INIT@{ATFS\_SIZE\_INIT}}
+\index{ATFS\_SIZE\_INIT@{ATFS\_SIZE\_INIT}!atfs.h@{atfs.h}}
+\doxysubsubsection{\texorpdfstring{ATFS\_SIZE\_INIT}{ATFS\_SIZE\_INIT}}
+{\footnotesize\ttfamily \#define ATFS\+\_\+\+SIZE\+\_\+\+INIT~128}
+
+Size of init area (64 KiB) 
+
+Definition at line \mbox{\hyperlink{atfs_8h_source_l00036}{36}} of file \mbox{\hyperlink{atfs_8h_source}{atfs.\+h}}.
+
+\mbox{\Hypertarget{atfs_8h_a446996ba6ac4c3c8cf4c71a990613bdd}\label{atfs_8h_a446996ba6ac4c3c8cf4c71a990613bdd}} 
+\index{atfs.h@{atfs.h}!ATFS\_SIZE\_STDLIB@{ATFS\_SIZE\_STDLIB}}
+\index{ATFS\_SIZE\_STDLIB@{ATFS\_SIZE\_STDLIB}!atfs.h@{atfs.h}}
+\doxysubsubsection{\texorpdfstring{ATFS\_SIZE\_STDLIB}{ATFS\_SIZE\_STDLIB}}
+{\footnotesize\ttfamily \#define ATFS\+\_\+\+SIZE\+\_\+\+STDLIB~128}
+
+Size of stdlib area (64 KiB) 
+
+Definition at line \mbox{\hyperlink{atfs_8h_source_l00030}{30}} of file \mbox{\hyperlink{atfs_8h_source}{atfs.\+h}}.
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{atfs_8h_a58dff0b38327e2389ba33ca793d2b633}\label{atfs_8h_a58dff0b38327e2389ba33ca793d2b633}} 
+\index{atfs.h@{atfs.h}!load\_le\_32@{load\_le\_32}}
+\index{load\_le\_32@{load\_le\_32}!atfs.h@{atfs.h}}
+\doxysubsubsection{\texorpdfstring{load\_le\_32()}{load\_le\_32()}}
+{\footnotesize\ttfamily static \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} load\+\_\+le\+\_\+32 (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}} $\ast$}]{buf }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Load a 32-\/bit little endian value from a buffer. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em buf} & \mbox{\hyperlink{structInput}{Input}} \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Result 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{atfs_8h_source_l00081}{81}} of file \mbox{\hyperlink{atfs_8h_source}{atfs.\+h}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00082\ \{}
+\DoxyCodeLine{00083\ \ \ \ \ \textcolor{keywordflow}{return}\ (\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}})(buf[0])\ |}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ ((\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}})(buf[1])\ <<\ 8UL)\ |}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ ((\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}})(buf[2])\ <<\ 16UL)\ |}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ ((\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}})(buf[3])\ <<\ 24UL);}
+\DoxyCodeLine{00087\ \}}
+
+\end{DoxyCode}
+
+
+Referenced by \mbox{\hyperlink{initrd_8c_source_l00027}{initrd\+\_\+load()}}.
+
+\mbox{\Hypertarget{atfs_8h_a62a1835558e5a5dfeade49e10d2682b8}\label{atfs_8h_a62a1835558e5a5dfeade49e10d2682b8}} 
+\index{atfs.h@{atfs.h}!write\_le\_32@{write\_le\_32}}
+\index{write\_le\_32@{write\_le\_32}!atfs.h@{atfs.h}}
+\doxysubsubsection{\texorpdfstring{write\_le\_32()}{write\_le\_32()}}
+{\footnotesize\ttfamily static void write\+\_\+le\+\_\+32 (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}} $\ast$}]{buf,  }\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{val }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Write a 32-\/bit little endian value to a buffer. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em buf} & \mbox{\hyperlink{structInput}{Input}} \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Result 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{atfs_8h_source_l00067}{67}} of file \mbox{\hyperlink{atfs_8h_source}{atfs.\+h}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00068\ \{}
+\DoxyCodeLine{00069\ \ \ \ \ buf[0]\ =\ val\ \&\ 0xFF;}
+\DoxyCodeLine{00070\ \ \ \ \ buf[1]\ =\ (val\ >>\ 8)\ \&\ 0xFF;}
+\DoxyCodeLine{00071\ \ \ \ \ buf[2]\ =\ (val\ >>\ 16)\ \&\ 0xFF;}
+\DoxyCodeLine{00072\ \ \ \ \ buf[3]\ =\ (val\ >>\ 24)\ \&\ 0xFF;}
+\DoxyCodeLine{00073\ \}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{atfs_8h_adf3e5683d8b4681edf588f58e4a02494}\label{atfs_8h_adf3e5683d8b4681edf588f58e4a02494}} 
+\index{atfs.h@{atfs.h}!\_atfs\_signature@{\_atfs\_signature}}
+\index{\_atfs\_signature@{\_atfs\_signature}!atfs.h@{atfs.h}}
+\doxysubsubsection{\texorpdfstring{\_atfs\_signature}{\_atfs\_signature}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}} \+\_\+atfs\+\_\+signature\mbox{[}$\,$\mbox{]} = \{ \textquotesingle{}A\textquotesingle{}, \textquotesingle{}T\textquotesingle{}, \textquotesingle{}F\textquotesingle{}, \textquotesingle{}S\textquotesingle{} \}\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{atfs_8h_source_l00059}{59}} of file \mbox{\hyperlink{atfs_8h_source}{atfs.\+h}}.
+

@@ -1,7 +1,6 @@
 var searchData=
 [
-  ['bankfirst_0',['BankFirst',['../structAddrHelper.html#a7597aa93dc6a712b7ac697879ef3768d',1,'AddrHelper']]],
-  ['banksecond_1',['BankSecond',['../structAddrHelper.html#a55785530f6ea3f15b72cfc755f843a54',1,'AddrHelper']]],
-  ['bearing_2',['Bearing',['../structFontChar.html#a3e5c63fd62768392e06a054dd5176b24',1,'FontChar']]],
-  ['bitmap_3',['Bitmap',['../structFONT.html#a345daf79d46b416fd65c5f2bbf4e4238',1,'FONT']]]
+  ['addrfirst_0',['AddrFirst',['../structAddrHelper.html#a48959a2ce13a5e81e9b83f62e5501a24',1,'AddrHelper']]],
+  ['advance_1',['Advance',['../structFontChar.html#aeb206783f1ed8fe844699d302674f3ae',1,'FontChar']]],
+  ['arial_2',['arial',['../arial_8h.html#a8e6127af5663088e52a5d076f0be6504',1,'arial.c']]]
 ];

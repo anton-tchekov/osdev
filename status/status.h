@@ -17,6 +17,11 @@ typedef enum
 	STATUS_TIMEOUT
 } Status;
 
+/**
+ * @brief Propagate error codes to caller
+ *
+ * @param STATUS If error (non-zero), return value
+ */
 #define RETURN_IF(STATUS) \
 	do \
 	{ \

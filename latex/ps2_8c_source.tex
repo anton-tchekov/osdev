@@ -1,0 +1,71 @@
+\hypertarget{ps2_8c_source}{}\doxysection{ps2.\+c}
+\label{ps2_8c_source}\index{platform/avr/ps2/ps2.c@{platform/avr/ps2/ps2.c}}
+\mbox{\hyperlink{ps2_8c}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{ps2_8c_source_l00001}00001\ }
+\DoxyCodeLine{\Hypertarget{ps2_8c_source_l00008}00008\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{ps2_8h}{ps2.h}}>}}
+\DoxyCodeLine{\Hypertarget{ps2_8c_source_l00009}00009\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{logger_8h}{logger.h}}>}}
+\DoxyCodeLine{\Hypertarget{ps2_8c_source_l00010}00010\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{gpio_8h}{gpio.h}}>}}
+\DoxyCodeLine{\Hypertarget{ps2_8c_source_l00011}00011\ \textcolor{preprocessor}{\#include\ <avr/pgmspace.h>}}
+\DoxyCodeLine{\Hypertarget{ps2_8c_source_l00012}00012\ }
+\DoxyCodeLine{\Hypertarget{ps2_8c_source_l00014}\mbox{\hyperlink{ps2_8c_aa117bb08f41b6564dbe438b3648d9ae7}{00014}}\ \textcolor{keyword}{static}\ \mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}}\ \mbox{\hyperlink{ps2_8c_aa117bb08f41b6564dbe438b3648d9ae7}{\_byte}};}
+\DoxyCodeLine{\Hypertarget{ps2_8c_source_l00015}00015\ }
+\DoxyCodeLine{\Hypertarget{ps2_8c_source_l00024}\mbox{\hyperlink{ps2_8c_aa4a39acdc6c6f92da3da447491d71b72}{00024}}\ \textcolor{keyword}{static}\ \mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}}\ \mbox{\hyperlink{ps2_8c_aa4a39acdc6c6f92da3da447491d71b72}{\_bit}};}
+\DoxyCodeLine{\Hypertarget{ps2_8c_source_l00025}00025\ }
+\DoxyCodeLine{\Hypertarget{ps2_8c_source_l00026}\mbox{\hyperlink{ps2_8c_af0a83745146d1ce5fe4ef4372520e372}{00026}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{ps2_8c_af0a83745146d1ce5fe4ef4372520e372}{ps2\_init}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{ps2_8c_source_l00027}00027\ \{}
+\DoxyCodeLine{\Hypertarget{ps2_8c_source_l00028}00028\ \ \ \ \ \textcolor{comment}{/*\ Enable\ external\ interrupt\ 0\ (PORTB2)\ */}}
+\DoxyCodeLine{\Hypertarget{ps2_8c_source_l00029}00029\ \ \ \ \ EIMSK\ |=\ (1\ <<\ \mbox{\hyperlink{gpio_8h_a34ea49db58f76f1619e460765995f599}{PS2\_EXT\_INTERRUPT}});}
+\DoxyCodeLine{\Hypertarget{ps2_8c_source_l00030}00030\ }
+\DoxyCodeLine{\Hypertarget{ps2_8c_source_l00031}00031\ \ \ \ \ \textcolor{comment}{/*\ Trigger\ interrupt\ on\ falling\ edge\ */}}
+\DoxyCodeLine{\Hypertarget{ps2_8c_source_l00032}00032\ \ \ \ \ EICRA\ |=\ (1\ <<\ ISC01);}
+\DoxyCodeLine{\Hypertarget{ps2_8c_source_l00033}00033\ }
+\DoxyCodeLine{\Hypertarget{ps2_8c_source_l00034}00034\ \ \ \ \ \mbox{\hyperlink{logger_8c_a60bd636ef160c97eb51cf31be5954ba2}{log\_boot\_P}}(LOG\_INIT,\ PSTR(\textcolor{stringliteral}{"{}PS/2\ keyboard\ initialized"{}}));}
+\DoxyCodeLine{\Hypertarget{ps2_8c_source_l00035}00035\ \}}
+\DoxyCodeLine{\Hypertarget{ps2_8c_source_l00036}00036\ }
+\DoxyCodeLine{\Hypertarget{ps2_8c_source_l00042}\mbox{\hyperlink{ps2_8c_ad3a3737fe89541c8d9a4d1e2720352e6}{00042}}\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}}\ \mbox{\hyperlink{ps2_8c_ad3a3737fe89541c8d9a4d1e2720352e6}{\_ps2\_data\_read}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{ps2_8c_source_l00043}00043\ \{}
+\DoxyCodeLine{\Hypertarget{ps2_8c_source_l00044}00044\ \ \ \ \ \textcolor{comment}{/*\ Read\ keyboard\ data\ pin\ */}}
+\DoxyCodeLine{\Hypertarget{ps2_8c_source_l00045}00045\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{gpio_8h_a85a6dfc067aff42f3ff68450bc72e728}{PS2\_DATA\_PORT\_IN}}\ \&\ (1\ <<\ \mbox{\hyperlink{gpio_8h_a9de0e05d896f00ad46cc166cd0d0146b}{PS2\_DATA\_PIN}});}
+\DoxyCodeLine{\Hypertarget{ps2_8c_source_l00046}00046\ \}}
+\DoxyCodeLine{\Hypertarget{ps2_8c_source_l00047}00047\ }
+\DoxyCodeLine{\Hypertarget{ps2_8c_source_l00051}\mbox{\hyperlink{ps2_8c_a34ac3f4ba7a6a188c75b585f69bdded6}{00051}}\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{ps2_8c_a34ac3f4ba7a6a188c75b585f69bdded6}{\_ps2\_clock\_falling\_edge}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{ps2_8c_source_l00052}00052\ \{}
+\DoxyCodeLine{\Hypertarget{ps2_8c_source_l00053}00053\ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{ps2_8c_aa4a39acdc6c6f92da3da447491d71b72}{\_bit}}\ ==\ 0)}
+\DoxyCodeLine{\Hypertarget{ps2_8c_source_l00054}00054\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{ps2_8c_source_l00055}00055\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Start\ bit,\ reset\ byte\ */}}
+\DoxyCodeLine{\Hypertarget{ps2_8c_source_l00056}00056\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{ps2_8c_aa117bb08f41b6564dbe438b3648d9ae7}{\_byte}}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{ps2_8c_source_l00057}00057\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ps2_8c_source_l00058}00058\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(\mbox{\hyperlink{ps2_8c_aa4a39acdc6c6f92da3da447491d71b72}{\_bit}}\ >=\ 1\ \&\&\ \mbox{\hyperlink{ps2_8c_aa4a39acdc6c6f92da3da447491d71b72}{\_bit}}\ <=\ 8)}
+\DoxyCodeLine{\Hypertarget{ps2_8c_source_l00059}00059\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{ps2_8c_source_l00060}00060\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Data\ bit\ */}}
+\DoxyCodeLine{\Hypertarget{ps2_8c_source_l00061}00061\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{ps2_8c_ad3a3737fe89541c8d9a4d1e2720352e6}{\_ps2\_data\_read}}())}
+\DoxyCodeLine{\Hypertarget{ps2_8c_source_l00062}00062\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{ps2_8c_source_l00063}00063\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Set\ bit\ */}}
+\DoxyCodeLine{\Hypertarget{ps2_8c_source_l00064}00064\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{ps2_8c_aa117bb08f41b6564dbe438b3648d9ae7}{\_byte}}\ |=\ (1\ <<\ (\mbox{\hyperlink{ps2_8c_aa4a39acdc6c6f92da3da447491d71b72}{\_bit}}\ -\/\ 1));}
+\DoxyCodeLine{\Hypertarget{ps2_8c_source_l00065}00065\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ps2_8c_source_l00066}00066\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ps2_8c_source_l00067}00067\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(\mbox{\hyperlink{ps2_8c_aa4a39acdc6c6f92da3da447491d71b72}{\_bit}}\ ==\ 9)}
+\DoxyCodeLine{\Hypertarget{ps2_8c_source_l00068}00068\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{ps2_8c_source_l00069}00069\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Ignore\ parity\ bit\ */}}
+\DoxyCodeLine{\Hypertarget{ps2_8c_source_l00070}00070\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ TODO:\ Check\ parity\ bit\ */}}
+\DoxyCodeLine{\Hypertarget{ps2_8c_source_l00071}00071\ \ \ \ \ \ \ \ \ ps2\_event(\mbox{\hyperlink{ps2_8c_aa117bb08f41b6564dbe438b3648d9ae7}{\_byte}});}
+\DoxyCodeLine{\Hypertarget{ps2_8c_source_l00072}00072\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ps2_8c_source_l00073}00073\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(\mbox{\hyperlink{ps2_8c_aa4a39acdc6c6f92da3da447491d71b72}{\_bit}}\ ==\ 10)}
+\DoxyCodeLine{\Hypertarget{ps2_8c_source_l00074}00074\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{ps2_8c_source_l00075}00075\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Stop\ bit,\ reset\ bit\ counter\ */}}
+\DoxyCodeLine{\Hypertarget{ps2_8c_source_l00076}00076\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{ps2_8c_aa4a39acdc6c6f92da3da447491d71b72}{\_bit}}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{ps2_8c_source_l00077}00077\ }
+\DoxyCodeLine{\Hypertarget{ps2_8c_source_l00078}00078\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Return\ immediately\ so\ it\ stays\ 0\ */}}
+\DoxyCodeLine{\Hypertarget{ps2_8c_source_l00079}00079\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{ps2_8c_source_l00080}00080\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ps2_8c_source_l00081}00081\ }
+\DoxyCodeLine{\Hypertarget{ps2_8c_source_l00082}00082\ \ \ \ \ ++\mbox{\hyperlink{ps2_8c_aa4a39acdc6c6f92da3da447491d71b72}{\_bit}};}
+\DoxyCodeLine{\Hypertarget{ps2_8c_source_l00083}00083\ \}}
+\DoxyCodeLine{\Hypertarget{ps2_8c_source_l00084}00084\ }
+\DoxyCodeLine{\Hypertarget{ps2_8c_source_l00086}\mbox{\hyperlink{ps2_8c_afea150fcd685610cb9f7672fce361e53}{00086}}\ \mbox{\hyperlink{ps2_8c_afea150fcd685610cb9f7672fce361e53}{ISR}}(INT0\_vect)}
+\DoxyCodeLine{\Hypertarget{ps2_8c_source_l00087}00087\ \{}
+\DoxyCodeLine{\Hypertarget{ps2_8c_source_l00088}00088\ \ \ \ \ \mbox{\hyperlink{ps2_8c_a34ac3f4ba7a6a188c75b585f69bdded6}{\_ps2\_clock\_falling\_edge}}();}
+\DoxyCodeLine{\Hypertarget{ps2_8c_source_l00089}00089\ \}}
+
+\end{DoxyCode}

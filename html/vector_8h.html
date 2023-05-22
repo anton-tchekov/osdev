@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">OS Dev
+   <div id="projectname">OS Dev<span id="projectnumber">&#160;0.1</span>
    </div>
   </td>
  </tr>
@@ -96,19 +96,140 @@ Functions</h2></td></tr>
 <tr class="memitem:a9618b41b25efb749069cbfff9c3cadcf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="vector_8h.html#a9618b41b25efb749069cbfff9c3cadcf">vector_init</a> (<a class="el" href="structVector.html">Vector</a> *vector, <a class="el" href="types_8h.html#afaa62991928fb9fb18ff0db62a040aba">u32</a> element_size, <a class="el" href="types_8h.html#afaa62991928fb9fb18ff0db62a040aba">u32</a> initial_capacity)</td></tr>
 <tr class="memdesc:a9618b41b25efb749069cbfff9c3cadcf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize a vector with an element size and an initial capacity.  <br /></td></tr>
 <tr class="separator:a9618b41b25efb749069cbfff9c3cadcf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8d2c106dcc33115c542080d6eefd32af"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="vector_8h.html#a8d2c106dcc33115c542080d6eefd32af">vector_clear</a> (<a class="el" href="structVector.html">Vector</a> *vector)</td></tr>
+<tr class="memdesc:a8d2c106dcc33115c542080d6eefd32af"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears (empties) the vector.  <br /></td></tr>
+<tr class="separator:a8d2c106dcc33115c542080d6eefd32af"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0c0be12f800dc5bc6777b4ff324f41ca"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="vector_8h.html#a0c0be12f800dc5bc6777b4ff324f41ca">vector_destroy</a> (<a class="el" href="structVector.html">Vector</a> *vector)</td></tr>
 <tr class="memdesc:a0c0be12f800dc5bc6777b4ff324f41ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Frees the internal memory buffer of the vector.  <br /></td></tr>
 <tr class="separator:a0c0be12f800dc5bc6777b4ff324f41ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab5e38bad2bc3f2cbf9f7b23f615545ee"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="vector_8h.html#ab5e38bad2bc3f2cbf9f7b23f615545ee">vector_replace</a> (<a class="el" href="structVector.html">Vector</a> *vector, <a class="el" href="types_8h.html#afaa62991928fb9fb18ff0db62a040aba">u32</a> index, <a class="el" href="types_8h.html#afaa62991928fb9fb18ff0db62a040aba">u32</a> count, const void *elems, <a class="el" href="types_8h.html#afaa62991928fb9fb18ff0db62a040aba">u32</a> new_count)</td></tr>
 <tr class="memdesc:ab5e38bad2bc3f2cbf9f7b23f615545ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Replace a range of elements in the vector with new elements.  <br /></td></tr>
 <tr class="separator:ab5e38bad2bc3f2cbf9f7b23f615545ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad2779e7010b2bbe8255fd0ecbd6b194a"><td class="memItemLeft" align="right" valign="top">static void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="vector_8h.html#ad2779e7010b2bbe8255fd0ecbd6b194a">vector_get</a> (<a class="el" href="structVector.html">Vector</a> *vector, <a class="el" href="types_8h.html#afaa62991928fb9fb18ff0db62a040aba">u32</a> index)</td></tr>
+<tr class="memdesc:ad2779e7010b2bbe8255fd0ecbd6b194a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a pointer to an element in the vector.  <br /></td></tr>
+<tr class="separator:ad2779e7010b2bbe8255fd0ecbd6b194a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a503ee5296f13ea821a6a7024eccd5407"><td class="memItemLeft" align="right" valign="top">static void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="vector_8h.html#a503ee5296f13ea821a6a7024eccd5407">vector_data</a> (<a class="el" href="structVector.html">Vector</a> *vector)</td></tr>
+<tr class="memdesc:a503ee5296f13ea821a6a7024eccd5407"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a pointer to the internal data area.  <br /></td></tr>
+<tr class="separator:a503ee5296f13ea821a6a7024eccd5407"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5169207d0fedd9d5eba2376359dbaa65"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="types_8h.html#afaa62991928fb9fb18ff0db62a040aba">u32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="vector_8h.html#a5169207d0fedd9d5eba2376359dbaa65">vector_len</a> (<a class="el" href="structVector.html">Vector</a> *vector)</td></tr>
+<tr class="memdesc:a5169207d0fedd9d5eba2376359dbaa65"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the number of elements in the vector.  <br /></td></tr>
+<tr class="separator:a5169207d0fedd9d5eba2376359dbaa65"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af8817659c74d231318afcef547716465"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="vector_8h.html#af8817659c74d231318afcef547716465">vector_insert_range</a> (<a class="el" href="structVector.html">Vector</a> *vector, <a class="el" href="types_8h.html#afaa62991928fb9fb18ff0db62a040aba">u32</a> index, <a class="el" href="types_8h.html#afaa62991928fb9fb18ff0db62a040aba">u32</a> count, void *elems)</td></tr>
+<tr class="memdesc:af8817659c74d231318afcef547716465"><td class="mdescLeft">&#160;</td><td class="mdescRight">Insert a range of elements at an index in the vector.  <br /></td></tr>
+<tr class="separator:af8817659c74d231318afcef547716465"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac95a0b314c0db5461cf8591043ce9d03"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="vector_8h.html#ac95a0b314c0db5461cf8591043ce9d03">vector_insert</a> (<a class="el" href="structVector.html">Vector</a> *vector, <a class="el" href="types_8h.html#afaa62991928fb9fb18ff0db62a040aba">u32</a> index, void *elem)</td></tr>
+<tr class="memdesc:ac95a0b314c0db5461cf8591043ce9d03"><td class="mdescLeft">&#160;</td><td class="mdescRight">Insert a single element.  <br /></td></tr>
+<tr class="separator:ac95a0b314c0db5461cf8591043ce9d03"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a67ee10133f0cf3c7d71d364754fb648f"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="vector_8h.html#a67ee10133f0cf3c7d71d364754fb648f">vector_remove_range</a> (<a class="el" href="structVector.html">Vector</a> *vector, <a class="el" href="types_8h.html#afaa62991928fb9fb18ff0db62a040aba">u32</a> index, <a class="el" href="types_8h.html#afaa62991928fb9fb18ff0db62a040aba">u32</a> count)</td></tr>
+<tr class="memdesc:a67ee10133f0cf3c7d71d364754fb648f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove a range of elements.  <br /></td></tr>
+<tr class="separator:a67ee10133f0cf3c7d71d364754fb648f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af3a2eb74cba163713007f5afaf3749fe"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="vector_8h.html#af3a2eb74cba163713007f5afaf3749fe">vector_remove</a> (<a class="el" href="structVector.html">Vector</a> *vector, <a class="el" href="types_8h.html#afaa62991928fb9fb18ff0db62a040aba">u32</a> index)</td></tr>
+<tr class="memdesc:af3a2eb74cba163713007f5afaf3749fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove a single element.  <br /></td></tr>
+<tr class="separator:af3a2eb74cba163713007f5afaf3749fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa93a06f25d8c54ab996297b5523ab300"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="vector_8h.html#aa93a06f25d8c54ab996297b5523ab300">vector_push</a> (<a class="el" href="structVector.html">Vector</a> *vector, void *elem)</td></tr>
+<tr class="memdesc:aa93a06f25d8c54ab996297b5523ab300"><td class="mdescLeft">&#160;</td><td class="mdescRight">Insert an element after the last element of the vector.  <br /></td></tr>
+<tr class="separator:aa93a06f25d8c54ab996297b5523ab300"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a41556dfae45ce9bbe4f3ca2d5c6ec93a"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="vector_8h.html#a41556dfae45ce9bbe4f3ca2d5c6ec93a">vector_push_range</a> (<a class="el" href="structVector.html">Vector</a> *vector, <a class="el" href="types_8h.html#afaa62991928fb9fb18ff0db62a040aba">u32</a> count, void *elem)</td></tr>
+<tr class="memdesc:a41556dfae45ce9bbe4f3ca2d5c6ec93a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Insert a range of elements after the last element of the vector.  <br /></td></tr>
+<tr class="separator:a41556dfae45ce9bbe4f3ca2d5c6ec93a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Generic resizable array. </p>
 <dl class="section author"><dt>Author</dt><dd>Tim Gabrikowski, Anton Tchekov </dd></dl>
 <dl class="section version"><dt>Version</dt><dd>0.1 </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>26.04.2023 </dd></dl>
+
+<p class="definition">Definition in file <a class="el" href="vector_8h_source.html">vector.h</a>.</p>
 </div><h2 class="groupheader">Function Documentation</h2>
+<a id="a8d2c106dcc33115c542080d6eefd32af" name="a8d2c106dcc33115c542080d6eefd32af"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8d2c106dcc33115c542080d6eefd32af">&#9670;&#160;</a></span>vector_clear()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void vector_clear </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structVector.html">Vector</a> *&#160;</td>
+          <td class="paramname"><em>vector</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Clears (empties) the vector. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">vector</td><td>The vector </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="vector_8h_source.html#l00050">50</a> of file <a class="el" href="vector_8h_source.html">vector.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   51</span>{</div>
+<div class="line"><span class="lineno">   52</span>    vector-&gt;<a class="code hl_variable" href="structVector.html#ac6aa25a7a7bc6353a0fada595c85ea2e">Length</a> = 0;</div>
+<div class="line"><span class="lineno">   53</span>}</div>
+<div class="ttc" id="astructVector_html_ac6aa25a7a7bc6353a0fada595c85ea2e"><div class="ttname"><a href="structVector.html#ac6aa25a7a7bc6353a0fada595c85ea2e">Vector::Length</a></div><div class="ttdeci">u32 Length</div><div class="ttdef"><b>Definition:</b> <a href="vector_8h_source.html#l00021">vector.h:21</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="vector_8h_source.html#l00021">Vector::Length</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="gui_8c_source.html#l00280">input_clear()</a>.</p>
+
+</div>
+</div>
+<a id="a503ee5296f13ea821a6a7024eccd5407" name="a503ee5296f13ea821a6a7024eccd5407"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a503ee5296f13ea821a6a7024eccd5407">&#9670;&#160;</a></span>vector_data()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void * vector_data </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structVector.html">Vector</a> *&#160;</td>
+          <td class="paramname"><em>vector</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get a pointer to the internal data area. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">vector</td><td>The <a class="el" href="structVector.html">Vector</a> </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Pointer to the content </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="vector_8h_source.html#l00094">94</a> of file <a class="el" href="vector_8h_source.html">vector.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   95</span>{</div>
+<div class="line"><span class="lineno">   96</span>    <span class="keywordflow">return</span> vector-&gt;<a class="code hl_variable" href="structVector.html#a3c3c5b59d45fcf97bd75f79657df4b25">Data</a>;</div>
+<div class="line"><span class="lineno">   97</span>}</div>
+<div class="ttc" id="astructVector_html_a3c3c5b59d45fcf97bd75f79657df4b25"><div class="ttname"><a href="structVector.html#a3c3c5b59d45fcf97bd75f79657df4b25">Vector::Data</a></div><div class="ttdeci">void * Data</div><div class="ttdef"><b>Definition:</b> <a href="vector_8h_source.html#l00027">vector.h:27</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="vector_8h_source.html#l00027">Vector::Data</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="gui_8c_source.html#l00190">input_render()</a>, and <a class="el" href="gui_8c_source.html#l00294">input_selection_replace()</a>.</p>
+
+</div>
+</div>
 <a id="a0c0be12f800dc5bc6777b4ff324f41ca" name="a0c0be12f800dc5bc6777b4ff324f41ca"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0c0be12f800dc5bc6777b4ff324f41ca">&#9670;&#160;</a></span>vector_destroy()</h2>
 
@@ -132,6 +253,69 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
+
+<p class="definition">Definition at line <a class="el" href="vector_8c_source.html#l00038">38</a> of file <a class="el" href="vector_8c_source.html">vector.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   39</span>{</div>
+<div class="line"><span class="lineno">   40</span>    <a class="code hl_function" href="alloc_8c.html#ab0b733d6d48d9eafd86d2196d16e2bc4">memfree</a>(vector-&gt;<a class="code hl_variable" href="structVector.html#a3c3c5b59d45fcf97bd75f79657df4b25">Data</a>);</div>
+<div class="line"><span class="lineno">   41</span>}</div>
+<div class="ttc" id="aalloc_8c_html_ab0b733d6d48d9eafd86d2196d16e2bc4"><div class="ttname"><a href="alloc_8c.html#ab0b733d6d48d9eafd86d2196d16e2bc4">memfree</a></div><div class="ttdeci">void memfree(void *p)</div><div class="ttdoc">Frees memory previously allocated with memalloc</div><div class="ttdef"><b>Definition:</b> <a href="alloc_8c_source.html#l00135">alloc.c:135</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="vector_8h_source.html#l00027">Vector::Data</a>, and <a class="el" href="alloc_8c_source.html#l00135">memfree()</a>.</p>
+
+</div>
+</div>
+<a id="ad2779e7010b2bbe8255fd0ecbd6b194a" name="ad2779e7010b2bbe8255fd0ecbd6b194a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad2779e7010b2bbe8255fd0ecbd6b194a">&#9670;&#160;</a></span>vector_get()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void * vector_get </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structVector.html">Vector</a> *&#160;</td>
+          <td class="paramname"><em>vector</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="types_8h.html#afaa62991928fb9fb18ff0db62a040aba">u32</a>&#160;</td>
+          <td class="paramname"><em>index</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get a pointer to an element in the vector. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">vector</td><td>The <a class="el" href="structVector.html">Vector</a> </td></tr>
+    <tr><td class="paramname">index</td><td>The index </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Pointer to the element </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="vector_8h_source.html#l00083">83</a> of file <a class="el" href="vector_8h_source.html">vector.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   84</span>{</div>
+<div class="line"><span class="lineno">   85</span>    <span class="keywordflow">return</span> (<span class="keywordtype">void</span> *)((<a class="code hl_typedef" href="types_8h.html#a92c50087ca0e64fa93fc59402c55f8ca">u8</a> *)vector-&gt;<a class="code hl_variable" href="structVector.html#a3c3c5b59d45fcf97bd75f79657df4b25">Data</a> + vector-&gt;<a class="code hl_variable" href="structVector.html#aaecd5236c979a9c75131c2d391e44cc6">ElementSize</a> * index);</div>
+<div class="line"><span class="lineno">   86</span>}</div>
+<div class="ttc" id="astructVector_html_aaecd5236c979a9c75131c2d391e44cc6"><div class="ttname"><a href="structVector.html#aaecd5236c979a9c75131c2d391e44cc6">Vector::ElementSize</a></div><div class="ttdeci">u32 ElementSize</div><div class="ttdef"><b>Definition:</b> <a href="vector_8h_source.html#l00018">vector.h:18</a></div></div>
+<div class="ttc" id="atypes_8h_html_a92c50087ca0e64fa93fc59402c55f8ca"><div class="ttname"><a href="types_8h.html#a92c50087ca0e64fa93fc59402c55f8ca">u8</a></div><div class="ttdeci">uint8_t u8</div><div class="ttdef"><b>Definition:</b> <a href="types_8h_source.html#l00038">types.h:38</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="vector_8h_source.html#l00027">Vector::Data</a>, and <a class="el" href="vector_8h_source.html#l00018">Vector::ElementSize</a>.</p>
 
 </div>
 </div>
@@ -170,9 +354,9 @@ Functions</h2></td></tr>
 <p>Initialize a vector with an element size and an initial capacity. </p>
 <p>Example code for a vector of integers: </p><div class="fragment"><div class="line"><a class="code hl_struct" href="structVector.html">Vector</a> vector;</div>
 <div class="line"><a class="code hl_function" href="vector_8c.html#a9618b41b25efb749069cbfff9c3cadcf">vector_init</a>(&amp;vector, <span class="keyword">sizeof</span>(<a class="code hl_typedef" href="types_8h.html#a48d6cd8e4135fb2ff7e7f2dac84089ec">i32</a>), 16);</div>
-<div class="ttc" id="astructVector_html"><div class="ttname"><a href="structVector.html">Vector</a></div><div class="ttdef"><b>Definition:</b> vector.h:16</div></div>
-<div class="ttc" id="atypes_8h_html_a48d6cd8e4135fb2ff7e7f2dac84089ec"><div class="ttname"><a href="types_8h.html#a48d6cd8e4135fb2ff7e7f2dac84089ec">i32</a></div><div class="ttdeci">int32_t i32</div><div class="ttdef"><b>Definition:</b> types.h:21</div></div>
-<div class="ttc" id="avector_8c_html_a9618b41b25efb749069cbfff9c3cadcf"><div class="ttname"><a href="vector_8c.html#a9618b41b25efb749069cbfff9c3cadcf">vector_init</a></div><div class="ttdeci">void vector_init(Vector *vector, u32 element_size, u32 initial_capacity)</div><div class="ttdoc">Initialize a vector with an element size and an initial capacity.</div><div class="ttdef"><b>Definition:</b> vector.c:30</div></div>
+<div class="ttc" id="astructVector_html"><div class="ttname"><a href="structVector.html">Vector</a></div><div class="ttdef"><b>Definition:</b> <a href="vector_8h_source.html#l00015">vector.h:16</a></div></div>
+<div class="ttc" id="atypes_8h_html_a48d6cd8e4135fb2ff7e7f2dac84089ec"><div class="ttname"><a href="types_8h.html#a48d6cd8e4135fb2ff7e7f2dac84089ec">i32</a></div><div class="ttdeci">int32_t i32</div><div class="ttdef"><b>Definition:</b> <a href="types_8h_source.html#l00020">types.h:20</a></div></div>
+<div class="ttc" id="avector_8c_html_a9618b41b25efb749069cbfff9c3cadcf"><div class="ttname"><a href="vector_8c.html#a9618b41b25efb749069cbfff9c3cadcf">vector_init</a></div><div class="ttdeci">void vector_init(Vector *vector, u32 element_size, u32 initial_capacity)</div><div class="ttdoc">Initialize a vector with an element size and an initial capacity.</div><div class="ttdef"><b>Definition:</b> <a href="vector_8c_source.html#l00030">vector.c:30</a></div></div>
 </div><!-- fragment --><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">vector</td><td>The vector </td></tr>
@@ -181,6 +365,421 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
+
+<p class="definition">Definition at line <a class="el" href="vector_8c_source.html#l00030">30</a> of file <a class="el" href="vector_8c_source.html">vector.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   31</span>{</div>
+<div class="line"><span class="lineno">   32</span>    vector-&gt;<a class="code hl_variable" href="structVector.html#aaecd5236c979a9c75131c2d391e44cc6">ElementSize</a> = element_size;</div>
+<div class="line"><span class="lineno">   33</span>    vector-&gt;<a class="code hl_variable" href="structVector.html#af9abb7483a64efea81def7fbf714ba60">Capacity</a> = initial_capacity;</div>
+<div class="line"><span class="lineno">   34</span>    vector-&gt;<a class="code hl_variable" href="structVector.html#ac6aa25a7a7bc6353a0fada595c85ea2e">Length</a> = 0;</div>
+<div class="line"><span class="lineno">   35</span>    vector-&gt;<a class="code hl_variable" href="structVector.html#a3c3c5b59d45fcf97bd75f79657df4b25">Data</a> = <a class="code hl_function" href="alloc_8c.html#a4be51fa4dd80d0b7077779261722119a">memalloc</a>(element_size * initial_capacity);</div>
+<div class="line"><span class="lineno">   36</span>}</div>
+<div class="ttc" id="aalloc_8c_html_a4be51fa4dd80d0b7077779261722119a"><div class="ttname"><a href="alloc_8c.html#a4be51fa4dd80d0b7077779261722119a">memalloc</a></div><div class="ttdeci">void * memalloc(u32 size)</div><div class="ttdoc">Request a block of memory of size bytes This function will always return a valid pointer (never NULL)...</div><div class="ttdef"><b>Definition:</b> <a href="alloc_8c_source.html#l00079">alloc.c:79</a></div></div>
+<div class="ttc" id="astructVector_html_af9abb7483a64efea81def7fbf714ba60"><div class="ttname"><a href="structVector.html#af9abb7483a64efea81def7fbf714ba60">Vector::Capacity</a></div><div class="ttdeci">u32 Capacity</div><div class="ttdef"><b>Definition:</b> <a href="vector_8h_source.html#l00024">vector.h:24</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="vector_8h_source.html#l00024">Vector::Capacity</a>, <a class="el" href="vector_8h_source.html#l00027">Vector::Data</a>, <a class="el" href="vector_8h_source.html#l00018">Vector::ElementSize</a>, <a class="el" href="vector_8h_source.html#l00021">Vector::Length</a>, and <a class="el" href="alloc_8c_source.html#l00079">memalloc()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="gui_8c_source.html#l00782">input_init()</a>.</p>
+
+</div>
+</div>
+<a id="ac95a0b314c0db5461cf8591043ce9d03" name="ac95a0b314c0db5461cf8591043ce9d03"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac95a0b314c0db5461cf8591043ce9d03">&#9670;&#160;</a></span>vector_insert()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void vector_insert </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structVector.html">Vector</a> *&#160;</td>
+          <td class="paramname"><em>vector</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="types_8h.html#afaa62991928fb9fb18ff0db62a040aba">u32</a>&#160;</td>
+          <td class="paramname"><em>index</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>elem</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Insert a single element. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">vector</td><td>The vector </td></tr>
+    <tr><td class="paramname">index</td><td>The index at which to insert the element </td></tr>
+    <tr><td class="paramname">elem</td><td>The element </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="vector_8h_source.html#l00131">131</a> of file <a class="el" href="vector_8h_source.html">vector.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  132</span>{</div>
+<div class="line"><span class="lineno">  133</span>    <a class="code hl_function" href="vector_8h.html#af8817659c74d231318afcef547716465">vector_insert_range</a>(vector, index, 1, elem);</div>
+<div class="line"><span class="lineno">  134</span>}</div>
+<div class="ttc" id="avector_8h_html_af8817659c74d231318afcef547716465"><div class="ttname"><a href="vector_8h.html#af8817659c74d231318afcef547716465">vector_insert_range</a></div><div class="ttdeci">static void vector_insert_range(Vector *vector, u32 index, u32 count, void *elems)</div><div class="ttdoc">Insert a range of elements at an index in the vector.</div><div class="ttdef"><b>Definition:</b> <a href="vector_8h_source.html#l00118">vector.h:118</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="vector_8h_source.html#l00118">vector_insert_range()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="vector_8h_source.html#l00167">vector_push()</a>.</p>
+
+</div>
+</div>
+<a id="af8817659c74d231318afcef547716465" name="af8817659c74d231318afcef547716465"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af8817659c74d231318afcef547716465">&#9670;&#160;</a></span>vector_insert_range()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void vector_insert_range </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structVector.html">Vector</a> *&#160;</td>
+          <td class="paramname"><em>vector</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="types_8h.html#afaa62991928fb9fb18ff0db62a040aba">u32</a>&#160;</td>
+          <td class="paramname"><em>index</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="types_8h.html#afaa62991928fb9fb18ff0db62a040aba">u32</a>&#160;</td>
+          <td class="paramname"><em>count</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>elems</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Insert a range of elements at an index in the vector. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">vector</td><td>The vector </td></tr>
+    <tr><td class="paramname">index</td><td>The starting index of where to insert the elements </td></tr>
+    <tr><td class="paramname">count</td><td>The number of elements to insert </td></tr>
+    <tr><td class="paramname">elems</td><td>Pointer to the new elements </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="vector_8h_source.html#l00118">118</a> of file <a class="el" href="vector_8h_source.html">vector.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  120</span>{</div>
+<div class="line"><span class="lineno">  121</span>    <a class="code hl_function" href="vector_8h.html#ab5e38bad2bc3f2cbf9f7b23f615545ee">vector_replace</a>(vector, index, 0, elems, count);</div>
+<div class="line"><span class="lineno">  122</span>}</div>
+<div class="ttc" id="avector_8h_html_ab5e38bad2bc3f2cbf9f7b23f615545ee"><div class="ttname"><a href="vector_8h.html#ab5e38bad2bc3f2cbf9f7b23f615545ee">vector_replace</a></div><div class="ttdeci">void vector_replace(Vector *vector, u32 index, u32 count, const void *elems, u32 new_count)</div><div class="ttdoc">Replace a range of elements in the vector with new elements.</div><div class="ttdef"><b>Definition:</b> <a href="vector_8c_source.html#l00043">vector.c:43</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="vector_8c_source.html#l00043">vector_replace()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="vector_8h_source.html#l00131">vector_insert()</a>, and <a class="el" href="vector_8h_source.html#l00179">vector_push_range()</a>.</p>
+
+</div>
+</div>
+<a id="a5169207d0fedd9d5eba2376359dbaa65" name="a5169207d0fedd9d5eba2376359dbaa65"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5169207d0fedd9d5eba2376359dbaa65">&#9670;&#160;</a></span>vector_len()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static <a class="el" href="types_8h.html#afaa62991928fb9fb18ff0db62a040aba">u32</a> vector_len </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structVector.html">Vector</a> *&#160;</td>
+          <td class="paramname"><em>vector</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Gets the number of elements in the vector. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">vector</td><td>The <a class="el" href="structVector.html">Vector</a> </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Number of elements </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="vector_8h_source.html#l00105">105</a> of file <a class="el" href="vector_8h_source.html">vector.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  106</span>{</div>
+<div class="line"><span class="lineno">  107</span>    <span class="keywordflow">return</span> vector-&gt;<a class="code hl_variable" href="structVector.html#ac6aa25a7a7bc6353a0fada595c85ea2e">Length</a>;</div>
+<div class="line"><span class="lineno">  108</span>}</div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="vector_8h_source.html#l00021">Vector::Length</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="gui_8c_source.html#l00190">input_render()</a>, <a class="el" href="gui_8c_source.html#l00350">input_right()</a>, and <a class="el" href="gui_8c_source.html#l00294">input_selection_replace()</a>.</p>
+
+</div>
+</div>
+<a id="aa93a06f25d8c54ab996297b5523ab300" name="aa93a06f25d8c54ab996297b5523ab300"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa93a06f25d8c54ab996297b5523ab300">&#9670;&#160;</a></span>vector_push()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void vector_push </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structVector.html">Vector</a> *&#160;</td>
+          <td class="paramname"><em>vector</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>elem</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Insert an element after the last element of the vector. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">vector</td><td>The vector </td></tr>
+    <tr><td class="paramname">elem</td><td>The element to insert </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="vector_8h_source.html#l00167">167</a> of file <a class="el" href="vector_8h_source.html">vector.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  168</span>{</div>
+<div class="line"><span class="lineno">  169</span>    <a class="code hl_function" href="vector_8h.html#ac95a0b314c0db5461cf8591043ce9d03">vector_insert</a>(vector, vector-&gt;<a class="code hl_variable" href="structVector.html#ac6aa25a7a7bc6353a0fada595c85ea2e">Length</a>, elem);</div>
+<div class="line"><span class="lineno">  170</span>}</div>
+<div class="ttc" id="avector_8h_html_ac95a0b314c0db5461cf8591043ce9d03"><div class="ttname"><a href="vector_8h.html#ac95a0b314c0db5461cf8591043ce9d03">vector_insert</a></div><div class="ttdeci">static void vector_insert(Vector *vector, u32 index, void *elem)</div><div class="ttdoc">Insert a single element.</div><div class="ttdef"><b>Definition:</b> <a href="vector_8h_source.html#l00131">vector.h:131</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="vector_8h_source.html#l00021">Vector::Length</a>, and <a class="el" href="vector_8h_source.html#l00131">vector_insert()</a>.</p>
+
+</div>
+</div>
+<a id="a41556dfae45ce9bbe4f3ca2d5c6ec93a" name="a41556dfae45ce9bbe4f3ca2d5c6ec93a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a41556dfae45ce9bbe4f3ca2d5c6ec93a">&#9670;&#160;</a></span>vector_push_range()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void vector_push_range </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structVector.html">Vector</a> *&#160;</td>
+          <td class="paramname"><em>vector</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="types_8h.html#afaa62991928fb9fb18ff0db62a040aba">u32</a>&#160;</td>
+          <td class="paramname"><em>count</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>elem</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Insert a range of elements after the last element of the vector. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">vector</td><td>The vector </td></tr>
+    <tr><td class="paramname">count</td><td>The number of elements to insert </td></tr>
+    <tr><td class="paramname">elem</td><td>The elements to insert </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="vector_8h_source.html#l00179">179</a> of file <a class="el" href="vector_8h_source.html">vector.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  180</span>{</div>
+<div class="line"><span class="lineno">  181</span>    <a class="code hl_function" href="vector_8h.html#af8817659c74d231318afcef547716465">vector_insert_range</a>(vector, vector-&gt;<a class="code hl_variable" href="structVector.html#ac6aa25a7a7bc6353a0fada595c85ea2e">Length</a>, count, elem);</div>
+<div class="line"><span class="lineno">  182</span>}</div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="vector_8h_source.html#l00021">Vector::Length</a>, and <a class="el" href="vector_8h_source.html#l00118">vector_insert_range()</a>.</p>
+
+</div>
+</div>
+<a id="af3a2eb74cba163713007f5afaf3749fe" name="af3a2eb74cba163713007f5afaf3749fe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af3a2eb74cba163713007f5afaf3749fe">&#9670;&#160;</a></span>vector_remove()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void vector_remove </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structVector.html">Vector</a> *&#160;</td>
+          <td class="paramname"><em>vector</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="types_8h.html#afaa62991928fb9fb18ff0db62a040aba">u32</a>&#160;</td>
+          <td class="paramname"><em>index</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Remove a single element. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">vector</td><td>The vector </td></tr>
+    <tr><td class="paramname">index</td><td>Index of the element to remove </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="vector_8h_source.html#l00154">154</a> of file <a class="el" href="vector_8h_source.html">vector.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  155</span>{</div>
+<div class="line"><span class="lineno">  156</span>    <a class="code hl_function" href="vector_8h.html#a67ee10133f0cf3c7d71d364754fb648f">vector_remove_range</a>(vector, index, 1);</div>
+<div class="line"><span class="lineno">  157</span>}</div>
+<div class="ttc" id="avector_8h_html_a67ee10133f0cf3c7d71d364754fb648f"><div class="ttname"><a href="vector_8h.html#a67ee10133f0cf3c7d71d364754fb648f">vector_remove_range</a></div><div class="ttdeci">static void vector_remove_range(Vector *vector, u32 index, u32 count)</div><div class="ttdoc">Remove a range of elements.</div><div class="ttdef"><b>Definition:</b> <a href="vector_8h_source.html#l00143">vector.h:143</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="vector_8h_source.html#l00143">vector_remove_range()</a>.</p>
+
+</div>
+</div>
+<a id="a67ee10133f0cf3c7d71d364754fb648f" name="a67ee10133f0cf3c7d71d364754fb648f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a67ee10133f0cf3c7d71d364754fb648f">&#9670;&#160;</a></span>vector_remove_range()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void vector_remove_range </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structVector.html">Vector</a> *&#160;</td>
+          <td class="paramname"><em>vector</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="types_8h.html#afaa62991928fb9fb18ff0db62a040aba">u32</a>&#160;</td>
+          <td class="paramname"><em>index</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="types_8h.html#afaa62991928fb9fb18ff0db62a040aba">u32</a>&#160;</td>
+          <td class="paramname"><em>count</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Remove a range of elements. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">vector</td><td>The vector </td></tr>
+    <tr><td class="paramname">index</td><td>Start index of the range </td></tr>
+    <tr><td class="paramname">count</td><td>Number of elements to remove </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="vector_8h_source.html#l00143">143</a> of file <a class="el" href="vector_8h_source.html">vector.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  144</span>{</div>
+<div class="line"><span class="lineno">  145</span>    <a class="code hl_function" href="vector_8h.html#ab5e38bad2bc3f2cbf9f7b23f615545ee">vector_replace</a>(vector, index, count, NULL, 0);</div>
+<div class="line"><span class="lineno">  146</span>}</div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="vector_8c_source.html#l00043">vector_replace()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="vector_8h_source.html#l00154">vector_remove()</a>.</p>
 
 </div>
 </div>
@@ -239,6 +838,78 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
+
+<p class="definition">Definition at line <a class="el" href="vector_8c_source.html#l00043">43</a> of file <a class="el" href="vector_8c_source.html">vector.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   45</span>{</div>
+<div class="line"><span class="lineno">   46</span>    <a class="code hl_typedef" href="types_8h.html#afaa62991928fb9fb18ff0db62a040aba">u32</a> new_length, element_size;</div>
+<div class="line"><span class="lineno">   47</span>    element_size = vector-&gt;<a class="code hl_variable" href="structVector.html#aaecd5236c979a9c75131c2d391e44cc6">ElementSize</a>;</div>
+<div class="line"><span class="lineno">   48</span> </div>
+<div class="line"><span class="lineno">   49</span>    <a class="code hl_define" href="panic_8h.html#ac6c818ab7aca2e521c97eee817f99f91">ASSERT</a>(index + count &lt;= vector-&gt;Length, <span class="stringliteral">&quot;invalid range&quot;</span>);</div>
+<div class="line"><span class="lineno">   50</span> </div>
+<div class="line"><span class="lineno">   51</span>    <span class="comment">/* Calculate new number of elements */</span></div>
+<div class="line"><span class="lineno">   52</span>    new_length = vector-&gt;<a class="code hl_variable" href="structVector.html#ac6aa25a7a7bc6353a0fada595c85ea2e">Length</a> - count + new_count;</div>
+<div class="line"><span class="lineno">   53</span>    <span class="keywordflow">if</span>(new_length &gt; vector-&gt;<a class="code hl_variable" href="structVector.html#af9abb7483a64efea81def7fbf714ba60">Capacity</a>)</div>
+<div class="line"><span class="lineno">   54</span>    {</div>
+<div class="line"><span class="lineno">   55</span>        <span class="comment">/* Resize necessary */</span></div>
+<div class="line"><span class="lineno">   56</span>        <a class="code hl_typedef" href="types_8h.html#afaa62991928fb9fb18ff0db62a040aba">u32</a> new_capacity, prev_bytes, new_bytes, old_bytes, last_bytes;</div>
+<div class="line"><span class="lineno">   57</span>        <span class="keywordtype">void</span> *new_data;</div>
+<div class="line"><span class="lineno">   58</span> </div>
+<div class="line"><span class="lineno">   59</span>        new_capacity = <a class="code hl_function" href="vector_8c.html#ae2ff8fa33ac906e41f31fd19a1f51acc">_next_pot</a>(new_length);</div>
+<div class="line"><span class="lineno">   60</span>        prev_bytes = index * element_size;</div>
+<div class="line"><span class="lineno">   61</span>        new_bytes = new_count * element_size;</div>
+<div class="line"><span class="lineno">   62</span>        old_bytes = count * element_size;</div>
+<div class="line"><span class="lineno">   63</span>        last_bytes = (vector-&gt;<a class="code hl_variable" href="structVector.html#ac6aa25a7a7bc6353a0fada595c85ea2e">Length</a> - index - count) * element_size;</div>
+<div class="line"><span class="lineno">   64</span> </div>
+<div class="line"><span class="lineno">   65</span>        <span class="comment">/* Calculate new capacity */</span></div>
+<div class="line"><span class="lineno">   66</span>        vector-&gt;<a class="code hl_variable" href="structVector.html#af9abb7483a64efea81def7fbf714ba60">Capacity</a> = new_capacity;</div>
+<div class="line"><span class="lineno">   67</span> </div>
+<div class="line"><span class="lineno">   68</span>        <span class="comment">/* Create new buffer */</span></div>
+<div class="line"><span class="lineno">   69</span>        new_data = <a class="code hl_function" href="alloc_8c.html#a4be51fa4dd80d0b7077779261722119a">memalloc</a>(new_capacity * element_size);</div>
+<div class="line"><span class="lineno">   70</span> </div>
+<div class="line"><span class="lineno">   71</span>        <span class="comment">/* Copy first part from previous buffer */</span></div>
+<div class="line"><span class="lineno">   72</span>        <a class="code hl_function" href="string_8c.html#a6ea826c42748b85ae7c74f1e2ccf7c27">memcpy</a>(new_data, vector-&gt;<a class="code hl_variable" href="structVector.html#a3c3c5b59d45fcf97bd75f79657df4b25">Data</a>, prev_bytes); <span class="comment">// correct</span></div>
+<div class="line"><span class="lineno">   73</span> </div>
+<div class="line"><span class="lineno">   74</span>        <span class="comment">/* Copy new range */</span></div>
+<div class="line"><span class="lineno">   75</span>        <a class="code hl_function" href="string_8c.html#a6ea826c42748b85ae7c74f1e2ccf7c27">memcpy</a>((<a class="code hl_typedef" href="types_8h.html#a92c50087ca0e64fa93fc59402c55f8ca">u8</a> *)new_data + prev_bytes, elems, new_bytes); <span class="comment">// correct</span></div>
+<div class="line"><span class="lineno">   76</span> </div>
+<div class="line"><span class="lineno">   77</span>        <span class="comment">/* Copy last part */</span></div>
+<div class="line"><span class="lineno">   78</span>        <a class="code hl_function" href="string_8c.html#a6ea826c42748b85ae7c74f1e2ccf7c27">memcpy</a>((<a class="code hl_typedef" href="types_8h.html#a92c50087ca0e64fa93fc59402c55f8ca">u8</a> *)new_data + prev_bytes + new_bytes,</div>
+<div class="line"><span class="lineno">   79</span>            (<a class="code hl_typedef" href="types_8h.html#a92c50087ca0e64fa93fc59402c55f8ca">u8</a> *)vector-&gt;<a class="code hl_variable" href="structVector.html#a3c3c5b59d45fcf97bd75f79657df4b25">Data</a> + prev_bytes + old_bytes,</div>
+<div class="line"><span class="lineno">   80</span>            last_bytes);</div>
+<div class="line"><span class="lineno">   81</span> </div>
+<div class="line"><span class="lineno">   82</span>        <span class="comment">/* Replace with new buffer */</span></div>
+<div class="line"><span class="lineno">   83</span>        <a class="code hl_function" href="alloc_8c.html#ab0b733d6d48d9eafd86d2196d16e2bc4">memfree</a>(vector-&gt;<a class="code hl_variable" href="structVector.html#a3c3c5b59d45fcf97bd75f79657df4b25">Data</a>);</div>
+<div class="line"><span class="lineno">   84</span>        vector-&gt;<a class="code hl_variable" href="structVector.html#a3c3c5b59d45fcf97bd75f79657df4b25">Data</a> = new_data;</div>
+<div class="line"><span class="lineno">   85</span>    }</div>
+<div class="line"><span class="lineno">   86</span>    <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno">   87</span>    {</div>
+<div class="line"><span class="lineno">   88</span>        <a class="code hl_typedef" href="types_8h.html#afaa62991928fb9fb18ff0db62a040aba">u32</a> prev_bytes, new_bytes, old_bytes, last_bytes;</div>
+<div class="line"><span class="lineno">   89</span> </div>
+<div class="line"><span class="lineno">   90</span>        prev_bytes = index * element_size;</div>
+<div class="line"><span class="lineno">   91</span>        new_bytes = new_count * element_size;</div>
+<div class="line"><span class="lineno">   92</span>        old_bytes = count * element_size;</div>
+<div class="line"><span class="lineno">   93</span>        last_bytes = (vector-&gt;<a class="code hl_variable" href="structVector.html#ac6aa25a7a7bc6353a0fada595c85ea2e">Length</a> - index - count) * element_size;</div>
+<div class="line"><span class="lineno">   94</span> </div>
+<div class="line"><span class="lineno">   95</span>        <span class="comment">/* Shift last part */</span></div>
+<div class="line"><span class="lineno">   96</span>        <a class="code hl_function" href="string_8c.html#aff3234e5ebcd6a4ff32e5171ee7ac45a">memmove</a>((<a class="code hl_typedef" href="types_8h.html#a92c50087ca0e64fa93fc59402c55f8ca">u8</a> *)vector-&gt;<a class="code hl_variable" href="structVector.html#a3c3c5b59d45fcf97bd75f79657df4b25">Data</a> + prev_bytes + new_bytes,</div>
+<div class="line"><span class="lineno">   97</span>            (<a class="code hl_typedef" href="types_8h.html#a92c50087ca0e64fa93fc59402c55f8ca">u8</a> *)vector-&gt;<a class="code hl_variable" href="structVector.html#a3c3c5b59d45fcf97bd75f79657df4b25">Data</a> + prev_bytes + old_bytes,</div>
+<div class="line"><span class="lineno">   98</span>            last_bytes);</div>
+<div class="line"><span class="lineno">   99</span> </div>
+<div class="line"><span class="lineno">  100</span>        <span class="comment">/* Copy new range */</span></div>
+<div class="line"><span class="lineno">  101</span>        <a class="code hl_function" href="string_8c.html#a6ea826c42748b85ae7c74f1e2ccf7c27">memcpy</a>((<a class="code hl_typedef" href="types_8h.html#a92c50087ca0e64fa93fc59402c55f8ca">u8</a> *)vector-&gt;<a class="code hl_variable" href="structVector.html#a3c3c5b59d45fcf97bd75f79657df4b25">Data</a> + prev_bytes, elems, new_bytes);</div>
+<div class="line"><span class="lineno">  102</span>    }</div>
+<div class="line"><span class="lineno">  103</span> </div>
+<div class="line"><span class="lineno">  104</span>    vector-&gt;<a class="code hl_variable" href="structVector.html#ac6aa25a7a7bc6353a0fada595c85ea2e">Length</a> = new_length;</div>
+<div class="line"><span class="lineno">  105</span>}</div>
+<div class="ttc" id="apanic_8h_html_ac6c818ab7aca2e521c97eee817f99f91"><div class="ttname"><a href="panic_8h.html#ac6c818ab7aca2e521c97eee817f99f91">ASSERT</a></div><div class="ttdeci">#define ASSERT(cond, msg)</div><div class="ttdoc">If the condition is false, a PANIC is triggered.</div><div class="ttdef"><b>Definition:</b> <a href="panic_8h_source.html#l00040">panic.h:40</a></div></div>
+<div class="ttc" id="astring_8c_html_a6ea826c42748b85ae7c74f1e2ccf7c27"><div class="ttname"><a href="string_8c.html#a6ea826c42748b85ae7c74f1e2ccf7c27">memcpy</a></div><div class="ttdeci">void * memcpy(void *dest, const void *src, u32 count)</div><div class="ttdoc">Copies count bytes from src to dest Source and destination blocks must NOT overlap.</div><div class="ttdef"><b>Definition:</b> <a href="string_8c_source.html#l00094">string.c:94</a></div></div>
+<div class="ttc" id="astring_8c_html_aff3234e5ebcd6a4ff32e5171ee7ac45a"><div class="ttname"><a href="string_8c.html#aff3234e5ebcd6a4ff32e5171ee7ac45a">memmove</a></div><div class="ttdeci">void * memmove(void *dest, const void *src, u32 count)</div><div class="ttdoc">Copies count bytes from src to dest Source and destination blocks are allowed to overlap.</div><div class="ttdef"><b>Definition:</b> <a href="string_8c_source.html#l00113">string.c:113</a></div></div>
+<div class="ttc" id="atypes_8h_html_afaa62991928fb9fb18ff0db62a040aba"><div class="ttname"><a href="types_8h.html#afaa62991928fb9fb18ff0db62a040aba">u32</a></div><div class="ttdeci">uint32_t u32</div><div class="ttdef"><b>Definition:</b> <a href="types_8h_source.html#l00032">types.h:32</a></div></div>
+<div class="ttc" id="avector_8c_html_ae2ff8fa33ac906e41f31fd19a1f51acc"><div class="ttname"><a href="vector_8c.html#ae2ff8fa33ac906e41f31fd19a1f51acc">_next_pot</a></div><div class="ttdeci">static u32 _next_pot(u32 n)</div><div class="ttdoc">Next power of two.</div><div class="ttdef"><b>Definition:</b> <a href="vector_8c_source.html#l00019">vector.c:19</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="vector_8c_source.html#l00019">_next_pot()</a>, <a class="el" href="panic_8h_source.html#l00040">ASSERT</a>, <a class="el" href="vector_8h_source.html#l00024">Vector::Capacity</a>, <a class="el" href="vector_8h_source.html#l00027">Vector::Data</a>, <a class="el" href="vector_8h_source.html#l00018">Vector::ElementSize</a>, <a class="el" href="vector_8h_source.html#l00021">Vector::Length</a>, <a class="el" href="alloc_8c_source.html#l00079">memalloc()</a>, <a class="el" href="string_8c_source.html#l00094">memcpy()</a>, <a class="el" href="alloc_8c_source.html#l00135">memfree()</a>, and <a class="el" href="string_8c_source.html#l00113">memmove()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="gui_8c_source.html#l00294">input_selection_replace()</a>, <a class="el" href="vector_8h_source.html#l00118">vector_insert_range()</a>, and <a class="el" href="vector_8h_source.html#l00143">vector_remove_range()</a>.</p>
 
 </div>
 </div>

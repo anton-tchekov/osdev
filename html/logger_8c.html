@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">OS Dev
+   <div id="projectname">OS Dev<span id="projectnumber">&#160;0.1</span>
    </div>
   </td>
  </tr>
@@ -88,7 +88,9 @@ $(function() {
 <code>#include &lt;stdarg.h&gt;</code><br />
 <code>#include &lt;stdio.h&gt;</code><br />
 <code>#include &lt;<a class="el" href="ctype_8h_source.html">ctype.h</a>&gt;</code><br />
-</div><table class="memberdecls">
+</div>
+<p><a href="logger_8c_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
 <tr class="memitem:a7e605a71d397f16aa436a31c4d459a82"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="logger_8c.html#a7e605a71d397f16aa436a31c4d459a82">DUMP_BYTES_PER_LINE</a>&#160;&#160;&#160;16</td></tr>
@@ -103,9 +105,17 @@ Macros</h2></td></tr>
 <tr class="separator:aa18d885e222964b4545d9d36432ddef2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a119ca7f71ff2656a654bce7e413cf9d7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="logger_8c.html#a119ca7f71ff2656a654bce7e413cf9d7">LOG_START_WIDTH</a>&#160;&#160;&#160;8</td></tr>
 <tr class="separator:a119ca7f71ff2656a654bce7e413cf9d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a88e76882c6f9a1a90f5b714c39be7b37"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="logger_8c.html#a88e76882c6f9a1a90f5b714c39be7b37">LOGO_X_OFFSET</a>&#160;&#160;&#160;30</td></tr>
+<tr class="separator:a88e76882c6f9a1a90f5b714c39be7b37"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a70b1470428ebbc008fc85cfb458820b1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="logger_8c.html#a70b1470428ebbc008fc85cfb458820b1">LOGO_Y_OFFSET</a>&#160;&#160;&#160;50</td></tr>
+<tr class="separator:a70b1470428ebbc008fc85cfb458820b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4bcc8822ee0337ce0c7d0f7086244b6d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="logger_8c.html#a4bcc8822ee0337ce0c7d0f7086244b6d">LOGO_TEXT_X_OFFSET</a>&#160;&#160;&#160;56</td></tr>
+<tr class="separator:a4bcc8822ee0337ce0c7d0f7086244b6d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:af1a6b0255055e7945b2a3ce17fc8a238"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="logger_8c.html#af1a6b0255055e7945b2a3ce17fc8a238">_lcd_log</a> (<a class="el" href="logger_8h.html#aca1fd1d8935433e6ba2e3918214e07f9">LogLevel</a> level, const char *msg)</td></tr>
+<tr class="separator:af1a6b0255055e7945b2a3ce17fc8a238"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a60bd636ef160c97eb51cf31be5954ba2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="logger_8c.html#a60bd636ef160c97eb51cf31be5954ba2">log_boot_P</a> (<a class="el" href="logger_8h.html#aca1fd1d8935433e6ba2e3918214e07f9">LogLevel</a> level, const char *msg,...)</td></tr>
 <tr class="memdesc:a60bd636ef160c97eb51cf31be5954ba2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Log boot message.  <br /></td></tr>
 <tr class="separator:a60bd636ef160c97eb51cf31be5954ba2"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -115,16 +125,23 @@ Functions</h2></td></tr>
 <tr class="memitem:a0108e0dd64eb1971222c219982138866"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="logger_8c.html#a0108e0dd64eb1971222c219982138866">memory_dump</a> (<a class="el" href="types_8h.html#afaa62991928fb9fb18ff0db62a040aba">u32</a> addr, const void *data, <a class="el" href="types_8h.html#ace9d960e74685e2cd84b36132dbbf8aa">u16</a> len)</td></tr>
 <tr class="memdesc:a0108e0dd64eb1971222c219982138866"><td class="mdescLeft">&#160;</td><td class="mdescRight">Print a hexdump of a block memory.  <br /></td></tr>
 <tr class="separator:a0108e0dd64eb1971222c219982138866"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa60037dffd3fce2b3b698663eb11b5dc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="logger_8c.html#aa60037dffd3fce2b3b698663eb11b5dc">logger_lcd_init</a> (void)</td></tr>
+<tr class="memdesc:aa60037dffd3fce2b3b698663eb11b5dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize LCD Logger.  <br /></td></tr>
+<tr class="separator:aa60037dffd3fce2b3b698663eb11b5dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:a149e41d3c69eb61cab9e3780d0390b39"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="lcd_8h.html#a9a75b3f378a8d443f893bd9eceb09642">RGB565</a> _log_color[]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="logger_8c.html#a149e41d3c69eb61cab9e3780d0390b39">PROGMEM</a></td></tr>
-<tr class="separator:a149e41d3c69eb61cab9e3780d0390b39"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4b6e7d1086f87ee156cd12590f8f38eb"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="logger_8c.html#a4b6e7d1086f87ee156cd12590f8f38eb">_lcd_initialized</a></td></tr>
+<tr class="separator:a4b6e7d1086f87ee156cd12590f8f38eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a96872bbeb445d3db1b2e45692ae560db"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="types_8h.html#ace9d960e74685e2cd84b36132dbbf8aa">u16</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="logger_8c.html#a96872bbeb445d3db1b2e45692ae560db">_log_y</a> = <a class="el" href="logger_8c.html#a1c2264aaa6ab403827c0b0ccf4e52c98">LOG_Y_OFFSET</a></td></tr>
+<tr class="separator:a96872bbeb445d3db1b2e45692ae560db"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><dl class="section author"><dt>Author</dt><dd>Tim Gabrikowski, Anton Tchekov </dd></dl>
 <dl class="section version"><dt>Version</dt><dd>0.1 </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>16.05.2023 </dd></dl>
+
+<p class="definition">Definition in file <a class="el" href="logger_8c_source.html">logger.c</a>.</p>
 </div><h2 class="groupheader">Macro Definition Documentation</h2>
 <a id="a7e605a71d397f16aa436a31c4d459a82" name="a7e605a71d397f16aa436a31c4d459a82"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7e605a71d397f16aa436a31c4d459a82">&#9670;&#160;</a></span>DUMP_BYTES_PER_LINE</h2>
@@ -138,6 +155,8 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>How many bytes to print per line in a hexdump </p>
+
+<p class="definition">Definition at line <a class="el" href="logger_8c_source.html#l00018">18</a> of file <a class="el" href="logger_8c_source.html">logger.c</a>.</p>
 
 </div>
 </div>
@@ -154,6 +173,8 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 <p>Serial Log prefix width </p>
 
+<p class="definition">Definition at line <a class="el" href="logger_8c_source.html#l00033">33</a> of file <a class="el" href="logger_8c_source.html">logger.c</a>.</p>
+
 </div>
 </div>
 <a id="aa2f3dc0dd5d312558d3c448c9ff76c4e" name="aa2f3dc0dd5d312558d3c448c9ff76c4e"></a>
@@ -168,6 +189,8 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>LCD Log left margin </p>
+
+<p class="definition">Definition at line <a class="el" href="logger_8c_source.html#l00024">24</a> of file <a class="el" href="logger_8c_source.html">logger.c</a>.</p>
 
 </div>
 </div>
@@ -184,6 +207,8 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 <p>LCD Log prefix pixel width </p>
 
+<p class="definition">Definition at line <a class="el" href="logger_8c_source.html#l00030">30</a> of file <a class="el" href="logger_8c_source.html">logger.c</a>.</p>
+
 </div>
 </div>
 <a id="a924a8786b2d00a7d13ccf96ba6e7bd41" name="a924a8786b2d00a7d13ccf96ba6e7bd41"></a>
@@ -198,6 +223,8 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>LCD advance Y direction </p>
+
+<p class="definition">Definition at line <a class="el" href="logger_8c_source.html#l00027">27</a> of file <a class="el" href="logger_8c_source.html">logger.c</a>.</p>
 
 </div>
 </div>
@@ -214,9 +241,189 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 <p>LCD Log top margin </p>
 
+<p class="definition">Definition at line <a class="el" href="logger_8c_source.html#l00021">21</a> of file <a class="el" href="logger_8c_source.html">logger.c</a>.</p>
+
+</div>
+</div>
+<a id="a4bcc8822ee0337ce0c7d0f7086244b6d" name="a4bcc8822ee0337ce0c7d0f7086244b6d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4bcc8822ee0337ce0c7d0f7086244b6d">&#9670;&#160;</a></span>LOGO_TEXT_X_OFFSET</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define LOGO_TEXT_X_OFFSET&#160;&#160;&#160;56</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Text Logo X Offset </p>
+
+<p class="definition">Definition at line <a class="el" href="logger_8c_source.html#l00042">42</a> of file <a class="el" href="logger_8c_source.html">logger.c</a>.</p>
+
+</div>
+</div>
+<a id="a88e76882c6f9a1a90f5b714c39be7b37" name="a88e76882c6f9a1a90f5b714c39be7b37"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a88e76882c6f9a1a90f5b714c39be7b37">&#9670;&#160;</a></span>LOGO_X_OFFSET</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define LOGO_X_OFFSET&#160;&#160;&#160;30</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Image Logo X offset </p>
+
+<p class="definition">Definition at line <a class="el" href="logger_8c_source.html#l00036">36</a> of file <a class="el" href="logger_8c_source.html">logger.c</a>.</p>
+
+</div>
+</div>
+<a id="a70b1470428ebbc008fc85cfb458820b1" name="a70b1470428ebbc008fc85cfb458820b1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a70b1470428ebbc008fc85cfb458820b1">&#9670;&#160;</a></span>LOGO_Y_OFFSET</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define LOGO_Y_OFFSET&#160;&#160;&#160;50</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Image Logo Y Offset </p>
+
+<p class="definition">Definition at line <a class="el" href="logger_8c_source.html#l00039">39</a> of file <a class="el" href="logger_8c_source.html">logger.c</a>.</p>
+
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
+<a id="af1a6b0255055e7945b2a3ce17fc8a238" name="af1a6b0255055e7945b2a3ce17fc8a238"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af1a6b0255055e7945b2a3ce17fc8a238">&#9670;&#160;</a></span>_lcd_log()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void _lcd_log </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="logger_8h.html#aca1fd1d8935433e6ba2e3918214e07f9">LogLevel</a>&#160;</td>
+          <td class="paramname"><em>level</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>msg</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="logger_8c_source.html#l00089">89</a> of file <a class="el" href="logger_8c_source.html">logger.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   90</span>{</div>
+<div class="line"><span class="lineno">   91</span>    <span class="keywordflow">if</span>(level != LOG_EXT)</div>
+<div class="line"><span class="lineno">   92</span>    {</div>
+<div class="line"><span class="lineno">   93</span>        <a class="code hl_typedef" href="types_8h.html#a92c50087ca0e64fa93fc59402c55f8ca">u8</a> len;</div>
+<div class="line"><span class="lineno">   94</span>        <a class="code hl_typedef" href="types_8h.html#ace9d960e74685e2cd84b36132dbbf8aa">u16</a> x;</div>
+<div class="line"><span class="lineno">   95</span>        <span class="keyword">const</span> <span class="keywordtype">char</span> *level_str;</div>
+<div class="line"><span class="lineno">   96</span> </div>
+<div class="line"><span class="lineno">   97</span>        <span class="keywordflow">if</span>(level != LOG_NONE &amp;&amp; level != LOG_OFFSET)</div>
+<div class="line"><span class="lineno">   98</span>        {</div>
+<div class="line"><span class="lineno">   99</span>            level_str = (<span class="keyword">const</span> <span class="keywordtype">char</span> *)pgm_read_word(&amp;_log_msg[level]);</div>
+<div class="line"><span class="lineno">  100</span> </div>
+<div class="line"><span class="lineno">  101</span>            <a class="code hl_function" href="platform_2avr_2serial_2serial_8c.html#ad1404aaabd8a723599a89c9b9ca08a65">serial_tx</a>(<span class="charliteral">&#39;[&#39;</span>);</div>
+<div class="line"><span class="lineno">  102</span>            <a class="code hl_function" href="platform_2avr_2serial_2serial_8c.html#a61bd5731ded09bedba568c156e57e0bb">serial_tx_str_P</a>(level_str);</div>
+<div class="line"><span class="lineno">  103</span>            <a class="code hl_function" href="platform_2avr_2serial_2serial_8c.html#ad1404aaabd8a723599a89c9b9ca08a65">serial_tx</a>(<span class="charliteral">&#39;]&#39;</span>);</div>
+<div class="line"><span class="lineno">  104</span> </div>
+<div class="line"><span class="lineno">  105</span>            len = 2 + strlen_P(level_str);</div>
+<div class="line"><span class="lineno">  106</span>            <span class="keywordflow">while</span>(len &lt; <a class="code hl_define" href="logger_8c.html#a119ca7f71ff2656a654bce7e413cf9d7">LOG_START_WIDTH</a>)</div>
+<div class="line"><span class="lineno">  107</span>            {</div>
+<div class="line"><span class="lineno">  108</span>                <a class="code hl_function" href="platform_2avr_2serial_2serial_8c.html#ad1404aaabd8a723599a89c9b9ca08a65">serial_tx</a>(<span class="charliteral">&#39; &#39;</span>);</div>
+<div class="line"><span class="lineno">  109</span>                ++len;</div>
+<div class="line"><span class="lineno">  110</span>            }</div>
+<div class="line"><span class="lineno">  111</span> </div>
+<div class="line"><span class="lineno">  112</span>            <span class="keywordflow">if</span>(<a class="code hl_variable" href="logger_8c.html#a4b6e7d1086f87ee156cd12590f8f38eb">_lcd_initialized</a>)</div>
+<div class="line"><span class="lineno">  113</span>            {</div>
+<div class="line"><span class="lineno">  114</span>                <a class="code hl_typedef" href="lcd_8h.html#a9a75b3f378a8d443f893bd9eceb09642">RGB565</a> fg;</div>
+<div class="line"><span class="lineno">  115</span> </div>
+<div class="line"><span class="lineno">  116</span>                fg = pgm_read_word(&amp;_log_color[level]);</div>
+<div class="line"><span class="lineno">  117</span>                x = <a class="code hl_define" href="logger_8c.html#aa2f3dc0dd5d312558d3c448c9ff76c4e">LOG_X_OFFSET</a>;</div>
+<div class="line"><span class="lineno">  118</span>                x += <a class="code hl_function" href="lcd_8c.html#a2d178ce2cd276e286fcdb38ba4763842">lcd_char</a>(x, <a class="code hl_variable" href="logger_8c.html#a96872bbeb445d3db1b2e45692ae560db">_log_y</a>, <a class="code hl_define" href="lcd_8h.html#a9b44987ffdc2af19b635206b94334b69">COLOR_WHITE</a>, <a class="code hl_define" href="lcd_8h.html#aba2a7fe77a7501e5844370eec0185207">COLOR_BLACK</a>, <span class="charliteral">&#39;[&#39;</span>);</div>
+<div class="line"><span class="lineno">  119</span>                x += <a class="code hl_function" href="lcd_8c.html#a3eaf9793a384ee2d2471d6e888ad99ed">lcd_string_P</a>(x, <a class="code hl_variable" href="logger_8c.html#a96872bbeb445d3db1b2e45692ae560db">_log_y</a>, fg, <a class="code hl_define" href="lcd_8h.html#aba2a7fe77a7501e5844370eec0185207">COLOR_BLACK</a>, level_str);</div>
+<div class="line"><span class="lineno">  120</span>                <a class="code hl_function" href="lcd_8c.html#a2d178ce2cd276e286fcdb38ba4763842">lcd_char</a>(x, <a class="code hl_variable" href="logger_8c.html#a96872bbeb445d3db1b2e45692ae560db">_log_y</a>, <a class="code hl_define" href="lcd_8h.html#a9b44987ffdc2af19b635206b94334b69">COLOR_WHITE</a>, <a class="code hl_define" href="lcd_8h.html#aba2a7fe77a7501e5844370eec0185207">COLOR_BLACK</a>, <span class="charliteral">&#39;]&#39;</span>);</div>
+<div class="line"><span class="lineno">  121</span>            }</div>
+<div class="line"><span class="lineno">  122</span>        }</div>
+<div class="line"><span class="lineno">  123</span>        <span class="keywordflow">else</span> <span class="keywordflow">if</span>(level == LOG_OFFSET)</div>
+<div class="line"><span class="lineno">  124</span>        {</div>
+<div class="line"><span class="lineno">  125</span>            <span class="keywordflow">for</span>(len = 0; len &lt; <a class="code hl_define" href="logger_8c.html#a119ca7f71ff2656a654bce7e413cf9d7">LOG_START_WIDTH</a>; ++len)</div>
+<div class="line"><span class="lineno">  126</span>            {</div>
+<div class="line"><span class="lineno">  127</span>                <a class="code hl_function" href="platform_2avr_2serial_2serial_8c.html#ad1404aaabd8a723599a89c9b9ca08a65">serial_tx</a>(<span class="charliteral">&#39; &#39;</span>);</div>
+<div class="line"><span class="lineno">  128</span>            }</div>
+<div class="line"><span class="lineno">  129</span>        }</div>
+<div class="line"><span class="lineno">  130</span> </div>
+<div class="line"><span class="lineno">  131</span>        <span class="keywordflow">if</span>(<a class="code hl_variable" href="logger_8c.html#a4b6e7d1086f87ee156cd12590f8f38eb">_lcd_initialized</a>)</div>
+<div class="line"><span class="lineno">  132</span>        {</div>
+<div class="line"><span class="lineno">  133</span>            <span class="keyword">const</span> <span class="keywordtype">char</span> *s;</div>
+<div class="line"><span class="lineno">  134</span>            <span class="keywordtype">char</span> c;</div>
+<div class="line"><span class="lineno">  135</span> </div>
+<div class="line"><span class="lineno">  136</span>            x = <a class="code hl_define" href="logger_8c.html#aa18d885e222964b4545d9d36432ddef2">LOG_X_TEXT_OFFSET</a>;</div>
+<div class="line"><span class="lineno">  137</span>            <span class="keywordflow">if</span>(level == LOG_NONE)</div>
+<div class="line"><span class="lineno">  138</span>            {</div>
+<div class="line"><span class="lineno">  139</span>                x = 0;</div>
+<div class="line"><span class="lineno">  140</span>            }</div>
+<div class="line"><span class="lineno">  141</span> </div>
+<div class="line"><span class="lineno">  142</span>            s = msg;</div>
+<div class="line"><span class="lineno">  143</span>            <span class="keywordflow">while</span>((c = *s++))</div>
+<div class="line"><span class="lineno">  144</span>            {</div>
+<div class="line"><span class="lineno">  145</span>                <span class="keywordflow">if</span>(c == <span class="charliteral">&#39;\n&#39;</span>)</div>
+<div class="line"><span class="lineno">  146</span>                {</div>
+<div class="line"><span class="lineno">  147</span>                    x = 0;</div>
+<div class="line"><span class="lineno">  148</span>                    <a class="code hl_variable" href="logger_8c.html#a96872bbeb445d3db1b2e45692ae560db">_log_y</a> += <a class="code hl_define" href="logger_8c.html#a924a8786b2d00a7d13ccf96ba6e7bd41">LOG_Y_ADVANCE</a>;</div>
+<div class="line"><span class="lineno">  149</span>                }</div>
+<div class="line"><span class="lineno">  150</span>                <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno">  151</span>                {</div>
+<div class="line"><span class="lineno">  152</span>                    x += <a class="code hl_function" href="lcd_8c.html#a2d178ce2cd276e286fcdb38ba4763842">lcd_char</a>(<a class="code hl_define" href="logger_8c.html#aa2f3dc0dd5d312558d3c448c9ff76c4e">LOG_X_OFFSET</a> + x, <a class="code hl_variable" href="logger_8c.html#a96872bbeb445d3db1b2e45692ae560db">_log_y</a>,</div>
+<div class="line"><span class="lineno">  153</span>                        <a class="code hl_define" href="lcd_8h.html#a9b44987ffdc2af19b635206b94334b69">COLOR_WHITE</a>, <a class="code hl_define" href="lcd_8h.html#aba2a7fe77a7501e5844370eec0185207">COLOR_BLACK</a>, c);</div>
+<div class="line"><span class="lineno">  154</span>                }</div>
+<div class="line"><span class="lineno">  155</span>            }</div>
+<div class="line"><span class="lineno">  156</span> </div>
+<div class="line"><span class="lineno">  157</span>            <a class="code hl_variable" href="logger_8c.html#a96872bbeb445d3db1b2e45692ae560db">_log_y</a> += <a class="code hl_define" href="logger_8c.html#a924a8786b2d00a7d13ccf96ba6e7bd41">LOG_Y_ADVANCE</a>;</div>
+<div class="line"><span class="lineno">  158</span>        }</div>
+<div class="line"><span class="lineno">  159</span>    }</div>
+<div class="line"><span class="lineno">  160</span> </div>
+<div class="line"><span class="lineno">  161</span>    <a class="code hl_function" href="platform_2avr_2serial_2serial_8c.html#a38ab89a81b380ccbfe63ba026d92b54b">serial_tx_str</a>(msg);</div>
+<div class="line"><span class="lineno">  162</span>}</div>
+<div class="ttc" id="alcd_8c_html_a2d178ce2cd276e286fcdb38ba4763842"><div class="ttname"><a href="lcd_8c.html#a2d178ce2cd276e286fcdb38ba4763842">lcd_char</a></div><div class="ttdeci">u8 lcd_char(u16 x, u16 y, RGB565 fg, RGB565 bg, char c)</div><div class="ttdoc">Draw a character in the standard font.</div><div class="ttdef"><b>Definition:</b> <a href="lcd_8c_source.html#l00437">lcd.c:437</a></div></div>
+<div class="ttc" id="alcd_8c_html_a3eaf9793a384ee2d2471d6e888ad99ed"><div class="ttname"><a href="lcd_8c.html#a3eaf9793a384ee2d2471d6e888ad99ed">lcd_string_P</a></div><div class="ttdeci">u16 lcd_string_P(u16 x, u16 y, RGB565 fg, RGB565 bg, const char *s)</div><div class="ttdoc">Draw a string from program memory in the default font.</div><div class="ttdef"><b>Definition:</b> <a href="lcd_8c_source.html#l00471">lcd.c:471</a></div></div>
+<div class="ttc" id="alcd_8h_html_a9a75b3f378a8d443f893bd9eceb09642"><div class="ttname"><a href="lcd_8h.html#a9a75b3f378a8d443f893bd9eceb09642">RGB565</a></div><div class="ttdeci">u16 RGB565</div><div class="ttdef"><b>Definition:</b> <a href="lcd_8h_source.html#l00047">lcd.h:47</a></div></div>
+<div class="ttc" id="alcd_8h_html_a9b44987ffdc2af19b635206b94334b69"><div class="ttname"><a href="lcd_8h.html#a9b44987ffdc2af19b635206b94334b69">COLOR_WHITE</a></div><div class="ttdeci">#define COLOR_WHITE</div><div class="ttdef"><b>Definition:</b> <a href="lcd_8h_source.html#l00035">lcd.h:35</a></div></div>
+<div class="ttc" id="alcd_8h_html_aba2a7fe77a7501e5844370eec0185207"><div class="ttname"><a href="lcd_8h.html#aba2a7fe77a7501e5844370eec0185207">COLOR_BLACK</a></div><div class="ttdeci">#define COLOR_BLACK</div><div class="ttdef"><b>Definition:</b> <a href="lcd_8h_source.html#l00038">lcd.h:38</a></div></div>
+<div class="ttc" id="alogger_8c_html_a119ca7f71ff2656a654bce7e413cf9d7"><div class="ttname"><a href="logger_8c.html#a119ca7f71ff2656a654bce7e413cf9d7">LOG_START_WIDTH</a></div><div class="ttdeci">#define LOG_START_WIDTH</div><div class="ttdef"><b>Definition:</b> <a href="logger_8c_source.html#l00033">logger.c:33</a></div></div>
+<div class="ttc" id="alogger_8c_html_a4b6e7d1086f87ee156cd12590f8f38eb"><div class="ttname"><a href="logger_8c.html#a4b6e7d1086f87ee156cd12590f8f38eb">_lcd_initialized</a></div><div class="ttdeci">static bool _lcd_initialized</div><div class="ttdef"><b>Definition:</b> <a href="logger_8c_source.html#l00084">logger.c:84</a></div></div>
+<div class="ttc" id="alogger_8c_html_a924a8786b2d00a7d13ccf96ba6e7bd41"><div class="ttname"><a href="logger_8c.html#a924a8786b2d00a7d13ccf96ba6e7bd41">LOG_Y_ADVANCE</a></div><div class="ttdeci">#define LOG_Y_ADVANCE</div><div class="ttdef"><b>Definition:</b> <a href="logger_8c_source.html#l00027">logger.c:27</a></div></div>
+<div class="ttc" id="alogger_8c_html_a96872bbeb445d3db1b2e45692ae560db"><div class="ttname"><a href="logger_8c.html#a96872bbeb445d3db1b2e45692ae560db">_log_y</a></div><div class="ttdeci">static u16 _log_y</div><div class="ttdef"><b>Definition:</b> <a href="logger_8c_source.html#l00087">logger.c:87</a></div></div>
+<div class="ttc" id="alogger_8c_html_aa18d885e222964b4545d9d36432ddef2"><div class="ttname"><a href="logger_8c.html#aa18d885e222964b4545d9d36432ddef2">LOG_X_TEXT_OFFSET</a></div><div class="ttdeci">#define LOG_X_TEXT_OFFSET</div><div class="ttdef"><b>Definition:</b> <a href="logger_8c_source.html#l00030">logger.c:30</a></div></div>
+<div class="ttc" id="alogger_8c_html_aa2f3dc0dd5d312558d3c448c9ff76c4e"><div class="ttname"><a href="logger_8c.html#aa2f3dc0dd5d312558d3c448c9ff76c4e">LOG_X_OFFSET</a></div><div class="ttdeci">#define LOG_X_OFFSET</div><div class="ttdef"><b>Definition:</b> <a href="logger_8c_source.html#l00024">logger.c:24</a></div></div>
+<div class="ttc" id="aplatform_2avr_2serial_2serial_8c_html_a38ab89a81b380ccbfe63ba026d92b54b"><div class="ttname"><a href="platform_2avr_2serial_2serial_8c.html#a38ab89a81b380ccbfe63ba026d92b54b">serial_tx_str</a></div><div class="ttdeci">void serial_tx_str(const char *s)</div><div class="ttdoc">Print a null-terminated string.</div><div class="ttdef"><b>Definition:</b> <a href="platform_2avr_2serial_2serial_8c_source.html#l00032">serial.c:32</a></div></div>
+<div class="ttc" id="aplatform_2avr_2serial_2serial_8c_html_a61bd5731ded09bedba568c156e57e0bb"><div class="ttname"><a href="platform_2avr_2serial_2serial_8c.html#a61bd5731ded09bedba568c156e57e0bb">serial_tx_str_P</a></div><div class="ttdeci">void serial_tx_str_P(const char *s)</div><div class="ttdoc">Print a null-terminated string from PROGMEM.</div><div class="ttdef"><b>Definition:</b> <a href="platform_2avr_2serial_2serial_8c_source.html#l00041">serial.c:41</a></div></div>
+<div class="ttc" id="aplatform_2avr_2serial_2serial_8c_html_ad1404aaabd8a723599a89c9b9ca08a65"><div class="ttname"><a href="platform_2avr_2serial_2serial_8c.html#ad1404aaabd8a723599a89c9b9ca08a65">serial_tx</a></div><div class="ttdeci">void serial_tx(char c)</div><div class="ttdoc">Print a character.</div><div class="ttdef"><b>Definition:</b> <a href="platform_2avr_2serial_2serial_8c_source.html#l00026">serial.c:26</a></div></div>
+<div class="ttc" id="atypes_8h_html_a92c50087ca0e64fa93fc59402c55f8ca"><div class="ttname"><a href="types_8h.html#a92c50087ca0e64fa93fc59402c55f8ca">u8</a></div><div class="ttdeci">uint8_t u8</div><div class="ttdef"><b>Definition:</b> <a href="types_8h_source.html#l00038">types.h:38</a></div></div>
+<div class="ttc" id="atypes_8h_html_ace9d960e74685e2cd84b36132dbbf8aa"><div class="ttname"><a href="types_8h.html#ace9d960e74685e2cd84b36132dbbf8aa">u16</a></div><div class="ttdeci">uint16_t u16</div><div class="ttdef"><b>Definition:</b> <a href="types_8h_source.html#l00035">types.h:35</a></div></div>
+</div><!-- fragment -->
+</div>
+</div>
 <a id="a60bd636ef160c97eb51cf31be5954ba2" name="a60bd636ef160c97eb51cf31be5954ba2"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a60bd636ef160c97eb51cf31be5954ba2">&#9670;&#160;</a></span>log_boot_P()</h2>
 
@@ -258,6 +465,68 @@ Variables</h2></td></tr>
   </table>
   </dd>
 </dl>
+
+<p class="definition">Definition at line <a class="el" href="logger_8c_source.html#l00164">164</a> of file <a class="el" href="logger_8c_source.html">logger.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  165</span>{</div>
+<div class="line"><span class="lineno">  166</span>    <span class="keywordtype">char</span> buf[128];</div>
+<div class="line"><span class="lineno">  167</span>    va_list v;</div>
+<div class="line"><span class="lineno">  168</span> </div>
+<div class="line"><span class="lineno">  169</span>    va_start(v, msg);</div>
+<div class="line"><span class="lineno">  170</span>    vsnprintf_P(buf, <span class="keyword">sizeof</span>(buf), msg, v);</div>
+<div class="line"><span class="lineno">  171</span>    va_end(v);</div>
+<div class="line"><span class="lineno">  172</span> </div>
+<div class="line"><span class="lineno">  173</span>    _lcd_log(level, buf);</div>
+<div class="line"><span class="lineno">  174</span>    <a class="code hl_function" href="platform_2avr_2serial_2serial_8c.html#ad1404aaabd8a723599a89c9b9ca08a65">serial_tx</a>(<span class="charliteral">&#39;\n&#39;</span>);</div>
+<div class="line"><span class="lineno">  175</span>}</div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="platform_2avr_2serial_2serial_8c_source.html#l00026">serial_tx()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="sd_8c_source.html#l00212">_sd_info_print()</a>, <a class="el" href="adc_8c_source.html#l00013">adc_init()</a>, <a class="el" href="initrd_8c_source.html#l00027">initrd_load()</a>, <a class="el" href="lcd_8c_source.html#l00381">lcd_init()</a>, <a class="el" href="ps2_8c_source.html#l00026">ps2_init()</a>, <a class="el" href="random_8c_source.html#l00014">random_init()</a>, <a class="el" href="sd_8c_source.html#l00255">sd_init()</a>, <a class="el" href="spi_8c_source.html#l00012">spi_init()</a>, <a class="el" href="timer_8c_source.html#l00017">timer_init()</a>, and <a class="el" href="xmem_8c_source.html#l00225">xmem_init()</a>.</p>
+
+</div>
+</div>
+<a id="aa60037dffd3fce2b3b698663eb11b5dc" name="aa60037dffd3fce2b3b698663eb11b5dc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa60037dffd3fce2b3b698663eb11b5dc">&#9670;&#160;</a></span>logger_lcd_init()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void logger_lcd_init </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Initialize LCD Logger. </p>
+
+<p class="definition">Definition at line <a class="el" href="logger_8c_source.html#l00231">231</a> of file <a class="el" href="logger_8c_source.html">logger.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  232</span>{</div>
+<div class="line"><span class="lineno">  233</span>    <a class="code hl_variable" href="logger_8c.html#a4b6e7d1086f87ee156cd12590f8f38eb">_lcd_initialized</a> = <span class="keyword">true</span>;</div>
+<div class="line"><span class="lineno">  234</span> </div>
+<div class="line"><span class="lineno">  235</span>    <a class="code hl_function" href="lcd_8c.html#a2b7400cbec8880666bed8cfc105a0f7a">lcd_logo_P</a>(</div>
+<div class="line"><span class="lineno">  236</span>        <a class="code hl_define" href="logger_8c.html#a88e76882c6f9a1a90f5b714c39be7b37">LOGO_X_OFFSET</a>,</div>
+<div class="line"><span class="lineno">  237</span>        <a class="code hl_define" href="logger_8c.html#a70b1470428ebbc008fc85cfb458820b1">LOGO_Y_OFFSET</a>,</div>
+<div class="line"><span class="lineno">  238</span>        LOGO_TINY_WIDTH,</div>
+<div class="line"><span class="lineno">  239</span>        LOGO_TINY_HEIGHT,</div>
+<div class="line"><span class="lineno">  240</span>        logo_tiny);</div>
+<div class="line"><span class="lineno">  241</span> </div>
+<div class="line"><span class="lineno">  242</span>    <a class="code hl_function" href="lcd_8c.html#a2b7400cbec8880666bed8cfc105a0f7a">lcd_logo_P</a>(</div>
+<div class="line"><span class="lineno">  243</span>        <a class="code hl_define" href="logger_8c.html#a88e76882c6f9a1a90f5b714c39be7b37">LOGO_X_OFFSET</a> + <a class="code hl_define" href="logger_8c.html#a4bcc8822ee0337ce0c7d0f7086244b6d">LOGO_TEXT_X_OFFSET</a>,</div>
+<div class="line"><span class="lineno">  244</span>        <a class="code hl_define" href="logger_8c.html#a70b1470428ebbc008fc85cfb458820b1">LOGO_Y_OFFSET</a> + LOGO_TINY_HEIGHT / 2 - LOGO_TEXT_HEIGHT / 2,</div>
+<div class="line"><span class="lineno">  245</span>        LOGO_TEXT_WIDTH,</div>
+<div class="line"><span class="lineno">  246</span>        LOGO_TEXT_HEIGHT,</div>
+<div class="line"><span class="lineno">  247</span>        logo_text);</div>
+<div class="line"><span class="lineno">  248</span>}</div>
+<div class="ttc" id="alcd_8c_html_a2b7400cbec8880666bed8cfc105a0f7a"><div class="ttname"><a href="lcd_8c.html#a2b7400cbec8880666bed8cfc105a0f7a">lcd_logo_P</a></div><div class="ttdeci">void lcd_logo_P(u16 x, u16 y, u16 w, u16 h, const u8 *image)</div><div class="ttdoc">Draw boot logo(s)</div><div class="ttdef"><b>Definition:</b> <a href="lcd_8c_source.html#l00421">lcd.c:421</a></div></div>
+<div class="ttc" id="alogger_8c_html_a4bcc8822ee0337ce0c7d0f7086244b6d"><div class="ttname"><a href="logger_8c.html#a4bcc8822ee0337ce0c7d0f7086244b6d">LOGO_TEXT_X_OFFSET</a></div><div class="ttdeci">#define LOGO_TEXT_X_OFFSET</div><div class="ttdef"><b>Definition:</b> <a href="logger_8c_source.html#l00042">logger.c:42</a></div></div>
+<div class="ttc" id="alogger_8c_html_a70b1470428ebbc008fc85cfb458820b1"><div class="ttname"><a href="logger_8c.html#a70b1470428ebbc008fc85cfb458820b1">LOGO_Y_OFFSET</a></div><div class="ttdeci">#define LOGO_Y_OFFSET</div><div class="ttdef"><b>Definition:</b> <a href="logger_8c_source.html#l00039">logger.c:39</a></div></div>
+<div class="ttc" id="alogger_8c_html_a88e76882c6f9a1a90f5b714c39be7b37"><div class="ttname"><a href="logger_8c.html#a88e76882c6f9a1a90f5b714c39be7b37">LOGO_X_OFFSET</a></div><div class="ttdeci">#define LOGO_X_OFFSET</div><div class="ttdef"><b>Definition:</b> <a href="logger_8c_source.html#l00036">logger.c:36</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="logger_8c_source.html#l00084">_lcd_initialized</a>, <a class="el" href="lcd_8c_source.html#l00421">lcd_logo_P()</a>, <a class="el" href="logger_8c_source.html#l00042">LOGO_TEXT_X_OFFSET</a>, <a class="el" href="logger_8c_source.html#l00036">LOGO_X_OFFSET</a>, and <a class="el" href="logger_8c_source.html#l00039">LOGO_Y_OFFSET</a>.</p>
 
 </div>
 </div>
@@ -303,6 +572,42 @@ Variables</h2></td></tr>
   </dd>
 </dl>
 
+<p class="definition">Definition at line <a class="el" href="logger_8c_source.html#l00200">200</a> of file <a class="el" href="logger_8c_source.html">logger.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  201</span>{</div>
+<div class="line"><span class="lineno">  202</span>    <a class="code hl_typedef" href="types_8h.html#a92c50087ca0e64fa93fc59402c55f8ca">u8</a> j;</div>
+<div class="line"><span class="lineno">  203</span>    <span class="keyword">const</span> <a class="code hl_typedef" href="types_8h.html#a92c50087ca0e64fa93fc59402c55f8ca">u8</a> *data8;</div>
+<div class="line"><span class="lineno">  204</span>    <a class="code hl_typedef" href="types_8h.html#ace9d960e74685e2cd84b36132dbbf8aa">u16</a> i;</div>
+<div class="line"><span class="lineno">  205</span>    <span class="keywordtype">char</span> c, buf[32];</div>
+<div class="line"><span class="lineno">  206</span> </div>
+<div class="line"><span class="lineno">  207</span>    data8 = data;</div>
+<div class="line"><span class="lineno">  208</span>    <span class="keywordflow">for</span>(i = 0; i &lt; len; i += <a class="code hl_define" href="logger_8c.html#a7e605a71d397f16aa436a31c4d459a82">DUMP_BYTES_PER_LINE</a>, addr += <a class="code hl_define" href="logger_8c.html#a7e605a71d397f16aa436a31c4d459a82">DUMP_BYTES_PER_LINE</a>)</div>
+<div class="line"><span class="lineno">  209</span>    {</div>
+<div class="line"><span class="lineno">  210</span>        <a class="code hl_function" href="format_8h.html#a8be7c8a106186419f86b1bf42b225275">snprintf</a>(buf, <span class="keyword">sizeof</span>(buf), <span class="stringliteral">&quot;%08X | &quot;</span>, addr);</div>
+<div class="line"><span class="lineno">  211</span>        <a class="code hl_function" href="platform_2avr_2serial_2serial_8c.html#a38ab89a81b380ccbfe63ba026d92b54b">serial_tx_str</a>(buf);</div>
+<div class="line"><span class="lineno">  212</span>        <span class="keywordflow">for</span>(j = 0; j &lt; <a class="code hl_define" href="logger_8c.html#a7e605a71d397f16aa436a31c4d459a82">DUMP_BYTES_PER_LINE</a>; ++j)</div>
+<div class="line"><span class="lineno">  213</span>        {</div>
+<div class="line"><span class="lineno">  214</span>            <a class="code hl_function" href="format_8h.html#a8be7c8a106186419f86b1bf42b225275">snprintf</a>(buf, <span class="keyword">sizeof</span>(buf), <span class="stringliteral">&quot;%02X &quot;</span>, data8[i + j]);</div>
+<div class="line"><span class="lineno">  215</span>            <a class="code hl_function" href="platform_2avr_2serial_2serial_8c.html#a38ab89a81b380ccbfe63ba026d92b54b">serial_tx_str</a>(buf);</div>
+<div class="line"><span class="lineno">  216</span>        }</div>
+<div class="line"><span class="lineno">  217</span> </div>
+<div class="line"><span class="lineno">  218</span>        <a class="code hl_function" href="platform_2avr_2serial_2serial_8c.html#a38ab89a81b380ccbfe63ba026d92b54b">serial_tx_str</a>(<span class="stringliteral">&quot;| &quot;</span>);</div>
+<div class="line"><span class="lineno">  219</span>        <span class="keywordflow">for</span>(j = 0; j &lt; <a class="code hl_define" href="logger_8c.html#a7e605a71d397f16aa436a31c4d459a82">DUMP_BYTES_PER_LINE</a>; ++j)</div>
+<div class="line"><span class="lineno">  220</span>        {</div>
+<div class="line"><span class="lineno">  221</span>            c = data8[i + j];</div>
+<div class="line"><span class="lineno">  222</span>            <a class="code hl_function" href="platform_2avr_2serial_2serial_8c.html#ad1404aaabd8a723599a89c9b9ca08a65">serial_tx</a>(<a class="code hl_function" href="ctype_8c.html#a86defca79be1f892ba604d42dbd5524e">isprint</a>(c) ? c : <span class="charliteral">&#39;.&#39;</span>);</div>
+<div class="line"><span class="lineno">  223</span>        }</div>
+<div class="line"><span class="lineno">  224</span> </div>
+<div class="line"><span class="lineno">  225</span>        <a class="code hl_function" href="platform_2avr_2serial_2serial_8c.html#ad1404aaabd8a723599a89c9b9ca08a65">serial_tx</a>(<span class="charliteral">&#39;\n&#39;</span>);</div>
+<div class="line"><span class="lineno">  226</span>    }</div>
+<div class="line"><span class="lineno">  227</span> </div>
+<div class="line"><span class="lineno">  228</span>    <a class="code hl_function" href="platform_2avr_2serial_2serial_8c.html#ad1404aaabd8a723599a89c9b9ca08a65">serial_tx</a>(<span class="charliteral">&#39;\n&#39;</span>);</div>
+<div class="line"><span class="lineno">  229</span>}</div>
+<div class="ttc" id="actype_8c_html_a86defca79be1f892ba604d42dbd5524e"><div class="ttname"><a href="ctype_8c.html#a86defca79be1f892ba604d42dbd5524e">isprint</a></div><div class="ttdeci">bool isprint(i32 c)</div><div class="ttdoc">This function checks whether the passed character is printable.</div><div class="ttdef"><b>Definition:</b> <a href="ctype_8c_source.html#l00041">ctype.c:41</a></div></div>
+<div class="ttc" id="aformat_8h_html_a8be7c8a106186419f86b1bf42b225275"><div class="ttname"><a href="format_8h.html#a8be7c8a106186419f86b1bf42b225275">snprintf</a></div><div class="ttdeci">i32 snprintf(char *str, u32 size, const char *format,...)</div><div class="ttdoc">Formats and stores a series of characters and values in the provided character array buffer,...</div></div>
+<div class="ttc" id="alogger_8c_html_a7e605a71d397f16aa436a31c4d459a82"><div class="ttname"><a href="logger_8c.html#a7e605a71d397f16aa436a31c4d459a82">DUMP_BYTES_PER_LINE</a></div><div class="ttdeci">#define DUMP_BYTES_PER_LINE</div><div class="ttdef"><b>Definition:</b> <a href="logger_8c_source.html#l00018">logger.c:18</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="logger_8c_source.html#l00018">DUMP_BYTES_PER_LINE</a>, <a class="el" href="ctype_8c_source.html#l00041">isprint()</a>, <a class="el" href="platform_2avr_2serial_2serial_8c_source.html#l00026">serial_tx()</a>, <a class="el" href="platform_2avr_2serial_2serial_8c_source.html#l00032">serial_tx_str()</a>, and <a class="el" href="format_8h.html#a8be7c8a106186419f86b1bf42b225275">snprintf()</a>.</p>
+
 </div>
 </div>
 <a id="a19a313011d8f478ad9799e546199a9ac" name="a19a313011d8f478ad9799e546199a9ac"></a>
@@ -340,39 +645,85 @@ Variables</h2></td></tr>
   </dd>
 </dl>
 
+<p class="definition">Definition at line <a class="el" href="logger_8c_source.html#l00177">177</a> of file <a class="el" href="logger_8c_source.html">logger.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  178</span>{</div>
+<div class="line"><span class="lineno">  179</span>    <span class="keywordtype">char</span> buf[128];</div>
+<div class="line"><span class="lineno">  180</span>    va_list v;</div>
+<div class="line"><span class="lineno">  181</span> </div>
+<div class="line"><span class="lineno">  182</span>    va_start(v, msg);</div>
+<div class="line"><span class="lineno">  183</span>    vsnprintf_P(buf, <span class="keyword">sizeof</span>(buf), msg, v);</div>
+<div class="line"><span class="lineno">  184</span>    va_end(v);</div>
+<div class="line"><span class="lineno">  185</span> </div>
+<div class="line"><span class="lineno">  186</span>    _lcd_log(LOG_PANIC, buf);</div>
+<div class="line"><span class="lineno">  187</span>    <a class="code hl_function" href="platform_2avr_2serial_2serial_8c.html#ad1404aaabd8a723599a89c9b9ca08a65">serial_tx</a>(<span class="charliteral">&#39;\n&#39;</span>);</div>
+<div class="line"><span class="lineno">  188</span>    strcpy_P(buf, PSTR(<span class="stringliteral">&quot;\n&gt;&gt;&gt; RESET REQUIRED\n&quot;</span>));</div>
+<div class="line"><span class="lineno">  189</span>    _lcd_log(LOG_NONE, buf);</div>
+<div class="line"><span class="lineno">  190</span> </div>
+<div class="line"><span class="lineno">  191</span>    <span class="comment">/* Disable interrupt */</span></div>
+<div class="line"><span class="lineno">  192</span>    cli();</div>
+<div class="line"><span class="lineno">  193</span> </div>
+<div class="line"><span class="lineno">  194</span>    <span class="comment">/* Infinite loop */</span></div>
+<div class="line"><span class="lineno">  195</span>    <span class="keywordflow">for</span>(;;)</div>
+<div class="line"><span class="lineno">  196</span>    {</div>
+<div class="line"><span class="lineno">  197</span>    }</div>
+<div class="line"><span class="lineno">  198</span>}</div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="platform_2avr_2serial_2serial_8c_source.html#l00026">serial_tx()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="sd_8c_source.html#l00106">_sd_error()</a>, <a class="el" href="sd_8c_source.html#l00097">_sd_timeout()</a>, <a class="el" href="initrd_8c_source.html#l00027">initrd_load()</a>, and <a class="el" href="spi_8c_source.html#l00024">spi_xchg()</a>.</p>
+
 </div>
 </div>
 <h2 class="groupheader">Variable Documentation</h2>
-<a id="a149e41d3c69eb61cab9e3780d0390b39" name="a149e41d3c69eb61cab9e3780d0390b39"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a149e41d3c69eb61cab9e3780d0390b39">&#9670;&#160;</a></span>PROGMEM</h2>
+<a id="a4b6e7d1086f87ee156cd12590f8f38eb" name="a4b6e7d1086f87ee156cd12590f8f38eb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4b6e7d1086f87ee156cd12590f8f38eb">&#9670;&#160;</a></span>_lcd_initialized</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const char* const _log_msg [] PROGMEM</td>
+          <td class="memname">bool _lcd_initialized</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line">=</div>
-<div class="line">{</div>
-<div class="line">    <a class="code hl_define" href="lcd_8h.html#a82573859711fce56f1aa0a76b18a9b18">COLOR_CYAN</a>,</div>
-<div class="line">    <a class="code hl_define" href="lcd_8h.html#afc9149f5de51bd9ac4f5ebbfa153f018">COLOR_GREEN</a>,</div>
-<div class="line">    <a class="code hl_define" href="lcd_8h.html#a4534b577b74a58b0f4b7be027af664e0">COLOR_YELLOW</a>,</div>
-<div class="line">    <a class="code hl_define" href="lcd_8h.html#ad86358bf19927183dd7b4ae215a29731">COLOR_RED</a>,</div>
-<div class="line">    <a class="code hl_define" href="lcd_8h.html#a8deb0beccea721b35bdb1b4f7264fe75">COLOR_MAGENTA</a></div>
-<div class="line">}</div>
-<div class="ttc" id="alcd_8h_html_a4534b577b74a58b0f4b7be027af664e0"><div class="ttname"><a href="lcd_8h.html#a4534b577b74a58b0f4b7be027af664e0">COLOR_YELLOW</a></div><div class="ttdeci">#define COLOR_YELLOW</div><div class="ttdef"><b>Definition:</b> lcd.h:20</div></div>
-<div class="ttc" id="alcd_8h_html_a82573859711fce56f1aa0a76b18a9b18"><div class="ttname"><a href="lcd_8h.html#a82573859711fce56f1aa0a76b18a9b18">COLOR_CYAN</a></div><div class="ttdeci">#define COLOR_CYAN</div><div class="ttdef"><b>Definition:</b> lcd.h:26</div></div>
-<div class="ttc" id="alcd_8h_html_a8deb0beccea721b35bdb1b4f7264fe75"><div class="ttname"><a href="lcd_8h.html#a8deb0beccea721b35bdb1b4f7264fe75">COLOR_MAGENTA</a></div><div class="ttdeci">#define COLOR_MAGENTA</div><div class="ttdef"><b>Definition:</b> lcd.h:32</div></div>
-<div class="ttc" id="alcd_8h_html_ad86358bf19927183dd7b4ae215a29731"><div class="ttname"><a href="lcd_8h.html#ad86358bf19927183dd7b4ae215a29731">COLOR_RED</a></div><div class="ttdeci">#define COLOR_RED</div><div class="ttdef"><b>Definition:</b> lcd.h:17</div></div>
-<div class="ttc" id="alcd_8h_html_afc9149f5de51bd9ac4f5ebbfa153f018"><div class="ttname"><a href="lcd_8h.html#afc9149f5de51bd9ac4f5ebbfa153f018">COLOR_GREEN</a></div><div class="ttdeci">#define COLOR_GREEN</div><div class="ttdef"><b>Definition:</b> lcd.h:23</div></div>
-</div><!-- fragment --><p>Highlight colors of the various log levels</p>
-<p>Log level [INIT] string</p>
-<p>Log level [DEBUG] string</p>
-<p>Log level [WARN] string</p>
-<p>Log level [ERROR] string</p>
-<p>Log level [PANIC] string </p>
+<p>Flag that indicates if the LCD has been initialized </p>
+
+<p class="definition">Definition at line <a class="el" href="logger_8c_source.html#l00084">84</a> of file <a class="el" href="logger_8c_source.html">logger.c</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="logger_8c_source.html#l00231">logger_lcd_init()</a>.</p>
+
+</div>
+</div>
+<a id="a96872bbeb445d3db1b2e45692ae560db" name="a96872bbeb445d3db1b2e45692ae560db"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a96872bbeb445d3db1b2e45692ae560db">&#9670;&#160;</a></span>_log_y</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="types_8h.html#ace9d960e74685e2cd84b36132dbbf8aa">u16</a> _log_y = <a class="el" href="logger_8c.html#a1c2264aaa6ab403827c0b0ccf4e52c98">LOG_Y_OFFSET</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Current log y position </p>
+
+<p class="definition">Definition at line <a class="el" href="logger_8c_source.html#l00087">87</a> of file <a class="el" href="logger_8c_source.html">logger.c</a>.</p>
 
 </div>
 </div>

@@ -23,12 +23,29 @@ typedef struct \mbox{\hyperlink{structCHUNK__HEADER}{CHUNK\+\_\+\+HEADER}} \mbox
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
+static void $\ast$ \mbox{\hyperlink{alloc_8c_a3141c8bb5a8b45a336f01a7ed0ecbff6}{\+\_\+chunk\+\_\+data}} (\mbox{\hyperlink{alloc_8c_ab655d0ea4f411ecc8fbe523f00cf2979}{Chunk\+Header}} $\ast$header)
+\item 
+static \mbox{\hyperlink{alloc_8c_ab655d0ea4f411ecc8fbe523f00cf2979}{Chunk\+Header}} $\ast$ \mbox{\hyperlink{alloc_8c_aa131d120e6e80f4b3a1b40e3f0a4c7cc}{\+\_\+chunk\+\_\+header}} (void $\ast$p)
+\item 
+static \mbox{\hyperlink{alloc_8c_ab655d0ea4f411ecc8fbe523f00cf2979}{Chunk\+Header}} $\ast$ \mbox{\hyperlink{alloc_8c_aef029a46dc97295d972d446150a11d49}{\+\_\+get\+\_\+next}} (\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} next)
+\item 
+static \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} \mbox{\hyperlink{alloc_8c_a6bb232b66ebc968107d38aa99fe522bb}{\+\_\+get\+\_\+offset}} (\mbox{\hyperlink{alloc_8c_ab655d0ea4f411ecc8fbe523f00cf2979}{Chunk\+Header}} $\ast$header)
+\item 
 void \mbox{\hyperlink{alloc_8c_acaf78a0d4793d5f26ce2dc651b2354e2}{memalloc\+\_\+init}} (\mbox{\hyperlink{types_8h_afc3fa6ac414247c0d4e1f77d5f1cb62d}{ptr}} heap\+\_\+start, \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} size)
 \begin{DoxyCompactList}\small\item\em Initialize the memory allocator. Do NOT call this function. \end{DoxyCompactList}\item 
 void $\ast$ \mbox{\hyperlink{alloc_8c_a4be51fa4dd80d0b7077779261722119a}{memalloc}} (\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} size)
 \begin{DoxyCompactList}\small\item\em Request a block of memory of {\ttfamily size} bytes This function will always return a valid pointer (never NULL). If the memory could not be allocated, the program will panic. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{alloc_8c_ab0b733d6d48d9eafd86d2196d16e2bc4}{memfree}} (void $\ast$p)
 \begin{DoxyCompactList}\small\item\em Frees memory previously allocated with {\ttfamily memalloc} \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+static \mbox{\hyperlink{types_8h_afc3fa6ac414247c0d4e1f77d5f1cb62d}{ptr}} \mbox{\hyperlink{alloc_8c_a600a7bc8bbf44f81ec09a97fdc9e48c6}{\+\_\+heap\+\_\+start}}
+\item 
+static \mbox{\hyperlink{alloc_8c_ab655d0ea4f411ecc8fbe523f00cf2979}{Chunk\+Header}} \mbox{\hyperlink{alloc_8c_aa0cd2724eb02678543d19c3a7b942429}{\+\_\+first}}
+\item 
+static \mbox{\hyperlink{structMemAllocInfo}{Mem\+Alloc\+Info}} \mbox{\hyperlink{alloc_8c_af66b645d93e448be1649fb1b3d69dd0c}{\+\_\+info}}
+\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
@@ -43,6 +60,10 @@ Tim Gabrikowski, Anton Tchekov
 \end{DoxyDate}
 
 
+Definition in file \mbox{\hyperlink{alloc_8c_source}{alloc.\+c}}.
+
+
+
 \doxysubsection{Macro Definition Documentation}
 \mbox{\Hypertarget{alloc_8c_ae4ff5a07c6ff43ed11a3887ef7d524f2}\label{alloc_8c_ae4ff5a07c6ff43ed11a3887ef7d524f2}} 
 \index{alloc.c@{alloc.c}!ALIGN@{ALIGN}}
@@ -50,19 +71,31 @@ Tim Gabrikowski, Anton Tchekov
 \doxysubsubsection{\texorpdfstring{ALIGN}{ALIGN}}
 {\footnotesize\ttfamily \#define ALIGN~4}
 
-Allocation alignment \mbox{\Hypertarget{alloc_8c_a29fd18bed01c4d836c7ebfe73a125c3f}\label{alloc_8c_a29fd18bed01c4d836c7ebfe73a125c3f}} 
+Allocation alignment 
+
+Definition at line \mbox{\hyperlink{alloc_8c_source_l00011}{11}} of file \mbox{\hyperlink{alloc_8c_source}{alloc.\+c}}.
+
+\mbox{\Hypertarget{alloc_8c_a29fd18bed01c4d836c7ebfe73a125c3f}\label{alloc_8c_a29fd18bed01c4d836c7ebfe73a125c3f}} 
 \index{alloc.c@{alloc.c}!END@{END}}
 \index{END@{END}!alloc.c@{alloc.c}}
 \doxysubsubsection{\texorpdfstring{END}{END}}
 {\footnotesize\ttfamily \#define END~0x\+FFFFFFFF}
 
-Heap end \mbox{\Hypertarget{alloc_8c_ad733e804fe76c864d1c86c11cdaf7ff9}\label{alloc_8c_ad733e804fe76c864d1c86c11cdaf7ff9}} 
+Heap end 
+
+Definition at line \mbox{\hyperlink{alloc_8c_source_l00017}{17}} of file \mbox{\hyperlink{alloc_8c_source}{alloc.\+c}}.
+
+\mbox{\Hypertarget{alloc_8c_ad733e804fe76c864d1c86c11cdaf7ff9}\label{alloc_8c_ad733e804fe76c864d1c86c11cdaf7ff9}} 
 \index{alloc.c@{alloc.c}!MIN\_ALLOC@{MIN\_ALLOC}}
 \index{MIN\_ALLOC@{MIN\_ALLOC}!alloc.c@{alloc.c}}
 \doxysubsubsection{\texorpdfstring{MIN\_ALLOC}{MIN\_ALLOC}}
 {\footnotesize\ttfamily \#define MIN\+\_\+\+ALLOC~8}
 
 Minimum allocation size in bytes 
+
+Definition at line \mbox{\hyperlink{alloc_8c_source_l00014}{14}} of file \mbox{\hyperlink{alloc_8c_source}{alloc.\+c}}.
+
+
 
 \doxysubsection{Typedef Documentation}
 \mbox{\Hypertarget{alloc_8c_ab655d0ea4f411ecc8fbe523f00cf2979}\label{alloc_8c_ab655d0ea4f411ecc8fbe523f00cf2979}} 
@@ -74,6 +107,79 @@ Minimum allocation size in bytes
 Linked list chunk header 
 
 \doxysubsection{Function Documentation}
+\mbox{\Hypertarget{alloc_8c_a3141c8bb5a8b45a336f01a7ed0ecbff6}\label{alloc_8c_a3141c8bb5a8b45a336f01a7ed0ecbff6}} 
+\index{alloc.c@{alloc.c}!\_chunk\_data@{\_chunk\_data}}
+\index{\_chunk\_data@{\_chunk\_data}!alloc.c@{alloc.c}}
+\doxysubsubsection{\texorpdfstring{\_chunk\_data()}{\_chunk\_data()}}
+{\footnotesize\ttfamily static void $\ast$ \+\_\+chunk\+\_\+data (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{alloc_8c_ab655d0ea4f411ecc8fbe523f00cf2979}{Chunk\+Header}} $\ast$}]{header }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{alloc_8c_source_l00039}{39}} of file \mbox{\hyperlink{alloc_8c_source}{alloc.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00040\ \{}
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keywordflow}{return}\ (\textcolor{keywordtype}{void}\ *)((\mbox{\hyperlink{types_8h_afc3fa6ac414247c0d4e1f77d5f1cb62d}{ptr}})header\ +\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{structCHUNK__HEADER}{ChunkHeader}}));}
+\DoxyCodeLine{00042\ \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{alloc_8c_aa131d120e6e80f4b3a1b40e3f0a4c7cc}\label{alloc_8c_aa131d120e6e80f4b3a1b40e3f0a4c7cc}} 
+\index{alloc.c@{alloc.c}!\_chunk\_header@{\_chunk\_header}}
+\index{\_chunk\_header@{\_chunk\_header}!alloc.c@{alloc.c}}
+\doxysubsubsection{\texorpdfstring{\_chunk\_header()}{\_chunk\_header()}}
+{\footnotesize\ttfamily static \mbox{\hyperlink{alloc_8c_ab655d0ea4f411ecc8fbe523f00cf2979}{Chunk\+Header}} $\ast$ \+\_\+chunk\+\_\+header (\begin{DoxyParamCaption}\item[{void $\ast$}]{p }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{alloc_8c_source_l00044}{44}} of file \mbox{\hyperlink{alloc_8c_source}{alloc.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00045\ \{}
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keywordflow}{return}\ (\mbox{\hyperlink{structCHUNK__HEADER}{ChunkHeader}}\ *)((\mbox{\hyperlink{types_8h_afc3fa6ac414247c0d4e1f77d5f1cb62d}{ptr}})p\ -\/\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{structCHUNK__HEADER}{ChunkHeader}}));}
+\DoxyCodeLine{00047\ \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{alloc_8c_aef029a46dc97295d972d446150a11d49}\label{alloc_8c_aef029a46dc97295d972d446150a11d49}} 
+\index{alloc.c@{alloc.c}!\_get\_next@{\_get\_next}}
+\index{\_get\_next@{\_get\_next}!alloc.c@{alloc.c}}
+\doxysubsubsection{\texorpdfstring{\_get\_next()}{\_get\_next()}}
+{\footnotesize\ttfamily static \mbox{\hyperlink{alloc_8c_ab655d0ea4f411ecc8fbe523f00cf2979}{Chunk\+Header}} $\ast$ \+\_\+get\+\_\+next (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{next }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{alloc_8c_source_l00049}{49}} of file \mbox{\hyperlink{alloc_8c_source}{alloc.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00050\ \{}
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keywordflow}{if}(next\ ==\ \mbox{\hyperlink{alloc_8c_a29fd18bed01c4d836c7ebfe73a125c3f}{END}})}
+\DoxyCodeLine{00052\ \ \ \ \ \{}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ NULL;}
+\DoxyCodeLine{00054\ \ \ \ \ \}}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keywordflow}{return}\ (\mbox{\hyperlink{structCHUNK__HEADER}{ChunkHeader}}\ *)(\mbox{\hyperlink{alloc_8c_a600a7bc8bbf44f81ec09a97fdc9e48c6}{\_heap\_start}}\ +\ next);}
+\DoxyCodeLine{00057\ \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{alloc_8c_a6bb232b66ebc968107d38aa99fe522bb}\label{alloc_8c_a6bb232b66ebc968107d38aa99fe522bb}} 
+\index{alloc.c@{alloc.c}!\_get\_offset@{\_get\_offset}}
+\index{\_get\_offset@{\_get\_offset}!alloc.c@{alloc.c}}
+\doxysubsubsection{\texorpdfstring{\_get\_offset()}{\_get\_offset()}}
+{\footnotesize\ttfamily static \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} \+\_\+get\+\_\+offset (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{alloc_8c_ab655d0ea4f411ecc8fbe523f00cf2979}{Chunk\+Header}} $\ast$}]{header }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{alloc_8c_source_l00059}{59}} of file \mbox{\hyperlink{alloc_8c_source}{alloc.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00060\ \{}
+\DoxyCodeLine{00061\ \ \ \ \ \textcolor{keywordflow}{return}\ (\mbox{\hyperlink{types_8h_afc3fa6ac414247c0d4e1f77d5f1cb62d}{ptr}})header\ -\/\ \mbox{\hyperlink{alloc_8c_a600a7bc8bbf44f81ec09a97fdc9e48c6}{\_heap\_start}};}
+\DoxyCodeLine{00062\ \}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{alloc_8c_a4be51fa4dd80d0b7077779261722119a}\label{alloc_8c_a4be51fa4dd80d0b7077779261722119a}} 
 \index{alloc.c@{alloc.c}!memalloc@{memalloc}}
 \index{memalloc@{memalloc}!alloc.c@{alloc.c}}
@@ -92,6 +198,76 @@ Request a block of memory of {\ttfamily size} bytes This function will always re
 \begin{DoxyReturn}{Returns}
 Pointer to allocated memory 
 \end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{alloc_8c_source_l00079}{79}} of file \mbox{\hyperlink{alloc_8c_source}{alloc.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00080\ \{}
+\DoxyCodeLine{00081\ \ \ \ \ \mbox{\hyperlink{structCHUNK__HEADER}{ChunkHeader}}\ *cur,\ *prev;}
+\DoxyCodeLine{00082\ \ \ \ \ \textcolor{keywordflow}{if}\ (size\ ==\ 0)}
+\DoxyCodeLine{00083\ \ \ \ \ \{}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ NULL;}
+\DoxyCodeLine{00085\ \ \ \ \ \}}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00087\ \ \ \ \ \textcolor{comment}{/*\ Minimum\ allocation\ size\ */}}
+\DoxyCodeLine{00088\ \ \ \ \ \textcolor{keywordflow}{if}\ (size\ <\ \mbox{\hyperlink{alloc_8c_ad733e804fe76c864d1c86c11cdaf7ff9}{MIN\_ALLOC}})}
+\DoxyCodeLine{00089\ \ \ \ \ \{}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ size\ =\ \mbox{\hyperlink{alloc_8c_ad733e804fe76c864d1c86c11cdaf7ff9}{MIN\_ALLOC}};}
+\DoxyCodeLine{00091\ \ \ \ \ \}}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00093\ \ \ \ \ \textcolor{comment}{/*\ Ensure\ alignment\ */}}
+\DoxyCodeLine{00094\ \ \ \ \ size\ =\ ((size\ +\ \mbox{\hyperlink{alloc_8c_ae4ff5a07c6ff43ed11a3887ef7d524f2}{ALIGN}}\ -\/\ 1)\ /\ \mbox{\hyperlink{alloc_8c_ae4ff5a07c6ff43ed11a3887ef7d524f2}{ALIGN}})\ *\ \mbox{\hyperlink{alloc_8c_ae4ff5a07c6ff43ed11a3887ef7d524f2}{ALIGN}};}
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00096\ \ \ \ \ \mbox{\hyperlink{alloc_8c_af66b645d93e448be1649fb1b3d69dd0c}{\_info}}.\mbox{\hyperlink{structMemAllocInfo_aab97bed91f80f190ace0ad2e8485d9bc}{Used}}\ +=\ size;}
+\DoxyCodeLine{00097\ \ \ \ \ \mbox{\hyperlink{alloc_8c_af66b645d93e448be1649fb1b3d69dd0c}{\_info}}.\mbox{\hyperlink{structMemAllocInfo_a3820726d98082b51a52eb62eaca413a4}{Total}}\ +=\ size\ +\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{alloc_8c_ab655d0ea4f411ecc8fbe523f00cf2979}{ChunkHeader}});}
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00099\ \ \ \ \ \textcolor{comment}{/*\ Find\ free\ chunk\ */}}
+\DoxyCodeLine{00100\ \ \ \ \ \textcolor{keywordflow}{for}\ (prev\ =\ \&\mbox{\hyperlink{alloc_8c_aa0cd2724eb02678543d19c3a7b942429}{\_first}},\ cur\ =\ \_get\_next(prev-\/>\mbox{\hyperlink{structCHUNK__HEADER_aa75bad5671817ffae160a7e809290f3d}{Next}});}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \ cur;\ prev\ =\ cur,\ cur\ =\ \_get\_next(cur-\/>Next))}
+\DoxyCodeLine{00102\ \ \ \ \ \{}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (size\ +\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{structCHUNK__HEADER}{ChunkHeader}})\ ==\ cur-\/>Size)}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ -\/-\/-\/\ Perfect\ fit\ -\/-\/-\/\ */}}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Remove\ chunk\ from\ free\ list\ */}}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \ \ \ \ prev-\/>\mbox{\hyperlink{structCHUNK__HEADER_aa75bad5671817ffae160a7e809290f3d}{Next}}\ =\ cur-\/>Next;}
+\DoxyCodeLine{00108\ }
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Return\ pointer\ to\ data\ area\ */}}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \_chunk\_data(cur);}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (size\ +\ 2\ *\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{structCHUNK__HEADER}{ChunkHeader}})\ <\ cur-\/>Size)}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ -\/-\/-\/\ First\ fit\ -\/-\/-\/\ */}}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Split\ chunk\ in\ two\ */}}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structCHUNK__HEADER}{ChunkHeader}}\ *second\ =}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (\mbox{\hyperlink{structCHUNK__HEADER}{ChunkHeader}}\ *)((\mbox{\hyperlink{types_8h_afc3fa6ac414247c0d4e1f77d5f1cb62d}{ptr}})cur\ +\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{alloc_8c_ab655d0ea4f411ecc8fbe523f00cf2979}{ChunkHeader}})\ +\ size);}
+\DoxyCodeLine{00118\ }
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \ \ \ \ second-\/>\mbox{\hyperlink{structCHUNK__HEADER_a8046cf4a4e5a7af49eeb4717e4bcec51}{Size}}\ =\ cur-\/>Size\ -\/\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{alloc_8c_ab655d0ea4f411ecc8fbe523f00cf2979}{ChunkHeader}})\ -\/\ size;}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \ \ \ \ second-\/>\mbox{\hyperlink{structCHUNK__HEADER_aa75bad5671817ffae160a7e809290f3d}{Next}}\ =\ cur-\/>Next;}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \ \ \ \ prev-\/>\mbox{\hyperlink{structCHUNK__HEADER_aa75bad5671817ffae160a7e809290f3d}{Next}}\ =\ \_get\_offset(second);}
+\DoxyCodeLine{00122\ }
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Reduce\ the\ size\ of\ first\ part\ by\ the\ size\ of\ the\ second\ part\ */}}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \ \ \ \ cur-\/>Size\ =\ size\ +\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{alloc_8c_ab655d0ea4f411ecc8fbe523f00cf2979}{ChunkHeader}});}
+\DoxyCodeLine{00125\ }
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Return\ pointer\ to\ data\ area\ of\ second\ part\ */}}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \_chunk\_data(cur);}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00129\ \ \ \ \ \}}
+\DoxyCodeLine{00130\ }
+\DoxyCodeLine{00131\ \ \ \ \ \textcolor{comment}{/*\ Very\ unlikely\ */}}
+\DoxyCodeLine{00132\ \ \ \ \ \textcolor{keywordflow}{return}\ NULL;}
+\DoxyCodeLine{00133\ \}}
+
+\end{DoxyCode}
+
+
+References \mbox{\hyperlink{alloc_8c_source_l00033}{\+\_\+first}}, \mbox{\hyperlink{alloc_8c_source_l00036}{\+\_\+info}}, \mbox{\hyperlink{alloc_8c_source_l00011}{ALIGN}}, \mbox{\hyperlink{alloc_8c_source_l00014}{MIN\+\_\+\+ALLOC}}, \mbox{\hyperlink{alloc_8c_source_l00026}{CHUNK\+\_\+\+HEADER\+::\+Next}}, \mbox{\hyperlink{alloc_8c_source_l00023}{CHUNK\+\_\+\+HEADER\+::\+Size}}, \mbox{\hyperlink{alloc_8h_source_l00021}{Mem\+Alloc\+Info\+::\+Total}}, and \mbox{\hyperlink{alloc_8h_source_l00018}{Mem\+Alloc\+Info\+::\+Used}}.
+
+
+
+Referenced by \mbox{\hyperlink{vector_8c_source_l00030}{vector\+\_\+init()}}, and \mbox{\hyperlink{vector_8c_source_l00043}{vector\+\_\+replace()}}.
+
 \mbox{\Hypertarget{alloc_8c_acaf78a0d4793d5f26ce2dc651b2354e2}\label{alloc_8c_acaf78a0d4793d5f26ce2dc651b2354e2}} 
 \index{alloc.c@{alloc.c}!memalloc\_init@{memalloc\_init}}
 \index{memalloc\_init@{memalloc\_init}!alloc.c@{alloc.c}}
@@ -109,6 +285,30 @@ Initialize the memory allocator. Do NOT call this function.
 {\em size} & Maximum size of the heap \\
 \hline
 \end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{alloc_8c_source_l00065}{65}} of file \mbox{\hyperlink{alloc_8c_source}{alloc.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00066\ \{}
+\DoxyCodeLine{00067\ \ \ \ \ \mbox{\hyperlink{structCHUNK__HEADER}{ChunkHeader}}\ *next;}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \ \ \ \ \mbox{\hyperlink{alloc_8c_a600a7bc8bbf44f81ec09a97fdc9e48c6}{\_heap\_start}}\ =\ heap\_start;}
+\DoxyCodeLine{00070\ \ \ \ \ \mbox{\hyperlink{alloc_8c_af66b645d93e448be1649fb1b3d69dd0c}{\_info}}.\mbox{\hyperlink{structMemAllocInfo_a2cb704497e06fa30f9cca539d0feeca1}{Size}}\ =\ size;}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ \ \ \ \ \mbox{\hyperlink{alloc_8c_aa0cd2724eb02678543d19c3a7b942429}{\_first}}.\mbox{\hyperlink{structCHUNK__HEADER_aa75bad5671817ffae160a7e809290f3d}{Next}}\ =\ 0;}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \ \ \ \ next\ =\ \_get\_next(\mbox{\hyperlink{alloc_8c_aa0cd2724eb02678543d19c3a7b942429}{\_first}}.\mbox{\hyperlink{structCHUNK__HEADER_aa75bad5671817ffae160a7e809290f3d}{Next}});}
+\DoxyCodeLine{00075\ \ \ \ \ next-\/>\mbox{\hyperlink{structCHUNK__HEADER_a8046cf4a4e5a7af49eeb4717e4bcec51}{Size}}\ =\ size;}
+\DoxyCodeLine{00076\ \ \ \ \ next-\/>\mbox{\hyperlink{structCHUNK__HEADER_aa75bad5671817ffae160a7e809290f3d}{Next}}\ =\ \mbox{\hyperlink{alloc_8c_a29fd18bed01c4d836c7ebfe73a125c3f}{END}};}
+\DoxyCodeLine{00077\ \}}
+
+\end{DoxyCode}
+
+
+References \mbox{\hyperlink{alloc_8c_source_l00033}{\+\_\+first}}, \mbox{\hyperlink{alloc_8c_source_l00030}{\+\_\+heap\+\_\+start}}, \mbox{\hyperlink{alloc_8c_source_l00036}{\+\_\+info}}, \mbox{\hyperlink{alloc_8c_source_l00017}{END}}, \mbox{\hyperlink{alloc_8c_source_l00026}{CHUNK\+\_\+\+HEADER\+::\+Next}}, \mbox{\hyperlink{alloc_8c_source_l00023}{CHUNK\+\_\+\+HEADER\+::\+Size}}, and \mbox{\hyperlink{alloc_8h_source_l00024}{Mem\+Alloc\+Info\+::\+Size}}.
+
 \mbox{\Hypertarget{alloc_8c_ab0b733d6d48d9eafd86d2196d16e2bc4}\label{alloc_8c_ab0b733d6d48d9eafd86d2196d16e2bc4}} 
 \index{alloc.c@{alloc.c}!memfree@{memfree}}
 \index{memfree@{memfree}!alloc.c@{alloc.c}}
@@ -124,3 +324,109 @@ Frees memory previously allocated with {\ttfamily memalloc}
 {\em p} & Pointer \\
 \hline
 \end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{alloc_8c_source_l00135}{135}} of file \mbox{\hyperlink{alloc_8c_source}{alloc.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00136\ \{}
+\DoxyCodeLine{00137\ \ \ \ \ \mbox{\hyperlink{structCHUNK__HEADER}{ChunkHeader}}\ *next,\ *prev,\ *header;}
+\DoxyCodeLine{00138\ }
+\DoxyCodeLine{00139\ \ \ \ \ header\ =\ \_chunk\_header(p);}
+\DoxyCodeLine{00140\ }
+\DoxyCodeLine{00141\ \ \ \ \ \mbox{\hyperlink{alloc_8c_af66b645d93e448be1649fb1b3d69dd0c}{\_info}}.\mbox{\hyperlink{structMemAllocInfo_aab97bed91f80f190ace0ad2e8485d9bc}{Used}}\ -\/=\ header-\/>\mbox{\hyperlink{structCHUNK__HEADER_a8046cf4a4e5a7af49eeb4717e4bcec51}{Size}}\ -\/\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{alloc_8c_ab655d0ea4f411ecc8fbe523f00cf2979}{ChunkHeader}});}
+\DoxyCodeLine{00142\ \ \ \ \ \mbox{\hyperlink{alloc_8c_af66b645d93e448be1649fb1b3d69dd0c}{\_info}}.\mbox{\hyperlink{structMemAllocInfo_a3820726d98082b51a52eb62eaca413a4}{Total}}\ -\/=\ header-\/>\mbox{\hyperlink{structCHUNK__HEADER_a8046cf4a4e5a7af49eeb4717e4bcec51}{Size}};}
+\DoxyCodeLine{00143\ }
+\DoxyCodeLine{00144\ \ \ \ \ \textcolor{keywordflow}{for}\ (prev\ =\ \&\mbox{\hyperlink{alloc_8c_aa0cd2724eb02678543d19c3a7b942429}{\_first}},\ next\ =\ \_get\_next(prev-\/>\mbox{\hyperlink{structCHUNK__HEADER_aa75bad5671817ffae160a7e809290f3d}{Next}});}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \ next;\ prev\ =\ next,\ next\ =\ \_get\_next(next-\/>Next))}
+\DoxyCodeLine{00146\ \ \ \ \ \{}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (next\ >\ header)}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Merge\ chunks\ if\ possible\ */}}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ mergePrev\ =\ ((\mbox{\hyperlink{types_8h_afc3fa6ac414247c0d4e1f77d5f1cb62d}{ptr}})prev\ +\ prev-\/>\mbox{\hyperlink{structCHUNK__HEADER_a8046cf4a4e5a7af49eeb4717e4bcec51}{Size}}\ ==\ (\mbox{\hyperlink{types_8h_afc3fa6ac414247c0d4e1f77d5f1cb62d}{ptr}})header);}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ mergeNext\ =\ ((\mbox{\hyperlink{types_8h_afc3fa6ac414247c0d4e1f77d5f1cb62d}{ptr}})header\ +\ header-\/>\mbox{\hyperlink{structCHUNK__HEADER_a8046cf4a4e5a7af49eeb4717e4bcec51}{Size}}\ ==\ (\mbox{\hyperlink{types_8h_afc3fa6ac414247c0d4e1f77d5f1cb62d}{ptr}})next);}
+\DoxyCodeLine{00152\ }
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (mergeNext\ \&\&\ mergePrev)}
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Both\ Prev\ and\ Next\ are\ free\ */}}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ prev-\/>\mbox{\hyperlink{structCHUNK__HEADER_aa75bad5671817ffae160a7e809290f3d}{Next}}\ =\ next-\/>Next;}
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ prev-\/>\mbox{\hyperlink{structCHUNK__HEADER_a8046cf4a4e5a7af49eeb4717e4bcec51}{Size}}\ +=\ header-\/>\mbox{\hyperlink{structCHUNK__HEADER_a8046cf4a4e5a7af49eeb4717e4bcec51}{Size}}\ +\ next-\/>Size;}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (mergePrev)}
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Prev\ is\ free\ */}}
+\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ prev-\/>\mbox{\hyperlink{structCHUNK__HEADER_a8046cf4a4e5a7af49eeb4717e4bcec51}{Size}}\ +=\ header-\/>\mbox{\hyperlink{structCHUNK__HEADER_a8046cf4a4e5a7af49eeb4717e4bcec51}{Size}};}
+\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (mergeNext)}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Next\ is\ free\ */}}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ header-\/>\mbox{\hyperlink{structCHUNK__HEADER_a8046cf4a4e5a7af49eeb4717e4bcec51}{Size}}\ +=\ next-\/>Size;}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ header-\/>\mbox{\hyperlink{structCHUNK__HEADER_aa75bad5671817ffae160a7e809290f3d}{Next}}\ =\ next-\/>Next;}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ prev-\/>\mbox{\hyperlink{structCHUNK__HEADER_aa75bad5671817ffae160a7e809290f3d}{Next}}\ =\ \_get\_offset(header);}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Both\ sides\ are\ used\ */}}
+\DoxyCodeLine{00174\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ header-\/>\mbox{\hyperlink{structCHUNK__HEADER_aa75bad5671817ffae160a7e809290f3d}{Next}}\ =\ prev-\/>\mbox{\hyperlink{structCHUNK__HEADER_aa75bad5671817ffae160a7e809290f3d}{Next}};}
+\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ prev-\/>\mbox{\hyperlink{structCHUNK__HEADER_aa75bad5671817ffae160a7e809290f3d}{Next}}\ =\ \_get\_offset(header);}
+\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00177\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00178\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00179\ \ \ \ \ \}}
+\DoxyCodeLine{00180\ \}}
+
+\end{DoxyCode}
+
+
+References \mbox{\hyperlink{alloc_8c_source_l00033}{\+\_\+first}}, \mbox{\hyperlink{alloc_8c_source_l00036}{\+\_\+info}}, \mbox{\hyperlink{alloc_8c_source_l00026}{CHUNK\+\_\+\+HEADER\+::\+Next}}, \mbox{\hyperlink{alloc_8c_source_l00023}{CHUNK\+\_\+\+HEADER\+::\+Size}}, \mbox{\hyperlink{alloc_8h_source_l00021}{Mem\+Alloc\+Info\+::\+Total}}, and \mbox{\hyperlink{alloc_8h_source_l00018}{Mem\+Alloc\+Info\+::\+Used}}.
+
+
+
+Referenced by \mbox{\hyperlink{vector_8c_source_l00038}{vector\+\_\+destroy()}}, and \mbox{\hyperlink{vector_8c_source_l00043}{vector\+\_\+replace()}}.
+
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{alloc_8c_aa0cd2724eb02678543d19c3a7b942429}\label{alloc_8c_aa0cd2724eb02678543d19c3a7b942429}} 
+\index{alloc.c@{alloc.c}!\_first@{\_first}}
+\index{\_first@{\_first}!alloc.c@{alloc.c}}
+\doxysubsubsection{\texorpdfstring{\_first}{\_first}}
+{\footnotesize\ttfamily \mbox{\hyperlink{alloc_8c_ab655d0ea4f411ecc8fbe523f00cf2979}{Chunk\+Header}} \+\_\+first\hspace{0.3cm}{\ttfamily [static]}}
+
+First dummy memory chunk 
+
+Definition at line \mbox{\hyperlink{alloc_8c_source_l00033}{33}} of file \mbox{\hyperlink{alloc_8c_source}{alloc.\+c}}.
+
+
+
+Referenced by \mbox{\hyperlink{alloc_8c_source_l00079}{memalloc()}}, \mbox{\hyperlink{alloc_8c_source_l00065}{memalloc\+\_\+init()}}, and \mbox{\hyperlink{alloc_8c_source_l00135}{memfree()}}.
+
+\mbox{\Hypertarget{alloc_8c_a600a7bc8bbf44f81ec09a97fdc9e48c6}\label{alloc_8c_a600a7bc8bbf44f81ec09a97fdc9e48c6}} 
+\index{alloc.c@{alloc.c}!\_heap\_start@{\_heap\_start}}
+\index{\_heap\_start@{\_heap\_start}!alloc.c@{alloc.c}}
+\doxysubsubsection{\texorpdfstring{\_heap\_start}{\_heap\_start}}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_afc3fa6ac414247c0d4e1f77d5f1cb62d}{ptr}} \+\_\+heap\+\_\+start\hspace{0.3cm}{\ttfamily [static]}}
+
+Heap start address 
+
+Definition at line \mbox{\hyperlink{alloc_8c_source_l00030}{30}} of file \mbox{\hyperlink{alloc_8c_source}{alloc.\+c}}.
+
+
+
+Referenced by \mbox{\hyperlink{alloc_8c_source_l00065}{memalloc\+\_\+init()}}.
+
+\mbox{\Hypertarget{alloc_8c_af66b645d93e448be1649fb1b3d69dd0c}\label{alloc_8c_af66b645d93e448be1649fb1b3d69dd0c}} 
+\index{alloc.c@{alloc.c}!\_info@{\_info}}
+\index{\_info@{\_info}!alloc.c@{alloc.c}}
+\doxysubsubsection{\texorpdfstring{\_info}{\_info}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structMemAllocInfo}{Mem\+Alloc\+Info}} \+\_\+info\hspace{0.3cm}{\ttfamily [static]}}
+
+Memory allocator state info 
+
+Definition at line \mbox{\hyperlink{alloc_8c_source_l00036}{36}} of file \mbox{\hyperlink{alloc_8c_source}{alloc.\+c}}.
+
+
+
+Referenced by \mbox{\hyperlink{alloc_8c_source_l00079}{memalloc()}}, \mbox{\hyperlink{alloc_8c_source_l00065}{memalloc\+\_\+init()}}, and \mbox{\hyperlink{alloc_8c_source_l00135}{memfree()}}.
+

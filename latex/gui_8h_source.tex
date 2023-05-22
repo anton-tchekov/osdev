@@ -2,145 +2,139 @@
 \label{gui_8h_source}\index{stdlib/gui/gui.h@{stdlib/gui/gui.h}}
 \mbox{\hyperlink{gui_8h}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00001\ }
-\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#ifndef\ \_\_GUI\_H\_\_}}
-\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#define\ \_\_GUI\_H\_\_}}
-\DoxyCodeLine{00011\ }
-\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{vector_8h}{vector.h}}>}}
-\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{types_8h}{types.h}}>}}
-\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{keyboard_8h}{keyboard.h}}>}}
-\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{gfx_8h}{gfx.h}}>}}
-\DoxyCodeLine{00016\ }
-\DoxyCodeLine{00018\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}}
-\DoxyCodeLine{00019\ \{}
-\DoxyCodeLine{00020\ \ \ \ \ ELEMENT\_TYPE\_BUTTON,}
-\DoxyCodeLine{00021\ \ \ \ \ ELEMENT\_TYPE\_INPUT,}
-\DoxyCodeLine{00022\ \ \ \ \ ELEMENT\_TYPE\_LABEL}
-\DoxyCodeLine{00023\ \}\ \mbox{\hyperlink{gui_8h_a16b11be27a8e9362dd122c4d879e01ae}{ElementType}};}
-\DoxyCodeLine{00024\ }
-\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#define\ ALIGN\_MASK\ \ \ \ \ \ 0x03}}
-\DoxyCodeLine{00027\ }
-\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#define\ FLAG\_ALIGN\_LEFT\ \ \ \ \ \ \ 0x00}}
-\DoxyCodeLine{00030\ }
-\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#define\ FLAG\_ALIGN\_CENTER\ \ \ \ \ 0x01}}
-\DoxyCodeLine{00033\ }
-\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#define\ FLAG\_ALIGN\_RIGHT\ \ \ \ \ \ 0x02}}
-\DoxyCodeLine{00036\ }
-\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#define\ FLAG\_LINE\_NUMBERS\ \ \ \ \ 0x04}}
-\DoxyCodeLine{00039\ }
-\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#define\ FLAG\_SYNTAX\_HIGHLIGHT\ 0x08}}
-\DoxyCodeLine{00042\ }
-\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#define\ FLAG\_PASSWORD\ \ \ \ \ \ \ \ \ 0x10}}
-\DoxyCodeLine{00045\ }
-\DoxyCodeLine{00047\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}}
-\DoxyCodeLine{00048\ \{}
-\DoxyCodeLine{00050\ \ \ \ \ \mbox{\hyperlink{gui_8h_a16b11be27a8e9362dd122c4d879e01ae}{ElementType}}\ \mbox{\hyperlink{structLabel_abc5fc17c4442df608d88d32856dfd99a}{Type}};}
-\DoxyCodeLine{00051\ }
-\DoxyCodeLine{00053\ \ \ \ \ \mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}}\ \mbox{\hyperlink{structLabel_aed8a69e88c43b37924a7468bc5baa86f}{Flags}};}
-\DoxyCodeLine{00054\ }
-\DoxyCodeLine{00056\ \ \ \ \ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ \mbox{\hyperlink{structLabel_a2629f98bd0014b9a91202c3812c2f6aa}{X}};}
-\DoxyCodeLine{00057\ }
-\DoxyCodeLine{00059\ \ \ \ \ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ \mbox{\hyperlink{structLabel_aed51d95e74e5d04ff2a93ae4acd2be2e}{Y}};}
-\DoxyCodeLine{00060\ }
-\DoxyCodeLine{00062\ \ \ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structLabel_a8cb635a15fb854226819dfc612c2bbfb}{Text}};}
-\DoxyCodeLine{00063\ \}\ \mbox{\hyperlink{structLabel}{Label}};}
-\DoxyCodeLine{00064\ }
-\DoxyCodeLine{00066\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}}
-\DoxyCodeLine{00067\ \{}
-\DoxyCodeLine{00069\ \ \ \ \ \mbox{\hyperlink{gui_8h_a16b11be27a8e9362dd122c4d879e01ae}{ElementType}}\ \mbox{\hyperlink{structButton_a5f32e249840beee48bb90e67c1c40715}{Type}};}
-\DoxyCodeLine{00070\ }
-\DoxyCodeLine{00072\ \ \ \ \ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ \mbox{\hyperlink{structButton_a2a2a4ddacb3402d203fe524e45b92fe1}{X}};}
-\DoxyCodeLine{00073\ }
-\DoxyCodeLine{00075\ \ \ \ \ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ \mbox{\hyperlink{structButton_a1ff58e1e4b113514c9f6194c0f0097b2}{Y}};}
-\DoxyCodeLine{00076\ }
-\DoxyCodeLine{00078\ \ \ \ \ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ \mbox{\hyperlink{structButton_aeda48c500aaf219c7bc49fd62c07c466}{W}};}
-\DoxyCodeLine{00079\ }
-\DoxyCodeLine{00081\ \ \ \ \ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ \mbox{\hyperlink{structButton_ae147963816ab46ff68bfaf02c81daf2b}{H}};}
-\DoxyCodeLine{00082\ }
-\DoxyCodeLine{00084\ \ \ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structButton_abf6c8dfdad6fa51a20793f00ccdcbba7}{Text}};}
-\DoxyCodeLine{00085\ }
-\DoxyCodeLine{00087\ \ \ \ \ void\ (*Click)(void);}
-\DoxyCodeLine{00088\ \}\ \mbox{\hyperlink{structButton}{Button}};}
-\DoxyCodeLine{00089\ }
-\DoxyCodeLine{00091\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}}
-\DoxyCodeLine{00092\ \{}
-\DoxyCodeLine{00094\ \ \ \ \ \mbox{\hyperlink{gui_8h_a16b11be27a8e9362dd122c4d879e01ae}{ElementType}}\ \mbox{\hyperlink{structInput_a51af0b672a92ed5a307d4947db7cebed}{Type}};}
-\DoxyCodeLine{00095\ }
-\DoxyCodeLine{00097\ \ \ \ \ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ \mbox{\hyperlink{structInput_a1b6207e636a1da2db7ae913717de508c}{Flags}};}
-\DoxyCodeLine{00098\ }
-\DoxyCodeLine{00100\ \ \ \ \ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ \mbox{\hyperlink{structInput_a3533d418144344d08dc8ad9a9a5ab5a6}{X}};}
-\DoxyCodeLine{00101\ }
-\DoxyCodeLine{00103\ \ \ \ \ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ \mbox{\hyperlink{structInput_a9f3058e098d93b2cd87e9014998e893d}{Y}};}
-\DoxyCodeLine{00104\ }
-\DoxyCodeLine{00106\ \ \ \ \ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ \mbox{\hyperlink{structInput_a49666acce1e1ce75cf34f09ca097f6d4}{W}};}
-\DoxyCodeLine{00107\ }
-\DoxyCodeLine{00109\ \ \ \ \ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ \mbox{\hyperlink{structInput_acda62d4335424fef56ce67c73f3518f3}{NumLines}};}
-\DoxyCodeLine{00110\ }
-\DoxyCodeLine{00113\ \ \ \ \ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ \mbox{\hyperlink{structInput_a27cde5d43c66a2efffd94f8ae158a489}{TabSize}};}
-\DoxyCodeLine{00114\ }
-\DoxyCodeLine{00116\ \ \ \ \ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ \mbox{\hyperlink{structInput_a7c63f47479b80d8b6bcdbc667e32dc11}{Position}};}
-\DoxyCodeLine{00117\ }
-\DoxyCodeLine{00119\ \ \ \ \ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ \mbox{\hyperlink{structInput_ad6607ccb6fc5962ae28e9ec5c62290b5}{Selection}};}
-\DoxyCodeLine{00120\ }
-\DoxyCodeLine{00122\ \ \ \ \ \mbox{\hyperlink{structVector}{Vector}}\ \mbox{\hyperlink{structInput_a78a569961ae4393cfbdb42f7d096b36a}{Text}};}
-\DoxyCodeLine{00123\ \}\ \mbox{\hyperlink{structInput}{Input}};}
-\DoxyCodeLine{00124\ }
-\DoxyCodeLine{00126\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}}
-\DoxyCodeLine{00127\ \{}
-\DoxyCodeLine{00129\ \ \ \ \ \mbox{\hyperlink{gfx_8h_acbbccb6085c654282ef64cdcefc81be5}{Color}}\ \mbox{\hyperlink{structWindow_a41ad48361871972760c85b308abfaa35}{ColorFG}};}
-\DoxyCodeLine{00130\ }
-\DoxyCodeLine{00132\ \ \ \ \ \mbox{\hyperlink{gfx_8h_acbbccb6085c654282ef64cdcefc81be5}{Color}}\ \mbox{\hyperlink{structWindow_aca124ebcfc3a26ad1c67b4ed5ff533bf}{ColorBG}};}
-\DoxyCodeLine{00133\ }
-\DoxyCodeLine{00135\ \ \ \ \ \mbox{\hyperlink{gfx_8h_acbbccb6085c654282ef64cdcefc81be5}{Color}}\ \mbox{\hyperlink{structWindow_a54824f3d4deb517c142c819bfffef45c}{ColorTextSelBG}};}
-\DoxyCodeLine{00136\ }
-\DoxyCodeLine{00138\ \ \ \ \ \mbox{\hyperlink{gfx_8h_acbbccb6085c654282ef64cdcefc81be5}{Color}}\ \mbox{\hyperlink{structWindow_a4fa15cb91d863153cb008b65d789f4c2}{ColorTextSelFG}};}
-\DoxyCodeLine{00139\ }
-\DoxyCodeLine{00141\ \ \ \ \ \mbox{\hyperlink{gfx_8h_acbbccb6085c654282ef64cdcefc81be5}{Color}}\ \mbox{\hyperlink{structWindow_a7617192ecd2da1592c1fc2292fe2293f}{ColorBorder}};}
-\DoxyCodeLine{00142\ }
-\DoxyCodeLine{00144\ \ \ \ \ \mbox{\hyperlink{gfx_8h_acbbccb6085c654282ef64cdcefc81be5}{Color}}\ \mbox{\hyperlink{structWindow_a6f6d4b6477c9783e81b9e31abc8c205d}{ColorBorderSel}};}
-\DoxyCodeLine{00145\ }
-\DoxyCodeLine{00147\ \ \ \ \ \mbox{\hyperlink{gfx_8h_acbbccb6085c654282ef64cdcefc81be5}{Color}}\ \mbox{\hyperlink{structWindow_a14b18c5c659e887cfb74dc436ff597f1}{ElementBG}};}
-\DoxyCodeLine{00148\ }
-\DoxyCodeLine{00150\ \ \ \ \ \mbox{\hyperlink{gfx_8h_acbbccb6085c654282ef64cdcefc81be5}{Color}}\ \mbox{\hyperlink{structWindow_ad09713e15708133077838943573390f2}{ElementSelBG}};}
-\DoxyCodeLine{00151\ }
-\DoxyCodeLine{00153\ \ \ \ \ \mbox{\hyperlink{gfx_8h_acbbccb6085c654282ef64cdcefc81be5}{Color}}\ \mbox{\hyperlink{structWindow_afa33f79109581c82b8446ccbab831cd1}{ColorCursor}};}
-\DoxyCodeLine{00154\ }
-\DoxyCodeLine{00156\ \ \ \ \ \mbox{\hyperlink{gfx_8h_acbbccb6085c654282ef64cdcefc81be5}{Color}}\ \mbox{\hyperlink{structWindow_a4a3851d40e01b614600eae4eef1d6cb2}{ColorTitleBar}};}
-\DoxyCodeLine{00157\ }
-\DoxyCodeLine{00159\ \ \ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structWindow_a4810e08776237d1e32d19f4a283df3b9}{Title}};}
-\DoxyCodeLine{00160\ }
-\DoxyCodeLine{00162\ \ \ \ \ \textcolor{keywordtype}{void}\ **\mbox{\hyperlink{structWindow_af936e5270a419a30a5fcf754cdd6bb8b}{Elements}};}
-\DoxyCodeLine{00163\ }
-\DoxyCodeLine{00165\ \ \ \ \ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ \mbox{\hyperlink{structWindow_a559d31d99c1ed4ea63db05ae3a439faf}{Count}};}
-\DoxyCodeLine{00166\ }
-\DoxyCodeLine{00168\ \ \ \ \ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ \mbox{\hyperlink{structWindow_ad0a63551c2486da4b5eae5d3e0f4f5ff}{Selected}};}
-\DoxyCodeLine{00169\ }
-\DoxyCodeLine{00171\ \ \ \ \ \mbox{\hyperlink{keyboard_8h_a31b5a1eb7bc24f6e8d7c85291f05dee5}{KeyEvent}}\ \mbox{\hyperlink{structWindow_ab3273bd0387fcd2621d77720e68511a6}{OnKey}};}
-\DoxyCodeLine{00172\ \}\ \mbox{\hyperlink{structWindow}{Window}};}
-\DoxyCodeLine{00173\ }
-\DoxyCodeLine{00174\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}}
-\DoxyCodeLine{00175\ \{}
-\DoxyCodeLine{00176\ \ \ \ \ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ ColorComment,\ ColorNumber,\ ColorString,\ ColorKeyword;}
-\DoxyCodeLine{00177\ \}\ \mbox{\hyperlink{structSyntaxHighlighter}{SyntaxHighlighter}};}
-\DoxyCodeLine{00178\ }
-\DoxyCodeLine{00184\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{gui_8h_adf0715beb16a0945a1bae624873df977}{window\_open}}(\mbox{\hyperlink{structWindow}{Window}}\ *window);}
-\DoxyCodeLine{00185\ }
-\DoxyCodeLine{00192\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{gui_8h_a7e2a9214dff60b9245fc4e1d089128b7}{window\_event\_key}}(Key\ key,\ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ chr,\ KeyState\ state);}
-\DoxyCodeLine{00193\ }
-\DoxyCodeLine{00203\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{gui_8h_a51313c00040b7eec516823f7b31f8eed}{window\_init}}(\mbox{\hyperlink{structWindow}{Window}}\ *window,\ \textcolor{keywordtype}{char}\ *title,\ \textcolor{keywordtype}{void}\ *elems,\ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ count,}
-\DoxyCodeLine{00204\ \ \ \ \ \mbox{\hyperlink{keyboard_8h_a31b5a1eb7bc24f6e8d7c85291f05dee5}{KeyEvent}}\ onkey);}
-\DoxyCodeLine{00205\ }
-\DoxyCodeLine{00215\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{gui_8h_a947b16523eba3e9011e52a892a689295}{label\_init}}(\mbox{\hyperlink{structLabel}{Label}}\ *label,\ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ x,\ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ y,\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ flags,\ \textcolor{keywordtype}{char}\ *text);}
-\DoxyCodeLine{00216\ }
-\DoxyCodeLine{00228\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{gui_8h_aa7c0f8b7c1ee364fa5b534f592e9ac08}{button\_init}}(\mbox{\hyperlink{structButton}{Button}}\ *button,\ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ x,\ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ y,\ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ w,\ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ h,\ \textcolor{keywordtype}{char}\ *text,}
-\DoxyCodeLine{00229\ \ \ \ \ \textcolor{keywordtype}{void}\ (*onclick)(\textcolor{keywordtype}{void}));}
-\DoxyCodeLine{00230\ }
-\DoxyCodeLine{00239\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{gui_8h_a8c62a34c4c090afd9c76cf213504a4f8}{input\_init}}(\mbox{\hyperlink{structInput}{Input}}\ *input,\ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ x,\ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ y,\ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ w);}
-\DoxyCodeLine{00240\ }
-\DoxyCodeLine{00246\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{gui_8h_aaa6006e84d4768cf4caa1936c5d240fe}{input\_clear}}(\mbox{\hyperlink{structInput}{Input}}\ *i);}
-\DoxyCodeLine{00247\ }
-\DoxyCodeLine{00254\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{gui_8h_a09cbd26ea16563c14843cbfa65bc9271}{element\_render}}(\textcolor{keywordtype}{void}\ *e);}
-\DoxyCodeLine{00255\ }
-\DoxyCodeLine{00256\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ \_\_GUI\_H\_\_\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00001}00001\ }
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00009}00009\ \textcolor{preprocessor}{\#ifndef\ \_\_GUI\_H\_\_}}
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00010}00010\ \textcolor{preprocessor}{\#define\ \_\_GUI\_H\_\_}}
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00011}00011\ }
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00012}00012\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{vector_8h}{vector.h}}>}}
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00013}00013\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{types_8h}{types.h}}>}}
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00014}00014\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{keyboard_8h}{keyboard.h}}>}}
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00015}00015\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{gfx_8h}{gfx.h}}>}}
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00016}00016\ }
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00018}\mbox{\hyperlink{gui_8h_a16b11be27a8e9362dd122c4d879e01ae}{00018}}\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}}
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00019}00019\ \{}
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00020}00020\ \ \ \ \ ELEMENT\_TYPE\_BUTTON,}
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00021}00021\ \ \ \ \ ELEMENT\_TYPE\_INPUT,}
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00022}00022\ \ \ \ \ ELEMENT\_TYPE\_LABEL}
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00023}00023\ \}\ \mbox{\hyperlink{gui_8h_a16b11be27a8e9362dd122c4d879e01ae}{ElementType}};}
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00024}00024\ }
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00026}\mbox{\hyperlink{gui_8h_a9acfa53ba535d32d76682f5d3e893c05}{00026}}\ \textcolor{preprocessor}{\#define\ ALIGN\_MASK\ \ \ \ \ \ \ \ \ \ \ \ 0x03}}
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00027}00027\ }
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00029}\mbox{\hyperlink{gui_8h_a33c2d4ef645a60b81d281d55d98b9334}{00029}}\ \textcolor{preprocessor}{\#define\ FLAG\_ALIGN\_LEFT\ \ \ \ \ \ \ 0x00}}
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00030}00030\ }
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00032}\mbox{\hyperlink{gui_8h_a9c02b0d52f34473b26a3ef4718f31820}{00032}}\ \textcolor{preprocessor}{\#define\ FLAG\_ALIGN\_CENTER\ \ \ \ \ 0x01}}
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00033}00033\ }
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00035}\mbox{\hyperlink{gui_8h_acb9d2d1733e63df0fee9ee8a3174c8c1}{00035}}\ \textcolor{preprocessor}{\#define\ FLAG\_ALIGN\_RIGHT\ \ \ \ \ \ 0x02}}
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00036}00036\ }
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00038}\mbox{\hyperlink{gui_8h_acedb73094f816985cb0fc49a5a6f3ee0}{00038}}\ \textcolor{preprocessor}{\#define\ FLAG\_LINE\_NUMBERS\ \ \ \ \ 0x04}}
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00039}00039\ }
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00041}\mbox{\hyperlink{gui_8h_a8c292ecea22d7e47657de5df2c03c935}{00041}}\ \textcolor{preprocessor}{\#define\ FLAG\_SYNTAX\_HIGHLIGHT\ 0x08}}
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00042}00042\ }
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00044}\mbox{\hyperlink{gui_8h_aecd12d3a24c8b08e6e8c2196387dde7f}{00044}}\ \textcolor{preprocessor}{\#define\ FLAG\_PASSWORD\ \ \ \ \ \ \ \ \ 0x10}}
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00045}00045\ }
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00047}\mbox{\hyperlink{structLabel}{00047}}\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}}
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00048}00048\ \{}
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00050}\mbox{\hyperlink{structLabel_abc5fc17c4442df608d88d32856dfd99a}{00050}}\ \ \ \ \ \mbox{\hyperlink{gui_8h_a16b11be27a8e9362dd122c4d879e01ae}{ElementType}}\ \mbox{\hyperlink{structLabel_abc5fc17c4442df608d88d32856dfd99a}{Type}};}
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00051}00051\ }
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00053}\mbox{\hyperlink{structLabel_aed8a69e88c43b37924a7468bc5baa86f}{00053}}\ \ \ \ \ \mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}}\ \mbox{\hyperlink{structLabel_aed8a69e88c43b37924a7468bc5baa86f}{Flags}};}
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00054}00054\ }
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00056}\mbox{\hyperlink{structLabel_a2629f98bd0014b9a91202c3812c2f6aa}{00056}}\ \ \ \ \ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ \mbox{\hyperlink{structLabel_a2629f98bd0014b9a91202c3812c2f6aa}{X}};}
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00057}00057\ }
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00059}\mbox{\hyperlink{structLabel_aed51d95e74e5d04ff2a93ae4acd2be2e}{00059}}\ \ \ \ \ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ \mbox{\hyperlink{structLabel_aed51d95e74e5d04ff2a93ae4acd2be2e}{Y}};}
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00060}00060\ }
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00062}\mbox{\hyperlink{structLabel_a8cb635a15fb854226819dfc612c2bbfb}{00062}}\ \ \ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structLabel_a8cb635a15fb854226819dfc612c2bbfb}{Text}};}
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00063}00063\ \}\ \mbox{\hyperlink{structLabel}{Label}};}
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00064}00064\ }
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00066}\mbox{\hyperlink{structButton}{00066}}\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}}
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00067}00067\ \{}
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00069}\mbox{\hyperlink{structButton_a5f32e249840beee48bb90e67c1c40715}{00069}}\ \ \ \ \ \mbox{\hyperlink{gui_8h_a16b11be27a8e9362dd122c4d879e01ae}{ElementType}}\ \mbox{\hyperlink{structButton_a5f32e249840beee48bb90e67c1c40715}{Type}};}
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00070}00070\ }
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00072}\mbox{\hyperlink{structButton_a2a2a4ddacb3402d203fe524e45b92fe1}{00072}}\ \ \ \ \ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ \mbox{\hyperlink{structButton_a2a2a4ddacb3402d203fe524e45b92fe1}{X}};}
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00073}00073\ }
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00075}\mbox{\hyperlink{structButton_a1ff58e1e4b113514c9f6194c0f0097b2}{00075}}\ \ \ \ \ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ \mbox{\hyperlink{structButton_a1ff58e1e4b113514c9f6194c0f0097b2}{Y}};}
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00076}00076\ }
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00078}\mbox{\hyperlink{structButton_aeda48c500aaf219c7bc49fd62c07c466}{00078}}\ \ \ \ \ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ \mbox{\hyperlink{structButton_aeda48c500aaf219c7bc49fd62c07c466}{W}};}
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00079}00079\ }
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00081}\mbox{\hyperlink{structButton_ae147963816ab46ff68bfaf02c81daf2b}{00081}}\ \ \ \ \ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ \mbox{\hyperlink{structButton_ae147963816ab46ff68bfaf02c81daf2b}{H}};}
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00082}00082\ }
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00084}\mbox{\hyperlink{structButton_abf6c8dfdad6fa51a20793f00ccdcbba7}{00084}}\ \ \ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structButton_abf6c8dfdad6fa51a20793f00ccdcbba7}{Text}};}
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00085}00085\ }
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00087}\mbox{\hyperlink{structButton_a5e606ec3ff0434d8e36fa6274200e603}{00087}}\ \ \ \ \ void\ (*Click)(void);}
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00088}00088\ \}\ \mbox{\hyperlink{structButton}{Button}};}
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00089}00089\ }
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00091}\mbox{\hyperlink{structInput}{00091}}\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}}
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00092}00092\ \{}
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00094}\mbox{\hyperlink{structInput_a51af0b672a92ed5a307d4947db7cebed}{00094}}\ \ \ \ \ \mbox{\hyperlink{gui_8h_a16b11be27a8e9362dd122c4d879e01ae}{ElementType}}\ \mbox{\hyperlink{structInput_a51af0b672a92ed5a307d4947db7cebed}{Type}};}
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00095}00095\ }
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00097}\mbox{\hyperlink{structInput_a1b6207e636a1da2db7ae913717de508c}{00097}}\ \ \ \ \ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ \mbox{\hyperlink{structInput_a1b6207e636a1da2db7ae913717de508c}{Flags}};}
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00098}00098\ }
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00100}\mbox{\hyperlink{structInput_a3533d418144344d08dc8ad9a9a5ab5a6}{00100}}\ \ \ \ \ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ \mbox{\hyperlink{structInput_a3533d418144344d08dc8ad9a9a5ab5a6}{X}};}
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00101}00101\ }
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00103}\mbox{\hyperlink{structInput_a9f3058e098d93b2cd87e9014998e893d}{00103}}\ \ \ \ \ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ \mbox{\hyperlink{structInput_a9f3058e098d93b2cd87e9014998e893d}{Y}};}
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00104}00104\ }
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00106}\mbox{\hyperlink{structInput_a49666acce1e1ce75cf34f09ca097f6d4}{00106}}\ \ \ \ \ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ \mbox{\hyperlink{structInput_a49666acce1e1ce75cf34f09ca097f6d4}{W}};}
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00107}00107\ }
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00109}\mbox{\hyperlink{structInput_a7c63f47479b80d8b6bcdbc667e32dc11}{00109}}\ \ \ \ \ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ \mbox{\hyperlink{structInput_a7c63f47479b80d8b6bcdbc667e32dc11}{Position}};}
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00110}00110\ }
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00112}\mbox{\hyperlink{structInput_ad6607ccb6fc5962ae28e9ec5c62290b5}{00112}}\ \ \ \ \ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ \mbox{\hyperlink{structInput_ad6607ccb6fc5962ae28e9ec5c62290b5}{Selection}};}
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00113}00113\ }
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00115}\mbox{\hyperlink{structInput_a78a569961ae4393cfbdb42f7d096b36a}{00115}}\ \ \ \ \ \mbox{\hyperlink{structVector}{Vector}}\ \mbox{\hyperlink{structInput_a78a569961ae4393cfbdb42f7d096b36a}{Text}};}
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00116}00116\ \}\ \mbox{\hyperlink{structInput}{Input}};}
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00117}00117\ }
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00119}\mbox{\hyperlink{structTheme}{00119}}\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}}
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00120}00120\ \{}
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00122}\mbox{\hyperlink{structTheme_a0a488eb8377d2b821fca05cc0948f44b}{00122}}\ \ \ \ \ \mbox{\hyperlink{gfx_8h_acbbccb6085c654282ef64cdcefc81be5}{Color}}\ \mbox{\hyperlink{structTheme_a0a488eb8377d2b821fca05cc0948f44b}{ColorFG}};}
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00123}00123\ }
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00125}\mbox{\hyperlink{structTheme_a811598412d6c377c00dba2b2d5c41ae9}{00125}}\ \ \ \ \ \mbox{\hyperlink{gfx_8h_acbbccb6085c654282ef64cdcefc81be5}{Color}}\ \mbox{\hyperlink{structTheme_a811598412d6c377c00dba2b2d5c41ae9}{ColorBG}};}
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00126}00126\ }
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00128}\mbox{\hyperlink{structTheme_addb51f1393e39d841a547e8fc6bd51eb}{00128}}\ \ \ \ \ \mbox{\hyperlink{gfx_8h_acbbccb6085c654282ef64cdcefc81be5}{Color}}\ \mbox{\hyperlink{structTheme_addb51f1393e39d841a547e8fc6bd51eb}{ColorTextSelBG}};}
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00129}00129\ }
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00131}\mbox{\hyperlink{structTheme_ac2a345d3fa5613d20da113f38fa3cc46}{00131}}\ \ \ \ \ \mbox{\hyperlink{gfx_8h_acbbccb6085c654282ef64cdcefc81be5}{Color}}\ \mbox{\hyperlink{structTheme_ac2a345d3fa5613d20da113f38fa3cc46}{ColorTextSelFG}};}
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00132}00132\ }
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00134}\mbox{\hyperlink{structTheme_a78899b4f95498ae7f47ad82a07cd15f1}{00134}}\ \ \ \ \ \mbox{\hyperlink{gfx_8h_acbbccb6085c654282ef64cdcefc81be5}{Color}}\ \mbox{\hyperlink{structTheme_a78899b4f95498ae7f47ad82a07cd15f1}{ColorBorder}};}
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00135}00135\ }
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00137}\mbox{\hyperlink{structTheme_aa4e553a8a4388d5bccde929e3341a8d3}{00137}}\ \ \ \ \ \mbox{\hyperlink{gfx_8h_acbbccb6085c654282ef64cdcefc81be5}{Color}}\ \mbox{\hyperlink{structTheme_aa4e553a8a4388d5bccde929e3341a8d3}{ColorBorderSel}};}
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00138}00138\ }
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00140}\mbox{\hyperlink{structTheme_aa14df9a5c662d958574fa20c0163d6eb}{00140}}\ \ \ \ \ \mbox{\hyperlink{gfx_8h_acbbccb6085c654282ef64cdcefc81be5}{Color}}\ \mbox{\hyperlink{structTheme_aa14df9a5c662d958574fa20c0163d6eb}{ElementBG}};}
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00141}00141\ }
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00143}\mbox{\hyperlink{structTheme_a59960348484cbbfd80c197c5da44095c}{00143}}\ \ \ \ \ \mbox{\hyperlink{gfx_8h_acbbccb6085c654282ef64cdcefc81be5}{Color}}\ \mbox{\hyperlink{structTheme_a59960348484cbbfd80c197c5da44095c}{ElementSelBG}};}
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00144}00144\ }
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00146}\mbox{\hyperlink{structTheme_aa290ac6a045bb529040599acff5199be}{00146}}\ \ \ \ \ \mbox{\hyperlink{gfx_8h_acbbccb6085c654282ef64cdcefc81be5}{Color}}\ \mbox{\hyperlink{structTheme_aa290ac6a045bb529040599acff5199be}{ColorCursor}};}
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00147}00147\ }
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00149}\mbox{\hyperlink{structTheme_ae1c60ff9d861a59c11f4ccb5f78cc083}{00149}}\ \ \ \ \ \mbox{\hyperlink{gfx_8h_acbbccb6085c654282ef64cdcefc81be5}{Color}}\ \mbox{\hyperlink{structTheme_ae1c60ff9d861a59c11f4ccb5f78cc083}{ColorTitleBar}};}
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00150}00150\ \}\ \mbox{\hyperlink{structTheme}{Theme}};}
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00151}00151\ }
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00153}\mbox{\hyperlink{structWindow}{00153}}\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}}
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00154}00154\ \{}
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00156}\mbox{\hyperlink{structWindow_a4810e08776237d1e32d19f4a283df3b9}{00156}}\ \ \ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structWindow_a4810e08776237d1e32d19f4a283df3b9}{Title}};}
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00157}00157\ }
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00159}\mbox{\hyperlink{structWindow_af936e5270a419a30a5fcf754cdd6bb8b}{00159}}\ \ \ \ \ \textcolor{keywordtype}{void}\ **\mbox{\hyperlink{structWindow_af936e5270a419a30a5fcf754cdd6bb8b}{Elements}};}
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00160}00160\ }
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00162}\mbox{\hyperlink{structWindow_a559d31d99c1ed4ea63db05ae3a439faf}{00162}}\ \ \ \ \ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ \mbox{\hyperlink{structWindow_a559d31d99c1ed4ea63db05ae3a439faf}{Count}};}
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00163}00163\ }
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00165}\mbox{\hyperlink{structWindow_ad0a63551c2486da4b5eae5d3e0f4f5ff}{00165}}\ \ \ \ \ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ \mbox{\hyperlink{structWindow_ad0a63551c2486da4b5eae5d3e0f4f5ff}{Selected}};}
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00166}00166\ }
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00168}\mbox{\hyperlink{structWindow_ab3273bd0387fcd2621d77720e68511a6}{00168}}\ \ \ \ \ \mbox{\hyperlink{keyboard_8h_a31b5a1eb7bc24f6e8d7c85291f05dee5}{KeyEvent}}\ \mbox{\hyperlink{structWindow_ab3273bd0387fcd2621d77720e68511a6}{OnKey}};}
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00169}00169\ \}\ \mbox{\hyperlink{structWindow}{Window}};}
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00170}00170\ }
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00176}00176\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{gui_8h_adf0715beb16a0945a1bae624873df977}{window\_open}}(\mbox{\hyperlink{structWindow}{Window}}\ *window);}
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00177}00177\ }
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00185}00185\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{gui_8h_a7e2a9214dff60b9245fc4e1d089128b7}{window\_event\_key}}(Key\ key,\ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ chr,\ KeyState\ state);}
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00186}00186\ }
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00196}00196\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{gui_8h_a51313c00040b7eec516823f7b31f8eed}{window\_init}}(\mbox{\hyperlink{structWindow}{Window}}\ *window,\ \textcolor{keywordtype}{char}\ *title,\ \textcolor{keywordtype}{void}\ *elems,\ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ count,}
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00197}00197\ \ \ \ \ \mbox{\hyperlink{keyboard_8h_a31b5a1eb7bc24f6e8d7c85291f05dee5}{KeyEvent}}\ onkey);}
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00198}00198\ }
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00208}00208\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{gui_8h_a947b16523eba3e9011e52a892a689295}{label\_init}}(\mbox{\hyperlink{structLabel}{Label}}\ *label,\ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ x,\ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ y,\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ flags,\ \textcolor{keywordtype}{char}\ *text);}
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00209}00209\ }
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00221}00221\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{gui_8h_aa7c0f8b7c1ee364fa5b534f592e9ac08}{button\_init}}(\mbox{\hyperlink{structButton}{Button}}\ *button,\ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ x,\ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ y,\ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ w,\ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ h,\ \textcolor{keywordtype}{char}\ *text,}
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00222}00222\ \ \ \ \ \textcolor{keywordtype}{void}\ (*onclick)(\textcolor{keywordtype}{void}));}
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00223}00223\ }
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00232}00232\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{gui_8h_a8c62a34c4c090afd9c76cf213504a4f8}{input\_init}}(\mbox{\hyperlink{structInput}{Input}}\ *input,\ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ x,\ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ y,\ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ w);}
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00233}00233\ }
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00239}00239\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{gui_8h_aaa6006e84d4768cf4caa1936c5d240fe}{input\_clear}}(\mbox{\hyperlink{structInput}{Input}}\ *i);}
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00240}00240\ }
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00247}00247\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{gui_8h_a09cbd26ea16563c14843cbfa65bc9271}{element\_render}}(\textcolor{keywordtype}{void}\ *e);}
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00248}00248\ }
+\DoxyCodeLine{\Hypertarget{gui_8h_source_l00249}00249\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ \_\_GUI\_H\_\_\ */}\textcolor{preprocessor}{}}
 
 \end{DoxyCode}

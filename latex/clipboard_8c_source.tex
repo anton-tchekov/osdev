@@ -1,0 +1,53 @@
+\hypertarget{clipboard_8c_source}{}\doxysection{clipboard.\+c}
+\label{clipboard_8c_source}\index{stdlib/clipboard/clipboard.c@{stdlib/clipboard/clipboard.c}}
+\mbox{\hyperlink{clipboard_8c}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{clipboard_8c_source_l00001}00001\ }
+\DoxyCodeLine{\Hypertarget{clipboard_8c_source_l00008}00008\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{clipboard_8h}{clipboard.h}}>}}
+\DoxyCodeLine{\Hypertarget{clipboard_8c_source_l00009}00009\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{string_8h}{string.h}}>}}
+\DoxyCodeLine{\Hypertarget{clipboard_8c_source_l00010}00010\ }
+\DoxyCodeLine{\Hypertarget{clipboard_8c_source_l00012}\mbox{\hyperlink{clipboard_8c_aae4b6bf1c28cb474465c040951718816}{00012}}\ \textcolor{keyword}{static}\ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ \mbox{\hyperlink{clipboard_8c_aae4b6bf1c28cb474465c040951718816}{\_clipboard\_len}};}
+\DoxyCodeLine{\Hypertarget{clipboard_8c_source_l00013}00013\ }
+\DoxyCodeLine{\Hypertarget{clipboard_8c_source_l00015}\mbox{\hyperlink{clipboard_8c_a2c801879486872f1fa086fb0f506578e}{00015}}\ \textcolor{keyword}{static}\ \mbox{\hyperlink{clipboard_8h_a9676c44d0c2a676fe59a136a6e71b161}{ClipboardType}}\ \mbox{\hyperlink{clipboard_8c_a2c801879486872f1fa086fb0f506578e}{\_clipboard\_type}};}
+\DoxyCodeLine{\Hypertarget{clipboard_8c_source_l00016}00016\ }
+\DoxyCodeLine{\Hypertarget{clipboard_8c_source_l00017}00017\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{char}\ *get\_memory(\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ space)}
+\DoxyCodeLine{\Hypertarget{clipboard_8c_source_l00018}00018\ \{}
+\DoxyCodeLine{\Hypertarget{clipboard_8c_source_l00019}00019\ \ \ \ \ \textcolor{keywordflow}{if}(space\ >=\ 0)}
+\DoxyCodeLine{\Hypertarget{clipboard_8c_source_l00020}00020\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{clipboard_8c_source_l00021}00021\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{clipboard_8c_aae4b6bf1c28cb474465c040951718816}{\_clipboard\_len}}\ =\ space;}
+\DoxyCodeLine{\Hypertarget{clipboard_8c_source_l00022}00022\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{clipboard_8c_source_l00023}00023\ }
+\DoxyCodeLine{\Hypertarget{clipboard_8c_source_l00024}00024\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{char}\ arr[1024];}
+\DoxyCodeLine{\Hypertarget{clipboard_8c_source_l00025}00025\ \ \ \ \ \textcolor{keywordflow}{return}\ arr;}
+\DoxyCodeLine{\Hypertarget{clipboard_8c_source_l00026}00026\ \}}
+\DoxyCodeLine{\Hypertarget{clipboard_8c_source_l00027}00027\ }
+\DoxyCodeLine{\Hypertarget{clipboard_8c_source_l00028}\mbox{\hyperlink{clipboard_8c_ae3d307c73686967f4a378d35f2703d89}{00028}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{clipboard_8c_ae3d307c73686967f4a378d35f2703d89}{clipboard\_save\_text}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *text)}
+\DoxyCodeLine{\Hypertarget{clipboard_8c_source_l00029}00029\ \{}
+\DoxyCodeLine{\Hypertarget{clipboard_8c_source_l00030}00030\ \ \ \ \ \mbox{\hyperlink{clipboard_8c_a2c801879486872f1fa086fb0f506578e}{\_clipboard\_type}}\ =\ \mbox{\hyperlink{clipboard_8h_a9676c44d0c2a676fe59a136a6e71b161a51b4f4170f9b312f9294caac850eaf4d}{CLIPBOARD\_TYPE\_TEXT}};}
+\DoxyCodeLine{\Hypertarget{clipboard_8c_source_l00031}00031\ \ \ \ \ \textcolor{keywordtype}{char}\ *clipboard\ =\ get\_memory(\mbox{\hyperlink{string_8c_adbbf4d6ec8d6b708c64bd6a4a18065dd}{strlen}}(text));}
+\DoxyCodeLine{\Hypertarget{clipboard_8c_source_l00032}00032\ \ \ \ \ \mbox{\hyperlink{string_8c_ac5082c8ce4f0cddd88bf4d0d2e738308}{strcpy}}(clipboard,\ text);}
+\DoxyCodeLine{\Hypertarget{clipboard_8c_source_l00033}00033\ \}}
+\DoxyCodeLine{\Hypertarget{clipboard_8c_source_l00034}00034\ }
+\DoxyCodeLine{\Hypertarget{clipboard_8c_source_l00035}\mbox{\hyperlink{clipboard_8c_a4e817e7107bb4736ca15bc189455b293}{00035}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{clipboard_8c_a4e817e7107bb4736ca15bc189455b293}{clipboard\_save\_text\_len}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *text,\ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ len)}
+\DoxyCodeLine{\Hypertarget{clipboard_8c_source_l00036}00036\ \{}
+\DoxyCodeLine{\Hypertarget{clipboard_8c_source_l00037}00037\ \ \ \ \ \mbox{\hyperlink{clipboard_8c_a2c801879486872f1fa086fb0f506578e}{\_clipboard\_type}}\ =\ \mbox{\hyperlink{clipboard_8h_a9676c44d0c2a676fe59a136a6e71b161a51b4f4170f9b312f9294caac850eaf4d}{CLIPBOARD\_TYPE\_TEXT}};}
+\DoxyCodeLine{\Hypertarget{clipboard_8c_source_l00038}00038\ \ \ \ \ \textcolor{keywordtype}{char}\ *clipboard\ =\ get\_memory(len);}
+\DoxyCodeLine{\Hypertarget{clipboard_8c_source_l00039}00039\ \ \ \ \ \mbox{\hyperlink{string_8c_a86fd1dc99081364b5155d9669e32ed03}{strncpy}}(clipboard,\ text,\ len);}
+\DoxyCodeLine{\Hypertarget{clipboard_8c_source_l00040}00040\ \}}
+\DoxyCodeLine{\Hypertarget{clipboard_8c_source_l00041}00041\ }
+\DoxyCodeLine{\Hypertarget{clipboard_8c_source_l00042}\mbox{\hyperlink{clipboard_8c_a7d96057e801d089a8b0c394ab042a4e1}{00042}}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *\mbox{\hyperlink{clipboard_8c_a7d96057e801d089a8b0c394ab042a4e1}{clipboard\_get}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{clipboard_8c_source_l00043}00043\ \{}
+\DoxyCodeLine{\Hypertarget{clipboard_8c_source_l00044}00044\ \ \ \ \ \textcolor{keywordflow}{return}\ get\_memory(-\/1);}
+\DoxyCodeLine{\Hypertarget{clipboard_8c_source_l00045}00045\ \}}
+\DoxyCodeLine{\Hypertarget{clipboard_8c_source_l00046}00046\ }
+\DoxyCodeLine{\Hypertarget{clipboard_8c_source_l00047}\mbox{\hyperlink{clipboard_8c_ad441ab5936f033348efc13148ba2a0d5}{00047}}\ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ \mbox{\hyperlink{clipboard_8c_ad441ab5936f033348efc13148ba2a0d5}{clipboard\_len}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{clipboard_8c_source_l00048}00048\ \{}
+\DoxyCodeLine{\Hypertarget{clipboard_8c_source_l00049}00049\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{clipboard_8c_aae4b6bf1c28cb474465c040951718816}{\_clipboard\_len}};}
+\DoxyCodeLine{\Hypertarget{clipboard_8c_source_l00050}00050\ \}}
+\DoxyCodeLine{\Hypertarget{clipboard_8c_source_l00051}00051\ }
+\DoxyCodeLine{\Hypertarget{clipboard_8c_source_l00052}\mbox{\hyperlink{clipboard_8c_a425fb0faba6b4e699a6313a3d0a51510}{00052}}\ \mbox{\hyperlink{clipboard_8h_a9676c44d0c2a676fe59a136a6e71b161}{ClipboardType}}\ \mbox{\hyperlink{clipboard_8c_a425fb0faba6b4e699a6313a3d0a51510}{clipboard\_type}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{clipboard_8c_source_l00053}00053\ \{}
+\DoxyCodeLine{\Hypertarget{clipboard_8c_source_l00054}00054\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{clipboard_8c_a2c801879486872f1fa086fb0f506578e}{\_clipboard\_type}};}
+\DoxyCodeLine{\Hypertarget{clipboard_8c_source_l00055}00055\ \}}
+
+\end{DoxyCode}

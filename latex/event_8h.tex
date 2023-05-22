@@ -6,19 +6,17 @@ Event handling functions.
 
 
 {\ttfamily \#include $<$types.\+h$>$}\newline
+{\ttfamily \#include $<$event-\/types.\+h$>$}\newline
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{event_8h_a8ba21fdef7742fb1d4bde21b965ef13a}\label{event_8h_a8ba21fdef7742fb1d4bde21b965ef13a}} 
-void {\bfseries finish} (void)
+void \mbox{\hyperlink{event_8h_a8ba21fdef7742fb1d4bde21b965ef13a}{finish}} (void)
 \begin{DoxyCompactList}\small\item\em Finish an event handler. Do NOT call this function. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{event_8h_a7dfd9b79bc5a37d7df40207afbc5431f}\label{event_8h_a7dfd9b79bc5a37d7df40207afbc5431f}} 
-void {\bfseries setup} (void)
+void \mbox{\hyperlink{event_8h_a7dfd9b79bc5a37d7df40207afbc5431f}{setup}} (void)
 \begin{DoxyCompactList}\small\item\em Setup function that is called at program start. Must be implemented by user. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{event_8h_a0b33edabd7f1c4e4a0bf32c67269be2f}\label{event_8h_a0b33edabd7f1c4e4a0bf32c67269be2f}} 
-void {\bfseries loop} (void)
+void \mbox{\hyperlink{event_8h_a0b33edabd7f1c4e4a0bf32c67269be2f}{loop}} (void)
 \begin{DoxyCompactList}\small\item\em Loop function that is called repeatedly Must be implemented by user. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{event_8h_a7fc0a9f60a6e62ec50eaf912c0ed4233}{event\+\_\+register}} (\mbox{\hyperlink{types_8h_a5667b805d857c6d28f83f6038a0272d3}{Event}} type, \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} event)
+void \mbox{\hyperlink{event_8h_a7fc0a9f60a6e62ec50eaf912c0ed4233}{event\+\_\+register}} (\mbox{\hyperlink{event-types_8h_a5667b805d857c6d28f83f6038a0272d3}{Event}} type, \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} event)
 \begin{DoxyCompactList}\small\item\em Register an event. Do NOT call this function. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
@@ -36,12 +34,16 @@ Tim Gabrikowski, Anton Tchekov
 \end{DoxyDate}
 
 
+Definition in file \mbox{\hyperlink{event_8h_source}{event.\+h}}.
+
+
+
 \doxysubsection{Function Documentation}
 \mbox{\Hypertarget{event_8h_a7fc0a9f60a6e62ec50eaf912c0ed4233}\label{event_8h_a7fc0a9f60a6e62ec50eaf912c0ed4233}} 
 \index{event.h@{event.h}!event\_register@{event\_register}}
 \index{event\_register@{event\_register}!event.h@{event.h}}
 \doxysubsubsection{\texorpdfstring{event\_register()}{event\_register()}}
-{\footnotesize\ttfamily void event\+\_\+register (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{types_8h_a5667b805d857c6d28f83f6038a0272d3}{Event}}}]{type,  }\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{event }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void event\+\_\+register (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{event-types_8h_a5667b805d857c6d28f83f6038a0272d3}{Event}}}]{type,  }\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{event }\end{DoxyParamCaption})}
 
 
 
@@ -54,3 +56,112 @@ Register an event. Do NOT call this function.
 {\em event} & Event handler function address \\
 \hline
 \end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{event_8c_source_l00040}{40}} of file \mbox{\hyperlink{event_8c_source}{event.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00041\ \{}
+\DoxyCodeLine{00042\ \ \ \ \ \mbox{\hyperlink{syscall_8h_a180e92e50e5ffdb1bf2449b1c214bde9}{syscall2}}(SYSCALL\_EVENT\_REGISTER,\ type,\ event);}
+\DoxyCodeLine{00043\ \}}
+
+\end{DoxyCode}
+
+
+References \mbox{\hyperlink{syscall_8h_source_l00078}{syscall2()}}.
+
+
+
+Referenced by \mbox{\hyperlink{keyboard_8c_source_l00026}{keyboard\+\_\+init()}}.
+
+\mbox{\Hypertarget{event_8h_a8ba21fdef7742fb1d4bde21b965ef13a}\label{event_8h_a8ba21fdef7742fb1d4bde21b965ef13a}} 
+\index{event.h@{event.h}!finish@{finish}}
+\index{finish@{finish}!event.h@{event.h}}
+\doxysubsubsection{\texorpdfstring{finish()}{finish()}}
+{\footnotesize\ttfamily void finish (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Finish an event handler. Do NOT call this function. 
+
+
+
+Definition at line \mbox{\hyperlink{event_8c_source_l00013}{13}} of file \mbox{\hyperlink{event_8c_source}{event.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00014\ \{}
+\DoxyCodeLine{00015\ \ \ \ \ \mbox{\hyperlink{syscall_8h_a9db3656205f1ad8237f0126197ff7c94}{syscall0}}(SYSCALL\_FINISH);}
+\DoxyCodeLine{00016\ \}}
+
+\end{DoxyCode}
+
+
+References \mbox{\hyperlink{syscall_8h_source_l00039}{syscall0()}}.
+
+
+
+Referenced by \mbox{\hyperlink{keyboard_8c_source_l00016}{\+\_\+event\+\_\+key\+\_\+handler()}}, and \mbox{\hyperlink{event_8c_source_l00019}{\+\_\+event\+\_\+loop\+\_\+handler()}}.
+
+\mbox{\Hypertarget{event_8h_a0b33edabd7f1c4e4a0bf32c67269be2f}\label{event_8h_a0b33edabd7f1c4e4a0bf32c67269be2f}} 
+\index{event.h@{event.h}!loop@{loop}}
+\index{loop@{loop}!event.h@{event.h}}
+\doxysubsubsection{\texorpdfstring{loop()}{loop()}}
+{\footnotesize\ttfamily void loop (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Loop function that is called repeatedly Must be implemented by user. 
+
+
+
+Definition at line \mbox{\hyperlink{apps_2bootscreen_2main_8c_source_l00021}{21}} of file \mbox{\hyperlink{apps_2bootscreen_2main_8c_source}{main.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00022\ \{}
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{timer_8c_aee701eeb891b748ed2e12da119816882}{millis}}()\ -\/\ \_begin\ >=\ BOOTSCREEN\_DELAY)}
+\DoxyCodeLine{00024\ \ \ \ \ \{}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{syscall_8h_ad114e0a686a8eb795642407b0abe1ca9}{exit}}(0);}
+\DoxyCodeLine{00026\ \ \ \ \ \}}
+\DoxyCodeLine{00027\ \}}
+
+\end{DoxyCode}
+
+
+References \mbox{\hyperlink{syscall_8h_source_l00206}{exit()}}, and \mbox{\hyperlink{timer_8c_source_l00036}{millis()}}.
+
+\mbox{\Hypertarget{event_8h_a7dfd9b79bc5a37d7df40207afbc5431f}\label{event_8h_a7dfd9b79bc5a37d7df40207afbc5431f}} 
+\index{event.h@{event.h}!setup@{setup}}
+\index{setup@{setup}!event.h@{event.h}}
+\doxysubsubsection{\texorpdfstring{setup()}{setup()}}
+{\footnotesize\ttfamily void setup (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Setup function that is called at program start. Must be implemented by user. 
+
+
+
+Definition at line \mbox{\hyperlink{apps_2bootscreen_2main_8c_source_l00008}{8}} of file \mbox{\hyperlink{apps_2bootscreen_2main_8c_source}{main.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00009\ \{}
+\DoxyCodeLine{00010\ \ \ \ \ \_begin\ =\ \mbox{\hyperlink{timer_8c_aee701eeb891b748ed2e12da119816882}{millis}}();}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \ \ \ \ \mbox{\hyperlink{gfx_8c_a61d70a4550bf181cd71bfc9a4f12a6d1}{gfx\_rect}}(0,\ 0,\ \mbox{\hyperlink{gfx_8h_aae91ae7a3ca585293a2c1031652a49f9}{GFX\_WIDTH}},\ \mbox{\hyperlink{gfx_8h_a11b59534db467ebd1fb19b758e6fffd7}{GFX\_HEIGHT}},\ \mbox{\hyperlink{lcd_8h_aba2a7fe77a7501e5844370eec0185207}{COLOR\_BLACK}});}
+\DoxyCodeLine{00013\ \ \ \ \ \mbox{\hyperlink{gfx_8c_a65973eb6c3df8a895f50d412bd7b1865}{gfx\_image\_rgb}}(}
+\DoxyCodeLine{00014\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gfx_8h_aae91ae7a3ca585293a2c1031652a49f9}{GFX\_WIDTH}}\ /\ 2\ -\/\ bootscreen.width\ /\ 2,}
+\DoxyCodeLine{00015\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gfx_8h_a11b59534db467ebd1fb19b758e6fffd7}{GFX\_HEIGHT}}\ /\ 2\ -\/\ bootscreen.height\ /\ 2,}
+\DoxyCodeLine{00016\ \ \ \ \ \ \ \ \ bootscreen.width,}
+\DoxyCodeLine{00017\ \ \ \ \ \ \ \ \ bootscreen.height,}
+\DoxyCodeLine{00018\ \ \ \ \ \ \ \ \ bootscreen.pixel\_data);}
+\DoxyCodeLine{00019\ \}}
+
+\end{DoxyCode}
+
+
+References \mbox{\hyperlink{lcd_8h_source_l00038}{COLOR\+\_\+\+BLACK}}, \mbox{\hyperlink{gfx_8h_source_l00023}{GFX\+\_\+\+HEIGHT}}, \mbox{\hyperlink{gfx_8c_source_l00030}{gfx\+\_\+image\+\_\+rgb()}}, \mbox{\hyperlink{gfx_8c_source_l00011}{gfx\+\_\+rect()}}, \mbox{\hyperlink{gfx_8h_source_l00020}{GFX\+\_\+\+WIDTH}}, and \mbox{\hyperlink{timer_8c_source_l00036}{millis()}}.
+

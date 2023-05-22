@@ -5,44 +5,27 @@
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-void \mbox{\hyperlink{time_8c_aa4a8538d6be16de2cefecc9858fda3da}{datetime\+\_\+now}} (\mbox{\hyperlink{structDateTime}{Date\+Time}} $\ast$now)
-\begin{DoxyCompactList}\small\item\em Get the current date and time from the real time clock. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} \mbox{\hyperlink{time_8c_aee701eeb891b748ed2e12da119816882}{millis}} (void)
 \begin{DoxyCompactList}\small\item\em Get milliseconds since startup. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
 \begin{DoxyAuthor}{Author}
-Tim Gabrikowski, Anton YTchekov 
+Tim Gabrikowski, Anton Tchekov 
 \end{DoxyAuthor}
 \begin{DoxyVersion}{Version}
 0.\+1 
 \end{DoxyVersion}
 \begin{DoxyDate}{Date}
-26.\+04.\+2023 
+22.\+05.\+2023 
 \end{DoxyDate}
 
 
+Definition in file \mbox{\hyperlink{time_8c_source}{time.\+c}}.
+
+
+
 \doxysubsection{Function Documentation}
-\mbox{\Hypertarget{time_8c_aa4a8538d6be16de2cefecc9858fda3da}\label{time_8c_aa4a8538d6be16de2cefecc9858fda3da}} 
-\index{time.c@{time.c}!datetime\_now@{datetime\_now}}
-\index{datetime\_now@{datetime\_now}!time.c@{time.c}}
-\doxysubsubsection{\texorpdfstring{datetime\_now()}{datetime\_now()}}
-{\footnotesize\ttfamily void datetime\+\_\+now (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structDateTime}{Date\+Time}} $\ast$}]{now }\end{DoxyParamCaption})}
-
-
-
-Get the current date and time from the real time clock. 
-
-Gets the current date and time.
-
-Get the current date and time.
-
-
-\begin{DoxyParams}{Parameters}
-{\em now} & Output parameter \\
-\hline
-\end{DoxyParams}
 \mbox{\Hypertarget{time_8c_aee701eeb891b748ed2e12da119816882}\label{time_8c_aee701eeb891b748ed2e12da119816882}} 
 \index{time.c@{time.c}!millis@{millis}}
 \index{millis@{millis}!time.c@{time.c}}
@@ -55,8 +38,21 @@ Get milliseconds since startup.
 
 Gets the number of milliseconds since startup.
 
-Get the number of milliseconds since boot.
-
 \begin{DoxyReturn}{Returns}
 Number of milliseconds 
 \end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{time_8c_source_l00011}{11}} of file \mbox{\hyperlink{time_8c_source}{time.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00012\ \{}
+\DoxyCodeLine{00013\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{syscall_8h_a9db3656205f1ad8237f0126197ff7c94}{syscall0}}(SYSCALL\_MILLIS);}
+\DoxyCodeLine{00014\ \}}
+
+\end{DoxyCode}
+
+
+References \mbox{\hyperlink{syscall_8h_source_l00039}{syscall0()}}.
+

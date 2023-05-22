@@ -3,7 +3,7 @@
  * @author  Anton Tchekov
  * @version 0.3
  * @date    16.05.2023
- * @brief   Interface between Emulator and Drivers
+ * @brief   Interface between Emulator and Drivers.
  *          Arguably the most important file in this project
  */
 

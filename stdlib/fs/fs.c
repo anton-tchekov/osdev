@@ -7,6 +7,8 @@
 
 #include "fs.h"
 
+//! @cond Doxygen_Suppress
+
 /* Allocate `size` contiguous blocks on device `dev` */
 static StatusCode fs_alloc(u8 dev, u32 size, u32 *start)
 {
@@ -153,3 +155,5 @@ Status file_size(File file, u32 *size)
 {
 	return syscall2(SYSCALL_FILE_SIZE, file, (u32)size);
 }
+
+//! @endcond
