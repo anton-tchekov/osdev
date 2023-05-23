@@ -246,4 +246,16 @@ void input_clear(Input *i);
  */
 void element_render(void *e);
 
+/**
+ * @brief Set the current GUI Theme
+ *
+ * @param theme Pointer to new theme
+ */
+void theme_set(Theme *theme);
+
+/**
+ * @brief Reset the current GUI Theme to default values
+ */
+void theme_default(void);
+
 #endif /* __GUI_H__ */

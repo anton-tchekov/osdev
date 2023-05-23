@@ -27,8 +27,8 @@
 # Global TODO List
 
 ## TODAY in order of priority
-- GUI Make theme easily changable (`theme_set` function)
 - GUI Text field copy/cut/paste
+- Better SysCall Parameter checking
 
 - Port Tetris
 	- Game title screen
@@ -36,11 +36,17 @@
 	- Next piece indicator
 	- Score counter
 	- Line clear blink
+	- Pause Game
 
-## STDLIB
+- AVR XMEM image routines
+- PS/2 Keyboard character conversion and test
+
 - GUI Fix Bugs (text width calculation)
 - GUI Hide/Show elements (`element_show(&element, true)`)
 - GUI Enable/Disable elements (`element_enable(&element, true)`)
+
+
+
 
 ## Init
 - Working Login
@@ -56,14 +62,12 @@
 - Import / Export contents
 
 ## AVR Platform in order of priority
-- AVR XMEM image routines
-- PS/2 Keyboard character conversion and test
 - Fast native memory routines
 - SD Driver write block function
 
 ## Kernel in order of importance
-- Better SysCall Parameter checking
 - Cooperative Scheduler, Memory Protection, Background Tasks, Exit function
+- File system driver
 
 ## FOR LATER in order of difficulty
 - Port Snake Game
@@ -76,6 +80,7 @@
 
 
 ## DONE
+- GUI Make theme easily changable (`theme_set` function)
 - Login screen
 - Build everything script
 - All functions documented

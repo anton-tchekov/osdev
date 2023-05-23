@@ -855,3 +855,13 @@ void input_init(Input *input, i32 x, i32 y, i32 w)
 	input->Selection = 0;
 	vector_init(&input->Text, sizeof(char), INPUT_CAPACITY);
 }
+
+void theme_set(Theme *theme)
+{
+	_current_theme = theme;
+}
+
+void theme_default(void)
+{
+	_current_theme = &_default_theme;
+}
