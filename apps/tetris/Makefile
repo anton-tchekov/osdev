@@ -1,4 +1,4 @@
-TARGET=test
+TARGET=tetris
 PREFIX=../../stdlib
 OPT=2
 

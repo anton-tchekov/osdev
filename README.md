@@ -26,16 +26,27 @@
 
 # Global TODO List
 
-## Documentation [TODAY]
+## TODAY in order of priority
+- GUI Make theme easily changable (`theme_set` function)
+- GUI Text field copy/cut/paste
 
-## STDLIB [CUR]
-- Make theme easily changable (`theme_set` function)
+- Port Tetris
+	- Game title screen
+	- Game over screen with high score
+	- Next piece indicator
+	- Score counter
+	- Line clear blink
+
+## STDLIB
+- GUI Fix Bugs (text width calculation)
 - GUI Hide/Show elements (`element_show(&element, true)`)
 - GUI Enable/Disable elements (`element_enable(&element, true)`)
-- Text field copy/cut/paste
-- Fix GUI Bugs (text width calculation)
 
-## Text/Code Editor [CUR]
+## Init
+- Working Login
+- App list with icons (load apps from folder)
+
+## Text/Code Editor features
 - Line Numbers
 - Tab support
 - Up/Down Arrow keys + Select
@@ -44,33 +55,28 @@
 - Goto Line
 - Import / Export contents
 
-## Games
-- Port Tetris [CUR]
-- Port Snake [CUR]
+## AVR Platform in order of priority
+- AVR XMEM image routines
+- PS/2 Keyboard character conversion and test
+- Fast native memory routines
+- SD Driver write block function
 
-## AVR Platform
-- SD Driver write block function [CUR]
-- AVR XMEM image routines [CUR]
-- PS/2 Keyboard character conversion and Test [CUR]
+## Kernel in order of importance
+- Better SysCall Parameter checking
+- Cooperative Scheduler, Memory Protection, Background Tasks, Exit function
 
-- Make STDLIB Shared [LATER]
-- Async Drivers [LATER]
+## FOR LATER in order of difficulty
+- Port Snake Game
+- File Manager
+- Make STDLIB Shared
+- Emulate RISC-V Single Precision Floating Point Extension and Math Lib
+- Async Drivers
+- Full preemptive scheduler and paging
 
-## Kernel
-- Task Scheduler and Memory Protection and Background Tasks [CUR]
-- Better SysCall Parameter checking [CUR]
-- Exit function [CUR]
 
-- Emulator Single Precision Floating Point Extension + Math Lib [LATER]
-
-## Init Program
-- Login screen
-- App list with icons (load apps from folder)
-
-## File Manager
-- Planning in progress, no concrete plan on how it should look
 
 ## DONE
+- Login screen
 - Build everything script
 - All functions documented
 - Dark Mode Theme
