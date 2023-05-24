@@ -10,6 +10,15 @@
 #ifndef __GFX_TYPES_H__
 #define __GFX_TYPES_H__
 
+/** RGBA Color Type */
+typedef u32 Color;
+
+/** The width of the display */
+#define GFX_WIDTH  320
+
+/** The height of the display */
+#define GFX_HEIGHT 480
+
 /** Rectangle structure consisting of X, Y, Width and Height */
 typedef struct
 {

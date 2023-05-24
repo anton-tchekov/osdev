@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['loglevel_0',['LogLevel',['../logger_8h.html#aca1fd1d8935433e6ba2e3918214e07f9',1,'logger.h']]]
+  ['piecetype_0',['PieceType',['../apps_2tetris_2main_8c.html#a12ed9719bbdf7bc596ff7a6f4bf3f021',1,'main.c']]]
 ];

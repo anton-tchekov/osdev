@@ -7,6 +7,7 @@
 {\ttfamily \#include $<$font\+\_\+default.\+h$>$}\newline
 {\ttfamily \#include $<$ctype.\+h$>$}\newline
 {\ttfamily \#include $<$utf8.\+h$>$}\newline
+{\ttfamily \#include $<$clipboard.\+h$>$}\newline
 \doxysubsection*{Data Structures}
 \begin{DoxyCompactItemize}
 \item 
@@ -86,6 +87,8 @@ static void \mbox{\hyperlink{gui_8c_ab501add0b30efb53492b0b30b516219f}{input\+\_
 \begin{DoxyCompactList}\small\item\em Insert a character at the cursor position. \end{DoxyCompactList}\item 
 static void \mbox{\hyperlink{gui_8c_a8612d965253e235d672b33f21b10dbb5}{input\+\_\+select\+\_\+all}} (\mbox{\hyperlink{structInput}{Input}} $\ast$i)
 \begin{DoxyCompactList}\small\item\em Do a CTRL+A select all operation on an input field. \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{gui_8c_a533fced3fca66cfe2b7a5ab63c5b2b5d}{\+\_\+selection\+\_\+save}} (\mbox{\hyperlink{structInput}{Input}} $\ast$i)
+\begin{DoxyCompactList}\small\item\em Save the current selection of an input to the clipboard. \end{DoxyCompactList}\item 
 static void \mbox{\hyperlink{gui_8c_a539cbb69c0d601d76ded7b0324ce08b7}{input\+\_\+copy}} (\mbox{\hyperlink{structInput}{Input}} $\ast$i)
 \begin{DoxyCompactList}\small\item\em Do a CTRL+C copy operation on an input field. \end{DoxyCompactList}\item 
 static void \mbox{\hyperlink{gui_8c_ac6f71168d662b1ee7b4e259cbfd33c68}{input\+\_\+cut}} (\mbox{\hyperlink{structInput}{Input}} $\ast$i)
@@ -121,7 +124,11 @@ void \mbox{\hyperlink{gui_8c_a947b16523eba3e9011e52a892a689295}{label\+\_\+init}
 void \mbox{\hyperlink{gui_8c_aa7c0f8b7c1ee364fa5b534f592e9ac08}{button\+\_\+init}} (\mbox{\hyperlink{structButton}{Button}} $\ast$button, \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} x, \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} y, \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} w, \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} h, char $\ast$text, void($\ast$onclick)(void))
 \begin{DoxyCompactList}\small\item\em Initialize a button. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{gui_8c_a8c62a34c4c090afd9c76cf213504a4f8}{input\+\_\+init}} (\mbox{\hyperlink{structInput}{Input}} $\ast$input, \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} x, \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} y, \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} w)
-\begin{DoxyCompactList}\small\item\em Initialize an input field. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Initialize an input field. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{gui_8c_a9cbbc38de3ef2b9805bbaf186f67c88f}{theme\+\_\+set}} (\mbox{\hyperlink{structTheme}{Theme}} $\ast$theme)
+\begin{DoxyCompactList}\small\item\em Set the current GUI \mbox{\hyperlink{structTheme}{Theme}}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{gui_8c_a2ba4bbad9d65d52684578a80e4f9a023}{theme\+\_\+default}} (void)
+\begin{DoxyCompactList}\small\item\em Reset the current GUI \mbox{\hyperlink{structTheme}{Theme}} to default values. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Variables}
 \begin{DoxyCompactItemize}
 \item 
@@ -160,7 +167,7 @@ Definition in file \mbox{\hyperlink{gui_8c_source}{gui.\+c}}.
 
 Border width when not selected 
 
-Definition at line \mbox{\hyperlink{gui_8c_source_l00026}{26}} of file \mbox{\hyperlink{gui_8c_source}{gui.\+c}}.
+Definition at line \mbox{\hyperlink{gui_8c_source_l00027}{27}} of file \mbox{\hyperlink{gui_8c_source}{gui.\+c}}.
 
 \mbox{\Hypertarget{gui_8c_a7be288bca980527b7afc855e41c90c2c}\label{gui_8c_a7be288bca980527b7afc855e41c90c2c}} 
 \index{gui.c@{gui.c}!BORDER\_SIZE\_SEL@{BORDER\_SIZE\_SEL}}
@@ -170,7 +177,7 @@ Definition at line \mbox{\hyperlink{gui_8c_source_l00026}{26}} of file \mbox{\hy
 
 Border width when selected 
 
-Definition at line \mbox{\hyperlink{gui_8c_source_l00029}{29}} of file \mbox{\hyperlink{gui_8c_source}{gui.\+c}}.
+Definition at line \mbox{\hyperlink{gui_8c_source_l00030}{30}} of file \mbox{\hyperlink{gui_8c_source}{gui.\+c}}.
 
 \mbox{\Hypertarget{gui_8c_a7f913fcf73aaf5db0a9f07665b6f71b1}\label{gui_8c_a7f913fcf73aaf5db0a9f07665b6f71b1}} 
 \index{gui.c@{gui.c}!CURSOR\_HEIGHT@{CURSOR\_HEIGHT}}
@@ -180,7 +187,7 @@ Definition at line \mbox{\hyperlink{gui_8c_source_l00029}{29}} of file \mbox{\hy
 
 \mbox{\hyperlink{structInput}{Input}} field cursor height 
 
-Definition at line \mbox{\hyperlink{gui_8c_source_l00046}{46}} of file \mbox{\hyperlink{gui_8c_source}{gui.\+c}}.
+Definition at line \mbox{\hyperlink{gui_8c_source_l00047}{47}} of file \mbox{\hyperlink{gui_8c_source}{gui.\+c}}.
 
 \mbox{\Hypertarget{gui_8c_a24081c7437914971160952050e4d0b5c}\label{gui_8c_a24081c7437914971160952050e4d0b5c}} 
 \index{gui.c@{gui.c}!CURSOR\_OFFSET@{CURSOR\_OFFSET}}
@@ -190,7 +197,7 @@ Definition at line \mbox{\hyperlink{gui_8c_source_l00046}{46}} of file \mbox{\hy
 
 \mbox{\hyperlink{structInput}{Input}} field cursor X offset 
 
-Definition at line \mbox{\hyperlink{gui_8c_source_l00049}{49}} of file \mbox{\hyperlink{gui_8c_source}{gui.\+c}}.
+Definition at line \mbox{\hyperlink{gui_8c_source_l00050}{50}} of file \mbox{\hyperlink{gui_8c_source}{gui.\+c}}.
 
 \mbox{\Hypertarget{gui_8c_a32f379e6593cbd6109a319721b555bde}\label{gui_8c_a32f379e6593cbd6109a319721b555bde}} 
 \index{gui.c@{gui.c}!CURSOR\_OFFSET\_Y@{CURSOR\_OFFSET\_Y}}
@@ -200,7 +207,7 @@ Definition at line \mbox{\hyperlink{gui_8c_source_l00049}{49}} of file \mbox{\hy
 
 \mbox{\hyperlink{structInput}{Input}} field cursor Y offset 
 
-Definition at line \mbox{\hyperlink{gui_8c_source_l00052}{52}} of file \mbox{\hyperlink{gui_8c_source}{gui.\+c}}.
+Definition at line \mbox{\hyperlink{gui_8c_source_l00053}{53}} of file \mbox{\hyperlink{gui_8c_source}{gui.\+c}}.
 
 \mbox{\Hypertarget{gui_8c_a8a051b8695b4004fdadadd7ab10f7bef}\label{gui_8c_a8a051b8695b4004fdadadd7ab10f7bef}} 
 \index{gui.c@{gui.c}!CURSOR\_WIDTH@{CURSOR\_WIDTH}}
@@ -210,7 +217,7 @@ Definition at line \mbox{\hyperlink{gui_8c_source_l00052}{52}} of file \mbox{\hy
 
 \mbox{\hyperlink{structInput}{Input}} field cursor width 
 
-Definition at line \mbox{\hyperlink{gui_8c_source_l00043}{43}} of file \mbox{\hyperlink{gui_8c_source}{gui.\+c}}.
+Definition at line \mbox{\hyperlink{gui_8c_source_l00044}{44}} of file \mbox{\hyperlink{gui_8c_source}{gui.\+c}}.
 
 \mbox{\Hypertarget{gui_8c_adaa8f3d3e80dc5e57e14302e38a00799}\label{gui_8c_adaa8f3d3e80dc5e57e14302e38a00799}} 
 \index{gui.c@{gui.c}!INPUT\_CAPACITY@{INPUT\_CAPACITY}}
@@ -220,7 +227,7 @@ Definition at line \mbox{\hyperlink{gui_8c_source_l00043}{43}} of file \mbox{\hy
 
 \mbox{\hyperlink{structInput}{Input}} field initial capacity 
 
-Definition at line \mbox{\hyperlink{gui_8c_source_l00055}{55}} of file \mbox{\hyperlink{gui_8c_source}{gui.\+c}}.
+Definition at line \mbox{\hyperlink{gui_8c_source_l00056}{56}} of file \mbox{\hyperlink{gui_8c_source}{gui.\+c}}.
 
 \mbox{\Hypertarget{gui_8c_aa3117e6d1b2a895d93755c858df7219c}\label{gui_8c_aa3117e6d1b2a895d93755c858df7219c}} 
 \index{gui.c@{gui.c}!INPUT\_HEIGHT@{INPUT\_HEIGHT}}
@@ -230,7 +237,7 @@ Definition at line \mbox{\hyperlink{gui_8c_source_l00055}{55}} of file \mbox{\hy
 
 Height of an input field 
 
-Definition at line \mbox{\hyperlink{gui_8c_source_l00034}{34}} of file \mbox{\hyperlink{gui_8c_source}{gui.\+c}}.
+Definition at line \mbox{\hyperlink{gui_8c_source_l00035}{35}} of file \mbox{\hyperlink{gui_8c_source}{gui.\+c}}.
 
 \mbox{\Hypertarget{gui_8c_a863f5c8a292562df673aaf8a6e17faae}\label{gui_8c_a863f5c8a292562df673aaf8a6e17faae}} 
 \index{gui.c@{gui.c}!INPUT\_PADDING\_X@{INPUT\_PADDING\_X}}
@@ -240,7 +247,7 @@ Definition at line \mbox{\hyperlink{gui_8c_source_l00034}{34}} of file \mbox{\hy
 
 \mbox{\hyperlink{structInput}{Input}} field text X padding 
 
-Definition at line \mbox{\hyperlink{gui_8c_source_l00037}{37}} of file \mbox{\hyperlink{gui_8c_source}{gui.\+c}}.
+Definition at line \mbox{\hyperlink{gui_8c_source_l00038}{38}} of file \mbox{\hyperlink{gui_8c_source}{gui.\+c}}.
 
 \mbox{\Hypertarget{gui_8c_ad0be58a04004965af9a9b5ed6992bfe1}\label{gui_8c_ad0be58a04004965af9a9b5ed6992bfe1}} 
 \index{gui.c@{gui.c}!INPUT\_PADDING\_Y@{INPUT\_PADDING\_Y}}
@@ -250,7 +257,7 @@ Definition at line \mbox{\hyperlink{gui_8c_source_l00037}{37}} of file \mbox{\hy
 
 \mbox{\hyperlink{structInput}{Input}} field text Y padding 
 
-Definition at line \mbox{\hyperlink{gui_8c_source_l00040}{40}} of file \mbox{\hyperlink{gui_8c_source}{gui.\+c}}.
+Definition at line \mbox{\hyperlink{gui_8c_source_l00041}{41}} of file \mbox{\hyperlink{gui_8c_source}{gui.\+c}}.
 
 \mbox{\Hypertarget{gui_8c_aa17edfc0aa7865fea5cb3f54b80089fe}\label{gui_8c_aa17edfc0aa7865fea5cb3f54b80089fe}} 
 \index{gui.c@{gui.c}!THEME\_BLACK@{THEME\_BLACK}}
@@ -260,7 +267,7 @@ Definition at line \mbox{\hyperlink{gui_8c_source_l00040}{40}} of file \mbox{\hy
 
 \mbox{\hyperlink{structTheme}{Theme}} Black Color 
 
-Definition at line \mbox{\hyperlink{gui_8c_source_l00060}{60}} of file \mbox{\hyperlink{gui_8c_source}{gui.\+c}}.
+Definition at line \mbox{\hyperlink{gui_8c_source_l00061}{61}} of file \mbox{\hyperlink{gui_8c_source}{gui.\+c}}.
 
 \mbox{\Hypertarget{gui_8c_a5113d29b0cd65712c13f0b2e0f98c22a}\label{gui_8c_a5113d29b0cd65712c13f0b2e0f98c22a}} 
 \index{gui.c@{gui.c}!THEME\_DARK@{THEME\_DARK}}
@@ -270,7 +277,7 @@ Definition at line \mbox{\hyperlink{gui_8c_source_l00060}{60}} of file \mbox{\hy
 
 \mbox{\hyperlink{structTheme}{Theme}} Dark Color 
 
-Definition at line \mbox{\hyperlink{gui_8c_source_l00063}{63}} of file \mbox{\hyperlink{gui_8c_source}{gui.\+c}}.
+Definition at line \mbox{\hyperlink{gui_8c_source_l00064}{64}} of file \mbox{\hyperlink{gui_8c_source}{gui.\+c}}.
 
 \mbox{\Hypertarget{gui_8c_aab51543c4c9f9adf463de324eb7827de}\label{gui_8c_aab51543c4c9f9adf463de324eb7827de}} 
 \index{gui.c@{gui.c}!THEME\_LIGHT@{THEME\_LIGHT}}
@@ -280,7 +287,7 @@ Definition at line \mbox{\hyperlink{gui_8c_source_l00063}{63}} of file \mbox{\hy
 
 \mbox{\hyperlink{structTheme}{Theme}} Light Color 
 
-Definition at line \mbox{\hyperlink{gui_8c_source_l00069}{69}} of file \mbox{\hyperlink{gui_8c_source}{gui.\+c}}.
+Definition at line \mbox{\hyperlink{gui_8c_source_l00070}{70}} of file \mbox{\hyperlink{gui_8c_source}{gui.\+c}}.
 
 \mbox{\Hypertarget{gui_8c_a3b1d111868be1b4c75fa22dd723f4420}\label{gui_8c_a3b1d111868be1b4c75fa22dd723f4420}} 
 \index{gui.c@{gui.c}!THEME\_MIDDLE@{THEME\_MIDDLE}}
@@ -290,7 +297,7 @@ Definition at line \mbox{\hyperlink{gui_8c_source_l00069}{69}} of file \mbox{\hy
 
 \mbox{\hyperlink{structTheme}{Theme}} Middle Color 
 
-Definition at line \mbox{\hyperlink{gui_8c_source_l00066}{66}} of file \mbox{\hyperlink{gui_8c_source}{gui.\+c}}.
+Definition at line \mbox{\hyperlink{gui_8c_source_l00067}{67}} of file \mbox{\hyperlink{gui_8c_source}{gui.\+c}}.
 
 \mbox{\Hypertarget{gui_8c_af9338f9b2ff9d4935cd8ea1853f5ec33}\label{gui_8c_af9338f9b2ff9d4935cd8ea1853f5ec33}} 
 \index{gui.c@{gui.c}!TITLE\_BAR\_HEIGHT@{TITLE\_BAR\_HEIGHT}}
@@ -300,7 +307,7 @@ Definition at line \mbox{\hyperlink{gui_8c_source_l00066}{66}} of file \mbox{\hy
 
 Height of the title bar in pixels 
 
-Definition at line \mbox{\hyperlink{gui_8c_source_l00017}{17}} of file \mbox{\hyperlink{gui_8c_source}{gui.\+c}}.
+Definition at line \mbox{\hyperlink{gui_8c_source_l00018}{18}} of file \mbox{\hyperlink{gui_8c_source}{gui.\+c}}.
 
 \mbox{\Hypertarget{gui_8c_a3b3168eb8fb2ed4ef6c3e4d7ffea94be}\label{gui_8c_a3b3168eb8fb2ed4ef6c3e4d7ffea94be}} 
 \index{gui.c@{gui.c}!TITLE\_OFFSET\_X@{TITLE\_OFFSET\_X}}
@@ -310,7 +317,7 @@ Definition at line \mbox{\hyperlink{gui_8c_source_l00017}{17}} of file \mbox{\hy
 
 Title bar text left offset 
 
-Definition at line \mbox{\hyperlink{gui_8c_source_l00020}{20}} of file \mbox{\hyperlink{gui_8c_source}{gui.\+c}}.
+Definition at line \mbox{\hyperlink{gui_8c_source_l00021}{21}} of file \mbox{\hyperlink{gui_8c_source}{gui.\+c}}.
 
 \mbox{\Hypertarget{gui_8c_a42b1d9dbef934ab2c0f0492e5669b2bf}\label{gui_8c_a42b1d9dbef934ab2c0f0492e5669b2bf}} 
 \index{gui.c@{gui.c}!TITLE\_OFFSET\_Y@{TITLE\_OFFSET\_Y}}
@@ -320,7 +327,7 @@ Definition at line \mbox{\hyperlink{gui_8c_source_l00020}{20}} of file \mbox{\hy
 
 Title bar text top offset 
 
-Definition at line \mbox{\hyperlink{gui_8c_source_l00023}{23}} of file \mbox{\hyperlink{gui_8c_source}{gui.\+c}}.
+Definition at line \mbox{\hyperlink{gui_8c_source_l00024}{24}} of file \mbox{\hyperlink{gui_8c_source}{gui.\+c}}.
 
 
 
@@ -342,25 +349,25 @@ Selects the element.
 \end{DoxyParams}
 
 
-Definition at line \mbox{\hyperlink{gui_8c_source_l00644}{644}} of file \mbox{\hyperlink{gui_8c_source}{gui.\+c}}.
+Definition at line \mbox{\hyperlink{gui_8c_source_l00661}{661}} of file \mbox{\hyperlink{gui_8c_source}{gui.\+c}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00645\ \{}
-\DoxyCodeLine{00646\ \ \ \ \ \textcolor{keywordtype}{void}\ **elems\ =\ \mbox{\hyperlink{gui_8c_ad5d0b2500a195799bc05a5ebc47626f8}{\_current\_window}}-\/>\mbox{\hyperlink{structWindow_af936e5270a419a30a5fcf754cdd6bb8b}{Elements}};}
-\DoxyCodeLine{00647\ \ \ \ \ \mbox{\hyperlink{gui_8c_a6b38ecad6795b6f65ba8c8df105a9223}{element\_render\_sel}}(elems[\mbox{\hyperlink{gui_8c_ad5d0b2500a195799bc05a5ebc47626f8}{\_current\_window}}-\/>\mbox{\hyperlink{structWindow_ad0a63551c2486da4b5eae5d3e0f4f5ff}{Selected}}],\ \textcolor{keyword}{false});}
-\DoxyCodeLine{00648\ \ \ \ \ \mbox{\hyperlink{gui_8c_ad5d0b2500a195799bc05a5ebc47626f8}{\_current\_window}}-\/>\mbox{\hyperlink{structWindow_ad0a63551c2486da4b5eae5d3e0f4f5ff}{Selected}}\ =\ index;}
-\DoxyCodeLine{00649\ \ \ \ \ \mbox{\hyperlink{gui_8c_a6b38ecad6795b6f65ba8c8df105a9223}{element\_render\_sel}}(elems[\mbox{\hyperlink{gui_8c_ad5d0b2500a195799bc05a5ebc47626f8}{\_current\_window}}-\/>\mbox{\hyperlink{structWindow_ad0a63551c2486da4b5eae5d3e0f4f5ff}{Selected}}],\ \textcolor{keyword}{true});}
-\DoxyCodeLine{00650\ \}}
+\DoxyCodeLine{00662\ \{}
+\DoxyCodeLine{00663\ \ \ \ \ \textcolor{keywordtype}{void}\ **elems\ =\ \mbox{\hyperlink{gui_8c_ad5d0b2500a195799bc05a5ebc47626f8}{\_current\_window}}-\/>\mbox{\hyperlink{structWindow_af936e5270a419a30a5fcf754cdd6bb8b}{Elements}};}
+\DoxyCodeLine{00664\ \ \ \ \ \mbox{\hyperlink{gui_8c_a6b38ecad6795b6f65ba8c8df105a9223}{element\_render\_sel}}(elems[\mbox{\hyperlink{gui_8c_ad5d0b2500a195799bc05a5ebc47626f8}{\_current\_window}}-\/>\mbox{\hyperlink{structWindow_ad0a63551c2486da4b5eae5d3e0f4f5ff}{Selected}}],\ \textcolor{keyword}{false});}
+\DoxyCodeLine{00665\ \ \ \ \ \mbox{\hyperlink{gui_8c_ad5d0b2500a195799bc05a5ebc47626f8}{\_current\_window}}-\/>\mbox{\hyperlink{structWindow_ad0a63551c2486da4b5eae5d3e0f4f5ff}{Selected}}\ =\ index;}
+\DoxyCodeLine{00666\ \ \ \ \ \mbox{\hyperlink{gui_8c_a6b38ecad6795b6f65ba8c8df105a9223}{element\_render\_sel}}(elems[\mbox{\hyperlink{gui_8c_ad5d0b2500a195799bc05a5ebc47626f8}{\_current\_window}}-\/>\mbox{\hyperlink{structWindow_ad0a63551c2486da4b5eae5d3e0f4f5ff}{Selected}}],\ \textcolor{keyword}{true});}
+\DoxyCodeLine{00667\ \}}
 
 \end{DoxyCode}
 
 
-References \mbox{\hyperlink{gui_8c_source_l00072}{\+\_\+current\+\_\+window}}, \mbox{\hyperlink{gui_8c_source_l00602}{element\+\_\+render\+\_\+sel()}}, \mbox{\hyperlink{gui_8h_source_l00159}{Window\+::\+Elements}}, and \mbox{\hyperlink{gui_8h_source_l00165}{Window\+::\+Selected}}.
+References \mbox{\hyperlink{gui_8c_source_l00073}{\+\_\+current\+\_\+window}}, \mbox{\hyperlink{gui_8c_source_l00619}{element\+\_\+render\+\_\+sel()}}, \mbox{\hyperlink{gui_8h_source_l00159}{Window\+::\+Elements}}, and \mbox{\hyperlink{gui_8h_source_l00165}{Window\+::\+Selected}}.
 
 
 
-Referenced by \mbox{\hyperlink{gui_8c_source_l00671}{element\+\_\+next()}}, and \mbox{\hyperlink{gui_8c_source_l00697}{element\+\_\+prev()}}.
+Referenced by \mbox{\hyperlink{gui_8c_source_l00688}{element\+\_\+next()}}, and \mbox{\hyperlink{gui_8c_source_l00714}{element\+\_\+prev()}}.
 
 \mbox{\Hypertarget{gui_8c_a14a841af4c54ab5cab3d8ac8e36fdb5e}\label{gui_8c_a14a841af4c54ab5cab3d8ac8e36fdb5e}} 
 \index{gui.c@{gui.c}!\_selectable@{\_selectable}}
@@ -382,24 +389,62 @@ Boolean true if the element is selectable
 \end{DoxyReturn}
 
 
-Definition at line \mbox{\hyperlink{gui_8c_source_l00632}{632}} of file \mbox{\hyperlink{gui_8c_source}{gui.\+c}}.
+Definition at line \mbox{\hyperlink{gui_8c_source_l00649}{649}} of file \mbox{\hyperlink{gui_8c_source}{gui.\+c}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00633\ \{}
-\DoxyCodeLine{00634\ \ \ \ \ \mbox{\hyperlink{gui_8h_a16b11be27a8e9362dd122c4d879e01ae}{ElementType}}\ type\ =\ ((\mbox{\hyperlink{structElement}{Element}}\ *)\mbox{\hyperlink{gui_8c_ad5d0b2500a195799bc05a5ebc47626f8}{\_current\_window}}-\/>\mbox{\hyperlink{structWindow_af936e5270a419a30a5fcf754cdd6bb8b}{Elements}}[index])-\/>Type;}
-\DoxyCodeLine{00635\ \ \ \ \ \textcolor{keywordflow}{return}\ type\ ==\ ELEMENT\_TYPE\_BUTTON\ ||}
-\DoxyCodeLine{00636\ \ \ \ \ \ \ \ \ \ \ \ \ type\ ==\ ELEMENT\_TYPE\_INPUT;}
-\DoxyCodeLine{00637\ \}}
+\DoxyCodeLine{00650\ \{}
+\DoxyCodeLine{00651\ \ \ \ \ \mbox{\hyperlink{gui_8h_a16b11be27a8e9362dd122c4d879e01ae}{ElementType}}\ type\ =\ ((\mbox{\hyperlink{structElement}{Element}}\ *)\mbox{\hyperlink{gui_8c_ad5d0b2500a195799bc05a5ebc47626f8}{\_current\_window}}-\/>\mbox{\hyperlink{structWindow_af936e5270a419a30a5fcf754cdd6bb8b}{Elements}}[index])-\/>Type;}
+\DoxyCodeLine{00652\ \ \ \ \ \textcolor{keywordflow}{return}\ type\ ==\ ELEMENT\_TYPE\_BUTTON\ ||}
+\DoxyCodeLine{00653\ \ \ \ \ \ \ \ \ \ \ \ \ type\ ==\ ELEMENT\_TYPE\_INPUT;}
+\DoxyCodeLine{00654\ \}}
 
 \end{DoxyCode}
 
 
-References \mbox{\hyperlink{gui_8c_source_l00072}{\+\_\+current\+\_\+window}}, and \mbox{\hyperlink{gui_8h_source_l00159}{Window\+::\+Elements}}.
+References \mbox{\hyperlink{gui_8c_source_l00073}{\+\_\+current\+\_\+window}}, and \mbox{\hyperlink{gui_8h_source_l00159}{Window\+::\+Elements}}.
 
 
 
-Referenced by \mbox{\hyperlink{gui_8c_source_l00655}{element\+\_\+first()}}, \mbox{\hyperlink{gui_8c_source_l00671}{element\+\_\+next()}}, and \mbox{\hyperlink{gui_8c_source_l00697}{element\+\_\+prev()}}.
+Referenced by \mbox{\hyperlink{gui_8c_source_l00672}{element\+\_\+first()}}, \mbox{\hyperlink{gui_8c_source_l00688}{element\+\_\+next()}}, and \mbox{\hyperlink{gui_8c_source_l00714}{element\+\_\+prev()}}.
+
+\mbox{\Hypertarget{gui_8c_a533fced3fca66cfe2b7a5ab63c5b2b5d}\label{gui_8c_a533fced3fca66cfe2b7a5ab63c5b2b5d}} 
+\index{gui.c@{gui.c}!\_selection\_save@{\_selection\_save}}
+\index{\_selection\_save@{\_selection\_save}!gui.c@{gui.c}}
+\doxysubsubsection{\texorpdfstring{\_selection\_save()}{\_selection\_save()}}
+{\footnotesize\ttfamily static void \+\_\+selection\+\_\+save (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structInput}{Input}} $\ast$}]{i }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Save the current selection of an input to the clipboard. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em i} & \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{gui_8c_source_l00499}{499}} of file \mbox{\hyperlink{gui_8c_source}{gui.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00500\ \{}
+\DoxyCodeLine{00501\ \ \ \ \ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ sel\_start,\ sel\_len;}
+\DoxyCodeLine{00502\ }
+\DoxyCodeLine{00503\ \ \ \ \ sel\_start\ =\ \mbox{\hyperlink{types_8h_a266d8d44634dc76c146b4df64f513f05}{i32\_min}}(i-\/>Selection,\ i-\/>Position);}
+\DoxyCodeLine{00504\ \ \ \ \ sel\_len\ =\ \mbox{\hyperlink{types_8h_ac7607249ec4cf372eaab2ff1a4a51a26}{i32\_max}}(i-\/>Selection,\ i-\/>Position)\ -\/\ sel\_start;}
+\DoxyCodeLine{00505\ \ \ \ \ \mbox{\hyperlink{clipboard_8c_a4e817e7107bb4736ca15bc189455b293}{clipboard\_save\_text\_len}}((\textcolor{keywordtype}{char}\ *)\mbox{\hyperlink{vector_8h_a503ee5296f13ea821a6a7024eccd5407}{vector\_data}}(\&i-\/>Text)\ +\ sel\_start,\ sel\_len);}
+\DoxyCodeLine{00506\ \}}
+
+\end{DoxyCode}
+
+
+References \mbox{\hyperlink{clipboard_8c_source_l00030}{clipboard\+\_\+save\+\_\+text\+\_\+len()}}, \mbox{\hyperlink{types_8h_source_l00068}{i32\+\_\+max()}}, \mbox{\hyperlink{types_8h_source_l00056}{i32\+\_\+min()}}, and \mbox{\hyperlink{vector_8h_source_l00107}{vector\+\_\+data()}}.
+
+
+
+Referenced by \mbox{\hyperlink{gui_8c_source_l00513}{input\+\_\+copy()}}, and \mbox{\hyperlink{gui_8c_source_l00523}{input\+\_\+cut()}}.
 
 \mbox{\Hypertarget{gui_8c_aa7c0f8b7c1ee364fa5b534f592e9ac08}\label{gui_8c_aa7c0f8b7c1ee364fa5b534f592e9ac08}} 
 \index{gui.c@{gui.c}!button\_init@{button\_init}}
@@ -430,19 +475,19 @@ Initialize a button.
 \end{DoxyParams}
 
 
-Definition at line \mbox{\hyperlink{gui_8c_source_l00836}{836}} of file \mbox{\hyperlink{gui_8c_source}{gui.\+c}}.
+Definition at line \mbox{\hyperlink{gui_8c_source_l00853}{853}} of file \mbox{\hyperlink{gui_8c_source}{gui.\+c}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00838\ \{}
-\DoxyCodeLine{00839\ \ \ \ \ button-\/>\mbox{\hyperlink{structButton_a5f32e249840beee48bb90e67c1c40715}{Type}}\ =\ ELEMENT\_TYPE\_BUTTON;}
-\DoxyCodeLine{00840\ \ \ \ \ button-\/>\mbox{\hyperlink{structButton_a2a2a4ddacb3402d203fe524e45b92fe1}{X}}\ =\ x;}
-\DoxyCodeLine{00841\ \ \ \ \ button-\/>\mbox{\hyperlink{structButton_a1ff58e1e4b113514c9f6194c0f0097b2}{Y}}\ =\ y;}
-\DoxyCodeLine{00842\ \ \ \ \ button-\/>\mbox{\hyperlink{structButton_aeda48c500aaf219c7bc49fd62c07c466}{W}}\ =\ w;}
-\DoxyCodeLine{00843\ \ \ \ \ button-\/>\mbox{\hyperlink{structButton_ae147963816ab46ff68bfaf02c81daf2b}{H}}\ =\ h;}
-\DoxyCodeLine{00844\ \ \ \ \ button-\/>\mbox{\hyperlink{structButton_abf6c8dfdad6fa51a20793f00ccdcbba7}{Text}}\ =\ text;}
-\DoxyCodeLine{00845\ \ \ \ \ button-\/>\mbox{\hyperlink{structButton_a5e606ec3ff0434d8e36fa6274200e603}{Click}}\ =\ onclick;}
-\DoxyCodeLine{00846\ \}}
+\DoxyCodeLine{00855\ \{}
+\DoxyCodeLine{00856\ \ \ \ \ button-\/>\mbox{\hyperlink{structButton_a5f32e249840beee48bb90e67c1c40715}{Type}}\ =\ ELEMENT\_TYPE\_BUTTON;}
+\DoxyCodeLine{00857\ \ \ \ \ button-\/>\mbox{\hyperlink{structButton_a2a2a4ddacb3402d203fe524e45b92fe1}{X}}\ =\ x;}
+\DoxyCodeLine{00858\ \ \ \ \ button-\/>\mbox{\hyperlink{structButton_a1ff58e1e4b113514c9f6194c0f0097b2}{Y}}\ =\ y;}
+\DoxyCodeLine{00859\ \ \ \ \ button-\/>\mbox{\hyperlink{structButton_aeda48c500aaf219c7bc49fd62c07c466}{W}}\ =\ w;}
+\DoxyCodeLine{00860\ \ \ \ \ button-\/>\mbox{\hyperlink{structButton_ae147963816ab46ff68bfaf02c81daf2b}{H}}\ =\ h;}
+\DoxyCodeLine{00861\ \ \ \ \ button-\/>\mbox{\hyperlink{structButton_abf6c8dfdad6fa51a20793f00ccdcbba7}{Text}}\ =\ text;}
+\DoxyCodeLine{00862\ \ \ \ \ button-\/>\mbox{\hyperlink{structButton_a5e606ec3ff0434d8e36fa6274200e603}{Click}}\ =\ onclick;}
+\DoxyCodeLine{00863\ \}}
 
 \end{DoxyCode}
 
@@ -468,47 +513,47 @@ Renders an button on the screen.
 \end{DoxyParams}
 
 
-Definition at line \mbox{\hyperlink{gui_8c_source_l00152}{152}} of file \mbox{\hyperlink{gui_8c_source}{gui.\+c}}.
+Definition at line \mbox{\hyperlink{gui_8c_source_l00153}{153}} of file \mbox{\hyperlink{gui_8c_source}{gui.\+c}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00153\ \{}
-\DoxyCodeLine{00154\ \ \ \ \ \mbox{\hyperlink{gfx_8h_acbbccb6085c654282ef64cdcefc81be5}{Color}}\ inner\_color;}
-\DoxyCodeLine{00155\ \ \ \ \ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ x,\ y;}
-\DoxyCodeLine{00156\ }
-\DoxyCodeLine{00157\ \ \ \ \ y\ =\ \mbox{\hyperlink{gui_8c_af9338f9b2ff9d4935cd8ea1853f5ec33}{TITLE\_BAR\_HEIGHT}}\ +\ b-\/>\mbox{\hyperlink{structButton_a1ff58e1e4b113514c9f6194c0f0097b2}{Y}};}
-\DoxyCodeLine{00158\ }
-\DoxyCodeLine{00159\ \ \ \ \ inner\_color\ =\ sel\ ?\ \mbox{\hyperlink{gui_8c_ab112163b389b3a1c3a8b7fb9e2e618ab}{\_current\_theme}}-\/>\mbox{\hyperlink{structTheme_a59960348484cbbfd80c197c5da44095c}{ElementSelBG}}\ :}
-\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_ab112163b389b3a1c3a8b7fb9e2e618ab}{\_current\_theme}}-\/>\mbox{\hyperlink{structTheme_aa14df9a5c662d958574fa20c0163d6eb}{ElementBG}};}
-\DoxyCodeLine{00161\ }
-\DoxyCodeLine{00162\ \ \ \ \ \mbox{\hyperlink{gfx_8c_a61d70a4550bf181cd71bfc9a4f12a6d1}{gfx\_rect}}(b-\/>\mbox{\hyperlink{structButton_a2a2a4ddacb3402d203fe524e45b92fe1}{X}},\ y,\ b-\/>\mbox{\hyperlink{structButton_aeda48c500aaf219c7bc49fd62c07c466}{W}},\ b-\/>\mbox{\hyperlink{structButton_ae147963816ab46ff68bfaf02c81daf2b}{H}},\ inner\_color);}
-\DoxyCodeLine{00163\ }
-\DoxyCodeLine{00164\ \ \ \ \ \textcolor{keywordflow}{if}(sel)}
-\DoxyCodeLine{00165\ \ \ \ \ \{}
-\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gfx_8c_a1d78d15a37b5c0cd2b797a1bcd89010f}{gfx\_rect\_border}}(b-\/>\mbox{\hyperlink{structButton_a2a2a4ddacb3402d203fe524e45b92fe1}{X}},\ y,\ b-\/>\mbox{\hyperlink{structButton_aeda48c500aaf219c7bc49fd62c07c466}{W}},\ b-\/>\mbox{\hyperlink{structButton_ae147963816ab46ff68bfaf02c81daf2b}{H}},\ \mbox{\hyperlink{gui_8c_a7be288bca980527b7afc855e41c90c2c}{BORDER\_SIZE\_SEL}},}
-\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_ab112163b389b3a1c3a8b7fb9e2e618ab}{\_current\_theme}}-\/>\mbox{\hyperlink{structTheme_aa4e553a8a4388d5bccde929e3341a8d3}{ColorBorderSel}});}
-\DoxyCodeLine{00168\ \ \ \ \ \}}
-\DoxyCodeLine{00169\ \ \ \ \ \textcolor{keywordflow}{else}}
-\DoxyCodeLine{00170\ \ \ \ \ \{}
-\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gfx_8c_a1d78d15a37b5c0cd2b797a1bcd89010f}{gfx\_rect\_border}}(b-\/>\mbox{\hyperlink{structButton_a2a2a4ddacb3402d203fe524e45b92fe1}{X}},\ y,\ b-\/>\mbox{\hyperlink{structButton_aeda48c500aaf219c7bc49fd62c07c466}{W}},\ b-\/>\mbox{\hyperlink{structButton_ae147963816ab46ff68bfaf02c81daf2b}{H}},\ \mbox{\hyperlink{gui_8c_a83b9df0c7acc5653665d1efd14d1a65b}{BORDER\_SIZE}},}
-\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_ab112163b389b3a1c3a8b7fb9e2e618ab}{\_current\_theme}}-\/>\mbox{\hyperlink{structTheme_a78899b4f95498ae7f47ad82a07cd15f1}{ColorBorder}});}
-\DoxyCodeLine{00173\ \ \ \ \ \}}
-\DoxyCodeLine{00174\ }
-\DoxyCodeLine{00175\ \ \ \ \ x\ =\ b-\/>\mbox{\hyperlink{structButton_a2a2a4ddacb3402d203fe524e45b92fe1}{X}}\ +\ b-\/>\mbox{\hyperlink{structButton_aeda48c500aaf219c7bc49fd62c07c466}{W}}\ /\ 2\ -\/\ \mbox{\hyperlink{font_8h_af05628a74a6fb4755ad6eb075ce5f87d}{font\_string\_width}}(b-\/>\mbox{\hyperlink{structButton_abf6c8dfdad6fa51a20793f00ccdcbba7}{Text}},\ font\_default)\ /\ 2;}
-\DoxyCodeLine{00176\ \ \ \ \ \mbox{\hyperlink{font_8h_a1dc9a04991c7d42402c21ab6a4b933e2}{font\_string}}(x,\ y\ +\ b-\/>\mbox{\hyperlink{structButton_ae147963816ab46ff68bfaf02c81daf2b}{H}}\ /\ 2\ -\/\ 5,}
-\DoxyCodeLine{00177\ \ \ \ \ \ \ \ \ b-\/>\mbox{\hyperlink{structButton_abf6c8dfdad6fa51a20793f00ccdcbba7}{Text}},\ font\_default,}
-\DoxyCodeLine{00178\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_ab112163b389b3a1c3a8b7fb9e2e618ab}{\_current\_theme}}-\/>\mbox{\hyperlink{structTheme_a0a488eb8377d2b821fca05cc0948f44b}{ColorFG}},}
-\DoxyCodeLine{00179\ \ \ \ \ \ \ \ \ inner\_color);}
-\DoxyCodeLine{00180\ \}}
+\DoxyCodeLine{00154\ \{}
+\DoxyCodeLine{00155\ \ \ \ \ Color\ inner\_color;}
+\DoxyCodeLine{00156\ \ \ \ \ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ x,\ y;}
+\DoxyCodeLine{00157\ }
+\DoxyCodeLine{00158\ \ \ \ \ y\ =\ \mbox{\hyperlink{gui_8c_af9338f9b2ff9d4935cd8ea1853f5ec33}{TITLE\_BAR\_HEIGHT}}\ +\ b-\/>\mbox{\hyperlink{structButton_a1ff58e1e4b113514c9f6194c0f0097b2}{Y}};}
+\DoxyCodeLine{00159\ }
+\DoxyCodeLine{00160\ \ \ \ \ inner\_color\ =\ sel\ ?\ \mbox{\hyperlink{gui_8c_ab112163b389b3a1c3a8b7fb9e2e618ab}{\_current\_theme}}-\/>\mbox{\hyperlink{structTheme_a59960348484cbbfd80c197c5da44095c}{ElementSelBG}}\ :}
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_ab112163b389b3a1c3a8b7fb9e2e618ab}{\_current\_theme}}-\/>\mbox{\hyperlink{structTheme_aa14df9a5c662d958574fa20c0163d6eb}{ElementBG}};}
+\DoxyCodeLine{00162\ }
+\DoxyCodeLine{00163\ \ \ \ \ \mbox{\hyperlink{gfx_8c_a61d70a4550bf181cd71bfc9a4f12a6d1}{gfx\_rect}}(b-\/>\mbox{\hyperlink{structButton_a2a2a4ddacb3402d203fe524e45b92fe1}{X}},\ y,\ b-\/>\mbox{\hyperlink{structButton_aeda48c500aaf219c7bc49fd62c07c466}{W}},\ b-\/>\mbox{\hyperlink{structButton_ae147963816ab46ff68bfaf02c81daf2b}{H}},\ inner\_color);}
+\DoxyCodeLine{00164\ }
+\DoxyCodeLine{00165\ \ \ \ \ \textcolor{keywordflow}{if}(sel)}
+\DoxyCodeLine{00166\ \ \ \ \ \{}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gfx_8c_a1d78d15a37b5c0cd2b797a1bcd89010f}{gfx\_rect\_border}}(b-\/>\mbox{\hyperlink{structButton_a2a2a4ddacb3402d203fe524e45b92fe1}{X}},\ y,\ b-\/>\mbox{\hyperlink{structButton_aeda48c500aaf219c7bc49fd62c07c466}{W}},\ b-\/>\mbox{\hyperlink{structButton_ae147963816ab46ff68bfaf02c81daf2b}{H}},\ \mbox{\hyperlink{gui_8c_a7be288bca980527b7afc855e41c90c2c}{BORDER\_SIZE\_SEL}},}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_ab112163b389b3a1c3a8b7fb9e2e618ab}{\_current\_theme}}-\/>\mbox{\hyperlink{structTheme_aa4e553a8a4388d5bccde929e3341a8d3}{ColorBorderSel}});}
+\DoxyCodeLine{00169\ \ \ \ \ \}}
+\DoxyCodeLine{00170\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00171\ \ \ \ \ \{}
+\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gfx_8c_a1d78d15a37b5c0cd2b797a1bcd89010f}{gfx\_rect\_border}}(b-\/>\mbox{\hyperlink{structButton_a2a2a4ddacb3402d203fe524e45b92fe1}{X}},\ y,\ b-\/>\mbox{\hyperlink{structButton_aeda48c500aaf219c7bc49fd62c07c466}{W}},\ b-\/>\mbox{\hyperlink{structButton_ae147963816ab46ff68bfaf02c81daf2b}{H}},\ \mbox{\hyperlink{gui_8c_a83b9df0c7acc5653665d1efd14d1a65b}{BORDER\_SIZE}},}
+\DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_ab112163b389b3a1c3a8b7fb9e2e618ab}{\_current\_theme}}-\/>\mbox{\hyperlink{structTheme_a78899b4f95498ae7f47ad82a07cd15f1}{ColorBorder}});}
+\DoxyCodeLine{00174\ \ \ \ \ \}}
+\DoxyCodeLine{00175\ }
+\DoxyCodeLine{00176\ \ \ \ \ x\ =\ b-\/>\mbox{\hyperlink{structButton_a2a2a4ddacb3402d203fe524e45b92fe1}{X}}\ +\ b-\/>\mbox{\hyperlink{structButton_aeda48c500aaf219c7bc49fd62c07c466}{W}}\ /\ 2\ -\/\ \mbox{\hyperlink{font_8h_af05628a74a6fb4755ad6eb075ce5f87d}{font\_string\_width}}(b-\/>\mbox{\hyperlink{structButton_abf6c8dfdad6fa51a20793f00ccdcbba7}{Text}},\ font\_default)\ /\ 2;}
+\DoxyCodeLine{00177\ \ \ \ \ \mbox{\hyperlink{font_8h_a1dc9a04991c7d42402c21ab6a4b933e2}{font\_string}}(x,\ y\ +\ b-\/>\mbox{\hyperlink{structButton_ae147963816ab46ff68bfaf02c81daf2b}{H}}\ /\ 2\ -\/\ 5,}
+\DoxyCodeLine{00178\ \ \ \ \ \ \ \ \ b-\/>\mbox{\hyperlink{structButton_abf6c8dfdad6fa51a20793f00ccdcbba7}{Text}},\ font\_default,}
+\DoxyCodeLine{00179\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_ab112163b389b3a1c3a8b7fb9e2e618ab}{\_current\_theme}}-\/>\mbox{\hyperlink{structTheme_a0a488eb8377d2b821fca05cc0948f44b}{ColorFG}},}
+\DoxyCodeLine{00180\ \ \ \ \ \ \ \ \ inner\_color);}
+\DoxyCodeLine{00181\ \}}
 
 \end{DoxyCode}
 
 
-References \mbox{\hyperlink{gui_8c_source_l00090}{\+\_\+current\+\_\+theme}}, \mbox{\hyperlink{gui_8c_source_l00026}{BORDER\+\_\+\+SIZE}}, \mbox{\hyperlink{gui_8c_source_l00029}{BORDER\+\_\+\+SIZE\+\_\+\+SEL}}, \mbox{\hyperlink{gui_8h_source_l00134}{Theme\+::\+Color\+Border}}, \mbox{\hyperlink{gui_8h_source_l00137}{Theme\+::\+Color\+Border\+Sel}}, \mbox{\hyperlink{gui_8h_source_l00122}{Theme\+::\+Color\+FG}}, \mbox{\hyperlink{gui_8h_source_l00140}{Theme\+::\+Element\+BG}}, \mbox{\hyperlink{gui_8h_source_l00143}{Theme\+::\+Element\+Sel\+BG}}, \mbox{\hyperlink{font_8h_source_l00090}{font\+\_\+string()}}, \mbox{\hyperlink{font_8h_source_l00102}{font\+\_\+string\+\_\+width()}}, \mbox{\hyperlink{gfx_8c_source_l00011}{gfx\+\_\+rect()}}, \mbox{\hyperlink{gfx_8c_source_l00016}{gfx\+\_\+rect\+\_\+border()}}, \mbox{\hyperlink{gui_8h_source_l00081}{Button\+::H}}, \mbox{\hyperlink{gui_8h_source_l00084}{Button\+::\+Text}}, \mbox{\hyperlink{gui_8c_source_l00017}{TITLE\+\_\+\+BAR\+\_\+\+HEIGHT}}, \mbox{\hyperlink{gui_8h_source_l00078}{Button\+::W}}, \mbox{\hyperlink{gui_8h_source_l00072}{Button\+::X}}, and \mbox{\hyperlink{gui_8h_source_l00075}{Button\+::Y}}.
+References \mbox{\hyperlink{gui_8c_source_l00091}{\+\_\+current\+\_\+theme}}, \mbox{\hyperlink{gui_8c_source_l00027}{BORDER\+\_\+\+SIZE}}, \mbox{\hyperlink{gui_8c_source_l00030}{BORDER\+\_\+\+SIZE\+\_\+\+SEL}}, \mbox{\hyperlink{gui_8h_source_l00134}{Theme\+::\+Color\+Border}}, \mbox{\hyperlink{gui_8h_source_l00137}{Theme\+::\+Color\+Border\+Sel}}, \mbox{\hyperlink{gui_8h_source_l00122}{Theme\+::\+Color\+FG}}, \mbox{\hyperlink{gui_8h_source_l00140}{Theme\+::\+Element\+BG}}, \mbox{\hyperlink{gui_8h_source_l00143}{Theme\+::\+Element\+Sel\+BG}}, \mbox{\hyperlink{font_8h_source_l00090}{font\+\_\+string()}}, \mbox{\hyperlink{font_8h_source_l00102}{font\+\_\+string\+\_\+width()}}, \mbox{\hyperlink{gfx_8c_source_l00011}{gfx\+\_\+rect()}}, \mbox{\hyperlink{gfx_8c_source_l00016}{gfx\+\_\+rect\+\_\+border()}}, \mbox{\hyperlink{gui_8h_source_l00081}{Button\+::H}}, \mbox{\hyperlink{gui_8h_source_l00084}{Button\+::\+Text}}, \mbox{\hyperlink{gui_8c_source_l00018}{TITLE\+\_\+\+BAR\+\_\+\+HEIGHT}}, \mbox{\hyperlink{gui_8h_source_l00078}{Button\+::W}}, \mbox{\hyperlink{gui_8h_source_l00072}{Button\+::X}}, and \mbox{\hyperlink{gui_8h_source_l00075}{Button\+::Y}}.
 
 
 
-Referenced by \mbox{\hyperlink{gui_8c_source_l00602}{element\+\_\+render\+\_\+sel()}}.
+Referenced by \mbox{\hyperlink{gui_8c_source_l00619}{element\+\_\+render\+\_\+sel()}}.
 
 \mbox{\Hypertarget{gui_8c_a98f406c5585d125a3729c39bf7a245dc}\label{gui_8c_a98f406c5585d125a3729c39bf7a245dc}} 
 \index{gui.c@{gui.c}!element\_first@{element\_first}}
@@ -522,30 +567,30 @@ Select the first element.
 
 
 
-Definition at line \mbox{\hyperlink{gui_8c_source_l00655}{655}} of file \mbox{\hyperlink{gui_8c_source}{gui.\+c}}.
+Definition at line \mbox{\hyperlink{gui_8c_source_l00672}{672}} of file \mbox{\hyperlink{gui_8c_source}{gui.\+c}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00656\ \{}
-\DoxyCodeLine{00657\ \ \ \ \ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ i,\ count\ =\ \mbox{\hyperlink{gui_8c_ad5d0b2500a195799bc05a5ebc47626f8}{\_current\_window}}-\/>\mbox{\hyperlink{structWindow_a559d31d99c1ed4ea63db05ae3a439faf}{Count}};}
-\DoxyCodeLine{00658\ \ \ \ \ \textcolor{keywordflow}{for}(i\ =\ 0;\ i\ <\ count;\ ++i)}
-\DoxyCodeLine{00659\ \ \ \ \ \{}
-\DoxyCodeLine{00660\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{gui_8c_a14a841af4c54ab5cab3d8ac8e36fdb5e}{\_selectable}}(i))}
-\DoxyCodeLine{00661\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00662\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_ad5d0b2500a195799bc05a5ebc47626f8}{\_current\_window}}-\/>\mbox{\hyperlink{structWindow_ad0a63551c2486da4b5eae5d3e0f4f5ff}{Selected}}\ =\ i;}
-\DoxyCodeLine{00663\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
-\DoxyCodeLine{00664\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00665\ \ \ \ \ \}}
-\DoxyCodeLine{00666\ \}}
+\DoxyCodeLine{00673\ \{}
+\DoxyCodeLine{00674\ \ \ \ \ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ i,\ count\ =\ \mbox{\hyperlink{gui_8c_ad5d0b2500a195799bc05a5ebc47626f8}{\_current\_window}}-\/>\mbox{\hyperlink{structWindow_a559d31d99c1ed4ea63db05ae3a439faf}{Count}};}
+\DoxyCodeLine{00675\ \ \ \ \ \textcolor{keywordflow}{for}(i\ =\ 0;\ i\ <\ count;\ ++i)}
+\DoxyCodeLine{00676\ \ \ \ \ \{}
+\DoxyCodeLine{00677\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{gui_8c_a14a841af4c54ab5cab3d8ac8e36fdb5e}{\_selectable}}(i))}
+\DoxyCodeLine{00678\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00679\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_ad5d0b2500a195799bc05a5ebc47626f8}{\_current\_window}}-\/>\mbox{\hyperlink{structWindow_ad0a63551c2486da4b5eae5d3e0f4f5ff}{Selected}}\ =\ i;}
+\DoxyCodeLine{00680\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00681\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00682\ \ \ \ \ \}}
+\DoxyCodeLine{00683\ \}}
 
 \end{DoxyCode}
 
 
-References \mbox{\hyperlink{gui_8c_source_l00072}{\+\_\+current\+\_\+window}}, \mbox{\hyperlink{gui_8c_source_l00632}{\+\_\+selectable()}}, \mbox{\hyperlink{gui_8h_source_l00162}{Window\+::\+Count}}, and \mbox{\hyperlink{gui_8h_source_l00165}{Window\+::\+Selected}}.
+References \mbox{\hyperlink{gui_8c_source_l00073}{\+\_\+current\+\_\+window}}, \mbox{\hyperlink{gui_8c_source_l00649}{\+\_\+selectable()}}, \mbox{\hyperlink{gui_8h_source_l00162}{Window\+::\+Count}}, and \mbox{\hyperlink{gui_8h_source_l00165}{Window\+::\+Selected}}.
 
 
 
-Referenced by \mbox{\hyperlink{gui_8c_source_l00753}{window\+\_\+open()}}.
+Referenced by \mbox{\hyperlink{gui_8c_source_l00770}{window\+\_\+open()}}.
 
 \mbox{\Hypertarget{gui_8c_aa2ea7b20f969b7232c7f7b8cb04e44b7}\label{gui_8c_aa2ea7b20f969b7232c7f7b8cb04e44b7}} 
 \index{gui.c@{gui.c}!element\_next@{element\_next}}
@@ -559,40 +604,40 @@ Select the next element.
 
 
 
-Definition at line \mbox{\hyperlink{gui_8c_source_l00671}{671}} of file \mbox{\hyperlink{gui_8c_source}{gui.\+c}}.
+Definition at line \mbox{\hyperlink{gui_8c_source_l00688}{688}} of file \mbox{\hyperlink{gui_8c_source}{gui.\+c}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00672\ \{}
-\DoxyCodeLine{00673\ \ \ \ \ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ i,\ count\ =\ \mbox{\hyperlink{gui_8c_ad5d0b2500a195799bc05a5ebc47626f8}{\_current\_window}}-\/>\mbox{\hyperlink{structWindow_a559d31d99c1ed4ea63db05ae3a439faf}{Count}};}
-\DoxyCodeLine{00674\ \ \ \ \ \textcolor{keywordflow}{for}(i\ =\ \mbox{\hyperlink{gui_8c_ad5d0b2500a195799bc05a5ebc47626f8}{\_current\_window}}-\/>\mbox{\hyperlink{structWindow_ad0a63551c2486da4b5eae5d3e0f4f5ff}{Selected}}\ +\ 1;\ i\ <\ count;\ ++i)}
-\DoxyCodeLine{00675\ \ \ \ \ \{}
-\DoxyCodeLine{00676\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{gui_8c_a14a841af4c54ab5cab3d8ac8e36fdb5e}{\_selectable}}(i))}
-\DoxyCodeLine{00677\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00678\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_afd90e75d4fb73b88bfbd6d5bb20feb6d}{\_select}}(i);}
-\DoxyCodeLine{00679\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
-\DoxyCodeLine{00680\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00681\ \ \ \ \ \}}
-\DoxyCodeLine{00682\ }
-\DoxyCodeLine{00683\ \ \ \ \ \textcolor{comment}{/*\ Wrap\ around\ */}}
-\DoxyCodeLine{00684\ \ \ \ \ \textcolor{keywordflow}{for}(i\ =\ 0;\ i\ <\ count;\ ++i)}
-\DoxyCodeLine{00685\ \ \ \ \ \{}
-\DoxyCodeLine{00686\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{gui_8c_a14a841af4c54ab5cab3d8ac8e36fdb5e}{\_selectable}}(i))}
-\DoxyCodeLine{00687\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00688\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_afd90e75d4fb73b88bfbd6d5bb20feb6d}{\_select}}(i);}
-\DoxyCodeLine{00689\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
-\DoxyCodeLine{00690\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00691\ \ \ \ \ \}}
-\DoxyCodeLine{00692\ \}}
+\DoxyCodeLine{00689\ \{}
+\DoxyCodeLine{00690\ \ \ \ \ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ i,\ count\ =\ \mbox{\hyperlink{gui_8c_ad5d0b2500a195799bc05a5ebc47626f8}{\_current\_window}}-\/>\mbox{\hyperlink{structWindow_a559d31d99c1ed4ea63db05ae3a439faf}{Count}};}
+\DoxyCodeLine{00691\ \ \ \ \ \textcolor{keywordflow}{for}(i\ =\ \mbox{\hyperlink{gui_8c_ad5d0b2500a195799bc05a5ebc47626f8}{\_current\_window}}-\/>\mbox{\hyperlink{structWindow_ad0a63551c2486da4b5eae5d3e0f4f5ff}{Selected}}\ +\ 1;\ i\ <\ count;\ ++i)}
+\DoxyCodeLine{00692\ \ \ \ \ \{}
+\DoxyCodeLine{00693\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{gui_8c_a14a841af4c54ab5cab3d8ac8e36fdb5e}{\_selectable}}(i))}
+\DoxyCodeLine{00694\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00695\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_afd90e75d4fb73b88bfbd6d5bb20feb6d}{\_select}}(i);}
+\DoxyCodeLine{00696\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00697\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00698\ \ \ \ \ \}}
+\DoxyCodeLine{00699\ }
+\DoxyCodeLine{00700\ \ \ \ \ \textcolor{comment}{/*\ Wrap\ around\ */}}
+\DoxyCodeLine{00701\ \ \ \ \ \textcolor{keywordflow}{for}(i\ =\ 0;\ i\ <\ count;\ ++i)}
+\DoxyCodeLine{00702\ \ \ \ \ \{}
+\DoxyCodeLine{00703\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{gui_8c_a14a841af4c54ab5cab3d8ac8e36fdb5e}{\_selectable}}(i))}
+\DoxyCodeLine{00704\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00705\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_afd90e75d4fb73b88bfbd6d5bb20feb6d}{\_select}}(i);}
+\DoxyCodeLine{00706\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00707\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00708\ \ \ \ \ \}}
+\DoxyCodeLine{00709\ \}}
 
 \end{DoxyCode}
 
 
-References \mbox{\hyperlink{gui_8c_source_l00072}{\+\_\+current\+\_\+window}}, \mbox{\hyperlink{gui_8c_source_l00644}{\+\_\+select()}}, \mbox{\hyperlink{gui_8c_source_l00632}{\+\_\+selectable()}}, \mbox{\hyperlink{gui_8h_source_l00162}{Window\+::\+Count}}, and \mbox{\hyperlink{gui_8h_source_l00165}{Window\+::\+Selected}}.
+References \mbox{\hyperlink{gui_8c_source_l00073}{\+\_\+current\+\_\+window}}, \mbox{\hyperlink{gui_8c_source_l00661}{\+\_\+select()}}, \mbox{\hyperlink{gui_8c_source_l00649}{\+\_\+selectable()}}, \mbox{\hyperlink{gui_8h_source_l00162}{Window\+::\+Count}}, and \mbox{\hyperlink{gui_8h_source_l00165}{Window\+::\+Selected}}.
 
 
 
-Referenced by \mbox{\hyperlink{gui_8c_source_l00764}{window\+\_\+event\+\_\+key()}}.
+Referenced by \mbox{\hyperlink{gui_8c_source_l00781}{window\+\_\+event\+\_\+key()}}.
 
 \mbox{\Hypertarget{gui_8c_a6b1ac6c72d1a01624d9859e8d2860c31}\label{gui_8c_a6b1ac6c72d1a01624d9859e8d2860c31}} 
 \index{gui.c@{gui.c}!element\_prev@{element\_prev}}
@@ -606,40 +651,40 @@ Select the previous element.
 
 
 
-Definition at line \mbox{\hyperlink{gui_8c_source_l00697}{697}} of file \mbox{\hyperlink{gui_8c_source}{gui.\+c}}.
+Definition at line \mbox{\hyperlink{gui_8c_source_l00714}{714}} of file \mbox{\hyperlink{gui_8c_source}{gui.\+c}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00698\ \{}
-\DoxyCodeLine{00699\ \ \ \ \ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ i;}
-\DoxyCodeLine{00700\ \ \ \ \ \textcolor{keywordflow}{for}(i\ =\ \mbox{\hyperlink{gui_8c_ad5d0b2500a195799bc05a5ebc47626f8}{\_current\_window}}-\/>\mbox{\hyperlink{structWindow_ad0a63551c2486da4b5eae5d3e0f4f5ff}{Selected}}\ -\/\ 1;\ i\ >=\ 0;\ -\/-\/i)}
-\DoxyCodeLine{00701\ \ \ \ \ \{}
-\DoxyCodeLine{00702\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{gui_8c_a14a841af4c54ab5cab3d8ac8e36fdb5e}{\_selectable}}(i))}
-\DoxyCodeLine{00703\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00704\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_afd90e75d4fb73b88bfbd6d5bb20feb6d}{\_select}}(i);}
-\DoxyCodeLine{00705\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
-\DoxyCodeLine{00706\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00707\ \ \ \ \ \}}
-\DoxyCodeLine{00708\ }
-\DoxyCodeLine{00709\ \ \ \ \ \textcolor{comment}{/*\ Wrap\ around\ */}}
-\DoxyCodeLine{00710\ \ \ \ \ \textcolor{keywordflow}{for}(i\ =\ \mbox{\hyperlink{gui_8c_ad5d0b2500a195799bc05a5ebc47626f8}{\_current\_window}}-\/>\mbox{\hyperlink{structWindow_a559d31d99c1ed4ea63db05ae3a439faf}{Count}}\ -\/\ 1;\ i\ >=\ 0;\ -\/-\/i)}
-\DoxyCodeLine{00711\ \ \ \ \ \{}
-\DoxyCodeLine{00712\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{gui_8c_a14a841af4c54ab5cab3d8ac8e36fdb5e}{\_selectable}}(i))}
-\DoxyCodeLine{00713\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00714\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_afd90e75d4fb73b88bfbd6d5bb20feb6d}{\_select}}(i);}
-\DoxyCodeLine{00715\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
-\DoxyCodeLine{00716\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00717\ \ \ \ \ \}}
-\DoxyCodeLine{00718\ \}}
+\DoxyCodeLine{00715\ \{}
+\DoxyCodeLine{00716\ \ \ \ \ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ i;}
+\DoxyCodeLine{00717\ \ \ \ \ \textcolor{keywordflow}{for}(i\ =\ \mbox{\hyperlink{gui_8c_ad5d0b2500a195799bc05a5ebc47626f8}{\_current\_window}}-\/>\mbox{\hyperlink{structWindow_ad0a63551c2486da4b5eae5d3e0f4f5ff}{Selected}}\ -\/\ 1;\ i\ >=\ 0;\ -\/-\/i)}
+\DoxyCodeLine{00718\ \ \ \ \ \{}
+\DoxyCodeLine{00719\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{gui_8c_a14a841af4c54ab5cab3d8ac8e36fdb5e}{\_selectable}}(i))}
+\DoxyCodeLine{00720\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00721\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_afd90e75d4fb73b88bfbd6d5bb20feb6d}{\_select}}(i);}
+\DoxyCodeLine{00722\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00723\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00724\ \ \ \ \ \}}
+\DoxyCodeLine{00725\ }
+\DoxyCodeLine{00726\ \ \ \ \ \textcolor{comment}{/*\ Wrap\ around\ */}}
+\DoxyCodeLine{00727\ \ \ \ \ \textcolor{keywordflow}{for}(i\ =\ \mbox{\hyperlink{gui_8c_ad5d0b2500a195799bc05a5ebc47626f8}{\_current\_window}}-\/>\mbox{\hyperlink{structWindow_a559d31d99c1ed4ea63db05ae3a439faf}{Count}}\ -\/\ 1;\ i\ >=\ 0;\ -\/-\/i)}
+\DoxyCodeLine{00728\ \ \ \ \ \{}
+\DoxyCodeLine{00729\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{gui_8c_a14a841af4c54ab5cab3d8ac8e36fdb5e}{\_selectable}}(i))}
+\DoxyCodeLine{00730\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00731\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_afd90e75d4fb73b88bfbd6d5bb20feb6d}{\_select}}(i);}
+\DoxyCodeLine{00732\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00733\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00734\ \ \ \ \ \}}
+\DoxyCodeLine{00735\ \}}
 
 \end{DoxyCode}
 
 
-References \mbox{\hyperlink{gui_8c_source_l00072}{\+\_\+current\+\_\+window}}, \mbox{\hyperlink{gui_8c_source_l00644}{\+\_\+select()}}, \mbox{\hyperlink{gui_8c_source_l00632}{\+\_\+selectable()}}, \mbox{\hyperlink{gui_8h_source_l00162}{Window\+::\+Count}}, and \mbox{\hyperlink{gui_8h_source_l00165}{Window\+::\+Selected}}.
+References \mbox{\hyperlink{gui_8c_source_l00073}{\+\_\+current\+\_\+window}}, \mbox{\hyperlink{gui_8c_source_l00661}{\+\_\+select()}}, \mbox{\hyperlink{gui_8c_source_l00649}{\+\_\+selectable()}}, \mbox{\hyperlink{gui_8h_source_l00162}{Window\+::\+Count}}, and \mbox{\hyperlink{gui_8h_source_l00165}{Window\+::\+Selected}}.
 
 
 
-Referenced by \mbox{\hyperlink{gui_8c_source_l00764}{window\+\_\+event\+\_\+key()}}.
+Referenced by \mbox{\hyperlink{gui_8c_source_l00781}{window\+\_\+event\+\_\+key()}}.
 
 \mbox{\Hypertarget{gui_8c_a09cbd26ea16563c14843cbfa65bc9271}\label{gui_8c_a09cbd26ea16563c14843cbfa65bc9271}} 
 \index{gui.c@{gui.c}!element\_render@{element\_render}}
@@ -658,23 +703,23 @@ Render an element by taking its selection status from the current window.
 \end{DoxyParams}
 
 
-Definition at line \mbox{\hyperlink{gui_8c_source_l00620}{620}} of file \mbox{\hyperlink{gui_8c_source}{gui.\+c}}.
+Definition at line \mbox{\hyperlink{gui_8c_source_l00637}{637}} of file \mbox{\hyperlink{gui_8c_source}{gui.\+c}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00621\ \{}
-\DoxyCodeLine{00622\ \ \ \ \ \mbox{\hyperlink{gui_8c_a6b38ecad6795b6f65ba8c8df105a9223}{element\_render\_sel}}(e,\ \mbox{\hyperlink{gui_8c_ad5d0b2500a195799bc05a5ebc47626f8}{\_current\_window}}-\/>\mbox{\hyperlink{structWindow_ad0a63551c2486da4b5eae5d3e0f4f5ff}{Selected}}\ >=\ 0\ \&\&}
-\DoxyCodeLine{00623\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_ad5d0b2500a195799bc05a5ebc47626f8}{\_current\_window}}-\/>\mbox{\hyperlink{structWindow_af936e5270a419a30a5fcf754cdd6bb8b}{Elements}}[\mbox{\hyperlink{gui_8c_ad5d0b2500a195799bc05a5ebc47626f8}{\_current\_window}}-\/>\mbox{\hyperlink{structWindow_ad0a63551c2486da4b5eae5d3e0f4f5ff}{Selected}}]\ ==\ e);}
-\DoxyCodeLine{00624\ \}}
+\DoxyCodeLine{00638\ \{}
+\DoxyCodeLine{00639\ \ \ \ \ \mbox{\hyperlink{gui_8c_a6b38ecad6795b6f65ba8c8df105a9223}{element\_render\_sel}}(e,\ \mbox{\hyperlink{gui_8c_ad5d0b2500a195799bc05a5ebc47626f8}{\_current\_window}}-\/>\mbox{\hyperlink{structWindow_ad0a63551c2486da4b5eae5d3e0f4f5ff}{Selected}}\ >=\ 0\ \&\&}
+\DoxyCodeLine{00640\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_ad5d0b2500a195799bc05a5ebc47626f8}{\_current\_window}}-\/>\mbox{\hyperlink{structWindow_af936e5270a419a30a5fcf754cdd6bb8b}{Elements}}[\mbox{\hyperlink{gui_8c_ad5d0b2500a195799bc05a5ebc47626f8}{\_current\_window}}-\/>\mbox{\hyperlink{structWindow_ad0a63551c2486da4b5eae5d3e0f4f5ff}{Selected}}]\ ==\ e);}
+\DoxyCodeLine{00641\ \}}
 
 \end{DoxyCode}
 
 
-References \mbox{\hyperlink{gui_8c_source_l00072}{\+\_\+current\+\_\+window}}, \mbox{\hyperlink{gui_8c_source_l00602}{element\+\_\+render\+\_\+sel()}}, \mbox{\hyperlink{gui_8h_source_l00159}{Window\+::\+Elements}}, and \mbox{\hyperlink{gui_8h_source_l00165}{Window\+::\+Selected}}.
+References \mbox{\hyperlink{gui_8c_source_l00073}{\+\_\+current\+\_\+window}}, \mbox{\hyperlink{gui_8c_source_l00619}{element\+\_\+render\+\_\+sel()}}, \mbox{\hyperlink{gui_8h_source_l00159}{Window\+::\+Elements}}, and \mbox{\hyperlink{gui_8h_source_l00165}{Window\+::\+Selected}}.
 
 
 
-Referenced by \mbox{\hyperlink{gui_8c_source_l00727}{window\+\_\+render()}}.
+Referenced by \mbox{\hyperlink{gui_8c_source_l00744}{window\+\_\+render()}}.
 
 \mbox{\Hypertarget{gui_8c_a6b38ecad6795b6f65ba8c8df105a9223}\label{gui_8c_a6b38ecad6795b6f65ba8c8df105a9223}} 
 \index{gui.c@{gui.c}!element\_render\_sel@{element\_render\_sel}}
@@ -695,35 +740,35 @@ Render an element based on its type and selection status.
 \end{DoxyParams}
 
 
-Definition at line \mbox{\hyperlink{gui_8c_source_l00602}{602}} of file \mbox{\hyperlink{gui_8c_source}{gui.\+c}}.
+Definition at line \mbox{\hyperlink{gui_8c_source_l00619}{619}} of file \mbox{\hyperlink{gui_8c_source}{gui.\+c}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00603\ \{}
-\DoxyCodeLine{00604\ \ \ \ \ \textcolor{keywordflow}{switch}(e-\/>\mbox{\hyperlink{structElement_aaa5aff1b9870a27086f7bee1b8f4aa72}{Type}})}
-\DoxyCodeLine{00605\ \ \ \ \ \{}
-\DoxyCodeLine{00606\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ ELEMENT\_TYPE\_LABEL:}
-\DoxyCodeLine{00607\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_aa286ad38202d335362136de06f3641d3}{label\_render}}((\mbox{\hyperlink{structLabel}{Label}}\ *)e);}
-\DoxyCodeLine{00608\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
-\DoxyCodeLine{00609\ }
-\DoxyCodeLine{00610\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ ELEMENT\_TYPE\_BUTTON:}
-\DoxyCodeLine{00611\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_a39ff9e8cd1575571f8061f9e318276df}{button\_render}}((\mbox{\hyperlink{structButton}{Button}}\ *)e,\ sel);}
-\DoxyCodeLine{00612\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
-\DoxyCodeLine{00613\ }
-\DoxyCodeLine{00614\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ ELEMENT\_TYPE\_INPUT:}
-\DoxyCodeLine{00615\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_abb79c958484e7eaaba0c54461062515a}{input\_render}}((\mbox{\hyperlink{structInput}{Input}}\ *)e,\ sel);}
-\DoxyCodeLine{00616\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
-\DoxyCodeLine{00617\ \ \ \ \ \}}
-\DoxyCodeLine{00618\ \}}
+\DoxyCodeLine{00620\ \{}
+\DoxyCodeLine{00621\ \ \ \ \ \textcolor{keywordflow}{switch}(e-\/>\mbox{\hyperlink{structElement_aaa5aff1b9870a27086f7bee1b8f4aa72}{Type}})}
+\DoxyCodeLine{00622\ \ \ \ \ \{}
+\DoxyCodeLine{00623\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ ELEMENT\_TYPE\_LABEL:}
+\DoxyCodeLine{00624\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_aa286ad38202d335362136de06f3641d3}{label\_render}}((\mbox{\hyperlink{structLabel}{Label}}\ *)e);}
+\DoxyCodeLine{00625\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00626\ }
+\DoxyCodeLine{00627\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ ELEMENT\_TYPE\_BUTTON:}
+\DoxyCodeLine{00628\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_a39ff9e8cd1575571f8061f9e318276df}{button\_render}}((\mbox{\hyperlink{structButton}{Button}}\ *)e,\ sel);}
+\DoxyCodeLine{00629\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00630\ }
+\DoxyCodeLine{00631\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ ELEMENT\_TYPE\_INPUT:}
+\DoxyCodeLine{00632\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_abb79c958484e7eaaba0c54461062515a}{input\_render}}((\mbox{\hyperlink{structInput}{Input}}\ *)e,\ sel);}
+\DoxyCodeLine{00633\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00634\ \ \ \ \ \}}
+\DoxyCodeLine{00635\ \}}
 
 \end{DoxyCode}
 
 
-References \mbox{\hyperlink{gui_8c_source_l00152}{button\+\_\+render()}}, \mbox{\hyperlink{gui_8c_source_l00190}{input\+\_\+render()}}, \mbox{\hyperlink{gui_8c_source_l00109}{label\+\_\+render()}}, and \mbox{\hyperlink{gui_8c_source_l00096}{Element\+::\+Type}}.
+References \mbox{\hyperlink{gui_8c_source_l00153}{button\+\_\+render()}}, \mbox{\hyperlink{gui_8c_source_l00191}{input\+\_\+render()}}, \mbox{\hyperlink{gui_8c_source_l00110}{label\+\_\+render()}}, and \mbox{\hyperlink{gui_8c_source_l00097}{Element\+::\+Type}}.
 
 
 
-Referenced by \mbox{\hyperlink{gui_8c_source_l00644}{\+\_\+select()}}, and \mbox{\hyperlink{gui_8c_source_l00620}{element\+\_\+render()}}.
+Referenced by \mbox{\hyperlink{gui_8c_source_l00661}{\+\_\+select()}}, and \mbox{\hyperlink{gui_8c_source_l00637}{element\+\_\+render()}}.
 
 \mbox{\Hypertarget{gui_8c_a65e441754c2b8954dff527b862118ff8}\label{gui_8c_a65e441754c2b8954dff527b862118ff8}} 
 \index{gui.c@{gui.c}!input\_backspace@{input\_backspace}}
@@ -742,32 +787,32 @@ Delete the character before the cursor.
 \end{DoxyParams}
 
 
-Definition at line \mbox{\hyperlink{gui_8c_source_l00389}{389}} of file \mbox{\hyperlink{gui_8c_source}{gui.\+c}}.
+Definition at line \mbox{\hyperlink{gui_8c_source_l00390}{390}} of file \mbox{\hyperlink{gui_8c_source}{gui.\+c}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00390\ \{}
-\DoxyCodeLine{00391\ \ \ \ \ \textcolor{keywordflow}{if}(i-\/>Selection\ !=\ i-\/>Position)}
-\DoxyCodeLine{00392\ \ \ \ \ \{}
-\DoxyCodeLine{00393\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_a42b8d14b77196858bc8580e12afd6e9c}{input\_selection\_replace}}(i,\ NULL,\ 0);}
-\DoxyCodeLine{00394\ \ \ \ \ \}}
-\DoxyCodeLine{00395\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(i-\/>Position\ >\ 0)}
-\DoxyCodeLine{00396\ \ \ \ \ \{}
-\DoxyCodeLine{00397\ \ \ \ \ \ \ \ \ -\/-\/i-\/>Position;}
-\DoxyCodeLine{00398\ \ \ \ \ \ \ \ \ i-\/>Selection\ =\ i-\/>Position;}
-\DoxyCodeLine{00399\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{vector_8h_af3a2eb74cba163713007f5afaf3749fe}{vector\_remove}}(\&i-\/>Text,\ i-\/>Position);}
-\DoxyCodeLine{00400\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_abb79c958484e7eaaba0c54461062515a}{input\_render}}(i,\ \textcolor{keyword}{true});}
-\DoxyCodeLine{00401\ \ \ \ \ \}}
-\DoxyCodeLine{00402\ \}}
+\DoxyCodeLine{00391\ \{}
+\DoxyCodeLine{00392\ \ \ \ \ \textcolor{keywordflow}{if}(i-\/>Selection\ !=\ i-\/>Position)}
+\DoxyCodeLine{00393\ \ \ \ \ \{}
+\DoxyCodeLine{00394\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_a42b8d14b77196858bc8580e12afd6e9c}{input\_selection\_replace}}(i,\ NULL,\ 0);}
+\DoxyCodeLine{00395\ \ \ \ \ \}}
+\DoxyCodeLine{00396\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(i-\/>Position\ >\ 0)}
+\DoxyCodeLine{00397\ \ \ \ \ \{}
+\DoxyCodeLine{00398\ \ \ \ \ \ \ \ \ -\/-\/i-\/>Position;}
+\DoxyCodeLine{00399\ \ \ \ \ \ \ \ \ i-\/>Selection\ =\ i-\/>Position;}
+\DoxyCodeLine{00400\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{vector_8h_af3a2eb74cba163713007f5afaf3749fe}{vector\_remove}}(\&i-\/>Text,\ i-\/>Position);}
+\DoxyCodeLine{00401\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_abb79c958484e7eaaba0c54461062515a}{input\_render}}(i,\ \textcolor{keyword}{true});}
+\DoxyCodeLine{00402\ \ \ \ \ \}}
+\DoxyCodeLine{00403\ \}}
 
 \end{DoxyCode}
 
 
-References \mbox{\hyperlink{gui_8c_source_l00190}{input\+\_\+render()}}, \mbox{\hyperlink{gui_8c_source_l00294}{input\+\_\+selection\+\_\+replace()}}, and \mbox{\hyperlink{vector_8h_source_l00154}{vector\+\_\+remove()}}.
+References \mbox{\hyperlink{gui_8c_source_l00191}{input\+\_\+render()}}, \mbox{\hyperlink{gui_8c_source_l00295}{input\+\_\+selection\+\_\+replace()}}, and \mbox{\hyperlink{vector_8h_source_l00167}{vector\+\_\+remove()}}.
 
 
 
-Referenced by \mbox{\hyperlink{gui_8c_source_l00530}{input\+\_\+event\+\_\+key()}}.
+Referenced by \mbox{\hyperlink{gui_8c_source_l00547}{input\+\_\+event\+\_\+key()}}.
 
 \mbox{\Hypertarget{gui_8c_ab501add0b30efb53492b0b30b516219f}\label{gui_8c_ab501add0b30efb53492b0b30b516219f}} 
 \index{gui.c@{gui.c}!input\_char@{input\_char}}
@@ -788,23 +833,23 @@ Insert a character at the cursor position.
 \end{DoxyParams}
 
 
-Definition at line \mbox{\hyperlink{gui_8c_source_l00475}{475}} of file \mbox{\hyperlink{gui_8c_source}{gui.\+c}}.
+Definition at line \mbox{\hyperlink{gui_8c_source_l00476}{476}} of file \mbox{\hyperlink{gui_8c_source}{gui.\+c}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00476\ \{}
-\DoxyCodeLine{00477\ \ \ \ \ \textcolor{keywordtype}{char}\ ins\ =\ chr;}
-\DoxyCodeLine{00478\ \ \ \ \ \mbox{\hyperlink{gui_8c_a42b8d14b77196858bc8580e12afd6e9c}{input\_selection\_replace}}(i,\ ins,\ 1);}
-\DoxyCodeLine{00479\ \}}
+\DoxyCodeLine{00477\ \{}
+\DoxyCodeLine{00478\ \ \ \ \ \textcolor{keywordtype}{char}\ ins\ =\ chr;}
+\DoxyCodeLine{00479\ \ \ \ \ \mbox{\hyperlink{gui_8c_a42b8d14b77196858bc8580e12afd6e9c}{input\_selection\_replace}}(i,\ \&ins,\ 1);}
+\DoxyCodeLine{00480\ \}}
 
 \end{DoxyCode}
 
 
-References \mbox{\hyperlink{gui_8c_source_l00294}{input\+\_\+selection\+\_\+replace()}}.
+References \mbox{\hyperlink{gui_8c_source_l00295}{input\+\_\+selection\+\_\+replace()}}.
 
 
 
-Referenced by \mbox{\hyperlink{gui_8c_source_l00530}{input\+\_\+event\+\_\+key()}}.
+Referenced by \mbox{\hyperlink{gui_8c_source_l00547}{input\+\_\+event\+\_\+key()}}.
 
 \mbox{\Hypertarget{gui_8c_aaa6006e84d4768cf4caa1936c5d240fe}\label{gui_8c_aaa6006e84d4768cf4caa1936c5d240fe}} 
 \index{gui.c@{gui.c}!input\_clear@{input\_clear}}
@@ -823,19 +868,19 @@ Clear an input field.
 \end{DoxyParams}
 
 
-Definition at line \mbox{\hyperlink{gui_8c_source_l00280}{280}} of file \mbox{\hyperlink{gui_8c_source}{gui.\+c}}.
+Definition at line \mbox{\hyperlink{gui_8c_source_l00281}{281}} of file \mbox{\hyperlink{gui_8c_source}{gui.\+c}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00281\ \{}
-\DoxyCodeLine{00282\ \ \ \ \ \mbox{\hyperlink{vector_8h_a8d2c106dcc33115c542080d6eefd32af}{vector\_clear}}(\&i-\/>Text);}
-\DoxyCodeLine{00283\ \ \ \ \ \mbox{\hyperlink{gui_8c_abb79c958484e7eaaba0c54461062515a}{input\_render}}(i,\ \textcolor{keyword}{true});}
-\DoxyCodeLine{00284\ \}}
+\DoxyCodeLine{00282\ \{}
+\DoxyCodeLine{00283\ \ \ \ \ \mbox{\hyperlink{vector_8h_a8d2c106dcc33115c542080d6eefd32af}{vector\_clear}}(\&i-\/>Text);}
+\DoxyCodeLine{00284\ \ \ \ \ \mbox{\hyperlink{gui_8c_abb79c958484e7eaaba0c54461062515a}{input\_render}}(i,\ \textcolor{keyword}{true});}
+\DoxyCodeLine{00285\ \}}
 
 \end{DoxyCode}
 
 
-References \mbox{\hyperlink{gui_8c_source_l00190}{input\+\_\+render()}}, and \mbox{\hyperlink{vector_8h_source_l00050}{vector\+\_\+clear()}}.
+References \mbox{\hyperlink{gui_8c_source_l00191}{input\+\_\+render()}}, and \mbox{\hyperlink{vector_8h_source_l00051}{vector\+\_\+clear()}}.
 
 \mbox{\Hypertarget{gui_8c_a539cbb69c0d601d76ded7b0324ce08b7}\label{gui_8c_a539cbb69c0d601d76ded7b0324ce08b7}} 
 \index{gui.c@{gui.c}!input\_copy@{input\_copy}}
@@ -854,18 +899,22 @@ Do a CTRL+C copy operation on an input field.
 \end{DoxyParams}
 
 
-Definition at line \mbox{\hyperlink{gui_8c_source_l00498}{498}} of file \mbox{\hyperlink{gui_8c_source}{gui.\+c}}.
+Definition at line \mbox{\hyperlink{gui_8c_source_l00513}{513}} of file \mbox{\hyperlink{gui_8c_source}{gui.\+c}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00499\ \{}
-\DoxyCodeLine{00500\ \ \ \ \ (void)i;}
-\DoxyCodeLine{00501\ \}}
+\DoxyCodeLine{00514\ \{}
+\DoxyCodeLine{00515\ \ \ \ \ \mbox{\hyperlink{gui_8c_a533fced3fca66cfe2b7a5ab63c5b2b5d}{\_selection\_save}}(i);}
+\DoxyCodeLine{00516\ \}}
 
 \end{DoxyCode}
 
 
-Referenced by \mbox{\hyperlink{gui_8c_source_l00530}{input\+\_\+event\+\_\+key()}}.
+References \mbox{\hyperlink{gui_8c_source_l00499}{\+\_\+selection\+\_\+save()}}.
+
+
+
+Referenced by \mbox{\hyperlink{gui_8c_source_l00547}{input\+\_\+event\+\_\+key()}}.
 
 \mbox{\Hypertarget{gui_8c_ac6f71168d662b1ee7b4e259cbfd33c68}\label{gui_8c_ac6f71168d662b1ee7b4e259cbfd33c68}} 
 \index{gui.c@{gui.c}!input\_cut@{input\_cut}}
@@ -884,18 +933,23 @@ Do a CTRL+X cut operation on an input field.
 \end{DoxyParams}
 
 
-Definition at line \mbox{\hyperlink{gui_8c_source_l00508}{508}} of file \mbox{\hyperlink{gui_8c_source}{gui.\+c}}.
+Definition at line \mbox{\hyperlink{gui_8c_source_l00523}{523}} of file \mbox{\hyperlink{gui_8c_source}{gui.\+c}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00509\ \{}
-\DoxyCodeLine{00510\ \ \ \ \ (void)i;}
-\DoxyCodeLine{00511\ \}}
+\DoxyCodeLine{00524\ \{}
+\DoxyCodeLine{00525\ \ \ \ \ \mbox{\hyperlink{gui_8c_a533fced3fca66cfe2b7a5ab63c5b2b5d}{\_selection\_save}}(i);}
+\DoxyCodeLine{00526\ \ \ \ \ \mbox{\hyperlink{gui_8c_a42b8d14b77196858bc8580e12afd6e9c}{input\_selection\_replace}}(i,\ NULL,\ 0);}
+\DoxyCodeLine{00527\ \}}
 
 \end{DoxyCode}
 
 
-Referenced by \mbox{\hyperlink{gui_8c_source_l00530}{input\+\_\+event\+\_\+key()}}.
+References \mbox{\hyperlink{gui_8c_source_l00499}{\+\_\+selection\+\_\+save()}}, and \mbox{\hyperlink{gui_8c_source_l00295}{input\+\_\+selection\+\_\+replace()}}.
+
+
+
+Referenced by \mbox{\hyperlink{gui_8c_source_l00547}{input\+\_\+event\+\_\+key()}}.
 
 \mbox{\Hypertarget{gui_8c_a4c5e21580f228ced521a43867a4d9c47}\label{gui_8c_a4c5e21580f228ced521a43867a4d9c47}} 
 \index{gui.c@{gui.c}!input\_delete@{input\_delete}}
@@ -914,30 +968,30 @@ Delete the character after the cursor.
 \end{DoxyParams}
 
 
-Definition at line \mbox{\hyperlink{gui_8c_source_l00409}{409}} of file \mbox{\hyperlink{gui_8c_source}{gui.\+c}}.
+Definition at line \mbox{\hyperlink{gui_8c_source_l00410}{410}} of file \mbox{\hyperlink{gui_8c_source}{gui.\+c}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00410\ \{}
-\DoxyCodeLine{00411\ \ \ \ \ \textcolor{keywordflow}{if}(i-\/>Selection\ !=\ i-\/>Position)}
-\DoxyCodeLine{00412\ \ \ \ \ \{}
-\DoxyCodeLine{00413\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_a42b8d14b77196858bc8580e12afd6e9c}{input\_selection\_replace}}(i,\ NULL,\ 0);}
-\DoxyCodeLine{00414\ \ \ \ \ \}}
-\DoxyCodeLine{00415\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(i-\/>Position\ <\ (\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}})\mbox{\hyperlink{vector_8h_a5169207d0fedd9d5eba2376359dbaa65}{vector\_len}}(\&i-\/>Text))}
-\DoxyCodeLine{00416\ \ \ \ \ \{}
-\DoxyCodeLine{00417\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{vector_8h_af3a2eb74cba163713007f5afaf3749fe}{vector\_remove}}(\&i-\/>Text,\ i-\/>Position);}
-\DoxyCodeLine{00418\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_abb79c958484e7eaaba0c54461062515a}{input\_render}}(i,\ \textcolor{keyword}{true});}
-\DoxyCodeLine{00419\ \ \ \ \ \}}
-\DoxyCodeLine{00420\ \}}
+\DoxyCodeLine{00411\ \{}
+\DoxyCodeLine{00412\ \ \ \ \ \textcolor{keywordflow}{if}(i-\/>Selection\ !=\ i-\/>Position)}
+\DoxyCodeLine{00413\ \ \ \ \ \{}
+\DoxyCodeLine{00414\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_a42b8d14b77196858bc8580e12afd6e9c}{input\_selection\_replace}}(i,\ NULL,\ 0);}
+\DoxyCodeLine{00415\ \ \ \ \ \}}
+\DoxyCodeLine{00416\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(i-\/>Position\ <\ (\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}})\mbox{\hyperlink{vector_8h_a5169207d0fedd9d5eba2376359dbaa65}{vector\_len}}(\&i-\/>Text))}
+\DoxyCodeLine{00417\ \ \ \ \ \{}
+\DoxyCodeLine{00418\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{vector_8h_af3a2eb74cba163713007f5afaf3749fe}{vector\_remove}}(\&i-\/>Text,\ i-\/>Position);}
+\DoxyCodeLine{00419\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_abb79c958484e7eaaba0c54461062515a}{input\_render}}(i,\ \textcolor{keyword}{true});}
+\DoxyCodeLine{00420\ \ \ \ \ \}}
+\DoxyCodeLine{00421\ \}}
 
 \end{DoxyCode}
 
 
-References \mbox{\hyperlink{gui_8c_source_l00190}{input\+\_\+render()}}, \mbox{\hyperlink{gui_8c_source_l00294}{input\+\_\+selection\+\_\+replace()}}, \mbox{\hyperlink{vector_8h_source_l00105}{vector\+\_\+len()}}, and \mbox{\hyperlink{vector_8h_source_l00154}{vector\+\_\+remove()}}.
+References \mbox{\hyperlink{gui_8c_source_l00191}{input\+\_\+render()}}, \mbox{\hyperlink{gui_8c_source_l00295}{input\+\_\+selection\+\_\+replace()}}, \mbox{\hyperlink{vector_8h_source_l00118}{vector\+\_\+len()}}, and \mbox{\hyperlink{vector_8h_source_l00167}{vector\+\_\+remove()}}.
 
 
 
-Referenced by \mbox{\hyperlink{gui_8c_source_l00530}{input\+\_\+event\+\_\+key()}}.
+Referenced by \mbox{\hyperlink{gui_8c_source_l00547}{input\+\_\+event\+\_\+key()}}.
 
 \mbox{\Hypertarget{gui_8c_ad1ed66dda2e79fb6116b0537a53484e8}\label{gui_8c_ad1ed66dda2e79fb6116b0537a53484e8}} 
 \index{gui.c@{gui.c}!input\_end@{input\_end}}
@@ -956,24 +1010,24 @@ Move the cursor to the end of the input field.
 \end{DoxyParams}
 
 
-Definition at line \mbox{\hyperlink{gui_8c_source_l00451}{451}} of file \mbox{\hyperlink{gui_8c_source}{gui.\+c}}.
+Definition at line \mbox{\hyperlink{gui_8c_source_l00452}{452}} of file \mbox{\hyperlink{gui_8c_source}{gui.\+c}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00452\ \{}
-\DoxyCodeLine{00453\ \ \ \ \ i-\/>Position\ =\ \mbox{\hyperlink{vector_8h_a5169207d0fedd9d5eba2376359dbaa65}{vector\_len}}(\&i-\/>Text);}
-\DoxyCodeLine{00454\ \ \ \ \ i-\/>Selection\ =\ i-\/>Position;}
-\DoxyCodeLine{00455\ \ \ \ \ \mbox{\hyperlink{gui_8c_abb79c958484e7eaaba0c54461062515a}{input\_render}}(i,\ \textcolor{keyword}{true});}
-\DoxyCodeLine{00456\ \}}
+\DoxyCodeLine{00453\ \{}
+\DoxyCodeLine{00454\ \ \ \ \ i-\/>Position\ =\ \mbox{\hyperlink{vector_8h_a5169207d0fedd9d5eba2376359dbaa65}{vector\_len}}(\&i-\/>Text);}
+\DoxyCodeLine{00455\ \ \ \ \ i-\/>Selection\ =\ i-\/>Position;}
+\DoxyCodeLine{00456\ \ \ \ \ \mbox{\hyperlink{gui_8c_abb79c958484e7eaaba0c54461062515a}{input\_render}}(i,\ \textcolor{keyword}{true});}
+\DoxyCodeLine{00457\ \}}
 
 \end{DoxyCode}
 
 
-References \mbox{\hyperlink{gui_8c_source_l00190}{input\+\_\+render()}}, and \mbox{\hyperlink{vector_8h_source_l00105}{vector\+\_\+len()}}.
+References \mbox{\hyperlink{gui_8c_source_l00191}{input\+\_\+render()}}, and \mbox{\hyperlink{vector_8h_source_l00118}{vector\+\_\+len()}}.
 
 
 
-Referenced by \mbox{\hyperlink{gui_8c_source_l00530}{input\+\_\+event\+\_\+key()}}.
+Referenced by \mbox{\hyperlink{gui_8c_source_l00547}{input\+\_\+event\+\_\+key()}}.
 
 \mbox{\Hypertarget{gui_8c_afd35df2c3c56a5cd8fd56651c6bbf47a}\label{gui_8c_afd35df2c3c56a5cd8fd56651c6bbf47a}} 
 \index{gui.c@{gui.c}!input\_event\_key@{input\_event\_key}}
@@ -996,81 +1050,81 @@ Forward a key event to an input field.
 \end{DoxyParams}
 
 
-Definition at line \mbox{\hyperlink{gui_8c_source_l00530}{530}} of file \mbox{\hyperlink{gui_8c_source}{gui.\+c}}.
+Definition at line \mbox{\hyperlink{gui_8c_source_l00547}{547}} of file \mbox{\hyperlink{gui_8c_source}{gui.\+c}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00531\ \{}
-\DoxyCodeLine{00532\ \ \ \ \ \textcolor{keywordflow}{if}(key\ ==\ KEY\_HOME)}
-\DoxyCodeLine{00533\ \ \ \ \ \{}
-\DoxyCodeLine{00534\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_a587cd570cf7efa93484cbb86412fc606}{input\_home}}(i);}
-\DoxyCodeLine{00535\ \ \ \ \ \}}
-\DoxyCodeLine{00536\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(key\ ==\ (KEY\_HOME\ |\ MOD\_SHIFT))}
-\DoxyCodeLine{00537\ \ \ \ \ \{}
-\DoxyCodeLine{00538\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_a5f67da6f6c849a8f3a16df9604eb6b0c}{input\_select\_home}}(i);}
-\DoxyCodeLine{00539\ \ \ \ \ \}}
-\DoxyCodeLine{00540\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(key\ ==\ KEY\_END)}
-\DoxyCodeLine{00541\ \ \ \ \ \{}
-\DoxyCodeLine{00542\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_ad1ed66dda2e79fb6116b0537a53484e8}{input\_end}}(i);}
-\DoxyCodeLine{00543\ \ \ \ \ \}}
-\DoxyCodeLine{00544\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(key\ ==\ (KEY\_END\ |\ MOD\_SHIFT))}
-\DoxyCodeLine{00545\ \ \ \ \ \{}
-\DoxyCodeLine{00546\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_a11b2fe256a09504848882c8040a4fb8a}{input\_select\_end}}(i);}
-\DoxyCodeLine{00547\ \ \ \ \ \}}
-\DoxyCodeLine{00548\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(key\ ==\ KEY\_LEFT)}
-\DoxyCodeLine{00549\ \ \ \ \ \{}
-\DoxyCodeLine{00550\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_ab345150d61a6f69c31be740ddf1e96aa}{input\_left}}(i);}
-\DoxyCodeLine{00551\ \ \ \ \ \}}
-\DoxyCodeLine{00552\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(key\ ==\ (KEY\_LEFT\ |\ MOD\_SHIFT))}
-\DoxyCodeLine{00553\ \ \ \ \ \{}
-\DoxyCodeLine{00554\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_a18f14075808aa229a78a68a9f07ea524}{input\_select\_left}}(i);}
-\DoxyCodeLine{00555\ \ \ \ \ \}}
-\DoxyCodeLine{00556\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(key\ ==\ KEY\_RIGHT)}
-\DoxyCodeLine{00557\ \ \ \ \ \{}
-\DoxyCodeLine{00558\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_a639af81dfc0a521835f5ab17e813fe2e}{input\_right}}(i);}
-\DoxyCodeLine{00559\ \ \ \ \ \}}
-\DoxyCodeLine{00560\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(key\ ==\ (KEY\_RIGHT\ |\ MOD\_SHIFT))}
-\DoxyCodeLine{00561\ \ \ \ \ \{}
-\DoxyCodeLine{00562\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_afc776e3d54ee9489bf0ecf16a387c122}{input\_select\_right}}(i);}
-\DoxyCodeLine{00563\ \ \ \ \ \}}
-\DoxyCodeLine{00564\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(key\ ==\ KEY\_BACKSPACE)}
-\DoxyCodeLine{00565\ \ \ \ \ \{}
-\DoxyCodeLine{00566\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_a65e441754c2b8954dff527b862118ff8}{input\_backspace}}(i);}
-\DoxyCodeLine{00567\ \ \ \ \ \}}
-\DoxyCodeLine{00568\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(key\ ==\ KEY\_DELETE)}
-\DoxyCodeLine{00569\ \ \ \ \ \{}
-\DoxyCodeLine{00570\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_a4c5e21580f228ced521a43867a4d9c47}{input\_delete}}(i);}
-\DoxyCodeLine{00571\ \ \ \ \ \}}
-\DoxyCodeLine{00572\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(key\ ==\ (KEY\_A\ |\ MOD\_CTRL))}
-\DoxyCodeLine{00573\ \ \ \ \ \{}
-\DoxyCodeLine{00574\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_a8612d965253e235d672b33f21b10dbb5}{input\_select\_all}}(i);}
-\DoxyCodeLine{00575\ \ \ \ \ \}}
-\DoxyCodeLine{00576\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(key\ ==\ (KEY\_C\ |\ MOD\_CTRL))}
-\DoxyCodeLine{00577\ \ \ \ \ \{}
-\DoxyCodeLine{00578\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_a539cbb69c0d601d76ded7b0324ce08b7}{input\_copy}}(i);}
-\DoxyCodeLine{00579\ \ \ \ \ \}}
-\DoxyCodeLine{00580\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(key\ ==\ (KEY\_X\ |\ MOD\_CTRL))}
-\DoxyCodeLine{00581\ \ \ \ \ \{}
-\DoxyCodeLine{00582\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_ac6f71168d662b1ee7b4e259cbfd33c68}{input\_cut}}(i);}
-\DoxyCodeLine{00583\ \ \ \ \ \}}
-\DoxyCodeLine{00584\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(key\ ==\ (KEY\_V\ |\ MOD\_CTRL))}
-\DoxyCodeLine{00585\ \ \ \ \ \{}
-\DoxyCodeLine{00586\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_a47741e0e8ccac83f25633479b83e240e}{input\_paste}}(i);}
-\DoxyCodeLine{00587\ \ \ \ \ \}}
-\DoxyCodeLine{00588\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(chr)}
-\DoxyCodeLine{00589\ \ \ \ \ \{}
-\DoxyCodeLine{00590\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_ab501add0b30efb53492b0b30b516219f}{input\_char}}(i,\ chr);}
-\DoxyCodeLine{00591\ \ \ \ \ \}}
-\DoxyCodeLine{00592\ \}}
+\DoxyCodeLine{00548\ \{}
+\DoxyCodeLine{00549\ \ \ \ \ \textcolor{keywordflow}{if}(key\ ==\ KEY\_HOME)}
+\DoxyCodeLine{00550\ \ \ \ \ \{}
+\DoxyCodeLine{00551\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_a587cd570cf7efa93484cbb86412fc606}{input\_home}}(i);}
+\DoxyCodeLine{00552\ \ \ \ \ \}}
+\DoxyCodeLine{00553\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(key\ ==\ (KEY\_HOME\ |\ MOD\_SHIFT))}
+\DoxyCodeLine{00554\ \ \ \ \ \{}
+\DoxyCodeLine{00555\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_a5f67da6f6c849a8f3a16df9604eb6b0c}{input\_select\_home}}(i);}
+\DoxyCodeLine{00556\ \ \ \ \ \}}
+\DoxyCodeLine{00557\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(key\ ==\ KEY\_END)}
+\DoxyCodeLine{00558\ \ \ \ \ \{}
+\DoxyCodeLine{00559\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_ad1ed66dda2e79fb6116b0537a53484e8}{input\_end}}(i);}
+\DoxyCodeLine{00560\ \ \ \ \ \}}
+\DoxyCodeLine{00561\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(key\ ==\ (KEY\_END\ |\ MOD\_SHIFT))}
+\DoxyCodeLine{00562\ \ \ \ \ \{}
+\DoxyCodeLine{00563\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_a11b2fe256a09504848882c8040a4fb8a}{input\_select\_end}}(i);}
+\DoxyCodeLine{00564\ \ \ \ \ \}}
+\DoxyCodeLine{00565\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(key\ ==\ KEY\_LEFT)}
+\DoxyCodeLine{00566\ \ \ \ \ \{}
+\DoxyCodeLine{00567\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_ab345150d61a6f69c31be740ddf1e96aa}{input\_left}}(i);}
+\DoxyCodeLine{00568\ \ \ \ \ \}}
+\DoxyCodeLine{00569\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(key\ ==\ (KEY\_LEFT\ |\ MOD\_SHIFT))}
+\DoxyCodeLine{00570\ \ \ \ \ \{}
+\DoxyCodeLine{00571\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_a18f14075808aa229a78a68a9f07ea524}{input\_select\_left}}(i);}
+\DoxyCodeLine{00572\ \ \ \ \ \}}
+\DoxyCodeLine{00573\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(key\ ==\ KEY\_RIGHT)}
+\DoxyCodeLine{00574\ \ \ \ \ \{}
+\DoxyCodeLine{00575\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_a639af81dfc0a521835f5ab17e813fe2e}{input\_right}}(i);}
+\DoxyCodeLine{00576\ \ \ \ \ \}}
+\DoxyCodeLine{00577\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(key\ ==\ (KEY\_RIGHT\ |\ MOD\_SHIFT))}
+\DoxyCodeLine{00578\ \ \ \ \ \{}
+\DoxyCodeLine{00579\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_afc776e3d54ee9489bf0ecf16a387c122}{input\_select\_right}}(i);}
+\DoxyCodeLine{00580\ \ \ \ \ \}}
+\DoxyCodeLine{00581\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(key\ ==\ KEY\_BACKSPACE)}
+\DoxyCodeLine{00582\ \ \ \ \ \{}
+\DoxyCodeLine{00583\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_a65e441754c2b8954dff527b862118ff8}{input\_backspace}}(i);}
+\DoxyCodeLine{00584\ \ \ \ \ \}}
+\DoxyCodeLine{00585\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(key\ ==\ KEY\_DELETE)}
+\DoxyCodeLine{00586\ \ \ \ \ \{}
+\DoxyCodeLine{00587\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_a4c5e21580f228ced521a43867a4d9c47}{input\_delete}}(i);}
+\DoxyCodeLine{00588\ \ \ \ \ \}}
+\DoxyCodeLine{00589\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(key\ ==\ (KEY\_A\ |\ MOD\_CTRL))}
+\DoxyCodeLine{00590\ \ \ \ \ \{}
+\DoxyCodeLine{00591\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_a8612d965253e235d672b33f21b10dbb5}{input\_select\_all}}(i);}
+\DoxyCodeLine{00592\ \ \ \ \ \}}
+\DoxyCodeLine{00593\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(key\ ==\ (KEY\_C\ |\ MOD\_CTRL))}
+\DoxyCodeLine{00594\ \ \ \ \ \{}
+\DoxyCodeLine{00595\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_a539cbb69c0d601d76ded7b0324ce08b7}{input\_copy}}(i);}
+\DoxyCodeLine{00596\ \ \ \ \ \}}
+\DoxyCodeLine{00597\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(key\ ==\ (KEY\_X\ |\ MOD\_CTRL))}
+\DoxyCodeLine{00598\ \ \ \ \ \{}
+\DoxyCodeLine{00599\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_ac6f71168d662b1ee7b4e259cbfd33c68}{input\_cut}}(i);}
+\DoxyCodeLine{00600\ \ \ \ \ \}}
+\DoxyCodeLine{00601\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(key\ ==\ (KEY\_V\ |\ MOD\_CTRL))}
+\DoxyCodeLine{00602\ \ \ \ \ \{}
+\DoxyCodeLine{00603\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_a47741e0e8ccac83f25633479b83e240e}{input\_paste}}(i);}
+\DoxyCodeLine{00604\ \ \ \ \ \}}
+\DoxyCodeLine{00605\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(chr)}
+\DoxyCodeLine{00606\ \ \ \ \ \{}
+\DoxyCodeLine{00607\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_ab501add0b30efb53492b0b30b516219f}{input\_char}}(i,\ chr);}
+\DoxyCodeLine{00608\ \ \ \ \ \}}
+\DoxyCodeLine{00609\ \}}
 
 \end{DoxyCode}
 
 
-References \mbox{\hyperlink{gui_8c_source_l00389}{input\+\_\+backspace()}}, \mbox{\hyperlink{gui_8c_source_l00475}{input\+\_\+char()}}, \mbox{\hyperlink{gui_8c_source_l00498}{input\+\_\+copy()}}, \mbox{\hyperlink{gui_8c_source_l00508}{input\+\_\+cut()}}, \mbox{\hyperlink{gui_8c_source_l00409}{input\+\_\+delete()}}, \mbox{\hyperlink{gui_8c_source_l00451}{input\+\_\+end()}}, \mbox{\hyperlink{gui_8c_source_l00427}{input\+\_\+home()}}, \mbox{\hyperlink{gui_8c_source_l00321}{input\+\_\+left()}}, \mbox{\hyperlink{gui_8c_source_l00518}{input\+\_\+paste()}}, \mbox{\hyperlink{gui_8c_source_l00355}{input\+\_\+right()}}, \mbox{\hyperlink{gui_8c_source_l00486}{input\+\_\+select\+\_\+all()}}, \mbox{\hyperlink{gui_8c_source_l00463}{input\+\_\+select\+\_\+end()}}, \mbox{\hyperlink{gui_8c_source_l00440}{input\+\_\+select\+\_\+home()}}, \mbox{\hyperlink{gui_8c_source_l00341}{input\+\_\+select\+\_\+left()}}, and \mbox{\hyperlink{gui_8c_source_l00375}{input\+\_\+select\+\_\+right()}}.
+References \mbox{\hyperlink{gui_8c_source_l00390}{input\+\_\+backspace()}}, \mbox{\hyperlink{gui_8c_source_l00476}{input\+\_\+char()}}, \mbox{\hyperlink{gui_8c_source_l00513}{input\+\_\+copy()}}, \mbox{\hyperlink{gui_8c_source_l00523}{input\+\_\+cut()}}, \mbox{\hyperlink{gui_8c_source_l00410}{input\+\_\+delete()}}, \mbox{\hyperlink{gui_8c_source_l00452}{input\+\_\+end()}}, \mbox{\hyperlink{gui_8c_source_l00428}{input\+\_\+home()}}, \mbox{\hyperlink{gui_8c_source_l00322}{input\+\_\+left()}}, \mbox{\hyperlink{gui_8c_source_l00534}{input\+\_\+paste()}}, \mbox{\hyperlink{gui_8c_source_l00356}{input\+\_\+right()}}, \mbox{\hyperlink{gui_8c_source_l00487}{input\+\_\+select\+\_\+all()}}, \mbox{\hyperlink{gui_8c_source_l00464}{input\+\_\+select\+\_\+end()}}, \mbox{\hyperlink{gui_8c_source_l00441}{input\+\_\+select\+\_\+home()}}, \mbox{\hyperlink{gui_8c_source_l00342}{input\+\_\+select\+\_\+left()}}, and \mbox{\hyperlink{gui_8c_source_l00376}{input\+\_\+select\+\_\+right()}}.
 
 
 
-Referenced by \mbox{\hyperlink{gui_8c_source_l00764}{window\+\_\+event\+\_\+key()}}.
+Referenced by \mbox{\hyperlink{gui_8c_source_l00781}{window\+\_\+event\+\_\+key()}}.
 
 \mbox{\Hypertarget{gui_8c_a587cd570cf7efa93484cbb86412fc606}\label{gui_8c_a587cd570cf7efa93484cbb86412fc606}} 
 \index{gui.c@{gui.c}!input\_home@{input\_home}}
@@ -1089,24 +1143,24 @@ Move the cursor to the beginning of the input field.
 \end{DoxyParams}
 
 
-Definition at line \mbox{\hyperlink{gui_8c_source_l00427}{427}} of file \mbox{\hyperlink{gui_8c_source}{gui.\+c}}.
+Definition at line \mbox{\hyperlink{gui_8c_source_l00428}{428}} of file \mbox{\hyperlink{gui_8c_source}{gui.\+c}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00428\ \{}
-\DoxyCodeLine{00429\ \ \ \ \ i-\/>Selection\ =\ 0;}
-\DoxyCodeLine{00430\ \ \ \ \ i-\/>Position\ =\ 0;}
-\DoxyCodeLine{00431\ \ \ \ \ \mbox{\hyperlink{gui_8c_abb79c958484e7eaaba0c54461062515a}{input\_render}}(i,\ \textcolor{keyword}{true});}
-\DoxyCodeLine{00432\ \}}
+\DoxyCodeLine{00429\ \{}
+\DoxyCodeLine{00430\ \ \ \ \ i-\/>Selection\ =\ 0;}
+\DoxyCodeLine{00431\ \ \ \ \ i-\/>Position\ =\ 0;}
+\DoxyCodeLine{00432\ \ \ \ \ \mbox{\hyperlink{gui_8c_abb79c958484e7eaaba0c54461062515a}{input\_render}}(i,\ \textcolor{keyword}{true});}
+\DoxyCodeLine{00433\ \}}
 
 \end{DoxyCode}
 
 
-References \mbox{\hyperlink{gui_8c_source_l00190}{input\+\_\+render()}}.
+References \mbox{\hyperlink{gui_8c_source_l00191}{input\+\_\+render()}}.
 
 
 
-Referenced by \mbox{\hyperlink{gui_8c_source_l00530}{input\+\_\+event\+\_\+key()}}.
+Referenced by \mbox{\hyperlink{gui_8c_source_l00547}{input\+\_\+event\+\_\+key()}}.
 
 \mbox{\Hypertarget{gui_8c_a8c62a34c4c090afd9c76cf213504a4f8}\label{gui_8c_a8c62a34c4c090afd9c76cf213504a4f8}} 
 \index{gui.c@{gui.c}!input\_init@{input\_init}}
@@ -1131,24 +1185,24 @@ Initialize an input field.
 \end{DoxyParams}
 
 
-Definition at line \mbox{\hyperlink{gui_8c_source_l00848}{848}} of file \mbox{\hyperlink{gui_8c_source}{gui.\+c}}.
+Definition at line \mbox{\hyperlink{gui_8c_source_l00865}{865}} of file \mbox{\hyperlink{gui_8c_source}{gui.\+c}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00849\ \{}
-\DoxyCodeLine{00850\ \ \ \ \ input-\/>\mbox{\hyperlink{structInput_a51af0b672a92ed5a307d4947db7cebed}{Type}}\ =\ ELEMENT\_TYPE\_INPUT;}
-\DoxyCodeLine{00851\ \ \ \ \ input-\/>\mbox{\hyperlink{structInput_a3533d418144344d08dc8ad9a9a5ab5a6}{X}}\ =\ x;}
-\DoxyCodeLine{00852\ \ \ \ \ input-\/>\mbox{\hyperlink{structInput_a9f3058e098d93b2cd87e9014998e893d}{Y}}\ =\ y;}
-\DoxyCodeLine{00853\ \ \ \ \ input-\/>\mbox{\hyperlink{structInput_a49666acce1e1ce75cf34f09ca097f6d4}{W}}\ =\ w;}
-\DoxyCodeLine{00854\ \ \ \ \ input-\/>\mbox{\hyperlink{structInput_a7c63f47479b80d8b6bcdbc667e32dc11}{Position}}\ =\ 0;}
-\DoxyCodeLine{00855\ \ \ \ \ input-\/>\mbox{\hyperlink{structInput_ad6607ccb6fc5962ae28e9ec5c62290b5}{Selection}}\ =\ 0;}
-\DoxyCodeLine{00856\ \ \ \ \ \mbox{\hyperlink{vector_8c_a9618b41b25efb749069cbfff9c3cadcf}{vector\_init}}(\&input-\/>\mbox{\hyperlink{structInput_a78a569961ae4393cfbdb42f7d096b36a}{Text}},\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{char}),\ \mbox{\hyperlink{gui_8c_adaa8f3d3e80dc5e57e14302e38a00799}{INPUT\_CAPACITY}});}
-\DoxyCodeLine{00857\ \}}
+\DoxyCodeLine{00866\ \{}
+\DoxyCodeLine{00867\ \ \ \ \ input-\/>\mbox{\hyperlink{structInput_a51af0b672a92ed5a307d4947db7cebed}{Type}}\ =\ ELEMENT\_TYPE\_INPUT;}
+\DoxyCodeLine{00868\ \ \ \ \ input-\/>\mbox{\hyperlink{structInput_a3533d418144344d08dc8ad9a9a5ab5a6}{X}}\ =\ x;}
+\DoxyCodeLine{00869\ \ \ \ \ input-\/>\mbox{\hyperlink{structInput_a9f3058e098d93b2cd87e9014998e893d}{Y}}\ =\ y;}
+\DoxyCodeLine{00870\ \ \ \ \ input-\/>\mbox{\hyperlink{structInput_a49666acce1e1ce75cf34f09ca097f6d4}{W}}\ =\ w;}
+\DoxyCodeLine{00871\ \ \ \ \ input-\/>\mbox{\hyperlink{structInput_a7c63f47479b80d8b6bcdbc667e32dc11}{Position}}\ =\ 0;}
+\DoxyCodeLine{00872\ \ \ \ \ input-\/>\mbox{\hyperlink{structInput_ad6607ccb6fc5962ae28e9ec5c62290b5}{Selection}}\ =\ 0;}
+\DoxyCodeLine{00873\ \ \ \ \ \mbox{\hyperlink{vector_8c_a9618b41b25efb749069cbfff9c3cadcf}{vector\_init}}(\&input-\/>\mbox{\hyperlink{structInput_a78a569961ae4393cfbdb42f7d096b36a}{Text}},\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{char}),\ \mbox{\hyperlink{gui_8c_adaa8f3d3e80dc5e57e14302e38a00799}{INPUT\_CAPACITY}});}
+\DoxyCodeLine{00874\ \}}
 
 \end{DoxyCode}
 
 
-References \mbox{\hyperlink{gui_8c_source_l00055}{INPUT\+\_\+\+CAPACITY}}, \mbox{\hyperlink{gui_8h_source_l00109}{Input\+::\+Position}}, \mbox{\hyperlink{gui_8h_source_l00112}{Input\+::\+Selection}}, \mbox{\hyperlink{gui_8h_source_l00115}{Input\+::\+Text}}, \mbox{\hyperlink{gui_8h_source_l00094}{Input\+::\+Type}}, \mbox{\hyperlink{vector_8c_source_l00030}{vector\+\_\+init()}}, \mbox{\hyperlink{gui_8h_source_l00106}{Input\+::W}}, \mbox{\hyperlink{gui_8h_source_l00100}{Input\+::X}}, and \mbox{\hyperlink{gui_8h_source_l00103}{Input\+::Y}}.
+References \mbox{\hyperlink{gui_8c_source_l00056}{INPUT\+\_\+\+CAPACITY}}, \mbox{\hyperlink{gui_8h_source_l00109}{Input\+::\+Position}}, \mbox{\hyperlink{gui_8h_source_l00112}{Input\+::\+Selection}}, \mbox{\hyperlink{gui_8h_source_l00115}{Input\+::\+Text}}, \mbox{\hyperlink{gui_8h_source_l00094}{Input\+::\+Type}}, \mbox{\hyperlink{vector_8c_source_l00030}{vector\+\_\+init()}}, \mbox{\hyperlink{gui_8h_source_l00106}{Input\+::W}}, \mbox{\hyperlink{gui_8h_source_l00100}{Input\+::X}}, and \mbox{\hyperlink{gui_8h_source_l00103}{Input\+::Y}}.
 
 \mbox{\Hypertarget{gui_8c_ab345150d61a6f69c31be740ddf1e96aa}\label{gui_8c_ab345150d61a6f69c31be740ddf1e96aa}} 
 \index{gui.c@{gui.c}!input\_left@{input\_left}}
@@ -1167,32 +1221,32 @@ Move input cursor one position to the left and render input.
 \end{DoxyParams}
 
 
-Definition at line \mbox{\hyperlink{gui_8c_source_l00321}{321}} of file \mbox{\hyperlink{gui_8c_source}{gui.\+c}}.
+Definition at line \mbox{\hyperlink{gui_8c_source_l00322}{322}} of file \mbox{\hyperlink{gui_8c_source}{gui.\+c}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00322\ \{}
-\DoxyCodeLine{00323\ \ \ \ \ \textcolor{keywordflow}{if}(i-\/>Selection\ !=\ i-\/>Position)}
-\DoxyCodeLine{00324\ \ \ \ \ \{}
-\DoxyCodeLine{00325\ \ \ \ \ \ \ \ \ i-\/>Selection\ =\ i-\/>Position;}
-\DoxyCodeLine{00326\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_abb79c958484e7eaaba0c54461062515a}{input\_render}}(i,\ \textcolor{keyword}{true});}
-\DoxyCodeLine{00327\ \ \ \ \ \}}
-\DoxyCodeLine{00328\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(i-\/>Position\ >\ 0)}
-\DoxyCodeLine{00329\ \ \ \ \ \{}
-\DoxyCodeLine{00330\ \ \ \ \ \ \ \ \ -\/-\/i-\/>Position;}
-\DoxyCodeLine{00331\ \ \ \ \ \ \ \ \ i-\/>Selection\ =\ i-\/>Position;}
-\DoxyCodeLine{00332\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_abb79c958484e7eaaba0c54461062515a}{input\_render}}(i,\ \textcolor{keyword}{true});}
-\DoxyCodeLine{00333\ \ \ \ \ \}}
-\DoxyCodeLine{00334\ \}}
+\DoxyCodeLine{00323\ \{}
+\DoxyCodeLine{00324\ \ \ \ \ \textcolor{keywordflow}{if}(i-\/>Selection\ !=\ i-\/>Position)}
+\DoxyCodeLine{00325\ \ \ \ \ \{}
+\DoxyCodeLine{00326\ \ \ \ \ \ \ \ \ i-\/>Selection\ =\ i-\/>Position;}
+\DoxyCodeLine{00327\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_abb79c958484e7eaaba0c54461062515a}{input\_render}}(i,\ \textcolor{keyword}{true});}
+\DoxyCodeLine{00328\ \ \ \ \ \}}
+\DoxyCodeLine{00329\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(i-\/>Position\ >\ 0)}
+\DoxyCodeLine{00330\ \ \ \ \ \{}
+\DoxyCodeLine{00331\ \ \ \ \ \ \ \ \ -\/-\/i-\/>Position;}
+\DoxyCodeLine{00332\ \ \ \ \ \ \ \ \ i-\/>Selection\ =\ i-\/>Position;}
+\DoxyCodeLine{00333\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_abb79c958484e7eaaba0c54461062515a}{input\_render}}(i,\ \textcolor{keyword}{true});}
+\DoxyCodeLine{00334\ \ \ \ \ \}}
+\DoxyCodeLine{00335\ \}}
 
 \end{DoxyCode}
 
 
-References \mbox{\hyperlink{gui_8c_source_l00190}{input\+\_\+render()}}.
+References \mbox{\hyperlink{gui_8c_source_l00191}{input\+\_\+render()}}.
 
 
 
-Referenced by \mbox{\hyperlink{gui_8c_source_l00530}{input\+\_\+event\+\_\+key()}}.
+Referenced by \mbox{\hyperlink{gui_8c_source_l00547}{input\+\_\+event\+\_\+key()}}.
 
 \mbox{\Hypertarget{gui_8c_a47741e0e8ccac83f25633479b83e240e}\label{gui_8c_a47741e0e8ccac83f25633479b83e240e}} 
 \index{gui.c@{gui.c}!input\_paste@{input\_paste}}
@@ -1211,18 +1265,23 @@ Do a CTRL+V paste operation on an input field.
 \end{DoxyParams}
 
 
-Definition at line \mbox{\hyperlink{gui_8c_source_l00518}{518}} of file \mbox{\hyperlink{gui_8c_source}{gui.\+c}}.
+Definition at line \mbox{\hyperlink{gui_8c_source_l00534}{534}} of file \mbox{\hyperlink{gui_8c_source}{gui.\+c}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00519\ \{}
-\DoxyCodeLine{00520\ \ \ \ \ (void)i;}
-\DoxyCodeLine{00521\ \}}
+\DoxyCodeLine{00535\ \{}
+\DoxyCodeLine{00536\ \ \ \ \ \mbox{\hyperlink{gui_8c_a42b8d14b77196858bc8580e12afd6e9c}{input\_selection\_replace}}(i,\ \mbox{\hyperlink{clipboard_8c_a32de31d9a148466fc3a16995f0789326}{clipboard\_get\_text}}(),}
+\DoxyCodeLine{00537\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{clipboard_8c_abf64825a029deeab48ec51dd23eb50f7}{clipboard\_get\_text\_len}}());}
+\DoxyCodeLine{00538\ \}}
 
 \end{DoxyCode}
 
 
-Referenced by \mbox{\hyperlink{gui_8c_source_l00530}{input\+\_\+event\+\_\+key()}}.
+References \mbox{\hyperlink{clipboard_8c_source_l00036}{clipboard\+\_\+get\+\_\+text()}}, \mbox{\hyperlink{clipboard_8c_source_l00042}{clipboard\+\_\+get\+\_\+text\+\_\+len()}}, and \mbox{\hyperlink{gui_8c_source_l00295}{input\+\_\+selection\+\_\+replace()}}.
+
+
+
+Referenced by \mbox{\hyperlink{gui_8c_source_l00547}{input\+\_\+event\+\_\+key()}}.
 
 \mbox{\Hypertarget{gui_8c_abb79c958484e7eaaba0c54461062515a}\label{gui_8c_abb79c958484e7eaaba0c54461062515a}} 
 \index{gui.c@{gui.c}!input\_render@{input\_render}}
@@ -1243,107 +1302,107 @@ Renders an input field on the screen.
 \end{DoxyParams}
 
 
-Definition at line \mbox{\hyperlink{gui_8c_source_l00190}{190}} of file \mbox{\hyperlink{gui_8c_source}{gui.\+c}}.
+Definition at line \mbox{\hyperlink{gui_8c_source_l00191}{191}} of file \mbox{\hyperlink{gui_8c_source}{gui.\+c}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00191\ \{}
-\DoxyCodeLine{00192\ \ \ \ \ \mbox{\hyperlink{gfx_8h_acbbccb6085c654282ef64cdcefc81be5}{Color}}\ inner\_color;}
-\DoxyCodeLine{00193\ \ \ \ \ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ y\ =\ \mbox{\hyperlink{gui_8c_af9338f9b2ff9d4935cd8ea1853f5ec33}{TITLE\_BAR\_HEIGHT}}\ +\ i-\/>Y;}
-\DoxyCodeLine{00194\ }
-\DoxyCodeLine{00195\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *text\ =\ i-\/>Flags\ \&\ \mbox{\hyperlink{gui_8h_aecd12d3a24c8b08e6e8c2196387dde7f}{FLAG\_PASSWORD}}\ ?}
-\DoxyCodeLine{00196\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_a70d380f808f2bcbd819d5d368624861e}{\_password\_stars}}\ :\ \mbox{\hyperlink{vector_8h_a503ee5296f13ea821a6a7024eccd5407}{vector\_data}}(\&i-\/>Text);}
-\DoxyCodeLine{00197\ }
-\DoxyCodeLine{00198\ \ \ \ \ inner\_color\ =\ sel\ ?}
-\DoxyCodeLine{00199\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_ab112163b389b3a1c3a8b7fb9e2e618ab}{\_current\_theme}}-\/>\mbox{\hyperlink{structTheme_a59960348484cbbfd80c197c5da44095c}{ElementSelBG}}\ :}
-\DoxyCodeLine{00200\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_ab112163b389b3a1c3a8b7fb9e2e618ab}{\_current\_theme}}-\/>\mbox{\hyperlink{structTheme_aa14df9a5c662d958574fa20c0163d6eb}{ElementBG}};}
-\DoxyCodeLine{00201\ }
-\DoxyCodeLine{00202\ \ \ \ \ \mbox{\hyperlink{gfx_8c_a61d70a4550bf181cd71bfc9a4f12a6d1}{gfx\_rect}}(i-\/>X\ +\ \mbox{\hyperlink{gui_8c_a83b9df0c7acc5653665d1efd14d1a65b}{BORDER\_SIZE}},}
-\DoxyCodeLine{00203\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_af9338f9b2ff9d4935cd8ea1853f5ec33}{TITLE\_BAR\_HEIGHT}}\ +\ i-\/>Y\ +\ \mbox{\hyperlink{gui_8c_a83b9df0c7acc5653665d1efd14d1a65b}{BORDER\_SIZE}},}
-\DoxyCodeLine{00204\ \ \ \ \ \ \ \ \ i-\/>W\ -\/\ 2\ *\ \mbox{\hyperlink{gui_8c_a83b9df0c7acc5653665d1efd14d1a65b}{BORDER\_SIZE}},}
-\DoxyCodeLine{00205\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_aa3117e6d1b2a895d93755c858df7219c}{INPUT\_HEIGHT}}\ -\/\ 2\ +\ \mbox{\hyperlink{gui_8c_a83b9df0c7acc5653665d1efd14d1a65b}{BORDER\_SIZE}},}
-\DoxyCodeLine{00206\ \ \ \ \ \ \ \ \ inner\_color);}
-\DoxyCodeLine{00207\ }
-\DoxyCodeLine{00208\ \ \ \ \ \textcolor{keywordflow}{if}(sel)}
-\DoxyCodeLine{00209\ \ \ \ \ \{}
-\DoxyCodeLine{00210\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gfx_8c_a1d78d15a37b5c0cd2b797a1bcd89010f}{gfx\_rect\_border}}(i-\/>X,\ \mbox{\hyperlink{gui_8c_af9338f9b2ff9d4935cd8ea1853f5ec33}{TITLE\_BAR\_HEIGHT}}\ +\ i-\/>Y,}
-\DoxyCodeLine{00211\ \ \ \ \ \ \ \ \ \ \ \ \ i-\/>W,\ \mbox{\hyperlink{gui_8c_aa3117e6d1b2a895d93755c858df7219c}{INPUT\_HEIGHT}},\ \mbox{\hyperlink{gui_8c_a7be288bca980527b7afc855e41c90c2c}{BORDER\_SIZE\_SEL}},}
-\DoxyCodeLine{00212\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_ab112163b389b3a1c3a8b7fb9e2e618ab}{\_current\_theme}}-\/>\mbox{\hyperlink{structTheme_aa4e553a8a4388d5bccde929e3341a8d3}{ColorBorderSel}});}
-\DoxyCodeLine{00213\ \ \ \ \ \}}
-\DoxyCodeLine{00214\ \ \ \ \ \textcolor{keywordflow}{else}}
-\DoxyCodeLine{00215\ \ \ \ \ \{}
-\DoxyCodeLine{00216\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gfx_8c_a1d78d15a37b5c0cd2b797a1bcd89010f}{gfx\_rect\_border}}(i-\/>X,\ y,\ i-\/>W,\ \mbox{\hyperlink{gui_8c_aa3117e6d1b2a895d93755c858df7219c}{INPUT\_HEIGHT}},\ \mbox{\hyperlink{gui_8c_a83b9df0c7acc5653665d1efd14d1a65b}{BORDER\_SIZE}},}
-\DoxyCodeLine{00217\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_ab112163b389b3a1c3a8b7fb9e2e618ab}{\_current\_theme}}-\/>\mbox{\hyperlink{structTheme_a78899b4f95498ae7f47ad82a07cd15f1}{ColorBorder}});}
-\DoxyCodeLine{00218\ \ \ \ \ \}}
-\DoxyCodeLine{00219\ }
-\DoxyCodeLine{00220\ \ \ \ \ \textcolor{keywordflow}{if}(i-\/>Selection\ ==\ i-\/>Position)}
-\DoxyCodeLine{00221\ \ \ \ \ \{}
-\DoxyCodeLine{00222\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{font_8c_a0fb43ab4a095679d631a2c0652ee3f08}{font\_string\_len}}(i-\/>X\ +\ \mbox{\hyperlink{gui_8c_a863f5c8a292562df673aaf8a6e17faae}{INPUT\_PADDING\_X}},\ y\ +\ \mbox{\hyperlink{gui_8c_ad0be58a04004965af9a9b5ed6992bfe1}{INPUT\_PADDING\_Y}},}
-\DoxyCodeLine{00223\ \ \ \ \ \ \ \ \ \ \ \ \ text,\ \mbox{\hyperlink{vector_8h_a5169207d0fedd9d5eba2376359dbaa65}{vector\_len}}(\&i-\/>Text),}
-\DoxyCodeLine{00224\ \ \ \ \ \ \ \ \ \ \ \ \ font\_default,}
-\DoxyCodeLine{00225\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_ab112163b389b3a1c3a8b7fb9e2e618ab}{\_current\_theme}}-\/>\mbox{\hyperlink{structTheme_a0a488eb8377d2b821fca05cc0948f44b}{ColorFG}},}
-\DoxyCodeLine{00226\ \ \ \ \ \ \ \ \ \ \ \ \ inner\_color);}
-\DoxyCodeLine{00227\ \ \ \ \ \}}
-\DoxyCodeLine{00228\ \ \ \ \ \textcolor{keywordflow}{else}}
-\DoxyCodeLine{00229\ \ \ \ \ \{}
-\DoxyCodeLine{00230\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ sel\_start,\ sel\_len,\ sel\_x;}
-\DoxyCodeLine{00231\ }
-\DoxyCodeLine{00232\ \ \ \ \ \ \ \ \ sel\_start\ =\ \mbox{\hyperlink{types_8h_a266d8d44634dc76c146b4df64f513f05}{i32\_min}}(i-\/>Selection,\ i-\/>Position);}
-\DoxyCodeLine{00233\ \ \ \ \ \ \ \ \ sel\_len\ =\ \mbox{\hyperlink{types_8h_ac7607249ec4cf372eaab2ff1a4a51a26}{i32\_max}}(i-\/>Selection,\ i-\/>Position)\ -\/\ sel\_start;}
-\DoxyCodeLine{00234\ }
-\DoxyCodeLine{00235\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Before\ selection\ */}}
-\DoxyCodeLine{00236\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{font_8c_a0fb43ab4a095679d631a2c0652ee3f08}{font\_string\_len}}(i-\/>X\ +\ \mbox{\hyperlink{gui_8c_a863f5c8a292562df673aaf8a6e17faae}{INPUT\_PADDING\_X}},}
-\DoxyCodeLine{00237\ \ \ \ \ \ \ \ \ \ \ \ \ y\ +\ \mbox{\hyperlink{gui_8c_ad0be58a04004965af9a9b5ed6992bfe1}{INPUT\_PADDING\_Y}},}
-\DoxyCodeLine{00238\ \ \ \ \ \ \ \ \ \ \ \ \ text,\ sel\_start,}
-\DoxyCodeLine{00239\ \ \ \ \ \ \ \ \ \ \ \ \ font\_default,}
-\DoxyCodeLine{00240\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_ab112163b389b3a1c3a8b7fb9e2e618ab}{\_current\_theme}}-\/>\mbox{\hyperlink{structTheme_a0a488eb8377d2b821fca05cc0948f44b}{ColorFG}},}
-\DoxyCodeLine{00241\ \ \ \ \ \ \ \ \ \ \ \ \ inner\_color);}
-\DoxyCodeLine{00242\ }
-\DoxyCodeLine{00243\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Selection\ */}}
-\DoxyCodeLine{00244\ \ \ \ \ \ \ \ \ sel\_x\ =\ \mbox{\hyperlink{font_8c_aa965d55e47b225d39bcf70c39ece24c4}{font\_string\_width\_len}}(text,\ sel\_start,\ font\_default);}
-\DoxyCodeLine{00245\ }
-\DoxyCodeLine{00246\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gfx_8c_a61d70a4550bf181cd71bfc9a4f12a6d1}{gfx\_rect}}(i-\/>X\ +\ \mbox{\hyperlink{gui_8c_a863f5c8a292562df673aaf8a6e17faae}{INPUT\_PADDING\_X}}\ +\ sel\_x,\ y\ +\ \mbox{\hyperlink{gui_8c_a32f379e6593cbd6109a319721b555bde}{CURSOR\_OFFSET\_Y}},}
-\DoxyCodeLine{00247\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{font_8c_aa965d55e47b225d39bcf70c39ece24c4}{font\_string\_width\_len}}(text\ +\ sel\_start,\ sel\_len,\ font\_default),}
-\DoxyCodeLine{00248\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_a7f913fcf73aaf5db0a9f07665b6f71b1}{CURSOR\_HEIGHT}},}
-\DoxyCodeLine{00249\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_ab112163b389b3a1c3a8b7fb9e2e618ab}{\_current\_theme}}-\/>\mbox{\hyperlink{structTheme_a0a488eb8377d2b821fca05cc0948f44b}{ColorFG}});}
-\DoxyCodeLine{00250\ }
-\DoxyCodeLine{00251\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{font_8c_a0fb43ab4a095679d631a2c0652ee3f08}{font\_string\_len}}(i-\/>X\ +\ \mbox{\hyperlink{gui_8c_a863f5c8a292562df673aaf8a6e17faae}{INPUT\_PADDING\_X}}\ +\ sel\_x,\ y\ +\ \mbox{\hyperlink{gui_8c_ad0be58a04004965af9a9b5ed6992bfe1}{INPUT\_PADDING\_Y}},}
-\DoxyCodeLine{00252\ \ \ \ \ \ \ \ \ \ \ \ \ text\ +\ sel\_start,\ sel\_len,}
-\DoxyCodeLine{00253\ \ \ \ \ \ \ \ \ \ \ \ \ font\_default,}
-\DoxyCodeLine{00254\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_ab112163b389b3a1c3a8b7fb9e2e618ab}{\_current\_theme}}-\/>\mbox{\hyperlink{structTheme_ac2a345d3fa5613d20da113f38fa3cc46}{ColorTextSelFG}},}
-\DoxyCodeLine{00255\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_ab112163b389b3a1c3a8b7fb9e2e618ab}{\_current\_theme}}-\/>\mbox{\hyperlink{structTheme_addb51f1393e39d841a547e8fc6bd51eb}{ColorTextSelBG}});}
-\DoxyCodeLine{00256\ }
-\DoxyCodeLine{00257\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ After\ selection\ */}}
-\DoxyCodeLine{00258\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{font_8c_a0fb43ab4a095679d631a2c0652ee3f08}{font\_string\_len}}(i-\/>X\ +\ \mbox{\hyperlink{gui_8c_a863f5c8a292562df673aaf8a6e17faae}{INPUT\_PADDING\_X}}\ +}
-\DoxyCodeLine{00259\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{font_8c_aa965d55e47b225d39bcf70c39ece24c4}{font\_string\_width\_len}}(text,\ sel\_start\ +\ sel\_len,\ font\_default),}
-\DoxyCodeLine{00260\ \ \ \ \ \ \ \ \ \ \ \ \ y\ +\ \mbox{\hyperlink{gui_8c_ad0be58a04004965af9a9b5ed6992bfe1}{INPUT\_PADDING\_Y}},}
-\DoxyCodeLine{00261\ \ \ \ \ \ \ \ \ \ \ \ \ text\ +\ sel\_start\ +\ sel\_len,}
-\DoxyCodeLine{00262\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{vector_8h_a5169207d0fedd9d5eba2376359dbaa65}{vector\_len}}(\&i-\/>Text)\ -\/\ sel\_start\ -\/\ sel\_len,}
-\DoxyCodeLine{00263\ \ \ \ \ \ \ \ \ \ \ \ \ font\_default,}
-\DoxyCodeLine{00264\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_ab112163b389b3a1c3a8b7fb9e2e618ab}{\_current\_theme}}-\/>\mbox{\hyperlink{structTheme_a0a488eb8377d2b821fca05cc0948f44b}{ColorFG}},}
-\DoxyCodeLine{00265\ \ \ \ \ \ \ \ \ \ \ \ \ inner\_color);}
-\DoxyCodeLine{00266\ \ \ \ \ \}}
-\DoxyCodeLine{00267\ }
-\DoxyCodeLine{00268\ \ \ \ \ \textcolor{keywordflow}{if}(sel)}
-\DoxyCodeLine{00269\ \ \ \ \ \{}
-\DoxyCodeLine{00270\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Cursor\ */}}
-\DoxyCodeLine{00271\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gfx_8c_a61d70a4550bf181cd71bfc9a4f12a6d1}{gfx\_rect}}(i-\/>X\ +\ \mbox{\hyperlink{gui_8c_a863f5c8a292562df673aaf8a6e17faae}{INPUT\_PADDING\_X}}\ +}
-\DoxyCodeLine{00272\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{font_8c_aa965d55e47b225d39bcf70c39ece24c4}{font\_string\_width\_len}}(text,\ i-\/>Position,\ font\_default)\ +}
-\DoxyCodeLine{00273\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_a24081c7437914971160952050e4d0b5c}{CURSOR\_OFFSET}},\ \mbox{\hyperlink{gui_8c_af9338f9b2ff9d4935cd8ea1853f5ec33}{TITLE\_BAR\_HEIGHT}}\ +\ i-\/>Y\ +\ \mbox{\hyperlink{gui_8c_a32f379e6593cbd6109a319721b555bde}{CURSOR\_OFFSET\_Y}},}
-\DoxyCodeLine{00274\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_a8a051b8695b4004fdadadd7ab10f7bef}{CURSOR\_WIDTH}},}
-\DoxyCodeLine{00275\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_a7f913fcf73aaf5db0a9f07665b6f71b1}{CURSOR\_HEIGHT}},}
-\DoxyCodeLine{00276\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_ab112163b389b3a1c3a8b7fb9e2e618ab}{\_current\_theme}}-\/>\mbox{\hyperlink{structTheme_aa290ac6a045bb529040599acff5199be}{ColorCursor}});}
-\DoxyCodeLine{00277\ \ \ \ \ \}}
-\DoxyCodeLine{00278\ \}}
+\DoxyCodeLine{00192\ \{}
+\DoxyCodeLine{00193\ \ \ \ \ Color\ inner\_color;}
+\DoxyCodeLine{00194\ \ \ \ \ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ y\ =\ \mbox{\hyperlink{gui_8c_af9338f9b2ff9d4935cd8ea1853f5ec33}{TITLE\_BAR\_HEIGHT}}\ +\ i-\/>Y;}
+\DoxyCodeLine{00195\ }
+\DoxyCodeLine{00196\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *text\ =\ i-\/>Flags\ \&\ \mbox{\hyperlink{gui_8h_aecd12d3a24c8b08e6e8c2196387dde7f}{FLAG\_PASSWORD}}\ ?}
+\DoxyCodeLine{00197\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_a70d380f808f2bcbd819d5d368624861e}{\_password\_stars}}\ :\ \mbox{\hyperlink{vector_8h_a503ee5296f13ea821a6a7024eccd5407}{vector\_data}}(\&i-\/>Text);}
+\DoxyCodeLine{00198\ }
+\DoxyCodeLine{00199\ \ \ \ \ inner\_color\ =\ sel\ ?}
+\DoxyCodeLine{00200\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_ab112163b389b3a1c3a8b7fb9e2e618ab}{\_current\_theme}}-\/>\mbox{\hyperlink{structTheme_a59960348484cbbfd80c197c5da44095c}{ElementSelBG}}\ :}
+\DoxyCodeLine{00201\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_ab112163b389b3a1c3a8b7fb9e2e618ab}{\_current\_theme}}-\/>\mbox{\hyperlink{structTheme_aa14df9a5c662d958574fa20c0163d6eb}{ElementBG}};}
+\DoxyCodeLine{00202\ }
+\DoxyCodeLine{00203\ \ \ \ \ \mbox{\hyperlink{gfx_8c_a61d70a4550bf181cd71bfc9a4f12a6d1}{gfx\_rect}}(i-\/>X\ +\ \mbox{\hyperlink{gui_8c_a83b9df0c7acc5653665d1efd14d1a65b}{BORDER\_SIZE}},}
+\DoxyCodeLine{00204\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_af9338f9b2ff9d4935cd8ea1853f5ec33}{TITLE\_BAR\_HEIGHT}}\ +\ i-\/>Y\ +\ \mbox{\hyperlink{gui_8c_a83b9df0c7acc5653665d1efd14d1a65b}{BORDER\_SIZE}},}
+\DoxyCodeLine{00205\ \ \ \ \ \ \ \ \ i-\/>W\ -\/\ 2\ *\ \mbox{\hyperlink{gui_8c_a83b9df0c7acc5653665d1efd14d1a65b}{BORDER\_SIZE}},}
+\DoxyCodeLine{00206\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_aa3117e6d1b2a895d93755c858df7219c}{INPUT\_HEIGHT}}\ -\/\ 2\ +\ \mbox{\hyperlink{gui_8c_a83b9df0c7acc5653665d1efd14d1a65b}{BORDER\_SIZE}},}
+\DoxyCodeLine{00207\ \ \ \ \ \ \ \ \ inner\_color);}
+\DoxyCodeLine{00208\ }
+\DoxyCodeLine{00209\ \ \ \ \ \textcolor{keywordflow}{if}(sel)}
+\DoxyCodeLine{00210\ \ \ \ \ \{}
+\DoxyCodeLine{00211\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gfx_8c_a1d78d15a37b5c0cd2b797a1bcd89010f}{gfx\_rect\_border}}(i-\/>X,\ \mbox{\hyperlink{gui_8c_af9338f9b2ff9d4935cd8ea1853f5ec33}{TITLE\_BAR\_HEIGHT}}\ +\ i-\/>Y,}
+\DoxyCodeLine{00212\ \ \ \ \ \ \ \ \ \ \ \ \ i-\/>W,\ \mbox{\hyperlink{gui_8c_aa3117e6d1b2a895d93755c858df7219c}{INPUT\_HEIGHT}},\ \mbox{\hyperlink{gui_8c_a7be288bca980527b7afc855e41c90c2c}{BORDER\_SIZE\_SEL}},}
+\DoxyCodeLine{00213\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_ab112163b389b3a1c3a8b7fb9e2e618ab}{\_current\_theme}}-\/>\mbox{\hyperlink{structTheme_aa4e553a8a4388d5bccde929e3341a8d3}{ColorBorderSel}});}
+\DoxyCodeLine{00214\ \ \ \ \ \}}
+\DoxyCodeLine{00215\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00216\ \ \ \ \ \{}
+\DoxyCodeLine{00217\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gfx_8c_a1d78d15a37b5c0cd2b797a1bcd89010f}{gfx\_rect\_border}}(i-\/>X,\ y,\ i-\/>W,\ \mbox{\hyperlink{gui_8c_aa3117e6d1b2a895d93755c858df7219c}{INPUT\_HEIGHT}},\ \mbox{\hyperlink{gui_8c_a83b9df0c7acc5653665d1efd14d1a65b}{BORDER\_SIZE}},}
+\DoxyCodeLine{00218\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_ab112163b389b3a1c3a8b7fb9e2e618ab}{\_current\_theme}}-\/>\mbox{\hyperlink{structTheme_a78899b4f95498ae7f47ad82a07cd15f1}{ColorBorder}});}
+\DoxyCodeLine{00219\ \ \ \ \ \}}
+\DoxyCodeLine{00220\ }
+\DoxyCodeLine{00221\ \ \ \ \ \textcolor{keywordflow}{if}(i-\/>Selection\ ==\ i-\/>Position)}
+\DoxyCodeLine{00222\ \ \ \ \ \{}
+\DoxyCodeLine{00223\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{font_8c_a0fb43ab4a095679d631a2c0652ee3f08}{font\_string\_len}}(i-\/>X\ +\ \mbox{\hyperlink{gui_8c_a863f5c8a292562df673aaf8a6e17faae}{INPUT\_PADDING\_X}},\ y\ +\ \mbox{\hyperlink{gui_8c_ad0be58a04004965af9a9b5ed6992bfe1}{INPUT\_PADDING\_Y}},}
+\DoxyCodeLine{00224\ \ \ \ \ \ \ \ \ \ \ \ \ text,\ \mbox{\hyperlink{vector_8h_a5169207d0fedd9d5eba2376359dbaa65}{vector\_len}}(\&i-\/>Text),}
+\DoxyCodeLine{00225\ \ \ \ \ \ \ \ \ \ \ \ \ font\_default,}
+\DoxyCodeLine{00226\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_ab112163b389b3a1c3a8b7fb9e2e618ab}{\_current\_theme}}-\/>\mbox{\hyperlink{structTheme_a0a488eb8377d2b821fca05cc0948f44b}{ColorFG}},}
+\DoxyCodeLine{00227\ \ \ \ \ \ \ \ \ \ \ \ \ inner\_color);}
+\DoxyCodeLine{00228\ \ \ \ \ \}}
+\DoxyCodeLine{00229\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00230\ \ \ \ \ \{}
+\DoxyCodeLine{00231\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ sel\_start,\ sel\_len,\ sel\_x;}
+\DoxyCodeLine{00232\ }
+\DoxyCodeLine{00233\ \ \ \ \ \ \ \ \ sel\_start\ =\ \mbox{\hyperlink{types_8h_a266d8d44634dc76c146b4df64f513f05}{i32\_min}}(i-\/>Selection,\ i-\/>Position);}
+\DoxyCodeLine{00234\ \ \ \ \ \ \ \ \ sel\_len\ =\ \mbox{\hyperlink{types_8h_ac7607249ec4cf372eaab2ff1a4a51a26}{i32\_max}}(i-\/>Selection,\ i-\/>Position)\ -\/\ sel\_start;}
+\DoxyCodeLine{00235\ }
+\DoxyCodeLine{00236\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Before\ selection\ */}}
+\DoxyCodeLine{00237\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{font_8c_a0fb43ab4a095679d631a2c0652ee3f08}{font\_string\_len}}(i-\/>X\ +\ \mbox{\hyperlink{gui_8c_a863f5c8a292562df673aaf8a6e17faae}{INPUT\_PADDING\_X}},}
+\DoxyCodeLine{00238\ \ \ \ \ \ \ \ \ \ \ \ \ y\ +\ \mbox{\hyperlink{gui_8c_ad0be58a04004965af9a9b5ed6992bfe1}{INPUT\_PADDING\_Y}},}
+\DoxyCodeLine{00239\ \ \ \ \ \ \ \ \ \ \ \ \ text,\ sel\_start,}
+\DoxyCodeLine{00240\ \ \ \ \ \ \ \ \ \ \ \ \ font\_default,}
+\DoxyCodeLine{00241\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_ab112163b389b3a1c3a8b7fb9e2e618ab}{\_current\_theme}}-\/>\mbox{\hyperlink{structTheme_a0a488eb8377d2b821fca05cc0948f44b}{ColorFG}},}
+\DoxyCodeLine{00242\ \ \ \ \ \ \ \ \ \ \ \ \ inner\_color);}
+\DoxyCodeLine{00243\ }
+\DoxyCodeLine{00244\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Selection\ */}}
+\DoxyCodeLine{00245\ \ \ \ \ \ \ \ \ sel\_x\ =\ \mbox{\hyperlink{font_8c_aa965d55e47b225d39bcf70c39ece24c4}{font\_string\_width\_len}}(text,\ sel\_start,\ font\_default);}
+\DoxyCodeLine{00246\ }
+\DoxyCodeLine{00247\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gfx_8c_a61d70a4550bf181cd71bfc9a4f12a6d1}{gfx\_rect}}(i-\/>X\ +\ \mbox{\hyperlink{gui_8c_a863f5c8a292562df673aaf8a6e17faae}{INPUT\_PADDING\_X}}\ +\ sel\_x,\ y\ +\ \mbox{\hyperlink{gui_8c_a32f379e6593cbd6109a319721b555bde}{CURSOR\_OFFSET\_Y}},}
+\DoxyCodeLine{00248\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{font_8c_aa965d55e47b225d39bcf70c39ece24c4}{font\_string\_width\_len}}(text\ +\ sel\_start,\ sel\_len,\ font\_default),}
+\DoxyCodeLine{00249\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_a7f913fcf73aaf5db0a9f07665b6f71b1}{CURSOR\_HEIGHT}},}
+\DoxyCodeLine{00250\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_ab112163b389b3a1c3a8b7fb9e2e618ab}{\_current\_theme}}-\/>\mbox{\hyperlink{structTheme_a0a488eb8377d2b821fca05cc0948f44b}{ColorFG}});}
+\DoxyCodeLine{00251\ }
+\DoxyCodeLine{00252\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{font_8c_a0fb43ab4a095679d631a2c0652ee3f08}{font\_string\_len}}(i-\/>X\ +\ \mbox{\hyperlink{gui_8c_a863f5c8a292562df673aaf8a6e17faae}{INPUT\_PADDING\_X}}\ +\ sel\_x,\ y\ +\ \mbox{\hyperlink{gui_8c_ad0be58a04004965af9a9b5ed6992bfe1}{INPUT\_PADDING\_Y}},}
+\DoxyCodeLine{00253\ \ \ \ \ \ \ \ \ \ \ \ \ text\ +\ sel\_start,\ sel\_len,}
+\DoxyCodeLine{00254\ \ \ \ \ \ \ \ \ \ \ \ \ font\_default,}
+\DoxyCodeLine{00255\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_ab112163b389b3a1c3a8b7fb9e2e618ab}{\_current\_theme}}-\/>\mbox{\hyperlink{structTheme_ac2a345d3fa5613d20da113f38fa3cc46}{ColorTextSelFG}},}
+\DoxyCodeLine{00256\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_ab112163b389b3a1c3a8b7fb9e2e618ab}{\_current\_theme}}-\/>\mbox{\hyperlink{structTheme_addb51f1393e39d841a547e8fc6bd51eb}{ColorTextSelBG}});}
+\DoxyCodeLine{00257\ }
+\DoxyCodeLine{00258\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ After\ selection\ */}}
+\DoxyCodeLine{00259\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{font_8c_a0fb43ab4a095679d631a2c0652ee3f08}{font\_string\_len}}(i-\/>X\ +\ \mbox{\hyperlink{gui_8c_a863f5c8a292562df673aaf8a6e17faae}{INPUT\_PADDING\_X}}\ +}
+\DoxyCodeLine{00260\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{font_8c_aa965d55e47b225d39bcf70c39ece24c4}{font\_string\_width\_len}}(text,\ sel\_start\ +\ sel\_len,\ font\_default),}
+\DoxyCodeLine{00261\ \ \ \ \ \ \ \ \ \ \ \ \ y\ +\ \mbox{\hyperlink{gui_8c_ad0be58a04004965af9a9b5ed6992bfe1}{INPUT\_PADDING\_Y}},}
+\DoxyCodeLine{00262\ \ \ \ \ \ \ \ \ \ \ \ \ text\ +\ sel\_start\ +\ sel\_len,}
+\DoxyCodeLine{00263\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{vector_8h_a5169207d0fedd9d5eba2376359dbaa65}{vector\_len}}(\&i-\/>Text)\ -\/\ sel\_start\ -\/\ sel\_len,}
+\DoxyCodeLine{00264\ \ \ \ \ \ \ \ \ \ \ \ \ font\_default,}
+\DoxyCodeLine{00265\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_ab112163b389b3a1c3a8b7fb9e2e618ab}{\_current\_theme}}-\/>\mbox{\hyperlink{structTheme_a0a488eb8377d2b821fca05cc0948f44b}{ColorFG}},}
+\DoxyCodeLine{00266\ \ \ \ \ \ \ \ \ \ \ \ \ inner\_color);}
+\DoxyCodeLine{00267\ \ \ \ \ \}}
+\DoxyCodeLine{00268\ }
+\DoxyCodeLine{00269\ \ \ \ \ \textcolor{keywordflow}{if}(sel)}
+\DoxyCodeLine{00270\ \ \ \ \ \{}
+\DoxyCodeLine{00271\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Cursor\ */}}
+\DoxyCodeLine{00272\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gfx_8c_a61d70a4550bf181cd71bfc9a4f12a6d1}{gfx\_rect}}(i-\/>X\ +\ \mbox{\hyperlink{gui_8c_a863f5c8a292562df673aaf8a6e17faae}{INPUT\_PADDING\_X}}\ +}
+\DoxyCodeLine{00273\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{font_8c_aa965d55e47b225d39bcf70c39ece24c4}{font\_string\_width\_len}}(text,\ i-\/>Position,\ font\_default)\ +}
+\DoxyCodeLine{00274\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_a24081c7437914971160952050e4d0b5c}{CURSOR\_OFFSET}},\ \mbox{\hyperlink{gui_8c_af9338f9b2ff9d4935cd8ea1853f5ec33}{TITLE\_BAR\_HEIGHT}}\ +\ i-\/>Y\ +\ \mbox{\hyperlink{gui_8c_a32f379e6593cbd6109a319721b555bde}{CURSOR\_OFFSET\_Y}},}
+\DoxyCodeLine{00275\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_a8a051b8695b4004fdadadd7ab10f7bef}{CURSOR\_WIDTH}},}
+\DoxyCodeLine{00276\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_a7f913fcf73aaf5db0a9f07665b6f71b1}{CURSOR\_HEIGHT}},}
+\DoxyCodeLine{00277\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_ab112163b389b3a1c3a8b7fb9e2e618ab}{\_current\_theme}}-\/>\mbox{\hyperlink{structTheme_aa290ac6a045bb529040599acff5199be}{ColorCursor}});}
+\DoxyCodeLine{00278\ \ \ \ \ \}}
+\DoxyCodeLine{00279\ \}}
 
 \end{DoxyCode}
 
 
-References \mbox{\hyperlink{gui_8c_source_l00090}{\+\_\+current\+\_\+theme}}, \mbox{\hyperlink{gui_8c_source_l00100}{\+\_\+password\+\_\+stars}}, \mbox{\hyperlink{gui_8c_source_l00026}{BORDER\+\_\+\+SIZE}}, \mbox{\hyperlink{gui_8c_source_l00029}{BORDER\+\_\+\+SIZE\+\_\+\+SEL}}, \mbox{\hyperlink{gui_8h_source_l00134}{Theme\+::\+Color\+Border}}, \mbox{\hyperlink{gui_8h_source_l00137}{Theme\+::\+Color\+Border\+Sel}}, \mbox{\hyperlink{gui_8h_source_l00146}{Theme\+::\+Color\+Cursor}}, \mbox{\hyperlink{gui_8h_source_l00122}{Theme\+::\+Color\+FG}}, \mbox{\hyperlink{gui_8h_source_l00128}{Theme\+::\+Color\+Text\+Sel\+BG}}, \mbox{\hyperlink{gui_8h_source_l00131}{Theme\+::\+Color\+Text\+Sel\+FG}}, \mbox{\hyperlink{gui_8c_source_l00046}{CURSOR\+\_\+\+HEIGHT}}, \mbox{\hyperlink{gui_8c_source_l00049}{CURSOR\+\_\+\+OFFSET}}, \mbox{\hyperlink{gui_8c_source_l00052}{CURSOR\+\_\+\+OFFSET\+\_\+Y}}, \mbox{\hyperlink{gui_8c_source_l00043}{CURSOR\+\_\+\+WIDTH}}, \mbox{\hyperlink{gui_8h_source_l00140}{Theme\+::\+Element\+BG}}, \mbox{\hyperlink{gui_8h_source_l00143}{Theme\+::\+Element\+Sel\+BG}}, \mbox{\hyperlink{gui_8h_source_l00044}{FLAG\+\_\+\+PASSWORD}}, \mbox{\hyperlink{font_8c_source_l00037}{font\+\_\+string\+\_\+len()}}, \mbox{\hyperlink{font_8c_source_l00077}{font\+\_\+string\+\_\+width\+\_\+len()}}, \mbox{\hyperlink{gfx_8c_source_l00011}{gfx\+\_\+rect()}}, \mbox{\hyperlink{gfx_8c_source_l00016}{gfx\+\_\+rect\+\_\+border()}}, \mbox{\hyperlink{types_8h_source_l00068}{i32\+\_\+max()}}, \mbox{\hyperlink{types_8h_source_l00056}{i32\+\_\+min()}}, \mbox{\hyperlink{gui_8c_source_l00034}{INPUT\+\_\+\+HEIGHT}}, \mbox{\hyperlink{gui_8c_source_l00037}{INPUT\+\_\+\+PADDING\+\_\+X}}, \mbox{\hyperlink{gui_8c_source_l00040}{INPUT\+\_\+\+PADDING\+\_\+Y}}, \mbox{\hyperlink{gui_8c_source_l00017}{TITLE\+\_\+\+BAR\+\_\+\+HEIGHT}}, \mbox{\hyperlink{vector_8h_source_l00094}{vector\+\_\+data()}}, and \mbox{\hyperlink{vector_8h_source_l00105}{vector\+\_\+len()}}.
+References \mbox{\hyperlink{gui_8c_source_l00091}{\+\_\+current\+\_\+theme}}, \mbox{\hyperlink{gui_8c_source_l00101}{\+\_\+password\+\_\+stars}}, \mbox{\hyperlink{gui_8c_source_l00027}{BORDER\+\_\+\+SIZE}}, \mbox{\hyperlink{gui_8c_source_l00030}{BORDER\+\_\+\+SIZE\+\_\+\+SEL}}, \mbox{\hyperlink{gui_8h_source_l00134}{Theme\+::\+Color\+Border}}, \mbox{\hyperlink{gui_8h_source_l00137}{Theme\+::\+Color\+Border\+Sel}}, \mbox{\hyperlink{gui_8h_source_l00146}{Theme\+::\+Color\+Cursor}}, \mbox{\hyperlink{gui_8h_source_l00122}{Theme\+::\+Color\+FG}}, \mbox{\hyperlink{gui_8h_source_l00128}{Theme\+::\+Color\+Text\+Sel\+BG}}, \mbox{\hyperlink{gui_8h_source_l00131}{Theme\+::\+Color\+Text\+Sel\+FG}}, \mbox{\hyperlink{gui_8c_source_l00047}{CURSOR\+\_\+\+HEIGHT}}, \mbox{\hyperlink{gui_8c_source_l00050}{CURSOR\+\_\+\+OFFSET}}, \mbox{\hyperlink{gui_8c_source_l00053}{CURSOR\+\_\+\+OFFSET\+\_\+Y}}, \mbox{\hyperlink{gui_8c_source_l00044}{CURSOR\+\_\+\+WIDTH}}, \mbox{\hyperlink{gui_8h_source_l00140}{Theme\+::\+Element\+BG}}, \mbox{\hyperlink{gui_8h_source_l00143}{Theme\+::\+Element\+Sel\+BG}}, \mbox{\hyperlink{gui_8h_source_l00044}{FLAG\+\_\+\+PASSWORD}}, \mbox{\hyperlink{font_8c_source_l00037}{font\+\_\+string\+\_\+len()}}, \mbox{\hyperlink{font_8c_source_l00077}{font\+\_\+string\+\_\+width\+\_\+len()}}, \mbox{\hyperlink{gfx_8c_source_l00011}{gfx\+\_\+rect()}}, \mbox{\hyperlink{gfx_8c_source_l00016}{gfx\+\_\+rect\+\_\+border()}}, \mbox{\hyperlink{types_8h_source_l00068}{i32\+\_\+max()}}, \mbox{\hyperlink{types_8h_source_l00056}{i32\+\_\+min()}}, \mbox{\hyperlink{gui_8c_source_l00035}{INPUT\+\_\+\+HEIGHT}}, \mbox{\hyperlink{gui_8c_source_l00038}{INPUT\+\_\+\+PADDING\+\_\+X}}, \mbox{\hyperlink{gui_8c_source_l00041}{INPUT\+\_\+\+PADDING\+\_\+Y}}, \mbox{\hyperlink{gui_8c_source_l00018}{TITLE\+\_\+\+BAR\+\_\+\+HEIGHT}}, \mbox{\hyperlink{vector_8h_source_l00107}{vector\+\_\+data()}}, and \mbox{\hyperlink{vector_8h_source_l00118}{vector\+\_\+len()}}.
 
 
 
-Referenced by \mbox{\hyperlink{gui_8c_source_l00602}{element\+\_\+render\+\_\+sel()}}, \mbox{\hyperlink{gui_8c_source_l00389}{input\+\_\+backspace()}}, \mbox{\hyperlink{gui_8c_source_l00280}{input\+\_\+clear()}}, \mbox{\hyperlink{gui_8c_source_l00409}{input\+\_\+delete()}}, \mbox{\hyperlink{gui_8c_source_l00451}{input\+\_\+end()}}, \mbox{\hyperlink{gui_8c_source_l00427}{input\+\_\+home()}}, \mbox{\hyperlink{gui_8c_source_l00321}{input\+\_\+left()}}, \mbox{\hyperlink{gui_8c_source_l00355}{input\+\_\+right()}}, \mbox{\hyperlink{gui_8c_source_l00486}{input\+\_\+select\+\_\+all()}}, \mbox{\hyperlink{gui_8c_source_l00463}{input\+\_\+select\+\_\+end()}}, \mbox{\hyperlink{gui_8c_source_l00440}{input\+\_\+select\+\_\+home()}}, \mbox{\hyperlink{gui_8c_source_l00341}{input\+\_\+select\+\_\+left()}}, \mbox{\hyperlink{gui_8c_source_l00375}{input\+\_\+select\+\_\+right()}}, and \mbox{\hyperlink{gui_8c_source_l00294}{input\+\_\+selection\+\_\+replace()}}.
+Referenced by \mbox{\hyperlink{gui_8c_source_l00619}{element\+\_\+render\+\_\+sel()}}, \mbox{\hyperlink{gui_8c_source_l00390}{input\+\_\+backspace()}}, \mbox{\hyperlink{gui_8c_source_l00281}{input\+\_\+clear()}}, \mbox{\hyperlink{gui_8c_source_l00410}{input\+\_\+delete()}}, \mbox{\hyperlink{gui_8c_source_l00452}{input\+\_\+end()}}, \mbox{\hyperlink{gui_8c_source_l00428}{input\+\_\+home()}}, \mbox{\hyperlink{gui_8c_source_l00322}{input\+\_\+left()}}, \mbox{\hyperlink{gui_8c_source_l00356}{input\+\_\+right()}}, \mbox{\hyperlink{gui_8c_source_l00487}{input\+\_\+select\+\_\+all()}}, \mbox{\hyperlink{gui_8c_source_l00464}{input\+\_\+select\+\_\+end()}}, \mbox{\hyperlink{gui_8c_source_l00441}{input\+\_\+select\+\_\+home()}}, \mbox{\hyperlink{gui_8c_source_l00342}{input\+\_\+select\+\_\+left()}}, \mbox{\hyperlink{gui_8c_source_l00376}{input\+\_\+select\+\_\+right()}}, and \mbox{\hyperlink{gui_8c_source_l00295}{input\+\_\+selection\+\_\+replace()}}.
 
 \mbox{\Hypertarget{gui_8c_a639af81dfc0a521835f5ab17e813fe2e}\label{gui_8c_a639af81dfc0a521835f5ab17e813fe2e}} 
 \index{gui.c@{gui.c}!input\_right@{input\_right}}
@@ -1362,32 +1421,32 @@ Move input cursor one position to the right and render input.
 \end{DoxyParams}
 
 
-Definition at line \mbox{\hyperlink{gui_8c_source_l00355}{355}} of file \mbox{\hyperlink{gui_8c_source}{gui.\+c}}.
+Definition at line \mbox{\hyperlink{gui_8c_source_l00356}{356}} of file \mbox{\hyperlink{gui_8c_source}{gui.\+c}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00356\ \{}
-\DoxyCodeLine{00357\ \ \ \ \ \textcolor{keywordflow}{if}(i-\/>Selection\ !=\ i-\/>Position)}
-\DoxyCodeLine{00358\ \ \ \ \ \{}
-\DoxyCodeLine{00359\ \ \ \ \ \ \ \ \ i-\/>Selection\ =\ i-\/>Position;}
-\DoxyCodeLine{00360\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_abb79c958484e7eaaba0c54461062515a}{input\_render}}(i,\ \textcolor{keyword}{true});}
-\DoxyCodeLine{00361\ \ \ \ \ \}}
-\DoxyCodeLine{00362\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(i-\/>Position\ <\ (\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}})\mbox{\hyperlink{vector_8h_a5169207d0fedd9d5eba2376359dbaa65}{vector\_len}}(\&i-\/>Text))}
-\DoxyCodeLine{00363\ \ \ \ \ \{}
-\DoxyCodeLine{00364\ \ \ \ \ \ \ \ \ ++i-\/>Position;}
-\DoxyCodeLine{00365\ \ \ \ \ \ \ \ \ i-\/>Selection\ =\ i-\/>Position;}
-\DoxyCodeLine{00366\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_abb79c958484e7eaaba0c54461062515a}{input\_render}}(i,\ \textcolor{keyword}{true});}
-\DoxyCodeLine{00367\ \ \ \ \ \}}
-\DoxyCodeLine{00368\ \}}
+\DoxyCodeLine{00357\ \{}
+\DoxyCodeLine{00358\ \ \ \ \ \textcolor{keywordflow}{if}(i-\/>Selection\ !=\ i-\/>Position)}
+\DoxyCodeLine{00359\ \ \ \ \ \{}
+\DoxyCodeLine{00360\ \ \ \ \ \ \ \ \ i-\/>Selection\ =\ i-\/>Position;}
+\DoxyCodeLine{00361\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_abb79c958484e7eaaba0c54461062515a}{input\_render}}(i,\ \textcolor{keyword}{true});}
+\DoxyCodeLine{00362\ \ \ \ \ \}}
+\DoxyCodeLine{00363\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(i-\/>Position\ <\ (\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}})\mbox{\hyperlink{vector_8h_a5169207d0fedd9d5eba2376359dbaa65}{vector\_len}}(\&i-\/>Text))}
+\DoxyCodeLine{00364\ \ \ \ \ \{}
+\DoxyCodeLine{00365\ \ \ \ \ \ \ \ \ ++i-\/>Position;}
+\DoxyCodeLine{00366\ \ \ \ \ \ \ \ \ i-\/>Selection\ =\ i-\/>Position;}
+\DoxyCodeLine{00367\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_abb79c958484e7eaaba0c54461062515a}{input\_render}}(i,\ \textcolor{keyword}{true});}
+\DoxyCodeLine{00368\ \ \ \ \ \}}
+\DoxyCodeLine{00369\ \}}
 
 \end{DoxyCode}
 
 
-References \mbox{\hyperlink{gui_8c_source_l00190}{input\+\_\+render()}}, and \mbox{\hyperlink{vector_8h_source_l00105}{vector\+\_\+len()}}.
+References \mbox{\hyperlink{gui_8c_source_l00191}{input\+\_\+render()}}, and \mbox{\hyperlink{vector_8h_source_l00118}{vector\+\_\+len()}}.
 
 
 
-Referenced by \mbox{\hyperlink{gui_8c_source_l00530}{input\+\_\+event\+\_\+key()}}.
+Referenced by \mbox{\hyperlink{gui_8c_source_l00547}{input\+\_\+event\+\_\+key()}}.
 
 \mbox{\Hypertarget{gui_8c_a8612d965253e235d672b33f21b10dbb5}\label{gui_8c_a8612d965253e235d672b33f21b10dbb5}} 
 \index{gui.c@{gui.c}!input\_select\_all@{input\_select\_all}}
@@ -1406,24 +1465,24 @@ Do a CTRL+A select all operation on an input field.
 \end{DoxyParams}
 
 
-Definition at line \mbox{\hyperlink{gui_8c_source_l00486}{486}} of file \mbox{\hyperlink{gui_8c_source}{gui.\+c}}.
+Definition at line \mbox{\hyperlink{gui_8c_source_l00487}{487}} of file \mbox{\hyperlink{gui_8c_source}{gui.\+c}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00487\ \{}
-\DoxyCodeLine{00488\ \ \ \ \ i-\/>Selection\ =\ 0;}
-\DoxyCodeLine{00489\ \ \ \ \ i-\/>Position\ =\ \mbox{\hyperlink{vector_8h_a5169207d0fedd9d5eba2376359dbaa65}{vector\_len}}(\&i-\/>Text);}
-\DoxyCodeLine{00490\ \ \ \ \ \mbox{\hyperlink{gui_8c_abb79c958484e7eaaba0c54461062515a}{input\_render}}(i,\ \textcolor{keyword}{true});}
-\DoxyCodeLine{00491\ \}}
+\DoxyCodeLine{00488\ \{}
+\DoxyCodeLine{00489\ \ \ \ \ i-\/>Selection\ =\ 0;}
+\DoxyCodeLine{00490\ \ \ \ \ i-\/>Position\ =\ \mbox{\hyperlink{vector_8h_a5169207d0fedd9d5eba2376359dbaa65}{vector\_len}}(\&i-\/>Text);}
+\DoxyCodeLine{00491\ \ \ \ \ \mbox{\hyperlink{gui_8c_abb79c958484e7eaaba0c54461062515a}{input\_render}}(i,\ \textcolor{keyword}{true});}
+\DoxyCodeLine{00492\ \}}
 
 \end{DoxyCode}
 
 
-References \mbox{\hyperlink{gui_8c_source_l00190}{input\+\_\+render()}}, and \mbox{\hyperlink{vector_8h_source_l00105}{vector\+\_\+len()}}.
+References \mbox{\hyperlink{gui_8c_source_l00191}{input\+\_\+render()}}, and \mbox{\hyperlink{vector_8h_source_l00118}{vector\+\_\+len()}}.
 
 
 
-Referenced by \mbox{\hyperlink{gui_8c_source_l00530}{input\+\_\+event\+\_\+key()}}.
+Referenced by \mbox{\hyperlink{gui_8c_source_l00547}{input\+\_\+event\+\_\+key()}}.
 
 \mbox{\Hypertarget{gui_8c_a11b2fe256a09504848882c8040a4fb8a}\label{gui_8c_a11b2fe256a09504848882c8040a4fb8a}} 
 \index{gui.c@{gui.c}!input\_select\_end@{input\_select\_end}}
@@ -1442,23 +1501,23 @@ Select the characters from the current cursor position to the end.
 \end{DoxyParams}
 
 
-Definition at line \mbox{\hyperlink{gui_8c_source_l00463}{463}} of file \mbox{\hyperlink{gui_8c_source}{gui.\+c}}.
+Definition at line \mbox{\hyperlink{gui_8c_source_l00464}{464}} of file \mbox{\hyperlink{gui_8c_source}{gui.\+c}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00464\ \{}
-\DoxyCodeLine{00465\ \ \ \ \ i-\/>Position\ =\ \mbox{\hyperlink{vector_8h_a5169207d0fedd9d5eba2376359dbaa65}{vector\_len}}(\&i-\/>Text);}
-\DoxyCodeLine{00466\ \ \ \ \ \mbox{\hyperlink{gui_8c_abb79c958484e7eaaba0c54461062515a}{input\_render}}(i,\ \textcolor{keyword}{true});}
-\DoxyCodeLine{00467\ \}}
+\DoxyCodeLine{00465\ \{}
+\DoxyCodeLine{00466\ \ \ \ \ i-\/>Position\ =\ \mbox{\hyperlink{vector_8h_a5169207d0fedd9d5eba2376359dbaa65}{vector\_len}}(\&i-\/>Text);}
+\DoxyCodeLine{00467\ \ \ \ \ \mbox{\hyperlink{gui_8c_abb79c958484e7eaaba0c54461062515a}{input\_render}}(i,\ \textcolor{keyword}{true});}
+\DoxyCodeLine{00468\ \}}
 
 \end{DoxyCode}
 
 
-References \mbox{\hyperlink{gui_8c_source_l00190}{input\+\_\+render()}}, and \mbox{\hyperlink{vector_8h_source_l00105}{vector\+\_\+len()}}.
+References \mbox{\hyperlink{gui_8c_source_l00191}{input\+\_\+render()}}, and \mbox{\hyperlink{vector_8h_source_l00118}{vector\+\_\+len()}}.
 
 
 
-Referenced by \mbox{\hyperlink{gui_8c_source_l00530}{input\+\_\+event\+\_\+key()}}.
+Referenced by \mbox{\hyperlink{gui_8c_source_l00547}{input\+\_\+event\+\_\+key()}}.
 
 \mbox{\Hypertarget{gui_8c_a5f67da6f6c849a8f3a16df9604eb6b0c}\label{gui_8c_a5f67da6f6c849a8f3a16df9604eb6b0c}} 
 \index{gui.c@{gui.c}!input\_select\_home@{input\_select\_home}}
@@ -1477,23 +1536,23 @@ Select the characters from the current cursor position to the beginning.
 \end{DoxyParams}
 
 
-Definition at line \mbox{\hyperlink{gui_8c_source_l00440}{440}} of file \mbox{\hyperlink{gui_8c_source}{gui.\+c}}.
+Definition at line \mbox{\hyperlink{gui_8c_source_l00441}{441}} of file \mbox{\hyperlink{gui_8c_source}{gui.\+c}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00441\ \{}
-\DoxyCodeLine{00442\ \ \ \ \ i-\/>Position\ =\ 0;}
-\DoxyCodeLine{00443\ \ \ \ \ \mbox{\hyperlink{gui_8c_abb79c958484e7eaaba0c54461062515a}{input\_render}}(i,\ \textcolor{keyword}{true});}
-\DoxyCodeLine{00444\ \}}
+\DoxyCodeLine{00442\ \{}
+\DoxyCodeLine{00443\ \ \ \ \ i-\/>Position\ =\ 0;}
+\DoxyCodeLine{00444\ \ \ \ \ \mbox{\hyperlink{gui_8c_abb79c958484e7eaaba0c54461062515a}{input\_render}}(i,\ \textcolor{keyword}{true});}
+\DoxyCodeLine{00445\ \}}
 
 \end{DoxyCode}
 
 
-References \mbox{\hyperlink{gui_8c_source_l00190}{input\+\_\+render()}}.
+References \mbox{\hyperlink{gui_8c_source_l00191}{input\+\_\+render()}}.
 
 
 
-Referenced by \mbox{\hyperlink{gui_8c_source_l00530}{input\+\_\+event\+\_\+key()}}.
+Referenced by \mbox{\hyperlink{gui_8c_source_l00547}{input\+\_\+event\+\_\+key()}}.
 
 \mbox{\Hypertarget{gui_8c_a18f14075808aa229a78a68a9f07ea524}\label{gui_8c_a18f14075808aa229a78a68a9f07ea524}} 
 \index{gui.c@{gui.c}!input\_select\_left@{input\_select\_left}}
@@ -1512,26 +1571,26 @@ Move the cursor one position to the left and select.
 \end{DoxyParams}
 
 
-Definition at line \mbox{\hyperlink{gui_8c_source_l00341}{341}} of file \mbox{\hyperlink{gui_8c_source}{gui.\+c}}.
+Definition at line \mbox{\hyperlink{gui_8c_source_l00342}{342}} of file \mbox{\hyperlink{gui_8c_source}{gui.\+c}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00342\ \{}
-\DoxyCodeLine{00343\ \ \ \ \ \textcolor{keywordflow}{if}(i-\/>Position\ >\ 0)}
-\DoxyCodeLine{00344\ \ \ \ \ \{}
-\DoxyCodeLine{00345\ \ \ \ \ \ \ \ \ -\/-\/i-\/>Position;}
-\DoxyCodeLine{00346\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_abb79c958484e7eaaba0c54461062515a}{input\_render}}(i,\ \textcolor{keyword}{true});}
-\DoxyCodeLine{00347\ \ \ \ \ \}}
-\DoxyCodeLine{00348\ \}}
+\DoxyCodeLine{00343\ \{}
+\DoxyCodeLine{00344\ \ \ \ \ \textcolor{keywordflow}{if}(i-\/>Position\ >\ 0)}
+\DoxyCodeLine{00345\ \ \ \ \ \{}
+\DoxyCodeLine{00346\ \ \ \ \ \ \ \ \ -\/-\/i-\/>Position;}
+\DoxyCodeLine{00347\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_abb79c958484e7eaaba0c54461062515a}{input\_render}}(i,\ \textcolor{keyword}{true});}
+\DoxyCodeLine{00348\ \ \ \ \ \}}
+\DoxyCodeLine{00349\ \}}
 
 \end{DoxyCode}
 
 
-References \mbox{\hyperlink{gui_8c_source_l00190}{input\+\_\+render()}}.
+References \mbox{\hyperlink{gui_8c_source_l00191}{input\+\_\+render()}}.
 
 
 
-Referenced by \mbox{\hyperlink{gui_8c_source_l00530}{input\+\_\+event\+\_\+key()}}.
+Referenced by \mbox{\hyperlink{gui_8c_source_l00547}{input\+\_\+event\+\_\+key()}}.
 
 \mbox{\Hypertarget{gui_8c_afc776e3d54ee9489bf0ecf16a387c122}\label{gui_8c_afc776e3d54ee9489bf0ecf16a387c122}} 
 \index{gui.c@{gui.c}!input\_select\_right@{input\_select\_right}}
@@ -1550,26 +1609,26 @@ Move the cursor one position to the right and select.
 \end{DoxyParams}
 
 
-Definition at line \mbox{\hyperlink{gui_8c_source_l00375}{375}} of file \mbox{\hyperlink{gui_8c_source}{gui.\+c}}.
+Definition at line \mbox{\hyperlink{gui_8c_source_l00376}{376}} of file \mbox{\hyperlink{gui_8c_source}{gui.\+c}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00376\ \{}
-\DoxyCodeLine{00377\ \ \ \ \ \textcolor{keywordflow}{if}(i-\/>Position\ <\ (\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}})\mbox{\hyperlink{vector_8h_a5169207d0fedd9d5eba2376359dbaa65}{vector\_len}}(\&i-\/>Text))}
-\DoxyCodeLine{00378\ \ \ \ \ \{}
-\DoxyCodeLine{00379\ \ \ \ \ \ \ \ \ ++i-\/>Position;}
-\DoxyCodeLine{00380\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_abb79c958484e7eaaba0c54461062515a}{input\_render}}(i,\ \textcolor{keyword}{true});}
-\DoxyCodeLine{00381\ \ \ \ \ \}}
-\DoxyCodeLine{00382\ \}}
+\DoxyCodeLine{00377\ \{}
+\DoxyCodeLine{00378\ \ \ \ \ \textcolor{keywordflow}{if}(i-\/>Position\ <\ (\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}})\mbox{\hyperlink{vector_8h_a5169207d0fedd9d5eba2376359dbaa65}{vector\_len}}(\&i-\/>Text))}
+\DoxyCodeLine{00379\ \ \ \ \ \{}
+\DoxyCodeLine{00380\ \ \ \ \ \ \ \ \ ++i-\/>Position;}
+\DoxyCodeLine{00381\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_abb79c958484e7eaaba0c54461062515a}{input\_render}}(i,\ \textcolor{keyword}{true});}
+\DoxyCodeLine{00382\ \ \ \ \ \}}
+\DoxyCodeLine{00383\ \}}
 
 \end{DoxyCode}
 
 
-References \mbox{\hyperlink{gui_8c_source_l00190}{input\+\_\+render()}}, and \mbox{\hyperlink{vector_8h_source_l00105}{vector\+\_\+len()}}.
+References \mbox{\hyperlink{gui_8c_source_l00191}{input\+\_\+render()}}, and \mbox{\hyperlink{vector_8h_source_l00118}{vector\+\_\+len()}}.
 
 
 
-Referenced by \mbox{\hyperlink{gui_8c_source_l00530}{input\+\_\+event\+\_\+key()}}.
+Referenced by \mbox{\hyperlink{gui_8c_source_l00547}{input\+\_\+event\+\_\+key()}}.
 
 \mbox{\Hypertarget{gui_8c_a42b8d14b77196858bc8580e12afd6e9c}\label{gui_8c_a42b8d14b77196858bc8580e12afd6e9c}} 
 \index{gui.c@{gui.c}!input\_selection\_replace@{input\_selection\_replace}}
@@ -1592,38 +1651,38 @@ Inserts a string into an input field\textquotesingle{}s buffer at the current cu
 \end{DoxyParams}
 
 
-Definition at line \mbox{\hyperlink{gui_8c_source_l00294}{294}} of file \mbox{\hyperlink{gui_8c_source}{gui.\+c}}.
+Definition at line \mbox{\hyperlink{gui_8c_source_l00295}{295}} of file \mbox{\hyperlink{gui_8c_source}{gui.\+c}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00295\ \{}
-\DoxyCodeLine{00296\ \ \ \ \ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ sel\_start,\ sel\_len;}
-\DoxyCodeLine{00297\ }
-\DoxyCodeLine{00298\ \ \ \ \ \textcolor{comment}{/*\ TODO:\ This\ is\ broken\ */}}
-\DoxyCodeLine{00299\ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{font_8c_aa965d55e47b225d39bcf70c39ece24c4}{font\_string\_width\_len}}(\mbox{\hyperlink{vector_8h_a503ee5296f13ea821a6a7024eccd5407}{vector\_data}}(\&i-\/>Text),}
-\DoxyCodeLine{00300\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{vector_8h_a5169207d0fedd9d5eba2376359dbaa65}{vector\_len}}(\&i-\/>Text),\ font\_default)\ +}
-\DoxyCodeLine{00301\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{font_8c_aa965d55e47b225d39bcf70c39ece24c4}{font\_string\_width\_len}}(str,\ len,\ font\_default)}
-\DoxyCodeLine{00302\ \ \ \ \ \ \ \ \ >=\ i-\/>W\ -\/\ 2\ *\ \mbox{\hyperlink{gui_8c_a863f5c8a292562df673aaf8a6e17faae}{INPUT\_PADDING\_X}})}
-\DoxyCodeLine{00303\ \ \ \ \ \{}
-\DoxyCodeLine{00304\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
-\DoxyCodeLine{00305\ \ \ \ \ \}}
-\DoxyCodeLine{00306\ }
-\DoxyCodeLine{00307\ \ \ \ \ sel\_start\ =\ \mbox{\hyperlink{types_8h_a266d8d44634dc76c146b4df64f513f05}{i32\_min}}(i-\/>Selection,\ i-\/>Position);}
-\DoxyCodeLine{00308\ \ \ \ \ sel\_len\ =\ \mbox{\hyperlink{types_8h_ac7607249ec4cf372eaab2ff1a4a51a26}{i32\_max}}(i-\/>Selection,\ i-\/>Position)\ -\/\ sel\_start;}
-\DoxyCodeLine{00309\ \ \ \ \ \mbox{\hyperlink{vector_8c_ab5e38bad2bc3f2cbf9f7b23f615545ee}{vector\_replace}}(\&i-\/>Text,\ sel\_start,\ sel\_len,\ str,\ len);}
-\DoxyCodeLine{00310\ \ \ \ \ i-\/>Position\ =\ sel\_start\ +\ len;}
-\DoxyCodeLine{00311\ \ \ \ \ i-\/>Selection\ =\ i-\/>Position;}
-\DoxyCodeLine{00312\ \ \ \ \ \mbox{\hyperlink{gui_8c_abb79c958484e7eaaba0c54461062515a}{input\_render}}(i,\ \textcolor{keyword}{true});}
-\DoxyCodeLine{00313\ \}}
+\DoxyCodeLine{00296\ \{}
+\DoxyCodeLine{00297\ \ \ \ \ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ sel\_start,\ sel\_len;}
+\DoxyCodeLine{00298\ }
+\DoxyCodeLine{00299\ \ \ \ \ \textcolor{comment}{/*\ TODO:\ This\ is\ broken\ */}}
+\DoxyCodeLine{00300\ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{font_8c_aa965d55e47b225d39bcf70c39ece24c4}{font\_string\_width\_len}}(\mbox{\hyperlink{vector_8h_a503ee5296f13ea821a6a7024eccd5407}{vector\_data}}(\&i-\/>Text),}
+\DoxyCodeLine{00301\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{vector_8h_a5169207d0fedd9d5eba2376359dbaa65}{vector\_len}}(\&i-\/>Text),\ font\_default)\ +}
+\DoxyCodeLine{00302\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{font_8c_aa965d55e47b225d39bcf70c39ece24c4}{font\_string\_width\_len}}(str,\ len,\ font\_default)}
+\DoxyCodeLine{00303\ \ \ \ \ \ \ \ \ >=\ i-\/>W\ -\/\ 2\ *\ \mbox{\hyperlink{gui_8c_a863f5c8a292562df673aaf8a6e17faae}{INPUT\_PADDING\_X}})}
+\DoxyCodeLine{00304\ \ \ \ \ \{}
+\DoxyCodeLine{00305\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00306\ \ \ \ \ \}}
+\DoxyCodeLine{00307\ }
+\DoxyCodeLine{00308\ \ \ \ \ sel\_start\ =\ \mbox{\hyperlink{types_8h_a266d8d44634dc76c146b4df64f513f05}{i32\_min}}(i-\/>Selection,\ i-\/>Position);}
+\DoxyCodeLine{00309\ \ \ \ \ sel\_len\ =\ \mbox{\hyperlink{types_8h_ac7607249ec4cf372eaab2ff1a4a51a26}{i32\_max}}(i-\/>Selection,\ i-\/>Position)\ -\/\ sel\_start;}
+\DoxyCodeLine{00310\ \ \ \ \ \mbox{\hyperlink{vector_8c_ab5e38bad2bc3f2cbf9f7b23f615545ee}{vector\_replace}}(\&i-\/>Text,\ sel\_start,\ sel\_len,\ str,\ len);}
+\DoxyCodeLine{00311\ \ \ \ \ i-\/>Position\ =\ sel\_start\ +\ len;}
+\DoxyCodeLine{00312\ \ \ \ \ i-\/>Selection\ =\ i-\/>Position;}
+\DoxyCodeLine{00313\ \ \ \ \ \mbox{\hyperlink{gui_8c_abb79c958484e7eaaba0c54461062515a}{input\_render}}(i,\ \textcolor{keyword}{true});}
+\DoxyCodeLine{00314\ \}}
 
 \end{DoxyCode}
 
 
-References \mbox{\hyperlink{font_8c_source_l00077}{font\+\_\+string\+\_\+width\+\_\+len()}}, \mbox{\hyperlink{types_8h_source_l00068}{i32\+\_\+max()}}, \mbox{\hyperlink{types_8h_source_l00056}{i32\+\_\+min()}}, \mbox{\hyperlink{gui_8c_source_l00037}{INPUT\+\_\+\+PADDING\+\_\+X}}, \mbox{\hyperlink{gui_8c_source_l00190}{input\+\_\+render()}}, \mbox{\hyperlink{vector_8h_source_l00094}{vector\+\_\+data()}}, \mbox{\hyperlink{vector_8h_source_l00105}{vector\+\_\+len()}}, and \mbox{\hyperlink{vector_8c_source_l00043}{vector\+\_\+replace()}}.
+References \mbox{\hyperlink{font_8c_source_l00077}{font\+\_\+string\+\_\+width\+\_\+len()}}, \mbox{\hyperlink{types_8h_source_l00068}{i32\+\_\+max()}}, \mbox{\hyperlink{types_8h_source_l00056}{i32\+\_\+min()}}, \mbox{\hyperlink{gui_8c_source_l00038}{INPUT\+\_\+\+PADDING\+\_\+X}}, \mbox{\hyperlink{gui_8c_source_l00191}{input\+\_\+render()}}, \mbox{\hyperlink{vector_8h_source_l00107}{vector\+\_\+data()}}, \mbox{\hyperlink{vector_8h_source_l00118}{vector\+\_\+len()}}, and \mbox{\hyperlink{vector_8c_source_l00043}{vector\+\_\+replace()}}.
 
 
 
-Referenced by \mbox{\hyperlink{gui_8c_source_l00389}{input\+\_\+backspace()}}, \mbox{\hyperlink{gui_8c_source_l00475}{input\+\_\+char()}}, and \mbox{\hyperlink{gui_8c_source_l00409}{input\+\_\+delete()}}.
+Referenced by \mbox{\hyperlink{gui_8c_source_l00390}{input\+\_\+backspace()}}, \mbox{\hyperlink{gui_8c_source_l00476}{input\+\_\+char()}}, \mbox{\hyperlink{gui_8c_source_l00523}{input\+\_\+cut()}}, \mbox{\hyperlink{gui_8c_source_l00410}{input\+\_\+delete()}}, and \mbox{\hyperlink{gui_8c_source_l00534}{input\+\_\+paste()}}.
 
 \mbox{\Hypertarget{gui_8c_a947b16523eba3e9011e52a892a689295}\label{gui_8c_a947b16523eba3e9011e52a892a689295}} 
 \index{gui.c@{gui.c}!label\_init@{label\_init}}
@@ -1650,17 +1709,17 @@ Initialize a label.
 \end{DoxyParams}
 
 
-Definition at line \mbox{\hyperlink{gui_8c_source_l00827}{827}} of file \mbox{\hyperlink{gui_8c_source}{gui.\+c}}.
+Definition at line \mbox{\hyperlink{gui_8c_source_l00844}{844}} of file \mbox{\hyperlink{gui_8c_source}{gui.\+c}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00828\ \{}
-\DoxyCodeLine{00829\ \ \ \ \ label-\/>\mbox{\hyperlink{structLabel_abc5fc17c4442df608d88d32856dfd99a}{Type}}\ =\ ELEMENT\_TYPE\_LABEL;}
-\DoxyCodeLine{00830\ \ \ \ \ label-\/>\mbox{\hyperlink{structLabel_a2629f98bd0014b9a91202c3812c2f6aa}{X}}\ =\ x;}
-\DoxyCodeLine{00831\ \ \ \ \ label-\/>\mbox{\hyperlink{structLabel_aed51d95e74e5d04ff2a93ae4acd2be2e}{Y}}\ =\ y;}
-\DoxyCodeLine{00832\ \ \ \ \ label-\/>\mbox{\hyperlink{structLabel_aed8a69e88c43b37924a7468bc5baa86f}{Flags}}\ =\ flags;}
-\DoxyCodeLine{00833\ \ \ \ \ label-\/>\mbox{\hyperlink{structLabel_a8cb635a15fb854226819dfc612c2bbfb}{Text}}\ =\ text;}
-\DoxyCodeLine{00834\ \}}
+\DoxyCodeLine{00845\ \{}
+\DoxyCodeLine{00846\ \ \ \ \ label-\/>\mbox{\hyperlink{structLabel_abc5fc17c4442df608d88d32856dfd99a}{Type}}\ =\ ELEMENT\_TYPE\_LABEL;}
+\DoxyCodeLine{00847\ \ \ \ \ label-\/>\mbox{\hyperlink{structLabel_a2629f98bd0014b9a91202c3812c2f6aa}{X}}\ =\ x;}
+\DoxyCodeLine{00848\ \ \ \ \ label-\/>\mbox{\hyperlink{structLabel_aed51d95e74e5d04ff2a93ae4acd2be2e}{Y}}\ =\ y;}
+\DoxyCodeLine{00849\ \ \ \ \ label-\/>\mbox{\hyperlink{structLabel_aed8a69e88c43b37924a7468bc5baa86f}{Flags}}\ =\ flags;}
+\DoxyCodeLine{00850\ \ \ \ \ label-\/>\mbox{\hyperlink{structLabel_a8cb635a15fb854226819dfc612c2bbfb}{Text}}\ =\ text;}
+\DoxyCodeLine{00851\ \}}
 
 \end{DoxyCode}
 
@@ -1684,52 +1743,107 @@ Render a label on the screen.
 \end{DoxyParams}
 
 
-Definition at line \mbox{\hyperlink{gui_8c_source_l00109}{109}} of file \mbox{\hyperlink{gui_8c_source}{gui.\+c}}.
+Definition at line \mbox{\hyperlink{gui_8c_source_l00110}{110}} of file \mbox{\hyperlink{gui_8c_source}{gui.\+c}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00110\ \{}
-\DoxyCodeLine{00111\ \ \ \ \ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ align\ =\ l-\/>\mbox{\hyperlink{structLabel_aed8a69e88c43b37924a7468bc5baa86f}{Flags}}\ \&\ \mbox{\hyperlink{gui_8h_a9acfa53ba535d32d76682f5d3e893c05}{ALIGN\_MASK}};}
-\DoxyCodeLine{00112\ \ \ \ \ \textcolor{keywordflow}{if}(align\ ==\ \mbox{\hyperlink{gui_8h_a9c02b0d52f34473b26a3ef4718f31820}{FLAG\_ALIGN\_CENTER}})}
-\DoxyCodeLine{00113\ \ \ \ \ \{}
-\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{font_8h_a1dc9a04991c7d42402c21ab6a4b933e2}{font\_string}}(}
-\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \ \ \ \ l-\/>\mbox{\hyperlink{structLabel_a2629f98bd0014b9a91202c3812c2f6aa}{X}}\ -\/\ \mbox{\hyperlink{font_8h_af05628a74a6fb4755ad6eb075ce5f87d}{font\_string\_width}}(l-\/>\mbox{\hyperlink{structLabel_a8cb635a15fb854226819dfc612c2bbfb}{Text}},\ font\_default)\ /\ 2,}
-\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_af9338f9b2ff9d4935cd8ea1853f5ec33}{TITLE\_BAR\_HEIGHT}}\ +\ l-\/>\mbox{\hyperlink{structLabel_aed51d95e74e5d04ff2a93ae4acd2be2e}{Y}},}
-\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \ \ \ \ l-\/>\mbox{\hyperlink{structLabel_a8cb635a15fb854226819dfc612c2bbfb}{Text}},}
-\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \ \ \ \ font\_default,}
-\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_ab112163b389b3a1c3a8b7fb9e2e618ab}{\_current\_theme}}-\/>\mbox{\hyperlink{structTheme_a0a488eb8377d2b821fca05cc0948f44b}{ColorFG}},}
-\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_ab112163b389b3a1c3a8b7fb9e2e618ab}{\_current\_theme}}-\/>\mbox{\hyperlink{structTheme_a811598412d6c377c00dba2b2d5c41ae9}{ColorBG}});}
-\DoxyCodeLine{00121\ \ \ \ \ \}}
-\DoxyCodeLine{00122\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(align\ ==\ \mbox{\hyperlink{gui_8h_acb9d2d1733e63df0fee9ee8a3174c8c1}{FLAG\_ALIGN\_RIGHT}})}
-\DoxyCodeLine{00123\ \ \ \ \ \{}
-\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{font_8h_a1dc9a04991c7d42402c21ab6a4b933e2}{font\_string}}(}
-\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \ \ \ \ l-\/>\mbox{\hyperlink{structLabel_a2629f98bd0014b9a91202c3812c2f6aa}{X}}\ -\/\ \mbox{\hyperlink{font_8h_af05628a74a6fb4755ad6eb075ce5f87d}{font\_string\_width}}(l-\/>\mbox{\hyperlink{structLabel_a8cb635a15fb854226819dfc612c2bbfb}{Text}},\ font\_default),}
-\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_af9338f9b2ff9d4935cd8ea1853f5ec33}{TITLE\_BAR\_HEIGHT}}\ +\ l-\/>\mbox{\hyperlink{structLabel_aed51d95e74e5d04ff2a93ae4acd2be2e}{Y}},}
-\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \ \ \ \ l-\/>\mbox{\hyperlink{structLabel_a8cb635a15fb854226819dfc612c2bbfb}{Text}},}
-\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \ \ \ \ font\_default,}
-\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_ab112163b389b3a1c3a8b7fb9e2e618ab}{\_current\_theme}}-\/>\mbox{\hyperlink{structTheme_a0a488eb8377d2b821fca05cc0948f44b}{ColorFG}},}
-\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_ab112163b389b3a1c3a8b7fb9e2e618ab}{\_current\_theme}}-\/>\mbox{\hyperlink{structTheme_a811598412d6c377c00dba2b2d5c41ae9}{ColorBG}});}
-\DoxyCodeLine{00131\ \ \ \ \ \}}
-\DoxyCodeLine{00132\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(align\ ==\ \mbox{\hyperlink{gui_8h_a33c2d4ef645a60b81d281d55d98b9334}{FLAG\_ALIGN\_LEFT}})}
-\DoxyCodeLine{00133\ \ \ \ \ \{}
-\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{font_8h_a1dc9a04991c7d42402c21ab6a4b933e2}{font\_string}}(}
-\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \ \ \ \ l-\/>\mbox{\hyperlink{structLabel_a2629f98bd0014b9a91202c3812c2f6aa}{X}},}
-\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_af9338f9b2ff9d4935cd8ea1853f5ec33}{TITLE\_BAR\_HEIGHT}}\ +\ l-\/>\mbox{\hyperlink{structLabel_aed51d95e74e5d04ff2a93ae4acd2be2e}{Y}},}
-\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \ \ \ \ l-\/>\mbox{\hyperlink{structLabel_a8cb635a15fb854226819dfc612c2bbfb}{Text}},}
-\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ \ \ \ \ font\_default,}
-\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_ab112163b389b3a1c3a8b7fb9e2e618ab}{\_current\_theme}}-\/>\mbox{\hyperlink{structTheme_a0a488eb8377d2b821fca05cc0948f44b}{ColorFG}},}
-\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_ab112163b389b3a1c3a8b7fb9e2e618ab}{\_current\_theme}}-\/>\mbox{\hyperlink{structTheme_a811598412d6c377c00dba2b2d5c41ae9}{ColorBG}});}
-\DoxyCodeLine{00141\ \ \ \ \ \}}
-\DoxyCodeLine{00142\ \}}
+\DoxyCodeLine{00111\ \{}
+\DoxyCodeLine{00112\ \ \ \ \ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ align\ =\ l-\/>\mbox{\hyperlink{structLabel_aed8a69e88c43b37924a7468bc5baa86f}{Flags}}\ \&\ \mbox{\hyperlink{gui_8h_a9acfa53ba535d32d76682f5d3e893c05}{ALIGN\_MASK}};}
+\DoxyCodeLine{00113\ \ \ \ \ \textcolor{keywordflow}{if}(align\ ==\ \mbox{\hyperlink{gui_8h_a9c02b0d52f34473b26a3ef4718f31820}{FLAG\_ALIGN\_CENTER}})}
+\DoxyCodeLine{00114\ \ \ \ \ \{}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{font_8h_a1dc9a04991c7d42402c21ab6a4b933e2}{font\_string}}(}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \ \ \ \ l-\/>\mbox{\hyperlink{structLabel_a2629f98bd0014b9a91202c3812c2f6aa}{X}}\ -\/\ \mbox{\hyperlink{font_8h_af05628a74a6fb4755ad6eb075ce5f87d}{font\_string\_width}}(l-\/>\mbox{\hyperlink{structLabel_a8cb635a15fb854226819dfc612c2bbfb}{Text}},\ font\_default)\ /\ 2,}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_af9338f9b2ff9d4935cd8ea1853f5ec33}{TITLE\_BAR\_HEIGHT}}\ +\ l-\/>\mbox{\hyperlink{structLabel_aed51d95e74e5d04ff2a93ae4acd2be2e}{Y}},}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \ \ \ \ l-\/>\mbox{\hyperlink{structLabel_a8cb635a15fb854226819dfc612c2bbfb}{Text}},}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \ \ \ \ font\_default,}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_ab112163b389b3a1c3a8b7fb9e2e618ab}{\_current\_theme}}-\/>\mbox{\hyperlink{structTheme_a0a488eb8377d2b821fca05cc0948f44b}{ColorFG}},}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_ab112163b389b3a1c3a8b7fb9e2e618ab}{\_current\_theme}}-\/>\mbox{\hyperlink{structTheme_a811598412d6c377c00dba2b2d5c41ae9}{ColorBG}});}
+\DoxyCodeLine{00122\ \ \ \ \ \}}
+\DoxyCodeLine{00123\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(align\ ==\ \mbox{\hyperlink{gui_8h_acb9d2d1733e63df0fee9ee8a3174c8c1}{FLAG\_ALIGN\_RIGHT}})}
+\DoxyCodeLine{00124\ \ \ \ \ \{}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{font_8h_a1dc9a04991c7d42402c21ab6a4b933e2}{font\_string}}(}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \ \ \ \ l-\/>\mbox{\hyperlink{structLabel_a2629f98bd0014b9a91202c3812c2f6aa}{X}}\ -\/\ \mbox{\hyperlink{font_8h_af05628a74a6fb4755ad6eb075ce5f87d}{font\_string\_width}}(l-\/>\mbox{\hyperlink{structLabel_a8cb635a15fb854226819dfc612c2bbfb}{Text}},\ font\_default),}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_af9338f9b2ff9d4935cd8ea1853f5ec33}{TITLE\_BAR\_HEIGHT}}\ +\ l-\/>\mbox{\hyperlink{structLabel_aed51d95e74e5d04ff2a93ae4acd2be2e}{Y}},}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \ \ \ \ l-\/>\mbox{\hyperlink{structLabel_a8cb635a15fb854226819dfc612c2bbfb}{Text}},}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \ \ \ \ font\_default,}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_ab112163b389b3a1c3a8b7fb9e2e618ab}{\_current\_theme}}-\/>\mbox{\hyperlink{structTheme_a0a488eb8377d2b821fca05cc0948f44b}{ColorFG}},}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_ab112163b389b3a1c3a8b7fb9e2e618ab}{\_current\_theme}}-\/>\mbox{\hyperlink{structTheme_a811598412d6c377c00dba2b2d5c41ae9}{ColorBG}});}
+\DoxyCodeLine{00132\ \ \ \ \ \}}
+\DoxyCodeLine{00133\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(align\ ==\ \mbox{\hyperlink{gui_8h_a33c2d4ef645a60b81d281d55d98b9334}{FLAG\_ALIGN\_LEFT}})}
+\DoxyCodeLine{00134\ \ \ \ \ \{}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{font_8h_a1dc9a04991c7d42402c21ab6a4b933e2}{font\_string}}(}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \ \ \ \ l-\/>\mbox{\hyperlink{structLabel_a2629f98bd0014b9a91202c3812c2f6aa}{X}},}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_af9338f9b2ff9d4935cd8ea1853f5ec33}{TITLE\_BAR\_HEIGHT}}\ +\ l-\/>\mbox{\hyperlink{structLabel_aed51d95e74e5d04ff2a93ae4acd2be2e}{Y}},}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ \ \ \ \ l-\/>\mbox{\hyperlink{structLabel_a8cb635a15fb854226819dfc612c2bbfb}{Text}},}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \ \ \ \ font\_default,}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_ab112163b389b3a1c3a8b7fb9e2e618ab}{\_current\_theme}}-\/>\mbox{\hyperlink{structTheme_a0a488eb8377d2b821fca05cc0948f44b}{ColorFG}},}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_ab112163b389b3a1c3a8b7fb9e2e618ab}{\_current\_theme}}-\/>\mbox{\hyperlink{structTheme_a811598412d6c377c00dba2b2d5c41ae9}{ColorBG}});}
+\DoxyCodeLine{00142\ \ \ \ \ \}}
+\DoxyCodeLine{00143\ \}}
 
 \end{DoxyCode}
 
 
-References \mbox{\hyperlink{gui_8c_source_l00090}{\+\_\+current\+\_\+theme}}, \mbox{\hyperlink{gui_8h_source_l00026}{ALIGN\+\_\+\+MASK}}, \mbox{\hyperlink{gui_8h_source_l00125}{Theme\+::\+Color\+BG}}, \mbox{\hyperlink{gui_8h_source_l00122}{Theme\+::\+Color\+FG}}, \mbox{\hyperlink{gui_8h_source_l00032}{FLAG\+\_\+\+ALIGN\+\_\+\+CENTER}}, \mbox{\hyperlink{gui_8h_source_l00029}{FLAG\+\_\+\+ALIGN\+\_\+\+LEFT}}, \mbox{\hyperlink{gui_8h_source_l00035}{FLAG\+\_\+\+ALIGN\+\_\+\+RIGHT}}, \mbox{\hyperlink{gui_8h_source_l00053}{Label\+::\+Flags}}, \mbox{\hyperlink{font_8h_source_l00090}{font\+\_\+string()}}, \mbox{\hyperlink{font_8h_source_l00102}{font\+\_\+string\+\_\+width()}}, \mbox{\hyperlink{gui_8h_source_l00062}{Label\+::\+Text}}, \mbox{\hyperlink{gui_8c_source_l00017}{TITLE\+\_\+\+BAR\+\_\+\+HEIGHT}}, \mbox{\hyperlink{gui_8h_source_l00056}{Label\+::X}}, and \mbox{\hyperlink{gui_8h_source_l00059}{Label\+::Y}}.
+References \mbox{\hyperlink{gui_8c_source_l00091}{\+\_\+current\+\_\+theme}}, \mbox{\hyperlink{gui_8h_source_l00026}{ALIGN\+\_\+\+MASK}}, \mbox{\hyperlink{gui_8h_source_l00125}{Theme\+::\+Color\+BG}}, \mbox{\hyperlink{gui_8h_source_l00122}{Theme\+::\+Color\+FG}}, \mbox{\hyperlink{gui_8h_source_l00032}{FLAG\+\_\+\+ALIGN\+\_\+\+CENTER}}, \mbox{\hyperlink{gui_8h_source_l00029}{FLAG\+\_\+\+ALIGN\+\_\+\+LEFT}}, \mbox{\hyperlink{gui_8h_source_l00035}{FLAG\+\_\+\+ALIGN\+\_\+\+RIGHT}}, \mbox{\hyperlink{gui_8h_source_l00053}{Label\+::\+Flags}}, \mbox{\hyperlink{font_8h_source_l00090}{font\+\_\+string()}}, \mbox{\hyperlink{font_8h_source_l00102}{font\+\_\+string\+\_\+width()}}, \mbox{\hyperlink{gui_8h_source_l00062}{Label\+::\+Text}}, \mbox{\hyperlink{gui_8c_source_l00018}{TITLE\+\_\+\+BAR\+\_\+\+HEIGHT}}, \mbox{\hyperlink{gui_8h_source_l00056}{Label\+::X}}, and \mbox{\hyperlink{gui_8h_source_l00059}{Label\+::Y}}.
 
 
 
-Referenced by \mbox{\hyperlink{gui_8c_source_l00602}{element\+\_\+render\+\_\+sel()}}.
+Referenced by \mbox{\hyperlink{gui_8c_source_l00619}{element\+\_\+render\+\_\+sel()}}.
+
+\mbox{\Hypertarget{gui_8c_a2ba4bbad9d65d52684578a80e4f9a023}\label{gui_8c_a2ba4bbad9d65d52684578a80e4f9a023}} 
+\index{gui.c@{gui.c}!theme\_default@{theme\_default}}
+\index{theme\_default@{theme\_default}!gui.c@{gui.c}}
+\doxysubsubsection{\texorpdfstring{theme\_default()}{theme\_default()}}
+{\footnotesize\ttfamily void theme\+\_\+default (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Reset the current GUI \mbox{\hyperlink{structTheme}{Theme}} to default values. 
+
+
+
+Definition at line \mbox{\hyperlink{gui_8c_source_l00881}{881}} of file \mbox{\hyperlink{gui_8c_source}{gui.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00882\ \{}
+\DoxyCodeLine{00883\ \ \ \ \ \mbox{\hyperlink{gui_8c_ab112163b389b3a1c3a8b7fb9e2e618ab}{\_current\_theme}}\ =\ \&\mbox{\hyperlink{gui_8c_ad1816d25e7fa1aba27fcd7944140f6fa}{\_default\_theme}};}
+\DoxyCodeLine{00884\ \}}
+
+\end{DoxyCode}
+
+
+References \mbox{\hyperlink{gui_8c_source_l00091}{\+\_\+current\+\_\+theme}}, and \mbox{\hyperlink{gui_8c_source_l00076}{\+\_\+default\+\_\+theme}}.
+
+\mbox{\Hypertarget{gui_8c_a9cbbc38de3ef2b9805bbaf186f67c88f}\label{gui_8c_a9cbbc38de3ef2b9805bbaf186f67c88f}} 
+\index{gui.c@{gui.c}!theme\_set@{theme\_set}}
+\index{theme\_set@{theme\_set}!gui.c@{gui.c}}
+\doxysubsubsection{\texorpdfstring{theme\_set()}{theme\_set()}}
+{\footnotesize\ttfamily void theme\+\_\+set (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structTheme}{Theme}} $\ast$}]{theme }\end{DoxyParamCaption})}
+
+
+
+Set the current GUI \mbox{\hyperlink{structTheme}{Theme}}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em theme} & Pointer to new theme \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{gui_8c_source_l00876}{876}} of file \mbox{\hyperlink{gui_8c_source}{gui.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00877\ \{}
+\DoxyCodeLine{00878\ \ \ \ \ \mbox{\hyperlink{gui_8c_ab112163b389b3a1c3a8b7fb9e2e618ab}{\_current\_theme}}\ =\ theme;}
+\DoxyCodeLine{00879\ \}}
+
+\end{DoxyCode}
+
+
+References \mbox{\hyperlink{gui_8c_source_l00091}{\+\_\+current\+\_\+theme}}.
 
 \mbox{\Hypertarget{gui_8c_a7e2a9214dff60b9245fc4e1d089128b7}\label{gui_8c_a7e2a9214dff60b9245fc4e1d089128b7}} 
 \index{gui.c@{gui.c}!window\_event\_key@{window\_event\_key}}
@@ -1752,66 +1866,66 @@ Forward a key event to the currently open window.
 \end{DoxyParams}
 
 
-Definition at line \mbox{\hyperlink{gui_8c_source_l00764}{764}} of file \mbox{\hyperlink{gui_8c_source}{gui.\+c}}.
+Definition at line \mbox{\hyperlink{gui_8c_source_l00781}{781}} of file \mbox{\hyperlink{gui_8c_source}{gui.\+c}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00765\ \{}
-\DoxyCodeLine{00766\ \ \ \ \ \textcolor{keywordtype}{void}\ *ce;}
-\DoxyCodeLine{00767\ \ \ \ \ \textcolor{keywordflow}{if}(!\mbox{\hyperlink{gui_8c_ad5d0b2500a195799bc05a5ebc47626f8}{\_current\_window}})}
-\DoxyCodeLine{00768\ \ \ \ \ \{}
-\DoxyCodeLine{00769\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
-\DoxyCodeLine{00770\ \ \ \ \ \}}
-\DoxyCodeLine{00771\ }
-\DoxyCodeLine{00772\ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{gui_8c_ad5d0b2500a195799bc05a5ebc47626f8}{\_current\_window}}-\/>\mbox{\hyperlink{structWindow_ab3273bd0387fcd2621d77720e68511a6}{OnKey}})}
-\DoxyCodeLine{00773\ \ \ \ \ \{}
-\DoxyCodeLine{00774\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_ad5d0b2500a195799bc05a5ebc47626f8}{\_current\_window}}-\/>\mbox{\hyperlink{structWindow_ab3273bd0387fcd2621d77720e68511a6}{OnKey}}(key,\ chr,\ state);}
-\DoxyCodeLine{00775\ \ \ \ \ \}}
-\DoxyCodeLine{00776\ }
-\DoxyCodeLine{00777\ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{gui_8c_ad5d0b2500a195799bc05a5ebc47626f8}{\_current\_window}}-\/>\mbox{\hyperlink{structWindow_ad0a63551c2486da4b5eae5d3e0f4f5ff}{Selected}}\ <\ 0)}
-\DoxyCodeLine{00778\ \ \ \ \ \{}
-\DoxyCodeLine{00779\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
-\DoxyCodeLine{00780\ \ \ \ \ \}}
-\DoxyCodeLine{00781\ }
-\DoxyCodeLine{00782\ \ \ \ \ \textcolor{keywordflow}{if}(state\ ==\ KEYSTATE\_RELEASED)}
-\DoxyCodeLine{00783\ \ \ \ \ \{}
-\DoxyCodeLine{00784\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
-\DoxyCodeLine{00785\ \ \ \ \ \}}
-\DoxyCodeLine{00786\ }
-\DoxyCodeLine{00787\ \ \ \ \ ce\ =\ \mbox{\hyperlink{gui_8c_ad5d0b2500a195799bc05a5ebc47626f8}{\_current\_window}}-\/>\mbox{\hyperlink{structWindow_af936e5270a419a30a5fcf754cdd6bb8b}{Elements}}[\mbox{\hyperlink{gui_8c_ad5d0b2500a195799bc05a5ebc47626f8}{\_current\_window}}-\/>\mbox{\hyperlink{structWindow_ad0a63551c2486da4b5eae5d3e0f4f5ff}{Selected}}];}
-\DoxyCodeLine{00788\ \ \ \ \ \textcolor{keywordflow}{if}(key\ ==\ KEY\_TAB)}
-\DoxyCodeLine{00789\ \ \ \ \ \{}
-\DoxyCodeLine{00790\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_aa2ea7b20f969b7232c7f7b8cb04e44b7}{element\_next}}();}
-\DoxyCodeLine{00791\ \ \ \ \ \}}
-\DoxyCodeLine{00792\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(key\ ==\ (KEY\_TAB\ |\ MOD\_SHIFT))}
-\DoxyCodeLine{00793\ \ \ \ \ \{}
-\DoxyCodeLine{00794\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_a6b1ac6c72d1a01624d9859e8d2860c31}{element\_prev}}();}
-\DoxyCodeLine{00795\ \ \ \ \ \}}
-\DoxyCodeLine{00796\ \ \ \ \ \textcolor{keywordflow}{else}}
-\DoxyCodeLine{00797\ \ \ \ \ \{}
-\DoxyCodeLine{00798\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8h_a16b11be27a8e9362dd122c4d879e01ae}{ElementType}}\ type\ =\ ((\mbox{\hyperlink{structElement}{Element}}\ *)ce)-\/>Type;}
-\DoxyCodeLine{00799\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(type\ ==\ ELEMENT\_TYPE\_BUTTON)}
-\DoxyCodeLine{00800\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00801\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(key\ ==\ KEY\_RETURN)}
-\DoxyCodeLine{00802\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00803\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structButton}{Button}}\ *b\ =\ ce;}
-\DoxyCodeLine{00804\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(b-\/>\mbox{\hyperlink{structButton_a5e606ec3ff0434d8e36fa6274200e603}{Click}})}
-\DoxyCodeLine{00805\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00806\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ b-\/>\mbox{\hyperlink{structButton_a5e606ec3ff0434d8e36fa6274200e603}{Click}}();}
-\DoxyCodeLine{00807\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00808\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00809\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00810\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(type\ ==\ ELEMENT\_TYPE\_INPUT)}
-\DoxyCodeLine{00811\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00812\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_afd35df2c3c56a5cd8fd56651c6bbf47a}{input\_event\_key}}((\mbox{\hyperlink{structInput}{Input}}\ *)ce,\ key,\ chr);}
-\DoxyCodeLine{00813\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00814\ \ \ \ \ \}}
-\DoxyCodeLine{00815\ \}}
+\DoxyCodeLine{00782\ \{}
+\DoxyCodeLine{00783\ \ \ \ \ \textcolor{keywordtype}{void}\ *ce;}
+\DoxyCodeLine{00784\ \ \ \ \ \textcolor{keywordflow}{if}(!\mbox{\hyperlink{gui_8c_ad5d0b2500a195799bc05a5ebc47626f8}{\_current\_window}})}
+\DoxyCodeLine{00785\ \ \ \ \ \{}
+\DoxyCodeLine{00786\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00787\ \ \ \ \ \}}
+\DoxyCodeLine{00788\ }
+\DoxyCodeLine{00789\ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{gui_8c_ad5d0b2500a195799bc05a5ebc47626f8}{\_current\_window}}-\/>\mbox{\hyperlink{structWindow_ab3273bd0387fcd2621d77720e68511a6}{OnKey}})}
+\DoxyCodeLine{00790\ \ \ \ \ \{}
+\DoxyCodeLine{00791\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_ad5d0b2500a195799bc05a5ebc47626f8}{\_current\_window}}-\/>\mbox{\hyperlink{structWindow_ab3273bd0387fcd2621d77720e68511a6}{OnKey}}(key,\ chr,\ state);}
+\DoxyCodeLine{00792\ \ \ \ \ \}}
+\DoxyCodeLine{00793\ }
+\DoxyCodeLine{00794\ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{gui_8c_ad5d0b2500a195799bc05a5ebc47626f8}{\_current\_window}}-\/>\mbox{\hyperlink{structWindow_ad0a63551c2486da4b5eae5d3e0f4f5ff}{Selected}}\ <\ 0)}
+\DoxyCodeLine{00795\ \ \ \ \ \{}
+\DoxyCodeLine{00796\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00797\ \ \ \ \ \}}
+\DoxyCodeLine{00798\ }
+\DoxyCodeLine{00799\ \ \ \ \ \textcolor{keywordflow}{if}(state\ ==\ KEYSTATE\_RELEASED)}
+\DoxyCodeLine{00800\ \ \ \ \ \{}
+\DoxyCodeLine{00801\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00802\ \ \ \ \ \}}
+\DoxyCodeLine{00803\ }
+\DoxyCodeLine{00804\ \ \ \ \ ce\ =\ \mbox{\hyperlink{gui_8c_ad5d0b2500a195799bc05a5ebc47626f8}{\_current\_window}}-\/>\mbox{\hyperlink{structWindow_af936e5270a419a30a5fcf754cdd6bb8b}{Elements}}[\mbox{\hyperlink{gui_8c_ad5d0b2500a195799bc05a5ebc47626f8}{\_current\_window}}-\/>\mbox{\hyperlink{structWindow_ad0a63551c2486da4b5eae5d3e0f4f5ff}{Selected}}];}
+\DoxyCodeLine{00805\ \ \ \ \ \textcolor{keywordflow}{if}(key\ ==\ KEY\_TAB)}
+\DoxyCodeLine{00806\ \ \ \ \ \{}
+\DoxyCodeLine{00807\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_aa2ea7b20f969b7232c7f7b8cb04e44b7}{element\_next}}();}
+\DoxyCodeLine{00808\ \ \ \ \ \}}
+\DoxyCodeLine{00809\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(key\ ==\ (KEY\_TAB\ |\ MOD\_SHIFT))}
+\DoxyCodeLine{00810\ \ \ \ \ \{}
+\DoxyCodeLine{00811\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_a6b1ac6c72d1a01624d9859e8d2860c31}{element\_prev}}();}
+\DoxyCodeLine{00812\ \ \ \ \ \}}
+\DoxyCodeLine{00813\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00814\ \ \ \ \ \{}
+\DoxyCodeLine{00815\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8h_a16b11be27a8e9362dd122c4d879e01ae}{ElementType}}\ type\ =\ ((\mbox{\hyperlink{structElement}{Element}}\ *)ce)-\/>Type;}
+\DoxyCodeLine{00816\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(type\ ==\ ELEMENT\_TYPE\_BUTTON)}
+\DoxyCodeLine{00817\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00818\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(key\ ==\ KEY\_RETURN)}
+\DoxyCodeLine{00819\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00820\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structButton}{Button}}\ *b\ =\ ce;}
+\DoxyCodeLine{00821\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(b-\/>\mbox{\hyperlink{structButton_a5e606ec3ff0434d8e36fa6274200e603}{Click}})}
+\DoxyCodeLine{00822\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00823\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ b-\/>\mbox{\hyperlink{structButton_a5e606ec3ff0434d8e36fa6274200e603}{Click}}();}
+\DoxyCodeLine{00824\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00825\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00826\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00827\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(type\ ==\ ELEMENT\_TYPE\_INPUT)}
+\DoxyCodeLine{00828\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00829\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_afd35df2c3c56a5cd8fd56651c6bbf47a}{input\_event\_key}}((\mbox{\hyperlink{structInput}{Input}}\ *)ce,\ key,\ chr);}
+\DoxyCodeLine{00830\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00831\ \ \ \ \ \}}
+\DoxyCodeLine{00832\ \}}
 
 \end{DoxyCode}
 
 
-References \mbox{\hyperlink{gui_8c_source_l00072}{\+\_\+current\+\_\+window}}, \mbox{\hyperlink{gui_8h_source_l00087}{Button\+::\+Click}}, \mbox{\hyperlink{gui_8c_source_l00671}{element\+\_\+next()}}, \mbox{\hyperlink{gui_8c_source_l00697}{element\+\_\+prev()}}, \mbox{\hyperlink{gui_8h_source_l00159}{Window\+::\+Elements}}, \mbox{\hyperlink{gui_8c_source_l00530}{input\+\_\+event\+\_\+key()}}, \mbox{\hyperlink{gui_8h_source_l00168}{Window\+::\+On\+Key}}, and \mbox{\hyperlink{gui_8h_source_l00165}{Window\+::\+Selected}}.
+References \mbox{\hyperlink{gui_8c_source_l00073}{\+\_\+current\+\_\+window}}, \mbox{\hyperlink{gui_8h_source_l00087}{Button\+::\+Click}}, \mbox{\hyperlink{gui_8c_source_l00688}{element\+\_\+next()}}, \mbox{\hyperlink{gui_8c_source_l00714}{element\+\_\+prev()}}, \mbox{\hyperlink{gui_8h_source_l00159}{Window\+::\+Elements}}, \mbox{\hyperlink{gui_8c_source_l00547}{input\+\_\+event\+\_\+key()}}, \mbox{\hyperlink{gui_8h_source_l00168}{Window\+::\+On\+Key}}, and \mbox{\hyperlink{gui_8h_source_l00165}{Window\+::\+Selected}}.
 
 \mbox{\Hypertarget{gui_8c_a51313c00040b7eec516823f7b31f8eed}\label{gui_8c_a51313c00040b7eec516823f7b31f8eed}} 
 \index{gui.c@{gui.c}!window\_init@{window\_init}}
@@ -1838,17 +1952,17 @@ Initialize a window.
 \end{DoxyParams}
 
 
-Definition at line \mbox{\hyperlink{gui_8c_source_l00817}{817}} of file \mbox{\hyperlink{gui_8c_source}{gui.\+c}}.
+Definition at line \mbox{\hyperlink{gui_8c_source_l00834}{834}} of file \mbox{\hyperlink{gui_8c_source}{gui.\+c}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00819\ \{}
-\DoxyCodeLine{00820\ \ \ \ \ window-\/>\mbox{\hyperlink{structWindow_ad0a63551c2486da4b5eae5d3e0f4f5ff}{Selected}}\ =\ -\/1;}
-\DoxyCodeLine{00821\ \ \ \ \ window-\/>\mbox{\hyperlink{structWindow_a4810e08776237d1e32d19f4a283df3b9}{Title}}\ =\ title;}
-\DoxyCodeLine{00822\ \ \ \ \ window-\/>\mbox{\hyperlink{structWindow_af936e5270a419a30a5fcf754cdd6bb8b}{Elements}}\ =\ elems;}
-\DoxyCodeLine{00823\ \ \ \ \ window-\/>\mbox{\hyperlink{structWindow_a559d31d99c1ed4ea63db05ae3a439faf}{Count}}\ =\ count;}
-\DoxyCodeLine{00824\ \ \ \ \ window-\/>\mbox{\hyperlink{structWindow_ab3273bd0387fcd2621d77720e68511a6}{OnKey}}\ =\ onkey;}
-\DoxyCodeLine{00825\ \}}
+\DoxyCodeLine{00836\ \{}
+\DoxyCodeLine{00837\ \ \ \ \ window-\/>\mbox{\hyperlink{structWindow_ad0a63551c2486da4b5eae5d3e0f4f5ff}{Selected}}\ =\ -\/1;}
+\DoxyCodeLine{00838\ \ \ \ \ window-\/>\mbox{\hyperlink{structWindow_a4810e08776237d1e32d19f4a283df3b9}{Title}}\ =\ title;}
+\DoxyCodeLine{00839\ \ \ \ \ window-\/>\mbox{\hyperlink{structWindow_af936e5270a419a30a5fcf754cdd6bb8b}{Elements}}\ =\ elems;}
+\DoxyCodeLine{00840\ \ \ \ \ window-\/>\mbox{\hyperlink{structWindow_a559d31d99c1ed4ea63db05ae3a439faf}{Count}}\ =\ count;}
+\DoxyCodeLine{00841\ \ \ \ \ window-\/>\mbox{\hyperlink{structWindow_ab3273bd0387fcd2621d77720e68511a6}{OnKey}}\ =\ onkey;}
+\DoxyCodeLine{00842\ \}}
 
 \end{DoxyCode}
 
@@ -1872,24 +1986,24 @@ Open and render a window.
 \end{DoxyParams}
 
 
-Definition at line \mbox{\hyperlink{gui_8c_source_l00753}{753}} of file \mbox{\hyperlink{gui_8c_source}{gui.\+c}}.
+Definition at line \mbox{\hyperlink{gui_8c_source_l00770}{770}} of file \mbox{\hyperlink{gui_8c_source}{gui.\+c}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00754\ \{}
-\DoxyCodeLine{00755\ \ \ \ \ \mbox{\hyperlink{gui_8c_ad5d0b2500a195799bc05a5ebc47626f8}{\_current\_window}}\ =\ window;}
-\DoxyCodeLine{00756\ \ \ \ \ \textcolor{keywordflow}{if}(window-\/>\mbox{\hyperlink{structWindow_ad0a63551c2486da4b5eae5d3e0f4f5ff}{Selected}}\ <\ 0)}
-\DoxyCodeLine{00757\ \ \ \ \ \{}
-\DoxyCodeLine{00758\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_a98f406c5585d125a3729c39bf7a245dc}{element\_first}}();}
-\DoxyCodeLine{00759\ \ \ \ \ \}}
-\DoxyCodeLine{00760\ }
-\DoxyCodeLine{00761\ \ \ \ \ \mbox{\hyperlink{gui_8c_ae838b0eff4dcce9d653f5d1021a6f754}{window\_render}}(window);}
-\DoxyCodeLine{00762\ \}}
+\DoxyCodeLine{00771\ \{}
+\DoxyCodeLine{00772\ \ \ \ \ \mbox{\hyperlink{gui_8c_ad5d0b2500a195799bc05a5ebc47626f8}{\_current\_window}}\ =\ window;}
+\DoxyCodeLine{00773\ \ \ \ \ \textcolor{keywordflow}{if}(window-\/>\mbox{\hyperlink{structWindow_ad0a63551c2486da4b5eae5d3e0f4f5ff}{Selected}}\ <\ 0)}
+\DoxyCodeLine{00774\ \ \ \ \ \{}
+\DoxyCodeLine{00775\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_a98f406c5585d125a3729c39bf7a245dc}{element\_first}}();}
+\DoxyCodeLine{00776\ \ \ \ \ \}}
+\DoxyCodeLine{00777\ }
+\DoxyCodeLine{00778\ \ \ \ \ \mbox{\hyperlink{gui_8c_ae838b0eff4dcce9d653f5d1021a6f754}{window\_render}}(window);}
+\DoxyCodeLine{00779\ \}}
 
 \end{DoxyCode}
 
 
-References \mbox{\hyperlink{gui_8c_source_l00072}{\+\_\+current\+\_\+window}}, \mbox{\hyperlink{gui_8c_source_l00655}{element\+\_\+first()}}, \mbox{\hyperlink{gui_8h_source_l00165}{Window\+::\+Selected}}, and \mbox{\hyperlink{gui_8c_source_l00727}{window\+\_\+render()}}.
+References \mbox{\hyperlink{gui_8c_source_l00073}{\+\_\+current\+\_\+window}}, \mbox{\hyperlink{gui_8c_source_l00672}{element\+\_\+first()}}, \mbox{\hyperlink{gui_8h_source_l00165}{Window\+::\+Selected}}, and \mbox{\hyperlink{gui_8c_source_l00744}{window\+\_\+render()}}.
 
 \mbox{\Hypertarget{gui_8c_ae838b0eff4dcce9d653f5d1021a6f754}\label{gui_8c_ae838b0eff4dcce9d653f5d1021a6f754}} 
 \index{gui.c@{gui.c}!window\_render@{window\_render}}
@@ -1908,43 +2022,43 @@ Draw a window.
 \end{DoxyParams}
 
 
-Definition at line \mbox{\hyperlink{gui_8c_source_l00727}{727}} of file \mbox{\hyperlink{gui_8c_source}{gui.\+c}}.
+Definition at line \mbox{\hyperlink{gui_8c_source_l00744}{744}} of file \mbox{\hyperlink{gui_8c_source}{gui.\+c}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00728\ \{}
-\DoxyCodeLine{00729\ \ \ \ \ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ i;}
-\DoxyCodeLine{00730\ }
-\DoxyCodeLine{00731\ \ \ \ \ \textcolor{comment}{/*\ Title\ Bar\ */}}
-\DoxyCodeLine{00732\ \ \ \ \ \mbox{\hyperlink{gfx_8c_a61d70a4550bf181cd71bfc9a4f12a6d1}{gfx\_rect}}(0,\ 0,\ \mbox{\hyperlink{gfx_8h_aae91ae7a3ca585293a2c1031652a49f9}{GFX\_WIDTH}},\ \mbox{\hyperlink{gui_8c_af9338f9b2ff9d4935cd8ea1853f5ec33}{TITLE\_BAR\_HEIGHT}}\ -\/\ 1,}
-\DoxyCodeLine{00733\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_ab112163b389b3a1c3a8b7fb9e2e618ab}{\_current\_theme}}-\/>\mbox{\hyperlink{structTheme_ae1c60ff9d861a59c11f4ccb5f78cc083}{ColorTitleBar}});}
-\DoxyCodeLine{00734\ }
-\DoxyCodeLine{00735\ \ \ \ \ \mbox{\hyperlink{gfx_8c_a61d70a4550bf181cd71bfc9a4f12a6d1}{gfx\_rect}}(0,\ \mbox{\hyperlink{gui_8c_af9338f9b2ff9d4935cd8ea1853f5ec33}{TITLE\_BAR\_HEIGHT}}\ -\/\ 1,\ \mbox{\hyperlink{gfx_8h_aae91ae7a3ca585293a2c1031652a49f9}{GFX\_WIDTH}},\ 1,}
-\DoxyCodeLine{00736\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_ab112163b389b3a1c3a8b7fb9e2e618ab}{\_current\_theme}}-\/>\mbox{\hyperlink{structTheme_a0a488eb8377d2b821fca05cc0948f44b}{ColorFG}});}
-\DoxyCodeLine{00737\ }
-\DoxyCodeLine{00738\ \ \ \ \ \textcolor{comment}{/*\ Background\ */}}
-\DoxyCodeLine{00739\ \ \ \ \ \mbox{\hyperlink{gfx_8c_a61d70a4550bf181cd71bfc9a4f12a6d1}{gfx\_rect}}(0,\ \mbox{\hyperlink{gui_8c_af9338f9b2ff9d4935cd8ea1853f5ec33}{TITLE\_BAR\_HEIGHT}},\ \mbox{\hyperlink{gfx_8h_aae91ae7a3ca585293a2c1031652a49f9}{GFX\_WIDTH}},\ \mbox{\hyperlink{gfx_8h_a11b59534db467ebd1fb19b758e6fffd7}{GFX\_HEIGHT}}\ -\/\ \mbox{\hyperlink{gui_8c_af9338f9b2ff9d4935cd8ea1853f5ec33}{TITLE\_BAR\_HEIGHT}},}
-\DoxyCodeLine{00740\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_ab112163b389b3a1c3a8b7fb9e2e618ab}{\_current\_theme}}-\/>\mbox{\hyperlink{structTheme_a811598412d6c377c00dba2b2d5c41ae9}{ColorBG}});}
-\DoxyCodeLine{00741\ }
-\DoxyCodeLine{00742\ \ \ \ \ \textcolor{comment}{/*\ Title\ */}}
-\DoxyCodeLine{00743\ \ \ \ \ \mbox{\hyperlink{font_8h_a1dc9a04991c7d42402c21ab6a4b933e2}{font\_string}}(\mbox{\hyperlink{gui_8c_a3b3168eb8fb2ed4ef6c3e4d7ffea94be}{TITLE\_OFFSET\_X}},\ \mbox{\hyperlink{gui_8c_a42b1d9dbef934ab2c0f0492e5669b2bf}{TITLE\_OFFSET\_Y}},\ window-\/>\mbox{\hyperlink{structWindow_a4810e08776237d1e32d19f4a283df3b9}{Title}},}
-\DoxyCodeLine{00744\ \ \ \ \ \ \ \ \ font\_default,\ \mbox{\hyperlink{gui_8c_ab112163b389b3a1c3a8b7fb9e2e618ab}{\_current\_theme}}-\/>\mbox{\hyperlink{structTheme_a0a488eb8377d2b821fca05cc0948f44b}{ColorFG}},}
-\DoxyCodeLine{00745\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_ab112163b389b3a1c3a8b7fb9e2e618ab}{\_current\_theme}}-\/>\mbox{\hyperlink{structTheme_ae1c60ff9d861a59c11f4ccb5f78cc083}{ColorTitleBar}});}
-\DoxyCodeLine{00746\ }
-\DoxyCodeLine{00747\ \ \ \ \ \textcolor{keywordflow}{for}(i\ =\ 0;\ i\ <\ window-\/>\mbox{\hyperlink{structWindow_a559d31d99c1ed4ea63db05ae3a439faf}{Count}};\ ++i)}
-\DoxyCodeLine{00748\ \ \ \ \ \{}
-\DoxyCodeLine{00749\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_a09cbd26ea16563c14843cbfa65bc9271}{element\_render}}(window-\/>\mbox{\hyperlink{structWindow_af936e5270a419a30a5fcf754cdd6bb8b}{Elements}}[i]);}
-\DoxyCodeLine{00750\ \ \ \ \ \}}
-\DoxyCodeLine{00751\ \}}
+\DoxyCodeLine{00745\ \{}
+\DoxyCodeLine{00746\ \ \ \ \ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ i;}
+\DoxyCodeLine{00747\ }
+\DoxyCodeLine{00748\ \ \ \ \ \textcolor{comment}{/*\ Title\ Bar\ */}}
+\DoxyCodeLine{00749\ \ \ \ \ \mbox{\hyperlink{gfx_8c_a61d70a4550bf181cd71bfc9a4f12a6d1}{gfx\_rect}}(0,\ 0,\ GFX\_WIDTH,\ \mbox{\hyperlink{gui_8c_af9338f9b2ff9d4935cd8ea1853f5ec33}{TITLE\_BAR\_HEIGHT}}\ -\/\ 1,}
+\DoxyCodeLine{00750\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_ab112163b389b3a1c3a8b7fb9e2e618ab}{\_current\_theme}}-\/>\mbox{\hyperlink{structTheme_ae1c60ff9d861a59c11f4ccb5f78cc083}{ColorTitleBar}});}
+\DoxyCodeLine{00751\ }
+\DoxyCodeLine{00752\ \ \ \ \ \mbox{\hyperlink{gfx_8c_a61d70a4550bf181cd71bfc9a4f12a6d1}{gfx\_rect}}(0,\ \mbox{\hyperlink{gui_8c_af9338f9b2ff9d4935cd8ea1853f5ec33}{TITLE\_BAR\_HEIGHT}}\ -\/\ 1,\ GFX\_WIDTH,\ 1,}
+\DoxyCodeLine{00753\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_ab112163b389b3a1c3a8b7fb9e2e618ab}{\_current\_theme}}-\/>\mbox{\hyperlink{structTheme_a0a488eb8377d2b821fca05cc0948f44b}{ColorFG}});}
+\DoxyCodeLine{00754\ }
+\DoxyCodeLine{00755\ \ \ \ \ \textcolor{comment}{/*\ Background\ */}}
+\DoxyCodeLine{00756\ \ \ \ \ \mbox{\hyperlink{gfx_8c_a61d70a4550bf181cd71bfc9a4f12a6d1}{gfx\_rect}}(0,\ \mbox{\hyperlink{gui_8c_af9338f9b2ff9d4935cd8ea1853f5ec33}{TITLE\_BAR\_HEIGHT}},\ GFX\_WIDTH,\ GFX\_HEIGHT\ -\/\ \mbox{\hyperlink{gui_8c_af9338f9b2ff9d4935cd8ea1853f5ec33}{TITLE\_BAR\_HEIGHT}},}
+\DoxyCodeLine{00757\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_ab112163b389b3a1c3a8b7fb9e2e618ab}{\_current\_theme}}-\/>\mbox{\hyperlink{structTheme_a811598412d6c377c00dba2b2d5c41ae9}{ColorBG}});}
+\DoxyCodeLine{00758\ }
+\DoxyCodeLine{00759\ \ \ \ \ \textcolor{comment}{/*\ Title\ */}}
+\DoxyCodeLine{00760\ \ \ \ \ \mbox{\hyperlink{font_8h_a1dc9a04991c7d42402c21ab6a4b933e2}{font\_string}}(\mbox{\hyperlink{gui_8c_a3b3168eb8fb2ed4ef6c3e4d7ffea94be}{TITLE\_OFFSET\_X}},\ \mbox{\hyperlink{gui_8c_a42b1d9dbef934ab2c0f0492e5669b2bf}{TITLE\_OFFSET\_Y}},\ window-\/>\mbox{\hyperlink{structWindow_a4810e08776237d1e32d19f4a283df3b9}{Title}},}
+\DoxyCodeLine{00761\ \ \ \ \ \ \ \ \ font\_default,\ \mbox{\hyperlink{gui_8c_ab112163b389b3a1c3a8b7fb9e2e618ab}{\_current\_theme}}-\/>\mbox{\hyperlink{structTheme_a0a488eb8377d2b821fca05cc0948f44b}{ColorFG}},}
+\DoxyCodeLine{00762\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_ab112163b389b3a1c3a8b7fb9e2e618ab}{\_current\_theme}}-\/>\mbox{\hyperlink{structTheme_ae1c60ff9d861a59c11f4ccb5f78cc083}{ColorTitleBar}});}
+\DoxyCodeLine{00763\ }
+\DoxyCodeLine{00764\ \ \ \ \ \textcolor{keywordflow}{for}(i\ =\ 0;\ i\ <\ window-\/>\mbox{\hyperlink{structWindow_a559d31d99c1ed4ea63db05ae3a439faf}{Count}};\ ++i)}
+\DoxyCodeLine{00765\ \ \ \ \ \{}
+\DoxyCodeLine{00766\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gui_8c_a09cbd26ea16563c14843cbfa65bc9271}{element\_render}}(window-\/>\mbox{\hyperlink{structWindow_af936e5270a419a30a5fcf754cdd6bb8b}{Elements}}[i]);}
+\DoxyCodeLine{00767\ \ \ \ \ \}}
+\DoxyCodeLine{00768\ \}}
 
 \end{DoxyCode}
 
 
-References \mbox{\hyperlink{gui_8c_source_l00090}{\+\_\+current\+\_\+theme}}, \mbox{\hyperlink{gui_8h_source_l00125}{Theme\+::\+Color\+BG}}, \mbox{\hyperlink{gui_8h_source_l00122}{Theme\+::\+Color\+FG}}, \mbox{\hyperlink{gui_8h_source_l00149}{Theme\+::\+Color\+Title\+Bar}}, \mbox{\hyperlink{gui_8h_source_l00162}{Window\+::\+Count}}, \mbox{\hyperlink{gui_8c_source_l00620}{element\+\_\+render()}}, \mbox{\hyperlink{gui_8h_source_l00159}{Window\+::\+Elements}}, \mbox{\hyperlink{font_8h_source_l00090}{font\+\_\+string()}}, \mbox{\hyperlink{gfx_8h_source_l00023}{GFX\+\_\+\+HEIGHT}}, \mbox{\hyperlink{gfx_8c_source_l00011}{gfx\+\_\+rect()}}, \mbox{\hyperlink{gfx_8h_source_l00020}{GFX\+\_\+\+WIDTH}}, \mbox{\hyperlink{gui_8h_source_l00156}{Window\+::\+Title}}, \mbox{\hyperlink{gui_8c_source_l00017}{TITLE\+\_\+\+BAR\+\_\+\+HEIGHT}}, \mbox{\hyperlink{gui_8c_source_l00020}{TITLE\+\_\+\+OFFSET\+\_\+X}}, and \mbox{\hyperlink{gui_8c_source_l00023}{TITLE\+\_\+\+OFFSET\+\_\+Y}}.
+References \mbox{\hyperlink{gui_8c_source_l00091}{\+\_\+current\+\_\+theme}}, \mbox{\hyperlink{gui_8h_source_l00125}{Theme\+::\+Color\+BG}}, \mbox{\hyperlink{gui_8h_source_l00122}{Theme\+::\+Color\+FG}}, \mbox{\hyperlink{gui_8h_source_l00149}{Theme\+::\+Color\+Title\+Bar}}, \mbox{\hyperlink{gui_8h_source_l00162}{Window\+::\+Count}}, \mbox{\hyperlink{gui_8c_source_l00637}{element\+\_\+render()}}, \mbox{\hyperlink{gui_8h_source_l00159}{Window\+::\+Elements}}, \mbox{\hyperlink{font_8h_source_l00090}{font\+\_\+string()}}, \mbox{\hyperlink{gfx_8c_source_l00011}{gfx\+\_\+rect()}}, \mbox{\hyperlink{gui_8h_source_l00156}{Window\+::\+Title}}, \mbox{\hyperlink{gui_8c_source_l00018}{TITLE\+\_\+\+BAR\+\_\+\+HEIGHT}}, \mbox{\hyperlink{gui_8c_source_l00021}{TITLE\+\_\+\+OFFSET\+\_\+X}}, and \mbox{\hyperlink{gui_8c_source_l00024}{TITLE\+\_\+\+OFFSET\+\_\+Y}}.
 
 
 
-Referenced by \mbox{\hyperlink{gui_8c_source_l00753}{window\+\_\+open()}}.
+Referenced by \mbox{\hyperlink{gui_8c_source_l00770}{window\+\_\+open()}}.
 
 
 
@@ -1957,11 +2071,11 @@ Referenced by \mbox{\hyperlink{gui_8c_source_l00753}{window\+\_\+open()}}.
 
 Pointer to the currently used theme 
 
-Definition at line \mbox{\hyperlink{gui_8c_source_l00090}{90}} of file \mbox{\hyperlink{gui_8c_source}{gui.\+c}}.
+Definition at line \mbox{\hyperlink{gui_8c_source_l00091}{91}} of file \mbox{\hyperlink{gui_8c_source}{gui.\+c}}.
 
 
 
-Referenced by \mbox{\hyperlink{gui_8c_source_l00152}{button\+\_\+render()}}, \mbox{\hyperlink{gui_8c_source_l00190}{input\+\_\+render()}}, \mbox{\hyperlink{gui_8c_source_l00109}{label\+\_\+render()}}, and \mbox{\hyperlink{gui_8c_source_l00727}{window\+\_\+render()}}.
+Referenced by \mbox{\hyperlink{gui_8c_source_l00153}{button\+\_\+render()}}, \mbox{\hyperlink{gui_8c_source_l00191}{input\+\_\+render()}}, \mbox{\hyperlink{gui_8c_source_l00110}{label\+\_\+render()}}, \mbox{\hyperlink{gui_8c_source_l00881}{theme\+\_\+default()}}, \mbox{\hyperlink{gui_8c_source_l00876}{theme\+\_\+set()}}, and \mbox{\hyperlink{gui_8c_source_l00744}{window\+\_\+render()}}.
 
 \mbox{\Hypertarget{gui_8c_ad5d0b2500a195799bc05a5ebc47626f8}\label{gui_8c_ad5d0b2500a195799bc05a5ebc47626f8}} 
 \index{gui.c@{gui.c}!\_current\_window@{\_current\_window}}
@@ -1971,11 +2085,11 @@ Referenced by \mbox{\hyperlink{gui_8c_source_l00152}{button\+\_\+render()}}, \mb
 
 Pointer to the currently open window 
 
-Definition at line \mbox{\hyperlink{gui_8c_source_l00072}{72}} of file \mbox{\hyperlink{gui_8c_source}{gui.\+c}}.
+Definition at line \mbox{\hyperlink{gui_8c_source_l00073}{73}} of file \mbox{\hyperlink{gui_8c_source}{gui.\+c}}.
 
 
 
-Referenced by \mbox{\hyperlink{gui_8c_source_l00644}{\+\_\+select()}}, \mbox{\hyperlink{gui_8c_source_l00632}{\+\_\+selectable()}}, \mbox{\hyperlink{gui_8c_source_l00655}{element\+\_\+first()}}, \mbox{\hyperlink{gui_8c_source_l00671}{element\+\_\+next()}}, \mbox{\hyperlink{gui_8c_source_l00697}{element\+\_\+prev()}}, \mbox{\hyperlink{gui_8c_source_l00620}{element\+\_\+render()}}, \mbox{\hyperlink{gui_8c_source_l00764}{window\+\_\+event\+\_\+key()}}, and \mbox{\hyperlink{gui_8c_source_l00753}{window\+\_\+open()}}.
+Referenced by \mbox{\hyperlink{gui_8c_source_l00661}{\+\_\+select()}}, \mbox{\hyperlink{gui_8c_source_l00649}{\+\_\+selectable()}}, \mbox{\hyperlink{gui_8c_source_l00672}{element\+\_\+first()}}, \mbox{\hyperlink{gui_8c_source_l00688}{element\+\_\+next()}}, \mbox{\hyperlink{gui_8c_source_l00714}{element\+\_\+prev()}}, \mbox{\hyperlink{gui_8c_source_l00637}{element\+\_\+render()}}, \mbox{\hyperlink{gui_8c_source_l00781}{window\+\_\+event\+\_\+key()}}, and \mbox{\hyperlink{gui_8c_source_l00770}{window\+\_\+open()}}.
 
 \mbox{\Hypertarget{gui_8c_ad1816d25e7fa1aba27fcd7944140f6fa}\label{gui_8c_ad1816d25e7fa1aba27fcd7944140f6fa}} 
 \index{gui.c@{gui.c}!\_default\_theme@{\_default\_theme}}
@@ -2002,7 +2116,11 @@ Referenced by \mbox{\hyperlink{gui_8c_source_l00644}{\+\_\+select()}}, \mbox{\hy
 \end{DoxyCode}
 Default \mbox{\hyperlink{structTheme}{Theme}} 
 
-Definition at line \mbox{\hyperlink{gui_8c_source_l00075}{75}} of file \mbox{\hyperlink{gui_8c_source}{gui.\+c}}.
+Definition at line \mbox{\hyperlink{gui_8c_source_l00076}{76}} of file \mbox{\hyperlink{gui_8c_source}{gui.\+c}}.
+
+
+
+Referenced by \mbox{\hyperlink{gui_8c_source_l00881}{theme\+\_\+default()}}.
 
 \mbox{\Hypertarget{gui_8c_a70d380f808f2bcbd819d5d368624861e}\label{gui_8c_a70d380f808f2bcbd819d5d368624861e}} 
 \index{gui.c@{gui.c}!\_password\_stars@{\_password\_stars}}
@@ -2012,9 +2130,9 @@ Definition at line \mbox{\hyperlink{gui_8c_source_l00075}{75}} of file \mbox{\hy
 
 Password stars 
 
-Definition at line \mbox{\hyperlink{gui_8c_source_l00100}{100}} of file \mbox{\hyperlink{gui_8c_source}{gui.\+c}}.
+Definition at line \mbox{\hyperlink{gui_8c_source_l00101}{101}} of file \mbox{\hyperlink{gui_8c_source}{gui.\+c}}.
 
 
 
-Referenced by \mbox{\hyperlink{gui_8c_source_l00190}{input\+\_\+render()}}.
+Referenced by \mbox{\hyperlink{gui_8c_source_l00191}{input\+\_\+render()}}.
 

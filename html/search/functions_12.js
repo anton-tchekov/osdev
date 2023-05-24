@@ -13,5 +13,6 @@ var searchData=
   ['vector_5fremove_10',['vector_remove',['../vector_8h.html#af3a2eb74cba163713007f5afaf3749fe',1,'vector.h']]],
   ['vector_5fremove_5frange_11',['vector_remove_range',['../vector_8h.html#a67ee10133f0cf3c7d71d364754fb648f',1,'vector.h']]],
   ['vector_5freplace_12',['vector_replace',['../vector_8c.html#ab5e38bad2bc3f2cbf9f7b23f615545ee',1,'vector_replace(Vector *vector, u32 index, u32 count, const void *elems, u32 new_count):&#160;vector.c'],['../vector_8h.html#ab5e38bad2bc3f2cbf9f7b23f615545ee',1,'vector_replace(Vector *vector, u32 index, u32 count, const void *elems, u32 new_count):&#160;vector.c']]],
-  ['vsnprintf_13',['vsnprintf',['../format_8h.html#a8f90f639c751fbc29a0d93eec09f9e20',1,'format.h']]]
+  ['vector_5fset_13',['vector_set',['../vector_8h.html#ac65e7c44e70e353b26f7b81033f0fd10',1,'vector.h']]],
+  ['vsnprintf_14',['vsnprintf',['../format_8h.html#a8f90f639c751fbc29a0d93eec09f9e20',1,'format.h']]]
 ];

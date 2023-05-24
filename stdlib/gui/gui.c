@@ -12,6 +12,7 @@
 #include <font_default.h>
 #include <ctype.h>
 #include <utf8.h>
+#include <clipboard.h>
 
 /** Height of the title bar in pixels */
 #define TITLE_BAR_HEIGHT 20
@@ -491,13 +492,27 @@ static void input_select_all(Input *i)
 }
 
 /**
+ * @brief Save the current selection of an input to the clipboard
+ *
+ * @param i
+ */
+static void _selection_save(Input *i)
+{
+	i32 sel_start, sel_len;
+
+	sel_start = i32_min(i->Selection, i->Position);
+	sel_len = i32_max(i->Selection, i->Position) - sel_start;
+	clipboard_save_text_len((char *)vector_data(&i->Text) + sel_start, sel_len);
+}
+
+/**
  * @brief Do a CTRL+C copy operation on an input field
  *
  * @param i Pointer to the input structure
  */
 static void input_copy(Input *i)
 {
-	(void)i;
+	_selection_save(i);
 }
 
 /**
@@ -507,7 +522,8 @@ static void input_copy(Input *i)
  */
 static void input_cut(Input *i)
 {
-	(void)i;
+	_selection_save(i);
+	input_selection_replace(i, NULL, 0);
 }
 
 /**
@@ -517,7 +533,8 @@ static void input_cut(Input *i)
  */
 static void input_paste(Input *i)
 {
-	(void)i;
+	input_selection_replace(i, clipboard_get_text(),
+		clipboard_get_text_len());
 }
 
 /**

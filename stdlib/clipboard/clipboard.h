@@ -11,20 +11,6 @@
 
 #include <types.h>
 
-/** Clipboard content type */
-typedef enum
-{
-	/** Textual data */
-	CLIPBOARD_TYPE_TEXT
-} ClipboardType;
-
-/**
- * @brief Save Text to clipboard
- *
- * @param text The text to copy
-*/
-void clipboard_save_text(const char *text);
-
 /**
  * @brief Save Text to the clipboard when the length is known
  *
@@ -34,22 +20,17 @@ void clipboard_save_text(const char *text);
 void clipboard_save_text_len(const char *text, i32 len);
 
 /**
- * @brief Get data from clipboard
+ * @brief Get textual data from clipboard
  *
- * @return Pointer to raw clipboard data
+ * @return Pointer to clipboard text data
  */
-const void *clipboard_get(void);
+const char *clipboard_get_text(void);
 
 /**
- * @brief Get the length of the data in the clipboard
+ * @brief Get the length of the text data in the clipboard
  *
  * @return Clipboard size in bytes
  */
-i32 clipboard_len(void);
-
-/**
- * @brief   Get the stored Datatype from the clipboard
- */
-ClipboardType clipboard_type(void);
+i32 clipboard_get_text_len(void);
 
 #endif /* __CLIPBOARD_H__ */

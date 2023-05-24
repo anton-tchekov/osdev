@@ -155,6 +155,12 @@ Functions</h2></td></tr>
 <tr class="memitem:a09cbd26ea16563c14843cbfa65bc9271"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gui_8h.html#a09cbd26ea16563c14843cbfa65bc9271">element_render</a> (void *e)</td></tr>
 <tr class="memdesc:a09cbd26ea16563c14843cbfa65bc9271"><td class="mdescLeft">&#160;</td><td class="mdescRight">Render an element by taking its selection status from the current window.  <br /></td></tr>
 <tr class="separator:a09cbd26ea16563c14843cbfa65bc9271"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9cbbc38de3ef2b9805bbaf186f67c88f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gui_8h.html#a9cbbc38de3ef2b9805bbaf186f67c88f">theme_set</a> (<a class="el" href="structTheme.html">Theme</a> *theme)</td></tr>
+<tr class="memdesc:a9cbbc38de3ef2b9805bbaf186f67c88f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the current GUI <a class="el" href="structTheme.html">Theme</a>.  <br /></td></tr>
+<tr class="separator:a9cbbc38de3ef2b9805bbaf186f67c88f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2ba4bbad9d65d52684578a80e4f9a023"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gui_8h.html#a2ba4bbad9d65d52684578a80e4f9a023">theme_default</a> (void)</td></tr>
+<tr class="memdesc:a2ba4bbad9d65d52684578a80e4f9a023"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reset the current GUI <a class="el" href="structTheme.html">Theme</a> to default values.  <br /></td></tr>
+<tr class="separator:a2ba4bbad9d65d52684578a80e4f9a023"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Graphical User Interface Toolkit. </p>
@@ -378,16 +384,16 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="gui_8c_source.html#l00836">836</a> of file <a class="el" href="gui_8c_source.html">gui.c</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  838</span>{</div>
-<div class="line"><span class="lineno">  839</span>    button-&gt;<a class="code hl_variable" href="structButton.html#a5f32e249840beee48bb90e67c1c40715">Type</a> = ELEMENT_TYPE_BUTTON;</div>
-<div class="line"><span class="lineno">  840</span>    button-&gt;<a class="code hl_variable" href="structButton.html#a2a2a4ddacb3402d203fe524e45b92fe1">X</a> = x;</div>
-<div class="line"><span class="lineno">  841</span>    button-&gt;<a class="code hl_variable" href="structButton.html#a1ff58e1e4b113514c9f6194c0f0097b2">Y</a> = y;</div>
-<div class="line"><span class="lineno">  842</span>    button-&gt;<a class="code hl_variable" href="structButton.html#aeda48c500aaf219c7bc49fd62c07c466">W</a> = w;</div>
-<div class="line"><span class="lineno">  843</span>    button-&gt;<a class="code hl_variable" href="structButton.html#ae147963816ab46ff68bfaf02c81daf2b">H</a> = h;</div>
-<div class="line"><span class="lineno">  844</span>    button-&gt;<a class="code hl_variable" href="structButton.html#abf6c8dfdad6fa51a20793f00ccdcbba7">Text</a> = text;</div>
-<div class="line"><span class="lineno">  845</span>    button-&gt;<a class="code hl_variable" href="structButton.html#a5e606ec3ff0434d8e36fa6274200e603">Click</a> = onclick;</div>
-<div class="line"><span class="lineno">  846</span>}</div>
+<p class="definition">Definition at line <a class="el" href="gui_8c_source.html#l00853">853</a> of file <a class="el" href="gui_8c_source.html">gui.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  855</span>{</div>
+<div class="line"><span class="lineno">  856</span>    button-&gt;<a class="code hl_variable" href="structButton.html#a5f32e249840beee48bb90e67c1c40715">Type</a> = ELEMENT_TYPE_BUTTON;</div>
+<div class="line"><span class="lineno">  857</span>    button-&gt;<a class="code hl_variable" href="structButton.html#a2a2a4ddacb3402d203fe524e45b92fe1">X</a> = x;</div>
+<div class="line"><span class="lineno">  858</span>    button-&gt;<a class="code hl_variable" href="structButton.html#a1ff58e1e4b113514c9f6194c0f0097b2">Y</a> = y;</div>
+<div class="line"><span class="lineno">  859</span>    button-&gt;<a class="code hl_variable" href="structButton.html#aeda48c500aaf219c7bc49fd62c07c466">W</a> = w;</div>
+<div class="line"><span class="lineno">  860</span>    button-&gt;<a class="code hl_variable" href="structButton.html#ae147963816ab46ff68bfaf02c81daf2b">H</a> = h;</div>
+<div class="line"><span class="lineno">  861</span>    button-&gt;<a class="code hl_variable" href="structButton.html#abf6c8dfdad6fa51a20793f00ccdcbba7">Text</a> = text;</div>
+<div class="line"><span class="lineno">  862</span>    button-&gt;<a class="code hl_variable" href="structButton.html#a5e606ec3ff0434d8e36fa6274200e603">Click</a> = onclick;</div>
+<div class="line"><span class="lineno">  863</span>}</div>
 <div class="ttc" id="astructButton_html_a1ff58e1e4b113514c9f6194c0f0097b2"><div class="ttname"><a href="structButton.html#a1ff58e1e4b113514c9f6194c0f0097b2">Button::Y</a></div><div class="ttdeci">i32 Y</div><div class="ttdef"><b>Definition:</b> <a href="gui_8h_source.html#l00075">gui.h:75</a></div></div>
 <div class="ttc" id="astructButton_html_a2a2a4ddacb3402d203fe524e45b92fe1"><div class="ttname"><a href="structButton.html#a2a2a4ddacb3402d203fe524e45b92fe1">Button::X</a></div><div class="ttdeci">i32 X</div><div class="ttdef"><b>Definition:</b> <a href="gui_8h_source.html#l00072">gui.h:72</a></div></div>
 <div class="ttc" id="astructButton_html_a5e606ec3ff0434d8e36fa6274200e603"><div class="ttname"><a href="structButton.html#a5e606ec3ff0434d8e36fa6274200e603">Button::Click</a></div><div class="ttdeci">void(* Click)(void)</div><div class="ttdef"><b>Definition:</b> <a href="gui_8h_source.html#l00087">gui.h:87</a></div></div>
@@ -424,19 +430,19 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="gui_8c_source.html#l00620">620</a> of file <a class="el" href="gui_8c_source.html">gui.c</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  621</span>{</div>
-<div class="line"><span class="lineno">  622</span>    <a class="code hl_function" href="gui_8c.html#a6b38ecad6795b6f65ba8c8df105a9223">element_render_sel</a>(e, <a class="code hl_variable" href="gui_8c.html#ad5d0b2500a195799bc05a5ebc47626f8">_current_window</a>-&gt;<a class="code hl_variable" href="structWindow.html#ad0a63551c2486da4b5eae5d3e0f4f5ff">Selected</a> &gt;= 0 &amp;&amp;</div>
-<div class="line"><span class="lineno">  623</span>        <a class="code hl_variable" href="gui_8c.html#ad5d0b2500a195799bc05a5ebc47626f8">_current_window</a>-&gt;<a class="code hl_variable" href="structWindow.html#af936e5270a419a30a5fcf754cdd6bb8b">Elements</a>[<a class="code hl_variable" href="gui_8c.html#ad5d0b2500a195799bc05a5ebc47626f8">_current_window</a>-&gt;<a class="code hl_variable" href="structWindow.html#ad0a63551c2486da4b5eae5d3e0f4f5ff">Selected</a>] == e);</div>
-<div class="line"><span class="lineno">  624</span>}</div>
-<div class="ttc" id="agui_8c_html_a6b38ecad6795b6f65ba8c8df105a9223"><div class="ttname"><a href="gui_8c.html#a6b38ecad6795b6f65ba8c8df105a9223">element_render_sel</a></div><div class="ttdeci">static void element_render_sel(Element *e, u32 sel)</div><div class="ttdoc">Render an element based on its type and selection status.</div><div class="ttdef"><b>Definition:</b> <a href="gui_8c_source.html#l00602">gui.c:602</a></div></div>
-<div class="ttc" id="agui_8c_html_ad5d0b2500a195799bc05a5ebc47626f8"><div class="ttname"><a href="gui_8c.html#ad5d0b2500a195799bc05a5ebc47626f8">_current_window</a></div><div class="ttdeci">static Window * _current_window</div><div class="ttdef"><b>Definition:</b> <a href="gui_8c_source.html#l00072">gui.c:72</a></div></div>
+<p class="definition">Definition at line <a class="el" href="gui_8c_source.html#l00637">637</a> of file <a class="el" href="gui_8c_source.html">gui.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  638</span>{</div>
+<div class="line"><span class="lineno">  639</span>    <a class="code hl_function" href="gui_8c.html#a6b38ecad6795b6f65ba8c8df105a9223">element_render_sel</a>(e, <a class="code hl_variable" href="gui_8c.html#ad5d0b2500a195799bc05a5ebc47626f8">_current_window</a>-&gt;<a class="code hl_variable" href="structWindow.html#ad0a63551c2486da4b5eae5d3e0f4f5ff">Selected</a> &gt;= 0 &amp;&amp;</div>
+<div class="line"><span class="lineno">  640</span>        <a class="code hl_variable" href="gui_8c.html#ad5d0b2500a195799bc05a5ebc47626f8">_current_window</a>-&gt;<a class="code hl_variable" href="structWindow.html#af936e5270a419a30a5fcf754cdd6bb8b">Elements</a>[<a class="code hl_variable" href="gui_8c.html#ad5d0b2500a195799bc05a5ebc47626f8">_current_window</a>-&gt;<a class="code hl_variable" href="structWindow.html#ad0a63551c2486da4b5eae5d3e0f4f5ff">Selected</a>] == e);</div>
+<div class="line"><span class="lineno">  641</span>}</div>
+<div class="ttc" id="agui_8c_html_a6b38ecad6795b6f65ba8c8df105a9223"><div class="ttname"><a href="gui_8c.html#a6b38ecad6795b6f65ba8c8df105a9223">element_render_sel</a></div><div class="ttdeci">static void element_render_sel(Element *e, u32 sel)</div><div class="ttdoc">Render an element based on its type and selection status.</div><div class="ttdef"><b>Definition:</b> <a href="gui_8c_source.html#l00619">gui.c:619</a></div></div>
+<div class="ttc" id="agui_8c_html_ad5d0b2500a195799bc05a5ebc47626f8"><div class="ttname"><a href="gui_8c.html#ad5d0b2500a195799bc05a5ebc47626f8">_current_window</a></div><div class="ttdeci">static Window * _current_window</div><div class="ttdef"><b>Definition:</b> <a href="gui_8c_source.html#l00073">gui.c:73</a></div></div>
 <div class="ttc" id="astructWindow_html_ad0a63551c2486da4b5eae5d3e0f4f5ff"><div class="ttname"><a href="structWindow.html#ad0a63551c2486da4b5eae5d3e0f4f5ff">Window::Selected</a></div><div class="ttdeci">i32 Selected</div><div class="ttdef"><b>Definition:</b> <a href="gui_8h_source.html#l00165">gui.h:165</a></div></div>
 <div class="ttc" id="astructWindow_html_af936e5270a419a30a5fcf754cdd6bb8b"><div class="ttname"><a href="structWindow.html#af936e5270a419a30a5fcf754cdd6bb8b">Window::Elements</a></div><div class="ttdeci">void ** Elements</div><div class="ttdef"><b>Definition:</b> <a href="gui_8h_source.html#l00159">gui.h:159</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="gui_8c_source.html#l00072">_current_window</a>, <a class="el" href="gui_8c_source.html#l00602">element_render_sel()</a>, <a class="el" href="gui_8h_source.html#l00159">Window::Elements</a>, and <a class="el" href="gui_8h_source.html#l00165">Window::Selected</a>.</p>
+<p class="reference">References <a class="el" href="gui_8c_source.html#l00073">_current_window</a>, <a class="el" href="gui_8c_source.html#l00619">element_render_sel()</a>, <a class="el" href="gui_8h_source.html#l00159">Window::Elements</a>, and <a class="el" href="gui_8h_source.html#l00165">Window::Selected</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="gui_8c_source.html#l00727">window_render()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="gui_8c_source.html#l00744">window_render()</a>.</p>
 
 </div>
 </div>
@@ -464,15 +470,15 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="gui_8c_source.html#l00280">280</a> of file <a class="el" href="gui_8c_source.html">gui.c</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  281</span>{</div>
-<div class="line"><span class="lineno">  282</span>    <a class="code hl_function" href="vector_8h.html#a8d2c106dcc33115c542080d6eefd32af">vector_clear</a>(&amp;i-&gt;Text);</div>
-<div class="line"><span class="lineno">  283</span>    <a class="code hl_function" href="gui_8c.html#abb79c958484e7eaaba0c54461062515a">input_render</a>(i, <span class="keyword">true</span>);</div>
-<div class="line"><span class="lineno">  284</span>}</div>
-<div class="ttc" id="agui_8c_html_abb79c958484e7eaaba0c54461062515a"><div class="ttname"><a href="gui_8c.html#abb79c958484e7eaaba0c54461062515a">input_render</a></div><div class="ttdeci">static void input_render(Input *i, bool sel)</div><div class="ttdoc">Renders an input field on the screen.</div><div class="ttdef"><b>Definition:</b> <a href="gui_8c_source.html#l00190">gui.c:190</a></div></div>
-<div class="ttc" id="avector_8h_html_a8d2c106dcc33115c542080d6eefd32af"><div class="ttname"><a href="vector_8h.html#a8d2c106dcc33115c542080d6eefd32af">vector_clear</a></div><div class="ttdeci">static void vector_clear(Vector *vector)</div><div class="ttdoc">Clears (empties) the vector.</div><div class="ttdef"><b>Definition:</b> <a href="vector_8h_source.html#l00050">vector.h:50</a></div></div>
+<p class="definition">Definition at line <a class="el" href="gui_8c_source.html#l00281">281</a> of file <a class="el" href="gui_8c_source.html">gui.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  282</span>{</div>
+<div class="line"><span class="lineno">  283</span>    <a class="code hl_function" href="vector_8h.html#a8d2c106dcc33115c542080d6eefd32af">vector_clear</a>(&amp;i-&gt;Text);</div>
+<div class="line"><span class="lineno">  284</span>    <a class="code hl_function" href="gui_8c.html#abb79c958484e7eaaba0c54461062515a">input_render</a>(i, <span class="keyword">true</span>);</div>
+<div class="line"><span class="lineno">  285</span>}</div>
+<div class="ttc" id="agui_8c_html_abb79c958484e7eaaba0c54461062515a"><div class="ttname"><a href="gui_8c.html#abb79c958484e7eaaba0c54461062515a">input_render</a></div><div class="ttdeci">static void input_render(Input *i, bool sel)</div><div class="ttdoc">Renders an input field on the screen.</div><div class="ttdef"><b>Definition:</b> <a href="gui_8c_source.html#l00191">gui.c:191</a></div></div>
+<div class="ttc" id="avector_8h_html_a8d2c106dcc33115c542080d6eefd32af"><div class="ttname"><a href="vector_8h.html#a8d2c106dcc33115c542080d6eefd32af">vector_clear</a></div><div class="ttdeci">static void vector_clear(Vector *vector)</div><div class="ttdoc">Clears (empties) the vector.</div><div class="ttdef"><b>Definition:</b> <a href="vector_8h_source.html#l00051">vector.h:51</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="gui_8c_source.html#l00190">input_render()</a>, and <a class="el" href="vector_8h_source.html#l00050">vector_clear()</a>.</p>
+<p class="reference">References <a class="el" href="gui_8c_source.html#l00191">input_render()</a>, and <a class="el" href="vector_8h_source.html#l00051">vector_clear()</a>.</p>
 
 </div>
 </div>
@@ -525,17 +531,17 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="gui_8c_source.html#l00848">848</a> of file <a class="el" href="gui_8c_source.html">gui.c</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  849</span>{</div>
-<div class="line"><span class="lineno">  850</span>    input-&gt;<a class="code hl_variable" href="structInput.html#a51af0b672a92ed5a307d4947db7cebed">Type</a> = ELEMENT_TYPE_INPUT;</div>
-<div class="line"><span class="lineno">  851</span>    input-&gt;<a class="code hl_variable" href="structInput.html#a3533d418144344d08dc8ad9a9a5ab5a6">X</a> = x;</div>
-<div class="line"><span class="lineno">  852</span>    input-&gt;<a class="code hl_variable" href="structInput.html#a9f3058e098d93b2cd87e9014998e893d">Y</a> = y;</div>
-<div class="line"><span class="lineno">  853</span>    input-&gt;<a class="code hl_variable" href="structInput.html#a49666acce1e1ce75cf34f09ca097f6d4">W</a> = w;</div>
-<div class="line"><span class="lineno">  854</span>    input-&gt;<a class="code hl_variable" href="structInput.html#a7c63f47479b80d8b6bcdbc667e32dc11">Position</a> = 0;</div>
-<div class="line"><span class="lineno">  855</span>    input-&gt;<a class="code hl_variable" href="structInput.html#ad6607ccb6fc5962ae28e9ec5c62290b5">Selection</a> = 0;</div>
-<div class="line"><span class="lineno">  856</span>    <a class="code hl_function" href="vector_8c.html#a9618b41b25efb749069cbfff9c3cadcf">vector_init</a>(&amp;input-&gt;<a class="code hl_variable" href="structInput.html#a78a569961ae4393cfbdb42f7d096b36a">Text</a>, <span class="keyword">sizeof</span>(<span class="keywordtype">char</span>), <a class="code hl_define" href="gui_8c.html#adaa8f3d3e80dc5e57e14302e38a00799">INPUT_CAPACITY</a>);</div>
-<div class="line"><span class="lineno">  857</span>}</div>
-<div class="ttc" id="agui_8c_html_adaa8f3d3e80dc5e57e14302e38a00799"><div class="ttname"><a href="gui_8c.html#adaa8f3d3e80dc5e57e14302e38a00799">INPUT_CAPACITY</a></div><div class="ttdeci">#define INPUT_CAPACITY</div><div class="ttdef"><b>Definition:</b> <a href="gui_8c_source.html#l00055">gui.c:55</a></div></div>
+<p class="definition">Definition at line <a class="el" href="gui_8c_source.html#l00865">865</a> of file <a class="el" href="gui_8c_source.html">gui.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  866</span>{</div>
+<div class="line"><span class="lineno">  867</span>    input-&gt;<a class="code hl_variable" href="structInput.html#a51af0b672a92ed5a307d4947db7cebed">Type</a> = ELEMENT_TYPE_INPUT;</div>
+<div class="line"><span class="lineno">  868</span>    input-&gt;<a class="code hl_variable" href="structInput.html#a3533d418144344d08dc8ad9a9a5ab5a6">X</a> = x;</div>
+<div class="line"><span class="lineno">  869</span>    input-&gt;<a class="code hl_variable" href="structInput.html#a9f3058e098d93b2cd87e9014998e893d">Y</a> = y;</div>
+<div class="line"><span class="lineno">  870</span>    input-&gt;<a class="code hl_variable" href="structInput.html#a49666acce1e1ce75cf34f09ca097f6d4">W</a> = w;</div>
+<div class="line"><span class="lineno">  871</span>    input-&gt;<a class="code hl_variable" href="structInput.html#a7c63f47479b80d8b6bcdbc667e32dc11">Position</a> = 0;</div>
+<div class="line"><span class="lineno">  872</span>    input-&gt;<a class="code hl_variable" href="structInput.html#ad6607ccb6fc5962ae28e9ec5c62290b5">Selection</a> = 0;</div>
+<div class="line"><span class="lineno">  873</span>    <a class="code hl_function" href="vector_8c.html#a9618b41b25efb749069cbfff9c3cadcf">vector_init</a>(&amp;input-&gt;<a class="code hl_variable" href="structInput.html#a78a569961ae4393cfbdb42f7d096b36a">Text</a>, <span class="keyword">sizeof</span>(<span class="keywordtype">char</span>), <a class="code hl_define" href="gui_8c.html#adaa8f3d3e80dc5e57e14302e38a00799">INPUT_CAPACITY</a>);</div>
+<div class="line"><span class="lineno">  874</span>}</div>
+<div class="ttc" id="agui_8c_html_adaa8f3d3e80dc5e57e14302e38a00799"><div class="ttname"><a href="gui_8c.html#adaa8f3d3e80dc5e57e14302e38a00799">INPUT_CAPACITY</a></div><div class="ttdeci">#define INPUT_CAPACITY</div><div class="ttdef"><b>Definition:</b> <a href="gui_8c_source.html#l00056">gui.c:56</a></div></div>
 <div class="ttc" id="astructInput_html_a3533d418144344d08dc8ad9a9a5ab5a6"><div class="ttname"><a href="structInput.html#a3533d418144344d08dc8ad9a9a5ab5a6">Input::X</a></div><div class="ttdeci">i32 X</div><div class="ttdef"><b>Definition:</b> <a href="gui_8h_source.html#l00100">gui.h:100</a></div></div>
 <div class="ttc" id="astructInput_html_a49666acce1e1ce75cf34f09ca097f6d4"><div class="ttname"><a href="structInput.html#a49666acce1e1ce75cf34f09ca097f6d4">Input::W</a></div><div class="ttdeci">i32 W</div><div class="ttdef"><b>Definition:</b> <a href="gui_8h_source.html#l00106">gui.h:106</a></div></div>
 <div class="ttc" id="astructInput_html_a51af0b672a92ed5a307d4947db7cebed"><div class="ttname"><a href="structInput.html#a51af0b672a92ed5a307d4947db7cebed">Input::Type</a></div><div class="ttdeci">ElementType Type</div><div class="ttdef"><b>Definition:</b> <a href="gui_8h_source.html#l00094">gui.h:94</a></div></div>
@@ -545,7 +551,7 @@ Functions</h2></td></tr>
 <div class="ttc" id="astructInput_html_ad6607ccb6fc5962ae28e9ec5c62290b5"><div class="ttname"><a href="structInput.html#ad6607ccb6fc5962ae28e9ec5c62290b5">Input::Selection</a></div><div class="ttdeci">i32 Selection</div><div class="ttdef"><b>Definition:</b> <a href="gui_8h_source.html#l00112">gui.h:112</a></div></div>
 <div class="ttc" id="avector_8c_html_a9618b41b25efb749069cbfff9c3cadcf"><div class="ttname"><a href="vector_8c.html#a9618b41b25efb749069cbfff9c3cadcf">vector_init</a></div><div class="ttdeci">void vector_init(Vector *vector, u32 element_size, u32 initial_capacity)</div><div class="ttdoc">Initialize a vector with an element size and an initial capacity.</div><div class="ttdef"><b>Definition:</b> <a href="vector_8c_source.html#l00030">vector.c:30</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="gui_8c_source.html#l00055">INPUT_CAPACITY</a>, <a class="el" href="gui_8h_source.html#l00109">Input::Position</a>, <a class="el" href="gui_8h_source.html#l00112">Input::Selection</a>, <a class="el" href="gui_8h_source.html#l00115">Input::Text</a>, <a class="el" href="gui_8h_source.html#l00094">Input::Type</a>, <a class="el" href="vector_8c_source.html#l00030">vector_init()</a>, <a class="el" href="gui_8h_source.html#l00106">Input::W</a>, <a class="el" href="gui_8h_source.html#l00100">Input::X</a>, and <a class="el" href="gui_8h_source.html#l00103">Input::Y</a>.</p>
+<p class="reference">References <a class="el" href="gui_8c_source.html#l00056">INPUT_CAPACITY</a>, <a class="el" href="gui_8h_source.html#l00109">Input::Position</a>, <a class="el" href="gui_8h_source.html#l00112">Input::Selection</a>, <a class="el" href="gui_8h_source.html#l00115">Input::Text</a>, <a class="el" href="gui_8h_source.html#l00094">Input::Type</a>, <a class="el" href="vector_8c_source.html#l00030">vector_init()</a>, <a class="el" href="gui_8h_source.html#l00106">Input::W</a>, <a class="el" href="gui_8h_source.html#l00100">Input::X</a>, and <a class="el" href="gui_8h_source.html#l00103">Input::Y</a>.</p>
 
 </div>
 </div>
@@ -605,14 +611,14 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="gui_8c_source.html#l00827">827</a> of file <a class="el" href="gui_8c_source.html">gui.c</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  828</span>{</div>
-<div class="line"><span class="lineno">  829</span>    label-&gt;<a class="code hl_variable" href="structLabel.html#abc5fc17c4442df608d88d32856dfd99a">Type</a> = ELEMENT_TYPE_LABEL;</div>
-<div class="line"><span class="lineno">  830</span>    label-&gt;<a class="code hl_variable" href="structLabel.html#a2629f98bd0014b9a91202c3812c2f6aa">X</a> = x;</div>
-<div class="line"><span class="lineno">  831</span>    label-&gt;<a class="code hl_variable" href="structLabel.html#aed51d95e74e5d04ff2a93ae4acd2be2e">Y</a> = y;</div>
-<div class="line"><span class="lineno">  832</span>    label-&gt;<a class="code hl_variable" href="structLabel.html#aed8a69e88c43b37924a7468bc5baa86f">Flags</a> = flags;</div>
-<div class="line"><span class="lineno">  833</span>    label-&gt;<a class="code hl_variable" href="structLabel.html#a8cb635a15fb854226819dfc612c2bbfb">Text</a> = text;</div>
-<div class="line"><span class="lineno">  834</span>}</div>
+<p class="definition">Definition at line <a class="el" href="gui_8c_source.html#l00844">844</a> of file <a class="el" href="gui_8c_source.html">gui.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  845</span>{</div>
+<div class="line"><span class="lineno">  846</span>    label-&gt;<a class="code hl_variable" href="structLabel.html#abc5fc17c4442df608d88d32856dfd99a">Type</a> = ELEMENT_TYPE_LABEL;</div>
+<div class="line"><span class="lineno">  847</span>    label-&gt;<a class="code hl_variable" href="structLabel.html#a2629f98bd0014b9a91202c3812c2f6aa">X</a> = x;</div>
+<div class="line"><span class="lineno">  848</span>    label-&gt;<a class="code hl_variable" href="structLabel.html#aed51d95e74e5d04ff2a93ae4acd2be2e">Y</a> = y;</div>
+<div class="line"><span class="lineno">  849</span>    label-&gt;<a class="code hl_variable" href="structLabel.html#aed8a69e88c43b37924a7468bc5baa86f">Flags</a> = flags;</div>
+<div class="line"><span class="lineno">  850</span>    label-&gt;<a class="code hl_variable" href="structLabel.html#a8cb635a15fb854226819dfc612c2bbfb">Text</a> = text;</div>
+<div class="line"><span class="lineno">  851</span>}</div>
 <div class="ttc" id="astructLabel_html_a2629f98bd0014b9a91202c3812c2f6aa"><div class="ttname"><a href="structLabel.html#a2629f98bd0014b9a91202c3812c2f6aa">Label::X</a></div><div class="ttdeci">i32 X</div><div class="ttdef"><b>Definition:</b> <a href="gui_8h_source.html#l00056">gui.h:56</a></div></div>
 <div class="ttc" id="astructLabel_html_a8cb635a15fb854226819dfc612c2bbfb"><div class="ttname"><a href="structLabel.html#a8cb635a15fb854226819dfc612c2bbfb">Label::Text</a></div><div class="ttdeci">char * Text</div><div class="ttdef"><b>Definition:</b> <a href="gui_8h_source.html#l00062">gui.h:62</a></div></div>
 <div class="ttc" id="astructLabel_html_abc5fc17c4442df608d88d32856dfd99a"><div class="ttname"><a href="structLabel.html#abc5fc17c4442df608d88d32856dfd99a">Label::Type</a></div><div class="ttdeci">ElementType Type</div><div class="ttdef"><b>Definition:</b> <a href="gui_8h_source.html#l00050">gui.h:50</a></div></div>
@@ -620,6 +626,68 @@ Functions</h2></td></tr>
 <div class="ttc" id="astructLabel_html_aed8a69e88c43b37924a7468bc5baa86f"><div class="ttname"><a href="structLabel.html#aed8a69e88c43b37924a7468bc5baa86f">Label::Flags</a></div><div class="ttdeci">u8 Flags</div><div class="ttdef"><b>Definition:</b> <a href="gui_8h_source.html#l00053">gui.h:53</a></div></div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="gui_8h_source.html#l00053">Label::Flags</a>, <a class="el" href="gui_8h_source.html#l00062">Label::Text</a>, <a class="el" href="gui_8h_source.html#l00050">Label::Type</a>, <a class="el" href="gui_8h_source.html#l00056">Label::X</a>, and <a class="el" href="gui_8h_source.html#l00059">Label::Y</a>.</p>
+
+</div>
+</div>
+<a id="a2ba4bbad9d65d52684578a80e4f9a023" name="a2ba4bbad9d65d52684578a80e4f9a023"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2ba4bbad9d65d52684578a80e4f9a023">&#9670;&#160;</a></span>theme_default()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void theme_default </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Reset the current GUI <a class="el" href="structTheme.html">Theme</a> to default values. </p>
+
+<p class="definition">Definition at line <a class="el" href="gui_8c_source.html#l00881">881</a> of file <a class="el" href="gui_8c_source.html">gui.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  882</span>{</div>
+<div class="line"><span class="lineno">  883</span>    <a class="code hl_variable" href="gui_8c.html#ab112163b389b3a1c3a8b7fb9e2e618ab">_current_theme</a> = &amp;<a class="code hl_variable" href="gui_8c.html#ad1816d25e7fa1aba27fcd7944140f6fa">_default_theme</a>;</div>
+<div class="line"><span class="lineno">  884</span>}</div>
+<div class="ttc" id="agui_8c_html_ab112163b389b3a1c3a8b7fb9e2e618ab"><div class="ttname"><a href="gui_8c.html#ab112163b389b3a1c3a8b7fb9e2e618ab">_current_theme</a></div><div class="ttdeci">static Theme * _current_theme</div><div class="ttdef"><b>Definition:</b> <a href="gui_8c_source.html#l00091">gui.c:91</a></div></div>
+<div class="ttc" id="agui_8c_html_ad1816d25e7fa1aba27fcd7944140f6fa"><div class="ttname"><a href="gui_8c.html#ad1816d25e7fa1aba27fcd7944140f6fa">_default_theme</a></div><div class="ttdeci">static Theme _default_theme</div><div class="ttdef"><b>Definition:</b> <a href="gui_8c_source.html#l00076">gui.c:76</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="gui_8c_source.html#l00091">_current_theme</a>, and <a class="el" href="gui_8c_source.html#l00076">_default_theme</a>.</p>
+
+</div>
+</div>
+<a id="a9cbbc38de3ef2b9805bbaf186f67c88f" name="a9cbbc38de3ef2b9805bbaf186f67c88f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9cbbc38de3ef2b9805bbaf186f67c88f">&#9670;&#160;</a></span>theme_set()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void theme_set </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structTheme.html">Theme</a> *&#160;</td>
+          <td class="paramname"><em>theme</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set the current GUI <a class="el" href="structTheme.html">Theme</a>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">theme</td><td>Pointer to new theme </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="gui_8c_source.html#l00876">876</a> of file <a class="el" href="gui_8c_source.html">gui.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  877</span>{</div>
+<div class="line"><span class="lineno">  878</span>    <a class="code hl_variable" href="gui_8c.html#ab112163b389b3a1c3a8b7fb9e2e618ab">_current_theme</a> = theme;</div>
+<div class="line"><span class="lineno">  879</span>}</div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="gui_8c_source.html#l00091">_current_theme</a>.</p>
 
 </div>
 </div>
@@ -665,67 +733,67 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="gui_8c_source.html#l00764">764</a> of file <a class="el" href="gui_8c_source.html">gui.c</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  765</span>{</div>
-<div class="line"><span class="lineno">  766</span>    <span class="keywordtype">void</span> *ce;</div>
-<div class="line"><span class="lineno">  767</span>    <span class="keywordflow">if</span>(!<a class="code hl_variable" href="gui_8c.html#ad5d0b2500a195799bc05a5ebc47626f8">_current_window</a>)</div>
-<div class="line"><span class="lineno">  768</span>    {</div>
-<div class="line"><span class="lineno">  769</span>        <span class="keywordflow">return</span>;</div>
-<div class="line"><span class="lineno">  770</span>    }</div>
-<div class="line"><span class="lineno">  771</span> </div>
-<div class="line"><span class="lineno">  772</span>    <span class="keywordflow">if</span>(<a class="code hl_variable" href="gui_8c.html#ad5d0b2500a195799bc05a5ebc47626f8">_current_window</a>-&gt;<a class="code hl_variable" href="structWindow.html#ab3273bd0387fcd2621d77720e68511a6">OnKey</a>)</div>
-<div class="line"><span class="lineno">  773</span>    {</div>
-<div class="line"><span class="lineno">  774</span>        <a class="code hl_variable" href="gui_8c.html#ad5d0b2500a195799bc05a5ebc47626f8">_current_window</a>-&gt;<a class="code hl_variable" href="structWindow.html#ab3273bd0387fcd2621d77720e68511a6">OnKey</a>(key, chr, state);</div>
-<div class="line"><span class="lineno">  775</span>    }</div>
-<div class="line"><span class="lineno">  776</span> </div>
-<div class="line"><span class="lineno">  777</span>    <span class="keywordflow">if</span>(<a class="code hl_variable" href="gui_8c.html#ad5d0b2500a195799bc05a5ebc47626f8">_current_window</a>-&gt;<a class="code hl_variable" href="structWindow.html#ad0a63551c2486da4b5eae5d3e0f4f5ff">Selected</a> &lt; 0)</div>
-<div class="line"><span class="lineno">  778</span>    {</div>
-<div class="line"><span class="lineno">  779</span>        <span class="keywordflow">return</span>;</div>
-<div class="line"><span class="lineno">  780</span>    }</div>
-<div class="line"><span class="lineno">  781</span> </div>
-<div class="line"><span class="lineno">  782</span>    <span class="keywordflow">if</span>(state == KEYSTATE_RELEASED)</div>
-<div class="line"><span class="lineno">  783</span>    {</div>
-<div class="line"><span class="lineno">  784</span>        <span class="keywordflow">return</span>;</div>
-<div class="line"><span class="lineno">  785</span>    }</div>
-<div class="line"><span class="lineno">  786</span> </div>
-<div class="line"><span class="lineno">  787</span>    ce = <a class="code hl_variable" href="gui_8c.html#ad5d0b2500a195799bc05a5ebc47626f8">_current_window</a>-&gt;<a class="code hl_variable" href="structWindow.html#af936e5270a419a30a5fcf754cdd6bb8b">Elements</a>[<a class="code hl_variable" href="gui_8c.html#ad5d0b2500a195799bc05a5ebc47626f8">_current_window</a>-&gt;<a class="code hl_variable" href="structWindow.html#ad0a63551c2486da4b5eae5d3e0f4f5ff">Selected</a>];</div>
-<div class="line"><span class="lineno">  788</span>    <span class="keywordflow">if</span>(key == KEY_TAB)</div>
-<div class="line"><span class="lineno">  789</span>    {</div>
-<div class="line"><span class="lineno">  790</span>        <a class="code hl_function" href="gui_8c.html#aa2ea7b20f969b7232c7f7b8cb04e44b7">element_next</a>();</div>
-<div class="line"><span class="lineno">  791</span>    }</div>
-<div class="line"><span class="lineno">  792</span>    <span class="keywordflow">else</span> <span class="keywordflow">if</span>(key == (KEY_TAB | MOD_SHIFT))</div>
-<div class="line"><span class="lineno">  793</span>    {</div>
-<div class="line"><span class="lineno">  794</span>        <a class="code hl_function" href="gui_8c.html#a6b1ac6c72d1a01624d9859e8d2860c31">element_prev</a>();</div>
-<div class="line"><span class="lineno">  795</span>    }</div>
-<div class="line"><span class="lineno">  796</span>    <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno">  797</span>    {</div>
-<div class="line"><span class="lineno">  798</span>        <a class="code hl_enumeration" href="gui_8h.html#a16b11be27a8e9362dd122c4d879e01ae">ElementType</a> type = ((<a class="code hl_struct" href="structElement.html">Element</a> *)ce)-&gt;Type;</div>
-<div class="line"><span class="lineno">  799</span>        <span class="keywordflow">if</span>(type == ELEMENT_TYPE_BUTTON)</div>
-<div class="line"><span class="lineno">  800</span>        {</div>
-<div class="line"><span class="lineno">  801</span>            <span class="keywordflow">if</span>(key == KEY_RETURN)</div>
-<div class="line"><span class="lineno">  802</span>            {</div>
-<div class="line"><span class="lineno">  803</span>                <a class="code hl_struct" href="structButton.html">Button</a> *b = ce;</div>
-<div class="line"><span class="lineno">  804</span>                <span class="keywordflow">if</span>(b-&gt;<a class="code hl_variable" href="structButton.html#a5e606ec3ff0434d8e36fa6274200e603">Click</a>)</div>
-<div class="line"><span class="lineno">  805</span>                {</div>
-<div class="line"><span class="lineno">  806</span>                    b-&gt;<a class="code hl_variable" href="structButton.html#a5e606ec3ff0434d8e36fa6274200e603">Click</a>();</div>
-<div class="line"><span class="lineno">  807</span>                }</div>
-<div class="line"><span class="lineno">  808</span>            }</div>
-<div class="line"><span class="lineno">  809</span>        }</div>
-<div class="line"><span class="lineno">  810</span>        <span class="keywordflow">else</span> <span class="keywordflow">if</span>(type == ELEMENT_TYPE_INPUT)</div>
-<div class="line"><span class="lineno">  811</span>        {</div>
-<div class="line"><span class="lineno">  812</span>            <a class="code hl_function" href="gui_8c.html#afd35df2c3c56a5cd8fd56651c6bbf47a">input_event_key</a>((<a class="code hl_struct" href="structInput.html">Input</a> *)ce, key, chr);</div>
-<div class="line"><span class="lineno">  813</span>        }</div>
-<div class="line"><span class="lineno">  814</span>    }</div>
-<div class="line"><span class="lineno">  815</span>}</div>
-<div class="ttc" id="agui_8c_html_a6b1ac6c72d1a01624d9859e8d2860c31"><div class="ttname"><a href="gui_8c.html#a6b1ac6c72d1a01624d9859e8d2860c31">element_prev</a></div><div class="ttdeci">static void element_prev(void)</div><div class="ttdoc">Select the previous element.</div><div class="ttdef"><b>Definition:</b> <a href="gui_8c_source.html#l00697">gui.c:697</a></div></div>
-<div class="ttc" id="agui_8c_html_aa2ea7b20f969b7232c7f7b8cb04e44b7"><div class="ttname"><a href="gui_8c.html#aa2ea7b20f969b7232c7f7b8cb04e44b7">element_next</a></div><div class="ttdeci">static void element_next(void)</div><div class="ttdoc">Select the next element.</div><div class="ttdef"><b>Definition:</b> <a href="gui_8c_source.html#l00671">gui.c:671</a></div></div>
-<div class="ttc" id="agui_8c_html_afd35df2c3c56a5cd8fd56651c6bbf47a"><div class="ttname"><a href="gui_8c.html#afd35df2c3c56a5cd8fd56651c6bbf47a">input_event_key</a></div><div class="ttdeci">static void input_event_key(Input *i, Key key, i32 chr)</div><div class="ttdoc">Forward a key event to an input field.</div><div class="ttdef"><b>Definition:</b> <a href="gui_8c_source.html#l00530">gui.c:530</a></div></div>
+<p class="definition">Definition at line <a class="el" href="gui_8c_source.html#l00781">781</a> of file <a class="el" href="gui_8c_source.html">gui.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  782</span>{</div>
+<div class="line"><span class="lineno">  783</span>    <span class="keywordtype">void</span> *ce;</div>
+<div class="line"><span class="lineno">  784</span>    <span class="keywordflow">if</span>(!<a class="code hl_variable" href="gui_8c.html#ad5d0b2500a195799bc05a5ebc47626f8">_current_window</a>)</div>
+<div class="line"><span class="lineno">  785</span>    {</div>
+<div class="line"><span class="lineno">  786</span>        <span class="keywordflow">return</span>;</div>
+<div class="line"><span class="lineno">  787</span>    }</div>
+<div class="line"><span class="lineno">  788</span> </div>
+<div class="line"><span class="lineno">  789</span>    <span class="keywordflow">if</span>(<a class="code hl_variable" href="gui_8c.html#ad5d0b2500a195799bc05a5ebc47626f8">_current_window</a>-&gt;<a class="code hl_variable" href="structWindow.html#ab3273bd0387fcd2621d77720e68511a6">OnKey</a>)</div>
+<div class="line"><span class="lineno">  790</span>    {</div>
+<div class="line"><span class="lineno">  791</span>        <a class="code hl_variable" href="gui_8c.html#ad5d0b2500a195799bc05a5ebc47626f8">_current_window</a>-&gt;<a class="code hl_variable" href="structWindow.html#ab3273bd0387fcd2621d77720e68511a6">OnKey</a>(key, chr, state);</div>
+<div class="line"><span class="lineno">  792</span>    }</div>
+<div class="line"><span class="lineno">  793</span> </div>
+<div class="line"><span class="lineno">  794</span>    <span class="keywordflow">if</span>(<a class="code hl_variable" href="gui_8c.html#ad5d0b2500a195799bc05a5ebc47626f8">_current_window</a>-&gt;<a class="code hl_variable" href="structWindow.html#ad0a63551c2486da4b5eae5d3e0f4f5ff">Selected</a> &lt; 0)</div>
+<div class="line"><span class="lineno">  795</span>    {</div>
+<div class="line"><span class="lineno">  796</span>        <span class="keywordflow">return</span>;</div>
+<div class="line"><span class="lineno">  797</span>    }</div>
+<div class="line"><span class="lineno">  798</span> </div>
+<div class="line"><span class="lineno">  799</span>    <span class="keywordflow">if</span>(state == KEYSTATE_RELEASED)</div>
+<div class="line"><span class="lineno">  800</span>    {</div>
+<div class="line"><span class="lineno">  801</span>        <span class="keywordflow">return</span>;</div>
+<div class="line"><span class="lineno">  802</span>    }</div>
+<div class="line"><span class="lineno">  803</span> </div>
+<div class="line"><span class="lineno">  804</span>    ce = <a class="code hl_variable" href="gui_8c.html#ad5d0b2500a195799bc05a5ebc47626f8">_current_window</a>-&gt;<a class="code hl_variable" href="structWindow.html#af936e5270a419a30a5fcf754cdd6bb8b">Elements</a>[<a class="code hl_variable" href="gui_8c.html#ad5d0b2500a195799bc05a5ebc47626f8">_current_window</a>-&gt;<a class="code hl_variable" href="structWindow.html#ad0a63551c2486da4b5eae5d3e0f4f5ff">Selected</a>];</div>
+<div class="line"><span class="lineno">  805</span>    <span class="keywordflow">if</span>(key == KEY_TAB)</div>
+<div class="line"><span class="lineno">  806</span>    {</div>
+<div class="line"><span class="lineno">  807</span>        <a class="code hl_function" href="gui_8c.html#aa2ea7b20f969b7232c7f7b8cb04e44b7">element_next</a>();</div>
+<div class="line"><span class="lineno">  808</span>    }</div>
+<div class="line"><span class="lineno">  809</span>    <span class="keywordflow">else</span> <span class="keywordflow">if</span>(key == (KEY_TAB | MOD_SHIFT))</div>
+<div class="line"><span class="lineno">  810</span>    {</div>
+<div class="line"><span class="lineno">  811</span>        <a class="code hl_function" href="gui_8c.html#a6b1ac6c72d1a01624d9859e8d2860c31">element_prev</a>();</div>
+<div class="line"><span class="lineno">  812</span>    }</div>
+<div class="line"><span class="lineno">  813</span>    <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno">  814</span>    {</div>
+<div class="line"><span class="lineno">  815</span>        <a class="code hl_enumeration" href="gui_8h.html#a16b11be27a8e9362dd122c4d879e01ae">ElementType</a> type = ((<a class="code hl_struct" href="structElement.html">Element</a> *)ce)-&gt;Type;</div>
+<div class="line"><span class="lineno">  816</span>        <span class="keywordflow">if</span>(type == ELEMENT_TYPE_BUTTON)</div>
+<div class="line"><span class="lineno">  817</span>        {</div>
+<div class="line"><span class="lineno">  818</span>            <span class="keywordflow">if</span>(key == KEY_RETURN)</div>
+<div class="line"><span class="lineno">  819</span>            {</div>
+<div class="line"><span class="lineno">  820</span>                <a class="code hl_struct" href="structButton.html">Button</a> *b = ce;</div>
+<div class="line"><span class="lineno">  821</span>                <span class="keywordflow">if</span>(b-&gt;<a class="code hl_variable" href="structButton.html#a5e606ec3ff0434d8e36fa6274200e603">Click</a>)</div>
+<div class="line"><span class="lineno">  822</span>                {</div>
+<div class="line"><span class="lineno">  823</span>                    b-&gt;<a class="code hl_variable" href="structButton.html#a5e606ec3ff0434d8e36fa6274200e603">Click</a>();</div>
+<div class="line"><span class="lineno">  824</span>                }</div>
+<div class="line"><span class="lineno">  825</span>            }</div>
+<div class="line"><span class="lineno">  826</span>        }</div>
+<div class="line"><span class="lineno">  827</span>        <span class="keywordflow">else</span> <span class="keywordflow">if</span>(type == ELEMENT_TYPE_INPUT)</div>
+<div class="line"><span class="lineno">  828</span>        {</div>
+<div class="line"><span class="lineno">  829</span>            <a class="code hl_function" href="gui_8c.html#afd35df2c3c56a5cd8fd56651c6bbf47a">input_event_key</a>((<a class="code hl_struct" href="structInput.html">Input</a> *)ce, key, chr);</div>
+<div class="line"><span class="lineno">  830</span>        }</div>
+<div class="line"><span class="lineno">  831</span>    }</div>
+<div class="line"><span class="lineno">  832</span>}</div>
+<div class="ttc" id="agui_8c_html_a6b1ac6c72d1a01624d9859e8d2860c31"><div class="ttname"><a href="gui_8c.html#a6b1ac6c72d1a01624d9859e8d2860c31">element_prev</a></div><div class="ttdeci">static void element_prev(void)</div><div class="ttdoc">Select the previous element.</div><div class="ttdef"><b>Definition:</b> <a href="gui_8c_source.html#l00714">gui.c:714</a></div></div>
+<div class="ttc" id="agui_8c_html_aa2ea7b20f969b7232c7f7b8cb04e44b7"><div class="ttname"><a href="gui_8c.html#aa2ea7b20f969b7232c7f7b8cb04e44b7">element_next</a></div><div class="ttdeci">static void element_next(void)</div><div class="ttdoc">Select the next element.</div><div class="ttdef"><b>Definition:</b> <a href="gui_8c_source.html#l00688">gui.c:688</a></div></div>
+<div class="ttc" id="agui_8c_html_afd35df2c3c56a5cd8fd56651c6bbf47a"><div class="ttname"><a href="gui_8c.html#afd35df2c3c56a5cd8fd56651c6bbf47a">input_event_key</a></div><div class="ttdeci">static void input_event_key(Input *i, Key key, i32 chr)</div><div class="ttdoc">Forward a key event to an input field.</div><div class="ttdef"><b>Definition:</b> <a href="gui_8c_source.html#l00547">gui.c:547</a></div></div>
 <div class="ttc" id="astructButton_html"><div class="ttname"><a href="structButton.html">Button</a></div><div class="ttdef"><b>Definition:</b> <a href="gui_8h_source.html#l00066">gui.h:67</a></div></div>
-<div class="ttc" id="astructElement_html"><div class="ttname"><a href="structElement.html">Element</a></div><div class="ttdef"><b>Definition:</b> <a href="gui_8c_source.html#l00093">gui.c:94</a></div></div>
+<div class="ttc" id="astructElement_html"><div class="ttname"><a href="structElement.html">Element</a></div><div class="ttdef"><b>Definition:</b> <a href="gui_8c_source.html#l00094">gui.c:95</a></div></div>
 <div class="ttc" id="astructInput_html"><div class="ttname"><a href="structInput.html">Input</a></div><div class="ttdef"><b>Definition:</b> <a href="gui_8h_source.html#l00091">gui.h:92</a></div></div>
 <div class="ttc" id="astructWindow_html_ab3273bd0387fcd2621d77720e68511a6"><div class="ttname"><a href="structWindow.html#ab3273bd0387fcd2621d77720e68511a6">Window::OnKey</a></div><div class="ttdeci">KeyEvent OnKey</div><div class="ttdef"><b>Definition:</b> <a href="gui_8h_source.html#l00168">gui.h:168</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="gui_8c_source.html#l00072">_current_window</a>, <a class="el" href="gui_8h_source.html#l00087">Button::Click</a>, <a class="el" href="gui_8c_source.html#l00671">element_next()</a>, <a class="el" href="gui_8c_source.html#l00697">element_prev()</a>, <a class="el" href="gui_8h_source.html#l00159">Window::Elements</a>, <a class="el" href="gui_8c_source.html#l00530">input_event_key()</a>, <a class="el" href="gui_8h_source.html#l00168">Window::OnKey</a>, and <a class="el" href="gui_8h_source.html#l00165">Window::Selected</a>.</p>
+<p class="reference">References <a class="el" href="gui_8c_source.html#l00073">_current_window</a>, <a class="el" href="gui_8h_source.html#l00087">Button::Click</a>, <a class="el" href="gui_8c_source.html#l00688">element_next()</a>, <a class="el" href="gui_8c_source.html#l00714">element_prev()</a>, <a class="el" href="gui_8h_source.html#l00159">Window::Elements</a>, <a class="el" href="gui_8c_source.html#l00547">input_event_key()</a>, <a class="el" href="gui_8h_source.html#l00168">Window::OnKey</a>, and <a class="el" href="gui_8h_source.html#l00165">Window::Selected</a>.</p>
 
 </div>
 </div>
@@ -785,14 +853,14 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="gui_8c_source.html#l00817">817</a> of file <a class="el" href="gui_8c_source.html">gui.c</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  819</span>{</div>
-<div class="line"><span class="lineno">  820</span>    window-&gt;<a class="code hl_variable" href="structWindow.html#ad0a63551c2486da4b5eae5d3e0f4f5ff">Selected</a> = -1;</div>
-<div class="line"><span class="lineno">  821</span>    window-&gt;<a class="code hl_variable" href="structWindow.html#a4810e08776237d1e32d19f4a283df3b9">Title</a> = title;</div>
-<div class="line"><span class="lineno">  822</span>    window-&gt;<a class="code hl_variable" href="structWindow.html#af936e5270a419a30a5fcf754cdd6bb8b">Elements</a> = elems;</div>
-<div class="line"><span class="lineno">  823</span>    window-&gt;<a class="code hl_variable" href="structWindow.html#a559d31d99c1ed4ea63db05ae3a439faf">Count</a> = count;</div>
-<div class="line"><span class="lineno">  824</span>    window-&gt;<a class="code hl_variable" href="structWindow.html#ab3273bd0387fcd2621d77720e68511a6">OnKey</a> = onkey;</div>
-<div class="line"><span class="lineno">  825</span>}</div>
+<p class="definition">Definition at line <a class="el" href="gui_8c_source.html#l00834">834</a> of file <a class="el" href="gui_8c_source.html">gui.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  836</span>{</div>
+<div class="line"><span class="lineno">  837</span>    window-&gt;<a class="code hl_variable" href="structWindow.html#ad0a63551c2486da4b5eae5d3e0f4f5ff">Selected</a> = -1;</div>
+<div class="line"><span class="lineno">  838</span>    window-&gt;<a class="code hl_variable" href="structWindow.html#a4810e08776237d1e32d19f4a283df3b9">Title</a> = title;</div>
+<div class="line"><span class="lineno">  839</span>    window-&gt;<a class="code hl_variable" href="structWindow.html#af936e5270a419a30a5fcf754cdd6bb8b">Elements</a> = elems;</div>
+<div class="line"><span class="lineno">  840</span>    window-&gt;<a class="code hl_variable" href="structWindow.html#a559d31d99c1ed4ea63db05ae3a439faf">Count</a> = count;</div>
+<div class="line"><span class="lineno">  841</span>    window-&gt;<a class="code hl_variable" href="structWindow.html#ab3273bd0387fcd2621d77720e68511a6">OnKey</a> = onkey;</div>
+<div class="line"><span class="lineno">  842</span>}</div>
 <div class="ttc" id="astructWindow_html_a4810e08776237d1e32d19f4a283df3b9"><div class="ttname"><a href="structWindow.html#a4810e08776237d1e32d19f4a283df3b9">Window::Title</a></div><div class="ttdeci">char * Title</div><div class="ttdef"><b>Definition:</b> <a href="gui_8h_source.html#l00156">gui.h:156</a></div></div>
 <div class="ttc" id="astructWindow_html_a559d31d99c1ed4ea63db05ae3a439faf"><div class="ttname"><a href="structWindow.html#a559d31d99c1ed4ea63db05ae3a439faf">Window::Count</a></div><div class="ttdeci">i32 Count</div><div class="ttdef"><b>Definition:</b> <a href="gui_8h_source.html#l00162">gui.h:162</a></div></div>
 </div><!-- fragment -->
@@ -824,20 +892,20 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="gui_8c_source.html#l00753">753</a> of file <a class="el" href="gui_8c_source.html">gui.c</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  754</span>{</div>
-<div class="line"><span class="lineno">  755</span>    <a class="code hl_variable" href="gui_8c.html#ad5d0b2500a195799bc05a5ebc47626f8">_current_window</a> = window;</div>
-<div class="line"><span class="lineno">  756</span>    <span class="keywordflow">if</span>(window-&gt;<a class="code hl_variable" href="structWindow.html#ad0a63551c2486da4b5eae5d3e0f4f5ff">Selected</a> &lt; 0)</div>
-<div class="line"><span class="lineno">  757</span>    {</div>
-<div class="line"><span class="lineno">  758</span>        <a class="code hl_function" href="gui_8c.html#a98f406c5585d125a3729c39bf7a245dc">element_first</a>();</div>
-<div class="line"><span class="lineno">  759</span>    }</div>
-<div class="line"><span class="lineno">  760</span> </div>
-<div class="line"><span class="lineno">  761</span>    <a class="code hl_function" href="gui_8c.html#ae838b0eff4dcce9d653f5d1021a6f754">window_render</a>(window);</div>
-<div class="line"><span class="lineno">  762</span>}</div>
-<div class="ttc" id="agui_8c_html_a98f406c5585d125a3729c39bf7a245dc"><div class="ttname"><a href="gui_8c.html#a98f406c5585d125a3729c39bf7a245dc">element_first</a></div><div class="ttdeci">static void element_first(void)</div><div class="ttdoc">Select the first element.</div><div class="ttdef"><b>Definition:</b> <a href="gui_8c_source.html#l00655">gui.c:655</a></div></div>
-<div class="ttc" id="agui_8c_html_ae838b0eff4dcce9d653f5d1021a6f754"><div class="ttname"><a href="gui_8c.html#ae838b0eff4dcce9d653f5d1021a6f754">window_render</a></div><div class="ttdeci">static void window_render(Window *window)</div><div class="ttdoc">Draw a window.</div><div class="ttdef"><b>Definition:</b> <a href="gui_8c_source.html#l00727">gui.c:727</a></div></div>
+<p class="definition">Definition at line <a class="el" href="gui_8c_source.html#l00770">770</a> of file <a class="el" href="gui_8c_source.html">gui.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  771</span>{</div>
+<div class="line"><span class="lineno">  772</span>    <a class="code hl_variable" href="gui_8c.html#ad5d0b2500a195799bc05a5ebc47626f8">_current_window</a> = window;</div>
+<div class="line"><span class="lineno">  773</span>    <span class="keywordflow">if</span>(window-&gt;<a class="code hl_variable" href="structWindow.html#ad0a63551c2486da4b5eae5d3e0f4f5ff">Selected</a> &lt; 0)</div>
+<div class="line"><span class="lineno">  774</span>    {</div>
+<div class="line"><span class="lineno">  775</span>        <a class="code hl_function" href="gui_8c.html#a98f406c5585d125a3729c39bf7a245dc">element_first</a>();</div>
+<div class="line"><span class="lineno">  776</span>    }</div>
+<div class="line"><span class="lineno">  777</span> </div>
+<div class="line"><span class="lineno">  778</span>    <a class="code hl_function" href="gui_8c.html#ae838b0eff4dcce9d653f5d1021a6f754">window_render</a>(window);</div>
+<div class="line"><span class="lineno">  779</span>}</div>
+<div class="ttc" id="agui_8c_html_a98f406c5585d125a3729c39bf7a245dc"><div class="ttname"><a href="gui_8c.html#a98f406c5585d125a3729c39bf7a245dc">element_first</a></div><div class="ttdeci">static void element_first(void)</div><div class="ttdoc">Select the first element.</div><div class="ttdef"><b>Definition:</b> <a href="gui_8c_source.html#l00672">gui.c:672</a></div></div>
+<div class="ttc" id="agui_8c_html_ae838b0eff4dcce9d653f5d1021a6f754"><div class="ttname"><a href="gui_8c.html#ae838b0eff4dcce9d653f5d1021a6f754">window_render</a></div><div class="ttdeci">static void window_render(Window *window)</div><div class="ttdoc">Draw a window.</div><div class="ttdef"><b>Definition:</b> <a href="gui_8c_source.html#l00744">gui.c:744</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="gui_8c_source.html#l00072">_current_window</a>, <a class="el" href="gui_8c_source.html#l00655">element_first()</a>, <a class="el" href="gui_8h_source.html#l00165">Window::Selected</a>, and <a class="el" href="gui_8c_source.html#l00727">window_render()</a>.</p>
+<p class="reference">References <a class="el" href="gui_8c_source.html#l00073">_current_window</a>, <a class="el" href="gui_8c_source.html#l00672">element_first()</a>, <a class="el" href="gui_8h_source.html#l00165">Window::Selected</a>, and <a class="el" href="gui_8c_source.html#l00744">window_render()</a>.</p>
 
 </div>
 </div>

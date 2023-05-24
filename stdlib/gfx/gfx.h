@@ -13,15 +13,6 @@
 #include <colors.h>
 #include <gfx-types.h>
 
-/** RGBA Color Type */
-typedef u32 Color;
-
-/** The width of the display */
-#define GFX_WIDTH  320
-
-/** The height of the display */
-#define GFX_HEIGHT 480
-
 /**
  * @brief Create a color from R, G, B, A values
  *

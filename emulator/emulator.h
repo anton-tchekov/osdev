@@ -17,6 +17,15 @@
 /** Emulated process */
 typedef struct
 {
+	/** Start of the memory segment for this process */
+	u32 SegmentStart;
+
+	/** Size of the memory segment in bytes */
+	u32 SegmentSize;
+
+	/** End address of the memory segment */
+	u32 SegmentEnd;
+
 	/** Event handler addresses */
 	u32 Events[EVENT_COUNT];
 
@@ -55,6 +64,6 @@ void keyboard_event(Key key, i32 chr, KeyState state);
  * @param num Number of arguments
  * @param sp Stack pointer start
  */
-void emulator_call(Emulator *emu, u32 addr, u32 *args, u8 num, u32 sp);
+u8 emulator_call(Emulator *emu, u32 addr, u32 *args, u8 num, u32 sp);
 
 #endif /* __EMULATOR_H__ */

@@ -23,7 +23,7 @@ void \mbox{\hyperlink{emulator_8h_a1554b9b4463db6aa6131522c2ab400eb}{os\+\_\+upd
 \begin{DoxyCompactList}\small\item\em Call this function periodically in main loop. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{emulator_8h_acc842b78e848efee5e97116c723b9345}{keyboard\+\_\+event}} (Key key, \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} chr, Key\+State state)
 \begin{DoxyCompactList}\small\item\em Inform the emulator about a key press. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{emulator_8h_a1e4129b64f56474b83883744b5ad6957}{emulator\+\_\+call}} (\mbox{\hyperlink{structEmulator}{Emulator}} $\ast$emu, \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} addr, \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} $\ast$args, \mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}} num, \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} sp)
+\mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}} \mbox{\hyperlink{emulator_8h_ac0a5037d738e40096ed1adb2581cd3d4}{emulator\+\_\+call}} (\mbox{\hyperlink{structEmulator}{Emulator}} $\ast$emu, \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} addr, \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} $\ast$args, \mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}} num, \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} sp)
 \begin{DoxyCompactList}\small\item\em Call an emulated RISC-\/V function. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
@@ -46,11 +46,11 @@ Definition in file \mbox{\hyperlink{emulator_8h_source}{emulator.\+h}}.
 
 
 \doxysubsection{Function Documentation}
-\mbox{\Hypertarget{emulator_8h_a1e4129b64f56474b83883744b5ad6957}\label{emulator_8h_a1e4129b64f56474b83883744b5ad6957}} 
+\mbox{\Hypertarget{emulator_8h_ac0a5037d738e40096ed1adb2581cd3d4}\label{emulator_8h_ac0a5037d738e40096ed1adb2581cd3d4}} 
 \index{emulator.h@{emulator.h}!emulator\_call@{emulator\_call}}
 \index{emulator\_call@{emulator\_call}!emulator.h@{emulator.h}}
 \doxysubsubsection{\texorpdfstring{emulator\_call()}{emulator\_call()}}
-{\footnotesize\ttfamily void emulator\+\_\+call (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structEmulator}{Emulator}} $\ast$}]{emu,  }\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{addr,  }\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} $\ast$}]{args,  }\item[{\mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}}}]{num,  }\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{sp }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}} emulator\+\_\+call (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structEmulator}{Emulator}} $\ast$}]{emu,  }\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{addr,  }\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} $\ast$}]{args,  }\item[{\mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}}}]{num,  }\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{sp }\end{DoxyParamCaption})}
 
 
 
@@ -71,39 +71,40 @@ Call an emulated RISC-\/V function.
 \end{DoxyParams}
 
 
-Definition at line \mbox{\hyperlink{emulator_8c_source_l00767}{767}} of file \mbox{\hyperlink{emulator_8c_source}{emulator.\+c}}.
+Definition at line \mbox{\hyperlink{emulator_8c_source_l01006}{1006}} of file \mbox{\hyperlink{emulator_8c_source}{emulator.\+c}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00768\ \{}
-\DoxyCodeLine{00769\ \ \ \ \ \textcolor{comment}{/*\ Initialize\ Stack\ Pointer\ at\ end\ of\ memory\ */}}
-\DoxyCodeLine{00770\ \ \ \ \ emu-\/>\mbox{\hyperlink{structEmulator_a8c2f51f67d4656f760fd7aa2c986d66e}{Registers}}[2]\ =\ sp\ -\/\ 4;}
-\DoxyCodeLine{00771\ }
-\DoxyCodeLine{00772\ \ \ \ \ emu-\/>\mbox{\hyperlink{structEmulator_a67f6a7f8dd88da5f7408c1b82758cb1c}{PC}}\ =\ addr;}
-\DoxyCodeLine{00773\ \ \ \ \ \mbox{\hyperlink{string_8c_a6ea826c42748b85ae7c74f1e2ccf7c27}{memcpy}}(\&emu-\/>\mbox{\hyperlink{structEmulator_a8c2f51f67d4656f760fd7aa2c986d66e}{Registers}}[10],\ args,\ num\ *\ \textcolor{keyword}{sizeof}(*emu-\/>\mbox{\hyperlink{structEmulator_a8c2f51f67d4656f760fd7aa2c986d66e}{Registers}}));}
-\DoxyCodeLine{00774\ }
-\DoxyCodeLine{00775\ \ \ \ \ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ i\ =\ 0;}
-\DoxyCodeLine{00776\ \ \ \ \ \_finished\ =\ \textcolor{keyword}{false};}
-\DoxyCodeLine{00777\ \ \ \ \ \textcolor{keywordflow}{for}(;;)}
-\DoxyCodeLine{00778\ \ \ \ \ \{}
-\DoxyCodeLine{00779\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(emulator\_next(emu))}
-\DoxyCodeLine{00780\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00781\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
-\DoxyCodeLine{00782\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00783\ }
-\DoxyCodeLine{00784\ \ \ \ \ \ \ \ \ ++i;}
-\DoxyCodeLine{00785\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\_finished)}
-\DoxyCodeLine{00786\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00787\ \ \ \ \ \ \ \ \ \ \ \ \ EMU\_LOG(PSTR(\textcolor{stringliteral}{"{}\%"{}}PRIu32\textcolor{stringliteral}{"{}\ Cycles"{}}),\ i);}
-\DoxyCodeLine{00788\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
-\DoxyCodeLine{00789\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00790\ \ \ \ \ \}}
-\DoxyCodeLine{00791\ \}}
+\DoxyCodeLine{01007\ \{}
+\DoxyCodeLine{01008\ \ \ \ \ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ i;}
+\DoxyCodeLine{01009\ }
+\DoxyCodeLine{01010\ \ \ \ \ \textcolor{comment}{/*\ Initialize\ Stack\ Pointer\ at\ end\ of\ memory\ */}}
+\DoxyCodeLine{01011\ \ \ \ \ emu-\/>\mbox{\hyperlink{structEmulator_a8c2f51f67d4656f760fd7aa2c986d66e}{Registers}}[2]\ =\ sp\ -\/\ 4;}
+\DoxyCodeLine{01012\ \ \ \ \ emu-\/>\mbox{\hyperlink{structEmulator_a67f6a7f8dd88da5f7408c1b82758cb1c}{PC}}\ =\ addr;}
+\DoxyCodeLine{01013\ \ \ \ \ \mbox{\hyperlink{string_8c_a6ea826c42748b85ae7c74f1e2ccf7c27}{memcpy}}(\&emu-\/>\mbox{\hyperlink{structEmulator_a8c2f51f67d4656f760fd7aa2c986d66e}{Registers}}[10],\ args,\ num\ *\ \textcolor{keyword}{sizeof}(*emu-\/>\mbox{\hyperlink{structEmulator_a8c2f51f67d4656f760fd7aa2c986d66e}{Registers}}));}
+\DoxyCodeLine{01014\ \ \ \ \ i\ =\ 0;}
+\DoxyCodeLine{01015\ \ \ \ \ \mbox{\hyperlink{emulator_8c_a4eec34c850d6d037640f3ba3d9988cb2}{\_finished}}\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{01016\ \ \ \ \ \textcolor{keywordflow}{while}(!\mbox{\hyperlink{emulator_8c_a4eec34c850d6d037640f3ba3d9988cb2}{\_finished}})}
+\DoxyCodeLine{01017\ \ \ \ \ \{}
+\DoxyCodeLine{01018\ \ \ \ \ \ \ \ \ ++i;}
+\DoxyCodeLine{01019\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(emulator\_next(emu))}
+\DoxyCodeLine{01020\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01021\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 1;}
+\DoxyCodeLine{01022\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01023\ \ \ \ \ \}}
+\DoxyCodeLine{01024\ }
+\DoxyCodeLine{01025\ \ \ \ \ EMU\_LOG(PSTR(\textcolor{stringliteral}{"{}\%"{}}PRIu32\textcolor{stringliteral}{"{}\ Cycles"{}}),\ i);}
+\DoxyCodeLine{01026\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{01027\ \}}
 
 \end{DoxyCode}
 
 
-References \mbox{\hyperlink{string_8c_source_l00094}{memcpy()}}, \mbox{\hyperlink{emulator_8h_source_l00024}{Emulator\+::\+PC}}, and \mbox{\hyperlink{emulator_8h_source_l00027}{Emulator\+::\+Registers}}.
+References \mbox{\hyperlink{emulator_8c_source_l00104}{\+\_\+finished}}, \mbox{\hyperlink{string_8c_source_l00094}{memcpy()}}, \mbox{\hyperlink{emulator_8h_source_l00033}{Emulator\+::\+PC}}, and \mbox{\hyperlink{emulator_8h_source_l00036}{Emulator\+::\+Registers}}.
+
+
+
+Referenced by \mbox{\hyperlink{emulator_8c_source_l00112}{kernel\+\_\+init()}}, \mbox{\hyperlink{emulator_8c_source_l00127}{keyboard\+\_\+event()}}, and \mbox{\hyperlink{emulator_8c_source_l00118}{os\+\_\+update()}}.
 
 \mbox{\Hypertarget{emulator_8h_a0dbe43a64cbf994bf9189e7767f93342}\label{emulator_8h_a0dbe43a64cbf994bf9189e7767f93342}} 
 \index{emulator.h@{emulator.h}!kernel\_init@{kernel\_init}}
@@ -117,19 +118,19 @@ Initialize emulator kernel and load first process (NOT systemd)
 
 
 
-Definition at line \mbox{\hyperlink{emulator_8c_source_l00075}{75}} of file \mbox{\hyperlink{emulator_8c_source}{emulator.\+c}}.
+Definition at line \mbox{\hyperlink{emulator_8c_source_l00112}{112}} of file \mbox{\hyperlink{emulator_8c_source}{emulator.\+c}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00076\ \{}
-\DoxyCodeLine{00077\ \ \ \ \ \_memory\_size\ =\ \mbox{\hyperlink{avr_2platform_8c_acf57f1ce47563167d4ef978ef1a7ab49}{env\_memory\_size}}();}
-\DoxyCodeLine{00078\ \ \ \ \ emulator\_call(\_emu,\ 0,\ NULL,\ 0,\ \_memory\_size);}
-\DoxyCodeLine{00079\ \}}
+\DoxyCodeLine{00113\ \{}
+\DoxyCodeLine{00114\ \ \ \ \ \mbox{\hyperlink{emulator_8c_a86f3123b3022a4b0ec9c19d860a171d6}{\_memory\_size}}\ =\ \mbox{\hyperlink{avr_2platform_8c_acf57f1ce47563167d4ef978ef1a7ab49}{env\_memory\_size}}();}
+\DoxyCodeLine{00115\ \ \ \ \ \mbox{\hyperlink{emulator_8c_ac0a5037d738e40096ed1adb2581cd3d4}{emulator\_call}}(\_emu,\ 0,\ NULL,\ 0,\ \mbox{\hyperlink{emulator_8c_a86f3123b3022a4b0ec9c19d860a171d6}{\_memory\_size}});}
+\DoxyCodeLine{00116\ \}}
 
 \end{DoxyCode}
 
 
-References \mbox{\hyperlink{avr_2platform_8c_source_l00019}{env\+\_\+memory\+\_\+size()}}.
+References \mbox{\hyperlink{emulator_8c_source_l00110}{\+\_\+memory\+\_\+size}}, \mbox{\hyperlink{emulator_8c_source_l01006}{emulator\+\_\+call()}}, and \mbox{\hyperlink{avr_2platform_8c_source_l00019}{env\+\_\+memory\+\_\+size()}}.
 
 \mbox{\Hypertarget{emulator_8h_acc842b78e848efee5e97116c723b9345}\label{emulator_8h_acc842b78e848efee5e97116c723b9345}} 
 \index{emulator.h@{emulator.h}!keyboard\_event@{keyboard\_event}}
@@ -152,23 +153,23 @@ Inform the emulator about a key press.
 \end{DoxyParams}
 
 
-Definition at line \mbox{\hyperlink{emulator_8c_source_l00090}{90}} of file \mbox{\hyperlink{emulator_8c_source}{emulator.\+c}}.
+Definition at line \mbox{\hyperlink{emulator_8c_source_l00127}{127}} of file \mbox{\hyperlink{emulator_8c_source}{emulator.\+c}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00091\ \{}
-\DoxyCodeLine{00092\ \ \ \ \ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ addr\ =\ \_emu-\/>\mbox{\hyperlink{structEmulator_af6349f9e64ef828e37854791fb690c10}{Events}}[\mbox{\hyperlink{event-types_8h_a5667b805d857c6d28f83f6038a0272d3a73957df3a3996d1a32b0fbcdeba044ec}{EVENT\_KEY}}];}
-\DoxyCodeLine{00093\ \ \ \ \ \textcolor{keywordflow}{if}(addr)}
-\DoxyCodeLine{00094\ \ \ \ \ \{}
-\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ args[]\ =\ \{\ key,\ chr,\ down\ \};}
-\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ emulator\_call(\_emu,\ addr,\ args,\ \mbox{\hyperlink{util_8h_a5a34c337b71a34ab9a0ecff2d5715d24}{ARRLEN}}(args),\ \_memory\_size);}
-\DoxyCodeLine{00097\ \ \ \ \ \}}
-\DoxyCodeLine{00098\ \}}
+\DoxyCodeLine{00128\ \{}
+\DoxyCodeLine{00129\ \ \ \ \ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ addr\ =\ \_emu-\/>\mbox{\hyperlink{structEmulator_af6349f9e64ef828e37854791fb690c10}{Events}}[\mbox{\hyperlink{event-types_8h_a5667b805d857c6d28f83f6038a0272d3a73957df3a3996d1a32b0fbcdeba044ec}{EVENT\_KEY}}];}
+\DoxyCodeLine{00130\ \ \ \ \ \textcolor{keywordflow}{if}(addr)}
+\DoxyCodeLine{00131\ \ \ \ \ \{}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ args[]\ =\ \{\ key,\ chr,\ down\ \};}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{emulator_8c_ac0a5037d738e40096ed1adb2581cd3d4}{emulator\_call}}(\_emu,\ addr,\ args,\ \mbox{\hyperlink{util_8h_a5a34c337b71a34ab9a0ecff2d5715d24}{ARRLEN}}(args),\ \mbox{\hyperlink{emulator_8c_a86f3123b3022a4b0ec9c19d860a171d6}{\_memory\_size}});}
+\DoxyCodeLine{00134\ \ \ \ \ \}}
+\DoxyCodeLine{00135\ \}}
 
 \end{DoxyCode}
 
 
-References \mbox{\hyperlink{util_8h_source_l00013}{ARRLEN}}, \mbox{\hyperlink{event-types_8h_source_l00020}{EVENT\+\_\+\+KEY}}, and \mbox{\hyperlink{emulator_8h_source_l00021}{Emulator\+::\+Events}}.
+References \mbox{\hyperlink{emulator_8c_source_l00110}{\+\_\+memory\+\_\+size}}, \mbox{\hyperlink{util_8h_source_l00013}{ARRLEN}}, \mbox{\hyperlink{emulator_8c_source_l01006}{emulator\+\_\+call()}}, \mbox{\hyperlink{event-types_8h_source_l00020}{EVENT\+\_\+\+KEY}}, and \mbox{\hyperlink{emulator_8h_source_l00030}{Emulator\+::\+Events}}.
 
 \mbox{\Hypertarget{emulator_8h_a1554b9b4463db6aa6131522c2ab400eb}\label{emulator_8h_a1554b9b4463db6aa6131522c2ab400eb}} 
 \index{emulator.h@{emulator.h}!os\_update@{os\_update}}
@@ -182,20 +183,20 @@ Call this function periodically in main loop.
 
 
 
-Definition at line \mbox{\hyperlink{emulator_8c_source_l00081}{81}} of file \mbox{\hyperlink{emulator_8c_source}{emulator.\+c}}.
+Definition at line \mbox{\hyperlink{emulator_8c_source_l00118}{118}} of file \mbox{\hyperlink{emulator_8c_source}{emulator.\+c}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00082\ \{}
-\DoxyCodeLine{00083\ \ \ \ \ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ addr\ =\ \_emu-\/>\mbox{\hyperlink{structEmulator_af6349f9e64ef828e37854791fb690c10}{Events}}[\mbox{\hyperlink{event-types_8h_a5667b805d857c6d28f83f6038a0272d3af4289a72858bef1b5fb30a0ac1c4d73a}{EVENT\_LOOP}}];}
-\DoxyCodeLine{00084\ \ \ \ \ \textcolor{keywordflow}{if}(addr)}
-\DoxyCodeLine{00085\ \ \ \ \ \{}
-\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ emulator\_call(\_emu,\ addr,\ NULL,\ 0,\ \_memory\_size);}
-\DoxyCodeLine{00087\ \ \ \ \ \}}
-\DoxyCodeLine{00088\ \}}
+\DoxyCodeLine{00119\ \{}
+\DoxyCodeLine{00120\ \ \ \ \ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ addr\ =\ \_emu-\/>\mbox{\hyperlink{structEmulator_af6349f9e64ef828e37854791fb690c10}{Events}}[\mbox{\hyperlink{event-types_8h_a5667b805d857c6d28f83f6038a0272d3af4289a72858bef1b5fb30a0ac1c4d73a}{EVENT\_LOOP}}];}
+\DoxyCodeLine{00121\ \ \ \ \ \textcolor{keywordflow}{if}(addr)}
+\DoxyCodeLine{00122\ \ \ \ \ \{}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{emulator_8c_ac0a5037d738e40096ed1adb2581cd3d4}{emulator\_call}}(\_emu,\ addr,\ NULL,\ 0,\ \mbox{\hyperlink{emulator_8c_a86f3123b3022a4b0ec9c19d860a171d6}{\_memory\_size}});}
+\DoxyCodeLine{00124\ \ \ \ \ \}}
+\DoxyCodeLine{00125\ \}}
 
 \end{DoxyCode}
 
 
-References \mbox{\hyperlink{event-types_8h_source_l00017}{EVENT\+\_\+\+LOOP}}, and \mbox{\hyperlink{emulator_8h_source_l00021}{Emulator\+::\+Events}}.
+References \mbox{\hyperlink{emulator_8c_source_l00110}{\+\_\+memory\+\_\+size}}, \mbox{\hyperlink{emulator_8c_source_l01006}{emulator\+\_\+call()}}, \mbox{\hyperlink{event-types_8h_source_l00017}{EVENT\+\_\+\+LOOP}}, and \mbox{\hyperlink{emulator_8h_source_l00030}{Emulator\+::\+Events}}.
 

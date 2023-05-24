@@ -6,5 +6,6 @@ var searchData=
   ['window_5finit_3',['window_init',['../gui_8c.html#a51313c00040b7eec516823f7b31f8eed',1,'window_init(Window *window, char *title, void *elems, i32 count, KeyEvent onkey):&#160;gui.c'],['../gui_8h.html#a51313c00040b7eec516823f7b31f8eed',1,'window_init(Window *window, char *title, void *elems, i32 count, KeyEvent onkey):&#160;gui.c']]],
   ['window_5fopen_4',['window_open',['../gui_8c.html#adf0715beb16a0945a1bae624873df977',1,'window_open(Window *window):&#160;gui.c'],['../gui_8h.html#adf0715beb16a0945a1bae624873df977',1,'window_open(Window *window):&#160;gui.c']]],
   ['window_5frender_5',['window_render',['../gui_8c.html#ae838b0eff4dcce9d653f5d1021a6f754',1,'gui.c']]],
-  ['write_5fle_5f32_6',['write_le_32',['../atfs_8h.html#a62a1835558e5a5dfeade49e10d2682b8',1,'atfs.h']]]
+  ['window_5ftitle_6',['WINDOW_TITLE',['../apps_2tetris_2main_8c.html#a3adf7b7b13572f2baf3379a8f2f4220a',1,'main.c']]],
+  ['write_5fle_5f32_7',['write_le_32',['../atfs_8h.html#a62a1835558e5a5dfeade49e10d2682b8',1,'atfs.h']]]
 ];

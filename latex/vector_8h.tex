@@ -5,7 +5,8 @@
 Generic resizable array.  
 
 
-{\ttfamily \#include \char`\"{}types.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$types.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
 \doxysubsection*{Data Structures}
 \begin{DoxyCompactItemize}
 \item 
@@ -22,6 +23,8 @@ void \mbox{\hyperlink{vector_8h_a0c0be12f800dc5bc6777b4ff324f41ca}{vector\+\_\+d
 \begin{DoxyCompactList}\small\item\em Frees the internal memory buffer of the vector. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{vector_8h_ab5e38bad2bc3f2cbf9f7b23f615545ee}{vector\+\_\+replace}} (\mbox{\hyperlink{structVector}{Vector}} $\ast$vector, \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} index, \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} count, const void $\ast$elems, \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} new\+\_\+count)
 \begin{DoxyCompactList}\small\item\em Replace a range of elements in the vector with new elements. \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{vector_8h_ac65e7c44e70e353b26f7b81033f0fd10}{vector\+\_\+set}} (\mbox{\hyperlink{structVector}{Vector}} $\ast$vector, const void $\ast$elems, \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} count)
+\begin{DoxyCompactList}\small\item\em Replace all elements in a vector. \end{DoxyCompactList}\item 
 static void $\ast$ \mbox{\hyperlink{vector_8h_ad2779e7010b2bbe8255fd0ecbd6b194a}{vector\+\_\+get}} (\mbox{\hyperlink{structVector}{Vector}} $\ast$vector, \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} index)
 \begin{DoxyCompactList}\small\item\em Get a pointer to an element in the vector. \end{DoxyCompactList}\item 
 static void $\ast$ \mbox{\hyperlink{vector_8h_a503ee5296f13ea821a6a7024eccd5407}{vector\+\_\+data}} (\mbox{\hyperlink{structVector}{Vector}} $\ast$vector)
@@ -78,22 +81,22 @@ Clears (empties) the vector.
 \end{DoxyParams}
 
 
-Definition at line \mbox{\hyperlink{vector_8h_source_l00050}{50}} of file \mbox{\hyperlink{vector_8h_source}{vector.\+h}}.
+Definition at line \mbox{\hyperlink{vector_8h_source_l00051}{51}} of file \mbox{\hyperlink{vector_8h_source}{vector.\+h}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00051\ \{}
-\DoxyCodeLine{00052\ \ \ \ \ vector-\/>\mbox{\hyperlink{structVector_ac6aa25a7a7bc6353a0fada595c85ea2e}{Length}}\ =\ 0;}
-\DoxyCodeLine{00053\ \}}
+\DoxyCodeLine{00052\ \{}
+\DoxyCodeLine{00053\ \ \ \ \ vector-\/>\mbox{\hyperlink{structVector_ac6aa25a7a7bc6353a0fada595c85ea2e}{Length}}\ =\ 0;}
+\DoxyCodeLine{00054\ \}}
 
 \end{DoxyCode}
 
 
-References \mbox{\hyperlink{vector_8h_source_l00021}{Vector\+::\+Length}}.
+References \mbox{\hyperlink{vector_8h_source_l00022}{Vector\+::\+Length}}.
 
 
 
-Referenced by \mbox{\hyperlink{gui_8c_source_l00280}{input\+\_\+clear()}}.
+Referenced by \mbox{\hyperlink{gui_8c_source_l00281}{input\+\_\+clear()}}.
 
 \mbox{\Hypertarget{vector_8h_a503ee5296f13ea821a6a7024eccd5407}\label{vector_8h_a503ee5296f13ea821a6a7024eccd5407}} 
 \index{vector.h@{vector.h}!vector\_data@{vector\_data}}
@@ -115,22 +118,22 @@ Pointer to the content
 \end{DoxyReturn}
 
 
-Definition at line \mbox{\hyperlink{vector_8h_source_l00094}{94}} of file \mbox{\hyperlink{vector_8h_source}{vector.\+h}}.
+Definition at line \mbox{\hyperlink{vector_8h_source_l00107}{107}} of file \mbox{\hyperlink{vector_8h_source}{vector.\+h}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00095\ \{}
-\DoxyCodeLine{00096\ \ \ \ \ \textcolor{keywordflow}{return}\ vector-\/>\mbox{\hyperlink{structVector_a3c3c5b59d45fcf97bd75f79657df4b25}{Data}};}
-\DoxyCodeLine{00097\ \}}
+\DoxyCodeLine{00108\ \{}
+\DoxyCodeLine{00109\ \ \ \ \ \textcolor{keywordflow}{return}\ vector-\/>\mbox{\hyperlink{structVector_a3c3c5b59d45fcf97bd75f79657df4b25}{Data}};}
+\DoxyCodeLine{00110\ \}}
 
 \end{DoxyCode}
 
 
-References \mbox{\hyperlink{vector_8h_source_l00027}{Vector\+::\+Data}}.
+References \mbox{\hyperlink{vector_8h_source_l00028}{Vector\+::\+Data}}.
 
 
 
-Referenced by \mbox{\hyperlink{gui_8c_source_l00190}{input\+\_\+render()}}, and \mbox{\hyperlink{gui_8c_source_l00294}{input\+\_\+selection\+\_\+replace()}}.
+Referenced by \mbox{\hyperlink{gui_8c_source_l00499}{\+\_\+selection\+\_\+save()}}, \mbox{\hyperlink{clipboard_8c_source_l00036}{clipboard\+\_\+get\+\_\+text()}}, \mbox{\hyperlink{gui_8c_source_l00191}{input\+\_\+render()}}, and \mbox{\hyperlink{gui_8c_source_l00295}{input\+\_\+selection\+\_\+replace()}}.
 
 \mbox{\Hypertarget{vector_8h_a0c0be12f800dc5bc6777b4ff324f41ca}\label{vector_8h_a0c0be12f800dc5bc6777b4ff324f41ca}} 
 \index{vector.h@{vector.h}!vector\_destroy@{vector\_destroy}}
@@ -160,7 +163,7 @@ Definition at line \mbox{\hyperlink{vector_8c_source_l00038}{38}} of file \mbox{
 \end{DoxyCode}
 
 
-References \mbox{\hyperlink{vector_8h_source_l00027}{Vector\+::\+Data}}, and \mbox{\hyperlink{alloc_8c_source_l00160}{memfree()}}.
+References \mbox{\hyperlink{vector_8h_source_l00028}{Vector\+::\+Data}}, and \mbox{\hyperlink{alloc_8c_source_l00160}{memfree()}}.
 
 \mbox{\Hypertarget{vector_8h_ad2779e7010b2bbe8255fd0ecbd6b194a}\label{vector_8h_ad2779e7010b2bbe8255fd0ecbd6b194a}} 
 \index{vector.h@{vector.h}!vector\_get@{vector\_get}}
@@ -184,18 +187,18 @@ Pointer to the element
 \end{DoxyReturn}
 
 
-Definition at line \mbox{\hyperlink{vector_8h_source_l00083}{83}} of file \mbox{\hyperlink{vector_8h_source}{vector.\+h}}.
+Definition at line \mbox{\hyperlink{vector_8h_source_l00096}{96}} of file \mbox{\hyperlink{vector_8h_source}{vector.\+h}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00084\ \{}
-\DoxyCodeLine{00085\ \ \ \ \ \textcolor{keywordflow}{return}\ (\textcolor{keywordtype}{void}\ *)((\mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}}\ *)vector-\/>\mbox{\hyperlink{structVector_a3c3c5b59d45fcf97bd75f79657df4b25}{Data}}\ +\ vector-\/>\mbox{\hyperlink{structVector_aaecd5236c979a9c75131c2d391e44cc6}{ElementSize}}\ *\ index);}
-\DoxyCodeLine{00086\ \}}
+\DoxyCodeLine{00097\ \{}
+\DoxyCodeLine{00098\ \ \ \ \ \textcolor{keywordflow}{return}\ (\textcolor{keywordtype}{void}\ *)((\mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}}\ *)vector-\/>\mbox{\hyperlink{structVector_a3c3c5b59d45fcf97bd75f79657df4b25}{Data}}\ +\ vector-\/>\mbox{\hyperlink{structVector_aaecd5236c979a9c75131c2d391e44cc6}{ElementSize}}\ *\ index);}
+\DoxyCodeLine{00099\ \}}
 
 \end{DoxyCode}
 
 
-References \mbox{\hyperlink{vector_8h_source_l00027}{Vector\+::\+Data}}, and \mbox{\hyperlink{vector_8h_source_l00018}{Vector\+::\+Element\+Size}}.
+References \mbox{\hyperlink{vector_8h_source_l00028}{Vector\+::\+Data}}, and \mbox{\hyperlink{vector_8h_source_l00019}{Vector\+::\+Element\+Size}}.
 
 \mbox{\Hypertarget{vector_8h_a9618b41b25efb749069cbfff9c3cadcf}\label{vector_8h_a9618b41b25efb749069cbfff9c3cadcf}} 
 \index{vector.h@{vector.h}!vector\_init@{vector\_init}}
@@ -240,11 +243,11 @@ Definition at line \mbox{\hyperlink{vector_8c_source_l00030}{30}} of file \mbox{
 \end{DoxyCode}
 
 
-References \mbox{\hyperlink{vector_8h_source_l00024}{Vector\+::\+Capacity}}, \mbox{\hyperlink{vector_8h_source_l00027}{Vector\+::\+Data}}, \mbox{\hyperlink{vector_8h_source_l00018}{Vector\+::\+Element\+Size}}, \mbox{\hyperlink{vector_8h_source_l00021}{Vector\+::\+Length}}, and \mbox{\hyperlink{alloc_8c_source_l00104}{memalloc()}}.
+References \mbox{\hyperlink{vector_8h_source_l00025}{Vector\+::\+Capacity}}, \mbox{\hyperlink{vector_8h_source_l00028}{Vector\+::\+Data}}, \mbox{\hyperlink{vector_8h_source_l00019}{Vector\+::\+Element\+Size}}, \mbox{\hyperlink{vector_8h_source_l00022}{Vector\+::\+Length}}, and \mbox{\hyperlink{alloc_8c_source_l00104}{memalloc()}}.
 
 
 
-Referenced by \mbox{\hyperlink{gui_8c_source_l00848}{input\+\_\+init()}}.
+Referenced by \mbox{\hyperlink{clipboard_8c_source_l00021}{\+\_\+clipboard\+\_\+init()}}, and \mbox{\hyperlink{gui_8c_source_l00865}{input\+\_\+init()}}.
 
 \mbox{\Hypertarget{vector_8h_ac95a0b314c0db5461cf8591043ce9d03}\label{vector_8h_ac95a0b314c0db5461cf8591043ce9d03}} 
 \index{vector.h@{vector.h}!vector\_insert@{vector\_insert}}
@@ -267,22 +270,22 @@ Insert a single element.
 \end{DoxyParams}
 
 
-Definition at line \mbox{\hyperlink{vector_8h_source_l00131}{131}} of file \mbox{\hyperlink{vector_8h_source}{vector.\+h}}.
+Definition at line \mbox{\hyperlink{vector_8h_source_l00144}{144}} of file \mbox{\hyperlink{vector_8h_source}{vector.\+h}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00132\ \{}
-\DoxyCodeLine{00133\ \ \ \ \ \mbox{\hyperlink{vector_8h_af8817659c74d231318afcef547716465}{vector\_insert\_range}}(vector,\ index,\ 1,\ elem);}
-\DoxyCodeLine{00134\ \}}
+\DoxyCodeLine{00145\ \{}
+\DoxyCodeLine{00146\ \ \ \ \ \mbox{\hyperlink{vector_8h_af8817659c74d231318afcef547716465}{vector\_insert\_range}}(vector,\ index,\ 1,\ elem);}
+\DoxyCodeLine{00147\ \}}
 
 \end{DoxyCode}
 
 
-References \mbox{\hyperlink{vector_8h_source_l00118}{vector\+\_\+insert\+\_\+range()}}.
+References \mbox{\hyperlink{vector_8h_source_l00131}{vector\+\_\+insert\+\_\+range()}}.
 
 
 
-Referenced by \mbox{\hyperlink{vector_8h_source_l00167}{vector\+\_\+push()}}.
+Referenced by \mbox{\hyperlink{vector_8h_source_l00180}{vector\+\_\+push()}}.
 
 \mbox{\Hypertarget{vector_8h_af8817659c74d231318afcef547716465}\label{vector_8h_af8817659c74d231318afcef547716465}} 
 \index{vector.h@{vector.h}!vector\_insert\_range@{vector\_insert\_range}}
@@ -307,13 +310,13 @@ Insert a range of elements at an index in the vector.
 \end{DoxyParams}
 
 
-Definition at line \mbox{\hyperlink{vector_8h_source_l00118}{118}} of file \mbox{\hyperlink{vector_8h_source}{vector.\+h}}.
+Definition at line \mbox{\hyperlink{vector_8h_source_l00131}{131}} of file \mbox{\hyperlink{vector_8h_source}{vector.\+h}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00120\ \{}
-\DoxyCodeLine{00121\ \ \ \ \ \mbox{\hyperlink{vector_8h_ab5e38bad2bc3f2cbf9f7b23f615545ee}{vector\_replace}}(vector,\ index,\ 0,\ elems,\ count);}
-\DoxyCodeLine{00122\ \}}
+\DoxyCodeLine{00133\ \{}
+\DoxyCodeLine{00134\ \ \ \ \ \mbox{\hyperlink{vector_8h_ab5e38bad2bc3f2cbf9f7b23f615545ee}{vector\_replace}}(vector,\ index,\ 0,\ elems,\ count);}
+\DoxyCodeLine{00135\ \}}
 
 \end{DoxyCode}
 
@@ -322,7 +325,7 @@ References \mbox{\hyperlink{vector_8c_source_l00043}{vector\+\_\+replace()}}.
 
 
 
-Referenced by \mbox{\hyperlink{vector_8h_source_l00131}{vector\+\_\+insert()}}, and \mbox{\hyperlink{vector_8h_source_l00179}{vector\+\_\+push\+\_\+range()}}.
+Referenced by \mbox{\hyperlink{vector_8h_source_l00144}{vector\+\_\+insert()}}, and \mbox{\hyperlink{vector_8h_source_l00192}{vector\+\_\+push\+\_\+range()}}.
 
 \mbox{\Hypertarget{vector_8h_a5169207d0fedd9d5eba2376359dbaa65}\label{vector_8h_a5169207d0fedd9d5eba2376359dbaa65}} 
 \index{vector.h@{vector.h}!vector\_len@{vector\_len}}
@@ -344,22 +347,22 @@ Number of elements
 \end{DoxyReturn}
 
 
-Definition at line \mbox{\hyperlink{vector_8h_source_l00105}{105}} of file \mbox{\hyperlink{vector_8h_source}{vector.\+h}}.
+Definition at line \mbox{\hyperlink{vector_8h_source_l00118}{118}} of file \mbox{\hyperlink{vector_8h_source}{vector.\+h}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00106\ \{}
-\DoxyCodeLine{00107\ \ \ \ \ \textcolor{keywordflow}{return}\ vector-\/>\mbox{\hyperlink{structVector_ac6aa25a7a7bc6353a0fada595c85ea2e}{Length}};}
-\DoxyCodeLine{00108\ \}}
+\DoxyCodeLine{00119\ \{}
+\DoxyCodeLine{00120\ \ \ \ \ \textcolor{keywordflow}{return}\ vector-\/>\mbox{\hyperlink{structVector_ac6aa25a7a7bc6353a0fada595c85ea2e}{Length}};}
+\DoxyCodeLine{00121\ \}}
 
 \end{DoxyCode}
 
 
-References \mbox{\hyperlink{vector_8h_source_l00021}{Vector\+::\+Length}}.
+References \mbox{\hyperlink{vector_8h_source_l00022}{Vector\+::\+Length}}.
 
 
 
-Referenced by \mbox{\hyperlink{gui_8c_source_l00409}{input\+\_\+delete()}}, \mbox{\hyperlink{gui_8c_source_l00451}{input\+\_\+end()}}, \mbox{\hyperlink{gui_8c_source_l00190}{input\+\_\+render()}}, \mbox{\hyperlink{gui_8c_source_l00355}{input\+\_\+right()}}, \mbox{\hyperlink{gui_8c_source_l00486}{input\+\_\+select\+\_\+all()}}, \mbox{\hyperlink{gui_8c_source_l00463}{input\+\_\+select\+\_\+end()}}, \mbox{\hyperlink{gui_8c_source_l00375}{input\+\_\+select\+\_\+right()}}, and \mbox{\hyperlink{gui_8c_source_l00294}{input\+\_\+selection\+\_\+replace()}}.
+Referenced by \mbox{\hyperlink{clipboard_8c_source_l00042}{clipboard\+\_\+get\+\_\+text\+\_\+len()}}, \mbox{\hyperlink{gui_8c_source_l00410}{input\+\_\+delete()}}, \mbox{\hyperlink{gui_8c_source_l00452}{input\+\_\+end()}}, \mbox{\hyperlink{gui_8c_source_l00191}{input\+\_\+render()}}, \mbox{\hyperlink{gui_8c_source_l00356}{input\+\_\+right()}}, \mbox{\hyperlink{gui_8c_source_l00487}{input\+\_\+select\+\_\+all()}}, \mbox{\hyperlink{gui_8c_source_l00464}{input\+\_\+select\+\_\+end()}}, \mbox{\hyperlink{gui_8c_source_l00376}{input\+\_\+select\+\_\+right()}}, and \mbox{\hyperlink{gui_8c_source_l00295}{input\+\_\+selection\+\_\+replace()}}.
 
 \mbox{\Hypertarget{vector_8h_aa93a06f25d8c54ab996297b5523ab300}\label{vector_8h_aa93a06f25d8c54ab996297b5523ab300}} 
 \index{vector.h@{vector.h}!vector\_push@{vector\_push}}
@@ -380,18 +383,18 @@ Insert an element after the last element of the vector.
 \end{DoxyParams}
 
 
-Definition at line \mbox{\hyperlink{vector_8h_source_l00167}{167}} of file \mbox{\hyperlink{vector_8h_source}{vector.\+h}}.
+Definition at line \mbox{\hyperlink{vector_8h_source_l00180}{180}} of file \mbox{\hyperlink{vector_8h_source}{vector.\+h}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00168\ \{}
-\DoxyCodeLine{00169\ \ \ \ \ \mbox{\hyperlink{vector_8h_ac95a0b314c0db5461cf8591043ce9d03}{vector\_insert}}(vector,\ vector-\/>\mbox{\hyperlink{structVector_ac6aa25a7a7bc6353a0fada595c85ea2e}{Length}},\ elem);}
-\DoxyCodeLine{00170\ \}}
+\DoxyCodeLine{00181\ \{}
+\DoxyCodeLine{00182\ \ \ \ \ \mbox{\hyperlink{vector_8h_ac95a0b314c0db5461cf8591043ce9d03}{vector\_insert}}(vector,\ vector-\/>\mbox{\hyperlink{structVector_ac6aa25a7a7bc6353a0fada595c85ea2e}{Length}},\ elem);}
+\DoxyCodeLine{00183\ \}}
 
 \end{DoxyCode}
 
 
-References \mbox{\hyperlink{vector_8h_source_l00021}{Vector\+::\+Length}}, and \mbox{\hyperlink{vector_8h_source_l00131}{vector\+\_\+insert()}}.
+References \mbox{\hyperlink{vector_8h_source_l00022}{Vector\+::\+Length}}, and \mbox{\hyperlink{vector_8h_source_l00144}{vector\+\_\+insert()}}.
 
 \mbox{\Hypertarget{vector_8h_a41556dfae45ce9bbe4f3ca2d5c6ec93a}\label{vector_8h_a41556dfae45ce9bbe4f3ca2d5c6ec93a}} 
 \index{vector.h@{vector.h}!vector\_push\_range@{vector\_push\_range}}
@@ -414,18 +417,18 @@ Insert a range of elements after the last element of the vector.
 \end{DoxyParams}
 
 
-Definition at line \mbox{\hyperlink{vector_8h_source_l00179}{179}} of file \mbox{\hyperlink{vector_8h_source}{vector.\+h}}.
+Definition at line \mbox{\hyperlink{vector_8h_source_l00192}{192}} of file \mbox{\hyperlink{vector_8h_source}{vector.\+h}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00180\ \{}
-\DoxyCodeLine{00181\ \ \ \ \ \mbox{\hyperlink{vector_8h_af8817659c74d231318afcef547716465}{vector\_insert\_range}}(vector,\ vector-\/>\mbox{\hyperlink{structVector_ac6aa25a7a7bc6353a0fada595c85ea2e}{Length}},\ count,\ elem);}
-\DoxyCodeLine{00182\ \}}
+\DoxyCodeLine{00193\ \{}
+\DoxyCodeLine{00194\ \ \ \ \ \mbox{\hyperlink{vector_8h_af8817659c74d231318afcef547716465}{vector\_insert\_range}}(vector,\ vector-\/>\mbox{\hyperlink{structVector_ac6aa25a7a7bc6353a0fada595c85ea2e}{Length}},\ count,\ elem);}
+\DoxyCodeLine{00195\ \}}
 
 \end{DoxyCode}
 
 
-References \mbox{\hyperlink{vector_8h_source_l00021}{Vector\+::\+Length}}, and \mbox{\hyperlink{vector_8h_source_l00118}{vector\+\_\+insert\+\_\+range()}}.
+References \mbox{\hyperlink{vector_8h_source_l00022}{Vector\+::\+Length}}, and \mbox{\hyperlink{vector_8h_source_l00131}{vector\+\_\+insert\+\_\+range()}}.
 
 \mbox{\Hypertarget{vector_8h_af3a2eb74cba163713007f5afaf3749fe}\label{vector_8h_af3a2eb74cba163713007f5afaf3749fe}} 
 \index{vector.h@{vector.h}!vector\_remove@{vector\_remove}}
@@ -446,22 +449,22 @@ Remove a single element.
 \end{DoxyParams}
 
 
-Definition at line \mbox{\hyperlink{vector_8h_source_l00154}{154}} of file \mbox{\hyperlink{vector_8h_source}{vector.\+h}}.
+Definition at line \mbox{\hyperlink{vector_8h_source_l00167}{167}} of file \mbox{\hyperlink{vector_8h_source}{vector.\+h}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00155\ \{}
-\DoxyCodeLine{00156\ \ \ \ \ \mbox{\hyperlink{vector_8h_a67ee10133f0cf3c7d71d364754fb648f}{vector\_remove\_range}}(vector,\ index,\ 1);}
-\DoxyCodeLine{00157\ \}}
+\DoxyCodeLine{00168\ \{}
+\DoxyCodeLine{00169\ \ \ \ \ \mbox{\hyperlink{vector_8h_a67ee10133f0cf3c7d71d364754fb648f}{vector\_remove\_range}}(vector,\ index,\ 1);}
+\DoxyCodeLine{00170\ \}}
 
 \end{DoxyCode}
 
 
-References \mbox{\hyperlink{vector_8h_source_l00143}{vector\+\_\+remove\+\_\+range()}}.
+References \mbox{\hyperlink{vector_8h_source_l00156}{vector\+\_\+remove\+\_\+range()}}.
 
 
 
-Referenced by \mbox{\hyperlink{gui_8c_source_l00389}{input\+\_\+backspace()}}, and \mbox{\hyperlink{gui_8c_source_l00409}{input\+\_\+delete()}}.
+Referenced by \mbox{\hyperlink{gui_8c_source_l00390}{input\+\_\+backspace()}}, and \mbox{\hyperlink{gui_8c_source_l00410}{input\+\_\+delete()}}.
 
 \mbox{\Hypertarget{vector_8h_a67ee10133f0cf3c7d71d364754fb648f}\label{vector_8h_a67ee10133f0cf3c7d71d364754fb648f}} 
 \index{vector.h@{vector.h}!vector\_remove\_range@{vector\_remove\_range}}
@@ -484,13 +487,13 @@ Remove a range of elements.
 \end{DoxyParams}
 
 
-Definition at line \mbox{\hyperlink{vector_8h_source_l00143}{143}} of file \mbox{\hyperlink{vector_8h_source}{vector.\+h}}.
+Definition at line \mbox{\hyperlink{vector_8h_source_l00156}{156}} of file \mbox{\hyperlink{vector_8h_source}{vector.\+h}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00144\ \{}
-\DoxyCodeLine{00145\ \ \ \ \ \mbox{\hyperlink{vector_8h_ab5e38bad2bc3f2cbf9f7b23f615545ee}{vector\_replace}}(vector,\ index,\ count,\ NULL,\ 0);}
-\DoxyCodeLine{00146\ \}}
+\DoxyCodeLine{00157\ \{}
+\DoxyCodeLine{00158\ \ \ \ \ \mbox{\hyperlink{vector_8h_ab5e38bad2bc3f2cbf9f7b23f615545ee}{vector\_replace}}(vector,\ index,\ count,\ NULL,\ 0);}
+\DoxyCodeLine{00159\ \}}
 
 \end{DoxyCode}
 
@@ -499,7 +502,7 @@ References \mbox{\hyperlink{vector_8c_source_l00043}{vector\+\_\+replace()}}.
 
 
 
-Referenced by \mbox{\hyperlink{vector_8h_source_l00154}{vector\+\_\+remove()}}.
+Referenced by \mbox{\hyperlink{vector_8h_source_l00167}{vector\+\_\+remove()}}.
 
 \mbox{\Hypertarget{vector_8h_ab5e38bad2bc3f2cbf9f7b23f615545ee}\label{vector_8h_ab5e38bad2bc3f2cbf9f7b23f615545ee}} 
 \index{vector.h@{vector.h}!vector\_replace@{vector\_replace}}
@@ -595,9 +598,47 @@ Definition at line \mbox{\hyperlink{vector_8c_source_l00043}{43}} of file \mbox{
 \end{DoxyCode}
 
 
-References \mbox{\hyperlink{vector_8c_source_l00019}{\+\_\+next\+\_\+pot()}}, \mbox{\hyperlink{panic_8h_source_l00040}{ASSERT}}, \mbox{\hyperlink{vector_8h_source_l00024}{Vector\+::\+Capacity}}, \mbox{\hyperlink{vector_8h_source_l00027}{Vector\+::\+Data}}, \mbox{\hyperlink{vector_8h_source_l00018}{Vector\+::\+Element\+Size}}, \mbox{\hyperlink{vector_8h_source_l00021}{Vector\+::\+Length}}, \mbox{\hyperlink{alloc_8c_source_l00104}{memalloc()}}, \mbox{\hyperlink{string_8c_source_l00094}{memcpy()}}, \mbox{\hyperlink{alloc_8c_source_l00160}{memfree()}}, and \mbox{\hyperlink{string_8c_source_l00113}{memmove()}}.
+References \mbox{\hyperlink{vector_8c_source_l00019}{\+\_\+next\+\_\+pot()}}, \mbox{\hyperlink{panic_8h_source_l00040}{ASSERT}}, \mbox{\hyperlink{vector_8h_source_l00025}{Vector\+::\+Capacity}}, \mbox{\hyperlink{vector_8h_source_l00028}{Vector\+::\+Data}}, \mbox{\hyperlink{vector_8h_source_l00019}{Vector\+::\+Element\+Size}}, \mbox{\hyperlink{vector_8h_source_l00022}{Vector\+::\+Length}}, \mbox{\hyperlink{alloc_8c_source_l00104}{memalloc()}}, \mbox{\hyperlink{string_8c_source_l00094}{memcpy()}}, \mbox{\hyperlink{alloc_8c_source_l00160}{memfree()}}, and \mbox{\hyperlink{string_8c_source_l00113}{memmove()}}.
 
 
 
-Referenced by \mbox{\hyperlink{gui_8c_source_l00294}{input\+\_\+selection\+\_\+replace()}}, \mbox{\hyperlink{vector_8h_source_l00118}{vector\+\_\+insert\+\_\+range()}}, and \mbox{\hyperlink{vector_8h_source_l00143}{vector\+\_\+remove\+\_\+range()}}.
+Referenced by \mbox{\hyperlink{gui_8c_source_l00295}{input\+\_\+selection\+\_\+replace()}}, \mbox{\hyperlink{vector_8h_source_l00131}{vector\+\_\+insert\+\_\+range()}}, and \mbox{\hyperlink{vector_8h_source_l00156}{vector\+\_\+remove\+\_\+range()}}.
+
+\mbox{\Hypertarget{vector_8h_ac65e7c44e70e353b26f7b81033f0fd10}\label{vector_8h_ac65e7c44e70e353b26f7b81033f0fd10}} 
+\index{vector.h@{vector.h}!vector\_set@{vector\_set}}
+\index{vector\_set@{vector\_set}!vector.h@{vector.h}}
+\doxysubsubsection{\texorpdfstring{vector\_set()}{vector\_set()}}
+{\footnotesize\ttfamily static void vector\+\_\+set (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structVector}{Vector}} $\ast$}]{vector,  }\item[{const void $\ast$}]{elems,  }\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{count }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Replace all elements in a vector. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em vector} & The vector \\
+\hline
+{\em elems} & New elements \\
+\hline
+{\em count} & Number of new elements \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{vector_8h_source_l00084}{84}} of file \mbox{\hyperlink{vector_8h_source}{vector.\+h}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00085\ \{}
+\DoxyCodeLine{00086\ \ \ \ \ \mbox{\hyperlink{string_8c_a6ea826c42748b85ae7c74f1e2ccf7c27}{memcpy}}(vector-\/>\mbox{\hyperlink{structVector_a3c3c5b59d45fcf97bd75f79657df4b25}{Data}},\ elems,\ vector-\/>\mbox{\hyperlink{structVector_aaecd5236c979a9c75131c2d391e44cc6}{ElementSize}}\ *\ count);}
+\DoxyCodeLine{00087\ \}}
+
+\end{DoxyCode}
+
+
+References \mbox{\hyperlink{vector_8h_source_l00028}{Vector\+::\+Data}}, \mbox{\hyperlink{vector_8h_source_l00019}{Vector\+::\+Element\+Size}}, and \mbox{\hyperlink{string_8c_source_l00094}{memcpy()}}.
+
+
+
+Referenced by \mbox{\hyperlink{clipboard_8c_source_l00030}{clipboard\+\_\+save\+\_\+text\+\_\+len()}}.
 

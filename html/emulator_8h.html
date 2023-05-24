@@ -105,9 +105,9 @@ Functions</h2></td></tr>
 <tr class="memitem:acc842b78e848efee5e97116c723b9345"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="emulator_8h.html#acc842b78e848efee5e97116c723b9345">keyboard_event</a> (Key key, <a class="el" href="types_8h.html#a48d6cd8e4135fb2ff7e7f2dac84089ec">i32</a> chr, KeyState state)</td></tr>
 <tr class="memdesc:acc842b78e848efee5e97116c723b9345"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inform the emulator about a key press.  <br /></td></tr>
 <tr class="separator:acc842b78e848efee5e97116c723b9345"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1e4129b64f56474b83883744b5ad6957"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="emulator_8h.html#a1e4129b64f56474b83883744b5ad6957">emulator_call</a> (<a class="el" href="structEmulator.html">Emulator</a> *emu, <a class="el" href="types_8h.html#afaa62991928fb9fb18ff0db62a040aba">u32</a> addr, <a class="el" href="types_8h.html#afaa62991928fb9fb18ff0db62a040aba">u32</a> *args, <a class="el" href="types_8h.html#a92c50087ca0e64fa93fc59402c55f8ca">u8</a> num, <a class="el" href="types_8h.html#afaa62991928fb9fb18ff0db62a040aba">u32</a> sp)</td></tr>
-<tr class="memdesc:a1e4129b64f56474b83883744b5ad6957"><td class="mdescLeft">&#160;</td><td class="mdescRight">Call an emulated RISC-V function.  <br /></td></tr>
-<tr class="separator:a1e4129b64f56474b83883744b5ad6957"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac0a5037d738e40096ed1adb2581cd3d4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="types_8h.html#a92c50087ca0e64fa93fc59402c55f8ca">u8</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="emulator_8h.html#ac0a5037d738e40096ed1adb2581cd3d4">emulator_call</a> (<a class="el" href="structEmulator.html">Emulator</a> *emu, <a class="el" href="types_8h.html#afaa62991928fb9fb18ff0db62a040aba">u32</a> addr, <a class="el" href="types_8h.html#afaa62991928fb9fb18ff0db62a040aba">u32</a> *args, <a class="el" href="types_8h.html#a92c50087ca0e64fa93fc59402c55f8ca">u8</a> num, <a class="el" href="types_8h.html#afaa62991928fb9fb18ff0db62a040aba">u32</a> sp)</td></tr>
+<tr class="memdesc:ac0a5037d738e40096ed1adb2581cd3d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Call an emulated RISC-V function.  <br /></td></tr>
+<tr class="separator:ac0a5037d738e40096ed1adb2581cd3d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>RISC-V <a class="el" href="structEmulator.html">Emulator</a>. </p>
@@ -117,14 +117,14 @@ Functions</h2></td></tr>
 
 <p class="definition">Definition in file <a class="el" href="emulator_8h_source.html">emulator.h</a>.</p>
 </div><h2 class="groupheader">Function Documentation</h2>
-<a id="a1e4129b64f56474b83883744b5ad6957" name="a1e4129b64f56474b83883744b5ad6957"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1e4129b64f56474b83883744b5ad6957">&#9670;&#160;</a></span>emulator_call()</h2>
+<a id="ac0a5037d738e40096ed1adb2581cd3d4" name="ac0a5037d738e40096ed1adb2581cd3d4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac0a5037d738e40096ed1adb2581cd3d4">&#9670;&#160;</a></span>emulator_call()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void emulator_call </td>
+          <td class="memname"><a class="el" href="types_8h.html#a92c50087ca0e64fa93fc59402c55f8ca">u8</a> emulator_call </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="structEmulator.html">Emulator</a> *&#160;</td>
           <td class="paramname"><em>emu</em>, </td>
@@ -173,37 +173,37 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="emulator_8c_source.html#l00767">767</a> of file <a class="el" href="emulator_8c_source.html">emulator.c</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  768</span>{</div>
-<div class="line"><span class="lineno">  769</span>    <span class="comment">/* Initialize Stack Pointer at end of memory */</span></div>
-<div class="line"><span class="lineno">  770</span>    emu-&gt;<a class="code hl_variable" href="structEmulator.html#a8c2f51f67d4656f760fd7aa2c986d66e">Registers</a>[2] = sp - 4;</div>
-<div class="line"><span class="lineno">  771</span> </div>
-<div class="line"><span class="lineno">  772</span>    emu-&gt;<a class="code hl_variable" href="structEmulator.html#a67f6a7f8dd88da5f7408c1b82758cb1c">PC</a> = addr;</div>
-<div class="line"><span class="lineno">  773</span>    <a class="code hl_function" href="string_8c.html#a6ea826c42748b85ae7c74f1e2ccf7c27">memcpy</a>(&amp;emu-&gt;<a class="code hl_variable" href="structEmulator.html#a8c2f51f67d4656f760fd7aa2c986d66e">Registers</a>[10], args, num * <span class="keyword">sizeof</span>(*emu-&gt;<a class="code hl_variable" href="structEmulator.html#a8c2f51f67d4656f760fd7aa2c986d66e">Registers</a>));</div>
-<div class="line"><span class="lineno">  774</span> </div>
-<div class="line"><span class="lineno">  775</span>    <a class="code hl_typedef" href="types_8h.html#afaa62991928fb9fb18ff0db62a040aba">u32</a> i = 0;</div>
-<div class="line"><span class="lineno">  776</span>    _finished = <span class="keyword">false</span>;</div>
-<div class="line"><span class="lineno">  777</span>    <span class="keywordflow">for</span>(;;)</div>
-<div class="line"><span class="lineno">  778</span>    {</div>
-<div class="line"><span class="lineno">  779</span>        <span class="keywordflow">if</span>(emulator_next(emu))</div>
-<div class="line"><span class="lineno">  780</span>        {</div>
-<div class="line"><span class="lineno">  781</span>            <span class="keywordflow">return</span>;</div>
-<div class="line"><span class="lineno">  782</span>        }</div>
-<div class="line"><span class="lineno">  783</span> </div>
-<div class="line"><span class="lineno">  784</span>        ++i;</div>
-<div class="line"><span class="lineno">  785</span>        <span class="keywordflow">if</span>(_finished)</div>
-<div class="line"><span class="lineno">  786</span>        {</div>
-<div class="line"><span class="lineno">  787</span>            EMU_LOG(PSTR(<span class="stringliteral">&quot;%&quot;</span>PRIu32<span class="stringliteral">&quot; Cycles&quot;</span>), i);</div>
-<div class="line"><span class="lineno">  788</span>            <span class="keywordflow">return</span>;</div>
-<div class="line"><span class="lineno">  789</span>        }</div>
-<div class="line"><span class="lineno">  790</span>    }</div>
-<div class="line"><span class="lineno">  791</span>}</div>
+<p class="definition">Definition at line <a class="el" href="emulator_8c_source.html#l01006">1006</a> of file <a class="el" href="emulator_8c_source.html">emulator.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 1007</span>{</div>
+<div class="line"><span class="lineno"> 1008</span>    <a class="code hl_typedef" href="types_8h.html#afaa62991928fb9fb18ff0db62a040aba">u32</a> i;</div>
+<div class="line"><span class="lineno"> 1009</span> </div>
+<div class="line"><span class="lineno"> 1010</span>    <span class="comment">/* Initialize Stack Pointer at end of memory */</span></div>
+<div class="line"><span class="lineno"> 1011</span>    emu-&gt;<a class="code hl_variable" href="structEmulator.html#a8c2f51f67d4656f760fd7aa2c986d66e">Registers</a>[2] = sp - 4;</div>
+<div class="line"><span class="lineno"> 1012</span>    emu-&gt;<a class="code hl_variable" href="structEmulator.html#a67f6a7f8dd88da5f7408c1b82758cb1c">PC</a> = addr;</div>
+<div class="line"><span class="lineno"> 1013</span>    <a class="code hl_function" href="string_8c.html#a6ea826c42748b85ae7c74f1e2ccf7c27">memcpy</a>(&amp;emu-&gt;<a class="code hl_variable" href="structEmulator.html#a8c2f51f67d4656f760fd7aa2c986d66e">Registers</a>[10], args, num * <span class="keyword">sizeof</span>(*emu-&gt;<a class="code hl_variable" href="structEmulator.html#a8c2f51f67d4656f760fd7aa2c986d66e">Registers</a>));</div>
+<div class="line"><span class="lineno"> 1014</span>    i = 0;</div>
+<div class="line"><span class="lineno"> 1015</span>    <a class="code hl_variable" href="emulator_8c.html#a4eec34c850d6d037640f3ba3d9988cb2">_finished</a> = <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno"> 1016</span>    <span class="keywordflow">while</span>(!<a class="code hl_variable" href="emulator_8c.html#a4eec34c850d6d037640f3ba3d9988cb2">_finished</a>)</div>
+<div class="line"><span class="lineno"> 1017</span>    {</div>
+<div class="line"><span class="lineno"> 1018</span>        ++i;</div>
+<div class="line"><span class="lineno"> 1019</span>        <span class="keywordflow">if</span>(emulator_next(emu))</div>
+<div class="line"><span class="lineno"> 1020</span>        {</div>
+<div class="line"><span class="lineno"> 1021</span>            <span class="keywordflow">return</span> 1;</div>
+<div class="line"><span class="lineno"> 1022</span>        }</div>
+<div class="line"><span class="lineno"> 1023</span>    }</div>
+<div class="line"><span class="lineno"> 1024</span> </div>
+<div class="line"><span class="lineno"> 1025</span>    EMU_LOG(PSTR(<span class="stringliteral">&quot;%&quot;</span>PRIu32<span class="stringliteral">&quot; Cycles&quot;</span>), i);</div>
+<div class="line"><span class="lineno"> 1026</span>    <span class="keywordflow">return</span> 0;</div>
+<div class="line"><span class="lineno"> 1027</span>}</div>
+<div class="ttc" id="aemulator_8c_html_a4eec34c850d6d037640f3ba3d9988cb2"><div class="ttname"><a href="emulator_8c.html#a4eec34c850d6d037640f3ba3d9988cb2">_finished</a></div><div class="ttdeci">static bool _finished</div><div class="ttdef"><b>Definition:</b> <a href="emulator_8c_source.html#l00104">emulator.c:104</a></div></div>
 <div class="ttc" id="astring_8c_html_a6ea826c42748b85ae7c74f1e2ccf7c27"><div class="ttname"><a href="string_8c.html#a6ea826c42748b85ae7c74f1e2ccf7c27">memcpy</a></div><div class="ttdeci">void * memcpy(void *dest, const void *src, u32 count)</div><div class="ttdoc">Copies count bytes from src to dest Source and destination blocks must NOT overlap.</div><div class="ttdef"><b>Definition:</b> <a href="string_8c_source.html#l00094">string.c:94</a></div></div>
-<div class="ttc" id="astructEmulator_html_a67f6a7f8dd88da5f7408c1b82758cb1c"><div class="ttname"><a href="structEmulator.html#a67f6a7f8dd88da5f7408c1b82758cb1c">Emulator::PC</a></div><div class="ttdeci">u32 PC</div><div class="ttdef"><b>Definition:</b> <a href="emulator_8h_source.html#l00024">emulator.h:24</a></div></div>
-<div class="ttc" id="astructEmulator_html_a8c2f51f67d4656f760fd7aa2c986d66e"><div class="ttname"><a href="structEmulator.html#a8c2f51f67d4656f760fd7aa2c986d66e">Emulator::Registers</a></div><div class="ttdeci">u32 Registers[32]</div><div class="ttdef"><b>Definition:</b> <a href="emulator_8h_source.html#l00027">emulator.h:27</a></div></div>
+<div class="ttc" id="astructEmulator_html_a67f6a7f8dd88da5f7408c1b82758cb1c"><div class="ttname"><a href="structEmulator.html#a67f6a7f8dd88da5f7408c1b82758cb1c">Emulator::PC</a></div><div class="ttdeci">u32 PC</div><div class="ttdef"><b>Definition:</b> <a href="emulator_8h_source.html#l00033">emulator.h:33</a></div></div>
+<div class="ttc" id="astructEmulator_html_a8c2f51f67d4656f760fd7aa2c986d66e"><div class="ttname"><a href="structEmulator.html#a8c2f51f67d4656f760fd7aa2c986d66e">Emulator::Registers</a></div><div class="ttdeci">u32 Registers[32]</div><div class="ttdef"><b>Definition:</b> <a href="emulator_8h_source.html#l00036">emulator.h:36</a></div></div>
 <div class="ttc" id="atypes_8h_html_afaa62991928fb9fb18ff0db62a040aba"><div class="ttname"><a href="types_8h.html#afaa62991928fb9fb18ff0db62a040aba">u32</a></div><div class="ttdeci">uint32_t u32</div><div class="ttdef"><b>Definition:</b> <a href="types_8h_source.html#l00032">types.h:32</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="string_8c_source.html#l00094">memcpy()</a>, <a class="el" href="emulator_8h_source.html#l00024">Emulator::PC</a>, and <a class="el" href="emulator_8h_source.html#l00027">Emulator::Registers</a>.</p>
+<p class="reference">References <a class="el" href="emulator_8c_source.html#l00104">_finished</a>, <a class="el" href="string_8c_source.html#l00094">memcpy()</a>, <a class="el" href="emulator_8h_source.html#l00033">Emulator::PC</a>, and <a class="el" href="emulator_8h_source.html#l00036">Emulator::Registers</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="emulator_8c_source.html#l00112">kernel_init()</a>, <a class="el" href="emulator_8c_source.html#l00127">keyboard_event()</a>, and <a class="el" href="emulator_8c_source.html#l00118">os_update()</a>.</p>
 
 </div>
 </div>
@@ -225,14 +225,16 @@ Functions</h2></td></tr>
 
 <p>Initialize emulator kernel and load first process (NOT systemd) </p>
 
-<p class="definition">Definition at line <a class="el" href="emulator_8c_source.html#l00075">75</a> of file <a class="el" href="emulator_8c_source.html">emulator.c</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   76</span>{</div>
-<div class="line"><span class="lineno">   77</span>    _memory_size = <a class="code hl_function" href="avr_2platform_8c.html#acf57f1ce47563167d4ef978ef1a7ab49">env_memory_size</a>();</div>
-<div class="line"><span class="lineno">   78</span>    emulator_call(_emu, 0, NULL, 0, _memory_size);</div>
-<div class="line"><span class="lineno">   79</span>}</div>
+<p class="definition">Definition at line <a class="el" href="emulator_8c_source.html#l00112">112</a> of file <a class="el" href="emulator_8c_source.html">emulator.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  113</span>{</div>
+<div class="line"><span class="lineno">  114</span>    <a class="code hl_variable" href="emulator_8c.html#a86f3123b3022a4b0ec9c19d860a171d6">_memory_size</a> = <a class="code hl_function" href="avr_2platform_8c.html#acf57f1ce47563167d4ef978ef1a7ab49">env_memory_size</a>();</div>
+<div class="line"><span class="lineno">  115</span>    <a class="code hl_function" href="emulator_8c.html#ac0a5037d738e40096ed1adb2581cd3d4">emulator_call</a>(_emu, 0, NULL, 0, <a class="code hl_variable" href="emulator_8c.html#a86f3123b3022a4b0ec9c19d860a171d6">_memory_size</a>);</div>
+<div class="line"><span class="lineno">  116</span>}</div>
 <div class="ttc" id="aavr_2platform_8c_html_acf57f1ce47563167d4ef978ef1a7ab49"><div class="ttname"><a href="avr_2platform_8c.html#acf57f1ce47563167d4ef978ef1a7ab49">env_memory_size</a></div><div class="ttdeci">u32 env_memory_size(void)</div><div class="ttdoc">Get the size of the installed memory.</div><div class="ttdef"><b>Definition:</b> <a href="avr_2platform_8c_source.html#l00019">platform.c:19</a></div></div>
+<div class="ttc" id="aemulator_8c_html_a86f3123b3022a4b0ec9c19d860a171d6"><div class="ttname"><a href="emulator_8c.html#a86f3123b3022a4b0ec9c19d860a171d6">_memory_size</a></div><div class="ttdeci">static u32 _memory_size</div><div class="ttdef"><b>Definition:</b> <a href="emulator_8c_source.html#l00110">emulator.c:110</a></div></div>
+<div class="ttc" id="aemulator_8c_html_ac0a5037d738e40096ed1adb2581cd3d4"><div class="ttname"><a href="emulator_8c.html#ac0a5037d738e40096ed1adb2581cd3d4">emulator_call</a></div><div class="ttdeci">u8 emulator_call(Emulator *emu, u32 addr, u32 *args, u8 num, u32 sp)</div><div class="ttdoc">Call an emulated RISC-V function.</div><div class="ttdef"><b>Definition:</b> <a href="emulator_8c_source.html#l01006">emulator.c:1006</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="avr_2platform_8c_source.html#l00019">env_memory_size()</a>.</p>
+<p class="reference">References <a class="el" href="emulator_8c_source.html#l00110">_memory_size</a>, <a class="el" href="emulator_8c_source.html#l01006">emulator_call()</a>, and <a class="el" href="avr_2platform_8c_source.html#l00019">env_memory_size()</a>.</p>
 
 </div>
 </div>
@@ -278,20 +280,20 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="emulator_8c_source.html#l00090">90</a> of file <a class="el" href="emulator_8c_source.html">emulator.c</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   91</span>{</div>
-<div class="line"><span class="lineno">   92</span>    <a class="code hl_typedef" href="types_8h.html#afaa62991928fb9fb18ff0db62a040aba">u32</a> addr = _emu-&gt;<a class="code hl_variable" href="structEmulator.html#af6349f9e64ef828e37854791fb690c10">Events</a>[<a class="code hl_enumvalue" href="event-types_8h.html#a5667b805d857c6d28f83f6038a0272d3a73957df3a3996d1a32b0fbcdeba044ec">EVENT_KEY</a>];</div>
-<div class="line"><span class="lineno">   93</span>    <span class="keywordflow">if</span>(addr)</div>
-<div class="line"><span class="lineno">   94</span>    {</div>
-<div class="line"><span class="lineno">   95</span>        <a class="code hl_typedef" href="types_8h.html#afaa62991928fb9fb18ff0db62a040aba">u32</a> args[] = { key, chr, down };</div>
-<div class="line"><span class="lineno">   96</span>        emulator_call(_emu, addr, args, <a class="code hl_define" href="util_8h.html#a5a34c337b71a34ab9a0ecff2d5715d24">ARRLEN</a>(args), _memory_size);</div>
-<div class="line"><span class="lineno">   97</span>    }</div>
-<div class="line"><span class="lineno">   98</span>}</div>
+<p class="definition">Definition at line <a class="el" href="emulator_8c_source.html#l00127">127</a> of file <a class="el" href="emulator_8c_source.html">emulator.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  128</span>{</div>
+<div class="line"><span class="lineno">  129</span>    <a class="code hl_typedef" href="types_8h.html#afaa62991928fb9fb18ff0db62a040aba">u32</a> addr = _emu-&gt;<a class="code hl_variable" href="structEmulator.html#af6349f9e64ef828e37854791fb690c10">Events</a>[<a class="code hl_enumvalue" href="event-types_8h.html#a5667b805d857c6d28f83f6038a0272d3a73957df3a3996d1a32b0fbcdeba044ec">EVENT_KEY</a>];</div>
+<div class="line"><span class="lineno">  130</span>    <span class="keywordflow">if</span>(addr)</div>
+<div class="line"><span class="lineno">  131</span>    {</div>
+<div class="line"><span class="lineno">  132</span>        <a class="code hl_typedef" href="types_8h.html#afaa62991928fb9fb18ff0db62a040aba">u32</a> args[] = { key, chr, down };</div>
+<div class="line"><span class="lineno">  133</span>        <a class="code hl_function" href="emulator_8c.html#ac0a5037d738e40096ed1adb2581cd3d4">emulator_call</a>(_emu, addr, args, <a class="code hl_define" href="util_8h.html#a5a34c337b71a34ab9a0ecff2d5715d24">ARRLEN</a>(args), <a class="code hl_variable" href="emulator_8c.html#a86f3123b3022a4b0ec9c19d860a171d6">_memory_size</a>);</div>
+<div class="line"><span class="lineno">  134</span>    }</div>
+<div class="line"><span class="lineno">  135</span>}</div>
 <div class="ttc" id="aevent-types_8h_html_a5667b805d857c6d28f83f6038a0272d3a73957df3a3996d1a32b0fbcdeba044ec"><div class="ttname"><a href="event-types_8h.html#a5667b805d857c6d28f83f6038a0272d3a73957df3a3996d1a32b0fbcdeba044ec">EVENT_KEY</a></div><div class="ttdeci">@ EVENT_KEY</div><div class="ttdef"><b>Definition:</b> <a href="event-types_8h_source.html#l00020">event-types.h:20</a></div></div>
-<div class="ttc" id="astructEmulator_html_af6349f9e64ef828e37854791fb690c10"><div class="ttname"><a href="structEmulator.html#af6349f9e64ef828e37854791fb690c10">Emulator::Events</a></div><div class="ttdeci">u32 Events[EVENT_COUNT]</div><div class="ttdef"><b>Definition:</b> <a href="emulator_8h_source.html#l00021">emulator.h:21</a></div></div>
+<div class="ttc" id="astructEmulator_html_af6349f9e64ef828e37854791fb690c10"><div class="ttname"><a href="structEmulator.html#af6349f9e64ef828e37854791fb690c10">Emulator::Events</a></div><div class="ttdeci">u32 Events[EVENT_COUNT]</div><div class="ttdef"><b>Definition:</b> <a href="emulator_8h_source.html#l00030">emulator.h:30</a></div></div>
 <div class="ttc" id="autil_8h_html_a5a34c337b71a34ab9a0ecff2d5715d24"><div class="ttname"><a href="util_8h.html#a5a34c337b71a34ab9a0ecff2d5715d24">ARRLEN</a></div><div class="ttdeci">#define ARRLEN(A)</div><div class="ttdef"><b>Definition:</b> <a href="util_8h_source.html#l00013">util.h:13</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="util_8h_source.html#l00013">ARRLEN</a>, <a class="el" href="event-types_8h_source.html#l00020">EVENT_KEY</a>, and <a class="el" href="emulator_8h_source.html#l00021">Emulator::Events</a>.</p>
+<p class="reference">References <a class="el" href="emulator_8c_source.html#l00110">_memory_size</a>, <a class="el" href="util_8h_source.html#l00013">ARRLEN</a>, <a class="el" href="emulator_8c_source.html#l01006">emulator_call()</a>, <a class="el" href="event-types_8h_source.html#l00020">EVENT_KEY</a>, and <a class="el" href="emulator_8h_source.html#l00030">Emulator::Events</a>.</p>
 
 </div>
 </div>
@@ -313,17 +315,17 @@ Functions</h2></td></tr>
 
 <p>Call this function periodically in main loop. </p>
 
-<p class="definition">Definition at line <a class="el" href="emulator_8c_source.html#l00081">81</a> of file <a class="el" href="emulator_8c_source.html">emulator.c</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   82</span>{</div>
-<div class="line"><span class="lineno">   83</span>    <a class="code hl_typedef" href="types_8h.html#afaa62991928fb9fb18ff0db62a040aba">u32</a> addr = _emu-&gt;<a class="code hl_variable" href="structEmulator.html#af6349f9e64ef828e37854791fb690c10">Events</a>[<a class="code hl_enumvalue" href="event-types_8h.html#a5667b805d857c6d28f83f6038a0272d3af4289a72858bef1b5fb30a0ac1c4d73a">EVENT_LOOP</a>];</div>
-<div class="line"><span class="lineno">   84</span>    <span class="keywordflow">if</span>(addr)</div>
-<div class="line"><span class="lineno">   85</span>    {</div>
-<div class="line"><span class="lineno">   86</span>        emulator_call(_emu, addr, NULL, 0, _memory_size);</div>
-<div class="line"><span class="lineno">   87</span>    }</div>
-<div class="line"><span class="lineno">   88</span>}</div>
+<p class="definition">Definition at line <a class="el" href="emulator_8c_source.html#l00118">118</a> of file <a class="el" href="emulator_8c_source.html">emulator.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  119</span>{</div>
+<div class="line"><span class="lineno">  120</span>    <a class="code hl_typedef" href="types_8h.html#afaa62991928fb9fb18ff0db62a040aba">u32</a> addr = _emu-&gt;<a class="code hl_variable" href="structEmulator.html#af6349f9e64ef828e37854791fb690c10">Events</a>[<a class="code hl_enumvalue" href="event-types_8h.html#a5667b805d857c6d28f83f6038a0272d3af4289a72858bef1b5fb30a0ac1c4d73a">EVENT_LOOP</a>];</div>
+<div class="line"><span class="lineno">  121</span>    <span class="keywordflow">if</span>(addr)</div>
+<div class="line"><span class="lineno">  122</span>    {</div>
+<div class="line"><span class="lineno">  123</span>        <a class="code hl_function" href="emulator_8c.html#ac0a5037d738e40096ed1adb2581cd3d4">emulator_call</a>(_emu, addr, NULL, 0, <a class="code hl_variable" href="emulator_8c.html#a86f3123b3022a4b0ec9c19d860a171d6">_memory_size</a>);</div>
+<div class="line"><span class="lineno">  124</span>    }</div>
+<div class="line"><span class="lineno">  125</span>}</div>
 <div class="ttc" id="aevent-types_8h_html_a5667b805d857c6d28f83f6038a0272d3af4289a72858bef1b5fb30a0ac1c4d73a"><div class="ttname"><a href="event-types_8h.html#a5667b805d857c6d28f83f6038a0272d3af4289a72858bef1b5fb30a0ac1c4d73a">EVENT_LOOP</a></div><div class="ttdeci">@ EVENT_LOOP</div><div class="ttdef"><b>Definition:</b> <a href="event-types_8h_source.html#l00017">event-types.h:17</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="event-types_8h_source.html#l00017">EVENT_LOOP</a>, and <a class="el" href="emulator_8h_source.html#l00021">Emulator::Events</a>.</p>
+<p class="reference">References <a class="el" href="emulator_8c_source.html#l00110">_memory_size</a>, <a class="el" href="emulator_8c_source.html#l01006">emulator_call()</a>, <a class="el" href="event-types_8h_source.html#l00017">EVENT_LOOP</a>, and <a class="el" href="emulator_8h_source.html#l00030">Emulator::Events</a>.</p>
 
 </div>
 </div>

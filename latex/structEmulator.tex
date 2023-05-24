@@ -7,6 +7,12 @@
 \doxysubsection*{Data Fields}
 \begin{DoxyCompactItemize}
 \item 
+\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} \mbox{\hyperlink{structEmulator_a472e234ae0c30217e66da7312bfc9747}{Segment\+Start}}
+\item 
+\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} \mbox{\hyperlink{structEmulator_a288fb4e9b4521202df7976b96ee6177d}{Segment\+Size}}
+\item 
+\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} \mbox{\hyperlink{structEmulator_af719f0481c160c155ef26fe5d260b358}{Segment\+End}}
+\item 
 \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} \mbox{\hyperlink{structEmulator_af6349f9e64ef828e37854791fb690c10}{Events}} \mbox{[}\mbox{\hyperlink{event-types_8h_a5667b805d857c6d28f83f6038a0272d3aa7bcf91833cb361149181b484d12f347}{EVENT\+\_\+\+COUNT}}\mbox{]}
 \item 
 \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} \mbox{\hyperlink{structEmulator_a67f6a7f8dd88da5f7408c1b82758cb1c}{PC}}
@@ -31,11 +37,11 @@ Definition at line \mbox{\hyperlink{emulator_8h_source_l00018}{18}} of file \mbo
 
 Event handler addresses 
 
-Definition at line \mbox{\hyperlink{emulator_8h_source_l00021}{21}} of file \mbox{\hyperlink{emulator_8h_source}{emulator.\+h}}.
+Definition at line \mbox{\hyperlink{emulator_8h_source_l00030}{30}} of file \mbox{\hyperlink{emulator_8h_source}{emulator.\+h}}.
 
 
 
-Referenced by \mbox{\hyperlink{emulator_8c_source_l00090}{keyboard\+\_\+event()}}, and \mbox{\hyperlink{emulator_8c_source_l00081}{os\+\_\+update()}}.
+Referenced by \mbox{\hyperlink{emulator_8c_source_l00127}{keyboard\+\_\+event()}}, and \mbox{\hyperlink{emulator_8c_source_l00118}{os\+\_\+update()}}.
 
 \mbox{\Hypertarget{structEmulator_a67f6a7f8dd88da5f7408c1b82758cb1c}\label{structEmulator_a67f6a7f8dd88da5f7408c1b82758cb1c}} 
 \index{Emulator@{Emulator}!PC@{PC}}
@@ -45,11 +51,11 @@ Referenced by \mbox{\hyperlink{emulator_8c_source_l00090}{keyboard\+\_\+event()}
 
 Program counter 
 
-Definition at line \mbox{\hyperlink{emulator_8h_source_l00024}{24}} of file \mbox{\hyperlink{emulator_8h_source}{emulator.\+h}}.
+Definition at line \mbox{\hyperlink{emulator_8h_source_l00033}{33}} of file \mbox{\hyperlink{emulator_8h_source}{emulator.\+h}}.
 
 
 
-Referenced by \mbox{\hyperlink{emulator_8c_source_l00767}{emulator\+\_\+call()}}.
+Referenced by \mbox{\hyperlink{emulator_8c_source_l01006}{emulator\+\_\+call()}}.
 
 \mbox{\Hypertarget{structEmulator_a8c2f51f67d4656f760fd7aa2c986d66e}\label{structEmulator_a8c2f51f67d4656f760fd7aa2c986d66e}} 
 \index{Emulator@{Emulator}!Registers@{Registers}}
@@ -59,11 +65,41 @@ Referenced by \mbox{\hyperlink{emulator_8c_source_l00767}{emulator\+\_\+call()}}
 
 CPU Registers 
 
+Definition at line \mbox{\hyperlink{emulator_8h_source_l00036}{36}} of file \mbox{\hyperlink{emulator_8h_source}{emulator.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{emulator_8c_source_l01006}{emulator\+\_\+call()}}.
+
+\mbox{\Hypertarget{structEmulator_af719f0481c160c155ef26fe5d260b358}\label{structEmulator_af719f0481c160c155ef26fe5d260b358}} 
+\index{Emulator@{Emulator}!SegmentEnd@{SegmentEnd}}
+\index{SegmentEnd@{SegmentEnd}!Emulator@{Emulator}}
+\doxysubsubsection{\texorpdfstring{SegmentEnd}{SegmentEnd}}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} Emulator\+::\+Segment\+End}
+
+End address of the memory segment 
+
 Definition at line \mbox{\hyperlink{emulator_8h_source_l00027}{27}} of file \mbox{\hyperlink{emulator_8h_source}{emulator.\+h}}.
 
+\mbox{\Hypertarget{structEmulator_a288fb4e9b4521202df7976b96ee6177d}\label{structEmulator_a288fb4e9b4521202df7976b96ee6177d}} 
+\index{Emulator@{Emulator}!SegmentSize@{SegmentSize}}
+\index{SegmentSize@{SegmentSize}!Emulator@{Emulator}}
+\doxysubsubsection{\texorpdfstring{SegmentSize}{SegmentSize}}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} Emulator\+::\+Segment\+Size}
 
+Size of the memory segment in bytes 
 
-Referenced by \mbox{\hyperlink{emulator_8c_source_l00767}{emulator\+\_\+call()}}.
+Definition at line \mbox{\hyperlink{emulator_8h_source_l00024}{24}} of file \mbox{\hyperlink{emulator_8h_source}{emulator.\+h}}.
+
+\mbox{\Hypertarget{structEmulator_a472e234ae0c30217e66da7312bfc9747}\label{structEmulator_a472e234ae0c30217e66da7312bfc9747}} 
+\index{Emulator@{Emulator}!SegmentStart@{SegmentStart}}
+\index{SegmentStart@{SegmentStart}!Emulator@{Emulator}}
+\doxysubsubsection{\texorpdfstring{SegmentStart}{SegmentStart}}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} Emulator\+::\+Segment\+Start}
+
+Start of the memory segment for this process 
+
+Definition at line \mbox{\hyperlink{emulator_8h_source_l00021}{21}} of file \mbox{\hyperlink{emulator_8h_source}{emulator.\+h}}.
 
 
 

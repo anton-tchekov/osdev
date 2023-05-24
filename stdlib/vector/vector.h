@@ -9,7 +9,8 @@
 #ifndef __VECTOR_H__
 #define __VECTOR_H__
 
-#include "types.h"
+#include <types.h>
+#include <string.h>
 
 /** Vector type */
 typedef struct
@@ -72,6 +73,18 @@ void vector_replace(
 	Vector *vector, u32 index, u32 count, const void *elems, u32 new_count);
 
 /* --- INLINE HELPER FUNCTIONS --- */
+
+/**
+ * @brief Replace all elements in a vector
+ *
+ * @param vector The vector
+ * @param elems New elements
+ * @param count Number of new elements
+ */
+static inline void vector_set(Vector *vector, const void *elems, u32 count)
+{
+	memcpy(vector->Data, elems, vector->ElementSize * count);
+}
 
 /**
  * @brief Get a pointer to an element in the vector

@@ -5,150 +5,180 @@
 \DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00001}00001\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{std_8h}{std.h}}>}}
 \DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00002}00002\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{ubuntu__bold_8h}{ubuntu\_bold.h}}>}}
 \DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00003}00003\ }
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00004}00004\ \mbox{\hyperlink{structWindow}{Window}}\ window\ =}
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00005}00005\ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00006}00006\ \ \ \ \ \ \ \ \ .\mbox{\hyperlink{structWindow_a4810e08776237d1e32d19f4a283df3b9}{Title}}\ =\ \textcolor{stringliteral}{"{}Test"{}},}
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00007}00007\ \ \ \ \ \ \ \ \ .OnKey\ =\ NULL\};}
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00008}00008\ }
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00009}00009\ \mbox{\hyperlink{structRectangle}{Rectangle}}\ colliderGoal\ =}
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00010}00010\ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00011}00011\ \ \ \ \ \ \ \ \ .\mbox{\hyperlink{structRectangle_a90f857de0c8ef6df3e5a43efc2d94783}{X}}\ =\ 0,}
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00012}00012\ \ \ \ \ \ \ \ \ .Y\ =\ 0,}
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00013}00013\ \ \ \ \ \ \ \ \ .W\ =\ 20,}
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00014}00014\ \ \ \ \ \ \ \ \ .H\ =\ 20\};}
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00015}00015\ }
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00016}00016\ \mbox{\hyperlink{structRectangle}{Rectangle}}\ colliderKill\ =}
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00017}00017\ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00018}00018\ \ \ \ \ \ \ \ \ .\mbox{\hyperlink{structRectangle_a90f857de0c8ef6df3e5a43efc2d94783}{X}}\ =\ 20,}
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00019}00019\ \ \ \ \ \ \ \ \ .Y\ =\ 0,}
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00020}00020\ \ \ \ \ \ \ \ \ .W\ =\ 1,}
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00021}00021\ \ \ \ \ \ \ \ \ .H\ =\ 100\};}
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00022}00022\ }
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00023}00023\ \mbox{\hyperlink{structRectangle}{Rectangle}}\ colliderPlayer\ =}
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00024}00024\ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00025}00025\ \ \ \ \ \ \ \ \ .\mbox{\hyperlink{structRectangle_a90f857de0c8ef6df3e5a43efc2d94783}{X}}\ =\ 0,}
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00026}00026\ \ \ \ \ \ \ \ \ .Y\ =\ 0,}
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00027}00027\ \ \ \ \ \ \ \ \ .W\ =\ 10,}
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00028}00028\ \ \ \ \ \ \ \ \ .H\ =\ 10\};}
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00029}00029\ }
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00030}00030\ \textcolor{comment}{/*}}
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00031}00031\ \textcolor{comment}{Rectangle\ *colliders[]\ =}}
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00032}00032\ \textcolor{comment}{\{}}
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00033}00033\ \textcolor{comment}{\ \ \ \ \&colliderGoal,}}
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00034}00034\ \textcolor{comment}{\ \ \ \ \&(Rectangle)\{10,\ 40,\ 50,\ 60\}}}
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00035}00035\ \textcolor{comment}{\};}}
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00036}00036\ \textcolor{comment}{*/}}
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00037}00037\ }
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00038}00038\ \textcolor{keywordtype}{void}\ clear(\textcolor{keywordtype}{void})}
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00039}00039\ \{}
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00040}00040\ \ \ \ \ \mbox{\hyperlink{gfx_8c_a61d70a4550bf181cd71bfc9a4f12a6d1}{gfx\_rect}}(0,\ 0,\ \mbox{\hyperlink{gfx_8h_aae91ae7a3ca585293a2c1031652a49f9}{GFX\_WIDTH}},\ \mbox{\hyperlink{gfx_8h_a11b59534db467ebd1fb19b758e6fffd7}{GFX\_HEIGHT}},\ \mbox{\hyperlink{lcd_8h_aba2a7fe77a7501e5844370eec0185207}{COLOR\_BLACK}});}
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00041}00041\ \}}
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00042}00042\ }
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00043}00043\ \textcolor{keywordtype}{void}\ renderPlayer(\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ x,\ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ y,\ \mbox{\hyperlink{gfx_8h_acbbccb6085c654282ef64cdcefc81be5}{Color}}\ color)}
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00044}00044\ \{}
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00045}00045\ \ \ \ \ \mbox{\hyperlink{gfx_8c_a61d70a4550bf181cd71bfc9a4f12a6d1}{gfx\_rect}}(x,\ y,\ 10,\ 10,\ color);}
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00046}00046\ \}}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00004}00004\ \textcolor{preprocessor}{\#define\ H\_CENTER\ \ \ \ \ \ (GFX\_WIDTH\ /\ 2)}}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00005}00005\ \textcolor{preprocessor}{\#define\ X\_MOVE\ \ \ \ \ \ \ \ (H\_CENTER\ -\/\ 5)}}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00006}00006\ }
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00007}00007\ \textcolor{preprocessor}{\#define\ V\_CENTER\ \ \ \ \ \ (GFX\_HEIGHT\ /\ 2)}}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00008}00008\ \textcolor{preprocessor}{\#define\ Y\_MOVE\ \ \ \ \ \ \ \ (V\_CENTER\ -\/\ 5)}}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00009}00009\ }
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00010}00010\ \textcolor{preprocessor}{\#define\ DELAY\ \ \ \ \ \ 100}}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00011}00011\ }
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00012}00012\ \textcolor{keyword}{static}\ \mbox{\hyperlink{structWindow}{Window}}\ window\ =}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00013}00013\ \{}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00014}00014\ \ \ \ \ .\mbox{\hyperlink{structWindow_a4810e08776237d1e32d19f4a283df3b9}{Title}}\ =\ \textcolor{stringliteral}{"{}Game"{}},}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00015}00015\ \ \ \ \ .OnKey\ =\ NULL}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00016}00016\ \};}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00017}00017\ }
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00018}00018\ \textcolor{keyword}{static}\ \mbox{\hyperlink{structRectangle}{Rectangle}}\ colliderGoal\ =}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00019}00019\ \{}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00020}00020\ \ \ \ \ .\mbox{\hyperlink{structRectangle_a90f857de0c8ef6df3e5a43efc2d94783}{X}}\ =\ 0,}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00021}00021\ \ \ \ \ .Y\ =\ 0,}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00022}00022\ \ \ \ \ .W\ =\ 20,}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00023}00023\ \ \ \ \ .H\ =\ 20}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00024}00024\ \};}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00025}00025\ }
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00026}00026\ \textcolor{keyword}{static}\ \mbox{\hyperlink{structRectangle}{Rectangle}}\ colliderKill\ =}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00027}00027\ \{}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00028}00028\ \ \ \ \ .\mbox{\hyperlink{structRectangle_a90f857de0c8ef6df3e5a43efc2d94783}{X}}\ =\ 20,}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00029}00029\ \ \ \ \ .Y\ =\ 0,}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00030}00030\ \ \ \ \ .W\ =\ 1,}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00031}00031\ \ \ \ \ .H\ =\ 100}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00032}00032\ \};}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00033}00033\ }
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00034}00034\ \textcolor{keyword}{static}\ \mbox{\hyperlink{structRectangle}{Rectangle}}\ colliderPlayer\ =}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00035}00035\ \{}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00036}00036\ \ \ \ \ .\mbox{\hyperlink{structRectangle_a90f857de0c8ef6df3e5a43efc2d94783}{X}}\ =\ 0,}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00037}00037\ \ \ \ \ .Y\ =\ 0,}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00038}00038\ \ \ \ \ .W\ =\ 10,}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00039}00039\ \ \ \ \ .H\ =\ 10}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00040}00040\ \};}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00041}00041\ }
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00042}00042\ \textcolor{keyword}{static}\ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ player\_x\ =\ X\_MOVE;}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00043}00043\ \textcolor{keyword}{static}\ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ player\_y\ =\ Y\_MOVE;}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00044}00044\ \textcolor{keyword}{static}\ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ begin;}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00045}00045\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ won\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00046}00046\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ \_keys[4];}
 \DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00047}00047\ }
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00048}00048\ \textcolor{keywordtype}{void}\ renderCollider(\mbox{\hyperlink{structRectangle}{Rectangle}}\ *col,\ \mbox{\hyperlink{gfx_8h_acbbccb6085c654282ef64cdcefc81be5}{Color}}\ color)}
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00049}00049\ \{}
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00050}00050\ \ \ \ \ \mbox{\hyperlink{gfx_8c_a61d70a4550bf181cd71bfc9a4f12a6d1}{gfx\_rect}}(col-\/>\mbox{\hyperlink{structRectangle_a90f857de0c8ef6df3e5a43efc2d94783}{X}},\ col-\/>\mbox{\hyperlink{structRectangle_a64dcd396f57e0fa1a321310aa35377a2}{Y}},\ col-\/>\mbox{\hyperlink{structRectangle_af170c9bbeb204829ae51f161b4d998bb}{W}},\ col-\/>\mbox{\hyperlink{structRectangle_a54bd38abe24512b5a80d1572c7661332}{H}},\ color);}
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00051}00051\ \}}
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00052}00052\ }
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00053}00053\ \textcolor{keywordtype}{bool}\ overlap(\mbox{\hyperlink{structRectangle}{Rectangle}}\ *c1,\ \mbox{\hyperlink{structRectangle}{Rectangle}}\ *c2)}
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00054}00054\ \{}
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00055}00055\ \ \ \ \ \textcolor{comment}{/*}}
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00056}00056\ \textcolor{comment}{\ \ \ \ \ *\ The\ rectangles\ don't\ overlap\ if}}
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00057}00057\ \textcolor{comment}{\ \ \ \ \ *\ one\ rectangle's\ minimum\ in\ some\ dimension}}
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00058}00058\ \textcolor{comment}{\ \ \ \ \ *\ is\ greater\ than\ the\ other's\ maximum\ in}}
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00059}00059\ \textcolor{comment}{\ \ \ \ \ *\ that\ dimension.}}
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00060}00060\ \textcolor{comment}{\ \ \ \ \ */}}
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00061}00061\ }
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00062}00062\ \ \ \ \ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ c1x2\ =\ c1-\/>\mbox{\hyperlink{structRectangle_a90f857de0c8ef6df3e5a43efc2d94783}{X}}\ +\ c1-\/>\mbox{\hyperlink{structRectangle_af170c9bbeb204829ae51f161b4d998bb}{W}};}
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00063}00063\ \ \ \ \ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ c1y2\ =\ c1-\/>\mbox{\hyperlink{structRectangle_a64dcd396f57e0fa1a321310aa35377a2}{Y}}\ +\ c1-\/>\mbox{\hyperlink{structRectangle_a54bd38abe24512b5a80d1572c7661332}{H}};}
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00064}00064\ \ \ \ \ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ c2x2\ =\ c2-\/>\mbox{\hyperlink{structRectangle_a90f857de0c8ef6df3e5a43efc2d94783}{X}}\ +\ c2-\/>\mbox{\hyperlink{structRectangle_af170c9bbeb204829ae51f161b4d998bb}{W}};}
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00065}00065\ \ \ \ \ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ c2y2\ =\ c2-\/>\mbox{\hyperlink{structRectangle_a64dcd396f57e0fa1a321310aa35377a2}{Y}}\ +\ c2-\/>\mbox{\hyperlink{structRectangle_a54bd38abe24512b5a80d1572c7661332}{H}};}
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00066}00066\ }
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00067}00067\ \ \ \ \ \textcolor{keywordtype}{bool}\ noOverlap\ =\ c1-\/>\mbox{\hyperlink{structRectangle_a90f857de0c8ef6df3e5a43efc2d94783}{X}}\ >\ c2x2\ ||}
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00068}00068\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ c2-\/>\mbox{\hyperlink{structRectangle_a90f857de0c8ef6df3e5a43efc2d94783}{X}}\ >\ c1x2\ ||}
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00069}00069\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ c1-\/>\mbox{\hyperlink{structRectangle_a64dcd396f57e0fa1a321310aa35377a2}{Y}}\ >\ c2y2\ ||}
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00070}00070\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ c2-\/>\mbox{\hyperlink{structRectangle_a64dcd396f57e0fa1a321310aa35377a2}{Y}}\ >\ c1y2;}
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00071}00071\ }
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00072}00072\ \ \ \ \ \textcolor{keywordflow}{return}\ !noOverlap;}
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00073}00073\ \}}
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00074}00074\ }
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00075}00075\ \textcolor{preprocessor}{\#define\ H\_CENTER\ (GFX\_WIDTH\ /\ 2)}}
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00076}00076\ \textcolor{preprocessor}{\#define\ X\_MOVE\ (H\_CENTER\ -\/\ 5)}}
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00077}00077\ }
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00078}00078\ \textcolor{preprocessor}{\#define\ V\_CENTER\ (GFX\_HEIGHT\ /\ 2)}}
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00079}00079\ \textcolor{preprocessor}{\#define\ Y\_MOVE\ (V\_CENTER\ -\/\ 5)}}
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00080}00080\ }
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00081}00081\ \textcolor{preprocessor}{\#define\ DELAY\ 100}}
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00082}00082\ }
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00083}00083\ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ player\_x\ =\ X\_MOVE;}
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00084}00084\ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ player\_y\ =\ Y\_MOVE;}
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00085}00085\ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ begin;}
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00086}00086\ }
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00087}00087\ \textcolor{keywordtype}{bool}\ won\ =\ \textcolor{keyword}{false};}
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00088}00088\ }
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00089}00089\ \textcolor{keywordtype}{void}\ setup(\textcolor{keywordtype}{void})}
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00090}00090\ \{}
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00091}00091\ \ \ \ \ \mbox{\hyperlink{gui_8c_adf0715beb16a0945a1bae624873df977}{window\_open}}(\&window);}
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00092}00092\ \ \ \ \ clear();}
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00093}00093\ \}}
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00094}00094\ }
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00095}00095\ \textcolor{keywordtype}{void}\ loop(\textcolor{keywordtype}{void})}
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00096}00096\ \{}
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00097}00097\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{timer_8c_aee701eeb891b748ed2e12da119816882}{millis}}()\ -\/\ begin\ <\ DELAY)}
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00098}00098\ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00099}00099\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00100}00100\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00048}00048\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00049}00049\ \textcolor{comment}{Rectangle\ *colliders[]\ =}}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00050}00050\ \textcolor{comment}{\{}}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00051}00051\ \textcolor{comment}{\ \ \ \ \&colliderGoal,}}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00052}00052\ \textcolor{comment}{\ \ \ \ \&(Rectangle)\{10,\ 40,\ 50,\ 60\}}}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00053}00053\ \textcolor{comment}{\};}}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00054}00054\ \textcolor{comment}{*/}}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00055}00055\ }
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00056}00056\ \textcolor{keywordtype}{void}\ clear(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00057}00057\ \{}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00058}00058\ \ \ \ \ \mbox{\hyperlink{gfx_8c_a61d70a4550bf181cd71bfc9a4f12a6d1}{gfx\_rect}}(0,\ 0,\ GFX\_WIDTH,\ GFX\_HEIGHT,\ \mbox{\hyperlink{lcd_8h_aba2a7fe77a7501e5844370eec0185207}{COLOR\_BLACK}});}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00059}00059\ \}}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00060}00060\ }
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00061}00061\ \textcolor{keywordtype}{void}\ renderPlayer(\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ x,\ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ y,\ Color\ color)}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00062}00062\ \{}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00063}00063\ \ \ \ \ \mbox{\hyperlink{gfx_8c_a61d70a4550bf181cd71bfc9a4f12a6d1}{gfx\_rect}}(x,\ y,\ 10,\ 10,\ color);}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00064}00064\ \}}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00065}00065\ }
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00066}00066\ \textcolor{keywordtype}{void}\ renderCollider(\mbox{\hyperlink{structRectangle}{Rectangle}}\ *col,\ Color\ color)}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00067}00067\ \{}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00068}00068\ \ \ \ \ \mbox{\hyperlink{gfx_8c_a61d70a4550bf181cd71bfc9a4f12a6d1}{gfx\_rect}}(col-\/>\mbox{\hyperlink{structRectangle_a90f857de0c8ef6df3e5a43efc2d94783}{X}},\ col-\/>\mbox{\hyperlink{structRectangle_a64dcd396f57e0fa1a321310aa35377a2}{Y}},\ col-\/>\mbox{\hyperlink{structRectangle_af170c9bbeb204829ae51f161b4d998bb}{W}},\ col-\/>\mbox{\hyperlink{structRectangle_a54bd38abe24512b5a80d1572c7661332}{H}},\ color);}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00069}00069\ \}}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00070}00070\ }
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00071}00071\ \textcolor{keywordtype}{bool}\ overlap(\mbox{\hyperlink{structRectangle}{Rectangle}}\ *c1,\ \mbox{\hyperlink{structRectangle}{Rectangle}}\ *c2)}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00072}00072\ \{}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00073}00073\ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00074}00074\ \textcolor{comment}{\ \ \ \ \ *\ The\ rectangles\ don't\ overlap\ if}}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00075}00075\ \textcolor{comment}{\ \ \ \ \ *\ one\ rectangle's\ minimum\ in\ some\ dimension}}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00076}00076\ \textcolor{comment}{\ \ \ \ \ *\ is\ greater\ than\ the\ other's\ maximum\ in}}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00077}00077\ \textcolor{comment}{\ \ \ \ \ *\ that\ dimension.}}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00078}00078\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00079}00079\ }
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00080}00080\ \ \ \ \ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ c1x2\ =\ c1-\/>\mbox{\hyperlink{structRectangle_a90f857de0c8ef6df3e5a43efc2d94783}{X}}\ +\ c1-\/>\mbox{\hyperlink{structRectangle_af170c9bbeb204829ae51f161b4d998bb}{W}};}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00081}00081\ \ \ \ \ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ c1y2\ =\ c1-\/>\mbox{\hyperlink{structRectangle_a64dcd396f57e0fa1a321310aa35377a2}{Y}}\ +\ c1-\/>\mbox{\hyperlink{structRectangle_a54bd38abe24512b5a80d1572c7661332}{H}};}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00082}00082\ \ \ \ \ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ c2x2\ =\ c2-\/>\mbox{\hyperlink{structRectangle_a90f857de0c8ef6df3e5a43efc2d94783}{X}}\ +\ c2-\/>\mbox{\hyperlink{structRectangle_af170c9bbeb204829ae51f161b4d998bb}{W}};}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00083}00083\ \ \ \ \ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ c2y2\ =\ c2-\/>\mbox{\hyperlink{structRectangle_a64dcd396f57e0fa1a321310aa35377a2}{Y}}\ +\ c2-\/>\mbox{\hyperlink{structRectangle_a54bd38abe24512b5a80d1572c7661332}{H}};}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00084}00084\ }
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00085}00085\ \ \ \ \ \textcolor{keywordtype}{bool}\ noOverlap\ =\ c1-\/>\mbox{\hyperlink{structRectangle_a90f857de0c8ef6df3e5a43efc2d94783}{X}}\ >\ c2x2\ ||}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00086}00086\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ c2-\/>\mbox{\hyperlink{structRectangle_a90f857de0c8ef6df3e5a43efc2d94783}{X}}\ >\ c1x2\ ||}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00087}00087\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ c1-\/>\mbox{\hyperlink{structRectangle_a64dcd396f57e0fa1a321310aa35377a2}{Y}}\ >\ c2y2\ ||}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00088}00088\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ c2-\/>\mbox{\hyperlink{structRectangle_a64dcd396f57e0fa1a321310aa35377a2}{Y}}\ >\ c1y2;}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00089}00089\ }
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00090}00090\ \ \ \ \ \textcolor{keywordflow}{return}\ !noOverlap;}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00091}00091\ \}}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00092}00092\ }
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00093}00093\ \textcolor{keywordtype}{void}\ event\_key(Key\ key,\ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ chr,\ KeyState\ state)}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00094}00094\ \{}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00095}00095\ \ \ \ \ \textcolor{keywordtype}{bool}\ press\ =\ state\ !=\ KEYSTATE\_RELEASED;}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00096}00096\ \ \ \ \ \textcolor{keywordflow}{switch}(key)}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00097}00097\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00098}00098\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ KEY\_W:}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00099}00099\ \ \ \ \ \ \ \ \ \ \ \ \ \_keys[0]\ =\ press;}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00100}00100\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
 \DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00101}00101\ }
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00102}00102\ \ \ \ \ begin\ =\ \mbox{\hyperlink{timer_8c_aee701eeb891b748ed2e12da119816882}{millis}}();}
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00103}00103\ }
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00104}00104\ \ \ \ \ colliderPlayer.\mbox{\hyperlink{structRectangle_a90f857de0c8ef6df3e5a43efc2d94783}{X}}\ =\ player\_x;}
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00105}00105\ \ \ \ \ colliderPlayer.\mbox{\hyperlink{structRectangle_a64dcd396f57e0fa1a321310aa35377a2}{Y}}\ =\ player\_y;}
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00106}00106\ }
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00107}00107\ \ \ \ \ \textcolor{keywordflow}{if}\ (overlap(\&colliderKill,\ \&colliderPlayer))}
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00108}00108\ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00109}00109\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{font_8h_a1dc9a04991c7d42402c21ab6a4b933e2}{font\_string}}(50,\ 100,\ \textcolor{stringliteral}{"{}YOU\ DEAD"{}},\ ubuntu\_bold,\ \mbox{\hyperlink{lcd_8h_ad86358bf19927183dd7b4ae215a29731}{COLOR\_RED}},\ \mbox{\hyperlink{lcd_8h_aba2a7fe77a7501e5844370eec0185207}{COLOR\_BLACK}});}
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00110}00110\ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00111}00111\ \ \ \ \ \textcolor{keywordflow}{else}}
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00112}00112\ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00113}00113\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (keyboard\_is\_key\_pressed(KEY\_W))}
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00114}00114\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00115}00115\ \ \ \ \ \ \ \ \ \ \ \ \ player\_y\ -\/=\ 10;}
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00116}00116\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00102}00102\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ KEY\_S:}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00103}00103\ \ \ \ \ \ \ \ \ \ \ \ \ \_keys[1]\ =\ press;}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00104}00104\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00105}00105\ }
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00106}00106\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ KEY\_A:}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00107}00107\ \ \ \ \ \ \ \ \ \ \ \ \ \_keys[2]\ =\ press;}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00108}00108\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00109}00109\ }
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00110}00110\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ KEY\_D:}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00111}00111\ \ \ \ \ \ \ \ \ \ \ \ \ \_keys[3]\ =\ press;}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00112}00112\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00113}00113\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00114}00114\ }
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00115}00115\ \ \ \ \ (void)chr;}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00116}00116\ \}}
 \DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00117}00117\ }
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00118}00118\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (keyboard\_is\_key\_pressed(KEY\_S))}
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00119}00119\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00120}00120\ \ \ \ \ \ \ \ \ \ \ \ \ player\_y\ +=\ 10;}
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00121}00121\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00122}00122\ }
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00123}00123\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (keyboard\_is\_key\_pressed(KEY\_A))}
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00124}00124\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00125}00125\ \ \ \ \ \ \ \ \ \ \ \ \ player\_x\ -\/=\ 10;}
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00126}00126\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00127}00127\ }
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00128}00128\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (keyboard\_is\_key\_pressed(KEY\_D))}
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00129}00129\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00130}00130\ \ \ \ \ \ \ \ \ \ \ \ \ player\_x\ +=\ 10;}
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00131}00131\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00132}00132\ }
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00133}00133\ \ \ \ \ \ \ \ \ clear();}
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00134}00134\ \ \ \ \ \ \ \ \ renderCollider(\&colliderGoal,\ \mbox{\hyperlink{lcd_8h_afc9149f5de51bd9ac4f5ebbfa153f018}{COLOR\_GREEN}});}
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00135}00135\ \ \ \ \ \ \ \ \ renderCollider(\&colliderKill,\ \mbox{\hyperlink{lcd_8h_ad86358bf19927183dd7b4ae215a29731}{COLOR\_RED}});}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00118}00118\ \textcolor{keywordtype}{void}\ setup(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00119}00119\ \{}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00120}00120\ \ \ \ \ \mbox{\hyperlink{keyboard_8c_a3676e1550d4471bddab4c84dd0c844dc}{keyboard\_register\_event}}(event\_key);}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00121}00121\ \ \ \ \ \mbox{\hyperlink{gui_8c_adf0715beb16a0945a1bae624873df977}{window\_open}}(\&window);}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00122}00122\ \ \ \ \ clear();}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00123}00123\ \}}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00124}00124\ }
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00125}00125\ \textcolor{keywordtype}{void}\ loop(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00126}00126\ \{}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00127}00127\ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{timer_8c_aee701eeb891b748ed2e12da119816882}{millis}}()\ -\/\ begin\ <\ DELAY)}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00128}00128\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00129}00129\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00130}00130\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00131}00131\ }
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00132}00132\ \ \ \ \ begin\ =\ \mbox{\hyperlink{timer_8c_aee701eeb891b748ed2e12da119816882}{millis}}();}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00133}00133\ }
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00134}00134\ \ \ \ \ colliderPlayer.\mbox{\hyperlink{structRectangle_a90f857de0c8ef6df3e5a43efc2d94783}{X}}\ =\ player\_x;}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00135}00135\ \ \ \ \ colliderPlayer.\mbox{\hyperlink{structRectangle_a64dcd396f57e0fa1a321310aa35377a2}{Y}}\ =\ player\_y;}
 \DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00136}00136\ }
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00137}00137\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (overlap(\&colliderGoal,\ \&colliderPlayer)\ ||\ won)}
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00138}00138\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00139}00139\ \ \ \ \ \ \ \ \ \ \ \ \ renderPlayer(player\_x,\ player\_y,\ \mbox{\hyperlink{lcd_8h_a23c70d699a5a775bc2e1ebeb8603f630}{COLOR\_BLUE}});}
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00140}00140\ \ \ \ \ \ \ \ \ \ \ \ \ won\ =\ \textcolor{keyword}{true};}
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00141}00141\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{font_8h_a1dc9a04991c7d42402c21ab6a4b933e2}{font\_string}}(50,\ 100,\ \textcolor{stringliteral}{"{}YOU\ WON"{}},\ ubuntu\_bold,\ \mbox{\hyperlink{lcd_8h_ad86358bf19927183dd7b4ae215a29731}{COLOR\_RED}},\ \mbox{\hyperlink{lcd_8h_aba2a7fe77a7501e5844370eec0185207}{COLOR\_BLACK}});}
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00142}00142\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00143}00143\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00137}00137\ \ \ \ \ \textcolor{keywordflow}{if}(overlap(\&colliderKill,\ \&colliderPlayer))}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00138}00138\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00139}00139\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{font_8h_a1dc9a04991c7d42402c21ab6a4b933e2}{font\_string}}(50,\ 100,\ \textcolor{stringliteral}{"{}YOU\ DEAD"{}},\ ubuntu\_bold,\ \mbox{\hyperlink{lcd_8h_ad86358bf19927183dd7b4ae215a29731}{COLOR\_RED}},\ \mbox{\hyperlink{lcd_8h_aba2a7fe77a7501e5844370eec0185207}{COLOR\_BLACK}});}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00140}00140\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00141}00141\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00142}00142\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00143}00143\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\_keys[0])}
 \DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00144}00144\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00145}00145\ \ \ \ \ \ \ \ \ \ \ \ \ renderPlayer(player\_x,\ player\_y,\ \mbox{\hyperlink{lcd_8h_a9b44987ffdc2af19b635206b94334b69}{COLOR\_WHITE}});}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00145}00145\ \ \ \ \ \ \ \ \ \ \ \ \ player\_y\ -\/=\ 10;}
 \DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00146}00146\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00147}00147\ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00148}00148\ \}}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00147}00147\ }
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00148}00148\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\_keys[1])}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00149}00149\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00150}00150\ \ \ \ \ \ \ \ \ \ \ \ \ player\_y\ +=\ 10;}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00151}00151\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00152}00152\ }
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00153}00153\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\_keys[2])}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00154}00154\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00155}00155\ \ \ \ \ \ \ \ \ \ \ \ \ player\_x\ -\/=\ 10;}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00156}00156\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00157}00157\ }
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00158}00158\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\_keys[3])}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00159}00159\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00160}00160\ \ \ \ \ \ \ \ \ \ \ \ \ player\_x\ +=\ 10;}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00161}00161\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00162}00162\ }
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00163}00163\ \ \ \ \ \ \ \ \ clear();}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00164}00164\ \ \ \ \ \ \ \ \ renderCollider(\&colliderGoal,\ \mbox{\hyperlink{lcd_8h_afc9149f5de51bd9ac4f5ebbfa153f018}{COLOR\_GREEN}});}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00165}00165\ \ \ \ \ \ \ \ \ renderCollider(\&colliderKill,\ \mbox{\hyperlink{lcd_8h_ad86358bf19927183dd7b4ae215a29731}{COLOR\_RED}});}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00166}00166\ }
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00167}00167\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(overlap(\&colliderGoal,\ \&colliderPlayer)\ ||\ won)}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00168}00168\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00169}00169\ \ \ \ \ \ \ \ \ \ \ \ \ renderPlayer(player\_x,\ player\_y,\ \mbox{\hyperlink{lcd_8h_a23c70d699a5a775bc2e1ebeb8603f630}{COLOR\_BLUE}});}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00170}00170\ \ \ \ \ \ \ \ \ \ \ \ \ won\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00171}00171\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{font_8h_a1dc9a04991c7d42402c21ab6a4b933e2}{font\_string}}(50,\ 100,\ \textcolor{stringliteral}{"{}YOU\ WON"{}},\ ubuntu\_bold,\ \mbox{\hyperlink{lcd_8h_ad86358bf19927183dd7b4ae215a29731}{COLOR\_RED}},\ \mbox{\hyperlink{lcd_8h_aba2a7fe77a7501e5844370eec0185207}{COLOR\_BLACK}});}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00172}00172\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00173}00173\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00174}00174\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00175}00175\ \ \ \ \ \ \ \ \ \ \ \ \ renderPlayer(player\_x,\ player\_y,\ \mbox{\hyperlink{lcd_8h_a9b44987ffdc2af19b635206b94334b69}{COLOR\_WHITE}});}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00176}00176\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00177}00177\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00178}00178\ \}}
 
 \end{DoxyCode}

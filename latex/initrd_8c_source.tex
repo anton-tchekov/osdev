@@ -20,7 +20,7 @@
 \DoxyCodeLine{\Hypertarget{initrd_8c_source_l00024}00024\ }
 \DoxyCodeLine{\Hypertarget{initrd_8c_source_l00025}\mbox{\hyperlink{initrd_8c_afb664c3988d855629cd7b611cf610561}{00025}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{initrd_8c_afb664c3988d855629cd7b611cf610561}{initrd\_load}}(\textcolor{keywordtype}{void})}
 \DoxyCodeLine{\Hypertarget{initrd_8c_source_l00026}00026\ \{}
-\DoxyCodeLine{\Hypertarget{initrd_8c_source_l00027}00027\ \ \ \ \ \mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}}\ buf[\mbox{\hyperlink{sd_8h_ad51ded0bbd705f02f73fc60c0b721ced}{BLOCK\_SIZE}}];}
+\DoxyCodeLine{\Hypertarget{initrd_8c_source_l00027}00027\ \ \ \ \ \mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}}\ buf[\mbox{\hyperlink{apps_2tetris_2main_8c_ad51ded0bbd705f02f73fc60c0b721ced}{BLOCK\_SIZE}}];}
 \DoxyCodeLine{\Hypertarget{initrd_8c_source_l00028}00028\ \ \ \ \ \mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}}\ block,\ num\_sectors;}
 \DoxyCodeLine{\Hypertarget{initrd_8c_source_l00029}00029\ \ \ \ \ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ addr,\ revision,\ size\_stdlib,\ size\_init;}
 \DoxyCodeLine{\Hypertarget{initrd_8c_source_l00030}00030\ }
@@ -52,20 +52,20 @@
 \DoxyCodeLine{\Hypertarget{initrd_8c_source_l00056}00056\ \ \ \ \ \mbox{\hyperlink{logger_8c_a60bd636ef160c97eb51cf31be5954ba2}{log\_boot\_P}}(LOG\_EXT,\ PSTR(\textcolor{stringliteral}{"{}INIT\ Size:\ \%"{}}PRIu32),\ size\_init);}
 \DoxyCodeLine{\Hypertarget{initrd_8c_source_l00057}00057\ \ \ \ \ \mbox{\hyperlink{logger_8c_a60bd636ef160c97eb51cf31be5954ba2}{log\_boot\_P}}(LOG\_EXT,\ PSTR(\textcolor{stringliteral}{"{}STDLIB\ Size:\ \%"{}}PRIu32),\ size\_stdlib);}
 \DoxyCodeLine{\Hypertarget{initrd_8c_source_l00058}00058\ }
-\DoxyCodeLine{\Hypertarget{initrd_8c_source_l00059}00059\ \ \ \ \ num\_sectors\ =\ (size\_init\ +\ \mbox{\hyperlink{sd_8h_ad51ded0bbd705f02f73fc60c0b721ced}{BLOCK\_SIZE}}\ -\/\ 1)\ >>\ \mbox{\hyperlink{sd_8h_a456e1098b18ecd0666395e17ef9b6ca8}{BLOCK\_SIZE\_POT}};}
+\DoxyCodeLine{\Hypertarget{initrd_8c_source_l00059}00059\ \ \ \ \ num\_sectors\ =\ (size\_init\ +\ \mbox{\hyperlink{apps_2tetris_2main_8c_ad51ded0bbd705f02f73fc60c0b721ced}{BLOCK\_SIZE}}\ -\/\ 1)\ >>\ \mbox{\hyperlink{sd_8h_a456e1098b18ecd0666395e17ef9b6ca8}{BLOCK\_SIZE\_POT}};}
 \DoxyCodeLine{\Hypertarget{initrd_8c_source_l00060}00060\ \ \ \ \ \mbox{\hyperlink{logger_8c_a60bd636ef160c97eb51cf31be5954ba2}{log\_boot\_P}}(LOG\_EXT,\ PSTR(\textcolor{stringliteral}{"{}INIT\ Sectors:\ \%d"{}}),\ num\_sectors);}
 \DoxyCodeLine{\Hypertarget{initrd_8c_source_l00061}00061\ }
 \DoxyCodeLine{\Hypertarget{initrd_8c_source_l00062}00062\ \ \ \ \ \textcolor{comment}{/*\ Load\ INIT\ */}}
 \DoxyCodeLine{\Hypertarget{initrd_8c_source_l00063}00063\ \ \ \ \ \textcolor{keywordflow}{for}(addr\ =\ 0,\ block\ =\ \mbox{\hyperlink{atfs_8h_a34195cda27663494d697f1d5a14f0213}{ATFS\_SECTOR\_INIT}};}
 \DoxyCodeLine{\Hypertarget{initrd_8c_source_l00064}00064\ \ \ \ \ \ \ \ \ block\ <\ \mbox{\hyperlink{atfs_8h_a34195cda27663494d697f1d5a14f0213}{ATFS\_SECTOR\_INIT}}\ +\ num\_sectors;}
-\DoxyCodeLine{\Hypertarget{initrd_8c_source_l00065}00065\ \ \ \ \ \ \ \ \ ++block,\ addr\ +=\ \mbox{\hyperlink{sd_8h_ad51ded0bbd705f02f73fc60c0b721ced}{BLOCK\_SIZE}})}
+\DoxyCodeLine{\Hypertarget{initrd_8c_source_l00065}00065\ \ \ \ \ \ \ \ \ ++block,\ addr\ +=\ \mbox{\hyperlink{apps_2tetris_2main_8c_ad51ded0bbd705f02f73fc60c0b721ced}{BLOCK\_SIZE}})}
 \DoxyCodeLine{\Hypertarget{initrd_8c_source_l00066}00066\ \ \ \ \ \{}
 \DoxyCodeLine{\Hypertarget{initrd_8c_source_l00067}00067\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{sd_8c_a3f0c63e822010bb899b9e13d73a685dd}{sd\_read}}(block,\ buf))}
 \DoxyCodeLine{\Hypertarget{initrd_8c_source_l00068}00068\ \ \ \ \ \ \ \ \ \{}
 \DoxyCodeLine{\Hypertarget{initrd_8c_source_l00069}00069\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{logger_8c_a19a313011d8f478ad9799e546199a9ac}{panic}}(PSTR(\textcolor{stringliteral}{"{}Loading\ InitRD\ failed"{}}));}
 \DoxyCodeLine{\Hypertarget{initrd_8c_source_l00070}00070\ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{\Hypertarget{initrd_8c_source_l00071}00071\ }
-\DoxyCodeLine{\Hypertarget{initrd_8c_source_l00072}00072\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{xmem_8c_afef9c92490450d98f177f53f2b174f20}{xmem\_write}}(addr,\ buf,\ \mbox{\hyperlink{sd_8h_ad51ded0bbd705f02f73fc60c0b721ced}{BLOCK\_SIZE}});}
+\DoxyCodeLine{\Hypertarget{initrd_8c_source_l00072}00072\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{xmem_8c_afef9c92490450d98f177f53f2b174f20}{xmem\_write}}(addr,\ buf,\ \mbox{\hyperlink{apps_2tetris_2main_8c_ad51ded0bbd705f02f73fc60c0b721ced}{BLOCK\_SIZE}});}
 \DoxyCodeLine{\Hypertarget{initrd_8c_source_l00073}00073\ \ \ \ \ \}}
 \DoxyCodeLine{\Hypertarget{initrd_8c_source_l00074}00074\ \}}
 

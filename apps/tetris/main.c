@@ -1,32 +1,60 @@
+/**
+ * @file    main.c
+ * @author  Anton Tchekov
+ * @version 0.1
+ * @date    24.05.2023
+ *
+ * @brief   Tetris game for the OS
+ */
+
 #include <std.h>
 
-
+/** Field width in blocks */
 #define FIELD_WIDTH         10
+
+/** Field height in blocks */
 #define FIELD_HEIGHT        20
+
+/** Field size in blocks */
 #define FIELD_SIZE            (FIELD_WIDTH * FIELD_HEIGHT)
 
+/** Size of each block in pixels */
 #define BLOCK_SIZE          20
 
+/** Default falling speed in milliseconds */
 #define FALL_SPEED_DEFAULT 200
+
+/** Falling speed when down button is pressed */
 #define FALL_SPEED_FAST     30
 
-#define WINDOW_HEIGHT         (FIELD_HEIGHT * BLOCK_SIZE)
-
+/** Window title string */
 #define WINDOW_TITLE          "Tetris"
 
+/** Game state: running */
 #define STATUS_RUNNING       1
 
+/** Piece Type */
 typedef enum { I, J, L, O, S, T, Z } PieceType;
 
+/** A Tetris piece */
 typedef struct
 {
-	int X, Y, Rotation;
+	/** X-Coordinate */
+	i32 X;
+
+	/** Y-Coordinate */
+	i32 Y;
+
+	/** Piece rotation */
+	i32 Rotation;
+
+	/** Piece Type, see enum above */
 	PieceType Type;
 } Piece;
 
 struct
 {
-	uint16_t Blocks[4];
+	u16 Blocks[4];
 	Color Fill;
 }
 const Pieces[] =

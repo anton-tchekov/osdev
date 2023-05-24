@@ -130,7 +130,7 @@ Definition at line \mbox{\hyperlink{apps_2bootscreen_2main_8c_source_l00021}{21}
 \end{DoxyCode}
 
 
-References \mbox{\hyperlink{syscall_8h_source_l00206}{exit()}}, and \mbox{\hyperlink{timer_8c_source_l00036}{millis()}}.
+References \mbox{\hyperlink{syscall_8h_source_l00206}{exit()}}, \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00025}{FALL\+\_\+\+SPEED\+\_\+\+DEFAULT}}, \mbox{\hyperlink{timer_8c_source_l00036}{millis()}}, \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00052}{Piece\+::\+Type}}, and \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00046}{Piece\+::Y}}.
 
 \mbox{\Hypertarget{event_8h_a7dfd9b79bc5a37d7df40207afbc5431f}\label{event_8h_a7dfd9b79bc5a37d7df40207afbc5431f}} 
 \index{event.h@{event.h}!setup@{setup}}
@@ -151,10 +151,10 @@ Definition at line \mbox{\hyperlink{apps_2bootscreen_2main_8c_source_l00008}{8}}
 \DoxyCodeLine{00009\ \{}
 \DoxyCodeLine{00010\ \ \ \ \ \_begin\ =\ \mbox{\hyperlink{timer_8c_aee701eeb891b748ed2e12da119816882}{millis}}();}
 \DoxyCodeLine{00011\ }
-\DoxyCodeLine{00012\ \ \ \ \ \mbox{\hyperlink{gfx_8c_a61d70a4550bf181cd71bfc9a4f12a6d1}{gfx\_rect}}(0,\ 0,\ \mbox{\hyperlink{gfx_8h_aae91ae7a3ca585293a2c1031652a49f9}{GFX\_WIDTH}},\ \mbox{\hyperlink{gfx_8h_a11b59534db467ebd1fb19b758e6fffd7}{GFX\_HEIGHT}},\ \mbox{\hyperlink{lcd_8h_aba2a7fe77a7501e5844370eec0185207}{COLOR\_BLACK}});}
+\DoxyCodeLine{00012\ \ \ \ \ \mbox{\hyperlink{gfx_8c_a61d70a4550bf181cd71bfc9a4f12a6d1}{gfx\_rect}}(0,\ 0,\ GFX\_WIDTH,\ GFX\_HEIGHT,\ \mbox{\hyperlink{lcd_8h_aba2a7fe77a7501e5844370eec0185207}{COLOR\_BLACK}});}
 \DoxyCodeLine{00013\ \ \ \ \ \mbox{\hyperlink{gfx_8c_a65973eb6c3df8a895f50d412bd7b1865}{gfx\_image\_rgb}}(}
-\DoxyCodeLine{00014\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gfx_8h_aae91ae7a3ca585293a2c1031652a49f9}{GFX\_WIDTH}}\ /\ 2\ -\/\ bootscreen.width\ /\ 2,}
-\DoxyCodeLine{00015\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gfx_8h_a11b59534db467ebd1fb19b758e6fffd7}{GFX\_HEIGHT}}\ /\ 2\ -\/\ bootscreen.height\ /\ 2,}
+\DoxyCodeLine{00014\ \ \ \ \ \ \ \ \ GFX\_WIDTH\ /\ 2\ -\/\ bootscreen.width\ /\ 2,}
+\DoxyCodeLine{00015\ \ \ \ \ \ \ \ \ GFX\_HEIGHT\ /\ 2\ -\/\ bootscreen.height\ /\ 2,}
 \DoxyCodeLine{00016\ \ \ \ \ \ \ \ \ bootscreen.width,}
 \DoxyCodeLine{00017\ \ \ \ \ \ \ \ \ bootscreen.height,}
 \DoxyCodeLine{00018\ \ \ \ \ \ \ \ \ bootscreen.pixel\_data);}
@@ -163,5 +163,5 @@ Definition at line \mbox{\hyperlink{apps_2bootscreen_2main_8c_source_l00008}{8}}
 \end{DoxyCode}
 
 
-References \mbox{\hyperlink{lcd_8h_source_l00038}{COLOR\+\_\+\+BLACK}}, \mbox{\hyperlink{gfx_8h_source_l00023}{GFX\+\_\+\+HEIGHT}}, \mbox{\hyperlink{gfx_8c_source_l00030}{gfx\+\_\+image\+\_\+rgb()}}, \mbox{\hyperlink{gfx_8c_source_l00011}{gfx\+\_\+rect()}}, \mbox{\hyperlink{gfx_8h_source_l00020}{GFX\+\_\+\+WIDTH}}, and \mbox{\hyperlink{timer_8c_source_l00036}{millis()}}.
+References \mbox{\hyperlink{lcd_8h_source_l00038}{COLOR\+\_\+\+BLACK}}, \mbox{\hyperlink{lcd_8h_source_l00035}{COLOR\+\_\+\+WHITE}}, \mbox{\hyperlink{font_8h_source_l00090}{font\+\_\+string()}}, \mbox{\hyperlink{gfx_8c_source_l00030}{gfx\+\_\+image\+\_\+rgb()}}, \mbox{\hyperlink{gfx_8c_source_l00011}{gfx\+\_\+rect()}}, \mbox{\hyperlink{keyboard_8c_source_l00031}{keyboard\+\_\+register\+\_\+event()}}, \mbox{\hyperlink{string_8c_source_l00176}{memset()}}, \mbox{\hyperlink{timer_8c_source_l00036}{millis()}}, \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00049}{Piece\+::\+Rotation}}, \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00034}{STATUS\+\_\+\+RUNNING}}, \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00052}{Piece\+::\+Type}}, \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00043}{Piece\+::X}}, and \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00046}{Piece\+::Y}}.
 

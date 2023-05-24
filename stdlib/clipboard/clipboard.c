@@ -7,61 +7,40 @@
 
 #include <clipboard.h>
 #include <string.h>
+#include <vector.h>
 
-/** Length of the clipboard in bytes */
-static i32 _clipboard_len;
+/** Vector that contains the textual data content */
+static Vector _text_content;
 
-/** Type of the current data in the clipboad */
-static ClipboardType _clipboard_type;
+/** Already initialized */
+static bool _init;
 
 /**
- * @brief Get memory to place clipboard contents into.
- *
- * @param space Number of bytes needed, -1 to get previous clipboard content
- * @return Pointer to buffer
+ * @brief Initialize clipboard internals
  */
-static char *_get_memory(i32 space)
+static void _clipboard_init(void)
 {
-	/**
-	 * TODO: Clipboard should be shared across processes.
-	 * The following is a hack and just temporary, not to mention a
-	 * potential overflow risk.
-	 */
-
-	static char arr[1024];
-	if(space >= 0)
+	if(!_init)
 	{
-		_clipboard_len = space;
+		_init = true;
+		vector_init(&_text_content, 1, 16);
 	}
-
-	return arr;
-}
-
-void clipboard_save_text(const char *text)
-{
-	_clipboard_type = CLIPBOARD_TYPE_TEXT;
-	char *clipboard = _get_memory(strlen(text));
-	strcpy(clipboard, text);
 }
 
 void clipboard_save_text_len(const char *text, i32 len)
 {
-	_clipboard_type = CLIPBOARD_TYPE_TEXT;
-	char *clipboard = _get_memory(len);
-	strncpy(clipboard, text, len);
+	_clipboard_init();
+	vector_set(&_text_content, text, len);
 }
 
-const void *clipboard_get(void)
+const char *clipboard_get_text(void)
 {
-	return _get_memory(-1);
+	_clipboard_init();
+	return vector_data(&_text_content);
 }
 
-i32 clipboard_len(void)
+i32 clipboard_get_text_len(void)
 {
-	return _clipboard_len;
-}
-
-ClipboardType clipboard_type(void)
-{
-	return _clipboard_type;
+	_clipboard_init();
+	return vector_len(&_text_content);
 }

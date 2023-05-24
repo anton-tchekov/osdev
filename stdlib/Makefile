@@ -60,7 +60,8 @@ CFLAGS=\
 	-nostdlib \
 	-ffreestanding \
 	-O$(OPT) \
-	-DSTDLIB
+	-DSTDLIB \
+	-flto
 
 LDFLAGS=\
 	-T$(PREFIX)/linker.ld

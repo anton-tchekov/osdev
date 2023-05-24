@@ -141,7 +141,7 @@ $(function() {
 <div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
 <div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    <a class="code hl_function" href="logger_8c.html#a60bd636ef160c97eb51cf31be5954ba2">log_boot_P</a>(LOG_NONE, PSTR(<span class="stringliteral">&quot;\nStarting RISC-V Emulator Kernel ...\n\n&quot;</span>));</div>
 <div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    kernel_init();</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    <a class="code hl_function" href="emulator_8c.html#a0dbe43a64cbf994bf9189e7767f93342">kernel_init</a>();</div>
 <div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    <a class="code hl_function" href="logger_8c.html#a60bd636ef160c97eb51cf31be5954ba2">log_boot_P</a>(LOG_EXT, PSTR(<span class="stringliteral">&quot;Setup done!&quot;</span>));</div>
 <div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span> </div>
 <div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    <span class="comment">/* Infinite loop */</span></div>
@@ -174,6 +174,7 @@ $(function() {
 <div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>}</div>
 <div class="ttc" id="aadc_8c_html_a2b815e6730e8723a6d1d06d9ef8f31c0"><div class="ttname"><a href="adc_8c.html#a2b815e6730e8723a6d1d06d9ef8f31c0">adc_init</a></div><div class="ttdeci">void adc_init(void)</div><div class="ttdoc">Initialize the ADC module.</div><div class="ttdef"><b>Definition:</b> <a href="adc_8c_source.html#l00013">adc.c:13</a></div></div>
 <div class="ttc" id="aadc_8h_html"><div class="ttname"><a href="adc_8h.html">adc.h</a></div><div class="ttdoc">Read analog inputs.</div></div>
+<div class="ttc" id="aemulator_8c_html_a0dbe43a64cbf994bf9189e7767f93342"><div class="ttname"><a href="emulator_8c.html#a0dbe43a64cbf994bf9189e7767f93342">kernel_init</a></div><div class="ttdeci">void kernel_init(void)</div><div class="ttdoc">Initialize emulator kernel and load first process (NOT systemd)</div><div class="ttdef"><b>Definition:</b> <a href="emulator_8c_source.html#l00112">emulator.c:112</a></div></div>
 <div class="ttc" id="aemulator_8h_html"><div class="ttname"><a href="emulator_8h.html">emulator.h</a></div><div class="ttdoc">RISC-V Emulator.</div></div>
 <div class="ttc" id="agpio_8c_html_a7159e787d0c4fb89346383b7987ab6d3"><div class="ttname"><a href="gpio_8c.html#a7159e787d0c4fb89346383b7987ab6d3">gpio_configure</a></div><div class="ttdeci">void gpio_configure(void)</div><div class="ttdoc">Configure all GPIO pins.</div><div class="ttdef"><b>Definition:</b> <a href="gpio_8c_source.html#l00010">gpio.c:10</a></div></div>
 <div class="ttc" id="agpio_8h_html"><div class="ttname"><a href="gpio_8h.html">gpio.h</a></div><div class="ttdoc">GPIO Config.</div></div>

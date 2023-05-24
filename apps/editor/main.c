@@ -1,3 +1,12 @@
+/**
+ * @file    main.c
+ * @author  Anton Tchekov
+ * @version 0.1
+ * @date    24.05.2023
+ *
+ * @brief   Text/Code Editor App
+ */
+
 #include <std.h>
 
 //! @cond Doxygen_Suppress
@@ -19,7 +28,6 @@ void setup(void)
 void loop(void)
 {
 }
-
 
 #ifdef EDITOR
 

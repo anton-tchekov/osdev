@@ -26,8 +26,9 @@
 
 # Global TODO List
 
-## TODAY in order of priority
+## CURRENT in order of priority
 - GUI Text field copy/cut/paste
+- GUI Fix Bugs (text width calculation)
 - Better SysCall Parameter checking
 
 - Port Tetris
@@ -40,13 +41,6 @@
 
 - AVR XMEM image routines
 - PS/2 Keyboard character conversion and test
-
-- GUI Fix Bugs (text width calculation)
-- GUI Hide/Show elements (`element_show(&element, true)`)
-- GUI Enable/Disable elements (`element_enable(&element, true)`)
-
-
-
 
 ## Init
 - Working Login
@@ -70,14 +64,14 @@
 - File system driver
 
 ## FOR LATER in order of difficulty
-- Port Snake Game
 - File Manager
-- Make STDLIB Shared
 - Emulate RISC-V Single Precision Floating Point Extension and Math Lib
 - Async Drivers
-- Full preemptive scheduler and paging
 
-
+## Ideas
+- Port Snake Game
+- GUI Hide/Show elements (`element_show(&element, true)`)
+- GUI Enable/Disable elements (`element_enable(&element, true)`)
 
 ## DONE
 - GUI Make theme easily changable (`theme_set` function)

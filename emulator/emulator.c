@@ -1,3 +1,10 @@
+/**
+ * @file    emulator.c
+ * @author  Anton Tchekov
+ * @version 0.1
+ * @date    24.05.2023
+ */
+
 #include <types.h>
 #include <platform.h>
 #include <emulator.h>
@@ -27,6 +34,11 @@
 
 #endif /* __linux__ */
 
+/**
+ * @brief Print all registers of the emulator
+ *
+ * @param emu The emulator
+ */
 static void emulator_dump_registers(Emulator *emu)
 {
 	EMU_LOG(PSTR("\nPC  0x%08"PRIx32" %10d"), emu->PC, emu->PC);
@@ -44,16 +56,36 @@ static void emulator_dump_registers(Emulator *emu)
 #endif /* DEBUG */
 
 /* --- OPCODES --- */
+
+/** Opcode for Load instructions */
 #define OPCODE_LOAD   0x00
+
+/** Opcodes for instructions with immediate values */
 #define OPCODE_IMM    0x04
+
+/** Opcode for AUIPC instruction */
 #define OPCODE_AUIPC  0x05 /* Add Upper Immediate to Program Counter */
+
+/** Opcode for store instructions */
 #define OPCODE_STORE  0x08
+
+/** Opcodes for instructions on registers */
 #define OPCODE_REG    0x0C
+
+/** Opcode for LUI instruction */
 #define OPCODE_LUI    0x0D /* Load Upper Immediate */
+
+/** Opcode for branch instructions */
 #define OPCODE_BRANCH 0x18
+
+/** Opcode for JALR instructions */
 #define OPCODE_JALR   0x19 /* Jump and Link Register */
+
+/** Opcode for JAL instructions */
 #define OPCODE_JAL    0x1B /* Jump and Link */
-#define OPCODE_ECALL  0x1C
+
+/** Opcode for ECALL instructions */
+#define OPCODE_ECALL  0x1C /* Environment Call */
 
 /**
  * @brief Sign extend twos-complement value to 32-bit
@@ -68,8 +100,13 @@ static inline u32 sext(u8 bits, u32 value)
 	return (value ^ m) - m;
 }
 
+/** Called function finished flag */
 static bool _finished;
+
+/**/
 static Emulator _cur, *_emu = &_cur;
+
+/** Total size of the memory in bytes */
 static u32 _memory_size;
 
 void kernel_init(void)
@@ -97,105 +134,211 @@ void keyboard_event(Key key, i32 chr, KeyState down)
 	}
 }
 
-/* Store */
-static void memory_sb(u32 addr, u32 value)
+/**
+ * @brief Checks if a render window is out ot bounds
+ *
+ * @param x X-Coordinate
+ * @param y Y-Coordinate
+ * @param w Width
+ * @param h Height
+ * @return Non-zero if invalid
+ */
+static u8 _gfx_check_bounds(u16 x, u16 y, u16 w, u16 h)
+{
+	return (x >= GFX_WIDTH) ||
+		(y >= GFX_HEIGHT) ||
+		(w > GFX_WIDTH) ||
+		(h > GFX_HEIGHT) ||
+		(x + w > GFX_WIDTH) ||
+		(y + h > GFX_HEIGHT);
+}
+
+/**
+ * @brief Check memory location permissions
+ *
+ * @param addr
+ * @param size
+ * @return Non-zero if invalid
+ */
+static u8 _memory_check_bounds(u32 addr, u32 size)
+{
+	return 0;
+/*
+	return (addr < _emu->SegmentStart) ||
+		(addr >= _emu->SegmentEnd) ||
+		(size >= _emu->SegmentSize) ||
+		(addr + size >= _emu->SegmentEnd);*/
+}
+
+/* --- Store --- */
+
+/**
+ * @brief Store byte
+ *
+ * @param addr The address at which to store the value
+ * @param value The value to store
+ * @return Non-zero if out ouf bounds
+ */
+static u8 memory_sb(u32 addr, u32 value)
 {
 	i8 value8 = (i8)value;
-	env_memory_write(addr, &value8, 1);
+	if(_memory_check_bounds(addr, sizeof(value8)))
+	{
+		return 1;
+	}
+
+	env_memory_write(addr, &value8, sizeof(value8));
+	return 0;
 }
 
-static void memory_sh(u32 addr, u32 value)
+/**
+ * @brief Store 16-bit half-word
+ *
+ * @param addr The address at which to store the value
+ * @param value The value to store
+ * @return Non-zero if out ouf bounds
+ */
+static u8 memory_sh(u32 addr, u32 value)
 {
 	i16 value16 = (i16)value;
-	env_memory_write(addr, &value16, 2);
+	if(_memory_check_bounds(addr, sizeof(value16)))
+	{
+		return 1;
+	}
+
+	env_memory_write(addr, &value16, sizeof(value16));
+	return 0;
 }
 
-static void memory_sw(u32 addr, u32 value)
+/**
+ * @brief Store 32-bit word
+ *
+ * @param addr The address at which to store the value
+ * @param value The value to store
+ * @return Non-zero if out ouf bounds
+ */
+static u8 memory_sw(u32 addr, u32 value)
 {
-	env_memory_write(addr, &value, 4);
+	if(_memory_check_bounds(addr, sizeof(value)))
+	{
+		return 1;
+	}
+
+	env_memory_write(addr, &value, sizeof(value));
+	return 0;
 }
 
-/* Load */
-static u32 memory_lb(u32 addr)
+/* --- Load --- */
+static u8 memory_lb(u32 addr, u32 *out)
 {
 	i8 value8;
-	env_memory_read(addr, &value8, 1);
-	return (i32)value8;
+	if(_memory_check_bounds(addr, sizeof(value8)))
+	{
+		return 1;
+	}
+
+	env_memory_read(addr, &value8, sizeof(value8));
+	*out = (i32)value8;
+	return 0;
 }
 
-static u32 memory_lh(u32 addr)
+static u8 memory_lh(u32 addr, u32 *out)
 {
 	i16 value16;
-	env_memory_read(addr, &value16, 2);
-	return (i32)value16;
+	if(_memory_check_bounds(addr, sizeof(value16)))
+	{
+		return 1;
+	}
+
+	env_memory_read(addr, &value16, sizeof(value16));
+	*out = (i32)value16;
+	return 0;
 }
 
-static u32 memory_lw(u32 addr)
+static u8 memory_lw(u32 addr, u32 *out)
 {
 	u32 value;
-	env_memory_read(addr, &value, 4);
-	return value;
+	if(_memory_check_bounds(addr, sizeof(value)))
+	{
+		return 1;
+	}
+
+	env_memory_read(addr, &value, sizeof(value));
+	*out = value;
+	return 0;
 }
 
-static u32 memory_lbu(u32 addr)
+static u8 memory_lbu(u32 addr, u32 *out)
 {
 	u8 value8;
-	env_memory_read(addr, &value8, 1);
-	return value8;
+	if(_memory_check_bounds(addr, sizeof(value8)))
+	{
+		return 1;
+	}
+
+	env_memory_read(addr, &value8, sizeof(value8));
+	*out = value8;
+	return 0;
 }
 
-static u32 memory_lhu(u32 addr)
+static u8 memory_lhu(u32 addr, u32 *out)
 {
 	u16 value16;
-	env_memory_read(addr, &value16, 2);
-	return value16;
+	if(_memory_check_bounds(addr, sizeof(value16)))
+	{
+		return 1;
+	}
+
+	env_memory_read(addr, &value16, sizeof(value16));
+	*out = value16;
+	return 0;
 }
 
-/* Syscalls */
-static u32 syscall_exit(u32 *args)
+/* --- Syscalls --- */
+static u8 syscall_exit(u32 *args)
 {
+	/* No parameter checking necessary */
 	/* TODO */
-
-	/* Remove process from scheduler */
-
-	/* If init process, crash system */
 	return 0;
 	(void)args;
 }
 
-static u32 syscall_finish(u32 *args)
+static u8 syscall_finish(u32 *args)
 {
+	/* No parameter checking necessary */
 	_finished = true;
 	return 0;
 	(void)args;
 }
 
-static u32 syscall_event_register(u32 *args)
+static u8 syscall_event_register(u32 *args)
 {
 	u32 type = args[0];
 	u32 addr = args[1];
 	if(type < EVENT_COUNT)
 	{
-		EMU_LOG(PSTR("Registered Event: %"PRIu32" %"PRIu32), type, addr);
+		EMU_LOG(PSTR("Registered Event Type: %"PRIu32" - Addr: %"PRIu32), type, addr);
 		_emu->Events[type] = addr;
 	}
 
 	return 0;
 }
 
-static u32 syscall_millis(u32 *args)
+static u8 syscall_millis(u32 *args)
 {
-	return env_millis();
-	(void)args;
+	/* No parameter checking necessary */
+	args[0] = env_millis();
+	return 0;
 }
 
-static u32 syscall_rand(u32 *args)
+static u8 syscall_rand(u32 *args)
 {
-	return env_random_get();
-	(void)args;
+	/* No parameter checking necessary */
+	args[0] = env_random_get();
+	return 0;
 }
 
-static u32 syscall_serial_write(u32 *args)
+static u8 syscall_serial_write(u32 *args)
 {
 	u16 cur;
 	u32 ptr = args[0];
@@ -214,47 +357,146 @@ static u32 syscall_serial_write(u32 *args)
 	return 0;
 }
 
-static u32 syscall_gfx_rect(u32 *args)
+static u8 syscall_gfx_rect(u32 *args)
 {
-	env_gfx_rect(args[0], args[1], args[2], args[3], args[4]);
+	u16 x, y, w, h;
+	u32 color;
+
+	x = args[0];
+	y = args[1];
+	w = args[2];
+	h = args[3];
+	if(_gfx_check_bounds(x, y, w, h))
+	{
+		return 1;
+	}
+
+	color = args[4];
+	env_gfx_rect(x, y, w, h, color);
 	return 0;
 }
 
-static u32 syscall_gfx_image_rgba(u32 *args)
+static u8 syscall_gfx_image_rgba(u32 *args)
 {
-	env_gfx_image_rgba(args[0], args[1], args[2], args[3], args[4]);
+	u16 x, y, w, h;
+	u32 image, bytes;
+
+	x = args[0];
+	y = args[1];
+	w = args[2];
+	h = args[3];
+	if(_gfx_check_bounds(x, y, w, h))
+	{
+		return 1;
+	}
+
+	image = args[4];
+	bytes = (u32)4 * (u32)w * (u32)h;
+	if(_memory_check_bounds(image, bytes))
+	{
+		return 1;
+	}
+
+	env_gfx_image_rgba(x, y, w, h, image);
 	return 0;
 }
 
-static u32 syscall_gfx_image_rgb(u32 *args)
+static u8 syscall_gfx_image_rgb(u32 *args)
 {
-	env_gfx_image_rgb(args[0], args[1], args[2], args[3], args[4]);
+	u16 x, y, w, h;
+	u32 image, bytes;
+
+	x = args[0];
+	y = args[1];
+	w = args[2];
+	h = args[3];
+	if(_gfx_check_bounds(x, y, w, h))
+	{
+		return 1;
+	}
+
+	image = args[4];
+	bytes = (u32)3 * (u32)w * (u32)h;
+	if(_memory_check_bounds(image, bytes))
+	{
+		return 1;
+	}
+
+	env_gfx_image_rgb(x, y, w, h, image);
 	return 0;
 }
 
-static u32 syscall_gfx_image_rgb565(u32 *args)
+static u8 syscall_gfx_image_rgb565(u32 *args)
 {
-	env_gfx_image_rgb565(args[0], args[1], args[2], args[3], args[4]);
+	u32 image, bytes;
+	u16 x, y, w, h;
+
+	x = args[0];
+	y = args[1];
+	w = args[2];
+	h = args[3];
+	if(_gfx_check_bounds(x, y, w, h))
+	{
+		return 1;
+	}
+
+	image = args[4];
+	bytes = (u32)2 * (u32)w * (u32)h;
+	if(_memory_check_bounds(image, bytes))
+	{
+		return 1;
+	}
+
+	env_gfx_image_rgb565(x, y, w, h, image);
 	return 0;
 }
 
-static u32 syscall_gfx_image_grayscale(u32 *args)
+static u8 syscall_gfx_image_grayscale(u32 *args)
 {
-	Rectangle r;
-	env_memory_read(args[0], &r, sizeof(r));
-	env_gfx_image_grayscale(r.X, r.Y, r.W, r.H, args[1], args[2], args[3]);
+	u16 x, y, w, h;
+	u32 image, bytes, rect_addr, fg, bg;
+	Rectangle rect;
+
+	rect_addr = args[0];
+	if(_memory_check_bounds(rect_addr, sizeof(rect)))
+	{
+		return 1;
+	}
+
+	env_memory_read(rect_addr, &rect, sizeof(rect));
+	x = rect.X;
+	y = rect.Y;
+	w = rect.W;
+	h = rect.H;
+	if(_gfx_check_bounds(x, y, w, h))
+	{
+		return 1;
+	}
+
+	image = args[1];
+	bytes = (u32)w * (u32)h;
+	if(_memory_check_bounds(image, bytes))
+	{
+		return 1;
+	}
+
+	fg = args[2];
+	bg = args[3];
+	env_gfx_image_grayscale(x, y, w, h, image, fg, bg);
 	return 0;
 }
 
-static u32 syscall_gfx_image_1bit(u32 *args)
+static u8 syscall_gfx_image_1bit(u32 *args)
 {
+	/* TODO: Check params */
 	Rectangle r;
 	env_memory_read(args[0], &r, sizeof(r));
 	env_gfx_image_1bit(r.X, r.Y, r.W, r.H, args[1], args[2], args[3]);
 	return 0;
 }
 
-static u32 (*syscalls[])(u32 *) =
+/** System call function pointer array */
+static u8 (*syscalls[])(u32 *) =
 {
 	syscall_exit,
 	syscall_finish,
@@ -269,25 +511,27 @@ static u32 (*syscalls[])(u32 *) =
 
 	syscall_rand,
 	syscall_serial_write,
-	syscall_millis,
+	syscall_millis
 };
 
-static i32 syscall(u32 id, u32 *args)
+static u8 syscall(u32 id, u32 *args)
 {
 	if(id >= ARRLEN(syscalls))
 	{
 		return 1;
 	}
 
-	args[0] = syscalls[id](args);
-	return 0;
+	return syscalls[id](args);
 }
 
-/* EMULATOR */
-static bool emulator_next(Emulator *emu)
+/* --- EMULATOR --- */
+static u8 emulator_next(Emulator *emu)
 {
 	u32 instr, opcode;
-	instr = memory_lw(emu->PC);
+	if(memory_lw(emu->PC, &instr))
+	{
+		return 1;
+	}
 
 	/* r0 = Zero Register */
 	emu->Registers[0] = 0;
@@ -297,7 +541,7 @@ static bool emulator_next(Emulator *emu)
 	if((opcode & 0x03) != 0x03)
 	{
 		EMU_LOG(PSTR("INVALID"));
-		return true;
+		return 1;
 	}
 
 	opcode >>= 2;
@@ -307,7 +551,7 @@ static bool emulator_next(Emulator *emu)
 			if(syscall(emu->Registers[17], &emu->Registers[10]))
 			{
 				EMU_LOG(PSTR("SYSCALL ERROR"));
-				return true;
+				return 1;
 			}
 			break;
 
@@ -326,36 +570,51 @@ static bool emulator_next(Emulator *emu)
 				case 0:
 					/* LB */
 					EMU_LOG(PSTR("lb r%"PRIu8", r%"PRIu8"%+"PRIi32), rd, rs1, offset);
-					emu->Registers[rd] = memory_lb(emu->Registers[rs1] + offset);
+					if(memory_lb(emu->Registers[rs1] + offset, &emu->Registers[rd]))
+					{
+						return 1;
+					}
 					break;
 
 				case 1:
 					/* LH */
-					EMU_LOG(PSTR("lh r%"PRIu8", r%"PRIu8"%"PRIi32), rd, rs1, offset);
-					emu->Registers[rd] = memory_lh(emu->Registers[rs1] + offset);
+					EMU_LOG(PSTR("lh r%"PRIu8", r%"PRIu8"%+"PRIi32), rd, rs1, offset);
+					if(memory_lh(emu->Registers[rs1] + offset, &emu->Registers[rd]))
+					{
+						return 1;
+					}
 					break;
 
 				case 2:
 					/* LW */
-					EMU_LOG(PSTR("lw r%"PRIu8", r%"PRIu8"%"PRIi32), rd, rs1, offset);
-					emu->Registers[rd] = memory_lw(emu->Registers[rs1] + offset);
+					EMU_LOG(PSTR("lw r%"PRIu8", r%"PRIu8"%+"PRIi32), rd, rs1, offset);
+					if(memory_lw(emu->Registers[rs1] + offset, &emu->Registers[rd]))
+					{
+						return 1;
+					}
 					break;
 
 				case 4:
 					/* LBU */
-					EMU_LOG(PSTR("lbu r%"PRIu8", r%"PRIu8"%"PRIi32), rd, rs1, offset);
-					emu->Registers[rd] = memory_lbu(emu->Registers[rs1] + offset);
+					EMU_LOG(PSTR("lbu r%"PRIu8", r%"PRIu8"%+"PRIi32), rd, rs1, offset);
+					if(memory_lbu(emu->Registers[rs1] + offset, &emu->Registers[rd]))
+					{
+						return 1;
+					}
 					break;
 
 				case 5:
 					/* LHU */
-					EMU_LOG(PSTR("lhu r%"PRIu8", r%"PRIu8"%"PRIi32), rd, rs1, offset);
-					emu->Registers[rd] = memory_lhu(emu->Registers[rs1] + offset);
+					EMU_LOG(PSTR("lhu r%"PRIu8", r%"PRIu8"%+"PRIi32), rd, rs1, offset);
+					if(memory_lhu(emu->Registers[rs1] + offset, &emu->Registers[rd]))
+					{
+						return 1;
+					}
 					break;
 
 				default:
 					EMU_LOG(PSTR("INVALID"));
-					return true;
+					return 1;
 			}
 			break;
 		}
@@ -463,25 +722,34 @@ static bool emulator_next(Emulator *emu)
 			{
 				case 0:
 					/* SB */
-					EMU_LOG(PSTR("sb r%"PRIu8"%"PRIi32", r%"PRIu8), rs1, offset, rs2);
-					memory_sb(emu->Registers[rs1] + offset, emu->Registers[rs2]);
+					EMU_LOG(PSTR("sb r%"PRIu8"%+"PRIi32", r%"PRIu8), rs1, offset, rs2);
+					if(memory_sb(emu->Registers[rs1] + offset, emu->Registers[rs2]))
+					{
+						return 1;
+					}
 					break;
 
 				case 1:
 					/* SH */
-					EMU_LOG(PSTR("sh r%"PRIu8"%"PRIi32", r%"PRIu8), rs1, offset, rs2);
-					memory_sh(emu->Registers[rs1] + offset, emu->Registers[rs2]);
+					EMU_LOG(PSTR("sh r%"PRIu8"%+"PRIi32", r%"PRIu8), rs1, offset, rs2);
+					if(memory_sh(emu->Registers[rs1] + offset, emu->Registers[rs2]))
+					{
+						return 1;
+					}
 					break;
 
 				case 2:
 					/* SW */
-					EMU_LOG(PSTR("sw r%"PRIu8"%"PRIi32", r%"PRIu8), rs1, offset, rs2);
-					memory_sw(emu->Registers[rs1] + offset, emu->Registers[rs2]);
+					EMU_LOG(PSTR("sw r%"PRIu8"%+"PRIi32", r%"PRIu8), rs1, offset, rs2);
+					if(memory_sw(emu->Registers[rs1] + offset, emu->Registers[rs2]))
+					{
+						return 1;
+					}
 					break;
 
 				default:
 					EMU_LOG(PSTR("INVALID"));
-					return true;
+					return 1;
 			}
 			break;
 		}
@@ -711,7 +979,7 @@ static bool emulator_next(Emulator *emu)
 
 				default:
 					EMU_LOG(PSTR("INVALID"));
-					return true;
+					return 1;
 			}
 			break;
 		}
@@ -757,35 +1025,32 @@ static bool emulator_next(Emulator *emu)
 
 		default:
 			EMU_LOG(PSTR("INVALID"));
-			return true;
+			return 1;
 	}
 
 	emu->PC += 4;
-	return false;
+	return 0;
 }
 
-void emulator_call(Emulator *emu, u32 addr, u32 *args, u8 num, u32 sp)
+u8 emulator_call(Emulator *emu, u32 addr, u32 *args, u8 num, u32 sp)
 {
+	u32 i;
+
 	/* Initialize Stack Pointer at end of memory */
 	emu->Registers[2] = sp - 4;
-
 	emu->PC = addr;
 	memcpy(&emu->Registers[10], args, num * sizeof(*emu->Registers));
-
-	u32 i = 0;
+	i = 0;
 	_finished = false;
-	for(;;)
+	while(!_finished)
 	{
+		++i;
 		if(emulator_next(emu))
 		{
-			return;
-		}
-
-		++i;
-		if(_finished)
-		{
-			EMU_LOG(PSTR("%"PRIu32" Cycles"), i);
-			return;
+			return 1;
 		}
 	}
+
+	EMU_LOG(PSTR("%"PRIu32" Cycles"), i);
+	return 0;
 }

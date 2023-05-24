@@ -51,5 +51,5 @@ var searchData=
   ['logo_5ftext_5fx_5foffset_48',['LOGO_TEXT_X_OFFSET',['../logger_8c.html#a4bcc8822ee0337ce0c7d0f7086244b6d',1,'logger.c']]],
   ['logo_5fx_5foffset_49',['LOGO_X_OFFSET',['../logger_8c.html#a88e76882c6f9a1a90f5b714c39be7b37',1,'logger.c']]],
   ['logo_5fy_5foffset_50',['LOGO_Y_OFFSET',['../logger_8c.html#a70b1470428ebbc008fc85cfb458820b1',1,'logger.c']]],
-  ['loop_51',['loop',['../event_8h.html#a0b33edabd7f1c4e4a0bf32c67269be2f',1,'main.c']]]
+  ['loop_51',['loop',['../apps_2tetris_2main_8c.html#a0b33edabd7f1c4e4a0bf32c67269be2f',1,'loop(void):&#160;main.c'],['../event_8h.html#a0b33edabd7f1c4e4a0bf32c67269be2f',1,'loop(void):&#160;main.c']]]
 ];
