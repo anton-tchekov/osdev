@@ -26,27 +26,34 @@
 
 # Global TODO List
 
-## CURRENT in order of priority
-- Better SysCall Parameter checking
-- Cooperative Scheduler, Memory Protection, Background Tasks, Exit function
-
+## Current Tasks
+- Better SysCall Parameter checking, Memory Protection
+- Cooperative Scheduler, Background Tasks, Exit function
+- AVR XMEM image routines
+- AVR PS/2 Keyboard character conversion and test
+- AVR SD Driver write block function
 - Documentation, not again, yes I am forcing myself ...
 - GUI Fix Bugs (text width calculation)
-
-- Port Snake Game
 - Port Tetris
-	- Game title screen
-	- Game over screen with high score (new game, back to title, quit)
-	- Next piece indicator
-	- Score counter (Bonus for multiple lines)
-	- Line clear blink
-	- Pause Game (Resume, Back to title, New Game, Quit)
-	- Better graphics (3D Like effect)
 
-- AVR XMEM image routines
-- PS/2 Keyboard character conversion and test
+## Immediate Next Steps
+- Port Snake Game
+- Text Editor
 - Fast native memory routines
-- SD Driver write block function
+- File system driver
+- App list with icons (load apps from folder)
+- File Manager
+- Emulate RISC-V Single Precision Floating Point Extension and Math Lib
+- Async Drivers
+
+## Tetris
+- Game title screen
+- Game over screen with high score (new game, back to title, quit)
+- Next piece indicator
+- Score counter (Bonus for multiple lines)
+- Line clear blink
+- Pause Game (Resume, Back to title, New Game, Quit)
+- Better graphics (3D Like effect)
 
 ## Text/Code Editor features
 - Line Numbers
@@ -56,13 +63,6 @@
 - Search and Replace
 - Goto Line
 - Import / Export contents
-
-## Immediate Next Steps
-- File system driver
-- App list with icons (load apps from folder)
-- File Manager
-- Emulate RISC-V Single Precision Floating Point Extension and Math Lib
-- Async Drivers
 
 ## DONE
 - GUI Hide/Show labels (`label_show(&label, true)`)
