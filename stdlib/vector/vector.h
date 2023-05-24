@@ -83,7 +83,7 @@ void vector_replace(
  */
 static inline void vector_set(Vector *vector, const void *elems, u32 count)
 {
-	memcpy(vector->Data, elems, vector->ElementSize * count);
+	vector_replace(vector, 0, vector->Length, elems, count);
 }
 
 /**

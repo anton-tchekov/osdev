@@ -494,7 +494,7 @@ static void input_select_all(Input *i)
 /**
  * @brief Save the current selection of an input to the clipboard
  *
- * @param i
+ * @param i Pointer to the input structure
  */
 static void _selection_save(Input *i)
 {
@@ -502,7 +502,7 @@ static void _selection_save(Input *i)
 
 	sel_start = i32_min(i->Selection, i->Position);
 	sel_len = i32_max(i->Selection, i->Position) - sel_start;
-	clipboard_save_text_len((char *)vector_data(&i->Text) + sel_start, sel_len);
+	clipboard_save_text_len(vector_get(&i->Text, sel_start), sel_len);
 }
 
 /**

@@ -27,7 +27,6 @@
 # Global TODO List
 
 ## CURRENT in order of priority
-- GUI Text field copy/cut/paste
 - GUI Fix Bugs (text width calculation)
 - Better SysCall Parameter checking
 
@@ -74,6 +73,7 @@
 - GUI Enable/Disable elements (`element_enable(&element, true)`)
 
 ## DONE
+- GUI Text field copy/cut/paste
 - GUI Make theme easily changable (`theme_set` function)
 - Login screen
 - Build everything script
