@@ -55,7 +55,15 @@
 /** Input field initial capacity */
 #define INPUT_CAPACITY   16
 
-/* Default Theme */
+/* --- Label --- */
+
+/** Label padding in y direction in inverted mode on each side */
+#define LABEL_Y_PADDING   3
+
+/** Label padding in x direction in inverted mode on each side */
+#define LABEL_X_PADDING  10
+
+/* --- Default Theme --- */
 
 /** Theme Black Color */
 #define THEME_BLACK  0x0F0000FF
@@ -95,6 +103,9 @@ typedef struct
 {
 	/** Element type */
 	ElementType Type;
+
+	/** Various Flags (see header file) */
+	u32 Flags;
 } Element;
 
 /** Password stars */
@@ -109,37 +120,56 @@ static const char _password_stars[] = "***********************************";
  */
 static void label_render(Label *l)
 {
-	u32 align = l->Flags & ALIGN_MASK;
+	u32 align, w = 0, y, rx = 0, h = 12 + 2 * LABEL_Y_PADDING;
+	Color fg, bg;
+
+	y = TITLE_BAR_HEIGHT + l->Y;
+	align = l->Flags & ALIGN_MASK;
+
+	if(l->Flags & FLAG_INVERTED)
+	{
+		fg = _current_theme->ColorBG;
+		bg = _current_theme->ColorFG;
+	}
+	else
+	{
+		fg = _current_theme->ColorFG;
+		bg = _current_theme->ColorBG;
+	}
+
 	if(align == FLAG_ALIGN_CENTER)
 	{
-		font_string(
-			l->X - font_string_width(l->Text, font_default) / 2,
-			TITLE_BAR_HEIGHT + l->Y,
-			l->Text,
-			font_default,
-			_current_theme->ColorFG,
-			_current_theme->ColorBG);
+		w = font_string_width(l->Text, font_default) + 2 * LABEL_X_PADDING;
+		rx = w / 2;
 	}
 	else if(align == FLAG_ALIGN_RIGHT)
 	{
-		font_string(
-			l->X - font_string_width(l->Text, font_default),
-			TITLE_BAR_HEIGHT + l->Y,
-			l->Text,
-			font_default,
-			_current_theme->ColorFG,
-			_current_theme->ColorBG);
+		w = font_string_width(l->Text, font_default) + 2 * LABEL_X_PADDING;
+		rx = w;
 	}
 	else if(align == FLAG_ALIGN_LEFT)
 	{
-		font_string(
-			l->X,
-			TITLE_BAR_HEIGHT + l->Y,
-			l->Text,
-			font_default,
-			_current_theme->ColorFG,
-			_current_theme->ColorBG);
+		if(l->Flags & FLAG_INVERTED)
+		{
+			w = font_string_width(l->Text, font_default) + 2 * LABEL_X_PADDING;
+		}
 	}
+
+	if(l->Flags & FLAG_INVERTED)
+	{
+		if(l->Flags & FLAG_INVISIBLE)
+		{
+			gfx_rect(l->X - rx - LABEL_X_PADDING, y - LABEL_Y_PADDING, w, h,
+				_current_theme->ColorBG);
+			return;
+		}
+		else
+		{
+			gfx_rect(l->X - rx - LABEL_X_PADDING, y - LABEL_Y_PADDING, w, h, bg);
+		}
+	}
+
+	font_string(l->X - rx, y, l->Text, font_default, fg, bg);
 }
 
 /* BUTTON */
@@ -602,7 +632,7 @@ static void input_event_key(Input *i, Key key, i32 chr)
 	{
 		input_paste(i);
 	}
-	else if(chr)
+	else if(isprint(chr))
 	{
 		input_char(i, chr);
 	}
@@ -881,4 +911,14 @@ void theme_set(Theme *theme)
 void theme_default(void)
 {
 	_current_theme = &_default_theme;
+}
+
+void label_show(Label *label, bool show)
+{
+	if((show && (label->Flags & FLAG_INVISIBLE)) ||
+		(!show && !(label->Flags & FLAG_INVISIBLE)))
+	{
+		label->Flags ^= FLAG_INVISIBLE;
+		label_render(label);
+	}
 }

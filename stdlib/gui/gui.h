@@ -43,6 +43,12 @@ typedef enum
 /** Display content as stars in input field */
 #define FLAG_PASSWORD         0x10
 
+/** Invert label foreground and background colors */
+#define FLAG_INVERTED         0x20
+
+/** Element visibility state */
+#define FLAG_INVISIBLE        0x40
+
 /** Label element structure */
 typedef struct
 {
@@ -50,7 +56,7 @@ typedef struct
 	ElementType Type;
 
 	/** Various Flags (see above) */
-	u8 Flags;
+	u32 Flags;
 
 	/** X-Coordinate */
 	i32 X;
@@ -67,6 +73,9 @@ typedef struct
 {
 	/** Element Type (must be first member) */
 	ElementType Type;
+
+	/** Various Flags (see above) */
+	u32 Flags;
 
 	/** X-Coordinate */
 	i32 X;
@@ -206,6 +215,14 @@ void window_init(Window *window, char *title, void *elems, i32 count,
  * @param text Label text
  */
 void label_init(Label *label, i32 x, i32 y, u32 flags, char *text);
+
+/**
+ * @brief Hide/Show a label
+ *
+ * @param e Pointer to the Label
+ * @param show true to show, false to hide
+ */
+void label_show(Label *label, bool show);
 
 /**
  * @brief Initialize a button

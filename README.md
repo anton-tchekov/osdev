@@ -27,23 +27,26 @@
 # Global TODO List
 
 ## CURRENT in order of priority
-- GUI Fix Bugs (text width calculation)
 - Better SysCall Parameter checking
+- Cooperative Scheduler, Memory Protection, Background Tasks, Exit function
 
+- Documentation, not again, yes I am forcing myself ...
+- GUI Fix Bugs (text width calculation)
+
+- Port Snake Game
 - Port Tetris
 	- Game title screen
-	- Game over screen with high score
+	- Game over screen with high score (new game, back to title, quit)
 	- Next piece indicator
-	- Score counter
+	- Score counter (Bonus for multiple lines)
 	- Line clear blink
-	- Pause Game
+	- Pause Game (Resume, Back to title, New Game, Quit)
+	- Better graphics (3D Like effect)
 
 - AVR XMEM image routines
 - PS/2 Keyboard character conversion and test
-
-## Init
-- Working Login
-- App list with icons (load apps from folder)
+- Fast native memory routines
+- SD Driver write block function
 
 ## Text/Code Editor features
 - Line Numbers
@@ -54,25 +57,16 @@
 - Goto Line
 - Import / Export contents
 
-## AVR Platform in order of priority
-- Fast native memory routines
-- SD Driver write block function
-
-## Kernel in order of importance
-- Cooperative Scheduler, Memory Protection, Background Tasks, Exit function
+## Immediate Next Steps
 - File system driver
-
-## FOR LATER in order of difficulty
+- App list with icons (load apps from folder)
 - File Manager
 - Emulate RISC-V Single Precision Floating Point Extension and Math Lib
 - Async Drivers
 
-## Ideas
-- Port Snake Game
-- GUI Hide/Show elements (`element_show(&element, true)`)
-- GUI Enable/Disable elements (`element_enable(&element, true)`)
-
 ## DONE
+- GUI Hide/Show labels (`label_show(&label, true)`)
+- Working Login
 - GUI Text field copy/cut/paste
 - GUI Make theme easily changable (`theme_set` function)
 - Login screen
