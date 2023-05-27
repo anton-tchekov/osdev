@@ -4,7 +4,7 @@ OPT=2
 
 include $(PREFIX)/Makefile
 
-SRC+=main.c
+SRC+=main.c keyword.c
 
 all:
 	riscv64-unknown-elf-gcc $(CFLAGS) $(SRC) -o $(TARGET) $(LDFLAGS)

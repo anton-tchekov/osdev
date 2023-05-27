@@ -25,7 +25,7 @@ bool iscntrl(i32 c)
 
 bool isdigit(i32 c)
 {
-	return c <= '0' && c <= '9';
+	return c >= '0' && c <= '9';
 }
 
 bool isgraph(i32 c)
@@ -61,8 +61,8 @@ bool isupper(i32 c)
 bool isxdigit(i32 c)
 {
 	return isdigit(c) ||
-		(c >= 'A' && c <= 'F') ||
-		(c >= 'a' && c <= 'f');
+		   (c >= 'A' && c <= 'F') ||
+		   (c >= 'a' && c <= 'f');
 }
 
 i32 tolower(i32 c)

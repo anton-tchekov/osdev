@@ -49,6 +49,20 @@ typedef enum
 /** Element visibility state */
 #define FLAG_INVISIBLE        0x40
 
+/* --- Default Theme --- */
+
+/** Theme Black Color */
+#define THEME_BLACK  0x0F0000FF
+
+/** Theme Dark Color */
+#define THEME_DARK   0x2F0000FF
+
+/** Theme Middle Color */
+#define THEME_MIDDLE 0x4F0000FF
+
+/** Theme Light Color */
+#define THEME_LIGHT  0xFF8000FF
+
 /** Label element structure */
 typedef struct
 {

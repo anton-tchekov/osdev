@@ -36,6 +36,7 @@ SRC=\
 	$(PREFIX)/font/arial.c \
 	$(PREFIX)/font/fatty.c \
 	$(PREFIX)/font/ubuntu_bold.c \
+	$(PREFIX)/font/ubuntu_regular.c \
 	$(PREFIX)/format/format.c \
 	$(PREFIX)/gfx/gfx.c \
 	$(PREFIX)/gui/gui.c \
@@ -60,8 +61,7 @@ CFLAGS=\
 	-nostdlib \
 	-ffreestanding \
 	-O$(OPT) \
-	-DSTDLIB \
-	-flto
+	-DSTDLIB
 
 LDFLAGS=\
 	-T$(PREFIX)/linker.ld

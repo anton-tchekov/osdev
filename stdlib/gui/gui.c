@@ -18,81 +18,67 @@
 #define TITLE_BAR_HEIGHT 20
 
 /** Title bar text left offset */
-#define TITLE_OFFSET_X    4
+#define TITLE_OFFSET_X 4
 
 /** Title bar text top offset */
-#define TITLE_OFFSET_Y    4
+#define TITLE_OFFSET_Y 4
 
 /** Border width when not selected */
-#define BORDER_SIZE       1
+#define BORDER_SIZE 1
 
 /** Border width when selected */
-#define BORDER_SIZE_SEL   2
+#define BORDER_SIZE_SEL 2
 
 /* Input */
 
 /** Height of an input field */
-#define INPUT_HEIGHT     24
+#define INPUT_HEIGHT 24
 
 /** Input field text X padding */
-#define INPUT_PADDING_X   6
+#define INPUT_PADDING_X 6
 
 /** Input field text Y padding */
-#define INPUT_PADDING_Y   7
+#define INPUT_PADDING_Y 7
 
 /** Input field cursor width */
-#define CURSOR_WIDTH      1
+#define CURSOR_WIDTH 1
 
 /** Input field cursor height */
-#define CURSOR_HEIGHT    14
+#define CURSOR_HEIGHT 14
 
 /** Input field cursor X offset */
-#define CURSOR_OFFSET    -1
+#define CURSOR_OFFSET -1
 
 /** Input field cursor Y offset */
-#define CURSOR_OFFSET_Y   5
+#define CURSOR_OFFSET_Y 5
 
 /** Input field initial capacity */
-#define INPUT_CAPACITY   16
+#define INPUT_CAPACITY 16
 
 /* --- Label --- */
 
 /** Label padding in y direction in inverted mode on each side */
-#define LABEL_Y_PADDING   3
+#define LABEL_Y_PADDING 3
 
 /** Label padding in x direction in inverted mode on each side */
-#define LABEL_X_PADDING  10
-
-/* --- Default Theme --- */
-
-/** Theme Black Color */
-#define THEME_BLACK  0x0F0000FF
-
-/** Theme Dark Color */
-#define THEME_DARK   0x2F0000FF
-
-/** Theme Middle Color */
-#define THEME_MIDDLE 0x4F0000FF
-
-/** Theme Light Color */
-#define THEME_LIGHT  0xFF8000FF
+#define LABEL_X_PADDING 10
 
 /** Pointer to the currently open window */
 static Window *_current_window;
 
 /** Default Theme */
 static Theme _default_theme =
-{
-	.ColorFG = THEME_LIGHT,
-	.ColorBG = THEME_BLACK,
-	.ColorTextSelBG = THEME_LIGHT,
-	.ColorTextSelFG = THEME_DARK,
-	.ColorBorder = THEME_MIDDLE,
-	.ColorBorderSel = THEME_LIGHT,
-	.ElementBG = THEME_DARK,
-	.ElementSelBG = THEME_MIDDLE,
-	.ColorCursor = THEME_LIGHT,
-	.ColorTitleBar = THEME_DARK,
+	{
+		.ColorFG = THEME_LIGHT,
+		.ColorBG = THEME_BLACK,
+		.ColorTextSelBG = THEME_LIGHT,
+		.ColorTextSelFG = THEME_DARK,
+		.ColorBorder = THEME_MIDDLE,
+		.ColorBorderSel = THEME_LIGHT,
+		.ElementBG = THEME_DARK,
+		.ElementSelBG = THEME_MIDDLE,
+		.ColorCursor = THEME_LIGHT,
+		.ColorTitleBar = THEME_DARK,
 };
 
 /** Pointer to the currently used theme */
@@ -126,7 +112,7 @@ static void label_render(Label *l)
 	y = TITLE_BAR_HEIGHT + l->Y;
 	align = l->Flags & ALIGN_MASK;
 
-	if(l->Flags & FLAG_INVERTED)
+	if (l->Flags & FLAG_INVERTED)
 	{
 		fg = _current_theme->ColorBG;
 		bg = _current_theme->ColorFG;
@@ -137,30 +123,30 @@ static void label_render(Label *l)
 		bg = _current_theme->ColorBG;
 	}
 
-	if(align == FLAG_ALIGN_CENTER)
+	if (align == FLAG_ALIGN_CENTER)
 	{
 		w = font_string_width(l->Text, font_default) + 2 * LABEL_X_PADDING;
 		rx = w / 2;
 	}
-	else if(align == FLAG_ALIGN_RIGHT)
+	else if (align == FLAG_ALIGN_RIGHT)
 	{
 		w = font_string_width(l->Text, font_default) + 2 * LABEL_X_PADDING;
 		rx = w;
 	}
-	else if(align == FLAG_ALIGN_LEFT)
+	else if (align == FLAG_ALIGN_LEFT)
 	{
-		if(l->Flags & FLAG_INVERTED)
+		if (l->Flags & FLAG_INVERTED)
 		{
 			w = font_string_width(l->Text, font_default) + 2 * LABEL_X_PADDING;
 		}
 	}
 
-	if(l->Flags & FLAG_INVERTED)
+	if (l->Flags & FLAG_INVERTED)
 	{
-		if(l->Flags & FLAG_INVISIBLE)
+		if (l->Flags & FLAG_INVISIBLE)
 		{
 			gfx_rect(l->X - rx - LABEL_X_PADDING, y - LABEL_Y_PADDING, w, h,
-				_current_theme->ColorBG);
+					 _current_theme->ColorBG);
 			return;
 		}
 		else
@@ -187,27 +173,26 @@ static void button_render(Button *b, bool sel)
 
 	y = TITLE_BAR_HEIGHT + b->Y;
 
-	inner_color = sel ? _current_theme->ElementSelBG :
-		_current_theme->ElementBG;
+	inner_color = sel ? _current_theme->ElementSelBG : _current_theme->ElementBG;
 
 	gfx_rect(b->X, y, b->W, b->H, inner_color);
 
-	if(sel)
+	if (sel)
 	{
 		gfx_rect_border(b->X, y, b->W, b->H, BORDER_SIZE_SEL,
-			_current_theme->ColorBorderSel);
+						_current_theme->ColorBorderSel);
 	}
 	else
 	{
 		gfx_rect_border(b->X, y, b->W, b->H, BORDER_SIZE,
-			_current_theme->ColorBorder);
+						_current_theme->ColorBorder);
 	}
 
 	x = b->X + b->W / 2 - font_string_width(b->Text, font_default) / 2;
 	font_string(x, y + b->H / 2 - 5,
-		b->Text, font_default,
-		_current_theme->ColorFG,
-		inner_color);
+				b->Text, font_default,
+				_current_theme->ColorFG,
+				inner_color);
 }
 
 /* INPUT */
@@ -223,38 +208,35 @@ static void input_render(Input *i, bool sel)
 	Color inner_color;
 	i32 y = TITLE_BAR_HEIGHT + i->Y;
 
-	const char *text = i->Flags & FLAG_PASSWORD ?
-		_password_stars : vector_data(&i->Text);
+	const char *text = i->Flags & FLAG_PASSWORD ? _password_stars : vector_data(&i->Text);
 
-	inner_color = sel ?
-		_current_theme->ElementSelBG :
-		_current_theme->ElementBG;
+	inner_color = sel ? _current_theme->ElementSelBG : _current_theme->ElementBG;
 
 	gfx_rect(i->X + BORDER_SIZE,
-		TITLE_BAR_HEIGHT + i->Y + BORDER_SIZE,
-		i->W - 2 * BORDER_SIZE,
-		INPUT_HEIGHT - 2 + BORDER_SIZE,
-		inner_color);
+			 TITLE_BAR_HEIGHT + i->Y + BORDER_SIZE,
+			 i->W - 2 * BORDER_SIZE,
+			 INPUT_HEIGHT - 2 + BORDER_SIZE,
+			 inner_color);
 
-	if(sel)
+	if (sel)
 	{
 		gfx_rect_border(i->X, TITLE_BAR_HEIGHT + i->Y,
-			i->W, INPUT_HEIGHT, BORDER_SIZE_SEL,
-			_current_theme->ColorBorderSel);
+						i->W, INPUT_HEIGHT, BORDER_SIZE_SEL,
+						_current_theme->ColorBorderSel);
 	}
 	else
 	{
 		gfx_rect_border(i->X, y, i->W, INPUT_HEIGHT, BORDER_SIZE,
-			_current_theme->ColorBorder);
+						_current_theme->ColorBorder);
 	}
 
-	if(i->Selection == i->Position)
+	if (i->Selection == i->Position)
 	{
 		font_string_len(i->X + INPUT_PADDING_X, y + INPUT_PADDING_Y,
-			text, vector_len(&i->Text),
-			font_default,
-			_current_theme->ColorFG,
-			inner_color);
+						text, vector_len(&i->Text),
+						font_default,
+						_current_theme->ColorFG,
+						inner_color);
 	}
 	else
 	{
@@ -265,46 +247,47 @@ static void input_render(Input *i, bool sel)
 
 		/* Before selection */
 		font_string_len(i->X + INPUT_PADDING_X,
-			y + INPUT_PADDING_Y,
-			text, sel_start,
-			font_default,
-			_current_theme->ColorFG,
-			inner_color);
+						y + INPUT_PADDING_Y,
+						text, sel_start,
+						font_default,
+						_current_theme->ColorFG,
+						inner_color);
 
 		/* Selection */
 		sel_x = font_string_width_len(text, sel_start, font_default);
 
 		gfx_rect(i->X + INPUT_PADDING_X + sel_x, y + CURSOR_OFFSET_Y,
-			font_string_width_len(text + sel_start, sel_len, font_default),
-			CURSOR_HEIGHT,
-			_current_theme->ColorFG);
+				 font_string_width_len(text + sel_start, sel_len, font_default),
+				 CURSOR_HEIGHT,
+				 _current_theme->ColorFG);
 
 		font_string_len(i->X + INPUT_PADDING_X + sel_x, y + INPUT_PADDING_Y,
-			text + sel_start, sel_len,
-			font_default,
-			_current_theme->ColorTextSelFG,
-			_current_theme->ColorTextSelBG);
+						text + sel_start, sel_len,
+						font_default,
+						_current_theme->ColorTextSelFG,
+						_current_theme->ColorTextSelBG);
 
 		/* After selection */
 		font_string_len(i->X + INPUT_PADDING_X +
-			font_string_width_len(text, sel_start + sel_len, font_default),
-			y + INPUT_PADDING_Y,
-			text + sel_start + sel_len,
-			vector_len(&i->Text) - sel_start - sel_len,
-			font_default,
-			_current_theme->ColorFG,
-			inner_color);
+							font_string_width_len(text, sel_start + sel_len, font_default),
+						y + INPUT_PADDING_Y,
+						text + sel_start + sel_len,
+						vector_len(&i->Text) - sel_start - sel_len,
+						font_default,
+						_current_theme->ColorFG,
+						inner_color);
 	}
 
-	if(sel)
+	if (sel)
 	{
 		/* Cursor */
 		gfx_rect(i->X + INPUT_PADDING_X +
-			font_string_width_len(text, i->Position, font_default) +
-			CURSOR_OFFSET, TITLE_BAR_HEIGHT + i->Y + CURSOR_OFFSET_Y,
-			CURSOR_WIDTH,
-			CURSOR_HEIGHT,
-			_current_theme->ColorCursor);
+					 font_string_width_len(text, i->Position, font_default) +
+					 CURSOR_OFFSET,
+				 TITLE_BAR_HEIGHT + i->Y + CURSOR_OFFSET_Y,
+				 CURSOR_WIDTH,
+				 CURSOR_HEIGHT,
+				 _current_theme->ColorCursor);
 	}
 }
 
@@ -332,9 +315,9 @@ static void input_selection_replace(Input *i, const char *str, i32 len)
 	w_new = font_string_width_len(str, len, font_default);
 	w_start = font_string_width_len(vector_data(&i->Text), sel_start, font_default);
 	w_end = font_string_width_len(vector_data(&i->Text) + sel_start + sel_len,
-		vector_len(&i->Text) - sel_start - sel_len, font_default);
+								  vector_len(&i->Text) - sel_start - sel_len, font_default);
 
-	if(w_new + w_start + w_end >= i->W - 2 * INPUT_PADDING_X)
+	if (w_new + w_start + w_end >= i->W - 2 * INPUT_PADDING_X)
 	{
 		return;
 	}
@@ -352,12 +335,12 @@ static void input_selection_replace(Input *i, const char *str, i32 len)
  */
 static void input_left(Input *i)
 {
-	if(i->Selection != i->Position)
+	if (i->Selection != i->Position)
 	{
 		i->Selection = i->Position;
 		input_render(i, true);
 	}
-	else if(i->Position > 0)
+	else if (i->Position > 0)
 	{
 		--i->Position;
 		i->Selection = i->Position;
@@ -372,7 +355,7 @@ static void input_left(Input *i)
  */
 static void input_select_left(Input *i)
 {
-	if(i->Position > 0)
+	if (i->Position > 0)
 	{
 		--i->Position;
 		input_render(i, true);
@@ -386,12 +369,12 @@ static void input_select_left(Input *i)
  */
 static void input_right(Input *i)
 {
-	if(i->Selection != i->Position)
+	if (i->Selection != i->Position)
 	{
 		i->Selection = i->Position;
 		input_render(i, true);
 	}
-	else if(i->Position < (i32)vector_len(&i->Text))
+	else if (i->Position < (i32)vector_len(&i->Text))
 	{
 		++i->Position;
 		i->Selection = i->Position;
@@ -406,7 +389,7 @@ static void input_right(Input *i)
  */
 static void input_select_right(Input *i)
 {
-	if(i->Position < (i32)vector_len(&i->Text))
+	if (i->Position < (i32)vector_len(&i->Text))
 	{
 		++i->Position;
 		input_render(i, true);
@@ -420,11 +403,11 @@ static void input_select_right(Input *i)
  */
 static void input_backspace(Input *i)
 {
-	if(i->Selection != i->Position)
+	if (i->Selection != i->Position)
 	{
 		input_selection_replace(i, NULL, 0);
 	}
-	else if(i->Position > 0)
+	else if (i->Position > 0)
 	{
 		--i->Position;
 		i->Selection = i->Position;
@@ -440,11 +423,11 @@ static void input_backspace(Input *i)
  */
 static void input_delete(Input *i)
 {
-	if(i->Selection != i->Position)
+	if (i->Selection != i->Position)
 	{
 		input_selection_replace(i, NULL, 0);
 	}
-	else if(i->Position < (i32)vector_len(&i->Text))
+	else if (i->Position < (i32)vector_len(&i->Text))
 	{
 		vector_remove(&i->Text, i->Position);
 		input_render(i, true);
@@ -565,7 +548,7 @@ static void input_cut(Input *i)
 static void input_paste(Input *i)
 {
 	input_selection_replace(i, clipboard_get_text(),
-		clipboard_get_text_len());
+							clipboard_get_text_len());
 }
 
 /**
@@ -577,63 +560,63 @@ static void input_paste(Input *i)
  */
 static void input_event_key(Input *i, Key key, i32 chr)
 {
-	if(key == KEY_HOME)
+	if (key == KEY_HOME)
 	{
 		input_home(i);
 	}
-	else if(key == (KEY_HOME | MOD_SHIFT))
+	else if (key == (KEY_HOME | MOD_SHIFT))
 	{
 		input_select_home(i);
 	}
-	else if(key == KEY_END)
+	else if (key == KEY_END)
 	{
 		input_end(i);
 	}
-	else if(key == (KEY_END | MOD_SHIFT))
+	else if (key == (KEY_END | MOD_SHIFT))
 	{
 		input_select_end(i);
 	}
-	else if(key == KEY_LEFT)
+	else if (key == KEY_LEFT)
 	{
 		input_left(i);
 	}
-	else if(key == (KEY_LEFT | MOD_SHIFT))
+	else if (key == (KEY_LEFT | MOD_SHIFT))
 	{
 		input_select_left(i);
 	}
-	else if(key == KEY_RIGHT)
+	else if (key == KEY_RIGHT)
 	{
 		input_right(i);
 	}
-	else if(key == (KEY_RIGHT | MOD_SHIFT))
+	else if (key == (KEY_RIGHT | MOD_SHIFT))
 	{
 		input_select_right(i);
 	}
-	else if(key == KEY_BACKSPACE)
+	else if (key == KEY_BACKSPACE)
 	{
 		input_backspace(i);
 	}
-	else if(key == KEY_DELETE)
+	else if (key == KEY_DELETE)
 	{
 		input_delete(i);
 	}
-	else if(key == (KEY_A | MOD_CTRL))
+	else if (key == (KEY_A | MOD_CTRL))
 	{
 		input_select_all(i);
 	}
-	else if(key == (KEY_C | MOD_CTRL))
+	else if (key == (KEY_C | MOD_CTRL))
 	{
 		input_copy(i);
 	}
-	else if(key == (KEY_X | MOD_CTRL))
+	else if (key == (KEY_X | MOD_CTRL))
 	{
 		input_cut(i);
 	}
-	else if(key == (KEY_V | MOD_CTRL))
+	else if (key == (KEY_V | MOD_CTRL))
 	{
 		input_paste(i);
 	}
-	else if(isprint(chr))
+	else if (isprint(chr))
 	{
 		input_char(i, chr);
 	}
@@ -649,26 +632,26 @@ static void input_event_key(Input *i, Key key, i32 chr)
  */
 static void element_render_sel(Element *e, u32 sel)
 {
-	switch(e->Type)
+	switch (e->Type)
 	{
-		case ELEMENT_TYPE_LABEL:
-			label_render((Label *)e);
-			break;
+	case ELEMENT_TYPE_LABEL:
+		label_render((Label *)e);
+		break;
 
-		case ELEMENT_TYPE_BUTTON:
-			button_render((Button *)e, sel);
-			break;
+	case ELEMENT_TYPE_BUTTON:
+		button_render((Button *)e, sel);
+		break;
 
-		case ELEMENT_TYPE_INPUT:
-			input_render((Input *)e, sel);
-			break;
+	case ELEMENT_TYPE_INPUT:
+		input_render((Input *)e, sel);
+		break;
 	}
 }
 
 void element_render(void *e)
 {
 	element_render_sel(e, _current_window->Selected >= 0 &&
-		_current_window->Elements[_current_window->Selected] == e);
+							  _current_window->Elements[_current_window->Selected] == e);
 }
 
 /**
@@ -681,7 +664,7 @@ static bool _selectable(i32 index)
 {
 	ElementType type = ((Element *)_current_window->Elements[index])->Type;
 	return type == ELEMENT_TYPE_BUTTON ||
-			type == ELEMENT_TYPE_INPUT;
+		   type == ELEMENT_TYPE_INPUT;
 }
 
 /**
@@ -703,9 +686,9 @@ static void _select(i32 index)
 static void element_first(void)
 {
 	i32 i, count = _current_window->Count;
-	for(i = 0; i < count; ++i)
+	for (i = 0; i < count; ++i)
 	{
-		if(_selectable(i))
+		if (_selectable(i))
 		{
 			_current_window->Selected = i;
 			break;
@@ -719,9 +702,9 @@ static void element_first(void)
 static void element_next(void)
 {
 	i32 i, count = _current_window->Count;
-	for(i = _current_window->Selected + 1; i < count; ++i)
+	for (i = _current_window->Selected + 1; i < count; ++i)
 	{
-		if(_selectable(i))
+		if (_selectable(i))
 		{
 			_select(i);
 			return;
@@ -729,9 +712,9 @@ static void element_next(void)
 	}
 
 	/* Wrap around */
-	for(i = 0; i < count; ++i)
+	for (i = 0; i < count; ++i)
 	{
-		if(_selectable(i))
+		if (_selectable(i))
 		{
 			_select(i);
 			return;
@@ -745,9 +728,9 @@ static void element_next(void)
 static void element_prev(void)
 {
 	i32 i;
-	for(i = _current_window->Selected - 1; i >= 0; --i)
+	for (i = _current_window->Selected - 1; i >= 0; --i)
 	{
-		if(_selectable(i))
+		if (_selectable(i))
 		{
 			_select(i);
 			return;
@@ -755,9 +738,9 @@ static void element_prev(void)
 	}
 
 	/* Wrap around */
-	for(i = _current_window->Count - 1; i >= 0; --i)
+	for (i = _current_window->Count - 1; i >= 0; --i)
 	{
-		if(_selectable(i))
+		if (_selectable(i))
 		{
 			_select(i);
 			return;
@@ -778,21 +761,21 @@ static void window_render(Window *window)
 
 	/* Title Bar */
 	gfx_rect(0, 0, GFX_WIDTH, TITLE_BAR_HEIGHT - 1,
-		_current_theme->ColorTitleBar);
+			 _current_theme->ColorTitleBar);
 
 	gfx_rect(0, TITLE_BAR_HEIGHT - 1, GFX_WIDTH, 1,
-		_current_theme->ColorFG);
+			 _current_theme->ColorFG);
 
 	/* Background */
 	gfx_rect(0, TITLE_BAR_HEIGHT, GFX_WIDTH, GFX_HEIGHT - TITLE_BAR_HEIGHT,
-		_current_theme->ColorBG);
+			 _current_theme->ColorBG);
 
 	/* Title */
 	font_string(TITLE_OFFSET_X, TITLE_OFFSET_Y, window->Title,
-		font_default, _current_theme->ColorFG,
-		_current_theme->ColorTitleBar);
+				font_default, _current_theme->ColorFG,
+				_current_theme->ColorTitleBar);
 
-	for(i = 0; i < window->Count; ++i)
+	for (i = 0; i < window->Count; ++i)
 	{
 		element_render(window->Elements[i]);
 	}
@@ -801,7 +784,7 @@ static void window_render(Window *window)
 void window_open(Window *window)
 {
 	_current_window = window;
-	if(window->Selected < 0)
+	if (window->Selected < 0)
 	{
 		element_first();
 	}
@@ -812,50 +795,50 @@ void window_open(Window *window)
 void window_event_key(Key key, i32 chr, KeyState state)
 {
 	void *ce;
-	if(!_current_window)
+	if (!_current_window)
 	{
 		return;
 	}
 
-	if(_current_window->OnKey)
+	if (_current_window->OnKey)
 	{
 		_current_window->OnKey(key, chr, state);
 	}
 
-	if(_current_window->Selected < 0)
+	if (_current_window->Selected < 0)
 	{
 		return;
 	}
 
-	if(state == KEYSTATE_RELEASED)
+	if (state == KEYSTATE_RELEASED)
 	{
 		return;
 	}
 
 	ce = _current_window->Elements[_current_window->Selected];
-	if(key == KEY_TAB)
+	if (key == KEY_TAB)
 	{
 		element_next();
 	}
-	else if(key == (KEY_TAB | MOD_SHIFT))
+	else if (key == (KEY_TAB | MOD_SHIFT))
 	{
 		element_prev();
 	}
 	else
 	{
 		ElementType type = ((Element *)ce)->Type;
-		if(type == ELEMENT_TYPE_BUTTON)
+		if (type == ELEMENT_TYPE_BUTTON)
 		{
-			if(key == KEY_RETURN)
+			if (key == KEY_RETURN)
 			{
 				Button *b = ce;
-				if(b->Click)
+				if (b->Click)
 				{
 					b->Click();
 				}
 			}
 		}
-		else if(type == ELEMENT_TYPE_INPUT)
+		else if (type == ELEMENT_TYPE_INPUT)
 		{
 			input_event_key((Input *)ce, key, chr);
 		}
@@ -863,7 +846,7 @@ void window_event_key(Key key, i32 chr, KeyState state)
 }
 
 void window_init(Window *window, char *title, void *elems, i32 count,
-	KeyEvent onkey)
+				 KeyEvent onkey)
 {
 	window->Selected = -1;
 	window->Title = title;
@@ -882,7 +865,7 @@ void label_init(Label *label, i32 x, i32 y, u32 flags, char *text)
 }
 
 void button_init(Button *button, i32 x, i32 y, i32 w, i32 h, char *text,
-	void (*onclick)(void))
+				 void (*onclick)(void))
 {
 	button->Type = ELEMENT_TYPE_BUTTON;
 	button->X = x;
@@ -916,7 +899,7 @@ void theme_default(void)
 
 void label_show(Label *label, bool show)
 {
-	if((show && (label->Flags & FLAG_INVISIBLE)) ||
+	if ((show && (label->Flags & FLAG_INVISIBLE)) ||
 		(!show && !(label->Flags & FLAG_INVISIBLE)))
 	{
 		label->Flags ^= FLAG_INVISIBLE;

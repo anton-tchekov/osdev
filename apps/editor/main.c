@@ -8,475 +8,231 @@
  */
 
 #include <std.h>
+#include <ubuntu_regular.h>
+#include <keyboard.h>
 
-//! @cond Doxygen_Suppress
+#define INITIAL_CODE_CAPACITY 16
+#define LINE_HEIGHT 12
+
+static const char _file[] = {0x76, 0x6F, 0x69, 0x64, 0x20, 0x65, 0x64, 0x69, 0x74, 0x6F, 0x72, 0x5F, 0x62, 0x61, 0x63, 0x6B,
+							 0x73, 0x70, 0x61, 0x63, 0x65, 0x28, 0x45, 0x64, 0x69, 0x74, 0x6F, 0x72, 0x20, 0x2A, 0x65, 0x64,
+							 0x29, 0x0A, 0x7B, 0x0A, 0x09, 0x56, 0x65, 0x63, 0x74, 0x6F, 0x72, 0x20, 0x2A, 0x6C, 0x69, 0x6E,
+							 0x65, 0x20, 0x3D, 0x20, 0x76, 0x65, 0x63, 0x74, 0x6F, 0x72, 0x5F, 0x67, 0x65, 0x74, 0x28, 0x26,
+							 0x65, 0x64, 0x2D, 0x3E, 0x4C, 0x69, 0x6E, 0x65, 0x73, 0x2C, 0x20, 0x65, 0x64, 0x2D, 0x3E, 0x43,
+							 0x75, 0x72, 0x73, 0x6F, 0x72, 0x59, 0x29, 0x3B, 0x0A, 0x09, 0x69, 0x66, 0x20, 0x28, 0x65, 0x64,
+							 0x2D, 0x3E, 0x43, 0x75, 0x72, 0x73, 0x6F, 0x72, 0x58, 0x20, 0x3D, 0x3D, 0x20, 0x30, 0x29, 0x0A,
+							 0x09, 0x7B, 0x0A, 0x09, 0x09, 0x69, 0x66, 0x20, 0x28, 0x65, 0x64, 0x2D, 0x3E, 0x43, 0x75, 0x72,
+							 0x73, 0x6F, 0x72, 0x59, 0x20, 0x3E, 0x20, 0x30, 0x29, 0x0A, 0x09, 0x09, 0x7B, 0x0A, 0x09, 0x09,
+							 0x09, 0x2F, 0x2A, 0x20, 0x6D, 0x65, 0x72, 0x67, 0x65, 0x20, 0x77, 0x69, 0x74, 0x68, 0x20, 0x70,
+							 0x72, 0x65, 0x76, 0x69, 0x6F, 0x75, 0x73, 0x20, 0x6C, 0x69, 0x6E, 0x65, 0x20, 0x2A, 0x2F, 0x0A,
+							 0x09, 0x09, 0x09, 0x56, 0x65, 0x63, 0x74, 0x6F, 0x72, 0x20, 0x2A, 0x70, 0x72, 0x65, 0x76, 0x20,
+							 0x3D, 0x20, 0x76, 0x65, 0x63, 0x74, 0x6F, 0x72, 0x5F, 0x67, 0x65, 0x74, 0x28, 0x26, 0x65, 0x64,
+							 0x2D, 0x3E, 0x4C, 0x69, 0x6E, 0x65, 0x73, 0x2C, 0x20, 0x2D, 0x2D, 0x65, 0x64, 0x2D, 0x3E, 0x43,
+							 0x75, 0x72, 0x73, 0x6F, 0x72, 0x59, 0x29, 0x3B, 0x0A, 0x09, 0x09, 0x09, 0x65, 0x64, 0x2D, 0x3E,
+							 0x43, 0x75, 0x72, 0x73, 0x6F, 0x72, 0x58, 0x20, 0x3D, 0x20, 0x76, 0x65, 0x63, 0x74, 0x6F, 0x72,
+							 0x5F, 0x6C, 0x65, 0x6E, 0x28, 0x70, 0x72, 0x65, 0x76, 0x29, 0x3B, 0x0A, 0x09, 0x09, 0x09, 0x76,
+							 0x65, 0x63, 0x74, 0x6F, 0x72, 0x5F, 0x70, 0x75, 0x73, 0x68, 0x5F, 0x72, 0x61, 0x6E, 0x67, 0x65,
+							 0x28, 0x70, 0x72, 0x65, 0x76, 0x2C, 0x20, 0x76, 0x65, 0x63, 0x74, 0x6F, 0x72, 0x5F, 0x6C, 0x65,
+							 0x6E, 0x28, 0x6C, 0x69, 0x6E, 0x65, 0x29, 0x2C, 0x20, 0x6C, 0x69, 0x6E, 0x65, 0x2D, 0x3E, 0x44,
+							 0x61, 0x74, 0x61, 0x29, 0x3B, 0x0A, 0x09, 0x09, 0x09, 0x76, 0x65, 0x63, 0x74, 0x6F, 0x72, 0x5F,
+							 0x64, 0x65, 0x73, 0x74, 0x72, 0x6F, 0x79, 0x28, 0x6C, 0x69, 0x6E, 0x65, 0x29, 0x3B, 0x0A, 0x09,
+							 0x09, 0x09, 0x76, 0x65, 0x63, 0x74, 0x6F, 0x72, 0x5F, 0x72, 0x65, 0x6D, 0x6F, 0x76, 0x65, 0x28,
+							 0x26, 0x65, 0x64, 0x2D, 0x3E, 0x4C, 0x69, 0x6E, 0x65, 0x73, 0x2C, 0x20, 0x65, 0x64, 0x2D, 0x3E,
+							 0x43, 0x75, 0x72, 0x73, 0x6F, 0x72, 0x59, 0x20, 0x2B, 0x20, 0x31, 0x29, 0x3B, 0x0A, 0x09, 0x09,
+							 0x7D, 0x0A, 0x09, 0x7D, 0x0A, 0x09, 0x65, 0x6C, 0x73, 0x65, 0x0A, 0x09, 0x7B, 0x0A, 0x09, 0x09,
+							 0x2F, 0x2A, 0x20, 0x64, 0x65, 0x6C, 0x65, 0x74, 0x65, 0x20, 0x70, 0x72, 0x65, 0x76, 0x20, 0x63,
+							 0x68, 0x61, 0x72, 0x20, 0x2A, 0x2F, 0x0A, 0x09, 0x09, 0x76, 0x65, 0x63, 0x74, 0x6F, 0x72, 0x5F,
+							 0x72, 0x65, 0x6D, 0x6F, 0x76, 0x65, 0x28, 0x6C, 0x69, 0x6E, 0x65, 0x2C, 0x20, 0x2D, 0x2D, 0x65,
+							 0x64, 0x2D, 0x3E, 0x43, 0x75, 0x72, 0x73, 0x6F, 0x72, 0x58, 0x29, 0x3B, 0x0A, 0x09, 0x7D, 0x0A,
+							 0x7D};
 
 typedef struct
 {
 	u32 ColorComment, ColorNumber, ColorString, ColorKeyword;
 } SyntaxHighlighter;
 
+static Vector _code;
+
+static Window _window_editor;
+
 void event_key(Key key, i32 chr, KeyState state)
 {
+}
+static void _draw_line_numbers(i32 max_line)
+{
+	static i32 lines_count = 0;
+
+	if (lines_count == max_line)
+	{
+		return;
+	}
+
+	if (lines_count > max_line)
+	{
+		/* remove line numbers */
+		i32 start = max_line * LINE_HEIGHT + 20;
+		gfx_rect(0, start, GFX_HEIGHT - start, 29, COLOR_BLACK);
+	}
+	else
+	{
+		char buf[16];
+		/* add line numbers */
+		for (i32 i = lines_count; i <= max_line; i++)
+		{
+			i32 posY = i * LINE_HEIGHT + 22;
+			snprintf(buf, sizeof(buf), "%d", i);
+			i32 b = font_string_width(buf, ubuntu_regular);
+			font_string(25 - b, posY, buf, ubuntu_regular, COLOR_WHITE, COLOR_BLACK);
+		}
+	}
+	lines_count = max_line;
+}
+
+static Color _get_bracket_color(i32 i)
+{
+	static Color _colors[] = {
+		0xD4D4AAFF,
+		0xD1A06EFF,
+		0x742704FF};
+	return _colors[i % ARRLEN(_colors)];
+}
+
+static void _draw_code()
+{
+
+	i32 line = 0;
+	i32 col = 0;
+	i32 len = vector_len(&_code);
+	char *text = vector_data(&_code);
+
+	bool inComment = false;
+	bool inSingleString = false;
+	bool inDoubleString = false;
+	bool inKeyword = false;
+	int keywordRemain = 0;
+	int brackets = 0;
+
+	for (i32 i = 0; i < len; i++)
+	{
+		Color color = COLOR_WHITE;
+		char c = text[i];
+
+		if (!inKeyword && !isalnum(text[i - 1]))
+		{
+			i32 j;
+			/* Find end of word */
+			for (j = i; j < len; ++j)
+			{
+				if (!isalnum(text[j]))
+				{
+					break;
+				}
+			}
+
+			i32 word_len = j - i;
+			if (keyword_detect(&text[i], word_len))
+			{
+				debug_print("Keyword detected: \"%*.s\" (len = %d)\n", word_len, &text[i], word_len);
+				inKeyword = true;
+				keywordRemain = word_len;
+				color = COLOR_BLUE;
+			}
+		}
+
+		if (c == '{')
+		{
+			color = _get_bracket_color(brackets);
+			brackets++;
+		}
+		if (c == '}')
+		{
+			brackets--;
+			color = _get_bracket_color(brackets);
+		}
+
+		if (isdigit(c))
+		{
+			color = COLOR_LIME;
+		}
+
+		if (inKeyword)
+		{
+			keywordRemain--;
+			if (!keywordRemain)
+			{
+				inKeyword = false;
+			}
+
+			color = COLOR_BLUE;
+		}
+
+		if (c == '\'' && text[i - 1] != '\\' && !inDoubleString)
+		{
+			color = COLOR_ORANGE;
+			inSingleString = !inSingleString;
+		}
+
+		if (c == '"' && text[i - 1] != '\\' && !inSingleString)
+		{
+			color = COLOR_ORANGE;
+			inDoubleString = !inDoubleString;
+		}
+
+		if (c == '/' && text[i + 1] == '*')
+		{
+			color = COLOR_GREEN;
+			inComment = true;
+		}
+		if (c == '/' && text[i - 1] == '*')
+		{
+			color = COLOR_GREEN;
+			inComment = false;
+		}
+
+		if (inSingleString || inDoubleString)
+		{
+			color = COLOR_ORANGE;
+		}
+		if (inComment)
+		{
+			color = COLOR_GREEN;
+		}
+
+		if (c == '\n')
+		{
+			col = 0;
+			line++;
+		}
+		else
+		{
+			i32 cLen = font_string_width_len(&c, 1, ubuntu_regular);
+			i32 x = col * 8 + 33;
+			i32 y = line * LINE_HEIGHT + 22;
+			col++;
+			if (x <= GFX_WIDTH - 10 && y <= GFX_HEIGHT - 10)
+			{
+				font_string_len(x, y, &c, 1, ubuntu_regular, color, COLOR_BLACK);
+			}
+		}
+	}
 }
 
 void setup(void)
 {
 	keyboard_register_event(event_key);
+	vector_init(&_code, sizeof(char), INITIAL_CODE_CAPACITY);
+	keyword_init();
+
+	char *s = "\"hello 'world' \"! \n'\"hihi\" sprach 12er' (anm.d.K.) \n123 int i = 5;\ni32 main(int argc, char *argv[])";
+	vector_set(&_code, _file, ARRLEN(_file));
+
+	window_init(&_window_editor, "Editor", NULL, 0, NULL);
+	window_open(&_window_editor);
+	gfx_rect(30, 20, 1, GFX_HEIGHT - 20, THEME_LIGHT);
+	_draw_line_numbers(37);
+	_draw_code();
 }
 
 void loop(void)
 {
 }
-
-#ifdef EDITOR
-
-#include <types.h>
-#include <vector.h>
-
-typedef struct
-{
-	char *Screen;
-	Vector Lines;
-
-	i32 CursorX, CursorY;
-	i32 PageW, PageH, PageX, PageY;
-	i32 SelectionX, SelectionY;
-	i32 LineNumberDigits;
-	i32 TabSize;
-} Editor;
-
-typedef struct
-{
-	char *Screen;
-	Vector Text;
-	i32 Cursor, Selection;
-	i32 LineNumberDigits, TabSize;
-	i32 PageW, PageH;
-} Editor;
-
-void editor_init(Editor *ed);
-void editor_render(Editor *ed);
-
-void editor_char(Editor *ed, char c);
-void editor_backspace(Editor *ed);
-void editor_delete(Editor *ed);
-void editor_new_line(Editor *ed);
-void editor_home(Editor *ed);
-void editor_end(Editor *ed);
-void editor_page_up(Editor *ed);
-void editor_page_down(Editor *ed);
-void editor_left(Editor *ed);
-void editor_right(Editor *ed);
-void editor_up(Editor *ed);
-void editor_down(Editor *ed);
-
-#include "editor.h"
-#include <std.h>
-
-void editor_init(Editor *ed)
-{
-	ed->TabSize = 4;
-	ed->LineNumberDigits = 4;
-	ed->Cursor = 0;
-
-	vector_init(&ed->Text, sizeof(char), 128);
-
-	ed->Screen = memalloc((ed->PageW + 1 + ed->LineNumberDigits) * ed->PageH);
-}
-
-void editor_render(Editor *ed)
-{
-	i32 x, y;
-	i32 line;
-	char c;
-	const char *s, *text;
-
-	line = 1;
-	x = 0;
-	y = 0;
-
-	text = vector_data(&ed->Text);
-
-	for(s = text; (c = *s); ++s)
-	{
-		if(c == '\n')
-		{
-			++line;
-			++y;
-			x = 0;
-
-			/* Print line number */
-			debug_print("\n%4d | ", line);
-		}
-		else
-		{
-			debug_print("%c", c);
-		}
-	}
-}
-
-
-void editor_char(Editor *ed, char c)
-{
-
-}
-
-void editor_backspace(Editor *ed)
-{
-
-}
-
-void editor_delete(Editor *ed)
-{
-
-}
-
-void editor_new_line(Editor *ed)
-{
-
-}
-
-void editor_home(Editor *ed)
-{
-
-}
-
-void editor_end(Editor *ed)
-{
-
-}
-
-void editor_page_up(Editor *ed)
-{
-
-}
-
-void editor_page_down(Editor *ed)
-{
-
-}
-
-void editor_left(Editor *ed)
-{
-
-}
-
-void editor_right(Editor *ed)
-{
-
-}
-
-void editor_up(Editor *ed)
-{
-
-}
-
-void editor_down(Editor *ed)
-{
-
-}
-
-/* --- PUBLIC --- */
-void editor_init(Editor *ed)
-{
-	ed->TabSize = 4;
-	ed->LineNumberDigits = 4;
-
-	vector_init(&ed->Lines, sizeof(Vector), 128);
-	vector_push(&ed->Lines, ector_get(&ed->Lines, 0), sizeof(char), 8);
-
-	ed->CursorX = 0;
-	ed->CursorY = 0;
-
-	ed->PageW = 30;
-	ed->PageH = 50;
-	ed->PageY = 0;
-	ed->PageX = 0;
-
-	ed->Screen = memalloc((ed->PageW + 1 + ed->LineNumberDigits) * ed->PageH);
-}
-
-
-void editor_render(Editor *ed)
-{
-	/* keywords blue, strings/chars red, comments green, brackets yellow,
-	numbers light green */
-	i32 x, y, w, h;
-	w = ed->PageW;
-	h = ed->PageH;
-	for(y = 0; y < h; ++y)
-	{
-		for(x = 0; x < w; ++x)
-		{
-			/* only update the parts that have changed */
-
-			editor_render_char(x, y, bg_color, fg_color);
-		}
-	}
-
-	/* draw cursor */
-	editor_render_cursor();
-}
-
-/* --- EDITING --- */
-void editor_char(Editor *ed, char c)
-{
-	vector_insert(vector_get(&ed->Lines, ed->CursorY), ed->CursorX, &c);
-}
-
-void editor_backspace(Editor *ed)
-{
-	Vector *line = vector_get(&ed->Lines, ed->CursorY);
-	if(ed->CursorX == 0)
-	{
-		if(ed->CursorY > 0)
-		{
-			/* merge with previous line */
-			Vector *prev = vector_get(&ed->Lines, --ed->CursorY);
-			ed->CursorX = vector_len(prev);
-			vector_push_range(prev, vector_len(line), line->Data);
-			vector_destroy(line);
-			vector_remove(&ed->Lines, ed->CursorY + 1);
-		}
-	}
-	else
-	{
-		/* delete prev char */
-		vector_remove(line, --ed->CursorX);
-	}
-}
-
-void editor_delete(Editor *ed)
-{
-	Vector *line = vector_get(&ed->Lines, ed->CursorY);
-	i32 line_len = (i32)vector_len(line);
-	if(ed->CursorX >= line_len)
-	{
-		i32 num_lines = (i32)vector_len(&ed->Lines);
-		if(ed->CursorY < num_lines)
-		{
-			i32 next_idx = ed->CursorY + 1;
-			Vector *next = vector_get(&ed->Lines, next_idx);
-
-			/* merge with next line */
-			vector_push_range(line, vector_len(next), next->Data);
-			vector_destroy(next);
-			vector_remove(&ed->Lines, next_idx);
-		}
-	}
-	else
-	{
-		/* delete next char */
-		vector_remove(line, ed->CursorX);
-	}
-}
-
-void editor_new_line(Editor *ed)
-{
-	Vector *cur = vector_get(&ed->Lines, ed->CursorY);
-	char *str = (char *)cur->Data + ed->CursorX;
-	i32 len = vector_len(cur) - ed->CursorX;
-	Vector new;
-
-	/* Copy characters after cursor on current line to new line */
-	vector_init(&new, sizeof(char), len);
-	vector_push_range(&new, len, str);
-
-	/* Insert new line */
-	vector_insert(&ed->Lines, ed->CursorY + 1, &new);
-
-	/* Remove characters after cursor on current line */
-	vector_remove_range(cur, ed->CursorX, len);
-
-	++ed->CursorY;
-	ed->CursorX = 0;
-}
-
-/* --- CURSOR MOVEMENT --- */
-void editor_home(Editor *ed)
-{
-	i32 i = 0;
-	if(ed->CursorX == 0)
-	{
-		Vector *line = vector_get(&ed->Lines, ed->CursorY);
-		char *buf = line->Data;
-		while(isspace(buf[i]))
-		{
-			++i;
-		}
-	}
-
-	ed->CursorX = i;
-}
-
-void editor_end(Editor *ed)
-{
-	ed->CursorX = vector_len(vector_get(&ed->Lines, ed->CursorY));
-}
-
-void editor_page_up(Editor *ed)
-{
-	ed->CursorY -= ed->PageH;
-	if(ed->CursorY < 0)
-	{
-		ed->CursorY = 0;
-		ed->CursorX = 0;
-	}
-}
-
-void editor_page_down(Editor *ed)
-{
-	i32 num_lines = (i32)vector_len(&ed->Lines);
-	ed->CursorY += ed->PageY;
-	if(ed->CursorY >= num_lines)
-	{
-		ed->CursorY = num_lines - 1;
-		ed->CursorX = vector_len(vector_get(&ed->Lines, ed->CursorY));
-	}
-}
-
-void editor_left(Editor *ed)
-{
-	if(ed->CursorX == 0)
-	{
-		ed->CursorX = vector_len(vector_get(&ed->Lines, --ed->CursorY));
-	}
-	else
-	{
-		--ed->CursorX;
-	}
-}
-
-void editor_right(Editor *ed)
-{
-	if(ed->CursorX == (i32)vector_len(vector_get(&ed->Lines, ed->CursorY)))
-	{
-		++ed->CursorY;
-		ed->CursorX = 0;
-	}
-	else
-	{
-		++ed->CursorX;
-	}
-}
-
-void editor_up(Editor *ed)
-{
-	if(ed->CursorY == 0)
-	{
-		ed->CursorX = 0;
-	}
-	else
-	{
-		--ed->CursorY;
-		if(ed->CursorY < ed->PageY)
-		{
-			ed->PageY = ed->CursorY;
-		}
-	}
-}
-
-void editor_down(Editor *ed)
-{
-	i32 max = (i32)vector_len(&ed->Lines) - 1;
-	if(ed->CursorY >= max)
-	{
-		ed->CursorX = (i32)vector_len(vector_get(&ed->Lines, max));
-	}
-	else
-	{
-		++ed->CursorY;
-		if(ed->CursorY >= ed->PageY + ed->PageH)
-		{
-			ed->PageY = ed->CursorY - ed->PageH;
-		}
-	}
-}
-
-static void _render_char(i32 x, i32 y, char c, Color fg, Color bg)
-{
-
-}
-
-static void _render_line(Line *line, i32 line_number)
-{
-	/* syntax highlighting */
-	static const char *_keywords[] =
-	{
-		"var",
-		"return",
-		"continue",
-		"break",
-		"if",
-		"elif",
-		"else",
-		"for",
-		"to",
-		"loop",
-		"do",
-		"while",
-		"switch",
-		"case",
-		"default"
-	};
-
-	char *p;
-	i32 i, len;
-
-	p = line->Buffer;
-	len = line->Length;
-	for(i = 0; i < len; ++i)
-	{
-		c = p[i];
-		if(c == '/')
-		{
-			if(i + i < len && p[i + 1] == '/')
-			{
-				for(; i < len; ++i)
-				{
-					c = p[i];
-					_render_char(x, y, c, COLOR_GREEN, COLOR_BLACK);
-				}
-			}
-		}
-		else if(c == '\"')
-		{
-			/* string start */
-			while(c != '\"')
-			{
-				/* skip escape sequence */
-				if(c == '\\')
-				{
-					++i;
-				}
-
-				_render_char(x, y, c, COLOR_RED, COLOR_BLACK);
-			}
-		}
-		else if(c == '{' || c == '}' ||
-			c == '[' || c == ']' ||
-			c == '(' || c == ')')
-		{
-			_render_char(x, y, c, COLOR_YELLOW, COLOR_BLACK);
-		}
-		else if(is_identifer_start_char(c))
-		{
-			i32 id_start;
-
-			id_start = i;
-			while(is_identifer_char(c))
-			{
-			}
-
-			if(is_identifier())
-			{
-
-			}
-		}
-	}
-}
-
-#endif /* EDITOR */
-
-//! @endcond

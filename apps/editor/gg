@@ -1,0 +1,21 @@
+void editor_backspace(Editor *ed)
+{
+	Vector *line = vector_get(&ed->Lines, ed->CursorY);
+	if (ed->CursorX == 0)
+	{
+		if (ed->CursorY > 0)
+		{
+			/* merge with previous line */
+			Vector *prev = vector_get(&ed->Lines, --ed->CursorY);
+			ed->CursorX = vector_len(prev);
+			vector_push_range(prev, vector_len(line), line->Data);
+			vector_destroy(line);
+			vector_remove(&ed->Lines, ed->CursorY + 1);
+		}
+	}
+	else
+	{
+		/* delete prev char */
+		vector_remove(line, --ed->CursorX);
+	}
+}
