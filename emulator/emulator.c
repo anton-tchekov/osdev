@@ -22,7 +22,10 @@
 
 #ifdef __linux__
 
+/** Print to terminal */
 #define EMU_LOG(...) { printf(__VA_ARGS__); fputc('\n', stdout); }
+
+/** Progmem string mock */
 #define PSTR(X) X
 
 #else /* __linux__ */
@@ -30,6 +33,7 @@
 #include <logger.h>
 #include <avr/pgmspace.h>
 
+/** Print to serial/LCD */
 #define EMU_LOG(...) log_boot_P(LOG_EXT, __VA_ARGS__)
 
 #endif /* __linux__ */
@@ -51,6 +55,7 @@ static void emulator_dump_registers(Emulator *emu)
 
 #else /* DEBUG */
 
+/** Empty logger */
 #define EMU_LOG(...)
 
 #endif /* DEBUG */
@@ -229,6 +234,13 @@ static u8 memory_sw(u32 addr, u32 value)
 }
 
 /* --- Load --- */
+/**
+ * @brief Load a signed byte and perform sign-extension
+ *
+ * @param addr The address from which to load the value
+ * @param out Output parameter for the loaded value
+ * @return Non-zero if out ouf bounds
+ */
 static u8 memory_lb(u32 addr, u32 *out)
 {
 	i8 value8;
@@ -242,6 +254,13 @@ static u8 memory_lb(u32 addr, u32 *out)
 	return 0;
 }
 
+/**
+ * @brief Load a 16-bit signed half-word and perform sign extension
+ *
+ * @param addr The address from which to load the value
+ * @param out Output parameter for the loaded value
+ * @return Non-zero if out ouf bounds
+ */
 static u8 memory_lh(u32 addr, u32 *out)
 {
 	i16 value16;
@@ -255,6 +274,13 @@ static u8 memory_lh(u32 addr, u32 *out)
 	return 0;
 }
 
+/**
+ * @brief Load a 32-bit word
+ *
+ * @param addr The address from which to load the value
+ * @param out Output parameter for the loaded value
+ * @return Non-zero if out ouf bounds
+ */
 static u8 memory_lw(u32 addr, u32 *out)
 {
 	u32 value;
@@ -268,6 +294,13 @@ static u8 memory_lw(u32 addr, u32 *out)
 	return 0;
 }
 
+/**
+ * @brief Load an unsigned byte
+ *
+ * @param addr The address from which to load the value
+ * @param out Output parameter for the loaded value
+ * @return Non-zero if out ouf bounds
+ */
 static u8 memory_lbu(u32 addr, u32 *out)
 {
 	u8 value8;
@@ -281,6 +314,13 @@ static u8 memory_lbu(u32 addr, u32 *out)
 	return 0;
 }
 
+/**
+ * @brief Load an unsigned 16-bit half-word
+ *
+ * @param addr The address from which to load the value
+ * @param out Output parameter for the loaded value
+ * @return Non-zero if out ouf bounds
+ */
 static u8 memory_lhu(u32 addr, u32 *out)
 {
 	u16 value16;

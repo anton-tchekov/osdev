@@ -219,7 +219,7 @@ void label_init(Label *label, i32 x, i32 y, u32 flags, char *text);
 /**
  * @brief Hide/Show a label
  *
- * @param e Pointer to the Label
+ * @param label Pointer to the label
  * @param show true to show, false to hide
  */
 void label_show(Label *label, bool show);

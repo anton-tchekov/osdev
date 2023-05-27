@@ -8,10 +8,12 @@ var searchData=
   ['flag_5falign_5fcenter_5',['FLAG_ALIGN_CENTER',['../gui_8h.html#a9c02b0d52f34473b26a3ef4718f31820',1,'gui.h']]],
   ['flag_5falign_5fleft_6',['FLAG_ALIGN_LEFT',['../gui_8h.html#a33c2d4ef645a60b81d281d55d98b9334',1,'gui.h']]],
   ['flag_5falign_5fright_7',['FLAG_ALIGN_RIGHT',['../gui_8h.html#acb9d2d1733e63df0fee9ee8a3174c8c1',1,'gui.h']]],
-  ['flag_5fline_5fnumbers_8',['FLAG_LINE_NUMBERS',['../gui_8h.html#acedb73094f816985cb0fc49a5a6f3ee0',1,'gui.h']]],
-  ['flag_5fpassword_9',['FLAG_PASSWORD',['../gui_8h.html#aecd12d3a24c8b08e6e8c2196387dde7f',1,'gui.h']]],
-  ['flag_5fsyntax_5fhighlight_10',['FLAG_SYNTAX_HIGHLIGHT',['../gui_8h.html#a8c292ecea22d7e47657de5df2c03c935',1,'gui.h']]],
-  ['font_5fflag_5fgrayscale_11',['FONT_FLAG_GRAYSCALE',['../font_8h.html#ad8a8e3f8f8a65b163bc055c14d67e1b5',1,'font.h']]],
-  ['font_5fheight_12',['FONT_HEIGHT',['../lcd_8c.html#a33f4fac49f2a5e27e2857eb27f054510',1,'lcd.c']]],
-  ['font_5fwidth_13',['FONT_WIDTH',['../lcd_8c.html#a7b2e9cc063e140c50b67a4f224988a45',1,'lcd.c']]]
+  ['flag_5finverted_8',['FLAG_INVERTED',['../gui_8h.html#a0b613523a96f8ce28295e38f4c2c08a3',1,'gui.h']]],
+  ['flag_5finvisible_9',['FLAG_INVISIBLE',['../gui_8h.html#a4475d0d6e0beac33ec05c5bd19a88e89',1,'gui.h']]],
+  ['flag_5fline_5fnumbers_10',['FLAG_LINE_NUMBERS',['../gui_8h.html#acedb73094f816985cb0fc49a5a6f3ee0',1,'gui.h']]],
+  ['flag_5fpassword_11',['FLAG_PASSWORD',['../gui_8h.html#aecd12d3a24c8b08e6e8c2196387dde7f',1,'gui.h']]],
+  ['flag_5fsyntax_5fhighlight_12',['FLAG_SYNTAX_HIGHLIGHT',['../gui_8h.html#a8c292ecea22d7e47657de5df2c03c935',1,'gui.h']]],
+  ['font_5fflag_5fgrayscale_13',['FONT_FLAG_GRAYSCALE',['../font_8h.html#ad8a8e3f8f8a65b163bc055c14d67e1b5',1,'font.h']]],
+  ['font_5fheight_14',['FONT_HEIGHT',['../lcd_8c.html#a33f4fac49f2a5e27e2857eb27f054510',1,'lcd.c']]],
+  ['font_5fwidth_15',['FONT_WIDTH',['../lcd_8c.html#a7b2e9cc063e140c50b67a4f224988a45',1,'lcd.c']]]
 ];

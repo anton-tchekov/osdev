@@ -1,3 +1,11 @@
+/**
+ * @file    platform.c
+ * @author  Anton Tchekov
+ * @version 0.1
+ * @date    25.05.2023
+ * @brief   OS simulator platform
+ */
+
 #include <emulator.h>
 #include <platform.h>
 #include <SDL2/SDL.h>

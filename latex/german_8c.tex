@@ -37,7 +37,7 @@ German keyboard layout conversion.
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} \mbox{\hyperlink{german_8c_a1a0767e5d023fa8fe76e781df02f7374}{key\+\_\+to\+\_\+codepoint}} (Key k)
+\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} \mbox{\hyperlink{german_8c_a1a0767e5d023fa8fe76e781df02f7374}{key\+\_\+to\+\_\+codepoint}} (\mbox{\hyperlink{keyboard-shared_8h_a48752551c4279f8cddf3585f8272092a}{Key}} k)
 \begin{DoxyCompactList}\small\item\em Convert key to codepoint. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
@@ -187,7 +187,7 @@ Definition at line \mbox{\hyperlink{german_8c_source_l00019}{19}} of file \mbox{
 \index{german.c@{german.c}!key\_to\_codepoint@{key\_to\_codepoint}}
 \index{key\_to\_codepoint@{key\_to\_codepoint}!german.c@{german.c}}
 \doxysubsubsection{\texorpdfstring{key\_to\_codepoint()}{key\_to\_codepoint()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} key\+\_\+to\+\_\+codepoint (\begin{DoxyParamCaption}\item[{Key}]{k }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} key\+\_\+to\+\_\+codepoint (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{keyboard-shared_8h_a48752551c4279f8cddf3585f8272092a}{Key}}}]{k }\end{DoxyParamCaption})}
 
 
 
@@ -208,7 +208,7 @@ Definition at line \mbox{\hyperlink{german_8c_source_l00049}{49}} of file \mbox{
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{00050\ \{}
-\DoxyCodeLine{00051\ \ \ \ \ Key\ nomods\ =\ key\_mod\_remove(k);}
+\DoxyCodeLine{00051\ \ \ \ \ \mbox{\hyperlink{keyboard-shared_8h_a48752551c4279f8cddf3585f8272092a}{Key}}\ nomods\ =\ \mbox{\hyperlink{keyboard-shared_8h_a880abf3d6af489d7061fa041feea49f4}{key\_mod\_remove}}(k);}
 \DoxyCodeLine{00052\ }
 \DoxyCodeLine{00053\ \ \ \ \ \textcolor{keywordflow}{if}(nomods\ ==\ KEY\_TAB)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{\ \textcolor{keywordflow}{return}\ \textcolor{charliteral}{'\(\backslash\)t'};\ \}}
 \DoxyCodeLine{00054\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(nomods\ ==\ KEY\_BACKSPACE)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{\ \textcolor{keywordflow}{return}\ \textcolor{charliteral}{'\(\backslash\)b'};\ \}}
@@ -292,5 +292,5 @@ Definition at line \mbox{\hyperlink{german_8c_source_l00049}{49}} of file \mbox{
 \end{DoxyCode}
 
 
-References \mbox{\hyperlink{ctype_8c_source_l00073}{toupper()}}, \mbox{\hyperlink{german_8c_source_l00031}{UNICODE\+\_\+\+CAPITAL\+\_\+\+A\+\_\+\+UMLAUT}}, \mbox{\hyperlink{german_8c_source_l00037}{UNICODE\+\_\+\+CAPITAL\+\_\+\+O\+\_\+\+UMLAUT}}, \mbox{\hyperlink{german_8c_source_l00043}{UNICODE\+\_\+\+CAPITAL\+\_\+\+U\+\_\+\+UMLAUT}}, \mbox{\hyperlink{german_8c_source_l00016}{UNICODE\+\_\+\+DEGREE\+\_\+\+SIGN}}, \mbox{\hyperlink{german_8c_source_l00025}{UNICODE\+\_\+\+EURO\+\_\+\+SIGN}}, \mbox{\hyperlink{german_8c_source_l00013}{UNICODE\+\_\+\+SECTION\+\_\+\+SIGN}}, \mbox{\hyperlink{german_8c_source_l00034}{UNICODE\+\_\+\+SMALL\+\_\+\+A\+\_\+\+UMLAUT}}, \mbox{\hyperlink{german_8c_source_l00040}{UNICODE\+\_\+\+SMALL\+\_\+\+O\+\_\+\+UMLAUT}}, \mbox{\hyperlink{german_8c_source_l00028}{UNICODE\+\_\+\+SMALL\+\_\+\+SHARP\+\_\+S}}, \mbox{\hyperlink{german_8c_source_l00046}{UNICODE\+\_\+\+SMALL\+\_\+\+U\+\_\+\+UMLAUT}}, \mbox{\hyperlink{german_8c_source_l00022}{UNICODE\+\_\+\+SUPERSCRIPT\+\_\+\+THREE}}, and \mbox{\hyperlink{german_8c_source_l00019}{UNICODE\+\_\+\+SUPERSCRIPT\+\_\+\+TWO}}.
+References \mbox{\hyperlink{keyboard-shared_8h_source_l00032}{key\+\_\+mod\+\_\+remove()}}, \mbox{\hyperlink{ctype_8c_source_l00073}{toupper()}}, \mbox{\hyperlink{german_8c_source_l00031}{UNICODE\+\_\+\+CAPITAL\+\_\+\+A\+\_\+\+UMLAUT}}, \mbox{\hyperlink{german_8c_source_l00037}{UNICODE\+\_\+\+CAPITAL\+\_\+\+O\+\_\+\+UMLAUT}}, \mbox{\hyperlink{german_8c_source_l00043}{UNICODE\+\_\+\+CAPITAL\+\_\+\+U\+\_\+\+UMLAUT}}, \mbox{\hyperlink{german_8c_source_l00016}{UNICODE\+\_\+\+DEGREE\+\_\+\+SIGN}}, \mbox{\hyperlink{german_8c_source_l00025}{UNICODE\+\_\+\+EURO\+\_\+\+SIGN}}, \mbox{\hyperlink{german_8c_source_l00013}{UNICODE\+\_\+\+SECTION\+\_\+\+SIGN}}, \mbox{\hyperlink{german_8c_source_l00034}{UNICODE\+\_\+\+SMALL\+\_\+\+A\+\_\+\+UMLAUT}}, \mbox{\hyperlink{german_8c_source_l00040}{UNICODE\+\_\+\+SMALL\+\_\+\+O\+\_\+\+UMLAUT}}, \mbox{\hyperlink{german_8c_source_l00028}{UNICODE\+\_\+\+SMALL\+\_\+\+SHARP\+\_\+S}}, \mbox{\hyperlink{german_8c_source_l00046}{UNICODE\+\_\+\+SMALL\+\_\+\+U\+\_\+\+UMLAUT}}, \mbox{\hyperlink{german_8c_source_l00022}{UNICODE\+\_\+\+SUPERSCRIPT\+\_\+\+THREE}}, and \mbox{\hyperlink{german_8c_source_l00019}{UNICODE\+\_\+\+SUPERSCRIPT\+\_\+\+TWO}}.
 

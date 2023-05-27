@@ -70,7 +70,7 @@ static void \mbox{\hyperlink{apps_2tetris_2main_8c_a179f7e3f493ed0a3bdf1bc11907e
 \item 
 static void \mbox{\hyperlink{apps_2tetris_2main_8c_ade05f2059114427e9bcbc708760f5da3}{\+\_\+draw\+\_\+field}} (void)
 \item 
-void \mbox{\hyperlink{apps_2tetris_2main_8c_af5305db9ea018cc40d167b2a51d77ac1}{event\+\_\+key}} (Key key, \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} chr, Key\+State state)
+void \mbox{\hyperlink{apps_2tetris_2main_8c_af5305db9ea018cc40d167b2a51d77ac1}{event\+\_\+key}} (\mbox{\hyperlink{keyboard-shared_8h_a48752551c4279f8cddf3585f8272092a}{Key}} key, \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} chr, \mbox{\hyperlink{keyboard-shared_8h_a7e51438e5f6bf556512ce7103cddac09}{Key\+State}} state)
 \item 
 void \mbox{\hyperlink{apps_2tetris_2main_8c_a7dfd9b79bc5a37d7df40207afbc5431f}{setup}} (void)
 \begin{DoxyCompactList}\small\item\em Setup function that is called at program start. Must be implemented by user. \end{DoxyCompactList}\item 
@@ -84,7 +84,7 @@ void \mbox{\hyperlink{apps_2tetris_2main_8c_a0b33edabd7f1c4e4a0bf32c67269be2f}{l
 xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=\kill
 struct \{\\
 \>\mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}} \mbox{\hyperlink{apps_2tetris_2main_8c_af0b7cef61a093895654eef83e9a3fc88}{Blocks}} \mbox{[}4\mbox{]}\\
-\>Color \mbox{\hyperlink{apps_2tetris_2main_8c_a7e974f283fb6d654806490ef05fda019}{Fill}}\\
+\>\mbox{\hyperlink{gfx-types_8h_acbbccb6085c654282ef64cdcefc81be5}{Color}} \mbox{\hyperlink{apps_2tetris_2main_8c_a7e974f283fb6d654806490ef05fda019}{Fill}}\\
 \} {\bfseries Pieces} \mbox{[}$\,$\mbox{]}\\
 
 \end{tabbing}\item 
@@ -291,7 +291,7 @@ Definition at line \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00269}{269}} o
 \DoxyCodeLine{00280\ \ \ \ \ \ \ \ \ \{}
 \DoxyCodeLine{00281\ \ \ \ \ \ \ \ \ \ \ \ \ offset\ =\ y\ *\ \mbox{\hyperlink{apps_2tetris_2main_8c_a313353b53d609b3b2b37e1aecf98bf4c}{FIELD\_WIDTH}}\ +\ x;}
 \DoxyCodeLine{00282\ \ \ \ \ \ \ \ \ \ \ \ \ type\ =\ \_new[offset];}
-\DoxyCodeLine{00283\ \ \ \ \ \ \ \ \ \ \ \ \ Color\ color\ =\ type\ ?\ Pieces[type\ -\/\ 1].Fill\ :\ \mbox{\hyperlink{lcd_8h_aba2a7fe77a7501e5844370eec0185207}{COLOR\_BLACK}};}
+\DoxyCodeLine{00283\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gfx-types_8h_acbbccb6085c654282ef64cdcefc81be5}{Color}}\ color\ =\ type\ ?\ Pieces[type\ -\/\ 1].Fill\ :\ \mbox{\hyperlink{lcd_8h_aba2a7fe77a7501e5844370eec0185207}{COLOR\_BLACK}};}
 \DoxyCodeLine{00284\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(type\ !=\ \_prev[offset])}
 \DoxyCodeLine{00285\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
 \DoxyCodeLine{00286\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gfx_8c_a61d70a4550bf181cd71bfc9a4f12a6d1}{gfx\_rect}}(}
@@ -543,7 +543,7 @@ Definition at line \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00213}{213}} o
 \index{main.c@{main.c}!event\_key@{event\_key}}
 \index{event\_key@{event\_key}!main.c@{main.c}}
 \doxysubsubsection{\texorpdfstring{event\_key()}{event\_key()}}
-{\footnotesize\ttfamily void event\+\_\+key (\begin{DoxyParamCaption}\item[{Key}]{key,  }\item[{\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}}]{chr,  }\item[{Key\+State}]{state }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void event\+\_\+key (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{keyboard-shared_8h_a48752551c4279f8cddf3585f8272092a}{Key}}}]{key,  }\item[{\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}}]{chr,  }\item[{\mbox{\hyperlink{keyboard-shared_8h_a7e51438e5f6bf556512ce7103cddac09}{Key\+State}}}]{state }\end{DoxyParamCaption})}
 
 FUNCTIONS 
 
@@ -624,7 +624,7 @@ References \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00025}{FALL\+\_\+\+SPE
 
 Loop function that is called repeatedly Must be implemented by user. 
 
-
+Loop function that is called repeatedly Must be implemented by user. 
 
 Definition at line \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00372}{372}} of file \mbox{\hyperlink{apps_2tetris_2main_8c_source}{main.\+c}}.
 
@@ -673,7 +673,7 @@ References \mbox{\hyperlink{syscall_8h_source_l00206}{exit()}}, \mbox{\hyperlink
 
 Setup function that is called at program start. Must be implemented by user. 
 
-
+Setup function that is called at program start. Must be implemented by user. 
 
 Definition at line \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00359}{359}} of file \mbox{\hyperlink{apps_2tetris_2main_8c_source}{main.\+c}}.
 
@@ -694,7 +694,7 @@ Definition at line \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00359}{359}} o
 \end{DoxyCode}
 
 
-References \mbox{\hyperlink{lcd_8h_source_l00038}{COLOR\+\_\+\+BLACK}}, \mbox{\hyperlink{lcd_8h_source_l00035}{COLOR\+\_\+\+WHITE}}, \mbox{\hyperlink{font_8h_source_l00090}{font\+\_\+string()}}, \mbox{\hyperlink{gfx_8c_source_l00030}{gfx\+\_\+image\+\_\+rgb()}}, \mbox{\hyperlink{gfx_8c_source_l00011}{gfx\+\_\+rect()}}, \mbox{\hyperlink{keyboard_8c_source_l00031}{keyboard\+\_\+register\+\_\+event()}}, \mbox{\hyperlink{string_8c_source_l00176}{memset()}}, \mbox{\hyperlink{timer_8c_source_l00036}{millis()}}, \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00049}{Piece\+::\+Rotation}}, \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00034}{STATUS\+\_\+\+RUNNING}}, \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00052}{Piece\+::\+Type}}, \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00043}{Piece\+::X}}, and \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00046}{Piece\+::Y}}.
+References \mbox{\hyperlink{lcd_8h_source_l00038}{COLOR\+\_\+\+BLACK}}, \mbox{\hyperlink{lcd_8h_source_l00035}{COLOR\+\_\+\+WHITE}}, \mbox{\hyperlink{font_8h_source_l00090}{font\+\_\+string()}}, \mbox{\hyperlink{gfx-types_8h_source_l00019}{GFX\+\_\+\+HEIGHT}}, \mbox{\hyperlink{gfx_8c_source_l00030}{gfx\+\_\+image\+\_\+rgb()}}, \mbox{\hyperlink{gfx_8c_source_l00011}{gfx\+\_\+rect()}}, \mbox{\hyperlink{gfx-types_8h_source_l00016}{GFX\+\_\+\+WIDTH}}, \mbox{\hyperlink{keyboard_8c_source_l00031}{keyboard\+\_\+register\+\_\+event()}}, \mbox{\hyperlink{string_8c_source_l00176}{memset()}}, \mbox{\hyperlink{timer_8c_source_l00036}{millis()}}, \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00049}{Piece\+::\+Rotation}}, \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00034}{STATUS\+\_\+\+RUNNING}}, \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00052}{Piece\+::\+Type}}, \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00043}{Piece\+::X}}, and \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00046}{Piece\+::Y}}.
 
 
 
@@ -823,7 +823,7 @@ Definition at line \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00057}{57}} of
 \index{main.c@{main.c}!Fill@{Fill}}
 \index{Fill@{Fill}!main.c@{main.c}}
 \doxysubsubsection{\texorpdfstring{Fill}{Fill}}
-{\footnotesize\ttfamily Color Fill}
+{\footnotesize\ttfamily \mbox{\hyperlink{gfx-types_8h_acbbccb6085c654282ef64cdcefc81be5}{Color}} Fill}
 
 
 

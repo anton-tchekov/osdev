@@ -37,7 +37,7 @@
 \DoxyCodeLine{\Hypertarget{apps_2tetris_2main_8c_source_l00055}00055\ \textcolor{keyword}{struct}}
 \DoxyCodeLine{\Hypertarget{apps_2tetris_2main_8c_source_l00056}00056\ \{}
 \DoxyCodeLine{\Hypertarget{apps_2tetris_2main_8c_source_l00057}00057\ \ \ \ \ \mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}}\ Blocks[4];}
-\DoxyCodeLine{\Hypertarget{apps_2tetris_2main_8c_source_l00058}00058\ \ \ \ \ Color\ Fill;}
+\DoxyCodeLine{\Hypertarget{apps_2tetris_2main_8c_source_l00058}00058\ \ \ \ \ \mbox{\hyperlink{gfx-types_8h_acbbccb6085c654282ef64cdcefc81be5}{Color}}\ Fill;}
 \DoxyCodeLine{\Hypertarget{apps_2tetris_2main_8c_source_l00059}00059\ \}}
 \DoxyCodeLine{\Hypertarget{apps_2tetris_2main_8c_source_l00060}00060\ \textcolor{keyword}{const}\ Pieces[]\ =}
 \DoxyCodeLine{\Hypertarget{apps_2tetris_2main_8c_source_l00061}00061\ \{}
@@ -260,7 +260,7 @@
 \DoxyCodeLine{\Hypertarget{apps_2tetris_2main_8c_source_l00280}00280\ \ \ \ \ \ \ \ \ \{}
 \DoxyCodeLine{\Hypertarget{apps_2tetris_2main_8c_source_l00281}00281\ \ \ \ \ \ \ \ \ \ \ \ \ offset\ =\ y\ *\ \mbox{\hyperlink{apps_2tetris_2main_8c_a313353b53d609b3b2b37e1aecf98bf4c}{FIELD\_WIDTH}}\ +\ x;}
 \DoxyCodeLine{\Hypertarget{apps_2tetris_2main_8c_source_l00282}00282\ \ \ \ \ \ \ \ \ \ \ \ \ type\ =\ \_new[offset];}
-\DoxyCodeLine{\Hypertarget{apps_2tetris_2main_8c_source_l00283}00283\ \ \ \ \ \ \ \ \ \ \ \ \ Color\ color\ =\ type\ ?\ Pieces[type\ -\/\ 1].Fill\ :\ \mbox{\hyperlink{lcd_8h_aba2a7fe77a7501e5844370eec0185207}{COLOR\_BLACK}};}
+\DoxyCodeLine{\Hypertarget{apps_2tetris_2main_8c_source_l00283}00283\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gfx-types_8h_acbbccb6085c654282ef64cdcefc81be5}{Color}}\ color\ =\ type\ ?\ Pieces[type\ -\/\ 1].Fill\ :\ \mbox{\hyperlink{lcd_8h_aba2a7fe77a7501e5844370eec0185207}{COLOR\_BLACK}};}
 \DoxyCodeLine{\Hypertarget{apps_2tetris_2main_8c_source_l00284}00284\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(type\ !=\ \_prev[offset])}
 \DoxyCodeLine{\Hypertarget{apps_2tetris_2main_8c_source_l00285}00285\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
 \DoxyCodeLine{\Hypertarget{apps_2tetris_2main_8c_source_l00286}00286\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gfx_8c_a61d70a4550bf181cd71bfc9a4f12a6d1}{gfx\_rect}}(}
@@ -276,7 +276,7 @@
 \DoxyCodeLine{\Hypertarget{apps_2tetris_2main_8c_source_l00296}00296\ \ \ \ \ \mbox{\hyperlink{string_8c_a6ea826c42748b85ae7c74f1e2ccf7c27}{memcpy}}(\_prev,\ \_new,\ \textcolor{keyword}{sizeof}(\_field));}
 \DoxyCodeLine{\Hypertarget{apps_2tetris_2main_8c_source_l00297}00297\ \}}
 \DoxyCodeLine{\Hypertarget{apps_2tetris_2main_8c_source_l00298}00298\ }
-\DoxyCodeLine{\Hypertarget{apps_2tetris_2main_8c_source_l00300}\mbox{\hyperlink{apps_2tetris_2main_8c_af5305db9ea018cc40d167b2a51d77ac1}{00300}}\ \textcolor{keywordtype}{void}\ event\_key(Key\ key,\ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ chr,\ KeyState\ state)}
+\DoxyCodeLine{\Hypertarget{apps_2tetris_2main_8c_source_l00300}\mbox{\hyperlink{apps_2tetris_2main_8c_af5305db9ea018cc40d167b2a51d77ac1}{00300}}\ \textcolor{keywordtype}{void}\ event\_key(\mbox{\hyperlink{keyboard-shared_8h_a48752551c4279f8cddf3585f8272092a}{Key}}\ key,\ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ chr,\ \mbox{\hyperlink{keyboard-shared_8h_a7e51438e5f6bf556512ce7103cddac09}{KeyState}}\ state)}
 \DoxyCodeLine{\Hypertarget{apps_2tetris_2main_8c_source_l00301}00301\ \{}
 \DoxyCodeLine{\Hypertarget{apps_2tetris_2main_8c_source_l00302}00302\ \ \ \ \ \textcolor{keywordflow}{if}(state\ ==\ KEYSTATE\_RELEASED)}
 \DoxyCodeLine{\Hypertarget{apps_2tetris_2main_8c_source_l00303}00303\ \ \ \ \ \{}

@@ -1,9 +1,8 @@
 /**
- * @file    gfx.h
+ * @file    gfx-types.h
  * @author  Anton Tchekov
  * @version 0.1
  * @date    22.05.2023
- *
  * @brief   Graphics types
  */
 

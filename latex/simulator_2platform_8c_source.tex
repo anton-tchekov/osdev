@@ -1,432 +1,433 @@
 \hypertarget{simulator_2platform_8c_source}{}\doxysection{platform.\+c}
 \label{simulator_2platform_8c_source}\index{platform/simulator/platform.c@{platform/simulator/platform.c}}
-
+\mbox{\hyperlink{simulator_2platform_8c}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00001}00001\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{emulator_8h}{emulator.h}}>}}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00002}00002\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{platform_8h}{platform.h}}>}}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00003}00003\ \textcolor{preprocessor}{\#include\ <SDL2/SDL.h>}}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00004}00004\ \textcolor{preprocessor}{\#include\ <sys/time.h>}}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00005}00005\ }
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00006}00006\ \textcolor{preprocessor}{\#include\ <stdio.h>}}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00007}00007\ \textcolor{preprocessor}{\#include\ <assert.h>}}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00008}00008\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{time_8h}{time.h}}>}}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00009}00009\ \textcolor{preprocessor}{\#include\ <stdlib.h>}}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00010}00010\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{util_8h}{util.h}}>}}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00011}00011\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{status_8h}{status.h}}>}}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00012}00012\ \textcolor{preprocessor}{\#include\ <keyboard-\/shared.h>}}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00013}00013\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{layout_8h}{layout.h}}>}}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00014}00014\ \textcolor{preprocessor}{\#include\ <gfx-\/types.h>}}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00015}00015\ }
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00016}00016\ \textcolor{comment}{/*\ -\/-\/-\/\ CONSTANTS\ -\/-\/-\/\ */}}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00017}00017\ \textcolor{preprocessor}{\#define\ WINDOW\_TITLE\ \ \ \ \ \ \ \ \ \ \ \ \ "{}OS\ Simulator"{}}}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00018}00018\ \textcolor{preprocessor}{\#define\ READ\_SIZE\ \ \ \ \ \ \ \ \ \ \ \ 1024}}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00019}00019\ }
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00020}00020\ \textcolor{comment}{/*\ -\/-\/-\/\ VARIABLES\ -\/-\/-\/\ */}}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00021}00021\ }
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00022}00022\ \textcolor{keyword}{static}\ \mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}}\ \_memory[3\ *\ 128\ *\ 1024];}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00023}00023\ \textcolor{keyword}{static}\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ \_pixels[GFX\_HEIGHT\ *\ GFX\_WIDTH];}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00024}00024\ \textcolor{keyword}{static}\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ \_sec\_start,\ \_usec\_start;}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00025}00025\ \textcolor{keyword}{static}\ SDL\_Texture\ *\_framebuffer;}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00026}00026\ \textcolor{keyword}{static}\ SDL\_Window\ *\_window;}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00027}00027\ \textcolor{keyword}{static}\ SDL\_Renderer\ *\_renderer;}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00028}00028\ }
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00029}00029\ \textcolor{comment}{/*\ -\/-\/-\/\ MEMORY\ -\/-\/-\/\ */}}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00030}00030\ }
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00031}00031\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ \mbox{\hyperlink{avr_2platform_8c_acf57f1ce47563167d4ef978ef1a7ab49}{env\_memory\_size}}(\textcolor{keywordtype}{void})}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00032}00032\ \{}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00033}00033\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{sizeof}(\_memory);}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00034}00034\ \}}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00035}00035\ }
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00036}00036\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{avr_2platform_8c_ab7ab32a3f56a5eb22459591ded6cb9ec}{env\_memory\_read}}(\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ addr,\ \textcolor{keywordtype}{void}\ *data,\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ size)}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00037}00037\ \{}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00038}00038\ \ \ \ \ \mbox{\hyperlink{string_8c_a6ea826c42748b85ae7c74f1e2ccf7c27}{memcpy}}(data,\ \_memory\ +\ addr,\ size);}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00039}00039\ \}}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00040}00040\ }
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00041}00041\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{avr_2platform_8c_a22d4f443fb95499e0acccc1f263e99c7}{env\_memory\_write}}(\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ addr,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *data,\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ size)}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00042}00042\ \{}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00043}00043\ \ \ \ \ \mbox{\hyperlink{string_8c_a6ea826c42748b85ae7c74f1e2ccf7c27}{memcpy}}(\_memory\ +\ addr,\ data,\ size);}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00044}00044\ \}}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00045}00045\ }
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00046}00046\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{logger_8c_a0108e0dd64eb1971222c219982138866}{memory\_dump}}(\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ address,\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ length)}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00047}00047\ \{}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00048}00048\ \ \ \ \ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ start,\ end,\ i;}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00049}00049\ \ \ \ \ start\ =\ (address\ >>\ 4)\ <<\ 4;}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00050}00050\ \ \ \ \ end\ =\ address\ +\ length;}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00051}00051\ \ \ \ \ \textcolor{keywordflow}{for}(;\ start\ <\ end;\ start\ +=\ 16)}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00052}00052\ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00053}00053\ \ \ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{}\%08X\ |\ "{}},\ start);}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00054}00054\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(i\ =\ 0;\ i\ <\ 16;\ ++i)}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00055}00055\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00056}00056\ \ \ \ \ \ \ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{}\%02X\ "{}},\ \_memory[start\ +\ i]);}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00057}00057\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00058}00058\ }
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00059}00059\ \ \ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{}|\ "{}});}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00060}00060\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(i\ =\ 0;\ i\ <\ 16;\ ++i)}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00061}00061\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00062}00062\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ c\ =\ \_memory[start\ +\ i];}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00063}00063\ \ \ \ \ \ \ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{}\%c"{}},\ (c\ <\ 32\ ||\ c\ >\ 126)\ ?\ \textcolor{charliteral}{'.'}\ :\ c);}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00064}00064\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00065}00065\ }
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00066}00066\ \ \ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{}\(\backslash\)n"{}});}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00067}00067\ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00068}00068\ }
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00069}00069\ \ \ \ \ printf(\textcolor{stringliteral}{"{}\(\backslash\)n"{}});}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00070}00070\ \}}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00071}00071\ }
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00072}00072\ \textcolor{comment}{/*\ -\/-\/-\/\ GRAPHICS\ -\/-\/-\/\ */}}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00001}00001\ }
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00009}00009\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{emulator_8h}{emulator.h}}>}}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00010}00010\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{platform_8h}{platform.h}}>}}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00011}00011\ \textcolor{preprocessor}{\#include\ <SDL2/SDL.h>}}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00012}00012\ \textcolor{preprocessor}{\#include\ <sys/time.h>}}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00013}00013\ }
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00014}00014\ \textcolor{preprocessor}{\#include\ <stdio.h>}}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00015}00015\ \textcolor{preprocessor}{\#include\ <assert.h>}}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00016}00016\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{time_8h}{time.h}}>}}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00017}00017\ \textcolor{preprocessor}{\#include\ <stdlib.h>}}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00018}00018\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{util_8h}{util.h}}>}}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00019}00019\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{status_8h}{status.h}}>}}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00020}00020\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{keyboard-shared_8h}{keyboard-\/shared.h}}>}}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00021}00021\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{layout_8h}{layout.h}}>}}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00022}00022\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{gfx-types_8h}{gfx-\/types.h}}>}}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00023}00023\ }
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00024}00024\ \textcolor{comment}{/*\ -\/-\/-\/\ CONSTANTS\ -\/-\/-\/\ */}}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00025}00025\ \textcolor{preprocessor}{\#define\ WINDOW\_TITLE\ \ \ \ \ \ \ \ \ \ \ \ \ "{}OS\ Simulator"{}}}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00026}00026\ \textcolor{preprocessor}{\#define\ READ\_SIZE\ \ \ \ \ \ \ \ \ \ \ \ 1024}}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00027}00027\ }
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00028}00028\ \textcolor{comment}{/*\ -\/-\/-\/\ VARIABLES\ -\/-\/-\/\ */}}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00029}00029\ }
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00030}00030\ \textcolor{keyword}{static}\ \mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}}\ \_memory[3\ *\ 128\ *\ 1024];}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00031}00031\ \textcolor{keyword}{static}\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ \_pixels[\mbox{\hyperlink{gfx-types_8h_a11b59534db467ebd1fb19b758e6fffd7}{GFX\_HEIGHT}}\ *\ \mbox{\hyperlink{gfx-types_8h_aae91ae7a3ca585293a2c1031652a49f9}{GFX\_WIDTH}}];}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00032}00032\ \textcolor{keyword}{static}\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ \_sec\_start,\ \_usec\_start;}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00033}00033\ \textcolor{keyword}{static}\ SDL\_Texture\ *\_framebuffer;}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00034}00034\ \textcolor{keyword}{static}\ SDL\_Window\ *\_window;}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00035}00035\ \textcolor{keyword}{static}\ SDL\_Renderer\ *\_renderer;}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00036}00036\ }
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00037}00037\ \textcolor{comment}{/*\ -\/-\/-\/\ MEMORY\ -\/-\/-\/\ */}}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00038}00038\ }
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00039}\mbox{\hyperlink{simulator_2platform_8c_acf57f1ce47563167d4ef978ef1a7ab49}{00039}}\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ \mbox{\hyperlink{avr_2platform_8c_acf57f1ce47563167d4ef978ef1a7ab49}{env\_memory\_size}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00040}00040\ \{}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00041}00041\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{sizeof}(\_memory);}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00042}00042\ \}}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00043}00043\ }
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00044}\mbox{\hyperlink{simulator_2platform_8c_ab7ab32a3f56a5eb22459591ded6cb9ec}{00044}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{avr_2platform_8c_ab7ab32a3f56a5eb22459591ded6cb9ec}{env\_memory\_read}}(\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ addr,\ \textcolor{keywordtype}{void}\ *data,\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ size)}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00045}00045\ \{}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00046}00046\ \ \ \ \ \mbox{\hyperlink{string_8c_a6ea826c42748b85ae7c74f1e2ccf7c27}{memcpy}}(data,\ \_memory\ +\ addr,\ size);}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00047}00047\ \}}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00048}00048\ }
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00049}\mbox{\hyperlink{simulator_2platform_8c_a22d4f443fb95499e0acccc1f263e99c7}{00049}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{avr_2platform_8c_a22d4f443fb95499e0acccc1f263e99c7}{env\_memory\_write}}(\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ addr,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *data,\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ size)}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00050}00050\ \{}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00051}00051\ \ \ \ \ \mbox{\hyperlink{string_8c_a6ea826c42748b85ae7c74f1e2ccf7c27}{memcpy}}(\_memory\ +\ addr,\ data,\ size);}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00052}00052\ \}}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00053}00053\ }
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00054}00054\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{logger_8c_a0108e0dd64eb1971222c219982138866}{memory\_dump}}(\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ address,\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ length)}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00055}00055\ \{}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00056}00056\ \ \ \ \ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ start,\ end,\ i;}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00057}00057\ \ \ \ \ start\ =\ (address\ >>\ 4)\ <<\ 4;}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00058}00058\ \ \ \ \ end\ =\ address\ +\ length;}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00059}00059\ \ \ \ \ \textcolor{keywordflow}{for}(;\ start\ <\ end;\ start\ +=\ 16)}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00060}00060\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00061}00061\ \ \ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{}\%08X\ |\ "{}},\ start);}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00062}00062\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(i\ =\ 0;\ i\ <\ 16;\ ++i)}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00063}00063\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00064}00064\ \ \ \ \ \ \ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{}\%02X\ "{}},\ \_memory[start\ +\ i]);}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00065}00065\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00066}00066\ }
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00067}00067\ \ \ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{}|\ "{}});}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00068}00068\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(i\ =\ 0;\ i\ <\ 16;\ ++i)}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00069}00069\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00070}00070\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ c\ =\ \_memory[start\ +\ i];}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00071}00071\ \ \ \ \ \ \ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{}\%c"{}},\ (c\ <\ 32\ ||\ c\ >\ 126)\ ?\ \textcolor{charliteral}{'.'}\ :\ c);}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00072}00072\ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00073}00073\ }
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00074}00074\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ gfx\_init(\textcolor{keywordtype}{void})}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00075}00075\ \{}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00076}00076\ \ \ \ \ \textcolor{comment}{/*\ Init\ SDL\ */}}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00077}00077\ \ \ \ \ \textcolor{keywordflow}{if}(SDL\_Init(SDL\_INIT\_VIDEO)\ <\ 0)}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00078}00078\ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00079}00079\ \ \ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{}Error\ initializing\ SDL;\ SDL\_Init:\ \%s\(\backslash\)n"{}},}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00080}00080\ \ \ \ \ \ \ \ \ \ \ \ \ SDL\_GetError());}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00081}00081\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{syscall_8h_ad114e0a686a8eb795642407b0abe1ca9}{exit}}(1);}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00082}00082\ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00083}00083\ }
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00084}00084\ \ \ \ \ \textcolor{comment}{/*\ Create\ SDL\_Window\ */}}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00085}00085\ \ \ \ \ \textcolor{keywordflow}{if}(!(\_window\ =\ SDL\_CreateWindow(WINDOW\_TITLE,}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00086}00086\ \ \ \ \ \ \ \ \ SDL\_WINDOWPOS\_CENTERED,\ SDL\_WINDOWPOS\_CENTERED,}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00087}00087\ \ \ \ \ \ \ \ \ GFX\_WIDTH,\ GFX\_HEIGHT,\ 0)))}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00088}00088\ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00089}00089\ \ \ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{}Error\ creating\ SDL\_Window:\ \%s\(\backslash\)n"{}},}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00090}00090\ \ \ \ \ \ \ \ \ \ \ \ \ SDL\_GetError());}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00091}00091\ \ \ \ \ \ \ \ \ SDL\_Quit();}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00092}00092\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{syscall_8h_ad114e0a686a8eb795642407b0abe1ca9}{exit}}(1);}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00093}00093\ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00094}00094\ }
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00095}00095\ \ \ \ \ \textcolor{comment}{/*\ Create\ SDL\_Renderer\ */}}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00096}00096\ \ \ \ \ \textcolor{keywordflow}{if}(!(\_renderer\ =\ SDL\_CreateRenderer}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00097}00097\ \ \ \ \ \ \ \ \ (\_window,\ -\/1,\ SDL\_RENDERER\_ACCELERATED)))}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00098}00098\ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00099}00099\ \ \ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{}Error\ creating\ SDL\_Renderer:\ \%s\(\backslash\)n"{}},}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00100}00100\ \ \ \ \ \ \ \ \ \ \ \ \ SDL\_GetError());}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00101}00101\ \ \ \ \ \ \ \ \ SDL\_DestroyWindow(\_window);}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00102}00102\ \ \ \ \ \ \ \ \ SDL\_Quit();}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00103}00103\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{syscall_8h_ad114e0a686a8eb795642407b0abe1ca9}{exit}}(1);}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00104}00104\ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00105}00105\ }
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00106}00106\ \ \ \ \ SDL\_SetRenderDrawColor(\_renderer,\ 255,\ 255,\ 255,\ 255);}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00107}00107\ }
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00108}00108\ \ \ \ \ \_framebuffer\ =\ SDL\_CreateTexture(\_renderer,}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00109}00109\ \ \ \ \ \ \ \ \ SDL\_PIXELFORMAT\_ARGB8888,}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00110}00110\ \ \ \ \ \ \ \ \ SDL\_TEXTUREACCESS\_STREAMING,}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00111}00111\ \ \ \ \ \ \ \ \ GFX\_WIDTH,\ GFX\_HEIGHT);}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00112}00112\ \}}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00074}00074\ \ \ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{}\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00075}00075\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00076}00076\ }
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00077}00077\ \ \ \ \ printf(\textcolor{stringliteral}{"{}\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00078}00078\ \}}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00079}00079\ }
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00080}00080\ \textcolor{comment}{/*\ -\/-\/-\/\ GRAPHICS\ -\/-\/-\/\ */}}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00081}00081\ }
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00082}00082\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ gfx\_init(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00083}00083\ \{}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00084}00084\ \ \ \ \ \textcolor{comment}{/*\ Init\ SDL\ */}}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00085}00085\ \ \ \ \ \textcolor{keywordflow}{if}(SDL\_Init(SDL\_INIT\_VIDEO)\ <\ 0)}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00086}00086\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00087}00087\ \ \ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{}Error\ initializing\ SDL;\ SDL\_Init:\ \%s\(\backslash\)n"{}},}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00088}00088\ \ \ \ \ \ \ \ \ \ \ \ \ SDL\_GetError());}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00089}00089\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{syscall_8h_ad114e0a686a8eb795642407b0abe1ca9}{exit}}(1);}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00090}00090\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00091}00091\ }
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00092}00092\ \ \ \ \ \textcolor{comment}{/*\ Create\ SDL\_Window\ */}}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00093}00093\ \ \ \ \ \textcolor{keywordflow}{if}(!(\_window\ =\ SDL\_CreateWindow(WINDOW\_TITLE,}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00094}00094\ \ \ \ \ \ \ \ \ SDL\_WINDOWPOS\_CENTERED,\ SDL\_WINDOWPOS\_CENTERED,}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00095}00095\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gfx-types_8h_aae91ae7a3ca585293a2c1031652a49f9}{GFX\_WIDTH}},\ \mbox{\hyperlink{gfx-types_8h_a11b59534db467ebd1fb19b758e6fffd7}{GFX\_HEIGHT}},\ 0)))}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00096}00096\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00097}00097\ \ \ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{}Error\ creating\ SDL\_Window:\ \%s\(\backslash\)n"{}},}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00098}00098\ \ \ \ \ \ \ \ \ \ \ \ \ SDL\_GetError());}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00099}00099\ \ \ \ \ \ \ \ \ SDL\_Quit();}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00100}00100\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{syscall_8h_ad114e0a686a8eb795642407b0abe1ca9}{exit}}(1);}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00101}00101\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00102}00102\ }
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00103}00103\ \ \ \ \ \textcolor{comment}{/*\ Create\ SDL\_Renderer\ */}}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00104}00104\ \ \ \ \ \textcolor{keywordflow}{if}(!(\_renderer\ =\ SDL\_CreateRenderer}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00105}00105\ \ \ \ \ \ \ \ \ (\_window,\ -\/1,\ SDL\_RENDERER\_ACCELERATED)))}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00106}00106\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00107}00107\ \ \ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{}Error\ creating\ SDL\_Renderer:\ \%s\(\backslash\)n"{}},}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00108}00108\ \ \ \ \ \ \ \ \ \ \ \ \ SDL\_GetError());}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00109}00109\ \ \ \ \ \ \ \ \ SDL\_DestroyWindow(\_window);}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00110}00110\ \ \ \ \ \ \ \ \ SDL\_Quit();}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00111}00111\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{syscall_8h_ad114e0a686a8eb795642407b0abe1ca9}{exit}}(1);}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00112}00112\ \ \ \ \ \}}
 \DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00113}00113\ }
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00114}00114\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ gfx\_destroy(\textcolor{keywordtype}{void})}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00115}00115\ \{}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00116}00116\ \ \ \ \ SDL\_DestroyRenderer(\_renderer);}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00117}00117\ \ \ \ \ SDL\_DestroyWindow(\_window);}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00118}00118\ \ \ \ \ SDL\_Quit();}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00119}00119\ \}}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00120}00120\ }
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00121}00121\ \textcolor{keyword}{static}\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ gfx\_color(\mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}}\ r,\ \mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}}\ g,\ \mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}}\ b)}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00122}00122\ \{}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00123}00123\ \ \ \ \ \textcolor{keywordflow}{return}\ ((\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}})0xFF\ <<\ 24)\ |}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00124}00124\ \ \ \ \ \ \ \ \ ((\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}})r\ <<\ 16)\ |}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00125}00125\ \ \ \ \ \ \ \ \ ((\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}})g\ <<\ 8)\ |}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00126}00126\ \ \ \ \ \ \ \ \ ((\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}})b);}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00114}00114\ \ \ \ \ SDL\_SetRenderDrawColor(\_renderer,\ 255,\ 255,\ 255,\ 255);}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00115}00115\ }
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00116}00116\ \ \ \ \ \_framebuffer\ =\ SDL\_CreateTexture(\_renderer,}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00117}00117\ \ \ \ \ \ \ \ \ SDL\_PIXELFORMAT\_ARGB8888,}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00118}00118\ \ \ \ \ \ \ \ \ SDL\_TEXTUREACCESS\_STREAMING,}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00119}00119\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gfx-types_8h_aae91ae7a3ca585293a2c1031652a49f9}{GFX\_WIDTH}},\ \mbox{\hyperlink{gfx-types_8h_a11b59534db467ebd1fb19b758e6fffd7}{GFX\_HEIGHT}});}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00120}00120\ \}}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00121}00121\ }
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00122}00122\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ gfx\_destroy(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00123}00123\ \{}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00124}00124\ \ \ \ \ SDL\_DestroyRenderer(\_renderer);}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00125}00125\ \ \ \ \ SDL\_DestroyWindow(\_window);}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00126}00126\ \ \ \ \ SDL\_Quit();}
 \DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00127}00127\ \}}
 \DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00128}00128\ }
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00129}00129\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}}\ \mbox{\hyperlink{avr_2platform_8c_ad2f53b0384a6be55e7d9bda545a7c29d}{\_abgr\_r}}(\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ color)\ \{\ \textcolor{keywordflow}{return}\ (color\ >>\ 24)\ \&\ 0xFF;\ \}}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00130}00130\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}}\ \mbox{\hyperlink{avr_2platform_8c_a276cadc53afdd89636035fe4ad8e8084}{\_abgr\_g}}(\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ color)\ \{\ \textcolor{keywordflow}{return}\ (color\ >>\ 16)\ \&\ 0xFF;\ \}}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00131}00131\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}}\ \mbox{\hyperlink{avr_2platform_8c_aa2b02d48400d091151747b4a2ee85b7f}{\_abgr\_b}}(\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ color)\ \{\ \textcolor{keywordflow}{return}\ (color\ >>\ \ 8)\ \&\ 0xFF;\ \}}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00132}00132\ }
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00133}00133\ \textcolor{keyword}{static}\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ \_abgr\_to\_argb(\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ color)}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00134}00134\ \{}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00135}00135\ \ \ \ \ \textcolor{keywordflow}{return}\ gfx\_color(}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00136}00136\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{avr_2platform_8c_ad2f53b0384a6be55e7d9bda545a7c29d}{\_abgr\_r}}(color),}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00137}00137\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{avr_2platform_8c_a276cadc53afdd89636035fe4ad8e8084}{\_abgr\_g}}(color),}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00138}00138\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{avr_2platform_8c_aa2b02d48400d091151747b4a2ee85b7f}{\_abgr\_b}}(color));}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00139}00139\ \}}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00129}00129\ \textcolor{keyword}{static}\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ gfx\_color(\mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}}\ r,\ \mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}}\ g,\ \mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}}\ b)}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00130}00130\ \{}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00131}00131\ \ \ \ \ \textcolor{keywordflow}{return}\ ((\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}})0xFF\ <<\ 24)\ |}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00132}00132\ \ \ \ \ \ \ \ \ ((\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}})r\ <<\ 16)\ |}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00133}00133\ \ \ \ \ \ \ \ \ ((\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}})g\ <<\ 8)\ |}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00134}00134\ \ \ \ \ \ \ \ \ ((\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}})b);}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00135}00135\ \}}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00136}00136\ }
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00137}00137\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}}\ \mbox{\hyperlink{avr_2platform_8c_ad2f53b0384a6be55e7d9bda545a7c29d}{\_abgr\_r}}(\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ color)\ \{\ \textcolor{keywordflow}{return}\ (color\ >>\ 24)\ \&\ 0xFF;\ \}}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00138}00138\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}}\ \mbox{\hyperlink{avr_2platform_8c_a276cadc53afdd89636035fe4ad8e8084}{\_abgr\_g}}(\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ color)\ \{\ \textcolor{keywordflow}{return}\ (color\ >>\ 16)\ \&\ 0xFF;\ \}}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00139}00139\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}}\ \mbox{\hyperlink{avr_2platform_8c_aa2b02d48400d091151747b4a2ee85b7f}{\_abgr\_b}}(\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ color)\ \{\ \textcolor{keywordflow}{return}\ (color\ >>\ \ 8)\ \&\ 0xFF;\ \}}
 \DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00140}00140\ }
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00141}00141\ \textcolor{keyword}{static}\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ \_color\_merge(\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ color1,\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ color2,\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ ratio)}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00141}00141\ \textcolor{keyword}{static}\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ \_abgr\_to\_argb(\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ color)}
 \DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00142}00142\ \{}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00143}00143\ \ \ \ \ \mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}}\ r1,\ g1,\ b1,\ r2,\ g2,\ b2;}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00144}00144\ }
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00145}00145\ \ \ \ \ r1\ =\ \mbox{\hyperlink{avr_2platform_8c_ad2f53b0384a6be55e7d9bda545a7c29d}{\_abgr\_r}}(color1);}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00146}00146\ \ \ \ \ g1\ =\ \mbox{\hyperlink{avr_2platform_8c_a276cadc53afdd89636035fe4ad8e8084}{\_abgr\_g}}(color1);}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00147}00147\ \ \ \ \ b1\ =\ \mbox{\hyperlink{avr_2platform_8c_aa2b02d48400d091151747b4a2ee85b7f}{\_abgr\_b}}(color1);}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00143}00143\ \ \ \ \ \textcolor{keywordflow}{return}\ gfx\_color(}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00144}00144\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{avr_2platform_8c_ad2f53b0384a6be55e7d9bda545a7c29d}{\_abgr\_r}}(color),}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00145}00145\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{avr_2platform_8c_a276cadc53afdd89636035fe4ad8e8084}{\_abgr\_g}}(color),}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00146}00146\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{avr_2platform_8c_aa2b02d48400d091151747b4a2ee85b7f}{\_abgr\_b}}(color));}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00147}00147\ \}}
 \DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00148}00148\ }
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00149}00149\ \ \ \ \ r2\ =\ \mbox{\hyperlink{avr_2platform_8c_ad2f53b0384a6be55e7d9bda545a7c29d}{\_abgr\_r}}(color2);}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00150}00150\ \ \ \ \ g2\ =\ \mbox{\hyperlink{avr_2platform_8c_a276cadc53afdd89636035fe4ad8e8084}{\_abgr\_g}}(color2);}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00151}00151\ \ \ \ \ b2\ =\ \mbox{\hyperlink{avr_2platform_8c_aa2b02d48400d091151747b4a2ee85b7f}{\_abgr\_b}}(color2);}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00149}00149\ \textcolor{keyword}{static}\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ \_color\_merge(\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ color1,\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ color2,\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ ratio)}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00150}00150\ \{}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00151}00151\ \ \ \ \ \mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}}\ r1,\ g1,\ b1,\ r2,\ g2,\ b2;}
 \DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00152}00152\ }
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00153}00153\ \ \ \ \ \textcolor{keywordflow}{return}\ gfx\_color(}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00154}00154\ \ \ \ \ \ \ \ \ (r1\ *\ ratio\ +\ r2\ *\ (255\ -\/\ ratio))\ /\ 255,}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00155}00155\ \ \ \ \ \ \ \ \ (g1\ *\ ratio\ +\ g2\ *\ (255\ -\/\ ratio))\ /\ 255,}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00156}00156\ \ \ \ \ \ \ \ \ (b1\ *\ ratio\ +\ b2\ *\ (255\ -\/\ ratio))\ /\ 255);}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00157}00157\ \}}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00158}00158\ }
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00159}00159\ \textcolor{keyword}{static}\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ \_rgb565\_to\_bgra(\mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}}\ color)}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00160}00160\ \{}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00161}00161\ \ \ \ \ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ r,\ g,\ b;}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00162}00162\ \ \ \ \ r\ =\ (((((\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}})color\ >>\ 11)\ \&\ 0x1F)\ *\ 527)\ +\ 23)\ >>\ 6;}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00163}00163\ \ \ \ \ g\ =\ (((((\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}})color\ >>\ 5)\ \&\ 0x3F)\ *\ 259)\ +\ 33)\ >>\ 6;}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00164}00164\ \ \ \ \ b\ =\ ((((\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}})color\ \&\ 0x1F)\ *\ 527)\ +\ 23)\ >>\ 6;}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00165}00165\ \ \ \ \ \textcolor{keywordflow}{return}\ gfx\_color(r,\ g,\ b);}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00166}00166\ \}}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00167}00167\ }
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00168}00168\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{avr_2platform_8c_ac453e2fa7f27ee825e5fd898bbce47ce}{env\_gfx\_rect}}(\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ x,\ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ y,\ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ w,\ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ h,\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ color)}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00169}00169\ \{}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00170}00170\ \ \ \ \ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ x0,\ y0;}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00171}00171\ }
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00172}00172\ \ \ \ \ color\ =\ \_abgr\_to\_argb(color);}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00173}00173\ \ \ \ \ \textcolor{keywordflow}{for}(y0\ =\ y;\ y0\ <\ y\ +\ h;\ ++y0)}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00174}00174\ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00175}00175\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(x0\ =\ x;\ x0\ <\ x\ +\ w;\ ++x0)}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00176}00176\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00177}00177\ \ \ \ \ \ \ \ \ \ \ \ \ \_pixels[y0\ *\ GFX\_WIDTH\ +\ x0]\ =\ color;}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00178}00178\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00179}00179\ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00180}00180\ \}}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00181}00181\ }
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00182}00182\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{avr_2platform_8c_a5ec534a76e1a69d2f4667abe4f7f8ff1}{env\_gfx\_image\_rgba}}(\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ x,\ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ y,\ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ w,\ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ h,\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ addr)}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00183}00183\ \{}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00184}00184\ \ \ \ \ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ x0,\ y0;}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00185}00185\ \ \ \ \ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ *image;}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00186}00186\ }
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00187}00187\ \ \ \ \ image\ =\ (\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ *)(\_memory\ +\ addr);}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00188}00188\ \ \ \ \ \textcolor{keywordflow}{for}(y0\ =\ y;\ y0\ <\ y\ +\ h;\ ++y0)}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00189}00189\ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00190}00190\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(x0\ =\ x;\ x0\ <\ x\ +\ w;\ ++x0)}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00191}00191\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00192}00192\ \ \ \ \ \ \ \ \ \ \ \ \ \_pixels[y0\ *\ GFX\_WIDTH\ +\ x0]\ =\ \_abgr\_to\_argb(*image++);}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00193}00193\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00194}00194\ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00195}00195\ \}}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00196}00196\ }
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00197}00197\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{avr_2platform_8c_a6ac0a4bc195845f77f7392de411499b8}{env\_gfx\_image\_rgb}}(\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ x,\ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ y,\ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ w,\ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ h,\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ addr)}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00198}00198\ \{}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00199}00199\ \ \ \ \ \mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}}\ r,\ g,\ b;}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00200}00200\ \ \ \ \ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ x0,\ y0;}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00201}00201\ \ \ \ \ \mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}}\ *image;}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00202}00202\ }
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00203}00203\ \ \ \ \ image\ =\ (\mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}}\ *)(\_memory\ +\ addr);}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00204}00204\ \ \ \ \ \textcolor{keywordflow}{for}(y0\ =\ y;\ y0\ <\ y\ +\ h;\ ++y0)}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00205}00205\ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00206}00206\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(x0\ =\ x;\ x0\ <\ x\ +\ w;\ ++x0)}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00207}00207\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00208}00208\ \ \ \ \ \ \ \ \ \ \ \ \ r\ =\ *image++;}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00209}00209\ \ \ \ \ \ \ \ \ \ \ \ \ g\ =\ *image++;}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00210}00210\ \ \ \ \ \ \ \ \ \ \ \ \ b\ =\ *image++;}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00211}00211\ \ \ \ \ \ \ \ \ \ \ \ \ \_pixels[y0\ *\ GFX\_WIDTH\ +\ x0]\ =\ gfx\_color(r,\ g,\ b);}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00212}00212\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00213}00213\ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00214}00214\ \}}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00215}00215\ }
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00216}00216\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{avr_2platform_8c_a6d50f649582cee2b61d52a87fbd0e05f}{env\_gfx\_image\_rgb565}}(\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ x,\ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ y,\ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ w,\ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ h,\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ addr)}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00217}00217\ \{}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00218}00218\ \ \ \ \ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ x0,\ y0;}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00219}00219\ \ \ \ \ \mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}}\ *image;}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00220}00220\ }
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00221}00221\ \ \ \ \ image\ =\ (\mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}}\ *)(\_memory\ +\ addr);}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00222}00222\ \ \ \ \ \textcolor{keywordflow}{for}(y0\ =\ y;\ y0\ <\ y\ +\ h;\ ++y0)}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00223}00223\ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00224}00224\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(x0\ =\ x;\ x0\ <\ x\ +\ w;\ ++x0)}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00225}00225\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00226}00226\ \ \ \ \ \ \ \ \ \ \ \ \ \_pixels[y0\ *\ GFX\_WIDTH\ +\ x0]\ =\ \_rgb565\_to\_bgra(*image++);}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00227}00227\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00228}00228\ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00229}00229\ \}}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00230}00230\ }
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00231}00231\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{avr_2platform_8c_a55913cd59e2637b9dcc8a17ef6276f77}{env\_gfx\_image\_grayscale}}(}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00232}00232\ \ \ \ \ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ x,\ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ y,\ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ w,\ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ h,\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ addr,\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ fg,\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ bg)}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00233}00233\ \{}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00234}00234\ \ \ \ \ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ x0,\ y0;}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00235}00235\ \ \ \ \ \mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}}\ *image;}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00236}00236\ }
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00237}00237\ \ \ \ \ image\ =\ (\mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}}\ *)(\_memory\ +\ addr);}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00238}00238\ \ \ \ \ \textcolor{keywordflow}{for}(y0\ =\ y;\ y0\ <\ y\ +\ h;\ ++y0)}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00239}00239\ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00240}00240\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(x0\ =\ x;\ x0\ <\ x\ +\ w;\ ++x0)}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00241}00241\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00242}00242\ \ \ \ \ \ \ \ \ \ \ \ \ \_pixels[y0\ *\ GFX\_WIDTH\ +\ x0]\ =}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00243}00243\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_color\_merge(fg,\ bg,\ *image++);}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00244}00244\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00245}00245\ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00246}00246\ \}}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00247}00247\ }
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00248}00248\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{avr_2platform_8c_a0ffe1491054827b5d5f647eef1ad596f}{env\_gfx\_image\_1bit}}(}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00249}00249\ \ \ \ \ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ x,\ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ y,\ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ w,\ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ h,\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ addr,\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ fg,\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ bg)}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00250}00250\ \{}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00251}00251\ \ \ \ \ \mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}}\ byte,\ stride;}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00252}00252\ \ \ \ \ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ x0,\ y0,\ byte\_offset,\ bit\_mask;}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00253}00253\ \ \ \ \ \mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}}\ *image;}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00254}00254\ }
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00255}00255\ \ \ \ \ image\ =\ (\mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}}\ *)(\_memory\ +\ addr);}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00256}00256\ \ \ \ \ fg\ =\ \_abgr\_to\_argb(fg);}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00257}00257\ \ \ \ \ bg\ =\ \_abgr\_to\_argb(bg);}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00258}00258\ \ \ \ \ stride\ =\ (w\ +\ 7)\ /\ 8;}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00259}00259\ \ \ \ \ \textcolor{keywordflow}{for}(y0\ =\ y;\ y0\ <\ y\ +\ h;\ ++y0)}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00260}00260\ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00261}00261\ \ \ \ \ \ \ \ \ bit\_mask\ =\ 0x80;}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00262}00262\ \ \ \ \ \ \ \ \ byte\_offset\ =\ 0;}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00263}00263\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(x0\ =\ x;\ x0\ <\ x\ +\ w;\ ++x0)}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00264}00264\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00265}00265\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(bit\_mask\ ==\ 0x80)}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00266}00266\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00267}00267\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{byte}\ =\ image[byte\_offset++];}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00268}00268\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ bit\_mask\ =\ 1;}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00269}00269\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00270}00270\ }
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00271}00271\ \ \ \ \ \ \ \ \ \ \ \ \ \_pixels[y0\ *\ GFX\_WIDTH\ +\ x0]\ =\ (\textcolor{keywordtype}{byte}\ \&\ bit\_mask)\ ?\ fg\ :\ bg;}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00272}00272\ \ \ \ \ \ \ \ \ \ \ \ \ bit\_mask\ <<=\ 1;}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00273}00273\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00274}00274\ }
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00275}00275\ \ \ \ \ \ \ \ \ image\ +=\ stride;}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00276}00276\ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00277}00277\ \}}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00153}00153\ \ \ \ \ r1\ =\ \mbox{\hyperlink{avr_2platform_8c_ad2f53b0384a6be55e7d9bda545a7c29d}{\_abgr\_r}}(color1);}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00154}00154\ \ \ \ \ g1\ =\ \mbox{\hyperlink{avr_2platform_8c_a276cadc53afdd89636035fe4ad8e8084}{\_abgr\_g}}(color1);}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00155}00155\ \ \ \ \ b1\ =\ \mbox{\hyperlink{avr_2platform_8c_aa2b02d48400d091151747b4a2ee85b7f}{\_abgr\_b}}(color1);}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00156}00156\ }
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00157}00157\ \ \ \ \ r2\ =\ \mbox{\hyperlink{avr_2platform_8c_ad2f53b0384a6be55e7d9bda545a7c29d}{\_abgr\_r}}(color2);}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00158}00158\ \ \ \ \ g2\ =\ \mbox{\hyperlink{avr_2platform_8c_a276cadc53afdd89636035fe4ad8e8084}{\_abgr\_g}}(color2);}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00159}00159\ \ \ \ \ b2\ =\ \mbox{\hyperlink{avr_2platform_8c_aa2b02d48400d091151747b4a2ee85b7f}{\_abgr\_b}}(color2);}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00160}00160\ }
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00161}00161\ \ \ \ \ \textcolor{keywordflow}{return}\ gfx\_color(}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00162}00162\ \ \ \ \ \ \ \ \ (r1\ *\ ratio\ +\ r2\ *\ (255\ -\/\ ratio))\ /\ 255,}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00163}00163\ \ \ \ \ \ \ \ \ (g1\ *\ ratio\ +\ g2\ *\ (255\ -\/\ ratio))\ /\ 255,}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00164}00164\ \ \ \ \ \ \ \ \ (b1\ *\ ratio\ +\ b2\ *\ (255\ -\/\ ratio))\ /\ 255);}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00165}00165\ \}}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00166}00166\ }
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00167}00167\ \textcolor{keyword}{static}\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ \_rgb565\_to\_bgra(\mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}}\ color)}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00168}00168\ \{}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00169}00169\ \ \ \ \ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ r,\ g,\ b;}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00170}00170\ \ \ \ \ r\ =\ (((((\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}})color\ >>\ 11)\ \&\ 0x1F)\ *\ 527)\ +\ 23)\ >>\ 6;}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00171}00171\ \ \ \ \ g\ =\ (((((\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}})color\ >>\ 5)\ \&\ 0x3F)\ *\ 259)\ +\ 33)\ >>\ 6;}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00172}00172\ \ \ \ \ b\ =\ ((((\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}})color\ \&\ 0x1F)\ *\ 527)\ +\ 23)\ >>\ 6;}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00173}00173\ \ \ \ \ \textcolor{keywordflow}{return}\ gfx\_color(r,\ g,\ b);}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00174}00174\ \}}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00175}00175\ }
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00176}\mbox{\hyperlink{simulator_2platform_8c_ac453e2fa7f27ee825e5fd898bbce47ce}{00176}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{avr_2platform_8c_ac453e2fa7f27ee825e5fd898bbce47ce}{env\_gfx\_rect}}(\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ x,\ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ y,\ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ w,\ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ h,\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ color)}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00177}00177\ \{}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00178}00178\ \ \ \ \ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ x0,\ y0;}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00179}00179\ }
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00180}00180\ \ \ \ \ color\ =\ \_abgr\_to\_argb(color);}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00181}00181\ \ \ \ \ \textcolor{keywordflow}{for}(y0\ =\ y;\ y0\ <\ y\ +\ h;\ ++y0)}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00182}00182\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00183}00183\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(x0\ =\ x;\ x0\ <\ x\ +\ w;\ ++x0)}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00184}00184\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00185}00185\ \ \ \ \ \ \ \ \ \ \ \ \ \_pixels[y0\ *\ \mbox{\hyperlink{gfx-types_8h_aae91ae7a3ca585293a2c1031652a49f9}{GFX\_WIDTH}}\ +\ x0]\ =\ color;}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00186}00186\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00187}00187\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00188}00188\ \}}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00189}00189\ }
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00190}\mbox{\hyperlink{simulator_2platform_8c_a5ec534a76e1a69d2f4667abe4f7f8ff1}{00190}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{avr_2platform_8c_a5ec534a76e1a69d2f4667abe4f7f8ff1}{env\_gfx\_image\_rgba}}(\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ x,\ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ y,\ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ w,\ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ h,\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ addr)}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00191}00191\ \{}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00192}00192\ \ \ \ \ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ x0,\ y0;}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00193}00193\ \ \ \ \ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ *image;}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00194}00194\ }
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00195}00195\ \ \ \ \ image\ =\ (\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ *)(\_memory\ +\ addr);}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00196}00196\ \ \ \ \ \textcolor{keywordflow}{for}(y0\ =\ y;\ y0\ <\ y\ +\ h;\ ++y0)}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00197}00197\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00198}00198\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(x0\ =\ x;\ x0\ <\ x\ +\ w;\ ++x0)}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00199}00199\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00200}00200\ \ \ \ \ \ \ \ \ \ \ \ \ \_pixels[y0\ *\ \mbox{\hyperlink{gfx-types_8h_aae91ae7a3ca585293a2c1031652a49f9}{GFX\_WIDTH}}\ +\ x0]\ =\ \_abgr\_to\_argb(*image++);}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00201}00201\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00202}00202\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00203}00203\ \}}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00204}00204\ }
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00205}\mbox{\hyperlink{simulator_2platform_8c_a6ac0a4bc195845f77f7392de411499b8}{00205}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{avr_2platform_8c_a6ac0a4bc195845f77f7392de411499b8}{env\_gfx\_image\_rgb}}(\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ x,\ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ y,\ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ w,\ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ h,\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ addr)}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00206}00206\ \{}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00207}00207\ \ \ \ \ \mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}}\ r,\ g,\ b;}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00208}00208\ \ \ \ \ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ x0,\ y0;}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00209}00209\ \ \ \ \ \mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}}\ *image;}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00210}00210\ }
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00211}00211\ \ \ \ \ image\ =\ (\mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}}\ *)(\_memory\ +\ addr);}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00212}00212\ \ \ \ \ \textcolor{keywordflow}{for}(y0\ =\ y;\ y0\ <\ y\ +\ h;\ ++y0)}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00213}00213\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00214}00214\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(x0\ =\ x;\ x0\ <\ x\ +\ w;\ ++x0)}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00215}00215\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00216}00216\ \ \ \ \ \ \ \ \ \ \ \ \ r\ =\ *image++;}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00217}00217\ \ \ \ \ \ \ \ \ \ \ \ \ g\ =\ *image++;}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00218}00218\ \ \ \ \ \ \ \ \ \ \ \ \ b\ =\ *image++;}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00219}00219\ \ \ \ \ \ \ \ \ \ \ \ \ \_pixels[y0\ *\ \mbox{\hyperlink{gfx-types_8h_aae91ae7a3ca585293a2c1031652a49f9}{GFX\_WIDTH}}\ +\ x0]\ =\ gfx\_color(r,\ g,\ b);}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00220}00220\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00221}00221\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00222}00222\ \}}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00223}00223\ }
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00224}\mbox{\hyperlink{simulator_2platform_8c_a6d50f649582cee2b61d52a87fbd0e05f}{00224}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{avr_2platform_8c_a6d50f649582cee2b61d52a87fbd0e05f}{env\_gfx\_image\_rgb565}}(\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ x,\ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ y,\ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ w,\ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ h,\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ addr)}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00225}00225\ \{}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00226}00226\ \ \ \ \ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ x0,\ y0;}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00227}00227\ \ \ \ \ \mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}}\ *image;}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00228}00228\ }
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00229}00229\ \ \ \ \ image\ =\ (\mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}}\ *)(\_memory\ +\ addr);}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00230}00230\ \ \ \ \ \textcolor{keywordflow}{for}(y0\ =\ y;\ y0\ <\ y\ +\ h;\ ++y0)}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00231}00231\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00232}00232\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(x0\ =\ x;\ x0\ <\ x\ +\ w;\ ++x0)}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00233}00233\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00234}00234\ \ \ \ \ \ \ \ \ \ \ \ \ \_pixels[y0\ *\ \mbox{\hyperlink{gfx-types_8h_aae91ae7a3ca585293a2c1031652a49f9}{GFX\_WIDTH}}\ +\ x0]\ =\ \_rgb565\_to\_bgra(*image++);}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00235}00235\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00236}00236\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00237}00237\ \}}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00238}00238\ }
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00239}\mbox{\hyperlink{simulator_2platform_8c_a7d5a8e615c9cee94d1065f812ff38707}{00239}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{avr_2platform_8c_a55913cd59e2637b9dcc8a17ef6276f77}{env\_gfx\_image\_grayscale}}(}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00240}00240\ \ \ \ \ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ x,\ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ y,\ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ w,\ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ h,\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ addr,\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ fg,\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ bg)}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00241}00241\ \{}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00242}00242\ \ \ \ \ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ x0,\ y0;}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00243}00243\ \ \ \ \ \mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}}\ *image;}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00244}00244\ }
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00245}00245\ \ \ \ \ image\ =\ (\mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}}\ *)(\_memory\ +\ addr);}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00246}00246\ \ \ \ \ \textcolor{keywordflow}{for}(y0\ =\ y;\ y0\ <\ y\ +\ h;\ ++y0)}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00247}00247\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00248}00248\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(x0\ =\ x;\ x0\ <\ x\ +\ w;\ ++x0)}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00249}00249\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00250}00250\ \ \ \ \ \ \ \ \ \ \ \ \ \_pixels[y0\ *\ \mbox{\hyperlink{gfx-types_8h_aae91ae7a3ca585293a2c1031652a49f9}{GFX\_WIDTH}}\ +\ x0]\ =}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00251}00251\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_color\_merge(fg,\ bg,\ *image++);}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00252}00252\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00253}00253\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00254}00254\ \}}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00255}00255\ }
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00256}\mbox{\hyperlink{simulator_2platform_8c_afbf69bdfb45e7893298d5b8eb75ca3c0}{00256}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{avr_2platform_8c_a0ffe1491054827b5d5f647eef1ad596f}{env\_gfx\_image\_1bit}}(}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00257}00257\ \ \ \ \ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ x,\ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ y,\ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ w,\ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ h,\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ addr,\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ fg,\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ bg)}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00258}00258\ \{}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00259}00259\ \ \ \ \ \mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}}\ byte,\ stride;}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00260}00260\ \ \ \ \ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ x0,\ y0,\ byte\_offset,\ bit\_mask;}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00261}00261\ \ \ \ \ \mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}}\ *image;}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00262}00262\ }
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00263}00263\ \ \ \ \ image\ =\ (\mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}}\ *)(\_memory\ +\ addr);}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00264}00264\ \ \ \ \ fg\ =\ \_abgr\_to\_argb(fg);}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00265}00265\ \ \ \ \ bg\ =\ \_abgr\_to\_argb(bg);}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00266}00266\ \ \ \ \ stride\ =\ (w\ +\ 7)\ /\ 8;}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00267}00267\ \ \ \ \ \textcolor{keywordflow}{for}(y0\ =\ y;\ y0\ <\ y\ +\ h;\ ++y0)}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00268}00268\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00269}00269\ \ \ \ \ \ \ \ \ bit\_mask\ =\ 0x80;}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00270}00270\ \ \ \ \ \ \ \ \ byte\_offset\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00271}00271\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(x0\ =\ x;\ x0\ <\ x\ +\ w;\ ++x0)}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00272}00272\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00273}00273\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(bit\_mask\ ==\ 0x80)}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00274}00274\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00275}00275\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{byte}\ =\ image[byte\_offset++];}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00276}00276\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ bit\_mask\ =\ 1;}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00277}00277\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00278}00278\ }
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00279}00279\ \textcolor{comment}{/*\ -\/-\/-\/\ SERIAL\ -\/-\/-\/\ */}}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00280}00280\ }
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00281}00281\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{avr_2platform_8c_a10a5a2d20838f25eba5db18f43f94158}{env\_serial\_write}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *data,\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ len)}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00282}00282\ \{}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00283}00283\ \ \ \ \ \textcolor{comment}{/*\ Debug\ print\ */}}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00284}00284\ \ \ \ \ printf(\textcolor{stringliteral}{"{}\%.*s"{}},\ len,\ (\textcolor{keywordtype}{char}\ *)data);}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00279}00279\ \ \ \ \ \ \ \ \ \ \ \ \ \_pixels[y0\ *\ \mbox{\hyperlink{gfx-types_8h_aae91ae7a3ca585293a2c1031652a49f9}{GFX\_WIDTH}}\ +\ x0]\ =\ (\textcolor{keywordtype}{byte}\ \&\ bit\_mask)\ ?\ fg\ :\ bg;}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00280}00280\ \ \ \ \ \ \ \ \ \ \ \ \ bit\_mask\ <<=\ 1;}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00281}00281\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00282}00282\ }
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00283}00283\ \ \ \ \ \ \ \ \ image\ +=\ stride;}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00284}00284\ \ \ \ \ \}}
 \DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00285}00285\ \}}
 \DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00286}00286\ }
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00287}00287\ \textcolor{comment}{/*\ -\/-\/-\/\ RANDOM\ -\/-\/-\/\ */}}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00287}00287\ \textcolor{comment}{/*\ -\/-\/-\/\ SERIAL\ -\/-\/-\/\ */}}
 \DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00288}00288\ }
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00289}00289\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ \mbox{\hyperlink{avr_2platform_8c_ac25a788a06cf437544e5edaf5faf4e2f}{env\_random\_get}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00289}\mbox{\hyperlink{simulator_2platform_8c_a10a5a2d20838f25eba5db18f43f94158}{00289}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{avr_2platform_8c_a10a5a2d20838f25eba5db18f43f94158}{env\_serial\_write}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *data,\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ len)}
 \DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00290}00290\ \{}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00291}00291\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{rand_8c_a9eeb6c44d48cd8ace4b454da982406c9}{rand}}();}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00292}00292\ \}}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00293}00293\ }
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00294}00294\ \textcolor{comment}{/*\ -\/-\/-\/\ TIMER\ -\/-\/-\/\ */}}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00295}00295\ }
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00296}00296\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{timer_8c_a7b8ab79df77b57475a5494f5f81c3bd9}{timer\_init}}(\textcolor{keywordtype}{void})}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00297}00297\ \{}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00298}00298\ \ \ \ \ \textcolor{keyword}{struct\ }timeval\ ts;}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00299}00299\ \ \ \ \ gettimeofday(\&ts,\ NULL);}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00300}00300\ \ \ \ \ \_sec\_start\ =\ ts.tv\_sec;}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00301}00301\ \ \ \ \ \_usec\_start\ =\ ts.tv\_usec;}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00302}00302\ }
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00303}00303\ \ \ \ \ srand(time(NULL));}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00304}00304\ \}}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00305}00305\ }
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00306}00306\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ \mbox{\hyperlink{avr_2platform_8c_a0be14c6c6a205ee06b64f11184884e5e}{env\_millis}}(\textcolor{keywordtype}{void})}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00307}00307\ \{}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00308}00308\ \ \ \ \ \textcolor{keyword}{struct\ }timeval\ ts;}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00309}00309\ \ \ \ \ gettimeofday(\&ts,\ NULL);}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00310}00310\ \ \ \ \ \textcolor{keywordflow}{return}\ (ts.tv\_sec\ -\/\ \_sec\_start)\ *\ 1000\ +}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00311}00311\ \ \ \ \ \ \ \ \ (ts.tv\_usec\ -\/\ \_usec\_start)\ /\ 1000;}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00291}00291\ \ \ \ \ \textcolor{comment}{/*\ Debug\ print\ */}}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00292}00292\ \ \ \ \ printf(\textcolor{stringliteral}{"{}\%.*s"{}},\ len,\ (\textcolor{keywordtype}{char}\ *)data);}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00293}00293\ \}}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00294}00294\ }
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00295}00295\ \textcolor{comment}{/*\ -\/-\/-\/\ RANDOM\ -\/-\/-\/\ */}}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00296}00296\ }
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00297}\mbox{\hyperlink{simulator_2platform_8c_ac25a788a06cf437544e5edaf5faf4e2f}{00297}}\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ \mbox{\hyperlink{avr_2platform_8c_ac25a788a06cf437544e5edaf5faf4e2f}{env\_random\_get}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00298}00298\ \{}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00299}00299\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{rand_8c_a9eeb6c44d48cd8ace4b454da982406c9}{rand}}();}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00300}00300\ \}}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00301}00301\ }
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00302}00302\ \textcolor{comment}{/*\ -\/-\/-\/\ TIMER\ -\/-\/-\/\ */}}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00303}00303\ }
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00304}00304\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{timer_8c_a7b8ab79df77b57475a5494f5f81c3bd9}{timer\_init}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00305}00305\ \{}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00306}00306\ \ \ \ \ \textcolor{keyword}{struct\ }timeval\ ts;}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00307}00307\ \ \ \ \ gettimeofday(\&ts,\ NULL);}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00308}00308\ \ \ \ \ \_sec\_start\ =\ ts.tv\_sec;}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00309}00309\ \ \ \ \ \_usec\_start\ =\ ts.tv\_usec;}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00310}00310\ }
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00311}00311\ \ \ \ \ srand(time(NULL));}
 \DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00312}00312\ \}}
 \DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00313}00313\ }
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00314}00314\ \textcolor{comment}{/*\ -\/-\/-\/\ KEYBOARD\ -\/-\/-\/\ */}}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00315}00315\ }
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00316}00316\ \textcolor{keyword}{static}\ Key\ \_convert\_key(\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ scancode,\ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ mod)}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00317}00317\ \{}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00318}00318\ \ \ \ \ Key\ key\ =\ scancode;}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00319}00319\ }
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00320}00320\ \ \ \ \ \textcolor{keywordflow}{if}(mod\ \&\ (KMOD\_LCTRL\ |\ KMOD\_RCTRL))}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00321}00321\ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00322}00322\ \ \ \ \ \ \ \ \ key\ |=\ MOD\_CTRL;}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00323}00323\ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00324}00324\ }
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00325}00325\ \ \ \ \ \textcolor{keywordflow}{if}(mod\ \&\ KMOD\_LALT)}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00326}00326\ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00327}00327\ \ \ \ \ \ \ \ \ key\ |=\ MOD\_ALT;}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00328}00328\ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00329}00329\ }
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00330}00330\ \ \ \ \ \textcolor{keywordflow}{if}(mod\ \&\ KMOD\_RALT)}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00331}00331\ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00332}00332\ \ \ \ \ \ \ \ \ key\ |=\ MOD\_ALT\_GR;}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00333}00333\ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00334}00334\ }
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00335}00335\ \ \ \ \ \textcolor{keywordflow}{if}(mod\ \&\ (KMOD\_LGUI\ |\ KMOD\_RGUI))}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00336}00336\ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00337}00337\ \ \ \ \ \ \ \ \ key\ |=\ MOD\_OS;}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00338}00338\ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00339}00339\ }
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00340}00340\ \ \ \ \ \textcolor{keywordflow}{if}(mod\ \&\ (KMOD\_LSHIFT\ |\ KMOD\_RSHIFT))}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00341}00341\ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00342}00342\ \ \ \ \ \ \ \ \ key\ |=\ MOD\_SHIFT;}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00343}00343\ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00344}00344\ }
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00345}00345\ \ \ \ \ \textcolor{keywordflow}{return}\ key;}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00346}00346\ \}}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00314}\mbox{\hyperlink{simulator_2platform_8c_a0be14c6c6a205ee06b64f11184884e5e}{00314}}\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ \mbox{\hyperlink{avr_2platform_8c_a0be14c6c6a205ee06b64f11184884e5e}{env\_millis}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00315}00315\ \{}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00316}00316\ \ \ \ \ \textcolor{keyword}{struct\ }timeval\ ts;}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00317}00317\ \ \ \ \ gettimeofday(\&ts,\ NULL);}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00318}00318\ \ \ \ \ \textcolor{keywordflow}{return}\ (ts.tv\_sec\ -\/\ \_sec\_start)\ *\ 1000\ +}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00319}00319\ \ \ \ \ \ \ \ \ (ts.tv\_usec\ -\/\ \_usec\_start)\ /\ 1000;}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00320}00320\ \}}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00321}00321\ }
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00322}00322\ \textcolor{comment}{/*\ -\/-\/-\/\ KEYBOARD\ -\/-\/-\/\ */}}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00323}00323\ }
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00324}00324\ \textcolor{keyword}{static}\ \mbox{\hyperlink{keyboard-shared_8h_a48752551c4279f8cddf3585f8272092a}{Key}}\ \_convert\_key(\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ scancode,\ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ mod)}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00325}00325\ \{}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00326}00326\ \ \ \ \ \mbox{\hyperlink{keyboard-shared_8h_a48752551c4279f8cddf3585f8272092a}{Key}}\ key\ =\ scancode;}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00327}00327\ }
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00328}00328\ \ \ \ \ \textcolor{keywordflow}{if}(mod\ \&\ (KMOD\_LCTRL\ |\ KMOD\_RCTRL))}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00329}00329\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00330}00330\ \ \ \ \ \ \ \ \ key\ |=\ MOD\_CTRL;}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00331}00331\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00332}00332\ }
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00333}00333\ \ \ \ \ \textcolor{keywordflow}{if}(mod\ \&\ KMOD\_LALT)}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00334}00334\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00335}00335\ \ \ \ \ \ \ \ \ key\ |=\ MOD\_ALT;}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00336}00336\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00337}00337\ }
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00338}00338\ \ \ \ \ \textcolor{keywordflow}{if}(mod\ \&\ KMOD\_RALT)}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00339}00339\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00340}00340\ \ \ \ \ \ \ \ \ key\ |=\ MOD\_ALT\_GR;}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00341}00341\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00342}00342\ }
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00343}00343\ \ \ \ \ \textcolor{keywordflow}{if}(mod\ \&\ (KMOD\_LGUI\ |\ KMOD\_RGUI))}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00344}00344\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00345}00345\ \ \ \ \ \ \ \ \ key\ |=\ MOD\_OS;}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00346}00346\ \ \ \ \ \}}
 \DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00347}00347\ }
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00348}00348\ \textcolor{comment}{/*\ -\/-\/-\/\ MAIN\ -\/-\/-\/\ */}}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00349}00349\ }
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00350}00350\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{mkinitrd_2main_8c_a3c04138a5bfe5d72780bb7e82a18e627}{main}}(\textcolor{keywordtype}{int}\ argc,\ \textcolor{keywordtype}{char}\ **argv)}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00351}00351\ \{}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00352}00352\ \ \ \ \ \textcolor{keywordtype}{bool}\ running\ =\ \textcolor{keyword}{true};}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00353}00353\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ len,\ offset;}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00354}00354\ \ \ \ \ FILE\ *fp;}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00348}00348\ \ \ \ \ \textcolor{keywordflow}{if}(mod\ \&\ (KMOD\_LSHIFT\ |\ KMOD\_RSHIFT))}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00349}00349\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00350}00350\ \ \ \ \ \ \ \ \ key\ |=\ MOD\_SHIFT;}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00351}00351\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00352}00352\ }
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00353}00353\ \ \ \ \ \textcolor{keywordflow}{return}\ key;}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00354}00354\ \}}
 \DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00355}00355\ }
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00356}00356\ \ \ \ \ \textcolor{keywordflow}{if}(argc\ !=\ 2)}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00357}00357\ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00358}00358\ \ \ \ \ \ \ \ \ fprintf(stderr,\ \textcolor{stringliteral}{"{}Usage:\ ./emu\ rv32i-\/binary\(\backslash\)n"{}});}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00359}00359\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 1;}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00360}00360\ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00361}00361\ }
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00362}00362\ \ \ \ \ \textcolor{comment}{/*\ Load\ binary\ into\ memory\ */}}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00363}00363\ \ \ \ \ \textcolor{keywordflow}{if}(!(fp\ =\ fopen(argv[1],\ \textcolor{stringliteral}{"{}rb"{}})))}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00364}00364\ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00365}00365\ \ \ \ \ \ \ \ \ fprintf(stderr,\ \textcolor{stringliteral}{"{}Failed\ to\ open\ file\ \(\backslash\)"{}\%s\(\backslash\)"{}\(\backslash\)n"{}},\ argv[1]);}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00366}00366\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 1;}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00367}00367\ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00368}00368\ }
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00369}00369\ \ \ \ \ offset\ =\ 0;}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00370}00370\ \ \ \ \ \textcolor{keywordflow}{do}}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00371}00371\ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00372}00372\ \ \ \ \ \ \ \ \ len\ =\ fread(\_memory\ +\ offset,\ 1,\ READ\_SIZE,\ fp);}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00373}00373\ \ \ \ \ \ \ \ \ offset\ +=\ len;}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00374}00374\ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00375}00375\ \ \ \ \ \textcolor{keywordflow}{while}(len\ ==\ READ\_SIZE);}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00356}00356\ \textcolor{comment}{/*\ -\/-\/-\/\ MAIN\ -\/-\/-\/\ */}}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00357}00357\ }
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00358}00358\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{mkinitrd_2main_8c_a3c04138a5bfe5d72780bb7e82a18e627}{main}}(\textcolor{keywordtype}{int}\ argc,\ \textcolor{keywordtype}{char}\ **argv)}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00359}00359\ \{}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00360}00360\ \ \ \ \ \textcolor{keywordtype}{bool}\ running\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00361}00361\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ len,\ offset;}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00362}00362\ \ \ \ \ FILE\ *fp;}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00363}00363\ }
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00364}00364\ \ \ \ \ \textcolor{keywordflow}{if}(argc\ !=\ 2)}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00365}00365\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00366}00366\ \ \ \ \ \ \ \ \ fprintf(stderr,\ \textcolor{stringliteral}{"{}Usage:\ ./emu\ rv32i-\/binary\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00367}00367\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 1;}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00368}00368\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00369}00369\ }
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00370}00370\ \ \ \ \ \textcolor{comment}{/*\ Load\ binary\ into\ memory\ */}}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00371}00371\ \ \ \ \ \textcolor{keywordflow}{if}(!(fp\ =\ fopen(argv[1],\ \textcolor{stringliteral}{"{}rb"{}})))}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00372}00372\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00373}00373\ \ \ \ \ \ \ \ \ fprintf(stderr,\ \textcolor{stringliteral}{"{}Failed\ to\ open\ file\ \(\backslash\)"{}\%s\(\backslash\)"{}\(\backslash\)n"{}},\ argv[1]);}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00374}00374\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 1;}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00375}00375\ \ \ \ \ \}}
 \DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00376}00376\ }
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00377}00377\ \ \ \ \ \mbox{\hyperlink{timer_8c_a7b8ab79df77b57475a5494f5f81c3bd9}{timer\_init}}();}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00378}00378\ \ \ \ \ gfx\_init();}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00379}00379\ \ \ \ \ \mbox{\hyperlink{emulator_8c_a0dbe43a64cbf994bf9189e7767f93342}{kernel\_init}}();}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00380}00380\ }
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00381}00381\ \ \ \ \ \textcolor{keywordflow}{while}(running)}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00382}00382\ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00383}00383\ \ \ \ \ \ \ \ \ SDL\_Event\ e;}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00384}00384\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}(SDL\_PollEvent(\&e))}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00385}00385\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00386}00386\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}(e.type)}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00387}00387\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00388}00388\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ SDL\_QUIT:}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00389}00389\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ running\ =\ \textcolor{keyword}{false};}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00390}00390\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00391}00391\ }
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00392}00392\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ SDL\_KEYDOWN:}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00393}00393\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00394}00394\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Key\ key;}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00395}00395\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(e.key.keysym.sym\ ==\ SDLK\_ESCAPE)}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00396}00396\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00397}00397\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ running\ =\ \textcolor{keyword}{false};}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00398}00398\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00399}00399\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00400}00400\ }
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00401}00401\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ key\ =\ \_convert\_key(e.key.keysym.scancode,\ e.key.keysym.mod);}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00402}00402\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{emulator_8c_aa3bc14f0f460896525aa26dbf66069a7}{keyboard\_event}}(key,\ \mbox{\hyperlink{german_8c_a1a0767e5d023fa8fe76e781df02f7374}{key\_to\_codepoint}}(key),}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00403}00403\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ e.key.repeat\ ?\ KEYSTATE\_REPEAT\ :\ KEYSTATE\_PRESSED);}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00404}00404\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00405}00405\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00406}00406\ }
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00407}00407\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ SDL\_KEYUP:}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00408}00408\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00409}00409\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Key\ key\ =\ \_convert\_key(e.key.keysym.scancode,\ e.key.keysym.mod);}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00410}00410\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{emulator_8c_aa3bc14f0f460896525aa26dbf66069a7}{keyboard\_event}}(key,\ \mbox{\hyperlink{german_8c_a1a0767e5d023fa8fe76e781df02f7374}{key\_to\_codepoint}}(key),\ KEYSTATE\_RELEASED);}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00411}00411\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00412}00412\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00413}00413\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00414}00414\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00415}00415\ }
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00416}00416\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{emulator_8c_a1554b9b4463db6aa6131522c2ab400eb}{os\_update}}();}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00417}00417\ }
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00418}00418\ \ \ \ \ \ \ \ \ SDL\_UpdateTexture(\_framebuffer,\ NULL,\ \_pixels,\ GFX\_WIDTH\ *\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}));}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00419}00419\ \ \ \ \ \ \ \ \ SDL\_RenderClear(\_renderer);}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00420}00420\ \ \ \ \ \ \ \ \ SDL\_RenderCopy(\_renderer,\ \_framebuffer,\ NULL,\ NULL);}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00421}00421\ \ \ \ \ \ \ \ \ SDL\_RenderPresent(\_renderer);}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00422}00422\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00377}00377\ \ \ \ \ offset\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00378}00378\ \ \ \ \ \textcolor{keywordflow}{do}}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00379}00379\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00380}00380\ \ \ \ \ \ \ \ \ len\ =\ fread(\_memory\ +\ offset,\ 1,\ READ\_SIZE,\ fp);}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00381}00381\ \ \ \ \ \ \ \ \ offset\ +=\ len;}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00382}00382\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00383}00383\ \ \ \ \ \textcolor{keywordflow}{while}(len\ ==\ READ\_SIZE);}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00384}00384\ }
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00385}00385\ \ \ \ \ \mbox{\hyperlink{timer_8c_a7b8ab79df77b57475a5494f5f81c3bd9}{timer\_init}}();}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00386}00386\ \ \ \ \ gfx\_init();}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00387}00387\ \ \ \ \ \mbox{\hyperlink{emulator_8c_a0dbe43a64cbf994bf9189e7767f93342}{kernel\_init}}();}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00388}00388\ }
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00389}00389\ \ \ \ \ \textcolor{keywordflow}{while}(running)}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00390}00390\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00391}00391\ \ \ \ \ \ \ \ \ SDL\_Event\ e;}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00392}00392\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}(SDL\_PollEvent(\&e))}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00393}00393\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00394}00394\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}(e.type)}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00395}00395\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00396}00396\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ SDL\_QUIT:}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00397}00397\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ running\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00398}00398\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00399}00399\ }
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00400}00400\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ SDL\_KEYDOWN:}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00401}00401\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00402}00402\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{keyboard-shared_8h_a48752551c4279f8cddf3585f8272092a}{Key}}\ key;}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00403}00403\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(e.key.keysym.sym\ ==\ SDLK\_ESCAPE)}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00404}00404\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00405}00405\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ running\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00406}00406\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00407}00407\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00408}00408\ }
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00409}00409\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ key\ =\ \_convert\_key(e.key.keysym.scancode,\ e.key.keysym.mod);}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00410}00410\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{emulator_8c_aa3bc14f0f460896525aa26dbf66069a7}{keyboard\_event}}(key,\ \mbox{\hyperlink{german_8c_a1a0767e5d023fa8fe76e781df02f7374}{key\_to\_codepoint}}(key),}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00411}00411\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ e.key.repeat\ ?\ KEYSTATE\_REPEAT\ :\ KEYSTATE\_PRESSED);}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00412}00412\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00413}00413\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00414}00414\ }
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00415}00415\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ SDL\_KEYUP:}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00416}00416\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00417}00417\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{keyboard-shared_8h_a48752551c4279f8cddf3585f8272092a}{Key}}\ key\ =\ \_convert\_key(e.key.keysym.scancode,\ e.key.keysym.mod);}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00418}00418\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{emulator_8c_aa3bc14f0f460896525aa26dbf66069a7}{keyboard\_event}}(key,\ \mbox{\hyperlink{german_8c_a1a0767e5d023fa8fe76e781df02f7374}{key\_to\_codepoint}}(key),\ KEYSTATE\_RELEASED);}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00419}00419\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00420}00420\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00421}00421\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00422}00422\ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00423}00423\ }
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00424}00424\ \ \ \ \ gfx\_destroy();}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00425}00425\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
-\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00426}00426\ \}}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00424}00424\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{emulator_8c_a1554b9b4463db6aa6131522c2ab400eb}{os\_update}}();}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00425}00425\ }
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00426}00426\ \ \ \ \ \ \ \ \ SDL\_UpdateTexture(\_framebuffer,\ NULL,\ \_pixels,\ \mbox{\hyperlink{gfx-types_8h_aae91ae7a3ca585293a2c1031652a49f9}{GFX\_WIDTH}}\ *\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}));}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00427}00427\ \ \ \ \ \ \ \ \ SDL\_RenderClear(\_renderer);}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00428}00428\ \ \ \ \ \ \ \ \ SDL\_RenderCopy(\_renderer,\ \_framebuffer,\ NULL,\ NULL);}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00429}00429\ \ \ \ \ \ \ \ \ SDL\_RenderPresent(\_renderer);}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00430}00430\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00431}00431\ }
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00432}00432\ \ \ \ \ gfx\_destroy();}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00433}00433\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{\Hypertarget{simulator_2platform_8c_source_l00434}00434\ \}}
 
 \end{DoxyCode}

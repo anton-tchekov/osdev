@@ -59,15 +59,15 @@
 \DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00055}00055\ }
 \DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00056}00056\ \textcolor{keywordtype}{void}\ clear(\textcolor{keywordtype}{void})}
 \DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00057}00057\ \{}
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00058}00058\ \ \ \ \ \mbox{\hyperlink{gfx_8c_a61d70a4550bf181cd71bfc9a4f12a6d1}{gfx\_rect}}(0,\ 0,\ GFX\_WIDTH,\ GFX\_HEIGHT,\ \mbox{\hyperlink{lcd_8h_aba2a7fe77a7501e5844370eec0185207}{COLOR\_BLACK}});}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00058}00058\ \ \ \ \ \mbox{\hyperlink{gfx_8c_a61d70a4550bf181cd71bfc9a4f12a6d1}{gfx\_rect}}(0,\ 0,\ \mbox{\hyperlink{gfx-types_8h_aae91ae7a3ca585293a2c1031652a49f9}{GFX\_WIDTH}},\ \mbox{\hyperlink{gfx-types_8h_a11b59534db467ebd1fb19b758e6fffd7}{GFX\_HEIGHT}},\ \mbox{\hyperlink{lcd_8h_aba2a7fe77a7501e5844370eec0185207}{COLOR\_BLACK}});}
 \DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00059}00059\ \}}
 \DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00060}00060\ }
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00061}00061\ \textcolor{keywordtype}{void}\ renderPlayer(\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ x,\ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ y,\ Color\ color)}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00061}00061\ \textcolor{keywordtype}{void}\ renderPlayer(\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ x,\ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ y,\ \mbox{\hyperlink{gfx-types_8h_acbbccb6085c654282ef64cdcefc81be5}{Color}}\ color)}
 \DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00062}00062\ \{}
 \DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00063}00063\ \ \ \ \ \mbox{\hyperlink{gfx_8c_a61d70a4550bf181cd71bfc9a4f12a6d1}{gfx\_rect}}(x,\ y,\ 10,\ 10,\ color);}
 \DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00064}00064\ \}}
 \DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00065}00065\ }
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00066}00066\ \textcolor{keywordtype}{void}\ renderCollider(\mbox{\hyperlink{structRectangle}{Rectangle}}\ *col,\ Color\ color)}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00066}00066\ \textcolor{keywordtype}{void}\ renderCollider(\mbox{\hyperlink{structRectangle}{Rectangle}}\ *col,\ \mbox{\hyperlink{gfx-types_8h_acbbccb6085c654282ef64cdcefc81be5}{Color}}\ color)}
 \DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00067}00067\ \{}
 \DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00068}00068\ \ \ \ \ \mbox{\hyperlink{gfx_8c_a61d70a4550bf181cd71bfc9a4f12a6d1}{gfx\_rect}}(col-\/>\mbox{\hyperlink{structRectangle_a90f857de0c8ef6df3e5a43efc2d94783}{X}},\ col-\/>\mbox{\hyperlink{structRectangle_a64dcd396f57e0fa1a321310aa35377a2}{Y}},\ col-\/>\mbox{\hyperlink{structRectangle_af170c9bbeb204829ae51f161b4d998bb}{W}},\ col-\/>\mbox{\hyperlink{structRectangle_a54bd38abe24512b5a80d1572c7661332}{H}},\ color);}
 \DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00069}00069\ \}}
@@ -94,7 +94,7 @@
 \DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00090}00090\ \ \ \ \ \textcolor{keywordflow}{return}\ !noOverlap;}
 \DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00091}00091\ \}}
 \DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00092}00092\ }
-\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00093}00093\ \textcolor{keywordtype}{void}\ event\_key(Key\ key,\ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ chr,\ KeyState\ state)}
+\DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00093}00093\ \textcolor{keywordtype}{void}\ event\_key(\mbox{\hyperlink{keyboard-shared_8h_a48752551c4279f8cddf3585f8272092a}{Key}}\ key,\ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ chr,\ \mbox{\hyperlink{keyboard-shared_8h_a7e51438e5f6bf556512ce7103cddac09}{KeyState}}\ state)}
 \DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00094}00094\ \{}
 \DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00095}00095\ \ \ \ \ \textcolor{keywordtype}{bool}\ press\ =\ state\ !=\ KEYSTATE\_RELEASED;}
 \DoxyCodeLine{\Hypertarget{apps_2game_2main_8c_source_l00096}00096\ \ \ \ \ \textcolor{keywordflow}{switch}(key)}

@@ -1,17 +1,12 @@
 \hypertarget{keyboard_8c}{}\doxysection{stdlib/keyboard/keyboard.c File Reference}
 \label{keyboard_8c}\index{stdlib/keyboard/keyboard.c@{stdlib/keyboard/keyboard.c}}
-
-
-Keyboard types and utilities.  
-
-
 {\ttfamily \#include $<$keyboard.\+h$>$}\newline
 {\ttfamily \#include $<$syscall.\+h$>$}\newline
 {\ttfamily \#include $<$event.\+h$>$}\newline
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-static void \mbox{\hyperlink{keyboard_8c_adea086b263b2b9fafeafe1481b19709d}{\+\_\+event\+\_\+key\+\_\+handler}} (Key key, \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} chr, Key\+State state)
+static void \mbox{\hyperlink{keyboard_8c_adea086b263b2b9fafeafe1481b19709d}{\+\_\+event\+\_\+key\+\_\+handler}} (\mbox{\hyperlink{keyboard-shared_8h_a48752551c4279f8cddf3585f8272092a}{Key}} key, \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} chr, \mbox{\hyperlink{keyboard-shared_8h_a7e51438e5f6bf556512ce7103cddac09}{Key\+State}} state)
 \item 
 void \mbox{\hyperlink{keyboard_8c_a5aae8263abc1dec4671638e7ed4af681}{keyboard\+\_\+init}} (void)
 \begin{DoxyCompactList}\small\item\em Initialize keyboard, do NOT call this function. \end{DoxyCompactList}\item 
@@ -25,17 +20,6 @@ static \mbox{\hyperlink{keyboard_8h_a31b5a1eb7bc24f6e8d7c85291f05dee5}{Key\+Even
 
 
 \doxysubsection{Detailed Description}
-Keyboard types and utilities. 
-
-\begin{DoxyAuthor}{Author}
-Tim Gabrikowski, Anton Tchekov 
-\end{DoxyAuthor}
-\begin{DoxyVersion}{Version}
-0.\+1 
-\end{DoxyVersion}
-\begin{DoxyDate}{Date}
-14.\+05.\+2023
-\end{DoxyDate}
 \begin{DoxyAuthor}{Author}
 Tim Gabrikowski, Anton Tchekov 
 \end{DoxyAuthor}
@@ -56,7 +40,7 @@ Definition in file \mbox{\hyperlink{keyboard_8c_source}{keyboard.\+c}}.
 \index{keyboard.c@{keyboard.c}!\_event\_key\_handler@{\_event\_key\_handler}}
 \index{\_event\_key\_handler@{\_event\_key\_handler}!keyboard.c@{keyboard.c}}
 \doxysubsubsection{\texorpdfstring{\_event\_key\_handler()}{\_event\_key\_handler()}}
-{\footnotesize\ttfamily static void \+\_\+event\+\_\+key\+\_\+handler (\begin{DoxyParamCaption}\item[{Key}]{key,  }\item[{\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}}]{chr,  }\item[{Key\+State}]{state }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily static void \+\_\+event\+\_\+key\+\_\+handler (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{keyboard-shared_8h_a48752551c4279f8cddf3585f8272092a}{Key}}}]{key,  }\item[{\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}}]{chr,  }\item[{\mbox{\hyperlink{keyboard-shared_8h_a7e51438e5f6bf556512ce7103cddac09}{Key\+State}}}]{state }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 Wrapper for key event handler 
 
@@ -139,7 +123,7 @@ References \mbox{\hyperlink{keyboard_8c_source_l00013}{\+\_\+event\+\_\+key}}.
 
 
 
-Referenced by \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00359}{setup()}}.
+Referenced by \mbox{\hyperlink{apps_2test_2main_8c_source_l00182}{setup()}}.
 
 
 

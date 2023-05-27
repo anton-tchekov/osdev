@@ -24,16 +24,17 @@
 - All source files, structs, functions (including static) and global variables
 	should be documented using doxygen comments
 
-# Global TODO List
+# TODO
 
 ## Current Tasks
+- GUI Fix Bugs (text width calculation)
 - Better SysCall Parameter checking, Memory Protection
+- Documentation, not again, yes I am forcing myself ...
+
 - Cooperative Scheduler, Background Tasks, Exit function
 - AVR XMEM image routines
 - AVR PS/2 Keyboard character conversion and test
 - AVR SD Driver write block function
-- Documentation, not again, yes I am forcing myself ...
-- GUI Fix Bugs (text width calculation)
 - Port Tetris
 
 ## Immediate Next Steps
@@ -45,6 +46,8 @@
 - File Manager
 - Emulate RISC-V Single Precision Floating Point Extension and Math Lib
 - Async Drivers
+
+# Descriptions
 
 ## Tetris
 - Game title screen
@@ -64,7 +67,8 @@
 - Goto Line
 - Import / Export contents
 
-## DONE
+# DONE
+- Invert labels
 - GUI Hide/Show labels (`label_show(&label, true)`)
 - Working Login
 - GUI Text field copy/cut/paste

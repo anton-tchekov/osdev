@@ -1,3 +1,11 @@
+/**
+ * @file    font-convert.c
+ * @author  Anton Tchekov
+ * @version 0.1
+ * @date    25.05.2023
+ * @brief   Bitmap font from TTF generator
+ */
+
 #include <stdio.h>
 #include <locale.h>
 #include <types.h>
@@ -43,6 +51,13 @@ typedef struct
 	u32 Flags;
 } Font;
 
+/**
+ * @brief Malloc wrapper that prints an error and exits if the memory
+ *        allocation failed
+ *
+ * @param size Number of bytes to allocate
+ * @return Block of memory with the requested size
+ */
 static void *_malloc(u32 size)
 {
 	void *p = malloc(size);
@@ -55,12 +70,27 @@ static void *_malloc(u32 size)
 	return p;
 }
 
-/* UTF-8 and string functions */
+/* --- UTF-8 and string functions --- */
+
+/**
+ * @brief Compare two i32 numbers for qsort
+ *
+ * @param a First element
+ * @param b Second element
+ * @return Comparison result (ordering)
+ */
 static i32 _compare_i32(const void *a, const void *b)
 {
 	return *(const i32 *)a  - *(const i32 *)b;
 }
 
+/**
+ * @brief Sort an array of i32 numbers in place and remove duplicates
+ *
+ * @param elements Pointer to array of numbers
+ * @param count Number of elements in the array
+ * @return New count after duplocates have been removed
+ */
 static i32 _sort_unique(i32 *elements, i32 count)
 {
 	i32 a, b;
@@ -80,6 +110,13 @@ static i32 _sort_unique(i32 *elements, i32 count)
 	return b;
 }
 
+/**
+ * @brief Get an array of unique unicode codepoints from a UTF-8 string
+ *
+ * @param s The string
+ * @param length Output parameter for number of unique codepoints
+ * @return Pointer to heap-allocated unicode codepoint array
+ */
 static i32 *_unique_codepoints(const char *s, i32 *length)
 {
 	const char *p;
@@ -109,6 +146,13 @@ static i32 *_unique_codepoints(const char *s, i32 *length)
 	return cp;
 }
 
+/**
+ * @brief Font converter main function
+ *
+ * @param argc Command line argument count
+ * @param argv Command line arguments array
+ * @return Exit code
+ */
 int main(int argc, char *argv[])
 {
 	FT_Library library;

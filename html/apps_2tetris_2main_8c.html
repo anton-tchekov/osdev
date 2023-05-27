@@ -154,7 +154,7 @@ Functions</h2></td></tr>
 <tr class="separator:a179f7e3f493ed0a3bdf1bc11907e8c98"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ade05f2059114427e9bcbc708760f5da3"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="apps_2tetris_2main_8c.html#ade05f2059114427e9bcbc708760f5da3">_draw_field</a> (void)</td></tr>
 <tr class="separator:ade05f2059114427e9bcbc708760f5da3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af5305db9ea018cc40d167b2a51d77ac1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="apps_2tetris_2main_8c.html#af5305db9ea018cc40d167b2a51d77ac1">event_key</a> (Key key, <a class="el" href="types_8h.html#a48d6cd8e4135fb2ff7e7f2dac84089ec">i32</a> chr, KeyState state)</td></tr>
+<tr class="memitem:af5305db9ea018cc40d167b2a51d77ac1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="apps_2tetris_2main_8c.html#af5305db9ea018cc40d167b2a51d77ac1">event_key</a> (<a class="el" href="keyboard-shared_8h.html#a48752551c4279f8cddf3585f8272092a">Key</a> key, <a class="el" href="types_8h.html#a48d6cd8e4135fb2ff7e7f2dac84089ec">i32</a> chr, <a class="el" href="keyboard-shared_8h.html#a7e51438e5f6bf556512ce7103cddac09">KeyState</a> state)</td></tr>
 <tr class="separator:af5305db9ea018cc40d167b2a51d77ac1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7dfd9b79bc5a37d7df40207afbc5431f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="apps_2tetris_2main_8c.html#a7dfd9b79bc5a37d7df40207afbc5431f">setup</a> (void)</td></tr>
 <tr class="memdesc:a7dfd9b79bc5a37d7df40207afbc5431f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setup function that is called at program start. Must be implemented by user.  <br /></td></tr>
@@ -169,7 +169,7 @@ Variables</h2></td></tr>
 struct {</td></tr>
 <tr class="memitem:a16e1dedfc62861e4e8e4b87b1a076f76"><td class="memItemLeft" >&#160;&#160;&#160;<a class="el" href="types_8h.html#ace9d960e74685e2cd84b36132dbbf8aa">u16</a>&#160;&#160;&#160;<a class="el" href="apps_2tetris_2main_8c.html#af0b7cef61a093895654eef83e9a3fc88">Blocks</a> [4]</td></tr>
 <tr class="separator:a16e1dedfc62861e4e8e4b87b1a076f76"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adbb9866ed480e2f724ca6ee1711db348"><td class="memItemLeft" >&#160;&#160;&#160;Color&#160;&#160;&#160;<a class="el" href="apps_2tetris_2main_8c.html#a7e974f283fb6d654806490ef05fda019">Fill</a></td></tr>
+<tr class="memitem:adbb9866ed480e2f724ca6ee1711db348"><td class="memItemLeft" >&#160;&#160;&#160;<a class="el" href="gfx-types_8h.html#acbbccb6085c654282ef64cdcefc81be5">Color</a>&#160;&#160;&#160;<a class="el" href="apps_2tetris_2main_8c.html#a7e974f283fb6d654806490ef05fda019">Fill</a></td></tr>
 <tr class="separator:adbb9866ed480e2f724ca6ee1711db348"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a44d0b11242273c3a0d3a3e1d21edea1f"><td class="memItemLeft" valign="top">}&#160;</td><td class="memItemRight" valign="bottom"><b>Pieces</b> []</td></tr>
 <tr class="separator:a44d0b11242273c3a0d3a3e1d21edea1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -454,7 +454,7 @@ struct {</td></tr>
 <div class="line"><span class="lineno">  280</span>        {</div>
 <div class="line"><span class="lineno">  281</span>            offset = y * <a class="code hl_define" href="apps_2tetris_2main_8c.html#a313353b53d609b3b2b37e1aecf98bf4c">FIELD_WIDTH</a> + x;</div>
 <div class="line"><span class="lineno">  282</span>            type = _new[offset];</div>
-<div class="line"><span class="lineno">  283</span>            Color color = type ? Pieces[type - 1].Fill : <a class="code hl_define" href="lcd_8h.html#aba2a7fe77a7501e5844370eec0185207">COLOR_BLACK</a>;</div>
+<div class="line"><span class="lineno">  283</span>            <a class="code hl_typedef" href="gfx-types_8h.html#acbbccb6085c654282ef64cdcefc81be5">Color</a> color = type ? Pieces[type - 1].Fill : <a class="code hl_define" href="lcd_8h.html#aba2a7fe77a7501e5844370eec0185207">COLOR_BLACK</a>;</div>
 <div class="line"><span class="lineno">  284</span>            <span class="keywordflow">if</span>(type != _prev[offset])</div>
 <div class="line"><span class="lineno">  285</span>            {</div>
 <div class="line"><span class="lineno">  286</span>                <a class="code hl_function" href="gfx_8c.html#a61d70a4550bf181cd71bfc9a4f12a6d1">gfx_rect</a>(</div>
@@ -470,6 +470,7 @@ struct {</td></tr>
 <div class="line"><span class="lineno">  296</span>    <a class="code hl_function" href="string_8c.html#a6ea826c42748b85ae7c74f1e2ccf7c27">memcpy</a>(_prev, _new, <span class="keyword">sizeof</span>(_field));</div>
 <div class="line"><span class="lineno">  297</span>}</div>
 <div class="ttc" id="aapps_2tetris_2main_8c_html_ad51ded0bbd705f02f73fc60c0b721ced"><div class="ttname"><a href="apps_2tetris_2main_8c.html#ad51ded0bbd705f02f73fc60c0b721ced">BLOCK_SIZE</a></div><div class="ttdeci">#define BLOCK_SIZE</div><div class="ttdef"><b>Definition:</b> <a href="apps_2tetris_2main_8c_source.html#l00022">main.c:22</a></div></div>
+<div class="ttc" id="agfx-types_8h_html_acbbccb6085c654282ef64cdcefc81be5"><div class="ttname"><a href="gfx-types_8h.html#acbbccb6085c654282ef64cdcefc81be5">Color</a></div><div class="ttdeci">u32 Color</div><div class="ttdef"><b>Definition:</b> <a href="gfx-types_8h_source.html#l00013">gfx-types.h:13</a></div></div>
 <div class="ttc" id="agfx_8c_html_a61d70a4550bf181cd71bfc9a4f12a6d1"><div class="ttname"><a href="gfx_8c.html#a61d70a4550bf181cd71bfc9a4f12a6d1">gfx_rect</a></div><div class="ttdeci">void gfx_rect(i32 x, i32 y, i32 w, i32 h, Color color)</div><div class="ttdoc">Draws a rectangle from position (x|y), w pixels to left and h pixels down.</div><div class="ttdef"><b>Definition:</b> <a href="gfx_8c_source.html#l00011">gfx.c:11</a></div></div>
 <div class="ttc" id="alcd_8h_html_aba2a7fe77a7501e5844370eec0185207"><div class="ttname"><a href="lcd_8h.html#aba2a7fe77a7501e5844370eec0185207">COLOR_BLACK</a></div><div class="ttdeci">#define COLOR_BLACK</div><div class="ttdef"><b>Definition:</b> <a href="lcd_8h_source.html#l00038">lcd.h:38</a></div></div>
 <div class="ttc" id="astring_8c_html_a6ea826c42748b85ae7c74f1e2ccf7c27"><div class="ttname"><a href="string_8c.html#a6ea826c42748b85ae7c74f1e2ccf7c27">memcpy</a></div><div class="ttdeci">void * memcpy(void *dest, const void *src, u32 count)</div><div class="ttdoc">Copies count bytes from src to dest Source and destination blocks must NOT overlap.</div><div class="ttdef"><b>Definition:</b> <a href="string_8c_source.html#l00094">string.c:94</a></div></div>
@@ -868,7 +869,7 @@ struct {</td></tr>
         <tr>
           <td class="memname">void event_key </td>
           <td>(</td>
-          <td class="paramtype">Key&#160;</td>
+          <td class="paramtype"><a class="el" href="keyboard-shared_8h.html#a48752551c4279f8cddf3585f8272092a">Key</a>&#160;</td>
           <td class="paramname"><em>key</em>, </td>
         </tr>
         <tr>
@@ -880,7 +881,7 @@ struct {</td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">KeyState&#160;</td>
+          <td class="paramtype"><a class="el" href="keyboard-shared_8h.html#a7e51438e5f6bf556512ce7103cddac09">KeyState</a>&#160;</td>
           <td class="paramname"><em>state</em>&#160;</td>
         </tr>
         <tr>
@@ -974,6 +975,7 @@ struct {</td></tr>
 </div><div class="memdoc">
 
 <p>Loop function that is called repeatedly Must be implemented by user. </p>
+<p>Loop function that is called repeatedly Must be implemented by user. </p>
 
 <p class="definition">Definition at line <a class="el" href="apps_2tetris_2main_8c_source.html#l00372">372</a> of file <a class="el" href="apps_2tetris_2main_8c_source.html">main.c</a>.</p>
 <div class="fragment"><div class="line"><span class="lineno">  373</span>{</div>
@@ -1026,6 +1028,7 @@ struct {</td></tr>
 </div><div class="memdoc">
 
 <p>Setup function that is called at program start. Must be implemented by user. </p>
+<p>Setup function that is called at program start. Must be implemented by user. </p>
 
 <p class="definition">Definition at line <a class="el" href="apps_2tetris_2main_8c_source.html#l00359">359</a> of file <a class="el" href="apps_2tetris_2main_8c_source.html">main.c</a>.</p>
 <div class="fragment"><div class="line"><span class="lineno">  360</span>{</div>
@@ -1044,7 +1047,7 @@ struct {</td></tr>
 <div class="ttc" id="akeyboard_8c_html_a3676e1550d4471bddab4c84dd0c844dc"><div class="ttname"><a href="keyboard_8c.html#a3676e1550d4471bddab4c84dd0c844dc">keyboard_register_event</a></div><div class="ttdeci">void keyboard_register_event(KeyEvent event)</div><div class="ttdoc">Register an OnKeyboardInput event.</div><div class="ttdef"><b>Definition:</b> <a href="keyboard_8c_source.html#l00031">keyboard.c:31</a></div></div>
 <div class="ttc" id="astring_8c_html_ab5fb910d7238069eb23f4b06809aa68e"><div class="ttname"><a href="string_8c.html#ab5fb910d7238069eb23f4b06809aa68e">memset</a></div><div class="ttdeci">void * memset(void *ptr, i32 value, u32 count)</div><div class="ttdoc">Sets all bytes in a block of memory to value</div><div class="ttdef"><b>Definition:</b> <a href="string_8c_source.html#l00176">string.c:176</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="lcd_8h_source.html#l00038">COLOR_BLACK</a>, <a class="el" href="lcd_8h_source.html#l00035">COLOR_WHITE</a>, <a class="el" href="font_8h_source.html#l00090">font_string()</a>, <a class="el" href="gfx_8c_source.html#l00030">gfx_image_rgb()</a>, <a class="el" href="gfx_8c_source.html#l00011">gfx_rect()</a>, <a class="el" href="keyboard_8c_source.html#l00031">keyboard_register_event()</a>, <a class="el" href="string_8c_source.html#l00176">memset()</a>, <a class="el" href="timer_8c_source.html#l00036">millis()</a>, <a class="el" href="apps_2tetris_2main_8c_source.html#l00049">Piece::Rotation</a>, <a class="el" href="apps_2tetris_2main_8c_source.html#l00034">STATUS_RUNNING</a>, <a class="el" href="apps_2tetris_2main_8c_source.html#l00052">Piece::Type</a>, <a class="el" href="apps_2tetris_2main_8c_source.html#l00043">Piece::X</a>, and <a class="el" href="apps_2tetris_2main_8c_source.html#l00046">Piece::Y</a>.</p>
+<p class="reference">References <a class="el" href="lcd_8h_source.html#l00038">COLOR_BLACK</a>, <a class="el" href="lcd_8h_source.html#l00035">COLOR_WHITE</a>, <a class="el" href="font_8h_source.html#l00090">font_string()</a>, <a class="el" href="gfx-types_8h_source.html#l00019">GFX_HEIGHT</a>, <a class="el" href="gfx_8c_source.html#l00030">gfx_image_rgb()</a>, <a class="el" href="gfx_8c_source.html#l00011">gfx_rect()</a>, <a class="el" href="gfx-types_8h_source.html#l00016">GFX_WIDTH</a>, <a class="el" href="keyboard_8c_source.html#l00031">keyboard_register_event()</a>, <a class="el" href="string_8c_source.html#l00176">memset()</a>, <a class="el" href="timer_8c_source.html#l00036">millis()</a>, <a class="el" href="apps_2tetris_2main_8c_source.html#l00049">Piece::Rotation</a>, <a class="el" href="apps_2tetris_2main_8c_source.html#l00034">STATUS_RUNNING</a>, <a class="el" href="apps_2tetris_2main_8c_source.html#l00052">Piece::Type</a>, <a class="el" href="apps_2tetris_2main_8c_source.html#l00043">Piece::X</a>, and <a class="el" href="apps_2tetris_2main_8c_source.html#l00046">Piece::Y</a>.</p>
 
 </div>
 </div>
@@ -1336,7 +1339,7 @@ struct {</td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">Color Fill</td>
+          <td class="memname"><a class="el" href="gfx-types_8h.html#acbbccb6085c654282ef64cdcefc81be5">Color</a> Fill</td>
         </tr>
       </table>
 </div><div class="memdoc">

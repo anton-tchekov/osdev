@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['loglevel_0',['LogLevel',['../logger_8h.html#aca1fd1d8935433e6ba2e3918214e07f9',1,'logger.h']]]
+  ['keystate_0',['KeyState',['../keyboard-shared_8h.html#a7e51438e5f6bf556512ce7103cddac09',1,'keyboard-shared.h']]]
 ];

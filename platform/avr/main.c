@@ -1,3 +1,11 @@
+/**
+ * @file    main.c
+ * @author  Anton Tchekov
+ * @version 0.1
+ * @date    25.05.2023
+ * @brief   AVR Main
+ */
+
 #include <ps2.h>
 #include <serial.h>
 #include <adc.h>

@@ -324,25 +324,26 @@ void input_clear(Input *i)
  */
 static void input_selection_replace(Input *i, const char *str, i32 len)
 {
-	i32 sel_start, sel_len;
+	i32 sel_start, sel_len, w_new, w_start, w_end;
 
-	/* TODO: This is broken */
-	if(font_string_width_len(vector_data(&i->Text),
-		vector_len(&i->Text), font_default) +
-		font_string_width_len(str, len, font_default)
-		>= i->W - 2 * INPUT_PADDING_X)
+	sel_start = i32_min(i->Selection, i->Position);
+	sel_len = i32_max(i->Selection, i->Position) - sel_start;
+
+	w_new = font_string_width_len(str, len, font_default);
+	w_start = font_string_width_len(vector_data(&i->Text), sel_start, font_default);
+	w_end = font_string_width_len(vector_data(&i->Text) + sel_start + sel_len,
+		vector_len(&i->Text) - sel_start - sel_len, font_default);
+
+	if(w_new + w_start + w_end >= i->W - 2 * INPUT_PADDING_X)
 	{
 		return;
 	}
 
-	sel_start = i32_min(i->Selection, i->Position);
-	sel_len = i32_max(i->Selection, i->Position) - sel_start;
 	vector_replace(&i->Text, sel_start, sel_len, str, len);
 	i->Position = sel_start + len;
 	i->Selection = i->Position;
 	input_render(i, true);
 }
-
 
 /**
  * @brief Move input cursor one position to the left and render input

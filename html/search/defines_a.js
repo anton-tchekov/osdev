@@ -1,13 +1,14 @@
 var searchData=
 [
-  ['panic_0',['PANIC',['../panic_8h.html#ae3c0c6fb5e69bb687e787ec5c487afa1',1,'panic.h']]],
-  ['ps2_5fclock_5fpin_1',['PS2_CLOCK_PIN',['../gpio_8h.html#aca51e1a5333b2e42e6a68eef69feb95c',1,'gpio.h']]],
-  ['ps2_5fclock_5fport_5fdir_2',['PS2_CLOCK_PORT_DIR',['../gpio_8h.html#a68c79028e41dd1dc62aeb13c18c66425',1,'gpio.h']]],
-  ['ps2_5fclock_5fport_5fin_3',['PS2_CLOCK_PORT_IN',['../gpio_8h.html#a8cf10dc8c06cc13c0172803614739d7b',1,'gpio.h']]],
-  ['ps2_5fclock_5fport_5fout_4',['PS2_CLOCK_PORT_OUT',['../gpio_8h.html#a753bb5bbad08738ae6e1547aa24d6a12',1,'gpio.h']]],
-  ['ps2_5fdata_5fpin_5',['PS2_DATA_PIN',['../gpio_8h.html#a9de0e05d896f00ad46cc166cd0d0146b',1,'gpio.h']]],
-  ['ps2_5fdata_5fport_5fdir_6',['PS2_DATA_PORT_DIR',['../gpio_8h.html#a20abb64c66d3ee3910424ee29e95fb92',1,'gpio.h']]],
-  ['ps2_5fdata_5fport_5fin_7',['PS2_DATA_PORT_IN',['../gpio_8h.html#a85a6dfc067aff42f3ff68450bc72e728',1,'gpio.h']]],
-  ['ps2_5fdata_5fport_5fout_8',['PS2_DATA_PORT_OUT',['../gpio_8h.html#a58425b9692faae43a9fc6f40b85d3f01',1,'gpio.h']]],
-  ['ps2_5fext_5finterrupt_9',['PS2_EXT_INTERRUPT',['../gpio_8h.html#a34ea49db58f76f1619e460765995f599',1,'gpio.h']]]
+  ['opcode_5fauipc_0',['OPCODE_AUIPC',['../emulator_8c.html#a9af59382997c0502ed03e80f0927a168',1,'emulator.c']]],
+  ['opcode_5fbranch_1',['OPCODE_BRANCH',['../emulator_8c.html#aa368b2be5bd482b7b59d9343befd5952',1,'emulator.c']]],
+  ['opcode_5fecall_2',['OPCODE_ECALL',['../emulator_8c.html#a5df4fa91035d0408701a72ad879bd86d',1,'emulator.c']]],
+  ['opcode_5fimm_3',['OPCODE_IMM',['../emulator_8c.html#a7282a6ffae5cd09f31d9daef6992d72d',1,'emulator.c']]],
+  ['opcode_5fjal_4',['OPCODE_JAL',['../emulator_8c.html#ab8bbea16b30fee6ad75d8da4dd7971ea',1,'emulator.c']]],
+  ['opcode_5fjalr_5',['OPCODE_JALR',['../emulator_8c.html#abf8132714061cd9a6b6322a574eb3216',1,'emulator.c']]],
+  ['opcode_5fload_6',['OPCODE_LOAD',['../emulator_8c.html#a2b18c87bd0a1a4e6d549b231e0d43e67',1,'emulator.c']]],
+  ['opcode_5flui_7',['OPCODE_LUI',['../emulator_8c.html#a559c4ba1a158859b346cd0e0556915da',1,'emulator.c']]],
+  ['opcode_5freg_8',['OPCODE_REG',['../emulator_8c.html#ad4f1fd3d7f2c86eb62c888053499e45b',1,'emulator.c']]],
+  ['opcode_5fstore_9',['OPCODE_STORE',['../emulator_8c.html#af15ec59a391a381b27613aea1357d6d6',1,'emulator.c']]],
+  ['output_5finterval_10',['OUTPUT_INTERVAL',['../xmem_8c.html#af6f22306e433d0d10bba1b7127d7e198',1,'xmem.c']]]
 ];

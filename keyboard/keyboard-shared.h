@@ -1,5 +1,5 @@
 /**
- * @file    keyboard.c
+ * @file    keyboard-shared.h
  * @author  Tim Gabrikowski, Anton Tchekov
  * @version 0.1
  * @date    14.05.2023

@@ -114,7 +114,7 @@ Referenced by \mbox{\hyperlink{keyboard_8c_source_l00016}{\+\_\+event\+\_\+key\+
 
 Loop function that is called repeatedly Must be implemented by user. 
 
-
+Loop function that is called repeatedly Must be implemented by user. 
 
 Definition at line \mbox{\hyperlink{apps_2bootscreen_2main_8c_source_l00021}{21}} of file \mbox{\hyperlink{apps_2bootscreen_2main_8c_source}{main.\+c}}.
 
@@ -130,7 +130,7 @@ Definition at line \mbox{\hyperlink{apps_2bootscreen_2main_8c_source_l00021}{21}
 \end{DoxyCode}
 
 
-References \mbox{\hyperlink{syscall_8h_source_l00206}{exit()}}, \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00025}{FALL\+\_\+\+SPEED\+\_\+\+DEFAULT}}, \mbox{\hyperlink{timer_8c_source_l00036}{millis()}}, \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00052}{Piece\+::\+Type}}, and \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00046}{Piece\+::Y}}.
+References \mbox{\hyperlink{apps_2test_2main_8c_source_l00083}{\+\_\+error}}, \mbox{\hyperlink{apps_2test_2main_8c_source_l00121}{\+\_\+hide\+\_\+error()}}, \mbox{\hyperlink{apps_2test_2main_8c_source_l00068}{\+\_\+label\+\_\+response}}, \mbox{\hyperlink{apps_2test_2main_8c_source_l00080}{\+\_\+millis\+\_\+blink}}, \mbox{\hyperlink{apps_2test_2main_8c_source_l00077}{\+\_\+millis\+\_\+error}}, \mbox{\hyperlink{apps_2test_2main_8c_source_l00086}{\+\_\+visible}}, \mbox{\hyperlink{apps_2test_2main_8c_source_l00039}{BLINK\+\_\+\+DELAY}}, \mbox{\hyperlink{syscall_8h_source_l00206}{exit()}}, \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00025}{FALL\+\_\+\+SPEED\+\_\+\+DEFAULT}}, \mbox{\hyperlink{gui_8c_source_l00917}{label\+\_\+show()}}, \mbox{\hyperlink{timer_8c_source_l00036}{millis()}}, \mbox{\hyperlink{apps_2test_2main_8c_source_l00036}{SHOW\+\_\+\+ERROR\+\_\+\+DELAY}}, \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00052}{Piece\+::\+Type}}, and \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00046}{Piece\+::Y}}.
 
 \mbox{\Hypertarget{event_8h_a7dfd9b79bc5a37d7df40207afbc5431f}\label{event_8h_a7dfd9b79bc5a37d7df40207afbc5431f}} 
 \index{event.h@{event.h}!setup@{setup}}
@@ -142,7 +142,7 @@ References \mbox{\hyperlink{syscall_8h_source_l00206}{exit()}}, \mbox{\hyperlink
 
 Setup function that is called at program start. Must be implemented by user. 
 
-
+Setup function that is called at program start. Must be implemented by user. 
 
 Definition at line \mbox{\hyperlink{apps_2bootscreen_2main_8c_source_l00008}{8}} of file \mbox{\hyperlink{apps_2bootscreen_2main_8c_source}{main.\+c}}.
 
@@ -151,10 +151,10 @@ Definition at line \mbox{\hyperlink{apps_2bootscreen_2main_8c_source_l00008}{8}}
 \DoxyCodeLine{00009\ \{}
 \DoxyCodeLine{00010\ \ \ \ \ \_begin\ =\ \mbox{\hyperlink{timer_8c_aee701eeb891b748ed2e12da119816882}{millis}}();}
 \DoxyCodeLine{00011\ }
-\DoxyCodeLine{00012\ \ \ \ \ \mbox{\hyperlink{gfx_8c_a61d70a4550bf181cd71bfc9a4f12a6d1}{gfx\_rect}}(0,\ 0,\ GFX\_WIDTH,\ GFX\_HEIGHT,\ \mbox{\hyperlink{lcd_8h_aba2a7fe77a7501e5844370eec0185207}{COLOR\_BLACK}});}
+\DoxyCodeLine{00012\ \ \ \ \ \mbox{\hyperlink{gfx_8c_a61d70a4550bf181cd71bfc9a4f12a6d1}{gfx\_rect}}(0,\ 0,\ \mbox{\hyperlink{gfx-types_8h_aae91ae7a3ca585293a2c1031652a49f9}{GFX\_WIDTH}},\ \mbox{\hyperlink{gfx-types_8h_a11b59534db467ebd1fb19b758e6fffd7}{GFX\_HEIGHT}},\ \mbox{\hyperlink{lcd_8h_aba2a7fe77a7501e5844370eec0185207}{COLOR\_BLACK}});}
 \DoxyCodeLine{00013\ \ \ \ \ \mbox{\hyperlink{gfx_8c_a65973eb6c3df8a895f50d412bd7b1865}{gfx\_image\_rgb}}(}
-\DoxyCodeLine{00014\ \ \ \ \ \ \ \ \ GFX\_WIDTH\ /\ 2\ -\/\ bootscreen.width\ /\ 2,}
-\DoxyCodeLine{00015\ \ \ \ \ \ \ \ \ GFX\_HEIGHT\ /\ 2\ -\/\ bootscreen.height\ /\ 2,}
+\DoxyCodeLine{00014\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gfx-types_8h_aae91ae7a3ca585293a2c1031652a49f9}{GFX\_WIDTH}}\ /\ 2\ -\/\ bootscreen.width\ /\ 2,}
+\DoxyCodeLine{00015\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gfx-types_8h_a11b59534db467ebd1fb19b758e6fffd7}{GFX\_HEIGHT}}\ /\ 2\ -\/\ bootscreen.height\ /\ 2,}
 \DoxyCodeLine{00016\ \ \ \ \ \ \ \ \ bootscreen.width,}
 \DoxyCodeLine{00017\ \ \ \ \ \ \ \ \ bootscreen.height,}
 \DoxyCodeLine{00018\ \ \ \ \ \ \ \ \ bootscreen.pixel\_data);}
@@ -163,5 +163,5 @@ Definition at line \mbox{\hyperlink{apps_2bootscreen_2main_8c_source_l00008}{8}}
 \end{DoxyCode}
 
 
-References \mbox{\hyperlink{lcd_8h_source_l00038}{COLOR\+\_\+\+BLACK}}, \mbox{\hyperlink{lcd_8h_source_l00035}{COLOR\+\_\+\+WHITE}}, \mbox{\hyperlink{font_8h_source_l00090}{font\+\_\+string()}}, \mbox{\hyperlink{gfx_8c_source_l00030}{gfx\+\_\+image\+\_\+rgb()}}, \mbox{\hyperlink{gfx_8c_source_l00011}{gfx\+\_\+rect()}}, \mbox{\hyperlink{keyboard_8c_source_l00031}{keyboard\+\_\+register\+\_\+event()}}, \mbox{\hyperlink{string_8c_source_l00176}{memset()}}, \mbox{\hyperlink{timer_8c_source_l00036}{millis()}}, \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00049}{Piece\+::\+Rotation}}, \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00034}{STATUS\+\_\+\+RUNNING}}, \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00052}{Piece\+::\+Type}}, \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00043}{Piece\+::X}}, and \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00046}{Piece\+::Y}}.
+References \mbox{\hyperlink{apps_2test_2main_8c_source_l00056}{\+\_\+button\+\_\+login}}, \mbox{\hyperlink{apps_2test_2main_8c_source_l00074}{\+\_\+input\+\_\+password}}, \mbox{\hyperlink{apps_2test_2main_8c_source_l00071}{\+\_\+input\+\_\+username}}, \mbox{\hyperlink{apps_2test_2main_8c_source_l00065}{\+\_\+label\+\_\+no\+\_\+apps}}, \mbox{\hyperlink{apps_2test_2main_8c_source_l00062}{\+\_\+label\+\_\+password}}, \mbox{\hyperlink{apps_2test_2main_8c_source_l00068}{\+\_\+label\+\_\+response}}, \mbox{\hyperlink{apps_2test_2main_8c_source_l00059}{\+\_\+label\+\_\+username}}, \mbox{\hyperlink{apps_2test_2main_8c_source_l00053}{\+\_\+window\+\_\+apps}}, \mbox{\hyperlink{apps_2test_2main_8c_source_l00050}{\+\_\+window\+\_\+login}}, \mbox{\hyperlink{util_8h_source_l00013}{ARRLEN}}, \mbox{\hyperlink{apps_2test_2main_8c_source_l00021}{BUTTON\+\_\+\+HEIGHT}}, \mbox{\hyperlink{gui_8c_source_l00884}{button\+\_\+init()}}, \mbox{\hyperlink{apps_2test_2main_8c_source_l00130}{button\+\_\+login\+\_\+onclick()}}, \mbox{\hyperlink{apps_2test_2main_8c_source_l00030}{BUTTON\+\_\+\+LOGIN\+\_\+Y}}, \mbox{\hyperlink{apps_2test_2main_8c_source_l00018}{BUTTON\+\_\+\+WIDTH}}, \mbox{\hyperlink{lcd_8h_source_l00038}{COLOR\+\_\+\+BLACK}}, \mbox{\hyperlink{lcd_8h_source_l00035}{COLOR\+\_\+\+WHITE}}, \mbox{\hyperlink{apps_2test_2main_8c_source_l00100}{elements\+\_\+apps}}, \mbox{\hyperlink{apps_2test_2main_8c_source_l00089}{elements\+\_\+login}}, \mbox{\hyperlink{gui_8h_source_l00032}{FLAG\+\_\+\+ALIGN\+\_\+\+CENTER}}, \mbox{\hyperlink{gui_8h_source_l00029}{FLAG\+\_\+\+ALIGN\+\_\+\+LEFT}}, \mbox{\hyperlink{gui_8h_source_l00047}{FLAG\+\_\+\+INVERTED}}, \mbox{\hyperlink{gui_8h_source_l00050}{FLAG\+\_\+\+INVISIBLE}}, \mbox{\hyperlink{gui_8h_source_l00044}{FLAG\+\_\+\+PASSWORD}}, \mbox{\hyperlink{gui_8h_source_l00106}{Input\+::\+Flags}}, \mbox{\hyperlink{font_8h_source_l00090}{font\+\_\+string()}}, \mbox{\hyperlink{gfx-types_8h_source_l00019}{GFX\+\_\+\+HEIGHT}}, \mbox{\hyperlink{gfx_8c_source_l00030}{gfx\+\_\+image\+\_\+rgb()}}, \mbox{\hyperlink{gfx_8c_source_l00011}{gfx\+\_\+rect()}}, \mbox{\hyperlink{gfx-types_8h_source_l00016}{GFX\+\_\+\+WIDTH}}, \mbox{\hyperlink{gui_8c_source_l00896}{input\+\_\+init()}}, \mbox{\hyperlink{apps_2test_2main_8c_source_l00033}{INPUT\+\_\+\+LABEL\+\_\+\+OFFSET}}, \mbox{\hyperlink{apps_2test_2main_8c_source_l00027}{INPUT\+\_\+\+PASSWORD\+\_\+Y}}, \mbox{\hyperlink{apps_2test_2main_8c_source_l00024}{INPUT\+\_\+\+USERNAME\+\_\+Y}}, \mbox{\hyperlink{apps_2test_2main_8c_source_l00015}{INPUT\+\_\+\+WIDTH}}, \mbox{\hyperlink{keyboard_8c_source_l00031}{keyboard\+\_\+register\+\_\+event()}}, \mbox{\hyperlink{apps_2test_2main_8c_source_l00042}{LABEL\+\_\+\+ERROR\+\_\+Y}}, \mbox{\hyperlink{gui_8c_source_l00875}{label\+\_\+init()}}, \mbox{\hyperlink{apps_2test_2main_8c_source_l00045}{LABEL\+\_\+\+NO\+\_\+\+APPS\+\_\+Y}}, \mbox{\hyperlink{string_8c_source_l00176}{memset()}}, \mbox{\hyperlink{timer_8c_source_l00036}{millis()}}, \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00049}{Piece\+::\+Rotation}}, \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00034}{STATUS\+\_\+\+RUNNING}}, \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00052}{Piece\+::\+Type}}, \mbox{\hyperlink{gui_8c_source_l00865}{window\+\_\+init()}}, \mbox{\hyperlink{apps_2test_2main_8c_source_l00157}{window\+\_\+login\+\_\+onkey()}}, \mbox{\hyperlink{gui_8c_source_l00801}{window\+\_\+open()}}, \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00043}{Piece\+::X}}, and \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00046}{Piece\+::Y}}.
 

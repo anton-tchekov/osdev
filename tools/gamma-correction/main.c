@@ -1,3 +1,11 @@
+/**
+ * @file    main.c
+ * @author  Anton Tchekov
+ * @version 0.1
+ * @date    25.05.2023
+ * @brief   Generate gamma correction tables
+ */
+
 #include <stdint.h>
 #include <math.h>
 #include <stdio.h>

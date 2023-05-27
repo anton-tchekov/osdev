@@ -82,13 +82,13 @@ $(function() {
 <p>Keyboard layout interface.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;<a class="el" href="types_8h_source.html">types.h</a>&gt;</code><br />
-<code>#include &lt;keyboard-shared.h&gt;</code><br />
+<code>#include &lt;<a class="el" href="keyboard-shared_8h_source.html">keyboard-shared.h</a>&gt;</code><br />
 </div>
 <p><a href="layout_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a1a0767e5d023fa8fe76e781df02f7374"><td class="memItemLeft" align="right" valign="top"><a class="el" href="types_8h.html#a48d6cd8e4135fb2ff7e7f2dac84089ec">i32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="layout_8h.html#a1a0767e5d023fa8fe76e781df02f7374">key_to_codepoint</a> (Key k)</td></tr>
+<tr class="memitem:a1a0767e5d023fa8fe76e781df02f7374"><td class="memItemLeft" align="right" valign="top"><a class="el" href="types_8h.html#a48d6cd8e4135fb2ff7e7f2dac84089ec">i32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="layout_8h.html#a1a0767e5d023fa8fe76e781df02f7374">key_to_codepoint</a> (<a class="el" href="keyboard-shared_8h.html#a48752551c4279f8cddf3585f8272092a">Key</a> k)</td></tr>
 <tr class="memdesc:a1a0767e5d023fa8fe76e781df02f7374"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert key to codepoint.  <br /></td></tr>
 <tr class="separator:a1a0767e5d023fa8fe76e781df02f7374"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -109,7 +109,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname"><a class="el" href="types_8h.html#a48d6cd8e4135fb2ff7e7f2dac84089ec">i32</a> key_to_codepoint </td>
           <td>(</td>
-          <td class="paramtype">Key&#160;</td>
+          <td class="paramtype"><a class="el" href="keyboard-shared_8h.html#a48752551c4279f8cddf3585f8272092a">Key</a>&#160;</td>
           <td class="paramname"><em>k</em></td><td>)</td>
           <td></td>
         </tr>
@@ -127,7 +127,7 @@ Functions</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="german_8c_source.html#l00049">49</a> of file <a class="el" href="german_8c_source.html">german.c</a>.</p>
 <div class="fragment"><div class="line"><span class="lineno">   50</span>{</div>
-<div class="line"><span class="lineno">   51</span>    Key nomods = key_mod_remove(k);</div>
+<div class="line"><span class="lineno">   51</span>    <a class="code hl_typedef" href="keyboard-shared_8h.html#a48752551c4279f8cddf3585f8272092a">Key</a> nomods = <a class="code hl_function" href="keyboard-shared_8h.html#a880abf3d6af489d7061fa041feea49f4">key_mod_remove</a>(k);</div>
 <div class="line"><span class="lineno">   52</span> </div>
 <div class="line"><span class="lineno">   53</span>    <span class="keywordflow">if</span>(nomods == KEY_TAB)                           { <span class="keywordflow">return</span> <span class="charliteral">&#39;\t&#39;</span>; }</div>
 <div class="line"><span class="lineno">   54</span>    <span class="keywordflow">else</span> <span class="keywordflow">if</span>(nomods == KEY_BACKSPACE)                { <span class="keywordflow">return</span> <span class="charliteral">&#39;\b&#39;</span>; }</div>
@@ -220,10 +220,12 @@ Functions</h2></td></tr>
 <div class="ttc" id="agerman_8c_html_a9680eafa86ca7ec8bdd7d225f1c49df8"><div class="ttname"><a href="german_8c.html#a9680eafa86ca7ec8bdd7d225f1c49df8">UNICODE_CAPITAL_U_UMLAUT</a></div><div class="ttdeci">#define UNICODE_CAPITAL_U_UMLAUT</div><div class="ttdef"><b>Definition:</b> <a href="german_8c_source.html#l00043">german.c:43</a></div></div>
 <div class="ttc" id="agerman_8c_html_aab00c2ca6945feced31357ed0ee7ecbe"><div class="ttname"><a href="german_8c.html#aab00c2ca6945feced31357ed0ee7ecbe">UNICODE_SMALL_U_UMLAUT</a></div><div class="ttdeci">#define UNICODE_SMALL_U_UMLAUT</div><div class="ttdef"><b>Definition:</b> <a href="german_8c_source.html#l00046">german.c:46</a></div></div>
 <div class="ttc" id="agerman_8c_html_ac4e00ec54130d492adb55465717fc79a"><div class="ttname"><a href="german_8c.html#ac4e00ec54130d492adb55465717fc79a">UNICODE_CAPITAL_A_UMLAUT</a></div><div class="ttdeci">#define UNICODE_CAPITAL_A_UMLAUT</div><div class="ttdef"><b>Definition:</b> <a href="german_8c_source.html#l00031">german.c:31</a></div></div>
+<div class="ttc" id="akeyboard-shared_8h_html_a48752551c4279f8cddf3585f8272092a"><div class="ttname"><a href="keyboard-shared_8h.html#a48752551c4279f8cddf3585f8272092a">Key</a></div><div class="ttdeci">u32 Key</div><div class="ttdef"><b>Definition:</b> <a href="keyboard-shared_8h_source.html#l00024">keyboard-shared.h:24</a></div></div>
+<div class="ttc" id="akeyboard-shared_8h_html_a880abf3d6af489d7061fa041feea49f4"><div class="ttname"><a href="keyboard-shared_8h.html#a880abf3d6af489d7061fa041feea49f4">key_mod_remove</a></div><div class="ttdeci">static Key key_mod_remove(Key key)</div><div class="ttdoc">Remove modifiers from key.</div><div class="ttdef"><b>Definition:</b> <a href="keyboard-shared_8h_source.html#l00032">keyboard-shared.h:32</a></div></div>
 <div class="ttc" id="atypes_8h_html_a48d6cd8e4135fb2ff7e7f2dac84089ec"><div class="ttname"><a href="types_8h.html#a48d6cd8e4135fb2ff7e7f2dac84089ec">i32</a></div><div class="ttdeci">int32_t i32</div><div class="ttdef"><b>Definition:</b> <a href="types_8h_source.html#l00020">types.h:20</a></div></div>
 <div class="ttc" id="atypes_8h_html_afaa62991928fb9fb18ff0db62a040aba"><div class="ttname"><a href="types_8h.html#afaa62991928fb9fb18ff0db62a040aba">u32</a></div><div class="ttdeci">uint32_t u32</div><div class="ttdef"><b>Definition:</b> <a href="types_8h_source.html#l00032">types.h:32</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="ctype_8c_source.html#l00073">toupper()</a>, <a class="el" href="german_8c_source.html#l00031">UNICODE_CAPITAL_A_UMLAUT</a>, <a class="el" href="german_8c_source.html#l00037">UNICODE_CAPITAL_O_UMLAUT</a>, <a class="el" href="german_8c_source.html#l00043">UNICODE_CAPITAL_U_UMLAUT</a>, <a class="el" href="german_8c_source.html#l00016">UNICODE_DEGREE_SIGN</a>, <a class="el" href="german_8c_source.html#l00025">UNICODE_EURO_SIGN</a>, <a class="el" href="german_8c_source.html#l00013">UNICODE_SECTION_SIGN</a>, <a class="el" href="german_8c_source.html#l00034">UNICODE_SMALL_A_UMLAUT</a>, <a class="el" href="german_8c_source.html#l00040">UNICODE_SMALL_O_UMLAUT</a>, <a class="el" href="german_8c_source.html#l00028">UNICODE_SMALL_SHARP_S</a>, <a class="el" href="german_8c_source.html#l00046">UNICODE_SMALL_U_UMLAUT</a>, <a class="el" href="german_8c_source.html#l00022">UNICODE_SUPERSCRIPT_THREE</a>, and <a class="el" href="german_8c_source.html#l00019">UNICODE_SUPERSCRIPT_TWO</a>.</p>
+<p class="reference">References <a class="el" href="keyboard-shared_8h_source.html#l00032">key_mod_remove()</a>, <a class="el" href="ctype_8c_source.html#l00073">toupper()</a>, <a class="el" href="german_8c_source.html#l00031">UNICODE_CAPITAL_A_UMLAUT</a>, <a class="el" href="german_8c_source.html#l00037">UNICODE_CAPITAL_O_UMLAUT</a>, <a class="el" href="german_8c_source.html#l00043">UNICODE_CAPITAL_U_UMLAUT</a>, <a class="el" href="german_8c_source.html#l00016">UNICODE_DEGREE_SIGN</a>, <a class="el" href="german_8c_source.html#l00025">UNICODE_EURO_SIGN</a>, <a class="el" href="german_8c_source.html#l00013">UNICODE_SECTION_SIGN</a>, <a class="el" href="german_8c_source.html#l00034">UNICODE_SMALL_A_UMLAUT</a>, <a class="el" href="german_8c_source.html#l00040">UNICODE_SMALL_O_UMLAUT</a>, <a class="el" href="german_8c_source.html#l00028">UNICODE_SMALL_SHARP_S</a>, <a class="el" href="german_8c_source.html#l00046">UNICODE_SMALL_U_UMLAUT</a>, <a class="el" href="german_8c_source.html#l00022">UNICODE_SUPERSCRIPT_THREE</a>, and <a class="el" href="german_8c_source.html#l00019">UNICODE_SUPERSCRIPT_TWO</a>.</p>
 
 </div>
 </div>
