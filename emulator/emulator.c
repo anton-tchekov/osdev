@@ -25,7 +25,7 @@
 /** Print to terminal */
 #define EMU_LOG(...) { printf(__VA_ARGS__); fputc('\n', stdout); }
 
-/** Progmem string mock */
+/** PROGMEM string mock */
 #define PSTR(X) X
 
 #else /* __linux__ */
@@ -108,8 +108,11 @@ static inline u32 sext(u8 bits, u32 value)
 /** Called function finished flag */
 static bool _finished;
 
-/**/
-static Emulator _cur, *_emu = &_cur;
+/** TODO: To be removed when multitasking is implemented */
+static Emulator _cur;
+
+/** TODO: To be removed when multitasking is implemented */
+static Emulator *_emu = &_cur;
 
 /** Total size of the memory in bytes */
 static u32 _memory_size;
@@ -117,6 +120,9 @@ static u32 _memory_size;
 void kernel_init(void)
 {
 	_memory_size = env_memory_size();
+	_emu->SegmentStart = 0;
+	_emu->SegmentSize = _memory_size;
+	_emu->SegmentEnd = _memory_size;
 	emulator_call(_emu, 0, NULL, 0, _memory_size);
 }
 
@@ -161,18 +167,16 @@ static u8 _gfx_check_bounds(u16 x, u16 y, u16 w, u16 h)
 /**
  * @brief Check memory location permissions
  *
- * @param addr
- * @param size
+ * @param addr Start address
+ * @param size Size of the block to be accessed
  * @return Non-zero if invalid
  */
 static u8 _memory_check_bounds(u32 addr, u32 size)
 {
-	return 0;
-/*
 	return (addr < _emu->SegmentStart) ||
 		(addr >= _emu->SegmentEnd) ||
 		(size >= _emu->SegmentSize) ||
-		(addr + size >= _emu->SegmentEnd);*/
+		(addr + size >= _emu->SegmentEnd);
 }
 
 /* --- Store --- */
@@ -335,14 +339,26 @@ static u8 memory_lhu(u32 addr, u32 *out)
 }
 
 /* --- Syscalls --- */
+
+/**
+ * @brief
+ *
+ * @param args
+ * @return Non-zero on error
+ */
 static u8 syscall_exit(u32 *args)
 {
 	/* No parameter checking necessary */
-	/* TODO */
-	return 0;
+	return 1;
 	(void)args;
 }
 
+/**
+ * @brief
+ *
+ * @param args
+ * @return Non-zero on error
+ */
 static u8 syscall_finish(u32 *args)
 {
 	/* No parameter checking necessary */
@@ -351,6 +367,12 @@ static u8 syscall_finish(u32 *args)
 	(void)args;
 }
 
+/**
+ * @brief
+ *
+ * @param args
+ * @return Non-zero on error
+ */
 static u8 syscall_event_register(u32 *args)
 {
 	u32 type = args[0];
@@ -364,6 +386,12 @@ static u8 syscall_event_register(u32 *args)
 	return 0;
 }
 
+/**
+ * @brief
+ *
+ * @param args
+ * @return Non-zero on error
+ */
 static u8 syscall_millis(u32 *args)
 {
 	/* No parameter checking necessary */
@@ -371,6 +399,12 @@ static u8 syscall_millis(u32 *args)
 	return 0;
 }
 
+/**
+ * @brief
+ *
+ * @param args
+ * @return Non-zero on error
+ */
 static u8 syscall_rand(u32 *args)
 {
 	/* No parameter checking necessary */
@@ -378,6 +412,12 @@ static u8 syscall_rand(u32 *args)
 	return 0;
 }
 
+/**
+ * @brief
+ *
+ * @param args
+ * @return Non-zero on error
+ */
 static u8 syscall_serial_write(u32 *args)
 {
 	u16 cur;
@@ -397,6 +437,12 @@ static u8 syscall_serial_write(u32 *args)
 	return 0;
 }
 
+/**
+ * @brief
+ *
+ * @param args
+ * @return Non-zero on error
+ */
 static u8 syscall_gfx_rect(u32 *args)
 {
 	u16 x, y, w, h;
@@ -416,6 +462,12 @@ static u8 syscall_gfx_rect(u32 *args)
 	return 0;
 }
 
+/**
+ * @brief System call to draw an RGBA image
+ *
+ * @param args
+ * @return Non-zero on error
+ */
 static u8 syscall_gfx_image_rgba(u32 *args)
 {
 	u16 x, y, w, h;
@@ -441,6 +493,12 @@ static u8 syscall_gfx_image_rgba(u32 *args)
 	return 0;
 }
 
+/**
+ * @brief System call to draw an RGB image
+ *
+ * @param args
+ * @return Non-zero on error
+ */
 static u8 syscall_gfx_image_rgb(u32 *args)
 {
 	u16 x, y, w, h;
@@ -466,6 +524,12 @@ static u8 syscall_gfx_image_rgb(u32 *args)
 	return 0;
 }
 
+/**
+ * @brief System call to draw an RGB565 image
+ *
+ * @param args
+ * @return Non-zero on error
+ */
 static u8 syscall_gfx_image_rgb565(u32 *args)
 {
 	u32 image, bytes;
@@ -491,6 +555,12 @@ static u8 syscall_gfx_image_rgb565(u32 *args)
 	return 0;
 }
 
+/**
+ * @brief System call to draw a grayscale image
+ *
+ * @param args
+ * @return Non-zero on error
+ */
 static u8 syscall_gfx_image_grayscale(u32 *args)
 {
 	u16 x, y, w, h;
@@ -526,6 +596,12 @@ static u8 syscall_gfx_image_grayscale(u32 *args)
 	return 0;
 }
 
+/**
+ * @brief
+ *
+ * @param args
+ * @return Non-zero on error
+ */
 static u8 syscall_gfx_image_1bit(u32 *args)
 {
 	/* TODO: Check params */
@@ -554,6 +630,13 @@ static u8 (*syscalls[])(u32 *) =
 	syscall_millis
 };
 
+/**
+ * @brief Perform a system call
+ *
+ * @param id System call ID
+ * @param args System call arguments, return value is placed in args[0]
+ * @return Non-zero on failure
+ */
 static u8 syscall(u32 id, u32 *args)
 {
 	if(id >= ARRLEN(syscalls))
@@ -565,6 +648,13 @@ static u8 syscall(u32 id, u32 *args)
 }
 
 /* --- EMULATOR --- */
+
+/**
+ * @brief Execute the next instruction of the emulator
+ *
+ * @param emu The emulator
+ * @return Non-zero on failure
+ */
 static u8 emulator_next(Emulator *emu)
 {
 	u32 instr, opcode;

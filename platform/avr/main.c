@@ -21,6 +21,11 @@
 #include <avr/pgmspace.h>
 #include <emulator.h>
 
+/**
+ * @brief AVR Platform main function, loads drivers and starts kernel
+ *
+ * @return Exit code
+ */
 int main(void)
 {
 	/* --- BOOT SEQUENCE --- */
@@ -84,6 +89,13 @@ int main(void)
 }
 
 /* --- KEYBOARD --- */
+
+/**
+ * @brief Convert 4-bit hex value to ASCII
+ *
+ * @param byte Value from 0-15
+ * @return '0'-'9' / 'A'-'F'
+ */
 char byte_to_hex(u8 byte)
 {
 	if(byte < 10)

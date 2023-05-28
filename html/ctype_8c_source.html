@@ -97,7 +97,7 @@ $(function() {
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno"><a class="line" href="ctype_8c.html#aac8cacb5cd9b960305b7d00c909a8ecd">   26</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="ctype_8c.html#aac8cacb5cd9b960305b7d00c909a8ecd">isdigit</a>(<a class="code hl_typedef" href="types_8h.html#a48d6cd8e4135fb2ff7e7f2dac84089ec">i32</a> c)</div>
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>{</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    <span class="keywordflow">return</span> c &lt;= <span class="charliteral">&#39;0&#39;</span> &amp;&amp; c &lt;= <span class="charliteral">&#39;9&#39;</span>;</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    <span class="keywordflow">return</span> c &gt;= <span class="charliteral">&#39;0&#39;</span> &amp;&amp; c &lt;= <span class="charliteral">&#39;9&#39;</span>;</div>
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>}</div>
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
 <div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="ctype_8c.html#a3dde1f1732b149333cf0106d1a59ca17">   31</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="ctype_8c.html#a3dde1f1732b149333cf0106d1a59ca17">isgraph</a>(<a class="code hl_typedef" href="types_8h.html#a48d6cd8e4135fb2ff7e7f2dac84089ec">i32</a> c)</div>
@@ -133,8 +133,8 @@ $(function() {
 <div class="line"><a id="l00061" name="l00061"></a><span class="lineno"><a class="line" href="ctype_8c.html#a14865b1127413aa5ba38f47790029b70">   61</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="ctype_8c.html#a14865b1127413aa5ba38f47790029b70">isxdigit</a>(<a class="code hl_typedef" href="types_8h.html#a48d6cd8e4135fb2ff7e7f2dac84089ec">i32</a> c)</div>
 <div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>{</div>
 <div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="ctype_8c.html#aac8cacb5cd9b960305b7d00c909a8ecd">isdigit</a>(c) ||</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>        (c &gt;= <span class="charliteral">&#39;A&#39;</span> &amp;&amp; c &lt;= <span class="charliteral">&#39;F&#39;</span>) ||</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>        (c &gt;= <span class="charliteral">&#39;a&#39;</span> &amp;&amp; c &lt;= <span class="charliteral">&#39;f&#39;</span>);</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>           (c &gt;= <span class="charliteral">&#39;A&#39;</span> &amp;&amp; c &lt;= <span class="charliteral">&#39;F&#39;</span>) ||</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>           (c &gt;= <span class="charliteral">&#39;a&#39;</span> &amp;&amp; c &lt;= <span class="charliteral">&#39;f&#39;</span>);</div>
 <div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>}</div>
 <div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
 <div class="line"><a id="l00068" name="l00068"></a><span class="lineno"><a class="line" href="ctype_8c.html#abe3bb9b3e36b2f1968405b16d654dbf0">   68</a></span><a class="code hl_typedef" href="types_8h.html#a48d6cd8e4135fb2ff7e7f2dac84089ec">i32</a> <a class="code hl_function" href="ctype_8c.html#abe3bb9b3e36b2f1968405b16d654dbf0">tolower</a>(<a class="code hl_typedef" href="types_8h.html#a48d6cd8e4135fb2ff7e7f2dac84089ec">i32</a> c)</div>

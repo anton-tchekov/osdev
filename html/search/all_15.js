@@ -7,6 +7,6 @@ var searchData=
   ['window_5flogin_5fonkey_4',['window_login_onkey',['../apps_2test_2main_8c.html#a76b752c8c873e3aa5054076e4c6afdb8',1,'main.c']]],
   ['window_5fopen_5',['window_open',['../gui_8c.html#adf0715beb16a0945a1bae624873df977',1,'window_open(Window *window):&#160;gui.c'],['../gui_8h.html#adf0715beb16a0945a1bae624873df977',1,'window_open(Window *window):&#160;gui.c']]],
   ['window_5frender_6',['window_render',['../gui_8c.html#ae838b0eff4dcce9d653f5d1021a6f754',1,'gui.c']]],
-  ['window_5ftitle_7',['WINDOW_TITLE',['../apps_2tetris_2main_8c.html#a3adf7b7b13572f2baf3379a8f2f4220a',1,'main.c']]],
+  ['window_5ftitle_7',['WINDOW_TITLE',['../apps_2tetris_2main_8c.html#a3adf7b7b13572f2baf3379a8f2f4220a',1,'WINDOW_TITLE():&#160;main.c'],['../simulator_2platform_8c.html#a3adf7b7b13572f2baf3379a8f2f4220a',1,'WINDOW_TITLE():&#160;platform.c']]],
   ['write_5fle_5f32_8',['write_le_32',['../atfs_8h.html#a62a1835558e5a5dfeade49e10d2682b8',1,'atfs.h']]]
 ];

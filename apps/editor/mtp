@@ -1,7 +1,10 @@
-#ifdef EDITOR
-
 #include <types.h>
 #include <vector.h>
+
+typedef struct
+{
+	u32 ColorComment, ColorNumber, ColorString, ColorKeyword;
+} SyntaxHighlighter;
 
 typedef struct
 {
@@ -445,7 +448,3 @@ static void _render_line(Line *line, i32 line_number)
 		}
 	}
 }
-
-#endif /* EDITOR */
-
-//! @endcond

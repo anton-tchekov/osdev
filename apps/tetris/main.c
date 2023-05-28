@@ -98,33 +98,49 @@ const Pieces[] =
 
 /** VARIABLES */
 
+/** Type that stores what piece type a tile in a field belongs to */
 typedef u8 FieldType;
 
-/* Current Piece, Next Piece */
-static Piece _cp, _np;
+/** Current Piece */
+static Piece _cp;
+
+/** Next Piece */
+static Piece _np;
+
+/** Current game status (see enum above) */
 static Status _status;
-static i32 _ticks, _last_ticks = 0, _ticks_update = 200, _score = 0;
+
+/** Milliseconds duration for a tile to move down by one tile */
+static i32 _ticks_update = FALL_SPEED_DEFAULT;
+
+/** Indicates that the field has changed and should be redrawn */
 static bool _changed;
-static FieldType
-	_field[FIELD_SIZE],
-	_new[FIELD_WIDTH * FIELD_HEIGHT],
-	_prev[FIELD_WIDTH * FIELD_HEIGHT];
 
-static void _clear_field(FieldType *field)
-{
-	int i;
-	for(i = 0; i < FIELD_WIDTH * FIELD_HEIGHT; ++i)
-	{
-		field[i] = 0;
-	}
-}
+/** Array that stores landed, non-moving pieces */
+static FieldType _field[FIELD_SIZE];
 
+/* --- FUNCTIONS --- */
+
+/**
+ * @brief Get the piece at a position inside a field
+ *
+ * @param field The field
+ * @param x X-coordinate
+ * @param y Y-coordinate
+ * @return
+ */
 static i32 _field_get(FieldType *field, i32 x, i32 y)
 {
 	return (x < 0 || x >= FIELD_WIDTH || y < 0 || y >= FIELD_HEIGHT) ? -1 :
 		field[y * FIELD_WIDTH + x];
 }
 
+/**
+ * @brief
+ *
+ * @param field
+ * @param row
+ */
 static void _field_shift(FieldType *field, i32 row)
 {
 	i32 x, y;
@@ -163,6 +179,9 @@ static i32 _field_rows(FieldType *field)
 	return score;
 }
 
+/**
+ * @brief Draw field grid
+ */
 static void _draw_grid(void)
 {
 	i32 i;
@@ -177,6 +196,12 @@ static void _draw_grid(void)
 	}
 }
 
+/**
+ * @brief Get the next random tetris piece
+ *
+ * @param p Output parameter for new piece
+ * @return Piece type of the following piece
+ */
 static PieceType _new_piece(Piece *p)
 {
 	static PieceType next, bag[7];
@@ -210,6 +235,14 @@ static PieceType _new_piece(Piece *p)
 	return next;
 }
 
+/**
+ * @brief Check if the position of a piece is valid, meaning that it is
+ *        not outside of the frame and not colliding with pieces on the field
+ *
+ * @param field Pointer to field aray
+ * @param p Pointer to piece
+ * @return true if position is valid, false otherwise
+ */
 static bool _valid_position(FieldType *field, Piece *p)
 {
 	i32 bit, row, col;
@@ -219,16 +252,11 @@ static bool _valid_position(FieldType *field, Piece *p)
 	col = 0;
 	blocks = Pieces[p->Type].Blocks[p->Rotation];
 
-	if(p->Y < 0)
-	{
-		return false;
-	}
-
 	for(bit = 0x8000; bit > 0; bit >>= 1)
 	{
 		if((blocks & bit) && _field_get(field, p->X + col, p->Y + row))
 		{
-			return true;
+			return false;
 		}
 
 		if(++col == 4)
@@ -238,9 +266,15 @@ static bool _valid_position(FieldType *field, Piece *p)
 		}
 	}
 
-	return false;
+	return true;
 }
 
+/**
+ * @brief Place a piece into a field
+ *
+ * @param field Pointer to the field on which to put the piece
+ * @param p Pointer to the piece that should be placed
+ */
 static void _to_field(FieldType *field, Piece *p)
 {
 	i32 x, y, bit, row, col;
@@ -266,8 +300,12 @@ static void _to_field(FieldType *field, Piece *p)
 	}
 }
 
+/**
+ * @brief Draw the tetris field to the screen
+ */
 static void _draw_field(void)
 {
+	static FieldType _new[FIELD_SIZE], _prev[FIELD_SIZE]
 	i32 x, y, offset;
 	PieceType type;
 
@@ -296,7 +334,6 @@ static void _draw_field(void)
 	memcpy(_prev, _new, sizeof(_field));
 }
 
-/** FUNCTIONS */
 void event_key(Key key, i32 chr, KeyState state)
 {
 	if(state == KEYSTATE_RELEASED)
@@ -356,6 +393,9 @@ void event_key(Key key, i32 chr, KeyState state)
 	(void)chr;
 }
 
+/**
+ * @brief Main setup function, initialize game
+ */
 void setup(void)
 {
 	keyboard_register_event(event_key);
@@ -369,22 +409,28 @@ void setup(void)
 	font_string(210, 10, "Next piece:", font_default, COLOR_WHITE, COLOR_BLACK);
 }
 
+/**
+ * @brief Main game loop, update state
+ */
 void loop(void)
 {
-	if((_ticks = millis()) > _last_ticks + _ticks_update)
+	static u32 last_ticks, score;
+	u32 ticks;
+
+	if((ticks = millis()) > last_ticks + _ticks_update)
 	{
-		_last_ticks = _ticks;
+		last_ticks = ticks;
 		++_cp.Y;
 		if(_valid_position(_field, &_cp))
 		{
 			--_cp.Y;
 			_to_field(_field, &_cp);
-			_score += _field_rows(_field);
+			score += _field_rows(_field);
 			_np.Type = _new_piece(&_cp);
 			_ticks_update = FALL_SPEED_DEFAULT;
 			if(_valid_position(_field, &_cp))
 			{
-				_clear_field(_field);
+				memset(_field, 0, sizeof(_field));
 			}
 		}
 

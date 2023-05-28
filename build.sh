@@ -9,6 +9,10 @@ cd game/
 make
 cd ..
 
+cd editor/
+make
+cd ..
+
 cd tetris/
 make
 cd ../../
@@ -28,3 +32,5 @@ cd ..
 cd gamma-correction/
 make
 cd ../..
+
+doxygen

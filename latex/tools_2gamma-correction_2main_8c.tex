@@ -13,7 +13,7 @@ Generate gamma correction tables.
 \begin{DoxyCompactItemize}
 \item 
 int \mbox{\hyperlink{tools_2gamma-correction_2main_8c_a0ddf1224851353fc92bfbff6f499fa97}{main}} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Main function of gamma correction table generator. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
@@ -43,41 +43,55 @@ Definition in file \mbox{\hyperlink{tools_2gamma-correction_2main_8c_source}{mai
 
 
 
-Definition at line \mbox{\hyperlink{tools_2gamma-correction_2main_8c_source_l00014}{14}} of file \mbox{\hyperlink{tools_2gamma-correction_2main_8c_source}{main.\+c}}.
+Main function of gamma correction table generator. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em argc} & Number of command line arguments \\
+\hline
+{\em argv} & Command line arguments array \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Exit code 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{tools_2gamma-correction_2main_8c_source_l00021}{21}} of file \mbox{\hyperlink{tools_2gamma-correction_2main_8c_source}{main.\+c}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00015\ \{}
-\DoxyCodeLine{00016\ \ \ \ \ \textcolor{keywordtype}{double}\ gamma\_value;}
-\DoxyCodeLine{00017\ \ \ \ \ \textcolor{keywordtype}{int}\ i,\ max\_in,\ max\_out;}
-\DoxyCodeLine{00018\ }
-\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keywordflow}{if}(argc\ !=\ 2)}
-\DoxyCodeLine{00020\ \ \ \ \ \{}
-\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ fprintf(stderr,\ \textcolor{stringliteral}{"{}Usage:\ ./gamma\ correction-\/factor\ (eg.\ 0.4545)\(\backslash\)n"{}});}
-\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 1;}
-\DoxyCodeLine{00023\ \ \ \ \ \}}
-\DoxyCodeLine{00024\ }
-\DoxyCodeLine{00025\ \ \ \ \ gamma\_value\ =\ atof(argv[1]);}
-\DoxyCodeLine{00026\ \ \ \ \ max\_in\ =\ 255;}
-\DoxyCodeLine{00027\ \ \ \ \ max\_out\ =\ 255;}
-\DoxyCodeLine{00028\ }
-\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keywordflow}{for}(i\ =\ 0;\ i\ <=\ max\_in;\ ++i)}
-\DoxyCodeLine{00030\ \ \ \ \ \{}
-\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(i\ >\ 0)}
-\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{},\ "{}});}
-\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00022\ \{}
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keywordtype}{double}\ gamma\_value;}
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keywordtype}{int}\ i,\ max\_in,\ max\_out;}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keywordflow}{if}(argc\ !=\ 2)}
+\DoxyCodeLine{00027\ \ \ \ \ \{}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ fprintf(stderr,\ \textcolor{stringliteral}{"{}Usage:\ ./gamma\ correction-\/factor\ (eg.\ 0.4545)\(\backslash\)n"{}});}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 1;}
+\DoxyCodeLine{00030\ \ \ \ \ \}}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \ \ \ \ gamma\_value\ =\ atof(argv[1]);}
+\DoxyCodeLine{00033\ \ \ \ \ max\_in\ =\ 255;}
+\DoxyCodeLine{00034\ \ \ \ \ max\_out\ =\ 255;}
 \DoxyCodeLine{00035\ }
-\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}((i\ \%\ 16)\ ==\ 0)}
-\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{}\(\backslash\)n"{}});}
-\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00040\ }
-\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{}\%3d"{}},\ (\textcolor{keywordtype}{int})(pow((\textcolor{keywordtype}{double})i\ /\ (\textcolor{keywordtype}{double})max\_in,\ gamma\_value)\ *\ max\_out\ +\ 0.5));}
-\DoxyCodeLine{00042\ \ \ \ \ \}}
-\DoxyCodeLine{00043\ }
-\DoxyCodeLine{00044\ \ \ \ \ printf(\textcolor{stringliteral}{"{}\(\backslash\)n\(\backslash\)n"{}});}
-\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
-\DoxyCodeLine{00046\ \}}
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keywordflow}{for}(i\ =\ 0;\ i\ <=\ max\_in;\ ++i)}
+\DoxyCodeLine{00037\ \ \ \ \ \{}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(i\ >\ 0)}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{},\ "{}});}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}((i\ \%\ 16)\ ==\ 0)}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{}\(\backslash\)n"{}});}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{}\%3d"{}},\ (\textcolor{keywordtype}{int})(pow((\textcolor{keywordtype}{double})i\ /\ (\textcolor{keywordtype}{double})max\_in,\ gamma\_value)\ *\ max\_out\ +\ 0.5));}
+\DoxyCodeLine{00049\ \ \ \ \ \}}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \ \ \ \ printf(\textcolor{stringliteral}{"{}\(\backslash\)n\(\backslash\)n"{}});}
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00053\ \}}
 
 \end{DoxyCode}

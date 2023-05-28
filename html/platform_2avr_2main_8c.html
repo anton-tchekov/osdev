@@ -101,8 +101,10 @@ $(function() {
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a840291bc02cba5474a4cb46a9b9566fe"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="platform_2avr_2main_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main</a> (void)</td></tr>
+<tr class="memdesc:a840291bc02cba5474a4cb46a9b9566fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">AVR Platform main function, loads drivers and starts kernel.  <br /></td></tr>
 <tr class="separator:a840291bc02cba5474a4cb46a9b9566fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5c2f84aeedc37fa06591a71be6dc55e4"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="platform_2avr_2main_8c.html#a5c2f84aeedc37fa06591a71be6dc55e4">byte_to_hex</a> (<a class="el" href="types_8h.html#a92c50087ca0e64fa93fc59402c55f8ca">u8</a> byte)</td></tr>
+<tr class="memdesc:a5c2f84aeedc37fa06591a71be6dc55e4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert 4-bit hex value to ASCII.  <br /></td></tr>
 <tr class="separator:a5c2f84aeedc37fa06591a71be6dc55e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af7f4bc35d95b7572e19fff58cbf089f6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="platform_2avr_2main_8c.html#af7f4bc35d95b7572e19fff58cbf089f6">ps2_event</a> (<a class="el" href="types_8h.html#a92c50087ca0e64fa93fc59402c55f8ca">u8</a> byte)</td></tr>
 <tr class="memdesc:af7f4bc35d95b7572e19fff58cbf089f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function must be implemented by the user and is called by the driver when a byte is received.  <br /></td></tr>
@@ -132,15 +134,24 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="platform_2avr_2main_8c_source.html#l00087">87</a> of file <a class="el" href="platform_2avr_2main_8c_source.html">main.c</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   88</span>{</div>
-<div class="line"><span class="lineno">   89</span>    <span class="keywordflow">if</span>(<span class="keywordtype">byte</span> &lt; 10)</div>
-<div class="line"><span class="lineno">   90</span>    {</div>
-<div class="line"><span class="lineno">   91</span>        <span class="keywordflow">return</span> <span class="keywordtype">byte</span> + <span class="charliteral">&#39;0&#39;</span>;</div>
-<div class="line"><span class="lineno">   92</span>    }</div>
-<div class="line"><span class="lineno">   93</span> </div>
-<div class="line"><span class="lineno">   94</span>    <span class="keywordflow">return</span> <span class="keywordtype">byte</span> - 10 + <span class="charliteral">&#39;A&#39;</span>;</div>
-<div class="line"><span class="lineno">   95</span>}</div>
+<p>Convert 4-bit hex value to ASCII. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">byte</td><td>Value from 0-15 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>'0'-'9' / 'A'-'F' </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="platform_2avr_2main_8c_source.html#l00099">99</a> of file <a class="el" href="platform_2avr_2main_8c_source.html">main.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  100</span>{</div>
+<div class="line"><span class="lineno">  101</span>    <span class="keywordflow">if</span>(<span class="keywordtype">byte</span> &lt; 10)</div>
+<div class="line"><span class="lineno">  102</span>    {</div>
+<div class="line"><span class="lineno">  103</span>        <span class="keywordflow">return</span> <span class="keywordtype">byte</span> + <span class="charliteral">&#39;0&#39;</span>;</div>
+<div class="line"><span class="lineno">  104</span>    }</div>
+<div class="line"><span class="lineno">  105</span> </div>
+<div class="line"><span class="lineno">  106</span>    <span class="keywordflow">return</span> <span class="keywordtype">byte</span> - 10 + <span class="charliteral">&#39;A&#39;</span>;</div>
+<div class="line"><span class="lineno">  107</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -160,69 +171,72 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="platform_2avr_2main_8c_source.html#l00024">24</a> of file <a class="el" href="platform_2avr_2main_8c_source.html">main.c</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   25</span>{</div>
-<div class="line"><span class="lineno">   26</span>    <span class="comment">/* --- BOOT SEQUENCE --- */</span></div>
-<div class="line"><span class="lineno">   27</span> </div>
-<div class="line"><span class="lineno">   28</span>    <span class="comment">/* Enable interrupts */</span></div>
-<div class="line"><span class="lineno">   29</span>    sei();</div>
-<div class="line"><span class="lineno">   30</span> </div>
-<div class="line"><span class="lineno">   31</span>    <span class="comment">/* First, configure GPIO, because all modules that do I/O depend on it */</span></div>
-<div class="line"><span class="lineno">   32</span>    <a class="code hl_function" href="gpio_8c.html#a7159e787d0c4fb89346383b7987ab6d3">gpio_configure</a>();</div>
-<div class="line"><span class="lineno">   33</span> </div>
-<div class="line"><span class="lineno">   34</span>    <span class="comment">/* Second, initialize serial port so that we can print boot messages */</span></div>
-<div class="line"><span class="lineno">   35</span>    <a class="code hl_function" href="platform_2avr_2serial_2serial_8c.html#ad2b461e9e9044364a28a61cfadcacdd8">serial_init</a>();</div>
-<div class="line"><span class="lineno">   36</span> </div>
-<div class="line"><span class="lineno">   37</span>    <span class="comment">/* Print startup message */</span></div>
-<div class="line"><span class="lineno">   38</span>    <a class="code hl_function" href="logger_8c.html#a60bd636ef160c97eb51cf31be5954ba2">log_boot_P</a>(LOG_NONE, PSTR(<span class="stringliteral">&quot;\nImaginaryOS Version 0.1 Booting ...\n&quot;</span>));</div>
-<div class="line"><span class="lineno">   39</span> </div>
-<div class="line"><span class="lineno">   40</span>    <span class="comment">/* Initialize millisecond timer */</span></div>
-<div class="line"><span class="lineno">   41</span>    <a class="code hl_function" href="timer_8c.html#a7b8ab79df77b57475a5494f5f81c3bd9">timer_init</a>();</div>
-<div class="line"><span class="lineno">   42</span> </div>
-<div class="line"><span class="lineno">   43</span>    <span class="comment">/* Initialize SPI (Needed for SD Card, External Memory and LCD) */</span></div>
-<div class="line"><span class="lineno">   44</span>    <a class="code hl_function" href="spi_8c.html#ae909944aa85ae98323073c628be541aa">spi_init</a>();</div>
-<div class="line"><span class="lineno">   45</span> </div>
-<div class="line"><span class="lineno">   46</span>    <span class="comment">/* Initialize LCD driver early for boot image and messages */</span></div>
-<div class="line"><span class="lineno">   47</span>    <a class="code hl_function" href="lcd_8c.html#a09748a4045dc2d014afdce2cc566e57d">lcd_init</a>(0xFF, <a class="code hl_define" href="lcd_8h.html#aba2a7fe77a7501e5844370eec0185207">COLOR_BLACK</a>);</div>
-<div class="line"><span class="lineno">   48</span> </div>
-<div class="line"><span class="lineno">   49</span>    <span class="comment">/* Initialize LCD Logger */</span></div>
-<div class="line"><span class="lineno">   50</span>    <a class="code hl_function" href="logger_8c.html#aa60037dffd3fce2b3b698663eb11b5dc">logger_lcd_init</a>();</div>
-<div class="line"><span class="lineno">   51</span> </div>
-<div class="line"><span class="lineno">   52</span>    <span class="comment">/* Initialize keyboard (fast) */</span></div>
-<div class="line"><span class="lineno">   53</span>    <a class="code hl_function" href="ps2_8c.html#af0a83745146d1ce5fe4ef4372520e372">ps2_init</a>();</div>
-<div class="line"><span class="lineno">   54</span> </div>
-<div class="line"><span class="lineno">   55</span>    <span class="comment">/* Initialize ADC (fast) */</span></div>
-<div class="line"><span class="lineno">   56</span>    <a class="code hl_function" href="adc_8c.html#a2b815e6730e8723a6d1d06d9ef8f31c0">adc_init</a>();</div>
-<div class="line"><span class="lineno">   57</span> </div>
-<div class="line"><span class="lineno">   58</span>    <span class="comment">/* Initialize RNG (fast) */</span></div>
-<div class="line"><span class="lineno">   59</span>    <a class="code hl_function" href="random_8c.html#acc9caf986ad394f055fe6f511f7109f6">random_init</a>();</div>
-<div class="line"><span class="lineno">   60</span> </div>
-<div class="line"><span class="lineno">   61</span>    <span class="comment">/* Initialize external memory late because of slow memory test */</span></div>
-<div class="line"><span class="lineno">   62</span>    <a class="code hl_function" href="xmem_8c.html#aa98b163510e84b9e79394397efdb8dde">xmem_init</a>();</div>
-<div class="line"><span class="lineno">   63</span> </div>
-<div class="line"><span class="lineno">   64</span>    <span class="comment">/* Initialize SD card driver */</span></div>
-<div class="line"><span class="lineno">   65</span>    <a class="code hl_function" href="sd_8c.html#a8d7ab30b86b39a27f6fffac7495c1830">sd_init</a>();</div>
-<div class="line"><span class="lineno">   66</span> </div>
-<div class="line"><span class="lineno">   67</span>    <span class="comment">/* --- READY --- */</span></div>
+<p>AVR Platform main function, loads drivers and starts kernel. </p>
+<dl class="section return"><dt>Returns</dt><dd>Exit code </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="platform_2avr_2main_8c_source.html#l00029">29</a> of file <a class="el" href="platform_2avr_2main_8c_source.html">main.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   30</span>{</div>
+<div class="line"><span class="lineno">   31</span>    <span class="comment">/* --- BOOT SEQUENCE --- */</span></div>
+<div class="line"><span class="lineno">   32</span> </div>
+<div class="line"><span class="lineno">   33</span>    <span class="comment">/* Enable interrupts */</span></div>
+<div class="line"><span class="lineno">   34</span>    sei();</div>
+<div class="line"><span class="lineno">   35</span> </div>
+<div class="line"><span class="lineno">   36</span>    <span class="comment">/* First, configure GPIO, because all modules that do I/O depend on it */</span></div>
+<div class="line"><span class="lineno">   37</span>    <a class="code hl_function" href="gpio_8c.html#a7159e787d0c4fb89346383b7987ab6d3">gpio_configure</a>();</div>
+<div class="line"><span class="lineno">   38</span> </div>
+<div class="line"><span class="lineno">   39</span>    <span class="comment">/* Second, initialize serial port so that we can print boot messages */</span></div>
+<div class="line"><span class="lineno">   40</span>    <a class="code hl_function" href="platform_2avr_2serial_2serial_8c.html#ad2b461e9e9044364a28a61cfadcacdd8">serial_init</a>();</div>
+<div class="line"><span class="lineno">   41</span> </div>
+<div class="line"><span class="lineno">   42</span>    <span class="comment">/* Print startup message */</span></div>
+<div class="line"><span class="lineno">   43</span>    <a class="code hl_function" href="logger_8c.html#a60bd636ef160c97eb51cf31be5954ba2">log_boot_P</a>(LOG_NONE, PSTR(<span class="stringliteral">&quot;\nImaginaryOS Version 0.1 Booting ...\n&quot;</span>));</div>
+<div class="line"><span class="lineno">   44</span> </div>
+<div class="line"><span class="lineno">   45</span>    <span class="comment">/* Initialize millisecond timer */</span></div>
+<div class="line"><span class="lineno">   46</span>    <a class="code hl_function" href="timer_8c.html#a7b8ab79df77b57475a5494f5f81c3bd9">timer_init</a>();</div>
+<div class="line"><span class="lineno">   47</span> </div>
+<div class="line"><span class="lineno">   48</span>    <span class="comment">/* Initialize SPI (Needed for SD Card, External Memory and LCD) */</span></div>
+<div class="line"><span class="lineno">   49</span>    <a class="code hl_function" href="spi_8c.html#ae909944aa85ae98323073c628be541aa">spi_init</a>();</div>
+<div class="line"><span class="lineno">   50</span> </div>
+<div class="line"><span class="lineno">   51</span>    <span class="comment">/* Initialize LCD driver early for boot image and messages */</span></div>
+<div class="line"><span class="lineno">   52</span>    <a class="code hl_function" href="lcd_8c.html#a09748a4045dc2d014afdce2cc566e57d">lcd_init</a>(0xFF, <a class="code hl_define" href="lcd_8h.html#aba2a7fe77a7501e5844370eec0185207">COLOR_BLACK</a>);</div>
+<div class="line"><span class="lineno">   53</span> </div>
+<div class="line"><span class="lineno">   54</span>    <span class="comment">/* Initialize LCD Logger */</span></div>
+<div class="line"><span class="lineno">   55</span>    <a class="code hl_function" href="logger_8c.html#aa60037dffd3fce2b3b698663eb11b5dc">logger_lcd_init</a>();</div>
+<div class="line"><span class="lineno">   56</span> </div>
+<div class="line"><span class="lineno">   57</span>    <span class="comment">/* Initialize keyboard (fast) */</span></div>
+<div class="line"><span class="lineno">   58</span>    <a class="code hl_function" href="ps2_8c.html#af0a83745146d1ce5fe4ef4372520e372">ps2_init</a>();</div>
+<div class="line"><span class="lineno">   59</span> </div>
+<div class="line"><span class="lineno">   60</span>    <span class="comment">/* Initialize ADC (fast) */</span></div>
+<div class="line"><span class="lineno">   61</span>    <a class="code hl_function" href="adc_8c.html#a2b815e6730e8723a6d1d06d9ef8f31c0">adc_init</a>();</div>
+<div class="line"><span class="lineno">   62</span> </div>
+<div class="line"><span class="lineno">   63</span>    <span class="comment">/* Initialize RNG (fast) */</span></div>
+<div class="line"><span class="lineno">   64</span>    <a class="code hl_function" href="random_8c.html#acc9caf986ad394f055fe6f511f7109f6">random_init</a>();</div>
+<div class="line"><span class="lineno">   65</span> </div>
+<div class="line"><span class="lineno">   66</span>    <span class="comment">/* Initialize external memory late because of slow memory test */</span></div>
+<div class="line"><span class="lineno">   67</span>    <a class="code hl_function" href="xmem_8c.html#aa98b163510e84b9e79394397efdb8dde">xmem_init</a>();</div>
 <div class="line"><span class="lineno">   68</span> </div>
-<div class="line"><span class="lineno">   69</span>    <span class="comment">/* Load initial ram disk */</span></div>
-<div class="line"><span class="lineno">   70</span>    <a class="code hl_function" href="initrd_8c.html#afb664c3988d855629cd7b611cf610561">initrd_load</a>();</div>
+<div class="line"><span class="lineno">   69</span>    <span class="comment">/* Initialize SD card driver */</span></div>
+<div class="line"><span class="lineno">   70</span>    <a class="code hl_function" href="sd_8c.html#a8d7ab30b86b39a27f6fffac7495c1830">sd_init</a>();</div>
 <div class="line"><span class="lineno">   71</span> </div>
-<div class="line"><span class="lineno">   72</span>    <a class="code hl_function" href="logger_8c.html#a60bd636ef160c97eb51cf31be5954ba2">log_boot_P</a>(LOG_NONE, PSTR(<span class="stringliteral">&quot;\nStarting RISC-V Emulator Kernel ...\n\n&quot;</span>));</div>
+<div class="line"><span class="lineno">   72</span>    <span class="comment">/* --- READY --- */</span></div>
 <div class="line"><span class="lineno">   73</span> </div>
-<div class="line"><span class="lineno">   74</span>    <a class="code hl_function" href="emulator_8c.html#a0dbe43a64cbf994bf9189e7767f93342">kernel_init</a>();</div>
-<div class="line"><span class="lineno">   75</span>    <a class="code hl_function" href="logger_8c.html#a60bd636ef160c97eb51cf31be5954ba2">log_boot_P</a>(LOG_EXT, PSTR(<span class="stringliteral">&quot;Setup done!&quot;</span>));</div>
+<div class="line"><span class="lineno">   74</span>    <span class="comment">/* Load initial ram disk */</span></div>
+<div class="line"><span class="lineno">   75</span>    <a class="code hl_function" href="initrd_8c.html#afb664c3988d855629cd7b611cf610561">initrd_load</a>();</div>
 <div class="line"><span class="lineno">   76</span> </div>
-<div class="line"><span class="lineno">   77</span>    <span class="comment">/* Infinite loop */</span></div>
-<div class="line"><span class="lineno">   78</span>    <span class="keywordflow">for</span>(;;)</div>
-<div class="line"><span class="lineno">   79</span>    {</div>
-<div class="line"><span class="lineno">   80</span>    }</div>
+<div class="line"><span class="lineno">   77</span>    <a class="code hl_function" href="logger_8c.html#a60bd636ef160c97eb51cf31be5954ba2">log_boot_P</a>(LOG_NONE, PSTR(<span class="stringliteral">&quot;\nStarting RISC-V Emulator Kernel ...\n\n&quot;</span>));</div>
+<div class="line"><span class="lineno">   78</span> </div>
+<div class="line"><span class="lineno">   79</span>    <a class="code hl_function" href="emulator_8c.html#a0dbe43a64cbf994bf9189e7767f93342">kernel_init</a>();</div>
+<div class="line"><span class="lineno">   80</span>    <a class="code hl_function" href="logger_8c.html#a60bd636ef160c97eb51cf31be5954ba2">log_boot_P</a>(LOG_EXT, PSTR(<span class="stringliteral">&quot;Setup done!&quot;</span>));</div>
 <div class="line"><span class="lineno">   81</span> </div>
-<div class="line"><span class="lineno">   82</span>    <span class="comment">/* Unreachable */</span></div>
-<div class="line"><span class="lineno">   83</span>    <span class="keywordflow">return</span> 0;</div>
-<div class="line"><span class="lineno">   84</span>}</div>
+<div class="line"><span class="lineno">   82</span>    <span class="comment">/* Infinite loop */</span></div>
+<div class="line"><span class="lineno">   83</span>    <span class="keywordflow">for</span>(;;)</div>
+<div class="line"><span class="lineno">   84</span>    {</div>
+<div class="line"><span class="lineno">   85</span>    }</div>
+<div class="line"><span class="lineno">   86</span> </div>
+<div class="line"><span class="lineno">   87</span>    <span class="comment">/* Unreachable */</span></div>
+<div class="line"><span class="lineno">   88</span>    <span class="keywordflow">return</span> 0;</div>
+<div class="line"><span class="lineno">   89</span>}</div>
 <div class="ttc" id="aadc_8c_html_a2b815e6730e8723a6d1d06d9ef8f31c0"><div class="ttname"><a href="adc_8c.html#a2b815e6730e8723a6d1d06d9ef8f31c0">adc_init</a></div><div class="ttdeci">void adc_init(void)</div><div class="ttdoc">Initialize the ADC module.</div><div class="ttdef"><b>Definition:</b> <a href="adc_8c_source.html#l00013">adc.c:13</a></div></div>
-<div class="ttc" id="aemulator_8c_html_a0dbe43a64cbf994bf9189e7767f93342"><div class="ttname"><a href="emulator_8c.html#a0dbe43a64cbf994bf9189e7767f93342">kernel_init</a></div><div class="ttdeci">void kernel_init(void)</div><div class="ttdoc">Initialize emulator kernel and load first process (NOT systemd)</div><div class="ttdef"><b>Definition:</b> <a href="emulator_8c_source.html#l00117">emulator.c:117</a></div></div>
+<div class="ttc" id="aemulator_8c_html_a0dbe43a64cbf994bf9189e7767f93342"><div class="ttname"><a href="emulator_8c.html#a0dbe43a64cbf994bf9189e7767f93342">kernel_init</a></div><div class="ttdeci">void kernel_init(void)</div><div class="ttdoc">Initialize emulator kernel and load first process (NOT systemd)</div><div class="ttdef"><b>Definition:</b> <a href="emulator_8c_source.html#l00120">emulator.c:120</a></div></div>
 <div class="ttc" id="agpio_8c_html_a7159e787d0c4fb89346383b7987ab6d3"><div class="ttname"><a href="gpio_8c.html#a7159e787d0c4fb89346383b7987ab6d3">gpio_configure</a></div><div class="ttdeci">void gpio_configure(void)</div><div class="ttdoc">Configure all GPIO pins.</div><div class="ttdef"><b>Definition:</b> <a href="gpio_8c_source.html#l00010">gpio.c:10</a></div></div>
 <div class="ttc" id="ainitrd_8c_html_afb664c3988d855629cd7b611cf610561"><div class="ttname"><a href="initrd_8c.html#afb664c3988d855629cd7b611cf610561">initrd_load</a></div><div class="ttdeci">void initrd_load(void)</div><div class="ttdoc">Load the INIT program and Standard Shared Library from special area on disk. The full featured filesy...</div><div class="ttdef"><b>Definition:</b> <a href="initrd_8c_source.html#l00025">initrd.c:25</a></div></div>
 <div class="ttc" id="alcd_8c_html_a09748a4045dc2d014afdce2cc566e57d"><div class="ttname"><a href="lcd_8c.html#a09748a4045dc2d014afdce2cc566e57d">lcd_init</a></div><div class="ttdeci">void lcd_init(u8 backlight, RGB565 bg)</div><div class="ttdoc">Initialize LCD.</div><div class="ttdef"><b>Definition:</b> <a href="lcd_8c_source.html#l00427">lcd.c:427</a></div></div>
@@ -237,6 +251,8 @@ Functions</h2></td></tr>
 <div class="ttc" id="atimer_8c_html_a7b8ab79df77b57475a5494f5f81c3bd9"><div class="ttname"><a href="timer_8c.html#a7b8ab79df77b57475a5494f5f81c3bd9">timer_init</a></div><div class="ttdeci">void timer_init(void)</div><div class="ttdoc">Initialize hardware timer/counter.</div><div class="ttdef"><b>Definition:</b> <a href="timer_8c_source.html#l00017">timer.c:17</a></div></div>
 <div class="ttc" id="axmem_8c_html_aa98b163510e84b9e79394397efdb8dde"><div class="ttname"><a href="xmem_8c.html#aa98b163510e84b9e79394397efdb8dde">xmem_init</a></div><div class="ttdeci">void xmem_init(void)</div><div class="ttdoc">Initialize external memory and run memory test.</div><div class="ttdef"><b>Definition:</b> <a href="xmem_8c_source.html#l00279">xmem.c:279</a></div></div>
 </div><!-- fragment -->
+<p class="reference">References <a class="el" href="adc_8c_source.html#l00013">adc_init()</a>, <a class="el" href="lcd_8h_source.html#l00038">COLOR_BLACK</a>, <a class="el" href="gpio_8c_source.html#l00010">gpio_configure()</a>, <a class="el" href="initrd_8c_source.html#l00025">initrd_load()</a>, <a class="el" href="emulator_8c_source.html#l00120">kernel_init()</a>, <a class="el" href="lcd_8c_source.html#l00427">lcd_init()</a>, <a class="el" href="logger_8c_source.html#l00170">log_boot_P()</a>, <a class="el" href="logger_8c_source.html#l00237">logger_lcd_init()</a>, <a class="el" href="ps2_8c_source.html#l00026">ps2_init()</a>, <a class="el" href="random_8c_source.html#l00014">random_init()</a>, <a class="el" href="sd_8c_source.html#l00278">sd_init()</a>, <a class="el" href="platform_2avr_2serial_2serial_8c_source.html#l00019">serial_init()</a>, <a class="el" href="spi_8c_source.html#l00012">spi_init()</a>, <a class="el" href="timer_8c_source.html#l00017">timer_init()</a>, and <a class="el" href="xmem_8c_source.html#l00279">xmem_init()</a>.</p>
+
 </div>
 </div>
 <a id="af7f4bc35d95b7572e19fff58cbf089f6" name="af7f4bc35d95b7572e19fff58cbf089f6"></a>
@@ -263,14 +279,14 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="platform_2avr_2main_8c_source.html#l00097">97</a> of file <a class="el" href="platform_2avr_2main_8c_source.html">main.c</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   98</span>{</div>
-<div class="line"><span class="lineno">   99</span>    <span class="comment">/* Called when a byte is received from the keyboard */</span></div>
-<div class="line"><span class="lineno">  100</span>    <span class="comment">/* serial_tx(&#39;0&#39;); */</span></div>
-<div class="line"><span class="lineno">  101</span>    <span class="comment">/* serial_tx(&#39;x&#39;); */</span></div>
-<div class="line"><span class="lineno">  102</span>    <span class="comment">/* serial_tx(byte_to_hex((byte &gt;&gt; 4) &amp; 0x0F)); */</span></div>
-<div class="line"><span class="lineno">  103</span>    <span class="comment">/* serial_tx(byte_to_hex(byte &amp; 0x0F)); */</span></div>
-<div class="line"><span class="lineno">  104</span>}</div>
+<p class="definition">Definition at line <a class="el" href="platform_2avr_2main_8c_source.html#l00109">109</a> of file <a class="el" href="platform_2avr_2main_8c_source.html">main.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  110</span>{</div>
+<div class="line"><span class="lineno">  111</span>    <span class="comment">/* Called when a byte is received from the keyboard */</span></div>
+<div class="line"><span class="lineno">  112</span>    <span class="comment">/* serial_tx(&#39;0&#39;); */</span></div>
+<div class="line"><span class="lineno">  113</span>    <span class="comment">/* serial_tx(&#39;x&#39;); */</span></div>
+<div class="line"><span class="lineno">  114</span>    <span class="comment">/* serial_tx(byte_to_hex((byte &gt;&gt; 4) &amp; 0x0F)); */</span></div>
+<div class="line"><span class="lineno">  115</span>    <span class="comment">/* serial_tx(byte_to_hex(byte &amp; 0x0F)); */</span></div>
+<div class="line"><span class="lineno">  116</span>}</div>
 </div><!-- fragment -->
 <p class="reference">Referenced by <a class="el" href="ps2_8c_source.html#l00051">_ps2_clock_falling_edge()</a>.</p>
 

@@ -19,5 +19,6 @@ var searchData=
   ['button_5flogin_5fonclick_16',['button_login_onclick',['../apps_2test_2main_8c.html#acd513cb36bfb49260572c1a86a2258f9',1,'main.c']]],
   ['button_5flogin_5fy_17',['BUTTON_LOGIN_Y',['../apps_2test_2main_8c.html#acc0ef2a2770e2e0d4d67788d646087b4',1,'main.c']]],
   ['button_5frender_18',['button_render',['../gui_8c.html#a39ff9e8cd1575571f8061f9e318276df',1,'gui.c']]],
-  ['button_5fwidth_19',['BUTTON_WIDTH',['../apps_2test_2main_8c.html#ae98035e5bee7146fab48f941818a2bc7',1,'main.c']]]
+  ['button_5fwidth_19',['BUTTON_WIDTH',['../apps_2test_2main_8c.html#ae98035e5bee7146fab48f941818a2bc7',1,'main.c']]],
+  ['byte_5fto_5fhex_20',['byte_to_hex',['../platform_2avr_2main_8c.html#a5c2f84aeedc37fa06591a71be6dc55e4',1,'main.c']]]
 ];

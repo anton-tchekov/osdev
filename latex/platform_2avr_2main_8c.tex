@@ -23,9 +23,9 @@ AVR Main.
 \begin{DoxyCompactItemize}
 \item 
 int \mbox{\hyperlink{platform_2avr_2main_8c_a840291bc02cba5474a4cb46a9b9566fe}{main}} (void)
-\item 
+\begin{DoxyCompactList}\small\item\em AVR Platform main function, loads drivers and starts kernel. \end{DoxyCompactList}\item 
 char \mbox{\hyperlink{platform_2avr_2main_8c_a5c2f84aeedc37fa06591a71be6dc55e4}{byte\+\_\+to\+\_\+hex}} (\mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}} byte)
-\item 
+\begin{DoxyCompactList}\small\item\em Convert 4-\/bit hex value to ASCII. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{platform_2avr_2main_8c_af7f4bc35d95b7572e19fff58cbf089f6}{ps2\+\_\+event}} (\mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}} byte)
 \begin{DoxyCompactList}\small\item\em This function must be implemented by the user and is called by the driver when a byte is received. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
@@ -57,18 +57,30 @@ Definition in file \mbox{\hyperlink{platform_2avr_2main_8c_source}{main.\+c}}.
 
 
 
-Definition at line \mbox{\hyperlink{platform_2avr_2main_8c_source_l00087}{87}} of file \mbox{\hyperlink{platform_2avr_2main_8c_source}{main.\+c}}.
+Convert 4-\/bit hex value to ASCII. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em byte} & Value from 0-\/15 \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\textquotesingle{}0\textquotesingle{}-\/\textquotesingle{}9\textquotesingle{} / \textquotesingle{}A\textquotesingle{}-\/\textquotesingle{}F\textquotesingle{} 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{platform_2avr_2main_8c_source_l00099}{99}} of file \mbox{\hyperlink{platform_2avr_2main_8c_source}{main.\+c}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00088\ \{}
-\DoxyCodeLine{00089\ \ \ \ \ \textcolor{keywordflow}{if}(\textcolor{keywordtype}{byte}\ <\ 10)}
-\DoxyCodeLine{00090\ \ \ \ \ \{}
-\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keywordtype}{byte}\ +\ \textcolor{charliteral}{'0'};}
-\DoxyCodeLine{00092\ \ \ \ \ \}}
-\DoxyCodeLine{00093\ }
-\DoxyCodeLine{00094\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keywordtype}{byte}\ -\/\ 10\ +\ \textcolor{charliteral}{'A'};}
-\DoxyCodeLine{00095\ \}}
+\DoxyCodeLine{00100\ \{}
+\DoxyCodeLine{00101\ \ \ \ \ \textcolor{keywordflow}{if}(\textcolor{keywordtype}{byte}\ <\ 10)}
+\DoxyCodeLine{00102\ \ \ \ \ \{}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keywordtype}{byte}\ +\ \textcolor{charliteral}{'0'};}
+\DoxyCodeLine{00104\ \ \ \ \ \}}
+\DoxyCodeLine{00105\ }
+\DoxyCodeLine{00106\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keywordtype}{byte}\ -\/\ 10\ +\ \textcolor{charliteral}{'A'};}
+\DoxyCodeLine{00107\ \}}
 
 \end{DoxyCode}
 \mbox{\Hypertarget{platform_2avr_2main_8c_a840291bc02cba5474a4cb46a9b9566fe}\label{platform_2avr_2main_8c_a840291bc02cba5474a4cb46a9b9566fe}} 
@@ -79,72 +91,83 @@ Definition at line \mbox{\hyperlink{platform_2avr_2main_8c_source_l00087}{87}} o
 
 
 
-Definition at line \mbox{\hyperlink{platform_2avr_2main_8c_source_l00024}{24}} of file \mbox{\hyperlink{platform_2avr_2main_8c_source}{main.\+c}}.
+AVR Platform main function, loads drivers and starts kernel. 
+
+\begin{DoxyReturn}{Returns}
+Exit code 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{platform_2avr_2main_8c_source_l00029}{29}} of file \mbox{\hyperlink{platform_2avr_2main_8c_source}{main.\+c}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00025\ \{}
-\DoxyCodeLine{00026\ \ \ \ \ \textcolor{comment}{/*\ -\/-\/-\/\ BOOT\ SEQUENCE\ -\/-\/-\/\ */}}
-\DoxyCodeLine{00027\ }
-\DoxyCodeLine{00028\ \ \ \ \ \textcolor{comment}{/*\ Enable\ interrupts\ */}}
-\DoxyCodeLine{00029\ \ \ \ \ sei();}
-\DoxyCodeLine{00030\ }
-\DoxyCodeLine{00031\ \ \ \ \ \textcolor{comment}{/*\ First,\ configure\ GPIO,\ because\ all\ modules\ that\ do\ I/O\ depend\ on\ it\ */}}
-\DoxyCodeLine{00032\ \ \ \ \ \mbox{\hyperlink{gpio_8c_a7159e787d0c4fb89346383b7987ab6d3}{gpio\_configure}}();}
-\DoxyCodeLine{00033\ }
-\DoxyCodeLine{00034\ \ \ \ \ \textcolor{comment}{/*\ Second,\ initialize\ serial\ port\ so\ that\ we\ can\ print\ boot\ messages\ */}}
-\DoxyCodeLine{00035\ \ \ \ \ \mbox{\hyperlink{platform_2avr_2serial_2serial_8c_ad2b461e9e9044364a28a61cfadcacdd8}{serial\_init}}();}
-\DoxyCodeLine{00036\ }
-\DoxyCodeLine{00037\ \ \ \ \ \textcolor{comment}{/*\ Print\ startup\ message\ */}}
-\DoxyCodeLine{00038\ \ \ \ \ \mbox{\hyperlink{logger_8c_a60bd636ef160c97eb51cf31be5954ba2}{log\_boot\_P}}(LOG\_NONE,\ PSTR(\textcolor{stringliteral}{"{}\(\backslash\)nImaginaryOS\ Version\ 0.1\ Booting\ ...\(\backslash\)n"{}}));}
-\DoxyCodeLine{00039\ }
-\DoxyCodeLine{00040\ \ \ \ \ \textcolor{comment}{/*\ Initialize\ millisecond\ timer\ */}}
-\DoxyCodeLine{00041\ \ \ \ \ \mbox{\hyperlink{timer_8c_a7b8ab79df77b57475a5494f5f81c3bd9}{timer\_init}}();}
-\DoxyCodeLine{00042\ }
-\DoxyCodeLine{00043\ \ \ \ \ \textcolor{comment}{/*\ Initialize\ SPI\ (Needed\ for\ SD\ Card,\ External\ Memory\ and\ LCD)\ */}}
-\DoxyCodeLine{00044\ \ \ \ \ \mbox{\hyperlink{spi_8c_ae909944aa85ae98323073c628be541aa}{spi\_init}}();}
-\DoxyCodeLine{00045\ }
-\DoxyCodeLine{00046\ \ \ \ \ \textcolor{comment}{/*\ Initialize\ LCD\ driver\ early\ for\ boot\ image\ and\ messages\ */}}
-\DoxyCodeLine{00047\ \ \ \ \ \mbox{\hyperlink{lcd_8c_a09748a4045dc2d014afdce2cc566e57d}{lcd\_init}}(0xFF,\ \mbox{\hyperlink{lcd_8h_aba2a7fe77a7501e5844370eec0185207}{COLOR\_BLACK}});}
-\DoxyCodeLine{00048\ }
-\DoxyCodeLine{00049\ \ \ \ \ \textcolor{comment}{/*\ Initialize\ LCD\ Logger\ */}}
-\DoxyCodeLine{00050\ \ \ \ \ \mbox{\hyperlink{logger_8c_aa60037dffd3fce2b3b698663eb11b5dc}{logger\_lcd\_init}}();}
-\DoxyCodeLine{00051\ }
-\DoxyCodeLine{00052\ \ \ \ \ \textcolor{comment}{/*\ Initialize\ keyboard\ (fast)\ */}}
-\DoxyCodeLine{00053\ \ \ \ \ \mbox{\hyperlink{ps2_8c_af0a83745146d1ce5fe4ef4372520e372}{ps2\_init}}();}
-\DoxyCodeLine{00054\ }
-\DoxyCodeLine{00055\ \ \ \ \ \textcolor{comment}{/*\ Initialize\ ADC\ (fast)\ */}}
-\DoxyCodeLine{00056\ \ \ \ \ \mbox{\hyperlink{adc_8c_a2b815e6730e8723a6d1d06d9ef8f31c0}{adc\_init}}();}
-\DoxyCodeLine{00057\ }
-\DoxyCodeLine{00058\ \ \ \ \ \textcolor{comment}{/*\ Initialize\ RNG\ (fast)\ */}}
-\DoxyCodeLine{00059\ \ \ \ \ \mbox{\hyperlink{random_8c_acc9caf986ad394f055fe6f511f7109f6}{random\_init}}();}
-\DoxyCodeLine{00060\ }
-\DoxyCodeLine{00061\ \ \ \ \ \textcolor{comment}{/*\ Initialize\ external\ memory\ late\ because\ of\ slow\ memory\ test\ */}}
-\DoxyCodeLine{00062\ \ \ \ \ \mbox{\hyperlink{xmem_8c_aa98b163510e84b9e79394397efdb8dde}{xmem\_init}}();}
-\DoxyCodeLine{00063\ }
-\DoxyCodeLine{00064\ \ \ \ \ \textcolor{comment}{/*\ Initialize\ SD\ card\ driver\ */}}
-\DoxyCodeLine{00065\ \ \ \ \ \mbox{\hyperlink{sd_8c_a8d7ab30b86b39a27f6fffac7495c1830}{sd\_init}}();}
-\DoxyCodeLine{00066\ }
-\DoxyCodeLine{00067\ \ \ \ \ \textcolor{comment}{/*\ -\/-\/-\/\ READY\ -\/-\/-\/\ */}}
+\DoxyCodeLine{00030\ \{}
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{comment}{/*\ -\/-\/-\/\ BOOT\ SEQUENCE\ -\/-\/-\/\ */}}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{comment}{/*\ Enable\ interrupts\ */}}
+\DoxyCodeLine{00034\ \ \ \ \ sei();}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{comment}{/*\ First,\ configure\ GPIO,\ because\ all\ modules\ that\ do\ I/O\ depend\ on\ it\ */}}
+\DoxyCodeLine{00037\ \ \ \ \ \mbox{\hyperlink{gpio_8c_a7159e787d0c4fb89346383b7987ab6d3}{gpio\_configure}}();}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{comment}{/*\ Second,\ initialize\ serial\ port\ so\ that\ we\ can\ print\ boot\ messages\ */}}
+\DoxyCodeLine{00040\ \ \ \ \ \mbox{\hyperlink{platform_2avr_2serial_2serial_8c_ad2b461e9e9044364a28a61cfadcacdd8}{serial\_init}}();}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{comment}{/*\ Print\ startup\ message\ */}}
+\DoxyCodeLine{00043\ \ \ \ \ \mbox{\hyperlink{logger_8c_a60bd636ef160c97eb51cf31be5954ba2}{log\_boot\_P}}(LOG\_NONE,\ PSTR(\textcolor{stringliteral}{"{}\(\backslash\)nImaginaryOS\ Version\ 0.1\ Booting\ ...\(\backslash\)n"{}}));}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{comment}{/*\ Initialize\ millisecond\ timer\ */}}
+\DoxyCodeLine{00046\ \ \ \ \ \mbox{\hyperlink{timer_8c_a7b8ab79df77b57475a5494f5f81c3bd9}{timer\_init}}();}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \ \ \ \ \textcolor{comment}{/*\ Initialize\ SPI\ (Needed\ for\ SD\ Card,\ External\ Memory\ and\ LCD)\ */}}
+\DoxyCodeLine{00049\ \ \ \ \ \mbox{\hyperlink{spi_8c_ae909944aa85ae98323073c628be541aa}{spi\_init}}();}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{comment}{/*\ Initialize\ LCD\ driver\ early\ for\ boot\ image\ and\ messages\ */}}
+\DoxyCodeLine{00052\ \ \ \ \ \mbox{\hyperlink{lcd_8c_a09748a4045dc2d014afdce2cc566e57d}{lcd\_init}}(0xFF,\ \mbox{\hyperlink{lcd_8h_aba2a7fe77a7501e5844370eec0185207}{COLOR\_BLACK}});}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{comment}{/*\ Initialize\ LCD\ Logger\ */}}
+\DoxyCodeLine{00055\ \ \ \ \ \mbox{\hyperlink{logger_8c_aa60037dffd3fce2b3b698663eb11b5dc}{logger\_lcd\_init}}();}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \ \ \ \ \textcolor{comment}{/*\ Initialize\ keyboard\ (fast)\ */}}
+\DoxyCodeLine{00058\ \ \ \ \ \mbox{\hyperlink{ps2_8c_af0a83745146d1ce5fe4ef4372520e372}{ps2\_init}}();}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \ \ \ \ \textcolor{comment}{/*\ Initialize\ ADC\ (fast)\ */}}
+\DoxyCodeLine{00061\ \ \ \ \ \mbox{\hyperlink{adc_8c_a2b815e6730e8723a6d1d06d9ef8f31c0}{adc\_init}}();}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \ \ \ \ \textcolor{comment}{/*\ Initialize\ RNG\ (fast)\ */}}
+\DoxyCodeLine{00064\ \ \ \ \ \mbox{\hyperlink{random_8c_acc9caf986ad394f055fe6f511f7109f6}{random\_init}}();}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \ \ \ \ \textcolor{comment}{/*\ Initialize\ external\ memory\ late\ because\ of\ slow\ memory\ test\ */}}
+\DoxyCodeLine{00067\ \ \ \ \ \mbox{\hyperlink{xmem_8c_aa98b163510e84b9e79394397efdb8dde}{xmem\_init}}();}
 \DoxyCodeLine{00068\ }
-\DoxyCodeLine{00069\ \ \ \ \ \textcolor{comment}{/*\ Load\ initial\ ram\ disk\ */}}
-\DoxyCodeLine{00070\ \ \ \ \ \mbox{\hyperlink{initrd_8c_afb664c3988d855629cd7b611cf610561}{initrd\_load}}();}
+\DoxyCodeLine{00069\ \ \ \ \ \textcolor{comment}{/*\ Initialize\ SD\ card\ driver\ */}}
+\DoxyCodeLine{00070\ \ \ \ \ \mbox{\hyperlink{sd_8c_a8d7ab30b86b39a27f6fffac7495c1830}{sd\_init}}();}
 \DoxyCodeLine{00071\ }
-\DoxyCodeLine{00072\ \ \ \ \ \mbox{\hyperlink{logger_8c_a60bd636ef160c97eb51cf31be5954ba2}{log\_boot\_P}}(LOG\_NONE,\ PSTR(\textcolor{stringliteral}{"{}\(\backslash\)nStarting\ RISC-\/V\ Emulator\ Kernel\ ...\(\backslash\)n\(\backslash\)n"{}}));}
+\DoxyCodeLine{00072\ \ \ \ \ \textcolor{comment}{/*\ -\/-\/-\/\ READY\ -\/-\/-\/\ */}}
 \DoxyCodeLine{00073\ }
-\DoxyCodeLine{00074\ \ \ \ \ \mbox{\hyperlink{emulator_8c_a0dbe43a64cbf994bf9189e7767f93342}{kernel\_init}}();}
-\DoxyCodeLine{00075\ \ \ \ \ \mbox{\hyperlink{logger_8c_a60bd636ef160c97eb51cf31be5954ba2}{log\_boot\_P}}(LOG\_EXT,\ PSTR(\textcolor{stringliteral}{"{}Setup\ done!"{}}));}
+\DoxyCodeLine{00074\ \ \ \ \ \textcolor{comment}{/*\ Load\ initial\ ram\ disk\ */}}
+\DoxyCodeLine{00075\ \ \ \ \ \mbox{\hyperlink{initrd_8c_afb664c3988d855629cd7b611cf610561}{initrd\_load}}();}
 \DoxyCodeLine{00076\ }
-\DoxyCodeLine{00077\ \ \ \ \ \textcolor{comment}{/*\ Infinite\ loop\ */}}
-\DoxyCodeLine{00078\ \ \ \ \ \textcolor{keywordflow}{for}(;;)}
-\DoxyCodeLine{00079\ \ \ \ \ \{}
-\DoxyCodeLine{00080\ \ \ \ \ \}}
+\DoxyCodeLine{00077\ \ \ \ \ \mbox{\hyperlink{logger_8c_a60bd636ef160c97eb51cf31be5954ba2}{log\_boot\_P}}(LOG\_NONE,\ PSTR(\textcolor{stringliteral}{"{}\(\backslash\)nStarting\ RISC-\/V\ Emulator\ Kernel\ ...\(\backslash\)n\(\backslash\)n"{}}));}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ \ \ \ \ \mbox{\hyperlink{emulator_8c_a0dbe43a64cbf994bf9189e7767f93342}{kernel\_init}}();}
+\DoxyCodeLine{00080\ \ \ \ \ \mbox{\hyperlink{logger_8c_a60bd636ef160c97eb51cf31be5954ba2}{log\_boot\_P}}(LOG\_EXT,\ PSTR(\textcolor{stringliteral}{"{}Setup\ done!"{}}));}
 \DoxyCodeLine{00081\ }
-\DoxyCodeLine{00082\ \ \ \ \ \textcolor{comment}{/*\ Unreachable\ */}}
-\DoxyCodeLine{00083\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
-\DoxyCodeLine{00084\ \}}
+\DoxyCodeLine{00082\ \ \ \ \ \textcolor{comment}{/*\ Infinite\ loop\ */}}
+\DoxyCodeLine{00083\ \ \ \ \ \textcolor{keywordflow}{for}(;;)}
+\DoxyCodeLine{00084\ \ \ \ \ \{}
+\DoxyCodeLine{00085\ \ \ \ \ \}}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00087\ \ \ \ \ \textcolor{comment}{/*\ Unreachable\ */}}
+\DoxyCodeLine{00088\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00089\ \}}
 
 \end{DoxyCode}
+
+
+References \mbox{\hyperlink{adc_8c_source_l00013}{adc\+\_\+init()}}, \mbox{\hyperlink{lcd_8h_source_l00038}{COLOR\+\_\+\+BLACK}}, \mbox{\hyperlink{gpio_8c_source_l00010}{gpio\+\_\+configure()}}, \mbox{\hyperlink{initrd_8c_source_l00025}{initrd\+\_\+load()}}, \mbox{\hyperlink{emulator_8c_source_l00120}{kernel\+\_\+init()}}, \mbox{\hyperlink{lcd_8c_source_l00427}{lcd\+\_\+init()}}, \mbox{\hyperlink{logger_8c_source_l00170}{log\+\_\+boot\+\_\+\+P()}}, \mbox{\hyperlink{logger_8c_source_l00237}{logger\+\_\+lcd\+\_\+init()}}, \mbox{\hyperlink{ps2_8c_source_l00026}{ps2\+\_\+init()}}, \mbox{\hyperlink{random_8c_source_l00014}{random\+\_\+init()}}, \mbox{\hyperlink{sd_8c_source_l00278}{sd\+\_\+init()}}, \mbox{\hyperlink{platform_2avr_2serial_2serial_8c_source_l00019}{serial\+\_\+init()}}, \mbox{\hyperlink{spi_8c_source_l00012}{spi\+\_\+init()}}, \mbox{\hyperlink{timer_8c_source_l00017}{timer\+\_\+init()}}, and \mbox{\hyperlink{xmem_8c_source_l00279}{xmem\+\_\+init()}}.
+
 \mbox{\Hypertarget{platform_2avr_2main_8c_af7f4bc35d95b7572e19fff58cbf089f6}\label{platform_2avr_2main_8c_af7f4bc35d95b7572e19fff58cbf089f6}} 
 \index{main.c@{main.c}!ps2\_event@{ps2\_event}}
 \index{ps2\_event@{ps2\_event}!main.c@{main.c}}
@@ -162,17 +185,17 @@ This function must be implemented by the user and is called by the driver when a
 \end{DoxyParams}
 
 
-Definition at line \mbox{\hyperlink{platform_2avr_2main_8c_source_l00097}{97}} of file \mbox{\hyperlink{platform_2avr_2main_8c_source}{main.\+c}}.
+Definition at line \mbox{\hyperlink{platform_2avr_2main_8c_source_l00109}{109}} of file \mbox{\hyperlink{platform_2avr_2main_8c_source}{main.\+c}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00098\ \{}
-\DoxyCodeLine{00099\ \ \ \ \ \textcolor{comment}{/*\ Called\ when\ a\ byte\ is\ received\ from\ the\ keyboard\ */}}
-\DoxyCodeLine{00100\ \ \ \ \ \textcolor{comment}{/*\ serial\_tx('0');\ */}}
-\DoxyCodeLine{00101\ \ \ \ \ \textcolor{comment}{/*\ serial\_tx('x');\ */}}
-\DoxyCodeLine{00102\ \ \ \ \ \textcolor{comment}{/*\ serial\_tx(byte\_to\_hex((byte\ >>\ 4)\ \&\ 0x0F));\ */}}
-\DoxyCodeLine{00103\ \ \ \ \ \textcolor{comment}{/*\ serial\_tx(byte\_to\_hex(byte\ \&\ 0x0F));\ */}}
-\DoxyCodeLine{00104\ \}}
+\DoxyCodeLine{00110\ \{}
+\DoxyCodeLine{00111\ \ \ \ \ \textcolor{comment}{/*\ Called\ when\ a\ byte\ is\ received\ from\ the\ keyboard\ */}}
+\DoxyCodeLine{00112\ \ \ \ \ \textcolor{comment}{/*\ serial\_tx('0');\ */}}
+\DoxyCodeLine{00113\ \ \ \ \ \textcolor{comment}{/*\ serial\_tx('x');\ */}}
+\DoxyCodeLine{00114\ \ \ \ \ \textcolor{comment}{/*\ serial\_tx(byte\_to\_hex((byte\ >>\ 4)\ \&\ 0x0F));\ */}}
+\DoxyCodeLine{00115\ \ \ \ \ \textcolor{comment}{/*\ serial\_tx(byte\_to\_hex(byte\ \&\ 0x0F));\ */}}
+\DoxyCodeLine{00116\ \}}
 
 \end{DoxyCode}
 

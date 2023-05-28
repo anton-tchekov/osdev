@@ -22,16 +22,34 @@
 #include <gfx-types.h>
 
 /* --- CONSTANTS --- */
+
+/** Title of the simulator window */
 #define WINDOW_TITLE             "OS Simulator"
+
+/** Number of bytes to read at once when loading binary */
 #define READ_SIZE            1024
 
 /* --- VARIABLES --- */
 
+/** Emulated memory */
 static u8 _memory[3 * 128 * 1024];
+
+/** Screen pixel array buffer */
 static u32 _pixels[GFX_HEIGHT * GFX_WIDTH];
-static u32 _sec_start, _usec_start;
+
+/** Seconds since start */
+static u32 _sec_start;
+
+/** Microseconds since start */
+static u32 _usec_start;
+
+/** SDL Framebuffer containing pixel buffer */
 static SDL_Texture *_framebuffer;
+
+/** SDL Window */
 static SDL_Window *_window;
+
+/** SDL Renderer */
 static SDL_Renderer *_renderer;
 
 /* --- MEMORY --- */
@@ -51,6 +69,12 @@ void env_memory_write(u32 addr, const void *data, u32 size)
 	memcpy(_memory + addr, data, size);
 }
 
+/**
+ * @brief Dump emulator memory from address with length
+ *
+ * @param address Start address
+ * @param length Number of bytes
+ */
 void memory_dump(u32 address, u32 length)
 {
 	u32 start, end, i;
@@ -79,6 +103,9 @@ void memory_dump(u32 address, u32 length)
 
 /* --- GRAPHICS --- */
 
+/**
+ * @brief Initialize SDL graphics
+ */
 static void gfx_init(void)
 {
 	/* Init SDL */
@@ -119,6 +146,9 @@ static void gfx_init(void)
 		GFX_WIDTH, GFX_HEIGHT);
 }
 
+/**
+ * @brief Destructor for SDL graphics renderer
+ */
 static void gfx_destroy(void)
 {
 	SDL_DestroyRenderer(_renderer);
@@ -126,6 +156,14 @@ static void gfx_destroy(void)
 	SDL_Quit();
 }
 
+/**
+ * @brief
+ *
+ * @param r
+ * @param g
+ * @param b
+ * @return u32
+ */
 static u32 gfx_color(u8 r, u8 g, u8 b)
 {
 	return ((u32)0xFF << 24) |
@@ -134,10 +172,36 @@ static u32 gfx_color(u8 r, u8 g, u8 b)
 		((u32)b);
 }
 
+/**
+ * @brief
+ *
+ * @param color
+ * @return u8
+ */
 static inline u8 _abgr_r(u32 color) { return (color >> 24) & 0xFF; }
+
+/**
+ * @brief
+ *
+ * @param color
+ * @return u8
+ */
 static inline u8 _abgr_g(u32 color) { return (color >> 16) & 0xFF; }
+
+/**
+ * @brief
+ *
+ * @param color
+ * @return u8
+ */
 static inline u8 _abgr_b(u32 color) { return (color >>  8) & 0xFF; }
 
+/**
+ * @brief
+ *
+ * @param color
+ * @return u32
+ */
 static u32 _abgr_to_argb(u32 color)
 {
 	return gfx_color(
@@ -146,6 +210,14 @@ static u32 _abgr_to_argb(u32 color)
 		_abgr_b(color));
 }
 
+/**
+ * @brief
+ *
+ * @param color1
+ * @param color2
+ * @param ratio
+ * @return u32
+ */
 static u32 _color_merge(u32 color1, u32 color2, u32 ratio)
 {
 	u8 r1, g1, b1, r2, g2, b2;
@@ -164,6 +236,12 @@ static u32 _color_merge(u32 color1, u32 color2, u32 ratio)
 		(b1 * ratio + b2 * (255 - ratio)) / 255);
 }
 
+/**
+ * @brief
+ *
+ * @param color
+ * @return u32
+ */
 static u32 _rgb565_to_bgra(u16 color)
 {
 	u32 r, g, b;
@@ -301,6 +379,9 @@ u32 env_random_get(void)
 
 /* --- TIMER --- */
 
+/**
+ * @brief Initialize simulated millisecond timer
+ */
 static void timer_init(void)
 {
 	struct timeval ts;
@@ -321,6 +402,13 @@ u32 env_millis(void)
 
 /* --- KEYBOARD --- */
 
+/**
+ * @brief Combine scancode and key modifiers into one value
+ *
+ * @param scancode Scancode
+ * @param mod Key Modifiers
+ * @return Combined Keycode
+ */
 static Key _convert_key(i32 scancode, i32 mod)
 {
 	Key key = scancode;
@@ -355,6 +443,13 @@ static Key _convert_key(i32 scancode, i32 mod)
 
 /* --- MAIN --- */
 
+/**
+ * @brief
+ *
+ * @param argc
+ * @param argv
+ * @return Exit code
+ */
 int main(int argc, char **argv)
 {
 	bool running = true;

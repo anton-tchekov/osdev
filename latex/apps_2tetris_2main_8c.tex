@@ -52,30 +52,28 @@ enum \mbox{\hyperlink{apps_2tetris_2main_8c_a12ed9719bbdf7bc596ff7a6f4bf3f021}{P
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-static void \mbox{\hyperlink{apps_2tetris_2main_8c_ab1e456910953ac621f5db7e57b3f2957}{\+\_\+clear\+\_\+field}} (\mbox{\hyperlink{apps_2tetris_2main_8c_a48e0eca677ce0a3de1dc2f2ea612cb19}{Field\+Type}} $\ast$field)
-\item 
 static \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} \mbox{\hyperlink{apps_2tetris_2main_8c_a7c2806ca944c2472b5e1d9234fc6fce7}{\+\_\+field\+\_\+get}} (\mbox{\hyperlink{apps_2tetris_2main_8c_a48e0eca677ce0a3de1dc2f2ea612cb19}{Field\+Type}} $\ast$field, \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} x, \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} y)
-\item 
+\begin{DoxyCompactList}\small\item\em Get the piece at a position inside a field. \end{DoxyCompactList}\item 
 static void \mbox{\hyperlink{apps_2tetris_2main_8c_a6859d50f3303a4d278f0e97438fa1854}{\+\_\+field\+\_\+shift}} (\mbox{\hyperlink{apps_2tetris_2main_8c_a48e0eca677ce0a3de1dc2f2ea612cb19}{Field\+Type}} $\ast$field, \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} row)
 \item 
 static \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} \mbox{\hyperlink{apps_2tetris_2main_8c_adf863a16219a55882b73716b8ee2b8b8}{\+\_\+field\+\_\+rows}} (\mbox{\hyperlink{apps_2tetris_2main_8c_a48e0eca677ce0a3de1dc2f2ea612cb19}{Field\+Type}} $\ast$field)
 \item 
 static void \mbox{\hyperlink{apps_2tetris_2main_8c_a63512b1efd6d377245329f587094f300}{\+\_\+draw\+\_\+grid}} (void)
-\item 
+\begin{DoxyCompactList}\small\item\em Draw field grid. \end{DoxyCompactList}\item 
 static \mbox{\hyperlink{apps_2tetris_2main_8c_a12ed9719bbdf7bc596ff7a6f4bf3f021}{Piece\+Type}} \mbox{\hyperlink{apps_2tetris_2main_8c_a8fe5892e2d197c0c60dfaaa2559f64ae}{\+\_\+new\+\_\+piece}} (\mbox{\hyperlink{structPiece}{Piece}} $\ast$p)
-\item 
+\begin{DoxyCompactList}\small\item\em Get the next random tetris piece. \end{DoxyCompactList}\item 
 static bool \mbox{\hyperlink{apps_2tetris_2main_8c_afa6a85d7ceaf4d7c8e3b17881258b6e3}{\+\_\+valid\+\_\+position}} (\mbox{\hyperlink{apps_2tetris_2main_8c_a48e0eca677ce0a3de1dc2f2ea612cb19}{Field\+Type}} $\ast$field, \mbox{\hyperlink{structPiece}{Piece}} $\ast$p)
-\item 
+\begin{DoxyCompactList}\small\item\em Check if the position of a piece is valid, meaning that it is not outside of the frame and not colliding with pieces on the field. \end{DoxyCompactList}\item 
 static void \mbox{\hyperlink{apps_2tetris_2main_8c_a179f7e3f493ed0a3bdf1bc11907e8c98}{\+\_\+to\+\_\+field}} (\mbox{\hyperlink{apps_2tetris_2main_8c_a48e0eca677ce0a3de1dc2f2ea612cb19}{Field\+Type}} $\ast$field, \mbox{\hyperlink{structPiece}{Piece}} $\ast$p)
-\item 
+\begin{DoxyCompactList}\small\item\em Place a piece into a field. \end{DoxyCompactList}\item 
 static void \mbox{\hyperlink{apps_2tetris_2main_8c_ade05f2059114427e9bcbc708760f5da3}{\+\_\+draw\+\_\+field}} (void)
-\item 
+\begin{DoxyCompactList}\small\item\em Draw the tetris field to the screen. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{apps_2tetris_2main_8c_af5305db9ea018cc40d167b2a51d77ac1}{event\+\_\+key}} (\mbox{\hyperlink{keyboard-shared_8h_a48752551c4279f8cddf3585f8272092a}{Key}} key, \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} chr, \mbox{\hyperlink{keyboard-shared_8h_a7e51438e5f6bf556512ce7103cddac09}{Key\+State}} state)
 \item 
 void \mbox{\hyperlink{apps_2tetris_2main_8c_a7dfd9b79bc5a37d7df40207afbc5431f}{setup}} (void)
-\begin{DoxyCompactList}\small\item\em Setup function that is called at program start. Must be implemented by user. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Main setup function, initialize game. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{apps_2tetris_2main_8c_a0b33edabd7f1c4e4a0bf32c67269be2f}{loop}} (void)
-\begin{DoxyCompactList}\small\item\em Loop function that is called repeatedly Must be implemented by user. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Main game loop, update state. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Variables}
 \begin{DoxyCompactItemize}
 \item 
@@ -94,21 +92,11 @@ static \mbox{\hyperlink{structPiece}{Piece}} \mbox{\hyperlink{apps_2tetris_2main
 \item 
 static \mbox{\hyperlink{status_8h_a67a0db04d321a74b7e7fcfd3f1a3f70b}{Status}} \mbox{\hyperlink{apps_2tetris_2main_8c_a6cdf6e6db875a442f3ab6db542bd2bb5}{\+\_\+status}}
 \item 
-static \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} \mbox{\hyperlink{apps_2tetris_2main_8c_abbc7dd13901e2d7a0df8b73c26e5f821}{\+\_\+ticks}}
-\item 
-static \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} \mbox{\hyperlink{apps_2tetris_2main_8c_a5235a066c76d399951efc2de2ba1aa37}{\+\_\+last\+\_\+ticks}} = 0
-\item 
-static \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} \mbox{\hyperlink{apps_2tetris_2main_8c_a3b61dc076d66b07a466af8d80eb02283}{\+\_\+ticks\+\_\+update}} = 200
-\item 
-static \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} \mbox{\hyperlink{apps_2tetris_2main_8c_a4b758f0eefc028ef6318390b4e16f6ce}{\+\_\+score}} = 0
+static \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} \mbox{\hyperlink{apps_2tetris_2main_8c_a3b61dc076d66b07a466af8d80eb02283}{\+\_\+ticks\+\_\+update}} = \mbox{\hyperlink{apps_2tetris_2main_8c_a8dd63073e02e2b072414b6bf3cdf57d6}{FALL\+\_\+\+SPEED\+\_\+\+DEFAULT}}
 \item 
 static bool \mbox{\hyperlink{apps_2tetris_2main_8c_a3bd315b7f7932213204e50b823729896}{\+\_\+changed}}
 \item 
 static \mbox{\hyperlink{apps_2tetris_2main_8c_a48e0eca677ce0a3de1dc2f2ea612cb19}{Field\+Type}} \mbox{\hyperlink{apps_2tetris_2main_8c_a712087fe8401cc72eeea97bf20629aef}{\+\_\+field}} \mbox{[}\mbox{\hyperlink{apps_2tetris_2main_8c_a49d2668adfdf4f710a6c58fdbc0bcbe6}{FIELD\+\_\+\+SIZE}}\mbox{]}
-\item 
-static \mbox{\hyperlink{apps_2tetris_2main_8c_a48e0eca677ce0a3de1dc2f2ea612cb19}{Field\+Type}} \mbox{\hyperlink{apps_2tetris_2main_8c_a6c44e32160b4a80c95d0dbcd14207d39}{\+\_\+new}} \mbox{[}\mbox{\hyperlink{apps_2tetris_2main_8c_a313353b53d609b3b2b37e1aecf98bf4c}{FIELD\+\_\+\+WIDTH}} $\ast$\mbox{\hyperlink{apps_2tetris_2main_8c_a90b3ddaf01d4c39af0567b4500e9c4c6}{FIELD\+\_\+\+HEIGHT}}\mbox{]}
-\item 
-static \mbox{\hyperlink{apps_2tetris_2main_8c_a48e0eca677ce0a3de1dc2f2ea612cb19}{Field\+Type}} \mbox{\hyperlink{apps_2tetris_2main_8c_aa65d357f95d91938f99e42283dc8a0c7}{\+\_\+prev}} \mbox{[}\mbox{\hyperlink{apps_2tetris_2main_8c_a313353b53d609b3b2b37e1aecf98bf4c}{FIELD\+\_\+\+WIDTH}} $\ast$\mbox{\hyperlink{apps_2tetris_2main_8c_a90b3ddaf01d4c39af0567b4500e9c4c6}{FIELD\+\_\+\+HEIGHT}}\mbox{]}
 \end{DoxyCompactItemize}
 
 
@@ -220,9 +208,9 @@ Definition at line \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00031}{31}} of
 \doxysubsubsection{\texorpdfstring{FieldType}{FieldType}}
 {\footnotesize\ttfamily typedef \mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}} \mbox{\hyperlink{apps_2tetris_2main_8c_a48e0eca677ce0a3de1dc2f2ea612cb19}{Field\+Type}}}
 
-VARIABLES 
+VARIABLES Type that stores what piece type a tile in a field belongs to 
 
-Definition at line \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00101}{101}} of file \mbox{\hyperlink{apps_2tetris_2main_8c_source}{main.\+c}}.
+Definition at line \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00102}{102}} of file \mbox{\hyperlink{apps_2tetris_2main_8c_source}{main.\+c}}.
 
 
 
@@ -245,27 +233,6 @@ Definition at line \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00037}{37}} of
 
 
 \doxysubsection{Function Documentation}
-\mbox{\Hypertarget{apps_2tetris_2main_8c_ab1e456910953ac621f5db7e57b3f2957}\label{apps_2tetris_2main_8c_ab1e456910953ac621f5db7e57b3f2957}} 
-\index{main.c@{main.c}!\_clear\_field@{\_clear\_field}}
-\index{\_clear\_field@{\_clear\_field}!main.c@{main.c}}
-\doxysubsubsection{\texorpdfstring{\_clear\_field()}{\_clear\_field()}}
-{\footnotesize\ttfamily static void \+\_\+clear\+\_\+field (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{apps_2tetris_2main_8c_a48e0eca677ce0a3de1dc2f2ea612cb19}{Field\+Type}} $\ast$}]{field }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
-
-
-
-Definition at line \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00113}{113}} of file \mbox{\hyperlink{apps_2tetris_2main_8c_source}{main.\+c}}.
-
-
-\begin{DoxyCode}{0}
-\DoxyCodeLine{00114\ \{}
-\DoxyCodeLine{00115\ \ \ \ \ \textcolor{keywordtype}{int}\ i;}
-\DoxyCodeLine{00116\ \ \ \ \ \textcolor{keywordflow}{for}(i\ =\ 0;\ i\ <\ \mbox{\hyperlink{apps_2tetris_2main_8c_a313353b53d609b3b2b37e1aecf98bf4c}{FIELD\_WIDTH}}\ *\ \mbox{\hyperlink{apps_2tetris_2main_8c_a90b3ddaf01d4c39af0567b4500e9c4c6}{FIELD\_HEIGHT}};\ ++i)}
-\DoxyCodeLine{00117\ \ \ \ \ \{}
-\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ field[i]\ =\ 0;}
-\DoxyCodeLine{00119\ \ \ \ \ \}}
-\DoxyCodeLine{00120\ \}}
-
-\end{DoxyCode}
 \mbox{\Hypertarget{apps_2tetris_2main_8c_ade05f2059114427e9bcbc708760f5da3}\label{apps_2tetris_2main_8c_ade05f2059114427e9bcbc708760f5da3}} 
 \index{main.c@{main.c}!\_draw\_field@{\_draw\_field}}
 \index{\_draw\_field@{\_draw\_field}!main.c@{main.c}}
@@ -274,40 +241,53 @@ Definition at line \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00113}{113}} o
 
 
 
-Definition at line \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00269}{269}} of file \mbox{\hyperlink{apps_2tetris_2main_8c_source}{main.\+c}}.
+Draw the tetris field to the screen. 
+
+
+
+Definition at line \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00306}{306}} of file \mbox{\hyperlink{apps_2tetris_2main_8c_source}{main.\+c}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00270\ \{}
-\DoxyCodeLine{00271\ \ \ \ \ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ x,\ y,\ offset;}
-\DoxyCodeLine{00272\ \ \ \ \ \mbox{\hyperlink{apps_2tetris_2main_8c_a12ed9719bbdf7bc596ff7a6f4bf3f021}{PieceType}}\ type;}
-\DoxyCodeLine{00273\ }
-\DoxyCodeLine{00274\ \ \ \ \ \mbox{\hyperlink{string_8c_a6ea826c42748b85ae7c74f1e2ccf7c27}{memcpy}}(\_new,\ \_field,\ \textcolor{keyword}{sizeof}(\_field));}
-\DoxyCodeLine{00275\ \ \ \ \ \_to\_field(\_new,\ \&\_cp);}
-\DoxyCodeLine{00276\ \ \ \ \ \textcolor{comment}{//\_to\_field(\_new,\ \&\_np);}}
-\DoxyCodeLine{00277\ \ \ \ \ \textcolor{keywordflow}{for}(y\ =\ 0;\ y\ <\ \mbox{\hyperlink{apps_2tetris_2main_8c_a90b3ddaf01d4c39af0567b4500e9c4c6}{FIELD\_HEIGHT}};\ ++y)}
-\DoxyCodeLine{00278\ \ \ \ \ \{}
-\DoxyCodeLine{00279\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(x\ =\ 0;\ x\ <\ \mbox{\hyperlink{apps_2tetris_2main_8c_a313353b53d609b3b2b37e1aecf98bf4c}{FIELD\_WIDTH}};\ ++x)}
-\DoxyCodeLine{00280\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00281\ \ \ \ \ \ \ \ \ \ \ \ \ offset\ =\ y\ *\ \mbox{\hyperlink{apps_2tetris_2main_8c_a313353b53d609b3b2b37e1aecf98bf4c}{FIELD\_WIDTH}}\ +\ x;}
-\DoxyCodeLine{00282\ \ \ \ \ \ \ \ \ \ \ \ \ type\ =\ \_new[offset];}
-\DoxyCodeLine{00283\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gfx-types_8h_acbbccb6085c654282ef64cdcefc81be5}{Color}}\ color\ =\ type\ ?\ Pieces[type\ -\/\ 1].Fill\ :\ \mbox{\hyperlink{lcd_8h_aba2a7fe77a7501e5844370eec0185207}{COLOR\_BLACK}};}
-\DoxyCodeLine{00284\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(type\ !=\ \_prev[offset])}
-\DoxyCodeLine{00285\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00286\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gfx_8c_a61d70a4550bf181cd71bfc9a4f12a6d1}{gfx\_rect}}(}
-\DoxyCodeLine{00287\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ x\ *\ \mbox{\hyperlink{apps_2tetris_2main_8c_ad51ded0bbd705f02f73fc60c0b721ced}{BLOCK\_SIZE}}\ +\ 1,}
-\DoxyCodeLine{00288\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ y\ *\ \mbox{\hyperlink{apps_2tetris_2main_8c_ad51ded0bbd705f02f73fc60c0b721ced}{BLOCK\_SIZE}}\ +\ 1,}
-\DoxyCodeLine{00289\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{apps_2tetris_2main_8c_ad51ded0bbd705f02f73fc60c0b721ced}{BLOCK\_SIZE}}\ -\/\ 1,}
-\DoxyCodeLine{00290\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{apps_2tetris_2main_8c_ad51ded0bbd705f02f73fc60c0b721ced}{BLOCK\_SIZE}}\ -\/\ 1,}
-\DoxyCodeLine{00291\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ color);}
-\DoxyCodeLine{00292\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00293\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00294\ \ \ \ \ \}}
-\DoxyCodeLine{00295\ }
-\DoxyCodeLine{00296\ \ \ \ \ \mbox{\hyperlink{string_8c_a6ea826c42748b85ae7c74f1e2ccf7c27}{memcpy}}(\_prev,\ \_new,\ \textcolor{keyword}{sizeof}(\_field));}
-\DoxyCodeLine{00297\ \}}
+\DoxyCodeLine{00307\ \{}
+\DoxyCodeLine{00308\ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{apps_2tetris_2main_8c_a48e0eca677ce0a3de1dc2f2ea612cb19}{FieldType}}\ \_new[\mbox{\hyperlink{apps_2tetris_2main_8c_a49d2668adfdf4f710a6c58fdbc0bcbe6}{FIELD\_SIZE}}],\ \_prev[\mbox{\hyperlink{apps_2tetris_2main_8c_a49d2668adfdf4f710a6c58fdbc0bcbe6}{FIELD\_SIZE}}]}
+\DoxyCodeLine{00309\ \ \ \ \ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ x,\ y,\ offset;}
+\DoxyCodeLine{00310\ \ \ \ \ \mbox{\hyperlink{apps_2tetris_2main_8c_a12ed9719bbdf7bc596ff7a6f4bf3f021}{PieceType}}\ type;}
+\DoxyCodeLine{00311\ }
+\DoxyCodeLine{00312\ \ \ \ \ \mbox{\hyperlink{string_8c_a6ea826c42748b85ae7c74f1e2ccf7c27}{memcpy}}(\_new,\ \mbox{\hyperlink{apps_2tetris_2main_8c_a712087fe8401cc72eeea97bf20629aef}{\_field}},\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{apps_2tetris_2main_8c_a712087fe8401cc72eeea97bf20629aef}{\_field}}));}
+\DoxyCodeLine{00313\ \ \ \ \ \mbox{\hyperlink{apps_2tetris_2main_8c_a179f7e3f493ed0a3bdf1bc11907e8c98}{\_to\_field}}(\_new,\ \&\mbox{\hyperlink{apps_2tetris_2main_8c_a484db87782841a7763d17ef82d344de1}{\_cp}});}
+\DoxyCodeLine{00314\ \ \ \ \ \textcolor{comment}{//\_to\_field(\_new,\ \&\_np);}}
+\DoxyCodeLine{00315\ \ \ \ \ \textcolor{keywordflow}{for}(y\ =\ 0;\ y\ <\ \mbox{\hyperlink{apps_2tetris_2main_8c_a90b3ddaf01d4c39af0567b4500e9c4c6}{FIELD\_HEIGHT}};\ ++y)}
+\DoxyCodeLine{00316\ \ \ \ \ \{}
+\DoxyCodeLine{00317\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(x\ =\ 0;\ x\ <\ \mbox{\hyperlink{apps_2tetris_2main_8c_a313353b53d609b3b2b37e1aecf98bf4c}{FIELD\_WIDTH}};\ ++x)}
+\DoxyCodeLine{00318\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00319\ \ \ \ \ \ \ \ \ \ \ \ \ offset\ =\ y\ *\ \mbox{\hyperlink{apps_2tetris_2main_8c_a313353b53d609b3b2b37e1aecf98bf4c}{FIELD\_WIDTH}}\ +\ x;}
+\DoxyCodeLine{00320\ \ \ \ \ \ \ \ \ \ \ \ \ type\ =\ \_new[offset];}
+\DoxyCodeLine{00321\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gfx-types_8h_acbbccb6085c654282ef64cdcefc81be5}{Color}}\ color\ =\ type\ ?\ Pieces[type\ -\/\ 1].Fill\ :\ \mbox{\hyperlink{lcd_8h_aba2a7fe77a7501e5844370eec0185207}{COLOR\_BLACK}};}
+\DoxyCodeLine{00322\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(type\ !=\ \_prev[offset])}
+\DoxyCodeLine{00323\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00324\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gfx_8c_a61d70a4550bf181cd71bfc9a4f12a6d1}{gfx\_rect}}(}
+\DoxyCodeLine{00325\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ x\ *\ \mbox{\hyperlink{apps_2tetris_2main_8c_ad51ded0bbd705f02f73fc60c0b721ced}{BLOCK\_SIZE}}\ +\ 1,}
+\DoxyCodeLine{00326\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ y\ *\ \mbox{\hyperlink{apps_2tetris_2main_8c_ad51ded0bbd705f02f73fc60c0b721ced}{BLOCK\_SIZE}}\ +\ 1,}
+\DoxyCodeLine{00327\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{apps_2tetris_2main_8c_ad51ded0bbd705f02f73fc60c0b721ced}{BLOCK\_SIZE}}\ -\/\ 1,}
+\DoxyCodeLine{00328\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{apps_2tetris_2main_8c_ad51ded0bbd705f02f73fc60c0b721ced}{BLOCK\_SIZE}}\ -\/\ 1,}
+\DoxyCodeLine{00329\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ color);}
+\DoxyCodeLine{00330\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00331\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00332\ \ \ \ \ \}}
+\DoxyCodeLine{00333\ }
+\DoxyCodeLine{00334\ \ \ \ \ \mbox{\hyperlink{string_8c_a6ea826c42748b85ae7c74f1e2ccf7c27}{memcpy}}(\_prev,\ \_new,\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{apps_2tetris_2main_8c_a712087fe8401cc72eeea97bf20629aef}{\_field}}));}
+\DoxyCodeLine{00335\ \}}
 
 \end{DoxyCode}
+
+
+References \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00105}{\+\_\+cp}}, \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00120}{\+\_\+field}}, \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00278}{\+\_\+to\+\_\+field()}}, \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00022}{BLOCK\+\_\+\+SIZE}}, \mbox{\hyperlink{lcd_8h_source_l00038}{COLOR\+\_\+\+BLACK}}, \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00016}{FIELD\+\_\+\+HEIGHT}}, \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00019}{FIELD\+\_\+\+SIZE}}, \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00013}{FIELD\+\_\+\+WIDTH}}, \mbox{\hyperlink{gfx_8c_source_l00011}{gfx\+\_\+rect()}}, and \mbox{\hyperlink{string_8c_source_l00094}{memcpy()}}.
+
+
+
+Referenced by \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00415}{loop()}}.
+
 \mbox{\Hypertarget{apps_2tetris_2main_8c_a63512b1efd6d377245329f587094f300}\label{apps_2tetris_2main_8c_a63512b1efd6d377245329f587094f300}} 
 \index{main.c@{main.c}!\_draw\_grid@{\_draw\_grid}}
 \index{\_draw\_grid@{\_draw\_grid}!main.c@{main.c}}
@@ -316,24 +296,36 @@ Definition at line \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00269}{269}} o
 
 
 
-Definition at line \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00166}{166}} of file \mbox{\hyperlink{apps_2tetris_2main_8c_source}{main.\+c}}.
+Draw field grid. 
+
+
+
+Definition at line \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00185}{185}} of file \mbox{\hyperlink{apps_2tetris_2main_8c_source}{main.\+c}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00167\ \{}
-\DoxyCodeLine{00168\ \ \ \ \ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ i;}
-\DoxyCodeLine{00169\ \ \ \ \ \textcolor{keywordflow}{for}(i\ =\ 0;\ i\ <=\ \mbox{\hyperlink{apps_2tetris_2main_8c_ad51ded0bbd705f02f73fc60c0b721ced}{BLOCK\_SIZE}}\ *\ \mbox{\hyperlink{apps_2tetris_2main_8c_a313353b53d609b3b2b37e1aecf98bf4c}{FIELD\_WIDTH}};\ i\ +=\ \mbox{\hyperlink{apps_2tetris_2main_8c_ad51ded0bbd705f02f73fc60c0b721ced}{BLOCK\_SIZE}})}
-\DoxyCodeLine{00170\ \ \ \ \ \{}
-\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gfx_8c_a61d70a4550bf181cd71bfc9a4f12a6d1}{gfx\_rect}}(i,\ 0,\ 1,\ \mbox{\hyperlink{apps_2tetris_2main_8c_ad51ded0bbd705f02f73fc60c0b721ced}{BLOCK\_SIZE}}\ *\ \mbox{\hyperlink{apps_2tetris_2main_8c_a90b3ddaf01d4c39af0567b4500e9c4c6}{FIELD\_HEIGHT}},\ \mbox{\hyperlink{lcd_8h_a9b44987ffdc2af19b635206b94334b69}{COLOR\_WHITE}});}
-\DoxyCodeLine{00172\ \ \ \ \ \}}
-\DoxyCodeLine{00173\ }
-\DoxyCodeLine{00174\ \ \ \ \ \textcolor{keywordflow}{for}(i\ =\ 0;\ i\ <=\ \mbox{\hyperlink{apps_2tetris_2main_8c_ad51ded0bbd705f02f73fc60c0b721ced}{BLOCK\_SIZE}}\ *\ \mbox{\hyperlink{apps_2tetris_2main_8c_a90b3ddaf01d4c39af0567b4500e9c4c6}{FIELD\_HEIGHT}};\ i\ +=\ \mbox{\hyperlink{apps_2tetris_2main_8c_ad51ded0bbd705f02f73fc60c0b721ced}{BLOCK\_SIZE}})}
-\DoxyCodeLine{00175\ \ \ \ \ \{}
-\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gfx_8c_a61d70a4550bf181cd71bfc9a4f12a6d1}{gfx\_rect}}(0,\ i,\ \mbox{\hyperlink{apps_2tetris_2main_8c_ad51ded0bbd705f02f73fc60c0b721ced}{BLOCK\_SIZE}}\ *\ \mbox{\hyperlink{apps_2tetris_2main_8c_a313353b53d609b3b2b37e1aecf98bf4c}{FIELD\_WIDTH}},\ 1,\ \mbox{\hyperlink{lcd_8h_a9b44987ffdc2af19b635206b94334b69}{COLOR\_WHITE}});}
-\DoxyCodeLine{00177\ \ \ \ \ \}}
-\DoxyCodeLine{00178\ \}}
+\DoxyCodeLine{00186\ \{}
+\DoxyCodeLine{00187\ \ \ \ \ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ i;}
+\DoxyCodeLine{00188\ \ \ \ \ \textcolor{keywordflow}{for}(i\ =\ 0;\ i\ <=\ \mbox{\hyperlink{apps_2tetris_2main_8c_ad51ded0bbd705f02f73fc60c0b721ced}{BLOCK\_SIZE}}\ *\ \mbox{\hyperlink{apps_2tetris_2main_8c_a313353b53d609b3b2b37e1aecf98bf4c}{FIELD\_WIDTH}};\ i\ +=\ \mbox{\hyperlink{apps_2tetris_2main_8c_ad51ded0bbd705f02f73fc60c0b721ced}{BLOCK\_SIZE}})}
+\DoxyCodeLine{00189\ \ \ \ \ \{}
+\DoxyCodeLine{00190\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gfx_8c_a61d70a4550bf181cd71bfc9a4f12a6d1}{gfx\_rect}}(i,\ 0,\ 1,\ \mbox{\hyperlink{apps_2tetris_2main_8c_ad51ded0bbd705f02f73fc60c0b721ced}{BLOCK\_SIZE}}\ *\ \mbox{\hyperlink{apps_2tetris_2main_8c_a90b3ddaf01d4c39af0567b4500e9c4c6}{FIELD\_HEIGHT}},\ \mbox{\hyperlink{lcd_8h_a9b44987ffdc2af19b635206b94334b69}{COLOR\_WHITE}});}
+\DoxyCodeLine{00191\ \ \ \ \ \}}
+\DoxyCodeLine{00192\ }
+\DoxyCodeLine{00193\ \ \ \ \ \textcolor{keywordflow}{for}(i\ =\ 0;\ i\ <=\ \mbox{\hyperlink{apps_2tetris_2main_8c_ad51ded0bbd705f02f73fc60c0b721ced}{BLOCK\_SIZE}}\ *\ \mbox{\hyperlink{apps_2tetris_2main_8c_a90b3ddaf01d4c39af0567b4500e9c4c6}{FIELD\_HEIGHT}};\ i\ +=\ \mbox{\hyperlink{apps_2tetris_2main_8c_ad51ded0bbd705f02f73fc60c0b721ced}{BLOCK\_SIZE}})}
+\DoxyCodeLine{00194\ \ \ \ \ \{}
+\DoxyCodeLine{00195\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gfx_8c_a61d70a4550bf181cd71bfc9a4f12a6d1}{gfx\_rect}}(0,\ i,\ \mbox{\hyperlink{apps_2tetris_2main_8c_ad51ded0bbd705f02f73fc60c0b721ced}{BLOCK\_SIZE}}\ *\ \mbox{\hyperlink{apps_2tetris_2main_8c_a313353b53d609b3b2b37e1aecf98bf4c}{FIELD\_WIDTH}},\ 1,\ \mbox{\hyperlink{lcd_8h_a9b44987ffdc2af19b635206b94334b69}{COLOR\_WHITE}});}
+\DoxyCodeLine{00196\ \ \ \ \ \}}
+\DoxyCodeLine{00197\ \}}
 
 \end{DoxyCode}
+
+
+References \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00022}{BLOCK\+\_\+\+SIZE}}, \mbox{\hyperlink{lcd_8h_source_l00035}{COLOR\+\_\+\+WHITE}}, \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00016}{FIELD\+\_\+\+HEIGHT}}, \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00013}{FIELD\+\_\+\+WIDTH}}, and \mbox{\hyperlink{gfx_8c_source_l00011}{gfx\+\_\+rect()}}.
+
+
+
+Referenced by \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00399}{setup()}}.
+
 \mbox{\Hypertarget{apps_2tetris_2main_8c_a7c2806ca944c2472b5e1d9234fc6fce7}\label{apps_2tetris_2main_8c_a7c2806ca944c2472b5e1d9234fc6fce7}} 
 \index{main.c@{main.c}!\_field\_get@{\_field\_get}}
 \index{\_field\_get@{\_field\_get}!main.c@{main.c}}
@@ -342,16 +334,40 @@ Definition at line \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00166}{166}} o
 
 
 
-Definition at line \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00122}{122}} of file \mbox{\hyperlink{apps_2tetris_2main_8c_source}{main.\+c}}.
+Get the piece at a position inside a field. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em field} & The field \\
+\hline
+{\em x} & X-\/coordinate \\
+\hline
+{\em y} & Y-\/coordinate \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00132}{132}} of file \mbox{\hyperlink{apps_2tetris_2main_8c_source}{main.\+c}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00123\ \{}
-\DoxyCodeLine{00124\ \ \ \ \ \textcolor{keywordflow}{return}\ (x\ <\ 0\ ||\ x\ >=\ \mbox{\hyperlink{apps_2tetris_2main_8c_a313353b53d609b3b2b37e1aecf98bf4c}{FIELD\_WIDTH}}\ ||\ y\ <\ 0\ ||\ y\ >=\ \mbox{\hyperlink{apps_2tetris_2main_8c_a90b3ddaf01d4c39af0567b4500e9c4c6}{FIELD\_HEIGHT}})\ ?\ -\/1\ :}
-\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ field[y\ *\ \mbox{\hyperlink{apps_2tetris_2main_8c_a313353b53d609b3b2b37e1aecf98bf4c}{FIELD\_WIDTH}}\ +\ x];}
-\DoxyCodeLine{00126\ \}}
+\DoxyCodeLine{00133\ \{}
+\DoxyCodeLine{00134\ \ \ \ \ \textcolor{keywordflow}{return}\ (x\ <\ 0\ ||\ x\ >=\ \mbox{\hyperlink{apps_2tetris_2main_8c_a313353b53d609b3b2b37e1aecf98bf4c}{FIELD\_WIDTH}}\ ||\ y\ <\ 0\ ||\ y\ >=\ \mbox{\hyperlink{apps_2tetris_2main_8c_a90b3ddaf01d4c39af0567b4500e9c4c6}{FIELD\_HEIGHT}})\ ?\ -\/1\ :}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ field[y\ *\ \mbox{\hyperlink{apps_2tetris_2main_8c_a313353b53d609b3b2b37e1aecf98bf4c}{FIELD\_WIDTH}}\ +\ x];}
+\DoxyCodeLine{00136\ \}}
 
 \end{DoxyCode}
+
+
+References \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00016}{FIELD\+\_\+\+HEIGHT}}, and \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00013}{FIELD\+\_\+\+WIDTH}}.
+
+
+
+Referenced by \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00246}{\+\_\+valid\+\_\+position()}}.
+
 \mbox{\Hypertarget{apps_2tetris_2main_8c_adf863a16219a55882b73716b8ee2b8b8}\label{apps_2tetris_2main_8c_adf863a16219a55882b73716b8ee2b8b8}} 
 \index{main.c@{main.c}!\_field\_rows@{\_field\_rows}}
 \index{\_field\_rows@{\_field\_rows}!main.c@{main.c}}
@@ -360,33 +376,33 @@ Definition at line \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00122}{122}} o
 
 
 
-Definition at line \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00141}{141}} of file \mbox{\hyperlink{apps_2tetris_2main_8c_source}{main.\+c}}.
+Definition at line \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00157}{157}} of file \mbox{\hyperlink{apps_2tetris_2main_8c_source}{main.\+c}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00142\ \{}
-\DoxyCodeLine{00143\ \ \ \ \ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ x,\ y,\ score;}
-\DoxyCodeLine{00144\ }
-\DoxyCodeLine{00145\ \ \ \ \ score\ =\ 0;}
-\DoxyCodeLine{00146\ \ \ \ \ \textcolor{keywordflow}{for}(y\ =\ 0;\ y\ <\ \mbox{\hyperlink{apps_2tetris_2main_8c_a90b3ddaf01d4c39af0567b4500e9c4c6}{FIELD\_HEIGHT}};\ ++y)}
-\DoxyCodeLine{00147\ \ \ \ \ \{}
-\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(x\ =\ 0;\ x\ <\ \mbox{\hyperlink{apps_2tetris_2main_8c_a313353b53d609b3b2b37e1aecf98bf4c}{FIELD\_WIDTH}};\ ++x)}
-\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(!field[y\ *\ \mbox{\hyperlink{apps_2tetris_2main_8c_a313353b53d609b3b2b37e1aecf98bf4c}{FIELD\_WIDTH}}\ +\ x])}
-\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
-\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00155\ }
-\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(x\ ==\ \mbox{\hyperlink{apps_2tetris_2main_8c_a313353b53d609b3b2b37e1aecf98bf4c}{FIELD\_WIDTH}})}
-\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ \ \ \ \ \_field\_shift(field,\ y);}
-\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ \ \ \ \ score\ +=\ 100;}
-\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00161\ \ \ \ \ \}}
-\DoxyCodeLine{00162\ }
-\DoxyCodeLine{00163\ \ \ \ \ \textcolor{keywordflow}{return}\ score;}
-\DoxyCodeLine{00164\ \}}
+\DoxyCodeLine{00158\ \{}
+\DoxyCodeLine{00159\ \ \ \ \ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ x,\ y,\ score;}
+\DoxyCodeLine{00160\ }
+\DoxyCodeLine{00161\ \ \ \ \ score\ =\ 0;}
+\DoxyCodeLine{00162\ \ \ \ \ \textcolor{keywordflow}{for}(y\ =\ 0;\ y\ <\ \mbox{\hyperlink{apps_2tetris_2main_8c_a90b3ddaf01d4c39af0567b4500e9c4c6}{FIELD\_HEIGHT}};\ ++y)}
+\DoxyCodeLine{00163\ \ \ \ \ \{}
+\DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(x\ =\ 0;\ x\ <\ \mbox{\hyperlink{apps_2tetris_2main_8c_a313353b53d609b3b2b37e1aecf98bf4c}{FIELD\_WIDTH}};\ ++x)}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(!field[y\ *\ \mbox{\hyperlink{apps_2tetris_2main_8c_a313353b53d609b3b2b37e1aecf98bf4c}{FIELD\_WIDTH}}\ +\ x])}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00171\ }
+\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(x\ ==\ \mbox{\hyperlink{apps_2tetris_2main_8c_a313353b53d609b3b2b37e1aecf98bf4c}{FIELD\_WIDTH}})}
+\DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00174\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{apps_2tetris_2main_8c_a6859d50f3303a4d278f0e97438fa1854}{\_field\_shift}}(field,\ y);}
+\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ \ \ \ \ score\ +=\ 100;}
+\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00177\ \ \ \ \ \}}
+\DoxyCodeLine{00178\ }
+\DoxyCodeLine{00179\ \ \ \ \ \textcolor{keywordflow}{return}\ score;}
+\DoxyCodeLine{00180\ \}}
 
 \end{DoxyCode}
 \mbox{\Hypertarget{apps_2tetris_2main_8c_a6859d50f3303a4d278f0e97438fa1854}\label{apps_2tetris_2main_8c_a6859d50f3303a4d278f0e97438fa1854}} 
@@ -396,24 +412,35 @@ Definition at line \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00141}{141}} o
 {\footnotesize\ttfamily static void \+\_\+field\+\_\+shift (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{apps_2tetris_2main_8c_a48e0eca677ce0a3de1dc2f2ea612cb19}{Field\+Type}} $\ast$}]{field,  }\item[{\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}}]{row }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
+\begin{DoxyParams}{Parameters}
+{\em field} & \\
+\hline
+{\em row} & \\
+\hline
+\end{DoxyParams}
 
-Definition at line \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00128}{128}} of file \mbox{\hyperlink{apps_2tetris_2main_8c_source}{main.\+c}}.
+
+Definition at line \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00144}{144}} of file \mbox{\hyperlink{apps_2tetris_2main_8c_source}{main.\+c}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00129\ \{}
-\DoxyCodeLine{00130\ \ \ \ \ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ x,\ y;}
-\DoxyCodeLine{00131\ \ \ \ \ \textcolor{keywordflow}{for}(y\ =\ row;\ y\ >\ 0;\ -\/-\/y)}
-\DoxyCodeLine{00132\ \ \ \ \ \{}
-\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(x\ =\ 0;\ x\ <\ \mbox{\hyperlink{apps_2tetris_2main_8c_a313353b53d609b3b2b37e1aecf98bf4c}{FIELD\_WIDTH}};\ ++x)}
-\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \ \ \ \ field[y\ *\ \mbox{\hyperlink{apps_2tetris_2main_8c_a313353b53d609b3b2b37e1aecf98bf4c}{FIELD\_WIDTH}}\ +\ x]\ =}
-\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ field[(y\ -\/\ 1)\ *\ \mbox{\hyperlink{apps_2tetris_2main_8c_a313353b53d609b3b2b37e1aecf98bf4c}{FIELD\_WIDTH}}\ +\ x];}
-\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00138\ \ \ \ \ \}}
-\DoxyCodeLine{00139\ \}}
+\DoxyCodeLine{00145\ \{}
+\DoxyCodeLine{00146\ \ \ \ \ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ x,\ y;}
+\DoxyCodeLine{00147\ \ \ \ \ \textcolor{keywordflow}{for}(y\ =\ row;\ y\ >\ 0;\ -\/-\/y)}
+\DoxyCodeLine{00148\ \ \ \ \ \{}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(x\ =\ 0;\ x\ <\ \mbox{\hyperlink{apps_2tetris_2main_8c_a313353b53d609b3b2b37e1aecf98bf4c}{FIELD\_WIDTH}};\ ++x)}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \ \ \ \ field[y\ *\ \mbox{\hyperlink{apps_2tetris_2main_8c_a313353b53d609b3b2b37e1aecf98bf4c}{FIELD\_WIDTH}}\ +\ x]\ =}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ field[(y\ -\/\ 1)\ *\ \mbox{\hyperlink{apps_2tetris_2main_8c_a313353b53d609b3b2b37e1aecf98bf4c}{FIELD\_WIDTH}}\ +\ x];}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00154\ \ \ \ \ \}}
+\DoxyCodeLine{00155\ \}}
 
 \end{DoxyCode}
+
+
+References \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00013}{FIELD\+\_\+\+WIDTH}}.
+
 \mbox{\Hypertarget{apps_2tetris_2main_8c_a8fe5892e2d197c0c60dfaaa2559f64ae}\label{apps_2tetris_2main_8c_a8fe5892e2d197c0c60dfaaa2559f64ae}} 
 \index{main.c@{main.c}!\_new\_piece@{\_new\_piece}}
 \index{\_new\_piece@{\_new\_piece}!main.c@{main.c}}
@@ -422,43 +449,63 @@ Definition at line \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00128}{128}} o
 
 
 
-Definition at line \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00180}{180}} of file \mbox{\hyperlink{apps_2tetris_2main_8c_source}{main.\+c}}.
+Get the next random tetris piece. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em p} & Output parameter for new piece \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\mbox{\hyperlink{structPiece}{Piece}} type of the following piece 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00205}{205}} of file \mbox{\hyperlink{apps_2tetris_2main_8c_source}{main.\+c}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00181\ \{}
-\DoxyCodeLine{00182\ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{apps_2tetris_2main_8c_a12ed9719bbdf7bc596ff7a6f4bf3f021}{PieceType}}\ next,\ bag[7];}
-\DoxyCodeLine{00183\ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ idx\ =\ 6;}
-\DoxyCodeLine{00184\ }
-\DoxyCodeLine{00185\ \ \ \ \ \textcolor{keywordflow}{if}(idx\ ==\ 6)}
-\DoxyCodeLine{00186\ \ \ \ \ \{}
-\DoxyCodeLine{00187\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ create\ a\ new\ shuffled\ bag\ of\ pieces\ */}}
-\DoxyCodeLine{00188\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ i,\ j,\ tmp;}
-\DoxyCodeLine{00189\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(i\ =\ 0;\ i\ <\ 7;\ ++i)}
-\DoxyCodeLine{00190\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00191\ \ \ \ \ \ \ \ \ \ \ \ \ bag[i]\ =\ i;}
-\DoxyCodeLine{00192\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00193\ }
-\DoxyCodeLine{00194\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(i\ =\ 0;\ i\ <\ 7;\ ++i)}
-\DoxyCodeLine{00195\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00196\ \ \ \ \ \ \ \ \ \ \ \ \ j\ =\ \mbox{\hyperlink{rand_8c_a9eeb6c44d48cd8ace4b454da982406c9}{rand}}()\ \%\ 7;}
-\DoxyCodeLine{00197\ \ \ \ \ \ \ \ \ \ \ \ \ tmp\ =\ bag[i];}
-\DoxyCodeLine{00198\ \ \ \ \ \ \ \ \ \ \ \ \ bag[i]\ =\ bag[j];}
-\DoxyCodeLine{00199\ \ \ \ \ \ \ \ \ \ \ \ \ bag[j]\ =\ tmp;}
-\DoxyCodeLine{00200\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00201\ }
-\DoxyCodeLine{00202\ \ \ \ \ \ \ \ \ idx\ =\ 0;}
-\DoxyCodeLine{00203\ \ \ \ \ \}}
-\DoxyCodeLine{00204\ }
-\DoxyCodeLine{00205\ \ \ \ \ p-\/>\mbox{\hyperlink{structPiece_a3cddb7dc76f326558891036d46d5351b}{X}}\ =\ 4;}
-\DoxyCodeLine{00206\ \ \ \ \ p-\/>\mbox{\hyperlink{structPiece_aab10b280efc0ec449f674e6c5bf2cb02}{Y}}\ =\ 0;}
-\DoxyCodeLine{00207\ \ \ \ \ p-\/>\mbox{\hyperlink{structPiece_a700d5a2720932a70447d8c675fb6e2b4}{Rotation}}\ =\ 0;}
-\DoxyCodeLine{00208\ \ \ \ \ p-\/>\mbox{\hyperlink{structPiece_a57548407d4c534712ac9ea47c86fa4d8}{Type}}\ =\ next;}
-\DoxyCodeLine{00209\ \ \ \ \ next\ =\ bag[idx++];}
-\DoxyCodeLine{00210\ \ \ \ \ \textcolor{keywordflow}{return}\ next;}
-\DoxyCodeLine{00211\ \}}
+\DoxyCodeLine{00206\ \{}
+\DoxyCodeLine{00207\ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{apps_2tetris_2main_8c_a12ed9719bbdf7bc596ff7a6f4bf3f021}{PieceType}}\ next,\ bag[7];}
+\DoxyCodeLine{00208\ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ idx\ =\ 6;}
+\DoxyCodeLine{00209\ }
+\DoxyCodeLine{00210\ \ \ \ \ \textcolor{keywordflow}{if}(idx\ ==\ 6)}
+\DoxyCodeLine{00211\ \ \ \ \ \{}
+\DoxyCodeLine{00212\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ create\ a\ new\ shuffled\ bag\ of\ pieces\ */}}
+\DoxyCodeLine{00213\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ i,\ j,\ tmp;}
+\DoxyCodeLine{00214\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(i\ =\ 0;\ i\ <\ 7;\ ++i)}
+\DoxyCodeLine{00215\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00216\ \ \ \ \ \ \ \ \ \ \ \ \ bag[i]\ =\ i;}
+\DoxyCodeLine{00217\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00218\ }
+\DoxyCodeLine{00219\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(i\ =\ 0;\ i\ <\ 7;\ ++i)}
+\DoxyCodeLine{00220\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00221\ \ \ \ \ \ \ \ \ \ \ \ \ j\ =\ \mbox{\hyperlink{rand_8c_a9eeb6c44d48cd8ace4b454da982406c9}{rand}}()\ \%\ 7;}
+\DoxyCodeLine{00222\ \ \ \ \ \ \ \ \ \ \ \ \ tmp\ =\ bag[i];}
+\DoxyCodeLine{00223\ \ \ \ \ \ \ \ \ \ \ \ \ bag[i]\ =\ bag[j];}
+\DoxyCodeLine{00224\ \ \ \ \ \ \ \ \ \ \ \ \ bag[j]\ =\ tmp;}
+\DoxyCodeLine{00225\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00226\ }
+\DoxyCodeLine{00227\ \ \ \ \ \ \ \ \ idx\ =\ 0;}
+\DoxyCodeLine{00228\ \ \ \ \ \}}
+\DoxyCodeLine{00229\ }
+\DoxyCodeLine{00230\ \ \ \ \ p-\/>\mbox{\hyperlink{structPiece_a3cddb7dc76f326558891036d46d5351b}{X}}\ =\ 4;}
+\DoxyCodeLine{00231\ \ \ \ \ p-\/>\mbox{\hyperlink{structPiece_aab10b280efc0ec449f674e6c5bf2cb02}{Y}}\ =\ 0;}
+\DoxyCodeLine{00232\ \ \ \ \ p-\/>\mbox{\hyperlink{structPiece_a700d5a2720932a70447d8c675fb6e2b4}{Rotation}}\ =\ 0;}
+\DoxyCodeLine{00233\ \ \ \ \ p-\/>\mbox{\hyperlink{structPiece_a57548407d4c534712ac9ea47c86fa4d8}{Type}}\ =\ next;}
+\DoxyCodeLine{00234\ \ \ \ \ next\ =\ bag[idx++];}
+\DoxyCodeLine{00235\ \ \ \ \ \textcolor{keywordflow}{return}\ next;}
+\DoxyCodeLine{00236\ \}}
 
 \end{DoxyCode}
+
+
+References \mbox{\hyperlink{rand_8c_source_l00011}{rand()}}, \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00049}{Piece\+::\+Rotation}}, \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00052}{Piece\+::\+Type}}, \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00043}{Piece\+::X}}, and \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00046}{Piece\+::Y}}.
+
+
+
+Referenced by \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00415}{loop()}}, and \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00399}{setup()}}.
+
 \mbox{\Hypertarget{apps_2tetris_2main_8c_a179f7e3f493ed0a3bdf1bc11907e8c98}\label{apps_2tetris_2main_8c_a179f7e3f493ed0a3bdf1bc11907e8c98}} 
 \index{main.c@{main.c}!\_to\_field@{\_to\_field}}
 \index{\_to\_field@{\_to\_field}!main.c@{main.c}}
@@ -467,35 +514,54 @@ Definition at line \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00180}{180}} o
 
 
 
-Definition at line \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00244}{244}} of file \mbox{\hyperlink{apps_2tetris_2main_8c_source}{main.\+c}}.
+Place a piece into a field. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em field} & Pointer to the field on which to put the piece \\
+\hline
+{\em p} & Pointer to the piece that should be placed \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00278}{278}} of file \mbox{\hyperlink{apps_2tetris_2main_8c_source}{main.\+c}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00245\ \{}
-\DoxyCodeLine{00246\ \ \ \ \ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ x,\ y,\ bit,\ row,\ col;}
-\DoxyCodeLine{00247\ \ \ \ \ \mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}}\ blocks;}
-\DoxyCodeLine{00248\ }
-\DoxyCodeLine{00249\ \ \ \ \ row\ =\ col\ =\ 0;}
-\DoxyCodeLine{00250\ \ \ \ \ blocks\ =\ Pieces[p-\/>\mbox{\hyperlink{structPiece_a57548407d4c534712ac9ea47c86fa4d8}{Type}}].Blocks[p-\/>\mbox{\hyperlink{structPiece_a700d5a2720932a70447d8c675fb6e2b4}{Rotation}}];}
-\DoxyCodeLine{00251\ \ \ \ \ \textcolor{keywordflow}{for}(bit\ =\ 0x8000;\ bit\ >\ 0;\ bit\ >>=\ 1)}
-\DoxyCodeLine{00252\ \ \ \ \ \{}
-\DoxyCodeLine{00253\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(blocks\ \&\ bit)}
-\DoxyCodeLine{00254\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00255\ \ \ \ \ \ \ \ \ \ \ \ \ x\ =\ p-\/>\mbox{\hyperlink{structPiece_a3cddb7dc76f326558891036d46d5351b}{X}}\ +\ col;}
-\DoxyCodeLine{00256\ \ \ \ \ \ \ \ \ \ \ \ \ y\ =\ p-\/>\mbox{\hyperlink{structPiece_aab10b280efc0ec449f674e6c5bf2cb02}{Y}}\ +\ row;}
-\DoxyCodeLine{00257\ }
-\DoxyCodeLine{00258\ \ \ \ \ \ \ \ \ \ \ \ \ field[y\ *\ \mbox{\hyperlink{apps_2tetris_2main_8c_a313353b53d609b3b2b37e1aecf98bf4c}{FIELD\_WIDTH}}\ +\ x]\ =\ p-\/>\mbox{\hyperlink{structPiece_a57548407d4c534712ac9ea47c86fa4d8}{Type}}\ +\ 1;}
-\DoxyCodeLine{00259\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00260\ }
-\DoxyCodeLine{00261\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(++col\ ==\ 4)}
-\DoxyCodeLine{00262\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00263\ \ \ \ \ \ \ \ \ \ \ \ \ col\ =\ 0;}
-\DoxyCodeLine{00264\ \ \ \ \ \ \ \ \ \ \ \ \ ++row;}
-\DoxyCodeLine{00265\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00266\ \ \ \ \ \}}
-\DoxyCodeLine{00267\ \}}
+\DoxyCodeLine{00279\ \{}
+\DoxyCodeLine{00280\ \ \ \ \ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ x,\ y,\ bit,\ row,\ col;}
+\DoxyCodeLine{00281\ \ \ \ \ \mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}}\ blocks;}
+\DoxyCodeLine{00282\ }
+\DoxyCodeLine{00283\ \ \ \ \ row\ =\ col\ =\ 0;}
+\DoxyCodeLine{00284\ \ \ \ \ blocks\ =\ Pieces[p-\/>\mbox{\hyperlink{structPiece_a57548407d4c534712ac9ea47c86fa4d8}{Type}}].Blocks[p-\/>\mbox{\hyperlink{structPiece_a700d5a2720932a70447d8c675fb6e2b4}{Rotation}}];}
+\DoxyCodeLine{00285\ \ \ \ \ \textcolor{keywordflow}{for}(bit\ =\ 0x8000;\ bit\ >\ 0;\ bit\ >>=\ 1)}
+\DoxyCodeLine{00286\ \ \ \ \ \{}
+\DoxyCodeLine{00287\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(blocks\ \&\ bit)}
+\DoxyCodeLine{00288\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00289\ \ \ \ \ \ \ \ \ \ \ \ \ x\ =\ p-\/>\mbox{\hyperlink{structPiece_a3cddb7dc76f326558891036d46d5351b}{X}}\ +\ col;}
+\DoxyCodeLine{00290\ \ \ \ \ \ \ \ \ \ \ \ \ y\ =\ p-\/>\mbox{\hyperlink{structPiece_aab10b280efc0ec449f674e6c5bf2cb02}{Y}}\ +\ row;}
+\DoxyCodeLine{00291\ }
+\DoxyCodeLine{00292\ \ \ \ \ \ \ \ \ \ \ \ \ field[y\ *\ \mbox{\hyperlink{apps_2tetris_2main_8c_a313353b53d609b3b2b37e1aecf98bf4c}{FIELD\_WIDTH}}\ +\ x]\ =\ p-\/>\mbox{\hyperlink{structPiece_a57548407d4c534712ac9ea47c86fa4d8}{Type}}\ +\ 1;}
+\DoxyCodeLine{00293\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00294\ }
+\DoxyCodeLine{00295\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(++col\ ==\ 4)}
+\DoxyCodeLine{00296\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00297\ \ \ \ \ \ \ \ \ \ \ \ \ col\ =\ 0;}
+\DoxyCodeLine{00298\ \ \ \ \ \ \ \ \ \ \ \ \ ++row;}
+\DoxyCodeLine{00299\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00300\ \ \ \ \ \}}
+\DoxyCodeLine{00301\ \}}
 
 \end{DoxyCode}
+
+
+References \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00013}{FIELD\+\_\+\+WIDTH}}, \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00049}{Piece\+::\+Rotation}}, \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00052}{Piece\+::\+Type}}, \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00043}{Piece\+::X}}, and \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00046}{Piece\+::Y}}.
+
+
+
+Referenced by \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00306}{\+\_\+draw\+\_\+field()}}, and \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00415}{loop()}}.
+
 \mbox{\Hypertarget{apps_2tetris_2main_8c_afa6a85d7ceaf4d7c8e3b17881258b6e3}\label{apps_2tetris_2main_8c_afa6a85d7ceaf4d7c8e3b17881258b6e3}} 
 \index{main.c@{main.c}!\_valid\_position@{\_valid\_position}}
 \index{\_valid\_position@{\_valid\_position}!main.c@{main.c}}
@@ -504,116 +570,129 @@ Definition at line \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00244}{244}} o
 
 
 
-Definition at line \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00213}{213}} of file \mbox{\hyperlink{apps_2tetris_2main_8c_source}{main.\+c}}.
+Check if the position of a piece is valid, meaning that it is not outside of the frame and not colliding with pieces on the field. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em field} & Pointer to field aray \\
+\hline
+{\em p} & Pointer to piece \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if position is valid, false otherwise 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00246}{246}} of file \mbox{\hyperlink{apps_2tetris_2main_8c_source}{main.\+c}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00214\ \{}
-\DoxyCodeLine{00215\ \ \ \ \ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ bit,\ row,\ col;}
-\DoxyCodeLine{00216\ \ \ \ \ \mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}}\ blocks;}
-\DoxyCodeLine{00217\ }
-\DoxyCodeLine{00218\ \ \ \ \ row\ =\ 0;}
-\DoxyCodeLine{00219\ \ \ \ \ col\ =\ 0;}
-\DoxyCodeLine{00220\ \ \ \ \ blocks\ =\ Pieces[p-\/>\mbox{\hyperlink{structPiece_a57548407d4c534712ac9ea47c86fa4d8}{Type}}].Blocks[p-\/>\mbox{\hyperlink{structPiece_a700d5a2720932a70447d8c675fb6e2b4}{Rotation}}];}
-\DoxyCodeLine{00221\ }
-\DoxyCodeLine{00222\ \ \ \ \ \textcolor{keywordflow}{if}(p-\/>\mbox{\hyperlink{structPiece_aab10b280efc0ec449f674e6c5bf2cb02}{Y}}\ <\ 0)}
-\DoxyCodeLine{00223\ \ \ \ \ \{}
-\DoxyCodeLine{00224\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
-\DoxyCodeLine{00225\ \ \ \ \ \}}
-\DoxyCodeLine{00226\ }
-\DoxyCodeLine{00227\ \ \ \ \ \textcolor{keywordflow}{for}(bit\ =\ 0x8000;\ bit\ >\ 0;\ bit\ >>=\ 1)}
-\DoxyCodeLine{00228\ \ \ \ \ \{}
-\DoxyCodeLine{00229\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}((blocks\ \&\ bit)\ \&\&\ \_field\_get(field,\ p-\/>\mbox{\hyperlink{structPiece_a3cddb7dc76f326558891036d46d5351b}{X}}\ +\ col,\ p-\/>\mbox{\hyperlink{structPiece_aab10b280efc0ec449f674e6c5bf2cb02}{Y}}\ +\ row))}
-\DoxyCodeLine{00230\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00231\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
-\DoxyCodeLine{00232\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00233\ }
-\DoxyCodeLine{00234\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(++col\ ==\ 4)}
-\DoxyCodeLine{00235\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00236\ \ \ \ \ \ \ \ \ \ \ \ \ col\ =\ 0;}
-\DoxyCodeLine{00237\ \ \ \ \ \ \ \ \ \ \ \ \ ++row;}
-\DoxyCodeLine{00238\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00239\ \ \ \ \ \}}
-\DoxyCodeLine{00240\ }
-\DoxyCodeLine{00241\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
-\DoxyCodeLine{00242\ \}}
+\DoxyCodeLine{00247\ \{}
+\DoxyCodeLine{00248\ \ \ \ \ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ bit,\ row,\ col;}
+\DoxyCodeLine{00249\ \ \ \ \ \mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}}\ blocks;}
+\DoxyCodeLine{00250\ }
+\DoxyCodeLine{00251\ \ \ \ \ row\ =\ 0;}
+\DoxyCodeLine{00252\ \ \ \ \ col\ =\ 0;}
+\DoxyCodeLine{00253\ \ \ \ \ blocks\ =\ Pieces[p-\/>\mbox{\hyperlink{structPiece_a57548407d4c534712ac9ea47c86fa4d8}{Type}}].Blocks[p-\/>\mbox{\hyperlink{structPiece_a700d5a2720932a70447d8c675fb6e2b4}{Rotation}}];}
+\DoxyCodeLine{00254\ }
+\DoxyCodeLine{00255\ \ \ \ \ \textcolor{keywordflow}{for}(bit\ =\ 0x8000;\ bit\ >\ 0;\ bit\ >>=\ 1)}
+\DoxyCodeLine{00256\ \ \ \ \ \{}
+\DoxyCodeLine{00257\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}((blocks\ \&\ bit)\ \&\&\ \mbox{\hyperlink{apps_2tetris_2main_8c_a7c2806ca944c2472b5e1d9234fc6fce7}{\_field\_get}}(field,\ p-\/>\mbox{\hyperlink{structPiece_a3cddb7dc76f326558891036d46d5351b}{X}}\ +\ col,\ p-\/>\mbox{\hyperlink{structPiece_aab10b280efc0ec449f674e6c5bf2cb02}{Y}}\ +\ row))}
+\DoxyCodeLine{00258\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00259\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00260\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00261\ }
+\DoxyCodeLine{00262\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(++col\ ==\ 4)}
+\DoxyCodeLine{00263\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00264\ \ \ \ \ \ \ \ \ \ \ \ \ col\ =\ 0;}
+\DoxyCodeLine{00265\ \ \ \ \ \ \ \ \ \ \ \ \ ++row;}
+\DoxyCodeLine{00266\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00267\ \ \ \ \ \}}
+\DoxyCodeLine{00268\ }
+\DoxyCodeLine{00269\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00270\ \}}
 
 \end{DoxyCode}
+
+
+References \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00132}{\+\_\+field\+\_\+get()}}, \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00049}{Piece\+::\+Rotation}}, \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00052}{Piece\+::\+Type}}, \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00043}{Piece\+::X}}, and \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00046}{Piece\+::Y}}.
+
+
+
+Referenced by \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00415}{loop()}}.
+
 \mbox{\Hypertarget{apps_2tetris_2main_8c_af5305db9ea018cc40d167b2a51d77ac1}\label{apps_2tetris_2main_8c_af5305db9ea018cc40d167b2a51d77ac1}} 
 \index{main.c@{main.c}!event\_key@{event\_key}}
 \index{event\_key@{event\_key}!main.c@{main.c}}
 \doxysubsubsection{\texorpdfstring{event\_key()}{event\_key()}}
 {\footnotesize\ttfamily void event\+\_\+key (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{keyboard-shared_8h_a48752551c4279f8cddf3585f8272092a}{Key}}}]{key,  }\item[{\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}}]{chr,  }\item[{\mbox{\hyperlink{keyboard-shared_8h_a7e51438e5f6bf556512ce7103cddac09}{Key\+State}}}]{state }\end{DoxyParamCaption})}
 
-FUNCTIONS 
 
-Definition at line \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00300}{300}} of file \mbox{\hyperlink{apps_2tetris_2main_8c_source}{main.\+c}}.
+
+Definition at line \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00337}{337}} of file \mbox{\hyperlink{apps_2tetris_2main_8c_source}{main.\+c}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00301\ \{}
-\DoxyCodeLine{00302\ \ \ \ \ \textcolor{keywordflow}{if}(state\ ==\ KEYSTATE\_RELEASED)}
-\DoxyCodeLine{00303\ \ \ \ \ \{}
-\DoxyCodeLine{00304\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}(key)}
-\DoxyCodeLine{00305\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00306\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ KEY\_DOWN:}
-\DoxyCodeLine{00307\ \ \ \ \ \ \ \ \ \ \ \ \ \_ticks\_update\ =\ \mbox{\hyperlink{apps_2tetris_2main_8c_a8dd63073e02e2b072414b6bf3cdf57d6}{FALL\_SPEED\_DEFAULT}};}
-\DoxyCodeLine{00308\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
-\DoxyCodeLine{00309\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00310\ \ \ \ \ \}}
-\DoxyCodeLine{00311\ \ \ \ \ \textcolor{keywordflow}{else}}
-\DoxyCodeLine{00312\ \ \ \ \ \{}
-\DoxyCodeLine{00313\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}(key)}
-\DoxyCodeLine{00314\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00315\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ KEY\_DOWN:}
-\DoxyCodeLine{00316\ \ \ \ \ \ \ \ \ \ \ \ \ \_ticks\_update\ =\ \mbox{\hyperlink{apps_2tetris_2main_8c_aa4b7f297dae8ab980841cd5ecdb93ee8}{FALL\_SPEED\_FAST}};}
-\DoxyCodeLine{00317\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
-\DoxyCodeLine{00318\ }
-\DoxyCodeLine{00319\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ KEY\_UP:}
-\DoxyCodeLine{00320\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(-\/-\/\_cp.\mbox{\hyperlink{structPiece_a700d5a2720932a70447d8c675fb6e2b4}{Rotation}}\ ==\ -\/1)}
-\DoxyCodeLine{00321\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00322\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_cp.\mbox{\hyperlink{structPiece_a700d5a2720932a70447d8c675fb6e2b4}{Rotation}}\ =\ 3;}
-\DoxyCodeLine{00323\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00324\ }
-\DoxyCodeLine{00325\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\_valid\_position(\_field,\ \&\_cp))}
-\DoxyCodeLine{00326\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00327\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(++\_cp.\mbox{\hyperlink{structPiece_a700d5a2720932a70447d8c675fb6e2b4}{Rotation}}\ ==\ 4)}
-\DoxyCodeLine{00328\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00329\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_cp.\mbox{\hyperlink{structPiece_a700d5a2720932a70447d8c675fb6e2b4}{Rotation}}\ =\ 0;}
-\DoxyCodeLine{00330\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00331\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00332\ }
-\DoxyCodeLine{00333\ \ \ \ \ \ \ \ \ \ \ \ \ \_changed\ =\ \textcolor{keyword}{true};}
-\DoxyCodeLine{00334\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
-\DoxyCodeLine{00335\ }
-\DoxyCodeLine{00336\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ KEY\_LEFT:}
-\DoxyCodeLine{00337\ \ \ \ \ \ \ \ \ \ \ \ \ -\/-\/\_cp.\mbox{\hyperlink{structPiece_a3cddb7dc76f326558891036d46d5351b}{X}};}
-\DoxyCodeLine{00338\ \ \ \ \ \ \ \ \ \ \ \ \ \_changed\ =\ \textcolor{keyword}{true};}
-\DoxyCodeLine{00339\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\_valid\_position(\_field,\ \&\_cp))}
-\DoxyCodeLine{00340\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00341\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ++\_cp.\mbox{\hyperlink{structPiece_a3cddb7dc76f326558891036d46d5351b}{X}};}
-\DoxyCodeLine{00342\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00343\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
-\DoxyCodeLine{00344\ }
-\DoxyCodeLine{00345\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ KEY\_RIGHT:}
-\DoxyCodeLine{00346\ \ \ \ \ \ \ \ \ \ \ \ \ ++\_cp.\mbox{\hyperlink{structPiece_a3cddb7dc76f326558891036d46d5351b}{X}};}
-\DoxyCodeLine{00347\ \ \ \ \ \ \ \ \ \ \ \ \ \_changed\ =\ \textcolor{keyword}{true};}
-\DoxyCodeLine{00348\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\_valid\_position(\_field,\ \&\_cp))}
-\DoxyCodeLine{00349\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00350\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ -\/-\/\_cp.\mbox{\hyperlink{structPiece_a3cddb7dc76f326558891036d46d5351b}{X}};}
-\DoxyCodeLine{00351\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00352\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
-\DoxyCodeLine{00353\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00354\ \ \ \ \ \}}
+\DoxyCodeLine{00338\ \{}
+\DoxyCodeLine{00339\ \ \ \ \ \textcolor{keywordflow}{if}(state\ ==\ KEYSTATE\_RELEASED)}
+\DoxyCodeLine{00340\ \ \ \ \ \{}
+\DoxyCodeLine{00341\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}(key)}
+\DoxyCodeLine{00342\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00343\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ KEY\_DOWN:}
+\DoxyCodeLine{00344\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{apps_2tetris_2main_8c_a3b61dc076d66b07a466af8d80eb02283}{\_ticks\_update}}\ =\ \mbox{\hyperlink{apps_2tetris_2main_8c_a8dd63073e02e2b072414b6bf3cdf57d6}{FALL\_SPEED\_DEFAULT}};}
+\DoxyCodeLine{00345\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00346\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00347\ \ \ \ \ \}}
+\DoxyCodeLine{00348\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00349\ \ \ \ \ \{}
+\DoxyCodeLine{00350\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}(key)}
+\DoxyCodeLine{00351\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00352\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ KEY\_DOWN:}
+\DoxyCodeLine{00353\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{apps_2tetris_2main_8c_a3b61dc076d66b07a466af8d80eb02283}{\_ticks\_update}}\ =\ \mbox{\hyperlink{apps_2tetris_2main_8c_aa4b7f297dae8ab980841cd5ecdb93ee8}{FALL\_SPEED\_FAST}};}
+\DoxyCodeLine{00354\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
 \DoxyCodeLine{00355\ }
-\DoxyCodeLine{00356\ \ \ \ \ (void)chr;}
-\DoxyCodeLine{00357\ \}}
+\DoxyCodeLine{00356\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ KEY\_UP:}
+\DoxyCodeLine{00357\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(-\/-\/\mbox{\hyperlink{apps_2tetris_2main_8c_a484db87782841a7763d17ef82d344de1}{\_cp}}.\mbox{\hyperlink{structPiece_a700d5a2720932a70447d8c675fb6e2b4}{Rotation}}\ ==\ -\/1)}
+\DoxyCodeLine{00358\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00359\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{apps_2tetris_2main_8c_a484db87782841a7763d17ef82d344de1}{\_cp}}.\mbox{\hyperlink{structPiece_a700d5a2720932a70447d8c675fb6e2b4}{Rotation}}\ =\ 3;}
+\DoxyCodeLine{00360\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00361\ }
+\DoxyCodeLine{00362\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{apps_2tetris_2main_8c_afa6a85d7ceaf4d7c8e3b17881258b6e3}{\_valid\_position}}(\mbox{\hyperlink{apps_2tetris_2main_8c_a712087fe8401cc72eeea97bf20629aef}{\_field}},\ \&\mbox{\hyperlink{apps_2tetris_2main_8c_a484db87782841a7763d17ef82d344de1}{\_cp}}))}
+\DoxyCodeLine{00363\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00364\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(++\mbox{\hyperlink{apps_2tetris_2main_8c_a484db87782841a7763d17ef82d344de1}{\_cp}}.\mbox{\hyperlink{structPiece_a700d5a2720932a70447d8c675fb6e2b4}{Rotation}}\ ==\ 4)}
+\DoxyCodeLine{00365\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00366\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{apps_2tetris_2main_8c_a484db87782841a7763d17ef82d344de1}{\_cp}}.\mbox{\hyperlink{structPiece_a700d5a2720932a70447d8c675fb6e2b4}{Rotation}}\ =\ 0;}
+\DoxyCodeLine{00367\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00368\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00369\ }
+\DoxyCodeLine{00370\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{apps_2tetris_2main_8c_a3bd315b7f7932213204e50b823729896}{\_changed}}\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00371\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00372\ }
+\DoxyCodeLine{00373\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ KEY\_LEFT:}
+\DoxyCodeLine{00374\ \ \ \ \ \ \ \ \ \ \ \ \ -\/-\/\mbox{\hyperlink{apps_2tetris_2main_8c_a484db87782841a7763d17ef82d344de1}{\_cp}}.\mbox{\hyperlink{structPiece_a3cddb7dc76f326558891036d46d5351b}{X}};}
+\DoxyCodeLine{00375\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{apps_2tetris_2main_8c_a3bd315b7f7932213204e50b823729896}{\_changed}}\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00376\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{apps_2tetris_2main_8c_afa6a85d7ceaf4d7c8e3b17881258b6e3}{\_valid\_position}}(\mbox{\hyperlink{apps_2tetris_2main_8c_a712087fe8401cc72eeea97bf20629aef}{\_field}},\ \&\mbox{\hyperlink{apps_2tetris_2main_8c_a484db87782841a7763d17ef82d344de1}{\_cp}}))}
+\DoxyCodeLine{00377\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00378\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ++\mbox{\hyperlink{apps_2tetris_2main_8c_a484db87782841a7763d17ef82d344de1}{\_cp}}.\mbox{\hyperlink{structPiece_a3cddb7dc76f326558891036d46d5351b}{X}};}
+\DoxyCodeLine{00379\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00380\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00381\ }
+\DoxyCodeLine{00382\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ KEY\_RIGHT:}
+\DoxyCodeLine{00383\ \ \ \ \ \ \ \ \ \ \ \ \ ++\mbox{\hyperlink{apps_2tetris_2main_8c_a484db87782841a7763d17ef82d344de1}{\_cp}}.\mbox{\hyperlink{structPiece_a3cddb7dc76f326558891036d46d5351b}{X}};}
+\DoxyCodeLine{00384\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{apps_2tetris_2main_8c_a3bd315b7f7932213204e50b823729896}{\_changed}}\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00385\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{apps_2tetris_2main_8c_afa6a85d7ceaf4d7c8e3b17881258b6e3}{\_valid\_position}}(\mbox{\hyperlink{apps_2tetris_2main_8c_a712087fe8401cc72eeea97bf20629aef}{\_field}},\ \&\mbox{\hyperlink{apps_2tetris_2main_8c_a484db87782841a7763d17ef82d344de1}{\_cp}}))}
+\DoxyCodeLine{00386\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00387\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ -\/-\/\mbox{\hyperlink{apps_2tetris_2main_8c_a484db87782841a7763d17ef82d344de1}{\_cp}}.\mbox{\hyperlink{structPiece_a3cddb7dc76f326558891036d46d5351b}{X}};}
+\DoxyCodeLine{00388\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00389\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00390\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00391\ \ \ \ \ \}}
+\DoxyCodeLine{00392\ }
+\DoxyCodeLine{00393\ \ \ \ \ (void)chr;}
+\DoxyCodeLine{00394\ \}}
 
 \end{DoxyCode}
-
-
-References \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00025}{FALL\+\_\+\+SPEED\+\_\+\+DEFAULT}}, \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00028}{FALL\+\_\+\+SPEED\+\_\+\+FAST}}, \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00049}{Piece\+::\+Rotation}}, and \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00043}{Piece\+::X}}.
-
 \mbox{\Hypertarget{apps_2tetris_2main_8c_a0b33edabd7f1c4e4a0bf32c67269be2f}\label{apps_2tetris_2main_8c_a0b33edabd7f1c4e4a0bf32c67269be2f}} 
 \index{main.c@{main.c}!loop@{loop}}
 \index{loop@{loop}!main.c@{main.c}}
@@ -622,46 +701,49 @@ References \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00025}{FALL\+\_\+\+SPE
 
 
 
-Loop function that is called repeatedly Must be implemented by user. 
+Main game loop, update state. 
 
 Loop function that is called repeatedly Must be implemented by user. 
 
-Definition at line \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00372}{372}} of file \mbox{\hyperlink{apps_2tetris_2main_8c_source}{main.\+c}}.
+Definition at line \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00415}{415}} of file \mbox{\hyperlink{apps_2tetris_2main_8c_source}{main.\+c}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00373\ \{}
-\DoxyCodeLine{00374\ \ \ \ \ \textcolor{keywordflow}{if}((\_ticks\ =\ \mbox{\hyperlink{timer_8c_aee701eeb891b748ed2e12da119816882}{millis}}())\ >\ \_last\_ticks\ +\ \_ticks\_update)}
-\DoxyCodeLine{00375\ \ \ \ \ \{}
-\DoxyCodeLine{00376\ \ \ \ \ \ \ \ \ \_last\_ticks\ =\ \_ticks;}
-\DoxyCodeLine{00377\ \ \ \ \ \ \ \ \ ++\_cp.\mbox{\hyperlink{structPiece_aab10b280efc0ec449f674e6c5bf2cb02}{Y}};}
-\DoxyCodeLine{00378\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\_valid\_position(\_field,\ \&\_cp))}
-\DoxyCodeLine{00379\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00380\ \ \ \ \ \ \ \ \ \ \ \ \ -\/-\/\_cp.\mbox{\hyperlink{structPiece_aab10b280efc0ec449f674e6c5bf2cb02}{Y}};}
-\DoxyCodeLine{00381\ \ \ \ \ \ \ \ \ \ \ \ \ \_to\_field(\_field,\ \&\_cp);}
-\DoxyCodeLine{00382\ \ \ \ \ \ \ \ \ \ \ \ \ \_score\ +=\ \_field\_rows(\_field);}
-\DoxyCodeLine{00383\ \ \ \ \ \ \ \ \ \ \ \ \ \_np.\mbox{\hyperlink{structPiece_a57548407d4c534712ac9ea47c86fa4d8}{Type}}\ =\ \_new\_piece(\&\_cp);}
-\DoxyCodeLine{00384\ \ \ \ \ \ \ \ \ \ \ \ \ \_ticks\_update\ =\ \mbox{\hyperlink{apps_2tetris_2main_8c_a8dd63073e02e2b072414b6bf3cdf57d6}{FALL\_SPEED\_DEFAULT}};}
-\DoxyCodeLine{00385\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\_valid\_position(\_field,\ \&\_cp))}
-\DoxyCodeLine{00386\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00387\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_clear\_field(\_field);}
-\DoxyCodeLine{00388\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00389\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00390\ }
-\DoxyCodeLine{00391\ \ \ \ \ \ \ \ \ \_changed\ =\ \textcolor{keyword}{true};}
-\DoxyCodeLine{00392\ \ \ \ \ \}}
-\DoxyCodeLine{00393\ }
-\DoxyCodeLine{00394\ \ \ \ \ \textcolor{keywordflow}{if}(\_changed)}
-\DoxyCodeLine{00395\ \ \ \ \ \{}
-\DoxyCodeLine{00396\ \ \ \ \ \ \ \ \ \_changed\ =\ \textcolor{keyword}{false};}
-\DoxyCodeLine{00397\ \ \ \ \ \ \ \ \ \_draw\_field();}
-\DoxyCodeLine{00398\ \ \ \ \ \}}
-\DoxyCodeLine{00399\ \}}
+\DoxyCodeLine{00416\ \{}
+\DoxyCodeLine{00417\ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ last\_ticks,\ score;}
+\DoxyCodeLine{00418\ \ \ \ \ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ ticks;}
+\DoxyCodeLine{00419\ }
+\DoxyCodeLine{00420\ \ \ \ \ \textcolor{keywordflow}{if}((ticks\ =\ \mbox{\hyperlink{timer_8c_aee701eeb891b748ed2e12da119816882}{millis}}())\ >\ last\_ticks\ +\ \mbox{\hyperlink{apps_2tetris_2main_8c_a3b61dc076d66b07a466af8d80eb02283}{\_ticks\_update}})}
+\DoxyCodeLine{00421\ \ \ \ \ \{}
+\DoxyCodeLine{00422\ \ \ \ \ \ \ \ \ last\_ticks\ =\ ticks;}
+\DoxyCodeLine{00423\ \ \ \ \ \ \ \ \ ++\mbox{\hyperlink{apps_2tetris_2main_8c_a484db87782841a7763d17ef82d344de1}{\_cp}}.\mbox{\hyperlink{structPiece_aab10b280efc0ec449f674e6c5bf2cb02}{Y}};}
+\DoxyCodeLine{00424\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{apps_2tetris_2main_8c_afa6a85d7ceaf4d7c8e3b17881258b6e3}{\_valid\_position}}(\mbox{\hyperlink{apps_2tetris_2main_8c_a712087fe8401cc72eeea97bf20629aef}{\_field}},\ \&\mbox{\hyperlink{apps_2tetris_2main_8c_a484db87782841a7763d17ef82d344de1}{\_cp}}))}
+\DoxyCodeLine{00425\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00426\ \ \ \ \ \ \ \ \ \ \ \ \ -\/-\/\mbox{\hyperlink{apps_2tetris_2main_8c_a484db87782841a7763d17ef82d344de1}{\_cp}}.\mbox{\hyperlink{structPiece_aab10b280efc0ec449f674e6c5bf2cb02}{Y}};}
+\DoxyCodeLine{00427\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{apps_2tetris_2main_8c_a179f7e3f493ed0a3bdf1bc11907e8c98}{\_to\_field}}(\mbox{\hyperlink{apps_2tetris_2main_8c_a712087fe8401cc72eeea97bf20629aef}{\_field}},\ \&\mbox{\hyperlink{apps_2tetris_2main_8c_a484db87782841a7763d17ef82d344de1}{\_cp}});}
+\DoxyCodeLine{00428\ \ \ \ \ \ \ \ \ \ \ \ \ score\ +=\ \_field\_rows(\mbox{\hyperlink{apps_2tetris_2main_8c_a712087fe8401cc72eeea97bf20629aef}{\_field}});}
+\DoxyCodeLine{00429\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{apps_2tetris_2main_8c_a66a310b0917a56120d5eec8c86066461}{\_np}}.\mbox{\hyperlink{structPiece_a57548407d4c534712ac9ea47c86fa4d8}{Type}}\ =\ \mbox{\hyperlink{apps_2tetris_2main_8c_a8fe5892e2d197c0c60dfaaa2559f64ae}{\_new\_piece}}(\&\mbox{\hyperlink{apps_2tetris_2main_8c_a484db87782841a7763d17ef82d344de1}{\_cp}});}
+\DoxyCodeLine{00430\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{apps_2tetris_2main_8c_a3b61dc076d66b07a466af8d80eb02283}{\_ticks\_update}}\ =\ \mbox{\hyperlink{apps_2tetris_2main_8c_a8dd63073e02e2b072414b6bf3cdf57d6}{FALL\_SPEED\_DEFAULT}};}
+\DoxyCodeLine{00431\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{apps_2tetris_2main_8c_afa6a85d7ceaf4d7c8e3b17881258b6e3}{\_valid\_position}}(\mbox{\hyperlink{apps_2tetris_2main_8c_a712087fe8401cc72eeea97bf20629aef}{\_field}},\ \&\mbox{\hyperlink{apps_2tetris_2main_8c_a484db87782841a7763d17ef82d344de1}{\_cp}}))}
+\DoxyCodeLine{00432\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00433\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{string_8c_ab5fb910d7238069eb23f4b06809aa68e}{memset}}(\mbox{\hyperlink{apps_2tetris_2main_8c_a712087fe8401cc72eeea97bf20629aef}{\_field}},\ 0,\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{apps_2tetris_2main_8c_a712087fe8401cc72eeea97bf20629aef}{\_field}}));}
+\DoxyCodeLine{00434\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00435\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00436\ }
+\DoxyCodeLine{00437\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{apps_2tetris_2main_8c_a3bd315b7f7932213204e50b823729896}{\_changed}}\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00438\ \ \ \ \ \}}
+\DoxyCodeLine{00439\ }
+\DoxyCodeLine{00440\ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{apps_2tetris_2main_8c_a3bd315b7f7932213204e50b823729896}{\_changed}})}
+\DoxyCodeLine{00441\ \ \ \ \ \{}
+\DoxyCodeLine{00442\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{apps_2tetris_2main_8c_a3bd315b7f7932213204e50b823729896}{\_changed}}\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00443\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{apps_2tetris_2main_8c_ade05f2059114427e9bcbc708760f5da3}{\_draw\_field}}();}
+\DoxyCodeLine{00444\ \ \ \ \ \}}
+\DoxyCodeLine{00445\ \}}
 
 \end{DoxyCode}
 
 
-References \mbox{\hyperlink{syscall_8h_source_l00206}{exit()}}, \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00025}{FALL\+\_\+\+SPEED\+\_\+\+DEFAULT}}, \mbox{\hyperlink{timer_8c_source_l00036}{millis()}}, \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00052}{Piece\+::\+Type}}, and \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00046}{Piece\+::Y}}.
+References \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00117}{\+\_\+changed}}, \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00105}{\+\_\+cp}}, \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00306}{\+\_\+draw\+\_\+field()}}, \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00120}{\+\_\+field}}, \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00205}{\+\_\+new\+\_\+piece()}}, \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00108}{\+\_\+np}}, \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00114}{\+\_\+ticks\+\_\+update}}, \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00278}{\+\_\+to\+\_\+field()}}, \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00246}{\+\_\+valid\+\_\+position()}}, \mbox{\hyperlink{syscall_8h_source_l00206}{exit()}}, \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00025}{FALL\+\_\+\+SPEED\+\_\+\+DEFAULT}}, \mbox{\hyperlink{string_8c_source_l00176}{memset()}}, \mbox{\hyperlink{timer_8c_source_l00036}{millis()}}, \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00052}{Piece\+::\+Type}}, and \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00046}{Piece\+::Y}}.
 
 \mbox{\Hypertarget{apps_2tetris_2main_8c_a7dfd9b79bc5a37d7df40207afbc5431f}\label{apps_2tetris_2main_8c_a7dfd9b79bc5a37d7df40207afbc5431f}} 
 \index{main.c@{main.c}!setup@{setup}}
@@ -671,30 +753,30 @@ References \mbox{\hyperlink{syscall_8h_source_l00206}{exit()}}, \mbox{\hyperlink
 
 
 
-Setup function that is called at program start. Must be implemented by user. 
+Main setup function, initialize game. 
 
 Setup function that is called at program start. Must be implemented by user. 
 
-Definition at line \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00359}{359}} of file \mbox{\hyperlink{apps_2tetris_2main_8c_source}{main.\+c}}.
+Definition at line \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00399}{399}} of file \mbox{\hyperlink{apps_2tetris_2main_8c_source}{main.\+c}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00360\ \{}
-\DoxyCodeLine{00361\ \ \ \ \ \mbox{\hyperlink{keyboard_8c_a3676e1550d4471bddab4c84dd0c844dc}{keyboard\_register\_event}}(event\_key);}
-\DoxyCodeLine{00362\ \ \ \ \ \_np.\mbox{\hyperlink{structPiece_a3cddb7dc76f326558891036d46d5351b}{X}}\ =\ 11;}
-\DoxyCodeLine{00363\ \ \ \ \ \_np.\mbox{\hyperlink{structPiece_aab10b280efc0ec449f674e6c5bf2cb02}{Y}}\ =\ 0;}
-\DoxyCodeLine{00364\ \ \ \ \ \_np.\mbox{\hyperlink{structPiece_a700d5a2720932a70447d8c675fb6e2b4}{Rotation}}\ =\ 1;}
-\DoxyCodeLine{00365\ \ \ \ \ \mbox{\hyperlink{string_8c_ab5fb910d7238069eb23f4b06809aa68e}{memset}}(\_field,\ 0,\ \textcolor{keyword}{sizeof}(\_field));}
-\DoxyCodeLine{00366\ \ \ \ \ \_np.\mbox{\hyperlink{structPiece_a57548407d4c534712ac9ea47c86fa4d8}{Type}}\ =\ \_new\_piece(\&\_cp);}
-\DoxyCodeLine{00367\ \ \ \ \ \_status\ =\ \mbox{\hyperlink{apps_2tetris_2main_8c_a799b04d03f49612e3e636b56c3972b80}{STATUS\_RUNNING}};}
-\DoxyCodeLine{00368\ \ \ \ \ \_draw\_grid();}
-\DoxyCodeLine{00369\ \ \ \ \ \mbox{\hyperlink{font_8h_a1dc9a04991c7d42402c21ab6a4b933e2}{font\_string}}(210,\ 10,\ \textcolor{stringliteral}{"{}Next\ piece:"{}},\ font\_default,\ \mbox{\hyperlink{lcd_8h_a9b44987ffdc2af19b635206b94334b69}{COLOR\_WHITE}},\ \mbox{\hyperlink{lcd_8h_aba2a7fe77a7501e5844370eec0185207}{COLOR\_BLACK}});}
-\DoxyCodeLine{00370\ \}}
+\DoxyCodeLine{00400\ \{}
+\DoxyCodeLine{00401\ \ \ \ \ \mbox{\hyperlink{keyboard_8c_a3676e1550d4471bddab4c84dd0c844dc}{keyboard\_register\_event}}(\mbox{\hyperlink{apps_2editor_2main_8c_af5305db9ea018cc40d167b2a51d77ac1}{event\_key}});}
+\DoxyCodeLine{00402\ \ \ \ \ \mbox{\hyperlink{apps_2tetris_2main_8c_a66a310b0917a56120d5eec8c86066461}{\_np}}.\mbox{\hyperlink{structPiece_a3cddb7dc76f326558891036d46d5351b}{X}}\ =\ 11;}
+\DoxyCodeLine{00403\ \ \ \ \ \mbox{\hyperlink{apps_2tetris_2main_8c_a66a310b0917a56120d5eec8c86066461}{\_np}}.\mbox{\hyperlink{structPiece_aab10b280efc0ec449f674e6c5bf2cb02}{Y}}\ =\ 0;}
+\DoxyCodeLine{00404\ \ \ \ \ \mbox{\hyperlink{apps_2tetris_2main_8c_a66a310b0917a56120d5eec8c86066461}{\_np}}.\mbox{\hyperlink{structPiece_a700d5a2720932a70447d8c675fb6e2b4}{Rotation}}\ =\ 1;}
+\DoxyCodeLine{00405\ \ \ \ \ \mbox{\hyperlink{string_8c_ab5fb910d7238069eb23f4b06809aa68e}{memset}}(\mbox{\hyperlink{apps_2tetris_2main_8c_a712087fe8401cc72eeea97bf20629aef}{\_field}},\ 0,\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{apps_2tetris_2main_8c_a712087fe8401cc72eeea97bf20629aef}{\_field}}));}
+\DoxyCodeLine{00406\ \ \ \ \ \mbox{\hyperlink{apps_2tetris_2main_8c_a66a310b0917a56120d5eec8c86066461}{\_np}}.\mbox{\hyperlink{structPiece_a57548407d4c534712ac9ea47c86fa4d8}{Type}}\ =\ \mbox{\hyperlink{apps_2tetris_2main_8c_a8fe5892e2d197c0c60dfaaa2559f64ae}{\_new\_piece}}(\&\mbox{\hyperlink{apps_2tetris_2main_8c_a484db87782841a7763d17ef82d344de1}{\_cp}});}
+\DoxyCodeLine{00407\ \ \ \ \ \mbox{\hyperlink{apps_2tetris_2main_8c_a6cdf6e6db875a442f3ab6db542bd2bb5}{\_status}}\ =\ \mbox{\hyperlink{apps_2tetris_2main_8c_a799b04d03f49612e3e636b56c3972b80}{STATUS\_RUNNING}};}
+\DoxyCodeLine{00408\ \ \ \ \ \mbox{\hyperlink{apps_2tetris_2main_8c_a63512b1efd6d377245329f587094f300}{\_draw\_grid}}();}
+\DoxyCodeLine{00409\ \ \ \ \ \mbox{\hyperlink{font_8h_a1dc9a04991c7d42402c21ab6a4b933e2}{font\_string}}(210,\ 10,\ \textcolor{stringliteral}{"{}Next\ piece:"{}},\ font\_default,\ \mbox{\hyperlink{lcd_8h_a9b44987ffdc2af19b635206b94334b69}{COLOR\_WHITE}},\ \mbox{\hyperlink{lcd_8h_aba2a7fe77a7501e5844370eec0185207}{COLOR\_BLACK}});}
+\DoxyCodeLine{00410\ \}}
 
 \end{DoxyCode}
 
 
-References \mbox{\hyperlink{lcd_8h_source_l00038}{COLOR\+\_\+\+BLACK}}, \mbox{\hyperlink{lcd_8h_source_l00035}{COLOR\+\_\+\+WHITE}}, \mbox{\hyperlink{font_8h_source_l00090}{font\+\_\+string()}}, \mbox{\hyperlink{gfx-types_8h_source_l00019}{GFX\+\_\+\+HEIGHT}}, \mbox{\hyperlink{gfx_8c_source_l00030}{gfx\+\_\+image\+\_\+rgb()}}, \mbox{\hyperlink{gfx_8c_source_l00011}{gfx\+\_\+rect()}}, \mbox{\hyperlink{gfx-types_8h_source_l00016}{GFX\+\_\+\+WIDTH}}, \mbox{\hyperlink{keyboard_8c_source_l00031}{keyboard\+\_\+register\+\_\+event()}}, \mbox{\hyperlink{string_8c_source_l00176}{memset()}}, \mbox{\hyperlink{timer_8c_source_l00036}{millis()}}, \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00049}{Piece\+::\+Rotation}}, \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00034}{STATUS\+\_\+\+RUNNING}}, \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00052}{Piece\+::\+Type}}, \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00043}{Piece\+::X}}, and \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00046}{Piece\+::Y}}.
+References \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00105}{\+\_\+cp}}, \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00185}{\+\_\+draw\+\_\+grid()}}, \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00120}{\+\_\+field}}, \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00205}{\+\_\+new\+\_\+piece()}}, \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00108}{\+\_\+np}}, \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00111}{\+\_\+status}}, \mbox{\hyperlink{lcd_8h_source_l00038}{COLOR\+\_\+\+BLACK}}, \mbox{\hyperlink{lcd_8h_source_l00035}{COLOR\+\_\+\+WHITE}}, \mbox{\hyperlink{apps_2editor_2main_8c_source_l00065}{event\+\_\+key()}}, \mbox{\hyperlink{font_8h_source_l00090}{font\+\_\+string()}}, \mbox{\hyperlink{gfx-types_8h_source_l00019}{GFX\+\_\+\+HEIGHT}}, \mbox{\hyperlink{gfx_8c_source_l00030}{gfx\+\_\+image\+\_\+rgb()}}, \mbox{\hyperlink{gfx_8c_source_l00011}{gfx\+\_\+rect()}}, \mbox{\hyperlink{gfx-types_8h_source_l00016}{GFX\+\_\+\+WIDTH}}, \mbox{\hyperlink{keyboard_8c_source_l00031}{keyboard\+\_\+register\+\_\+event()}}, \mbox{\hyperlink{string_8c_source_l00176}{memset()}}, \mbox{\hyperlink{timer_8c_source_l00036}{millis()}}, \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00049}{Piece\+::\+Rotation}}, \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00034}{STATUS\+\_\+\+RUNNING}}, \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00052}{Piece\+::\+Type}}, \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00043}{Piece\+::X}}, and \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00046}{Piece\+::Y}}.
 
 
 
@@ -705,9 +787,13 @@ References \mbox{\hyperlink{lcd_8h_source_l00038}{COLOR\+\_\+\+BLACK}}, \mbox{\h
 \doxysubsubsection{\texorpdfstring{\_changed}{\_changed}}
 {\footnotesize\ttfamily bool \+\_\+changed\hspace{0.3cm}{\ttfamily [static]}}
 
+Indicates that the field has changed and should be redrawn 
+
+Definition at line \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00117}{117}} of file \mbox{\hyperlink{apps_2tetris_2main_8c_source}{main.\+c}}.
 
 
-Definition at line \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00107}{107}} of file \mbox{\hyperlink{apps_2tetris_2main_8c_source}{main.\+c}}.
+
+Referenced by \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00415}{loop()}}.
 
 \mbox{\Hypertarget{apps_2tetris_2main_8c_a484db87782841a7763d17ef82d344de1}\label{apps_2tetris_2main_8c_a484db87782841a7763d17ef82d344de1}} 
 \index{main.c@{main.c}!\_cp@{\_cp}}
@@ -715,9 +801,13 @@ Definition at line \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00107}{107}} o
 \doxysubsubsection{\texorpdfstring{\_cp}{\_cp}}
 {\footnotesize\ttfamily \mbox{\hyperlink{structPiece}{Piece}} \+\_\+cp\hspace{0.3cm}{\ttfamily [static]}}
 
+Current \mbox{\hyperlink{structPiece}{Piece}} 
+
+Definition at line \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00105}{105}} of file \mbox{\hyperlink{apps_2tetris_2main_8c_source}{main.\+c}}.
 
 
-Definition at line \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00104}{104}} of file \mbox{\hyperlink{apps_2tetris_2main_8c_source}{main.\+c}}.
+
+Referenced by \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00306}{\+\_\+draw\+\_\+field()}}, \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00415}{loop()}}, and \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00399}{setup()}}.
 
 \mbox{\Hypertarget{apps_2tetris_2main_8c_a712087fe8401cc72eeea97bf20629aef}\label{apps_2tetris_2main_8c_a712087fe8401cc72eeea97bf20629aef}} 
 \index{main.c@{main.c}!\_field@{\_field}}
@@ -725,29 +815,13 @@ Definition at line \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00104}{104}} o
 \doxysubsubsection{\texorpdfstring{\_field}{\_field}}
 {\footnotesize\ttfamily \mbox{\hyperlink{apps_2tetris_2main_8c_a48e0eca677ce0a3de1dc2f2ea612cb19}{Field\+Type}} \+\_\+field\mbox{[}\mbox{\hyperlink{apps_2tetris_2main_8c_a49d2668adfdf4f710a6c58fdbc0bcbe6}{FIELD\+\_\+\+SIZE}}\mbox{]}\hspace{0.3cm}{\ttfamily [static]}}
 
+Array that stores landed, non-\/moving pieces 
 
-
-Definition at line \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00109}{109}} of file \mbox{\hyperlink{apps_2tetris_2main_8c_source}{main.\+c}}.
-
-\mbox{\Hypertarget{apps_2tetris_2main_8c_a5235a066c76d399951efc2de2ba1aa37}\label{apps_2tetris_2main_8c_a5235a066c76d399951efc2de2ba1aa37}} 
-\index{main.c@{main.c}!\_last\_ticks@{\_last\_ticks}}
-\index{\_last\_ticks@{\_last\_ticks}!main.c@{main.c}}
-\doxysubsubsection{\texorpdfstring{\_last\_ticks}{\_last\_ticks}}
-{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} \+\_\+last\+\_\+ticks = 0\hspace{0.3cm}{\ttfamily [static]}}
+Definition at line \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00120}{120}} of file \mbox{\hyperlink{apps_2tetris_2main_8c_source}{main.\+c}}.
 
 
 
-Definition at line \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00106}{106}} of file \mbox{\hyperlink{apps_2tetris_2main_8c_source}{main.\+c}}.
-
-\mbox{\Hypertarget{apps_2tetris_2main_8c_a6c44e32160b4a80c95d0dbcd14207d39}\label{apps_2tetris_2main_8c_a6c44e32160b4a80c95d0dbcd14207d39}} 
-\index{main.c@{main.c}!\_new@{\_new}}
-\index{\_new@{\_new}!main.c@{main.c}}
-\doxysubsubsection{\texorpdfstring{\_new}{\_new}}
-{\footnotesize\ttfamily \mbox{\hyperlink{apps_2tetris_2main_8c_a48e0eca677ce0a3de1dc2f2ea612cb19}{Field\+Type}} \+\_\+new\mbox{[}\mbox{\hyperlink{apps_2tetris_2main_8c_a313353b53d609b3b2b37e1aecf98bf4c}{FIELD\+\_\+\+WIDTH}} $\ast$\mbox{\hyperlink{apps_2tetris_2main_8c_a90b3ddaf01d4c39af0567b4500e9c4c6}{FIELD\+\_\+\+HEIGHT}}\mbox{]}\hspace{0.3cm}{\ttfamily [static]}}
-
-
-
-Definition at line \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00110}{110}} of file \mbox{\hyperlink{apps_2tetris_2main_8c_source}{main.\+c}}.
+Referenced by \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00306}{\+\_\+draw\+\_\+field()}}, \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00415}{loop()}}, and \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00399}{setup()}}.
 
 \mbox{\Hypertarget{apps_2tetris_2main_8c_a66a310b0917a56120d5eec8c86066461}\label{apps_2tetris_2main_8c_a66a310b0917a56120d5eec8c86066461}} 
 \index{main.c@{main.c}!\_np@{\_np}}
@@ -755,29 +829,13 @@ Definition at line \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00110}{110}} o
 \doxysubsubsection{\texorpdfstring{\_np}{\_np}}
 {\footnotesize\ttfamily \mbox{\hyperlink{structPiece}{Piece}} \+\_\+np\hspace{0.3cm}{\ttfamily [static]}}
 
+Next \mbox{\hyperlink{structPiece}{Piece}} 
 
-
-Definition at line \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00104}{104}} of file \mbox{\hyperlink{apps_2tetris_2main_8c_source}{main.\+c}}.
-
-\mbox{\Hypertarget{apps_2tetris_2main_8c_aa65d357f95d91938f99e42283dc8a0c7}\label{apps_2tetris_2main_8c_aa65d357f95d91938f99e42283dc8a0c7}} 
-\index{main.c@{main.c}!\_prev@{\_prev}}
-\index{\_prev@{\_prev}!main.c@{main.c}}
-\doxysubsubsection{\texorpdfstring{\_prev}{\_prev}}
-{\footnotesize\ttfamily \mbox{\hyperlink{apps_2tetris_2main_8c_a48e0eca677ce0a3de1dc2f2ea612cb19}{Field\+Type}} \+\_\+prev\mbox{[}\mbox{\hyperlink{apps_2tetris_2main_8c_a313353b53d609b3b2b37e1aecf98bf4c}{FIELD\+\_\+\+WIDTH}} $\ast$\mbox{\hyperlink{apps_2tetris_2main_8c_a90b3ddaf01d4c39af0567b4500e9c4c6}{FIELD\+\_\+\+HEIGHT}}\mbox{]}\hspace{0.3cm}{\ttfamily [static]}}
+Definition at line \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00108}{108}} of file \mbox{\hyperlink{apps_2tetris_2main_8c_source}{main.\+c}}.
 
 
 
-Definition at line \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00111}{111}} of file \mbox{\hyperlink{apps_2tetris_2main_8c_source}{main.\+c}}.
-
-\mbox{\Hypertarget{apps_2tetris_2main_8c_a4b758f0eefc028ef6318390b4e16f6ce}\label{apps_2tetris_2main_8c_a4b758f0eefc028ef6318390b4e16f6ce}} 
-\index{main.c@{main.c}!\_score@{\_score}}
-\index{\_score@{\_score}!main.c@{main.c}}
-\doxysubsubsection{\texorpdfstring{\_score}{\_score}}
-{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} \+\_\+score = 0\hspace{0.3cm}{\ttfamily [static]}}
-
-
-
-Definition at line \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00106}{106}} of file \mbox{\hyperlink{apps_2tetris_2main_8c_source}{main.\+c}}.
+Referenced by \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00415}{loop()}}, and \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00399}{setup()}}.
 
 \mbox{\Hypertarget{apps_2tetris_2main_8c_a6cdf6e6db875a442f3ab6db542bd2bb5}\label{apps_2tetris_2main_8c_a6cdf6e6db875a442f3ab6db542bd2bb5}} 
 \index{main.c@{main.c}!\_status@{\_status}}
@@ -785,29 +843,27 @@ Definition at line \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00106}{106}} o
 \doxysubsubsection{\texorpdfstring{\_status}{\_status}}
 {\footnotesize\ttfamily \mbox{\hyperlink{status_8h_a67a0db04d321a74b7e7fcfd3f1a3f70b}{Status}} \+\_\+status\hspace{0.3cm}{\ttfamily [static]}}
 
+Current game status (see enum above) 
 
-
-Definition at line \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00105}{105}} of file \mbox{\hyperlink{apps_2tetris_2main_8c_source}{main.\+c}}.
-
-\mbox{\Hypertarget{apps_2tetris_2main_8c_abbc7dd13901e2d7a0df8b73c26e5f821}\label{apps_2tetris_2main_8c_abbc7dd13901e2d7a0df8b73c26e5f821}} 
-\index{main.c@{main.c}!\_ticks@{\_ticks}}
-\index{\_ticks@{\_ticks}!main.c@{main.c}}
-\doxysubsubsection{\texorpdfstring{\_ticks}{\_ticks}}
-{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} \+\_\+ticks\hspace{0.3cm}{\ttfamily [static]}}
+Definition at line \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00111}{111}} of file \mbox{\hyperlink{apps_2tetris_2main_8c_source}{main.\+c}}.
 
 
 
-Definition at line \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00106}{106}} of file \mbox{\hyperlink{apps_2tetris_2main_8c_source}{main.\+c}}.
+Referenced by \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00399}{setup()}}.
 
 \mbox{\Hypertarget{apps_2tetris_2main_8c_a3b61dc076d66b07a466af8d80eb02283}\label{apps_2tetris_2main_8c_a3b61dc076d66b07a466af8d80eb02283}} 
 \index{main.c@{main.c}!\_ticks\_update@{\_ticks\_update}}
 \index{\_ticks\_update@{\_ticks\_update}!main.c@{main.c}}
 \doxysubsubsection{\texorpdfstring{\_ticks\_update}{\_ticks\_update}}
-{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} \+\_\+ticks\+\_\+update = 200\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} \+\_\+ticks\+\_\+update = \mbox{\hyperlink{apps_2tetris_2main_8c_a8dd63073e02e2b072414b6bf3cdf57d6}{FALL\+\_\+\+SPEED\+\_\+\+DEFAULT}}\hspace{0.3cm}{\ttfamily [static]}}
+
+Milliseconds duration for a tile to move down by one tile 
+
+Definition at line \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00114}{114}} of file \mbox{\hyperlink{apps_2tetris_2main_8c_source}{main.\+c}}.
 
 
 
-Definition at line \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00106}{106}} of file \mbox{\hyperlink{apps_2tetris_2main_8c_source}{main.\+c}}.
+Referenced by \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00415}{loop()}}.
 
 \mbox{\Hypertarget{apps_2tetris_2main_8c_af0b7cef61a093895654eef83e9a3fc88}\label{apps_2tetris_2main_8c_af0b7cef61a093895654eef83e9a3fc88}} 
 \index{main.c@{main.c}!Blocks@{Blocks}}
