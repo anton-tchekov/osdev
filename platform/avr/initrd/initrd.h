@@ -3,7 +3,6 @@
  * @author  Anton Tchekov
  * @version 0.1
  * @date    21.05.2023
- *
  * @brief   Load INIT program and STDLIB from reserved area on disk.
  *          This module contains a very rudimentary ATFS driver to do that.
  *          It is kind of a hack to avoid a chicken-egg problem because

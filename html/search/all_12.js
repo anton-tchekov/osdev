@@ -14,7 +14,7 @@ var searchData=
   ['timer_2eh_11',['timer.h',['../timer_8h.html',1,'']]],
   ['timer_5finit_12',['timer_init',['../timer_8c.html#a7b8ab79df77b57475a5494f5f81c3bd9',1,'timer_init(void):&#160;timer.c'],['../timer_8h.html#a7b8ab79df77b57475a5494f5f81c3bd9',1,'timer_init(void):&#160;timer.c'],['../simulator_2platform_8c.html#a2d7a2412663c9b0521415553939b1b05',1,'timer_init(void):&#160;platform.c']]],
   ['title_13',['Title',['../structWindow.html#a4810e08776237d1e32d19f4a283df3b9',1,'Window']]],
-  ['title_5fbar_5fheight_14',['TITLE_BAR_HEIGHT',['../gui_8c.html#af9338f9b2ff9d4935cd8ea1853f5ec33',1,'gui.c']]],
+  ['title_5fbar_5fheight_14',['TITLE_BAR_HEIGHT',['../gui_8h.html#af9338f9b2ff9d4935cd8ea1853f5ec33',1,'gui.h']]],
   ['title_5foffset_5fx_15',['TITLE_OFFSET_X',['../gui_8c.html#a3b3168eb8fb2ed4ef6c3e4d7ffea94be',1,'gui.c']]],
   ['title_5foffset_5fy_16',['TITLE_OFFSET_Y',['../gui_8c.html#a42b1d9dbef934ab2c0f0492e5669b2bf',1,'gui.c']]],
   ['tolower_17',['tolower',['../ctype_8h.html#abe3bb9b3e36b2f1968405b16d654dbf0',1,'tolower(i32 c):&#160;ctype.c'],['../ctype_8c.html#abe3bb9b3e36b2f1968405b16d654dbf0',1,'tolower(i32 c):&#160;ctype.c']]],

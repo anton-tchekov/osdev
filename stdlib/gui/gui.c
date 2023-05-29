@@ -14,9 +14,6 @@
 #include <utf8.h>
 #include <clipboard.h>
 
-/** Height of the title bar in pixels */
-#define TITLE_BAR_HEIGHT 20
-
 /** Title bar text left offset */
 #define TITLE_OFFSET_X 4
 
@@ -29,7 +26,7 @@
 /** Border width when selected */
 #define BORDER_SIZE_SEL 2
 
-/* Input */
+/* --- Input --- */
 
 /** Height of an input field */
 #define INPUT_HEIGHT 24
@@ -93,9 +90,6 @@ typedef struct
 	/** Various Flags (see header file) */
 	u32 Flags;
 } Element;
-
-/** Password stars */
-static const char _password_stars[] = "***********************************";
 
 /* LABEL */
 
@@ -198,6 +192,18 @@ static void button_render(Button *b, bool sel)
 /* INPUT */
 
 /**
+ * @brief Get the text to display when an input is rendered
+ *
+ * @param i The input
+ * @return Input content or password stars
+ */
+static const char *_input_get_display_text(Input *i)
+{
+	static const char _password_stars[] = "***********************************";
+	return i->Flags & FLAG_PASSWORD ? _password_stars : vector_data(&i->Text);
+}
+
+/**
  * @brief Renders an input field on the screen
  *
  * @param i Pointer to the input structure
@@ -208,7 +214,7 @@ static void input_render(Input *i, bool sel)
 	Color inner_color;
 	i32 y = TITLE_BAR_HEIGHT + i->Y;
 
-	const char *text = i->Flags & FLAG_PASSWORD ? _password_stars : vector_data(&i->Text);
+	const char *text = _input_get_display_text(i);
 
 	inner_color = sel ? _current_theme->ElementSelBG : _current_theme->ElementBG;
 
@@ -307,15 +313,18 @@ void input_clear(Input *i)
  */
 static void input_selection_replace(Input *i, const char *str, i32 len)
 {
+	const char *text;
 	i32 sel_start, sel_len, w_new, w_start, w_end;
 
 	sel_start = i32_min(i->Selection, i->Position);
 	sel_len = i32_max(i->Selection, i->Position) - sel_start;
 
+	text = _input_get_display_text(i);
+
 	w_new = font_string_width_len(str, len, font_default);
-	w_start = font_string_width_len(vector_data(&i->Text), sel_start, font_default);
-	w_end = font_string_width_len(vector_data(&i->Text) + sel_start + sel_len,
-								  vector_len(&i->Text) - sel_start - sel_len, font_default);
+	w_start = font_string_width_len(text, sel_start, font_default);
+	w_end = font_string_width_len(text + sel_start + sel_len,
+		vector_len(&i->Text) - sel_start - sel_len, font_default);
 
 	if (w_new + w_start + w_end >= i->W - 2 * INPUT_PADDING_X)
 	{
@@ -547,8 +556,7 @@ static void input_cut(Input *i)
  */
 static void input_paste(Input *i)
 {
-	input_selection_replace(i, clipboard_get_text(),
-							clipboard_get_text_len());
+	input_selection_replace(i, clipboard_get_text(), clipboard_get_text_len());
 }
 
 /**

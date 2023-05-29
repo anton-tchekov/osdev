@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['label_5ferror_5fy_0',['LABEL_ERROR_Y',['../apps_2test_2main_8c.html#ac120367406446b00f39ca936daac148b',1,'main.c']]],
-  ['label_5fno_5fapps_5fy_1',['LABEL_NO_APPS_Y',['../apps_2test_2main_8c.html#a5dbce6e927d421c5ffc54aa9df63cdf6',1,'main.c']]],
+  ['label_5ferror_5fy_0',['LABEL_ERROR_Y',['../apps_2init_2main_8c.html#ac120367406446b00f39ca936daac148b',1,'main.c']]],
+  ['label_5fno_5fapps_5fy_1',['LABEL_NO_APPS_Y',['../apps_2init_2main_8c.html#a5dbce6e927d421c5ffc54aa9df63cdf6',1,'main.c']]],
   ['label_5fx_5fpadding_2',['LABEL_X_PADDING',['../gui_8c.html#ae155fe933604c3293da4b1592535c8ac',1,'gui.c']]],
   ['label_5fy_5fpadding_3',['LABEL_Y_PADDING',['../gui_8c.html#abd4a502e3ad9ef21d6bac9c7a505e175',1,'gui.c']]],
   ['lcd_5fcs_5f0_4',['LCD_CS_0',['../gpio_8h.html#a42d5451b792114145c0c17bfa3fa9765',1,'gpio.h']]],

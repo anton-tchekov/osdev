@@ -60,7 +60,7 @@ int main(int argc, char **argv)
 
 	fwrite(buf, 1, ATFS_BLOCK_SIZE, out);
 
-	/* Write 64 empty sectors */
+	/* Temporarily write empty sectors instead of stdlib */
 	memset(buf, 0, ATFS_BLOCK_SIZE);
 	for(i = 0; i < ATFS_SIZE_STDLIB; ++i)
 	{
@@ -75,7 +75,7 @@ int main(int argc, char **argv)
 		fwrite(buf, 1, ATFS_BLOCK_SIZE, out);
 	}
 
-	/* TEMPORARY: End marker 0xFF root dir sector */
+	/* Temporary end marker 0xFF in root dir sector */
 	memset(buf, 0xFF, ATFS_BLOCK_SIZE);
 	fwrite(buf, 1, ATFS_BLOCK_SIZE, out);
 	return 0;

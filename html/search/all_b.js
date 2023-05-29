@@ -1,9 +1,9 @@
 var searchData=
 [
   ['label_0',['Label',['../structLabel.html',1,'']]],
-  ['label_5ferror_5fy_1',['LABEL_ERROR_Y',['../apps_2test_2main_8c.html#ac120367406446b00f39ca936daac148b',1,'main.c']]],
+  ['label_5ferror_5fy_1',['LABEL_ERROR_Y',['../apps_2init_2main_8c.html#ac120367406446b00f39ca936daac148b',1,'main.c']]],
   ['label_5finit_2',['label_init',['../gui_8c.html#a947b16523eba3e9011e52a892a689295',1,'label_init(Label *label, i32 x, i32 y, u32 flags, char *text):&#160;gui.c'],['../gui_8h.html#a947b16523eba3e9011e52a892a689295',1,'label_init(Label *label, i32 x, i32 y, u32 flags, char *text):&#160;gui.c']]],
-  ['label_5fno_5fapps_5fy_3',['LABEL_NO_APPS_Y',['../apps_2test_2main_8c.html#a5dbce6e927d421c5ffc54aa9df63cdf6',1,'main.c']]],
+  ['label_5fno_5fapps_5fy_3',['LABEL_NO_APPS_Y',['../apps_2init_2main_8c.html#a5dbce6e927d421c5ffc54aa9df63cdf6',1,'main.c']]],
   ['label_5frender_4',['label_render',['../gui_8c.html#aa286ad38202d335362136de06f3641d3',1,'gui.c']]],
   ['label_5fshow_5',['label_show',['../gui_8h.html#a92a7b2cd6b792e060a26a27bb7bcc0e7',1,'label_show(Label *label, bool show):&#160;gui.c'],['../gui_8c.html#a92a7b2cd6b792e060a26a27bb7bcc0e7',1,'label_show(Label *label, bool show):&#160;gui.c']]],
   ['label_5fx_5fpadding_6',['LABEL_X_PADDING',['../gui_8c.html#ae155fe933604c3293da4b1592535c8ac',1,'gui.c']]],
@@ -57,5 +57,5 @@ var searchData=
   ['logo_5ftext_5fx_5foffset_54',['LOGO_TEXT_X_OFFSET',['../logger_8c.html#a4bcc8822ee0337ce0c7d0f7086244b6d',1,'logger.c']]],
   ['logo_5fx_5foffset_55',['LOGO_X_OFFSET',['../logger_8c.html#a88e76882c6f9a1a90f5b714c39be7b37',1,'logger.c']]],
   ['logo_5fy_5foffset_56',['LOGO_Y_OFFSET',['../logger_8c.html#a70b1470428ebbc008fc85cfb458820b1',1,'logger.c']]],
-  ['loop_57',['loop',['../apps_2editor_2main_8c.html#a0b33edabd7f1c4e4a0bf32c67269be2f',1,'loop(void):&#160;main.c'],['../apps_2test_2main_8c.html#a0b33edabd7f1c4e4a0bf32c67269be2f',1,'loop(void):&#160;main.c'],['../apps_2tetris_2main_8c.html#a0b33edabd7f1c4e4a0bf32c67269be2f',1,'loop(void):&#160;main.c'],['../event_8h.html#a0b33edabd7f1c4e4a0bf32c67269be2f',1,'loop(void):&#160;main.c']]]
+  ['loop_57',['loop',['../apps_2editor_2main_8c.html#a0b33edabd7f1c4e4a0bf32c67269be2f',1,'loop(void):&#160;main.c'],['../apps_2init_2main_8c.html#a0b33edabd7f1c4e4a0bf32c67269be2f',1,'loop(void):&#160;main.c'],['../apps_2tetris_2main_8c.html#a0b33edabd7f1c4e4a0bf32c67269be2f',1,'loop(void):&#160;main.c'],['../event_8h.html#a0b33edabd7f1c4e4a0bf32c67269be2f',1,'loop(void):&#160;main.c']]]
 ];

@@ -2,8 +2,7 @@
  * @file    event-types.h
  * @author  Anton Tchekov
  * @version 0.1
- * @date    22.05.2023
- *
+ * @date    29.05.2023
  * @brief   Event types
  */
 

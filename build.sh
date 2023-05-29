@@ -1,7 +1,9 @@
 #!/bin/bash
+clear
+
 make
 
-cd apps/test/
+cd apps/init/
 make
 cd ..
 

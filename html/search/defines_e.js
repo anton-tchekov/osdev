@@ -10,7 +10,7 @@ var searchData=
   ['sd_5fhc_7',['SD_HC',['../sd_8c.html#a241f7db547832cffdbcd9b73f7eba991',1,'sd.c']]],
   ['sd_5fselect_8',['SD_SELECT',['../gpio_8h.html#ad104eec5bf5679ebe86fb494113175dd',1,'gpio.h']]],
   ['seed_9',['SEED',['../xmem_8c.html#ad350bae49f72ba58d73027f1316e38b8',1,'xmem.c']]],
-  ['show_5ferror_5fdelay_10',['SHOW_ERROR_DELAY',['../apps_2test_2main_8c.html#ac120c980d10b580093f74493be393c8b',1,'main.c']]],
+  ['show_5ferror_5fdelay_10',['SHOW_ERROR_DELAY',['../apps_2init_2main_8c.html#ac120c980d10b580093f74493be393c8b',1,'main.c']]],
   ['spi_5fdir_11',['SPI_DIR',['../gpio_8h.html#a21cc6faf5964b9af1b09e8b0ebc83497',1,'gpio.h']]],
   ['spi_5fmiso_12',['SPI_MISO',['../gpio_8h.html#ab142cc77dfa97010c9d2b616d0992b64',1,'gpio.h']]],
   ['spi_5fmosi_13',['SPI_MOSI',['../gpio_8h.html#a7dbebab5f7dd57885adccf6711b13592',1,'gpio.h']]],

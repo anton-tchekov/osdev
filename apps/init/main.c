@@ -3,7 +3,6 @@
  * @author  Anton Tchekov
  * @version 0.1
  * @date    24.05.2023
- *
  * @brief   Init program
  */
 
@@ -168,8 +167,8 @@ static void window_login_onkey(Key key, i32 chr, KeyState state)
  * @brief Main key event handler
  *
  * @param key The key that was pressed
- * @param chr Character corresponding to the key
- * @param state Current key state
+ * @param chr The character corresponding to the key
+ * @param state Key state (pressed, repeat, released)
  */
 static void event_key(Key key, i32 chr, KeyState state)
 {

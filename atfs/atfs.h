@@ -2,9 +2,22 @@
  * @file    atfs.h
  * @author  Anton Tchekov
  * @version 0.1
- * @date    22.05.2023
+ * @date    29.05.2023
+ * @brief   ATFS File System (ATFS = Amazing Technology File System)
  *
- * @brief   ATFS File System
+ * - Files cannot be deleted or edited after creation, and each
+ *   time a file is written, a copy with a incremented version
+ *   number is created. Space allocation is super simple, just
+ *   increment a pointer.
+ *
+ * - All integers are stored as little endian
+ * - All files are contiguous
+ * - Filename separator is a dot '.' not slash '/'
+ * - Filenames may only contain lowercase letters ('a' to 'z'),
+ *   numbers ('0' to '9') and underscore ('_') and may not start with
+ *   a number. File extensions are not supported.
+ *
+ * - Example path: "root.images.vacation.me_on_the_beach"
  */
 
 #ifndef __ATFS_H__
@@ -12,10 +25,8 @@
 
 #include <types.h>
 
-/** Disk sector size */
+/** Disk sector size (512 bytes) */
 #define ATFS_BLOCK_SIZE           512
-
-/* 512 bytes */
 
 /** Boot sector offset in blocks */
 #define ATFS_SECTOR_BOOT            0
@@ -41,7 +52,7 @@
 /** Current FS Revision */
 #define ATFS_REVISION               0
 
-/* Boot sector offsets */
+/* --- Boot sector byte offsets --- */
 
 /** Offset of signature in ATFS bootsector */
 #define ATFS_OFFSET_SIGNATURE       0
@@ -55,8 +66,13 @@
 /** Offset of init program size in ATFS bootsector */
 #define ATFS_OFFSET_INIT_SIZE      12
 
+/** Offset of write pointer for versioning */
+#define ATFS_OFFSET_INIT_SIZE      16
+
 /** FS Signature (bytes 0-4) */
 static const u8 _atfs_signature[] = { 'A', 'T', 'F', 'S' };
+
+/* --- Utility Functions --- */
 
 /**
  * @brief Write a 32-bit little endian value to a buffer

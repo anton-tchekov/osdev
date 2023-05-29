@@ -1,4 +1,4 @@
-TARGET=test
+TARGET=init
 PREFIX=../../stdlib
 OPT=2
 

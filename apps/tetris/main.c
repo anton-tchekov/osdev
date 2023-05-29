@@ -3,7 +3,6 @@
  * @author  Anton Tchekov
  * @version 0.1
  * @date    24.05.2023
- *
  * @brief   Tetris game for the OS
  */
 
@@ -36,7 +35,7 @@
 /** Piece Type */
 typedef enum { I, J, L, O, S, T, Z } PieceType;
 
-/** A Tetris piece */
+/** A moving tetris piece */
 typedef struct
 {
 	/** X-Coordinate */
@@ -52,12 +51,18 @@ typedef struct
 	PieceType Type;
 } Piece;
 
-struct
+/** Struct containing a description of a tetris piece */
+typedef struct
 {
+	/** 4x4 bitmap for 4 rotation states */
 	u16 Blocks[4];
+
+	/** Color of the tetromino */
 	Color Fill;
-}
-const Pieces[] =
+} PieceData;
+
+/** All 7 tetrominos */
+const PieceData Pieces[] =
 {
 	{
 		/* I */
@@ -136,10 +141,10 @@ static i32 _field_get(FieldType *field, i32 x, i32 y)
 }
 
 /**
- * @brief
+ * @brief Clear a row and shift down rows above
  *
- * @param field
- * @param row
+ * @param field Playing field
+ * @param row The row to remove
  */
 static void _field_shift(FieldType *field, i32 row)
 {
@@ -154,6 +159,12 @@ static void _field_shift(FieldType *field, i32 row)
 	}
 }
 
+/**
+ * @brief Remove full rows and update score
+ *
+ * @param field Playing field
+ * @return Score change
+ */
 static i32 _field_rows(FieldType *field)
 {
 	i32 x, y, score;
@@ -305,21 +316,21 @@ static void _to_field(FieldType *field, Piece *p)
  */
 static void _draw_field(void)
 {
-	static FieldType _new[FIELD_SIZE], _prev[FIELD_SIZE]
+	static FieldType new[FIELD_SIZE], prev[FIELD_SIZE];
 	i32 x, y, offset;
 	PieceType type;
 
-	memcpy(_new, _field, sizeof(_field));
-	_to_field(_new, &_cp);
-	//_to_field(_new, &_np);
+	memcpy(new, _field, sizeof(_field));
+	_to_field(new, &_cp);
+	//_to_field(new, &_np);
 	for(y = 0; y < FIELD_HEIGHT; ++y)
 	{
 		for(x = 0; x < FIELD_WIDTH; ++x)
 		{
 			offset = y * FIELD_WIDTH + x;
-			type = _new[offset];
+			type = new[offset];
 			Color color = type ? Pieces[type - 1].Fill : COLOR_BLACK;
-			if(type != _prev[offset])
+			if(type != prev[offset])
 			{
 				gfx_rect(
 					x * BLOCK_SIZE + 1,
@@ -331,9 +342,16 @@ static void _draw_field(void)
 		}
 	}
 
-	memcpy(_prev, _new, sizeof(_field));
+	memcpy(prev, new, sizeof(_field));
 }
 
+/**
+ * @brief Main key event handler
+ *
+ * @param key The key that was pressed
+ * @param chr The character corresponding to the key
+ * @param state Key state (pressed, repeat, released)
+ */
 void event_key(Key key, i32 chr, KeyState state)
 {
 	if(state == KEYSTATE_RELEASED)
