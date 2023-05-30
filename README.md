@@ -27,18 +27,15 @@
 # TODO
 
 ## Current Tasks
-- GUI Fix Bugs (text width calculation)
+- Documentation Todos
+- String syscall (default font) as optimization
 - Better SysCall Parameter checking, Memory Protection
-- Documentation, not again, yes I am forcing myself ...
-
 - Cooperative Scheduler, Background Tasks, Exit function
 - AVR XMEM image routines
 - AVR PS/2 Keyboard character conversion and test
 - AVR SD Driver write block function
 - Port Tetris
-
-## Immediate Next Steps
-- Port Snake Game
+- Port Snake
 - Text Editor
 - Fast native memory routines
 - File system driver
@@ -68,6 +65,7 @@
 - Import / Export contents
 
 # DONE
+- GUI Fix text width calculation bugs
 - Invert labels
 - GUI Hide/Show labels (`label_show(&label, true)`)
 - Working Login

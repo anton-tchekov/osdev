@@ -72,7 +72,7 @@ Definition in file \mbox{\hyperlink{apps_2editor_2main_8c_source}{main.\+c}}.
 
 Initial code vector capacity 
 
-Definition at line \mbox{\hyperlink{apps_2editor_2main_8c_source_l00015}{15}} of file \mbox{\hyperlink{apps_2editor_2main_8c_source}{main.\+c}}.
+Definition at line \mbox{\hyperlink{apps_2editor_2main_8c_source_l00014}{14}} of file \mbox{\hyperlink{apps_2editor_2main_8c_source}{main.\+c}}.
 
 \mbox{\Hypertarget{apps_2editor_2main_8c_a810562d232296df8a4bb3991849dc23d}\label{apps_2editor_2main_8c_a810562d232296df8a4bb3991849dc23d}} 
 \index{main.c@{main.c}!LINE\_HEIGHT@{LINE\_HEIGHT}}
@@ -82,7 +82,7 @@ Definition at line \mbox{\hyperlink{apps_2editor_2main_8c_source_l00015}{15}} of
 
 Editor line height in pixels 
 
-Definition at line \mbox{\hyperlink{apps_2editor_2main_8c_source_l00018}{18}} of file \mbox{\hyperlink{apps_2editor_2main_8c_source}{main.\+c}}.
+Definition at line \mbox{\hyperlink{apps_2editor_2main_8c_source_l00017}{17}} of file \mbox{\hyperlink{apps_2editor_2main_8c_source}{main.\+c}}.
 
 
 
@@ -99,160 +99,160 @@ Render code to screen with syntax highlighting.
 
 
 
-Definition at line \mbox{\hyperlink{apps_2editor_2main_8c_source_l00172}{172}} of file \mbox{\hyperlink{apps_2editor_2main_8c_source}{main.\+c}}.
+Definition at line \mbox{\hyperlink{apps_2editor_2main_8c_source_l00171}{171}} of file \mbox{\hyperlink{apps_2editor_2main_8c_source}{main.\+c}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00173\ \{}
-\DoxyCodeLine{00174\ \ \ \ \ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ i,\ j,\ braces,\ brackets,\ parens,\ len,\ line,\ col,\ keyword\_remain;}
-\DoxyCodeLine{00175\ \ \ \ \ \textcolor{keywordtype}{bool}\ in\_comment,\ in\_string,\ in\_char;}
-\DoxyCodeLine{00176\ \ \ \ \ \textcolor{keywordtype}{char}\ *text,\ c;}
-\DoxyCodeLine{00177\ \ \ \ \ \mbox{\hyperlink{gfx-types_8h_acbbccb6085c654282ef64cdcefc81be5}{Color}}\ color;}
-\DoxyCodeLine{00178\ }
-\DoxyCodeLine{00179\ \ \ \ \ len\ =\ \mbox{\hyperlink{vector_8h_a5169207d0fedd9d5eba2376359dbaa65}{vector\_len}}(\&\mbox{\hyperlink{apps_2editor_2main_8c_a1e0b117ad2e15695ac297a402c531fa7}{\_code}});}
-\DoxyCodeLine{00180\ \ \ \ \ text\ =\ \mbox{\hyperlink{vector_8h_a503ee5296f13ea821a6a7024eccd5407}{vector\_data}}(\&\mbox{\hyperlink{apps_2editor_2main_8c_a1e0b117ad2e15695ac297a402c531fa7}{\_code}});}
-\DoxyCodeLine{00181\ }
-\DoxyCodeLine{00182\ \ \ \ \ in\_comment\ =\ \textcolor{keyword}{false};}
-\DoxyCodeLine{00183\ \ \ \ \ in\_string\ =\ \textcolor{keyword}{false};}
-\DoxyCodeLine{00184\ \ \ \ \ in\_char\ =\ \textcolor{keyword}{false};}
-\DoxyCodeLine{00185\ \ \ \ \ keyword\_remain\ =\ 0;}
-\DoxyCodeLine{00186\ }
-\DoxyCodeLine{00187\ \ \ \ \ col\ =\ 0;}
-\DoxyCodeLine{00188\ \ \ \ \ line\ =\ 0;}
-\DoxyCodeLine{00189\ }
-\DoxyCodeLine{00190\ \ \ \ \ braces\ =\ 0;}
-\DoxyCodeLine{00191\ \ \ \ \ brackets\ =\ 0;}
-\DoxyCodeLine{00192\ \ \ \ \ parens\ =\ 0;}
-\DoxyCodeLine{00193\ }
-\DoxyCodeLine{00194\ \ \ \ \ \textcolor{keywordflow}{for}(i\ =\ 0;\ i\ <\ len;\ ++i)}
-\DoxyCodeLine{00195\ \ \ \ \ \{}
-\DoxyCodeLine{00196\ \ \ \ \ \ \ \ \ color\ =\ \mbox{\hyperlink{lcd_8h_a9b44987ffdc2af19b635206b94334b69}{COLOR\_WHITE}};}
-\DoxyCodeLine{00197\ \ \ \ \ \ \ \ \ c\ =\ text[i];}
-\DoxyCodeLine{00198\ }
-\DoxyCodeLine{00199\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(!keyword\_remain\ \&\&\ !\mbox{\hyperlink{ctype_8c_a805b16fc0ca40602842200155766a240}{isalnum}}(text[i\ -\/\ 1]))}
-\DoxyCodeLine{00200\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00201\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ word\_len;}
-\DoxyCodeLine{00202\ }
-\DoxyCodeLine{00203\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Find\ end\ of\ word\ */}}
-\DoxyCodeLine{00204\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (j\ =\ i;\ j\ <\ len;\ ++j)}
-\DoxyCodeLine{00205\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00206\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!\mbox{\hyperlink{ctype_8c_a805b16fc0ca40602842200155766a240}{isalnum}}(text[j]))}
-\DoxyCodeLine{00207\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00208\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
-\DoxyCodeLine{00209\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00210\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00211\ }
-\DoxyCodeLine{00212\ \ \ \ \ \ \ \ \ \ \ \ \ word\_len\ =\ j\ -\/\ i;}
-\DoxyCodeLine{00213\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{keyword_8c_abb6b5d04672aa03af4d09945411d2da1}{keyword\_detect}}(\&text[i],\ word\_len))}
-\DoxyCodeLine{00214\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00215\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ keyword\_remain\ =\ word\_len;}
-\DoxyCodeLine{00216\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ color\ =\ \mbox{\hyperlink{lcd_8h_a23c70d699a5a775bc2e1ebeb8603f630}{COLOR\_BLUE}};}
-\DoxyCodeLine{00217\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00218\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00219\ }
-\DoxyCodeLine{00220\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(c\ ==\ \textcolor{charliteral}{'\{'})}
-\DoxyCodeLine{00221\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00222\ \ \ \ \ \ \ \ \ \ \ \ \ color\ =\ \mbox{\hyperlink{apps_2editor_2main_8c_ab5849250c9577ceeb40b2366681d69cf}{\_get\_brace\_color}}(braces);}
-\DoxyCodeLine{00223\ \ \ \ \ \ \ \ \ \ \ \ \ ++braces;}
-\DoxyCodeLine{00224\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00225\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(c\ ==\ \textcolor{charliteral}{'\}'})}
-\DoxyCodeLine{00226\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00227\ \ \ \ \ \ \ \ \ \ \ \ \ -\/-\/braces;}
-\DoxyCodeLine{00228\ \ \ \ \ \ \ \ \ \ \ \ \ color\ =\ \mbox{\hyperlink{apps_2editor_2main_8c_ab5849250c9577ceeb40b2366681d69cf}{\_get\_brace\_color}}(braces);}
-\DoxyCodeLine{00229\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00230\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(c\ ==\ \textcolor{charliteral}{'['})}
-\DoxyCodeLine{00231\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00232\ \ \ \ \ \ \ \ \ \ \ \ \ color\ =\ \mbox{\hyperlink{apps_2editor_2main_8c_a9281df96ef6ad016715fc0943205cb2f}{\_get\_bracket\_color}}(brackets);}
-\DoxyCodeLine{00233\ \ \ \ \ \ \ \ \ \ \ \ \ ++brackets;}
-\DoxyCodeLine{00234\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00235\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(c\ ==\ \textcolor{charliteral}{']'})}
-\DoxyCodeLine{00236\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00237\ \ \ \ \ \ \ \ \ \ \ \ \ -\/-\/brackets;}
-\DoxyCodeLine{00238\ \ \ \ \ \ \ \ \ \ \ \ \ color\ =\ \mbox{\hyperlink{apps_2editor_2main_8c_a9281df96ef6ad016715fc0943205cb2f}{\_get\_bracket\_color}}(brackets);}
-\DoxyCodeLine{00239\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00240\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(c\ ==\ \textcolor{charliteral}{'('})}
-\DoxyCodeLine{00241\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00242\ \ \ \ \ \ \ \ \ \ \ \ \ color\ =\ \mbox{\hyperlink{apps_2editor_2main_8c_ae03c12aa3b3a817350bd0d9be0a97992}{\_get\_paren\_color}}(parens);}
-\DoxyCodeLine{00243\ \ \ \ \ \ \ \ \ \ \ \ \ ++parens;}
-\DoxyCodeLine{00244\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00245\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(c\ ==\ \textcolor{charliteral}{')'})}
-\DoxyCodeLine{00246\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00247\ \ \ \ \ \ \ \ \ \ \ \ \ -\/-\/parens;}
-\DoxyCodeLine{00248\ \ \ \ \ \ \ \ \ \ \ \ \ color\ =\ \mbox{\hyperlink{apps_2editor_2main_8c_ae03c12aa3b3a817350bd0d9be0a97992}{\_get\_paren\_color}}(parens);}
-\DoxyCodeLine{00249\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00250\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(\mbox{\hyperlink{ctype_8c_aac8cacb5cd9b960305b7d00c909a8ecd}{isdigit}}(c))}
-\DoxyCodeLine{00251\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00252\ \ \ \ \ \ \ \ \ \ \ \ \ color\ =\ COLOR\_LIME;}
-\DoxyCodeLine{00253\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00254\ }
-\DoxyCodeLine{00255\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(keyword\_remain)}
-\DoxyCodeLine{00256\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00257\ \ \ \ \ \ \ \ \ \ \ \ \ -\/-\/keyword\_remain;}
-\DoxyCodeLine{00258\ \ \ \ \ \ \ \ \ \ \ \ \ color\ =\ \mbox{\hyperlink{lcd_8h_a23c70d699a5a775bc2e1ebeb8603f630}{COLOR\_BLUE}};}
-\DoxyCodeLine{00259\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00260\ }
-\DoxyCodeLine{00261\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(c\ ==\ \textcolor{charliteral}{'\(\backslash\)''}\ \&\&\ text[i\ -\/\ 1]\ !=\ \textcolor{charliteral}{'\(\backslash\)\(\backslash\)'}\ \&\&\ !in\_string)}
-\DoxyCodeLine{00262\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00263\ \ \ \ \ \ \ \ \ \ \ \ \ color\ =\ COLOR\_ORANGE;}
-\DoxyCodeLine{00264\ \ \ \ \ \ \ \ \ \ \ \ \ in\_char\ =\ !in\_char;}
-\DoxyCodeLine{00265\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00266\ }
-\DoxyCodeLine{00267\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(c\ ==\ \textcolor{charliteral}{'"{}'}\ \&\&\ text[i\ -\/\ 1]\ !=\ \textcolor{charliteral}{'\(\backslash\)\(\backslash\)'}\ \&\&\ !in\_char)}
-\DoxyCodeLine{00268\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00269\ \ \ \ \ \ \ \ \ \ \ \ \ color\ =\ COLOR\_ORANGE;}
-\DoxyCodeLine{00270\ \ \ \ \ \ \ \ \ \ \ \ \ in\_string\ =\ !in\_string;}
-\DoxyCodeLine{00271\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00272\ }
-\DoxyCodeLine{00273\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(c\ ==\ \textcolor{charliteral}{'/'}\ \&\&\ text[i\ +\ 1]\ ==\ \textcolor{charliteral}{'*'})}
-\DoxyCodeLine{00274\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00275\ \ \ \ \ \ \ \ \ \ \ \ \ color\ =\ \mbox{\hyperlink{lcd_8h_afc9149f5de51bd9ac4f5ebbfa153f018}{COLOR\_GREEN}};}
-\DoxyCodeLine{00276\ \ \ \ \ \ \ \ \ \ \ \ \ in\_comment\ =\ \textcolor{keyword}{true};}
-\DoxyCodeLine{00277\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00278\ }
-\DoxyCodeLine{00279\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(c\ ==\ \textcolor{charliteral}{'/'}\ \&\&\ text[i\ -\/\ 1]\ ==\ \textcolor{charliteral}{'*'})}
-\DoxyCodeLine{00280\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00281\ \ \ \ \ \ \ \ \ \ \ \ \ color\ =\ \mbox{\hyperlink{lcd_8h_afc9149f5de51bd9ac4f5ebbfa153f018}{COLOR\_GREEN}};}
-\DoxyCodeLine{00282\ \ \ \ \ \ \ \ \ \ \ \ \ in\_comment\ =\ \textcolor{keyword}{false};}
-\DoxyCodeLine{00283\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00284\ }
-\DoxyCodeLine{00285\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(in\_char\ ||\ in\_string)}
-\DoxyCodeLine{00286\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00287\ \ \ \ \ \ \ \ \ \ \ \ \ color\ =\ COLOR\_ORANGE;}
-\DoxyCodeLine{00288\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00289\ }
-\DoxyCodeLine{00290\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(in\_comment)}
-\DoxyCodeLine{00291\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00292\ \ \ \ \ \ \ \ \ \ \ \ \ color\ =\ \mbox{\hyperlink{lcd_8h_afc9149f5de51bd9ac4f5ebbfa153f018}{COLOR\_GREEN}};}
-\DoxyCodeLine{00293\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00294\ }
-\DoxyCodeLine{00295\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(c\ ==\ \textcolor{charliteral}{'\(\backslash\)n'})}
-\DoxyCodeLine{00296\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00297\ \ \ \ \ \ \ \ \ \ \ \ \ col\ =\ 0;}
-\DoxyCodeLine{00298\ \ \ \ \ \ \ \ \ \ \ \ \ ++line;}
-\DoxyCodeLine{00299\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00300\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
-\DoxyCodeLine{00301\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00302\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ x,\ y;}
-\DoxyCodeLine{00303\ }
-\DoxyCodeLine{00304\ \ \ \ \ \ \ \ \ \ \ \ \ x\ =\ col\ *\ 8\ +\ 33;}
-\DoxyCodeLine{00305\ \ \ \ \ \ \ \ \ \ \ \ \ y\ =\ line\ *\ \mbox{\hyperlink{apps_2editor_2main_8c_a810562d232296df8a4bb3991849dc23d}{LINE\_HEIGHT}}\ +\ 22;}
-\DoxyCodeLine{00306\ \ \ \ \ \ \ \ \ \ \ \ \ ++col;}
-\DoxyCodeLine{00307\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (x\ <=\ \mbox{\hyperlink{gfx-types_8h_aae91ae7a3ca585293a2c1031652a49f9}{GFX\_WIDTH}}\ -\/\ 10\ \&\&\ y\ <=\ \mbox{\hyperlink{gfx-types_8h_a11b59534db467ebd1fb19b758e6fffd7}{GFX\_HEIGHT}}\ -\/\ 10)}
-\DoxyCodeLine{00308\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00309\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{font_8c_a0fb43ab4a095679d631a2c0652ee3f08}{font\_string\_len}}(x,\ y,\ \&c,\ 1,\ ubuntu\_regular,\ color,\ \mbox{\hyperlink{lcd_8h_aba2a7fe77a7501e5844370eec0185207}{COLOR\_BLACK}});}
-\DoxyCodeLine{00310\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00311\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00312\ \ \ \ \ \}}
-\DoxyCodeLine{00313\ \}}
+\DoxyCodeLine{00172\ \{}
+\DoxyCodeLine{00173\ \ \ \ \ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ i,\ j,\ braces,\ brackets,\ parens,\ len,\ line,\ col,\ keyword\_remain;}
+\DoxyCodeLine{00174\ \ \ \ \ \textcolor{keywordtype}{bool}\ in\_comment,\ in\_string,\ in\_char;}
+\DoxyCodeLine{00175\ \ \ \ \ \textcolor{keywordtype}{char}\ *text,\ c;}
+\DoxyCodeLine{00176\ \ \ \ \ \mbox{\hyperlink{gfx-types_8h_acbbccb6085c654282ef64cdcefc81be5}{Color}}\ color;}
+\DoxyCodeLine{00177\ }
+\DoxyCodeLine{00178\ \ \ \ \ len\ =\ \mbox{\hyperlink{vector_8h_a5169207d0fedd9d5eba2376359dbaa65}{vector\_len}}(\&\mbox{\hyperlink{apps_2editor_2main_8c_a1e0b117ad2e15695ac297a402c531fa7}{\_code}});}
+\DoxyCodeLine{00179\ \ \ \ \ text\ =\ \mbox{\hyperlink{vector_8h_a503ee5296f13ea821a6a7024eccd5407}{vector\_data}}(\&\mbox{\hyperlink{apps_2editor_2main_8c_a1e0b117ad2e15695ac297a402c531fa7}{\_code}});}
+\DoxyCodeLine{00180\ }
+\DoxyCodeLine{00181\ \ \ \ \ in\_comment\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00182\ \ \ \ \ in\_string\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00183\ \ \ \ \ in\_char\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00184\ \ \ \ \ keyword\_remain\ =\ 0;}
+\DoxyCodeLine{00185\ }
+\DoxyCodeLine{00186\ \ \ \ \ col\ =\ 0;}
+\DoxyCodeLine{00187\ \ \ \ \ line\ =\ 0;}
+\DoxyCodeLine{00188\ }
+\DoxyCodeLine{00189\ \ \ \ \ braces\ =\ 0;}
+\DoxyCodeLine{00190\ \ \ \ \ brackets\ =\ 0;}
+\DoxyCodeLine{00191\ \ \ \ \ parens\ =\ 0;}
+\DoxyCodeLine{00192\ }
+\DoxyCodeLine{00193\ \ \ \ \ \textcolor{keywordflow}{for}(i\ =\ 0;\ i\ <\ len;\ ++i)}
+\DoxyCodeLine{00194\ \ \ \ \ \{}
+\DoxyCodeLine{00195\ \ \ \ \ \ \ \ \ color\ =\ \mbox{\hyperlink{lcd_8h_a9b44987ffdc2af19b635206b94334b69}{COLOR\_WHITE}};}
+\DoxyCodeLine{00196\ \ \ \ \ \ \ \ \ c\ =\ text[i];}
+\DoxyCodeLine{00197\ }
+\DoxyCodeLine{00198\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(!keyword\_remain\ \&\&\ !\mbox{\hyperlink{ctype_8c_a805b16fc0ca40602842200155766a240}{isalnum}}(text[i\ -\/\ 1]))}
+\DoxyCodeLine{00199\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00200\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ word\_len;}
+\DoxyCodeLine{00201\ }
+\DoxyCodeLine{00202\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Find\ end\ of\ word\ */}}
+\DoxyCodeLine{00203\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (j\ =\ i;\ j\ <\ len;\ ++j)}
+\DoxyCodeLine{00204\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00205\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!\mbox{\hyperlink{ctype_8c_a805b16fc0ca40602842200155766a240}{isalnum}}(text[j]))}
+\DoxyCodeLine{00206\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00207\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00208\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00209\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00210\ }
+\DoxyCodeLine{00211\ \ \ \ \ \ \ \ \ \ \ \ \ word\_len\ =\ j\ -\/\ i;}
+\DoxyCodeLine{00212\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{keyword_8c_abb6b5d04672aa03af4d09945411d2da1}{keyword\_detect}}(\&text[i],\ word\_len))}
+\DoxyCodeLine{00213\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00214\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ keyword\_remain\ =\ word\_len;}
+\DoxyCodeLine{00215\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ color\ =\ \mbox{\hyperlink{lcd_8h_a23c70d699a5a775bc2e1ebeb8603f630}{COLOR\_BLUE}};}
+\DoxyCodeLine{00216\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00217\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00218\ }
+\DoxyCodeLine{00219\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(c\ ==\ \textcolor{charliteral}{'\{'})}
+\DoxyCodeLine{00220\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00221\ \ \ \ \ \ \ \ \ \ \ \ \ color\ =\ \mbox{\hyperlink{apps_2editor_2main_8c_ab5849250c9577ceeb40b2366681d69cf}{\_get\_brace\_color}}(braces);}
+\DoxyCodeLine{00222\ \ \ \ \ \ \ \ \ \ \ \ \ ++braces;}
+\DoxyCodeLine{00223\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00224\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(c\ ==\ \textcolor{charliteral}{'\}'})}
+\DoxyCodeLine{00225\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00226\ \ \ \ \ \ \ \ \ \ \ \ \ -\/-\/braces;}
+\DoxyCodeLine{00227\ \ \ \ \ \ \ \ \ \ \ \ \ color\ =\ \mbox{\hyperlink{apps_2editor_2main_8c_ab5849250c9577ceeb40b2366681d69cf}{\_get\_brace\_color}}(braces);}
+\DoxyCodeLine{00228\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00229\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(c\ ==\ \textcolor{charliteral}{'['})}
+\DoxyCodeLine{00230\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00231\ \ \ \ \ \ \ \ \ \ \ \ \ color\ =\ \mbox{\hyperlink{apps_2editor_2main_8c_a9281df96ef6ad016715fc0943205cb2f}{\_get\_bracket\_color}}(brackets);}
+\DoxyCodeLine{00232\ \ \ \ \ \ \ \ \ \ \ \ \ ++brackets;}
+\DoxyCodeLine{00233\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00234\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(c\ ==\ \textcolor{charliteral}{']'})}
+\DoxyCodeLine{00235\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00236\ \ \ \ \ \ \ \ \ \ \ \ \ -\/-\/brackets;}
+\DoxyCodeLine{00237\ \ \ \ \ \ \ \ \ \ \ \ \ color\ =\ \mbox{\hyperlink{apps_2editor_2main_8c_a9281df96ef6ad016715fc0943205cb2f}{\_get\_bracket\_color}}(brackets);}
+\DoxyCodeLine{00238\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00239\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(c\ ==\ \textcolor{charliteral}{'('})}
+\DoxyCodeLine{00240\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00241\ \ \ \ \ \ \ \ \ \ \ \ \ color\ =\ \mbox{\hyperlink{apps_2editor_2main_8c_ae03c12aa3b3a817350bd0d9be0a97992}{\_get\_paren\_color}}(parens);}
+\DoxyCodeLine{00242\ \ \ \ \ \ \ \ \ \ \ \ \ ++parens;}
+\DoxyCodeLine{00243\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00244\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(c\ ==\ \textcolor{charliteral}{')'})}
+\DoxyCodeLine{00245\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00246\ \ \ \ \ \ \ \ \ \ \ \ \ -\/-\/parens;}
+\DoxyCodeLine{00247\ \ \ \ \ \ \ \ \ \ \ \ \ color\ =\ \mbox{\hyperlink{apps_2editor_2main_8c_ae03c12aa3b3a817350bd0d9be0a97992}{\_get\_paren\_color}}(parens);}
+\DoxyCodeLine{00248\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00249\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(\mbox{\hyperlink{ctype_8c_aac8cacb5cd9b960305b7d00c909a8ecd}{isdigit}}(c))}
+\DoxyCodeLine{00250\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00251\ \ \ \ \ \ \ \ \ \ \ \ \ color\ =\ COLOR\_LIME;}
+\DoxyCodeLine{00252\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00253\ }
+\DoxyCodeLine{00254\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(keyword\_remain)}
+\DoxyCodeLine{00255\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00256\ \ \ \ \ \ \ \ \ \ \ \ \ -\/-\/keyword\_remain;}
+\DoxyCodeLine{00257\ \ \ \ \ \ \ \ \ \ \ \ \ color\ =\ \mbox{\hyperlink{lcd_8h_a23c70d699a5a775bc2e1ebeb8603f630}{COLOR\_BLUE}};}
+\DoxyCodeLine{00258\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00259\ }
+\DoxyCodeLine{00260\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(c\ ==\ \textcolor{charliteral}{'\(\backslash\)''}\ \&\&\ text[i\ -\/\ 1]\ !=\ \textcolor{charliteral}{'\(\backslash\)\(\backslash\)'}\ \&\&\ !in\_string)}
+\DoxyCodeLine{00261\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00262\ \ \ \ \ \ \ \ \ \ \ \ \ color\ =\ COLOR\_ORANGE;}
+\DoxyCodeLine{00263\ \ \ \ \ \ \ \ \ \ \ \ \ in\_char\ =\ !in\_char;}
+\DoxyCodeLine{00264\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00265\ }
+\DoxyCodeLine{00266\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(c\ ==\ \textcolor{charliteral}{'"{}'}\ \&\&\ text[i\ -\/\ 1]\ !=\ \textcolor{charliteral}{'\(\backslash\)\(\backslash\)'}\ \&\&\ !in\_char)}
+\DoxyCodeLine{00267\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00268\ \ \ \ \ \ \ \ \ \ \ \ \ color\ =\ COLOR\_ORANGE;}
+\DoxyCodeLine{00269\ \ \ \ \ \ \ \ \ \ \ \ \ in\_string\ =\ !in\_string;}
+\DoxyCodeLine{00270\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00271\ }
+\DoxyCodeLine{00272\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(c\ ==\ \textcolor{charliteral}{'/'}\ \&\&\ text[i\ +\ 1]\ ==\ \textcolor{charliteral}{'*'})}
+\DoxyCodeLine{00273\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00274\ \ \ \ \ \ \ \ \ \ \ \ \ color\ =\ \mbox{\hyperlink{lcd_8h_afc9149f5de51bd9ac4f5ebbfa153f018}{COLOR\_GREEN}};}
+\DoxyCodeLine{00275\ \ \ \ \ \ \ \ \ \ \ \ \ in\_comment\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00276\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00277\ }
+\DoxyCodeLine{00278\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(c\ ==\ \textcolor{charliteral}{'/'}\ \&\&\ text[i\ -\/\ 1]\ ==\ \textcolor{charliteral}{'*'})}
+\DoxyCodeLine{00279\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00280\ \ \ \ \ \ \ \ \ \ \ \ \ color\ =\ \mbox{\hyperlink{lcd_8h_afc9149f5de51bd9ac4f5ebbfa153f018}{COLOR\_GREEN}};}
+\DoxyCodeLine{00281\ \ \ \ \ \ \ \ \ \ \ \ \ in\_comment\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00282\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00283\ }
+\DoxyCodeLine{00284\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(in\_char\ ||\ in\_string)}
+\DoxyCodeLine{00285\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00286\ \ \ \ \ \ \ \ \ \ \ \ \ color\ =\ COLOR\_ORANGE;}
+\DoxyCodeLine{00287\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00288\ }
+\DoxyCodeLine{00289\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(in\_comment)}
+\DoxyCodeLine{00290\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00291\ \ \ \ \ \ \ \ \ \ \ \ \ color\ =\ \mbox{\hyperlink{lcd_8h_afc9149f5de51bd9ac4f5ebbfa153f018}{COLOR\_GREEN}};}
+\DoxyCodeLine{00292\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00293\ }
+\DoxyCodeLine{00294\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(c\ ==\ \textcolor{charliteral}{'\(\backslash\)n'})}
+\DoxyCodeLine{00295\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00296\ \ \ \ \ \ \ \ \ \ \ \ \ col\ =\ 0;}
+\DoxyCodeLine{00297\ \ \ \ \ \ \ \ \ \ \ \ \ ++line;}
+\DoxyCodeLine{00298\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00299\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00300\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00301\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ x,\ y;}
+\DoxyCodeLine{00302\ }
+\DoxyCodeLine{00303\ \ \ \ \ \ \ \ \ \ \ \ \ x\ =\ col\ *\ 8\ +\ 33;}
+\DoxyCodeLine{00304\ \ \ \ \ \ \ \ \ \ \ \ \ y\ =\ line\ *\ \mbox{\hyperlink{apps_2editor_2main_8c_a810562d232296df8a4bb3991849dc23d}{LINE\_HEIGHT}}\ +\ 22;}
+\DoxyCodeLine{00305\ \ \ \ \ \ \ \ \ \ \ \ \ ++col;}
+\DoxyCodeLine{00306\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (x\ <=\ \mbox{\hyperlink{gfx-types_8h_aae91ae7a3ca585293a2c1031652a49f9}{GFX\_WIDTH}}\ -\/\ 10\ \&\&\ y\ <=\ \mbox{\hyperlink{gfx-types_8h_a11b59534db467ebd1fb19b758e6fffd7}{GFX\_HEIGHT}}\ -\/\ 10)}
+\DoxyCodeLine{00307\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00308\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{font_8c_a0fb43ab4a095679d631a2c0652ee3f08}{font\_string\_len}}(x,\ y,\ \&c,\ 1,\ ubuntu\_regular,\ color,\ \mbox{\hyperlink{lcd_8h_aba2a7fe77a7501e5844370eec0185207}{COLOR\_BLACK}});}
+\DoxyCodeLine{00309\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00310\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00311\ \ \ \ \ \}}
+\DoxyCodeLine{00312\ \}}
 
 \end{DoxyCode}
 
 
-References \mbox{\hyperlink{apps_2editor_2main_8c_source_l00057}{\+\_\+code}}, \mbox{\hyperlink{apps_2editor_2main_8c_source_l00121}{\+\_\+get\+\_\+brace\+\_\+color()}}, \mbox{\hyperlink{apps_2editor_2main_8c_source_l00139}{\+\_\+get\+\_\+bracket\+\_\+color()}}, \mbox{\hyperlink{apps_2editor_2main_8c_source_l00157}{\+\_\+get\+\_\+paren\+\_\+color()}}, \mbox{\hyperlink{lcd_8h_source_l00038}{COLOR\+\_\+\+BLACK}}, \mbox{\hyperlink{lcd_8h_source_l00029}{COLOR\+\_\+\+BLUE}}, \mbox{\hyperlink{lcd_8h_source_l00023}{COLOR\+\_\+\+GREEN}}, \mbox{\hyperlink{lcd_8h_source_l00035}{COLOR\+\_\+\+WHITE}}, \mbox{\hyperlink{font_8c_source_l00037}{font\+\_\+string\+\_\+len()}}, \mbox{\hyperlink{gfx-types_8h_source_l00019}{GFX\+\_\+\+HEIGHT}}, \mbox{\hyperlink{gfx-types_8h_source_l00016}{GFX\+\_\+\+WIDTH}}, \mbox{\hyperlink{ctype_8c_source_l00011}{isalnum()}}, \mbox{\hyperlink{ctype_8c_source_l00026}{isdigit()}}, \mbox{\hyperlink{keyword_8c_source_l00146}{keyword\+\_\+detect()}}, \mbox{\hyperlink{apps_2editor_2main_8c_source_l00018}{LINE\+\_\+\+HEIGHT}}, \mbox{\hyperlink{vector_8h_source_l00107}{vector\+\_\+data()}}, and \mbox{\hyperlink{vector_8h_source_l00118}{vector\+\_\+len()}}.
+References \mbox{\hyperlink{apps_2editor_2main_8c_source_l00056}{\+\_\+code}}, \mbox{\hyperlink{apps_2editor_2main_8c_source_l00120}{\+\_\+get\+\_\+brace\+\_\+color()}}, \mbox{\hyperlink{apps_2editor_2main_8c_source_l00138}{\+\_\+get\+\_\+bracket\+\_\+color()}}, \mbox{\hyperlink{apps_2editor_2main_8c_source_l00156}{\+\_\+get\+\_\+paren\+\_\+color()}}, \mbox{\hyperlink{lcd_8h_source_l00038}{COLOR\+\_\+\+BLACK}}, \mbox{\hyperlink{lcd_8h_source_l00029}{COLOR\+\_\+\+BLUE}}, \mbox{\hyperlink{lcd_8h_source_l00023}{COLOR\+\_\+\+GREEN}}, \mbox{\hyperlink{lcd_8h_source_l00035}{COLOR\+\_\+\+WHITE}}, \mbox{\hyperlink{font_8c_source_l00037}{font\+\_\+string\+\_\+len()}}, \mbox{\hyperlink{gfx-types_8h_source_l00019}{GFX\+\_\+\+HEIGHT}}, \mbox{\hyperlink{gfx-types_8h_source_l00016}{GFX\+\_\+\+WIDTH}}, \mbox{\hyperlink{ctype_8c_source_l00011}{isalnum()}}, \mbox{\hyperlink{ctype_8c_source_l00026}{isdigit()}}, \mbox{\hyperlink{keyword_8c_source_l00146}{keyword\+\_\+detect()}}, \mbox{\hyperlink{apps_2editor_2main_8c_source_l00017}{LINE\+\_\+\+HEIGHT}}, \mbox{\hyperlink{vector_8h_source_l00107}{vector\+\_\+data()}}, and \mbox{\hyperlink{vector_8h_source_l00118}{vector\+\_\+len()}}.
 
 
 
-Referenced by \mbox{\hyperlink{apps_2editor_2main_8c_source_l00315}{setup()}}.
+Referenced by \mbox{\hyperlink{apps_2editor_2main_8c_source_l00314}{setup()}}.
 
 \mbox{\Hypertarget{apps_2editor_2main_8c_af22edf906616797073b4476d478585df}\label{apps_2editor_2main_8c_af22edf906616797073b4476d478585df}} 
 \index{main.c@{main.c}!\_draw\_line\_numbers@{\_draw\_line\_numbers}}
@@ -271,53 +271,53 @@ Draw editor line numbers.
 \end{DoxyParams}
 
 
-Definition at line \mbox{\hyperlink{apps_2editor_2main_8c_source_l00079}{79}} of file \mbox{\hyperlink{apps_2editor_2main_8c_source}{main.\+c}}.
+Definition at line \mbox{\hyperlink{apps_2editor_2main_8c_source_l00078}{78}} of file \mbox{\hyperlink{apps_2editor_2main_8c_source}{main.\+c}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00080\ \{}
-\DoxyCodeLine{00081\ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ lines\_count\ =\ 0;}
-\DoxyCodeLine{00082\ }
-\DoxyCodeLine{00083\ \ \ \ \ \textcolor{keywordflow}{if}(lines\_count\ ==\ max\_line)}
-\DoxyCodeLine{00084\ \ \ \ \ \{}
-\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
-\DoxyCodeLine{00086\ \ \ \ \ \}}
-\DoxyCodeLine{00087\ }
-\DoxyCodeLine{00088\ \ \ \ \ \textcolor{keywordflow}{if}(lines\_count\ >\ max\_line)}
-\DoxyCodeLine{00089\ \ \ \ \ \{}
-\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ start;}
-\DoxyCodeLine{00091\ }
-\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Remove\ line\ numbers\ by\ drawing\ rectangle\ on\ top\ */}}
-\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ start\ =\ max\_line\ *\ \mbox{\hyperlink{apps_2editor_2main_8c_a810562d232296df8a4bb3991849dc23d}{LINE\_HEIGHT}}\ +\ \mbox{\hyperlink{gui_8h_af9338f9b2ff9d4935cd8ea1853f5ec33}{TITLE\_BAR\_HEIGHT}};}
-\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gfx_8c_a61d70a4550bf181cd71bfc9a4f12a6d1}{gfx\_rect}}(0,\ start,\ \mbox{\hyperlink{gfx-types_8h_a11b59534db467ebd1fb19b758e6fffd7}{GFX\_HEIGHT}}\ -\/\ start,\ 29,\ \mbox{\hyperlink{gui_8h_aa17edfc0aa7865fea5cb3f54b80089fe}{THEME\_BLACK}});}
-\DoxyCodeLine{00095\ \ \ \ \ \}}
-\DoxyCodeLine{00096\ \ \ \ \ \textcolor{keywordflow}{else}}
-\DoxyCodeLine{00097\ \ \ \ \ \{}
-\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ buf[16];}
-\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ i;}
-\DoxyCodeLine{00100\ }
-\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Add\ line\ numbers\ */}}
-\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(i\ =\ lines\_count;\ i\ <=\ max\_line;\ ++i)}
-\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{format_8h_a8be7c8a106186419f86b1bf42b225275}{snprintf}}(buf,\ \textcolor{keyword}{sizeof}(buf),\ \textcolor{stringliteral}{"{}\%d"{}},\ i);}
-\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{font_8h_a1dc9a04991c7d42402c21ab6a4b933e2}{font\_string}}(}
-\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 25\ -\/\ \mbox{\hyperlink{font_8h_af05628a74a6fb4755ad6eb075ce5f87d}{font\_string\_width}}(buf,\ ubuntu\_regular),}
-\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ i\ *\ \mbox{\hyperlink{apps_2editor_2main_8c_a810562d232296df8a4bb3991849dc23d}{LINE\_HEIGHT}}\ +\ 22,}
-\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ buf,\ ubuntu\_regular,\ \mbox{\hyperlink{lcd_8h_a9b44987ffdc2af19b635206b94334b69}{COLOR\_WHITE}},\ \mbox{\hyperlink{gui_8h_aa17edfc0aa7865fea5cb3f54b80089fe}{THEME\_BLACK}});}
-\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00110\ \ \ \ \ \}}
-\DoxyCodeLine{00111\ }
-\DoxyCodeLine{00112\ \ \ \ \ lines\_count\ =\ max\_line;}
-\DoxyCodeLine{00113\ \}}
+\DoxyCodeLine{00079\ \{}
+\DoxyCodeLine{00080\ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ lines\_count\ =\ 0;}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00082\ \ \ \ \ \textcolor{keywordflow}{if}(lines\_count\ ==\ max\_line)}
+\DoxyCodeLine{00083\ \ \ \ \ \{}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00085\ \ \ \ \ \}}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00087\ \ \ \ \ \textcolor{keywordflow}{if}(lines\_count\ >\ max\_line)}
+\DoxyCodeLine{00088\ \ \ \ \ \{}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ start;}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Remove\ line\ numbers\ by\ drawing\ rectangle\ on\ top\ */}}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ start\ =\ max\_line\ *\ \mbox{\hyperlink{apps_2editor_2main_8c_a810562d232296df8a4bb3991849dc23d}{LINE\_HEIGHT}}\ +\ \mbox{\hyperlink{gui_8h_af9338f9b2ff9d4935cd8ea1853f5ec33}{TITLE\_BAR\_HEIGHT}};}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gfx_8c_a61d70a4550bf181cd71bfc9a4f12a6d1}{gfx\_rect}}(0,\ start,\ \mbox{\hyperlink{gfx-types_8h_a11b59534db467ebd1fb19b758e6fffd7}{GFX\_HEIGHT}}\ -\/\ start,\ 29,\ \mbox{\hyperlink{gui_8h_aa17edfc0aa7865fea5cb3f54b80089fe}{THEME\_BLACK}});}
+\DoxyCodeLine{00094\ \ \ \ \ \}}
+\DoxyCodeLine{00095\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00096\ \ \ \ \ \{}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ buf[16];}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ i;}
+\DoxyCodeLine{00099\ }
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Add\ line\ numbers\ */}}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(i\ =\ lines\_count;\ i\ <=\ max\_line;\ ++i)}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{format_8h_a8be7c8a106186419f86b1bf42b225275}{snprintf}}(buf,\ \textcolor{keyword}{sizeof}(buf),\ \textcolor{stringliteral}{"{}\%d"{}},\ i);}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{font_8h_a1dc9a04991c7d42402c21ab6a4b933e2}{font\_string}}(}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 25\ -\/\ \mbox{\hyperlink{font_8h_af05628a74a6fb4755ad6eb075ce5f87d}{font\_string\_width}}(buf,\ ubuntu\_regular),}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ i\ *\ \mbox{\hyperlink{apps_2editor_2main_8c_a810562d232296df8a4bb3991849dc23d}{LINE\_HEIGHT}}\ +\ 22,}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ buf,\ ubuntu\_regular,\ \mbox{\hyperlink{lcd_8h_a9b44987ffdc2af19b635206b94334b69}{COLOR\_WHITE}},\ \mbox{\hyperlink{gui_8h_aa17edfc0aa7865fea5cb3f54b80089fe}{THEME\_BLACK}});}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00109\ \ \ \ \ \}}
+\DoxyCodeLine{00110\ }
+\DoxyCodeLine{00111\ \ \ \ \ lines\_count\ =\ max\_line;}
+\DoxyCodeLine{00112\ \}}
 
 \end{DoxyCode}
 
 
-References \mbox{\hyperlink{lcd_8h_source_l00035}{COLOR\+\_\+\+WHITE}}, \mbox{\hyperlink{font_8h_source_l00090}{font\+\_\+string()}}, \mbox{\hyperlink{font_8h_source_l00102}{font\+\_\+string\+\_\+width()}}, \mbox{\hyperlink{gfx-types_8h_source_l00019}{GFX\+\_\+\+HEIGHT}}, \mbox{\hyperlink{gfx_8c_source_l00011}{gfx\+\_\+rect()}}, \mbox{\hyperlink{apps_2editor_2main_8c_source_l00018}{LINE\+\_\+\+HEIGHT}}, \mbox{\hyperlink{format_8h_a8be7c8a106186419f86b1bf42b225275}{snprintf()}}, \mbox{\hyperlink{gui_8h_source_l00055}{THEME\+\_\+\+BLACK}}, and \mbox{\hyperlink{gui_8h_source_l00067}{TITLE\+\_\+\+BAR\+\_\+\+HEIGHT}}.
+References \mbox{\hyperlink{lcd_8h_source_l00035}{COLOR\+\_\+\+WHITE}}, \mbox{\hyperlink{font_8h_source_l00090}{font\+\_\+string()}}, \mbox{\hyperlink{font_8h_source_l00102}{font\+\_\+string\+\_\+width()}}, \mbox{\hyperlink{gfx-types_8h_source_l00019}{GFX\+\_\+\+HEIGHT}}, \mbox{\hyperlink{gfx_8c_source_l00011}{gfx\+\_\+rect()}}, \mbox{\hyperlink{apps_2editor_2main_8c_source_l00017}{LINE\+\_\+\+HEIGHT}}, \mbox{\hyperlink{format_8h_a8be7c8a106186419f86b1bf42b225275}{snprintf()}}, \mbox{\hyperlink{gui_8h_source_l00055}{THEME\+\_\+\+BLACK}}, and \mbox{\hyperlink{gui_8h_source_l00067}{TITLE\+\_\+\+BAR\+\_\+\+HEIGHT}}.
 
 
 
-Referenced by \mbox{\hyperlink{apps_2editor_2main_8c_source_l00315}{setup()}}.
+Referenced by \mbox{\hyperlink{apps_2editor_2main_8c_source_l00314}{setup()}}.
 
 \mbox{\Hypertarget{apps_2editor_2main_8c_ab5849250c9577ceeb40b2366681d69cf}\label{apps_2editor_2main_8c_ab5849250c9577ceeb40b2366681d69cf}} 
 \index{main.c@{main.c}!\_get\_brace\_color@{\_get\_brace\_color}}
@@ -339,20 +339,20 @@ Color the brace should receive
 \end{DoxyReturn}
 
 
-Definition at line \mbox{\hyperlink{apps_2editor_2main_8c_source_l00121}{121}} of file \mbox{\hyperlink{apps_2editor_2main_8c_source}{main.\+c}}.
+Definition at line \mbox{\hyperlink{apps_2editor_2main_8c_source_l00120}{120}} of file \mbox{\hyperlink{apps_2editor_2main_8c_source}{main.\+c}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00122\ \{}
-\DoxyCodeLine{00123\ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{gfx-types_8h_acbbccb6085c654282ef64cdcefc81be5}{Color}}\ \_colors[]\ =}
-\DoxyCodeLine{00124\ \ \ \ \ \{}
-\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ 0xD4D4AAFF,}
-\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ 0xD1A06EFF,}
-\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ 0x742704FF}
-\DoxyCodeLine{00128\ \ \ \ \ \};}
-\DoxyCodeLine{00129\ }
-\DoxyCodeLine{00130\ \ \ \ \ \textcolor{keywordflow}{return}\ \_colors[nesting\ \%\ \mbox{\hyperlink{util_8h_a5a34c337b71a34ab9a0ecff2d5715d24}{ARRLEN}}(\_colors)];}
-\DoxyCodeLine{00131\ \}}
+\DoxyCodeLine{00121\ \{}
+\DoxyCodeLine{00122\ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{gfx-types_8h_acbbccb6085c654282ef64cdcefc81be5}{Color}}\ \_colors[]\ =}
+\DoxyCodeLine{00123\ \ \ \ \ \{}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ 0xD4D4AAFF,}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ 0xD1A06EFF,}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ 0x742704FF}
+\DoxyCodeLine{00127\ \ \ \ \ \};}
+\DoxyCodeLine{00128\ }
+\DoxyCodeLine{00129\ \ \ \ \ \textcolor{keywordflow}{return}\ \_colors[nesting\ \%\ \mbox{\hyperlink{util_8h_a5a34c337b71a34ab9a0ecff2d5715d24}{ARRLEN}}(\_colors)];}
+\DoxyCodeLine{00130\ \}}
 
 \end{DoxyCode}
 
@@ -361,7 +361,7 @@ References \mbox{\hyperlink{util_8h_source_l00013}{ARRLEN}}.
 
 
 
-Referenced by \mbox{\hyperlink{apps_2editor_2main_8c_source_l00172}{\+\_\+draw\+\_\+code()}}.
+Referenced by \mbox{\hyperlink{apps_2editor_2main_8c_source_l00171}{\+\_\+draw\+\_\+code()}}.
 
 \mbox{\Hypertarget{apps_2editor_2main_8c_a9281df96ef6ad016715fc0943205cb2f}\label{apps_2editor_2main_8c_a9281df96ef6ad016715fc0943205cb2f}} 
 \index{main.c@{main.c}!\_get\_bracket\_color@{\_get\_bracket\_color}}
@@ -383,20 +383,20 @@ Color the bracket should receive
 \end{DoxyReturn}
 
 
-Definition at line \mbox{\hyperlink{apps_2editor_2main_8c_source_l00139}{139}} of file \mbox{\hyperlink{apps_2editor_2main_8c_source}{main.\+c}}.
+Definition at line \mbox{\hyperlink{apps_2editor_2main_8c_source_l00138}{138}} of file \mbox{\hyperlink{apps_2editor_2main_8c_source}{main.\+c}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00140\ \{}
-\DoxyCodeLine{00141\ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{gfx-types_8h_acbbccb6085c654282ef64cdcefc81be5}{Color}}\ \_colors[]\ =}
-\DoxyCodeLine{00142\ \ \ \ \ \{}
-\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ 0xD4D4AAFF,}
-\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ 0xD1A06EFF,}
-\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ 0x742704FF}
-\DoxyCodeLine{00146\ \ \ \ \ \};}
-\DoxyCodeLine{00147\ }
-\DoxyCodeLine{00148\ \ \ \ \ \textcolor{keywordflow}{return}\ \_colors[nesting\ \%\ \mbox{\hyperlink{util_8h_a5a34c337b71a34ab9a0ecff2d5715d24}{ARRLEN}}(\_colors)];}
-\DoxyCodeLine{00149\ \}}
+\DoxyCodeLine{00139\ \{}
+\DoxyCodeLine{00140\ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{gfx-types_8h_acbbccb6085c654282ef64cdcefc81be5}{Color}}\ \_colors[]\ =}
+\DoxyCodeLine{00141\ \ \ \ \ \{}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ 0xD4D4AAFF,}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ 0xD1A06EFF,}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ 0x742704FF}
+\DoxyCodeLine{00145\ \ \ \ \ \};}
+\DoxyCodeLine{00146\ }
+\DoxyCodeLine{00147\ \ \ \ \ \textcolor{keywordflow}{return}\ \_colors[nesting\ \%\ \mbox{\hyperlink{util_8h_a5a34c337b71a34ab9a0ecff2d5715d24}{ARRLEN}}(\_colors)];}
+\DoxyCodeLine{00148\ \}}
 
 \end{DoxyCode}
 
@@ -405,7 +405,7 @@ References \mbox{\hyperlink{util_8h_source_l00013}{ARRLEN}}.
 
 
 
-Referenced by \mbox{\hyperlink{apps_2editor_2main_8c_source_l00172}{\+\_\+draw\+\_\+code()}}.
+Referenced by \mbox{\hyperlink{apps_2editor_2main_8c_source_l00171}{\+\_\+draw\+\_\+code()}}.
 
 \mbox{\Hypertarget{apps_2editor_2main_8c_ae03c12aa3b3a817350bd0d9be0a97992}\label{apps_2editor_2main_8c_ae03c12aa3b3a817350bd0d9be0a97992}} 
 \index{main.c@{main.c}!\_get\_paren\_color@{\_get\_paren\_color}}
@@ -427,20 +427,20 @@ Color the parenthesis should receive
 \end{DoxyReturn}
 
 
-Definition at line \mbox{\hyperlink{apps_2editor_2main_8c_source_l00157}{157}} of file \mbox{\hyperlink{apps_2editor_2main_8c_source}{main.\+c}}.
+Definition at line \mbox{\hyperlink{apps_2editor_2main_8c_source_l00156}{156}} of file \mbox{\hyperlink{apps_2editor_2main_8c_source}{main.\+c}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00158\ \{}
-\DoxyCodeLine{00159\ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{gfx-types_8h_acbbccb6085c654282ef64cdcefc81be5}{Color}}\ \_colors[]\ =}
-\DoxyCodeLine{00160\ \ \ \ \ \{}
-\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ 0xD4D4AAFF,}
-\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ 0xD1A06EFF,}
-\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ 0x742704FF}
-\DoxyCodeLine{00164\ \ \ \ \ \};}
-\DoxyCodeLine{00165\ }
-\DoxyCodeLine{00166\ \ \ \ \ \textcolor{keywordflow}{return}\ \_colors[nesting\ \%\ \mbox{\hyperlink{util_8h_a5a34c337b71a34ab9a0ecff2d5715d24}{ARRLEN}}(\_colors)];}
-\DoxyCodeLine{00167\ \}}
+\DoxyCodeLine{00157\ \{}
+\DoxyCodeLine{00158\ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{gfx-types_8h_acbbccb6085c654282ef64cdcefc81be5}{Color}}\ \_colors[]\ =}
+\DoxyCodeLine{00159\ \ \ \ \ \{}
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ 0xD4D4AAFF,}
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ 0xD1A06EFF,}
+\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ 0x742704FF}
+\DoxyCodeLine{00163\ \ \ \ \ \};}
+\DoxyCodeLine{00164\ }
+\DoxyCodeLine{00165\ \ \ \ \ \textcolor{keywordflow}{return}\ \_colors[nesting\ \%\ \mbox{\hyperlink{util_8h_a5a34c337b71a34ab9a0ecff2d5715d24}{ARRLEN}}(\_colors)];}
+\DoxyCodeLine{00166\ \}}
 
 \end{DoxyCode}
 
@@ -449,7 +449,7 @@ References \mbox{\hyperlink{util_8h_source_l00013}{ARRLEN}}.
 
 
 
-Referenced by \mbox{\hyperlink{apps_2editor_2main_8c_source_l00172}{\+\_\+draw\+\_\+code()}}.
+Referenced by \mbox{\hyperlink{apps_2editor_2main_8c_source_l00171}{\+\_\+draw\+\_\+code()}}.
 
 \mbox{\Hypertarget{apps_2editor_2main_8c_af5305db9ea018cc40d167b2a51d77ac1}\label{apps_2editor_2main_8c_af5305db9ea018cc40d167b2a51d77ac1}} 
 \index{main.c@{main.c}!event\_key@{event\_key}}
@@ -472,18 +472,18 @@ Main key event handler.
 \end{DoxyParams}
 
 
-Definition at line \mbox{\hyperlink{apps_2editor_2main_8c_source_l00069}{69}} of file \mbox{\hyperlink{apps_2editor_2main_8c_source}{main.\+c}}.
+Definition at line \mbox{\hyperlink{apps_2editor_2main_8c_source_l00068}{68}} of file \mbox{\hyperlink{apps_2editor_2main_8c_source}{main.\+c}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00070\ \{}
-\DoxyCodeLine{00071\ \ \ \ \ (void)key,\ (\textcolor{keywordtype}{void})chr,\ (void)state;}
-\DoxyCodeLine{00072\ \}}
+\DoxyCodeLine{00069\ \{}
+\DoxyCodeLine{00070\ \ \ \ \ (void)key,\ (\textcolor{keywordtype}{void})chr,\ (void)state;}
+\DoxyCodeLine{00071\ \}}
 
 \end{DoxyCode}
 
 
-Referenced by \mbox{\hyperlink{apps_2editor_2main_8c_source_l00315}{setup()}}.
+Referenced by \mbox{\hyperlink{apps_2editor_2main_8c_source_l00314}{setup()}}.
 
 \mbox{\Hypertarget{apps_2editor_2main_8c_a0b33edabd7f1c4e4a0bf32c67269be2f}\label{apps_2editor_2main_8c_a0b33edabd7f1c4e4a0bf32c67269be2f}} 
 \index{main.c@{main.c}!loop@{loop}}
@@ -497,12 +497,12 @@ Loop function that is called repeatedly Must be implemented by user.
 
 
 
-Definition at line \mbox{\hyperlink{apps_2editor_2main_8c_source_l00331}{331}} of file \mbox{\hyperlink{apps_2editor_2main_8c_source}{main.\+c}}.
+Definition at line \mbox{\hyperlink{apps_2editor_2main_8c_source_l00330}{330}} of file \mbox{\hyperlink{apps_2editor_2main_8c_source}{main.\+c}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00332\ \{}
-\DoxyCodeLine{00333\ \}}
+\DoxyCodeLine{00331\ \{}
+\DoxyCodeLine{00332\ \}}
 
 \end{DoxyCode}
 \mbox{\Hypertarget{apps_2editor_2main_8c_a7dfd9b79bc5a37d7df40207afbc5431f}\label{apps_2editor_2main_8c_a7dfd9b79bc5a37d7df40207afbc5431f}} 
@@ -517,29 +517,29 @@ Setup function that is called at program start. Must be implemented by user.
 
 
 
-Definition at line \mbox{\hyperlink{apps_2editor_2main_8c_source_l00315}{315}} of file \mbox{\hyperlink{apps_2editor_2main_8c_source}{main.\+c}}.
+Definition at line \mbox{\hyperlink{apps_2editor_2main_8c_source_l00314}{314}} of file \mbox{\hyperlink{apps_2editor_2main_8c_source}{main.\+c}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00316\ \{}
-\DoxyCodeLine{00317\ \ \ \ \ \mbox{\hyperlink{keyboard_8c_a3676e1550d4471bddab4c84dd0c844dc}{keyboard\_register\_event}}(\mbox{\hyperlink{apps_2editor_2main_8c_af5305db9ea018cc40d167b2a51d77ac1}{event\_key}});}
-\DoxyCodeLine{00318\ \ \ \ \ \mbox{\hyperlink{keyword_8c_ac6651733083d3830314758080ea05f15}{keyword\_init}}();}
-\DoxyCodeLine{00319\ }
-\DoxyCodeLine{00320\ \ \ \ \ \mbox{\hyperlink{vector_8c_a9618b41b25efb749069cbfff9c3cadcf}{vector\_init}}(\&\mbox{\hyperlink{apps_2editor_2main_8c_a1e0b117ad2e15695ac297a402c531fa7}{\_code}},\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{char}),\ \mbox{\hyperlink{apps_2editor_2main_8c_a488f79bbe9db92e0a5973942e2f99b99}{INITIAL\_CODE\_CAPACITY}});}
-\DoxyCodeLine{00321\ \ \ \ \ \mbox{\hyperlink{vector_8h_ac65e7c44e70e353b26f7b81033f0fd10}{vector\_set}}(\&\mbox{\hyperlink{apps_2editor_2main_8c_a1e0b117ad2e15695ac297a402c531fa7}{\_code}},\ \mbox{\hyperlink{apps_2editor_2main_8c_af973afe61a9d1b920a05e1b63fe59ff9}{\_file}},\ \mbox{\hyperlink{util_8h_a5a34c337b71a34ab9a0ecff2d5715d24}{ARRLEN}}(\mbox{\hyperlink{apps_2editor_2main_8c_af973afe61a9d1b920a05e1b63fe59ff9}{\_file}}));}
-\DoxyCodeLine{00322\ }
-\DoxyCodeLine{00323\ \ \ \ \ \mbox{\hyperlink{gui_8c_a51313c00040b7eec516823f7b31f8eed}{window\_init}}(\&\mbox{\hyperlink{apps_2editor_2main_8c_ad257c1443e462007f7d94fc23ea361b2}{\_window\_editor}},\ \textcolor{stringliteral}{"{}Editor"{}},\ NULL,\ 0,\ NULL);}
-\DoxyCodeLine{00324\ \ \ \ \ \mbox{\hyperlink{gui_8c_adf0715beb16a0945a1bae624873df977}{window\_open}}(\&\mbox{\hyperlink{apps_2editor_2main_8c_ad257c1443e462007f7d94fc23ea361b2}{\_window\_editor}});}
-\DoxyCodeLine{00325\ }
-\DoxyCodeLine{00326\ \ \ \ \ \mbox{\hyperlink{gfx_8c_a61d70a4550bf181cd71bfc9a4f12a6d1}{gfx\_rect}}(30,\ 20,\ 1,\ \mbox{\hyperlink{gfx-types_8h_a11b59534db467ebd1fb19b758e6fffd7}{GFX\_HEIGHT}}\ -\/\ 20,\ \mbox{\hyperlink{gui_8h_aab51543c4c9f9adf463de324eb7827de}{THEME\_LIGHT}});}
-\DoxyCodeLine{00327\ \ \ \ \ \mbox{\hyperlink{apps_2editor_2main_8c_af22edf906616797073b4476d478585df}{\_draw\_line\_numbers}}(37);}
-\DoxyCodeLine{00328\ \ \ \ \ \mbox{\hyperlink{apps_2editor_2main_8c_a0b74f3a557d3faa1f74e10afda4c8679}{\_draw\_code}}();}
-\DoxyCodeLine{00329\ \}}
+\DoxyCodeLine{00315\ \{}
+\DoxyCodeLine{00316\ \ \ \ \ \mbox{\hyperlink{keyboard_8c_a3676e1550d4471bddab4c84dd0c844dc}{keyboard\_register\_event}}(\mbox{\hyperlink{apps_2editor_2main_8c_af5305db9ea018cc40d167b2a51d77ac1}{event\_key}});}
+\DoxyCodeLine{00317\ \ \ \ \ \mbox{\hyperlink{keyword_8c_ac6651733083d3830314758080ea05f15}{keyword\_init}}();}
+\DoxyCodeLine{00318\ }
+\DoxyCodeLine{00319\ \ \ \ \ \mbox{\hyperlink{vector_8c_a9618b41b25efb749069cbfff9c3cadcf}{vector\_init}}(\&\mbox{\hyperlink{apps_2editor_2main_8c_a1e0b117ad2e15695ac297a402c531fa7}{\_code}},\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{char}),\ \mbox{\hyperlink{apps_2editor_2main_8c_a488f79bbe9db92e0a5973942e2f99b99}{INITIAL\_CODE\_CAPACITY}});}
+\DoxyCodeLine{00320\ \ \ \ \ \mbox{\hyperlink{vector_8h_ac65e7c44e70e353b26f7b81033f0fd10}{vector\_set}}(\&\mbox{\hyperlink{apps_2editor_2main_8c_a1e0b117ad2e15695ac297a402c531fa7}{\_code}},\ \mbox{\hyperlink{apps_2editor_2main_8c_af973afe61a9d1b920a05e1b63fe59ff9}{\_file}},\ \mbox{\hyperlink{util_8h_a5a34c337b71a34ab9a0ecff2d5715d24}{ARRLEN}}(\mbox{\hyperlink{apps_2editor_2main_8c_af973afe61a9d1b920a05e1b63fe59ff9}{\_file}}));}
+\DoxyCodeLine{00321\ }
+\DoxyCodeLine{00322\ \ \ \ \ \mbox{\hyperlink{gui_8c_a51313c00040b7eec516823f7b31f8eed}{window\_init}}(\&\mbox{\hyperlink{apps_2editor_2main_8c_ad257c1443e462007f7d94fc23ea361b2}{\_window\_editor}},\ \textcolor{stringliteral}{"{}Editor"{}},\ NULL,\ 0,\ NULL);}
+\DoxyCodeLine{00323\ \ \ \ \ \mbox{\hyperlink{gui_8c_adf0715beb16a0945a1bae624873df977}{window\_open}}(\&\mbox{\hyperlink{apps_2editor_2main_8c_ad257c1443e462007f7d94fc23ea361b2}{\_window\_editor}});}
+\DoxyCodeLine{00324\ }
+\DoxyCodeLine{00325\ \ \ \ \ \mbox{\hyperlink{gfx_8c_a61d70a4550bf181cd71bfc9a4f12a6d1}{gfx\_rect}}(30,\ 20,\ 1,\ \mbox{\hyperlink{gfx-types_8h_a11b59534db467ebd1fb19b758e6fffd7}{GFX\_HEIGHT}}\ -\/\ 20,\ \mbox{\hyperlink{gui_8h_aab51543c4c9f9adf463de324eb7827de}{THEME\_LIGHT}});}
+\DoxyCodeLine{00326\ \ \ \ \ \mbox{\hyperlink{apps_2editor_2main_8c_af22edf906616797073b4476d478585df}{\_draw\_line\_numbers}}(37);}
+\DoxyCodeLine{00327\ \ \ \ \ \mbox{\hyperlink{apps_2editor_2main_8c_a0b74f3a557d3faa1f74e10afda4c8679}{\_draw\_code}}();}
+\DoxyCodeLine{00328\ \}}
 
 \end{DoxyCode}
 
 
-References \mbox{\hyperlink{apps_2editor_2main_8c_source_l00057}{\+\_\+code}}, \mbox{\hyperlink{apps_2editor_2main_8c_source_l00172}{\+\_\+draw\+\_\+code()}}, \mbox{\hyperlink{apps_2editor_2main_8c_source_l00079}{\+\_\+draw\+\_\+line\+\_\+numbers()}}, \mbox{\hyperlink{apps_2editor_2main_8c_source_l00021}{\+\_\+file}}, \mbox{\hyperlink{apps_2editor_2main_8c_source_l00060}{\+\_\+window\+\_\+editor}}, \mbox{\hyperlink{util_8h_source_l00013}{ARRLEN}}, \mbox{\hyperlink{apps_2editor_2main_8c_source_l00069}{event\+\_\+key()}}, \mbox{\hyperlink{gfx-types_8h_source_l00019}{GFX\+\_\+\+HEIGHT}}, \mbox{\hyperlink{gfx_8c_source_l00011}{gfx\+\_\+rect()}}, \mbox{\hyperlink{apps_2editor_2main_8c_source_l00015}{INITIAL\+\_\+\+CODE\+\_\+\+CAPACITY}}, \mbox{\hyperlink{keyboard_8c_source_l00031}{keyboard\+\_\+register\+\_\+event()}}, \mbox{\hyperlink{keyword_8c_source_l00120}{keyword\+\_\+init()}}, \mbox{\hyperlink{gui_8h_source_l00064}{THEME\+\_\+\+LIGHT}}, \mbox{\hyperlink{vector_8c_source_l00030}{vector\+\_\+init()}}, \mbox{\hyperlink{vector_8h_source_l00084}{vector\+\_\+set()}}, \mbox{\hyperlink{gui_8c_source_l00856}{window\+\_\+init()}}, and \mbox{\hyperlink{gui_8c_source_l00792}{window\+\_\+open()}}.
+References \mbox{\hyperlink{apps_2editor_2main_8c_source_l00056}{\+\_\+code}}, \mbox{\hyperlink{apps_2editor_2main_8c_source_l00171}{\+\_\+draw\+\_\+code()}}, \mbox{\hyperlink{apps_2editor_2main_8c_source_l00078}{\+\_\+draw\+\_\+line\+\_\+numbers()}}, \mbox{\hyperlink{apps_2editor_2main_8c_source_l00020}{\+\_\+file}}, \mbox{\hyperlink{apps_2editor_2main_8c_source_l00059}{\+\_\+window\+\_\+editor}}, \mbox{\hyperlink{util_8h_source_l00013}{ARRLEN}}, \mbox{\hyperlink{apps_2editor_2main_8c_source_l00068}{event\+\_\+key()}}, \mbox{\hyperlink{gfx-types_8h_source_l00019}{GFX\+\_\+\+HEIGHT}}, \mbox{\hyperlink{gfx_8c_source_l00011}{gfx\+\_\+rect()}}, \mbox{\hyperlink{apps_2editor_2main_8c_source_l00014}{INITIAL\+\_\+\+CODE\+\_\+\+CAPACITY}}, \mbox{\hyperlink{keyboard_8c_source_l00031}{keyboard\+\_\+register\+\_\+event()}}, \mbox{\hyperlink{keyword_8c_source_l00120}{keyword\+\_\+init()}}, \mbox{\hyperlink{gui_8h_source_l00064}{THEME\+\_\+\+LIGHT}}, \mbox{\hyperlink{vector_8c_source_l00030}{vector\+\_\+init()}}, \mbox{\hyperlink{vector_8h_source_l00084}{vector\+\_\+set()}}, \mbox{\hyperlink{gui_8c_source_l00856}{window\+\_\+init()}}, and \mbox{\hyperlink{gui_8c_source_l00792}{window\+\_\+open()}}.
 
 
 
@@ -552,11 +552,11 @@ References \mbox{\hyperlink{apps_2editor_2main_8c_source_l00057}{\+\_\+code}}, \
 
 \mbox{\hyperlink{structVector}{Vector}} containing source code 
 
-Definition at line \mbox{\hyperlink{apps_2editor_2main_8c_source_l00057}{57}} of file \mbox{\hyperlink{apps_2editor_2main_8c_source}{main.\+c}}.
+Definition at line \mbox{\hyperlink{apps_2editor_2main_8c_source_l00056}{56}} of file \mbox{\hyperlink{apps_2editor_2main_8c_source}{main.\+c}}.
 
 
 
-Referenced by \mbox{\hyperlink{apps_2editor_2main_8c_source_l00172}{\+\_\+draw\+\_\+code()}}, and \mbox{\hyperlink{apps_2editor_2main_8c_source_l00315}{setup()}}.
+Referenced by \mbox{\hyperlink{apps_2editor_2main_8c_source_l00171}{\+\_\+draw\+\_\+code()}}, and \mbox{\hyperlink{apps_2editor_2main_8c_source_l00314}{setup()}}.
 
 \mbox{\Hypertarget{apps_2editor_2main_8c_af973afe61a9d1b920a05e1b63fe59ff9}\label{apps_2editor_2main_8c_af973afe61a9d1b920a05e1b63fe59ff9}} 
 \index{main.c@{main.c}!\_file@{\_file}}
@@ -566,11 +566,11 @@ Referenced by \mbox{\hyperlink{apps_2editor_2main_8c_source_l00172}{\+\_\+draw\+
 
 TODO\+: File for testing syntax highligher, remove when file loading done 
 
-Definition at line \mbox{\hyperlink{apps_2editor_2main_8c_source_l00021}{21}} of file \mbox{\hyperlink{apps_2editor_2main_8c_source}{main.\+c}}.
+Definition at line \mbox{\hyperlink{apps_2editor_2main_8c_source_l00020}{20}} of file \mbox{\hyperlink{apps_2editor_2main_8c_source}{main.\+c}}.
 
 
 
-Referenced by \mbox{\hyperlink{apps_2editor_2main_8c_source_l00315}{setup()}}.
+Referenced by \mbox{\hyperlink{apps_2editor_2main_8c_source_l00314}{setup()}}.
 
 \mbox{\Hypertarget{apps_2editor_2main_8c_ad257c1443e462007f7d94fc23ea361b2}\label{apps_2editor_2main_8c_ad257c1443e462007f7d94fc23ea361b2}} 
 \index{main.c@{main.c}!\_window\_editor@{\_window\_editor}}
@@ -580,9 +580,9 @@ Referenced by \mbox{\hyperlink{apps_2editor_2main_8c_source_l00315}{setup()}}.
 
 Editor source code window 
 
-Definition at line \mbox{\hyperlink{apps_2editor_2main_8c_source_l00060}{60}} of file \mbox{\hyperlink{apps_2editor_2main_8c_source}{main.\+c}}.
+Definition at line \mbox{\hyperlink{apps_2editor_2main_8c_source_l00059}{59}} of file \mbox{\hyperlink{apps_2editor_2main_8c_source}{main.\+c}}.
 
 
 
-Referenced by \mbox{\hyperlink{apps_2editor_2main_8c_source_l00315}{setup()}}.
+Referenced by \mbox{\hyperlink{apps_2editor_2main_8c_source_l00314}{setup()}}.
 

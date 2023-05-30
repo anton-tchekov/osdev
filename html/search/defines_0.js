@@ -10,12 +10,13 @@ var searchData=
   ['atfs_5foffset_5frevision_7',['ATFS_OFFSET_REVISION',['../atfs_8h.html#afa4c7c978e0253bb3c3e2b6828b49afd',1,'atfs.h']]],
   ['atfs_5foffset_5fsignature_8',['ATFS_OFFSET_SIGNATURE',['../atfs_8h.html#a2ea0d3fde1f46a1b5b3d1ab55b7e3d5b',1,'atfs.h']]],
   ['atfs_5foffset_5fstdlib_5fsize_9',['ATFS_OFFSET_STDLIB_SIZE',['../atfs_8h.html#aa51051aec9ee36f50493079fc1e2ec7d',1,'atfs.h']]],
-  ['atfs_5frevision_10',['ATFS_REVISION',['../atfs_8h.html#a57c1cdf2546cad6e7458aa3f4b19f527',1,'atfs.h']]],
-  ['atfs_5fsector_5fboot_11',['ATFS_SECTOR_BOOT',['../atfs_8h.html#abef1527b5f0917d3ca73ac7a60435ae3',1,'atfs.h']]],
-  ['atfs_5fsector_5finit_12',['ATFS_SECTOR_INIT',['../atfs_8h.html#a34195cda27663494d697f1d5a14f0213',1,'atfs.h']]],
-  ['atfs_5fsector_5froot_13',['ATFS_SECTOR_ROOT',['../atfs_8h.html#a11cba67d1d542be44223f9a4e9250e5e',1,'atfs.h']]],
-  ['atfs_5fsector_5fstdlib_14',['ATFS_SECTOR_STDLIB',['../atfs_8h.html#a8bcc06ced4fe151c50cf1e8ac7f673f7',1,'atfs.h']]],
-  ['atfs_5fsize_5fboot_15',['ATFS_SIZE_BOOT',['../atfs_8h.html#a67b9aeb5e631302051d8d928509fd379',1,'atfs.h']]],
-  ['atfs_5fsize_5finit_16',['ATFS_SIZE_INIT',['../atfs_8h.html#a78498f71fb3288aaab91ea8852abcb5f',1,'atfs.h']]],
-  ['atfs_5fsize_5fstdlib_17',['ATFS_SIZE_STDLIB',['../atfs_8h.html#a446996ba6ac4c3c8cf4c71a990613bdd',1,'atfs.h']]]
+  ['atfs_5foffset_5fwrite_5fpointer_10',['ATFS_OFFSET_WRITE_POINTER',['../atfs_8h.html#a1f4f1ad82889a0d6318500588de8ce3c',1,'atfs.h']]],
+  ['atfs_5frevision_11',['ATFS_REVISION',['../atfs_8h.html#a57c1cdf2546cad6e7458aa3f4b19f527',1,'atfs.h']]],
+  ['atfs_5fsector_5fboot_12',['ATFS_SECTOR_BOOT',['../atfs_8h.html#abef1527b5f0917d3ca73ac7a60435ae3',1,'atfs.h']]],
+  ['atfs_5fsector_5finit_13',['ATFS_SECTOR_INIT',['../atfs_8h.html#a34195cda27663494d697f1d5a14f0213',1,'atfs.h']]],
+  ['atfs_5fsector_5froot_14',['ATFS_SECTOR_ROOT',['../atfs_8h.html#a11cba67d1d542be44223f9a4e9250e5e',1,'atfs.h']]],
+  ['atfs_5fsector_5fstdlib_15',['ATFS_SECTOR_STDLIB',['../atfs_8h.html#a8bcc06ced4fe151c50cf1e8ac7f673f7',1,'atfs.h']]],
+  ['atfs_5fsize_5fboot_16',['ATFS_SIZE_BOOT',['../atfs_8h.html#a67b9aeb5e631302051d8d928509fd379',1,'atfs.h']]],
+  ['atfs_5fsize_5finit_17',['ATFS_SIZE_INIT',['../atfs_8h.html#a78498f71fb3288aaab91ea8852abcb5f',1,'atfs.h']]],
+  ['atfs_5fsize_5fstdlib_18',['ATFS_SIZE_STDLIB',['../atfs_8h.html#a446996ba6ac4c3c8cf4c71a990613bdd',1,'atfs.h']]]
 ];

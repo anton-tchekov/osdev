@@ -67,7 +67,7 @@
 #define ATFS_OFFSET_INIT_SIZE      12
 
 /** Offset of write pointer for versioning */
-#define ATFS_OFFSET_INIT_SIZE      16
+#define ATFS_OFFSET_WRITE_POINTER  16
 
 /** FS Signature (bytes 0-4) */
 static const u8 _atfs_signature[] = { 'A', 'T', 'F', 'S' };

@@ -157,12 +157,12 @@ static void gfx_destroy(void)
 }
 
 /**
- * @brief
+ * @brief Generate ABGR color from red, green and blue channel values
  *
- * @param r
- * @param g
- * @param b
- * @return u32
+ * @param r Red channel value (0-255)
+ * @param g Green channel value (0-255)
+ * @param b Blue channel value (0-255)
+ * @return ABGR color value
  */
 static u32 gfx_color(u8 r, u8 g, u8 b)
 {
@@ -173,34 +173,34 @@ static u32 gfx_color(u8 r, u8 g, u8 b)
 }
 
 /**
- * @brief
+ * @brief Extract red channel from ABGR color
  *
- * @param color
- * @return u8
+ * @param color ABGR Color
+ * @return Red value
  */
 static inline u8 _abgr_r(u32 color) { return (color >> 24) & 0xFF; }
 
 /**
- * @brief
+ * @brief Extract green channel from ABGR color
  *
- * @param color
- * @return u8
+ * @param color ABGR Color
+ * @return Green value
  */
 static inline u8 _abgr_g(u32 color) { return (color >> 16) & 0xFF; }
 
 /**
- * @brief
+ * @brief Extract blue channel from ABGR color
  *
- * @param color
- * @return u8
+ * @param color ABGR Color
+ * @return Blue value
  */
 static inline u8 _abgr_b(u32 color) { return (color >>  8) & 0xFF; }
 
 /**
- * @brief
+ * @brief Convert a ABGR color to a ARGB color
  *
- * @param color
- * @return u32
+ * @param color ABGR color value
+ * @return ARGB color value
  */
 static u32 _abgr_to_argb(u32 color)
 {
@@ -211,12 +211,13 @@ static u32 _abgr_to_argb(u32 color)
 }
 
 /**
- * @brief
+ * @brief Mix two colors according to a ratio. A ratio of 255 means 100% of
+ *        the first color and 0% of the second color will be mixed together.
  *
- * @param color1
- * @param color2
- * @param ratio
- * @return u32
+ * @param color1 First ABGR color
+ * @param color2 Second ABGR color
+ * @param ratio Merge ratio from 0-255
+ * @return Merged ARGB color value
  */
 static u32 _color_merge(u32 color1, u32 color2, u32 ratio)
 {
@@ -237,10 +238,10 @@ static u32 _color_merge(u32 color1, u32 color2, u32 ratio)
 }
 
 /**
- * @brief
+ * @brief Convert a RGB565 color to an BGRA color
  *
- * @param color
- * @return u32
+ * @param color RGB565 color
+ * @return BGRA color
  */
 static u32 _rgb565_to_bgra(u16 color)
 {
@@ -444,10 +445,10 @@ static Key _convert_key(i32 scancode, i32 mod)
 /* --- MAIN --- */
 
 /**
- * @brief
+ * @brief Simulator main function
  *
- * @param argc
- * @param argv
+ * @param argc Number of command line parameters
+ * @param argv Array of command line parameters
  * @return Exit code
  */
 int main(int argc, char **argv)

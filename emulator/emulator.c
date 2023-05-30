@@ -341,9 +341,9 @@ static u8 memory_lhu(u32 addr, u32 *out)
 /* --- Syscalls --- */
 
 /**
- * @brief
+ * @brief Exit program
  *
- * @param args
+ * @param args args[0]: Exit code
  * @return Non-zero on error
  */
 static u8 syscall_exit(u32 *args)
@@ -354,9 +354,9 @@ static u8 syscall_exit(u32 *args)
 }
 
 /**
- * @brief
+ * @brief Yield function to pass control to the scheduler
  *
- * @param args
+ * @param args Unused
  * @return Non-zero on error
  */
 static u8 syscall_finish(u32 *args)
@@ -368,9 +368,10 @@ static u8 syscall_finish(u32 *args)
 }
 
 /**
- * @brief
+ * @brief Register an event handler
  *
- * @param args
+ * @param args args[0]: Event Type,
+ *             args[1]: Event Handler Address
  * @return Non-zero on error
  */
 static u8 syscall_event_register(u32 *args)
@@ -387,9 +388,9 @@ static u8 syscall_event_register(u32 *args)
 }
 
 /**
- * @brief
+ * @brief System call to get the number of milliseconds since startup
  *
- * @param args
+ * @param args args[0]: Return value (milliseconds)
  * @return Non-zero on error
  */
 static u8 syscall_millis(u32 *args)
@@ -400,9 +401,9 @@ static u8 syscall_millis(u32 *args)
 }
 
 /**
- * @brief
+ * @brief System call to get a random number
  *
- * @param args
+ * @param args args[0]: Return value (random number)
  * @return Non-zero on error
  */
 static u8 syscall_rand(u32 *args)
@@ -413,9 +414,10 @@ static u8 syscall_rand(u32 *args)
 }
 
 /**
- * @brief
+ * @brief System call to send data over the serial interface
  *
- * @param args
+ * @param args args[0]: Pointer to string to send
+ *             args[1]: Number of bytes to send
  * @return Non-zero on error
  */
 static u8 syscall_serial_write(u32 *args)
@@ -438,9 +440,13 @@ static u8 syscall_serial_write(u32 *args)
 }
 
 /**
- * @brief
+ * @brief System call to draw a rectangle
  *
- * @param args
+ * @param args args[0]: X-Coordinate
+ *             args[1]: Y-Coordinate
+ *             args[2]: Width
+ *             args[3]: Height
+ *             args[4]: ABGR Color
  * @return Non-zero on error
  */
 static u8 syscall_gfx_rect(u32 *args)
@@ -465,7 +471,11 @@ static u8 syscall_gfx_rect(u32 *args)
 /**
  * @brief System call to draw an RGBA image
  *
- * @param args
+ * @param args args[0]: X-Coordinate
+ *             args[1]: Y-Coordinate
+ *             args[2]: Width
+ *             args[3]: Height
+ *             args[4]: Pointer to RGBA image
  * @return Non-zero on error
  */
 static u8 syscall_gfx_image_rgba(u32 *args)
@@ -496,7 +506,11 @@ static u8 syscall_gfx_image_rgba(u32 *args)
 /**
  * @brief System call to draw an RGB image
  *
- * @param args
+ * @param args args[0]: X-Coordinate
+ *             args[1]: Y-Coordinate
+ *             args[2]: Width
+ *             args[3]: Height
+ *             args[4]: Pointer to RGB image
  * @return Non-zero on error
  */
 static u8 syscall_gfx_image_rgb(u32 *args)
@@ -527,7 +541,11 @@ static u8 syscall_gfx_image_rgb(u32 *args)
 /**
  * @brief System call to draw an RGB565 image
  *
- * @param args
+ * @param args args[0]: X-Coordinate
+ *             args[1]: Y-Coordinate
+ *             args[2]: Width
+ *             args[3]: Height
+ *             args[4]: Pointer to RGB565 image
  * @return Non-zero on error
  */
 static u8 syscall_gfx_image_rgb565(u32 *args)
@@ -558,7 +576,10 @@ static u8 syscall_gfx_image_rgb565(u32 *args)
 /**
  * @brief System call to draw a grayscale image
  *
- * @param args
+ * @param args args[0]: Pointer to rectangle struct
+ *             args[1]: Pointer to grayscale image
+ *             args[2]: ABGR Foreground color
+ *             args[3]: ABGR Background color
  * @return Non-zero on error
  */
 static u8 syscall_gfx_image_grayscale(u32 *args)
@@ -597,9 +618,12 @@ static u8 syscall_gfx_image_grayscale(u32 *args)
 }
 
 /**
- * @brief
+ * @brief System call to draw a 1-bit-per-pixel image
  *
- * @param args
+ * @param args args[0]: Pointer to rectangle struct
+ *             args[1]: Pointer to 1bpp image
+ *             args[2]: ABGR Foreground color
+ *             args[3]: ABGR Background color
  * @return Non-zero on error
  */
 static u8 syscall_gfx_image_1bit(u32 *args)

@@ -102,7 +102,7 @@ Definition at line \mbox{\hyperlink{mkinitrd_2main_8c_source_l00022}{22}} of fil
 \DoxyCodeLine{00060\ }
 \DoxyCodeLine{00061\ \ \ \ \ fwrite(buf,\ 1,\ \mbox{\hyperlink{atfs_8h_a92b9c24f31f47693e78b3f27be5905ed}{ATFS\_BLOCK\_SIZE}},\ out);}
 \DoxyCodeLine{00062\ }
-\DoxyCodeLine{00063\ \ \ \ \ \textcolor{comment}{/*\ Write\ 64\ empty\ sectors\ */}}
+\DoxyCodeLine{00063\ \ \ \ \ \textcolor{comment}{/*\ Temporarily\ write\ empty\ sectors\ instead\ of\ stdlib\ */}}
 \DoxyCodeLine{00064\ \ \ \ \ \mbox{\hyperlink{string_8c_ab5fb910d7238069eb23f4b06809aa68e}{memset}}(buf,\ 0,\ \mbox{\hyperlink{atfs_8h_a92b9c24f31f47693e78b3f27be5905ed}{ATFS\_BLOCK\_SIZE}});}
 \DoxyCodeLine{00065\ \ \ \ \ \textcolor{keywordflow}{for}(i\ =\ 0;\ i\ <\ \mbox{\hyperlink{atfs_8h_a446996ba6ac4c3c8cf4c71a990613bdd}{ATFS\_SIZE\_STDLIB}};\ ++i)}
 \DoxyCodeLine{00066\ \ \ \ \ \{}
@@ -117,7 +117,7 @@ Definition at line \mbox{\hyperlink{mkinitrd_2main_8c_source_l00022}{22}} of fil
 \DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ fwrite(buf,\ 1,\ \mbox{\hyperlink{atfs_8h_a92b9c24f31f47693e78b3f27be5905ed}{ATFS\_BLOCK\_SIZE}},\ out);}
 \DoxyCodeLine{00076\ \ \ \ \ \}}
 \DoxyCodeLine{00077\ }
-\DoxyCodeLine{00078\ \ \ \ \ \textcolor{comment}{/*\ TEMPORARY:\ End\ marker\ 0xFF\ root\ dir\ sector\ */}}
+\DoxyCodeLine{00078\ \ \ \ \ \textcolor{comment}{/*\ Temporary\ end\ marker\ 0xFF\ in\ root\ dir\ sector\ */}}
 \DoxyCodeLine{00079\ \ \ \ \ \mbox{\hyperlink{string_8c_ab5fb910d7238069eb23f4b06809aa68e}{memset}}(buf,\ 0xFF,\ \mbox{\hyperlink{atfs_8h_a92b9c24f31f47693e78b3f27be5905ed}{ATFS\_BLOCK\_SIZE}});}
 \DoxyCodeLine{00080\ \ \ \ \ fwrite(buf,\ 1,\ \mbox{\hyperlink{atfs_8h_a92b9c24f31f47693e78b3f27be5905ed}{ATFS\_BLOCK\_SIZE}},\ out);}
 \DoxyCodeLine{00081\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
@@ -126,5 +126,5 @@ Definition at line \mbox{\hyperlink{mkinitrd_2main_8c_source_l00022}{22}} of fil
 \end{DoxyCode}
 
 
-References \mbox{\hyperlink{atfs_8h_source_l00059}{\+\_\+atfs\+\_\+signature}}, \mbox{\hyperlink{atfs_8h_source_l00016}{ATFS\+\_\+\+BLOCK\+\_\+\+SIZE}}, \mbox{\hyperlink{atfs_8h_source_l00056}{ATFS\+\_\+\+OFFSET\+\_\+\+INIT\+\_\+\+SIZE}}, \mbox{\hyperlink{atfs_8h_source_l00050}{ATFS\+\_\+\+OFFSET\+\_\+\+REVISION}}, \mbox{\hyperlink{atfs_8h_source_l00047}{ATFS\+\_\+\+OFFSET\+\_\+\+SIGNATURE}}, \mbox{\hyperlink{atfs_8h_source_l00053}{ATFS\+\_\+\+OFFSET\+\_\+\+STDLIB\+\_\+\+SIZE}}, \mbox{\hyperlink{atfs_8h_source_l00042}{ATFS\+\_\+\+REVISION}}, \mbox{\hyperlink{atfs_8h_source_l00036}{ATFS\+\_\+\+SIZE\+\_\+\+INIT}}, \mbox{\hyperlink{atfs_8h_source_l00030}{ATFS\+\_\+\+SIZE\+\_\+\+STDLIB}}, \mbox{\hyperlink{string_8c_source_l00094}{memcpy()}}, \mbox{\hyperlink{string_8c_source_l00176}{memset()}}, and \mbox{\hyperlink{atfs_8h_source_l00067}{write\+\_\+le\+\_\+32()}}.
+References \mbox{\hyperlink{atfs_8h_source_l00073}{\+\_\+atfs\+\_\+signature}}, \mbox{\hyperlink{atfs_8h_source_l00029}{ATFS\+\_\+\+BLOCK\+\_\+\+SIZE}}, \mbox{\hyperlink{atfs_8h_source_l00067}{ATFS\+\_\+\+OFFSET\+\_\+\+INIT\+\_\+\+SIZE}}, \mbox{\hyperlink{atfs_8h_source_l00061}{ATFS\+\_\+\+OFFSET\+\_\+\+REVISION}}, \mbox{\hyperlink{atfs_8h_source_l00058}{ATFS\+\_\+\+OFFSET\+\_\+\+SIGNATURE}}, \mbox{\hyperlink{atfs_8h_source_l00064}{ATFS\+\_\+\+OFFSET\+\_\+\+STDLIB\+\_\+\+SIZE}}, \mbox{\hyperlink{atfs_8h_source_l00053}{ATFS\+\_\+\+REVISION}}, \mbox{\hyperlink{atfs_8h_source_l00047}{ATFS\+\_\+\+SIZE\+\_\+\+INIT}}, \mbox{\hyperlink{atfs_8h_source_l00041}{ATFS\+\_\+\+SIZE\+\_\+\+STDLIB}}, \mbox{\hyperlink{string_8c_source_l00094}{memcpy()}}, \mbox{\hyperlink{string_8c_source_l00176}{memset()}}, and \mbox{\hyperlink{atfs_8h_source_l00083}{write\+\_\+le\+\_\+32()}}.
 
