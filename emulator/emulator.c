@@ -173,8 +173,7 @@ static u8 _gfx_check_bounds(u16 x, u16 y, u16 w, u16 h)
  */
 static u8 _memory_check_bounds(u32 addr, u32 size)
 {
-	return (addr < _emu->SegmentStart) ||
-		(addr >= _emu->SegmentEnd) ||
+	return (addr >= _emu->SegmentEnd) ||
 		(size >= _emu->SegmentSize) ||
 		(addr + size >= _emu->SegmentEnd);
 }
@@ -191,6 +190,7 @@ static u8 _memory_check_bounds(u32 addr, u32 size)
 static u8 memory_sb(u32 addr, u32 value)
 {
 	i8 value8 = (i8)value;
+	addr += _emu->SegmentStart;
 	if(_memory_check_bounds(addr, sizeof(value8)))
 	{
 		return 1;
@@ -210,6 +210,7 @@ static u8 memory_sb(u32 addr, u32 value)
 static u8 memory_sh(u32 addr, u32 value)
 {
 	i16 value16 = (i16)value;
+	addr += _emu->SegmentStart;
 	if(_memory_check_bounds(addr, sizeof(value16)))
 	{
 		return 1;
@@ -228,6 +229,7 @@ static u8 memory_sh(u32 addr, u32 value)
  */
 static u8 memory_sw(u32 addr, u32 value)
 {
+	addr += _emu->SegmentStart;
 	if(_memory_check_bounds(addr, sizeof(value)))
 	{
 		return 1;
@@ -248,6 +250,7 @@ static u8 memory_sw(u32 addr, u32 value)
 static u8 memory_lb(u32 addr, u32 *out)
 {
 	i8 value8;
+	addr += _emu->SegmentStart;
 	if(_memory_check_bounds(addr, sizeof(value8)))
 	{
 		return 1;
@@ -268,6 +271,7 @@ static u8 memory_lb(u32 addr, u32 *out)
 static u8 memory_lh(u32 addr, u32 *out)
 {
 	i16 value16;
+	addr += _emu->SegmentStart;
 	if(_memory_check_bounds(addr, sizeof(value16)))
 	{
 		return 1;
@@ -288,6 +292,7 @@ static u8 memory_lh(u32 addr, u32 *out)
 static u8 memory_lw(u32 addr, u32 *out)
 {
 	u32 value;
+	addr += _emu->SegmentStart;
 	if(_memory_check_bounds(addr, sizeof(value)))
 	{
 		return 1;
@@ -308,6 +313,7 @@ static u8 memory_lw(u32 addr, u32 *out)
 static u8 memory_lbu(u32 addr, u32 *out)
 {
 	u8 value8;
+	addr += _emu->SegmentStart;
 	if(_memory_check_bounds(addr, sizeof(value8)))
 	{
 		return 1;
@@ -328,6 +334,7 @@ static u8 memory_lbu(u32 addr, u32 *out)
 static u8 memory_lhu(u32 addr, u32 *out)
 {
 	u16 value16;
+	addr += _emu->SegmentStart;
 	if(_memory_check_bounds(addr, sizeof(value16)))
 	{
 		return 1;
@@ -376,14 +383,17 @@ static u8 syscall_finish(u32 *args)
  */
 static u8 syscall_event_register(u32 *args)
 {
-	u32 type = args[0];
-	u32 addr = args[1];
-	if(type < EVENT_COUNT)
+	u32 type, addr;
+
+	type = args[0];
+	addr = args[1];
+	if(type >= EVENT_COUNT)
 	{
-		EMU_LOG(PSTR("Registered Event Type: %"PRIu32" - Addr: %"PRIu32), type, addr);
-		_emu->Events[type] = addr;
+		return 1;
 	}
 
+	EMU_LOG(PSTR("Registered Event Type: %"PRIu32" - Addr: %"PRIu32), type, addr);
+	_emu->Events[type] = addr;
 	return 0;
 }
 
@@ -422,10 +432,16 @@ static u8 syscall_rand(u32 *args)
  */
 static u8 syscall_serial_write(u32 *args)
 {
-	u16 cur;
-	u32 ptr = args[0];
-	u32 len = args[1];
 	u8 buf[128];
+	u16 cur;
+	u32 ptr, len;
+
+	ptr = args[0];
+	len = args[1];
+	if(_memory_check_bounds(ptr, len))
+	{
+		return 1;
+	}
 
 	while(len)
 	{
@@ -628,10 +644,36 @@ static u8 syscall_gfx_image_grayscale(u32 *args)
  */
 static u8 syscall_gfx_image_1bit(u32 *args)
 {
-	/* TODO: Check params */
-	Rectangle r;
-	env_memory_read(args[0], &r, sizeof(r));
-	env_gfx_image_1bit(r.X, r.Y, r.W, r.H, args[1], args[2], args[3]);
+	u16 x, y, w, h;
+	u32 image, bytes, rect_addr, fg, bg;
+	Rectangle rect;
+
+	rect_addr = args[0];
+	if(_memory_check_bounds(rect_addr, sizeof(rect)))
+	{
+		return 1;
+	}
+
+	env_memory_read(rect_addr, &rect, sizeof(rect));
+	x = rect.X;
+	y = rect.Y;
+	w = rect.W;
+	h = rect.H;
+	if(_gfx_check_bounds(x, y, w, h))
+	{
+		return 1;
+	}
+
+	image = args[1];
+	bytes = (u32)w * (u32)h;
+	if(_memory_check_bounds(image, bytes))
+	{
+		return 1;
+	}
+
+	fg = args[2];
+	bg = args[3];
+	env_gfx_image_1bit(x, y, w, h, image, fg, bg);
 	return 0;
 }
 

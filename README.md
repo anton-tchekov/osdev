@@ -26,23 +26,25 @@
 
 # TODO
 
-## Current Tasks
-- Documentation Todos
-- String syscall (default font) as optimization
+## Kernel
 - Better SysCall Parameter checking, Memory Protection
-- Cooperative Scheduler, Background Tasks, Exit function
-- AVR XMEM image routines
+- Cooperative Scheduler (Background Tasks)
+- String syscall (default font) as optimization
+
 - AVR PS/2 Keyboard character conversion and test
+
+- AVR XMEM image routines
 - AVR SD Driver write block function
+- Fast native memory routines
+
+## Userspace
 - Port Tetris
 - Port Snake
 - Text Editor
-- Fast native memory routines
+
 - File system driver
 - App list with icons (load apps from folder)
 - File Manager
-- Emulate RISC-V Single Precision Floating Point Extension and Math Lib
-- Async Drivers
 
 # Descriptions
 
@@ -64,7 +66,13 @@
 - Goto Line
 - Import / Export contents
 
+## Future
+- Emulate RISC-V Single Precision Floating Point Extension and Math Lib
+- Async Drivers
+
 # DONE
+- Exit function
+- Documentation Todos
 - GUI Fix text width calculation bugs
 - Invert labels
 - GUI Hide/Show labels (`label_show(&label, true)`)
