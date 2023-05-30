@@ -100,7 +100,7 @@ static void _draw_line_numbers(i32 max_line)
 		/* Add line numbers */
 		for(i = lines_count; i <= max_line; ++i)
 		{
-			snprintf(buf, sizeof(buf), "%d", i);
+			snprintf(buf, sizeof(buf), "%d", i + 1);
 			font_string(
 				25 - font_string_width(buf, ubuntu_regular),
 				i * LINE_HEIGHT + 22,
@@ -109,24 +109,6 @@ static void _draw_line_numbers(i32 max_line)
 	}
 
 	lines_count = max_line;
-}
-
-/**
- * @brief Get the color of a brace at a nesting level
- *
- * @param nesting At how many nesting levels the brace is located
- * @return Color the brace should receive
- */
-static Color _get_brace_color(i32 nesting)
-{
-	static Color _colors[] =
-	{
-		0xD4D4AAFF,
-		0xD1A06EFF,
-		0x742704FF
-	};
-
-	return _colors[nesting % ARRLEN(_colors)];
 }
 
 /**
@@ -139,27 +121,9 @@ static Color _get_bracket_color(i32 nesting)
 {
 	static Color _colors[] =
 	{
-		0xD4D4AAFF,
-		0xD1A06EFF,
-		0x742704FF
-	};
-
-	return _colors[nesting % ARRLEN(_colors)];
-}
-
-/**
- * @brief Get the color of a parenthesis at a nesting level
- *
- * @param nesting At how many nesting levels the parenthesis is located
- * @return Color the parenthesis should receive
- */
-static Color _get_paren_color(i32 nesting)
-{
-	static Color _colors[] =
-	{
-		0xD4D4AAFF,
-		0xD1A06EFF,
-		0x742704FF
+		0xFFD700FF,
+		0xDA70D6FF,
+		0x179FFFFF
 	};
 
 	return _colors[nesting % ARRLEN(_colors)];
@@ -170,7 +134,7 @@ static Color _get_paren_color(i32 nesting)
  */
 static void _draw_code(void)
 {
-	i32 i, j, braces, brackets, parens, len, line, col, keyword_remain;
+	i32 i, j, brackets, len, line, col, keyword_remain;
 	bool in_comment, in_string, in_char;
 	char *text, c;
 	Color color;
@@ -185,10 +149,7 @@ static void _draw_code(void)
 
 	col = 0;
 	line = 0;
-
-	braces = 0;
 	brackets = 0;
-	parens = 0;
 
 	for(i = 0; i < len; ++i)
 	{
@@ -216,35 +177,15 @@ static void _draw_code(void)
 			}
 		}
 
-		if(c == '{')
-		{
-			color = _get_brace_color(braces);
-			++braces;
-		}
-		else if(c == '}')
-		{
-			--braces;
-			color = _get_brace_color(braces);
-		}
-		else if(c == '[')
+		if(c == '(' || c == '[' || c == '{')
 		{
 			color = _get_bracket_color(brackets);
 			++brackets;
 		}
-		else if(c == ']')
+		else if(c == ')' || c == ']' || c == '}')
 		{
 			--brackets;
 			color = _get_bracket_color(brackets);
-		}
-		else if(c == '(')
-		{
-			color = _get_paren_color(parens);
-			++parens;
-		}
-		else if(c == ')')
-		{
-			--parens;
-			color = _get_paren_color(parens);
 		}
 		else if(isdigit(c))
 		{
