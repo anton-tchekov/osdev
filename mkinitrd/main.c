@@ -51,21 +51,12 @@ int main(int argc, char **argv)
 	size = ftell(in);
 	fseek(in, 0, SEEK_SET);
 
+	/* Write boot sector */
 	memset(buf, 0, ATFS_BLOCK_SIZE);
-
 	memcpy(buf + ATFS_OFFSET_SIGNATURE, _atfs_signature, sizeof(_atfs_signature));
 	write_le_32(buf + ATFS_OFFSET_REVISION, ATFS_REVISION);
-	write_le_32(buf + ATFS_OFFSET_STDLIB_SIZE, 0);
 	write_le_32(buf + ATFS_OFFSET_INIT_SIZE, size);
-
 	fwrite(buf, 1, ATFS_BLOCK_SIZE, out);
-
-	/* Temporarily write empty sectors instead of stdlib */
-	memset(buf, 0, ATFS_BLOCK_SIZE);
-	for(i = 0; i < ATFS_SIZE_STDLIB; ++i)
-	{
-		fwrite(buf, 1, ATFS_BLOCK_SIZE, out);
-	}
 
 	/* Write init program */
 	for(i = 0; i < ATFS_SIZE_INIT; ++i)

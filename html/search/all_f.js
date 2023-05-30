@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['panic_0',['PANIC',['../panic_8h.html#ae3c0c6fb5e69bb687e787ec5c487afa1',1,'panic.h']]],
-  ['panic_1',['panic',['../panic_8h.html#a2e711bae47ea21470dd21f7a3485a4d3',1,'panic(const char *msg, const char *file, u32 line):&#160;panic.c'],['../panic_8c.html#a2e711bae47ea21470dd21f7a3485a4d3',1,'panic(const char *msg, const char *file, u32 line):&#160;panic.c'],['../logger_8h.html#a19a313011d8f478ad9799e546199a9ac',1,'panic(const char *msg,...):&#160;logger.c'],['../logger_8c.html#a19a313011d8f478ad9799e546199a9ac',1,'panic(const char *msg,...):&#160;logger.c']]],
+  ['panic_0',['panic',['../panic_8h.html#a2e711bae47ea21470dd21f7a3485a4d3',1,'panic(const char *msg, const char *file, u32 line):&#160;panic.c'],['../panic_8c.html#a2e711bae47ea21470dd21f7a3485a4d3',1,'panic(const char *msg, const char *file, u32 line):&#160;panic.c'],['../logger_8h.html#a19a313011d8f478ad9799e546199a9ac',1,'panic(const char *msg,...):&#160;logger.c'],['../logger_8c.html#a19a313011d8f478ad9799e546199a9ac',1,'panic(const char *msg,...):&#160;logger.c']]],
+  ['panic_1',['PANIC',['../panic_8h.html#ae3c0c6fb5e69bb687e787ec5c487afa1',1,'panic.h']]],
   ['panic_2ec_2',['panic.c',['../panic_8c.html',1,'']]],
   ['panic_2eh_3',['panic.h',['../panic_8h.html',1,'']]],
   ['pc_4',['PC',['../structEmulator.html#a67f6a7f8dd88da5f7408c1b82758cb1c',1,'Emulator']]],

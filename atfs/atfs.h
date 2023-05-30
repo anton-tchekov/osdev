@@ -60,14 +60,11 @@
 /** Offset of revision in ATFS bootsector */
 #define ATFS_OFFSET_REVISION        4
 
-/** Offset of stdlib size in ATFS bootsector */
-#define ATFS_OFFSET_STDLIB_SIZE     8
-
 /** Offset of init program size in ATFS bootsector */
-#define ATFS_OFFSET_INIT_SIZE      12
+#define ATFS_OFFSET_INIT_SIZE       8
 
 /** Offset of write pointer for versioning */
-#define ATFS_OFFSET_WRITE_POINTER  16
+#define ATFS_OFFSET_WRITE_POINTER  12
 
 /** FS Signature (bytes 0-4) */
 static const u8 _atfs_signature[] = { 'A', 'T', 'F', 'S' };

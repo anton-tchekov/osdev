@@ -71,36 +71,36 @@ Call an emulated RISC-\/V function.
 \end{DoxyParams}
 
 
-Definition at line \mbox{\hyperlink{emulator_8c_source_l01165}{1165}} of file \mbox{\hyperlink{emulator_8c_source}{emulator.\+c}}.
+Definition at line \mbox{\hyperlink{emulator_8c_source_l01189}{1189}} of file \mbox{\hyperlink{emulator_8c_source}{emulator.\+c}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{01166\ \{}
-\DoxyCodeLine{01167\ \ \ \ \ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ i;}
-\DoxyCodeLine{01168\ }
-\DoxyCodeLine{01169\ \ \ \ \ \textcolor{comment}{/*\ Initialize\ Stack\ Pointer\ at\ end\ of\ memory\ */}}
-\DoxyCodeLine{01170\ \ \ \ \ emu-\/>\mbox{\hyperlink{structEmulator_a8c2f51f67d4656f760fd7aa2c986d66e}{Registers}}[2]\ =\ sp\ -\/\ 4;}
-\DoxyCodeLine{01171\ \ \ \ \ emu-\/>\mbox{\hyperlink{structEmulator_a67f6a7f8dd88da5f7408c1b82758cb1c}{PC}}\ =\ addr;}
-\DoxyCodeLine{01172\ \ \ \ \ \mbox{\hyperlink{string_8c_a6ea826c42748b85ae7c74f1e2ccf7c27}{memcpy}}(\&emu-\/>\mbox{\hyperlink{structEmulator_a8c2f51f67d4656f760fd7aa2c986d66e}{Registers}}[10],\ args,\ num\ *\ \textcolor{keyword}{sizeof}(*emu-\/>\mbox{\hyperlink{structEmulator_a8c2f51f67d4656f760fd7aa2c986d66e}{Registers}}));}
-\DoxyCodeLine{01173\ \ \ \ \ i\ =\ 0;}
-\DoxyCodeLine{01174\ \ \ \ \ \mbox{\hyperlink{emulator_8c_a4eec34c850d6d037640f3ba3d9988cb2}{\_finished}}\ =\ \textcolor{keyword}{false};}
-\DoxyCodeLine{01175\ \ \ \ \ \textcolor{keywordflow}{while}(!\mbox{\hyperlink{emulator_8c_a4eec34c850d6d037640f3ba3d9988cb2}{\_finished}})}
-\DoxyCodeLine{01176\ \ \ \ \ \{}
-\DoxyCodeLine{01177\ \ \ \ \ \ \ \ \ ++i;}
-\DoxyCodeLine{01178\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{emulator_8c_a64934eba0e519c91973dcd10582e9446}{emulator\_next}}(emu))}
-\DoxyCodeLine{01179\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{01180\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 1;}
-\DoxyCodeLine{01181\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{01182\ \ \ \ \ \}}
-\DoxyCodeLine{01183\ }
-\DoxyCodeLine{01184\ \ \ \ \ \mbox{\hyperlink{emulator_8c_a7be0abd1436bd83e53048724b02af4ad}{EMU\_LOG}}(PSTR(\textcolor{stringliteral}{"{}\%"{}}PRIu32\textcolor{stringliteral}{"{}\ Cycles"{}}),\ i);}
-\DoxyCodeLine{01185\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
-\DoxyCodeLine{01186\ \}}
+\DoxyCodeLine{01190\ \{}
+\DoxyCodeLine{01191\ \ \ \ \ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ i;}
+\DoxyCodeLine{01192\ }
+\DoxyCodeLine{01193\ \ \ \ \ \textcolor{comment}{/*\ Initialize\ Stack\ Pointer\ at\ end\ of\ memory\ */}}
+\DoxyCodeLine{01194\ \ \ \ \ emu-\/>\mbox{\hyperlink{structEmulator_a8c2f51f67d4656f760fd7aa2c986d66e}{Registers}}[2]\ =\ sp\ -\/\ 4;}
+\DoxyCodeLine{01195\ \ \ \ \ emu-\/>\mbox{\hyperlink{structEmulator_a67f6a7f8dd88da5f7408c1b82758cb1c}{PC}}\ =\ addr;}
+\DoxyCodeLine{01196\ \ \ \ \ \mbox{\hyperlink{string_8c_a6ea826c42748b85ae7c74f1e2ccf7c27}{memcpy}}(\&emu-\/>\mbox{\hyperlink{structEmulator_a8c2f51f67d4656f760fd7aa2c986d66e}{Registers}}[10],\ args,\ num\ *\ \textcolor{keyword}{sizeof}(*emu-\/>\mbox{\hyperlink{structEmulator_a8c2f51f67d4656f760fd7aa2c986d66e}{Registers}}));}
+\DoxyCodeLine{01197\ \ \ \ \ i\ =\ 0;}
+\DoxyCodeLine{01198\ \ \ \ \ \mbox{\hyperlink{emulator_8c_a4eec34c850d6d037640f3ba3d9988cb2}{\_finished}}\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{01199\ \ \ \ \ \textcolor{keywordflow}{while}(!\mbox{\hyperlink{emulator_8c_a4eec34c850d6d037640f3ba3d9988cb2}{\_finished}})}
+\DoxyCodeLine{01200\ \ \ \ \ \{}
+\DoxyCodeLine{01201\ \ \ \ \ \ \ \ \ ++i;}
+\DoxyCodeLine{01202\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{emulator_8c_a64934eba0e519c91973dcd10582e9446}{emulator\_next}}(emu))}
+\DoxyCodeLine{01203\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01204\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 1;}
+\DoxyCodeLine{01205\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01206\ \ \ \ \ \}}
+\DoxyCodeLine{01207\ }
+\DoxyCodeLine{01208\ \ \ \ \ \mbox{\hyperlink{emulator_8c_a7be0abd1436bd83e53048724b02af4ad}{EMU\_LOG}}(PSTR(\textcolor{stringliteral}{"{}\%"{}}PRIu32\textcolor{stringliteral}{"{}\ Cycles"{}}),\ i);}
+\DoxyCodeLine{01209\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{01210\ \}}
 
 \end{DoxyCode}
 
 
-References \mbox{\hyperlink{emulator_8c_source_l00109}{\+\_\+finished}}, \mbox{\hyperlink{emulator_8c_source_l00059}{EMU\+\_\+\+LOG}}, \mbox{\hyperlink{emulator_8c_source_l00658}{emulator\+\_\+next()}}, \mbox{\hyperlink{string_8c_source_l00094}{memcpy()}}, \mbox{\hyperlink{emulator_8h_source_l00033}{Emulator\+::\+PC}}, and \mbox{\hyperlink{emulator_8h_source_l00036}{Emulator\+::\+Registers}}.
+References \mbox{\hyperlink{emulator_8c_source_l00109}{\+\_\+finished}}, \mbox{\hyperlink{emulator_8c_source_l00059}{EMU\+\_\+\+LOG}}, \mbox{\hyperlink{emulator_8c_source_l00682}{emulator\+\_\+next()}}, \mbox{\hyperlink{string_8c_source_l00094}{memcpy()}}, \mbox{\hyperlink{emulator_8h_source_l00033}{Emulator\+::\+PC}}, and \mbox{\hyperlink{emulator_8h_source_l00036}{Emulator\+::\+Registers}}.
 
 
 
@@ -133,7 +133,7 @@ Definition at line \mbox{\hyperlink{emulator_8c_source_l00120}{120}} of file \mb
 \end{DoxyCode}
 
 
-References \mbox{\hyperlink{emulator_8c_source_l00115}{\+\_\+emu}}, \mbox{\hyperlink{emulator_8c_source_l00118}{\+\_\+memory\+\_\+size}}, \mbox{\hyperlink{emulator_8c_source_l01165}{emulator\+\_\+call()}}, \mbox{\hyperlink{avr_2platform_8c_source_l00018}{env\+\_\+memory\+\_\+size()}}, \mbox{\hyperlink{emulator_8h_source_l00027}{Emulator\+::\+Segment\+End}}, \mbox{\hyperlink{emulator_8h_source_l00024}{Emulator\+::\+Segment\+Size}}, and \mbox{\hyperlink{emulator_8h_source_l00021}{Emulator\+::\+Segment\+Start}}.
+References \mbox{\hyperlink{emulator_8c_source_l00115}{\+\_\+emu}}, \mbox{\hyperlink{emulator_8c_source_l00118}{\+\_\+memory\+\_\+size}}, \mbox{\hyperlink{emulator_8c_source_l01189}{emulator\+\_\+call()}}, \mbox{\hyperlink{avr_2platform_8c_source_l00018}{env\+\_\+memory\+\_\+size()}}, \mbox{\hyperlink{emulator_8h_source_l00027}{Emulator\+::\+Segment\+End}}, \mbox{\hyperlink{emulator_8h_source_l00024}{Emulator\+::\+Segment\+Size}}, and \mbox{\hyperlink{emulator_8h_source_l00021}{Emulator\+::\+Segment\+Start}}.
 
 
 
@@ -176,11 +176,11 @@ Definition at line \mbox{\hyperlink{emulator_8c_source_l00138}{138}} of file \mb
 \end{DoxyCode}
 
 
-References \mbox{\hyperlink{emulator_8c_source_l00115}{\+\_\+emu}}, \mbox{\hyperlink{emulator_8c_source_l00118}{\+\_\+memory\+\_\+size}}, \mbox{\hyperlink{util_8h_source_l00013}{ARRLEN}}, \mbox{\hyperlink{emulator_8c_source_l01165}{emulator\+\_\+call()}}, \mbox{\hyperlink{event-types_8h_source_l00019}{EVENT\+\_\+\+KEY}}, and \mbox{\hyperlink{emulator_8h_source_l00030}{Emulator\+::\+Events}}.
+References \mbox{\hyperlink{emulator_8c_source_l00115}{\+\_\+emu}}, \mbox{\hyperlink{emulator_8c_source_l00118}{\+\_\+memory\+\_\+size}}, \mbox{\hyperlink{util_8h_source_l00013}{ARRLEN}}, \mbox{\hyperlink{emulator_8c_source_l01189}{emulator\+\_\+call()}}, \mbox{\hyperlink{event-types_8h_source_l00019}{EVENT\+\_\+\+KEY}}, and \mbox{\hyperlink{emulator_8h_source_l00030}{Emulator\+::\+Events}}.
 
 
 
-Referenced by \mbox{\hyperlink{simulator_2platform_8c_source_l00453}{main()}}.
+Referenced by \mbox{\hyperlink{simulator_2platform_8c_source_l00454}{main()}}.
 
 \mbox{\Hypertarget{emulator_8h_a1554b9b4463db6aa6131522c2ab400eb}\label{emulator_8h_a1554b9b4463db6aa6131522c2ab400eb}} 
 \index{emulator.h@{emulator.h}!os\_update@{os\_update}}
@@ -209,9 +209,9 @@ Definition at line \mbox{\hyperlink{emulator_8c_source_l00129}{129}} of file \mb
 \end{DoxyCode}
 
 
-References \mbox{\hyperlink{emulator_8c_source_l00115}{\+\_\+emu}}, \mbox{\hyperlink{emulator_8c_source_l00118}{\+\_\+memory\+\_\+size}}, \mbox{\hyperlink{emulator_8c_source_l01165}{emulator\+\_\+call()}}, \mbox{\hyperlink{event-types_8h_source_l00016}{EVENT\+\_\+\+LOOP}}, and \mbox{\hyperlink{emulator_8h_source_l00030}{Emulator\+::\+Events}}.
+References \mbox{\hyperlink{emulator_8c_source_l00115}{\+\_\+emu}}, \mbox{\hyperlink{emulator_8c_source_l00118}{\+\_\+memory\+\_\+size}}, \mbox{\hyperlink{emulator_8c_source_l01189}{emulator\+\_\+call()}}, \mbox{\hyperlink{event-types_8h_source_l00016}{EVENT\+\_\+\+LOOP}}, and \mbox{\hyperlink{emulator_8h_source_l00030}{Emulator\+::\+Events}}.
 
 
 
-Referenced by \mbox{\hyperlink{simulator_2platform_8c_source_l00453}{main()}}.
+Referenced by \mbox{\hyperlink{simulator_2platform_8c_source_l00454}{main()}}.
 

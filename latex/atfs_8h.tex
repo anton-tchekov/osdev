@@ -31,11 +31,9 @@ ATFS File System (ATFS = Amazing Technology File System)
 \item 
 \#define \mbox{\hyperlink{atfs_8h_afa4c7c978e0253bb3c3e2b6828b49afd}{ATFS\+\_\+\+OFFSET\+\_\+\+REVISION}}~4
 \item 
-\#define \mbox{\hyperlink{atfs_8h_aa51051aec9ee36f50493079fc1e2ec7d}{ATFS\+\_\+\+OFFSET\+\_\+\+STDLIB\+\_\+\+SIZE}}~8
+\#define \mbox{\hyperlink{atfs_8h_ac61a5c871bbbb33f1f12c644bb7b105a}{ATFS\+\_\+\+OFFSET\+\_\+\+INIT\+\_\+\+SIZE}}~8
 \item 
-\#define \mbox{\hyperlink{atfs_8h_ac61a5c871bbbb33f1f12c644bb7b105a}{ATFS\+\_\+\+OFFSET\+\_\+\+INIT\+\_\+\+SIZE}}~12
-\item 
-\#define \mbox{\hyperlink{atfs_8h_a1f4f1ad82889a0d6318500588de8ce3c}{ATFS\+\_\+\+OFFSET\+\_\+\+WRITE\+\_\+\+POINTER}}~16
+\#define \mbox{\hyperlink{atfs_8h_a1f4f1ad82889a0d6318500588de8ce3c}{ATFS\+\_\+\+OFFSET\+\_\+\+WRITE\+\_\+\+POINTER}}~12
 \end{DoxyCompactItemize}
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
@@ -92,11 +90,11 @@ Definition at line \mbox{\hyperlink{atfs_8h_source_l00029}{29}} of file \mbox{\h
 \index{atfs.h@{atfs.h}!ATFS\_OFFSET\_INIT\_SIZE@{ATFS\_OFFSET\_INIT\_SIZE}}
 \index{ATFS\_OFFSET\_INIT\_SIZE@{ATFS\_OFFSET\_INIT\_SIZE}!atfs.h@{atfs.h}}
 \doxysubsubsection{\texorpdfstring{ATFS\_OFFSET\_INIT\_SIZE}{ATFS\_OFFSET\_INIT\_SIZE}}
-{\footnotesize\ttfamily \#define ATFS\+\_\+\+OFFSET\+\_\+\+INIT\+\_\+\+SIZE~12}
+{\footnotesize\ttfamily \#define ATFS\+\_\+\+OFFSET\+\_\+\+INIT\+\_\+\+SIZE~8}
 
 Offset of init program size in ATFS bootsector 
 
-Definition at line \mbox{\hyperlink{atfs_8h_source_l00067}{67}} of file \mbox{\hyperlink{atfs_8h_source}{atfs.\+h}}.
+Definition at line \mbox{\hyperlink{atfs_8h_source_l00064}{64}} of file \mbox{\hyperlink{atfs_8h_source}{atfs.\+h}}.
 
 \mbox{\Hypertarget{atfs_8h_afa4c7c978e0253bb3c3e2b6828b49afd}\label{atfs_8h_afa4c7c978e0253bb3c3e2b6828b49afd}} 
 \index{atfs.h@{atfs.h}!ATFS\_OFFSET\_REVISION@{ATFS\_OFFSET\_REVISION}}
@@ -118,25 +116,15 @@ Offset of signature in ATFS bootsector
 
 Definition at line \mbox{\hyperlink{atfs_8h_source_l00058}{58}} of file \mbox{\hyperlink{atfs_8h_source}{atfs.\+h}}.
 
-\mbox{\Hypertarget{atfs_8h_aa51051aec9ee36f50493079fc1e2ec7d}\label{atfs_8h_aa51051aec9ee36f50493079fc1e2ec7d}} 
-\index{atfs.h@{atfs.h}!ATFS\_OFFSET\_STDLIB\_SIZE@{ATFS\_OFFSET\_STDLIB\_SIZE}}
-\index{ATFS\_OFFSET\_STDLIB\_SIZE@{ATFS\_OFFSET\_STDLIB\_SIZE}!atfs.h@{atfs.h}}
-\doxysubsubsection{\texorpdfstring{ATFS\_OFFSET\_STDLIB\_SIZE}{ATFS\_OFFSET\_STDLIB\_SIZE}}
-{\footnotesize\ttfamily \#define ATFS\+\_\+\+OFFSET\+\_\+\+STDLIB\+\_\+\+SIZE~8}
-
-Offset of stdlib size in ATFS bootsector 
-
-Definition at line \mbox{\hyperlink{atfs_8h_source_l00064}{64}} of file \mbox{\hyperlink{atfs_8h_source}{atfs.\+h}}.
-
 \mbox{\Hypertarget{atfs_8h_a1f4f1ad82889a0d6318500588de8ce3c}\label{atfs_8h_a1f4f1ad82889a0d6318500588de8ce3c}} 
 \index{atfs.h@{atfs.h}!ATFS\_OFFSET\_WRITE\_POINTER@{ATFS\_OFFSET\_WRITE\_POINTER}}
 \index{ATFS\_OFFSET\_WRITE\_POINTER@{ATFS\_OFFSET\_WRITE\_POINTER}!atfs.h@{atfs.h}}
 \doxysubsubsection{\texorpdfstring{ATFS\_OFFSET\_WRITE\_POINTER}{ATFS\_OFFSET\_WRITE\_POINTER}}
-{\footnotesize\ttfamily \#define ATFS\+\_\+\+OFFSET\+\_\+\+WRITE\+\_\+\+POINTER~16}
+{\footnotesize\ttfamily \#define ATFS\+\_\+\+OFFSET\+\_\+\+WRITE\+\_\+\+POINTER~12}
 
 Offset of write pointer for versioning 
 
-Definition at line \mbox{\hyperlink{atfs_8h_source_l00070}{70}} of file \mbox{\hyperlink{atfs_8h_source}{atfs.\+h}}.
+Definition at line \mbox{\hyperlink{atfs_8h_source_l00067}{67}} of file \mbox{\hyperlink{atfs_8h_source}{atfs.\+h}}.
 
 \mbox{\Hypertarget{atfs_8h_a57c1cdf2546cad6e7458aa3f4b19f527}\label{atfs_8h_a57c1cdf2546cad6e7458aa3f4b19f527}} 
 \index{atfs.h@{atfs.h}!ATFS\_REVISION@{ATFS\_REVISION}}
@@ -241,21 +229,21 @@ Load a 32-\/bit little endian value from a buffer.
 \end{DoxyReturn}
 
 
-Definition at line \mbox{\hyperlink{atfs_8h_source_l00097}{97}} of file \mbox{\hyperlink{atfs_8h_source}{atfs.\+h}}.
+Definition at line \mbox{\hyperlink{atfs_8h_source_l00094}{94}} of file \mbox{\hyperlink{atfs_8h_source}{atfs.\+h}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00098\ \{}
-\DoxyCodeLine{00099\ \ \ \ \ \textcolor{keywordflow}{return}\ (\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}})(buf[0])\ |}
-\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ ((\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}})(buf[1])\ <<\ 8UL)\ |}
-\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ ((\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}})(buf[2])\ <<\ 16UL)\ |}
-\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ ((\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}})(buf[3])\ <<\ 24UL);}
-\DoxyCodeLine{00103\ \}}
+\DoxyCodeLine{00095\ \{}
+\DoxyCodeLine{00096\ \ \ \ \ \textcolor{keywordflow}{return}\ (\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}})(buf[0])\ |}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ ((\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}})(buf[1])\ <<\ 8UL)\ |}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ ((\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}})(buf[2])\ <<\ 16UL)\ |}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ ((\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}})(buf[3])\ <<\ 24UL);}
+\DoxyCodeLine{00100\ \}}
 
 \end{DoxyCode}
 
 
-Referenced by \mbox{\hyperlink{initrd_8c_source_l00025}{initrd\+\_\+load()}}.
+Referenced by \mbox{\hyperlink{initrd_8c_source_l00020}{initrd\+\_\+load()}}.
 
 \mbox{\Hypertarget{atfs_8h_a62a1835558e5a5dfeade49e10d2682b8}\label{atfs_8h_a62a1835558e5a5dfeade49e10d2682b8}} 
 \index{atfs.h@{atfs.h}!write\_le\_32@{write\_le\_32}}
@@ -276,16 +264,16 @@ Write a 32-\/bit little endian value to a buffer.
 \end{DoxyParams}
 
 
-Definition at line \mbox{\hyperlink{atfs_8h_source_l00083}{83}} of file \mbox{\hyperlink{atfs_8h_source}{atfs.\+h}}.
+Definition at line \mbox{\hyperlink{atfs_8h_source_l00080}{80}} of file \mbox{\hyperlink{atfs_8h_source}{atfs.\+h}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00084\ \{}
-\DoxyCodeLine{00085\ \ \ \ \ buf[0]\ =\ val\ \&\ 0xFF;}
-\DoxyCodeLine{00086\ \ \ \ \ buf[1]\ =\ (val\ >>\ 8)\ \&\ 0xFF;}
-\DoxyCodeLine{00087\ \ \ \ \ buf[2]\ =\ (val\ >>\ 16)\ \&\ 0xFF;}
-\DoxyCodeLine{00088\ \ \ \ \ buf[3]\ =\ (val\ >>\ 24)\ \&\ 0xFF;}
-\DoxyCodeLine{00089\ \}}
+\DoxyCodeLine{00081\ \{}
+\DoxyCodeLine{00082\ \ \ \ \ buf[0]\ =\ val\ \&\ 0xFF;}
+\DoxyCodeLine{00083\ \ \ \ \ buf[1]\ =\ (val\ >>\ 8)\ \&\ 0xFF;}
+\DoxyCodeLine{00084\ \ \ \ \ buf[2]\ =\ (val\ >>\ 16)\ \&\ 0xFF;}
+\DoxyCodeLine{00085\ \ \ \ \ buf[3]\ =\ (val\ >>\ 24)\ \&\ 0xFF;}
+\DoxyCodeLine{00086\ \}}
 
 \end{DoxyCode}
 
@@ -303,9 +291,9 @@ Referenced by \mbox{\hyperlink{mkinitrd_2main_8c_source_l00022}{main()}}.
 
 FS Signature (bytes 0-\/4) 
 
-Definition at line \mbox{\hyperlink{atfs_8h_source_l00073}{73}} of file \mbox{\hyperlink{atfs_8h_source}{atfs.\+h}}.
+Definition at line \mbox{\hyperlink{atfs_8h_source_l00070}{70}} of file \mbox{\hyperlink{atfs_8h_source}{atfs.\+h}}.
 
 
 
-Referenced by \mbox{\hyperlink{initrd_8c_source_l00025}{initrd\+\_\+load()}}, and \mbox{\hyperlink{mkinitrd_2main_8c_source_l00022}{main()}}.
+Referenced by \mbox{\hyperlink{initrd_8c_source_l00020}{initrd\+\_\+load()}}, and \mbox{\hyperlink{mkinitrd_2main_8c_source_l00022}{main()}}.
 

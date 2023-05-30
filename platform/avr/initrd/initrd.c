@@ -21,9 +21,9 @@ void initrd_load(void)
 {
 	u8 buf[BLOCK_SIZE];
 	u16 block, num_sectors;
-	u32 addr, revision, size_stdlib, size_init;
+	u32 addr, revision, size_init;
 
-	log_boot_P(LOG_INIT, PSTR("Loading Init Binary"));
+	log_boot_P(LOG_INIT, PSTR("Loading INIT Binary"));
 	sd_read(ATFS_SECTOR_BOOT, buf);
 
 	/* Check signature */
@@ -55,7 +55,7 @@ void initrd_load(void)
 	{
 		if(sd_read(block, buf))
 		{
-			panic(PSTR("Loading InitRD failed"));
+			panic(PSTR("Loading INIT failed"));
 		}
 
 		xmem_write(addr, buf, BLOCK_SIZE);
