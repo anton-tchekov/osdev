@@ -23,6 +23,7 @@ SRCS = \
 	initrd/initrd.c \
 	../../status/status.c \
 	../../emulator/emulator.c \
+	../../keyboard/german.c \
 
 CFLAGS += \
 	-I ../../types \

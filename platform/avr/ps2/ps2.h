@@ -19,12 +19,4 @@
  */
 void ps2_init(void);
 
-/**
- * @brief This function must be implemented by the user and is called by the
- *        driver when a byte is received.
- *
- * @param byte The byte that was received from the PS/2 keyboard
- */
-void ps2_event(u8 byte);
-
 #endif /* __PS2_H__ */

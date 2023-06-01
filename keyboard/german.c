@@ -50,36 +50,36 @@ i32 key_to_codepoint(Key k)
 {
 	Key nomods = key_mod_remove(k);
 
-	if(nomods == KEY_TAB)                           { return '\t'; }
-	else if(nomods == KEY_BACKSPACE)                { return '\b'; }
-	else if(nomods == KEY_RETURN)                   { return '\n'; }
-	else if(nomods == KEY_SPACE)                    { return ' '; }
-	else if(k == (KEY_COMMA | MOD_SHIFT))           { return ';'; }
-	else if(k == (KEY_COMMA))                       { return ','; }
-	else if(k == (KEY_PERIOD | MOD_SHIFT))          { return ':'; }
-	else if(k == (KEY_PERIOD))                      { return '.'; }
-	else if(k == (KEY_SLASH | MOD_SHIFT))           { return '_'; }
-	else if(k == (KEY_SLASH))                       { return '-'; }
-	else if(k == (KEY_BACKSLASH | MOD_SHIFT))       { return '\''; }
-	else if(k == (KEY_BACKSLASH))                   { return '#'; }
-	else if(k == (KEY_RIGHTBRACKET | MOD_SHIFT))    { return '*'; }
-	else if(k == (KEY_RIGHTBRACKET | MOD_ALT_GR))   { return '~'; }
-	else if(k == (KEY_RIGHTBRACKET))                { return '+'; }
-	else if(k == (KEY_NONUSBACKSLASH | MOD_SHIFT))  { return '>'; }
-	else if(k == (KEY_NONUSBACKSLASH | MOD_ALT_GR)) { return '|'; }
-	else if(k == KEY_NONUSBACKSLASH)                { return '<'; }
-	else if(k == (KEY_MINUS | MOD_SHIFT))           { return '?'; }
-	else if(k == (KEY_MINUS | MOD_ALT_GR))          { return '\\'; }
-	else if(k == KEY_MINUS)                         { return UNICODE_SMALL_SHARP_S; }
-	else if(k == (KEY_EQUALS | MOD_SHIFT))          { return '`'; }
-	else if(k == (KEY_GRAVE | MOD_SHIFT))           { return UNICODE_DEGREE_SIGN; }
-	else if(k == KEY_GRAVE)                         { return '^'; }
-	else if(k == (KEY_APOSTROPHE | MOD_SHIFT))      { return UNICODE_CAPITAL_A_UMLAUT; }
-	else if(k == KEY_APOSTROPHE)                    { return UNICODE_SMALL_A_UMLAUT; }
-	else if(k == (KEY_SEMICOLON | MOD_SHIFT))       { return UNICODE_CAPITAL_O_UMLAUT; }
-	else if(k == KEY_SEMICOLON)                     { return UNICODE_SMALL_O_UMLAUT; }
-	else if(k == (KEY_LEFTBRACKET | MOD_SHIFT))     { return UNICODE_CAPITAL_U_UMLAUT; }
-	else if(k == KEY_LEFTBRACKET)                   { return UNICODE_SMALL_U_UMLAUT; }
+	if(nomods == KEY_TAB)                             { return '\t'; }
+	else if(nomods == KEY_BACKSPACE)                  { return '\b'; }
+	else if(nomods == KEY_RETURN)                     { return '\n'; }
+	else if(nomods == KEY_SPACE)                      { return ' '; }
+	else if(k == (KEY_COMMA | MOD_SHIFT))             { return ';'; }
+	else if(k == (KEY_COMMA))                         { return ','; }
+	else if(k == (KEY_PERIOD | MOD_SHIFT))            { return ':'; }
+	else if(k == (KEY_PERIOD))                        { return '.'; }
+	else if(k == (KEY_SLASH | MOD_SHIFT))             { return '_'; }
+	else if(k == (KEY_SLASH))                         { return '-'; }
+	else if(k == (KEY_BACKSLASH | MOD_SHIFT))         { return '\''; }
+	else if(k == (KEY_BACKSLASH))                     { return '#'; }
+	else if(k == (KEY_R_BRACKET | MOD_SHIFT))         { return '*'; }
+	else if(k == (KEY_R_BRACKET | MOD_ALT_GR))        { return '~'; }
+	else if(k == (KEY_R_BRACKET))                     { return '+'; }
+	else if(k == (KEY_NON_US_BACKSLASH | MOD_SHIFT))  { return '>'; }
+	else if(k == (KEY_NON_US_BACKSLASH | MOD_ALT_GR)) { return '|'; }
+	else if(k == KEY_NON_US_BACKSLASH)                { return '<'; }
+	else if(k == (KEY_MINUS | MOD_SHIFT))             { return '?'; }
+	else if(k == (KEY_MINUS | MOD_ALT_GR))            { return '\\'; }
+	else if(k == KEY_MINUS)                           { return UNICODE_SMALL_SHARP_S; }
+	else if(k == (KEY_EQUALS | MOD_SHIFT))            { return '`'; }
+	else if(k == (KEY_GRAVE | MOD_SHIFT))             { return UNICODE_DEGREE_SIGN; }
+	else if(k == KEY_GRAVE)                           { return '^'; }
+	else if(k == (KEY_APOSTROPHE | MOD_SHIFT))        { return UNICODE_CAPITAL_A_UMLAUT; }
+	else if(k == KEY_APOSTROPHE)                      { return UNICODE_SMALL_A_UMLAUT; }
+	else if(k == (KEY_SEMICOLON | MOD_SHIFT))         { return UNICODE_CAPITAL_O_UMLAUT; }
+	else if(k == KEY_SEMICOLON)                       { return UNICODE_SMALL_O_UMLAUT; }
+	else if(k == (KEY_L_BRACKET | MOD_SHIFT))         { return UNICODE_CAPITAL_U_UMLAUT; }
+	else if(k == KEY_L_BRACKET)                       { return UNICODE_SMALL_U_UMLAUT; }
 	else if(nomods >= KEY_A && nomods <= KEY_Z)
 	{
 		i32 c = nomods - KEY_A + 'a';

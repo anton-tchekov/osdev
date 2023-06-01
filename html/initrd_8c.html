@@ -98,7 +98,7 @@ Macros</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:afb664c3988d855629cd7b611cf610561"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="initrd_8c.html#afb664c3988d855629cd7b611cf610561">initrd_load</a> (void)</td></tr>
-<tr class="memdesc:afb664c3988d855629cd7b611cf610561"><td class="mdescLeft">&#160;</td><td class="mdescRight">Load the INIT program and Standard Shared Library from special area on disk. The full featured filesystem driver is in userspace.  <br /></td></tr>
+<tr class="memdesc:afb664c3988d855629cd7b611cf610561"><td class="mdescLeft">&#160;</td><td class="mdescRight">Load the INIT program from special area on disk. The fully featured filesystem driver is in userspace.  <br /></td></tr>
 <tr class="separator:afb664c3988d855629cd7b611cf610561"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -142,7 +142,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Load the INIT program and Standard Shared Library from special area on disk. The full featured filesystem driver is in userspace. </p>
+<p>Load the INIT program from special area on disk. The fully featured filesystem driver is in userspace. </p>
 
 <p class="definition">Definition at line <a class="el" href="initrd_8c_source.html#l00020">20</a> of file <a class="el" href="initrd_8c_source.html">initrd.c</a>.</p>
 <div class="fragment"><div class="line"><span class="lineno">   21</span>{</div>
@@ -150,7 +150,7 @@ Functions</h2></td></tr>
 <div class="line"><span class="lineno">   23</span>    <a class="code hl_typedef" href="types_8h.html#ace9d960e74685e2cd84b36132dbbf8aa">u16</a> block, num_sectors;</div>
 <div class="line"><span class="lineno">   24</span>    <a class="code hl_typedef" href="types_8h.html#afaa62991928fb9fb18ff0db62a040aba">u32</a> addr, revision, size_init;</div>
 <div class="line"><span class="lineno">   25</span> </div>
-<div class="line"><span class="lineno">   26</span>    <a class="code hl_function" href="logger_8c.html#a60bd636ef160c97eb51cf31be5954ba2">log_boot_P</a>(LOG_INIT, PSTR(<span class="stringliteral">&quot;Loading Init Binary&quot;</span>));</div>
+<div class="line"><span class="lineno">   26</span>    <a class="code hl_function" href="logger_8c.html#a60bd636ef160c97eb51cf31be5954ba2">log_boot_P</a>(LOG_INIT, PSTR(<span class="stringliteral">&quot;Loading INIT Binary&quot;</span>));</div>
 <div class="line"><span class="lineno">   27</span>    <a class="code hl_function" href="sd_8c.html#a3f0c63e822010bb899b9e13d73a685dd">sd_read</a>(<a class="code hl_define" href="atfs_8h.html#abef1527b5f0917d3ca73ac7a60435ae3">ATFS_SECTOR_BOOT</a>, buf);</div>
 <div class="line"><span class="lineno">   28</span> </div>
 <div class="line"><span class="lineno">   29</span>    <span class="comment">/* Check signature */</span></div>
@@ -182,7 +182,7 @@ Functions</h2></td></tr>
 <div class="line"><span class="lineno">   55</span>    {</div>
 <div class="line"><span class="lineno">   56</span>        <span class="keywordflow">if</span>(<a class="code hl_function" href="sd_8c.html#a3f0c63e822010bb899b9e13d73a685dd">sd_read</a>(block, buf))</div>
 <div class="line"><span class="lineno">   57</span>        {</div>
-<div class="line"><span class="lineno">   58</span>            <a class="code hl_function" href="logger_8c.html#a19a313011d8f478ad9799e546199a9ac">panic</a>(PSTR(<span class="stringliteral">&quot;Loading InitRD failed&quot;</span>));</div>
+<div class="line"><span class="lineno">   58</span>            <a class="code hl_function" href="logger_8c.html#a19a313011d8f478ad9799e546199a9ac">panic</a>(PSTR(<span class="stringliteral">&quot;Loading INIT failed&quot;</span>));</div>
 <div class="line"><span class="lineno">   59</span>        }</div>
 <div class="line"><span class="lineno">   60</span> </div>
 <div class="line"><span class="lineno">   61</span>        <a class="code hl_function" href="xmem_8c.html#afef9c92490450d98f177f53f2b174f20">xmem_write</a>(addr, buf, <a class="code hl_define" href="apps_2tetris_2main_8c.html#ad51ded0bbd705f02f73fc60c0b721ced">BLOCK_SIZE</a>);</div>

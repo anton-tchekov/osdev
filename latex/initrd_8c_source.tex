@@ -20,7 +20,7 @@
 \DoxyCodeLine{\Hypertarget{initrd_8c_source_l00023}00023\ \ \ \ \ \mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}}\ block,\ num\_sectors;}
 \DoxyCodeLine{\Hypertarget{initrd_8c_source_l00024}00024\ \ \ \ \ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ addr,\ revision,\ size\_init;}
 \DoxyCodeLine{\Hypertarget{initrd_8c_source_l00025}00025\ }
-\DoxyCodeLine{\Hypertarget{initrd_8c_source_l00026}00026\ \ \ \ \ \mbox{\hyperlink{logger_8c_a60bd636ef160c97eb51cf31be5954ba2}{log\_boot\_P}}(LOG\_INIT,\ PSTR(\textcolor{stringliteral}{"{}Loading\ Init\ Binary"{}}));}
+\DoxyCodeLine{\Hypertarget{initrd_8c_source_l00026}00026\ \ \ \ \ \mbox{\hyperlink{logger_8c_a60bd636ef160c97eb51cf31be5954ba2}{log\_boot\_P}}(LOG\_INIT,\ PSTR(\textcolor{stringliteral}{"{}Loading\ INIT\ Binary"{}}));}
 \DoxyCodeLine{\Hypertarget{initrd_8c_source_l00027}00027\ \ \ \ \ \mbox{\hyperlink{sd_8c_a3f0c63e822010bb899b9e13d73a685dd}{sd\_read}}(\mbox{\hyperlink{atfs_8h_abef1527b5f0917d3ca73ac7a60435ae3}{ATFS\_SECTOR\_BOOT}},\ buf);}
 \DoxyCodeLine{\Hypertarget{initrd_8c_source_l00028}00028\ }
 \DoxyCodeLine{\Hypertarget{initrd_8c_source_l00029}00029\ \ \ \ \ \textcolor{comment}{/*\ Check\ signature\ */}}
@@ -52,7 +52,7 @@
 \DoxyCodeLine{\Hypertarget{initrd_8c_source_l00055}00055\ \ \ \ \ \{}
 \DoxyCodeLine{\Hypertarget{initrd_8c_source_l00056}00056\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{sd_8c_a3f0c63e822010bb899b9e13d73a685dd}{sd\_read}}(block,\ buf))}
 \DoxyCodeLine{\Hypertarget{initrd_8c_source_l00057}00057\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{initrd_8c_source_l00058}00058\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{logger_8c_a19a313011d8f478ad9799e546199a9ac}{panic}}(PSTR(\textcolor{stringliteral}{"{}Loading\ InitRD\ failed"{}}));}
+\DoxyCodeLine{\Hypertarget{initrd_8c_source_l00058}00058\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{logger_8c_a19a313011d8f478ad9799e546199a9ac}{panic}}(PSTR(\textcolor{stringliteral}{"{}Loading\ INIT\ failed"{}}));}
 \DoxyCodeLine{\Hypertarget{initrd_8c_source_l00059}00059\ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{\Hypertarget{initrd_8c_source_l00060}00060\ }
 \DoxyCodeLine{\Hypertarget{initrd_8c_source_l00061}00061\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{xmem_8c_afef9c92490450d98f177f53f2b174f20}{xmem\_write}}(addr,\ buf,\ \mbox{\hyperlink{apps_2tetris_2main_8c_ad51ded0bbd705f02f73fc60c0b721ced}{BLOCK\_SIZE}});}

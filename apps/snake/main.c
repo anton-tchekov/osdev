@@ -3,7 +3,7 @@
  * @author  Anton Tchekov
  * @version 0.1
  * @date    24.05.2023
- * @brief   Tetris game for the OS
+ * @brief   Snake game for the OS
  */
 
 #include <std.h>

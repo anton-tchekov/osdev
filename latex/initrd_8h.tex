@@ -2,18 +2,18 @@
 \label{initrd_8h}\index{platform/avr/initrd/initrd.h@{platform/avr/initrd/initrd.h}}
 
 
-Load INIT program and STDLIB from reserved area on disk. This module contains a very rudimentary ATFS driver to do that. It is kind of a hack to avoid a chicken-\/egg problem because we want the filesystem driver to be in userspace but we can\textquotesingle{}t load the FS driver without already having an FS driver.  
+Load INIT program from reserved area on disk. This module contains a very rudimentary ATFS driver to do that. It is kind of a hack to avoid a chicken-\/egg problem because we want the filesystem driver to be in userspace but we can\textquotesingle{}t load the FS driver without already having an FS driver.  
 
 
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
 void \mbox{\hyperlink{initrd_8h_afb664c3988d855629cd7b611cf610561}{initrd\+\_\+load}} (void)
-\begin{DoxyCompactList}\small\item\em Load the INIT program and Standard Shared Library from special area on disk. The full featured filesystem driver is in userspace. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Load the INIT program from special area on disk. The fully featured filesystem driver is in userspace. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
-Load INIT program and STDLIB from reserved area on disk. This module contains a very rudimentary ATFS driver to do that. It is kind of a hack to avoid a chicken-\/egg problem because we want the filesystem driver to be in userspace but we can\textquotesingle{}t load the FS driver without already having an FS driver. 
+Load INIT program from reserved area on disk. This module contains a very rudimentary ATFS driver to do that. It is kind of a hack to avoid a chicken-\/egg problem because we want the filesystem driver to be in userspace but we can\textquotesingle{}t load the FS driver without already having an FS driver. 
 
 \begin{DoxyAuthor}{Author}
 Anton Tchekov 
@@ -39,7 +39,7 @@ Definition in file \mbox{\hyperlink{initrd_8h_source}{initrd.\+h}}.
 
 
 
-Load the INIT program and Standard Shared Library from special area on disk. The full featured filesystem driver is in userspace. 
+Load the INIT program from special area on disk. The fully featured filesystem driver is in userspace. 
 
 
 
@@ -52,7 +52,7 @@ Definition at line \mbox{\hyperlink{initrd_8c_source_l00020}{20}} of file \mbox{
 \DoxyCodeLine{00023\ \ \ \ \ \mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}}\ block,\ num\_sectors;}
 \DoxyCodeLine{00024\ \ \ \ \ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ addr,\ revision,\ size\_init;}
 \DoxyCodeLine{00025\ }
-\DoxyCodeLine{00026\ \ \ \ \ \mbox{\hyperlink{logger_8c_a60bd636ef160c97eb51cf31be5954ba2}{log\_boot\_P}}(LOG\_INIT,\ PSTR(\textcolor{stringliteral}{"{}Loading\ Init\ Binary"{}}));}
+\DoxyCodeLine{00026\ \ \ \ \ \mbox{\hyperlink{logger_8c_a60bd636ef160c97eb51cf31be5954ba2}{log\_boot\_P}}(LOG\_INIT,\ PSTR(\textcolor{stringliteral}{"{}Loading\ INIT\ Binary"{}}));}
 \DoxyCodeLine{00027\ \ \ \ \ \mbox{\hyperlink{sd_8c_a3f0c63e822010bb899b9e13d73a685dd}{sd\_read}}(\mbox{\hyperlink{atfs_8h_abef1527b5f0917d3ca73ac7a60435ae3}{ATFS\_SECTOR\_BOOT}},\ buf);}
 \DoxyCodeLine{00028\ }
 \DoxyCodeLine{00029\ \ \ \ \ \textcolor{comment}{/*\ Check\ signature\ */}}
@@ -84,7 +84,7 @@ Definition at line \mbox{\hyperlink{initrd_8c_source_l00020}{20}} of file \mbox{
 \DoxyCodeLine{00055\ \ \ \ \ \{}
 \DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{sd_8c_a3f0c63e822010bb899b9e13d73a685dd}{sd\_read}}(block,\ buf))}
 \DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{logger_8c_a19a313011d8f478ad9799e546199a9ac}{panic}}(PSTR(\textcolor{stringliteral}{"{}Loading\ InitRD\ failed"{}}));}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{logger_8c_a19a313011d8f478ad9799e546199a9ac}{panic}}(PSTR(\textcolor{stringliteral}{"{}Loading\ INIT\ failed"{}}));}
 \DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{00060\ }
 \DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{xmem_8c_afef9c92490450d98f177f53f2b174f20}{xmem\_write}}(addr,\ buf,\ \mbox{\hyperlink{apps_2tetris_2main_8c_ad51ded0bbd705f02f73fc60c0b721ced}{BLOCK\_SIZE}});}
