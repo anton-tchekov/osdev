@@ -86,6 +86,25 @@
 #define PS2_ESCAPE        0x76
 #define PS2_TAB           0x0D
 #define PS2_SPACE         0x29
+#define PS2_BACKSPACE     0x66
+#define PS2_CAPSLOCK      0x58
+#define PS2_RETURN        0x5A
+
+#define PS2_L_BRACKET        0x54
+#define PS2_R_BRACKET        0x5B
+#define PS2_R_SHIFT          0x59
+
+#define KEY_MINUS            0x
+#define KEY_EQUALS           0x
+#define KEY_BACKSLASH        0x
+#define KEY_SEMICOLON        0x
+#define KEY_APOSTROPHE       0x
+#define KEY_GRAVE            0x
+#define KEY_COMMA            0x
+#define KEY_PERIOD           0x
+#define KEY_SLASH            0x
+#define KEY_NON_US_BACKSLASH 0x
+
 #define PS2_COMMA         0x41
 #define PS2_BACKTICK      0x0E
 #define PS2_PERIOD        0x49
@@ -93,14 +112,8 @@
 #define PS2_SEMICOLON     0x4C
 #define PS2_MINUS         0x4E
 #define PS2_APOSTROPHE    0x52
-#define PS2_L_BRACKET     0x54
 #define PS2_EQUAL         0x55
-#define PS2_CAPSLOCK      0x58
-#define PS2_R_SHIFT       0x59
-#define PS2_RETURN        0x5A
-#define PS2_R_BRACKET     0x5B
 #define PS2_BACKSLASH     0x5D
-#define PS2_BACKSPACE     0x66
 
 /* --- Keypad --- */
 #define PS2_KP_0          0x70
@@ -294,6 +307,11 @@ static void ps2_event(u8 byte)
 			case PS2_ESCAPE:      key = KEY_ESCAPE;      break;
 			case PS2_TAB:         key = KEY_TAB;         break;
 			case PS2_SPACE:       key = KEY_SPACE;       break;
+			case PS2_BACKSPACE:   key = KEY_BACKSPACE;   break;
+			case PS2_CAPSLOCK:    key = KEY_CAPSLOCK;    break;
+			case PS2_RETURN:      key = KEY_RETURN;      break;
+
+
 			case PS2_COMMA:       key = KEY_COMMA;       break;
 			//case PS2_BACKTICK:    key = KEY_BACKTICK;    break;
 			case PS2_PERIOD:      key = KEY_PERIOD;      break;
@@ -303,12 +321,9 @@ static void ps2_event(u8 byte)
 			case PS2_APOSTROPHE:  key = KEY_APOSTROPHE;  break;
 			case PS2_L_BRACKET:   key = KEY_L_BRACKET;   break;
 			//case PS2_EQUAL:       key = KEY_EQUAL;       break;
-			case PS2_CAPSLOCK:    key = KEY_CAPSLOCK;    break;
 			case PS2_R_SHIFT:     key = KEY_R_SHIFT;     break;
-			case PS2_RETURN:      key = KEY_RETURN;      break;
 			case PS2_R_BRACKET:   key = KEY_R_BRACKET;   break;
 			case PS2_BACKSLASH:   key = KEY_BACKSLASH;   break;
-			case PS2_BACKSPACE:   key = KEY_BACKSPACE;   break;
 		}
 	}
 

@@ -12,7 +12,9 @@ static const char *_status_strs[] =
 {
 	"Ok",
 	"Unknown error",
-	"Timeout"
+	"Timeout",
+	"Out of bounds access",
+	"No such file or directory",
 };
 
 const char *status_str(Status code)

@@ -5,11 +5,6 @@
  * @date    29.05.2023
  * @brief   ATFS File System (ATFS = Amazing Technology File System)
  *
- * - Files cannot be deleted or edited after creation, and each
- *   time a file is written, a copy with a incremented version
- *   number is created. Space allocation is super simple, just
- *   increment a pointer.
- *
  * - All integers are stored as little endian
  * - All files are contiguous
  * - Filename separator is a dot '.' not slash '/'
@@ -34,20 +29,14 @@
 /** Boot sector size */
 #define ATFS_SIZE_BOOT              1
 
-/** Start sector of stdlib area */
-#define ATFS_SECTOR_STDLIB           ATFS_SIZE_BOOT
-
-/** Size of stdlib area (64 KiB) */
-#define ATFS_SIZE_STDLIB          128
-
 /** Start sector of init area */
-#define ATFS_SECTOR_INIT             (ATFS_SIZE_BOOT + ATFS_SIZE_STDLIB)
+#define ATFS_SECTOR_INIT             ATFS_SIZE_BOOT
 
 /** Size of init area (64 KiB) */
 #define ATFS_SIZE_INIT            128
 
 /** Sector offset of root directory */
-#define ATFS_SECTOR_ROOT             (ATFS_SIZE_BOOT + ATFS_SIZE_STDLIB + ATFS_SIZE_INIT)
+#define ATFS_SECTOR_ROOT             (ATFS_SIZE_BOOT + ATFS_SIZE_INIT)
 
 /** Current FS Revision */
 #define ATFS_REVISION               0
@@ -65,6 +54,14 @@
 
 /** Offset of write pointer for versioning */
 #define ATFS_OFFSET_WRITE_POINTER  12
+
+/* --- Directory entries --- */
+
+/** Size of a directory entry in bytes */
+#define ATFS_DIR_ENTRY_SIZE        64
+
+/** Maximum length of a file name */
+#define ATFS_MAX_FILE_NAME_LENGTH  54
 
 /** FS Signature (bytes 0-4) */
 static const u8 _atfs_signature[] = { 'A', 'T', 'F', 'S' };
@@ -89,14 +86,15 @@ static void write_le_32(u8 *buf, u32 val)
  * @brief Load a 32-bit little endian value from a buffer
  *
  * @param buf Buffer to read little endian value from
- * @return 32-bit rtsult
+ * @return 32-bit result
  */
 static u32 load_le_32(u8 *buf)
 {
+	/* The cast is important for systems with small integer size */
 	return (u32)(buf[0]) |
-		((u32)(buf[1]) << 8UL) |
-		((u32)(buf[2]) << 16UL) |
-		((u32)(buf[3]) << 24UL);
+		((u32)(buf[1]) << 8) |
+		((u32)(buf[2]) << 16) |
+		((u32)(buf[3]) << 24);
 }
 
 #endif /* __ATFS_H__ */
