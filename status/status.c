@@ -15,6 +15,8 @@ static const char *_status_strs[] =
 	"Timeout",
 	"Out of bounds access",
 	"No such file or directory",
+	"Invalid path format",
+	"No space left on device",
 };
 
 const char *status_str(Status code)

@@ -4,6 +4,7 @@
  * @version 0.1
  * @date    23.04.2023
  * @brief   File system access
+ *          TODO: Support for mounting multiple drives will be added later
  */
 
 #ifndef __FS_H__
@@ -11,6 +12,7 @@
 
 #include <status.h>
 #include <types.h>
+#include <atfs.h>
 
 /** File Handle */
 typedef struct
@@ -85,6 +87,13 @@ char *path_parent(char *path);
 bool path_valid(const char *path);
 
 /**
+ * @brief Initialize file system
+ *
+ * @return Status
+ */
+Status fs_mount(void);
+
+/**
  * @brief Create a file. If the file already exists, it is resized to
  *        the specified size. When a file is resized, all file handles to it
  *        are invalidated and need to be reopened.
@@ -126,12 +135,12 @@ Status fs_fread(File *file, u32 block, void *buf);
 Status fs_fwrite(File *file, u32 block, const void *buf);
 
 /**
- * @brief Delete a file. This function does NOT work for directories.
+ * @brief Recursively delete a files and directories
  *
  * @param path Path to file
  * @return Status
  */
-Status fs_fdelete(const char *path);
+Status fs_delete(const char *path);
 
 /**
  * @brief Move or rename a file or a directory.
@@ -140,7 +149,16 @@ Status fs_fdelete(const char *path);
  * @param src Source path
  * @return Status
  */
-Status fs_frename(const char *dest, const char *src);
+Status fs_rename(const char *dest, const char *src);
+
+/**
+ * @brief Recursively copy files and directories.
+ *
+ * @param dest Destination path
+ * @param src Source path
+ * @return Status
+ */
+Status fs_copy(const char *dest, const char *src);
 
 /**
  * @brief Open a directory

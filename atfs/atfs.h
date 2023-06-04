@@ -29,15 +29,6 @@
 /** Boot sector size */
 #define ATFS_SIZE_BOOT              1
 
-/** Start sector of init area */
-#define ATFS_SECTOR_INIT             ATFS_SIZE_BOOT
-
-/** Size of init area (64 KiB) */
-#define ATFS_SIZE_INIT            128
-
-/** Sector offset of root directory */
-#define ATFS_SECTOR_ROOT             (ATFS_SIZE_BOOT + ATFS_SIZE_INIT)
-
 /** Current FS Revision */
 #define ATFS_REVISION               0
 
@@ -49,11 +40,22 @@
 /** Offset of revision in ATFS bootsector */
 #define ATFS_OFFSET_REVISION        4
 
-/** Offset of init program size in ATFS bootsector */
-#define ATFS_OFFSET_INIT_SIZE       8
+/** Offset of init block address in ATFS bootsector */
+#define ATFS_OFFSET_INIT_BLOCK      8
 
-/** Offset of write pointer for versioning */
-#define ATFS_OFFSET_WRITE_POINTER  12
+/** Offset of init program size in ATFS bootsector */
+#define ATFS_OFFSET_INIT_SIZE      12
+
+/** Offset of root block address in ATFS bootsector */
+#define ATFS_OFFSET_ROOT_BLOCK     16
+
+/* --- Directories --- */
+
+/** Byte offset for number of directory entries field */
+#define ATFS_DIR_OFFSET_NUM_ENTRIES 0
+
+/** Character used to separate directories in a path */
+#define ATFS_DIR_SEPARATOR           '.'
 
 /* --- Directory entries --- */
 
@@ -62,6 +64,25 @@
 
 /** Maximum length of a file name */
 #define ATFS_MAX_FILE_NAME_LENGTH  54
+
+/** Byte offset of the starting block */
+#define ATFS_DIR_ENTRY_OFFSET_START 0
+
+/** Byte offset of the size in blocks */
+#define ATFS_DIR_ENTRY_OFFSET_SIZE  4
+
+/** Byte offset of the entry name */
+#define ATFS_DIR_ENTRY_OFFSET_NAME  8
+
+/** Byte offset of the entry type */
+#define ATFS_DIR_ENTRY_OFFSET_TYPE 63
+
+/* --- Free List --- */
+/** Byte offset of the Pointer to the next free area */
+#define ATFS_FREE_OFFSET_NEXT     504
+
+/** Byte offset of the Size of the current free area in blocks */
+#define ATFS_FREE_OFFSET_SIZE     508
 
 /** FS Signature (bytes 0-4) */
 static const u8 _atfs_signature[] = { 'A', 'T', 'F', 'S' };

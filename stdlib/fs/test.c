@@ -12,6 +12,22 @@ static char buf[512];
 #define TEST_PATH_PARENT(str) printf("path_parent(\"%s\") = \"%s\"\n", str, path_parent(strdup(str)))
 #define TEST_PATH_JOIN(str, append) printf("path_join(\"%s\", \"%s\") = \"%s\"\n", str, append, path_join(strcpy(buf, str), append))
 
+Status cmd_ls(const char *path)
+{
+	u32 i;
+	Dir dir;
+	DirEntry entry;
+
+	RETURN_IF(fs_dopen(path, &dir));
+	for(i = 0; i < dir.NumEntries; ++i)
+	{
+		RETURN_IF(fs_dread(&dir, i, &entry));
+		printf("%s\n", entry.Name);
+	}
+
+	return STATUS_OK;
+}
+
 int main(void)
 {
 	TEST_PATH_VALID("home.files.studium.gs.its_board.a2_drehgeber.main");
@@ -38,6 +54,8 @@ int main(void)
 
 	TEST_PATH_JOIN("home.files.images", "vacation");
 	TEST_PATH_JOIN("sys", "init");
+
+	cmd_ls("");
 
 	return 0;
 }
