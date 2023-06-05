@@ -49,6 +49,9 @@
 /** Offset of root block address in ATFS bootsector */
 #define ATFS_OFFSET_ROOT_BLOCK     16
 
+/** Offset of root block size in ATFS bootsector */
+#define ATFS_OFFSET_ROOT_SIZE      20
+
 /* --- Directories --- */
 
 /** Byte offset for number of directory entries field */

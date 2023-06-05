@@ -104,13 +104,13 @@ void memalloc_init(ptr heap_start, i32 size)
 void *memalloc(u32 size)
 {
 	ChunkHeader *cur, *prev;
-	if (size == 0)
+	if(size == 0)
 	{
 		return NULL;
 	}
 
 	/* Minimum allocation size */
-	if (size < MIN_ALLOC)
+	if(size < MIN_ALLOC)
 	{
 		size = MIN_ALLOC;
 	}
@@ -122,10 +122,10 @@ void *memalloc(u32 size)
 	_info.Total += size + sizeof(ChunkHeader);
 
 	/* Find free chunk */
-	for (prev = &_first, cur = _get_next(prev->Next);
-		 cur; prev = cur, cur = _get_next(cur->Next))
+	for(prev = &_first, cur = _get_next(prev->Next);
+		cur; prev = cur, cur = _get_next(cur->Next))
 	{
-		if (size + sizeof(ChunkHeader) == cur->Size)
+		if(size + sizeof(ChunkHeader) == cur->Size)
 		{
 			/* --- Perfect fit --- */
 			/* Remove chunk from free list */
@@ -134,7 +134,7 @@ void *memalloc(u32 size)
 			/* Return pointer to data area */
 			return _chunk_data(cur);
 		}
-		else if (size + 2 * sizeof(ChunkHeader) < cur->Size)
+		else if(size + 2 * sizeof(ChunkHeader) < cur->Size)
 		{
 			/* --- First fit --- */
 			/* Split chunk in two */
@@ -166,27 +166,27 @@ void memfree(void *p)
 	_info.Used -= header->Size - sizeof(ChunkHeader);
 	_info.Total -= header->Size;
 
-	for (prev = &_first, next = _get_next(prev->Next);
-		 next; prev = next, next = _get_next(next->Next))
+	for(prev = &_first, next = _get_next(prev->Next);
+		next; prev = next, next = _get_next(next->Next))
 	{
-		if (next > header)
+		if(next > header)
 		{
 			/* Merge chunks if possible */
 			bool mergePrev = ((ptr)prev + prev->Size == (ptr)header);
 			bool mergeNext = ((ptr)header + header->Size == (ptr)next);
 
-			if (mergeNext && mergePrev)
+			if(mergeNext && mergePrev)
 			{
 				/* Both Prev and Next are free */
 				prev->Next = next->Next;
 				prev->Size += header->Size + next->Size;
 			}
-			else if (mergePrev)
+			else if(mergePrev)
 			{
 				/* Prev is free */
 				prev->Size += header->Size;
 			}
-			else if (mergeNext)
+			else if(mergeNext)
 			{
 				/* Next is free */
 				header->Size += next->Size;

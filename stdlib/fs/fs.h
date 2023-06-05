@@ -87,11 +87,9 @@ char *path_parent(char *path);
 bool path_valid(const char *path);
 
 /**
- * @brief Initialize file system
- *
- * @return Status
+ * @brief Format disk with ATFS
  */
-Status fs_mount(void);
+Status fs_format(void);
 
 /**
  * @brief Create a file. If the file already exists, it is resized to

@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include <ctype.h>
 #include <string.h>
+#include <status.h>
 
 static char buf[512];
 
@@ -19,6 +20,10 @@ Status cmd_ls(const char *path)
 	DirEntry entry;
 
 	RETURN_IF(fs_dopen(path, &dir));
+	printf("Number of Entries: %d\n", dir.NumEntries);
+
+	exit(1);
+
 	for(i = 0; i < dir.NumEntries; ++i)
 	{
 		RETURN_IF(fs_dread(&dir, i, &entry));
@@ -45,17 +50,25 @@ int main(void)
 	TEST_PATH_VALID("home.#hashtag");
 	TEST_PATH_VALID("");
 
-	printf("\n\n\n");
+	printf("\n\n");
 
 	TEST_PATH_PARENT("home.files.images");
 	TEST_PATH_PARENT("home");
 
-	printf("\n\n\n");
+	printf("\n\n");
 
 	TEST_PATH_JOIN("home.files.images", "vacation");
 	TEST_PATH_JOIN("sys", "init");
 
-	cmd_ls("");
+	printf("\n\n");
+
+	printf("fs_format() = %s\n", status_str(fs_format()));
+
+	printf("\n\n");
+
+	printf("cmd_ls(\"\") = %s\n", status_str(cmd_ls("")));
+
+	printf("\n\n");
 
 	return 0;
 }
