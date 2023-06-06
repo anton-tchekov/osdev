@@ -55,19 +55,17 @@ int main(int argc, char **argv)
 	memset(buf, 0, ATFS_BLOCK_SIZE);
 	memcpy(buf + ATFS_OFFSET_SIGNATURE, _atfs_signature, sizeof(_atfs_signature));
 	write_le_32(buf + ATFS_OFFSET_REVISION, ATFS_REVISION);
+	write_le_32(buf + ATFS_OFFSET_INIT_BLOCK, 1);
 	write_le_32(buf + ATFS_OFFSET_INIT_SIZE, size);
 	fwrite(buf, 1, ATFS_BLOCK_SIZE, out);
 
 	/* Write init program */
-	for(i = 0; i < ATFS_SIZE_INIT; ++i)
+	for(i = 0; i < (size + ATFS_BLOCK_SIZE - 1) / ATFS_BLOCK_SIZE; ++i)
 	{
 		memset(buf, 0, ATFS_BLOCK_SIZE);
 		fread(buf, 1, ATFS_BLOCK_SIZE, in);
 		fwrite(buf, 1, ATFS_BLOCK_SIZE, out);
 	}
 
-	/* Temporary end marker 0xFF in root dir sector */
-	memset(buf, 0xFF, ATFS_BLOCK_SIZE);
-	fwrite(buf, 1, ATFS_BLOCK_SIZE, out);
 	return 0;
 }

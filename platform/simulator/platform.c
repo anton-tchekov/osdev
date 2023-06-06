@@ -252,7 +252,7 @@ static u32 _rgb565_to_bgra(u16 color)
 	return gfx_color(r, g, b);
 }
 
-void env_gfx_rect(i32 x, i32 y, i32 w, i32 h, u32 color)
+void env_gfx_rect(u16 x, u16 y, u16 w, u16 h, u32 color)
 {
 	i32 x0, y0;
 
@@ -266,7 +266,7 @@ void env_gfx_rect(i32 x, i32 y, i32 w, i32 h, u32 color)
 	}
 }
 
-void env_gfx_image_rgba(i32 x, i32 y, i32 w, i32 h, u32 addr)
+void env_gfx_image_rgba(u16 x, u16 y, u16 w, u16 h, u32 addr)
 {
 	i32 x0, y0;
 	u32 *image;
@@ -281,7 +281,7 @@ void env_gfx_image_rgba(i32 x, i32 y, i32 w, i32 h, u32 addr)
 	}
 }
 
-void env_gfx_image_rgb(i32 x, i32 y, i32 w, i32 h, u32 addr)
+void env_gfx_image_rgb(u16 x, u16 y, u16 w, u16 h, u32 addr)
 {
 	u8 r, g, b;
 	i32 x0, y0;
@@ -300,7 +300,7 @@ void env_gfx_image_rgb(i32 x, i32 y, i32 w, i32 h, u32 addr)
 	}
 }
 
-void env_gfx_image_rgb565(i32 x, i32 y, i32 w, i32 h, u32 addr)
+void env_gfx_image_rgb565(u16 x, u16 y, u16 w, u16 h, u32 addr)
 {
 	i32 x0, y0;
 	u16 *image;
@@ -316,7 +316,7 @@ void env_gfx_image_rgb565(i32 x, i32 y, i32 w, i32 h, u32 addr)
 }
 
 void env_gfx_image_grayscale(
-	i32 x, i32 y, i32 w, i32 h, u32 addr, u32 fg, u32 bg)
+	u16 x, u16 y, u16 w, u16 h, u32 addr, u32 fg, u32 bg)
 {
 	i32 x0, y0;
 	u8 *image;
@@ -333,7 +333,7 @@ void env_gfx_image_grayscale(
 }
 
 void env_gfx_image_1bit(
-	i32 x, i32 y, i32 w, i32 h, u32 addr, u32 fg, u32 bg)
+	u16 x, u16 y, u16 w, u16 h, u32 addr, u32 fg, u32 bg)
 {
 	u8 byte, stride;
 	i32 x0, y0, byte_offset, bit_mask;

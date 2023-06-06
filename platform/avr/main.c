@@ -96,7 +96,7 @@ int main(void)
  * @param byte Value from 0-15
  * @return '0'-'9' / 'A'-'F'
  */
-char byte_to_hex(u8 byte)
+static char byte_to_hex(u8 byte)
 {
 	if(byte < 10)
 	{
@@ -104,13 +104,4 @@ char byte_to_hex(u8 byte)
 	}
 
 	return byte - 10 + 'A';
-}
-
-void ps2_event(u8 byte)
-{
-	/* Called when a byte is received from the keyboard */
-	/* serial_tx('0'); */
-	/* serial_tx('x'); */
-	/* serial_tx(byte_to_hex((byte >> 4) & 0x0F)); */
-	/* serial_tx(byte_to_hex(byte & 0x0F)); */
 }

@@ -4,7 +4,6 @@
  * @version 0.1
  * @date    23.04.2023
  * @brief   File system access
- *          TODO: Support for mounting multiple drives will be added later
  */
 
 #ifndef __FS_H__
@@ -87,9 +86,27 @@ char *path_parent(char *path);
 bool path_valid(const char *path);
 
 /**
- * @brief Format disk with ATFS
+ * @brief Check if a identifier is valid.
+ *
+ * @param ident The identifier to check
+ * @return true if valid, else false
  */
-Status fs_format(void);
+bool identifier_valid(const char *path);
+
+/**
+ * @brief Format disk with ATFS
+ *
+ * @param disk Drive number
+ */
+Status fs_format(u32 disk);
+
+/**
+ * @brief Mount disk with ATFS
+ *
+ * @param disk Drive number
+ * @param ident Identifier
+ */
+Status fs_mount(u32 disk, const char *ident);
 
 /**
  * @brief Create a file. If the file already exists, it is resized to

@@ -12,6 +12,9 @@
 
 #include <types.h>
 
+/** String of all whitespace characters */
+#define WHITESPACE " \n\t\v\f\r"
+
 /**
  * @brief This function checks whether the passed character is alphanumeric.
  *

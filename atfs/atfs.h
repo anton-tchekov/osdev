@@ -30,7 +30,7 @@
 #define ATFS_SIZE_BOOT              1
 
 /** Current FS Revision */
-#define ATFS_REVISION               0
+#define ATFS_REVISION               1
 
 /* --- Boot sector byte offsets --- */
 

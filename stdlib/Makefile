@@ -6,7 +6,6 @@ INCLUDE=\
 	-I $(PREFIX)/event/ \
 	-I $(PREFIX)/font/ \
 	-I $(PREFIX)/format/ \
-	-I $(PREFIX)/fs/ \
 	-I $(PREFIX)/gfx/ \
 	-I $(PREFIX)/gui/ \
 	-I $(PREFIX)/keyboard/ \
@@ -26,6 +25,8 @@ INCLUDE=\
 	-I $(PREFIX)/../gfx-types/ \
 	-I $(PREFIX)/../event-types/ \
 
+# -I $(PREFIX)/fs/ \
+
 SRC=\
 	$(PREFIX)/algo/algo.c \
 	$(PREFIX)/alloc/alloc.c \
@@ -39,7 +40,6 @@ SRC=\
 	$(PREFIX)/font/ubuntu_bold.c \
 	$(PREFIX)/font/ubuntu_regular.c \
 	$(PREFIX)/format/format.c \
-	$(PREFIX)/fs/fs.c \
 	$(PREFIX)/gfx/gfx.c \
 	$(PREFIX)/gui/gui.c \
 	$(PREFIX)/keyboard/keyboard.c \
@@ -51,6 +51,8 @@ SRC=\
 	$(PREFIX)/vector/vector.c \
 	$(PREFIX)/../status/status.c \
 	$(PREFIX)/../utf8/utf8.c \
+
+# $(PREFIX)/fs/fs.c \
 
 CFLAGS=\
 	-Wall \

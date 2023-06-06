@@ -50,7 +50,7 @@ bool ispunct(i32 c)
 
 bool isspace(i32 c)
 {
-	return strchr(" \n\t\v\f\r", c) != NULL;
+	return strchr(WHITESPACE, c) != NULL;
 }
 
 bool isupper(i32 c)

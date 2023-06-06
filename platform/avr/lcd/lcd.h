@@ -174,7 +174,7 @@ void lcd_image_rgb565(u16 x, u16 y, u16 w, u16 h, u32 addr);
  * @param addr XMEM-Address
  */
 void lcd_image_grayscale(
-	u16 x, u16 y, u16 w, u16 h, RGB565 fg, RGB565 bg, u32 addr);
+	u16 x, u16 y, u16 w, u16 h, u32 addr, u32 fg, u32 bg);
 
 /**
  * @brief Draw a colored 1-bit image from XMEM
@@ -188,6 +188,6 @@ void lcd_image_grayscale(
  * @param addr XMEM-Address
  */
 void lcd_image_1bit(
-	u16 x, u16 y, u16 w, u16 h, RGB565 fg, RGB565 bg, u32 addr);
+	u16 x, u16 y, u16 w, u16 h, u32 addr, RGB565 fg, RGB565 bg);
 
 #endif /* __LCD_H__ */
