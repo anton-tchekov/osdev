@@ -4,7 +4,7 @@
 | SERIAL_RX     |     0   |    D0    | UART      |
 | SERIAL_TX     |     1   |    D1    | UART      |
 | KBD_CLOCK     |     2   |    D2    | KBD       |
-| KBD_DATA      |     3   |    D3    | KBD       |
+| LCD_BL        |     3   |    D3    | LCD       |
 | CS_SD         |     4   |    D4    | SD        |
 | AUDIO_LEFT    |     5   |    D5    | SOUND     |
 | AUDIO_RIGHT   |     6   |    D6    | SOUND     |
@@ -17,8 +17,35 @@
 | CLK           |    13   |    B5    | SPI       |
 | LCD_CS        |    A0   |    C0    | LCD       |
 | LCD_DC        |    A1   |    C1    | LCD       |
-| RANDOM_NOISE  |    A2   |    C2    | RNG       |
-| ANALOG_IN     |    A3   |    C3    | IO        |
+| RANDOM_NOISE  |    A2   |    C2    | RNG/ADC   |
+| KBD_DATA      |    A3   |    C3    | KBD       |
 | I2C           |    A4   |    C4    | IO        |
 | I2C           |    A5   |    C5    | IO        |
 +---------------+---------+----------+-----------+
+
+2x 10-PIN I/O HEADER
+
+KBD_DATA
+KBD_CLOCK
+SERIAL_RX
+SERIAL_RX
+SPI_MOSI
+SPI_MISO
+SPI_SCK
+RESET
+GND
+VCC
+
+GND
+VCC
+BAT
+AUDIO_LEFT
+AUDIO_RIGTH
+A2
+A3
+A4
+A5
+
+LCD DIMENSIONS
+63 mm + 2x 2 mm =  67 mm
+97 mm + 2x 2 mm = 101 mm

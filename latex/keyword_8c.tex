@@ -1,27 +1,27 @@
-\hypertarget{keyword_8c}{}\doxysection{apps/editor/keyword.c File Reference}
-\label{keyword_8c}\index{apps/editor/keyword.c@{apps/editor/keyword.c}}
-{\ttfamily \#include \char`\"{}keyword.\+h\char`\"{}}\newline
+\doxysection{apps/editor/keyword.c File Reference}
+\hypertarget{keyword_8c}{}\label{keyword_8c}\index{apps/editor/keyword.c@{apps/editor/keyword.c}}
+{\ttfamily \#include \"{}keyword.\+h\"{}}\newline
 {\ttfamily \#include $<$std.\+h$>$}\newline
-\doxysubsection*{Macros}
+\doxysubsubsection*{Macros}
 \begin{DoxyCompactItemize}
 \item 
-\#define \mbox{\hyperlink{keyword_8c_a4bae030ca56b5d2942ca7e578dc0bc77}{HASHMAP\+\_\+\+SIZE}}~(\mbox{\hyperlink{util_8h_a5a34c337b71a34ab9a0ecff2d5715d24}{ARRLEN}}(\mbox{\hyperlink{keyword_8c_aae0625ea55665b8276775a584ec72045}{\+\_\+keywords}}) $\ast$ 3)
+\#define \mbox{\hyperlink{keyword_8c_a4bae030ca56b5d2942ca7e578dc0bc77}{HASHMAP\+\_\+\+SIZE}}~(\mbox{\hyperlink{util_8h_a5a34c337b71a34ab9a0ecff2d5715d24}{ARRLEN}}(\mbox{\hyperlink{keyword_8c_aae0625ea55665b8276775a584ec72045}{\+\_\+keywords}}) \texorpdfstring{$\ast$}{*} 3)
 \item 
 \#define \mbox{\hyperlink{keyword_8c_a52f57acae906f0cfb718a8bb026082e1}{COLLISION\+\_\+\+LIMIT}}~4
 \end{DoxyCompactItemize}
-\doxysubsection*{Functions}
+\doxysubsubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-static \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} \mbox{\hyperlink{keyword_8c_a0b09947d1f7aa861a82bb4e52c1e148d}{\+\_\+keyword\+\_\+hash}} (const char $\ast$word, \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} len)
+static \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} \mbox{\hyperlink{keyword_8c_a0b09947d1f7aa861a82bb4e52c1e148d}{\+\_\+keyword\+\_\+hash}} (const char \texorpdfstring{$\ast$}{*}word, \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} len)
 \begin{DoxyCompactList}\small\item\em Calculate a hash for a string. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{keyword_8c_ac6651733083d3830314758080ea05f15}{keyword\+\_\+init}} (void)
 \begin{DoxyCompactList}\small\item\em Initialize keyword module. \end{DoxyCompactList}\item 
-bool \mbox{\hyperlink{keyword_8c_abb6b5d04672aa03af4d09945411d2da1}{keyword\+\_\+detect}} (const char $\ast$str, \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} len)
+bool \mbox{\hyperlink{keyword_8c_abb6b5d04672aa03af4d09945411d2da1}{keyword\+\_\+detect}} (const char \texorpdfstring{$\ast$}{*}str, \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} len)
 \begin{DoxyCompactList}\small\item\em Detects if a string is a keyword. \end{DoxyCompactList}\end{DoxyCompactItemize}
-\doxysubsection*{Variables}
+\doxysubsubsection*{Variables}
 \begin{DoxyCompactItemize}
 \item 
-static const char $\ast$ \mbox{\hyperlink{keyword_8c_aae0625ea55665b8276775a584ec72045}{\+\_\+keywords}} \mbox{[}$\,$\mbox{]}
+static const char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{keyword_8c_aae0625ea55665b8276775a584ec72045}{\+\_\+keywords}} \mbox{[}$\,$\mbox{]}
 \item 
 static \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} \mbox{\hyperlink{keyword_8c_a30bd57a185f2615e8e676875cc3f1c46}{\+\_\+hashmap}} \mbox{[}\mbox{\hyperlink{keyword_8c_a4bae030ca56b5d2942ca7e578dc0bc77}{HASHMAP\+\_\+\+SIZE}}\mbox{]}
 \end{DoxyCompactItemize}
@@ -44,7 +44,7 @@ Definition in file \mbox{\hyperlink{keyword_8c_source}{keyword.\+c}}.
 
 
 \doxysubsection{Macro Definition Documentation}
-\mbox{\Hypertarget{keyword_8c_a52f57acae906f0cfb718a8bb026082e1}\label{keyword_8c_a52f57acae906f0cfb718a8bb026082e1}} 
+\Hypertarget{keyword_8c_a52f57acae906f0cfb718a8bb026082e1}\label{keyword_8c_a52f57acae906f0cfb718a8bb026082e1} 
 \index{keyword.c@{keyword.c}!COLLISION\_LIMIT@{COLLISION\_LIMIT}}
 \index{COLLISION\_LIMIT@{COLLISION\_LIMIT}!keyword.c@{keyword.c}}
 \doxysubsubsection{\texorpdfstring{COLLISION\_LIMIT}{COLLISION\_LIMIT}}
@@ -54,11 +54,11 @@ Maximum number of collisions when initializing the hashmap
 
 Definition at line \mbox{\hyperlink{keyword_8c_source_l00015}{15}} of file \mbox{\hyperlink{keyword_8c_source}{keyword.\+c}}.
 
-\mbox{\Hypertarget{keyword_8c_a4bae030ca56b5d2942ca7e578dc0bc77}\label{keyword_8c_a4bae030ca56b5d2942ca7e578dc0bc77}} 
+\Hypertarget{keyword_8c_a4bae030ca56b5d2942ca7e578dc0bc77}\label{keyword_8c_a4bae030ca56b5d2942ca7e578dc0bc77} 
 \index{keyword.c@{keyword.c}!HASHMAP\_SIZE@{HASHMAP\_SIZE}}
 \index{HASHMAP\_SIZE@{HASHMAP\_SIZE}!keyword.c@{keyword.c}}
 \doxysubsubsection{\texorpdfstring{HASHMAP\_SIZE}{HASHMAP\_SIZE}}
-{\footnotesize\ttfamily \#define HASHMAP\+\_\+\+SIZE~(\mbox{\hyperlink{util_8h_a5a34c337b71a34ab9a0ecff2d5715d24}{ARRLEN}}(\mbox{\hyperlink{keyword_8c_aae0625ea55665b8276775a584ec72045}{\+\_\+keywords}}) $\ast$ 3)}
+{\footnotesize\ttfamily \#define HASHMAP\+\_\+\+SIZE~(\mbox{\hyperlink{util_8h_a5a34c337b71a34ab9a0ecff2d5715d24}{ARRLEN}}(\mbox{\hyperlink{keyword_8c_aae0625ea55665b8276775a584ec72045}{\+\_\+keywords}}) \texorpdfstring{$\ast$}{*} 3)}
 
 Maximum number of elements in the hashmap 
 
@@ -67,11 +67,11 @@ Definition at line \mbox{\hyperlink{keyword_8c_source_l00012}{12}} of file \mbox
 
 
 \doxysubsection{Function Documentation}
-\mbox{\Hypertarget{keyword_8c_a0b09947d1f7aa861a82bb4e52c1e148d}\label{keyword_8c_a0b09947d1f7aa861a82bb4e52c1e148d}} 
+\Hypertarget{keyword_8c_a0b09947d1f7aa861a82bb4e52c1e148d}\label{keyword_8c_a0b09947d1f7aa861a82bb4e52c1e148d} 
 \index{keyword.c@{keyword.c}!\_keyword\_hash@{\_keyword\_hash}}
 \index{\_keyword\_hash@{\_keyword\_hash}!keyword.c@{keyword.c}}
 \doxysubsubsection{\texorpdfstring{\_keyword\_hash()}{\_keyword\_hash()}}
-{\footnotesize\ttfamily static \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} \+\_\+keyword\+\_\+hash (\begin{DoxyParamCaption}\item[{const char $\ast$}]{word,  }\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{len }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily static \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} \+\_\+keyword\+\_\+hash (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{word,  }\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{len }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
@@ -111,11 +111,11 @@ Definition at line \mbox{\hyperlink{keyword_8c_source_l00106}{106}} of file \mbo
 
 Referenced by \mbox{\hyperlink{keyword_8c_source_l00146}{keyword\+\_\+detect()}}, and \mbox{\hyperlink{keyword_8c_source_l00120}{keyword\+\_\+init()}}.
 
-\mbox{\Hypertarget{keyword_8c_abb6b5d04672aa03af4d09945411d2da1}\label{keyword_8c_abb6b5d04672aa03af4d09945411d2da1}} 
+\Hypertarget{keyword_8c_abb6b5d04672aa03af4d09945411d2da1}\label{keyword_8c_abb6b5d04672aa03af4d09945411d2da1} 
 \index{keyword.c@{keyword.c}!keyword\_detect@{keyword\_detect}}
 \index{keyword\_detect@{keyword\_detect}!keyword.c@{keyword.c}}
 \doxysubsubsection{\texorpdfstring{keyword\_detect()}{keyword\_detect()}}
-{\footnotesize\ttfamily bool keyword\+\_\+detect (\begin{DoxyParamCaption}\item[{const char $\ast$}]{str,  }\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{len }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily bool keyword\+\_\+detect (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{str,  }\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{len }\end{DoxyParamCaption})}
 
 
 
@@ -163,9 +163,9 @@ References \mbox{\hyperlink{keyword_8c_source_l00097}{\+\_\+hashmap}}, \mbox{\hy
 
 
 
-Referenced by \mbox{\hyperlink{apps_2editor_2main_8c_source_l00135}{\+\_\+draw\+\_\+code()}}.
+Referenced by \mbox{\hyperlink{apps_2editor_2main_8c_source_l00134}{\+\_\+draw\+\_\+code()}}.
 
-\mbox{\Hypertarget{keyword_8c_ac6651733083d3830314758080ea05f15}\label{keyword_8c_ac6651733083d3830314758080ea05f15}} 
+\Hypertarget{keyword_8c_ac6651733083d3830314758080ea05f15}\label{keyword_8c_ac6651733083d3830314758080ea05f15} 
 \index{keyword.c@{keyword.c}!keyword\_init@{keyword\_init}}
 \index{keyword\_init@{keyword\_init}!keyword.c@{keyword.c}}
 \doxysubsubsection{\texorpdfstring{keyword\_init()}{keyword\_init()}}
@@ -213,12 +213,12 @@ References \mbox{\hyperlink{keyword_8c_source_l00097}{\+\_\+hashmap}}, \mbox{\hy
 
 
 
-Referenced by \mbox{\hyperlink{apps_2editor_2main_8c_source_l00255}{setup()}}.
+Referenced by \mbox{\hyperlink{apps_2editor_2main_8c_source_l00254}{setup()}}.
 
 
 
 \doxysubsection{Variable Documentation}
-\mbox{\Hypertarget{keyword_8c_a30bd57a185f2615e8e676875cc3f1c46}\label{keyword_8c_a30bd57a185f2615e8e676875cc3f1c46}} 
+\Hypertarget{keyword_8c_a30bd57a185f2615e8e676875cc3f1c46}\label{keyword_8c_a30bd57a185f2615e8e676875cc3f1c46} 
 \index{keyword.c@{keyword.c}!\_hashmap@{\_hashmap}}
 \index{\_hashmap@{\_hashmap}!keyword.c@{keyword.c}}
 \doxysubsubsection{\texorpdfstring{\_hashmap}{\_hashmap}}
@@ -232,11 +232,11 @@ Definition at line \mbox{\hyperlink{keyword_8c_source_l00097}{97}} of file \mbox
 
 Referenced by \mbox{\hyperlink{keyword_8c_source_l00146}{keyword\+\_\+detect()}}, and \mbox{\hyperlink{keyword_8c_source_l00120}{keyword\+\_\+init()}}.
 
-\mbox{\Hypertarget{keyword_8c_aae0625ea55665b8276775a584ec72045}\label{keyword_8c_aae0625ea55665b8276775a584ec72045}} 
+\Hypertarget{keyword_8c_aae0625ea55665b8276775a584ec72045}\label{keyword_8c_aae0625ea55665b8276775a584ec72045} 
 \index{keyword.c@{keyword.c}!\_keywords@{\_keywords}}
 \index{\_keywords@{\_keywords}!keyword.c@{keyword.c}}
 \doxysubsubsection{\texorpdfstring{\_keywords}{\_keywords}}
-{\footnotesize\ttfamily const char$\ast$ \+\_\+keywords\mbox{[}$\,$\mbox{]}\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily const char\texorpdfstring{$\ast$}{*} \+\_\+keywords\mbox{[}$\,$\mbox{]}\hspace{0.3cm}{\ttfamily [static]}}
 
 Keyword list 
 

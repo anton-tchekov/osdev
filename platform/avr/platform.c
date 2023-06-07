@@ -94,16 +94,6 @@ void env_gfx_rect(u16 x, u16 y, u16 w, u16 h, u32 color)
 	lcd_rect(x, y, w, h, _abgr_to_rgb565(color));
 }
 
-void env_gfx_image_rgba(u16 x, u16 y, u16 w, u16 h, u32 addr)
-{
-	lcd_image_rgba(x, y, w, h, addr);
-}
-
-void env_gfx_image_rgb(u16 x, u16 y, u16 w, u16 h, u32 addr)
-{
-	lcd_image_rgb(x, y, w, h, addr);
-}
-
 void env_gfx_image_rgb565(u16 x, u16 y, u16 w, u16 h, u32 addr)
 {
 	lcd_image_rgb565(x, y, w, h, addr);

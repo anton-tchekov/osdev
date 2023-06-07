@@ -25,28 +25,12 @@
 	should be documented using doxygen comments
 
 # TODO
+- FS:     File system driver, File Manager, Terminal
+- INIT:   App list with icons (load apps from folder)
 
-## Kernel
-- Better SysCall Parameter checking, Memory Protection
-- Cooperative Scheduler (Background Tasks)
-- String syscall (default font) as optimization
+# TODO
 
-- AVR PS/2 Keyboard character conversion and test
-
-- AVR XMEM image routines
-- AVR SD Driver write block function
-- Fast native memory routines
-
-## Userspace
-- Port Tetris
-- Port Snake
-- Text Editor
-
-- File system driver
-- App list with icons (load apps from folder)
-- File Manager
-
-# Descriptions
+## Snake
 
 ## Tetris
 - Game title screen
@@ -66,11 +50,16 @@
 - Goto Line
 - Import / Export contents
 
-## Future
+# Future
+- Scheduler, Background Tasks
+- Fast native memory routines
+- String syscall (default font) as optimization
 - Emulate RISC-V Single Precision Floating Point Extension and Math Lib
 - Async Drivers
 
 # DONE
+- AVR SD Driver write block function
+- SysCall Parameter checking, Memory Protection
 - Exit function
 - Documentation Todos
 - GUI Fix text width calculation bugs

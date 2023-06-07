@@ -1,5 +1,5 @@
-\hypertarget{avr_2platform_8c}{}\doxysection{platform/avr/platform.c File Reference}
-\label{avr_2platform_8c}\index{platform/avr/platform.c@{platform/avr/platform.c}}
+\doxysection{platform/avr/platform.c File Reference}
+\hypertarget{avr_2platform_8c}{}\label{avr_2platform_8c}\index{platform/avr/platform.c@{platform/avr/platform.c}}
 
 
 Platform specific functions for AVR.  
@@ -11,14 +11,15 @@ Platform specific functions for AVR.
 {\ttfamily \#include $<$xmem.\+h$>$}\newline
 {\ttfamily \#include $<$random.\+h$>$}\newline
 {\ttfamily \#include $<$timer.\+h$>$}\newline
-\doxysubsection*{Functions}
+{\ttfamily \#include $<$avr/pgmspace.\+h$>$}\newline
+\doxysubsubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} \mbox{\hyperlink{avr_2platform_8c_acf57f1ce47563167d4ef978ef1a7ab49}{env\+\_\+memory\+\_\+size}} (void)
 \begin{DoxyCompactList}\small\item\em Get the size of the installed memory. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{avr_2platform_8c_ab7ab32a3f56a5eb22459591ded6cb9ec}{env\+\_\+memory\+\_\+read}} (\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} addr, void $\ast$data, \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} size)
+void \mbox{\hyperlink{avr_2platform_8c_ab7ab32a3f56a5eb22459591ded6cb9ec}{env\+\_\+memory\+\_\+read}} (\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} addr, void \texorpdfstring{$\ast$}{*}data, \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} size)
 \begin{DoxyCompactList}\small\item\em Read data from physical memory. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{avr_2platform_8c_a22d4f443fb95499e0acccc1f263e99c7}{env\+\_\+memory\+\_\+write}} (\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} addr, const void $\ast$data, \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} size)
+void \mbox{\hyperlink{avr_2platform_8c_a22d4f443fb95499e0acccc1f263e99c7}{env\+\_\+memory\+\_\+write}} (\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} addr, const void \texorpdfstring{$\ast$}{*}data, \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} size)
 \begin{DoxyCompactList}\small\item\em Write data to physical memory. \end{DoxyCompactList}\item 
 static \mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}} \mbox{\hyperlink{avr_2platform_8c_ad2f53b0384a6be55e7d9bda545a7c29d}{\+\_\+abgr\+\_\+r}} (\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} color)
 \item 
@@ -26,26 +27,29 @@ static \mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}} \mbox{\
 \item 
 static \mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}} \mbox{\hyperlink{avr_2platform_8c_aa2b02d48400d091151747b4a2ee85b7f}{\+\_\+abgr\+\_\+b}} (\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} color)
 \item 
+static \mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}} \mbox{\hyperlink{avr_2platform_8c_a58d8addb06c7a67de0f8bf068284a778}{\+\_\+gamma\+\_\+correction}} (\mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}} value)
+\begin{DoxyCompactList}\small\item\em Perform gamma correction on a color channel. \end{DoxyCompactList}\item 
 static \mbox{\hyperlink{lcd_8h_a9a75b3f378a8d443f893bd9eceb09642}{RGB565}} \mbox{\hyperlink{avr_2platform_8c_a5f91a233a54a301e040fe44f33561ef8}{\+\_\+abgr\+\_\+to\+\_\+rgb565}} (\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} color)
-\item 
-void \mbox{\hyperlink{avr_2platform_8c_ac453e2fa7f27ee825e5fd898bbce47ce}{env\+\_\+gfx\+\_\+rect}} (\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} x, \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} y, \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} w, \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} h, \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} color)
+\begin{DoxyCompactList}\small\item\em Convert ABGR8888 to RGB565 and do gamma correction for LCD with low contrast. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{avr_2platform_8c_a7dc0a6f0c7591bb3a8a1ba7ebbb8085e}{env\+\_\+gfx\+\_\+rect}} (\mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}} x, \mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}} y, \mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}} w, \mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}} h, \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} color)
 \begin{DoxyCompactList}\small\item\em Draw rectangle. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{avr_2platform_8c_a5ec534a76e1a69d2f4667abe4f7f8ff1}{env\+\_\+gfx\+\_\+image\+\_\+rgba}} (\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} x, \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} y, \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} w, \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} h, \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} addr)
-\begin{DoxyCompactList}\small\item\em Draw an RGBA image. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{avr_2platform_8c_a6ac0a4bc195845f77f7392de411499b8}{env\+\_\+gfx\+\_\+image\+\_\+rgb}} (\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} x, \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} y, \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} w, \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} h, \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} addr)
-\begin{DoxyCompactList}\small\item\em Draw an RGB image. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{avr_2platform_8c_a6d50f649582cee2b61d52a87fbd0e05f}{env\+\_\+gfx\+\_\+image\+\_\+rgb565}} (\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} x, \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} y, \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} w, \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} h, \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} addr)
+void \mbox{\hyperlink{avr_2platform_8c_a9c0002575d2ee2eae556e5e9f3fd6dfd}{env\+\_\+gfx\+\_\+image\+\_\+rgb565}} (\mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}} x, \mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}} y, \mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}} w, \mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}} h, \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} addr)
 \begin{DoxyCompactList}\small\item\em Draw an RGB565 image. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{avr_2platform_8c_a55913cd59e2637b9dcc8a17ef6276f77}{env\+\_\+gfx\+\_\+image\+\_\+grayscale}} (\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} x, \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} y, \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} w, \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} h, \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} fg, \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} bg, \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} addr)
+void \mbox{\hyperlink{avr_2platform_8c_a6ea7c49d1f435686931e8c57b756033c}{env\+\_\+gfx\+\_\+image\+\_\+grayscale}} (\mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}} x, \mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}} y, \mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}} w, \mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}} h, \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} addr, \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} fg, \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} bg)
 \begin{DoxyCompactList}\small\item\em Draw a colored grayscale image. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{avr_2platform_8c_a0ffe1491054827b5d5f647eef1ad596f}{env\+\_\+gfx\+\_\+image\+\_\+1bit}} (\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} x, \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} y, \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} w, \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} h, \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} fg, \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} bg, \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} addr)
+void \mbox{\hyperlink{avr_2platform_8c_adeb038ecb970d7a1a13afac52fcc6df9}{env\+\_\+gfx\+\_\+image\+\_\+1bit}} (\mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}} x, \mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}} y, \mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}} w, \mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}} h, \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} addr, \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} fg, \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} bg)
 \begin{DoxyCompactList}\small\item\em Draw a colored 1-\/bit image. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{avr_2platform_8c_a10a5a2d20838f25eba5db18f43f94158}{env\+\_\+serial\+\_\+write}} (const void $\ast$data, \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} len)
+void \mbox{\hyperlink{avr_2platform_8c_a10a5a2d20838f25eba5db18f43f94158}{env\+\_\+serial\+\_\+write}} (const void \texorpdfstring{$\ast$}{*}data, \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} len)
 \begin{DoxyCompactList}\small\item\em Send data over the serial interface. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} \mbox{\hyperlink{avr_2platform_8c_ac25a788a06cf437544e5edaf5faf4e2f}{env\+\_\+random\+\_\+get}} (void)
 \begin{DoxyCompactList}\small\item\em Generate a pseudo-\/random number. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} \mbox{\hyperlink{avr_2platform_8c_a0be14c6c6a205ee06b64f11184884e5e}{env\+\_\+millis}} (void)
 \begin{DoxyCompactList}\small\item\em Get the number of milliseconds since boot. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+static const \mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}} \mbox{\hyperlink{lcd_8c_aaf0f89df98cf3f63e9d4e50859f9c706}{PROGMEM}} \mbox{\hyperlink{avr_2platform_8c_af3dcc12854dfb6fe2ab12a1ef3d10a2b}{\+\_\+gamma}} \mbox{[}$\,$\mbox{]}
+\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
@@ -67,7 +71,7 @@ Definition in file \mbox{\hyperlink{avr_2platform_8c_source}{platform.\+c}}.
 
 
 \doxysubsection{Function Documentation}
-\mbox{\Hypertarget{avr_2platform_8c_aa2b02d48400d091151747b4a2ee85b7f}\label{avr_2platform_8c_aa2b02d48400d091151747b4a2ee85b7f}} 
+\Hypertarget{avr_2platform_8c_aa2b02d48400d091151747b4a2ee85b7f}\label{avr_2platform_8c_aa2b02d48400d091151747b4a2ee85b7f} 
 \index{platform.c@{platform.c}!\_abgr\_b@{\_abgr\_b}}
 \index{\_abgr\_b@{\_abgr\_b}!platform.c@{platform.c}}
 \doxysubsubsection{\texorpdfstring{\_abgr\_b()}{\_abgr\_b()}}
@@ -75,18 +79,18 @@ Definition in file \mbox{\hyperlink{avr_2platform_8c_source}{platform.\+c}}.
 
 Extract blue channel from ABGR color 
 
-Definition at line \mbox{\hyperlink{avr_2platform_8c_source_l00042}{42}} of file \mbox{\hyperlink{avr_2platform_8c_source}{platform.\+c}}.
+Definition at line \mbox{\hyperlink{avr_2platform_8c_source_l00043}{43}} of file \mbox{\hyperlink{avr_2platform_8c_source}{platform.\+c}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00042\ \{\ \textcolor{keywordflow}{return}\ (color\ >>\ \ 8)\ \&\ 0xFF;\ \}}
+\DoxyCodeLine{00043\ \{\ \textcolor{keywordflow}{return}\ (color\ >>\ \ 8)\ \&\ 0xFF;\ \}}
 
 \end{DoxyCode}
 
 
-Referenced by \mbox{\hyperlink{simulator_2platform_8c_source_l00205}{\+\_\+abgr\+\_\+to\+\_\+argb()}}, \mbox{\hyperlink{avr_2platform_8c_source_l00045}{\+\_\+abgr\+\_\+to\+\_\+rgb565()}}, and \mbox{\hyperlink{simulator_2platform_8c_source_l00222}{\+\_\+color\+\_\+merge()}}.
+Referenced by \mbox{\hyperlink{simulator_2platform_8c_source_l00205}{\+\_\+abgr\+\_\+to\+\_\+argb()}}, \mbox{\hyperlink{avr_2platform_8c_source_l00084}{\+\_\+abgr\+\_\+to\+\_\+rgb565()}}, \mbox{\hyperlink{lcd_8c_source_l00531}{\+\_\+color\+\_\+merge()}}, and \mbox{\hyperlink{simulator_2platform_8c_source_l00222}{\+\_\+color\+\_\+merge()}}.
 
-\mbox{\Hypertarget{avr_2platform_8c_a276cadc53afdd89636035fe4ad8e8084}\label{avr_2platform_8c_a276cadc53afdd89636035fe4ad8e8084}} 
+\Hypertarget{avr_2platform_8c_a276cadc53afdd89636035fe4ad8e8084}\label{avr_2platform_8c_a276cadc53afdd89636035fe4ad8e8084} 
 \index{platform.c@{platform.c}!\_abgr\_g@{\_abgr\_g}}
 \index{\_abgr\_g@{\_abgr\_g}!platform.c@{platform.c}}
 \doxysubsubsection{\texorpdfstring{\_abgr\_g()}{\_abgr\_g()}}
@@ -94,18 +98,18 @@ Referenced by \mbox{\hyperlink{simulator_2platform_8c_source_l00205}{\+\_\+abgr\
 
 Extract green channel from ABGR color 
 
-Definition at line \mbox{\hyperlink{avr_2platform_8c_source_l00039}{39}} of file \mbox{\hyperlink{avr_2platform_8c_source}{platform.\+c}}.
+Definition at line \mbox{\hyperlink{avr_2platform_8c_source_l00040}{40}} of file \mbox{\hyperlink{avr_2platform_8c_source}{platform.\+c}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00039\ \{\ \textcolor{keywordflow}{return}\ (color\ >>\ 16)\ \&\ 0xFF;\ \}}
+\DoxyCodeLine{00040\ \{\ \textcolor{keywordflow}{return}\ (color\ >>\ 16)\ \&\ 0xFF;\ \}}
 
 \end{DoxyCode}
 
 
-Referenced by \mbox{\hyperlink{simulator_2platform_8c_source_l00205}{\+\_\+abgr\+\_\+to\+\_\+argb()}}, \mbox{\hyperlink{avr_2platform_8c_source_l00045}{\+\_\+abgr\+\_\+to\+\_\+rgb565()}}, and \mbox{\hyperlink{simulator_2platform_8c_source_l00222}{\+\_\+color\+\_\+merge()}}.
+Referenced by \mbox{\hyperlink{simulator_2platform_8c_source_l00205}{\+\_\+abgr\+\_\+to\+\_\+argb()}}, \mbox{\hyperlink{avr_2platform_8c_source_l00084}{\+\_\+abgr\+\_\+to\+\_\+rgb565()}}, \mbox{\hyperlink{lcd_8c_source_l00531}{\+\_\+color\+\_\+merge()}}, and \mbox{\hyperlink{simulator_2platform_8c_source_l00222}{\+\_\+color\+\_\+merge()}}.
 
-\mbox{\Hypertarget{avr_2platform_8c_ad2f53b0384a6be55e7d9bda545a7c29d}\label{avr_2platform_8c_ad2f53b0384a6be55e7d9bda545a7c29d}} 
+\Hypertarget{avr_2platform_8c_ad2f53b0384a6be55e7d9bda545a7c29d}\label{avr_2platform_8c_ad2f53b0384a6be55e7d9bda545a7c29d} 
 \index{platform.c@{platform.c}!\_abgr\_r@{\_abgr\_r}}
 \index{\_abgr\_r@{\_abgr\_r}!platform.c@{platform.c}}
 \doxysubsubsection{\texorpdfstring{\_abgr\_r()}{\_abgr\_r()}}
@@ -113,50 +117,99 @@ Referenced by \mbox{\hyperlink{simulator_2platform_8c_source_l00205}{\+\_\+abgr\
 
 Extract red channel from ABGR color 
 
-Definition at line \mbox{\hyperlink{avr_2platform_8c_source_l00036}{36}} of file \mbox{\hyperlink{avr_2platform_8c_source}{platform.\+c}}.
+Definition at line \mbox{\hyperlink{avr_2platform_8c_source_l00037}{37}} of file \mbox{\hyperlink{avr_2platform_8c_source}{platform.\+c}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00036\ \{\ \textcolor{keywordflow}{return}\ (color\ >>\ 24)\ \&\ 0xFF;\ \}}
+\DoxyCodeLine{00037\ \{\ \textcolor{keywordflow}{return}\ (color\ >>\ 24)\ \&\ 0xFF;\ \}}
 
 \end{DoxyCode}
 
 
-Referenced by \mbox{\hyperlink{simulator_2platform_8c_source_l00205}{\+\_\+abgr\+\_\+to\+\_\+argb()}}, \mbox{\hyperlink{avr_2platform_8c_source_l00045}{\+\_\+abgr\+\_\+to\+\_\+rgb565()}}, and \mbox{\hyperlink{simulator_2platform_8c_source_l00222}{\+\_\+color\+\_\+merge()}}.
+Referenced by \mbox{\hyperlink{simulator_2platform_8c_source_l00205}{\+\_\+abgr\+\_\+to\+\_\+argb()}}, \mbox{\hyperlink{avr_2platform_8c_source_l00084}{\+\_\+abgr\+\_\+to\+\_\+rgb565()}}, \mbox{\hyperlink{lcd_8c_source_l00531}{\+\_\+color\+\_\+merge()}}, and \mbox{\hyperlink{simulator_2platform_8c_source_l00222}{\+\_\+color\+\_\+merge()}}.
 
-\mbox{\Hypertarget{avr_2platform_8c_a5f91a233a54a301e040fe44f33561ef8}\label{avr_2platform_8c_a5f91a233a54a301e040fe44f33561ef8}} 
+\Hypertarget{avr_2platform_8c_a5f91a233a54a301e040fe44f33561ef8}\label{avr_2platform_8c_a5f91a233a54a301e040fe44f33561ef8} 
 \index{platform.c@{platform.c}!\_abgr\_to\_rgb565@{\_abgr\_to\_rgb565}}
 \index{\_abgr\_to\_rgb565@{\_abgr\_to\_rgb565}!platform.c@{platform.c}}
 \doxysubsubsection{\texorpdfstring{\_abgr\_to\_rgb565()}{\_abgr\_to\_rgb565()}}
 {\footnotesize\ttfamily static \mbox{\hyperlink{lcd_8h_a9a75b3f378a8d443f893bd9eceb09642}{RGB565}} \+\_\+abgr\+\_\+to\+\_\+rgb565 (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{color }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
-Convert ABGR8888 to RGB565 
 
-Definition at line \mbox{\hyperlink{avr_2platform_8c_source_l00045}{45}} of file \mbox{\hyperlink{avr_2platform_8c_source}{platform.\+c}}.
+
+Convert ABGR8888 to RGB565 and do gamma correction for LCD with low contrast. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em color} & The color to be converted \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+RGB565 color 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{avr_2platform_8c_source_l00084}{84}} of file \mbox{\hyperlink{avr_2platform_8c_source}{platform.\+c}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00046\ \{}
-\DoxyCodeLine{00047\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{lcd_8c_a9077e33ab871138bf5da6043bfe48266}{lcd\_color}}(}
-\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{avr_2platform_8c_ad2f53b0384a6be55e7d9bda545a7c29d}{\_abgr\_r}}(color),}
-\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{avr_2platform_8c_a276cadc53afdd89636035fe4ad8e8084}{\_abgr\_g}}(color),}
-\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{avr_2platform_8c_aa2b02d48400d091151747b4a2ee85b7f}{\_abgr\_b}}(color));}
-\DoxyCodeLine{00051\ \}}
+\DoxyCodeLine{00085\ \{}
+\DoxyCodeLine{00086\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{lcd_8c_a9077e33ab871138bf5da6043bfe48266}{lcd\_color}}(}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{avr_2platform_8c_a58d8addb06c7a67de0f8bf068284a778}{\_gamma\_correction}}(\mbox{\hyperlink{avr_2platform_8c_ad2f53b0384a6be55e7d9bda545a7c29d}{\_abgr\_r}}(color)),}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{avr_2platform_8c_a58d8addb06c7a67de0f8bf068284a778}{\_gamma\_correction}}(\mbox{\hyperlink{avr_2platform_8c_a276cadc53afdd89636035fe4ad8e8084}{\_abgr\_g}}(color)),}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{avr_2platform_8c_a58d8addb06c7a67de0f8bf068284a778}{\_gamma\_correction}}(\mbox{\hyperlink{avr_2platform_8c_aa2b02d48400d091151747b4a2ee85b7f}{\_abgr\_b}}(color)));}
+\DoxyCodeLine{00090\ \}}
 
 \end{DoxyCode}
 
 
-References \mbox{\hyperlink{avr_2platform_8c_source_l00042}{\+\_\+abgr\+\_\+b()}}, \mbox{\hyperlink{avr_2platform_8c_source_l00039}{\+\_\+abgr\+\_\+g()}}, \mbox{\hyperlink{avr_2platform_8c_source_l00036}{\+\_\+abgr\+\_\+r()}}, and \mbox{\hyperlink{lcd_8c_source_l00462}{lcd\+\_\+color()}}.
+References \mbox{\hyperlink{avr_2platform_8c_source_l00043}{\+\_\+abgr\+\_\+b()}}, \mbox{\hyperlink{avr_2platform_8c_source_l00040}{\+\_\+abgr\+\_\+g()}}, \mbox{\hyperlink{avr_2platform_8c_source_l00037}{\+\_\+abgr\+\_\+r()}}, \mbox{\hyperlink{avr_2platform_8c_source_l00072}{\+\_\+gamma\+\_\+correction()}}, and \mbox{\hyperlink{lcd_8c_source_l00432}{lcd\+\_\+color()}}.
 
 
 
-Referenced by \mbox{\hyperlink{avr_2platform_8c_source_l00053}{env\+\_\+gfx\+\_\+rect()}}.
+Referenced by \mbox{\hyperlink{avr_2platform_8c_source_l00108}{env\+\_\+gfx\+\_\+image\+\_\+1bit()}}, and \mbox{\hyperlink{avr_2platform_8c_source_l00092}{env\+\_\+gfx\+\_\+rect()}}.
 
-\mbox{\Hypertarget{avr_2platform_8c_a0ffe1491054827b5d5f647eef1ad596f}\label{avr_2platform_8c_a0ffe1491054827b5d5f647eef1ad596f}} 
+\Hypertarget{avr_2platform_8c_a58d8addb06c7a67de0f8bf068284a778}\label{avr_2platform_8c_a58d8addb06c7a67de0f8bf068284a778} 
+\index{platform.c@{platform.c}!\_gamma\_correction@{\_gamma\_correction}}
+\index{\_gamma\_correction@{\_gamma\_correction}!platform.c@{platform.c}}
+\doxysubsubsection{\texorpdfstring{\_gamma\_correction()}{\_gamma\_correction()}}
+{\footnotesize\ttfamily static \mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}} \+\_\+gamma\+\_\+correction (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}}}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Perform gamma correction on a color channel. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em value} & \doxylink{structInput}{Input} color channel value \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Gamma corrected output value 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{avr_2platform_8c_source_l00072}{72}} of file \mbox{\hyperlink{avr_2platform_8c_source}{platform.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00073\ \{}
+\DoxyCodeLine{00074\ \ \ \ \ \textcolor{keywordflow}{return}\ pgm\_read\_byte(\mbox{\hyperlink{avr_2platform_8c_af3dcc12854dfb6fe2ab12a1ef3d10a2b}{\_gamma}}\ +\ value);}
+\DoxyCodeLine{00075\ \}}
+
+\end{DoxyCode}
+
+
+References \mbox{\hyperlink{avr_2platform_8c_source_l00046}{\+\_\+gamma}}.
+
+
+
+Referenced by \mbox{\hyperlink{avr_2platform_8c_source_l00084}{\+\_\+abgr\+\_\+to\+\_\+rgb565()}}.
+
+\Hypertarget{avr_2platform_8c_adeb038ecb970d7a1a13afac52fcc6df9}\label{avr_2platform_8c_adeb038ecb970d7a1a13afac52fcc6df9} 
 \index{platform.c@{platform.c}!env\_gfx\_image\_1bit@{env\_gfx\_image\_1bit}}
 \index{env\_gfx\_image\_1bit@{env\_gfx\_image\_1bit}!platform.c@{platform.c}}
 \doxysubsubsection{\texorpdfstring{env\_gfx\_image\_1bit()}{env\_gfx\_image\_1bit()}}
-{\footnotesize\ttfamily void env\+\_\+gfx\+\_\+image\+\_\+1bit (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}}]{x,  }\item[{\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}}]{y,  }\item[{\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}}]{w,  }\item[{\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}}]{h,  }\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{addr,  }\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{fg,  }\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{bg }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void env\+\_\+gfx\+\_\+image\+\_\+1bit (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}}}]{x,  }\item[{\mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}}}]{y,  }\item[{\mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}}}]{w,  }\item[{\mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}}}]{h,  }\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{addr,  }\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{fg,  }\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{bg }\end{DoxyParamCaption})}
 
 
 
@@ -181,27 +234,30 @@ Draw a colored 1-\/bit image.
 \end{DoxyParams}
 
 
-Definition at line \mbox{\hyperlink{avr_2platform_8c_source_l00093}{93}} of file \mbox{\hyperlink{avr_2platform_8c_source}{platform.\+c}}.
+Definition at line \mbox{\hyperlink{avr_2platform_8c_source_l00108}{108}} of file \mbox{\hyperlink{avr_2platform_8c_source}{platform.\+c}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00095\ \{}
-\DoxyCodeLine{00096\ \ \ \ \ \textcolor{comment}{/*}}
-\DoxyCodeLine{00097\ \textcolor{comment}{\ \ \ \ lcd\_image\_1bit(}}
-\DoxyCodeLine{00098\ \textcolor{comment}{\ \ \ \ \ \ \ \ u16\ x,\ u16\ y,\ u16\ w,\ u16\ h,\ RGB565\ fg,\ RGB565\ bg,\ u32\ addr);}}
-\DoxyCodeLine{00099\ \textcolor{comment}{\ \ \ \ */}}
-\DoxyCodeLine{00100\ \}}
+\DoxyCodeLine{00110\ \{}
+\DoxyCodeLine{00111\ \ \ \ \ \mbox{\hyperlink{lcd_8c_a36037dfa0a1d1f9afe0d858bf63070cc}{lcd\_image\_1bit}}(x,\ y,\ w,\ h,\ addr,}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{avr_2platform_8c_a5f91a233a54a301e040fe44f33561ef8}{\_abgr\_to\_rgb565}}(fg),}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{avr_2platform_8c_a5f91a233a54a301e040fe44f33561ef8}{\_abgr\_to\_rgb565}}(bg));}
+\DoxyCodeLine{00114\ \}}
 
 \end{DoxyCode}
 
 
-Referenced by \mbox{\hyperlink{emulator_8c_source_l00645}{syscall\+\_\+gfx\+\_\+image\+\_\+1bit()}}.
+References \mbox{\hyperlink{avr_2platform_8c_source_l00084}{\+\_\+abgr\+\_\+to\+\_\+rgb565()}}, and \mbox{\hyperlink{lcd_8c_source_l00570}{lcd\+\_\+image\+\_\+1bit()}}.
 
-\mbox{\Hypertarget{avr_2platform_8c_a55913cd59e2637b9dcc8a17ef6276f77}\label{avr_2platform_8c_a55913cd59e2637b9dcc8a17ef6276f77}} 
+
+
+Referenced by \mbox{\hyperlink{emulator_8c_source_l00578}{syscall\+\_\+gfx\+\_\+image\+\_\+1bit()}}.
+
+\Hypertarget{avr_2platform_8c_a6ea7c49d1f435686931e8c57b756033c}\label{avr_2platform_8c_a6ea7c49d1f435686931e8c57b756033c} 
 \index{platform.c@{platform.c}!env\_gfx\_image\_grayscale@{env\_gfx\_image\_grayscale}}
 \index{env\_gfx\_image\_grayscale@{env\_gfx\_image\_grayscale}!platform.c@{platform.c}}
 \doxysubsubsection{\texorpdfstring{env\_gfx\_image\_grayscale()}{env\_gfx\_image\_grayscale()}}
-{\footnotesize\ttfamily void env\+\_\+gfx\+\_\+image\+\_\+grayscale (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}}]{x,  }\item[{\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}}]{y,  }\item[{\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}}]{w,  }\item[{\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}}]{h,  }\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{addr,  }\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{fg,  }\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{bg }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void env\+\_\+gfx\+\_\+image\+\_\+grayscale (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}}}]{x,  }\item[{\mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}}}]{y,  }\item[{\mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}}}]{w,  }\item[{\mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}}}]{h,  }\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{addr,  }\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{fg,  }\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{bg }\end{DoxyParamCaption})}
 
 
 
@@ -226,67 +282,28 @@ Draw a colored grayscale image.
 \end{DoxyParams}
 
 
-Definition at line \mbox{\hyperlink{avr_2platform_8c_source_l00084}{84}} of file \mbox{\hyperlink{avr_2platform_8c_source}{platform.\+c}}.
+Definition at line \mbox{\hyperlink{avr_2platform_8c_source_l00102}{102}} of file \mbox{\hyperlink{avr_2platform_8c_source}{platform.\+c}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00086\ \{}
-\DoxyCodeLine{00087\ \ \ \ \ \textcolor{comment}{/*}}
-\DoxyCodeLine{00088\ \textcolor{comment}{\ \ \ \ lcd\_image\_grayscale(}}
-\DoxyCodeLine{00089\ \textcolor{comment}{\ \ \ \ \ \ \ \ u16\ x,\ u16\ y,\ u16\ w,\ u16\ h,\ RGB565\ fg,\ RGB565\ bg,\ u32\ addr);}}
-\DoxyCodeLine{00090\ \textcolor{comment}{\ \ \ \ */}}
-\DoxyCodeLine{00091\ \}}
+\DoxyCodeLine{00104\ \{}
+\DoxyCodeLine{00105\ \ \ \ \ \mbox{\hyperlink{lcd_8c_abc4eb78d0c4113a8bec610bd74c6969f}{lcd\_image\_grayscale}}(x,\ y,\ w,\ h,\ addr,\ fg,\ bg);}
+\DoxyCodeLine{00106\ \}}
 
 \end{DoxyCode}
 
 
-Referenced by \mbox{\hyperlink{emulator_8c_source_l00601}{syscall\+\_\+gfx\+\_\+image\+\_\+grayscale()}}.
-
-\mbox{\Hypertarget{avr_2platform_8c_a6ac0a4bc195845f77f7392de411499b8}\label{avr_2platform_8c_a6ac0a4bc195845f77f7392de411499b8}} 
-\index{platform.c@{platform.c}!env\_gfx\_image\_rgb@{env\_gfx\_image\_rgb}}
-\index{env\_gfx\_image\_rgb@{env\_gfx\_image\_rgb}!platform.c@{platform.c}}
-\doxysubsubsection{\texorpdfstring{env\_gfx\_image\_rgb()}{env\_gfx\_image\_rgb()}}
-{\footnotesize\ttfamily void env\+\_\+gfx\+\_\+image\+\_\+rgb (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}}]{x,  }\item[{\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}}]{y,  }\item[{\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}}]{w,  }\item[{\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}}]{h,  }\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{addr }\end{DoxyParamCaption})}
+References \mbox{\hyperlink{lcd_8c_source_l00549}{lcd\+\_\+image\+\_\+grayscale()}}.
 
 
 
-Draw an RGB image. 
+Referenced by \mbox{\hyperlink{emulator_8c_source_l00534}{syscall\+\_\+gfx\+\_\+image\+\_\+grayscale()}}.
 
-
-\begin{DoxyParams}{Parameters}
-{\em x} & X-\/\+Coordinate \\
-\hline
-{\em y} & Y-\/\+Coordinate \\
-\hline
-{\em w} & Width \\
-\hline
-{\em h} & Height \\
-\hline
-{\em addr} & Image memory address \\
-\hline
-\end{DoxyParams}
-
-
-Definition at line \mbox{\hyperlink{avr_2platform_8c_source_l00070}{70}} of file \mbox{\hyperlink{avr_2platform_8c_source}{platform.\+c}}.
-
-
-\begin{DoxyCode}{0}
-\DoxyCodeLine{00071\ \{}
-\DoxyCodeLine{00072\ \ \ \ \ \textcolor{comment}{/*}}
-\DoxyCodeLine{00073\ \textcolor{comment}{\ \ \ \ lcd\_image\_rgb(u16\ x,\ u16\ y,\ u16\ w,\ u16\ h,\ u32\ addr);}}
-\DoxyCodeLine{00074\ \textcolor{comment}{\ \ \ \ */}}
-\DoxyCodeLine{00075\ \}}
-
-\end{DoxyCode}
-
-
-Referenced by \mbox{\hyperlink{emulator_8c_source_l00532}{syscall\+\_\+gfx\+\_\+image\+\_\+rgb()}}.
-
-\mbox{\Hypertarget{avr_2platform_8c_a6d50f649582cee2b61d52a87fbd0e05f}\label{avr_2platform_8c_a6d50f649582cee2b61d52a87fbd0e05f}} 
+\Hypertarget{avr_2platform_8c_a9c0002575d2ee2eae556e5e9f3fd6dfd}\label{avr_2platform_8c_a9c0002575d2ee2eae556e5e9f3fd6dfd} 
 \index{platform.c@{platform.c}!env\_gfx\_image\_rgb565@{env\_gfx\_image\_rgb565}}
 \index{env\_gfx\_image\_rgb565@{env\_gfx\_image\_rgb565}!platform.c@{platform.c}}
 \doxysubsubsection{\texorpdfstring{env\_gfx\_image\_rgb565()}{env\_gfx\_image\_rgb565()}}
-{\footnotesize\ttfamily void env\+\_\+gfx\+\_\+image\+\_\+rgb565 (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}}]{x,  }\item[{\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}}]{y,  }\item[{\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}}]{w,  }\item[{\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}}]{h,  }\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{addr }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void env\+\_\+gfx\+\_\+image\+\_\+rgb565 (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}}}]{x,  }\item[{\mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}}}]{y,  }\item[{\mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}}}]{w,  }\item[{\mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}}}]{h,  }\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{addr }\end{DoxyParamCaption})}
 
 
 
@@ -307,71 +324,28 @@ Draw an RGB565 image.
 \end{DoxyParams}
 
 
-Definition at line \mbox{\hyperlink{avr_2platform_8c_source_l00077}{77}} of file \mbox{\hyperlink{avr_2platform_8c_source}{platform.\+c}}.
+Definition at line \mbox{\hyperlink{avr_2platform_8c_source_l00097}{97}} of file \mbox{\hyperlink{avr_2platform_8c_source}{platform.\+c}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00078\ \{}
-\DoxyCodeLine{00079\ \ \ \ \ \textcolor{comment}{/*}}
-\DoxyCodeLine{00080\ \textcolor{comment}{\ \ \ \ lcd\_image\_rgb565(u16\ x,\ u16\ y,\ u16\ w,\ u16\ h,\ u32\ addr);}}
-\DoxyCodeLine{00081\ \textcolor{comment}{\ \ \ \ */}}
-\DoxyCodeLine{00082\ \}}
+\DoxyCodeLine{00098\ \{}
+\DoxyCodeLine{00099\ \ \ \ \ \mbox{\hyperlink{lcd_8c_aa974eda613ffac18ecf6b119a8a5329b}{lcd\_image\_rgb565}}(x,\ y,\ w,\ h,\ addr);}
+\DoxyCodeLine{00100\ \}}
 
 \end{DoxyCode}
 
 
-Referenced by \mbox{\hyperlink{emulator_8c_source_l00567}{syscall\+\_\+gfx\+\_\+image\+\_\+rgb565()}}.
-
-\mbox{\Hypertarget{avr_2platform_8c_a5ec534a76e1a69d2f4667abe4f7f8ff1}\label{avr_2platform_8c_a5ec534a76e1a69d2f4667abe4f7f8ff1}} 
-\index{platform.c@{platform.c}!env\_gfx\_image\_rgba@{env\_gfx\_image\_rgba}}
-\index{env\_gfx\_image\_rgba@{env\_gfx\_image\_rgba}!platform.c@{platform.c}}
-\doxysubsubsection{\texorpdfstring{env\_gfx\_image\_rgba()}{env\_gfx\_image\_rgba()}}
-{\footnotesize\ttfamily void env\+\_\+gfx\+\_\+image\+\_\+rgba (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}}]{x,  }\item[{\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}}]{y,  }\item[{\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}}]{w,  }\item[{\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}}]{h,  }\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{addr }\end{DoxyParamCaption})}
+References \mbox{\hyperlink{lcd_8c_source_l00501}{lcd\+\_\+image\+\_\+rgb565()}}.
 
 
 
-Draw an RGBA image. 
+Referenced by \mbox{\hyperlink{emulator_8c_source_l00500}{syscall\+\_\+gfx\+\_\+image\+\_\+rgb565()}}.
 
-
-\begin{DoxyParams}{Parameters}
-{\em x} & X-\/\+Coordinate \\
-\hline
-{\em y} & Y-\/\+Coordinate \\
-\hline
-{\em w} & Width \\
-\hline
-{\em h} & Height \\
-\hline
-{\em addr} & Image memory address \\
-\hline
-\end{DoxyParams}
-
-
-Definition at line \mbox{\hyperlink{avr_2platform_8c_source_l00058}{58}} of file \mbox{\hyperlink{avr_2platform_8c_source}{platform.\+c}}.
-
-
-\begin{DoxyCode}{0}
-\DoxyCodeLine{00059\ \{}
-\DoxyCodeLine{00060\ \ \ \ \ \textcolor{comment}{/*}}
-\DoxyCodeLine{00061\ \textcolor{comment}{\ \ \ \ xmem\_read(args[0],\ \&r,\ sizeof(r));}}
-\DoxyCodeLine{00062\ \textcolor{comment}{}}
-\DoxyCodeLine{00063\ \textcolor{comment}{\ \ \ \ fg\ =\ \_abgr\_to\_rgb565(args[2]);}}
-\DoxyCodeLine{00064\ \textcolor{comment}{\ \ \ \ bg\ =\ \_abgr\_to\_rgb565(args[3]);}}
-\DoxyCodeLine{00065\ \textcolor{comment}{}}
-\DoxyCodeLine{00066\ \textcolor{comment}{\ \ \ \ lcd\_image\_rgba(u16\ x,\ u16\ y,\ u16\ w,\ u16\ h,\ u32\ addr);}}
-\DoxyCodeLine{00067\ \textcolor{comment}{\ \ \ \ */}}
-\DoxyCodeLine{00068\ \}}
-
-\end{DoxyCode}
-
-
-Referenced by \mbox{\hyperlink{emulator_8c_source_l00497}{syscall\+\_\+gfx\+\_\+image\+\_\+rgba()}}.
-
-\mbox{\Hypertarget{avr_2platform_8c_ac453e2fa7f27ee825e5fd898bbce47ce}\label{avr_2platform_8c_ac453e2fa7f27ee825e5fd898bbce47ce}} 
+\Hypertarget{avr_2platform_8c_a7dc0a6f0c7591bb3a8a1ba7ebbb8085e}\label{avr_2platform_8c_a7dc0a6f0c7591bb3a8a1ba7ebbb8085e} 
 \index{platform.c@{platform.c}!env\_gfx\_rect@{env\_gfx\_rect}}
 \index{env\_gfx\_rect@{env\_gfx\_rect}!platform.c@{platform.c}}
 \doxysubsubsection{\texorpdfstring{env\_gfx\_rect()}{env\_gfx\_rect()}}
-{\footnotesize\ttfamily void env\+\_\+gfx\+\_\+rect (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}}]{x,  }\item[{\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}}]{y,  }\item[{\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}}]{w,  }\item[{\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}}]{h,  }\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{color }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void env\+\_\+gfx\+\_\+rect (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}}}]{x,  }\item[{\mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}}}]{y,  }\item[{\mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}}}]{w,  }\item[{\mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}}}]{h,  }\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{color }\end{DoxyParamCaption})}
 
 
 
@@ -392,28 +366,28 @@ Draw rectangle.
 \end{DoxyParams}
 
 
-Definition at line \mbox{\hyperlink{avr_2platform_8c_source_l00053}{53}} of file \mbox{\hyperlink{avr_2platform_8c_source}{platform.\+c}}.
+Definition at line \mbox{\hyperlink{avr_2platform_8c_source_l00092}{92}} of file \mbox{\hyperlink{avr_2platform_8c_source}{platform.\+c}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00054\ \{}
-\DoxyCodeLine{00055\ \ \ \ \ \mbox{\hyperlink{lcd_8c_a010620f3d9dc0536cc9551d7aabd8d17}{lcd\_rect}}(x,\ y,\ w,\ h,\ \mbox{\hyperlink{avr_2platform_8c_a5f91a233a54a301e040fe44f33561ef8}{\_abgr\_to\_rgb565}}(color));}
-\DoxyCodeLine{00056\ \}}
+\DoxyCodeLine{00093\ \{}
+\DoxyCodeLine{00094\ \ \ \ \ \mbox{\hyperlink{lcd_8c_a010620f3d9dc0536cc9551d7aabd8d17}{lcd\_rect}}(x,\ y,\ w,\ h,\ \mbox{\hyperlink{avr_2platform_8c_a5f91a233a54a301e040fe44f33561ef8}{\_abgr\_to\_rgb565}}(color));}
+\DoxyCodeLine{00095\ \}}
 
 \end{DoxyCode}
 
 
-References \mbox{\hyperlink{avr_2platform_8c_source_l00045}{\+\_\+abgr\+\_\+to\+\_\+rgb565()}}, and \mbox{\hyperlink{lcd_8c_source_l00446}{lcd\+\_\+rect()}}.
+References \mbox{\hyperlink{avr_2platform_8c_source_l00084}{\+\_\+abgr\+\_\+to\+\_\+rgb565()}}, and \mbox{\hyperlink{lcd_8c_source_l00416}{lcd\+\_\+rect()}}.
 
 
 
-Referenced by \mbox{\hyperlink{emulator_8c_source_l00468}{syscall\+\_\+gfx\+\_\+rect()}}.
+Referenced by \mbox{\hyperlink{emulator_8c_source_l00471}{syscall\+\_\+gfx\+\_\+rect()}}.
 
-\mbox{\Hypertarget{avr_2platform_8c_ab7ab32a3f56a5eb22459591ded6cb9ec}\label{avr_2platform_8c_ab7ab32a3f56a5eb22459591ded6cb9ec}} 
+\Hypertarget{avr_2platform_8c_ab7ab32a3f56a5eb22459591ded6cb9ec}\label{avr_2platform_8c_ab7ab32a3f56a5eb22459591ded6cb9ec} 
 \index{platform.c@{platform.c}!env\_memory\_read@{env\_memory\_read}}
 \index{env\_memory\_read@{env\_memory\_read}!platform.c@{platform.c}}
 \doxysubsubsection{\texorpdfstring{env\_memory\_read()}{env\_memory\_read()}}
-{\footnotesize\ttfamily void env\+\_\+memory\+\_\+read (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{addr,  }\item[{void $\ast$}]{data,  }\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{size }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void env\+\_\+memory\+\_\+read (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{addr,  }\item[{void \texorpdfstring{$\ast$}{*}}]{data,  }\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{size }\end{DoxyParamCaption})}
 
 
 
@@ -430,13 +404,13 @@ Read data from physical memory.
 \end{DoxyParams}
 
 
-Definition at line \mbox{\hyperlink{avr_2platform_8c_source_l00023}{23}} of file \mbox{\hyperlink{avr_2platform_8c_source}{platform.\+c}}.
+Definition at line \mbox{\hyperlink{avr_2platform_8c_source_l00024}{24}} of file \mbox{\hyperlink{avr_2platform_8c_source}{platform.\+c}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00024\ \{}
-\DoxyCodeLine{00025\ \ \ \ \ \mbox{\hyperlink{xmem_8c_ac439854f5a1e0bd1b2f52c1028fc900a}{xmem\_read}}(addr,\ data,\ size);}
-\DoxyCodeLine{00026\ \}}
+\DoxyCodeLine{00025\ \{}
+\DoxyCodeLine{00026\ \ \ \ \ \mbox{\hyperlink{xmem_8c_ac439854f5a1e0bd1b2f52c1028fc900a}{xmem\_read}}(addr,\ data,\ size);}
+\DoxyCodeLine{00027\ \}}
 
 \end{DoxyCode}
 
@@ -445,9 +419,9 @@ References \mbox{\hyperlink{xmem_8c_source_l00286}{xmem\+\_\+read()}}.
 
 
 
-Referenced by \mbox{\hyperlink{emulator_8c_source_l00250}{memory\+\_\+lb()}}, \mbox{\hyperlink{emulator_8c_source_l00313}{memory\+\_\+lbu()}}, \mbox{\hyperlink{emulator_8c_source_l00271}{memory\+\_\+lh()}}, \mbox{\hyperlink{emulator_8c_source_l00334}{memory\+\_\+lhu()}}, \mbox{\hyperlink{emulator_8c_source_l00292}{memory\+\_\+lw()}}, \mbox{\hyperlink{emulator_8c_source_l00645}{syscall\+\_\+gfx\+\_\+image\+\_\+1bit()}}, \mbox{\hyperlink{emulator_8c_source_l00601}{syscall\+\_\+gfx\+\_\+image\+\_\+grayscale()}}, and \mbox{\hyperlink{emulator_8c_source_l00433}{syscall\+\_\+serial\+\_\+write()}}.
+Referenced by \mbox{\hyperlink{emulator_8c_source_l00253}{memory\+\_\+lb()}}, \mbox{\hyperlink{emulator_8c_source_l00316}{memory\+\_\+lbu()}}, \mbox{\hyperlink{emulator_8c_source_l00274}{memory\+\_\+lh()}}, \mbox{\hyperlink{emulator_8c_source_l00337}{memory\+\_\+lhu()}}, \mbox{\hyperlink{emulator_8c_source_l00295}{memory\+\_\+lw()}}, \mbox{\hyperlink{emulator_8c_source_l00578}{syscall\+\_\+gfx\+\_\+image\+\_\+1bit()}}, \mbox{\hyperlink{emulator_8c_source_l00534}{syscall\+\_\+gfx\+\_\+image\+\_\+grayscale()}}, and \mbox{\hyperlink{emulator_8c_source_l00436}{syscall\+\_\+serial\+\_\+write()}}.
 
-\mbox{\Hypertarget{avr_2platform_8c_acf57f1ce47563167d4ef978ef1a7ab49}\label{avr_2platform_8c_acf57f1ce47563167d4ef978ef1a7ab49}} 
+\Hypertarget{avr_2platform_8c_acf57f1ce47563167d4ef978ef1a7ab49}\label{avr_2platform_8c_acf57f1ce47563167d4ef978ef1a7ab49} 
 \index{platform.c@{platform.c}!env\_memory\_size@{env\_memory\_size}}
 \index{env\_memory\_size@{env\_memory\_size}!platform.c@{platform.c}}
 \doxysubsubsection{\texorpdfstring{env\_memory\_size()}{env\_memory\_size()}}
@@ -462,13 +436,13 @@ The size of the memory in bytes
 \end{DoxyReturn}
 
 
-Definition at line \mbox{\hyperlink{avr_2platform_8c_source_l00018}{18}} of file \mbox{\hyperlink{avr_2platform_8c_source}{platform.\+c}}.
+Definition at line \mbox{\hyperlink{avr_2platform_8c_source_l00019}{19}} of file \mbox{\hyperlink{avr_2platform_8c_source}{platform.\+c}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00019\ \{}
-\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{xmem_8c_a4164d03f7168bc7c7d3ce75d27bc6547}{xmem\_size}}();}
-\DoxyCodeLine{00021\ \}}
+\DoxyCodeLine{00020\ \{}
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{xmem_8c_a4164d03f7168bc7c7d3ce75d27bc6547}{xmem\_size}}();}
+\DoxyCodeLine{00022\ \}}
 
 \end{DoxyCode}
 
@@ -477,13 +451,13 @@ References \mbox{\hyperlink{xmem_8c_source_l00320}{xmem\+\_\+size()}}.
 
 
 
-Referenced by \mbox{\hyperlink{emulator_8c_source_l00120}{kernel\+\_\+init()}}.
+Referenced by \mbox{\hyperlink{emulator_8c_source_l00123}{kernel\+\_\+init()}}.
 
-\mbox{\Hypertarget{avr_2platform_8c_a22d4f443fb95499e0acccc1f263e99c7}\label{avr_2platform_8c_a22d4f443fb95499e0acccc1f263e99c7}} 
+\Hypertarget{avr_2platform_8c_a22d4f443fb95499e0acccc1f263e99c7}\label{avr_2platform_8c_a22d4f443fb95499e0acccc1f263e99c7} 
 \index{platform.c@{platform.c}!env\_memory\_write@{env\_memory\_write}}
 \index{env\_memory\_write@{env\_memory\_write}!platform.c@{platform.c}}
 \doxysubsubsection{\texorpdfstring{env\_memory\_write()}{env\_memory\_write()}}
-{\footnotesize\ttfamily void env\+\_\+memory\+\_\+write (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{addr,  }\item[{const void $\ast$}]{data,  }\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{size }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void env\+\_\+memory\+\_\+write (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{addr,  }\item[{const void \texorpdfstring{$\ast$}{*}}]{data,  }\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{size }\end{DoxyParamCaption})}
 
 
 
@@ -500,13 +474,13 @@ Write data to physical memory.
 \end{DoxyParams}
 
 
-Definition at line \mbox{\hyperlink{avr_2platform_8c_source_l00028}{28}} of file \mbox{\hyperlink{avr_2platform_8c_source}{platform.\+c}}.
+Definition at line \mbox{\hyperlink{avr_2platform_8c_source_l00029}{29}} of file \mbox{\hyperlink{avr_2platform_8c_source}{platform.\+c}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00029\ \{}
-\DoxyCodeLine{00030\ \ \ \ \ \mbox{\hyperlink{xmem_8c_afef9c92490450d98f177f53f2b174f20}{xmem\_write}}(addr,\ data,\ size);}
-\DoxyCodeLine{00031\ \}}
+\DoxyCodeLine{00030\ \{}
+\DoxyCodeLine{00031\ \ \ \ \ \mbox{\hyperlink{xmem_8c_afef9c92490450d98f177f53f2b174f20}{xmem\_write}}(addr,\ data,\ size);}
+\DoxyCodeLine{00032\ \}}
 
 \end{DoxyCode}
 
@@ -515,9 +489,9 @@ References \mbox{\hyperlink{xmem_8c_source_l00297}{xmem\+\_\+write()}}.
 
 
 
-Referenced by \mbox{\hyperlink{emulator_8c_source_l00190}{memory\+\_\+sb()}}, \mbox{\hyperlink{emulator_8c_source_l00210}{memory\+\_\+sh()}}, and \mbox{\hyperlink{emulator_8c_source_l00230}{memory\+\_\+sw()}}.
+Referenced by \mbox{\hyperlink{emulator_8c_source_l00193}{memory\+\_\+sb()}}, \mbox{\hyperlink{emulator_8c_source_l00213}{memory\+\_\+sh()}}, and \mbox{\hyperlink{emulator_8c_source_l00233}{memory\+\_\+sw()}}.
 
-\mbox{\Hypertarget{avr_2platform_8c_a0be14c6c6a205ee06b64f11184884e5e}\label{avr_2platform_8c_a0be14c6c6a205ee06b64f11184884e5e}} 
+\Hypertarget{avr_2platform_8c_a0be14c6c6a205ee06b64f11184884e5e}\label{avr_2platform_8c_a0be14c6c6a205ee06b64f11184884e5e} 
 \index{platform.c@{platform.c}!env\_millis@{env\_millis}}
 \index{env\_millis@{env\_millis}!platform.c@{platform.c}}
 \doxysubsubsection{\texorpdfstring{env\_millis()}{env\_millis()}}
@@ -532,13 +506,13 @@ The number of milliseconds
 \end{DoxyReturn}
 
 
-Definition at line \mbox{\hyperlink{avr_2platform_8c_source_l00123}{123}} of file \mbox{\hyperlink{avr_2platform_8c_source}{platform.\+c}}.
+Definition at line \mbox{\hyperlink{avr_2platform_8c_source_l00137}{137}} of file \mbox{\hyperlink{avr_2platform_8c_source}{platform.\+c}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00124\ \{}
-\DoxyCodeLine{00125\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{timer_8c_aee701eeb891b748ed2e12da119816882}{millis}}();}
-\DoxyCodeLine{00126\ \}}
+\DoxyCodeLine{00138\ \{}
+\DoxyCodeLine{00139\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{timer_8c_aee701eeb891b748ed2e12da119816882}{millis}}();}
+\DoxyCodeLine{00140\ \}}
 
 \end{DoxyCode}
 
@@ -547,9 +521,9 @@ References \mbox{\hyperlink{timer_8c_source_l00036}{millis()}}.
 
 
 
-Referenced by \mbox{\hyperlink{emulator_8c_source_l00406}{syscall\+\_\+millis()}}.
+Referenced by \mbox{\hyperlink{emulator_8c_source_l00409}{syscall\+\_\+millis()}}.
 
-\mbox{\Hypertarget{avr_2platform_8c_ac25a788a06cf437544e5edaf5faf4e2f}\label{avr_2platform_8c_ac25a788a06cf437544e5edaf5faf4e2f}} 
+\Hypertarget{avr_2platform_8c_ac25a788a06cf437544e5edaf5faf4e2f}\label{avr_2platform_8c_ac25a788a06cf437544e5edaf5faf4e2f} 
 \index{platform.c@{platform.c}!env\_random\_get@{env\_random\_get}}
 \index{env\_random\_get@{env\_random\_get}!platform.c@{platform.c}}
 \doxysubsubsection{\texorpdfstring{env\_random\_get()}{env\_random\_get()}}
@@ -564,13 +538,13 @@ The number
 \end{DoxyReturn}
 
 
-Definition at line \mbox{\hyperlink{avr_2platform_8c_source_l00116}{116}} of file \mbox{\hyperlink{avr_2platform_8c_source}{platform.\+c}}.
+Definition at line \mbox{\hyperlink{avr_2platform_8c_source_l00130}{130}} of file \mbox{\hyperlink{avr_2platform_8c_source}{platform.\+c}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00117\ \{}
-\DoxyCodeLine{00118\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{random_8c_acd70dc015ebddf28c8650af3a91480f8}{random\_get}}();}
-\DoxyCodeLine{00119\ \}}
+\DoxyCodeLine{00131\ \{}
+\DoxyCodeLine{00132\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{random_8c_acd70dc015ebddf28c8650af3a91480f8}{random\_get}}();}
+\DoxyCodeLine{00133\ \}}
 
 \end{DoxyCode}
 
@@ -579,13 +553,13 @@ References \mbox{\hyperlink{random_8c_source_l00020}{random\+\_\+get()}}.
 
 
 
-Referenced by \mbox{\hyperlink{emulator_8c_source_l00419}{syscall\+\_\+rand()}}.
+Referenced by \mbox{\hyperlink{emulator_8c_source_l00422}{syscall\+\_\+rand()}}.
 
-\mbox{\Hypertarget{avr_2platform_8c_a10a5a2d20838f25eba5db18f43f94158}\label{avr_2platform_8c_a10a5a2d20838f25eba5db18f43f94158}} 
+\Hypertarget{avr_2platform_8c_a10a5a2d20838f25eba5db18f43f94158}\label{avr_2platform_8c_a10a5a2d20838f25eba5db18f43f94158} 
 \index{platform.c@{platform.c}!env\_serial\_write@{env\_serial\_write}}
 \index{env\_serial\_write@{env\_serial\_write}!platform.c@{platform.c}}
 \doxysubsubsection{\texorpdfstring{env\_serial\_write()}{env\_serial\_write()}}
-{\footnotesize\ttfamily void env\+\_\+serial\+\_\+write (\begin{DoxyParamCaption}\item[{const void $\ast$}]{data,  }\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{len }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void env\+\_\+serial\+\_\+write (\begin{DoxyParamCaption}\item[{const void \texorpdfstring{$\ast$}{*}}]{data,  }\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{len }\end{DoxyParamCaption})}
 
 
 
@@ -600,18 +574,18 @@ Send data over the serial interface.
 \end{DoxyParams}
 
 
-Definition at line \mbox{\hyperlink{avr_2platform_8c_source_l00104}{104}} of file \mbox{\hyperlink{avr_2platform_8c_source}{platform.\+c}}.
+Definition at line \mbox{\hyperlink{avr_2platform_8c_source_l00118}{118}} of file \mbox{\hyperlink{avr_2platform_8c_source}{platform.\+c}}.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00105\ \{}
-\DoxyCodeLine{00106\ \ \ \ \ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ i;}
-\DoxyCodeLine{00107\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *data8\ =\ data;}
-\DoxyCodeLine{00108\ \ \ \ \ \textcolor{keywordflow}{for}(i\ =\ 0;\ i\ <\ len;\ ++i)}
-\DoxyCodeLine{00109\ \ \ \ \ \{}
-\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{platform_2avr_2serial_2serial_8c_ad1404aaabd8a723599a89c9b9ca08a65}{serial\_tx}}(data8[i]);}
-\DoxyCodeLine{00111\ \ \ \ \ \}}
-\DoxyCodeLine{00112\ \}}
+\DoxyCodeLine{00119\ \{}
+\DoxyCodeLine{00120\ \ \ \ \ \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}\ i;}
+\DoxyCodeLine{00121\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *data8\ =\ data;}
+\DoxyCodeLine{00122\ \ \ \ \ \textcolor{keywordflow}{for}(i\ =\ 0;\ i\ <\ len;\ ++i)}
+\DoxyCodeLine{00123\ \ \ \ \ \{}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{platform_2avr_2serial_2serial_8c_ad1404aaabd8a723599a89c9b9ca08a65}{serial\_tx}}(data8[i]);}
+\DoxyCodeLine{00125\ \ \ \ \ \}}
+\DoxyCodeLine{00126\ \}}
 
 \end{DoxyCode}
 
@@ -620,5 +594,45 @@ References \mbox{\hyperlink{platform_2avr_2serial_2serial_8c_source_l00026}{seri
 
 
 
-Referenced by \mbox{\hyperlink{emulator_8c_source_l00433}{syscall\+\_\+serial\+\_\+write()}}.
+Referenced by \mbox{\hyperlink{emulator_8c_source_l00436}{syscall\+\_\+serial\+\_\+write()}}.
+
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{avr_2platform_8c_af3dcc12854dfb6fe2ab12a1ef3d10a2b}\label{avr_2platform_8c_af3dcc12854dfb6fe2ab12a1ef3d10a2b} 
+\index{platform.c@{platform.c}!\_gamma@{\_gamma}}
+\index{\_gamma@{\_gamma}!platform.c@{platform.c}}
+\doxysubsubsection{\texorpdfstring{\_gamma}{\_gamma}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{types_8h_a92c50087ca0e64fa93fc59402c55f8ca}{u8}} \mbox{\hyperlink{lcd_8c_aaf0f89df98cf3f63e9d4e50859f9c706}{PROGMEM}} \+\_\+gamma\mbox{[}$\,$\mbox{]}\hspace{0.3cm}{\ttfamily [static]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ \ \ \ \ 0,\ \ 21,\ \ 28,\ \ 34,\ \ 39,\ \ 43,\ \ 46,\ \ 50,\ \ 53,\ \ 56,\ \ 59,\ \ 61,\ \ 64,\ \ 66,\ \ 68,\ \ 70,}
+\DoxyCodeLine{\ \ \ \ \ 72,\ \ 74,\ \ 76,\ \ 78,\ \ 80,\ \ 82,\ \ 84,\ \ 85,\ \ 87,\ \ 89,\ \ 90,\ \ 92,\ \ 93,\ \ 95,\ \ 96,\ \ 98,}
+\DoxyCodeLine{\ \ \ \ \ 99,\ 101,\ 102,\ 103,\ 105,\ 106,\ 107,\ 109,\ 110,\ 111,\ 112,\ 114,\ 115,\ 116,\ 117,\ 118,}
+\DoxyCodeLine{\ \ \ \ 119,\ 120,\ 122,\ 123,\ 124,\ 125,\ 126,\ 127,\ 128,\ 129,\ 130,\ 131,\ 132,\ 133,\ 134,\ 135,}
+\DoxyCodeLine{\ \ \ \ 136,\ 137,\ 138,\ 139,\ 140,\ 141,\ 142,\ 143,\ 144,\ 144,\ 145,\ 146,\ 147,\ 148,\ 149,\ 150,}
+\DoxyCodeLine{\ \ \ \ 151,\ 151,\ 152,\ 153,\ 154,\ 155,\ 156,\ 156,\ 157,\ 158,\ 159,\ 160,\ 160,\ 161,\ 162,\ 163,}
+\DoxyCodeLine{\ \ \ \ 164,\ 164,\ 165,\ 166,\ 167,\ 167,\ 168,\ 169,\ 170,\ 170,\ 171,\ 172,\ 173,\ 173,\ 174,\ 175,}
+\DoxyCodeLine{\ \ \ \ 175,\ 176,\ 177,\ 178,\ 178,\ 179,\ 180,\ 180,\ 181,\ 182,\ 182,\ 183,\ 184,\ 184,\ 185,\ 186,}
+\DoxyCodeLine{\ \ \ \ 186,\ 187,\ 188,\ 188,\ 189,\ 190,\ 190,\ 191,\ 192,\ 192,\ 193,\ 194,\ 194,\ 195,\ 195,\ 196,}
+\DoxyCodeLine{\ \ \ \ 197,\ 197,\ 198,\ 199,\ 199,\ 200,\ 200,\ 201,\ 202,\ 202,\ 203,\ 203,\ 204,\ 205,\ 205,\ 206,}
+\DoxyCodeLine{\ \ \ \ 206,\ 207,\ 207,\ 208,\ 209,\ 209,\ 210,\ 210,\ 211,\ 212,\ 212,\ 213,\ 213,\ 214,\ 214,\ 215,}
+\DoxyCodeLine{\ \ \ \ 215,\ 216,\ 217,\ 217,\ 218,\ 218,\ 219,\ 219,\ 220,\ 220,\ 221,\ 221,\ 222,\ 223,\ 223,\ 224,}
+\DoxyCodeLine{\ \ \ \ 224,\ 225,\ 225,\ 226,\ 226,\ 227,\ 227,\ 228,\ 228,\ 229,\ 229,\ 230,\ 230,\ 231,\ 231,\ 232,}
+\DoxyCodeLine{\ \ \ \ 232,\ 233,\ 233,\ 234,\ 234,\ 235,\ 235,\ 236,\ 236,\ 237,\ 237,\ 238,\ 238,\ 239,\ 239,\ 240,}
+\DoxyCodeLine{\ \ \ \ 240,\ 241,\ 241,\ 242,\ 242,\ 243,\ 243,\ 244,\ 244,\ 245,\ 245,\ 246,\ 246,\ 247,\ 247,\ 248,}
+\DoxyCodeLine{\ \ \ \ 248,\ 249,\ 249,\ 249,\ 250,\ 250,\ 251,\ 251,\ 252,\ 252,\ 253,\ 253,\ 254,\ 254,\ 255,\ 255}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+Reverse gamma correction table 
+
+Definition at line \mbox{\hyperlink{avr_2platform_8c_source_l00046}{46}} of file \mbox{\hyperlink{avr_2platform_8c_source}{platform.\+c}}.
+
+
+
+Referenced by \mbox{\hyperlink{avr_2platform_8c_source_l00072}{\+\_\+gamma\+\_\+correction()}}.
 

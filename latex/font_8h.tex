@@ -1,44 +1,44 @@
-\hypertarget{font_8h}{}\doxysection{stdlib/font/font.h File Reference}
-\label{font_8h}\index{stdlib/font/font.h@{stdlib/font/font.h}}
+\doxysection{stdlib/font/font.h File Reference}
+\hypertarget{font_8h}{}\label{font_8h}\index{stdlib/font/font.h@{stdlib/font/font.h}}
 
 
-\mbox{\hyperlink{structFont}{Font}} rendering with UTF-\/8 support.  
+\doxylink{structFont}{Font} rendering with UTF-\/8 support.  
 
 
 {\ttfamily \#include $<$types.\+h$>$}\newline
 {\ttfamily \#include $<$gfx.\+h$>$}\newline
-\doxysubsection*{Data Structures}
+\doxysubsubsection*{Data Structures}
 \begin{DoxyCompactItemize}
 \item 
 struct \mbox{\hyperlink{structFontChar}{Font\+Char}}
 \item 
 struct \mbox{\hyperlink{structFONT}{FONT}}
 \end{DoxyCompactItemize}
-\doxysubsection*{Macros}
+\doxysubsubsection*{Macros}
 \begin{DoxyCompactItemize}
 \item 
 \#define \mbox{\hyperlink{font_8h_ad8a8e3f8f8a65b163bc055c14d67e1b5}{FONT\+\_\+\+FLAG\+\_\+\+GRAYSCALE}}~1
 \end{DoxyCompactItemize}
-\doxysubsection*{Typedefs}
+\doxysubsubsection*{Typedefs}
 \begin{DoxyCompactItemize}
 \item 
 typedef struct \mbox{\hyperlink{structFONT}{FONT}} \mbox{\hyperlink{font_8h_a0f83a364f5a4aaa67ffd241f9d7b5552}{Font}}
 \end{DoxyCompactItemize}
-\doxysubsection*{Functions}
+\doxysubsubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} \mbox{\hyperlink{font_8h_a0fb43ab4a095679d631a2c0652ee3f08}{font\+\_\+string\+\_\+len}} (\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} x, \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} y, const char $\ast$s, \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} len, \mbox{\hyperlink{structFont}{Font}} $\ast$font, \mbox{\hyperlink{gfx-types_8h_acbbccb6085c654282ef64cdcefc81be5}{Color}} fg, \mbox{\hyperlink{gfx-types_8h_acbbccb6085c654282ef64cdcefc81be5}{Color}} bg)
+\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} \mbox{\hyperlink{font_8h_a0fb43ab4a095679d631a2c0652ee3f08}{font\+\_\+string\+\_\+len}} (\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} x, \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} y, const char \texorpdfstring{$\ast$}{*}s, \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} len, \mbox{\hyperlink{structFont}{Font}} \texorpdfstring{$\ast$}{*}font, \mbox{\hyperlink{gfx-types_8h_acbbccb6085c654282ef64cdcefc81be5}{Color}} fg, \mbox{\hyperlink{gfx-types_8h_acbbccb6085c654282ef64cdcefc81be5}{Color}} bg)
 \begin{DoxyCompactList}\small\item\em Draw an UTF-\/8 string {\ttfamily s} with a maximum number of chars. This function will also stop at a \textquotesingle{}\textbackslash{}0\textquotesingle{} character. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} \mbox{\hyperlink{font_8h_aa965d55e47b225d39bcf70c39ece24c4}{font\+\_\+string\+\_\+width\+\_\+len}} (const char $\ast$s, \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} len, \mbox{\hyperlink{structFont}{Font}} $\ast$font)
+\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} \mbox{\hyperlink{font_8h_aa965d55e47b225d39bcf70c39ece24c4}{font\+\_\+string\+\_\+width\+\_\+len}} (const char \texorpdfstring{$\ast$}{*}s, \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} len, \mbox{\hyperlink{structFont}{Font}} \texorpdfstring{$\ast$}{*}font)
 \begin{DoxyCompactList}\small\item\em Calculate the width of a string in pixels. \end{DoxyCompactList}\item 
-static \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} \mbox{\hyperlink{font_8h_a1dc9a04991c7d42402c21ab6a4b933e2}{font\+\_\+string}} (\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} x, \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} y, const char $\ast$s, \mbox{\hyperlink{structFont}{Font}} $\ast$font, \mbox{\hyperlink{gfx-types_8h_acbbccb6085c654282ef64cdcefc81be5}{Color}} fg, \mbox{\hyperlink{gfx-types_8h_acbbccb6085c654282ef64cdcefc81be5}{Color}} bg)
+static \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} \mbox{\hyperlink{font_8h_a1dc9a04991c7d42402c21ab6a4b933e2}{font\+\_\+string}} (\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} x, \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} y, const char \texorpdfstring{$\ast$}{*}s, \mbox{\hyperlink{structFont}{Font}} \texorpdfstring{$\ast$}{*}font, \mbox{\hyperlink{gfx-types_8h_acbbccb6085c654282ef64cdcefc81be5}{Color}} fg, \mbox{\hyperlink{gfx-types_8h_acbbccb6085c654282ef64cdcefc81be5}{Color}} bg)
 \begin{DoxyCompactList}\small\item\em Draw an NUL-\/terminated UTF-\/8 string {\ttfamily s} \end{DoxyCompactList}\item 
-static \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} \mbox{\hyperlink{font_8h_af05628a74a6fb4755ad6eb075ce5f87d}{font\+\_\+string\+\_\+width}} (const char $\ast$s, \mbox{\hyperlink{structFont}{Font}} $\ast$font)
+static \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} \mbox{\hyperlink{font_8h_af05628a74a6fb4755ad6eb075ce5f87d}{font\+\_\+string\+\_\+width}} (const char \texorpdfstring{$\ast$}{*}s, \mbox{\hyperlink{structFont}{Font}} \texorpdfstring{$\ast$}{*}font)
 \begin{DoxyCompactList}\small\item\em Calculate the width of a string in pixels. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
-\mbox{\hyperlink{structFont}{Font}} rendering with UTF-\/8 support. 
+\doxylink{structFont}{Font} rendering with UTF-\/8 support. 
 
 \begin{DoxyAuthor}{Author}
 Tim Gabrikowski, Anton Tchekov 
@@ -56,33 +56,33 @@ Definition in file \mbox{\hyperlink{font_8h_source}{font.\+h}}.
 
 
 \doxysubsection{Macro Definition Documentation}
-\mbox{\Hypertarget{font_8h_ad8a8e3f8f8a65b163bc055c14d67e1b5}\label{font_8h_ad8a8e3f8f8a65b163bc055c14d67e1b5}} 
+\Hypertarget{font_8h_ad8a8e3f8f8a65b163bc055c14d67e1b5}\label{font_8h_ad8a8e3f8f8a65b163bc055c14d67e1b5} 
 \index{font.h@{font.h}!FONT\_FLAG\_GRAYSCALE@{FONT\_FLAG\_GRAYSCALE}}
 \index{FONT\_FLAG\_GRAYSCALE@{FONT\_FLAG\_GRAYSCALE}!font.h@{font.h}}
 \doxysubsubsection{\texorpdfstring{FONT\_FLAG\_GRAYSCALE}{FONT\_FLAG\_GRAYSCALE}}
 {\footnotesize\ttfamily \#define FONT\+\_\+\+FLAG\+\_\+\+GRAYSCALE~1}
 
-\mbox{\hyperlink{structFont}{Font}} flags bit mask\+: 1\+: grayscale, 0\+: 1 bit per pixel 
+\doxylink{structFont}{Font} flags bit mask\+: 1\+: grayscale, 0\+: 1 bit per pixel 
 
 Definition at line \mbox{\hyperlink{font_8h_source_l00016}{16}} of file \mbox{\hyperlink{font_8h_source}{font.\+h}}.
 
 
 
 \doxysubsection{Typedef Documentation}
-\mbox{\Hypertarget{font_8h_a0f83a364f5a4aaa67ffd241f9d7b5552}\label{font_8h_a0f83a364f5a4aaa67ffd241f9d7b5552}} 
+\Hypertarget{font_8h_a0f83a364f5a4aaa67ffd241f9d7b5552}\label{font_8h_a0f83a364f5a4aaa67ffd241f9d7b5552} 
 \index{font.h@{font.h}!Font@{Font}}
 \index{Font@{Font}!font.h@{font.h}}
 \doxysubsubsection{\texorpdfstring{Font}{Font}}
 {\footnotesize\ttfamily typedef struct \mbox{\hyperlink{structFONT}{FONT}} \mbox{\hyperlink{structFont}{Font}}}
 
-\mbox{\hyperlink{structFont}{Font}} Data struct 
+\doxylink{structFont}{Font} Data struct 
 
 \doxysubsection{Function Documentation}
-\mbox{\Hypertarget{font_8h_a1dc9a04991c7d42402c21ab6a4b933e2}\label{font_8h_a1dc9a04991c7d42402c21ab6a4b933e2}} 
+\Hypertarget{font_8h_a1dc9a04991c7d42402c21ab6a4b933e2}\label{font_8h_a1dc9a04991c7d42402c21ab6a4b933e2} 
 \index{font.h@{font.h}!font\_string@{font\_string}}
 \index{font\_string@{font\_string}!font.h@{font.h}}
 \doxysubsubsection{\texorpdfstring{font\_string()}{font\_string()}}
-{\footnotesize\ttfamily static \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} font\+\_\+string (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}}]{x,  }\item[{\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}}]{y,  }\item[{const char $\ast$}]{s,  }\item[{\mbox{\hyperlink{structFont}{Font}} $\ast$}]{font,  }\item[{\mbox{\hyperlink{gfx-types_8h_acbbccb6085c654282ef64cdcefc81be5}{Color}}}]{fg,  }\item[{\mbox{\hyperlink{gfx-types_8h_acbbccb6085c654282ef64cdcefc81be5}{Color}}}]{bg }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+{\footnotesize\ttfamily static \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} font\+\_\+string (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}}]{x,  }\item[{\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}}]{y,  }\item[{const char \texorpdfstring{$\ast$}{*}}]{s,  }\item[{\mbox{\hyperlink{structFont}{Font}} \texorpdfstring{$\ast$}{*}}]{font,  }\item[{\mbox{\hyperlink{gfx-types_8h_acbbccb6085c654282ef64cdcefc81be5}{Color}}}]{fg,  }\item[{\mbox{\hyperlink{gfx-types_8h_acbbccb6085c654282ef64cdcefc81be5}{Color}}}]{bg }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
 
 
 
@@ -120,13 +120,13 @@ References \mbox{\hyperlink{font_8c_source_l00037}{font\+\_\+string\+\_\+len()}}
 
 
 
-Referenced by \mbox{\hyperlink{apps_2editor_2main_8c_source_l00078}{\+\_\+draw\+\_\+line\+\_\+numbers()}}, \mbox{\hyperlink{gui_8c_source_l00163}{button\+\_\+render()}}, \mbox{\hyperlink{gui_8c_source_l00101}{label\+\_\+render()}}, \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00417}{setup()}}, and \mbox{\hyperlink{gui_8c_source_l00766}{window\+\_\+render()}}.
+Referenced by \mbox{\hyperlink{apps_2editor_2main_8c_source_l00077}{\+\_\+draw\+\_\+line\+\_\+numbers()}}, \mbox{\hyperlink{gui_8c_source_l00163}{button\+\_\+render()}}, \mbox{\hyperlink{gui_8c_source_l00101}{label\+\_\+render()}}, \mbox{\hyperlink{apps_2snake_2main_8c_source_l00414}{setup()}}, and \mbox{\hyperlink{gui_8c_source_l00766}{window\+\_\+render()}}.
 
-\mbox{\Hypertarget{font_8h_a0fb43ab4a095679d631a2c0652ee3f08}\label{font_8h_a0fb43ab4a095679d631a2c0652ee3f08}} 
+\Hypertarget{font_8h_a0fb43ab4a095679d631a2c0652ee3f08}\label{font_8h_a0fb43ab4a095679d631a2c0652ee3f08} 
 \index{font.h@{font.h}!font\_string\_len@{font\_string\_len}}
 \index{font\_string\_len@{font\_string\_len}!font.h@{font.h}}
 \doxysubsubsection{\texorpdfstring{font\_string\_len()}{font\_string\_len()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} font\+\_\+string\+\_\+len (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}}]{x,  }\item[{\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}}]{y,  }\item[{const char $\ast$}]{s,  }\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{len,  }\item[{\mbox{\hyperlink{structFont}{Font}} $\ast$}]{font,  }\item[{\mbox{\hyperlink{gfx-types_8h_acbbccb6085c654282ef64cdcefc81be5}{Color}}}]{fg,  }\item[{\mbox{\hyperlink{gfx-types_8h_acbbccb6085c654282ef64cdcefc81be5}{Color}}}]{bg }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} font\+\_\+string\+\_\+len (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}}]{x,  }\item[{\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}}]{y,  }\item[{const char \texorpdfstring{$\ast$}{*}}]{s,  }\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{len,  }\item[{\mbox{\hyperlink{structFont}{Font}} \texorpdfstring{$\ast$}{*}}]{font,  }\item[{\mbox{\hyperlink{gfx-types_8h_acbbccb6085c654282ef64cdcefc81be5}{Color}}}]{fg,  }\item[{\mbox{\hyperlink{gfx-types_8h_acbbccb6085c654282ef64cdcefc81be5}{Color}}}]{bg }\end{DoxyParamCaption})}
 
 
 
@@ -196,17 +196,17 @@ Definition at line \mbox{\hyperlink{font_8c_source_l00037}{37}} of file \mbox{\h
 \end{DoxyCode}
 
 
-References \mbox{\hyperlink{font_8c_source_l00031}{\+\_\+font\+\_\+char()}}, \mbox{\hyperlink{font_8h_source_l00025}{Font\+Char\+::\+Advance}}, \mbox{\hyperlink{font_8h_source_l00031}{Font\+Char\+::\+Bearing}}, \mbox{\hyperlink{font-convert_8c_source_l00051}{Font\+::\+Flags}}, \mbox{\hyperlink{font_8h_source_l00016}{FONT\+\_\+\+FLAG\+\_\+\+GRAYSCALE}}, \mbox{\hyperlink{gfx_8c_source_l00047}{gfx\+\_\+image\+\_\+1bit()}}, \mbox{\hyperlink{gfx_8c_source_l00040}{gfx\+\_\+image\+\_\+grayscale()}}, \mbox{\hyperlink{font_8h_source_l00034}{Font\+Char\+::\+Offset}}, \mbox{\hyperlink{font_8h_source_l00028}{Font\+Char\+::\+Size}}, \mbox{\hyperlink{font-convert_8c_source_l00048}{Font\+::\+Size}}, and \mbox{\hyperlink{utf8_8c_source_l00049}{utf8\+\_\+codepoint()}}.
+References \mbox{\hyperlink{font_8c_source_l00031}{\+\_\+font\+\_\+char()}}, \mbox{\hyperlink{font_8h_source_l00025}{Font\+Char\+::\+Advance}}, \mbox{\hyperlink{font_8h_source_l00031}{Font\+Char\+::\+Bearing}}, \mbox{\hyperlink{font-convert_8c_source_l00051}{Font\+::\+Flags}}, \mbox{\hyperlink{font_8h_source_l00016}{FONT\+\_\+\+FLAG\+\_\+\+GRAYSCALE}}, \mbox{\hyperlink{gfx_8c_source_l00037}{gfx\+\_\+image\+\_\+1bit()}}, \mbox{\hyperlink{gfx_8c_source_l00030}{gfx\+\_\+image\+\_\+grayscale()}}, \mbox{\hyperlink{font_8h_source_l00034}{Font\+Char\+::\+Offset}}, \mbox{\hyperlink{font_8h_source_l00028}{Font\+Char\+::\+Size}}, \mbox{\hyperlink{font-convert_8c_source_l00048}{Font\+::\+Size}}, and \mbox{\hyperlink{utf8_8c_source_l00049}{utf8\+\_\+codepoint()}}.
 
 
 
-Referenced by \mbox{\hyperlink{apps_2editor_2main_8c_source_l00135}{\+\_\+draw\+\_\+code()}}, \mbox{\hyperlink{font_8h_source_l00090}{font\+\_\+string()}}, and \mbox{\hyperlink{gui_8c_source_l00212}{input\+\_\+render()}}.
+Referenced by \mbox{\hyperlink{apps_2editor_2main_8c_source_l00134}{\+\_\+draw\+\_\+code()}}, \mbox{\hyperlink{font_8h_source_l00090}{font\+\_\+string()}}, and \mbox{\hyperlink{gui_8c_source_l00212}{input\+\_\+render()}}.
 
-\mbox{\Hypertarget{font_8h_af05628a74a6fb4755ad6eb075ce5f87d}\label{font_8h_af05628a74a6fb4755ad6eb075ce5f87d}} 
+\Hypertarget{font_8h_af05628a74a6fb4755ad6eb075ce5f87d}\label{font_8h_af05628a74a6fb4755ad6eb075ce5f87d} 
 \index{font.h@{font.h}!font\_string\_width@{font\_string\_width}}
 \index{font\_string\_width@{font\_string\_width}!font.h@{font.h}}
 \doxysubsubsection{\texorpdfstring{font\_string\_width()}{font\_string\_width()}}
-{\footnotesize\ttfamily static \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} font\+\_\+string\+\_\+width (\begin{DoxyParamCaption}\item[{const char $\ast$}]{s,  }\item[{\mbox{\hyperlink{structFont}{Font}} $\ast$}]{font }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+{\footnotesize\ttfamily static \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} font\+\_\+string\+\_\+width (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{s,  }\item[{\mbox{\hyperlink{structFont}{Font}} \texorpdfstring{$\ast$}{*}}]{font }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
 
 
 
@@ -236,13 +236,13 @@ References \mbox{\hyperlink{font_8c_source_l00077}{font\+\_\+string\+\_\+width\+
 
 
 
-Referenced by \mbox{\hyperlink{apps_2editor_2main_8c_source_l00078}{\+\_\+draw\+\_\+line\+\_\+numbers()}}, \mbox{\hyperlink{gui_8c_source_l00163}{button\+\_\+render()}}, and \mbox{\hyperlink{gui_8c_source_l00101}{label\+\_\+render()}}.
+Referenced by \mbox{\hyperlink{apps_2editor_2main_8c_source_l00077}{\+\_\+draw\+\_\+line\+\_\+numbers()}}, \mbox{\hyperlink{gui_8c_source_l00163}{button\+\_\+render()}}, and \mbox{\hyperlink{gui_8c_source_l00101}{label\+\_\+render()}}.
 
-\mbox{\Hypertarget{font_8h_aa965d55e47b225d39bcf70c39ece24c4}\label{font_8h_aa965d55e47b225d39bcf70c39ece24c4}} 
+\Hypertarget{font_8h_aa965d55e47b225d39bcf70c39ece24c4}\label{font_8h_aa965d55e47b225d39bcf70c39ece24c4} 
 \index{font.h@{font.h}!font\_string\_width\_len@{font\_string\_width\_len}}
 \index{font\_string\_width\_len@{font\_string\_width\_len}!font.h@{font.h}}
 \doxysubsubsection{\texorpdfstring{font\_string\_width\_len()}{font\_string\_width\_len()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} font\+\_\+string\+\_\+width\+\_\+len (\begin{DoxyParamCaption}\item[{const char $\ast$}]{s,  }\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{len,  }\item[{\mbox{\hyperlink{structFont}{Font}} $\ast$}]{font }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} font\+\_\+string\+\_\+width\+\_\+len (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{s,  }\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{len,  }\item[{\mbox{\hyperlink{structFont}{Font}} \texorpdfstring{$\ast$}{*}}]{font }\end{DoxyParamCaption})}
 
 
 

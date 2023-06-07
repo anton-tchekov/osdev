@@ -388,7 +388,9 @@ static void _lcd_set_gram_scan_dir(u8 scan_dir)
 /* --- PUBLIC --- */
 void lcd_backlight(u8 value)
 {
-	/* TODO: Write PWM Value */
+	/* TODO: Write PWM Value
+	 * CHANGE BACKLIGHT PIN TO PIN 3 (TIMER 2)
+	 */
 	(void)value;
 }
 
@@ -496,33 +498,81 @@ u16 lcd_string_P(u16 x, u16 y, RGB565 fg, RGB565 bg, const char *s)
 	return i;
 }
 
-void lcd_image_rgba(u16 x, u16 y, u16 w, u16 h, u32 addr)
-{
-
-}
-
-void lcd_image_rgb(u16 x, u16 y, u16 w, u16 h, u32 addr)
-{
-
-}
-
 void lcd_image_rgb565(u16 x, u16 y, u16 w, u16 h, u32 addr)
 {
+	u16 x0, y0, stride;
+	u16 *ci, image[LCD_WIDTH];
 
+	stride = w * sizeof(RGB565);
+	for(y0 = y; y0 < y + h; ++y0)
+	{
+		xmem_read(addr, image, stride);
+		_lcd_window_start(x, y0, w, 1);
+		ci = image;
+		for(x0 = x; x0 < x + w; ++x0)
+		{
+			_lcd_pixel(*ci++);
+		}
+
+		_lcd_window_end();
+		addr += stride;
+	}
+}
+
+/**
+ * @brief Mix two colors according to a ratio. A ratio of 255 means 100% of
+ *        the first color and 0% of the second color will be mixed together.
+ *
+ * @param color1 First ABGR color
+ * @param color2 Second ABGR color
+ * @param ratio Merge ratio from 0-255
+ * @return Merged RGB565 color value
+ */
+static RGB565 _color_merge(u32 color1, u32 color2, u16 ratio)
+{
+	u8 r1, g1, b1, r2, g2, b2;
+
+	r1 = _abgr_r(color1);
+	g1 = _abgr_g(color1);
+	b1 = _abgr_b(color1);
+
+	r2 = _abgr_r(color2);
+	g2 = _abgr_g(color2);
+	b2 = _abgr_b(color2);
+
+	return lcd_color(
+		(r1 * ratio + r2 * (255 - ratio)) / 255,
+		(g1 * ratio + g2 * (255 - ratio)) / 255,
+		(b1 * ratio + b2 * (255 - ratio)) / 255);
 }
 
 void lcd_image_grayscale(
 	u16 x, u16 y, u16 w, u16 h, u32 addr, u32 fg, u32 bg)
 {
+	u16 x0, y0, offset;
+	u8 *ci, image[LCD_WIDTH];
 
+	for(y0 = y; y0 < y + h; ++y0)
+	{
+		xmem_read(addr, image, w);
+		_lcd_window_start(x, y0, w, 1);
+		ci = image;
+		for(x0 = x; x0 < x + w; ++x0)
+		{
+			_lcd_pixel(_color_merge(fg, bg, *ci++));
+		}
+
+		_lcd_window_end();
+		addr += w;
+	}
 }
 
 void lcd_image_1bit(
 	u16 x, u16 y, u16 w, u16 h, u32 addr, RGB565 fg, RGB565 bg)
 {
 	u8 byte, stride, bit_mask;
-	u16 x0, y0, byte_offset;
-	u8 image[64];
+	u16 x0, y0;
+	u8 *ci, image[LCD_WIDTH / 8];
 
 	stride = (w + 7) / 8;
 	for(y0 = y; y0 < y + h; ++y0)
@@ -530,12 +580,12 @@ void lcd_image_1bit(
 		xmem_read(addr, image, stride);
 		_lcd_window_start(x, y0, w, 1);
 		bit_mask = 0x80;
-		byte_offset = 0;
+		ci = image;
 		for(x0 = x; x0 < x + w; ++x0)
 		{
 			if(bit_mask == 0x80)
 			{
-				byte = image[byte_offset++];
+				byte = *ci++;
 				bit_mask = 1;
 			}
 

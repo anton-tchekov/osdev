@@ -22,22 +22,11 @@ typedef struct
 	StatusCode (*Write)(u32 offset, u32 count, u8 *buffer);
 } BlockDevice;
 
-/** TODO */
 char dev_attach(BlockDevice *dev);
-
-/** TODO */
 void dev_detach(char letter);
-
-/** TODO */
 StatusCode dev_read(char dev, u32 offset, u32 count, u8 *buffer);
-
-/** TODO */
 StatusCode dev_write(char dev, u32 offset, u32 count, u8 *buffer);
-
-/** TODO */
 StatusCode dev_block_size(char dev, u32 *size);
-
-/** TODO */
 StatusCode dev_block_count(char dev, u32 *count);
 
 //! @endcond

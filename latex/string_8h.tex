@@ -1,35 +1,35 @@
-\hypertarget{string_8h}{}\doxysection{stdlib/string/string.h File Reference}
-\label{string_8h}\index{stdlib/string/string.h@{stdlib/string/string.h}}
+\doxysection{stdlib/string/string.h File Reference}
+\hypertarget{string_8h}{}\label{string_8h}\index{stdlib/string/string.h@{stdlib/string/string.h}}
 
 
 Standard C routines that operate on strings of memory.  
 
 
 {\ttfamily \#include $<$types.\+h$>$}\newline
-\doxysubsection*{Functions}
+\doxysubsubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-void $\ast$ \mbox{\hyperlink{string_8h_a6ea826c42748b85ae7c74f1e2ccf7c27}{memcpy}} (void $\ast$dest, const void $\ast$src, \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} count)
+void \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{string_8h_a6ea826c42748b85ae7c74f1e2ccf7c27}{memcpy}} (void \texorpdfstring{$\ast$}{*}dest, const void \texorpdfstring{$\ast$}{*}src, \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} count)
 \begin{DoxyCompactList}\small\item\em Copies {\ttfamily count} bytes from {\ttfamily src} to {\ttfamily dest} Source and destination blocks must NOT overlap. \end{DoxyCompactList}\item 
-void $\ast$ \mbox{\hyperlink{string_8h_aff3234e5ebcd6a4ff32e5171ee7ac45a}{memmove}} (void $\ast$dest, const void $\ast$src, \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} count)
+void \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{string_8h_aff3234e5ebcd6a4ff32e5171ee7ac45a}{memmove}} (void \texorpdfstring{$\ast$}{*}dest, const void \texorpdfstring{$\ast$}{*}src, \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} count)
 \begin{DoxyCompactList}\small\item\em Copies {\ttfamily count} bytes from {\ttfamily src} to {\ttfamily dest} Source and destination blocks are allowed to overlap. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} \mbox{\hyperlink{string_8h_a8abe583def8cefd53678bec4126eeefe}{memcmp}} (const void $\ast$ptr1, const void $\ast$ptr2, \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} count)
+\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} \mbox{\hyperlink{string_8h_a8abe583def8cefd53678bec4126eeefe}{memcmp}} (const void \texorpdfstring{$\ast$}{*}ptr1, const void \texorpdfstring{$\ast$}{*}ptr2, \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} count)
 \begin{DoxyCompactList}\small\item\em Compares the first n bytes of two memory blocks pointed to by the provided pointers. \end{DoxyCompactList}\item 
-const void $\ast$ \mbox{\hyperlink{string_8h_a4ebfeb26e6e90709d9abc74b2bb452ff}{memchr}} (const void $\ast$\mbox{\hyperlink{types_8h_afc3fa6ac414247c0d4e1f77d5f1cb62d}{ptr}}, \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} value, \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} count)
+const void \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{string_8h_a4ebfeb26e6e90709d9abc74b2bb452ff}{memchr}} (const void \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{types_8h_afc3fa6ac414247c0d4e1f77d5f1cb62d}{ptr}}, \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} value, \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} count)
 \begin{DoxyCompactList}\small\item\em Searches for the first occurrence of a specific character in the first n bytes of the memory block pointed to by the provided pointer. \end{DoxyCompactList}\item 
-void $\ast$ \mbox{\hyperlink{string_8h_ab5fb910d7238069eb23f4b06809aa68e}{memset}} (void $\ast$\mbox{\hyperlink{types_8h_afc3fa6ac414247c0d4e1f77d5f1cb62d}{ptr}}, \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} value, \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} count)
+void \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{string_8h_ab5fb910d7238069eb23f4b06809aa68e}{memset}} (void \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{types_8h_afc3fa6ac414247c0d4e1f77d5f1cb62d}{ptr}}, \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} value, \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} count)
 \begin{DoxyCompactList}\small\item\em Sets all bytes in a block of memory to {\ttfamily value} \end{DoxyCompactList}\item 
-char $\ast$ \mbox{\hyperlink{string_8h_ac5082c8ce4f0cddd88bf4d0d2e738308}{strcpy}} (char $\ast$dest, const char $\ast$src)
+char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{string_8h_ac5082c8ce4f0cddd88bf4d0d2e738308}{strcpy}} (char \texorpdfstring{$\ast$}{*}dest, const char \texorpdfstring{$\ast$}{*}src)
 \begin{DoxyCompactList}\small\item\em Copy a string from source to destination. \end{DoxyCompactList}\item 
-char $\ast$ \mbox{\hyperlink{string_8h_a86fd1dc99081364b5155d9669e32ed03}{strncpy}} (char $\ast$dest, const char $\ast$src, \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} count)
+char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{string_8h_a86fd1dc99081364b5155d9669e32ed03}{strncpy}} (char \texorpdfstring{$\ast$}{*}dest, const char \texorpdfstring{$\ast$}{*}src, \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} count)
 \begin{DoxyCompactList}\small\item\em Copy a limited number of characters from one string to another. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} \mbox{\hyperlink{string_8h_adbbf4d6ec8d6b708c64bd6a4a18065dd}{strlen}} (const char $\ast$str)
+\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} \mbox{\hyperlink{string_8h_adbbf4d6ec8d6b708c64bd6a4a18065dd}{strlen}} (const char \texorpdfstring{$\ast$}{*}str)
 \begin{DoxyCompactList}\small\item\em Get the length of a string. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} \mbox{\hyperlink{string_8h_acc930dc3177c728980deef8f92d780eb}{strcmp}} (const char $\ast$str1, const char $\ast$str2)
+\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} \mbox{\hyperlink{string_8h_acc930dc3177c728980deef8f92d780eb}{strcmp}} (const char \texorpdfstring{$\ast$}{*}str1, const char \texorpdfstring{$\ast$}{*}str2)
 \begin{DoxyCompactList}\small\item\em Compare two strings. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} \mbox{\hyperlink{string_8h_a43b13467afc2b31f826cd96f13a2389c}{strncmp}} (const char $\ast$str1, const char $\ast$str2, \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} count)
+\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} \mbox{\hyperlink{string_8h_a43b13467afc2b31f826cd96f13a2389c}{strncmp}} (const char \texorpdfstring{$\ast$}{*}str1, const char \texorpdfstring{$\ast$}{*}str2, \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} count)
 \begin{DoxyCompactList}\small\item\em Compare a limited number of characters in two strings. \end{DoxyCompactList}\item 
-const char $\ast$ \mbox{\hyperlink{string_8h_ab6410c1d13fe73e5350746b8f825f752}{strchr}} (const char $\ast$str, \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} c)
+const char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{string_8h_ab6410c1d13fe73e5350746b8f825f752}{strchr}} (const char \texorpdfstring{$\ast$}{*}str, \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} c)
 \begin{DoxyCompactList}\small\item\em Locate the first occurrence of a character in a string. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
@@ -52,11 +52,11 @@ Definition in file \mbox{\hyperlink{string_8h_source}{string.\+h}}.
 
 
 \doxysubsection{Function Documentation}
-\mbox{\Hypertarget{string_8h_a4ebfeb26e6e90709d9abc74b2bb452ff}\label{string_8h_a4ebfeb26e6e90709d9abc74b2bb452ff}} 
+\Hypertarget{string_8h_a4ebfeb26e6e90709d9abc74b2bb452ff}\label{string_8h_a4ebfeb26e6e90709d9abc74b2bb452ff} 
 \index{string.h@{string.h}!memchr@{memchr}}
 \index{memchr@{memchr}!string.h@{string.h}}
 \doxysubsubsection{\texorpdfstring{memchr()}{memchr()}}
-{\footnotesize\ttfamily const void $\ast$ memchr (\begin{DoxyParamCaption}\item[{const void $\ast$}]{ptr,  }\item[{\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}}]{value,  }\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{count }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily const void \texorpdfstring{$\ast$}{*} memchr (\begin{DoxyParamCaption}\item[{const void \texorpdfstring{$\ast$}{*}}]{ptr,  }\item[{\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}}]{value,  }\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{count }\end{DoxyParamCaption})}
 
 
 
@@ -94,11 +94,11 @@ Definition at line \mbox{\hyperlink{string_8c_source_l00162}{162}} of file \mbox
 \DoxyCodeLine{00174\ \}}
 
 \end{DoxyCode}
-\mbox{\Hypertarget{string_8h_a8abe583def8cefd53678bec4126eeefe}\label{string_8h_a8abe583def8cefd53678bec4126eeefe}} 
+\Hypertarget{string_8h_a8abe583def8cefd53678bec4126eeefe}\label{string_8h_a8abe583def8cefd53678bec4126eeefe} 
 \index{string.h@{string.h}!memcmp@{memcmp}}
 \index{memcmp@{memcmp}!string.h@{string.h}}
 \doxysubsubsection{\texorpdfstring{memcmp()}{memcmp()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} memcmp (\begin{DoxyParamCaption}\item[{const void $\ast$}]{ptr1,  }\item[{const void $\ast$}]{ptr2,  }\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{count }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} memcmp (\begin{DoxyParamCaption}\item[{const void \texorpdfstring{$\ast$}{*}}]{ptr1,  }\item[{const void \texorpdfstring{$\ast$}{*}}]{ptr2,  }\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{count }\end{DoxyParamCaption})}
 
 
 
@@ -147,11 +147,11 @@ Definition at line \mbox{\hyperlink{string_8c_source_l00141}{141}} of file \mbox
 
 Referenced by \mbox{\hyperlink{initrd_8c_source_l00020}{initrd\+\_\+load()}}.
 
-\mbox{\Hypertarget{string_8h_a6ea826c42748b85ae7c74f1e2ccf7c27}\label{string_8h_a6ea826c42748b85ae7c74f1e2ccf7c27}} 
+\Hypertarget{string_8h_a6ea826c42748b85ae7c74f1e2ccf7c27}\label{string_8h_a6ea826c42748b85ae7c74f1e2ccf7c27} 
 \index{string.h@{string.h}!memcpy@{memcpy}}
 \index{memcpy@{memcpy}!string.h@{string.h}}
 \doxysubsubsection{\texorpdfstring{memcpy()}{memcpy()}}
-{\footnotesize\ttfamily void $\ast$ memcpy (\begin{DoxyParamCaption}\item[{void $\ast$}]{dest,  }\item[{const void $\ast$}]{src,  }\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{count }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void \texorpdfstring{$\ast$}{*} memcpy (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}}]{dest,  }\item[{const void \texorpdfstring{$\ast$}{*}}]{src,  }\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{count }\end{DoxyParamCaption})}
 
 
 
@@ -196,13 +196,13 @@ Definition at line \mbox{\hyperlink{string_8c_source_l00094}{94}} of file \mbox{
 \end{DoxyCode}
 
 
-Referenced by \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00317}{\+\_\+draw\+\_\+field()}}, \mbox{\hyperlink{emulator_8c_source_l01231}{emulator\+\_\+call()}}, \mbox{\hyperlink{simulator_2platform_8c_source_l00062}{env\+\_\+memory\+\_\+read()}}, \mbox{\hyperlink{simulator_2platform_8c_source_l00067}{env\+\_\+memory\+\_\+write()}}, \mbox{\hyperlink{mkinitrd_2main_8c_source_l00022}{main()}}, and \mbox{\hyperlink{vector_8c_source_l00043}{vector\+\_\+replace()}}.
+Referenced by \mbox{\hyperlink{apps_2snake_2main_8c_source_l00314}{\+\_\+draw\+\_\+field()}}, \mbox{\hyperlink{emulator_8c_source_l01162}{emulator\+\_\+call()}}, \mbox{\hyperlink{simulator_2platform_8c_source_l00062}{env\+\_\+memory\+\_\+read()}}, \mbox{\hyperlink{simulator_2platform_8c_source_l00067}{env\+\_\+memory\+\_\+write()}}, \mbox{\hyperlink{mkinitrd_2main_8c_source_l00022}{main()}}, \mbox{\hyperlink{font-convert_8c_source_l00156}{main()}}, and \mbox{\hyperlink{vector_8c_source_l00043}{vector\+\_\+replace()}}.
 
-\mbox{\Hypertarget{string_8h_aff3234e5ebcd6a4ff32e5171ee7ac45a}\label{string_8h_aff3234e5ebcd6a4ff32e5171ee7ac45a}} 
+\Hypertarget{string_8h_aff3234e5ebcd6a4ff32e5171ee7ac45a}\label{string_8h_aff3234e5ebcd6a4ff32e5171ee7ac45a} 
 \index{string.h@{string.h}!memmove@{memmove}}
 \index{memmove@{memmove}!string.h@{string.h}}
 \doxysubsubsection{\texorpdfstring{memmove()}{memmove()}}
-{\footnotesize\ttfamily void $\ast$ memmove (\begin{DoxyParamCaption}\item[{void $\ast$}]{dest,  }\item[{const void $\ast$}]{src,  }\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{count }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void \texorpdfstring{$\ast$}{*} memmove (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}}]{dest,  }\item[{const void \texorpdfstring{$\ast$}{*}}]{src,  }\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{count }\end{DoxyParamCaption})}
 
 
 
@@ -258,11 +258,11 @@ Definition at line \mbox{\hyperlink{string_8c_source_l00113}{113}} of file \mbox
 
 Referenced by \mbox{\hyperlink{vector_8c_source_l00043}{vector\+\_\+replace()}}.
 
-\mbox{\Hypertarget{string_8h_ab5fb910d7238069eb23f4b06809aa68e}\label{string_8h_ab5fb910d7238069eb23f4b06809aa68e}} 
+\Hypertarget{string_8h_ab5fb910d7238069eb23f4b06809aa68e}\label{string_8h_ab5fb910d7238069eb23f4b06809aa68e} 
 \index{string.h@{string.h}!memset@{memset}}
 \index{memset@{memset}!string.h@{string.h}}
 \doxysubsubsection{\texorpdfstring{memset()}{memset()}}
-{\footnotesize\ttfamily void $\ast$ memset (\begin{DoxyParamCaption}\item[{void $\ast$}]{ptr,  }\item[{\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}}]{value,  }\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{count }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void \texorpdfstring{$\ast$}{*} memset (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}}]{ptr,  }\item[{\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}}]{value,  }\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{count }\end{DoxyParamCaption})}
 
 
 
@@ -299,13 +299,13 @@ Definition at line \mbox{\hyperlink{string_8c_source_l00176}{176}} of file \mbox
 \end{DoxyCode}
 
 
-Referenced by \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00433}{loop()}}, \mbox{\hyperlink{mkinitrd_2main_8c_source_l00022}{main()}}, and \mbox{\hyperlink{apps_2tetris_2main_8c_source_l00417}{setup()}}.
+Referenced by \mbox{\hyperlink{apps_2snake_2main_8c_source_l00430}{loop()}}, \mbox{\hyperlink{mkinitrd_2main_8c_source_l00022}{main()}}, and \mbox{\hyperlink{apps_2snake_2main_8c_source_l00414}{setup()}}.
 
-\mbox{\Hypertarget{string_8h_ab6410c1d13fe73e5350746b8f825f752}\label{string_8h_ab6410c1d13fe73e5350746b8f825f752}} 
+\Hypertarget{string_8h_ab6410c1d13fe73e5350746b8f825f752}\label{string_8h_ab6410c1d13fe73e5350746b8f825f752} 
 \index{string.h@{string.h}!strchr@{strchr}}
 \index{strchr@{strchr}!string.h@{string.h}}
 \doxysubsubsection{\texorpdfstring{strchr()}{strchr()}}
-{\footnotesize\ttfamily const char $\ast$ strchr (\begin{DoxyParamCaption}\item[{const char $\ast$}]{str,  }\item[{\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}}]{c }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily const char \texorpdfstring{$\ast$}{*} strchr (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{str,  }\item[{\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}}]{c }\end{DoxyParamCaption})}
 
 
 
@@ -347,11 +347,11 @@ Definition at line \mbox{\hyperlink{string_8c_source_l00078}{78}} of file \mbox{
 
 Referenced by \mbox{\hyperlink{ctype_8c_source_l00046}{ispunct()}}, and \mbox{\hyperlink{ctype_8c_source_l00051}{isspace()}}.
 
-\mbox{\Hypertarget{string_8h_acc930dc3177c728980deef8f92d780eb}\label{string_8h_acc930dc3177c728980deef8f92d780eb}} 
+\Hypertarget{string_8h_acc930dc3177c728980deef8f92d780eb}\label{string_8h_acc930dc3177c728980deef8f92d780eb} 
 \index{string.h@{string.h}!strcmp@{strcmp}}
 \index{strcmp@{strcmp}!string.h@{string.h}}
 \doxysubsubsection{\texorpdfstring{strcmp()}{strcmp()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} strcmp (\begin{DoxyParamCaption}\item[{const char $\ast$}]{str1,  }\item[{const char $\ast$}]{str2 }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} strcmp (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{str1,  }\item[{const char \texorpdfstring{$\ast$}{*}}]{str2 }\end{DoxyParamCaption})}
 
 
 
@@ -393,11 +393,11 @@ Definition at line \mbox{\hyperlink{string_8c_source_l00036}{36}} of file \mbox{
 
 Referenced by \mbox{\hyperlink{font-convert_8c_source_l00120}{\+\_\+unique\+\_\+codepoints()}}, and \mbox{\hyperlink{font-convert_8c_source_l00156}{main()}}.
 
-\mbox{\Hypertarget{string_8h_ac5082c8ce4f0cddd88bf4d0d2e738308}\label{string_8h_ac5082c8ce4f0cddd88bf4d0d2e738308}} 
+\Hypertarget{string_8h_ac5082c8ce4f0cddd88bf4d0d2e738308}\label{string_8h_ac5082c8ce4f0cddd88bf4d0d2e738308} 
 \index{string.h@{string.h}!strcpy@{strcpy}}
 \index{strcpy@{strcpy}!string.h@{string.h}}
 \doxysubsubsection{\texorpdfstring{strcpy()}{strcpy()}}
-{\footnotesize\ttfamily char $\ast$ strcpy (\begin{DoxyParamCaption}\item[{char $\ast$}]{dest,  }\item[{const char $\ast$}]{src }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily char \texorpdfstring{$\ast$}{*} strcpy (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{dest,  }\item[{const char \texorpdfstring{$\ast$}{*}}]{src }\end{DoxyParamCaption})}
 
 
 
@@ -426,11 +426,11 @@ Definition at line \mbox{\hyperlink{string_8c_source_l00011}{11}} of file \mbox{
 \DoxyCodeLine{00016\ \}}
 
 \end{DoxyCode}
-\mbox{\Hypertarget{string_8h_adbbf4d6ec8d6b708c64bd6a4a18065dd}\label{string_8h_adbbf4d6ec8d6b708c64bd6a4a18065dd}} 
+\Hypertarget{string_8h_adbbf4d6ec8d6b708c64bd6a4a18065dd}\label{string_8h_adbbf4d6ec8d6b708c64bd6a4a18065dd} 
 \index{string.h@{string.h}!strlen@{strlen}}
 \index{strlen@{strlen}!string.h@{string.h}}
 \doxysubsubsection{\texorpdfstring{strlen()}{strlen()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} strlen (\begin{DoxyParamCaption}\item[{const char $\ast$}]{str }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} strlen (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{str }\end{DoxyParamCaption})}
 
 
 
@@ -461,11 +461,11 @@ Definition at line \mbox{\hyperlink{string_8c_source_l00029}{29}} of file \mbox{
 
 Referenced by \mbox{\hyperlink{keyword_8c_source_l00146}{keyword\+\_\+detect()}}.
 
-\mbox{\Hypertarget{string_8h_a43b13467afc2b31f826cd96f13a2389c}\label{string_8h_a43b13467afc2b31f826cd96f13a2389c}} 
+\Hypertarget{string_8h_a43b13467afc2b31f826cd96f13a2389c}\label{string_8h_a43b13467afc2b31f826cd96f13a2389c} 
 \index{string.h@{string.h}!strncmp@{strncmp}}
 \index{strncmp@{strncmp}!string.h@{string.h}}
 \doxysubsubsection{\texorpdfstring{strncmp()}{strncmp()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} strncmp (\begin{DoxyParamCaption}\item[{const char $\ast$}]{str1,  }\item[{const char $\ast$}]{str2,  }\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{count }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} strncmp (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{str1,  }\item[{const char \texorpdfstring{$\ast$}{*}}]{str2,  }\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{count }\end{DoxyParamCaption})}
 
 
 
@@ -519,11 +519,11 @@ Definition at line \mbox{\hyperlink{string_8c_source_l00052}{52}} of file \mbox{
 
 Referenced by \mbox{\hyperlink{apps_2init_2main_8c_source_l00129}{button\+\_\+login\+\_\+onclick()}}, and \mbox{\hyperlink{keyword_8c_source_l00146}{keyword\+\_\+detect()}}.
 
-\mbox{\Hypertarget{string_8h_a86fd1dc99081364b5155d9669e32ed03}\label{string_8h_a86fd1dc99081364b5155d9669e32ed03}} 
+\Hypertarget{string_8h_a86fd1dc99081364b5155d9669e32ed03}\label{string_8h_a86fd1dc99081364b5155d9669e32ed03} 
 \index{string.h@{string.h}!strncpy@{strncpy}}
 \index{strncpy@{strncpy}!string.h@{string.h}}
 \doxysubsubsection{\texorpdfstring{strncpy()}{strncpy()}}
-{\footnotesize\ttfamily char $\ast$ strncpy (\begin{DoxyParamCaption}\item[{char $\ast$}]{dest,  }\item[{const char $\ast$}]{src,  }\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{count }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily char \texorpdfstring{$\ast$}{*} strncpy (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{dest,  }\item[{const char \texorpdfstring{$\ast$}{*}}]{src,  }\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{count }\end{DoxyParamCaption})}
 
 
 

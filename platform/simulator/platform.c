@@ -266,40 +266,6 @@ void env_gfx_rect(u16 x, u16 y, u16 w, u16 h, u32 color)
 	}
 }
 
-void env_gfx_image_rgba(u16 x, u16 y, u16 w, u16 h, u32 addr)
-{
-	i32 x0, y0;
-	u32 *image;
-
-	image = (u32 *)(_memory + addr);
-	for(y0 = y; y0 < y + h; ++y0)
-	{
-		for(x0 = x; x0 < x + w; ++x0)
-		{
-			_pixels[y0 * GFX_WIDTH + x0] = _abgr_to_argb(*image++);
-		}
-	}
-}
-
-void env_gfx_image_rgb(u16 x, u16 y, u16 w, u16 h, u32 addr)
-{
-	u8 r, g, b;
-	i32 x0, y0;
-	u8 *image;
-
-	image = (u8 *)(_memory + addr);
-	for(y0 = y; y0 < y + h; ++y0)
-	{
-		for(x0 = x; x0 < x + w; ++x0)
-		{
-			r = *image++;
-			g = *image++;
-			b = *image++;
-			_pixels[y0 * GFX_WIDTH + x0] = gfx_color(r, g, b);
-		}
-	}
-}
-
 void env_gfx_image_rgb565(u16 x, u16 y, u16 w, u16 h, u32 addr)
 {
 	i32 x0, y0;

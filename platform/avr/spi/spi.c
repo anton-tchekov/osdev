@@ -6,6 +6,7 @@
  */
 
 #include <spi.h>
+#include <gpio.h>
 #include <logger.h>
 #include <avr/pgmspace.h>
 
@@ -44,6 +45,7 @@ Status spi_xchg_try(u8 in, u8 *out)
 	{
 		if(cnt++ == 0xFFFF)
 		{
+			SD_DESELECT;
 			return STATUS_TIMEOUT;
 		}
 	}

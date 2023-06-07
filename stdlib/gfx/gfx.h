@@ -78,28 +78,6 @@ static inline void gfx_hline(i32 x, i32 y, i32 w, Color color)
 void gfx_rect_border(i32 x, i32 y, i32 w, i32 h, i32 border, Color color);
 
 /**
- * @brief Draws an image in RGBA format
- *
- * @param x X-Coordinate (Left)
- * @param y Y-Coordinate (Top)
- * @param w Width
- * @param h Height
- * @param data Pixel data (32 bits per pixel)
- */
-void gfx_image_rgba(i32 x, i32 y, i32 w, i32 h, const u8 *data);
-
-/**
- * @brief Draws an image in RGB format
- *
- * @param x X-Coordinate (Left)
- * @param y Y-Coordinate (Top)
- * @param w Width
- * @param h Height
- * @param data Pixel data (24 bits per pixel)
- */
-void gfx_image_rgb(i32 x, i32 y, i32 w, i32 h, const u8 *data);
-
-/**
  * @brief Draws an image in RGB565 format
  *
  * @param x X-Coordinate (Left)

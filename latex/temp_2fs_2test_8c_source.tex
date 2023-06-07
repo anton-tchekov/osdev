@@ -1,0 +1,212 @@
+\doxysection{test.\+c}
+\hypertarget{temp_2fs_2test_8c_source}{}\label{temp_2fs_2test_8c_source}\index{temp/fs/test.c@{temp/fs/test.c}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00001}00001\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{fs_8h}{fs.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00002}00002\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{atfs_8h}{atfs.h}}>}}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00003}00003\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{types_8h}{types.h}}>}}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00004}00004\ \textcolor{preprocessor}{\#include\ <stdlib.h>}}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00005}00005\ \textcolor{preprocessor}{\#include\ <stdio.h>}}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00006}00006\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{ctype_8h}{ctype.h}}>}}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00007}00007\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{string_8h}{string.h}}>}}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00008}00008\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{status_8h}{status.h}}>}}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00009}00009\ }
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00010}00010\ \textcolor{preprocessor}{\#define\ ARRLEN(A)\ (sizeof(A)\ /\ sizeof(*(A)))}}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00011}00011\ }
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00012}00012\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{char}\ buf[512];}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00013}00013\ }
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00014}00014\ \textcolor{preprocessor}{\#define\ TEST\_PATH\_VALID(str)\ printf("{}path\_valid(\(\backslash\)"{}\%s\(\backslash\)"{})\ =\ \%s\(\backslash\)n"{}},\ str,\ path\_valid(str)\ ?\ "{}true"{}\ :\ "{}false"{})}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00015}00015\ \textcolor{preprocessor}{\#define\ TEST\_PATH\_PARENT(str)\ printf("{}path\_parent(\(\backslash\)"{}\%s\(\backslash\)"{})\ =\ \(\backslash\)"{}\%s\(\backslash\)"{}\(\backslash\)n"{}},\ str,\ path\_parent(strdup(str)))}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00016}00016\ \textcolor{preprocessor}{\#define\ TEST\_PATH\_JOIN(str,\ append)\ printf("{}path\_join(\(\backslash\)"{}\%s\(\backslash\)"{},\ \(\backslash\)"{}\%s\(\backslash\)"{})\ =\ \(\backslash\)"{}\%s\(\backslash\)"{}\(\backslash\)n"{}},\ str,\ append,\ path\_join(strcpy(buf,\ str),\ append))}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00017}00017\ }
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00018}00018\ \textcolor{keywordtype}{void}\ \_test(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00019}00019\ \{}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00020}00020\ \ \ \ \ TEST\_PATH\_VALID(\textcolor{stringliteral}{"{}home.files.studium.gs.its\_board.a2\_drehgeber.main"{}});}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00021}00021\ \ \ \ \ TEST\_PATH\_VALID(\textcolor{stringliteral}{"{}sys"{}});}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00022}00022\ \ \ \ \ TEST\_PATH\_VALID(\textcolor{stringliteral}{"{}sys.init"{}});}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00023}00023\ \ \ \ \ TEST\_PATH\_VALID(\textcolor{stringliteral}{"{}.abc"{}});}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00024}00024\ \ \ \ \ TEST\_PATH\_VALID(\textcolor{stringliteral}{"{}abc."{}});}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00025}00025\ \ \ \ \ TEST\_PATH\_VALID(\textcolor{stringliteral}{"{}a.bc.."{}});}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00026}00026\ \ \ \ \ TEST\_PATH\_VALID(\textcolor{stringliteral}{"{}a.b.c.d.e.f.g"{}});}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00027}00027\ \ \ \ \ TEST\_PATH\_VALID(\textcolor{stringliteral}{"{}home..files"{}});}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00028}00028\ \ \ \ \ TEST\_PATH\_VALID(\textcolor{stringliteral}{"{}home.files"{}});}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00029}00029\ \ \ \ \ TEST\_PATH\_VALID(\textcolor{stringliteral}{"{}home.4chan"{}});}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00030}00030\ \ \ \ \ TEST\_PATH\_VALID(\textcolor{stringliteral}{"{}home.chan2"{}});}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00031}00031\ \ \ \ \ TEST\_PATH\_VALID(\textcolor{stringliteral}{"{}home.Uppercase"{}});}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00032}00032\ \ \ \ \ TEST\_PATH\_VALID(\textcolor{stringliteral}{"{}home.\#hashtag"{}});}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00033}00033\ \ \ \ \ TEST\_PATH\_VALID(\textcolor{stringliteral}{"{}"{}});}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00034}00034\ }
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00035}00035\ \ \ \ \ printf(\textcolor{stringliteral}{"{}\(\backslash\)n\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00036}00036\ }
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00037}00037\ \ \ \ \ TEST\_PATH\_PARENT(\textcolor{stringliteral}{"{}home.files.images"{}});}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00038}00038\ \ \ \ \ TEST\_PATH\_PARENT(\textcolor{stringliteral}{"{}home"{}});}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00039}00039\ }
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00040}00040\ \ \ \ \ printf(\textcolor{stringliteral}{"{}\(\backslash\)n\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00041}00041\ }
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00042}00042\ \ \ \ \ TEST\_PATH\_JOIN(\textcolor{stringliteral}{"{}home.files.images"{}},\ \textcolor{stringliteral}{"{}vacation"{}});}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00043}00043\ \ \ \ \ TEST\_PATH\_JOIN(\textcolor{stringliteral}{"{}sys"{}},\ \textcolor{stringliteral}{"{}init"{}});}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00044}00044\ }
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00045}00045\ \ \ \ \ printf(\textcolor{stringliteral}{"{}\(\backslash\)n\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00046}00046\ }
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00047}00047\ \ \ \ \ printf(\textcolor{stringliteral}{"{}fs\_format()\ =\ \%s\(\backslash\)n"{}},\ \mbox{\hyperlink{status_8c_aa60758ba1ae06f53485b723a45459d15}{status\_str}}(fs\_format()));}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00048}00048\ }
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00049}00049\ \ \ \ \ printf(\textcolor{stringliteral}{"{}\(\backslash\)n\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00050}00050\ \}}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00051}00051\ }
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00052}00052\ \textcolor{comment}{/*\ -\/-\/-\/\ Terminal\ Emulator\ -\/-\/-\/\ */}}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00053}00053\ \textcolor{preprocessor}{\#define\ WHITESPACE\ "{}\ \(\backslash\)n\(\backslash\)t\(\backslash\)v\(\backslash\)f\(\backslash\)r"{}}}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00054}00054\ }
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00055}00055\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \_cmd\_pwd(\textcolor{keywordtype}{int}\ count,\ \textcolor{keywordtype}{char}\ **args);}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00056}00056\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \_cmd\_cd(\textcolor{keywordtype}{int}\ count,\ \textcolor{keywordtype}{char}\ **args);}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00057}00057\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \_cmd\_ls(\textcolor{keywordtype}{int}\ count,\ \textcolor{keywordtype}{char}\ **args);}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00058}00058\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \_cmd\_dir(\textcolor{keywordtype}{int}\ count,\ \textcolor{keywordtype}{char}\ **args);}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00059}00059\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \_cmd\_help(\textcolor{keywordtype}{int}\ count,\ \textcolor{keywordtype}{char}\ **args);}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00060}00060\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \_cmd\_rm(\textcolor{keywordtype}{int}\ count,\ \textcolor{keywordtype}{char}\ **args);}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00061}00061\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \_cmd\_mkdir(\textcolor{keywordtype}{int}\ count,\ \textcolor{keywordtype}{char}\ **args);}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00062}00062\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \_cmd\_mv(\textcolor{keywordtype}{int}\ count,\ \textcolor{keywordtype}{char}\ **args);}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00063}00063\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \_cmd\_cp(\textcolor{keywordtype}{int}\ count,\ \textcolor{keywordtype}{char}\ **args);}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00064}00064\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \_cmd\_mount(\textcolor{keywordtype}{int}\ count,\ \textcolor{keywordtype}{char}\ **args);}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00065}00065\ }
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00066}00066\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{char}\ \_path[512];}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00067}00067\ }
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00068}00068\ \textcolor{keyword}{typedef}\ void\ (*ShellCommandFunction)(int,\ \textcolor{keywordtype}{char}\ **);}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00069}00069\ }
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00070}\mbox{\hyperlink{structShellCommand}{00070}}\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00071}00071\ \{}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00072}00072\ \ \ \ \ \textcolor{keywordtype}{char}\ *Name,\ *Desc;}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00073}00073\ \ \ \ \ ShellCommandFunction\ Command;}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00074}00074\ \}\ \mbox{\hyperlink{structShellCommand}{ShellCommand}};}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00075}00075\ }
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00076}00076\ \mbox{\hyperlink{structShellCommand}{ShellCommand}}\ \_cmds[]\ =}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00077}00077\ \{}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00078}00078\ \ \ \ \ \{\ \textcolor{stringliteral}{"{}pwd"{}},\ \textcolor{stringliteral}{"{}Print\ current\ working\ directory"{}},\ \_cmd\_pwd\ \},}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00079}00079\ \ \ \ \ \{\ \textcolor{stringliteral}{"{}cd"{}},\ \textcolor{stringliteral}{"{}Change\ current\ directory"{}},\ \_cmd\_cd\ \},}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00080}00080\ \ \ \ \ \{\ \textcolor{stringliteral}{"{}ls"{}},\ \textcolor{stringliteral}{"{}List\ directory"{}},\ \_cmd\_ls\ \},}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00081}00081\ \ \ \ \ \{\ \textcolor{stringliteral}{"{}dir"{}},\ \textcolor{stringliteral}{"{}List\ directory\ detailed"{}},\ \_cmd\_dir\ \},}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00082}00082\ \ \ \ \ \{\ \textcolor{stringliteral}{"{}help"{}},\ \textcolor{stringliteral}{"{}Print\ this\ list"{}},\ \_cmd\_help\ \},}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00083}00083\ \ \ \ \ \{\ \textcolor{stringliteral}{"{}rm"{}},\ \textcolor{stringliteral}{"{}Recursively\ delete\ files\ and\ directories"{}},\ \_cmd\_rm\ \},}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00084}00084\ \ \ \ \ \{\ \textcolor{stringliteral}{"{}mkdir"{}},\ \textcolor{stringliteral}{"{}Create\ directory"{}},\ \_cmd\_mkdir\ \},}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00085}00085\ \ \ \ \ \{\ \textcolor{stringliteral}{"{}mv"{}},\ \textcolor{stringliteral}{"{}Move/Rename\ file"{}},\ \_cmd\_mv\ \},}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00086}00086\ \ \ \ \ \{\ \textcolor{stringliteral}{"{}cp"{}},\ \textcolor{stringliteral}{"{}Copy"{}},\ \_cmd\_cp\ \},}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00087}00087\ \ \ \ \ \{\ \textcolor{stringliteral}{"{}mount"{}},\ \textcolor{stringliteral}{"{}Mount\ device\ as\ "{}},\ \_cmd\_mount\ \},}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00088}00088\ \};}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00089}00089\ }
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00096}00096\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \_cmd\_pwd(\textcolor{keywordtype}{int}\ count,\ \textcolor{keywordtype}{char}\ **args)}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00097}00097\ \{}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00098}00098\ \ \ \ \ printf(\textcolor{stringliteral}{"{}\%s\(\backslash\)n"{}},\ \_path);}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00099}00099\ \ \ \ \ (void)count,\ (\textcolor{keywordtype}{void})args;}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00100}00100\ \}}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00101}00101\ }
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00102}00102\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \_cmd\_cd(\textcolor{keywordtype}{int}\ count,\ \textcolor{keywordtype}{char}\ **args)}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00103}00103\ \{}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00104}00104\ }
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00105}00105\ \}}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00106}00106\ }
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00107}00107\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \_cmd\_ls(\textcolor{keywordtype}{int}\ count,\ \textcolor{keywordtype}{char}\ **args)}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00108}00108\ \{}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00109}00109\ \ \ \ \ \textcolor{comment}{/*u32\ i;}}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00110}00110\ \textcolor{comment}{\ \ \ \ Dir\ dir;}}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00111}00111\ \textcolor{comment}{\ \ \ \ DirEntry\ entry;}}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00112}00112\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00113}00113\ \textcolor{comment}{\ \ \ \ RETURN\_IF(fs\_dopen(path,\ \&dir));}}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00114}00114\ \textcolor{comment}{\ \ \ \ printf("{}Number\ of\ Entries:\ \%d\(\backslash\)n"{},\ dir.NumEntries);}}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00115}00115\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00116}00116\ \textcolor{comment}{\ \ \ \ exit(1);}}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00117}00117\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00118}00118\ \textcolor{comment}{\ \ \ \ for(i\ =\ 0;\ i\ <\ dir.NumEntries;\ ++i)}}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00119}00119\ \textcolor{comment}{\ \ \ \ \{}}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00120}00120\ \textcolor{comment}{\ \ \ \ \ \ \ \ RETURN\_IF(fs\_dread(\&dir,\ i,\ \&entry));}}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00121}00121\ \textcolor{comment}{\ \ \ \ \ \ \ \ printf("{}\%s\(\backslash\)n"{},\ entry.Name);}}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00122}00122\ \textcolor{comment}{\ \ \ \ \}}}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00123}00123\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00124}00124\ \textcolor{comment}{\ \ \ \ return\ STATUS\_OK;*/}}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00125}00125\ \}}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00126}00126\ }
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00127}00127\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \_cmd\_dir(\textcolor{keywordtype}{int}\ count,\ \textcolor{keywordtype}{char}\ **args)}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00128}00128\ \{}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00129}00129\ }
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00130}00130\ \}}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00131}00131\ }
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00132}00132\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \_cmd\_help(\textcolor{keywordtype}{int}\ count,\ \textcolor{keywordtype}{char}\ **args)}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00133}00133\ \{}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00134}00134\ \ \ \ \ \textcolor{keywordtype}{int}\ i;}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00135}00135\ \ \ \ \ printf(\textcolor{stringliteral}{"{}ImaginaryOS\ Version\ 0.1\ -\/\ 384\ KiB\ RAM\(\backslash\)n\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00136}00136\ \ \ \ \ \textcolor{keywordflow}{for}(i\ =\ 0;\ i\ <\ (int)ARRLEN(\_cmds);\ ++i)}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00137}00137\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00138}00138\ \ \ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{}\%-\/10s:\ \ \%s\(\backslash\)n"{}},\ \_cmds[i].Name,\ \_cmds[i].Desc);}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00139}00139\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00140}00140\ }
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00141}00141\ \ \ \ \ (void)count,\ (\textcolor{keywordtype}{void})args;}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00142}00142\ \}}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00143}00143\ }
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00144}00144\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \_cmd\_rm(\textcolor{keywordtype}{int}\ count,\ \textcolor{keywordtype}{char}\ **args)}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00145}00145\ \{}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00146}00146\ \ \ \ \ printf(\textcolor{stringliteral}{"{}Usage:\ mkdir\ [path]\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00147}00147\ \}}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00148}00148\ }
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00149}00149\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \_cmd\_mkdir(\textcolor{keywordtype}{int}\ count,\ \textcolor{keywordtype}{char}\ **args)}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00150}00150\ \{}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00151}00151\ \ \ \ \ printf(\textcolor{stringliteral}{"{}Usage:\ mkdir\ [new-\/dir-\/path]\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00152}00152\ \}}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00153}00153\ }
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00154}00154\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \_cmd\_mv(\textcolor{keywordtype}{int}\ count,\ \textcolor{keywordtype}{char}\ **args)}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00155}00155\ \{}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00156}00156\ }
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00157}00157\ \}}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00158}00158\ }
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00159}00159\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \_cmd\_cp(\textcolor{keywordtype}{int}\ count,\ \textcolor{keywordtype}{char}\ **args)}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00160}00160\ \{}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00161}00161\ }
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00162}00162\ \}}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00163}00163\ }
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00164}00164\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \_cmd\_mount(\textcolor{keywordtype}{int}\ count,\ \textcolor{keywordtype}{char}\ **args)}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00165}00165\ \{}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00166}00166\ \ \ \ \ printf(\textcolor{stringliteral}{"{}Usage:\ mount\ [device-\/number]\ [mount-\/name]\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00167}00167\ \}}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00168}00168\ }
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00169}00169\ \textcolor{keywordtype}{int}\ main(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00170}00170\ \{}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00171}00171\ \ \ \ \ \textcolor{keywordtype}{int}\ i,\ count;}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00172}00172\ \ \ \ \ \textcolor{keywordtype}{char}\ *pch,\ buf[128],\ *args[16];}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00173}00173\ }
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00174}00174\ \ \ \ \ \_test();}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00175}00175\ }
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00176}00176\ \ \ \ \ \textcolor{comment}{/*\ Terminal\ simulator\ */}}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00177}00177\ \ \ \ \ printf(\textcolor{stringliteral}{"{}TERMINAL\ READY.\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00178}00178\ \ \ \ \ \textcolor{keywordflow}{for}(;;)}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00179}00179\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00180}00180\ \ \ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{}>\ "{}});}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00181}00181\ \ \ \ \ \ \ \ \ fgets(buf,\ \textcolor{keyword}{sizeof}(buf),\ stdin);}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00182}00182\ }
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00183}00183\ \ \ \ \ \ \ \ \ count\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00184}00184\ \ \ \ \ \ \ \ \ pch\ =\ strtok(buf,\ WHITESPACE);}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00185}00185\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}(pch)}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00186}00186\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00187}00187\ \ \ \ \ \ \ \ \ \ \ \ \ args[count++]\ =\ pch;}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00188}00188\ \ \ \ \ \ \ \ \ \ \ \ \ pch\ =\ strtok(NULL,\ WHITESPACE);}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00189}00189\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00190}00190\ }
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00191}00191\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(!\mbox{\hyperlink{string_8c_acc930dc3177c728980deef8f92d780eb}{strcmp}}(args[0],\ \textcolor{stringliteral}{"{}exit"{}}))}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00192}00192\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00193}00193\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00194}00194\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00195}00195\ }
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00196}00196\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(i\ =\ 0;\ i\ <\ (int)ARRLEN(\_cmds);\ ++i)}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00197}00197\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00198}00198\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(!\mbox{\hyperlink{string_8c_acc930dc3177c728980deef8f92d780eb}{strcmp}}(args[0],\ \_cmds[i].Name))}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00199}00199\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00200}00200\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_cmds[i].Command(count,\ args);}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00201}00201\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00202}00202\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00203}00203\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00204}00204\ }
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00205}00205\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(i\ ==\ (\textcolor{keywordtype}{int})ARRLEN(\_cmds))}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00206}00206\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00207}00207\ \ \ \ \ \ \ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{}Command\ not\ found.\ Type\ \(\backslash\)"{}help\(\backslash\)"{}\ for\ a\ list\ of\ valid\ commands\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00208}00208\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00209}00209\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00210}00210\ }
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00211}00211\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{\Hypertarget{temp_2fs_2test_8c_source_l00212}00212\ \}}
+
+\end{DoxyCode}

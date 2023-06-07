@@ -1,5 +1,5 @@
-\hypertarget{font-convert_8c}{}\doxysection{tools/font-\/convert/font-\/convert.c File Reference}
-\label{font-convert_8c}\index{tools/font-\/convert/font-\/convert.c@{tools/font-\/convert/font-\/convert.c}}
+\doxysection{tools/font-\/convert/font-\/convert.c File Reference}
+\hypertarget{font-convert_8c}{}\label{font-convert_8c}\index{tools/font-\/convert/font-\/convert.c@{tools/font-\/convert/font-\/convert.c}}
 
 
 Bitmap font from TTF generator.  
@@ -9,27 +9,27 @@ Bitmap font from TTF generator.
 {\ttfamily \#include $<$locale.\+h$>$}\newline
 {\ttfamily \#include $<$types.\+h$>$}\newline
 {\ttfamily \#include $<$utf8.\+h$>$}\newline
-{\ttfamily \#include \char`\"{}ft2build.\+h\char`\"{}}\newline
-\doxysubsection*{Data Structures}
+{\ttfamily \#include \"{}ft2build.\+h\"{}}\newline
+\doxysubsubsection*{Data Structures}
 \begin{DoxyCompactItemize}
 \item 
 struct \mbox{\hyperlink{structFontChar}{Font\+Char}}
 \item 
 struct \mbox{\hyperlink{structFont}{Font}}
 \end{DoxyCompactItemize}
-\doxysubsection*{Functions}
+\doxysubsubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-static void $\ast$ \mbox{\hyperlink{font-convert_8c_acedb6cc4a187117ef7a25ce3b774b4f0}{\+\_\+malloc}} (\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} size)
+static void \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{font-convert_8c_acedb6cc4a187117ef7a25ce3b774b4f0}{\+\_\+malloc}} (\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} size)
 \begin{DoxyCompactList}\small\item\em Malloc wrapper that prints an error and exits if the memory allocation failed. \end{DoxyCompactList}\item 
-static \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} \mbox{\hyperlink{font-convert_8c_a010f1589d07a28768b25e3626af60435}{\+\_\+compare\+\_\+i32}} (const void $\ast$a, const void $\ast$b)
+static \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} \mbox{\hyperlink{font-convert_8c_a010f1589d07a28768b25e3626af60435}{\+\_\+compare\+\_\+i32}} (const void \texorpdfstring{$\ast$}{*}a, const void \texorpdfstring{$\ast$}{*}b)
 \begin{DoxyCompactList}\small\item\em Compare two i32 numbers for qsort. \end{DoxyCompactList}\item 
-static \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} \mbox{\hyperlink{font-convert_8c_a4b82489e68b2dd5a4cc5b098349672c8}{\+\_\+sort\+\_\+unique}} (\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} $\ast$elements, \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} count)
+static \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} \mbox{\hyperlink{font-convert_8c_a4b82489e68b2dd5a4cc5b098349672c8}{\+\_\+sort\+\_\+unique}} (\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} \texorpdfstring{$\ast$}{*}elements, \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} count)
 \begin{DoxyCompactList}\small\item\em Sort an array of i32 numbers in place and remove duplicates. \end{DoxyCompactList}\item 
-static \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} $\ast$ \mbox{\hyperlink{font-convert_8c_a6a66cc60f07e01f77ef689746ca3f2d0}{\+\_\+unique\+\_\+codepoints}} (const char $\ast$s, \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} $\ast$length)
+static \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{font-convert_8c_a6a66cc60f07e01f77ef689746ca3f2d0}{\+\_\+unique\+\_\+codepoints}} (const char \texorpdfstring{$\ast$}{*}s, \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} \texorpdfstring{$\ast$}{*}length)
 \begin{DoxyCompactList}\small\item\em Get an array of unique unicode codepoints from a UTF-\/8 string. \end{DoxyCompactList}\item 
-int \mbox{\hyperlink{font-convert_8c_a0ddf1224851353fc92bfbff6f499fa97}{main}} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
-\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{structFont}{Font}} converter main function. \end{DoxyCompactList}\end{DoxyCompactItemize}
+int \mbox{\hyperlink{font-convert_8c_a0ddf1224851353fc92bfbff6f499fa97}{main}} (int argc, char \texorpdfstring{$\ast$}{*}argv\mbox{[}$\,$\mbox{]})
+\begin{DoxyCompactList}\small\item\em \doxylink{structFont}{Font} converter main function. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
@@ -51,11 +51,11 @@ Definition in file \mbox{\hyperlink{font-convert_8c_source}{font-\/convert.\+c}}
 
 
 \doxysubsection{Function Documentation}
-\mbox{\Hypertarget{font-convert_8c_a010f1589d07a28768b25e3626af60435}\label{font-convert_8c_a010f1589d07a28768b25e3626af60435}} 
+\Hypertarget{font-convert_8c_a010f1589d07a28768b25e3626af60435}\label{font-convert_8c_a010f1589d07a28768b25e3626af60435} 
 \index{font-\/convert.c@{font-\/convert.c}!\_compare\_i32@{\_compare\_i32}}
 \index{\_compare\_i32@{\_compare\_i32}!font-\/convert.c@{font-\/convert.c}}
 \doxysubsubsection{\texorpdfstring{\_compare\_i32()}{\_compare\_i32()}}
-{\footnotesize\ttfamily static \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} \+\_\+compare\+\_\+i32 (\begin{DoxyParamCaption}\item[{const void $\ast$}]{a,  }\item[{const void $\ast$}]{b }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily static \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} \+\_\+compare\+\_\+i32 (\begin{DoxyParamCaption}\item[{const void \texorpdfstring{$\ast$}{*}}]{a,  }\item[{const void \texorpdfstring{$\ast$}{*}}]{b }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
@@ -86,11 +86,11 @@ Definition at line \mbox{\hyperlink{font-convert_8c_source_l00082}{82}} of file 
 
 Referenced by \mbox{\hyperlink{font-convert_8c_source_l00094}{\+\_\+sort\+\_\+unique()}}.
 
-\mbox{\Hypertarget{font-convert_8c_acedb6cc4a187117ef7a25ce3b774b4f0}\label{font-convert_8c_acedb6cc4a187117ef7a25ce3b774b4f0}} 
+\Hypertarget{font-convert_8c_acedb6cc4a187117ef7a25ce3b774b4f0}\label{font-convert_8c_acedb6cc4a187117ef7a25ce3b774b4f0} 
 \index{font-\/convert.c@{font-\/convert.c}!\_malloc@{\_malloc}}
 \index{\_malloc@{\_malloc}!font-\/convert.c@{font-\/convert.c}}
 \doxysubsubsection{\texorpdfstring{\_malloc()}{\_malloc()}}
-{\footnotesize\ttfamily static void $\ast$ \+\_\+malloc (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{size }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily static void \texorpdfstring{$\ast$}{*} \+\_\+malloc (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{size }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
@@ -124,17 +124,17 @@ Definition at line \mbox{\hyperlink{font-convert_8c_source_l00061}{61}} of file 
 \end{DoxyCode}
 
 
-References \mbox{\hyperlink{syscall_8h_source_l00206}{exit()}}.
+References \mbox{\hyperlink{syscall_8h_source_l00204}{exit()}}.
 
 
 
 Referenced by \mbox{\hyperlink{font-convert_8c_source_l00120}{\+\_\+unique\+\_\+codepoints()}}, and \mbox{\hyperlink{font-convert_8c_source_l00156}{main()}}.
 
-\mbox{\Hypertarget{font-convert_8c_a4b82489e68b2dd5a4cc5b098349672c8}\label{font-convert_8c_a4b82489e68b2dd5a4cc5b098349672c8}} 
+\Hypertarget{font-convert_8c_a4b82489e68b2dd5a4cc5b098349672c8}\label{font-convert_8c_a4b82489e68b2dd5a4cc5b098349672c8} 
 \index{font-\/convert.c@{font-\/convert.c}!\_sort\_unique@{\_sort\_unique}}
 \index{\_sort\_unique@{\_sort\_unique}!font-\/convert.c@{font-\/convert.c}}
 \doxysubsubsection{\texorpdfstring{\_sort\_unique()}{\_sort\_unique()}}
-{\footnotesize\ttfamily static \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} \+\_\+sort\+\_\+unique (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} $\ast$}]{elements,  }\item[{\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}}]{count }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily static \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} \+\_\+sort\+\_\+unique (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} \texorpdfstring{$\ast$}{*}}]{elements,  }\item[{\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}}]{count }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
@@ -183,11 +183,11 @@ References \mbox{\hyperlink{font-convert_8c_source_l00082}{\+\_\+compare\+\_\+i3
 
 Referenced by \mbox{\hyperlink{font-convert_8c_source_l00120}{\+\_\+unique\+\_\+codepoints()}}.
 
-\mbox{\Hypertarget{font-convert_8c_a6a66cc60f07e01f77ef689746ca3f2d0}\label{font-convert_8c_a6a66cc60f07e01f77ef689746ca3f2d0}} 
+\Hypertarget{font-convert_8c_a6a66cc60f07e01f77ef689746ca3f2d0}\label{font-convert_8c_a6a66cc60f07e01f77ef689746ca3f2d0} 
 \index{font-\/convert.c@{font-\/convert.c}!\_unique\_codepoints@{\_unique\_codepoints}}
 \index{\_unique\_codepoints@{\_unique\_codepoints}!font-\/convert.c@{font-\/convert.c}}
 \doxysubsubsection{\texorpdfstring{\_unique\_codepoints()}{\_unique\_codepoints()}}
-{\footnotesize\ttfamily static \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} $\ast$ \+\_\+unique\+\_\+codepoints (\begin{DoxyParamCaption}\item[{const char $\ast$}]{s,  }\item[{\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} $\ast$}]{length }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily static \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} \texorpdfstring{$\ast$}{*} \+\_\+unique\+\_\+codepoints (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{s,  }\item[{\mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} \texorpdfstring{$\ast$}{*}}]{length }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
@@ -246,15 +246,15 @@ References \mbox{\hyperlink{font-convert_8c_source_l00061}{\+\_\+malloc()}}, \mb
 
 Referenced by \mbox{\hyperlink{font-convert_8c_source_l00156}{main()}}.
 
-\mbox{\Hypertarget{font-convert_8c_a0ddf1224851353fc92bfbff6f499fa97}\label{font-convert_8c_a0ddf1224851353fc92bfbff6f499fa97}} 
+\Hypertarget{font-convert_8c_a0ddf1224851353fc92bfbff6f499fa97}\label{font-convert_8c_a0ddf1224851353fc92bfbff6f499fa97} 
 \index{font-\/convert.c@{font-\/convert.c}!main@{main}}
 \index{main@{main}!font-\/convert.c@{font-\/convert.c}}
 \doxysubsubsection{\texorpdfstring{main()}{main()}}
-{\footnotesize\ttfamily int main (\begin{DoxyParamCaption}\item[{int}]{argc,  }\item[{char $\ast$}]{argv\mbox{[}$\,$\mbox{]} }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily int main (\begin{DoxyParamCaption}\item[{int}]{argc,  }\item[{char \texorpdfstring{$\ast$}{*}}]{argv\mbox{[}$\,$\mbox{]} }\end{DoxyParamCaption})}
 
 
 
-\mbox{\hyperlink{structFont}{Font}} converter main function. 
+\doxylink{structFont}{Font} converter main function. 
 
 
 \begin{DoxyParams}{Parameters}
@@ -453,7 +453,7 @@ Definition at line \mbox{\hyperlink{font-convert_8c_source_l00156}{156}} of file
 \DoxyCodeLine{00335\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(x\ =\ 0;\ x\ <\ fc-\/>\mbox{\hyperlink{structFontChar_aca2e2549e621a651f977a05aaef4644a}{Size}}[0];\ ++x)}
 \DoxyCodeLine{00336\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
 \DoxyCodeLine{00337\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fprintf(stdout,\ \textcolor{stringliteral}{"{}\%c"{}},}
-\DoxyCodeLine{00338\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fc-\/>\mbox{\hyperlink{structFontChar_a35640770df28f05fcb48d6df778216c1}{Bitmap}}[y\ *\ fc-\/>\mbox{\hyperlink{structFontChar_aca2e2549e621a651f977a05aaef4644a}{Size}}[0]\ +\ x]\ >\ 128\ ?\ \textcolor{charliteral}{'\#'}\ :\ \textcolor{charliteral}{'\ '});}
+\DoxyCodeLine{00338\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fc-\/>\mbox{\hyperlink{structFontChar_a35640770df28f05fcb48d6df778216c1}{Bitmap}}[y\ *\ fc-\/>\mbox{\hyperlink{structFontChar_aca2e2549e621a651f977a05aaef4644a}{Size}}[0]\ +\ x]\ >\ 128\ ?\ \textcolor{charliteral}{'\#'}\ :\ \textcolor{stringliteral}{'\ '});}
 \DoxyCodeLine{00339\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{00340\ }
 \DoxyCodeLine{00341\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fprintf(stdout,\ \textcolor{stringliteral}{"{}\ */\(\backslash\)n"{}});}

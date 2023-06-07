@@ -1,26 +1,26 @@
-\hypertarget{platform_2avr_2serial_2serial_8c}{}\doxysection{platform/avr/serial/serial.c File Reference}
-\label{platform_2avr_2serial_2serial_8c}\index{platform/avr/serial/serial.c@{platform/avr/serial/serial.c}}
-{\ttfamily \#include \char`\"{}serial.\+h\char`\"{}}\newline
+\doxysection{platform/avr/serial/serial.c File Reference}
+\hypertarget{platform_2avr_2serial_2serial_8c}{}\label{platform_2avr_2serial_2serial_8c}\index{platform/avr/serial/serial.c@{platform/avr/serial/serial.c}}
+{\ttfamily \#include \"{}serial.\+h\"{}}\newline
 {\ttfamily \#include $<$avr/io.\+h$>$}\newline
 {\ttfamily \#include $<$avr/interrupt.\+h$>$}\newline
 {\ttfamily \#include $<$avr/pgmspace.\+h$>$}\newline
-\doxysubsection*{Macros}
+\doxysubsubsection*{Macros}
 \begin{DoxyCompactItemize}
 \item 
 \#define \mbox{\hyperlink{platform_2avr_2serial_2serial_8c_a1fac9153314479ad0ad495d752f0224a}{UART\+\_\+\+BAUD}}~9600
 \item 
-\#define \mbox{\hyperlink{platform_2avr_2serial_2serial_8c_ac835bcbee0b787bf789f4499f850332c}{UART\+\_\+\+PRESCALER}}~(((F\+\_\+\+CPU / (\mbox{\hyperlink{platform_2avr_2serial_2serial_8c_a1fac9153314479ad0ad495d752f0224a}{UART\+\_\+\+BAUD}} $\ast$ 16UL))) -\/ 1)
+\#define \mbox{\hyperlink{platform_2avr_2serial_2serial_8c_ac835bcbee0b787bf789f4499f850332c}{UART\+\_\+\+PRESCALER}}~(((F\+\_\+\+CPU / (\mbox{\hyperlink{platform_2avr_2serial_2serial_8c_a1fac9153314479ad0ad495d752f0224a}{UART\+\_\+\+BAUD}} \texorpdfstring{$\ast$}{*} 16UL))) -\/ 1)
 \end{DoxyCompactItemize}
-\doxysubsection*{Functions}
+\doxysubsubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
 void \mbox{\hyperlink{platform_2avr_2serial_2serial_8c_ad2b461e9e9044364a28a61cfadcacdd8}{serial\+\_\+init}} (void)
 \begin{DoxyCompactList}\small\item\em Initialize the serial port. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{platform_2avr_2serial_2serial_8c_ad1404aaabd8a723599a89c9b9ca08a65}{serial\+\_\+tx}} (char c)
 \begin{DoxyCompactList}\small\item\em Print a character. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{platform_2avr_2serial_2serial_8c_a38ab89a81b380ccbfe63ba026d92b54b}{serial\+\_\+tx\+\_\+str}} (const char $\ast$s)
+void \mbox{\hyperlink{platform_2avr_2serial_2serial_8c_a38ab89a81b380ccbfe63ba026d92b54b}{serial\+\_\+tx\+\_\+str}} (const char \texorpdfstring{$\ast$}{*}s)
 \begin{DoxyCompactList}\small\item\em Print a null-\/terminated string. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{platform_2avr_2serial_2serial_8c_a61bd5731ded09bedba568c156e57e0bb}{serial\+\_\+tx\+\_\+str\+\_\+P}} (const char $\ast$s)
+void \mbox{\hyperlink{platform_2avr_2serial_2serial_8c_a61bd5731ded09bedba568c156e57e0bb}{serial\+\_\+tx\+\_\+str\+\_\+P}} (const char \texorpdfstring{$\ast$}{*}s)
 \begin{DoxyCompactList}\small\item\em Print a null-\/terminated string from PROGMEM. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
@@ -41,7 +41,7 @@ Definition in file \mbox{\hyperlink{platform_2avr_2serial_2serial_8c_source}{ser
 
 
 \doxysubsection{Macro Definition Documentation}
-\mbox{\Hypertarget{platform_2avr_2serial_2serial_8c_a1fac9153314479ad0ad495d752f0224a}\label{platform_2avr_2serial_2serial_8c_a1fac9153314479ad0ad495d752f0224a}} 
+\Hypertarget{platform_2avr_2serial_2serial_8c_a1fac9153314479ad0ad495d752f0224a}\label{platform_2avr_2serial_2serial_8c_a1fac9153314479ad0ad495d752f0224a} 
 \index{serial.c@{serial.c}!UART\_BAUD@{UART\_BAUD}}
 \index{UART\_BAUD@{UART\_BAUD}!serial.c@{serial.c}}
 \doxysubsubsection{\texorpdfstring{UART\_BAUD}{UART\_BAUD}}
@@ -51,11 +51,11 @@ UART Baudrate
 
 Definition at line \mbox{\hyperlink{platform_2avr_2serial_2serial_8c_source_l00014}{14}} of file \mbox{\hyperlink{platform_2avr_2serial_2serial_8c_source}{serial.\+c}}.
 
-\mbox{\Hypertarget{platform_2avr_2serial_2serial_8c_ac835bcbee0b787bf789f4499f850332c}\label{platform_2avr_2serial_2serial_8c_ac835bcbee0b787bf789f4499f850332c}} 
+\Hypertarget{platform_2avr_2serial_2serial_8c_ac835bcbee0b787bf789f4499f850332c}\label{platform_2avr_2serial_2serial_8c_ac835bcbee0b787bf789f4499f850332c} 
 \index{serial.c@{serial.c}!UART\_PRESCALER@{UART\_PRESCALER}}
 \index{UART\_PRESCALER@{UART\_PRESCALER}!serial.c@{serial.c}}
 \doxysubsubsection{\texorpdfstring{UART\_PRESCALER}{UART\_PRESCALER}}
-{\footnotesize\ttfamily \#define UART\+\_\+\+PRESCALER~(((F\+\_\+\+CPU / (\mbox{\hyperlink{platform_2avr_2serial_2serial_8c_a1fac9153314479ad0ad495d752f0224a}{UART\+\_\+\+BAUD}} $\ast$ 16UL))) -\/ 1)}
+{\footnotesize\ttfamily \#define UART\+\_\+\+PRESCALER~(((F\+\_\+\+CPU / (\mbox{\hyperlink{platform_2avr_2serial_2serial_8c_a1fac9153314479ad0ad495d752f0224a}{UART\+\_\+\+BAUD}} \texorpdfstring{$\ast$}{*} 16UL))) -\/ 1)}
 
 UART Prescaler 
 
@@ -64,7 +64,7 @@ Definition at line \mbox{\hyperlink{platform_2avr_2serial_2serial_8c_source_l000
 
 
 \doxysubsection{Function Documentation}
-\mbox{\Hypertarget{platform_2avr_2serial_2serial_8c_ad2b461e9e9044364a28a61cfadcacdd8}\label{platform_2avr_2serial_2serial_8c_ad2b461e9e9044364a28a61cfadcacdd8}} 
+\Hypertarget{platform_2avr_2serial_2serial_8c_ad2b461e9e9044364a28a61cfadcacdd8}\label{platform_2avr_2serial_2serial_8c_ad2b461e9e9044364a28a61cfadcacdd8} 
 \index{serial.c@{serial.c}!serial\_init@{serial\_init}}
 \index{serial\_init@{serial\_init}!serial.c@{serial.c}}
 \doxysubsubsection{\texorpdfstring{serial\_init()}{serial\_init()}}
@@ -95,7 +95,7 @@ References \mbox{\hyperlink{platform_2avr_2serial_2serial_8c_source_l00017}{UART
 
 Referenced by \mbox{\hyperlink{platform_2avr_2main_8c_source_l00029}{main()}}.
 
-\mbox{\Hypertarget{platform_2avr_2serial_2serial_8c_ad1404aaabd8a723599a89c9b9ca08a65}\label{platform_2avr_2serial_2serial_8c_ad1404aaabd8a723599a89c9b9ca08a65}} 
+\Hypertarget{platform_2avr_2serial_2serial_8c_ad1404aaabd8a723599a89c9b9ca08a65}\label{platform_2avr_2serial_2serial_8c_ad1404aaabd8a723599a89c9b9ca08a65} 
 \index{serial.c@{serial.c}!serial\_tx@{serial\_tx}}
 \index{serial\_tx@{serial\_tx}!serial.c@{serial.c}}
 \doxysubsubsection{\texorpdfstring{serial\_tx()}{serial\_tx()}}
@@ -124,13 +124,13 @@ Definition at line \mbox{\hyperlink{platform_2avr_2serial_2serial_8c_source_l000
 \end{DoxyCode}
 
 
-Referenced by \mbox{\hyperlink{logger_8c_source_l00095}{\+\_\+lcd\+\_\+log()}}, \mbox{\hyperlink{avr_2platform_8c_source_l00104}{env\+\_\+serial\+\_\+write()}}, \mbox{\hyperlink{logger_8c_source_l00170}{log\+\_\+boot\+\_\+\+P()}}, \mbox{\hyperlink{logger_8c_source_l00206}{memory\+\_\+dump()}}, \mbox{\hyperlink{logger_8c_source_l00183}{panic()}}, \mbox{\hyperlink{platform_2avr_2serial_2serial_8c_source_l00032}{serial\+\_\+tx\+\_\+str()}}, and \mbox{\hyperlink{platform_2avr_2serial_2serial_8c_source_l00041}{serial\+\_\+tx\+\_\+str\+\_\+\+P()}}.
+Referenced by \mbox{\hyperlink{logger_8c_source_l00095}{\+\_\+lcd\+\_\+log()}}, \mbox{\hyperlink{avr_2platform_8c_source_l00118}{env\+\_\+serial\+\_\+write()}}, \mbox{\hyperlink{logger_8c_source_l00170}{log\+\_\+boot\+\_\+\+P()}}, \mbox{\hyperlink{logger_8c_source_l00206}{memory\+\_\+dump()}}, \mbox{\hyperlink{logger_8c_source_l00183}{panic()}}, \mbox{\hyperlink{platform_2avr_2serial_2serial_8c_source_l00032}{serial\+\_\+tx\+\_\+str()}}, and \mbox{\hyperlink{platform_2avr_2serial_2serial_8c_source_l00041}{serial\+\_\+tx\+\_\+str\+\_\+\+P()}}.
 
-\mbox{\Hypertarget{platform_2avr_2serial_2serial_8c_a38ab89a81b380ccbfe63ba026d92b54b}\label{platform_2avr_2serial_2serial_8c_a38ab89a81b380ccbfe63ba026d92b54b}} 
+\Hypertarget{platform_2avr_2serial_2serial_8c_a38ab89a81b380ccbfe63ba026d92b54b}\label{platform_2avr_2serial_2serial_8c_a38ab89a81b380ccbfe63ba026d92b54b} 
 \index{serial.c@{serial.c}!serial\_tx\_str@{serial\_tx\_str}}
 \index{serial\_tx\_str@{serial\_tx\_str}!serial.c@{serial.c}}
 \doxysubsubsection{\texorpdfstring{serial\_tx\_str()}{serial\_tx\_str()}}
-{\footnotesize\ttfamily void serial\+\_\+tx\+\_\+str (\begin{DoxyParamCaption}\item[{const char $\ast$}]{s }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void serial\+\_\+tx\+\_\+str (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{s }\end{DoxyParamCaption})}
 
 
 
@@ -164,11 +164,11 @@ References \mbox{\hyperlink{platform_2avr_2serial_2serial_8c_source_l00026}{seri
 
 Referenced by \mbox{\hyperlink{logger_8c_source_l00095}{\+\_\+lcd\+\_\+log()}}, and \mbox{\hyperlink{logger_8c_source_l00206}{memory\+\_\+dump()}}.
 
-\mbox{\Hypertarget{platform_2avr_2serial_2serial_8c_a61bd5731ded09bedba568c156e57e0bb}\label{platform_2avr_2serial_2serial_8c_a61bd5731ded09bedba568c156e57e0bb}} 
+\Hypertarget{platform_2avr_2serial_2serial_8c_a61bd5731ded09bedba568c156e57e0bb}\label{platform_2avr_2serial_2serial_8c_a61bd5731ded09bedba568c156e57e0bb} 
 \index{serial.c@{serial.c}!serial\_tx\_str\_P@{serial\_tx\_str\_P}}
 \index{serial\_tx\_str\_P@{serial\_tx\_str\_P}!serial.c@{serial.c}}
 \doxysubsubsection{\texorpdfstring{serial\_tx\_str\_P()}{serial\_tx\_str\_P()}}
-{\footnotesize\ttfamily void serial\+\_\+tx\+\_\+str\+\_\+P (\begin{DoxyParamCaption}\item[{const char $\ast$}]{s }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void serial\+\_\+tx\+\_\+str\+\_\+P (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{s }\end{DoxyParamCaption})}
 
 
 

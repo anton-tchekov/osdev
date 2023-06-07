@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['text_0',['Text',['../structLabel.html#a8cb635a15fb854226819dfc612c2bbfb',1,'Label::Text()'],['../structButton.html#abf6c8dfdad6fa51a20793f00ccdcbba7',1,'Button::Text()'],['../structInput.html#a78a569961ae4393cfbdb42f7d096b36a',1,'Input::Text()']]],
+  ['text_0',['Text',['../structLabel.html#a8cb635a15fb854226819dfc612c2bbfb',1,'Label::Text'],['../structButton.html#abf6c8dfdad6fa51a20793f00ccdcbba7',1,'Button::Text'],['../structInput.html#a78a569961ae4393cfbdb42f7d096b36a',1,'Input::Text']]],
   ['theme_1',['Theme',['../structTheme.html',1,'']]],
   ['theme_5fblack_2',['THEME_BLACK',['../gui_8h.html#aa17edfc0aa7865fea5cb3f54b80089fe',1,'gui.h']]],
   ['theme_5fdark_3',['THEME_DARK',['../gui_8h.html#a5113d29b0cd65712c13f0b2e0f98c22a',1,'gui.h']]],
@@ -20,6 +20,6 @@ var searchData=
   ['tolower_17',['tolower',['../ctype_8h.html#abe3bb9b3e36b2f1968405b16d654dbf0',1,'tolower(i32 c):&#160;ctype.c'],['../ctype_8c.html#abe3bb9b3e36b2f1968405b16d654dbf0',1,'tolower(i32 c):&#160;ctype.c']]],
   ['total_18',['Total',['../structMemAllocInfo.html#a3820726d98082b51a52eb62eaca413a4',1,'MemAllocInfo']]],
   ['toupper_19',['toupper',['../ctype_8h.html#a036df521e275a27449ed74e41ec66931',1,'toupper(i32 c):&#160;ctype.c'],['../ctype_8c.html#a036df521e275a27449ed74e41ec66931',1,'toupper(i32 c):&#160;ctype.c']]],
-  ['type_20',['Type',['../structPiece.html#a57548407d4c534712ac9ea47c86fa4d8',1,'Piece::Type()'],['../structElement.html#aaa5aff1b9870a27086f7bee1b8f4aa72',1,'Element::Type()'],['../structLabel.html#abc5fc17c4442df608d88d32856dfd99a',1,'Label::Type()'],['../structButton.html#a5f32e249840beee48bb90e67c1c40715',1,'Button::Type()'],['../structInput.html#a51af0b672a92ed5a307d4947db7cebed',1,'Input::Type()']]],
+  ['type_20',['Type',['../structPiece.html#a57548407d4c534712ac9ea47c86fa4d8',1,'Piece::Type'],['../structElement.html#aaa5aff1b9870a27086f7bee1b8f4aa72',1,'Element::Type'],['../structLabel.html#abc5fc17c4442df608d88d32856dfd99a',1,'Label::Type'],['../structButton.html#a5f32e249840beee48bb90e67c1c40715',1,'Button::Type'],['../structInput.html#a51af0b672a92ed5a307d4947db7cebed',1,'Input::Type']]],
   ['types_2eh_21',['types.h',['../types_8h.html',1,'']]]
 ];

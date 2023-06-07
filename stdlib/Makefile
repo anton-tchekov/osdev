@@ -1,5 +1,6 @@
 INCLUDE=\
 	-I $(PREFIX)/algo/ \
+	-I $(PREFIX)/disk/ \
 	-I $(PREFIX)/alloc/ \
 	-I $(PREFIX)/clipboard/ \
 	-I $(PREFIX)/ctype/ \
@@ -29,16 +30,13 @@ INCLUDE=\
 
 SRC=\
 	$(PREFIX)/algo/algo.c \
+	$(PREFIX)/disk/disk.c \
 	$(PREFIX)/alloc/alloc.c \
 	$(PREFIX)/clipboard/clipboard.c \
 	$(PREFIX)/ctype/ctype.c \
 	$(PREFIX)/event/event.c \
 	$(PREFIX)/font/font.c \
 	$(PREFIX)/font/font_default.c \
-	$(PREFIX)/font/arial.c \
-	$(PREFIX)/font/fatty.c \
-	$(PREFIX)/font/ubuntu_bold.c \
-	$(PREFIX)/font/ubuntu_regular.c \
 	$(PREFIX)/format/format.c \
 	$(PREFIX)/gfx/gfx.c \
 	$(PREFIX)/gui/gui.c \

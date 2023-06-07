@@ -54,28 +54,6 @@ void env_memory_write(u32 addr, const void *data, u32 size);
 void env_gfx_rect(u16 x, u16 y, u16 w, u16 h, u32 color);
 
 /**
- * @brief Draw an RGBA image
- *
- * @param x X-Coordinate
- * @param y Y-Coordinate
- * @param w Width
- * @param h Height
- * @param addr Image memory address
- */
-void env_gfx_image_rgba(u16 x, u16 y, u16 w, u16 h, u32 addr);
-
-/**
- * @brief Draw an RGB image
- *
- * @param x X-Coordinate
- * @param y Y-Coordinate
- * @param w Width
- * @param h Height
- * @param addr Image memory address
- */
-void env_gfx_image_rgb(u16 x, u16 y, u16 w, u16 h, u32 addr);
-
-/**
  * @brief Draw an RGB565 image
  *
  * @param x X-Coordinate

@@ -7,7 +7,6 @@
  */
 
 #include <std.h>
-#include <ubuntu_regular.h>
 #include "keyword.h"
 
 /** Initial code vector capacity */
@@ -16,7 +15,7 @@
 /** Editor line height in pixels */
 #define LINE_HEIGHT              12
 
-/** TODO: File for testing syntax highligher, remove when file loading done */
+/** File for testing syntax highligher, remove when file loading done */
 static const char _file[] =
 {
 	0x76, 0x6F, 0x69, 0x64, 0x20, 0x65, 0x64, 0x69, 0x74, 0x6F, 0x72, 0x5F, 0x62, 0x61, 0x63, 0x6B,
@@ -102,9 +101,9 @@ static void _draw_line_numbers(i32 max_line)
 		{
 			snprintf(buf, sizeof(buf), "%d", i + 1);
 			font_string(
-				25 - font_string_width(buf, ubuntu_regular),
+				25 - font_string_width(buf, font_default),
 				i * LINE_HEIGHT + 22,
-				buf, ubuntu_regular, COLOR_WHITE, THEME_BLACK);
+				buf, font_default, COLOR_WHITE, THEME_BLACK);
 		}
 	}
 
@@ -246,7 +245,7 @@ static void _draw_code(void)
 			++col;
 			if (x <= GFX_WIDTH - 10 && y <= GFX_HEIGHT - 10)
 			{
-				font_string_len(x, y, &c, 1, ubuntu_regular, color, COLOR_BLACK);
+				font_string_len(x, y, &c, 1, font_default, color, COLOR_BLACK);
 			}
 		}
 	}

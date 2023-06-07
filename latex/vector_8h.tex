@@ -1,5 +1,5 @@
-\hypertarget{vector_8h}{}\doxysection{stdlib/vector/vector.h File Reference}
-\label{vector_8h}\index{stdlib/vector/vector.h@{stdlib/vector/vector.h}}
+\doxysection{stdlib/vector/vector.h File Reference}
+\hypertarget{vector_8h}{}\label{vector_8h}\index{stdlib/vector/vector.h@{stdlib/vector/vector.h}}
 
 
 Generic resizable array.  
@@ -7,41 +7,41 @@ Generic resizable array.
 
 {\ttfamily \#include $<$types.\+h$>$}\newline
 {\ttfamily \#include $<$string.\+h$>$}\newline
-\doxysubsection*{Data Structures}
+\doxysubsubsection*{Data Structures}
 \begin{DoxyCompactItemize}
 \item 
 struct \mbox{\hyperlink{structVector}{Vector}}
 \end{DoxyCompactItemize}
-\doxysubsection*{Functions}
+\doxysubsubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-void \mbox{\hyperlink{vector_8h_a9618b41b25efb749069cbfff9c3cadcf}{vector\+\_\+init}} (\mbox{\hyperlink{structVector}{Vector}} $\ast$vector, \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} element\+\_\+size, \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} initial\+\_\+capacity)
+void \mbox{\hyperlink{vector_8h_a9618b41b25efb749069cbfff9c3cadcf}{vector\+\_\+init}} (\mbox{\hyperlink{structVector}{Vector}} \texorpdfstring{$\ast$}{*}vector, \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} element\+\_\+size, \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} initial\+\_\+capacity)
 \begin{DoxyCompactList}\small\item\em Initialize a vector with an element size and an initial capacity. \end{DoxyCompactList}\item 
-static void \mbox{\hyperlink{vector_8h_a8d2c106dcc33115c542080d6eefd32af}{vector\+\_\+clear}} (\mbox{\hyperlink{structVector}{Vector}} $\ast$vector)
+static void \mbox{\hyperlink{vector_8h_a8d2c106dcc33115c542080d6eefd32af}{vector\+\_\+clear}} (\mbox{\hyperlink{structVector}{Vector}} \texorpdfstring{$\ast$}{*}vector)
 \begin{DoxyCompactList}\small\item\em Clears (empties) the vector. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{vector_8h_a0c0be12f800dc5bc6777b4ff324f41ca}{vector\+\_\+destroy}} (\mbox{\hyperlink{structVector}{Vector}} $\ast$vector)
+void \mbox{\hyperlink{vector_8h_a0c0be12f800dc5bc6777b4ff324f41ca}{vector\+\_\+destroy}} (\mbox{\hyperlink{structVector}{Vector}} \texorpdfstring{$\ast$}{*}vector)
 \begin{DoxyCompactList}\small\item\em Frees the internal memory buffer of the vector. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{vector_8h_ab5e38bad2bc3f2cbf9f7b23f615545ee}{vector\+\_\+replace}} (\mbox{\hyperlink{structVector}{Vector}} $\ast$vector, \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} index, \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} count, const void $\ast$elems, \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} new\+\_\+count)
+void \mbox{\hyperlink{vector_8h_ab5e38bad2bc3f2cbf9f7b23f615545ee}{vector\+\_\+replace}} (\mbox{\hyperlink{structVector}{Vector}} \texorpdfstring{$\ast$}{*}vector, \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} index, \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} count, const void \texorpdfstring{$\ast$}{*}elems, \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} new\+\_\+count)
 \begin{DoxyCompactList}\small\item\em Replace a range of elements in the vector with new elements. \end{DoxyCompactList}\item 
-static void \mbox{\hyperlink{vector_8h_ac65e7c44e70e353b26f7b81033f0fd10}{vector\+\_\+set}} (\mbox{\hyperlink{structVector}{Vector}} $\ast$vector, const void $\ast$elems, \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} count)
+static void \mbox{\hyperlink{vector_8h_ac65e7c44e70e353b26f7b81033f0fd10}{vector\+\_\+set}} (\mbox{\hyperlink{structVector}{Vector}} \texorpdfstring{$\ast$}{*}vector, const void \texorpdfstring{$\ast$}{*}elems, \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} count)
 \begin{DoxyCompactList}\small\item\em Replace all elements in a vector. \end{DoxyCompactList}\item 
-static void $\ast$ \mbox{\hyperlink{vector_8h_ad2779e7010b2bbe8255fd0ecbd6b194a}{vector\+\_\+get}} (\mbox{\hyperlink{structVector}{Vector}} $\ast$vector, \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} index)
+static void \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{vector_8h_ad2779e7010b2bbe8255fd0ecbd6b194a}{vector\+\_\+get}} (\mbox{\hyperlink{structVector}{Vector}} \texorpdfstring{$\ast$}{*}vector, \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} index)
 \begin{DoxyCompactList}\small\item\em Get a pointer to an element in the vector. \end{DoxyCompactList}\item 
-static void $\ast$ \mbox{\hyperlink{vector_8h_a503ee5296f13ea821a6a7024eccd5407}{vector\+\_\+data}} (\mbox{\hyperlink{structVector}{Vector}} $\ast$vector)
+static void \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{vector_8h_a503ee5296f13ea821a6a7024eccd5407}{vector\+\_\+data}} (\mbox{\hyperlink{structVector}{Vector}} \texorpdfstring{$\ast$}{*}vector)
 \begin{DoxyCompactList}\small\item\em Get a pointer to the internal data area. \end{DoxyCompactList}\item 
-static \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} \mbox{\hyperlink{vector_8h_a5169207d0fedd9d5eba2376359dbaa65}{vector\+\_\+len}} (\mbox{\hyperlink{structVector}{Vector}} $\ast$vector)
+static \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} \mbox{\hyperlink{vector_8h_a5169207d0fedd9d5eba2376359dbaa65}{vector\+\_\+len}} (\mbox{\hyperlink{structVector}{Vector}} \texorpdfstring{$\ast$}{*}vector)
 \begin{DoxyCompactList}\small\item\em Gets the number of elements in the vector. \end{DoxyCompactList}\item 
-static void \mbox{\hyperlink{vector_8h_af8817659c74d231318afcef547716465}{vector\+\_\+insert\+\_\+range}} (\mbox{\hyperlink{structVector}{Vector}} $\ast$vector, \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} index, \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} count, void $\ast$elems)
+static void \mbox{\hyperlink{vector_8h_af8817659c74d231318afcef547716465}{vector\+\_\+insert\+\_\+range}} (\mbox{\hyperlink{structVector}{Vector}} \texorpdfstring{$\ast$}{*}vector, \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} index, \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} count, void \texorpdfstring{$\ast$}{*}elems)
 \begin{DoxyCompactList}\small\item\em Insert a range of elements at an index in the vector. \end{DoxyCompactList}\item 
-static void \mbox{\hyperlink{vector_8h_ac95a0b314c0db5461cf8591043ce9d03}{vector\+\_\+insert}} (\mbox{\hyperlink{structVector}{Vector}} $\ast$vector, \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} index, void $\ast$elem)
+static void \mbox{\hyperlink{vector_8h_ac95a0b314c0db5461cf8591043ce9d03}{vector\+\_\+insert}} (\mbox{\hyperlink{structVector}{Vector}} \texorpdfstring{$\ast$}{*}vector, \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} index, void \texorpdfstring{$\ast$}{*}elem)
 \begin{DoxyCompactList}\small\item\em Insert a single element. \end{DoxyCompactList}\item 
-static void \mbox{\hyperlink{vector_8h_a67ee10133f0cf3c7d71d364754fb648f}{vector\+\_\+remove\+\_\+range}} (\mbox{\hyperlink{structVector}{Vector}} $\ast$vector, \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} index, \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} count)
+static void \mbox{\hyperlink{vector_8h_a67ee10133f0cf3c7d71d364754fb648f}{vector\+\_\+remove\+\_\+range}} (\mbox{\hyperlink{structVector}{Vector}} \texorpdfstring{$\ast$}{*}vector, \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} index, \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} count)
 \begin{DoxyCompactList}\small\item\em Remove a range of elements. \end{DoxyCompactList}\item 
-static void \mbox{\hyperlink{vector_8h_af3a2eb74cba163713007f5afaf3749fe}{vector\+\_\+remove}} (\mbox{\hyperlink{structVector}{Vector}} $\ast$vector, \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} index)
+static void \mbox{\hyperlink{vector_8h_af3a2eb74cba163713007f5afaf3749fe}{vector\+\_\+remove}} (\mbox{\hyperlink{structVector}{Vector}} \texorpdfstring{$\ast$}{*}vector, \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} index)
 \begin{DoxyCompactList}\small\item\em Remove a single element. \end{DoxyCompactList}\item 
-static void \mbox{\hyperlink{vector_8h_aa93a06f25d8c54ab996297b5523ab300}{vector\+\_\+push}} (\mbox{\hyperlink{structVector}{Vector}} $\ast$vector, void $\ast$elem)
+static void \mbox{\hyperlink{vector_8h_aa93a06f25d8c54ab996297b5523ab300}{vector\+\_\+push}} (\mbox{\hyperlink{structVector}{Vector}} \texorpdfstring{$\ast$}{*}vector, void \texorpdfstring{$\ast$}{*}elem)
 \begin{DoxyCompactList}\small\item\em Insert an element after the last element of the vector. \end{DoxyCompactList}\item 
-static void \mbox{\hyperlink{vector_8h_a41556dfae45ce9bbe4f3ca2d5c6ec93a}{vector\+\_\+push\+\_\+range}} (\mbox{\hyperlink{structVector}{Vector}} $\ast$vector, \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} count, void $\ast$elem)
+static void \mbox{\hyperlink{vector_8h_a41556dfae45ce9bbe4f3ca2d5c6ec93a}{vector\+\_\+push\+\_\+range}} (\mbox{\hyperlink{structVector}{Vector}} \texorpdfstring{$\ast$}{*}vector, \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} count, void \texorpdfstring{$\ast$}{*}elem)
 \begin{DoxyCompactList}\small\item\em Insert a range of elements after the last element of the vector. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
@@ -64,11 +64,11 @@ Definition in file \mbox{\hyperlink{vector_8h_source}{vector.\+h}}.
 
 
 \doxysubsection{Function Documentation}
-\mbox{\Hypertarget{vector_8h_a8d2c106dcc33115c542080d6eefd32af}\label{vector_8h_a8d2c106dcc33115c542080d6eefd32af}} 
+\Hypertarget{vector_8h_a8d2c106dcc33115c542080d6eefd32af}\label{vector_8h_a8d2c106dcc33115c542080d6eefd32af} 
 \index{vector.h@{vector.h}!vector\_clear@{vector\_clear}}
 \index{vector\_clear@{vector\_clear}!vector.h@{vector.h}}
 \doxysubsubsection{\texorpdfstring{vector\_clear()}{vector\_clear()}}
-{\footnotesize\ttfamily static void vector\+\_\+clear (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structVector}{Vector}} $\ast$}]{vector }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+{\footnotesize\ttfamily static void vector\+\_\+clear (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structVector}{Vector}} \texorpdfstring{$\ast$}{*}}]{vector }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
 
 
 
@@ -98,11 +98,11 @@ References \mbox{\hyperlink{vector_8h_source_l00022}{Vector\+::\+Length}}.
 
 Referenced by \mbox{\hyperlink{gui_8c_source_l00300}{input\+\_\+clear()}}.
 
-\mbox{\Hypertarget{vector_8h_a503ee5296f13ea821a6a7024eccd5407}\label{vector_8h_a503ee5296f13ea821a6a7024eccd5407}} 
+\Hypertarget{vector_8h_a503ee5296f13ea821a6a7024eccd5407}\label{vector_8h_a503ee5296f13ea821a6a7024eccd5407} 
 \index{vector.h@{vector.h}!vector\_data@{vector\_data}}
 \index{vector\_data@{vector\_data}!vector.h@{vector.h}}
 \doxysubsubsection{\texorpdfstring{vector\_data()}{vector\_data()}}
-{\footnotesize\ttfamily static void $\ast$ vector\+\_\+data (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structVector}{Vector}} $\ast$}]{vector }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+{\footnotesize\ttfamily static void \texorpdfstring{$\ast$}{*} vector\+\_\+data (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structVector}{Vector}} \texorpdfstring{$\ast$}{*}}]{vector }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
 
 
 
@@ -110,7 +110,7 @@ Get a pointer to the internal data area.
 
 
 \begin{DoxyParams}{Parameters}
-{\em vector} & The \mbox{\hyperlink{structVector}{Vector}} \\
+{\em vector} & The \doxylink{structVector}{Vector} \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
@@ -133,13 +133,13 @@ References \mbox{\hyperlink{vector_8h_source_l00028}{Vector\+::\+Data}}.
 
 
 
-Referenced by \mbox{\hyperlink{apps_2editor_2main_8c_source_l00135}{\+\_\+draw\+\_\+code()}}, \mbox{\hyperlink{gui_8c_source_l00200}{\+\_\+input\+\_\+get\+\_\+display\+\_\+text()}}, \mbox{\hyperlink{apps_2init_2main_8c_source_l00129}{button\+\_\+login\+\_\+onclick()}}, and \mbox{\hyperlink{clipboard_8c_source_l00036}{clipboard\+\_\+get\+\_\+text()}}.
+Referenced by \mbox{\hyperlink{apps_2editor_2main_8c_source_l00134}{\+\_\+draw\+\_\+code()}}, \mbox{\hyperlink{gui_8c_source_l00200}{\+\_\+input\+\_\+get\+\_\+display\+\_\+text()}}, \mbox{\hyperlink{apps_2init_2main_8c_source_l00129}{button\+\_\+login\+\_\+onclick()}}, and \mbox{\hyperlink{clipboard_8c_source_l00036}{clipboard\+\_\+get\+\_\+text()}}.
 
-\mbox{\Hypertarget{vector_8h_a0c0be12f800dc5bc6777b4ff324f41ca}\label{vector_8h_a0c0be12f800dc5bc6777b4ff324f41ca}} 
+\Hypertarget{vector_8h_a0c0be12f800dc5bc6777b4ff324f41ca}\label{vector_8h_a0c0be12f800dc5bc6777b4ff324f41ca} 
 \index{vector.h@{vector.h}!vector\_destroy@{vector\_destroy}}
 \index{vector\_destroy@{vector\_destroy}!vector.h@{vector.h}}
 \doxysubsubsection{\texorpdfstring{vector\_destroy()}{vector\_destroy()}}
-{\footnotesize\ttfamily void vector\+\_\+destroy (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structVector}{Vector}} $\ast$}]{vector }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void vector\+\_\+destroy (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structVector}{Vector}} \texorpdfstring{$\ast$}{*}}]{vector }\end{DoxyParamCaption})}
 
 
 
@@ -165,11 +165,11 @@ Definition at line \mbox{\hyperlink{vector_8c_source_l00038}{38}} of file \mbox{
 
 References \mbox{\hyperlink{vector_8h_source_l00028}{Vector\+::\+Data}}, and \mbox{\hyperlink{alloc_8c_source_l00160}{memfree()}}.
 
-\mbox{\Hypertarget{vector_8h_ad2779e7010b2bbe8255fd0ecbd6b194a}\label{vector_8h_ad2779e7010b2bbe8255fd0ecbd6b194a}} 
+\Hypertarget{vector_8h_ad2779e7010b2bbe8255fd0ecbd6b194a}\label{vector_8h_ad2779e7010b2bbe8255fd0ecbd6b194a} 
 \index{vector.h@{vector.h}!vector\_get@{vector\_get}}
 \index{vector\_get@{vector\_get}!vector.h@{vector.h}}
 \doxysubsubsection{\texorpdfstring{vector\_get()}{vector\_get()}}
-{\footnotesize\ttfamily static void $\ast$ vector\+\_\+get (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structVector}{Vector}} $\ast$}]{vector,  }\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{index }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+{\footnotesize\ttfamily static void \texorpdfstring{$\ast$}{*} vector\+\_\+get (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structVector}{Vector}} \texorpdfstring{$\ast$}{*}}]{vector,  }\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{index }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
 
 
 
@@ -177,7 +177,7 @@ Get a pointer to an element in the vector.
 
 
 \begin{DoxyParams}{Parameters}
-{\em vector} & The \mbox{\hyperlink{structVector}{Vector}} \\
+{\em vector} & The \doxylink{structVector}{Vector} \\
 \hline
 {\em index} & The index \\
 \hline
@@ -204,11 +204,11 @@ References \mbox{\hyperlink{vector_8h_source_l00028}{Vector\+::\+Data}}, and \mb
 
 Referenced by \mbox{\hyperlink{gui_8c_source_l00522}{\+\_\+selection\+\_\+save()}}.
 
-\mbox{\Hypertarget{vector_8h_a9618b41b25efb749069cbfff9c3cadcf}\label{vector_8h_a9618b41b25efb749069cbfff9c3cadcf}} 
+\Hypertarget{vector_8h_a9618b41b25efb749069cbfff9c3cadcf}\label{vector_8h_a9618b41b25efb749069cbfff9c3cadcf} 
 \index{vector.h@{vector.h}!vector\_init@{vector\_init}}
 \index{vector\_init@{vector\_init}!vector.h@{vector.h}}
 \doxysubsubsection{\texorpdfstring{vector\_init()}{vector\_init()}}
-{\footnotesize\ttfamily void vector\+\_\+init (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structVector}{Vector}} $\ast$}]{vector,  }\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{element\+\_\+size,  }\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{initial\+\_\+capacity }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void vector\+\_\+init (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structVector}{Vector}} \texorpdfstring{$\ast$}{*}}]{vector,  }\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{element\+\_\+size,  }\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{initial\+\_\+capacity }\end{DoxyParamCaption})}
 
 
 
@@ -251,13 +251,13 @@ References \mbox{\hyperlink{vector_8h_source_l00025}{Vector\+::\+Capacity}}, \mb
 
 
 
-Referenced by \mbox{\hyperlink{clipboard_8c_source_l00021}{\+\_\+clipboard\+\_\+init()}}, \mbox{\hyperlink{gui_8c_source_l00887}{input\+\_\+init()}}, and \mbox{\hyperlink{apps_2editor_2main_8c_source_l00255}{setup()}}.
+Referenced by \mbox{\hyperlink{clipboard_8c_source_l00021}{\+\_\+clipboard\+\_\+init()}}, \mbox{\hyperlink{gui_8c_source_l00887}{input\+\_\+init()}}, and \mbox{\hyperlink{apps_2editor_2main_8c_source_l00254}{setup()}}.
 
-\mbox{\Hypertarget{vector_8h_ac95a0b314c0db5461cf8591043ce9d03}\label{vector_8h_ac95a0b314c0db5461cf8591043ce9d03}} 
+\Hypertarget{vector_8h_ac95a0b314c0db5461cf8591043ce9d03}\label{vector_8h_ac95a0b314c0db5461cf8591043ce9d03} 
 \index{vector.h@{vector.h}!vector\_insert@{vector\_insert}}
 \index{vector\_insert@{vector\_insert}!vector.h@{vector.h}}
 \doxysubsubsection{\texorpdfstring{vector\_insert()}{vector\_insert()}}
-{\footnotesize\ttfamily static void vector\+\_\+insert (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structVector}{Vector}} $\ast$}]{vector,  }\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{index,  }\item[{void $\ast$}]{elem }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+{\footnotesize\ttfamily static void vector\+\_\+insert (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structVector}{Vector}} \texorpdfstring{$\ast$}{*}}]{vector,  }\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{index,  }\item[{void \texorpdfstring{$\ast$}{*}}]{elem }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
 
 
 
@@ -291,11 +291,11 @@ References \mbox{\hyperlink{vector_8h_source_l00131}{vector\+\_\+insert\+\_\+ran
 
 Referenced by \mbox{\hyperlink{vector_8h_source_l00180}{vector\+\_\+push()}}.
 
-\mbox{\Hypertarget{vector_8h_af8817659c74d231318afcef547716465}\label{vector_8h_af8817659c74d231318afcef547716465}} 
+\Hypertarget{vector_8h_af8817659c74d231318afcef547716465}\label{vector_8h_af8817659c74d231318afcef547716465} 
 \index{vector.h@{vector.h}!vector\_insert\_range@{vector\_insert\_range}}
 \index{vector\_insert\_range@{vector\_insert\_range}!vector.h@{vector.h}}
 \doxysubsubsection{\texorpdfstring{vector\_insert\_range()}{vector\_insert\_range()}}
-{\footnotesize\ttfamily static void vector\+\_\+insert\+\_\+range (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structVector}{Vector}} $\ast$}]{vector,  }\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{index,  }\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{count,  }\item[{void $\ast$}]{elems }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+{\footnotesize\ttfamily static void vector\+\_\+insert\+\_\+range (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structVector}{Vector}} \texorpdfstring{$\ast$}{*}}]{vector,  }\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{index,  }\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{count,  }\item[{void \texorpdfstring{$\ast$}{*}}]{elems }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
 
 
 
@@ -331,11 +331,11 @@ References \mbox{\hyperlink{vector_8c_source_l00043}{vector\+\_\+replace()}}.
 
 Referenced by \mbox{\hyperlink{vector_8h_source_l00144}{vector\+\_\+insert()}}, and \mbox{\hyperlink{vector_8h_source_l00192}{vector\+\_\+push\+\_\+range()}}.
 
-\mbox{\Hypertarget{vector_8h_a5169207d0fedd9d5eba2376359dbaa65}\label{vector_8h_a5169207d0fedd9d5eba2376359dbaa65}} 
+\Hypertarget{vector_8h_a5169207d0fedd9d5eba2376359dbaa65}\label{vector_8h_a5169207d0fedd9d5eba2376359dbaa65} 
 \index{vector.h@{vector.h}!vector\_len@{vector\_len}}
 \index{vector\_len@{vector\_len}!vector.h@{vector.h}}
 \doxysubsubsection{\texorpdfstring{vector\_len()}{vector\_len()}}
-{\footnotesize\ttfamily static \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} vector\+\_\+len (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structVector}{Vector}} $\ast$}]{vector }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+{\footnotesize\ttfamily static \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} vector\+\_\+len (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structVector}{Vector}} \texorpdfstring{$\ast$}{*}}]{vector }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
 
 
 
@@ -343,7 +343,7 @@ Gets the number of elements in the vector.
 
 
 \begin{DoxyParams}{Parameters}
-{\em vector} & The \mbox{\hyperlink{structVector}{Vector}} \\
+{\em vector} & The \doxylink{structVector}{Vector} \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
@@ -366,13 +366,13 @@ References \mbox{\hyperlink{vector_8h_source_l00022}{Vector\+::\+Length}}.
 
 
 
-Referenced by \mbox{\hyperlink{apps_2editor_2main_8c_source_l00135}{\+\_\+draw\+\_\+code()}}, \mbox{\hyperlink{clipboard_8c_source_l00042}{clipboard\+\_\+get\+\_\+text\+\_\+len()}}, \mbox{\hyperlink{gui_8c_source_l00433}{input\+\_\+delete()}}, \mbox{\hyperlink{gui_8c_source_l00475}{input\+\_\+end()}}, \mbox{\hyperlink{gui_8c_source_l00212}{input\+\_\+render()}}, \mbox{\hyperlink{gui_8c_source_l00379}{input\+\_\+right()}}, \mbox{\hyperlink{gui_8c_source_l00510}{input\+\_\+select\+\_\+all()}}, \mbox{\hyperlink{gui_8c_source_l00487}{input\+\_\+select\+\_\+end()}}, \mbox{\hyperlink{gui_8c_source_l00399}{input\+\_\+select\+\_\+right()}}, and \mbox{\hyperlink{gui_8c_source_l00314}{input\+\_\+selection\+\_\+replace()}}.
+Referenced by \mbox{\hyperlink{apps_2editor_2main_8c_source_l00134}{\+\_\+draw\+\_\+code()}}, \mbox{\hyperlink{clipboard_8c_source_l00042}{clipboard\+\_\+get\+\_\+text\+\_\+len()}}, \mbox{\hyperlink{gui_8c_source_l00433}{input\+\_\+delete()}}, \mbox{\hyperlink{gui_8c_source_l00475}{input\+\_\+end()}}, \mbox{\hyperlink{gui_8c_source_l00212}{input\+\_\+render()}}, \mbox{\hyperlink{gui_8c_source_l00379}{input\+\_\+right()}}, \mbox{\hyperlink{gui_8c_source_l00510}{input\+\_\+select\+\_\+all()}}, \mbox{\hyperlink{gui_8c_source_l00487}{input\+\_\+select\+\_\+end()}}, \mbox{\hyperlink{gui_8c_source_l00399}{input\+\_\+select\+\_\+right()}}, and \mbox{\hyperlink{gui_8c_source_l00314}{input\+\_\+selection\+\_\+replace()}}.
 
-\mbox{\Hypertarget{vector_8h_aa93a06f25d8c54ab996297b5523ab300}\label{vector_8h_aa93a06f25d8c54ab996297b5523ab300}} 
+\Hypertarget{vector_8h_aa93a06f25d8c54ab996297b5523ab300}\label{vector_8h_aa93a06f25d8c54ab996297b5523ab300} 
 \index{vector.h@{vector.h}!vector\_push@{vector\_push}}
 \index{vector\_push@{vector\_push}!vector.h@{vector.h}}
 \doxysubsubsection{\texorpdfstring{vector\_push()}{vector\_push()}}
-{\footnotesize\ttfamily static void vector\+\_\+push (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structVector}{Vector}} $\ast$}]{vector,  }\item[{void $\ast$}]{elem }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+{\footnotesize\ttfamily static void vector\+\_\+push (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structVector}{Vector}} \texorpdfstring{$\ast$}{*}}]{vector,  }\item[{void \texorpdfstring{$\ast$}{*}}]{elem }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
 
 
 
@@ -400,11 +400,11 @@ Definition at line \mbox{\hyperlink{vector_8h_source_l00180}{180}} of file \mbox
 
 References \mbox{\hyperlink{vector_8h_source_l00022}{Vector\+::\+Length}}, and \mbox{\hyperlink{vector_8h_source_l00144}{vector\+\_\+insert()}}.
 
-\mbox{\Hypertarget{vector_8h_a41556dfae45ce9bbe4f3ca2d5c6ec93a}\label{vector_8h_a41556dfae45ce9bbe4f3ca2d5c6ec93a}} 
+\Hypertarget{vector_8h_a41556dfae45ce9bbe4f3ca2d5c6ec93a}\label{vector_8h_a41556dfae45ce9bbe4f3ca2d5c6ec93a} 
 \index{vector.h@{vector.h}!vector\_push\_range@{vector\_push\_range}}
 \index{vector\_push\_range@{vector\_push\_range}!vector.h@{vector.h}}
 \doxysubsubsection{\texorpdfstring{vector\_push\_range()}{vector\_push\_range()}}
-{\footnotesize\ttfamily static void vector\+\_\+push\+\_\+range (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structVector}{Vector}} $\ast$}]{vector,  }\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{count,  }\item[{void $\ast$}]{elem }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+{\footnotesize\ttfamily static void vector\+\_\+push\+\_\+range (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structVector}{Vector}} \texorpdfstring{$\ast$}{*}}]{vector,  }\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{count,  }\item[{void \texorpdfstring{$\ast$}{*}}]{elem }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
 
 
 
@@ -434,11 +434,11 @@ Definition at line \mbox{\hyperlink{vector_8h_source_l00192}{192}} of file \mbox
 
 References \mbox{\hyperlink{vector_8h_source_l00022}{Vector\+::\+Length}}, and \mbox{\hyperlink{vector_8h_source_l00131}{vector\+\_\+insert\+\_\+range()}}.
 
-\mbox{\Hypertarget{vector_8h_af3a2eb74cba163713007f5afaf3749fe}\label{vector_8h_af3a2eb74cba163713007f5afaf3749fe}} 
+\Hypertarget{vector_8h_af3a2eb74cba163713007f5afaf3749fe}\label{vector_8h_af3a2eb74cba163713007f5afaf3749fe} 
 \index{vector.h@{vector.h}!vector\_remove@{vector\_remove}}
 \index{vector\_remove@{vector\_remove}!vector.h@{vector.h}}
 \doxysubsubsection{\texorpdfstring{vector\_remove()}{vector\_remove()}}
-{\footnotesize\ttfamily static void vector\+\_\+remove (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structVector}{Vector}} $\ast$}]{vector,  }\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{index }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+{\footnotesize\ttfamily static void vector\+\_\+remove (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structVector}{Vector}} \texorpdfstring{$\ast$}{*}}]{vector,  }\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{index }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
 
 
 
@@ -470,11 +470,11 @@ References \mbox{\hyperlink{vector_8h_source_l00156}{vector\+\_\+remove\+\_\+ran
 
 Referenced by \mbox{\hyperlink{gui_8c_source_l00413}{input\+\_\+backspace()}}, and \mbox{\hyperlink{gui_8c_source_l00433}{input\+\_\+delete()}}.
 
-\mbox{\Hypertarget{vector_8h_a67ee10133f0cf3c7d71d364754fb648f}\label{vector_8h_a67ee10133f0cf3c7d71d364754fb648f}} 
+\Hypertarget{vector_8h_a67ee10133f0cf3c7d71d364754fb648f}\label{vector_8h_a67ee10133f0cf3c7d71d364754fb648f} 
 \index{vector.h@{vector.h}!vector\_remove\_range@{vector\_remove\_range}}
 \index{vector\_remove\_range@{vector\_remove\_range}!vector.h@{vector.h}}
 \doxysubsubsection{\texorpdfstring{vector\_remove\_range()}{vector\_remove\_range()}}
-{\footnotesize\ttfamily static void vector\+\_\+remove\+\_\+range (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structVector}{Vector}} $\ast$}]{vector,  }\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{index,  }\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{count }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+{\footnotesize\ttfamily static void vector\+\_\+remove\+\_\+range (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structVector}{Vector}} \texorpdfstring{$\ast$}{*}}]{vector,  }\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{index,  }\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{count }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
 
 
 
@@ -508,11 +508,11 @@ References \mbox{\hyperlink{vector_8c_source_l00043}{vector\+\_\+replace()}}.
 
 Referenced by \mbox{\hyperlink{vector_8h_source_l00167}{vector\+\_\+remove()}}.
 
-\mbox{\Hypertarget{vector_8h_ab5e38bad2bc3f2cbf9f7b23f615545ee}\label{vector_8h_ab5e38bad2bc3f2cbf9f7b23f615545ee}} 
+\Hypertarget{vector_8h_ab5e38bad2bc3f2cbf9f7b23f615545ee}\label{vector_8h_ab5e38bad2bc3f2cbf9f7b23f615545ee} 
 \index{vector.h@{vector.h}!vector\_replace@{vector\_replace}}
 \index{vector\_replace@{vector\_replace}!vector.h@{vector.h}}
 \doxysubsubsection{\texorpdfstring{vector\_replace()}{vector\_replace()}}
-{\footnotesize\ttfamily void vector\+\_\+replace (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structVector}{Vector}} $\ast$}]{vector,  }\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{index,  }\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{count,  }\item[{const void $\ast$}]{elems,  }\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{new\+\_\+count }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void vector\+\_\+replace (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structVector}{Vector}} \texorpdfstring{$\ast$}{*}}]{vector,  }\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{index,  }\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{count,  }\item[{const void \texorpdfstring{$\ast$}{*}}]{elems,  }\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{new\+\_\+count }\end{DoxyParamCaption})}
 
 
 
@@ -608,11 +608,11 @@ References \mbox{\hyperlink{vector_8c_source_l00019}{\+\_\+next\+\_\+pot()}}, \m
 
 Referenced by \mbox{\hyperlink{gui_8c_source_l00314}{input\+\_\+selection\+\_\+replace()}}, \mbox{\hyperlink{vector_8h_source_l00131}{vector\+\_\+insert\+\_\+range()}}, \mbox{\hyperlink{vector_8h_source_l00156}{vector\+\_\+remove\+\_\+range()}}, and \mbox{\hyperlink{vector_8h_source_l00084}{vector\+\_\+set()}}.
 
-\mbox{\Hypertarget{vector_8h_ac65e7c44e70e353b26f7b81033f0fd10}\label{vector_8h_ac65e7c44e70e353b26f7b81033f0fd10}} 
+\Hypertarget{vector_8h_ac65e7c44e70e353b26f7b81033f0fd10}\label{vector_8h_ac65e7c44e70e353b26f7b81033f0fd10} 
 \index{vector.h@{vector.h}!vector\_set@{vector\_set}}
 \index{vector\_set@{vector\_set}!vector.h@{vector.h}}
 \doxysubsubsection{\texorpdfstring{vector\_set()}{vector\_set()}}
-{\footnotesize\ttfamily static void vector\+\_\+set (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structVector}{Vector}} $\ast$}]{vector,  }\item[{const void $\ast$}]{elems,  }\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{count }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+{\footnotesize\ttfamily static void vector\+\_\+set (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structVector}{Vector}} \texorpdfstring{$\ast$}{*}}]{vector,  }\item[{const void \texorpdfstring{$\ast$}{*}}]{elems,  }\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{count }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
 
 
 
@@ -644,5 +644,5 @@ References \mbox{\hyperlink{vector_8h_source_l00022}{Vector\+::\+Length}}, and \
 
 
 
-Referenced by \mbox{\hyperlink{clipboard_8c_source_l00030}{clipboard\+\_\+save\+\_\+text\+\_\+len()}}, and \mbox{\hyperlink{apps_2editor_2main_8c_source_l00255}{setup()}}.
+Referenced by \mbox{\hyperlink{clipboard_8c_source_l00030}{clipboard\+\_\+save\+\_\+text\+\_\+len()}}, and \mbox{\hyperlink{apps_2editor_2main_8c_source_l00254}{setup()}}.
 

@@ -62,6 +62,9 @@ static void emulator_dump_registers(Emulator *emu)
 
 /* --- OPCODES --- */
 
+/** Maximum number of tasks */
+#define MAX_TASKS        1
+
 /** Opcode for Load instructions */
 #define OPCODE_LOAD   0x00
 
@@ -108,11 +111,11 @@ static inline u32 sext(u8 bits, u32 value)
 /** Called function finished flag */
 static bool _finished;
 
-/** TODO: To be removed when multitasking is implemented */
-static Emulator _cur;
+/** List of currently running tasks */
+static Emulator _tasks[MAX_TASKS];
 
-/** TODO: To be removed when multitasking is implemented */
-static Emulator *_emu = &_cur;
+/** Currently active task */
+static Emulator *_emu = &_tasks[0];
 
 /** Total size of the memory in bytes */
 static u32 _memory_size;
@@ -485,76 +488,6 @@ static u8 syscall_gfx_rect(u32 *args)
 }
 
 /**
- * @brief System call to draw an RGBA image
- *
- * @param args args[0]: X-Coordinate
- *             args[1]: Y-Coordinate
- *             args[2]: Width
- *             args[3]: Height
- *             args[4]: Pointer to RGBA image
- * @return Non-zero on error
- */
-static u8 syscall_gfx_image_rgba(u32 *args)
-{
-	u16 x, y, w, h;
-	u32 image, bytes;
-
-	x = args[0];
-	y = args[1];
-	w = args[2];
-	h = args[3];
-	if(_gfx_check_bounds(x, y, w, h))
-	{
-		return 1;
-	}
-
-	image = args[4];
-	bytes = (u32)4 * (u32)w * (u32)h;
-	if(_memory_check_bounds(image, bytes))
-	{
-		return 1;
-	}
-
-	env_gfx_image_rgba(x, y, w, h, image);
-	return 0;
-}
-
-/**
- * @brief System call to draw an RGB image
- *
- * @param args args[0]: X-Coordinate
- *             args[1]: Y-Coordinate
- *             args[2]: Width
- *             args[3]: Height
- *             args[4]: Pointer to RGB image
- * @return Non-zero on error
- */
-static u8 syscall_gfx_image_rgb(u32 *args)
-{
-	u16 x, y, w, h;
-	u32 image, bytes;
-
-	x = args[0];
-	y = args[1];
-	w = args[2];
-	h = args[3];
-	if(_gfx_check_bounds(x, y, w, h))
-	{
-		return 1;
-	}
-
-	image = args[4];
-	bytes = (u32)3 * (u32)w * (u32)h;
-	if(_memory_check_bounds(image, bytes))
-	{
-		return 1;
-	}
-
-	env_gfx_image_rgb(x, y, w, h, image);
-	return 0;
-}
-
-/**
  * @brief System call to draw an RGB565 image
  *
  * @param args args[0]: X-Coordinate
@@ -685,8 +618,6 @@ static u8 (*syscalls[])(u32 *) =
 	syscall_event_register,
 
 	syscall_gfx_rect,
-	syscall_gfx_image_rgba,
-	syscall_gfx_image_rgb,
 	syscall_gfx_image_rgb565,
 	syscall_gfx_image_grayscale,
 	syscall_gfx_image_1bit,

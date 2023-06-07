@@ -1,5 +1,5 @@
-\hypertarget{logger_8c}{}\doxysection{platform/avr/logger/logger.c File Reference}
-\label{logger_8c}\index{platform/avr/logger/logger.c@{platform/avr/logger/logger.c}}
+\doxysection{platform/avr/logger/logger.c File Reference}
+\hypertarget{logger_8c}{}\label{logger_8c}\index{platform/avr/logger/logger.c@{platform/avr/logger/logger.c}}
 {\ttfamily \#include $<$logger.\+h$>$}\newline
 {\ttfamily \#include $<$serial.\+h$>$}\newline
 {\ttfamily \#include $<$lcd.\+h$>$}\newline
@@ -8,7 +8,7 @@
 {\ttfamily \#include $<$stdarg.\+h$>$}\newline
 {\ttfamily \#include $<$stdio.\+h$>$}\newline
 {\ttfamily \#include $<$ctype.\+h$>$}\newline
-\doxysubsection*{Macros}
+\doxysubsubsection*{Macros}
 \begin{DoxyCompactItemize}
 \item 
 \#define \mbox{\hyperlink{logger_8c_a7e605a71d397f16aa436a31c4d459a82}{DUMP\+\_\+\+BYTES\+\_\+\+PER\+\_\+\+LINE}}~16
@@ -29,20 +29,20 @@
 \item 
 \#define \mbox{\hyperlink{logger_8c_a4bcc8822ee0337ce0c7d0f7086244b6d}{LOGO\+\_\+\+TEXT\+\_\+\+X\+\_\+\+OFFSET}}~56
 \end{DoxyCompactItemize}
-\doxysubsection*{Functions}
+\doxysubsubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-static void \mbox{\hyperlink{logger_8c_af1a6b0255055e7945b2a3ce17fc8a238}{\+\_\+lcd\+\_\+log}} (\mbox{\hyperlink{logger_8h_aca1fd1d8935433e6ba2e3918214e07f9}{Log\+Level}} level, const char $\ast$msg)
+static void \mbox{\hyperlink{logger_8c_af1a6b0255055e7945b2a3ce17fc8a238}{\+\_\+lcd\+\_\+log}} (\mbox{\hyperlink{logger_8h_aca1fd1d8935433e6ba2e3918214e07f9}{Log\+Level}} level, const char \texorpdfstring{$\ast$}{*}msg)
 \begin{DoxyCompactList}\small\item\em Print a log message on both serial and LCD. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{logger_8c_a60bd636ef160c97eb51cf31be5954ba2}{log\+\_\+boot\+\_\+P}} (\mbox{\hyperlink{logger_8h_aca1fd1d8935433e6ba2e3918214e07f9}{Log\+Level}} level, const char $\ast$msg,...)
+void \mbox{\hyperlink{logger_8c_a60bd636ef160c97eb51cf31be5954ba2}{log\+\_\+boot\+\_\+P}} (\mbox{\hyperlink{logger_8h_aca1fd1d8935433e6ba2e3918214e07f9}{Log\+Level}} level, const char \texorpdfstring{$\ast$}{*}msg,...)
 \begin{DoxyCompactList}\small\item\em Log boot message. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{logger_8c_a19a313011d8f478ad9799e546199a9ac}{panic}} (const char $\ast$msg,...)
+void \mbox{\hyperlink{logger_8c_a19a313011d8f478ad9799e546199a9ac}{panic}} (const char \texorpdfstring{$\ast$}{*}msg,...)
 \begin{DoxyCompactList}\small\item\em Trigger a kernel panic. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{logger_8c_a0108e0dd64eb1971222c219982138866}{memory\+\_\+dump}} (\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} addr, const void $\ast$data, \mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}} len)
+void \mbox{\hyperlink{logger_8c_a0108e0dd64eb1971222c219982138866}{memory\+\_\+dump}} (\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} addr, const void \texorpdfstring{$\ast$}{*}data, \mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}} len)
 \begin{DoxyCompactList}\small\item\em Print a hexdump of a block memory. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{logger_8c_aa60037dffd3fce2b3b698663eb11b5dc}{logger\+\_\+lcd\+\_\+init}} (void)
 \begin{DoxyCompactList}\small\item\em Initialize LCD Logger. \end{DoxyCompactList}\end{DoxyCompactItemize}
-\doxysubsection*{Variables}
+\doxysubsubsection*{Variables}
 \begin{DoxyCompactItemize}
 \item 
 static bool \mbox{\hyperlink{logger_8c_a4b6e7d1086f87ee156cd12590f8f38eb}{\+\_\+lcd\+\_\+initialized}}
@@ -68,7 +68,7 @@ Definition in file \mbox{\hyperlink{logger_8c_source}{logger.\+c}}.
 
 
 \doxysubsection{Macro Definition Documentation}
-\mbox{\Hypertarget{logger_8c_a7e605a71d397f16aa436a31c4d459a82}\label{logger_8c_a7e605a71d397f16aa436a31c4d459a82}} 
+\Hypertarget{logger_8c_a7e605a71d397f16aa436a31c4d459a82}\label{logger_8c_a7e605a71d397f16aa436a31c4d459a82} 
 \index{logger.c@{logger.c}!DUMP\_BYTES\_PER\_LINE@{DUMP\_BYTES\_PER\_LINE}}
 \index{DUMP\_BYTES\_PER\_LINE@{DUMP\_BYTES\_PER\_LINE}!logger.c@{logger.c}}
 \doxysubsubsection{\texorpdfstring{DUMP\_BYTES\_PER\_LINE}{DUMP\_BYTES\_PER\_LINE}}
@@ -78,7 +78,7 @@ How many bytes to print per line in a hexdump
 
 Definition at line \mbox{\hyperlink{logger_8c_source_l00018}{18}} of file \mbox{\hyperlink{logger_8c_source}{logger.\+c}}.
 
-\mbox{\Hypertarget{logger_8c_a119ca7f71ff2656a654bce7e413cf9d7}\label{logger_8c_a119ca7f71ff2656a654bce7e413cf9d7}} 
+\Hypertarget{logger_8c_a119ca7f71ff2656a654bce7e413cf9d7}\label{logger_8c_a119ca7f71ff2656a654bce7e413cf9d7} 
 \index{logger.c@{logger.c}!LOG\_START\_WIDTH@{LOG\_START\_WIDTH}}
 \index{LOG\_START\_WIDTH@{LOG\_START\_WIDTH}!logger.c@{logger.c}}
 \doxysubsubsection{\texorpdfstring{LOG\_START\_WIDTH}{LOG\_START\_WIDTH}}
@@ -88,7 +88,7 @@ Serial Log prefix width
 
 Definition at line \mbox{\hyperlink{logger_8c_source_l00033}{33}} of file \mbox{\hyperlink{logger_8c_source}{logger.\+c}}.
 
-\mbox{\Hypertarget{logger_8c_aa2f3dc0dd5d312558d3c448c9ff76c4e}\label{logger_8c_aa2f3dc0dd5d312558d3c448c9ff76c4e}} 
+\Hypertarget{logger_8c_aa2f3dc0dd5d312558d3c448c9ff76c4e}\label{logger_8c_aa2f3dc0dd5d312558d3c448c9ff76c4e} 
 \index{logger.c@{logger.c}!LOG\_X\_OFFSET@{LOG\_X\_OFFSET}}
 \index{LOG\_X\_OFFSET@{LOG\_X\_OFFSET}!logger.c@{logger.c}}
 \doxysubsubsection{\texorpdfstring{LOG\_X\_OFFSET}{LOG\_X\_OFFSET}}
@@ -98,7 +98,7 @@ LCD Log left margin
 
 Definition at line \mbox{\hyperlink{logger_8c_source_l00024}{24}} of file \mbox{\hyperlink{logger_8c_source}{logger.\+c}}.
 
-\mbox{\Hypertarget{logger_8c_aa18d885e222964b4545d9d36432ddef2}\label{logger_8c_aa18d885e222964b4545d9d36432ddef2}} 
+\Hypertarget{logger_8c_aa18d885e222964b4545d9d36432ddef2}\label{logger_8c_aa18d885e222964b4545d9d36432ddef2} 
 \index{logger.c@{logger.c}!LOG\_X\_TEXT\_OFFSET@{LOG\_X\_TEXT\_OFFSET}}
 \index{LOG\_X\_TEXT\_OFFSET@{LOG\_X\_TEXT\_OFFSET}!logger.c@{logger.c}}
 \doxysubsubsection{\texorpdfstring{LOG\_X\_TEXT\_OFFSET}{LOG\_X\_TEXT\_OFFSET}}
@@ -108,7 +108,7 @@ LCD Log prefix pixel width
 
 Definition at line \mbox{\hyperlink{logger_8c_source_l00030}{30}} of file \mbox{\hyperlink{logger_8c_source}{logger.\+c}}.
 
-\mbox{\Hypertarget{logger_8c_a924a8786b2d00a7d13ccf96ba6e7bd41}\label{logger_8c_a924a8786b2d00a7d13ccf96ba6e7bd41}} 
+\Hypertarget{logger_8c_a924a8786b2d00a7d13ccf96ba6e7bd41}\label{logger_8c_a924a8786b2d00a7d13ccf96ba6e7bd41} 
 \index{logger.c@{logger.c}!LOG\_Y\_ADVANCE@{LOG\_Y\_ADVANCE}}
 \index{LOG\_Y\_ADVANCE@{LOG\_Y\_ADVANCE}!logger.c@{logger.c}}
 \doxysubsubsection{\texorpdfstring{LOG\_Y\_ADVANCE}{LOG\_Y\_ADVANCE}}
@@ -118,7 +118,7 @@ LCD advance Y direction
 
 Definition at line \mbox{\hyperlink{logger_8c_source_l00027}{27}} of file \mbox{\hyperlink{logger_8c_source}{logger.\+c}}.
 
-\mbox{\Hypertarget{logger_8c_a1c2264aaa6ab403827c0b0ccf4e52c98}\label{logger_8c_a1c2264aaa6ab403827c0b0ccf4e52c98}} 
+\Hypertarget{logger_8c_a1c2264aaa6ab403827c0b0ccf4e52c98}\label{logger_8c_a1c2264aaa6ab403827c0b0ccf4e52c98} 
 \index{logger.c@{logger.c}!LOG\_Y\_OFFSET@{LOG\_Y\_OFFSET}}
 \index{LOG\_Y\_OFFSET@{LOG\_Y\_OFFSET}!logger.c@{logger.c}}
 \doxysubsubsection{\texorpdfstring{LOG\_Y\_OFFSET}{LOG\_Y\_OFFSET}}
@@ -128,7 +128,7 @@ LCD Log top margin
 
 Definition at line \mbox{\hyperlink{logger_8c_source_l00021}{21}} of file \mbox{\hyperlink{logger_8c_source}{logger.\+c}}.
 
-\mbox{\Hypertarget{logger_8c_a4bcc8822ee0337ce0c7d0f7086244b6d}\label{logger_8c_a4bcc8822ee0337ce0c7d0f7086244b6d}} 
+\Hypertarget{logger_8c_a4bcc8822ee0337ce0c7d0f7086244b6d}\label{logger_8c_a4bcc8822ee0337ce0c7d0f7086244b6d} 
 \index{logger.c@{logger.c}!LOGO\_TEXT\_X\_OFFSET@{LOGO\_TEXT\_X\_OFFSET}}
 \index{LOGO\_TEXT\_X\_OFFSET@{LOGO\_TEXT\_X\_OFFSET}!logger.c@{logger.c}}
 \doxysubsubsection{\texorpdfstring{LOGO\_TEXT\_X\_OFFSET}{LOGO\_TEXT\_X\_OFFSET}}
@@ -138,7 +138,7 @@ Text Logo X Offset
 
 Definition at line \mbox{\hyperlink{logger_8c_source_l00042}{42}} of file \mbox{\hyperlink{logger_8c_source}{logger.\+c}}.
 
-\mbox{\Hypertarget{logger_8c_a88e76882c6f9a1a90f5b714c39be7b37}\label{logger_8c_a88e76882c6f9a1a90f5b714c39be7b37}} 
+\Hypertarget{logger_8c_a88e76882c6f9a1a90f5b714c39be7b37}\label{logger_8c_a88e76882c6f9a1a90f5b714c39be7b37} 
 \index{logger.c@{logger.c}!LOGO\_X\_OFFSET@{LOGO\_X\_OFFSET}}
 \index{LOGO\_X\_OFFSET@{LOGO\_X\_OFFSET}!logger.c@{logger.c}}
 \doxysubsubsection{\texorpdfstring{LOGO\_X\_OFFSET}{LOGO\_X\_OFFSET}}
@@ -148,7 +148,7 @@ Image Logo X offset
 
 Definition at line \mbox{\hyperlink{logger_8c_source_l00036}{36}} of file \mbox{\hyperlink{logger_8c_source}{logger.\+c}}.
 
-\mbox{\Hypertarget{logger_8c_a70b1470428ebbc008fc85cfb458820b1}\label{logger_8c_a70b1470428ebbc008fc85cfb458820b1}} 
+\Hypertarget{logger_8c_a70b1470428ebbc008fc85cfb458820b1}\label{logger_8c_a70b1470428ebbc008fc85cfb458820b1} 
 \index{logger.c@{logger.c}!LOGO\_Y\_OFFSET@{LOGO\_Y\_OFFSET}}
 \index{LOGO\_Y\_OFFSET@{LOGO\_Y\_OFFSET}!logger.c@{logger.c}}
 \doxysubsubsection{\texorpdfstring{LOGO\_Y\_OFFSET}{LOGO\_Y\_OFFSET}}
@@ -161,11 +161,11 @@ Definition at line \mbox{\hyperlink{logger_8c_source_l00039}{39}} of file \mbox{
 
 
 \doxysubsection{Function Documentation}
-\mbox{\Hypertarget{logger_8c_af1a6b0255055e7945b2a3ce17fc8a238}\label{logger_8c_af1a6b0255055e7945b2a3ce17fc8a238}} 
+\Hypertarget{logger_8c_af1a6b0255055e7945b2a3ce17fc8a238}\label{logger_8c_af1a6b0255055e7945b2a3ce17fc8a238} 
 \index{logger.c@{logger.c}!\_lcd\_log@{\_lcd\_log}}
 \index{\_lcd\_log@{\_lcd\_log}!logger.c@{logger.c}}
 \doxysubsubsection{\texorpdfstring{\_lcd\_log()}{\_lcd\_log()}}
-{\footnotesize\ttfamily static void \+\_\+lcd\+\_\+log (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{logger_8h_aca1fd1d8935433e6ba2e3918214e07f9}{Log\+Level}}}]{level,  }\item[{const char $\ast$}]{msg }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily static void \+\_\+lcd\+\_\+log (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{logger_8h_aca1fd1d8935433e6ba2e3918214e07f9}{Log\+Level}}}]{level,  }\item[{const char \texorpdfstring{$\ast$}{*}}]{msg }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
@@ -261,17 +261,17 @@ Definition at line \mbox{\hyperlink{logger_8c_source_l00095}{95}} of file \mbox{
 \end{DoxyCode}
 
 
-References \mbox{\hyperlink{logger_8c_source_l00084}{\+\_\+lcd\+\_\+initialized}}, \mbox{\hyperlink{logger_8c_source_l00087}{\+\_\+log\+\_\+y}}, \mbox{\hyperlink{lcd_8h_source_l00038}{COLOR\+\_\+\+BLACK}}, \mbox{\hyperlink{lcd_8h_source_l00035}{COLOR\+\_\+\+WHITE}}, \mbox{\hyperlink{lcd_8c_source_l00483}{lcd\+\_\+char()}}, \mbox{\hyperlink{lcd_8c_source_l00517}{lcd\+\_\+string\+\_\+\+P()}}, \mbox{\hyperlink{logger_8c_source_l00033}{LOG\+\_\+\+START\+\_\+\+WIDTH}}, \mbox{\hyperlink{logger_8c_source_l00024}{LOG\+\_\+\+X\+\_\+\+OFFSET}}, \mbox{\hyperlink{logger_8c_source_l00030}{LOG\+\_\+\+X\+\_\+\+TEXT\+\_\+\+OFFSET}}, \mbox{\hyperlink{logger_8c_source_l00027}{LOG\+\_\+\+Y\+\_\+\+ADVANCE}}, \mbox{\hyperlink{platform_2avr_2serial_2serial_8c_source_l00026}{serial\+\_\+tx()}}, \mbox{\hyperlink{platform_2avr_2serial_2serial_8c_source_l00032}{serial\+\_\+tx\+\_\+str()}}, and \mbox{\hyperlink{platform_2avr_2serial_2serial_8c_source_l00041}{serial\+\_\+tx\+\_\+str\+\_\+\+P()}}.
+References \mbox{\hyperlink{logger_8c_source_l00084}{\+\_\+lcd\+\_\+initialized}}, \mbox{\hyperlink{logger_8c_source_l00087}{\+\_\+log\+\_\+y}}, \mbox{\hyperlink{lcd_8h_source_l00038}{COLOR\+\_\+\+BLACK}}, \mbox{\hyperlink{lcd_8h_source_l00035}{COLOR\+\_\+\+WHITE}}, \mbox{\hyperlink{lcd_8c_source_l00453}{lcd\+\_\+char()}}, \mbox{\hyperlink{lcd_8c_source_l00487}{lcd\+\_\+string\+\_\+\+P()}}, \mbox{\hyperlink{logger_8c_source_l00033}{LOG\+\_\+\+START\+\_\+\+WIDTH}}, \mbox{\hyperlink{logger_8c_source_l00024}{LOG\+\_\+\+X\+\_\+\+OFFSET}}, \mbox{\hyperlink{logger_8c_source_l00030}{LOG\+\_\+\+X\+\_\+\+TEXT\+\_\+\+OFFSET}}, \mbox{\hyperlink{logger_8c_source_l00027}{LOG\+\_\+\+Y\+\_\+\+ADVANCE}}, \mbox{\hyperlink{platform_2avr_2serial_2serial_8c_source_l00026}{serial\+\_\+tx()}}, \mbox{\hyperlink{platform_2avr_2serial_2serial_8c_source_l00032}{serial\+\_\+tx\+\_\+str()}}, and \mbox{\hyperlink{platform_2avr_2serial_2serial_8c_source_l00041}{serial\+\_\+tx\+\_\+str\+\_\+\+P()}}.
 
 
 
 Referenced by \mbox{\hyperlink{logger_8c_source_l00170}{log\+\_\+boot\+\_\+\+P()}}, and \mbox{\hyperlink{logger_8c_source_l00183}{panic()}}.
 
-\mbox{\Hypertarget{logger_8c_a60bd636ef160c97eb51cf31be5954ba2}\label{logger_8c_a60bd636ef160c97eb51cf31be5954ba2}} 
+\Hypertarget{logger_8c_a60bd636ef160c97eb51cf31be5954ba2}\label{logger_8c_a60bd636ef160c97eb51cf31be5954ba2} 
 \index{logger.c@{logger.c}!log\_boot\_P@{log\_boot\_P}}
 \index{log\_boot\_P@{log\_boot\_P}!logger.c@{logger.c}}
 \doxysubsubsection{\texorpdfstring{log\_boot\_P()}{log\_boot\_P()}}
-{\footnotesize\ttfamily void log\+\_\+boot\+\_\+P (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{logger_8h_aca1fd1d8935433e6ba2e3918214e07f9}{Log\+Level}}}]{level,  }\item[{const char $\ast$}]{msg,  }\item[{}]{... }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void log\+\_\+boot\+\_\+P (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{logger_8h_aca1fd1d8935433e6ba2e3918214e07f9}{Log\+Level}}}]{level,  }\item[{const char \texorpdfstring{$\ast$}{*}}]{msg,  }\item[{}]{... }\end{DoxyParamCaption})}
 
 
 
@@ -311,9 +311,9 @@ References \mbox{\hyperlink{logger_8c_source_l00095}{\+\_\+lcd\+\_\+log()}}, and
 
 
 
-Referenced by \mbox{\hyperlink{xmem_8c_source_l00065}{\+\_\+memtest()}}, \mbox{\hyperlink{sd_8c_source_l00235}{\+\_\+sd\+\_\+info\+\_\+print()}}, \mbox{\hyperlink{adc_8c_source_l00013}{adc\+\_\+init()}}, \mbox{\hyperlink{initrd_8c_source_l00020}{initrd\+\_\+load()}}, \mbox{\hyperlink{lcd_8c_source_l00427}{lcd\+\_\+init()}}, \mbox{\hyperlink{platform_2avr_2main_8c_source_l00029}{main()}}, \mbox{\hyperlink{ps2_8c_source_l00026}{ps2\+\_\+init()}}, \mbox{\hyperlink{random_8c_source_l00014}{random\+\_\+init()}}, \mbox{\hyperlink{sd_8c_source_l00278}{sd\+\_\+init()}}, \mbox{\hyperlink{spi_8c_source_l00012}{spi\+\_\+init()}}, \mbox{\hyperlink{timer_8c_source_l00017}{timer\+\_\+init()}}, and \mbox{\hyperlink{xmem_8c_source_l00279}{xmem\+\_\+init()}}.
+Referenced by \mbox{\hyperlink{xmem_8c_source_l00065}{\+\_\+memtest()}}, \mbox{\hyperlink{sd_8c_source_l00225}{\+\_\+sd\+\_\+info\+\_\+print()}}, \mbox{\hyperlink{adc_8c_source_l00013}{adc\+\_\+init()}}, \mbox{\hyperlink{initrd_8c_source_l00020}{initrd\+\_\+load()}}, \mbox{\hyperlink{lcd_8c_source_l00397}{lcd\+\_\+init()}}, \mbox{\hyperlink{platform_2avr_2main_8c_source_l00029}{main()}}, \mbox{\hyperlink{ps2_8c_source_l00172}{ps2\+\_\+init()}}, \mbox{\hyperlink{random_8c_source_l00014}{random\+\_\+init()}}, \mbox{\hyperlink{sd_8c_source_l00268}{sd\+\_\+init()}}, \mbox{\hyperlink{spi_8c_source_l00013}{spi\+\_\+init()}}, \mbox{\hyperlink{timer_8c_source_l00017}{timer\+\_\+init()}}, and \mbox{\hyperlink{xmem_8c_source_l00279}{xmem\+\_\+init()}}.
 
-\mbox{\Hypertarget{logger_8c_aa60037dffd3fce2b3b698663eb11b5dc}\label{logger_8c_aa60037dffd3fce2b3b698663eb11b5dc}} 
+\Hypertarget{logger_8c_aa60037dffd3fce2b3b698663eb11b5dc}\label{logger_8c_aa60037dffd3fce2b3b698663eb11b5dc} 
 \index{logger.c@{logger.c}!logger\_lcd\_init@{logger\_lcd\_init}}
 \index{logger\_lcd\_init@{logger\_lcd\_init}!logger.c@{logger.c}}
 \doxysubsubsection{\texorpdfstring{logger\_lcd\_init()}{logger\_lcd\_init()}}
@@ -350,17 +350,17 @@ Definition at line \mbox{\hyperlink{logger_8c_source_l00237}{237}} of file \mbox
 \end{DoxyCode}
 
 
-References \mbox{\hyperlink{logger_8c_source_l00084}{\+\_\+lcd\+\_\+initialized}}, \mbox{\hyperlink{lcd_8c_source_l00467}{lcd\+\_\+logo\+\_\+\+P()}}, \mbox{\hyperlink{logger_8c_source_l00042}{LOGO\+\_\+\+TEXT\+\_\+\+X\+\_\+\+OFFSET}}, \mbox{\hyperlink{logger_8c_source_l00036}{LOGO\+\_\+\+X\+\_\+\+OFFSET}}, and \mbox{\hyperlink{logger_8c_source_l00039}{LOGO\+\_\+\+Y\+\_\+\+OFFSET}}.
+References \mbox{\hyperlink{logger_8c_source_l00084}{\+\_\+lcd\+\_\+initialized}}, \mbox{\hyperlink{lcd_8c_source_l00437}{lcd\+\_\+logo\+\_\+\+P()}}, \mbox{\hyperlink{logger_8c_source_l00042}{LOGO\+\_\+\+TEXT\+\_\+\+X\+\_\+\+OFFSET}}, \mbox{\hyperlink{logger_8c_source_l00036}{LOGO\+\_\+\+X\+\_\+\+OFFSET}}, and \mbox{\hyperlink{logger_8c_source_l00039}{LOGO\+\_\+\+Y\+\_\+\+OFFSET}}.
 
 
 
 Referenced by \mbox{\hyperlink{platform_2avr_2main_8c_source_l00029}{main()}}.
 
-\mbox{\Hypertarget{logger_8c_a0108e0dd64eb1971222c219982138866}\label{logger_8c_a0108e0dd64eb1971222c219982138866}} 
+\Hypertarget{logger_8c_a0108e0dd64eb1971222c219982138866}\label{logger_8c_a0108e0dd64eb1971222c219982138866} 
 \index{logger.c@{logger.c}!memory\_dump@{memory\_dump}}
 \index{memory\_dump@{memory\_dump}!logger.c@{logger.c}}
 \doxysubsubsection{\texorpdfstring{memory\_dump()}{memory\_dump()}}
-{\footnotesize\ttfamily void memory\+\_\+dump (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{addr,  }\item[{const void $\ast$}]{data,  }\item[{\mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}}}]{len }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void memory\+\_\+dump (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{addr,  }\item[{const void \texorpdfstring{$\ast$}{*}}]{data,  }\item[{\mbox{\hyperlink{types_8h_ace9d960e74685e2cd84b36132dbbf8aa}{u16}}}]{len }\end{DoxyParamCaption})}
 
 
 
@@ -402,7 +402,7 @@ Definition at line \mbox{\hyperlink{logger_8c_source_l00206}{206}} of file \mbox
 \DoxyCodeLine{00225\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(j\ =\ 0;\ j\ <\ \mbox{\hyperlink{logger_8c_a7e605a71d397f16aa436a31c4d459a82}{DUMP\_BYTES\_PER\_LINE}};\ ++j)}
 \DoxyCodeLine{00226\ \ \ \ \ \ \ \ \ \{}
 \DoxyCodeLine{00227\ \ \ \ \ \ \ \ \ \ \ \ \ c\ =\ data8[i\ +\ j];}
-\DoxyCodeLine{00228\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{platform_2avr_2serial_2serial_8c_ad1404aaabd8a723599a89c9b9ca08a65}{serial\_tx}}(\mbox{\hyperlink{ctype_8c_a86defca79be1f892ba604d42dbd5524e}{isprint}}(c)\ ?\ c\ :\ \textcolor{charliteral}{'.'});}
+\DoxyCodeLine{00228\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{platform_2avr_2serial_2serial_8c_ad1404aaabd8a723599a89c9b9ca08a65}{serial\_tx}}(\mbox{\hyperlink{ctype_8c_a86defca79be1f892ba604d42dbd5524e}{isprint}}(c)\ ?\ c\ :\ \textcolor{stringliteral}{'.'});}
 \DoxyCodeLine{00229\ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{00230\ }
 \DoxyCodeLine{00231\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{platform_2avr_2serial_2serial_8c_ad1404aaabd8a723599a89c9b9ca08a65}{serial\_tx}}(\textcolor{charliteral}{'\(\backslash\)n'});}
@@ -416,11 +416,11 @@ Definition at line \mbox{\hyperlink{logger_8c_source_l00206}{206}} of file \mbox
 
 References \mbox{\hyperlink{logger_8c_source_l00018}{DUMP\+\_\+\+BYTES\+\_\+\+PER\+\_\+\+LINE}}, \mbox{\hyperlink{ctype_8c_source_l00041}{isprint()}}, \mbox{\hyperlink{platform_2avr_2serial_2serial_8c_source_l00026}{serial\+\_\+tx()}}, \mbox{\hyperlink{platform_2avr_2serial_2serial_8c_source_l00032}{serial\+\_\+tx\+\_\+str()}}, and \mbox{\hyperlink{format_8h_a8be7c8a106186419f86b1bf42b225275}{snprintf()}}.
 
-\mbox{\Hypertarget{logger_8c_a19a313011d8f478ad9799e546199a9ac}\label{logger_8c_a19a313011d8f478ad9799e546199a9ac}} 
+\Hypertarget{logger_8c_a19a313011d8f478ad9799e546199a9ac}\label{logger_8c_a19a313011d8f478ad9799e546199a9ac} 
 \index{logger.c@{logger.c}!panic@{panic}}
 \index{panic@{panic}!logger.c@{logger.c}}
 \doxysubsubsection{\texorpdfstring{panic()}{panic()}}
-{\footnotesize\ttfamily void panic (\begin{DoxyParamCaption}\item[{const char $\ast$}]{msg,  }\item[{}]{... }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void panic (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{msg,  }\item[{}]{... }\end{DoxyParamCaption})}
 
 
 
@@ -468,12 +468,12 @@ References \mbox{\hyperlink{logger_8c_source_l00095}{\+\_\+lcd\+\_\+log()}}, and
 
 
 
-Referenced by \mbox{\hyperlink{xmem_8c_source_l00065}{\+\_\+memtest()}}, \mbox{\hyperlink{sd_8c_source_l00129}{\+\_\+sd\+\_\+error()}}, \mbox{\hyperlink{sd_8c_source_l00120}{\+\_\+sd\+\_\+timeout()}}, \mbox{\hyperlink{initrd_8c_source_l00020}{initrd\+\_\+load()}}, and \mbox{\hyperlink{spi_8c_source_l00024}{spi\+\_\+xchg()}}.
+Referenced by \mbox{\hyperlink{xmem_8c_source_l00065}{\+\_\+memtest()}}, \mbox{\hyperlink{sd_8c_source_l00129}{\+\_\+sd\+\_\+error()}}, \mbox{\hyperlink{sd_8c_source_l00120}{\+\_\+sd\+\_\+timeout()}}, \mbox{\hyperlink{initrd_8c_source_l00020}{initrd\+\_\+load()}}, and \mbox{\hyperlink{spi_8c_source_l00025}{spi\+\_\+xchg()}}.
 
 
 
 \doxysubsection{Variable Documentation}
-\mbox{\Hypertarget{logger_8c_a4b6e7d1086f87ee156cd12590f8f38eb}\label{logger_8c_a4b6e7d1086f87ee156cd12590f8f38eb}} 
+\Hypertarget{logger_8c_a4b6e7d1086f87ee156cd12590f8f38eb}\label{logger_8c_a4b6e7d1086f87ee156cd12590f8f38eb} 
 \index{logger.c@{logger.c}!\_lcd\_initialized@{\_lcd\_initialized}}
 \index{\_lcd\_initialized@{\_lcd\_initialized}!logger.c@{logger.c}}
 \doxysubsubsection{\texorpdfstring{\_lcd\_initialized}{\_lcd\_initialized}}
@@ -487,7 +487,7 @@ Definition at line \mbox{\hyperlink{logger_8c_source_l00084}{84}} of file \mbox{
 
 Referenced by \mbox{\hyperlink{logger_8c_source_l00095}{\+\_\+lcd\+\_\+log()}}, and \mbox{\hyperlink{logger_8c_source_l00237}{logger\+\_\+lcd\+\_\+init()}}.
 
-\mbox{\Hypertarget{logger_8c_a96872bbeb445d3db1b2e45692ae560db}\label{logger_8c_a96872bbeb445d3db1b2e45692ae560db}} 
+\Hypertarget{logger_8c_a96872bbeb445d3db1b2e45692ae560db}\label{logger_8c_a96872bbeb445d3db1b2e45692ae560db} 
 \index{logger.c@{logger.c}!\_log\_y@{\_log\_y}}
 \index{\_log\_y@{\_log\_y}!logger.c@{logger.c}}
 \doxysubsubsection{\texorpdfstring{\_log\_y}{\_log\_y}}

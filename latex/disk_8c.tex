@@ -1,0 +1,153 @@
+\doxysection{stdlib/disk/disk.c File Reference}
+\hypertarget{disk_8c}{}\label{disk_8c}\index{stdlib/disk/disk.c@{stdlib/disk/disk.c}}
+{\ttfamily \#include $<$disk.\+h$>$}\newline
+{\ttfamily \#include $<$syscall.\+h$>$}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} \mbox{\hyperlink{disk_8c_abb53e8e1d9d52d389297af256147532f}{disk\+\_\+count}} (void)
+\begin{DoxyCompactList}\small\item\em Get the number of drives. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} \mbox{\hyperlink{disk_8c_afa80c48498297d8ac770d4f6ead30604}{disk\+\_\+size}} (\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} id)
+\begin{DoxyCompactList}\small\item\em Get the size of the disk. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{status_8h_a67a0db04d321a74b7e7fcfd3f1a3f70b}{Status}} \mbox{\hyperlink{disk_8c_a923a317d1c1b2845369e176d6a0386be}{disk\+\_\+read}} (\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} id, \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} block, void \texorpdfstring{$\ast$}{*}buf)
+\begin{DoxyCompactList}\small\item\em Read one block from the disk. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{status_8h_a67a0db04d321a74b7e7fcfd3f1a3f70b}{Status}} \mbox{\hyperlink{disk_8c_ae464c4efcc1bd8c53784d17811ed8bc6}{disk\+\_\+write}} (\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} id, \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} block, const void \texorpdfstring{$\ast$}{*}buf)
+\begin{DoxyCompactList}\small\item\em Write one block to the disk. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyAuthor}{Author}
+Tim Gabrikowski, Anton Tchekov 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+0.\+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+07.\+06.\+2023 
+\end{DoxyDate}
+
+
+Definition in file \mbox{\hyperlink{disk_8c_source}{disk.\+c}}.
+
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{disk_8c_abb53e8e1d9d52d389297af256147532f}\label{disk_8c_abb53e8e1d9d52d389297af256147532f} 
+\index{disk.c@{disk.c}!disk\_count@{disk\_count}}
+\index{disk\_count@{disk\_count}!disk.c@{disk.c}}
+\doxysubsubsection{\texorpdfstring{disk\_count()}{disk\_count()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} disk\+\_\+count (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Get the number of drives. 
+
+\begin{DoxyReturn}{Returns}
+Number of drives 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{disk_8c_source_l00013}{13}} of file \mbox{\hyperlink{disk_8c_source}{disk.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00014\ \{}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \}}
+
+\end{DoxyCode}
+\Hypertarget{disk_8c_a923a317d1c1b2845369e176d6a0386be}\label{disk_8c_a923a317d1c1b2845369e176d6a0386be} 
+\index{disk.c@{disk.c}!disk\_read@{disk\_read}}
+\index{disk\_read@{disk\_read}!disk.c@{disk.c}}
+\doxysubsubsection{\texorpdfstring{disk\_read()}{disk\_read()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{status_8h_a67a0db04d321a74b7e7fcfd3f1a3f70b}{Status}} disk\+\_\+read (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{id,  }\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{block,  }\item[{void \texorpdfstring{$\ast$}{*}}]{buf }\end{DoxyParamCaption})}
+
+
+
+Read one block from the disk. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em id} & Disk ID \\
+\hline
+{\em block} & Block number to read from \\
+\hline
+{\em buf} & Buffer for read data \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Status 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{disk_8c_source_l00023}{23}} of file \mbox{\hyperlink{disk_8c_source}{disk.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00024\ \{}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \}}
+
+\end{DoxyCode}
+\Hypertarget{disk_8c_afa80c48498297d8ac770d4f6ead30604}\label{disk_8c_afa80c48498297d8ac770d4f6ead30604} 
+\index{disk.c@{disk.c}!disk\_size@{disk\_size}}
+\index{disk\_size@{disk\_size}!disk.c@{disk.c}}
+\doxysubsubsection{\texorpdfstring{disk\_size()}{disk\_size()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} disk\+\_\+size (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{id }\end{DoxyParamCaption})}
+
+
+
+Get the size of the disk. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em id} & Disk ID \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Size in blocks 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{disk_8c_source_l00018}{18}} of file \mbox{\hyperlink{disk_8c_source}{disk.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00019\ \{}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \}}
+
+\end{DoxyCode}
+\Hypertarget{disk_8c_ae464c4efcc1bd8c53784d17811ed8bc6}\label{disk_8c_ae464c4efcc1bd8c53784d17811ed8bc6} 
+\index{disk.c@{disk.c}!disk\_write@{disk\_write}}
+\index{disk\_write@{disk\_write}!disk.c@{disk.c}}
+\doxysubsubsection{\texorpdfstring{disk\_write()}{disk\_write()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{status_8h_a67a0db04d321a74b7e7fcfd3f1a3f70b}{Status}} disk\+\_\+write (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{id,  }\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{block,  }\item[{const void \texorpdfstring{$\ast$}{*}}]{buf }\end{DoxyParamCaption})}
+
+
+
+Write one block to the disk. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em id} & Disk ID \\
+\hline
+{\em block} & Block number to write to \\
+\hline
+{\em buf} & Buffer with data to write \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Status 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{disk_8c_source_l00028}{28}} of file \mbox{\hyperlink{disk_8c_source}{disk.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00029\ \{}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \}}
+
+\end{DoxyCode}

@@ -1,7 +1,7 @@
 var searchData=
 [
   ['capacity_0',['Capacity',['../structVector.html#af9abb7483a64efea81def7fbf714ba60',1,'Vector']]],
-  ['characters_1',['Characters',['../structFONT.html#aad0e1d8d8ada3071d22b9a4578f8a099',1,'FONT::Characters()'],['../structFont.html#a19c0ba61cf7e8d3ff3f2b73c8bccdc64',1,'Font::Characters()']]],
+  ['characters_1',['Characters',['../structFONT.html#aad0e1d8d8ada3071d22b9a4578f8a099',1,'FONT::Characters'],['../structFont.html#a19c0ba61cf7e8d3ff3f2b73c8bccdc64',1,'Font::Characters']]],
   ['chunk_5fheader_2',['CHUNK_HEADER',['../structCHUNK__HEADER.html',1,'']]],
   ['chunkheader_3',['ChunkHeader',['../alloc_8c.html#ab655d0ea4f411ecc8fbe523f00cf2979',1,'alloc.c']]],
   ['click_4',['Click',['../structButton.html#a5e606ec3ff0434d8e36fa6274200e603',1,'Button']]],

@@ -130,28 +130,6 @@ u16 lcd_string(u16 x, u16 y, RGB565 fg, RGB565 bg, const char *s);
 u16 lcd_string_P(u16 x, u16 y, RGB565 fg, RGB565 bg, const char *s);
 
 /**
- * @brief Draw an RGBA image from XMEM
- *
- * @param x X-Coordinate
- * @param y Y-Coordinate
- * @param w Width
- * @param h Height
- * @param addr XMEM-Address
- */
-void lcd_image_rgba(u16 x, u16 y, u16 w, u16 h, u32 addr);
-
-/**
- * @brief Draw an RGB image from XMEM
- *
- * @param x X-Coordinate
- * @param y Y-Coordinate
- * @param w Width
- * @param h Height
- * @param addr XMEM-Address
- */
-void lcd_image_rgb(u16 x, u16 y, u16 w, u16 h, u32 addr);
-
-/**
  * @brief Draw an RGB565 image from XMEM
  *
  * @param x X-Coordinate

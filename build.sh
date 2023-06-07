@@ -7,10 +7,6 @@ cd apps/init/
 make
 cd ..
 
-cd game/
-make
-cd ..
-
 cd editor/
 make
 cd ..

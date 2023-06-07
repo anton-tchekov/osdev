@@ -1,22 +1,22 @@
-\hypertarget{panic_8h}{}\doxysection{stdlib/panic/panic.h File Reference}
-\label{panic_8h}\index{stdlib/panic/panic.h@{stdlib/panic/panic.h}}
+\doxysection{stdlib/panic/panic.h File Reference}
+\hypertarget{panic_8h}{}\label{panic_8h}\index{stdlib/panic/panic.h@{stdlib/panic/panic.h}}
 
 
 Panic function to stop the program when an unrecoverable error occurs.  
 
 
 {\ttfamily \#include $<$types.\+h$>$}\newline
-\doxysubsection*{Macros}
+\doxysubsubsection*{Macros}
 \begin{DoxyCompactItemize}
 \item 
 \#define \mbox{\hyperlink{panic_8h_ae3c0c6fb5e69bb687e787ec5c487afa1}{PANIC}}(msg)~\mbox{\hyperlink{logger_8c_a19a313011d8f478ad9799e546199a9ac}{panic}}((msg), \+\_\+\+\_\+\+FILE\+\_\+\+\_\+, \+\_\+\+\_\+\+LINE\+\_\+\+\_\+)
 \begin{DoxyCompactList}\small\item\em Crashes the program in case of an internal inconsistency. Prints the error message, line and file where the error occurred. \end{DoxyCompactList}\item 
 \#define \mbox{\hyperlink{panic_8h_ac6c818ab7aca2e521c97eee817f99f91}{ASSERT}}(cond,  msg)~do \{ if(!(cond)) \{ \mbox{\hyperlink{panic_8h_ae3c0c6fb5e69bb687e787ec5c487afa1}{PANIC}}((msg)); \} \} while(0)
 \begin{DoxyCompactList}\small\item\em If the condition is false, a PANIC is triggered. \end{DoxyCompactList}\end{DoxyCompactItemize}
-\doxysubsection*{Functions}
+\doxysubsubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-void \mbox{\hyperlink{panic_8h_a2e711bae47ea21470dd21f7a3485a4d3}{panic}} (const char $\ast$msg, const char $\ast$file, \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} line)
+void \mbox{\hyperlink{panic_8h_a2e711bae47ea21470dd21f7a3485a4d3}{panic}} (const char \texorpdfstring{$\ast$}{*}msg, const char \texorpdfstring{$\ast$}{*}file, \mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}} line)
 \begin{DoxyCompactList}\small\item\em Panic function. Do not call this function directly. Use the PANIC and ASSERT macros below. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
@@ -39,7 +39,7 @@ Definition in file \mbox{\hyperlink{panic_8h_source}{panic.\+h}}.
 
 
 \doxysubsection{Macro Definition Documentation}
-\mbox{\Hypertarget{panic_8h_ac6c818ab7aca2e521c97eee817f99f91}\label{panic_8h_ac6c818ab7aca2e521c97eee817f99f91}} 
+\Hypertarget{panic_8h_ac6c818ab7aca2e521c97eee817f99f91}\label{panic_8h_ac6c818ab7aca2e521c97eee817f99f91} 
 \index{panic.h@{panic.h}!ASSERT@{ASSERT}}
 \index{ASSERT@{ASSERT}!panic.h@{panic.h}}
 \doxysubsubsection{\texorpdfstring{ASSERT}{ASSERT}}
@@ -60,7 +60,7 @@ If the condition is false, a PANIC is triggered.
 
 Definition at line \mbox{\hyperlink{panic_8h_source_l00040}{40}} of file \mbox{\hyperlink{panic_8h_source}{panic.\+h}}.
 
-\mbox{\Hypertarget{panic_8h_ae3c0c6fb5e69bb687e787ec5c487afa1}\label{panic_8h_ae3c0c6fb5e69bb687e787ec5c487afa1}} 
+\Hypertarget{panic_8h_ae3c0c6fb5e69bb687e787ec5c487afa1}\label{panic_8h_ae3c0c6fb5e69bb687e787ec5c487afa1} 
 \index{panic.h@{panic.h}!PANIC@{PANIC}}
 \index{PANIC@{PANIC}!panic.h@{panic.h}}
 \doxysubsubsection{\texorpdfstring{PANIC}{PANIC}}
@@ -82,11 +82,11 @@ Definition at line \mbox{\hyperlink{panic_8h_source_l00032}{32}} of file \mbox{\
 
 
 \doxysubsection{Function Documentation}
-\mbox{\Hypertarget{panic_8h_a2e711bae47ea21470dd21f7a3485a4d3}\label{panic_8h_a2e711bae47ea21470dd21f7a3485a4d3}} 
+\Hypertarget{panic_8h_a2e711bae47ea21470dd21f7a3485a4d3}\label{panic_8h_a2e711bae47ea21470dd21f7a3485a4d3} 
 \index{panic.h@{panic.h}!panic@{panic}}
 \index{panic@{panic}!panic.h@{panic.h}}
 \doxysubsubsection{\texorpdfstring{panic()}{panic()}}
-{\footnotesize\ttfamily void panic (\begin{DoxyParamCaption}\item[{const char $\ast$}]{msg,  }\item[{const char $\ast$}]{file,  }\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{line }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void panic (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{msg,  }\item[{const char \texorpdfstring{$\ast$}{*}}]{file,  }\item[{\mbox{\hyperlink{types_8h_afaa62991928fb9fb18ff0db62a040aba}{u32}}}]{line }\end{DoxyParamCaption})}
 
 
 
@@ -115,5 +115,5 @@ Definition at line \mbox{\hyperlink{panic_8c_source_l00012}{12}} of file \mbox{\
 \end{DoxyCode}
 
 
-References \mbox{\hyperlink{syscall_8h_source_l00206}{exit()}}.
+References \mbox{\hyperlink{syscall_8h_source_l00204}{exit()}}.
 

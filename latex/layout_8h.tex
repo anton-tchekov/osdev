@@ -1,5 +1,5 @@
-\hypertarget{layout_8h}{}\doxysection{keyboard/layout.h File Reference}
-\label{layout_8h}\index{keyboard/layout.h@{keyboard/layout.h}}
+\doxysection{keyboard/layout.h File Reference}
+\hypertarget{layout_8h}{}\label{layout_8h}\index{keyboard/layout.h@{keyboard/layout.h}}
 
 
 Keyboard layout interface.  
@@ -7,7 +7,7 @@ Keyboard layout interface.
 
 {\ttfamily \#include $<$types.\+h$>$}\newline
 {\ttfamily \#include $<$keyboard-\/shared.\+h$>$}\newline
-\doxysubsection*{Functions}
+\doxysubsubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}} \mbox{\hyperlink{layout_8h_a1a0767e5d023fa8fe76e781df02f7374}{key\+\_\+to\+\_\+codepoint}} (\mbox{\hyperlink{keyboard-shared_8h_a48752551c4279f8cddf3585f8272092a}{Key}} k)
@@ -33,7 +33,7 @@ Definition in file \mbox{\hyperlink{layout_8h_source}{layout.\+h}}.
 
 
 \doxysubsection{Function Documentation}
-\mbox{\Hypertarget{layout_8h_a1a0767e5d023fa8fe76e781df02f7374}\label{layout_8h_a1a0767e5d023fa8fe76e781df02f7374}} 
+\Hypertarget{layout_8h_a1a0767e5d023fa8fe76e781df02f7374}\label{layout_8h_a1a0767e5d023fa8fe76e781df02f7374} 
 \index{layout.h@{layout.h}!key\_to\_codepoint@{key\_to\_codepoint}}
 \index{key\_to\_codepoint@{key\_to\_codepoint}!layout.h@{layout.h}}
 \doxysubsubsection{\texorpdfstring{key\_to\_codepoint()}{key\_to\_codepoint()}}
@@ -60,36 +60,36 @@ Definition at line \mbox{\hyperlink{german_8c_source_l00049}{49}} of file \mbox{
 \DoxyCodeLine{00050\ \{}
 \DoxyCodeLine{00051\ \ \ \ \ \mbox{\hyperlink{keyboard-shared_8h_a48752551c4279f8cddf3585f8272092a}{Key}}\ nomods\ =\ \mbox{\hyperlink{keyboard-shared_8h_a880abf3d6af489d7061fa041feea49f4}{key\_mod\_remove}}(k);}
 \DoxyCodeLine{00052\ }
-\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keywordflow}{if}(nomods\ ==\ KEY\_TAB)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{\ \textcolor{keywordflow}{return}\ \textcolor{charliteral}{'\(\backslash\)t'};\ \}}
-\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(nomods\ ==\ KEY\_BACKSPACE)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{\ \textcolor{keywordflow}{return}\ \textcolor{charliteral}{'\(\backslash\)b'};\ \}}
-\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(nomods\ ==\ KEY\_RETURN)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{\ \textcolor{keywordflow}{return}\ \textcolor{charliteral}{'\(\backslash\)n'};\ \}}
-\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(nomods\ ==\ KEY\_SPACE)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{\ \textcolor{keywordflow}{return}\ \textcolor{charliteral}{'\ '};\ \}}
-\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(k\ ==\ (KEY\_COMMA\ |\ MOD\_SHIFT))\ \ \ \ \ \ \ \ \ \ \ \{\ \textcolor{keywordflow}{return}\ \textcolor{charliteral}{';'};\ \}}
-\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(k\ ==\ (KEY\_COMMA))\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{\ \textcolor{keywordflow}{return}\ \textcolor{charliteral}{','};\ \}}
-\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(k\ ==\ (KEY\_PERIOD\ |\ MOD\_SHIFT))\ \ \ \ \ \ \ \ \ \ \{\ \textcolor{keywordflow}{return}\ \textcolor{charliteral}{':'};\ \}}
-\DoxyCodeLine{00060\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(k\ ==\ (KEY\_PERIOD))\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{\ \textcolor{keywordflow}{return}\ \textcolor{charliteral}{'.'};\ \}}
-\DoxyCodeLine{00061\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(k\ ==\ (KEY\_SLASH\ |\ MOD\_SHIFT))\ \ \ \ \ \ \ \ \ \ \ \{\ \textcolor{keywordflow}{return}\ \textcolor{charliteral}{'\_'};\ \}}
-\DoxyCodeLine{00062\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(k\ ==\ (KEY\_SLASH))\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{\ \textcolor{keywordflow}{return}\ \textcolor{charliteral}{'-\/'};\ \}}
-\DoxyCodeLine{00063\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(k\ ==\ (KEY\_BACKSLASH\ |\ MOD\_SHIFT))\ \ \ \ \ \ \ \{\ \textcolor{keywordflow}{return}\ \textcolor{charliteral}{'\(\backslash\)''};\ \}}
-\DoxyCodeLine{00064\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(k\ ==\ (KEY\_BACKSLASH))\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{\ \textcolor{keywordflow}{return}\ \textcolor{charliteral}{'\#'};\ \}}
-\DoxyCodeLine{00065\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(k\ ==\ (KEY\_RIGHTBRACKET\ |\ MOD\_SHIFT))\ \ \ \ \{\ \textcolor{keywordflow}{return}\ \textcolor{charliteral}{'*'};\ \}}
-\DoxyCodeLine{00066\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(k\ ==\ (KEY\_RIGHTBRACKET\ |\ MOD\_ALT\_GR))\ \ \ \{\ \textcolor{keywordflow}{return}\ \textcolor{charliteral}{'\string~'};\ \}}
-\DoxyCodeLine{00067\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(k\ ==\ (KEY\_RIGHTBRACKET))\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{\ \textcolor{keywordflow}{return}\ \textcolor{charliteral}{'+'};\ \}}
-\DoxyCodeLine{00068\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(k\ ==\ (KEY\_NONUSBACKSLASH\ |\ MOD\_SHIFT))\ \ \{\ \textcolor{keywordflow}{return}\ \textcolor{charliteral}{'>'};\ \}}
-\DoxyCodeLine{00069\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(k\ ==\ (KEY\_NONUSBACKSLASH\ |\ MOD\_ALT\_GR))\ \{\ \textcolor{keywordflow}{return}\ \textcolor{charliteral}{'|'};\ \}}
-\DoxyCodeLine{00070\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(k\ ==\ KEY\_NONUSBACKSLASH)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{\ \textcolor{keywordflow}{return}\ \textcolor{charliteral}{'<'};\ \}}
-\DoxyCodeLine{00071\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(k\ ==\ (KEY\_MINUS\ |\ MOD\_SHIFT))\ \ \ \ \ \ \ \ \ \ \ \{\ \textcolor{keywordflow}{return}\ \textcolor{charliteral}{'?'};\ \}}
-\DoxyCodeLine{00072\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(k\ ==\ (KEY\_MINUS\ |\ MOD\_ALT\_GR))\ \ \ \ \ \ \ \ \ \ \{\ \textcolor{keywordflow}{return}\ \textcolor{charliteral}{'\(\backslash\)\(\backslash\)'};\ \}}
-\DoxyCodeLine{00073\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(k\ ==\ KEY\_MINUS)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{german_8c_a7a33ff7639ed43024a42c20a5f2a8e71}{UNICODE\_SMALL\_SHARP\_S}};\ \}}
-\DoxyCodeLine{00074\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(k\ ==\ (KEY\_EQUALS\ |\ MOD\_SHIFT))\ \ \ \ \ \ \ \ \ \ \{\ \textcolor{keywordflow}{return}\ \textcolor{charliteral}{'`'};\ \}}
-\DoxyCodeLine{00075\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(k\ ==\ (KEY\_GRAVE\ |\ MOD\_SHIFT))\ \ \ \ \ \ \ \ \ \ \ \{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{german_8c_a70194306d6e456c381520f6373354d51}{UNICODE\_DEGREE\_SIGN}};\ \}}
-\DoxyCodeLine{00076\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(k\ ==\ KEY\_GRAVE)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{\ \textcolor{keywordflow}{return}\ \textcolor{charliteral}{'\string^'};\ \}}
-\DoxyCodeLine{00077\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(k\ ==\ (KEY\_APOSTROPHE\ |\ MOD\_SHIFT))\ \ \ \ \ \ \{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{german_8c_ac4e00ec54130d492adb55465717fc79a}{UNICODE\_CAPITAL\_A\_UMLAUT}};\ \}}
-\DoxyCodeLine{00078\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(k\ ==\ KEY\_APOSTROPHE)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{german_8c_a5191e253598cdb1ccfb3b180c3cfd525}{UNICODE\_SMALL\_A\_UMLAUT}};\ \}}
-\DoxyCodeLine{00079\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(k\ ==\ (KEY\_SEMICOLON\ |\ MOD\_SHIFT))\ \ \ \ \ \ \ \{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{german_8c_a411fc8033e1378ba8d09ae22e8ba6039}{UNICODE\_CAPITAL\_O\_UMLAUT}};\ \}}
-\DoxyCodeLine{00080\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(k\ ==\ KEY\_SEMICOLON)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{german_8c_a44aa07892347b7751fceff4a8551b1ed}{UNICODE\_SMALL\_O\_UMLAUT}};\ \}}
-\DoxyCodeLine{00081\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(k\ ==\ (KEY\_LEFTBRACKET\ |\ MOD\_SHIFT))\ \ \ \ \ \{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{german_8c_a9680eafa86ca7ec8bdd7d225f1c49df8}{UNICODE\_CAPITAL\_U\_UMLAUT}};\ \}}
-\DoxyCodeLine{00082\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(k\ ==\ KEY\_LEFTBRACKET)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{german_8c_aab00c2ca6945feced31357ed0ee7ecbe}{UNICODE\_SMALL\_U\_UMLAUT}};\ \}}
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keywordflow}{if}(nomods\ ==\ KEY\_TAB)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{\ \textcolor{keywordflow}{return}\ \textcolor{charliteral}{'\(\backslash\)t'};\ \}}
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(nomods\ ==\ KEY\_BACKSPACE)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{\ \textcolor{keywordflow}{return}\ \textcolor{charliteral}{'\(\backslash\)b'};\ \}}
+\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(nomods\ ==\ KEY\_RETURN)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{\ \textcolor{keywordflow}{return}\ \textcolor{charliteral}{'\(\backslash\)n'};\ \}}
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(nomods\ ==\ KEY\_SPACE)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{\ \textcolor{keywordflow}{return}\ \textcolor{charliteral}{'\ '};\ \}}
+\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(k\ ==\ (KEY\_COMMA\ |\ MOD\_SHIFT))\ \ \ \ \ \ \ \ \ \ \ \ \ \{\ \textcolor{keywordflow}{return}\ \textcolor{charliteral}{';'};\ \}}
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(k\ ==\ (KEY\_COMMA))\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{\ \textcolor{keywordflow}{return}\ \textcolor{charliteral}{','};\ \}}
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(k\ ==\ (KEY\_PERIOD\ |\ MOD\_SHIFT))\ \ \ \ \ \ \ \ \ \ \ \ \{\ \textcolor{keywordflow}{return}\ \textcolor{charliteral}{':'};\ \}}
+\DoxyCodeLine{00060\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(k\ ==\ (KEY\_PERIOD))\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{\ \textcolor{keywordflow}{return}\ \textcolor{charliteral}{'.'};\ \}}
+\DoxyCodeLine{00061\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(k\ ==\ (KEY\_SLASH\ |\ MOD\_SHIFT))\ \ \ \ \ \ \ \ \ \ \ \ \ \{\ \textcolor{keywordflow}{return}\ \textcolor{charliteral}{'\_'};\ \}}
+\DoxyCodeLine{00062\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(k\ ==\ (KEY\_SLASH))\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{\ \textcolor{keywordflow}{return}\ \textcolor{charliteral}{'-\/'};\ \}}
+\DoxyCodeLine{00063\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(k\ ==\ (KEY\_BACKSLASH\ |\ MOD\_SHIFT))\ \ \ \ \ \ \ \ \ \{\ \textcolor{keywordflow}{return}\ \textcolor{charliteral}{'\(\backslash\)''};\ \}}
+\DoxyCodeLine{00064\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(k\ ==\ (KEY\_BACKSLASH))\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{\ \textcolor{keywordflow}{return}\ \textcolor{charliteral}{'\#'};\ \}}
+\DoxyCodeLine{00065\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(k\ ==\ (KEY\_R\_BRACKET\ |\ MOD\_SHIFT))\ \ \ \ \ \ \ \ \ \{\ \textcolor{keywordflow}{return}\ \textcolor{charliteral}{'*'};\ \}}
+\DoxyCodeLine{00066\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(k\ ==\ (KEY\_R\_BRACKET\ |\ MOD\_ALT\_GR))\ \ \ \ \ \ \ \ \{\ \textcolor{keywordflow}{return}\ \textcolor{charliteral}{'\string~'};\ \}}
+\DoxyCodeLine{00067\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(k\ ==\ (KEY\_R\_BRACKET))\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{\ \textcolor{keywordflow}{return}\ \textcolor{charliteral}{'+'};\ \}}
+\DoxyCodeLine{00068\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(k\ ==\ (KEY\_NON\_US\_BACKSLASH\ |\ MOD\_SHIFT))\ \ \{\ \textcolor{keywordflow}{return}\ \textcolor{charliteral}{'>'};\ \}}
+\DoxyCodeLine{00069\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(k\ ==\ (KEY\_NON\_US\_BACKSLASH\ |\ MOD\_ALT\_GR))\ \{\ \textcolor{keywordflow}{return}\ \textcolor{charliteral}{'|'};\ \}}
+\DoxyCodeLine{00070\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(k\ ==\ KEY\_NON\_US\_BACKSLASH)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{\ \textcolor{keywordflow}{return}\ \textcolor{charliteral}{'<'};\ \}}
+\DoxyCodeLine{00071\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(k\ ==\ (KEY\_MINUS\ |\ MOD\_SHIFT))\ \ \ \ \ \ \ \ \ \ \ \ \ \{\ \textcolor{keywordflow}{return}\ \textcolor{charliteral}{'?'};\ \}}
+\DoxyCodeLine{00072\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(k\ ==\ (KEY\_MINUS\ |\ MOD\_ALT\_GR))\ \ \ \ \ \ \ \ \ \ \ \ \{\ \textcolor{keywordflow}{return}\ \textcolor{charliteral}{'\(\backslash\)\(\backslash\)'};\ \}}
+\DoxyCodeLine{00073\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(k\ ==\ KEY\_MINUS)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{german_8c_a7a33ff7639ed43024a42c20a5f2a8e71}{UNICODE\_SMALL\_SHARP\_S}};\ \}}
+\DoxyCodeLine{00074\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(k\ ==\ (KEY\_EQUALS\ |\ MOD\_SHIFT))\ \ \ \ \ \ \ \ \ \ \ \ \{\ \textcolor{keywordflow}{return}\ \textcolor{charliteral}{'`'};\ \}}
+\DoxyCodeLine{00075\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(k\ ==\ (KEY\_GRAVE\ |\ MOD\_SHIFT))\ \ \ \ \ \ \ \ \ \ \ \ \ \{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{german_8c_a70194306d6e456c381520f6373354d51}{UNICODE\_DEGREE\_SIGN}};\ \}}
+\DoxyCodeLine{00076\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(k\ ==\ KEY\_GRAVE)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{\ \textcolor{keywordflow}{return}\ \textcolor{charliteral}{'\string^'};\ \}}
+\DoxyCodeLine{00077\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(k\ ==\ (KEY\_APOSTROPHE\ |\ MOD\_SHIFT))\ \ \ \ \ \ \ \ \{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{german_8c_ac4e00ec54130d492adb55465717fc79a}{UNICODE\_CAPITAL\_A\_UMLAUT}};\ \}}
+\DoxyCodeLine{00078\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(k\ ==\ KEY\_APOSTROPHE)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{german_8c_a5191e253598cdb1ccfb3b180c3cfd525}{UNICODE\_SMALL\_A\_UMLAUT}};\ \}}
+\DoxyCodeLine{00079\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(k\ ==\ (KEY\_SEMICOLON\ |\ MOD\_SHIFT))\ \ \ \ \ \ \ \ \ \{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{german_8c_a411fc8033e1378ba8d09ae22e8ba6039}{UNICODE\_CAPITAL\_O\_UMLAUT}};\ \}}
+\DoxyCodeLine{00080\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(k\ ==\ KEY\_SEMICOLON)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{german_8c_a44aa07892347b7751fceff4a8551b1ed}{UNICODE\_SMALL\_O\_UMLAUT}};\ \}}
+\DoxyCodeLine{00081\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(k\ ==\ (KEY\_L\_BRACKET\ |\ MOD\_SHIFT))\ \ \ \ \ \ \ \ \ \{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{german_8c_a9680eafa86ca7ec8bdd7d225f1c49df8}{UNICODE\_CAPITAL\_U\_UMLAUT}};\ \}}
+\DoxyCodeLine{00082\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(k\ ==\ KEY\_L\_BRACKET)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{german_8c_aab00c2ca6945feced31357ed0ee7ecbe}{UNICODE\_SMALL\_U\_UMLAUT}};\ \}}
 \DoxyCodeLine{00083\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(nomods\ >=\ KEY\_A\ \&\&\ nomods\ <=\ KEY\_Z)}
 \DoxyCodeLine{00084\ \ \ \ \ \{}
 \DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{types_8h_a48d6cd8e4135fb2ff7e7f2dac84089ec}{i32}}\ c\ =\ nomods\ -\/\ KEY\_A\ +\ \textcolor{charliteral}{'a'};}
@@ -146,5 +146,5 @@ References \mbox{\hyperlink{keyboard-shared_8h_source_l00032}{key\+\_\+mod\+\_\+
 
 
 
-Referenced by \mbox{\hyperlink{simulator_2platform_8c_source_l00454}{main()}}.
+Referenced by \mbox{\hyperlink{simulator_2platform_8c_source_l00420}{main()}}, and \mbox{\hyperlink{ps2_8c_source_l00189}{ps2\+\_\+event()}}.
 

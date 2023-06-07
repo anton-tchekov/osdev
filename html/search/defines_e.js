@@ -17,5 +17,5 @@ var searchData=
   ['spi_5fsck_14',['SPI_SCK',['../gpio_8h.html#a750ca7c9b92cfc9e57272ff3a49db48b',1,'gpio.h']]],
   ['sram_5fcommand_5fread_15',['SRAM_COMMAND_READ',['../xmem_8c.html#aab517c0a80aa9e990d1475df041c2bb8',1,'xmem.c']]],
   ['sram_5fcommand_5fwrite_16',['SRAM_COMMAND_WRITE',['../xmem_8c.html#a5fdcd0ec5530b8e5b1110e54e30e0600',1,'xmem.c']]],
-  ['status_5frunning_17',['STATUS_RUNNING',['../apps_2tetris_2main_8c.html#a799b04d03f49612e3e636b56c3972b80',1,'main.c']]]
+  ['status_5frunning_17',['STATUS_RUNNING',['../apps_2snake_2main_8c.html#a799b04d03f49612e3e636b56c3972b80',1,'STATUS_RUNNING:&#160;main.c'],['../apps_2tetris_2main_8c.html#a799b04d03f49612e3e636b56c3972b80',1,'STATUS_RUNNING:&#160;main.c']]]
 ];

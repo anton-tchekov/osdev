@@ -14,6 +14,8 @@
 #include <layout.h>
 #include <emulator.h>
 
+//! @cond Doxygen_Suppress
+
 /* --- States --- */
 #define PS2_STATE_EXTRA       (1 << 0)
 #define PS2_STATE_RELEASE     (1 << 1)
@@ -152,6 +154,8 @@
 #define PS2_F11                0x78
 #define PS2_F12                0x07
 
+//! @endcond
+
 /** The byte that is currently being received */
 static u8 _byte;
 
@@ -176,11 +180,19 @@ void ps2_init(void)
 	log_boot_P(LOG_INIT, PSTR("PS/2 keyboard initialized"));
 }
 
+/**
+ * @brief Event function that is called when a byte is
+ *        received from the keyboard
+ *
+ * @param byte The byte
+ */
 static void ps2_event(u8 byte)
 {
 	static u8 state;
 	static Key mods;
 	Key key;
+
+	/* TODO: Doesn't work, All keys, Buffering */
 
 	/*
 	 * The following code translates PS/2 keyboard scancodes to USB HID
@@ -230,7 +242,7 @@ static void ps2_event(u8 byte)
 	{
 		switch(byte)
 		{
-			/* -- 0 to 9 --- */
+			/* --- 0 to 9 --- */
 			case PS2_0:           key = KEY_0;           break;
 			case PS2_1:           key = KEY_1;           break;
 			case PS2_2:           key = KEY_2;           break;
