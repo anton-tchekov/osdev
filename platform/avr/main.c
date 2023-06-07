@@ -49,7 +49,7 @@ int main(void)
 	spi_init();
 
 	/* Initialize LCD driver early for boot image and messages */
-	lcd_init(0xFF, COLOR_BLACK);
+	lcd_init(128, COLOR_BLACK);
 
 	/* Initialize LCD Logger */
 	logger_lcd_init();
