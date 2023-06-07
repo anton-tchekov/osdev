@@ -19,11 +19,11 @@ cd platform/avr/
 make
 cd ../../
 
-cd mkinitrd/
+cd tools/font-convert/
 make
 cd ..
 
-cd tools/font-convert/
+cd mkinitrd/
 make
 cd ..
 
