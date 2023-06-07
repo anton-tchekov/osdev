@@ -11,6 +11,8 @@
 
 #include <avr/io.h>
 
+/* --- SPI --- */
+
 /** SPI direction port */
 #define SPI_DIR             DDRB
 
@@ -22,6 +24,14 @@
 
 /** SPI SCK pin number */
 #define SPI_SCK            5
+
+/* --- LCD --- */
+
+/** LCD backlight pin direction port */
+#define LCD_BL_DIR          DDRD
+
+/** LCD backlight pin number */
+#define LCD_BL_PIN         3
 
 /** LCD reset pin direction port */
 #define LCD_RST_DIR         DDRD
@@ -50,11 +60,13 @@
 /** LCD data/command pin number */
 #define LCD_DC_PIN         1
 
+/* --- SD CARD --- */
+
 /** Set LCD CS LOW */
-#define LCD_CS_0            LCD_CS_OUT &= ~(1 << LCD_CS_PIN)
+#define LCD_SELECT          LCD_CS_OUT &= ~(1 << LCD_CS_PIN)
 
 /** Set LCD CS HIGH */
-#define LCD_CS_1            LCD_CS_OUT |= (1 << LCD_CS_PIN)
+#define LCD_DESELECT        LCD_CS_OUT |= (1 << LCD_CS_PIN)
 
 /** Set LCD DC LOW */
 #define LCD_DC_0            LCD_DC_OUT &= ~(1 << LCD_DC_PIN)
@@ -83,6 +95,8 @@
 /** Deselect SD card */
 #define SD_DESELECT         SD_CS_OUT |= (1 << SD_CS_PIN)
 
+/* --- XMEM --- */
+
 /** XMEM CS pins direction register */
 #define XMEM_CS_DIR         DDRB
 
@@ -110,7 +124,7 @@
 	(1 << XMEM_CS_1_PIN) | \
 	(1 << XMEM_CS_2_PIN)
 
-/* KBD */
+/* --- KEYBOARD --- */
 
 /* --- CLOCK: Arduino pin 2 --- */
 /** Clock pin - Data direction register */
@@ -128,15 +142,15 @@
 /** Clock pin - External interrupt */
 #define PS2_EXT_INTERRUPT   INT0
 
-/* --- DATA: Arduino pin 3 --- */
+/* --- DATA: Arduino pin A3 --- */
 /** Data pin - Data direction register */
-#define PS2_DATA_PORT_DIR   DDRB
+#define PS2_DATA_PORT_DIR   DDRC
 
 /** Data pin - Input register */
-#define PS2_DATA_PORT_IN    PINB
+#define PS2_DATA_PORT_IN    PINC
 
 /** Data pin - Output register */
-#define PS2_DATA_PORT_OUT   PORTB
+#define PS2_DATA_PORT_OUT   PORTC
 
 /** Data pin */
 #define PS2_DATA_PIN       3
@@ -148,5 +162,10 @@
  * SPI bus, so all CS lines need to be driven LOW before SPI initialization.
  */
 void gpio_configure(void);
+
+/**
+ * @brief Deselect all SPI peripherals
+ */
+void deselect_all(void);
 
 #endif /* __GPIO_H__ */

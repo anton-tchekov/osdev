@@ -164,9 +164,9 @@ static void _lcd_reset(void)
 static void _lcd_write_reg(u8 reg)
 {
 	LCD_DC_0;
-	LCD_CS_0;
+	LCD_SELECT;
 	spi_xchg(reg);
-	LCD_CS_1;
+	LCD_DESELECT;
 }
 
 /**
@@ -177,10 +177,10 @@ static void _lcd_write_reg(u8 reg)
 static void _lcd_write_data(u8 data)
 {
 	LCD_DC_1;
-	LCD_CS_0;
+	LCD_SELECT;
 	spi_xchg(0);
 	spi_xchg(data);
-	LCD_CS_1;
+	LCD_DESELECT;
 }
 
 /**
@@ -212,7 +212,7 @@ static void _lcd_window_start(u16 x, u16 y, u16 w, u16 h)
 	_lcd_write_data(y_end);
 	_lcd_write_reg(0x2C);
 	LCD_DC_1;
-	LCD_CS_0;
+	LCD_SELECT;
 }
 
 /**
@@ -231,7 +231,7 @@ static inline void _lcd_pixel(RGB565 data)
  */
 static inline void _lcd_window_end(void)
 {
-	LCD_CS_1;
+	LCD_DESELECT;
 }
 
 /**

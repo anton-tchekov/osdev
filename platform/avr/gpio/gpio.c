@@ -13,7 +13,8 @@ void gpio_configure(void)
 	LCD_RST_DIR |= (1 << LCD_RST_PIN);
 	LCD_CS_DIR |= (1 << LCD_CS_PIN);
 	LCD_DC_DIR |= (1 << LCD_DC_PIN);
-	LCD_CS_1;
+	LCD_BL_DIR |= (1 << LCD_BL_PIN);
+	LCD_DESELECT;
 
 	/* SD */
 	SD_CS_DIR |= (1 << SD_CS_PIN);
@@ -33,4 +34,11 @@ void gpio_configure(void)
 
 	/* SPI */
 	SPI_DIR |= (1 << SPI_MOSI) | (1 << SPI_SCK);
+}
+
+void deselect_all(void)
+{
+	SD_DESELECT;
+	XMEM_DESELECT_ALL;
+	LCD_DESELECT;
 }
