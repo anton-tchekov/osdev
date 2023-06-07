@@ -18,13 +18,13 @@ INCLUDE=\
 	-I $(PREFIX)/syscall/ \
 	-I $(PREFIX)/time/ \
 	-I $(PREFIX)/vector/ \
-	-I $(PREFIX)/../status/ \
-	-I $(PREFIX)/../types/ \
-	-I $(PREFIX)/../utf8/ \
-	-I $(PREFIX)/../util/ \
-	-I $(PREFIX)/../keyboard/ \
-	-I $(PREFIX)/../gfx-types/ \
-	-I $(PREFIX)/../event-types/ \
+	-I $(PREFIX)/../shared/status/ \
+	-I $(PREFIX)/../shared/types/ \
+	-I $(PREFIX)/../shared/utf8/ \
+	-I $(PREFIX)/../shared/util/ \
+	-I $(PREFIX)/../shared/keyboard/ \
+	-I $(PREFIX)/../shared/gfx-types/ \
+	-I $(PREFIX)/../shared/event-types/ \
 
 # -I $(PREFIX)/fs/ \
 
@@ -47,8 +47,8 @@ SRC=\
 	$(PREFIX)/string/string.c \
 	$(PREFIX)/time/time.c \
 	$(PREFIX)/vector/vector.c \
-	$(PREFIX)/../status/status.c \
-	$(PREFIX)/../utf8/utf8.c \
+	$(PREFIX)/../shared/status/status.c \
+	$(PREFIX)/../shared/utf8/utf8.c \
 
 # $(PREFIX)/fs/fs.c \
 
