@@ -104,7 +104,7 @@ CFLAGS += -g -O$(OPT) \
 -ffreestanding -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums \
 -Wall -Wstrict-prototypes \
 -fstack-usage \
--Wa,-adhlns=$(<:.c=.lst) -std=gnu99 -mmcu=$(MCU) \
+-std=gnu99 -mmcu=$(MCU) \
 -I'include/' -DPLATFORM=PLATFORM_AVR \
 -DENABLE_FLOAT \
 -DENABLE_RANDOM \

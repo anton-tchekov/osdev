@@ -80,8 +80,6 @@ typedef enum
 	KEY_F11              =  68,
 	KEY_F12              =  69,
 	KEY_PRINT_SCREEN     =  70,
-	KEY_SCROLL_LOCK      =  71,
-	KEY_PAUSE            =  72,
 	KEY_INSERT           =  73,
 	KEY_HOME             =  74,
 	KEY_PAGE_UP          =  75,
@@ -122,11 +120,11 @@ typedef enum
 } Keys;
 
 /** Keyboard Modifiers */
-#define MOD_SHIFT  ((Key)((Key)(1) << 31))
-#define MOD_CTRL   ((Key)((Key)(1) << 30))
-#define MOD_OS     ((Key)((Key)(1) << 29))
-#define MOD_ALT    ((Key)((Key)(1) << 28))
-#define MOD_ALT_GR ((Key)((Key)(1) << 27))
+#define MOD_SHIFT  ((Key)((Key)(1) << 15))
+#define MOD_CTRL   ((Key)((Key)(1) << 14))
+#define MOD_OS     ((Key)((Key)(1) << 13))
+#define MOD_ALT    ((Key)((Key)(1) << 12))
+#define MOD_ALT_GR ((Key)((Key)(1) << 11))
 
 //! @endcond
 

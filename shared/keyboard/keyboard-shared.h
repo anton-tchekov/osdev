@@ -21,7 +21,7 @@ typedef enum
 } KeyState;
 
 /** Keycode */
-typedef u32 Key;
+typedef u16 Key;
 
 /**
  * @brief Remove modifiers from key
@@ -31,7 +31,7 @@ typedef u32 Key;
  */
 static inline Key key_mod_remove(Key key)
 {
-	return key & 0xFFFF;
+	return key & 0xFF;
 }
 
 /**

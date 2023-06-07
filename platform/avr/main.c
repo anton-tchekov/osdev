@@ -87,21 +87,3 @@ int main(void)
 	/* Unreachable */
 	return 0;
 }
-
-/* --- KEYBOARD --- */
-
-/**
- * @brief Convert 4-bit hex value to ASCII
- *
- * @param byte Value from 0-15
- * @return '0'-'9' / 'A'-'F'
- */
-static char byte_to_hex(u8 byte)
-{
-	if(byte < 10)
-	{
-		return byte + '0';
-	}
-
-	return byte - 10 + 'A';
-}
