@@ -7,19 +7,18 @@
 
 #include <status.h>
 
-/** Status code descriptions */
-static const char *_status_strs[] =
-{
-	"Ok",
-	"Unknown error",
-	"Timeout",
-	"Out of bounds access",
-	"No such file or directory",
-	"Invalid path format",
-	"No space left on device",
-};
-
 const char *status_str(Status code)
 {
+	static const char *_status_strs[] =
+	{
+		"Ok",
+		"Unknown error",
+		"Timeout",
+		"Out of bounds access",
+		"No such file or directory",
+		"Invalid path format",
+		"No space left on device",
+	};
+
 	return _status_strs[code];
 }

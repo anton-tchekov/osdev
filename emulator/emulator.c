@@ -9,6 +9,7 @@
 #include <platform.h>
 #include <emulator.h>
 #include <gfx-types.h>
+#include <progmem.h>
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -20,23 +21,19 @@
 /* --- LOGGING --- */
 #ifdef DEBUG
 
-#ifdef __linux__
+#ifdef LINUX
 
 /** Print to terminal */
 #define EMU_LOG(...) { printf(__VA_ARGS__); fputc('\n', stdout); }
 
-/** PROGMEM string mock */
-#define PSTR(X) X
-
-#else /* __linux__ */
+#elif defined(AVR)
 
 #include <logger.h>
-#include <avr/pgmspace.h>
 
 /** Print to serial/LCD */
 #define EMU_LOG(...) log_boot_P(LOG_EXT, __VA_ARGS__)
 
-#endif /* __linux__ */
+#endif /* LINUX */
 
 /**
  * @brief Print all registers of the emulator
@@ -138,7 +135,7 @@ void os_update(void)
 	}
 }
 
-void keyboard_event(Key key, i32 chr, KeyState down)
+void keyboard_event(u16 key, char chr, KeyState down)
 {
 	u32 addr = _emu->Events[EVENT_KEY];
 	if(addr)

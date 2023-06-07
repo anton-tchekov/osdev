@@ -7,7 +7,7 @@
 
 #include <keyboard-shared.h>
 
-const char *keystate_string(KeyState state)
+const char *keystate_str(KeyState state)
 {
 	const char *_keystate_strs[] =
 	{

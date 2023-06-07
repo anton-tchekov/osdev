@@ -120,11 +120,11 @@ typedef enum
 } Keys;
 
 /** Keyboard Modifiers */
-#define MOD_SHIFT  ((Key)((Key)(1) << 15))
-#define MOD_CTRL   ((Key)((Key)(1) << 14))
-#define MOD_OS     ((Key)((Key)(1) << 13))
-#define MOD_ALT    ((Key)((Key)(1) << 12))
-#define MOD_ALT_GR ((Key)((Key)(1) << 11))
+#define MOD_SHIFT          0x8000
+#define MOD_CTRL           0x4000
+#define MOD_OS             0x2000
+#define MOD_ALT            0x1000
+#define MOD_ALT_GR         0x800
 
 //! @endcond
 

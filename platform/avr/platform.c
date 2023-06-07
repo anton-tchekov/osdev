@@ -13,6 +13,7 @@
 #include <random.h>
 #include <timer.h>
 #include <avr/pgmspace.h>
+#include <gfx-types.h>
 
 /* --- MEMORY --- */
 
@@ -33,17 +34,8 @@ void env_memory_write(u32 addr, const void *data, u32 size)
 
 /* --- GRAPHICS --- */
 
-/** Extract red channel from ABGR color */
-static inline u8 _abgr_r(u32 color) { return (color >> 24) & 0xFF; }
-
-/** Extract green channel from ABGR color */
-static inline u8 _abgr_g(u32 color) { return (color >> 16) & 0xFF; }
-
-/** Extract blue channel from ABGR color */
-static inline u8 _abgr_b(u32 color) { return (color >>  8) & 0xFF; }
-
 /** Reverse gamma correction table */
-static const u8 PROGMEM _gamma[] =
+static const u8 _gamma[] PROGMEM =
 {
 	  0,  21,  28,  34,  39,  43,  46,  50,  53,  56,  59,  61,  64,  66,  68,  70,
 	 72,  74,  76,  78,  80,  82,  84,  85,  87,  89,  90,  92,  93,  95,  96,  98,

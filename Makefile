@@ -1,10 +1,11 @@
 CC=gcc
 TARGET=emu
 CFLAGS=\
-	-I lib/ \
 	-I shared/types/ \
 	-I shared/util/ \
 	-I platform/ \
+	-I platform/simulator/ \
+	-I platform/shared/keyboard \
 	-I emulator/ \
 	-I shared/status/ \
 	-I shared/keyboard/ \
@@ -21,9 +22,7 @@ CFLAGS=\
 LDFLAGS=
 SRC=platform/simulator/platform.c \
 	emulator/emulator.c \
-	shared/status/status.c \
-	shared/keyboard/keyboard-shared.c \
-	shared/keyboard/german.c \
+	platform/shared/keyboard/german.c \
 
 .PHONY: all cloc clean
 all:

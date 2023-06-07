@@ -21,12 +21,12 @@ SRCS = \
 	lcd/lcd.c \
 	sd/sd.c \
 	initrd/initrd.c \
-	../../shared/status/status.c \
 	../../emulator/emulator.c \
-	../../shared/keyboard/german.c \
+	../shared/keyboard/german.c \
 	../../shared/util/util.c \
 
 CFLAGS += \
+	-I . \
 	-I ../../shared/types \
 	-I gpio \
 	-I adc \
@@ -44,6 +44,7 @@ CFLAGS += \
 	-I ../../emulator \
 	-I ../../platform \
 	-I ../../shared/util \
+	-I ../shared/keyboard \
 	-I ../../shared/keyboard \
 	-I ../../shared/atfs \
 	-I ../../shared/event-types \

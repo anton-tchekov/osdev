@@ -352,9 +352,9 @@ u32 env_millis(void)
  * @param mod Key Modifiers
  * @return Combined Keycode
  */
-static Key _convert_key(i32 scancode, i32 mod)
+static u32 _convert_key(i32 scancode, i32 mod)
 {
-	Key key = scancode;
+	u32 key = scancode;
 
 	if(mod & (KMOD_LCTRL | KMOD_RCTRL))
 	{
@@ -437,7 +437,7 @@ int main(int argc, char **argv)
 
 			case SDL_KEYDOWN:
 				{
-					Key key;
+					u32 key;
 					if(e.key.keysym.sym == SDLK_ESCAPE)
 					{
 						running = false;
@@ -452,7 +452,7 @@ int main(int argc, char **argv)
 
 			case SDL_KEYUP:
 				{
-					Key key = _convert_key(e.key.keysym.scancode, e.key.keysym.mod);
+					u32 key = _convert_key(e.key.keysym.scancode, e.key.keysym.mod);
 					keyboard_event(key, key_to_codepoint(key), KEYSTATE_RELEASED);
 				}
 				break;

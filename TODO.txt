@@ -1,9 +1,41 @@
 # TODO
-- FS:     File system driver, File Manager, Terminal
-- INIT:   App list with icons (load apps from folder)
 
-# TODO
+# Kernel
 
+## TODAY
+- Fix PS/2 Keyboard
+- Test all graphics functions
+- Proc Syscalls (start process, exit, switch app, segment info)
+- Performance Optimizations
+
+## LATER
+- Disk Syscalls (disk r/w, size, count)
+- File system driver (Use FATFS?)
+
+# Future
+
+## Easy
+- String syscall (default font) as optimization
+
+## Tricky to get right
+- Fast native memory routines
+
+## Resource conflict promlems
+- Scheduler, Background Tasks
+
+## Code size is a substantial problem
+- Emulate RISC-V Single Precision Floating Point Extension and Math Lib
+
+## Probably Impossible due to shared SPI port
+- Async Drivers
+
+# USERSPACE
+
+## Init
+- List of Apps with icons
+
+## File Manager
+## Terminal
 ## Snake
 
 ## Tetris
@@ -23,36 +55,3 @@
 - Search and Replace
 - Goto Line
 - Import / Export contents
-
-# Future
-- Scheduler, Background Tasks
-- Fast native memory routines
-- String syscall (default font) as optimization
-- Emulate RISC-V Single Precision Floating Point Extension and Math Lib
-- Async Drivers
-
-# DONE
-- Case 3D Model
-- AVR SD Driver write block function
-- SysCall Parameter checking, Memory Protection
-- Exit function
-- Documentation Todos
-- GUI Fix text width calculation bugs
-- Invert labels
-- GUI Hide/Show labels (`label_show(&label, true)`)
-- Working Login
-- GUI Text field copy/cut/paste
-- GUI Make theme easily changable (`theme_set` function)
-- Login screen
-- Build everything script
-- All functions documented
-- Dark Mode Theme
-- Add doxygen
-- Memory allocator
-- Emulator German Keyboard Layout<->ASCII Conversion
-- AVR LCD Basic Font
-- Boot Sequence on LCD
-- XMEM Cross-Bank Addressing Test
-- Load first binary from SD card and launch emulator
-- GUI Element Init function refactoring
-- Password field stars option

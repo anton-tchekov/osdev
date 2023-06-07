@@ -12,6 +12,20 @@
 #include <types.h>
 #include <keyboard-shared.h>
 
+/** Keycode */
+typedef u32 Key;
+
+/**
+ * @brief Remove modifiers from key
+ *
+ * @param key Scancode
+ * @return Scancode with modifiers removed
+ */
+static inline Key key_mod_remove(Key key)
+{
+	return key & 0xFF;
+}
+
 /** Keyboard event handler function pointer */
 typedef void (*KeyEvent)(Key, i32, KeyState);
 

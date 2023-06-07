@@ -20,26 +20,4 @@ typedef enum
 	KEYSTATE_REPEAT
 } KeyState;
 
-/** Keycode */
-typedef u16 Key;
-
-/**
- * @brief Remove modifiers from key
- *
- * @param key Scancode
- * @return Scancode with modifiers removed
- */
-static inline Key key_mod_remove(Key key)
-{
-	return key & 0xFF;
-}
-
-/**
- * @brief Get a textual representation of a key state
- *
- * @param state Key state (see enum above)
- * @return String
- */
-const char *keystate_string(KeyState state);
-
 #endif /* __KEYBOARD_SHARED_H__ */

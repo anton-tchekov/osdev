@@ -18,6 +18,6 @@
  * @param k The scancode
  * @return Unicode codepoint
  */
-i32 key_to_codepoint(Key k);
+char key_to_codepoint(u16 k);
 
 #endif /* __LAYOUT_H__ */
