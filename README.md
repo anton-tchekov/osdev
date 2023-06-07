@@ -20,7 +20,7 @@
 - `stdlib/` is the standard library for userspace applications.
   We follow the C standard very loosely, but anything useful goes here.
 
-- `temp/` Code that was removed but I feel sorry to delete it
+- `temp/` Code that was removed and might be added back in later
 
 - `tools/` Tools for generating fonts, lookup tables, boot images etc.
 

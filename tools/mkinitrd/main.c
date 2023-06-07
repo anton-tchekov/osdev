@@ -11,6 +11,7 @@
 #include <string.h>
 #include <types.h>
 #include <atfs.h>
+#include <util.h>
 
 /**
  * @brief MkInitRD Main

@@ -173,30 +173,6 @@ static u32 gfx_color(u8 r, u8 g, u8 b)
 }
 
 /**
- * @brief Extract red channel from ABGR color
- *
- * @param color ABGR Color
- * @return Red value
- */
-static inline u8 _abgr_r(u32 color) { return (color >> 24) & 0xFF; }
-
-/**
- * @brief Extract green channel from ABGR color
- *
- * @param color ABGR Color
- * @return Green value
- */
-static inline u8 _abgr_g(u32 color) { return (color >> 16) & 0xFF; }
-
-/**
- * @brief Extract blue channel from ABGR color
- *
- * @param color ABGR Color
- * @return Blue value
- */
-static inline u8 _abgr_b(u32 color) { return (color >>  8) & 0xFF; }
-
-/**
  * @brief Convert a ABGR color to a ARGB color
  *
  * @param color ABGR color value

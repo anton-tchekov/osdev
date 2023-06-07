@@ -7,6 +7,7 @@
 
 #include <lcd.h>
 #include <logger.h>
+#include <gfx-types.h>
 #include <spi.h>
 #include <gpio.h>
 #include <xmem.h>
@@ -520,30 +521,6 @@ void lcd_image_rgb565(u16 x, u16 y, u16 w, u16 h, u32 addr)
 }
 
 /**
- * @brief Extract red channel from ABGR color
- *
- * @param color ABGR Color
- * @return Red value
- */
-static inline u8 _abgr_r(u32 color) { return (color >> 24) & 0xFF; }
-
-/**
- * @brief Extract green channel from ABGR color
- *
- * @param color ABGR Color
- * @return Green value
- */
-static inline u8 _abgr_g(u32 color) { return (color >> 16) & 0xFF; }
-
-/**
- * @brief Extract blue channel from ABGR color
- *
- * @param color ABGR Color
- * @return Blue value
- */
-static inline u8 _abgr_b(u32 color) { return (color >>  8) & 0xFF; }
-
-/**
  * @brief Mix two colors according to a ratio. A ratio of 255 means 100% of
  *        the first color and 0% of the second color will be mixed together.
  *
@@ -596,7 +573,7 @@ void lcd_image_1bit(
 {
 	u8 byte, stride, bit_mask;
 	u16 x0, y0;
-	u8 *ci, image[LCD_WIDTH / 8];
+	u8 *ci, image[(LCD_WIDTH + 7) / 8];
 
 	stride = (w + 7) / 8;
 	for(y0 = y; y0 < y + h; ++y0)

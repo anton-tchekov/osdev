@@ -16,6 +16,7 @@ make
 cd ../../
 
 cd platform/avr/
+make clean
 make
 cd ../../
 

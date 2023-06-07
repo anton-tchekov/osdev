@@ -12,6 +12,7 @@
 #include <xmem.h>
 #include <logger.h>
 #include <string.h>
+#include <util.h>
 #include <avr/pgmspace.h>
 
 /** RAM Offset of INIT Program */
