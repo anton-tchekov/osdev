@@ -8,6 +8,7 @@
 #include <logger.h>
 #include <serial.h>
 #include <lcd.h>
+#include <gpio.h>
 #include <avr/pgmspace.h>
 #include <avr/interrupt.h>
 #include <stdarg.h>

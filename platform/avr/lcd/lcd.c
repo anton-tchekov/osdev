@@ -386,22 +386,33 @@ static void _lcd_set_gram_scan_dir(u8 scan_dir)
 	_lcd_write_data(a);
 }
 
+/**
+ * @brief Initialize Timer2 for Backlight PWM
+ */
+static inline void _lcd_backlight_init(void)
+{
+	/* Mode 3, Fast PWM: Set OC2B at bottom, clear at compare match */
+	TCCR2A = (1 << COM2B1) | (1 << WGM21) | (1 << WGM20);
+
+	/* Prescaler 64 */
+	TCCR2B = (1 << CS22);
+}
+
 /* --- PUBLIC --- */
 void lcd_backlight(u8 value)
 {
-	/* TODO: Write PWM Value
-	 * CHANGE BACKLIGHT PIN TO PIN 3 (TIMER 2)
-	 */
-	(void)value;
+	/* Write PWM Value */
+	OCR2B = value;
 }
 
 void lcd_init(u8 backlight, RGB565 bg)
 {
 	/* Initialize LCD */
 	log_boot_P(LOG_INIT, PSTR("LCD driver starting"));
+	_lcd_backlight_init();
+	lcd_backlight(backlight);
 	spi_fast();
 	_lcd_reset();
-	lcd_backlight(backlight);
 	_lcd_init_reg();
 	_lcd_set_gram_scan_dir(SCAN_DIR);
 	_delay_ms(200);
