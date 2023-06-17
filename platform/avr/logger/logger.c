@@ -8,6 +8,7 @@
 #include <logger.h>
 #include <serial.h>
 #include <lcd.h>
+#include <gpio.h>
 #include <avr/pgmspace.h>
 #include <avr/interrupt.h>
 #include <stdarg.h>
@@ -184,6 +185,8 @@ void panic(const char *msg, ...)
 {
 	char buf[128];
 	va_list v;
+
+	deselect_all();
 
 	va_start(v, msg);
 	vsnprintf_P(buf, sizeof(buf), msg, v);

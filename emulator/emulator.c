@@ -9,6 +9,7 @@
 #include <platform.h>
 #include <emulator.h>
 #include <gfx-types.h>
+#include <progmem.h>
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -20,23 +21,19 @@
 /* --- LOGGING --- */
 #ifdef DEBUG
 
-#ifdef __linux__
+#ifdef LINUX
 
 /** Print to terminal */
 #define EMU_LOG(...) { printf(__VA_ARGS__); fputc('\n', stdout); }
 
-/** Progmem string mock */
-#define PSTR(X) X
-
-#else /* __linux__ */
+#elif defined(AVR)
 
 #include <logger.h>
-#include <avr/pgmspace.h>
 
 /** Print to serial/LCD */
 #define EMU_LOG(...) log_boot_P(LOG_EXT, __VA_ARGS__)
 
-#endif /* __linux__ */
+#endif /* LINUX */
 
 /**
  * @brief Print all registers of the emulator
@@ -61,6 +58,9 @@ static void emulator_dump_registers(Emulator *emu)
 #endif /* DEBUG */
 
 /* --- OPCODES --- */
+
+/** Maximum number of tasks */
+#define MAX_TASKS        1
 
 /** Opcode for Load instructions */
 #define OPCODE_LOAD   0x00
@@ -108,8 +108,11 @@ static inline u32 sext(u8 bits, u32 value)
 /** Called function finished flag */
 static bool _finished;
 
-/**/
-static Emulator _cur, *_emu = &_cur;
+/** List of currently running tasks */
+static Emulator _tasks[MAX_TASKS];
+
+/** Currently active task */
+static Emulator *_emu = &_tasks[0];
 
 /** Total size of the memory in bytes */
 static u32 _memory_size;
@@ -117,6 +120,9 @@ static u32 _memory_size;
 void kernel_init(void)
 {
 	_memory_size = env_memory_size();
+	_emu->SegmentStart = 0;
+	_emu->SegmentSize = _memory_size;
+	_emu->SegmentEnd = _memory_size;
 	emulator_call(_emu, 0, NULL, 0, _memory_size);
 }
 
@@ -129,7 +135,7 @@ void os_update(void)
 	}
 }
 
-void keyboard_event(Key key, i32 chr, KeyState down)
+void keyboard_event(u16 key, char chr, KeyState down)
 {
 	u32 addr = _emu->Events[EVENT_KEY];
 	if(addr)
@@ -161,18 +167,15 @@ static u8 _gfx_check_bounds(u16 x, u16 y, u16 w, u16 h)
 /**
  * @brief Check memory location permissions
  *
- * @param addr
- * @param size
+ * @param addr Start address
+ * @param size Size of the block to be accessed
  * @return Non-zero if invalid
  */
 static u8 _memory_check_bounds(u32 addr, u32 size)
 {
-	return 0;
-/*
-	return (addr < _emu->SegmentStart) ||
-		(addr >= _emu->SegmentEnd) ||
+	return (addr >= _emu->SegmentEnd) ||
 		(size >= _emu->SegmentSize) ||
-		(addr + size >= _emu->SegmentEnd);*/
+		(addr + size >= _emu->SegmentEnd);
 }
 
 /* --- Store --- */
@@ -187,6 +190,7 @@ static u8 _memory_check_bounds(u32 addr, u32 size)
 static u8 memory_sb(u32 addr, u32 value)
 {
 	i8 value8 = (i8)value;
+	addr += _emu->SegmentStart;
 	if(_memory_check_bounds(addr, sizeof(value8)))
 	{
 		return 1;
@@ -206,6 +210,7 @@ static u8 memory_sb(u32 addr, u32 value)
 static u8 memory_sh(u32 addr, u32 value)
 {
 	i16 value16 = (i16)value;
+	addr += _emu->SegmentStart;
 	if(_memory_check_bounds(addr, sizeof(value16)))
 	{
 		return 1;
@@ -224,6 +229,7 @@ static u8 memory_sh(u32 addr, u32 value)
  */
 static u8 memory_sw(u32 addr, u32 value)
 {
+	addr += _emu->SegmentStart;
 	if(_memory_check_bounds(addr, sizeof(value)))
 	{
 		return 1;
@@ -244,6 +250,7 @@ static u8 memory_sw(u32 addr, u32 value)
 static u8 memory_lb(u32 addr, u32 *out)
 {
 	i8 value8;
+	addr += _emu->SegmentStart;
 	if(_memory_check_bounds(addr, sizeof(value8)))
 	{
 		return 1;
@@ -264,6 +271,7 @@ static u8 memory_lb(u32 addr, u32 *out)
 static u8 memory_lh(u32 addr, u32 *out)
 {
 	i16 value16;
+	addr += _emu->SegmentStart;
 	if(_memory_check_bounds(addr, sizeof(value16)))
 	{
 		return 1;
@@ -284,6 +292,7 @@ static u8 memory_lh(u32 addr, u32 *out)
 static u8 memory_lw(u32 addr, u32 *out)
 {
 	u32 value;
+	addr += _emu->SegmentStart;
 	if(_memory_check_bounds(addr, sizeof(value)))
 	{
 		return 1;
@@ -304,6 +313,7 @@ static u8 memory_lw(u32 addr, u32 *out)
 static u8 memory_lbu(u32 addr, u32 *out)
 {
 	u8 value8;
+	addr += _emu->SegmentStart;
 	if(_memory_check_bounds(addr, sizeof(value8)))
 	{
 		return 1;
@@ -324,6 +334,7 @@ static u8 memory_lbu(u32 addr, u32 *out)
 static u8 memory_lhu(u32 addr, u32 *out)
 {
 	u16 value16;
+	addr += _emu->SegmentStart;
 	if(_memory_check_bounds(addr, sizeof(value16)))
 	{
 		return 1;
@@ -335,14 +346,26 @@ static u8 memory_lhu(u32 addr, u32 *out)
 }
 
 /* --- Syscalls --- */
+
+/**
+ * @brief Exit program
+ *
+ * @param args args[0]: Exit code
+ * @return Non-zero on error
+ */
 static u8 syscall_exit(u32 *args)
 {
 	/* No parameter checking necessary */
-	/* TODO */
-	return 0;
+	return 1;
 	(void)args;
 }
 
+/**
+ * @brief Yield function to pass control to the scheduler
+ *
+ * @param args Unused
+ * @return Non-zero on error
+ */
 static u8 syscall_finish(u32 *args)
 {
 	/* No parameter checking necessary */
@@ -351,19 +374,35 @@ static u8 syscall_finish(u32 *args)
 	(void)args;
 }
 
+/**
+ * @brief Register an event handler
+ *
+ * @param args args[0]: Event Type,
+ *             args[1]: Event Handler Address
+ * @return Non-zero on error
+ */
 static u8 syscall_event_register(u32 *args)
 {
-	u32 type = args[0];
-	u32 addr = args[1];
-	if(type < EVENT_COUNT)
+	u32 type, addr;
+
+	type = args[0];
+	addr = args[1];
+	if(type >= EVENT_COUNT)
 	{
-		EMU_LOG(PSTR("Registered Event Type: %"PRIu32" - Addr: %"PRIu32), type, addr);
-		_emu->Events[type] = addr;
+		return 1;
 	}
 
+	EMU_LOG(PSTR("Registered Event Type: %"PRIu32" - Addr: %"PRIu32), type, addr);
+	_emu->Events[type] = addr;
 	return 0;
 }
 
+/**
+ * @brief System call to get the number of milliseconds since startup
+ *
+ * @param args args[0]: Return value (milliseconds)
+ * @return Non-zero on error
+ */
 static u8 syscall_millis(u32 *args)
 {
 	/* No parameter checking necessary */
@@ -371,6 +410,12 @@ static u8 syscall_millis(u32 *args)
 	return 0;
 }
 
+/**
+ * @brief System call to get a random number
+ *
+ * @param args args[0]: Return value (random number)
+ * @return Non-zero on error
+ */
 static u8 syscall_rand(u32 *args)
 {
 	/* No parameter checking necessary */
@@ -378,12 +423,25 @@ static u8 syscall_rand(u32 *args)
 	return 0;
 }
 
+/**
+ * @brief System call to send data over the serial interface
+ *
+ * @param args args[0]: Pointer to string to send
+ *             args[1]: Number of bytes to send
+ * @return Non-zero on error
+ */
 static u8 syscall_serial_write(u32 *args)
 {
-	u16 cur;
-	u32 ptr = args[0];
-	u32 len = args[1];
 	u8 buf[128];
+	u16 cur;
+	u32 ptr, len;
+
+	ptr = args[0];
+	len = args[1];
+	if(_memory_check_bounds(ptr, len))
+	{
+		return 1;
+	}
 
 	while(len)
 	{
@@ -397,6 +455,16 @@ static u8 syscall_serial_write(u32 *args)
 	return 0;
 }
 
+/**
+ * @brief System call to draw a rectangle
+ *
+ * @param args args[0]: X-Coordinate
+ *             args[1]: Y-Coordinate
+ *             args[2]: Width
+ *             args[3]: Height
+ *             args[4]: ABGR Color
+ * @return Non-zero on error
+ */
 static u8 syscall_gfx_rect(u32 *args)
 {
 	u16 x, y, w, h;
@@ -416,56 +484,16 @@ static u8 syscall_gfx_rect(u32 *args)
 	return 0;
 }
 
-static u8 syscall_gfx_image_rgba(u32 *args)
-{
-	u16 x, y, w, h;
-	u32 image, bytes;
-
-	x = args[0];
-	y = args[1];
-	w = args[2];
-	h = args[3];
-	if(_gfx_check_bounds(x, y, w, h))
-	{
-		return 1;
-	}
-
-	image = args[4];
-	bytes = (u32)4 * (u32)w * (u32)h;
-	if(_memory_check_bounds(image, bytes))
-	{
-		return 1;
-	}
-
-	env_gfx_image_rgba(x, y, w, h, image);
-	return 0;
-}
-
-static u8 syscall_gfx_image_rgb(u32 *args)
-{
-	u16 x, y, w, h;
-	u32 image, bytes;
-
-	x = args[0];
-	y = args[1];
-	w = args[2];
-	h = args[3];
-	if(_gfx_check_bounds(x, y, w, h))
-	{
-		return 1;
-	}
-
-	image = args[4];
-	bytes = (u32)3 * (u32)w * (u32)h;
-	if(_memory_check_bounds(image, bytes))
-	{
-		return 1;
-	}
-
-	env_gfx_image_rgb(x, y, w, h, image);
-	return 0;
-}
-
+/**
+ * @brief System call to draw an RGB565 image
+ *
+ * @param args args[0]: X-Coordinate
+ *             args[1]: Y-Coordinate
+ *             args[2]: Width
+ *             args[3]: Height
+ *             args[4]: Pointer to RGB565 image
+ * @return Non-zero on error
+ */
 static u8 syscall_gfx_image_rgb565(u32 *args)
 {
 	u32 image, bytes;
@@ -491,6 +519,15 @@ static u8 syscall_gfx_image_rgb565(u32 *args)
 	return 0;
 }
 
+/**
+ * @brief System call to draw a grayscale image
+ *
+ * @param args args[0]: Pointer to rectangle struct
+ *             args[1]: Pointer to grayscale image
+ *             args[2]: ABGR Foreground color
+ *             args[3]: ABGR Background color
+ * @return Non-zero on error
+ */
 static u8 syscall_gfx_image_grayscale(u32 *args)
 {
 	u16 x, y, w, h;
@@ -526,12 +563,47 @@ static u8 syscall_gfx_image_grayscale(u32 *args)
 	return 0;
 }
 
+/**
+ * @brief System call to draw a 1-bit-per-pixel image
+ *
+ * @param args args[0]: Pointer to rectangle struct
+ *             args[1]: Pointer to 1bpp image
+ *             args[2]: ABGR Foreground color
+ *             args[3]: ABGR Background color
+ * @return Non-zero on error
+ */
 static u8 syscall_gfx_image_1bit(u32 *args)
 {
-	/* TODO: Check params */
-	Rectangle r;
-	env_memory_read(args[0], &r, sizeof(r));
-	env_gfx_image_1bit(r.X, r.Y, r.W, r.H, args[1], args[2], args[3]);
+	u16 x, y, w, h;
+	u32 image, bytes, rect_addr, fg, bg;
+	Rectangle rect;
+
+	rect_addr = args[0];
+	if(_memory_check_bounds(rect_addr, sizeof(rect)))
+	{
+		return 1;
+	}
+
+	env_memory_read(rect_addr, &rect, sizeof(rect));
+	x = rect.X;
+	y = rect.Y;
+	w = rect.W;
+	h = rect.H;
+	if(_gfx_check_bounds(x, y, w, h))
+	{
+		return 1;
+	}
+
+	image = args[1];
+	bytes = (u32)w * (u32)h;
+	if(_memory_check_bounds(image, bytes))
+	{
+		return 1;
+	}
+
+	fg = args[2];
+	bg = args[3];
+	env_gfx_image_1bit(x, y, w, h, image, fg, bg);
 	return 0;
 }
 
@@ -543,8 +615,6 @@ static u8 (*syscalls[])(u32 *) =
 	syscall_event_register,
 
 	syscall_gfx_rect,
-	syscall_gfx_image_rgba,
-	syscall_gfx_image_rgb,
 	syscall_gfx_image_rgb565,
 	syscall_gfx_image_grayscale,
 	syscall_gfx_image_1bit,
@@ -554,6 +624,13 @@ static u8 (*syscalls[])(u32 *) =
 	syscall_millis
 };
 
+/**
+ * @brief Perform a system call
+ *
+ * @param id System call ID
+ * @param args System call arguments, return value is placed in args[0]
+ * @return Non-zero on failure
+ */
 static u8 syscall(u32 id, u32 *args)
 {
 	if(id >= ARRLEN(syscalls))
@@ -565,6 +642,13 @@ static u8 syscall(u32 id, u32 *args)
 }
 
 /* --- EMULATOR --- */
+
+/**
+ * @brief Execute the next instruction of the emulator
+ *
+ * @param emu The emulator
+ * @return Non-zero on failure
+ */
 static u8 emulator_next(Emulator *emu)
 {
 	u32 instr, opcode;

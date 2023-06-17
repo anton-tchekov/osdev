@@ -21,11 +21,13 @@ SRCS = \
 	lcd/lcd.c \
 	sd/sd.c \
 	initrd/initrd.c \
-	../../status/status.c \
 	../../emulator/emulator.c \
+	../shared/keyboard/german.c \
+	../../shared/util/util.c \
 
 CFLAGS += \
-	-I ../../types \
+	-I . \
+	-I ../../shared/types \
 	-I gpio \
 	-I adc \
 	-I ps2 \
@@ -38,14 +40,15 @@ CFLAGS += \
 	-I logger \
 	-I lcd \
 	-I initrd \
-	-I ../../status \
+	-I ../../shared/status \
 	-I ../../emulator \
 	-I ../../platform \
-	-I ../../util \
-	-I ../../keyboard \
-	-I ../../atfs \
-	-I ../../event-types \
-	-I ../../gfx-types \
+	-I ../../shared/util \
+	-I ../shared/keyboard \
+	-I ../../shared/keyboard \
+	-I ../../shared/atfs \
+	-I ../../shared/event-types \
+	-I ../../shared/gfx-types \
 
 CFLAGS += \
 	-Wno-array-bounds \
@@ -102,7 +105,7 @@ CFLAGS += -g -O$(OPT) \
 -ffreestanding -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums \
 -Wall -Wstrict-prototypes \
 -fstack-usage \
--Wa,-adhlns=$(<:.c=.lst) -std=gnu99 -mmcu=$(MCU) \
+-std=gnu99 -mmcu=$(MCU) \
 -I'include/' -DPLATFORM=PLATFORM_AVR \
 -DENABLE_FLOAT \
 -DENABLE_RANDOM \

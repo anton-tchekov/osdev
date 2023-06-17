@@ -1,15 +1,16 @@
 CC=gcc
 TARGET=emu
 CFLAGS=\
-	-I lib/ \
-	-I types/ \
-	-I util/ \
+	-I shared/types/ \
+	-I shared/util/ \
 	-I platform/ \
+	-I platform/simulator/ \
+	-I platform/shared/keyboard \
 	-I emulator/ \
-	-I status/ \
-	-I keyboard/ \
-	-I event-types/ \
-	-I gfx-types/ \
+	-I shared/status/ \
+	-I shared/keyboard/ \
+	-I shared/event-types/ \
+	-I shared/gfx-types/ \
 	-Wall -Wextra \
 	-Werror=uninitialized \
 	-Werror=return-type \
@@ -21,9 +22,7 @@ CFLAGS=\
 LDFLAGS=
 SRC=platform/simulator/platform.c \
 	emulator/emulator.c \
-	status/status.c \
-	keyboard/keyboard-shared.c \
-	keyboard/german.c \
+	platform/shared/keyboard/german.c \
 
 .PHONY: all cloc clean
 all:

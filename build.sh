@@ -1,11 +1,13 @@
 #!/bin/bash
+clear
+
 make
 
-cd apps/test/
+cd apps/init/
 make
 cd ..
 
-cd game/
+cd editor/
 make
 cd ..
 
@@ -14,17 +16,20 @@ make
 cd ../../
 
 cd platform/avr/
+make clean
 make
 cd ../../
 
-cd mkinitrd/
+cd tools/font-convert/
 make
 cd ..
 
-cd tools/font-convert/
+cd mkinitrd/
 make
 cd ..
 
 cd gamma-correction/
 make
 cd ../..
+
+doxygen

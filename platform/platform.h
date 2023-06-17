@@ -51,29 +51,7 @@ void env_memory_write(u32 addr, const void *data, u32 size);
  * @param h Height
  * @param color Fill color
  */
-void env_gfx_rect(i32 x, i32 y, i32 w, i32 h, u32 color);
-
-/**
- * @brief Draw an RGBA image
- *
- * @param x X-Coordinate
- * @param y Y-Coordinate
- * @param w Width
- * @param h Height
- * @param addr Image memory address
- */
-void env_gfx_image_rgba(i32 x, i32 y, i32 w, i32 h, u32 addr);
-
-/**
- * @brief Draw an RGB image
- *
- * @param x X-Coordinate
- * @param y Y-Coordinate
- * @param w Width
- * @param h Height
- * @param addr Image memory address
- */
-void env_gfx_image_rgb(i32 x, i32 y, i32 w, i32 h, u32 addr);
+void env_gfx_rect(u16 x, u16 y, u16 w, u16 h, u32 color);
 
 /**
  * @brief Draw an RGB565 image
@@ -84,7 +62,7 @@ void env_gfx_image_rgb(i32 x, i32 y, i32 w, i32 h, u32 addr);
  * @param h Height
  * @param addr Image memory address
  */
-void env_gfx_image_rgb565(i32 x, i32 y, i32 w, i32 h, u32 addr);
+void env_gfx_image_rgb565(u16 x, u16 y, u16 w, u16 h, u32 addr);
 
 /**
  * @brief Draw a colored grayscale image
@@ -98,7 +76,7 @@ void env_gfx_image_rgb565(i32 x, i32 y, i32 w, i32 h, u32 addr);
  * @param bg ABGR background color
  */
 void env_gfx_image_grayscale(
-	i32 x, i32 y, i32 w, i32 h, u32 addr, u32 fg, u32 bg);
+	u16 x, u16 y, u16 w, u16 h, u32 addr, u32 fg, u32 bg);
 
 /**
  * @brief Draw a colored 1-bit image
@@ -112,7 +90,7 @@ void env_gfx_image_grayscale(
  * @param bg ABGR background color
  */
 void env_gfx_image_1bit(
-	i32 x, i32 y, i32 w, i32 h, u32 addr, u32 fg, u32 bg);
+	u16 x, u16 y, u16 w, u16 h, u32 addr, u32 fg, u32 bg);
 
 /* --- SERIAL --- */
 

@@ -7,6 +7,7 @@
 
 #include <lcd.h>
 #include <logger.h>
+#include <gfx-types.h>
 #include <spi.h>
 #include <gpio.h>
 #include <xmem.h>
@@ -140,39 +141,7 @@ static const u8 _font5x7[] PROGMEM =
 	0x10, 0x08, 0x08, 0x10, 0x08  /* ~ */
 };
 
-/** Reverse gamma correction table */
-static const u8 PROGMEM _gamma[] =
-{
-	  0,  21,  28,  34,  39,  43,  46,  50,  53,  56,  59,  61,  64,  66,  68,  70,
-	 72,  74,  76,  78,  80,  82,  84,  85,  87,  89,  90,  92,  93,  95,  96,  98,
-	 99, 101, 102, 103, 105, 106, 107, 109, 110, 111, 112, 114, 115, 116, 117, 118,
-	119, 120, 122, 123, 124, 125, 126, 127, 128, 129, 130, 131, 132, 133, 134, 135,
-	136, 137, 138, 139, 140, 141, 142, 143, 144, 144, 145, 146, 147, 148, 149, 150,
-	151, 151, 152, 153, 154, 155, 156, 156, 157, 158, 159, 160, 160, 161, 162, 163,
-	164, 164, 165, 166, 167, 167, 168, 169, 170, 170, 171, 172, 173, 173, 174, 175,
-	175, 176, 177, 178, 178, 179, 180, 180, 181, 182, 182, 183, 184, 184, 185, 186,
-	186, 187, 188, 188, 189, 190, 190, 191, 192, 192, 193, 194, 194, 195, 195, 196,
-	197, 197, 198, 199, 199, 200, 200, 201, 202, 202, 203, 203, 204, 205, 205, 206,
-	206, 207, 207, 208, 209, 209, 210, 210, 211, 212, 212, 213, 213, 214, 214, 215,
-	215, 216, 217, 217, 218, 218, 219, 219, 220, 220, 221, 221, 222, 223, 223, 224,
-	224, 225, 225, 226, 226, 227, 227, 228, 228, 229, 229, 230, 230, 231, 231, 232,
-	232, 233, 233, 234, 234, 235, 235, 236, 236, 237, 237, 238, 238, 239, 239, 240,
-	240, 241, 241, 242, 242, 243, 243, 244, 244, 245, 245, 246, 246, 247, 247, 248,
-	248, 249, 249, 249, 250, 250, 251, 251, 252, 252, 253, 253, 254, 254, 255, 255
-};
-
 /* --- PRIVATE --- */
-
-/**
- * @brief Perform gamma correction on a color channel
- *
- * @param value Input color channel value
- * @return Gamma corrected output value
- */
-static inline u8 _gamma_correction(u8 value)
-{
-	return pgm_read_byte(_gamma + value);
-}
 
 /**
  * @brief Reset the LCD
@@ -195,9 +164,9 @@ static void _lcd_reset(void)
 static void _lcd_write_reg(u8 reg)
 {
 	LCD_DC_0;
-	LCD_CS_0;
+	LCD_SELECT;
 	spi_xchg(reg);
-	LCD_CS_1;
+	LCD_DESELECT;
 }
 
 /**
@@ -208,10 +177,10 @@ static void _lcd_write_reg(u8 reg)
 static void _lcd_write_data(u8 data)
 {
 	LCD_DC_1;
-	LCD_CS_0;
+	LCD_SELECT;
 	spi_xchg(0);
 	spi_xchg(data);
-	LCD_CS_1;
+	LCD_DESELECT;
 }
 
 /**
@@ -243,7 +212,7 @@ static void _lcd_window_start(u16 x, u16 y, u16 w, u16 h)
 	_lcd_write_data(y_end);
 	_lcd_write_reg(0x2C);
 	LCD_DC_1;
-	LCD_CS_0;
+	LCD_SELECT;
 }
 
 /**
@@ -262,7 +231,7 @@ static inline void _lcd_pixel(RGB565 data)
  */
 static inline void _lcd_window_end(void)
 {
-	LCD_CS_1;
+	LCD_DESELECT;
 }
 
 /**
@@ -417,20 +386,33 @@ static void _lcd_set_gram_scan_dir(u8 scan_dir)
 	_lcd_write_data(a);
 }
 
+/**
+ * @brief Initialize Timer2 for Backlight PWM
+ */
+static inline void _lcd_backlight_init(void)
+{
+	/* Mode 3, Fast PWM: Set OC2B at bottom, clear at compare match */
+	TCCR2A = (1 << COM2B1) | (1 << WGM21) | (1 << WGM20);
+
+	/* Prescaler 64 */
+	TCCR2B = (1 << CS22);
+}
+
 /* --- PUBLIC --- */
 void lcd_backlight(u8 value)
 {
-	/* TODO: Write PWM Value */
-	(void)value;
+	/* Write PWM Value */
+	OCR2B = value;
 }
 
 void lcd_init(u8 backlight, RGB565 bg)
 {
 	/* Initialize LCD */
 	log_boot_P(LOG_INIT, PSTR("LCD driver starting"));
+	_lcd_backlight_init();
+	lcd_backlight(backlight);
 	spi_fast();
 	_lcd_reset();
-	lcd_backlight(backlight);
 	_lcd_init_reg();
 	_lcd_set_gram_scan_dir(SCAN_DIR);
 	_delay_ms(200);
@@ -528,33 +510,81 @@ u16 lcd_string_P(u16 x, u16 y, RGB565 fg, RGB565 bg, const char *s)
 	return i;
 }
 
-void lcd_image_rgba(u16 x, u16 y, u16 w, u16 h, u32 addr)
-{
-
-}
-
-void lcd_image_rgb(u16 x, u16 y, u16 w, u16 h, u32 addr)
-{
-
-}
-
 void lcd_image_rgb565(u16 x, u16 y, u16 w, u16 h, u32 addr)
 {
+	u16 x0, y0, stride;
+	u16 *ci, image[LCD_WIDTH];
 
+	stride = w * sizeof(RGB565);
+	for(y0 = y; y0 < y + h; ++y0)
+	{
+		xmem_read(addr, image, stride);
+		_lcd_window_start(x, y0, w, 1);
+		ci = image;
+		for(x0 = x; x0 < x + w; ++x0)
+		{
+			_lcd_pixel(*ci++);
+		}
+
+		_lcd_window_end();
+		addr += stride;
+	}
+}
+
+/**
+ * @brief Mix two colors according to a ratio. A ratio of 255 means 100% of
+ *        the first color and 0% of the second color will be mixed together.
+ *
+ * @param color1 First ABGR color
+ * @param color2 Second ABGR color
+ * @param ratio Merge ratio from 0-255
+ * @return Merged RGB565 color value
+ */
+static RGB565 _color_merge(u32 color1, u32 color2, u16 ratio)
+{
+	u8 r1, g1, b1, r2, g2, b2;
+
+	r1 = _abgr_r(color1);
+	g1 = _abgr_g(color1);
+	b1 = _abgr_b(color1);
+
+	r2 = _abgr_r(color2);
+	g2 = _abgr_g(color2);
+	b2 = _abgr_b(color2);
+
+	return lcd_color(
+		(r1 * ratio + r2 * (255 - ratio)) / 255,
+		(g1 * ratio + g2 * (255 - ratio)) / 255,
+		(b1 * ratio + b2 * (255 - ratio)) / 255);
 }
 
 void lcd_image_grayscale(
-	u16 x, u16 y, u16 w, u16 h, RGB565 fg, RGB565 bg, u32 addr)
+	u16 x, u16 y, u16 w, u16 h, u32 addr, u32 fg, u32 bg)
 {
+	u16 x0, y0;
+	u8 *ci, image[LCD_WIDTH];
 
+	for(y0 = y; y0 < y + h; ++y0)
+	{
+		xmem_read(addr, image, w);
+		_lcd_window_start(x, y0, w, 1);
+		ci = image;
+		for(x0 = x; x0 < x + w; ++x0)
+		{
+			_lcd_pixel(_color_merge(fg, bg, *ci++));
+		}
+
+		_lcd_window_end();
+		addr += w;
+	}
 }
 
 void lcd_image_1bit(
-	u16 x, u16 y, u16 w, u16 h, RGB565 fg, RGB565 bg, u32 addr)
+	u16 x, u16 y, u16 w, u16 h, u32 addr, RGB565 fg, RGB565 bg)
 {
 	u8 byte, stride, bit_mask;
-	u16 x0, y0, byte_offset;
-	u8 image[64];
+	u16 x0, y0;
+	u8 *ci, image[(LCD_WIDTH + 7) / 8];
 
 	stride = (w + 7) / 8;
 	for(y0 = y; y0 < y + h; ++y0)
@@ -562,12 +592,12 @@ void lcd_image_1bit(
 		xmem_read(addr, image, stride);
 		_lcd_window_start(x, y0, w, 1);
 		bit_mask = 0x80;
-		byte_offset = 0;
+		ci = image;
 		for(x0 = x; x0 < x + w; ++x0)
 		{
 			if(bit_mask == 0x80)
 			{
-				byte = image[byte_offset++];
+				byte = *ci++;
 				bit_mask = 1;
 			}
 

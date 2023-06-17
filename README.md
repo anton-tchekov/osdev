@@ -2,18 +2,27 @@
 
 ## Overview
 
-- Modules (source and header files) go in their own directory (example: gfx/)
+- Modules (source and header files) go in their own directory (for example: `gfx/`)
+
+- `apps/` Built-in apps
+
+- `emulator/` contains the kernel and an emulator for a
+	RISCV32_IM processor that supports:
+	- Base Instructions
+	- Multiplication/Division Extension
+
+- `other/` PDFs, Fonts, Misc. Stuff
+
+- `platform/` Drivers for various platforms (Simulator and AVR)
+
+- `shared/` Code that is used by both kernel and userspace
 
 - `stdlib/` is the standard library for userspace applications.
   We follow the C standard very loosely, but anything useful goes here.
 
-- `platform/` contains drivers for various platforms
+- `temp/` Code that was removed and might be added back in later
 
-- `emulator/` contains an emulator for a RISCV32_IM processor that supports:
-	- Base Instructions
-	- Multiplication/Division Extension
-
-- `apps` built-in apps
+- `tools/` Tools for generating fonts, lookup tables, boot images etc.
 
 ## Contributing
 - Most Important: Simplicity and Responsiveness (eg. No Bloat)
@@ -23,66 +32,3 @@
 - Only multiline comments (`/* comment */`)
 - All source files, structs, functions (including static) and global variables
 	should be documented using doxygen comments
-
-# TODO
-
-## Current Tasks
-- GUI Fix Bugs (text width calculation)
-- Better SysCall Parameter checking, Memory Protection
-- Documentation, not again, yes I am forcing myself ...
-
-- Cooperative Scheduler, Background Tasks, Exit function
-- AVR XMEM image routines
-- AVR PS/2 Keyboard character conversion and test
-- AVR SD Driver write block function
-- Port Tetris
-
-## Immediate Next Steps
-- Port Snake Game
-- Text Editor
-- Fast native memory routines
-- File system driver
-- App list with icons (load apps from folder)
-- File Manager
-- Emulate RISC-V Single Precision Floating Point Extension and Math Lib
-- Async Drivers
-
-# Descriptions
-
-## Tetris
-- Game title screen
-- Game over screen with high score (new game, back to title, quit)
-- Next piece indicator
-- Score counter (Bonus for multiple lines)
-- Line clear blink
-- Pause Game (Resume, Back to title, New Game, Quit)
-- Better graphics (3D Like effect)
-
-## Text/Code Editor features
-- Line Numbers
-- Tab support
-- Up/Down Arrow keys + Select
-- Syntax highlighting
-- Search and Replace
-- Goto Line
-- Import / Export contents
-
-# DONE
-- Invert labels
-- GUI Hide/Show labels (`label_show(&label, true)`)
-- Working Login
-- GUI Text field copy/cut/paste
-- GUI Make theme easily changable (`theme_set` function)
-- Login screen
-- Build everything script
-- All functions documented
-- Dark Mode Theme
-- Add doxygen
-- Memory allocator
-- Emulator German Keyboard Layout<->ASCII Conversion
-- AVR LCD Basic Font
-- Boot Sequence on LCD
-- XMEM Cross-Bank Addressing Test
-- Load first binary from SD card and launch emulator
-- GUI Element Init function refactoring
-- Password field stars option

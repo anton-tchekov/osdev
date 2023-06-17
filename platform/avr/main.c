@@ -21,6 +21,11 @@
 #include <avr/pgmspace.h>
 #include <emulator.h>
 
+/**
+ * @brief AVR Platform main function, loads drivers and starts kernel
+ *
+ * @return Exit code
+ */
 int main(void)
 {
 	/* --- BOOT SEQUENCE --- */
@@ -44,7 +49,7 @@ int main(void)
 	spi_init();
 
 	/* Initialize LCD driver early for boot image and messages */
-	lcd_init(0xFF, COLOR_BLACK);
+	lcd_init(128, COLOR_BLACK);
 
 	/* Initialize LCD Logger */
 	logger_lcd_init();
@@ -81,24 +86,4 @@ int main(void)
 
 	/* Unreachable */
 	return 0;
-}
-
-/* --- KEYBOARD --- */
-char byte_to_hex(u8 byte)
-{
-	if(byte < 10)
-	{
-		return byte + '0';
-	}
-
-	return byte - 10 + 'A';
-}
-
-void ps2_event(u8 byte)
-{
-	/* Called when a byte is received from the keyboard */
-	/* serial_tx('0'); */
-	/* serial_tx('x'); */
-	/* serial_tx(byte_to_hex((byte >> 4) & 0x0F)); */
-	/* serial_tx(byte_to_hex(byte & 0x0F)); */
 }

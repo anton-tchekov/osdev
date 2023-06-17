@@ -10,7 +10,7 @@
 #include <string.h>
 #include <stdarg.h>
 
-/* TODO: COPIED CODE - USE AS REFERENCE OR WRITE FROM SCRATCH */
+/* This is copied code but I don't want to write printf from scratch */
 
 //! @cond Doxygen_Suppress
 

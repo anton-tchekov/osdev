@@ -12,12 +12,8 @@
 #include <xmem.h>
 #include <logger.h>
 #include <string.h>
+#include <util.h>
 #include <avr/pgmspace.h>
-
-/* TODO: Load STDLIB as shared library */
-
-/** RAM Offset of STDLIB */
-#define RAM_OFFSET_STDLIB      0
 
 /** RAM Offset of INIT Program */
 #define RAM_OFFSET_INIT        0
@@ -25,14 +21,15 @@
 void initrd_load(void)
 {
 	u8 buf[BLOCK_SIZE];
-	u16 block, num_sectors;
-	u32 addr, revision, size_stdlib, size_init;
+	u16 num_sectors;
+	u32 addr, block, revision, start_init, size_init;
 
-	log_boot_P(LOG_INIT, PSTR("Loading Init Binary"));
+	log_boot_P(LOG_INIT, PSTR("Loading INIT Binary"));
 	sd_read(ATFS_SECTOR_BOOT, buf);
 
 	/* Check signature */
-	if(memcmp(buf + ATFS_OFFSET_SIGNATURE, _atfs_signature, sizeof(_atfs_signature)))
+	if(memcmp(buf + ATFS_OFFSET_SIGNATURE,
+		_atfs_signature, sizeof(_atfs_signature)))
 	{
 		panic(PSTR("Wrong FS signature"));
 	}
@@ -44,29 +41,24 @@ void initrd_load(void)
 		panic(PSTR("Unsupported ATFS revision"));
 	}
 
-	/* Get STDLIB Size */
-	size_stdlib = load_le_32(buf + ATFS_OFFSET_STDLIB_SIZE);
-
-	/* Get INIT Size */
+	/* Get INIT Start and Size */
+	start_init = load_le_32(buf + ATFS_OFFSET_INIT_BLOCK);
 	size_init = load_le_32(buf + ATFS_OFFSET_INIT_SIZE);
 
-	/* Load STDLIB */
-	/* _load_xmem(RAM_OFFSET_STDLIB, SECTOR_STDLIB, size_stdlib >> BLOCK_SIZE_POT); */
-
+	log_boot_P(LOG_EXT, PSTR("INIT Start: %"PRIu32), start_init);
 	log_boot_P(LOG_EXT, PSTR("INIT Size: %"PRIu32), size_init);
-	log_boot_P(LOG_EXT, PSTR("STDLIB Size: %"PRIu32), size_stdlib);
 
 	num_sectors = (size_init + BLOCK_SIZE - 1) >> BLOCK_SIZE_POT;
-	log_boot_P(LOG_EXT, PSTR("INIT Sectors: %d"), num_sectors);
+	log_boot_P(LOG_EXT, PSTR("INIT Sectors: %" PRIu16), num_sectors);
 
 	/* Load INIT */
-	for(addr = 0, block = ATFS_SECTOR_INIT;
-		block < ATFS_SECTOR_INIT + num_sectors;
+	for(addr = RAM_OFFSET_INIT, block = start_init;
+		block < start_init + num_sectors;
 		++block, addr += BLOCK_SIZE)
 	{
 		if(sd_read(block, buf))
 		{
-			panic(PSTR("Loading InitRD failed"));
+			panic(PSTR("Loading INIT failed"));
 		}
 
 		xmem_write(addr, buf, BLOCK_SIZE);

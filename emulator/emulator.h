@@ -53,7 +53,7 @@ void os_update(void);
  * @param chr The unicode codepoint of the scancode or 0
  * @param state The state of the key (pressed, repeat, released)
  */
-void keyboard_event(Key key, i32 chr, KeyState state);
+void keyboard_event(u16 key, char chr, KeyState state);
 
 /**
  * @brief Call an emulated RISC-V function

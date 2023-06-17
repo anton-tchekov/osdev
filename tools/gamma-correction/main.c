@@ -11,6 +11,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+/**
+ * @brief Main function of gamma correction table generator
+ *
+ * @param argc Number of command line arguments
+ * @param argv Command line arguments array
+ * @return Exit code
+ */
 int main(int argc, char *argv[])
 {
 	double gamma_value;

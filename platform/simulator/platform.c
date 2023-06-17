@@ -22,16 +22,34 @@
 #include <gfx-types.h>
 
 /* --- CONSTANTS --- */
+
+/** Title of the simulator window */
 #define WINDOW_TITLE             "OS Simulator"
+
+/** Number of bytes to read at once when loading binary */
 #define READ_SIZE            1024
 
 /* --- VARIABLES --- */
 
+/** Emulated memory */
 static u8 _memory[3 * 128 * 1024];
+
+/** Screen pixel array buffer */
 static u32 _pixels[GFX_HEIGHT * GFX_WIDTH];
-static u32 _sec_start, _usec_start;
+
+/** Seconds since start */
+static u32 _sec_start;
+
+/** Microseconds since start */
+static u32 _usec_start;
+
+/** SDL Framebuffer containing pixel buffer */
 static SDL_Texture *_framebuffer;
+
+/** SDL Window */
 static SDL_Window *_window;
+
+/** SDL Renderer */
 static SDL_Renderer *_renderer;
 
 /* --- MEMORY --- */
@@ -51,6 +69,12 @@ void env_memory_write(u32 addr, const void *data, u32 size)
 	memcpy(_memory + addr, data, size);
 }
 
+/**
+ * @brief Dump emulator memory from address with length
+ *
+ * @param address Start address
+ * @param length Number of bytes
+ */
 void memory_dump(u32 address, u32 length)
 {
 	u32 start, end, i;
@@ -79,6 +103,9 @@ void memory_dump(u32 address, u32 length)
 
 /* --- GRAPHICS --- */
 
+/**
+ * @brief Initialize SDL graphics
+ */
 static void gfx_init(void)
 {
 	/* Init SDL */
@@ -119,6 +146,9 @@ static void gfx_init(void)
 		GFX_WIDTH, GFX_HEIGHT);
 }
 
+/**
+ * @brief Destructor for SDL graphics renderer
+ */
 static void gfx_destroy(void)
 {
 	SDL_DestroyRenderer(_renderer);
@@ -126,6 +156,14 @@ static void gfx_destroy(void)
 	SDL_Quit();
 }
 
+/**
+ * @brief Generate ABGR color from red, green and blue channel values
+ *
+ * @param r Red channel value (0-255)
+ * @param g Green channel value (0-255)
+ * @param b Blue channel value (0-255)
+ * @return ABGR color value
+ */
 static u32 gfx_color(u8 r, u8 g, u8 b)
 {
 	return ((u32)0xFF << 24) |
@@ -134,10 +172,12 @@ static u32 gfx_color(u8 r, u8 g, u8 b)
 		((u32)b);
 }
 
-static inline u8 _abgr_r(u32 color) { return (color >> 24) & 0xFF; }
-static inline u8 _abgr_g(u32 color) { return (color >> 16) & 0xFF; }
-static inline u8 _abgr_b(u32 color) { return (color >>  8) & 0xFF; }
-
+/**
+ * @brief Convert a ABGR color to a ARGB color
+ *
+ * @param color ABGR color value
+ * @return ARGB color value
+ */
 static u32 _abgr_to_argb(u32 color)
 {
 	return gfx_color(
@@ -146,6 +186,15 @@ static u32 _abgr_to_argb(u32 color)
 		_abgr_b(color));
 }
 
+/**
+ * @brief Mix two colors according to a ratio. A ratio of 255 means 100% of
+ *        the first color and 0% of the second color will be mixed together.
+ *
+ * @param color1 First ABGR color
+ * @param color2 Second ABGR color
+ * @param ratio Merge ratio from 0-255
+ * @return Merged ARGB color value
+ */
 static u32 _color_merge(u32 color1, u32 color2, u32 ratio)
 {
 	u8 r1, g1, b1, r2, g2, b2;
@@ -164,6 +213,12 @@ static u32 _color_merge(u32 color1, u32 color2, u32 ratio)
 		(b1 * ratio + b2 * (255 - ratio)) / 255);
 }
 
+/**
+ * @brief Convert a RGB565 color to an BGRA color
+ *
+ * @param color RGB565 color
+ * @return BGRA color
+ */
 static u32 _rgb565_to_bgra(u16 color)
 {
 	u32 r, g, b;
@@ -173,7 +228,7 @@ static u32 _rgb565_to_bgra(u16 color)
 	return gfx_color(r, g, b);
 }
 
-void env_gfx_rect(i32 x, i32 y, i32 w, i32 h, u32 color)
+void env_gfx_rect(u16 x, u16 y, u16 w, u16 h, u32 color)
 {
 	i32 x0, y0;
 
@@ -187,41 +242,7 @@ void env_gfx_rect(i32 x, i32 y, i32 w, i32 h, u32 color)
 	}
 }
 
-void env_gfx_image_rgba(i32 x, i32 y, i32 w, i32 h, u32 addr)
-{
-	i32 x0, y0;
-	u32 *image;
-
-	image = (u32 *)(_memory + addr);
-	for(y0 = y; y0 < y + h; ++y0)
-	{
-		for(x0 = x; x0 < x + w; ++x0)
-		{
-			_pixels[y0 * GFX_WIDTH + x0] = _abgr_to_argb(*image++);
-		}
-	}
-}
-
-void env_gfx_image_rgb(i32 x, i32 y, i32 w, i32 h, u32 addr)
-{
-	u8 r, g, b;
-	i32 x0, y0;
-	u8 *image;
-
-	image = (u8 *)(_memory + addr);
-	for(y0 = y; y0 < y + h; ++y0)
-	{
-		for(x0 = x; x0 < x + w; ++x0)
-		{
-			r = *image++;
-			g = *image++;
-			b = *image++;
-			_pixels[y0 * GFX_WIDTH + x0] = gfx_color(r, g, b);
-		}
-	}
-}
-
-void env_gfx_image_rgb565(i32 x, i32 y, i32 w, i32 h, u32 addr)
+void env_gfx_image_rgb565(u16 x, u16 y, u16 w, u16 h, u32 addr)
 {
 	i32 x0, y0;
 	u16 *image;
@@ -237,7 +258,7 @@ void env_gfx_image_rgb565(i32 x, i32 y, i32 w, i32 h, u32 addr)
 }
 
 void env_gfx_image_grayscale(
-	i32 x, i32 y, i32 w, i32 h, u32 addr, u32 fg, u32 bg)
+	u16 x, u16 y, u16 w, u16 h, u32 addr, u32 fg, u32 bg)
 {
 	i32 x0, y0;
 	u8 *image;
@@ -254,7 +275,7 @@ void env_gfx_image_grayscale(
 }
 
 void env_gfx_image_1bit(
-	i32 x, i32 y, i32 w, i32 h, u32 addr, u32 fg, u32 bg)
+	u16 x, u16 y, u16 w, u16 h, u32 addr, u32 fg, u32 bg)
 {
 	u8 byte, stride;
 	i32 x0, y0, byte_offset, bit_mask;
@@ -301,6 +322,9 @@ u32 env_random_get(void)
 
 /* --- TIMER --- */
 
+/**
+ * @brief Initialize simulated millisecond timer
+ */
 static void timer_init(void)
 {
 	struct timeval ts;
@@ -321,9 +345,16 @@ u32 env_millis(void)
 
 /* --- KEYBOARD --- */
 
-static Key _convert_key(i32 scancode, i32 mod)
+/**
+ * @brief Combine scancode and key modifiers into one value
+ *
+ * @param scancode Scancode
+ * @param mod Key Modifiers
+ * @return Combined Keycode
+ */
+static u32 _convert_key(i32 scancode, i32 mod)
 {
-	Key key = scancode;
+	u32 key = scancode;
 
 	if(mod & (KMOD_LCTRL | KMOD_RCTRL))
 	{
@@ -355,6 +386,13 @@ static Key _convert_key(i32 scancode, i32 mod)
 
 /* --- MAIN --- */
 
+/**
+ * @brief Simulator main function
+ *
+ * @param argc Number of command line parameters
+ * @param argv Array of command line parameters
+ * @return Exit code
+ */
 int main(int argc, char **argv)
 {
 	bool running = true;
@@ -399,7 +437,7 @@ int main(int argc, char **argv)
 
 			case SDL_KEYDOWN:
 				{
-					Key key;
+					u32 key;
 					if(e.key.keysym.sym == SDLK_ESCAPE)
 					{
 						running = false;
@@ -414,7 +452,7 @@ int main(int argc, char **argv)
 
 			case SDL_KEYUP:
 				{
-					Key key = _convert_key(e.key.keysym.scancode, e.key.keysym.mod);
+					u32 key = _convert_key(e.key.keysym.scancode, e.key.keysym.mod);
 					keyboard_event(key, key_to_codepoint(key), KEYSTATE_RELEASED);
 				}
 				break;

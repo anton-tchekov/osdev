@@ -172,10 +172,9 @@ static u8 _sd_command(u8 cmd, u32 arg)
  *
  * @param cmd Command number
  * @param arg Address parameter
- * @param out Output byte
  * @return Status response
  */
-static Status _sd_command_try(u8 cmd, u32 arg, u8 *out)
+static Status _sd_command_try(u8 cmd, u32 arg)
 {
 	u8 i, response;
 	RETURN_IF(spi_tx_try(0xFF));
@@ -184,21 +183,7 @@ static Status _sd_command_try(u8 cmd, u32 arg, u8 *out)
 	RETURN_IF(spi_tx_try(arg >> 16));
 	RETURN_IF(spi_tx_try(arg >> 8));
 	RETURN_IF(spi_tx_try(arg));
-	switch(cmd)
-	{
-	case CMD_GO_IDLE_STATE:
-		RETURN_IF(spi_tx_try(0x95));
-		break;
-
-	case CMD_SEND_IF_COND:
-		RETURN_IF(spi_tx_try(0x87));
-		break;
-
-	default:
-		RETURN_IF(spi_tx_try(0xFF));
-		break;
-	}
-
+	RETURN_IF(spi_tx_try(0xFF));
 	for(i = 0; ; ++i)
 	{
 		RETURN_IF(spi_rx_try(&response));
@@ -213,7 +198,12 @@ static Status _sd_command_try(u8 cmd, u32 arg, u8 *out)
 		}
 	}
 
-	*out = response;
+	if(response)
+	{
+		SD_DESELECT;
+		return STATUS_FAIL;
+	}
+
 	return STATUS_OK;
 }
 
@@ -563,22 +553,16 @@ Status sd_read(u32 block, void *data)
 	u8 *data8, response;
 
 	data8 = data;
-
 	SD_SELECT;
 
 	/* Start read */
 	RETURN_IF(_sd_command_try(CMD_READ_SINGLE_BLOCK,
-		_sd_block_addr(block), &response));
-	if(response)
-	{
-		SD_DESELECT;
-		return STATUS_FAIL;
-	}
+		_sd_block_addr(block)));
 
 	/* Wait for ready */
 	for(i = 0; ; ++i)
 	{
-		RETURN_IF(spi_xchg_try(0xFF, &response));
+		RETURN_IF(spi_rx_try(&response));
 		if(response == 0xFE)
 		{
 			break;
@@ -594,14 +578,53 @@ Status sd_read(u32 block, void *data)
 	/* Read data */
 	for(i = 0; i < BLOCK_SIZE; ++i)
 	{
-		if(spi_rx_try(&data8[i]))
-		{
-			return STATUS_TIMEOUT;
-		}
+		RETURN_IF(spi_rx_try(&data8[i]));
 	}
 
 	RETURN_IF(spi_tx_try(0xFF));
 	RETURN_IF(spi_tx_try(0xFF));
+	RETURN_IF(spi_tx_try(0xFF));
+	SD_DESELECT;
+	return STATUS_OK;
+}
+
+Status sd_write(u32 block, const void *data)
+{
+	u16 i;
+	u8 response;
+	const u8 *data8;
+
+	data8 = data;
+	SD_SELECT;
+
+	/* Start write */
+	RETURN_IF(_sd_command_try(CMD_WRITE_SINGLE_BLOCK,
+		_sd_block_addr(block)))
+	RETURN_IF(spi_tx_try(0xFE));
+	for(i = 0; i < 512; ++i)
+	{
+		RETURN_IF(spi_tx_try(*data8++));
+	}
+
+	RETURN_IF(spi_tx_try(0xFF));
+	RETURN_IF(spi_tx_try(0xFF));
+
+	/* Wait for ready */
+	for(i = 0; ; ++i)
+	{
+		RETURN_IF(spi_rx_try(&response));
+		if(response == 0xFF)
+		{
+			break;
+		}
+
+		if(i == 0xFFFF)
+		{
+			SD_DESELECT;
+			return STATUS_TIMEOUT;
+		}
+	}
+
 	RETURN_IF(spi_tx_try(0xFF));
 	SD_DESELECT;
 	return STATUS_OK;

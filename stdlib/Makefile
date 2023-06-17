@@ -1,5 +1,6 @@
 INCLUDE=\
 	-I $(PREFIX)/algo/ \
+	-I $(PREFIX)/disk/ \
 	-I $(PREFIX)/alloc/ \
 	-I $(PREFIX)/clipboard/ \
 	-I $(PREFIX)/ctype/ \
@@ -17,26 +18,25 @@ INCLUDE=\
 	-I $(PREFIX)/syscall/ \
 	-I $(PREFIX)/time/ \
 	-I $(PREFIX)/vector/ \
-	-I $(PREFIX)/../status/ \
-	-I $(PREFIX)/../types/ \
-	-I $(PREFIX)/../utf8/ \
-	-I $(PREFIX)/../util/ \
-	-I $(PREFIX)/../keyboard/ \
-	-I $(PREFIX)/../gfx-types/ \
-	-I $(PREFIX)/../event-types/ \
+	-I $(PREFIX)/../shared/status/ \
+	-I $(PREFIX)/../shared/types/ \
+	-I $(PREFIX)/../shared/utf8/ \
+	-I $(PREFIX)/../shared/util/ \
+	-I $(PREFIX)/../shared/keyboard/ \
+	-I $(PREFIX)/../shared/gfx-types/ \
+	-I $(PREFIX)/../shared/event-types/ \
+
+# -I $(PREFIX)/fs/ \
 
 SRC=\
 	$(PREFIX)/algo/algo.c \
+	$(PREFIX)/disk/disk.c \
 	$(PREFIX)/alloc/alloc.c \
 	$(PREFIX)/clipboard/clipboard.c \
 	$(PREFIX)/ctype/ctype.c \
 	$(PREFIX)/event/event.c \
 	$(PREFIX)/font/font.c \
 	$(PREFIX)/font/font_default.c \
-	$(PREFIX)/font/arial.c \
-	$(PREFIX)/font/fatty.c \
-	$(PREFIX)/font/ubuntu_bold.c \
-	$(PREFIX)/font/ubuntu_regular.c \
 	$(PREFIX)/format/format.c \
 	$(PREFIX)/gfx/gfx.c \
 	$(PREFIX)/gui/gui.c \
@@ -47,8 +47,10 @@ SRC=\
 	$(PREFIX)/string/string.c \
 	$(PREFIX)/time/time.c \
 	$(PREFIX)/vector/vector.c \
-	$(PREFIX)/../status/status.c \
-	$(PREFIX)/../utf8/utf8.c \
+	$(PREFIX)/../shared/status/status.c \
+	$(PREFIX)/../shared/utf8/utf8.c \
+
+# $(PREFIX)/fs/fs.c \
 
 CFLAGS=\
 	-Wall \
