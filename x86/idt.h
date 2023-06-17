@@ -6,10 +6,8 @@
 #define low_16(address) (u16)((address)&0xFFFF)
 #define high_16(address) (u16)(((address) >> 16) & 0xFFFF)
 
-/* Segment selectors */
 #define KERNEL_CS 0x08
 
-/* How every interrupt gate (handler) is defined */
 typedef struct
 {
     u16 low_offset; /* Lower 16 bits of handler function address */
@@ -34,8 +32,7 @@ typedef struct
 
 #define IDT_ENTRIES 256
 
-/* Functions implemented in idt.c */
 void set_idt_gate(int n, u32 handler);
-void set_idt();
+void set_idt(void);
 
 #endif

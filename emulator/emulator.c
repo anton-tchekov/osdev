@@ -55,12 +55,26 @@ static void emulator_dump_registers(Emulator *emu)
 /** Empty logger */
 #define EMU_LOG(...)
 
+#ifdef LINUX
+
+/** Print to terminal */
+#define EMU_LOG_2(...) { printf(__VA_ARGS__); fputc('\n', stdout); }
+
+#elif defined(AVR)
+
+#include <logger.h>
+
+/** Print to serial/LCD */
+#define EMU_LOG_2(...) log_boot_P(LOG_EXT, __VA_ARGS__)
+
+#endif /* LINUX */
+
 #endif /* DEBUG */
 
 /* --- OPCODES --- */
 
 /** Maximum number of tasks */
-#define MAX_TASKS        1
+#define MAX_TASKS        3
 
 /** Opcode for Load instructions */
 #define OPCODE_LOAD   0x00
@@ -108,30 +122,26 @@ static inline u32 sext(u8 bits, u32 value)
 /** Called function finished flag */
 static bool _finished;
 
+/** Current task bank */
+static u8 _cur_task;
+
 /** List of currently running tasks */
 static Emulator _tasks[MAX_TASKS];
 
 /** Currently active task */
 static Emulator *_emu = &_tasks[0];
 
-/** Total size of the memory in bytes */
-static u32 _memory_size;
-
 void kernel_init(void)
 {
-	_memory_size = env_memory_size();
-	_emu->SegmentStart = 0;
-	_emu->SegmentSize = _memory_size;
-	_emu->SegmentEnd = _memory_size;
-	emulator_call(_emu, 0, NULL, 0, _memory_size);
+	emulator_call(_emu, 0, NULL, 0);
 }
 
-void os_update(void)
+void kernel_update(void)
 {
 	u32 addr = _emu->Events[EVENT_LOOP];
 	if(addr)
 	{
-		emulator_call(_emu, addr, NULL, 0, _memory_size);
+		emulator_call(_emu, addr, NULL, 0);
 	}
 }
 
@@ -141,7 +151,7 @@ void keyboard_event(u16 key, char chr, KeyState down)
 	if(addr)
 	{
 		u32 args[] = { key, chr, down };
-		emulator_call(_emu, addr, args, ARRLEN(args), _memory_size);
+		emulator_call(_emu, addr, args, ARRLEN(args));
 	}
 }
 
@@ -164,20 +174,6 @@ static u8 _gfx_check_bounds(u16 x, u16 y, u16 w, u16 h)
 		(y + h > GFX_HEIGHT);
 }
 
-/**
- * @brief Check memory location permissions
- *
- * @param addr Start address
- * @param size Size of the block to be accessed
- * @return Non-zero if invalid
- */
-static u8 _memory_check_bounds(u32 addr, u32 size)
-{
-	return (addr >= _emu->SegmentEnd) ||
-		(size >= _emu->SegmentSize) ||
-		(addr + size >= _emu->SegmentEnd);
-}
-
 /* --- Store --- */
 
 /**
@@ -185,19 +181,11 @@ static u8 _memory_check_bounds(u32 addr, u32 size)
  *
  * @param addr The address at which to store the value
  * @param value The value to store
- * @return Non-zero if out ouf bounds
  */
-static u8 memory_sb(u32 addr, u32 value)
+static void memory_sb(u32 addr, u32 value)
 {
 	i8 value8 = (i8)value;
-	addr += _emu->SegmentStart;
-	if(_memory_check_bounds(addr, sizeof(value8)))
-	{
-		return 1;
-	}
-
-	env_memory_write(addr, &value8, sizeof(value8));
-	return 0;
+	env_memory_write(_cur_task, addr & XMEM_CHIP_MASK, &value8, sizeof(value8));
 }
 
 /**
@@ -205,19 +193,11 @@ static u8 memory_sb(u32 addr, u32 value)
  *
  * @param addr The address at which to store the value
  * @param value The value to store
- * @return Non-zero if out ouf bounds
  */
-static u8 memory_sh(u32 addr, u32 value)
+static void memory_sh(u32 addr, u32 value)
 {
 	i16 value16 = (i16)value;
-	addr += _emu->SegmentStart;
-	if(_memory_check_bounds(addr, sizeof(value16)))
-	{
-		return 1;
-	}
-
-	env_memory_write(addr, &value16, sizeof(value16));
-	return 0;
+	env_memory_write(_cur_task, addr & XMEM_CHIP_MASK, &value16, sizeof(value16));
 }
 
 /**
@@ -225,18 +205,10 @@ static u8 memory_sh(u32 addr, u32 value)
  *
  * @param addr The address at which to store the value
  * @param value The value to store
- * @return Non-zero if out ouf bounds
  */
-static u8 memory_sw(u32 addr, u32 value)
+static void memory_sw(u32 addr, u32 value)
 {
-	addr += _emu->SegmentStart;
-	if(_memory_check_bounds(addr, sizeof(value)))
-	{
-		return 1;
-	}
-
-	env_memory_write(addr, &value, sizeof(value));
-	return 0;
+	env_memory_write(_cur_task, addr & XMEM_CHIP_MASK, &value, sizeof(value));
 }
 
 /* --- Load --- */
@@ -244,105 +216,65 @@ static u8 memory_sw(u32 addr, u32 value)
  * @brief Load a signed byte and perform sign-extension
  *
  * @param addr The address from which to load the value
- * @param out Output parameter for the loaded value
- * @return Non-zero if out ouf bounds
+ * @return Loaded value
  */
-static u8 memory_lb(u32 addr, u32 *out)
+static u32 memory_lb(u32 addr)
 {
 	i8 value8;
-	addr += _emu->SegmentStart;
-	if(_memory_check_bounds(addr, sizeof(value8)))
-	{
-		return 1;
-	}
-
-	env_memory_read(addr, &value8, sizeof(value8));
-	*out = (i32)value8;
-	return 0;
+	env_memory_read(_cur_task, addr & XMEM_CHIP_MASK, &value8, sizeof(value8));
+	return (i32)value8;
 }
 
 /**
  * @brief Load a 16-bit signed half-word and perform sign extension
  *
  * @param addr The address from which to load the value
- * @param out Output parameter for the loaded value
- * @return Non-zero if out ouf bounds
+ * @return Loaded value
  */
-static u8 memory_lh(u32 addr, u32 *out)
+static u32 memory_lh(u32 addr)
 {
 	i16 value16;
-	addr += _emu->SegmentStart;
-	if(_memory_check_bounds(addr, sizeof(value16)))
-	{
-		return 1;
-	}
-
-	env_memory_read(addr, &value16, sizeof(value16));
-	*out = (i32)value16;
-	return 0;
+	env_memory_read(_cur_task, addr & XMEM_CHIP_MASK, &value16, sizeof(value16));
+	return (i32)value16;
 }
 
 /**
  * @brief Load a 32-bit word
  *
  * @param addr The address from which to load the value
- * @param out Output parameter for the loaded value
- * @return Non-zero if out ouf bounds
+ * @return Loaded value
  */
-static u8 memory_lw(u32 addr, u32 *out)
+static u32 memory_lw(u32 addr)
 {
 	u32 value;
-	addr += _emu->SegmentStart;
-	if(_memory_check_bounds(addr, sizeof(value)))
-	{
-		return 1;
-	}
-
-	env_memory_read(addr, &value, sizeof(value));
-	*out = value;
-	return 0;
+	env_memory_read(_cur_task, addr & XMEM_CHIP_MASK, &value, sizeof(value));
+	return value;
 }
 
 /**
  * @brief Load an unsigned byte
  *
  * @param addr The address from which to load the value
- * @param out Output parameter for the loaded value
- * @return Non-zero if out ouf bounds
+ * @return Loaded value
  */
-static u8 memory_lbu(u32 addr, u32 *out)
+static u32 memory_lbu(u32 addr)
 {
 	u8 value8;
-	addr += _emu->SegmentStart;
-	if(_memory_check_bounds(addr, sizeof(value8)))
-	{
-		return 1;
-	}
-
-	env_memory_read(addr, &value8, sizeof(value8));
-	*out = value8;
-	return 0;
+	env_memory_read(_cur_task, addr & XMEM_CHIP_MASK, &value8, sizeof(value8));
+	return value8;
 }
 
 /**
  * @brief Load an unsigned 16-bit half-word
  *
  * @param addr The address from which to load the value
- * @param out Output parameter for the loaded value
- * @return Non-zero if out ouf bounds
+ * @return Loaded value
  */
-static u8 memory_lhu(u32 addr, u32 *out)
+static u32 memory_lhu(u32 addr)
 {
 	u16 value16;
-	addr += _emu->SegmentStart;
-	if(_memory_check_bounds(addr, sizeof(value16)))
-	{
-		return 1;
-	}
-
-	env_memory_read(addr, &value16, sizeof(value16));
-	*out = value16;
-	return 0;
+	env_memory_read(_cur_task, addr & XMEM_CHIP_MASK, &value16, sizeof(value16));
+	return value16;
 }
 
 /* --- Syscalls --- */
@@ -438,7 +370,7 @@ static u8 syscall_serial_write(u32 *args)
 
 	ptr = args[0];
 	len = args[1];
-	if(_memory_check_bounds(ptr, len))
+	if(ptr > XMEM_CHIP_SIZE - len)
 	{
 		return 1;
 	}
@@ -446,7 +378,7 @@ static u8 syscall_serial_write(u32 *args)
 	while(len)
 	{
 		cur = len > sizeof(buf) ? sizeof(buf) : len;
-		env_memory_read(ptr, buf, cur);
+		env_memory_read(_cur_task, ptr, buf, cur);
 		env_serial_write(buf, cur);
 		len -= cur;
 		ptr += cur;
@@ -484,129 +416,6 @@ static u8 syscall_gfx_rect(u32 *args)
 	return 0;
 }
 
-/**
- * @brief System call to draw an RGB565 image
- *
- * @param args args[0]: X-Coordinate
- *             args[1]: Y-Coordinate
- *             args[2]: Width
- *             args[3]: Height
- *             args[4]: Pointer to RGB565 image
- * @return Non-zero on error
- */
-static u8 syscall_gfx_image_rgb565(u32 *args)
-{
-	u32 image, bytes;
-	u16 x, y, w, h;
-
-	x = args[0];
-	y = args[1];
-	w = args[2];
-	h = args[3];
-	if(_gfx_check_bounds(x, y, w, h))
-	{
-		return 1;
-	}
-
-	image = args[4];
-	bytes = (u32)2 * (u32)w * (u32)h;
-	if(_memory_check_bounds(image, bytes))
-	{
-		return 1;
-	}
-
-	env_gfx_image_rgb565(x, y, w, h, image);
-	return 0;
-}
-
-/**
- * @brief System call to draw a grayscale image
- *
- * @param args args[0]: Pointer to rectangle struct
- *             args[1]: Pointer to grayscale image
- *             args[2]: ABGR Foreground color
- *             args[3]: ABGR Background color
- * @return Non-zero on error
- */
-static u8 syscall_gfx_image_grayscale(u32 *args)
-{
-	u16 x, y, w, h;
-	u32 image, bytes, rect_addr, fg, bg;
-	Rectangle rect;
-
-	rect_addr = args[0];
-	if(_memory_check_bounds(rect_addr, sizeof(rect)))
-	{
-		return 1;
-	}
-
-	env_memory_read(rect_addr, &rect, sizeof(rect));
-	x = rect.X;
-	y = rect.Y;
-	w = rect.W;
-	h = rect.H;
-	if(_gfx_check_bounds(x, y, w, h))
-	{
-		return 1;
-	}
-
-	image = args[1];
-	bytes = (u32)w * (u32)h;
-	if(_memory_check_bounds(image, bytes))
-	{
-		return 1;
-	}
-
-	fg = args[2];
-	bg = args[3];
-	env_gfx_image_grayscale(x, y, w, h, image, fg, bg);
-	return 0;
-}
-
-/**
- * @brief System call to draw a 1-bit-per-pixel image
- *
- * @param args args[0]: Pointer to rectangle struct
- *             args[1]: Pointer to 1bpp image
- *             args[2]: ABGR Foreground color
- *             args[3]: ABGR Background color
- * @return Non-zero on error
- */
-static u8 syscall_gfx_image_1bit(u32 *args)
-{
-	u16 x, y, w, h;
-	u32 image, bytes, rect_addr, fg, bg;
-	Rectangle rect;
-
-	rect_addr = args[0];
-	if(_memory_check_bounds(rect_addr, sizeof(rect)))
-	{
-		return 1;
-	}
-
-	env_memory_read(rect_addr, &rect, sizeof(rect));
-	x = rect.X;
-	y = rect.Y;
-	w = rect.W;
-	h = rect.H;
-	if(_gfx_check_bounds(x, y, w, h))
-	{
-		return 1;
-	}
-
-	image = args[1];
-	bytes = (u32)w * (u32)h;
-	if(_memory_check_bounds(image, bytes))
-	{
-		return 1;
-	}
-
-	fg = args[2];
-	bg = args[3];
-	env_gfx_image_1bit(x, y, w, h, image, fg, bg);
-	return 0;
-}
-
 /** System call function pointer array */
 static u8 (*syscalls[])(u32 *) =
 {
@@ -615,9 +424,6 @@ static u8 (*syscalls[])(u32 *) =
 	syscall_event_register,
 
 	syscall_gfx_rect,
-	syscall_gfx_image_rgb565,
-	syscall_gfx_image_grayscale,
-	syscall_gfx_image_1bit,
 
 	syscall_rand,
 	syscall_serial_write,
@@ -633,6 +439,7 @@ static u8 (*syscalls[])(u32 *) =
  */
 static u8 syscall(u32 id, u32 *args)
 {
+	EMU_LOG(PSTR("ecall %"PRIu32""), id);
 	if(id >= ARRLEN(syscalls))
 	{
 		return 1;
@@ -652,10 +459,7 @@ static u8 syscall(u32 id, u32 *args)
 static u8 emulator_next(Emulator *emu)
 {
 	u32 instr, opcode;
-	if(memory_lw(emu->PC, &instr))
-	{
-		return 1;
-	}
+	instr = memory_lw(emu->PC);
 
 	/* r0 = Zero Register */
 	emu->Registers[0] = 0;
@@ -694,46 +498,31 @@ static u8 emulator_next(Emulator *emu)
 				case 0:
 					/* LB */
 					EMU_LOG(PSTR("lb r%"PRIu8", r%"PRIu8"%+"PRIi32), rd, rs1, offset);
-					if(memory_lb(emu->Registers[rs1] + offset, &emu->Registers[rd]))
-					{
-						return 1;
-					}
+					emu->Registers[rd] = memory_lb(emu->Registers[rs1] + offset);
 					break;
 
 				case 1:
 					/* LH */
 					EMU_LOG(PSTR("lh r%"PRIu8", r%"PRIu8"%+"PRIi32), rd, rs1, offset);
-					if(memory_lh(emu->Registers[rs1] + offset, &emu->Registers[rd]))
-					{
-						return 1;
-					}
+					emu->Registers[rd] = memory_lh(emu->Registers[rs1] + offset);
 					break;
 
 				case 2:
 					/* LW */
 					EMU_LOG(PSTR("lw r%"PRIu8", r%"PRIu8"%+"PRIi32), rd, rs1, offset);
-					if(memory_lw(emu->Registers[rs1] + offset, &emu->Registers[rd]))
-					{
-						return 1;
-					}
+					emu->Registers[rd] = memory_lw(emu->Registers[rs1] + offset);
 					break;
 
 				case 4:
 					/* LBU */
 					EMU_LOG(PSTR("lbu r%"PRIu8", r%"PRIu8"%+"PRIi32), rd, rs1, offset);
-					if(memory_lbu(emu->Registers[rs1] + offset, &emu->Registers[rd]))
-					{
-						return 1;
-					}
+					emu->Registers[rd] = memory_lbu(emu->Registers[rs1] + offset);
 					break;
 
 				case 5:
 					/* LHU */
 					EMU_LOG(PSTR("lhu r%"PRIu8", r%"PRIu8"%+"PRIi32), rd, rs1, offset);
-					if(memory_lhu(emu->Registers[rs1] + offset, &emu->Registers[rd]))
-					{
-						return 1;
-					}
+					emu->Registers[rd] = memory_lhu(emu->Registers[rs1] + offset);
 					break;
 
 				default:
@@ -847,28 +636,19 @@ static u8 emulator_next(Emulator *emu)
 				case 0:
 					/* SB */
 					EMU_LOG(PSTR("sb r%"PRIu8"%+"PRIi32", r%"PRIu8), rs1, offset, rs2);
-					if(memory_sb(emu->Registers[rs1] + offset, emu->Registers[rs2]))
-					{
-						return 1;
-					}
+					memory_sb(emu->Registers[rs1] + offset, emu->Registers[rs2]);
 					break;
 
 				case 1:
 					/* SH */
 					EMU_LOG(PSTR("sh r%"PRIu8"%+"PRIi32", r%"PRIu8), rs1, offset, rs2);
-					if(memory_sh(emu->Registers[rs1] + offset, emu->Registers[rs2]))
-					{
-						return 1;
-					}
+					memory_sh(emu->Registers[rs1] + offset, emu->Registers[rs2]);
 					break;
 
 				case 2:
 					/* SW */
 					EMU_LOG(PSTR("sw r%"PRIu8"%+"PRIi32", r%"PRIu8), rs1, offset, rs2);
-					if(memory_sw(emu->Registers[rs1] + offset, emu->Registers[rs2]))
-					{
-						return 1;
-					}
+					memory_sw(emu->Registers[rs1] + offset, emu->Registers[rs2]);
 					break;
 
 				default:
@@ -1156,12 +936,12 @@ static u8 emulator_next(Emulator *emu)
 	return 0;
 }
 
-u8 emulator_call(Emulator *emu, u32 addr, u32 *args, u8 num, u32 sp)
+u8 emulator_call(Emulator *emu, u32 addr, u32 *args, u8 num)
 {
 	u32 i;
 
 	/* Initialize Stack Pointer at end of memory */
-	emu->Registers[2] = sp - 4;
+	emu->Registers[2] = XMEM_CHIP_SIZE - 4;
 	emu->PC = addr;
 	memcpy(&emu->Registers[10], args, num * sizeof(*emu->Registers));
 	i = 0;
@@ -1175,6 +955,6 @@ u8 emulator_call(Emulator *emu, u32 addr, u32 *args, u8 num, u32 sp)
 		}
 	}
 
-	EMU_LOG(PSTR("%"PRIu32" Cycles"), i);
+	EMU_LOG_2(PSTR("%"PRIu32" Cycles"), i);
 	return 0;
 }

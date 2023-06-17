@@ -59,14 +59,14 @@ u32 env_memory_size(void)
 	return sizeof(_memory);
 }
 
-void env_memory_read(u32 addr, void *data, u32 size)
+void env_memory_read(u8 bank, u32 addr, void *data, u32 size)
 {
-	memcpy(data, _memory + addr, size);
+	memcpy(data, _memory + bank * 128 * 1024 + addr, size);
 }
 
-void env_memory_write(u32 addr, const void *data, u32 size)
+void env_memory_write(u8 bank, u32 addr, const void *data, u32 size)
 {
-	memcpy(_memory + addr, data, size);
+	memcpy(_memory + bank * 128 * 1024 + addr, data, size);
 }
 
 /**
@@ -459,7 +459,7 @@ int main(int argc, char **argv)
 			}
 		}
 
-		os_update();
+		kernel_update();
 
 		SDL_UpdateTexture(_framebuffer, NULL, _pixels, GFX_WIDTH * sizeof(u32));
 		SDL_RenderClear(_renderer);

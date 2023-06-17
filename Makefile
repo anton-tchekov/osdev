@@ -17,7 +17,8 @@ CFLAGS=\
 	-Werror=implicit-function-declaration \
 	-pedantic -std=c99 \
 	-g \
-	-l SDL2
+	-l SDL2 \
+	-DLINUX \
 
 LDFLAGS=
 SRC=platform/simulator/platform.c \

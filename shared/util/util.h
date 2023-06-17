@@ -20,7 +20,7 @@
  * @param buf Buffer to write to
  * @param val 32-bit value to write as little endian
  */
-void write_le_32(u8 *buf, u32 val);
+void write_32(u8 *buf, u32 val);
 
 /**
  * @brief Load a 32-bit little endian value from a buffer
@@ -28,6 +28,22 @@ void write_le_32(u8 *buf, u32 val);
  * @param buf Buffer to read little endian value from
  * @return 32-bit result
  */
-u32 load_le_32(u8 *buf);
+u32 read_32(u8 *buf);
+
+/**
+ * @brief Write a 16-bit little endian value to a buffer
+ *
+ * @param buf Buffer to write to
+ * @param val 16-bit value to write as little endian
+ */
+void write_16(u8 *buf, u16 v);
+
+/**
+ * @brief Load a 16-bit little endian value from a buffer
+ *
+ * @param buf Buffer to read little endian value from
+ * @return 16-bit result
+ */
+u16 read_16(u8 *buf);
 
 #endif /* __UTIL_H__ */

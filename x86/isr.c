@@ -6,9 +6,7 @@
 
 isr_t interrupt_handlers[256];
 
-/* Can't do this with a loop because we need the address
- * of the function names */
-void isr_install()
+void isr_install(void)
 {
     set_idt_gate(0, (u32)isr0);
     set_idt_gate(1, (u32)isr1);
@@ -43,7 +41,6 @@ void isr_install()
     set_idt_gate(30, (u32)isr30);
     set_idt_gate(31, (u32)isr31);
 
-    // Remap the PIC
     outb(0x20, 0x11);
     outb(0xA0, 0x11);
     outb(0x21, 0x20);
@@ -55,7 +52,6 @@ void isr_install()
     outb(0x21, 0x0);
     outb(0xA1, 0x0);
 
-    // Install the IRQs
     set_idt_gate(32, (u32)irq0);
     set_idt_gate(33, (u32)irq1);
     set_idt_gate(34, (u32)irq2);
@@ -73,11 +69,11 @@ void isr_install()
     set_idt_gate(46, (u32)irq14);
     set_idt_gate(47, (u32)irq15);
 
-    set_idt(); // Load with ASM
+    set_idt();
 }
 
-/* To print the message which defines every exception */
-char *exception_messages[] = {
+static const char *exception_messages[] =
+{
     "Division By Zero",
     "Debug",
     "Non Maskable Interrupt",
@@ -86,7 +82,6 @@ char *exception_messages[] = {
     "Out of Bounds",
     "Invalid Opcode",
     "No Coprocessor",
-
     "Double Fault",
     "Coprocessor Segment Overrun",
     "Bad TSS",
@@ -95,7 +90,6 @@ char *exception_messages[] = {
     "General Protection Fault",
     "Page Fault",
     "Unknown Interrupt",
-
     "Coprocessor Fault",
     "Alignment Check",
     "Machine Check",
@@ -104,7 +98,6 @@ char *exception_messages[] = {
     "Reserved",
     "Reserved",
     "Reserved",
-
     "Reserved",
     "Reserved",
     "Reserved",
@@ -112,7 +105,8 @@ char *exception_messages[] = {
     "Reserved",
     "Reserved",
     "Reserved",
-    "Reserved"};
+    "Reserved"
+};
 
 void isr_handler(registers_t r)
 {

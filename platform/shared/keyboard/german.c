@@ -58,7 +58,8 @@ char key_to_codepoint(u16 k)
 	}
 	else if(nomods >= KEY_1 && nomods <= KEY_0)
 	{
-		static const char numbers[] PROGMEM = "1234567890";
+		static const char numbers[] PROGMEM =
+			{ '1', '2', '3', '4', '5', '6', '7', '8', '9', '0' };
 
 		static const char numbers_shift[] PROGMEM =
 			{ '!', '\"', 0, '$', '%', '&', '/', '(', ')', '=' };

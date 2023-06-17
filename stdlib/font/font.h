@@ -18,7 +18,7 @@
 /** Character Data struct */
 typedef struct
 {
-	/** Unicode Codepoin */
+	/** Unicode codepoint */
 	i32 Codepoint;
 
 	/** Pixels to move right after char */
@@ -35,9 +35,9 @@ typedef struct
 } FontChar;
 
 /** Font Data struct */
-typedef struct FONT
+typedef struct
 {
-	/** Array of  */
+	/** Array of characters */
 	FontChar *Characters;
 
 	/** Font Size (Height) */

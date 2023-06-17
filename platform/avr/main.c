@@ -6,20 +6,44 @@
  * @brief   AVR Main
  */
 
-#include <ps2.h>
-#include <serial.h>
-#include <adc.h>
-#include <random.h>
-#include <timer.h>
-#include <xmem.h>
-#include <logger.h>
-#include <spi.h>
-#include <lcd.h>
-#include <gpio.h>
-#include <sd.h>
-#include <initrd.h>
+#include <avr/io.h>
+#include <avr/interrupt.h>
 #include <avr/pgmspace.h>
-#include <emulator.h>
+#include <util/delay.h>
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdarg.h>
+#include <ctype.h>
+#include <string.h>
+
+#include <types.h>
+#include <status.h>
+#include <atfs.h>
+#include <event-types.h>
+#include <keyboard-shared.h>
+
+#include <german.c>
+
+#include <util.h>
+#include <logger.h>
+
+#include <timer.c>
+#include <gpio.c>
+#include <serial.c>
+#include <spi.c>
+#include <lcd.c>
+#include <logo/logo_text.c>
+#include <logo/logo_tiny.c>
+#include <logger.c>
+#include <xmem.c>
+#include <adc.c>
+#include <ps2.c>
+#include <random.c>
+#include <sd.c>
+#include <emulator.c>
+#include <initrd.c>
+#include <benchmark.c>
 
 /**
  * @brief AVR Platform main function, loads drivers and starts kernel
@@ -69,19 +93,19 @@ int main(void)
 	/* Initialize SD card driver */
 	sd_init();
 
+	/* Perform CPU and memory benchmark */
+	/* benchmark(); */
+
 	/* --- READY --- */
 
-	/* Load initial ram disk */
+	/* Load init process form disk and start emulator */
 	initrd_load();
-
-	log_boot_P(LOG_NONE, PSTR("\nStarting RISC-V Emulator Kernel ...\n\n"));
-
-	kernel_init();
-	log_boot_P(LOG_EXT, PSTR("Setup done!"));
+	log_boot_P(LOG_NONE, PSTR("\nStarting Emulator Kernel ...\n\n"));
 
 	/* Infinite loop */
 	for(;;)
 	{
+		kernel_update();
 	}
 
 	/* Unreachable */

@@ -13,32 +13,33 @@
 #include <types.h>
 #include <keyboard-shared.h>
 
-/* --- MEMORY --- */
+/** The size of each memory bank in bytes */
+#define XMEM_CHIP_SIZE                 0x20000UL
 
-/**
- * @brief Get the size of the installed memory
- *
- * @return The size of the memory in bytes
- */
-u32 env_memory_size(void);
+/** Chip address mask */
+#define XMEM_CHIP_MASK                 0x1FFFFUL
+
+/* --- MEMORY --- */
 
 /**
  * @brief Read data from physical memory
  *
+ * @param chip Which memory chip
  * @param addr Start address
  * @param data Data buffer
  * @param size Size in bytes
  */
-void env_memory_read(u32 addr, void *data, u32 size);
+void env_memory_read(u8 chip, u32 addr, void *data, u32 size);
 
 /**
  * @brief Write data to physical memory
  *
+ * @param chip Which memory chip
  * @param addr Start address
  * @param data Data buffer
  * @param size Size in bytes
  */
-void env_memory_write(u32 addr, const void *data, u32 size);
+void env_memory_write(u8 chip, u32 addr, const void *data, u32 size);
 
 /* --- GRAPHICS --- */
 
@@ -52,45 +53,6 @@ void env_memory_write(u32 addr, const void *data, u32 size);
  * @param color Fill color
  */
 void env_gfx_rect(u16 x, u16 y, u16 w, u16 h, u32 color);
-
-/**
- * @brief Draw an RGB565 image
- *
- * @param x X-Coordinate
- * @param y Y-Coordinate
- * @param w Width
- * @param h Height
- * @param addr Image memory address
- */
-void env_gfx_image_rgb565(u16 x, u16 y, u16 w, u16 h, u32 addr);
-
-/**
- * @brief Draw a colored grayscale image
- *
- * @param x X-Coordinate
- * @param y Y-Coordinate
- * @param w Width
- * @param h Height
- * @param addr Image memory address
- * @param fg ABGR foreground color
- * @param bg ABGR background color
- */
-void env_gfx_image_grayscale(
-	u16 x, u16 y, u16 w, u16 h, u32 addr, u32 fg, u32 bg);
-
-/**
- * @brief Draw a colored 1-bit image
- *
- * @param x X-Coordinate
- * @param y Y-Coordinate
- * @param w Width
- * @param h Height
- * @param addr Image memory address
- * @param fg ABGR foreground color
- * @param bg ABGR background color
- */
-void env_gfx_image_1bit(
-	u16 x, u16 y, u16 w, u16 h, u32 addr, u32 fg, u32 bg);
 
 /* --- SERIAL --- */
 

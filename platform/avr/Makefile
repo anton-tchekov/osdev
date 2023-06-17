@@ -6,30 +6,11 @@ F_CPU ?= 16000000
 
 TARGET = main
 
-SRCS = \
-	main.c \
-	platform.c \
-	gpio/gpio.c \
-	adc/adc.c \
-	random/random.c \
-	ps2/ps2.c \
-	serial/serial.c \
-	timer/timer.c \
-	spi/spi.c \
-	logger/logger.c \
-	xmem/xmem.c \
-	lcd/lcd.c \
-	sd/sd.c \
-	initrd/initrd.c \
-	../../emulator/emulator.c \
-	../shared/keyboard/german.c \
-	../../shared/util/util.c \
+SRCS = main.c
 
 CFLAGS += \
 	-I . \
 	-I ../../shared/types \
-	-I gpio \
-	-I adc \
 	-I ps2 \
 	-I random \
 	-I sd \
@@ -40,6 +21,7 @@ CFLAGS += \
 	-I logger \
 	-I lcd \
 	-I initrd \
+	-I interpreter \
 	-I ../../shared/status \
 	-I ../../emulator \
 	-I ../../platform \
@@ -51,9 +33,8 @@ CFLAGS += \
 	-I ../../shared/gfx-types \
 
 CFLAGS += \
-	-Wno-array-bounds \
-	-flto
-
+	-DAVR \
+	-Wno-array-bounds
 
 FEATURE_SET_TIME ?= YES
 FEATURE_CHARACTERS ?= YES
@@ -99,18 +80,15 @@ endef
 
 $(foreach i,$(SPECIAL_DEFS),$(eval $(call CHECK_ANSWER,$(i))))
 
-OPT=s
+OPT=2
 
 CFLAGS += -g -O$(OPT) \
 -ffreestanding -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums \
 -Wall -Wstrict-prototypes \
+-Wa,-adhlns=$(<:.c=.lst) \
 -fstack-usage \
 -std=gnu99 -mmcu=$(MCU) \
--I'include/' -DPLATFORM=PLATFORM_AVR \
--DENABLE_FLOAT \
--DENABLE_RANDOM \
--DENABLE_CHAR \
--DENABLE_FILE
+-I'include/'
 
 all: $(TARGET).elf size
 
