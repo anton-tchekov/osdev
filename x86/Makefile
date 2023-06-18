@@ -1,27 +1,52 @@
+CC=gcc
+CFLAGS=-m32 -std=gnu99 -ffreestanding -O2 -Wall -Wextra -fno-stack-protector
+LDFLAGS=-m32 -ffreestanding -O2 -nostdlib
+TARGET=myos
+BIN=$(TARGET).bin
+ISO=$(TARGET).iso
+OBJ=obj
+SRC=src
+ISODIR=isodir/
+LINKER=linker.ld
+ASM=nasm
+ASMFLAGS=-f elf
+
 all: clean build run
 
 build:
-	as --32 boot.s -o boot.o
-	nasm -f elf -o interrupt.o interrupt.s
-	gcc -m32 -c kernel.c -o kernel.o -std=gnu99 -ffreestanding -O2 -Wall -Wextra -fno-stack-protector
-	gcc -m32 -c terminal.c -o terminal.o -std=gnu99 -ffreestanding -O2 -Wall -Wextra -fno-stack-protector
-	gcc -m32 -c stdlib.c -o stdlib.o -std=gnu99 -ffreestanding -O2 -Wall -Wextra -fno-stack-protector
+	$(ASM) $(ASMFLAGS) -o $(OBJ)/boot.o $(SRC)/boot.s
+	$(ASM) $(ASMFLAGS) -o $(OBJ)/interrupt.o $(SRC)/interrupt.s
 
-	gcc -m32 -c gdt.c -o gdt.o -std=gnu99 -ffreestanding -O2 -Wall -Wextra -fno-stack-protector
-	gcc -m32 -c isr.c -o isr.o -std=gnu99 -ffreestanding -O2 -Wall -Wextra -fno-stack-protector
-	gcc -m32 -c idt.c -o idt.o -std=gnu99 -ffreestanding -O2 -Wall -Wextra -fno-stack-protector
-	gcc -m32 -c timer.c -o timer.o -std=gnu99 -ffreestanding -O2 -Wall -Wextra -fno-stack-protector
-	gcc -m32 -c keyboard.c -o keyboard.o -std=gnu99 -ffreestanding -O2 -Wall -Wextra -fno-stack-protector
 
-	gcc -m32 -T linker.ld -o myos.bin -ffreestanding -O2 -nostdlib boot.o keyboard.o interrupt.o kernel.o terminal.o stdlib.o idt.o isr.o gdt.o timer.o -fno-stack-protector
+	$(CC) $(CFLAGS) -c $(SRC)/kernel.c   -o $(OBJ)/kernel.o
+	$(CC) $(CFLAGS) -c $(SRC)/terminal.c -o $(OBJ)/terminal.o
+	$(CC) $(CFLAGS) -c $(SRC)/stdlib.c   -o $(OBJ)/stdlib.o
+	$(CC) $(CFLAGS) -c $(SRC)/gdt.c      -o $(OBJ)/gdt.o
+	$(CC) $(CFLAGS) -c $(SRC)/isr.c      -o $(OBJ)/isr.o
+	$(CC) $(CFLAGS) -c $(SRC)/idt.c      -o $(OBJ)/idt.o
+	$(CC) $(CFLAGS) -c $(SRC)/timer.c    -o $(OBJ)/timer.o
+	$(CC) $(CFLAGS) -c $(SRC)/keyboard.c -o $(OBJ)/keyboard.o
+
+	$(CC) -T $(LINKER) -o $(BIN) $(LDFLAGS) \
+		$(OBJ)/boot.o \
+		$(OBJ)/interrupt.o \
+		$(OBJ)/keyboard.o \
+		$(OBJ)/kernel.o \
+		$(OBJ)/terminal.o \
+		$(OBJ)/stdlib.o \
+		$(OBJ)/idt.o \
+		$(OBJ)/isr.o \
+		$(OBJ)/gdt.o \
+		$(OBJ)/timer.o \
+
 	./isgrub.sh
-	mkdir -p isodir/boot/grub
-	cp myos.bin isodir/boot/myos.bin
-	cp grub.cfg isodir/boot/grub/grub.cfg
-	grub-mkrescue -o myos.iso isodir
+	mkdir -p $(ISODIR)/boot/grub
+	cp $(BIN) $(ISODIR)/boot/$(BIN)
+	cp grub.cfg $(ISODIR)/boot/grub/grub.cfg
+	grub-mkrescue -o $(ISO) $(ISODIR)
 
 run:
-	qemu-system-i386 -cdrom myos.iso
+	qemu-system-i386 -cdrom $(ISO)
 
 clean:
-	rm -f boot.o kernel.o
+	rm -f $(OBJ)/*.o
