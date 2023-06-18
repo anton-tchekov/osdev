@@ -11,8 +11,9 @@ build:
 	gcc -m32 -c isr.c -o isr.o -std=gnu99 -ffreestanding -O2 -Wall -Wextra -fno-stack-protector
 	gcc -m32 -c idt.c -o idt.o -std=gnu99 -ffreestanding -O2 -Wall -Wextra -fno-stack-protector
 	gcc -m32 -c timer.c -o timer.o -std=gnu99 -ffreestanding -O2 -Wall -Wextra -fno-stack-protector
+	gcc -m32 -c keyboard.c -o keyboard.o -std=gnu99 -ffreestanding -O2 -Wall -Wextra -fno-stack-protector
 
-	gcc -m32 -T linker.ld -o myos.bin -ffreestanding -O2 -nostdlib boot.o interrupt.o kernel.o terminal.o stdlib.o idt.o isr.o gdt.o timer.o -fno-stack-protector
+	gcc -m32 -T linker.ld -o myos.bin -ffreestanding -O2 -nostdlib boot.o keyboard.o interrupt.o kernel.o terminal.o stdlib.o idt.o isr.o gdt.o timer.o -fno-stack-protector
 	./isgrub.sh
 	mkdir -p isodir/boot/grub
 	cp myos.bin isodir/boot/myos.bin

@@ -27,4 +27,3 @@ static inline void io_wait(void)
 }
 
 #endif /* __IO_H__ */
-

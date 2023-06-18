@@ -1,43 +1,44 @@
 #include "gdt.h"
+#include "timer.h"
 
-struct gdt_entry
+typedef struct
 {
-    unsigned short limit_low;
-    unsigned short base_low;
-    unsigned char base_middle;
-    unsigned char access;
-    unsigned char granularity;
-    unsigned char base_high;
-} __attribute__((packed));
+	u16 limit_low;
+	u16 base_low;
+	u8 base_middle;
+	u8 access;
+	u8 granularity;
+	u8 base_high;
+} __attribute__((packed)) gdt_entry_t;
 
-struct gdt_ptr
+typedef struct
 {
-    unsigned short limit;
-    unsigned int base;
-} __attribute__((packed));
+	u16 limit;
+	u32 base;
+} __attribute__((packed)) gdt_ptr_t;
 
-struct gdt_entry gdt[3];
-struct gdt_ptr gp;
+gdt_entry_t gdt[3];
+gdt_ptr_t gp;
 
-extern void gdt_flush();
+void gdt_flush(void);
 
-void gdt_set_gate(int num, unsigned long base, unsigned long limit, unsigned char access, unsigned char gran)
+void gdt_set_gate(u32 num, u32 base, u32 limit, u8 access, u8 gran)
 {
-    gdt[num].base_low = (base & 0xFFFF);
-    gdt[num].base_middle = (base >> 16) & 0xFF;
-    gdt[num].base_high = (base >> 24) & 0xFF;
-    gdt[num].limit_low = (limit & 0xFFFF);
-    gdt[num].granularity = ((limit >> 16) & 0x0F);
-    gdt[num].granularity |= (gran & 0xF0);
-    gdt[num].access = access;
+	gdt[num].base_low = (base & 0xFFFF);
+	gdt[num].base_middle = (base >> 16) & 0xFF;
+	gdt[num].base_high = (base >> 24) & 0xFF;
+	gdt[num].limit_low = (limit & 0xFFFF);
+	gdt[num].granularity = ((limit >> 16) & 0x0F);
+	gdt[num].granularity |= (gran & 0xF0);
+	gdt[num].access = access;
 }
 
 void gdt_init(void)
 {
-    gp.limit = (sizeof(struct gdt_entry) * 3) - 1;
-    gp.base = (unsigned)&gdt;
-    gdt_set_gate(0, 0, 0, 0, 0);
-    gdt_set_gate(1, 0, 0xFFFFFFFF, 0x9A, 0xCF);
-    gdt_set_gate(2, 0, 0xFFFFFFFF, 0x92, 0xCF);
-    gdt_flush();
+	gp.limit = 3 * sizeof(gdt_entry_t) - 1;
+	gp.base = (u32)&gdt;
+	gdt_set_gate(0, 0, 0, 0, 0);
+	gdt_set_gate(1, 0, 0xFFFFFFFF, 0x9A, 0xCF);
+	gdt_set_gate(2, 0, 0xFFFFFFFF, 0x92, 0xCF);
+	gdt_flush();
 }

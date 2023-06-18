@@ -24,13 +24,9 @@ typedef enum
 } TerminalColor;
 
 void terminal_init(void);
-
 void terminal_set_color(TerminalColor fg, TerminalColor bg);
-
 void terminal_put(char c, TerminalColor fg, TerminalColor bg, u32 x, u32 y);
-
 void terminal_char(char c);
-
 void terminal_string(const char *str);
 
 #endif /* __TERMINAL_H__ */
