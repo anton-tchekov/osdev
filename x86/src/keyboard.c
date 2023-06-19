@@ -1,6 +1,9 @@
 #include "keyboard.h"
+#include "terminal.h"
+#include "stdlib.h"
 #include "io.h"
 #include "isr.h"
+#include "graphics.h"
 
 static void keyboard_callback(registers_t regs)
 {
@@ -12,6 +15,16 @@ static void keyboard_callback(registers_t regs)
 	terminal_string(", ");
 	//terminal_char(scancode);
 	terminal_string("\n");
+
+	static u32 _x = 10;
+	static u8 _r = 128, _g = 0;
+
+	graphics_rect(_x, 200, 50, 50, graphics_color(_r, _g, 0));
+	_x += 2;
+	_r++;
+	_g++;
+
+	(void)regs;
 }
 
 void keyboard_init(void)

@@ -26,6 +26,8 @@ build:
 	$(CC) $(CFLAGS) -c $(SRC)/idt.c      -o $(OBJ)/idt.o
 	$(CC) $(CFLAGS) -c $(SRC)/timer.c    -o $(OBJ)/timer.o
 	$(CC) $(CFLAGS) -c $(SRC)/keyboard.c -o $(OBJ)/keyboard.o
+	$(CC) $(CFLAGS) -c $(SRC)/graphics.c -o $(OBJ)/graphics.o
+	$(CC) $(CFLAGS) -c $(SRC)/mouse.c    -o $(OBJ)/mouse.o
 
 	$(CC) -T $(LINKER) -o $(BIN) $(LDFLAGS) \
 		$(OBJ)/boot.o \
@@ -38,6 +40,8 @@ build:
 		$(OBJ)/isr.o \
 		$(OBJ)/gdt.o \
 		$(OBJ)/timer.o \
+		$(OBJ)/graphics.o \
+		$(OBJ)/mouse.o \
 
 	./isgrub.sh
 	mkdir -p $(ISODIR)/boot/grub
@@ -46,7 +50,7 @@ build:
 	grub-mkrescue -o $(ISO) $(ISODIR)
 
 run:
-	qemu-system-i386 -cdrom $(ISO)
+	qemu-system-i386 -vga std -cdrom $(ISO)
 
 clean:
 	rm -f $(OBJ)/*.o

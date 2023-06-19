@@ -17,6 +17,25 @@ void memset16(void *ptr, u16 value, u32 count)
 	}
 }
 
+void *memcpy(void *dest, const void *src, u32 count)
+{
+	u8 *d, *s, *end;
+
+	s = (u8 *)src;
+	d = (u8 *)dest;
+	end = d + count;
+
+	if(d != s)
+	{
+		while(d != end)
+		{
+			*d++ = *s++;
+		}
+	}
+
+	return dest;
+}
+
 void *memmove(void *dest, const void *src, u32 len)
 {
 	char *d = dest;
