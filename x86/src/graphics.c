@@ -11,6 +11,11 @@ u32 _fb_width;
 
 u32 _fb_height;
 
+static u8 _color_white[4], _color_black[4];
+
+/* Double buffer address */
+static u8 *_fb_double = (u8 *)0x01000000;
+
 void (*_native_color)(u32, u8 *);
 
 static void _bgr888(u32 color, u8 *nc)
@@ -34,25 +39,101 @@ void graphics_init(u8 *info)
 	_fb = (u8 *)fb_addr;
 
 	_native_color = _bgr888;
+
+	_native_color(graphics_color(0xFF, 0xFF, 0xFF), _color_white);
+	_native_color(graphics_color(0x00, 0x00, 0x00), _color_black);
 }
 
-static void _graphics_line(u8 *start, u8 *color, u32 width)
+static inline u32 _framebuffer_offset(u32 x, u32 y)
+{
+	return y * _fb_pitch + x * _fb_pixel_bytes;
+}
+
+static void _graphics_line(u8 *start, u8 *dbl, u8 *color, u32 width)
 {
 	while(width--)
 	{
 		memcpy(start, color, _fb_pixel_bytes);
+		memcpy(dbl, color, _fb_pixel_bytes);
 		start += _fb_pixel_bytes;
+		dbl += _fb_pixel_bytes;
 	}
 }
 
 void graphics_rect(u32 x, u32 y, u32 w, u32 h, u32 color)
 {
-	u8 nc[4];
+	u32 offset;
+	u8 nc[4], *start, *dbl;
+
 	_native_color(color, nc);
-	u8 *start = _fb + y * _fb_pitch + x * _fb_pixel_bytes;
+	offset = _framebuffer_offset(x, y);
+	dbl = _fb_double + offset;
+	start = _fb + offset;
 	while(h--)
 	{
-		_graphics_line(start, nc, w);
+		_graphics_line(start, dbl, nc, w);
+		start += _fb_pitch;
+		dbl += _fb_pitch;
+	}
+}
+
+void graphics_cursor(u32 x, u32 y, u32 w, u32 h, const char *cursor)
+{
+	/* Cursor is not drawn on the double buffer so it can be used
+		to restore the pixels behind the cursor */
+
+	u32 width;
+	u8 *start, *line;
+
+	start = _fb + _framebuffer_offset(x, y);
+	while(h--)
+	{
+		width = w;
+		line = start;
+		while(width--)
+		{
+			if(*cursor == 'X')
+			{
+				memcpy(line, _color_black, _fb_pixel_bytes);
+			}
+			else if(*cursor == '_')
+			{
+				memcpy(line, _color_white, _fb_pixel_bytes);
+			}
+
+			line += _fb_pixel_bytes;
+			++cursor;
+		}
+
 		start += _fb_pitch;
 	}
 }
+
+void graphics_restore(u32 x, u32 y, u32 w, u32 h)
+{
+	/* Restore pixels that are behind the cursor */
+
+	u32 w_copy, offset;
+	u8 *start_src, *start_dst, *line_src, *line_dst;
+
+	offset = _framebuffer_offset(x, y);
+	start_src = _fb_double + offset;
+	start_dst = _fb + offset;
+	while(h--)
+	{
+		w_copy = w;
+		line_dst = start_dst;
+		line_src = start_src;
+		while(w_copy--)
+		{
+			memcpy(line_dst, line_src, _fb_pixel_bytes);
+			line_dst += _fb_pixel_bytes;
+			line_src += _fb_pixel_bytes;
+		}
+
+		start_dst += _fb_pitch;
+		start_src += _fb_pitch;
+	}
+
+}
+

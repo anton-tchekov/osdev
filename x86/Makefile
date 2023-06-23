@@ -1,5 +1,7 @@
 CC=gcc
-CFLAGS=-m32 -std=gnu99 -ffreestanding -O2 -Wall -Wextra -fno-stack-protector
+CFLAGS=-m32 -std=gnu99 -ffreestanding -O2 -Wall -Wextra -fno-stack-protector \
+	-I ../shared/types/
+
 LDFLAGS=-m32 -ffreestanding -O2 -nostdlib
 TARGET=myos
 BIN=$(TARGET).bin
@@ -11,12 +13,12 @@ LINKER=linker.ld
 ASM=nasm
 ASMFLAGS=-f elf
 
-all: clean build run
+all: clean build
 
 build:
-	$(ASM) $(ASMFLAGS) -o $(OBJ)/boot.o $(SRC)/boot.s
-	$(ASM) $(ASMFLAGS) -o $(OBJ)/interrupt.o $(SRC)/interrupt.s
-
+	$(ASM) $(ASMFLAGS) -o $(OBJ)/boot.o        $(SRC)/boot.s
+	$(ASM) $(ASMFLAGS) -o $(OBJ)/interrupt.o   $(SRC)/interrupt.s
+# $(ASM) $(ASMFLAGS) -o $(OBJ)/int86.o       $(SRC)/disk/int86.s
 
 	$(CC) $(CFLAGS) -c $(SRC)/kernel.c   -o $(OBJ)/kernel.o
 	$(CC) $(CFLAGS) -c $(SRC)/terminal.c -o $(OBJ)/terminal.o

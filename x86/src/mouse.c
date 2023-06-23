@@ -3,44 +3,71 @@
 #include "isr.h"
 #include "io.h"
 #include "graphics.h"
+#include "cursor.c"
 
 static u8 mouse_cycle = 0;
 static i8 mouse_byte[3];
 
-#define MOUSE_IRQ          12
-
 #define MOUSE_PORT          0x60
 #define MOUSE_STATUS        0x64
-#define MOUSE_ABIT          0x02
-#define MOUSE_BBIT          0x01
-#define MOUSE_WRITE         0xD4
-#define MOUSE_F_BIT         0x20
-#define MOUSE_V_BIT         0x08
+#define MOUSE_BIT_A         0x02
+#define MOUSE_BIT_B         0x01
 
 #define MOUSE_CLICK_LEFT    0x01
 #define MOUSE_CLICK_RIGHT   0x02
 #define MOUSE_CLICK_MIDDLE  0x04
 
+typedef struct
+{
+	i32 X, Y, W, H;
+	i32 State;
+} Button;
+
+#define BTN_CNT 5
+
+Button btns[BTN_CNT] =
+{
+	{ .X = 400, .Y = 400, .W = 50, .H = 50, .State = 0 },
+	{ .X = 470, .Y = 400, .W = 50, .H = 50, .State = 0 },
+	{ .X = 540, .Y = 400, .W = 50, .H = 50, .State = 0 },
+	{ .X = 610, .Y = 400, .W = 50, .H = 50, .State = 0 },
+	{ .X = 680, .Y = 400, .W = 50, .H = 50, .State = 0 },
+};
+
+
+
+static bool button_pressed(Button *btn, i32 x, i32 y)
+{
+	return x >= btn->X && y >= btn->Y &&
+		x < btn->X + btn->W && y < btn->Y + btn->H;
+}
+
 static void mouse_event(i32 dx, i32 dy, u32 buttons)
 {
 	static i32 mx = 500, my = 500;
 
-graphics_rect(10, 10, 10, 10,graphics_color(255, 255, 255));
+	if(buttons & MOUSE_CLICK_LEFT)
+	{
+		for(int i = 0; i < BTN_CNT; ++i)
+		{
+			if(button_pressed(btns + i, mx, my))
+			{
+				graphics_rect(btns[i].X, btns[i].Y, btns[i].W, btns[i].H,
+					graphics_color(0xFF, 0x00, 0x00));
+			}
+		}
+	}
+
+	graphics_restore(mx, my, CURSOR_ARROW_WIDTH, CURSOR_ARROW_HEIGHT);
 
 	mx += dx;
-	my += dy;
+	my -= dy;
 
-	if(mx <= 0)
-	{
-		mx = 0;
-	}
+	mx = i32_constrain(mx, 0, graphics_width() - CURSOR_ARROW_WIDTH);
+	my = i32_constrain(my, 0, graphics_height() - CURSOR_ARROW_HEIGHT);
 
-	if(my <= 0)
-	{
-		my = 0;
-	}
-
-	graphics_rect(mx, my, 10, 10, graphics_color(255, 255, 255));
+	graphics_cursor(mx, my, CURSOR_ARROW_WIDTH, CURSOR_ARROW_HEIGHT,
+		_cursor_arrow);
 }
 
 static i32 mouse_wait(u8 a_type)
@@ -50,7 +77,7 @@ static i32 mouse_wait(u8 a_type)
 	{
 		while(--timeout)
 		{
-			if((inb(MOUSE_STATUS) & MOUSE_BBIT) == 1)
+			if((inb(MOUSE_STATUS) & MOUSE_BIT_B) == 1)
 			{
 				return 0;
 			}
@@ -60,20 +87,21 @@ static i32 mouse_wait(u8 a_type)
 	{
 		while(--timeout)
 		{
-			if (!((inb(MOUSE_STATUS) & MOUSE_ABIT)))
+			if(((inb(MOUSE_STATUS) & MOUSE_BIT_A)) == 0)
 			{
 				return 0;
 			}
 		}
 	}
 
+	graphics_rect(500, 500, 30, 30, graphics_color(255, 255, 255));
 	return 1;
 }
 
 static void mouse_write(u8 write)
 {
 	mouse_wait(1);
-	outb(MOUSE_STATUS, MOUSE_WRITE);
+	outb(MOUSE_STATUS, 0xD4);
 	mouse_wait(1);
 	outb(MOUSE_PORT, write);
 }
@@ -87,16 +115,16 @@ static u8 mouse_read(void)
 static void mouse_handler(registers_t r)
 {
 	u8 status = inb(MOUSE_STATUS);
-	while(status & MOUSE_BBIT)
+	while(status & MOUSE_BIT_B)
 	{
 		i8 mouse_in = inb(MOUSE_PORT);
-		if(status & MOUSE_F_BIT)
+		if(status & 0x20)
 		{
 			switch(mouse_cycle)
 			{
 				case 0:
 					mouse_byte[0] = mouse_in;
-					if(!(mouse_in & MOUSE_V_BIT))
+					if(!(mouse_in & 0x08))
 					{
 						return;
 					}
@@ -136,7 +164,7 @@ void mouse_init(void)
 	mouse_wait(1);
 	outb(MOUSE_STATUS, 0x20);
 	mouse_wait(0);
-	status = inb(0x60) | 2;
+	status = inb(0x60) | 0x02;
 	mouse_wait(1);
 	outb(MOUSE_STATUS, 0x60);
 	mouse_wait(1);
@@ -145,5 +173,12 @@ void mouse_init(void)
 	mouse_read();
 	mouse_write(0xF4);
 	mouse_read();
-	isr_register(MOUSE_IRQ, mouse_handler);
+	isr_register(IRQ12, mouse_handler);
+
+
+	for(int i = 0; i < BTN_CNT; ++i)
+	{
+		graphics_rect(btns[i].X, btns[i].Y, btns[i].W, btns[i].H,
+			graphics_color(0x00, 0xFF, 0x00));
+	}
 }

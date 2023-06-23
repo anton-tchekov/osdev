@@ -46,28 +46,34 @@ typedef double f64;
 /** Pointer size integer */
 typedef uintptr_t ptr;
 
-/**
- * @brief Get the smaller of two i32 numbers.
- *
- * @param a First number
- * @param b Second number
- * @return The smaller number
- */
 static inline i32 i32_min(i32 a, i32 b)
 {
 	return (a < b) ? a : b;
 }
 
-/**
- * @brief Get the larger of two i32 numbers.
- *
- * @param a First number
- * @param b Second number
- * @return The larger number
- */
 static inline i32 i32_max(i32 a, i32 b)
 {
 	return (a > b) ? a : b;
+}
+
+static inline u32 u32_min(u32 a, u32 b)
+{
+	return (a < b) ? a : b;
+}
+
+static inline u32 u32_max(u32 a, u32 b)
+{
+	return (a > b) ? a : b;
+}
+
+static inline i32 i32_constrain(i32 val, i32 min, i32 max)
+{
+	return i32_max(i32_min(val, max), min);
+}
+
+static inline u32 u32_constrain(u32 val, u32 min, u32 max)
+{
+	return u32_max(u32_min(val, max), min);
 }
 
 #endif /* __TYPES_H__ */

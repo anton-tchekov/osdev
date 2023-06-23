@@ -25,4 +25,8 @@ void graphics_init(u8 *info);
 
 void graphics_rect(u32 x, u32 y, u32 w, u32 h, u32 color);
 
+void graphics_cursor(u32 x, u32 y, u32 w, u32 h, const char *cursor);
+
+void graphics_restore(u32 x, u32 y, u32 w, u32 h);
+
 #endif /* __GRAPHICS_H__ */
