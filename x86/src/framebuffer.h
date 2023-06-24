@@ -18,4 +18,6 @@ void framebuffer_rect(Framebuffer *fb, i32 x, i32 y, i32 w, i32 h, Color color);
 
 void framebuffer_circle(Framebuffer *fb, i32 sx, i32 sy, i32 r, Color c);
 
+void framebuffer_round_rect(Framebuffer *fb, i32 x, i32 y, i32 w, i32 h, i32 r, Color color);
+
 #endif /* __FRAMEBUFFER_H__ */
