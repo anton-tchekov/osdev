@@ -18,7 +18,6 @@ all: clean build
 build:
 	$(ASM) $(ASMFLAGS) -o $(OBJ)/boot.o        $(SRC)/boot.s
 	$(ASM) $(ASMFLAGS) -o $(OBJ)/interrupt.o   $(SRC)/interrupt.s
-# $(ASM) $(ASMFLAGS) -o $(OBJ)/int86.o       $(SRC)/disk/int86.s
 
 	$(CC) $(CFLAGS) -c $(SRC)/kernel.c   -o $(OBJ)/kernel.o
 	$(CC) $(CFLAGS) -c $(SRC)/terminal.c -o $(OBJ)/terminal.o

@@ -1,5 +1,6 @@
 #include "graphics.h"
 #include "stdlib.h"
+#include "font.c"
 
 static u8 *_fb;
 
@@ -42,6 +43,8 @@ void graphics_init(u8 *info)
 
 	_native_color(graphics_color(0xFF, 0xFF, 0xFF), _color_white);
 	_native_color(graphics_color(0x00, 0x00, 0x00), _color_black);
+
+	graphics_rect(0, 0, graphics_width(), graphics_height(), graphics_color(0x00, 0x00, 0x00));
 }
 
 static inline u32 _framebuffer_offset(u32 x, u32 y)
@@ -135,5 +138,39 @@ void graphics_restore(u32 x, u32 y, u32 w, u32 h)
 		start_src += _fb_pitch;
 	}
 
+}
+
+u8 graphics_char(u16 x, u16 y, char c)
+{
+	u8 w0, h0;
+	const u8 *start;
+
+	start = _font5x7 + (c - 32) * FONT_WIDTH;
+	for(h0 = 0; h0 < FONT_HEIGHT; ++h0)
+	{
+		for(w0 = 0; w0 < FONT_WIDTH; ++w0)
+		{
+			if((start[w0] >> h0) & 1)
+			{
+				graphics_rect(x + w0, y + h0, 1, 1, graphics_color(0xFF, 0xFF, 0xFF));
+			}
+		}
+	}
+
+	return FONT_WIDTH + 1;
+}
+
+u16 graphics_string(u16 x, u16 y, const char *s)
+{
+	u16 i;
+	char c;
+
+	i = 0;
+	while((c = *s++))
+	{
+		i += graphics_char(x + i, y, c);
+	}
+
+	return i;
 }
 

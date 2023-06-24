@@ -29,4 +29,8 @@ void graphics_cursor(u32 x, u32 y, u32 w, u32 h, const char *cursor);
 
 void graphics_restore(u32 x, u32 y, u32 w, u32 h);
 
+u8 graphics_char(u16 x, u16 y, char c);
+
+u16 graphics_string(u16 x, u16 y, const char *s);
+
 #endif /* __GRAPHICS_H__ */

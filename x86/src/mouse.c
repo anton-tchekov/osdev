@@ -12,6 +12,7 @@ static i8 mouse_byte[3];
 #define MOUSE_STATUS        0x64
 #define MOUSE_BIT_A         0x02
 #define MOUSE_BIT_B         0x01
+#define MOUSE_TIMEOUT       100000
 
 #define MOUSE_CLICK_LEFT    0x01
 #define MOUSE_CLICK_RIGHT   0x02
@@ -70,45 +71,41 @@ static void mouse_event(i32 dx, i32 dy, u32 buttons)
 		_cursor_arrow);
 }
 
-static i32 mouse_wait(u8 a_type)
+static void mouse_wait_a_bit(void)
 {
-	u32 timeout = 100000;
-	if(!a_type)
+	u32 timeout = MOUSE_TIMEOUT;
+	while(--timeout)
 	{
-		while(--timeout)
+		if(((inb(MOUSE_STATUS) & MOUSE_BIT_A)) == 0)
 		{
-			if((inb(MOUSE_STATUS) & MOUSE_BIT_B) == 1)
-			{
-				return 0;
-			}
+			return;
 		}
 	}
-	else
-	{
-		while(--timeout)
-		{
-			if(((inb(MOUSE_STATUS) & MOUSE_BIT_A)) == 0)
-			{
-				return 0;
-			}
-		}
-	}
+}
 
-	graphics_rect(500, 500, 30, 30, graphics_color(255, 255, 255));
-	return 1;
+static void mouse_wait_b_bit(void)
+{
+	u32 timeout = MOUSE_TIMEOUT;
+	while(--timeout)
+	{
+		if((inb(MOUSE_STATUS) & MOUSE_BIT_B) == 1)
+		{
+			return;
+		}
+	}
 }
 
 static void mouse_write(u8 write)
 {
-	mouse_wait(1);
+	mouse_wait_a_bit();
 	outb(MOUSE_STATUS, 0xD4);
-	mouse_wait(1);
+	mouse_wait_a_bit();
 	outb(MOUSE_PORT, write);
 }
 
 static u8 mouse_read(void)
 {
-	mouse_wait(0);
+	mouse_wait_b_bit();
 	return inb(MOUSE_PORT);
 }
 
@@ -159,15 +156,15 @@ static void mouse_handler(registers_t r)
 void mouse_init(void)
 {
 	u8 status;
-	mouse_wait(1);
+	mouse_wait_a_bit();
 	outb(MOUSE_STATUS, 0xA8);
-	mouse_wait(1);
+	mouse_wait_a_bit();
 	outb(MOUSE_STATUS, 0x20);
-	mouse_wait(0);
+	mouse_wait_b_bit();
 	status = inb(0x60) | 0x02;
-	mouse_wait(1);
+	mouse_wait_a_bit();
 	outb(MOUSE_STATUS, 0x60);
-	mouse_wait(1);
+	mouse_wait_a_bit();
 	outb(MOUSE_PORT, status);
 	mouse_write(0xF6);
 	mouse_read();
