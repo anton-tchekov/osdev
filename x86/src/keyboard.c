@@ -7,17 +7,8 @@
 #include "keys.h"
 static void keyboard_callback(registers_t regs)
 {
-	static int y = 100, x = 100;
 	u8 scancode = inb(0x60);
-	char sc_ascii[16];
-	itoa(scancode, sc_ascii, 10);
-	graphics_string(x, y, sc_ascii);
-	y += 15;
-	if (y >= 600)
-	{
-		y = 100;
-		x += 60;
-	}
+	// TODO
 	(void)regs;
 }
 void keyboard_init(void)

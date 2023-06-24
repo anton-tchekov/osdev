@@ -1,16 +1,8 @@
-/**
- * @file    font.h
- * @author  Tim Gabrikowski, Anton Tchekov
- * @version 0.1
- * @date    23.04.2023
- * @brief   Font rendering with UTF-8 support
- */
-
 #ifndef __FONT_H__
 #define __FONT_H__
 
-#include <types.h>
-#include <gfx.h>
+#include "types.h"
+#include "framebuffer.h"
 
 /** Font flags bit mask: 1: grayscale, 0: 1 bit per pixel */
 #define FONT_FLAG_GRAYSCALE 1
@@ -53,54 +45,19 @@ typedef struct
 	u8 *Bitmap;
 } Font;
 
-/**
- * @brief Draw an UTF-8 string `s` with a maximum number of chars.
- *        This function will also stop at a '\0' character.
- *
- * @param x X-Coordinate (Top)
- * @param y Y-Coordinate (Left)
- * @param s Character array
- * @param len Maximum number of unicode characters
- * @param font The font to use
- * @param fg Foreground color
- * @param bg Background color
- */
 i32 font_string_len(
 	Framebuffer *fb,
-	i32 x, i32 y, const char *s, u32 len, Font *font, Color fg, Color bg);
+	i32 x, i32 y, const char *s, u32 len, Font *font, Color color);
 
-/**
- * @brief Calculate the width of a string in pixels
- *
- * @param s The string
- * @param len Maximum number of unicode characters
- * @param font The font
- */
 i32 font_string_width_len(const char *s, u32 len, Font *font);
 
-/**
- * @brief Draw an NUL-terminated UTF-8 string `s`
- *
- * @param x X-Coordinate (Top)
- * @param y Y-Coordinate (Left)
- * @param s Character array
- * @param font The font to use
- * @param fg Foreground color
- * @param bg Background color
- */
 static inline i32 font_string(
 	Framebuffer *fb,
-	i32 x, i32 y, const char *s, Font *font, Color fg, Color bg)
+	i32 x, i32 y, const char *s, Font *font, Color color)
 {
-	return font_string_len(x, y, s, UINT32_MAX, font, fg, bg);
+	return font_string_len(fb, x, y, s, UINT32_MAX, font, color);
 }
 
-/**
- * @brief Calculate the width of a string in pixels
- *
- * @param s The string
- * @param font The font
- */
 static inline i32 font_string_width(const char *s, Font *font)
 {
 	return font_string_width_len(s, UINT32_MAX, font);
