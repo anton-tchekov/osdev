@@ -8,10 +8,22 @@
 
 #include <stdio.h>
 #include <locale.h>
+#include <ctype.h>
+
 #include <types.h>
 #include <utf8.h>
+
 #include "ft2build.h"
 #include FT_FREETYPE_H
+
+/** Font pixel format bit */
+#define BIT_PIXEL_FORMAT   0
+
+/** 1 bit per pixel format */
+#define FLAG_1BPP          0
+
+/** Grayscale pixel format */
+#define FLAG_GRAYSCALE     1
 
 /** Font character data struct */
 typedef struct
@@ -127,6 +139,11 @@ static i32 *_unique_codepoints(const char *s, i32 *length)
 		s = " !\"#$%&\'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 			"[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~";
 	}
+	else if(!strcmp(s, "extended_german"))
+	{
+		s = " !\"#$%&\'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+			"[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~äöüÄÖÜß";
+	}
 
 	count = utf8_length(s);
 	cp = _malloc(count * sizeof(*cp));
@@ -146,6 +163,68 @@ static i32 *_unique_codepoints(const char *s, i32 *length)
 	return cp;
 }
 
+static char *str_uppercase(char *out, const char *in)
+{
+	char c;
+	while((c = *in++))
+	{
+		*out++ = toupper(c);
+	}
+
+	*out = '\0';
+	return out;
+}
+
+static bool valid_name(const char *name)
+{
+	char c;
+	c = *name++;
+	if(!isalpha(c) && c != '_')
+	{
+		return false;
+	}
+
+	while((c = *name++))
+	{
+		if(!isalnum(c) && c != '_')
+		{
+			return false;
+		}
+	}
+
+	return true;
+}
+
+static char *build_path(char *out,
+	const char *dir, const char *name, const char *ext)
+{
+	char *p, c;
+
+	p = out;
+	while((c = *dir++))
+	{
+		*p++ = c;
+	}
+
+	if(p - 1 >= out && *(p - 1) != '/')
+	{
+		*p++ = '/';
+	}
+
+	while((c = *name++))
+	{
+		*p++ = c;
+	}
+
+	while((c = *ext++))
+	{
+		*p++ = c;
+	}
+
+	*p = '\0';
+	return out;
+}
+
 /**
  * @brief Font converter main function
  *
@@ -161,18 +240,46 @@ int main(int argc, char *argv[])
 	Font font;
 	FontChar *fc;
 
-	const char *input_filename, *font_name;
+	char name_upper[512], path_c[512], path_h[512];
+	FILE *fp_c, *fp_h;
+	const char *input_filename, *font_name, *output_dir;
 	i32 *codepoints, i, c, x, y, num_chars, font_size, bytes, offset;
 
 	/* Set locale so that non-ascii characters are displayed correctly */
 	setlocale(LC_CTYPE, "");
 
 	/* Check correct usage */
-	if(argc != 6)
+	if(argc != 7)
 	{
-		fprintf(stderr, "Usage: "
-			"./font-convert input-file font-name font-size char-list mode\n"
-			"Mode: 1bit or grayscale\n");
+		fprintf(stderr,
+			"[ Simple bitmap font generator with unicode support ]\n"
+			"- Created by Anton Tchekov\n\n"
+
+			"Usage:\n"
+			"./font-convert input-file font-name font-size char-list mode "
+			"output-dir\n\n"
+
+			"`input-file` should be a TTF file or any other font format FreeType "
+			"supports.\n\n"
+
+			"`font-name` should be a valid C identifier.\n\n"
+
+			"`font-size` is the size of the font in pixels that should be "
+			"extracted.\n\n"
+
+			"`char-list` can be a custom string of letters,\n"
+			"repetitions are ignored so that one can create a huge font\n"
+			"just to print a single message. Alternatively, it is possible\n"
+			"to pass `printable_ascii` to get only the ASCII characters or\n"
+			"`extended_german` to also get the german umlauts and sz.\n"
+
+			"`mode` determines which pixel format to use, allowed values are "
+			"`1bit` and `grayscale`.\n\n"
+
+			"`output-dir` is the path to a directory where the generated "
+			"C header and source file should be placed. The output files "
+			"will be called `font-name`.c and `font-name`.h and will overwrite "
+			"any already existing files with the same name.\n\n");
 		return 1;
 	}
 
@@ -183,13 +290,14 @@ int main(int argc, char *argv[])
 		return 1;
 	}
 
+	font.Flags = 0;
 	if(!strcmp(argv[5], "1bit"))
 	{
-		font.Flags = 0;
+		font.Flags |= (FLAG_1BPP << BIT_PIXEL_FORMAT);
 	}
 	else if(!strcmp(argv[5], "grayscale"))
 	{
-		font.Flags = 1;
+		font.Flags |= (FLAG_GRAYSCALE << BIT_PIXEL_FORMAT);
 	}
 	else
 	{
@@ -199,6 +307,25 @@ int main(int argc, char *argv[])
 
 	input_filename = argv[1];
 	font_name = argv[2];
+	if(!valid_name(font_name))
+	{
+		fprintf(stderr, "Invalid font name\n");
+		return 1;
+	}
+
+	output_dir = argv[6];
+	if(!(fp_c = fopen(build_path(path_c, output_dir, font_name, ".c"), "w")))
+	{
+		fprintf(stderr, "Failed to open output C file\n");
+		return 1;
+	}
+
+	if(!(fp_h = fopen(build_path(path_h, output_dir, font_name, ".h"), "w")))
+	{
+		fprintf(stderr, "Failed to open output H file\n");
+		return 1;
+	}
+
 	if(!(font_size = strtol(argv[3], NULL, 10)))
 	{
 		fprintf(stderr, "Invalid font size\n");
@@ -241,7 +368,7 @@ int main(int argc, char *argv[])
 		fc->Bitmap = _malloc(bytes);
 		fc->Offset = offset;
 		memcpy(fc->Bitmap, face->glyph->bitmap.buffer, bytes);
-		if(font.Flags & 1)
+		if((font.Flags >> BIT_PIXEL_FORMAT) & FLAG_GRAYSCALE)
 		{
 			offset += bytes;
 		}
@@ -252,18 +379,18 @@ int main(int argc, char *argv[])
 	}
 
 	/* Write Output */
-	fprintf(stdout,
+	fprintf(fp_c,
 		"#include <%s.h>\n"
 		"\n", font_name);
 
-	fprintf(stdout,
+	fprintf(fp_c,
 		"static FontChar _chars[] =\n"
 		"{\n");
 
 	for(i = 0; i < num_chars; ++i)
 	{
 		fc = &font.Characters[i];
-		fprintf(stdout,
+		fprintf(fp_c,
 			"\t{\n"
 			"\t\t.Codepoint = %d,\n"
 			"\t\t.Advance = %d,\n"
@@ -281,10 +408,10 @@ int main(int argc, char *argv[])
 			i == num_chars - 1 ? "" : ",");
 	}
 
-	fprintf(stdout, "};\n"
+	fprintf(fp_c, "};\n"
 		"\n");
 
-	fprintf(stdout, "static u8 _bitmap[] =\n"
+	fprintf(fp_c, "static u8 _bitmap[] =\n"
 		"{\n");
 
 	for(i = 0; i < num_chars; ++i)
@@ -293,17 +420,16 @@ int main(int argc, char *argv[])
 
 		for(y = 0; y < fc->Size[1]; ++y)
 		{
-			fprintf(stdout, "\t\t");
-
-			if(font.Flags & 1)
+			fprintf(fp_c, "\t");
+			if((font.Flags >> BIT_PIXEL_FORMAT) & FLAG_GRAYSCALE)
 			{
 				/* grayscale */
 				for(x = 0; x < fc->Size[0]; ++x)
 				{
-					fprintf(stdout, "0x%02X, ", fc->Bitmap[y * fc->Size[0] + x]);
+					fprintf(fp_c, "0x%02X, ", fc->Bitmap[y * fc->Size[0] + x]);
 				}
 
-				fprintf(stdout, "\n");
+				fprintf(fp_c, "\n");
 			}
 			else
 			{
@@ -313,7 +439,7 @@ int main(int argc, char *argv[])
 				{
 					if(bit == 0x100)
 					{
-						fprintf(stdout, "0x%02X, ", byte);
+						fprintf(fp_c, "0x%02X, ", byte);
 						byte = 0;
 						bit = 1;
 					}
@@ -328,27 +454,27 @@ int main(int argc, char *argv[])
 
 				if(bit != 1)
 				{
-					fprintf(stdout, "0x%02X, ", byte);
+					fprintf(fp_c, "0x%02X, ", byte);
 				}
 
-				fprintf(stdout, "/* ");
+				fprintf(fp_c, "/* ");
 				for(x = 0; x < fc->Size[0]; ++x)
 				{
-					fprintf(stdout, "%c",
+					fprintf(fp_c, "%c",
 						fc->Bitmap[y * fc->Size[0] + x] > 128 ? '#' : ' ');
 				}
 
-				fprintf(stdout, " */\n");
+				fprintf(fp_c, " */\n");
 			}
 		}
 
-		fprintf(stdout, "\n");
+		fprintf(fp_c, "\n");
 	}
 
-	fprintf(stdout, "};\n"
+	fprintf(fp_c, "};\n"
 		"\n");
 
-	fprintf(stdout,
+	fprintf(fp_c,
 		"static Font _%s =\n"
 		"{\n"
 		"\t.Characters = _chars,\n"
@@ -360,6 +486,19 @@ int main(int argc, char *argv[])
 		"Font *%s = &_%s;\n"
 		"\n",
 		font_name, font_size, num_chars, font.Flags, font_name, font_name);
+
+	/* Write header file */
+	str_uppercase(name_upper, font_name);
+	fprintf(fp_h,
+		"#ifndef __%s_H__\n"
+		"#define __%s_H__\n"
+		"\n"
+		"#include \"font.h\"\n"
+		"\n"
+		"extern Font *%s;\n"
+		"\n"
+		"#endif /* __%s_H__ */\n",
+		name_upper, name_upper, font_name, name_upper);
 
 	/* Cleanup */
 	for(i = 0; i < num_chars; ++i)
