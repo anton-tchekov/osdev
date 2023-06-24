@@ -160,13 +160,7 @@ static const char *exception_messages[] =
 
 void isr_handler(registers_t r)
 {
-	char s[3];
-	terminal_string("Interrupt ");
-	itoa(r.int_no, s, 10);
-	terminal_string(s);
-	terminal_string(" - ");
-	terminal_string(exception_messages[r.int_no]);
-	terminal_string("\n");
+	// r.int_no   exception_messages[r.int_no]
 }
 
 void isr_register(u32 n, isr_t handler)

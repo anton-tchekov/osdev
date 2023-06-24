@@ -1,16 +1,86 @@
 #include "stdlib.h"
 
-u32 strlen(const char *str)
+char *strcpy(char *dest, const char *src)
 {
-	const char *p = str;
-	while (*p++)
-		;
-	return p - str - 1;
+	char *d = dest;
+	while((*d++ = *src++)) {}
+	return dest;
 }
 
-void assert(bool cond)
+char *strncpy(char *dest, const char *src, u32 count)
 {
+	u32 i, c;
+	for(i = 0; i < count && (c = src[i]); ++i)
+	{
+		dest[i] = c;
+	}
 
+	return dest;
+}
+
+u32 strlen(const char *str)
+{
+	const char *s = str;
+	while(*s) { ++s; }
+	return s - str;
+}
+
+i32 strcmp(const char *str1, const char *str2)
+{
+	while(*str1 == *str2)
+	{
+		if(!*str1)
+		{
+			return 0;
+		}
+
+		++str1;
+		++str2;
+	}
+
+	return *str1 - *str2;
+}
+
+i32 strncmp(const char *str1, const char *str2, u32 count)
+{
+	u32 i;
+	const u8 *p1, *p2;
+
+	p1 = (const u8 *)str1;
+	p2 = (const u8 *)str2;
+	for(i = 0; i < count; ++i)
+	{
+		if(*p1 != *p2)
+		{
+			return *p1 - *p2;
+		}
+
+		if(!*p1)
+		{
+			return 0;
+		}
+
+		++p1;
+		++p2;
+	}
+
+	return 0;
+}
+
+const char *strchr(const char *str, i32 c)
+{
+	i32 d;
+	while((d = *str))
+	{
+		if(d == c)
+		{
+			return str;
+		}
+
+		++str;
+	}
+
+	return NULL;
 }
 
 void memset8(u8 *ptr, u8 value, u32 count)
@@ -94,24 +164,71 @@ void strrev(char *str)
 	}
 }
 
-int itoa(int num, char *str, int base)
+bool isalnum(i32 c)
 {
-	int sum = num;
-	int digit;
-	int i = 0;
-	do
-	{
-		digit = sum % base;
-		if (digit < 0xA)
-			str[i++] = '0' + digit;
-		else
-			str[i++] = 'A' + digit - 0xA;
-		sum /= base;
-	} while (sum);
+	return isalpha(c) || isdigit(c);
+}
 
-	str[i] = '\0';
-	strrev(str);
-	return 0;
+bool isalpha(i32 c)
+{
+	return islower(c) || isupper(c);
+}
+
+bool iscntrl(i32 c)
+{
+	return !isprint(c);
+}
+
+bool isdigit(i32 c)
+{
+	return c >= '0' && c <= '9';
+}
+
+bool isgraph(i32 c)
+{
+	return c >= 33 && c <= 126;
+}
+
+bool islower(i32 c)
+{
+	return c >= 'a' && c <= 'z';
+}
+
+bool isprint(i32 c)
+{
+	return c >= 32 && c <= 126;
+}
+
+bool ispunct(i32 c)
+{
+	return strchr("!\"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~", c) != NULL;
+}
+
+bool isspace(i32 c)
+{
+	return strchr(WHITESPACE, c) != NULL;
+}
+
+bool isupper(i32 c)
+{
+	return c >= 'A' && c <= 'Z';
+}
+
+bool isxdigit(i32 c)
+{
+	return isdigit(c) ||
+		   (c >= 'A' && c <= 'F') ||
+		   (c >= 'a' && c <= 'f');
+}
+
+i32 tolower(i32 c)
+{
+	return isupper(c) ? c - 'A' + 'a' : c;
+}
+
+i32 toupper(i32 c)
+{
+	return islower(c) ? c - 'a' + 'A' : c;
 }
 
 void *bsearch(const void *key, const void *base, u32 nitems, u32 size,
@@ -428,7 +545,6 @@ print_num_x(char** at, size_t* left, int* ret, unsigned int value,
 		plus, space, zero, negative, buf, len);
 }
 
-/** strnlen (compat implementation) */
 static int
 my_strnlen(const char* s, int max)
 {
@@ -439,7 +555,6 @@ my_strnlen(const char* s, int max)
 	return max;
 }
 
-/** print %s */
 static void
 print_str(char** at, size_t* left, int* ret, char* s,
 	int minw, int precision, int prgiven, int minus)
@@ -456,7 +571,6 @@ print_str(char** at, size_t* left, int* ret, char* s,
 		print_pad(at, left, ret, ' ', minw - w);
 }
 
-/** print %c */
 static void
 print_char(char** at, size_t* left, int* ret, int c,
 	int minw, int minus)
@@ -496,8 +610,8 @@ i32 vsnprintf(char *str, u32 size, const char *format, va_list arg)
 		plus = 0;
 		space = 0;
 
-		/* get flags in any order */
-		for(;;) {
+		for(;;)
+		{
 			if(*fmt == '0')
 				zeropad = 1;
 			else if(*fmt == '-')
@@ -544,37 +658,51 @@ i32 vsnprintf(char *str, u32 size, const char *format, va_list arg)
 		switch(conv)
 		{
 		case 'd':
-			    print_num_d(&at, &left, &ret, va_arg(arg, int),
-				minw, precision, prgiven, zeropad, minus, plus, space);
+			print_num_d(&at, &left, &ret, va_arg(arg, int),
+			minw, precision, prgiven, zeropad, minus, plus, space);
 			break;
+
 		case 'u':
-			    print_num_u(&at, &left, &ret,
-				va_arg(arg, unsigned int),
-				minw, precision, prgiven, zeropad, minus, plus, space);
+			print_num_u(&at, &left, &ret,
+			va_arg(arg, unsigned int),
+			minw, precision, prgiven, zeropad, minus, plus, space);
 			break;
+
 		case 'x':
-			    print_num_x(&at, &left, &ret,
-				va_arg(arg, unsigned int),
-				minw, precision, prgiven, zeropad, minus, plus, space);
+			print_num_x(&at, &left, &ret,
+			va_arg(arg, unsigned int),
+			minw, precision, prgiven, zeropad, minus, plus, space);
 			break;
+
 		case 's':
 			print_str(&at, &left, &ret, va_arg(arg, char*),
 				minw, precision, prgiven, minus);
 			break;
+
 		case 'c':
 			print_char(&at, &left, &ret, va_arg(arg, int),
 				minw, minus);
 			break;
+
 		case '%':
 			print_pad(&at, &left, &ret, '%', 1);
 			break;
 
 		default:
-		case 0: break;
+			break;
 		}
 	}
 
 	if(left > 0)
+	{
 		*at = 0;
+	}
+
 	return ret;
+}
+
+void _panic(const char *msg, const char *file, u32 line)
+{
+	//debug_print("%s:%d: %s\n", file, line, msg);
+	//exit(1);
 }

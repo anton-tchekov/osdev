@@ -1,17 +1,6 @@
-/**
- * @file    german.c
- * @author  Tim Gabrikowski, Anton Tchekov
- * @version 0.1
- * @date    14.05.2023
- * @brief   German keyboard layout conversion
- */
+#include "keys.h"
 
-#include <keyboard-shared.h>
-#include <ctype.h>
-#include <progmem.h>
-
-/* This is horrible, but it works */
-char key_to_codepoint(u16 k)
+char key_to_codepoint(Key k)
 {
 	u8 nomods = k & 0xFF;
 
@@ -58,28 +47,28 @@ char key_to_codepoint(u16 k)
 	}
 	else if(nomods >= KEY_1 && nomods <= KEY_0)
 	{
-		static const char numbers[] PROGMEM =
+		static const char numbers[] =
 			{ '1', '2', '3', '4', '5', '6', '7', '8', '9', '0' };
 
-		static const char numbers_shift[] PROGMEM =
+		static const char numbers_shift[] =
 			{ '!', '\"', 0, '$', '%', '&', '/', '(', ')', '=' };
 
-		static const char numbers_altgr[] PROGMEM =
+		static const char numbers_altgr[] =
 			{ 0, 0, 0, 0, 0, 0, '{', '[', ']', '}' };
 
 		u8 idx = nomods - KEY_1;
 
 		if(k & MOD_SHIFT)
 		{
-			return pgm_read_byte(numbers_shift + idx);
+			return numbers_shift[idx];
 		}
 		else if(k & MOD_ALT_GR)
 		{
-			return pgm_read_byte(numbers_altgr + idx);
+			return numbers_altgr[idx];
 		}
 		else
 		{
-			return pgm_read_byte(numbers + idx);
+			return numbers[idx];
 		}
 	}
 
