@@ -4,7 +4,6 @@
 #include "io.h"
 #include "isr.h"
 #include "graphics.h"
-
 static void keyboard_callback(registers_t regs)
 {
 	static int y = 100, x = 100;
@@ -13,203 +12,78 @@ static void keyboard_callback(registers_t regs)
 	itoa(scancode, sc_ascii, 10);
 	graphics_string(x, y, sc_ascii);
 	y += 15;
-	if(y >= 600)
+	if (y >= 600)
 	{
 		y = 100;
 		x += 60;
 	}
 	(void)regs;
 }
-
 void keyboard_init(void)
 {
 	isr_register(IRQ1, keyboard_callback);
 }
-
-/*
-void print_letter(u8 scancode) {
-	switch (scancode) {
-		case 0x0:
-			kprint("ERROR");
-			break;
-		case 0x1:
-			kprint("ESC");
-			break;
-		case 0x2:
-			kprint("1");
-			break;
-		case 0x3:
-			kprint("2");
-			break;
-		case 0x4:
-			kprint("3");
-			break;
-		case 0x5:
-			kprint("4");
-			break;
-		case 0x6:
-			kprint("5");
-			break;
-		case 0x7:
-			kprint("6");
-			break;
-		case 0x8:
-			kprint("7");
-			break;
-		case 0x9:
-			kprint("8");
-			break;
-		case 0x0A:
-			kprint("9");
-			break;
-		case 0x0B:
-			kprint("0");
-			break;
-		case 0x0C:
-			kprint("-");
-			break;
-		case 0x0D:
-			kprint("+");
-			break;
-		case 0x0E:
-			kprint("Backspace");
-			break;
-		case 0x0F:
-			kprint("Tab");
-			break;
-		case 0x10:
-			kprint("Q");
-			break;
-		case 0x11:
-			kprint("W");
-			break;
-		case 0x12:
-			kprint("E");
-			break;
-		case 0x13:
-			kprint("R");
-			break;
-		case 0x14:
-			kprint("T");
-			break;
-		case 0x15:
-			kprint("Y");
-			break;
-		case 0x16:
-			kprint("U");
-			break;
-		case 0x17:
-			kprint("I");
-			break;
-		case 0x18:
-			kprint("O");
-			break;
-		case 0x19:
-			kprint("P");
-			break;
-		case 0x1A:
-			kprint("[");
-			break;
-		case 0x1B:
-			kprint("]");
-			break;
-		case 0x1C:
-			kprint("ENTER");
-			break;
-		case 0x1D:
-			kprint("LCtrl");
-			break;
-		case 0x1E:
-			kprint("A");
-			break;
-		case 0x1F:
-			kprint("S");
-			break;
-		case 0x20:
-			kprint("D");
-			break;
-		case 0x21:
-			kprint("F");
-			break;
-		case 0x22:
-			kprint("G");
-			break;
-		case 0x23:
-			kprint("H");
-			break;
-		case 0x24:
-			kprint("J");
-			break;
-		case 0x25:
-			kprint("K");
-			break;
-		case 0x26:
-			kprint("L");
-			break;
-		case 0x27:
-			kprint(";");
-			break;
-		case 0x28:
-			kprint("'");
-			break;
-		case 0x29:
-			kprint("`");
-			break;
-		case 0x2A:
-			kprint("LShift");
-			break;
-		case 0x2B:
-			kprint("\\");
-			break;
-		case 0x2C:
-			kprint("Z");
-			break;
-		case 0x2D:
-			kprint("X");
-			break;
-		case 0x2E:
-			kprint("C");
-			break;
-		case 0x2F:
-			kprint("V");
-			break;
-		case 0x30:
-			kprint("B");
-			break;
-		case 0x31:
-			kprint("N");
-			break;
-		case 0x32:
-			kprint("M");
-			break;
-		case 0x33:
-			kprint(",");
-			break;
-		case 0x34:
-			kprint(".");
-			break;
-		case 0x35:
-			kprint("/");
-			break;
-		case 0x36:
-			kprint("Rshift");
-			break;
-		case 0x37:
-			kprint("Keypad *");
-			break;
-		case 0x38:
-			kprint("LAlt");
-			break;
-		case 0x39:
-			kprint("Spc");
-			break;
-		default:
-			if (scancode <= 0x7f) {
-				kprint("Unknown key down");
-			} else if (scancode <= 0x39 + 0x80) {
-				kprint("key up ");
-				print_letter(scancode - 0x80);
-			} else kprint("Unknown key up");
-			break;
+void print_letter(u8 scancode)
+{
+	switch (scancode)
+	{
+		case 0x0: return ERROR;
+		case 0x1: return KEY_ESC;
+		case 0x2: return KEY_1;
+		case 0x3: return KEY_2;
+		case 0x4: return KEY_3;
+		case 0x5: return KEY_4;
+		case 0x6: return KEY_5;
+		case 0x7: return KEY_6;
+		case 0x8: return KEY_7;
+		case 0x9: return KEY_8;
+		case 0x0A: return KEY_9;
+		case 0x0B: return KEY_0;
+		case 0x0C: return KEY_-;
+		case 0x0D: return KEY_+;
+		case 0x0E: return KEY_Backspace;
+		case 0x0F: return KEY_Tab;
+		case 0x10: return KEY_Q;
+		case 0x11: return KEY_W;
+		case 0x12: return KEY_E;
+		case 0x13: return KEY_R;
+		case 0x14: return KEY_T;
+		case 0x15: return KEY_Y;
+		case 0x16: return KEY_U;
+		case 0x17: return KEY_I;
+		case 0x18: return KEY_O;
+		case 0x19: return KEY_P;
+		case 0x1A: return KEY_L_BRACKET;
+		case 0x1B: return KEY_R_BRACKET;
+		case 0x1C: return KEY_ENTER;
+		case 0x1D: return KEY_LCtrl;
+		case 0x1E: return KEY_A;
+		case 0x1F: return KEY_S;
+		case 0x20: return KEY_D;
+		case 0x21: return KEY_F;
+		case 0x22: return KEY_G;
+		case 0x23: return KEY_H;
+		case 0x24: return KEY_J;
+		case 0x25: return KEY_K;
+		case 0x26: return KEY_L;
+		case 0x27: return KEY_;;
+		case 0x28: return KEY_BACKSLASH;
+		case 0x29: return KEY_EQUALS;
+		case 0x2A: return KEY_L_SHIFT;
+		case 0x2B: return KEY_MINUS;
+		case 0x2C: return KEY_Z;
+		case 0x2D: return KEY_X;
+		case 0x2E: return KEY_C;
+		case 0x2F: return KEY_V;
+		case 0x30: return KEY_B;
+		case 0x31: return KEY_N;
+		case 0x32: return KEY_M;
+		case 0x33: return KEY_COMMA;
+		case 0x34: return KEY_PERIOD;
+		case 0x36: return KEY_R_SHIFT;
+		case 0x37: return KEY_KP_MULTIPLY;
+		case 0x38: return KEY_L_ALT;
+		case 0x39: return KEY_SPACE;
 	}
-}*/
+	return KEY_UNKNOWN;
+}
