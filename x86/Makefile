@@ -63,13 +63,9 @@ build:
 		$(OBJ)/graphics.o \
 		$(OBJ)/mouse.o \
 		$(OBJ)/framebuffer.o \
-
 		$(OBJ)/searchbar.o \
-
-
 		$(OBJ)/font.o \
 		$(OBJ)/noto.o \
-
 
 	./isgrub.sh
 	mkdir -p $(ISODIR)/boot/grub
