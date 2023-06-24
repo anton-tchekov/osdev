@@ -7,23 +7,17 @@
 
 static void keyboard_callback(registers_t regs)
 {
+	static int y = 100, x = 100;
 	u8 scancode = inb(0x60);
 	char sc_ascii[16];
 	itoa(scancode, sc_ascii, 10);
-	terminal_string("Keyboard scancode: ");
-	terminal_string(sc_ascii);
-	terminal_string(", ");
-	//terminal_char(scancode);
-	terminal_string("\n");
-
-	static u32 _x = 10;
-	static u8 _r = 128, _g = 0;
-
-	graphics_rect(_x, 200, 50, 50, graphics_color(_r, _g, 0));
-	_x += 2;
-	_r++;
-	_g++;
-
+	graphics_string(x, y, sc_ascii);
+	y += 15;
+	if(y >= 600)
+	{
+		y = 100;
+		x += 60;
+	}
 	(void)regs;
 }
 

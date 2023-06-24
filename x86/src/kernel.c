@@ -53,13 +53,8 @@ void kernel_main(void *info)
 
 	graphics_string(600, 10, "Hello World!");
 
-	graphics_rect(10, 10, 100, 100, graphics_color(255, 0, 0));
-	graphics_rect(30, 30, 100, 100, graphics_color(0, 255, 0));
-	graphics_rect(50, 50, 100, 100, graphics_color(0, 0, 255));
-
 	/* Enable Interrupts */
 	__asm__ __volatile__("sti");
-
 	for(;;)
 	{
 		/* Idle until interrupt */

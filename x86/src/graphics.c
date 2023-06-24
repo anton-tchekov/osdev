@@ -174,3 +174,8 @@ u16 graphics_string(u16 x, u16 y, const char *s)
 	return i;
 }
 
+void graphics_blit_framebuffer()
+{
+
+}
+
