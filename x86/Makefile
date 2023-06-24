@@ -32,7 +32,6 @@ build:
 	$(CC) $(CFLAGS) -c $(SRC)/mouse.c       -o $(OBJ)/mouse.o
 	$(CC) $(CFLAGS) -c $(SRC)/framebuffer.c -o $(OBJ)/framebuffer.o
 	$(CC) $(CFLAGS) -c $(SRC)/font.c        -o $(OBJ)/font.o
-	$(CC) $(CFLAGS) -c $(SRC)/utf8.c        -o $(OBJ)/utf8.o
 	$(CC) $(CFLAGS) -c $(SRC)/noto.c        -o $(OBJ)/noto.o
 
 	$(CC) -T $(LINKER) -o $(BIN) $(LDFLAGS) \
@@ -50,7 +49,6 @@ build:
 		$(OBJ)/mouse.o \
 		$(OBJ)/framebuffer.o \
 		$(OBJ)/font.o \
-		$(OBJ)/utf8.o \
 		$(OBJ)/noto.o \
 
 	./isgrub.sh

@@ -1,5 +1,4 @@
 #include "font.h"
-#include "utf8.h"
 #include "stdlib.h"
 
 static i32 _find_char(const void *key, const void *elem)
