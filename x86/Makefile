@@ -31,6 +31,7 @@ build:
 	$(CC) $(CFLAGS) -c $(SRC)/graphics.c -o $(OBJ)/graphics.o
 	$(CC) $(CFLAGS) -c $(SRC)/mouse.c    -o $(OBJ)/mouse.o
 	$(CC) $(CFLAGS) -c $(SRC)/framebuffer.c    -o $(OBJ)/framebuffer.o
+	$(CC) $(CFLAGS) -c $(SRC)/gui/searchbar.c    -o $(OBJ)/searchbar.o
 
 	$(CC) -T $(LINKER) -o $(BIN) $(LDFLAGS) \
 		$(OBJ)/boot.o \
@@ -46,6 +47,7 @@ build:
 		$(OBJ)/graphics.o \
 		$(OBJ)/mouse.o \
 		$(OBJ)/framebuffer.o \
+		$(OBJ)/searchbar.o \
 
 
 	./isgrub.sh
