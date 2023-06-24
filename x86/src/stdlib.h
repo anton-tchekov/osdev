@@ -5,7 +5,9 @@
 
 u32 strlen(const char *str);
 
-void memset16(void *ptr, u16 value, u32 count);
+void memset8(u8 *ptr, u8 value, u32 count);
+void memset16(u16 *ptr, u16 value, u32 count);
+void memset32(u32 *ptr, u32 value, u32 count);
 
 void *memcpy(void *dest, const void *src, u32 count);
 

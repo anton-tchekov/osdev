@@ -8,12 +8,27 @@ u32 strlen(const char *str)
 	return p - str - 1;
 }
 
-void memset16(void *ptr, u16 value, u32 count)
+void memset8(u8 *ptr, u8 value, u32 count)
 {
-	u16 *p = ptr;
-	while (count--)
+	while(count--)
 	{
-		*p++ = value;
+		*ptr++ = value;
+	}
+}
+
+void memset16(u16 *ptr, u16 value, u32 count)
+{
+	while(count--)
+	{
+		*ptr++ = value;
+	}
+}
+
+void memset32(u32 *ptr, u32 value, u32 count)
+{
+	while(count--)
+	{
+		*ptr++ = value;
 	}
 }
 
