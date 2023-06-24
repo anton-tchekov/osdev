@@ -33,7 +33,7 @@ void framebuffer_circle(Framebuffer *fb, i32 sx, i32 sy, i32 r, Color c)
 		{
 			if (x * x + y * y <= r * r)
 			{
-				fb[fb->Width * (originY + y) + (originX + x)] = c;
+				fb->Pixels[fb->Width * (originY + y) + (originX + x)] = c;
 			}
 		}
 	}
