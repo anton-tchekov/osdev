@@ -2,6 +2,7 @@
 #define __GRAPHICS_H__
 
 #include "types.h"
+#include "framebuffer.h"
 
 extern u32 _fb_width;
 extern u32 _fb_height;
@@ -32,5 +33,7 @@ void graphics_restore(u32 x, u32 y, u32 w, u32 h);
 u8 graphics_char(u16 x, u16 y, char c);
 
 u16 graphics_string(u16 x, u16 y, const char *s);
+
+void graphics_blit_framebuffer(Framebuffer *fb, i32 x, i32 y);
 
 #endif /* __GRAPHICS_H__ */
