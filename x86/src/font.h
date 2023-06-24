@@ -66,6 +66,7 @@ typedef struct
  * @param bg Background color
  */
 i32 font_string_len(
+	Framebuffer *fb,
 	i32 x, i32 y, const char *s, u32 len, Font *font, Color fg, Color bg);
 
 /**
@@ -88,6 +89,7 @@ i32 font_string_width_len(const char *s, u32 len, Font *font);
  * @param bg Background color
  */
 static inline i32 font_string(
+	Framebuffer *fb,
 	i32 x, i32 y, const char *s, Font *font, Color fg, Color bg)
 {
 	return font_string_len(x, y, s, UINT32_MAX, font, fg, bg);
