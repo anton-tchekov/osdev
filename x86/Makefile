@@ -1,7 +1,8 @@
 CC=gcc
 CFLAGS=-m32 -std=gnu99 -ffreestanding -O2 -Wall -Wextra -fno-stack-protector \
 	-I ../shared/types/ \
-	-I ../shared/keyboard/
+	-I ../shared/keyboard/ \
+	-I ./src/gui/
 
 LDFLAGS=-m32 -ffreestanding -O2 -nostdlib
 TARGET=myos
