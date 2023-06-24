@@ -8,6 +8,91 @@ void framebuffer_init(Framebuffer *fb, u32 *base, i32 w, i32 h)
 	fb->Pixels = base;
 }
 
+
+void framebuffer_circle_tl(Framebuffer *fb, i32 sx, i32 sy, i32 r, i32 ir, Color c, Color fill)
+{
+	i32 r2 = r*r;
+	i32 ir2 = ir*ir;
+
+	for(i32 y = -r; y <= 0; ++y)
+	{
+		for(i32 x = -r; x <= 0; ++x)
+		{
+			i32 d = x * x + y * y;
+			if(d <= r2 && d >= ir2)
+			{
+				fb->Pixels[fb->Width * (sy + y) + (sx + x)] = c;
+			}
+			if(d < ir2) {
+				fb->Pixels[fb->Width * (sy + y) + (sx + x)] = fill;
+			}
+		}
+	}
+}
+void framebuffer_circle_tr(Framebuffer *fb, i32 sx, i32 sy, i32 r, i32 ir, Color c, Color fill)
+{
+	i32 r2 = r*r;
+	i32 ir2 = ir*ir;
+
+	for(i32 y = -r; y <= 0; ++y)
+	{
+		for(i32 x = 0; x <= r; ++x)
+		{
+			i32 d = x * x + y * y;
+			if(d <= r2 && d >= ir2)
+			{
+				fb->Pixels[fb->Width * (sy + y) + (sx + x)] = c;
+			}
+			if(d < ir2) {
+				fb->Pixels[fb->Width * (sy + y) + (sx + x)] = fill;
+			}
+		}
+	}
+}
+void framebuffer_circle_bl(Framebuffer *fb, i32 sx, i32 sy, i32 r, i32 ir, Color c, Color fill)
+{
+	i32 r2 = r*r;
+	i32 ir2 = ir*ir;
+
+	for(i32 y = 0; y <= r; ++y)
+	{
+		for(i32 x = -r; x <= 0; ++x)
+		{
+			i32 d = x * x + y * y;
+			if(d <= r2 && d >= ir2)
+			{
+				fb->Pixels[fb->Width * (sy + y) + (sx + x)] = c;
+			}
+			if(d < ir2) {
+				fb->Pixels[fb->Width * (sy + y) + (sx + x)] = fill;
+			}
+		}
+	}
+}
+void framebuffer_circle_br(Framebuffer *fb, i32 sx, i32 sy, i32 r, i32 ir, Color c, Color fill)
+{
+	i32 r2 = r*r;
+	i32 ir2 = ir*ir;
+
+	for(i32 y = 0; y <= r; ++y)
+	{
+		for(i32 x = 0; x <= r; ++x)
+		{
+			i32 d = x * x + y * y;
+			if(d <= r2 && d >= ir2)
+			{
+				fb->Pixels[fb->Width * (sy + y) + (sx + x)] = c;
+			}
+			if(d < ir2) {
+				fb->Pixels[fb->Width * (sy + y) + (sx + x)] = fill;
+			}
+		}
+	}
+}
+
+
+
+
 void framebuffer_rect(Framebuffer *fb, i32 x, i32 y, i32 w, i32 h, Color color)
 {
 	assert(x >= 0);
@@ -173,86 +258,3 @@ void framebuffer_circle_outline(Framebuffer *fb, i32 sx, i32 sy, i32 r, i32 ir, 
 		}
 	}
 }
-
-void framebuffer_circle_tl(Framebuffer *fb, i32 sx, i32 sy, i32 r, i32 ir, Color c, Color fill)
-{
-	i32 r2 = r*r;
-	i32 ir2 = ir*ir;
-
-	for(i32 y = -r; y <= 0; ++y)
-	{
-		for(i32 x = -r; x <= 0; ++x)
-		{
-			i32 d = x * x + y * y;
-			if(d <= r2 && d >= ir2)
-			{
-				fb->Pixels[fb->Width * (sy + y) + (sx + x)] = c;
-			}
-			if(d < ir2) {
-				fb->Pixels[fb->Width * (sy + y) + (sx + x)] = fill;
-			}
-		}
-	}
-}
-void framebuffer_circle_tr(Framebuffer *fb, i32 sx, i32 sy, i32 r, i32 ir, Color c, Color fill)
-{
-	i32 r2 = r*r;
-	i32 ir2 = ir*ir;
-
-	for(i32 y = -r; y <= 0; ++y)
-	{
-		for(i32 x = 0; x <= r; ++x)
-		{
-			i32 d = x * x + y * y;
-			if(d <= r2 && d >= ir2)
-			{
-				fb->Pixels[fb->Width * (sy + y) + (sx + x)] = c;
-			}
-			if(d < ir2) {
-				fb->Pixels[fb->Width * (sy + y) + (sx + x)] = fill;
-			}
-		}
-	}
-}
-void framebuffer_circle_bl(Framebuffer *fb, i32 sx, i32 sy, i32 r, i32 ir, Color c, Color fill)
-{
-	i32 r2 = r*r;
-	i32 ir2 = ir*ir;
-
-	for(i32 y = 0; y <= r; ++y)
-	{
-		for(i32 x = -r; x <= 0; ++x)
-		{
-			i32 d = x * x + y * y;
-			if(d <= r2 && d >= ir2)
-			{
-				fb->Pixels[fb->Width * (sy + y) + (sx + x)] = c;
-			}
-			if(d < ir2) {
-				fb->Pixels[fb->Width * (sy + y) + (sx + x)] = fill;
-			}
-		}
-	}
-}
-void framebuffer_circle_br(Framebuffer *fb, i32 sx, i32 sy, i32 r, i32 ir, Color c, Color fill)
-{
-	i32 r2 = r*r;
-	i32 ir2 = ir*ir;
-
-	for(i32 y = 0; y <= r; ++y)
-	{
-		for(i32 x = 0; x <= r; ++x)
-		{
-			i32 d = x * x + y * y;
-			if(d <= r2 && d >= ir2)
-			{
-				fb->Pixels[fb->Width * (sy + y) + (sx + x)] = c;
-			}
-			if(d < ir2) {
-				fb->Pixels[fb->Width * (sy + y) + (sx + x)] = fill;
-			}
-		}
-	}
-}
-
-
