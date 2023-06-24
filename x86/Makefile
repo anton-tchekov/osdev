@@ -29,6 +29,7 @@ build:
 	$(CC) $(CFLAGS) -c $(SRC)/keyboard.c -o $(OBJ)/keyboard.o
 	$(CC) $(CFLAGS) -c $(SRC)/graphics.c -o $(OBJ)/graphics.o
 	$(CC) $(CFLAGS) -c $(SRC)/mouse.c    -o $(OBJ)/mouse.o
+	$(CC) $(CFLAGS) -c $(SRC)/framebuffer.c    -o $(OBJ)/framebuffer.o
 
 	$(CC) -T $(LINKER) -o $(BIN) $(LDFLAGS) \
 		$(OBJ)/boot.o \
@@ -43,6 +44,8 @@ build:
 		$(OBJ)/timer.o \
 		$(OBJ)/graphics.o \
 		$(OBJ)/mouse.o \
+		$(OBJ)/framebuffer.o \
+
 
 	./isgrub.sh
 	mkdir -p $(ISODIR)/boot/grub
