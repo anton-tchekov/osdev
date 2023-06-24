@@ -19,4 +19,7 @@ void strrev(char *str);
 
 int itoa(int num, char *str, int base);
 
+void *bsearch(const void *key, const void *base, u32 nitems, u32 size,
+	i32 (*compare)(const void *, const void *));
+
 #endif /* __STDLIB_H__ */

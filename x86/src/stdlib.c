@@ -86,7 +86,7 @@ void strrev(char *str)
 	u32 j;
 	char a;
 	u32 len = strlen((const char *)str);
-	for (i = 0, j = len - 1; i < j; i++, j--)
+	for (i = 0, j = len - 1; i < j; ++i, --j)
 	{
 		a = str[i];
 		str[i] = str[j];
@@ -112,4 +112,29 @@ int itoa(int num, char *str, int base)
 	str[i] = '\0';
 	strrev(str);
 	return 0;
+}
+
+void *bsearch(const void *key, const void *base, u32 nitems, u32 size,
+	i32 (*compare)(const void *, const void *))
+{
+	const char *base0 = (const char *)base;
+	const void *p;
+	i32 lim, cmp;
+
+	for(lim = nitems; lim; lim >>= 1)
+	{
+		p = base0 + (lim >> 1) * size;
+		cmp = (*compare)(key, p);
+		if(!cmp)
+		{
+			return (void *)p;
+		}
+		else if(cmp > 0)
+		{
+			base0 = (const char *)p + size;
+			--lim;
+		}
+	}
+
+	return NULL;
 }

@@ -20,6 +20,7 @@ build:
 	$(ASM) $(ASMFLAGS) -o $(OBJ)/boot.o        $(SRC)/boot.s
 	$(ASM) $(ASMFLAGS) -o $(OBJ)/interrupt.o   $(SRC)/interrupt.s
 
+
 	$(CC) $(CFLAGS) -c $(SRC)/kernel.c   -o $(OBJ)/kernel.o
 	$(CC) $(CFLAGS) -c $(SRC)/terminal.c -o $(OBJ)/terminal.o
 	$(CC) $(CFLAGS) -c $(SRC)/stdlib.c   -o $(OBJ)/stdlib.o
@@ -32,6 +33,22 @@ build:
 	$(CC) $(CFLAGS) -c $(SRC)/mouse.c    -o $(OBJ)/mouse.o
 	$(CC) $(CFLAGS) -c $(SRC)/framebuffer.c    -o $(OBJ)/framebuffer.o
 	$(CC) $(CFLAGS) -c $(SRC)/gui/searchbar.c    -o $(OBJ)/searchbar.o
+
+	$(CC) $(CFLAGS) -c $(SRC)/kernel.c      -o $(OBJ)/kernel.o
+	$(CC) $(CFLAGS) -c $(SRC)/terminal.c    -o $(OBJ)/terminal.o
+	$(CC) $(CFLAGS) -c $(SRC)/stdlib.c      -o $(OBJ)/stdlib.o
+	$(CC) $(CFLAGS) -c $(SRC)/gdt.c         -o $(OBJ)/gdt.o
+	$(CC) $(CFLAGS) -c $(SRC)/isr.c         -o $(OBJ)/isr.o
+	$(CC) $(CFLAGS) -c $(SRC)/idt.c         -o $(OBJ)/idt.o
+	$(CC) $(CFLAGS) -c $(SRC)/timer.c       -o $(OBJ)/timer.o
+	$(CC) $(CFLAGS) -c $(SRC)/keyboard.c    -o $(OBJ)/keyboard.o
+	$(CC) $(CFLAGS) -c $(SRC)/graphics.c    -o $(OBJ)/graphics.o
+	$(CC) $(CFLAGS) -c $(SRC)/mouse.c       -o $(OBJ)/mouse.o
+	$(CC) $(CFLAGS) -c $(SRC)/framebuffer.c -o $(OBJ)/framebuffer.o
+	$(CC) $(CFLAGS) -c $(SRC)/font.c        -o $(OBJ)/font.o
+	$(CC) $(CFLAGS) -c $(SRC)/utf8.c        -o $(OBJ)/utf8.o
+	$(CC) $(CFLAGS) -c $(SRC)/noto.c        -o $(OBJ)/noto.o
+
 
 	$(CC) -T $(LINKER) -o $(BIN) $(LDFLAGS) \
 		$(OBJ)/boot.o \
@@ -47,7 +64,13 @@ build:
 		$(OBJ)/graphics.o \
 		$(OBJ)/mouse.o \
 		$(OBJ)/framebuffer.o \
+
 		$(OBJ)/searchbar.o \
+
+
+		$(OBJ)/font.o \
+		$(OBJ)/utf8.o \
+		$(OBJ)/noto.o \
 
 
 	./isgrub.sh
