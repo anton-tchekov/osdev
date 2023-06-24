@@ -1,4 +1,5 @@
 #include "framebuffer.h"
+#include "stdlib.h"
 
 void framebuffer_init(Framebuffer *fb, u32 *base, i32 w, i32 h)
 {
@@ -23,17 +24,13 @@ void framebuffer_rect(Framebuffer *fb, i32 x, i32 y, i32 w, i32 h, Color color)
 }
 void framebuffer_circle(Framebuffer *fb, i32 sx, i32 sy, i32 r, Color c)
 {
-
-	i32 originX = sx - r;
-	i32 originY = sy - r;
-
-	for (i32 y = -r; y <= r; y++)
+	for(i32 y = -r; y <= r; y++)
 	{
-		for (i32 x = -r; x <= r; x++)
+		for(i32 x = -r; x <= r; x++)
 		{
-			if (x * x + y * y <= r * r)
+			if(x * x + y * y <= r * r)
 			{
-				fb->Pixels[fb->Width * (originY + y) + (originX + x)] = c;
+				fb->Pixels[fb->Width * (sy + y) + (sx + x)] = c;
 			}
 		}
 	}

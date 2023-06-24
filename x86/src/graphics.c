@@ -15,7 +15,7 @@ u32 _fb_height;
 static u8 _color_white[4], _color_black[4];
 
 /* Double buffer address */
-static u8 *_fb_double = (u8 *)0x01000000;
+static u8 *_fb_double = (u8 *)0x1000000;
 
 void (*_native_color)(u32, u8 *);
 
@@ -173,7 +173,7 @@ u16 graphics_string(u16 x, u16 y, const char *s)
 
 void graphics_blit_framebuffer(Framebuffer *fb, i32 x, i32 y)
 {
-	u8 *start, *dbl, nc[4];
+	u8 *start, *dbl, *s, *d, nc[4];
 	u32 w, h, *pixels;
 
 	u32 offset = _framebuffer_offset(x, y);
@@ -184,17 +184,20 @@ void graphics_blit_framebuffer(Framebuffer *fb, i32 x, i32 y)
 	while(h--)
 	{
 		w = fb->Width;
+		d = dbl;
+		s = start;
 		while(w--)
 		{
 			_native_color(*pixels, nc);
-			memcpy(start, nc, _fb_pixel_bytes);
-			memcpy(dbl, nc, _fb_pixel_bytes);
-			start += _fb_pixel_bytes;
-			dbl += _fb_pixel_bytes;
+			memcpy(s, nc, _fb_pixel_bytes);
+			memcpy(d, nc, _fb_pixel_bytes);
+			s += _fb_pixel_bytes;
+			d += _fb_pixel_bytes;
 			++pixels;
 		}
 
-		offset += _fb_pitch;
+		start += _fb_pitch;
+		dbl += _fb_pitch;
 	}
 }
 

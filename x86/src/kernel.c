@@ -44,12 +44,18 @@ void memory_dump(u8 *buffer, u32 length)
 
 void kernel_main(void *info)
 {
+	Framebuffer test;
+
 	graphics_init(info);
 	gdt_init();
 	isr_init();
 	timer_init(100);
 	keyboard_init();
 	mouse_init();
+
+	framebuffer_init(&test, (u32 *)0x2000000, 100, 100);
+	framebuffer_circle(&test, 50, 50, 40, 0x0000FF);
+	graphics_blit_framebuffer(&test, 200, 200);
 
 	graphics_string(600, 10, "Hello World!");
 
