@@ -20,9 +20,14 @@ void kernel_main(void *info)
 	keyboard_init();
 	mouse_init();
 
-	framebuffer_init(&test, (u32 *)0x2000000, 200, 100);
-	framebuffer_circle(&test, 50, 50, 40, 0x0000FF);
-	font_string(&test, 10, 10, "Hello World", font_noto, 0xFFFFFFFF);
+	framebuffer_init(&test, (u32 *)0x2000000, graphics_width(), graphics_height());
+
+	framebuffer_round_rect_outline(&test, test.Width / 2 - 100, test.Height / 2 - 75, 200, 150, 50, 40, 0x001b1b1b, 0x003b3b3b);
+
+	framebuffer_circle(&test, 50, 50, 50, 0x00ff0000);
+	framebuffer_circle_outline(&test, 150, 50, 50, 40, 0x0000ff00, 0x00ff0000);
+
+	graphics_blit_framebuffer(&test, 0, 0);
 
 	graphics_blit_framebuffer(&test, 200, 200);
 

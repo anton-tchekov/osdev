@@ -21,4 +21,6 @@ void framebuffer_image_grayscale(Framebuffer *fb, i32 x, i32 y, i32 w, i32 h,
 void framebuffer_image_1bit(Framebuffer *fb, i32 x, i32 y, i32 w, i32 h,
 		const u8 *data, Color color);
 
+void framebuffer_round_rect(Framebuffer *fb, i32 x, i32 y, i32 w, i32 h, i32 r, Color color);
+
 #endif /* __FRAMEBUFFER_H__ */
