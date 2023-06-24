@@ -1,11 +1,5 @@
 #include "stdlib.h"
 
-char *strcpy(char *dest, const char *src)
-{
-	char *d = dest;
-	while((*d++ = *src++)) {}
-	return dest;
-}
 
 char *strncpy(char *dest, const char *src, u32 count)
 {
@@ -18,54 +12,6 @@ char *strncpy(char *dest, const char *src, u32 count)
 	return dest;
 }
 
-u32 strlen(const char *str)
-{
-	const char *s = str;
-	while(*s) { ++s; }
-	return s - str;
-}
-
-i32 strcmp(const char *str1, const char *str2)
-{
-	while(*str1 == *str2)
-	{
-		if(!*str1)
-		{
-			return 0;
-		}
-
-		++str1;
-		++str2;
-	}
-
-	return *str1 - *str2;
-}
-
-i32 strncmp(const char *str1, const char *str2, u32 count)
-{
-	u32 i;
-	const u8 *p1, *p2;
-
-	p1 = (const u8 *)str1;
-	p2 = (const u8 *)str2;
-	for(i = 0; i < count; ++i)
-	{
-		if(*p1 != *p2)
-		{
-			return *p1 - *p2;
-		}
-
-		if(!*p1)
-		{
-			return 0;
-		}
-
-		++p1;
-		++p2;
-	}
-
-	return 0;
-}
 
 const char *strchr(const char *str, i32 c)
 {
@@ -83,29 +29,6 @@ const char *strchr(const char *str, i32 c)
 	return NULL;
 }
 
-void memset8(u8 *ptr, u8 value, u32 count)
-{
-	while(count--)
-	{
-		*ptr++ = value;
-	}
-}
-
-void memset16(u16 *ptr, u16 value, u32 count)
-{
-	while(count--)
-	{
-		*ptr++ = value;
-	}
-}
-
-void memset32(u32 *ptr, u32 value, u32 count)
-{
-	while(count--)
-	{
-		*ptr++ = value;
-	}
-}
 
 void *memcpy(void *dest, const void *src, u32 count)
 {
@@ -231,30 +154,6 @@ i32 toupper(i32 c)
 	return islower(c) ? c - 'a' + 'A' : c;
 }
 
-void *bsearch(const void *key, const void *base, u32 nitems, u32 size,
-	i32 (*compare)(const void *, const void *))
-{
-	const char *base0 = (const char *)base;
-	const void *p;
-	i32 lim, cmp;
-
-	for(lim = nitems; lim; lim >>= 1)
-	{
-		p = base0 + (lim >> 1) * size;
-		cmp = (*compare)(key, p);
-		if(!cmp)
-		{
-			return (void *)p;
-		}
-		else if(cmp > 0)
-		{
-			base0 = (const char *)p + size;
-			--lim;
-		}
-	}
-
-	return NULL;
-}
 
 i32 codepoint_utf8(i32 codepoint, char *out)
 {
@@ -346,34 +245,6 @@ u32 utf8_length(const char *s)
 	return length;
 }
 
-u32 rand(void)
-{
-	/*static u32 x = 3459173429;
-	x ^= (x << 21);
-	x ^= (x >> 35);
-	x ^= (x << 4);
-	return x;*/
-}
-
-i32 sprintf(char *str, const char *format, ...)
-{
-	i32 r;
-	va_list args;
-	va_start(args, format);
-	r = vsnprintf(str, UINT32_MAX, format, args);
-	va_end(args);
-	return r;
-}
-
-i32 snprintf(char *str, u32 size, const char *format, ...)
-{
-	i32 r;
-	va_list args;
-	va_start(args, format);
-	r = vsnprintf(str, size, format, args);
-	va_end(args);
-	return r;
-}
 
 static void print_pad(char** at, size_t* left, int* ret, char p, int num)
 {
@@ -545,15 +416,6 @@ print_num_x(char** at, size_t* left, int* ret, unsigned int value,
 		plus, space, zero, negative, buf, len);
 }
 
-static int
-my_strnlen(const char* s, int max)
-{
-	int i;
-	for(i=0; i<max; i++)
-		if(s[i]==0)
-			return i;
-	return max;
-}
 
 static void
 print_str(char** at, size_t* left, int* ret, char* s,
