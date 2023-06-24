@@ -8,6 +8,11 @@ u32 strlen(const char *str)
 	return p - str - 1;
 }
 
+void assert(bool cond)
+{
+
+}
+
 void memset8(u8 *ptr, u8 value, u32 count)
 {
 	while(count--)
