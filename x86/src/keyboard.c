@@ -4,6 +4,7 @@
 #include "io.h"
 #include "isr.h"
 #include "graphics.h"
+#include "keys.h"
 static void keyboard_callback(registers_t regs)
 {
 	static int y = 100, x = 100;
@@ -23,12 +24,11 @@ void keyboard_init(void)
 {
 	isr_register(IRQ1, keyboard_callback);
 }
-void print_letter(u8 scancode)
+i32 print_letter(u8 scancode)
 {
 	switch (scancode)
 	{
-		case 0x0: return ERROR;
-		case 0x1: return KEY_ESC;
+		case 0x1: return KEY_ESCAPE;
 		case 0x2: return KEY_1;
 		case 0x3: return KEY_2;
 		case 0x4: return KEY_3;
@@ -39,10 +39,10 @@ void print_letter(u8 scancode)
 		case 0x9: return KEY_8;
 		case 0x0A: return KEY_9;
 		case 0x0B: return KEY_0;
-		case 0x0C: return KEY_-;
-		case 0x0D: return KEY_+;
-		case 0x0E: return KEY_Backspace;
-		case 0x0F: return KEY_Tab;
+		case 0x0C: return KEY_MINUS;
+		// case 0x0D: return KEY_PLUS;
+		case 0x0E: return KEY_BACKSPACE;
+		case 0x0F: return KEY_TAB;
 		case 0x10: return KEY_Q;
 		case 0x11: return KEY_W;
 		case 0x12: return KEY_E;
@@ -55,8 +55,8 @@ void print_letter(u8 scancode)
 		case 0x19: return KEY_P;
 		case 0x1A: return KEY_L_BRACKET;
 		case 0x1B: return KEY_R_BRACKET;
-		case 0x1C: return KEY_ENTER;
-		case 0x1D: return KEY_LCtrl;
+		case 0x1C: return KEY_RETURN;
+		case 0x1D: return KEY_L_CTRL;
 		case 0x1E: return KEY_A;
 		case 0x1F: return KEY_S;
 		case 0x20: return KEY_D;
@@ -66,7 +66,7 @@ void print_letter(u8 scancode)
 		case 0x24: return KEY_J;
 		case 0x25: return KEY_K;
 		case 0x26: return KEY_L;
-		case 0x27: return KEY_;;
+		case 0x27: return KEY_SEMICOLON;
 		case 0x28: return KEY_BACKSLASH;
 		case 0x29: return KEY_EQUALS;
 		case 0x2A: return KEY_L_SHIFT;
