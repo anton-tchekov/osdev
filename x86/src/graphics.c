@@ -84,7 +84,6 @@ void graphics_cursor(u32 x, u32 y, u32 w, u32 h, const char *cursor)
 {
 	/* Cursor is not drawn on the double buffer so it can be used
 		to restore the pixels behind the cursor */
-
 	u32 width;
 	u8 *start, *line;
 
@@ -115,7 +114,6 @@ void graphics_cursor(u32 x, u32 y, u32 w, u32 h, const char *cursor)
 void graphics_restore(u32 x, u32 y, u32 w, u32 h)
 {
 	/* Restore pixels that are behind the cursor */
-
 	u32 w_copy, offset;
 	u8 *start_src, *start_dst, *line_src, *line_dst;
 
@@ -137,7 +135,6 @@ void graphics_restore(u32 x, u32 y, u32 w, u32 h)
 		start_dst += _fb_pitch;
 		start_src += _fb_pitch;
 	}
-
 }
 
 u8 graphics_char(u16 x, u16 y, char c)
@@ -174,8 +171,30 @@ u16 graphics_string(u16 x, u16 y, const char *s)
 	return i;
 }
 
-void graphics_blit_framebuffer()
+void graphics_blit_framebuffer(Framebuffer *fb, i32 x, i32 y)
 {
+	u8 *start, *dbl, nc[4];
+	u32 w, h, *pixels;
 
+	u32 offset = _framebuffer_offset(x, y);
+	dbl = _fb_double + offset;
+	start = _fb + offset;
+	pixels = fb->Pixels;
+	h = fb->Height;
+	while(h--)
+	{
+		w = fb->Width;
+		while(w--)
+		{
+			_native_color(*pixels, nc);
+			memcpy(start, nc, _fb_pixel_bytes);
+			memcpy(dbl, nc, _fb_pixel_bytes);
+			start += _fb_pixel_bytes;
+			dbl += _fb_pixel_bytes;
+			++pixels;
+		}
+
+		offset += _fb_pitch;
+	}
 }
 
