@@ -44,4 +44,4 @@ run:
 	qemu-system-i386 -vga std -cdrom $(ISO)
 
 clean:
-	rm -f $(OBJ)/*.o
+	find $(OBJ)/ -name "*.o" -type f -delete
