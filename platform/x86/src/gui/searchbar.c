@@ -7,6 +7,8 @@
 
 static u32 cursor;
 
+static bool is_open;
+
 static char searchTerm[256];
 
 static Framebuffer searchBar;
@@ -26,23 +28,30 @@ void searchbar_key_event(Key key, i32 codepoint, KeyState state)
 		return;
 	}
 
-	if(key == KEY_BACKSPACE)
-	{
-		if(cursor > 0)
+	if(key == (KEY_S|MOD_OS)) {
+		is_open = true;
+	}
+
+	if(is_open) {
+		if(key == KEY_BACKSPACE)
 		{
-			searchTerm[--cursor] = '\0';
+			if(cursor > 0)
+			{
+				searchTerm[--cursor] = '\0';
+			}
 		}
+
+		if(isprint(codepoint))
+		{
+			searchTerm[cursor++] = codepoint;
+			searchTerm[cursor] = '\0';
+		}
+
+		searchbar_render(&searchBar);
+		graphics_blit_framebuffer(&searchBar, (graphics_width() / 2) - 250,
+			(graphics_height() / 2) - 150);
 	}
 
-	if(isprint(codepoint))
-	{
-		searchTerm[cursor++] = codepoint;
-		searchTerm[cursor] = '\0';
-	}
-
-	searchbar_render(&searchBar);
-	graphics_blit_framebuffer(&searchBar, (graphics_width() / 2) - 250,
-		(graphics_height() / 2) - 150);
 }
 
 static void render_searchresult(Framebuffer *fb, Program *res, i32 x, i32 y)
@@ -83,6 +92,7 @@ void searchbar_render(Framebuffer *fb)
 			nordPalette.text);
 	}
 
+	/* Search for Programms */
 	for(i = 0, count = 0; i < (i32)ARRLEN(programs) && count < MAX_RESULTS; i++)
 	{
 		if(str_contains(programs[i].title, searchTerm))
@@ -91,6 +101,7 @@ void searchbar_render(Framebuffer *fb)
 		}
 	}
 
+	/* render searchresults in list */
 	for(i = 0; i < count; i++)
 	{
 		render_searchresult(fb, results[i], 15, SEARCH_HEIGHT * (i + 1));
