@@ -1,5 +1,6 @@
 #include "searchbar.h"
 #include "graphics.h"
+#include "ctype.h"
 
 #define SEARCH_HEIGHT   40
 #define MAX_RESULTS      5
@@ -25,7 +26,7 @@ void searchbar_key_event(Key key, i32 codepoint, KeyState state)
 		return;
 	}
 
-	if(key == KEY_BACKSLASH)
+	if(key == KEY_BACKSPACE)
 	{
 		if(cursor > 0)
 		{

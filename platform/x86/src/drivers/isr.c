@@ -1,5 +1,6 @@
 #include "isr.h"
 #include "idt.h"
+#include "graphics.h"
 #include "framebuffer.h"
 #include "font_noto.h"
 #include "sprintf.h"
