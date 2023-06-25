@@ -77,7 +77,7 @@ static void keyboard_callback(registers_t regs)
 
 	u8 scancode = inb(0x60);
 	bool released = scancode & 0x80;
-	Key key = scancode_to_key(scancode & 0x7F);
+	Key key = _scancode_to_key(scancode & 0x7F);
 	Key mod = 0;
 	i32 codepoint;
 
@@ -117,7 +117,7 @@ static void keyboard_callback(registers_t regs)
 	key |= _mods;
 
 	codepoint = key_to_codepoint(key);
-	if(!_event)
+	if(_event)
 	{
 		_event(key, codepoint, released ? KEYSTATE_RELEASED : KEYSTATE_PRESSED);
 	}

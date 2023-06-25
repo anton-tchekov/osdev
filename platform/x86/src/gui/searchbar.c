@@ -25,14 +25,14 @@ void searchbar_render(Framebuffer *fb)
 	framebuffer_rect(fb, 0, SEARCH_HEIGHT, fb->Width, 5, nordPalette.primary);
 
 	/* Search title */
-	if(searchTerm == "") {
-		font_string(fb, 15, 10, "Type to search...", font_noto, nordPalette.text);
-	} else {
+	if(searchTerm[0]) {
 		font_string(fb, 15, 10, searchTerm, font_noto, nordPalette.text);
+	} else {
+		font_string(fb, 15, 10, "Type to search...", font_noto, nordPalette.text);
 	}
 
 	/* Create Results array and count value */
-	Program results[PROGRAM_COUNT] = {};
+	Program results[PROGRAM_COUNT];
 	i32 resultsCount = 0;
 
 	for (i32 i = 0; i < PROGRAM_COUNT; i++)
@@ -49,7 +49,7 @@ void searchbar_render(Framebuffer *fb)
 	{
 		render_searchresult(fb, results[i], 15, SEARCH_HEIGHT * (i+1));
 	}
-	
+
 }
 
 static void render_searchresult(Framebuffer *fb, Program res, i32 x, i32 y) {
