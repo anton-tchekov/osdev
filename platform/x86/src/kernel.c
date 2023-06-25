@@ -17,7 +17,15 @@ void key_event_main(Key key, i32 codepoint, KeyState state)
 	static int x = 0;
 	char s[2] = {codepoint, '\0'};
 
-	graphics_rect(0, 0, 100, 100, 0xFFFF00FF);
+	if(state != KEYSTATE_PRESSED)
+	{
+		return;
+	}
+
+	if(codepoint == 0)
+	{
+		return;
+	}
 
 	font_string(&searchBar, 10 + x, 200, s, font_noto, 0xFFFFFFFF);
 	x += 20;
