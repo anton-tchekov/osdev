@@ -9,7 +9,6 @@ void framebuffer_init(Framebuffer *fb, u32 *base, i32 w, i32 h)
 	fb->Pixels = base;
 }
 
-
 void framebuffer_circle_tl(Framebuffer *fb, i32 sx, i32 sy, i32 r, i32 ir, Color c, Color fill)
 {
 	i32 r2 = r*r;
@@ -91,15 +90,12 @@ void framebuffer_circle_br(Framebuffer *fb, i32 sx, i32 sy, i32 r, i32 ir, Color
 	}
 }
 
-
-
-
 void framebuffer_rect(Framebuffer *fb, i32 x, i32 y, i32 w, i32 h, Color color)
 {
 	assert(x >= 0);
 	assert(y >= 0);
-	assert(x + w < fb->Width);
-	assert(y + h < fb->Height);
+	assert(x + w <= fb->Width);
+	assert(y + h <= fb->Height);
 
 	u32 *start = &fb->Pixels[y * fb->Width + x];
 	while (h--)

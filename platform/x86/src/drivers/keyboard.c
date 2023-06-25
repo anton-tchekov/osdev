@@ -64,16 +64,35 @@ static Key _scancode_to_key(u8 scancode)
 		case 0x37: return KEY_KP_MULTIPLY;
 		case 0x38: return KEY_L_ALT;
 		case 0x39: return KEY_SPACE;
+		case 0x5B: return KEY_L_GUI;
 	}
 
 	return KEY_UNKNOWN;
 }
+
+/*
+#include "font_noto.h"
+#include "graphics.h"
+#include "framebuffer.h"
+#include "sprintf.h"
+
+Framebuffer test;
+*/
 
 static void keyboard_callback(registers_t regs)
 {
 	static Key _mods;
 
 	u8 scancode = inb(0x60);
+
+/*
+	char buf[32];
+	framebuffer_rect(&test, 0, 0, 100, 40, 0x00000000);
+	sprintf(buf, "%d", scancode);
+	font_string(&test, 0, 0, buf, font_noto, 0xFFFFFFFF);
+	graphics_blit_framebuffer(&test, 20, 20);
+*/
+
 	bool released = scancode & 0x80;
 	Key key = _scancode_to_key(scancode & 0x7F);
 	Key mod = 0;
@@ -123,5 +142,7 @@ static void keyboard_callback(registers_t regs)
 
 void keyboard_init(void)
 {
+	/*framebuffer_init(&test, (u32 *)0x5000000, 100, 40);*/
+
 	isr_register(IRQ1, keyboard_callback);
 }
