@@ -18,6 +18,7 @@ const char *status_str(Status code)
 		"No such file or directory",
 		"Invalid path format",
 		"No space left on device",
+		"Not implemented",
 	};
 
 	return _status_strs[code];

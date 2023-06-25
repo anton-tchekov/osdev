@@ -50,8 +50,6 @@ SRC=\
 	$(PREFIX)/../shared/status/status.c \
 	$(PREFIX)/../shared/utf8/utf8.c \
 
-# $(PREFIX)/fs/fs.c \
-
 CFLAGS=\
 	-Wall \
 	-Wextra \
