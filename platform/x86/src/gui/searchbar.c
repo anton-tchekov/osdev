@@ -16,9 +16,14 @@ static Framebuffer searchBar;
 static Program programs[] =
 {
 	{ "Firefox" },
-	{ "VScode" },
+	{ "VS Code" },
 	{ "Files" },
-	{ "Tetris" }
+	{ "Tetris" },
+	{ "Shutdown" },
+	{ "Restart" },
+	{ "Settings" },
+	{ "Snake" },
+	{ "Terminal" },
 };
 
 void searchbar_key_event(Key key, i32 codepoint, KeyState state)
@@ -28,7 +33,7 @@ void searchbar_key_event(Key key, i32 codepoint, KeyState state)
 		return;
 	}
 
-	if(key == (KEY_S|MOD_OS)) {
+	if(key == (KEY_S | MOD_CTRL)) {
 		is_open = true;
 	}
 
