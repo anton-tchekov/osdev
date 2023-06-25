@@ -4,8 +4,6 @@
 #include "keys.h"
 #include "layout.h"
 
-static KeyEvent _event;
-
 static Key _scancode_to_key(u8 scancode)
 {
 	switch(scancode)
@@ -117,10 +115,8 @@ static void keyboard_callback(registers_t regs)
 	key |= _mods;
 
 	codepoint = key_to_codepoint(key);
-	if(_event)
-	{
-		_event(key, codepoint, released ? KEYSTATE_RELEASED : KEYSTATE_PRESSED);
-	}
+	key_event(key, codepoint,
+		released ? KEYSTATE_RELEASED : KEYSTATE_PRESSED);
 
 	(void)regs;
 }
@@ -128,9 +124,4 @@ static void keyboard_callback(registers_t regs)
 void keyboard_init(void)
 {
 	isr_register(IRQ1, keyboard_callback);
-}
-
-void keyboard_event_register(KeyEvent event)
-{
-	_event = event;
 }

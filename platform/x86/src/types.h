@@ -13,6 +13,8 @@
 #include <stdint.h>
 #include <stdbool.h>
 
+#define ARRLEN(A) (sizeof(A) / sizeof(*A))
+
 /** Signed 64-bit integer */
 typedef int64_t i64;
 

@@ -1,7 +1,8 @@
 #include "isr.h"
 #include "idt.h"
-#include "terminal.h"
-#include "stdlib.h"
+#include "framebuffer.h"
+#include "font_noto.h"
+#include "sprintf.h"
 #include "io.h"
 
 void isr0(void);
@@ -160,7 +161,15 @@ static const char *exception_messages[] =
 
 void isr_handler(registers_t r)
 {
-	// r.int_no   exception_messages[r.int_no]
+	char error[64];
+	Framebuffer fe;
+
+	sprintf(error, "Exception %d: %s\n",
+		r.int_no, exception_messages[r.int_no]);
+
+	framebuffer_init(&fe, (u32 *)0x3000000, 400, 40);
+	font_string(&fe, 0, 0, error, font_noto, 0xFF0000FF);
+	graphics_blit_framebuffer(&fe, 0, 0);
 }
 
 void isr_register(u32 n, isr_t handler)

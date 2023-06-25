@@ -5,7 +5,6 @@
 #include "framebuffer.h"
 #include "colortheme.h"
 
-
 void statusbar_render(Framebuffer *fb);
 
 #endif /* __STATUSBAR_H__ */

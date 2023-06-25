@@ -6,6 +6,7 @@
 #include "colortheme.h"
 #include "font_noto.h"
 #include "str_contains.h"
+#include "keyboard.h"
 
 /* Define Struct for a Program (only text by now but add icon later?) */
 typedef struct Program
@@ -14,7 +15,6 @@ typedef struct Program
 } Program;
 
 void searchbar_render(Framebuffer *fb);
-
-static void render_searchresult(Framebuffer *fb, Program res, i32 x, i32 y);
+void searchbar_key_event(Key key, i32 codepoint, KeyState state);
 
 #endif /* __SEARCHBAR_H__ */

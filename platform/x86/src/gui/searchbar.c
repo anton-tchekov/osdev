@@ -1,57 +1,102 @@
 #include "searchbar.h"
+#include "graphics.h"
 
-#define SEARCH_HEIGHT 40
+#define SEARCH_HEIGHT   40
+#define MAX_RESULTS      5
 
-char* searchTerm = "";
+static u32 cursor;
 
-#define PROGRAM_COUNT 4
-/* Create Array of Programms */
-Program programs[PROGRAM_COUNT] = {
-	{"Firefox"}, {"VScode"}, {"Files"}, {"Tetris"}
+static char searchTerm[256];
+
+static Framebuffer searchBar;
+
+static Program programs[] =
+{
+	{ "Firefox" },
+	{ "VScode" },
+	{ "Files" },
+	{ "Tetris" }
 };
+
+void searchbar_key_event(Key key, i32 codepoint, KeyState state)
+{
+	if(state != KEYSTATE_PRESSED)
+	{
+		return;
+	}
+
+	if(key == KEY_BACKSLASH)
+	{
+		if(cursor > 0)
+		{
+			searchTerm[--cursor] = '\0';
+		}
+	}
+
+	if(isprint(codepoint))
+	{
+		searchTerm[cursor++] = codepoint;
+		searchTerm[cursor] = '\0';
+	}
+
+	searchbar_render(&searchBar);
+	graphics_blit_framebuffer(&searchBar, (graphics_width() / 2) - 250,
+		(graphics_height() / 2) - 150);
+}
+
+static void render_searchresult(Framebuffer *fb, Program *res, i32 x, i32 y)
+{
+	/* Icon */
+	framebuffer_circle(fb, x + 10, y + (SEARCH_HEIGHT / 2) + 2, 5,
+		nordPalette.text);
+
+	/* Name */
+	font_string(fb, x + 30, y + (SEARCH_HEIGHT - font_noto->Size) / 2,
+		res->title, font_noto, nordPalette.text);
+
+	/* Divider to next */
+	framebuffer_rect(fb, SEARCH_HEIGHT, y + SEARCH_HEIGHT,
+		fb->Width - 2 * SEARCH_HEIGHT, 1, nordPalette.primary);
+}
 
 void searchbar_render(Framebuffer *fb)
 {
+	Program *results[MAX_RESULTS];
+	i32 i, count;
+
 	/* Draw background */
-	framebuffer_round_rect_outline(fb, 0, 0, fb->Width, fb->Height, 10, 5, nordPalette.primary, nordPalette.background);
+	framebuffer_round_rect_outline(fb, 0, 0, fb->Width, fb->Height, 10, 5,
+		nordPalette.primary, nordPalette.background);
 
 	/* Divider - underline of searchbar */
 	framebuffer_rect(fb, 0, SEARCH_HEIGHT, fb->Width, 5, nordPalette.primary);
 
 	/* Search title */
-	if(searchTerm[0]) {
+	if(searchTerm[0])
+	{
 		font_string(fb, 15, 10, searchTerm, font_noto, nordPalette.text);
-	} else {
-		font_string(fb, 15, 10, "Type to search...", font_noto, nordPalette.text);
+	}
+	else
+	{
+		font_string(fb, 15, 10, "Type to search ...", font_noto,
+			nordPalette.text);
 	}
 
-	/* Create Results array and count value */
-	Program results[PROGRAM_COUNT];
-	i32 resultsCount = 0;
-
-	for (i32 i = 0; i < PROGRAM_COUNT; i++)
+	for(i = 0, count = 0; i < (i32)ARRLEN(programs) && count < MAX_RESULTS; i++)
 	{
-		/* check for every element if it contains the search term */
-		if(str_contains(programs[i].title, searchTerm)) {
-			/* Add it to the results array and increment the Counter */
-			results[resultsCount] = programs[i];
-			resultsCount++;
+		if(str_contains(programs[i].title, searchTerm))
+		{
+			results[count++] = &programs[i];
 		}
 	}
-	/* Render all the results to list */
-	for (i32 i = 0; i < resultsCount; i++)
-	{
-		render_searchresult(fb, results[i], 15, SEARCH_HEIGHT * (i+1));
-	}
 
+	for(i = 0; i < count; i++)
+	{
+		render_searchresult(fb, results[i], 15, SEARCH_HEIGHT * (i + 1));
+	}
 }
 
-static void render_searchresult(Framebuffer *fb, Program res, i32 x, i32 y) {
-
-	/* "Icon" */
-	framebuffer_circle(fb, x + 10, y + (SEARCH_HEIGHT / 2) + 2, 5, nordPalette.text);
-	/* Name */
-	font_string(fb, x + 30, y + (SEARCH_HEIGHT - font_noto->Size) / 2, res.title, font_noto, nordPalette.text);
-	/* Divider to next */
-	framebuffer_rect(fb, SEARCH_HEIGHT, y + SEARCH_HEIGHT, fb->Width - 2*SEARCH_HEIGHT, 1, nordPalette.primary);
+void searchbar_init(void)
+{
+	framebuffer_init(&searchBar, (u32 *)0x2000000, 500, 300);
 }

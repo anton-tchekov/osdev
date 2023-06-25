@@ -10,9 +10,7 @@ typedef enum
 	KEYSTATE_RELEASED
 } KeyState;
 
-typedef void (*KeyEvent)(Key, i32, KeyState);
-
+void key_event(Key key, i32 scancode, KeyState state);
 void keyboard_init(void);
-void keyboard_event_register(KeyEvent event);
 
 #endif /* __KEYBOARD_H__ */
