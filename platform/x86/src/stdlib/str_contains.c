@@ -5,7 +5,7 @@
 bool str_contains(char *s, char *t)
 {
 	bool match;
-	u32 i, j, string_length, search_term_length;
+	i32 i, j, string_length, search_term_length;
 
 	string_length = strlen(s);
 	search_term_length = strlen(t);
