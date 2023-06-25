@@ -1,4 +1,5 @@
 #include "ctype.h"
+#include "strchr.h"
 
 bool isalnum(i32 c)
 {

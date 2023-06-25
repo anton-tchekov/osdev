@@ -8,6 +8,17 @@
 #include "stdlib.h"
 #include "graphics.h"
 #include "searchbar.h"
+#include "font_noto.h"
+
+/*static Framebuffer searchBar;
+
+void key_event_main(Key key, i32 codepoint, KeyState state)
+{
+	static int x = 0;
+	char s[2] = {codepoint, '\0'};
+	font_string(&searchBar, 10, 10 + x, s, font_noto, 0xFFFFFFFF);
+	x+=10;
+}*/
 
 void kernel_main(void *info)
 {
@@ -18,6 +29,7 @@ void kernel_main(void *info)
 	isr_init();
 	timer_init(100);
 	keyboard_init();
+	//keyboard_event_register(key_event_main);
 	mouse_init();
 
 	framebuffer_init(&searchBar, (u32 *)0x2000000, 500, 300);

@@ -4,6 +4,6 @@
 #include "types.h"
 #include "keys.h"
 
-char key_to_codepoint(Key k);
+i32 key_to_codepoint(Key k);
 
 #endif /* __LAYOUT_H__ */

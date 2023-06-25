@@ -1,5 +1,5 @@
 #include "graphics.h"
-#include "stdlib.h"
+#include "memcpy.h"
 
 static u8 *_fb;
 

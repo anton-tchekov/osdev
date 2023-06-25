@@ -2,8 +2,11 @@
 #include "io.h"
 #include "isr.h"
 #include "keys.h"
+#include "layout.h"
 
-static i32 scancode_to_key(u8 scancode)
+static KeyEvent _event;
+
+static Key _scancode_to_key(u8 scancode)
 {
 	switch(scancode)
 	{
@@ -70,12 +73,64 @@ static i32 scancode_to_key(u8 scancode)
 
 static void keyboard_callback(registers_t regs)
 {
+	static Key _mods;
+
 	u8 scancode = inb(0x60);
-	// TODO
+	bool released = scancode & 0x80;
+	Key key = scancode_to_key(scancode & 0x7F);
+	Key mod = 0;
+	i32 codepoint;
+
+	if(key == KEY_L_ALT)
+	{
+		mod = MOD_ALT;
+	}
+	else if(key == KEY_R_ALT)
+	{
+		mod = MOD_ALT_GR;
+	}
+	else if(key == KEY_L_SHIFT || key == KEY_R_SHIFT)
+	{
+		mod = MOD_SHIFT;
+	}
+	else if(key == KEY_L_CTRL || key == KEY_R_CTRL)
+	{
+		mod = MOD_CTRL;
+	}
+	else if(key == KEY_L_GUI || key == KEY_R_GUI)
+	{
+		mod = MOD_OS;
+	}
+
+	if(mod)
+	{
+		if(released)
+		{
+			_mods &= ~mod;
+		}
+		else
+		{
+			_mods |= mod;
+		}
+	}
+
+	key |= _mods;
+
+	codepoint = key_to_codepoint(key);
+	if(!_event)
+	{
+		_event(key, codepoint, released ? KEYSTATE_RELEASED : KEYSTATE_PRESSED);
+	}
+
 	(void)regs;
 }
 
 void keyboard_init(void)
 {
 	isr_register(IRQ1, keyboard_callback);
+}
+
+void keyboard_event_register(KeyEvent event)
+{
+	_event = event;
 }

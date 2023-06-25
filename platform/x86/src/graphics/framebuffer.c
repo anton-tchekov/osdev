@@ -1,5 +1,5 @@
 #include "framebuffer.h"
-#include "stdlib.h"
+#include "memset.h"
 #include "assert.h"
 
 void framebuffer_init(Framebuffer *fb, u32 *base, i32 w, i32 h)

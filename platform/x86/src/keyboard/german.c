@@ -2,7 +2,7 @@
 #include "keys.h"
 #include "ctype.h"
 
-char key_to_codepoint(Key k)
+i32 key_to_codepoint(Key k)
 {
 	u8 nomods = k & 0xFF;
 

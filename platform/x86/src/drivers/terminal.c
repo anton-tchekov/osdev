@@ -1,5 +1,6 @@
 #include "terminal.h"
-#include "stdlib.h"
+#include "memcpy.h"
+#include "memset.h"
 #include "io.h"
 
 #define VGA_WIDTH 80
